@@ -4,7 +4,7 @@
 
 `beta.environments.work.retrieve(work_id, **kwargs) -> BetaSelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -22,7 +22,7 @@ Retrieve detailed information about a specific work item.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -68,19 +68,29 @@ Retrieve detailed information about a specific work item.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -116,8 +126,6 @@ Retrieve detailed information about a specific work item.
 
       Type of work data
 
-      - `:session`
-
   - `environment_id: String`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -129,6 +137,10 @@ Retrieve detailed information about a specific work item.
   - `metadata: Hash[Symbol, String]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: String`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: String`
 
@@ -160,8 +172,6 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-    - `:work`
-
 ### Example
 
 ```ruby
@@ -174,7 +184,7 @@ beta_self_hosted_work = anthropic.beta.environments.work.retrieve("work_id", env
 puts(beta_self_hosted_work)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -190,6 +200,7 @@ puts(beta_self_hosted_work)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -202,7 +213,7 @@ puts(beta_self_hosted_work)
 
 `beta.environments.work.poll(environment_id, **kwargs) -> BetaSelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -216,9 +227,13 @@ Long poll for work items in the queue.
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `reclaim_older_than_ms: Integer`
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+  minimum: 1
 
 - `betas: Array[AnthropicBeta]`
 
@@ -226,7 +241,7 @@ Long poll for work items in the queue.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -272,19 +287,29 @@ Long poll for work items in the queue.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 - `anthropic_worker_id: String`
 
@@ -324,8 +349,6 @@ Long poll for work items in the queue.
 
       Type of work data
 
-      - `:session`
-
   - `environment_id: String`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -337,6 +360,10 @@ Long poll for work items in the queue.
   - `metadata: Hash[Symbol, String]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: String`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: String`
 
@@ -368,8 +395,6 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-    - `:work`
-
 ### Example
 
 ```ruby
@@ -382,7 +407,7 @@ beta_self_hosted_work = anthropic.beta.environments.work.poll("env_011CZkZ9X2dpN
 puts(beta_self_hosted_work)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -398,6 +423,7 @@ puts(beta_self_hosted_work)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -410,7 +436,7 @@ puts(beta_self_hosted_work)
 
 `beta.environments.work.ack(work_id, **kwargs) -> BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -428,7 +454,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -474,19 +500,29 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -522,8 +558,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       Type of work data
 
-      - `:session`
-
   - `environment_id: String`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -535,6 +569,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `metadata: Hash[Symbol, String]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: String`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: String`
 
@@ -566,8 +604,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The type of object (always 'work')
 
-    - `:work`
-
 ### Example
 
 ```ruby
@@ -580,7 +616,7 @@ beta_self_hosted_work = anthropic.beta.environments.work.ack("work_id", environm
 puts(beta_self_hosted_work)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -596,6 +632,7 @@ puts(beta_self_hosted_work)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -608,7 +645,7 @@ puts(beta_self_hosted_work)
 
 `beta.environments.work.heartbeat(work_id, **kwargs) -> BetaSelfHostedWorkHeartbeatResponse`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -634,7 +671,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -680,19 +717,29 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -730,8 +777,6 @@ Record a heartbeat for a work item to maintain the lease.
 
     The type of response
 
-    - `:work_heartbeat`
-
 ### Example
 
 ```ruby
@@ -744,7 +789,7 @@ beta_self_hosted_work_heartbeat_response = anthropic.beta.environments.work.hear
 puts(beta_self_hosted_work_heartbeat_response)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -760,7 +805,7 @@ puts(beta_self_hosted_work_heartbeat_response)
 
 `beta.environments.work.stop(work_id, **kwargs) -> BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -782,7 +827,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -828,19 +873,29 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -876,8 +931,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
       Type of work data
 
-      - `:session`
-
   - `environment_id: String`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -889,6 +942,10 @@ Stop a work item, initiating graceful or forced shutdown.
   - `metadata: Hash[Symbol, String]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: String`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: String`
 
@@ -920,8 +977,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-    - `:work`
-
 ### Example
 
 ```ruby
@@ -934,7 +989,7 @@ beta_self_hosted_work = anthropic.beta.environments.work.stop("work_id", environ
 puts(beta_self_hosted_work)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -950,6 +1005,7 @@ puts(beta_self_hosted_work)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -962,7 +1018,7 @@ puts(beta_self_hosted_work)
 
 `beta.environments.work.list(environment_id, **kwargs) -> PageCursor<BetaSelfHostedWork>`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -976,6 +1032,8 @@ List work items in an environment.
 
   Maximum number of work items to return
 
+  maximum: 1000, minimum: 1
+
 - `page: String`
 
   Opaque cursor from previous response for pagination
@@ -986,7 +1044,7 @@ List work items in an environment.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1032,19 +1090,29 @@ List work items in an environment.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1080,8 +1148,6 @@ List work items in an environment.
 
       Type of work data
 
-      - `:session`
-
   - `environment_id: String`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1093,6 +1159,10 @@ List work items in an environment.
   - `metadata: Hash[Symbol, String]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: String`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: String`
 
@@ -1124,8 +1194,6 @@ List work items in an environment.
 
     The type of object (always 'work')
 
-    - `:work`
-
 ### Example
 
 ```ruby
@@ -1138,7 +1206,7 @@ page = anthropic.beta.environments.work.list("env_011CZkZ9X2dpNyB7HsEFoRfW")
 puts(page)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1156,6 +1224,7 @@ puts(page)
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -1171,7 +1240,7 @@ puts(page)
 
 `beta.environments.work.update(work_id, **kwargs) -> BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -1193,7 +1262,7 @@ Update work item metadata with merge semantics.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1239,19 +1308,29 @@ Update work item metadata with merge semantics.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1287,8 +1366,6 @@ Update work item metadata with merge semantics.
 
       Type of work data
 
-      - `:session`
-
   - `environment_id: String`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1300,6 +1377,10 @@ Update work item metadata with merge semantics.
   - `metadata: Hash[Symbol, String]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: String`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: String`
 
@@ -1331,8 +1412,6 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `:work`
-
 ### Example
 
 ```ruby
@@ -1349,7 +1428,7 @@ beta_self_hosted_work = anthropic.beta.environments.work.update(
 puts(beta_self_hosted_work)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1365,6 +1444,7 @@ puts(beta_self_hosted_work)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1377,7 +1457,7 @@ puts(beta_self_hosted_work)
 
 `beta.environments.work.stats(environment_id, **kwargs) -> BetaSelfHostedWorkQueueStats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
@@ -1391,7 +1471,7 @@ Get statistics about the work queue for an environment.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1437,19 +1517,29 @@ Get statistics about the work queue for an environment.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1475,8 +1565,6 @@ Get statistics about the work queue for an environment.
 
     The type of object
 
-    - `:work_queue_stats`
-
   - `workers_polling: Integer`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
@@ -1493,7 +1581,7 @@ beta_self_hosted_work_queue_stats = anthropic.beta.environments.work.stats("env_
 puts(beta_self_hosted_work_queue_stats)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1505,7 +1593,7 @@ puts(beta_self_hosted_work_queue_stats)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Self Hosted Work
 
@@ -1541,8 +1629,6 @@ puts(beta_self_hosted_work_queue_stats)
 
       Type of work data
 
-      - `:session`
-
   - `environment_id: String`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1554,6 +1640,10 @@ puts(beta_self_hosted_work_queue_stats)
   - `metadata: Hash[Symbol, String]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: String`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: String`
 
@@ -1584,8 +1674,6 @@ puts(beta_self_hosted_work_queue_stats)
   - `type: :work`
 
     The type of object (always 'work')
-
-    - `:work`
 
 ### Beta Self Hosted Work Heartbeat Response
 
@@ -1623,8 +1711,6 @@ puts(beta_self_hosted_work_queue_stats)
 
     The type of response
 
-    - `:work_heartbeat`
-
 ### Beta Self Hosted Work List Response
 
 - `class BetaSelfHostedWorkListResponse`
@@ -1659,8 +1745,6 @@ puts(beta_self_hosted_work_queue_stats)
 
         Type of work data
 
-        - `:session`
-
     - `environment_id: String`
 
       Environment identifier this work belongs to (e.g., `env_...`)
@@ -1672,6 +1756,10 @@ puts(beta_self_hosted_work_queue_stats)
     - `metadata: Hash[Symbol, String]`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `secret: String`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `started_at: String`
 
@@ -1703,8 +1791,6 @@ puts(beta_self_hosted_work_queue_stats)
 
       The type of object (always 'work')
 
-      - `:work`
-
   - `next_page: String`
 
     Opaque cursor for fetching the next page of results
@@ -1732,8 +1818,6 @@ puts(beta_self_hosted_work_queue_stats)
   - `type: :work_queue_stats`
 
     The type of object
-
-    - `:work_queue_stats`
 
   - `workers_polling: Integer`
 
@@ -1775,5 +1859,3 @@ puts(beta_self_hosted_work_queue_stats)
   - `type: :session`
 
     Type of work data
-
-    - `:session`

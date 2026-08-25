@@ -2,9 +2,9 @@
 
 ## Get Work Item
 
-`client.beta.environments.work.retrieve(stringworkID, WorkRetrieveParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
+`client.beta.environments.work.retrieve(workID, params, options?): BetaSelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -26,7 +26,7 @@ Retrieve detailed information about a specific work item.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -72,19 +72,29 @@ Retrieve detailed information about a specific work item.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -120,8 +130,6 @@ Retrieve detailed information about a specific work item.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: string`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -133,6 +141,10 @@ Retrieve detailed information about a specific work item.
   - `metadata: Record<string, string>`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string | null`
 
@@ -164,25 +176,25 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaSelfHostedWork = await client.beta.environments.work.retrieve('work_id', {
-  environment_id: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
+const betaSelfHostedWork = await client.beta.environments.work.retrieve("work_id", {
+  environment_id: "env_011CZkZ9X2dpNyB7HsEFoRfW"
 });
 
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -198,6 +210,7 @@ console.log(betaSelfHostedWork.id);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -208,9 +221,9 @@ console.log(betaSelfHostedWork.id);
 
 ## Poll for Work
 
-`client.beta.environments.work.poll(stringenvironmentID, WorkPollParamsparams?, RequestOptionsoptions?): BetaSelfHostedWork | null`
+`client.beta.environments.work.poll(environmentID, params?, options?): BetaSelfHostedWork | null`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -226,9 +239,13 @@ Long poll for work items in the queue.
 
     Query param: How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+    minimum: 1
+
   - `reclaim_older_than_ms?: number | null`
 
     Query param: Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+    minimum: 1
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -236,7 +253,7 @@ Long poll for work items in the queue.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -282,19 +299,29 @@ Long poll for work items in the queue.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
   - `"Anthropic-Worker-ID"?: string`
 
@@ -328,8 +355,6 @@ Long poll for work items in the queue.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: string`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -341,6 +366,10 @@ Long poll for work items in the queue.
   - `metadata: Record<string, string>`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string | null`
 
@@ -372,23 +401,25 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaSelfHostedWork = await client.beta.environments.work.poll('env_011CZkZ9X2dpNyB7HsEFoRfW');
+const betaSelfHostedWork = await client.beta.environments.work.poll(
+  "env_011CZkZ9X2dpNyB7HsEFoRfW"
+);
 
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -404,6 +435,7 @@ console.log(betaSelfHostedWork.id);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -414,9 +446,9 @@ console.log(betaSelfHostedWork.id);
 
 ## Acknowledge Work
 
-`client.beta.environments.work.ack(stringworkID, WorkAckParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
+`client.beta.environments.work.ack(workID, params, options?): BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -438,7 +470,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -484,19 +516,29 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -532,8 +574,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: string`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -545,6 +585,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `metadata: Record<string, string>`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string | null`
 
@@ -576,25 +620,25 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaSelfHostedWork = await client.beta.environments.work.ack('work_id', {
-  environment_id: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
+const betaSelfHostedWork = await client.beta.environments.work.ack("work_id", {
+  environment_id: "env_011CZkZ9X2dpNyB7HsEFoRfW"
 });
 
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -610,6 +654,7 @@ console.log(betaSelfHostedWork.id);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -620,9 +665,9 @@ console.log(betaSelfHostedWork.id);
 
 ## Record Heartbeat
 
-`client.beta.environments.work.heartbeat(stringworkID, WorkHeartbeatParamsparams, RequestOptionsoptions?): BetaSelfHostedWorkHeartbeatResponse`
+`client.beta.environments.work.heartbeat(workID, params, options?): BetaSelfHostedWorkHeartbeatResponse`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -652,7 +697,7 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -698,19 +743,29 @@ Record a heartbeat for a work item to maintain the lease.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -748,26 +803,26 @@ Record a heartbeat for a work item to maintain the lease.
 
     The type of response
 
-    - `"work_heartbeat"`
+    default: work_heartbeat
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const betaSelfHostedWorkHeartbeatResponse = await client.beta.environments.work.heartbeat(
-  'work_id',
-  { environment_id: 'env_011CZkZ9X2dpNyB7HsEFoRfW' },
+  "work_id",
+  { environment_id: "env_011CZkZ9X2dpNyB7HsEFoRfW" }
 );
 
 console.log(betaSelfHostedWorkHeartbeatResponse.last_heartbeat);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -781,9 +836,9 @@ console.log(betaSelfHostedWorkHeartbeatResponse.last_heartbeat);
 
 ## Stop Work
 
-`client.beta.environments.work.stop(stringworkID, WorkStopParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
+`client.beta.environments.work.stop(workID, params, options?): BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -809,7 +864,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -855,19 +910,29 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -903,8 +968,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: string`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -916,6 +979,10 @@ Stop a work item, initiating graceful or forced shutdown.
   - `metadata: Record<string, string>`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string | null`
 
@@ -947,25 +1014,25 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaSelfHostedWork = await client.beta.environments.work.stop('work_id', {
-  environment_id: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
+const betaSelfHostedWork = await client.beta.environments.work.stop("work_id", {
+  environment_id: "env_011CZkZ9X2dpNyB7HsEFoRfW"
 });
 
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -981,6 +1048,7 @@ console.log(betaSelfHostedWork.id);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -991,9 +1059,9 @@ console.log(betaSelfHostedWork.id);
 
 ## List Work Items
 
-`client.beta.environments.work.list(stringenvironmentID, WorkListParamsparams?, RequestOptionsoptions?): PageCursor<BetaSelfHostedWork>`
+`client.beta.environments.work.list(environmentID, params?, options?): PageCursor<BetaSelfHostedWork>`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -1009,6 +1077,8 @@ List work items in an environment.
 
     Query param: Maximum number of work items to return
 
+    maximum: 1000, minimum: 1
+
   - `page?: string | null`
 
     Query param: Opaque cursor from previous response for pagination
@@ -1019,7 +1089,7 @@ List work items in an environment.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -1065,19 +1135,29 @@ List work items in an environment.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1113,8 +1193,6 @@ List work items in an environment.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: string`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1126,6 +1204,10 @@ List work items in an environment.
   - `metadata: Record<string, string>`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string | null`
 
@@ -1157,26 +1239,26 @@ List work items in an environment.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 // Automatically fetches more pages as needed.
 for await (const betaSelfHostedWork of client.beta.environments.work.list(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  "env_011CZkZ9X2dpNyB7HsEFoRfW"
 )) {
   console.log(betaSelfHostedWork.id);
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1194,6 +1276,7 @@ for await (const betaSelfHostedWork of client.beta.environments.work.list(
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -1207,9 +1290,9 @@ for await (const betaSelfHostedWork of client.beta.environments.work.list(
 
 ## Update Work Item
 
-`client.beta.environments.work.update(stringworkID, WorkUpdateParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
+`client.beta.environments.work.update(workID, params, options?): BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -1235,7 +1318,7 @@ Update work item metadata with merge semantics.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -1281,19 +1364,29 @@ Update work item metadata with merge semantics.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1329,8 +1422,6 @@ Update work item metadata with merge semantics.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: string`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1342,6 +1433,10 @@ Update work item metadata with merge semantics.
   - `metadata: Record<string, string>`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string | null`
 
@@ -1373,26 +1468,26 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaSelfHostedWork = await client.beta.environments.work.update('work_id', {
-  environment_id: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  metadata: { foo: 'string' },
+const betaSelfHostedWork = await client.beta.environments.work.update("work_id", {
+  environment_id: "env_011CZkZ9X2dpNyB7HsEFoRfW",
+  metadata: { foo: "string" }
 });
 
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1408,6 +1503,7 @@ console.log(betaSelfHostedWork.id);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1418,9 +1514,9 @@ console.log(betaSelfHostedWork.id);
 
 ## Get Queue Statistics
 
-`client.beta.environments.work.stats(stringenvironmentID, WorkStatsParamsparams?, RequestOptionsoptions?): BetaSelfHostedWorkQueueStats`
+`client.beta.environments.work.stats(environmentID, params?, options?): BetaSelfHostedWorkQueueStats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
@@ -1436,7 +1532,7 @@ Get statistics about the work queue for an environment.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -1482,19 +1578,29 @@ Get statistics about the work queue for an environment.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1516,11 +1622,13 @@ Get statistics about the work queue for an environment.
 
     Number of work items being processed (polled but not acknowledged)
 
+    default: 0
+
   - `type: "work_queue_stats"`
 
     The type of object
 
-    - `"work_queue_stats"`
+    default: work_queue_stats
 
   - `workers_polling: number | null`
 
@@ -1529,20 +1637,20 @@ Get statistics about the work queue for an environment.
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const betaSelfHostedWorkQueueStats = await client.beta.environments.work.stats(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  "env_011CZkZ9X2dpNyB7HsEFoRfW"
 );
 
 console.log(betaSelfHostedWorkQueueStats.depth);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1554,7 +1662,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Self Hosted Work
 
@@ -1590,8 +1698,6 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: string`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1603,6 +1709,10 @@ console.log(betaSelfHostedWorkQueueStats.depth);
   - `metadata: Record<string, string>`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string | null`
 
@@ -1634,7 +1744,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Beta Self Hosted Work Heartbeat Response
 
@@ -1672,7 +1782,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
     The type of response
 
-    - `"work_heartbeat"`
+    default: work_heartbeat
 
 ### Beta Self Hosted Work List Response
 
@@ -1708,8 +1818,6 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
         Type of work data
 
-        - `"session"`
-
     - `environment_id: string`
 
       Environment identifier this work belongs to (e.g., `env_...`)
@@ -1721,6 +1829,10 @@ console.log(betaSelfHostedWorkQueueStats.depth);
     - `metadata: Record<string, string>`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `secret: string | null`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `started_at: string | null`
 
@@ -1752,7 +1864,7 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
       The type of object (always 'work')
 
-      - `"work"`
+      default: work
 
   - `next_page: string | null`
 
@@ -1778,11 +1890,13 @@ console.log(betaSelfHostedWorkQueueStats.depth);
 
     Number of work items being processed (polled but not acknowledged)
 
+    default: 0
+
   - `type: "work_queue_stats"`
 
     The type of object
 
-    - `"work_queue_stats"`
+    default: work_queue_stats
 
   - `workers_polling: number | null`
 
@@ -1797,6 +1911,8 @@ console.log(betaSelfHostedWorkQueueStats.depth);
   - `force?: boolean`
 
     If true, immediately stop work without graceful shutdown
+
+    default: false
 
 ### Beta Self Hosted Work Update Request
 
@@ -1824,5 +1940,3 @@ console.log(betaSelfHostedWorkQueueStats.depth);
   - `type: "session"`
 
     Type of work data
-
-    - `"session"`

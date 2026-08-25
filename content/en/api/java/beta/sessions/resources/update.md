@@ -1,12 +1,12 @@
-## Update Session Resource
+# Update Session Resource
 
-`ResourceUpdateResponse beta().sessions().resources().update(ResourceUpdateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`ResourceUpdateResponse beta().sessions().resources().update(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Parameters
+## Parameters
 
 - `ResourceUpdateParams params`
 
@@ -62,27 +62,39 @@ Update Session Resource
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `String authorizationToken`
 
     New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
-### Returns
+    minLength: 1, maxLength: 4096
 
-- `class ResourceUpdateResponse: A class that can be one of several variants.union`
+## Returns
+
+- `class ResourceUpdateResponse: union`
 
   The updated session resource.
 
@@ -94,15 +106,17 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `String mountPath`
 
     - `Type type`
 
-      - `GITHUB_REPOSITORY("github_repository")`
-
     - `LocalDateTime updatedAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `String url`
 
@@ -114,9 +128,9 @@ Update Session Resource
 
           Branch name to check out.
 
-        - `Type type`
+          minLength: 1, maxLength: 255
 
-          - `BRANCH("branch")`
+        - `Type type`
 
       - `class BetaManagedAgentsCommitCheckout:`
 
@@ -124,9 +138,9 @@ Update Session Resource
 
           Full commit SHA to check out.
 
-        - `Type type`
+          minLength: 7, maxLength: 64
 
-          - `COMMIT("commit")`
+        - `Type type`
 
   - `class BetaManagedAgentsFileResource:`
 
@@ -136,17 +150,19 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `String fileId`
 
     - `String mountPath`
 
     - `Type type`
 
-      - `FILE("file")`
-
     - `LocalDateTime updatedAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource:`
 
@@ -157,8 +173,6 @@ Update Session Resource
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `Type type`
-
-      - `MEMORY_STORE("memory_store")`
 
     - `Optional<Access> access`
 
@@ -176,6 +190,8 @@ Update Session Resource
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `Optional<String> mountPath`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -184,7 +200,7 @@ Update Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -210,7 +226,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

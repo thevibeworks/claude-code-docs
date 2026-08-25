@@ -1,12 +1,12 @@
-## Archive Environment
+# Archive Environment
 
-`client.beta.environments.archive(stringenvironmentID, EnvironmentArchiveParamsparams?, RequestOptionsoptions?): BetaEnvironment`
+`client.beta.environments.archive(environmentID, params?, options?): BetaEnvironment`
 
-**post** `/v1/environments/{environment_id}/archive`
+**POST** `/v1/environments/{environment_id}/archive`
 
 Archive an environment by ID. Archived environments cannot be used to create new sessions.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -18,7 +18,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -64,21 +64,31 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
+
+      - `"fallback-credit-2026-07-01"`
 
       - `"agent-memory-2026-07-22"`
 
-### Returns
+      - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `BetaEnvironment`
 
@@ -112,8 +122,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetwork`
 
           Limited network access.
@@ -133,8 +141,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -168,13 +174,11 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: "cloud"`
 
         Environment type
-
-        - `"cloud"`
 
     - `BetaSelfHostedConfig`
 
@@ -184,15 +188,13 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
         Environment type
 
-        - `"self_hosted"`
-
   - `created_at: string`
 
     RFC 3339 timestamp when environment was created
 
-  - `description: string`
+  - `description: string | null`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Record<string, string>`
 
@@ -206,7 +208,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: string`
 
@@ -220,21 +222,21 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `"account"`
 
-### Example
+## Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaEnvironment = await client.beta.environments.archive('env_011CZkZ9X2dpNyB7HsEFoRfW');
+const betaEnvironment = await client.beta.environments.archive("env_011CZkZ9X2dpNyB7HsEFoRfW");
 
 console.log(betaEnvironment.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

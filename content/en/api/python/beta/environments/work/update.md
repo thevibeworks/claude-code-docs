@@ -1,14 +1,14 @@
-## Update Work Item
+# Update Work Item
 
-`beta.environments.work.update(strwork_id, WorkUpdateParams**kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.update(work_id, **kwargs)  -> BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Parameters
+## Parameters
 
 - `environment_id: str`
 
@@ -24,7 +24,7 @@ Update work item metadata with merge semantics.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -70,21 +70,31 @@ Update work item metadata with merge semantics.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaSelfHostedWork: …`
 
@@ -118,8 +128,6 @@ Update work item metadata with merge semantics.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -131,6 +139,10 @@ Update work item metadata with merge semantics.
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -162,28 +174,28 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work = client.beta.environments.work.update(
     work_id="work_id",
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
-    metadata={
-        "foo": "string"
-    },
+    metadata={"foo": "string"},
 )
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
@@ -199,6 +211,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",

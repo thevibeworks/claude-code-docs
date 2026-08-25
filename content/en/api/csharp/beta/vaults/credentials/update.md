@@ -1,12 +1,12 @@
-## Update Credential
+# Update Credential
 
-`BetaManagedAgentsCredential Beta.Vaults.Credentials.Update(CredentialUpdateParamsparameters, CancellationTokencancellationToken = default)`
+`BetaManagedAgentsCredential Beta.Vaults.Credentials.Update(parameters, cancellationToken = default)`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Update Credential
 
-### Parameters
+## Parameters
 
 - `CredentialUpdateParams parameters`
 
@@ -28,15 +28,17 @@ Update Credential
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `string? AccessToken`
 
         Updated OAuth access token.
 
+        minLength: 1, maxLength: 8192
+
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshUpdateParams? Refresh`
 
@@ -46,9 +48,13 @@ Update Credential
 
           Updated OAuth refresh token.
 
+          minLength: 1, maxLength: 4096
+
         - `string? Scope`
 
           Updated OAuth scope for the refresh request.
+
+          maxLength: 8192
 
         - `TokenEndpointAuth TokenEndpointAuth`
 
@@ -60,11 +66,11 @@ Update Credential
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
             - `string? ClientSecret`
 
               Updated OAuth client secret.
+
+              minLength: 1, maxLength: 512
 
           - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
 
@@ -72,11 +78,11 @@ Update Credential
 
             - `required Type Type`
 
-              - `"client_secret_post"ClientSecretPost`
-
             - `string? ClientSecret`
 
               Updated OAuth client secret.
+
+              minLength: 1, maxLength: 512
 
     - `class BetaManagedAgentsStaticBearerUpdateParams:`
 
@@ -84,11 +90,11 @@ Update Credential
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
       - `string? Token`
 
         Updated static bearer token value.
+
+        minLength: 1, maxLength: 8192
 
     - `class BetaManagedAgentsEnvironmentVariableUpdateParams:`
 
@@ -96,17 +102,15 @@ Update Credential
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
       - `BetaManagedAgentsInjectionLocationUpdateParams InjectionLocation`
 
         Updated injection location.
 
-        - `Boolean Body`
+        - `bool Body`
 
           Substitute when the placeholder appears in the request body.
 
-        - `Boolean Header`
+        - `bool Header`
 
           Substitute when the placeholder appears in a request header value.
 
@@ -120,8 +124,6 @@ Update Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
 
           Substitute the secret only on requests to the listed hosts.
@@ -132,15 +134,17 @@ Update Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `string? SecretValue`
 
         Updated secret value.
 
+        minLength: 1, maxLength: 4096
+
   - `string? displayName`
 
     Body param: Updated human-readable name for the credential. 1-255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string>? metadata`
 
@@ -150,65 +154,75 @@ Update Credential
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
 
-### Returns
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+## Returns
 
 - `class BetaManagedAgentsCredential:`
 
@@ -221,6 +235,8 @@ Update Credential
   - `required DateTimeOffset? ArchivedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required Auth Auth`
 
@@ -236,11 +252,11 @@ Update Credential
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -264,23 +280,17 @@ Update Credential
 
             - `required Type Type`
 
-              - `"none"None`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `required Type Type`
-
-              - `"client_secret_post"ClientSecretPost`
 
         - `string? Resource`
 
@@ -300,8 +310,6 @@ Update Credential
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
@@ -310,11 +318,11 @@ Update Credential
 
         Where in the outbound request the secret value is substituted.
 
-        - `required Boolean Body`
+        - `required bool Body`
 
           Whether the placeholder is substituted in the request body.
 
-        - `required Boolean Header`
+        - `required bool Header`
 
           Whether the placeholder is substituted in request header values.
 
@@ -328,8 +336,6 @@ Update Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
           The secret is substituted only on requests to the listed hosts.
@@ -340,19 +346,17 @@ Update Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `required string SecretName`
 
         Name of the environment variable.
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -360,11 +364,11 @@ Update Credential
 
   - `required Type Type`
 
-    - `"vault_credential"VaultCredential`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -374,7 +378,7 @@ Update Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```csharp
 CredentialUpdateParams parameters = new()
@@ -388,7 +392,7 @@ var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Update(pa
 Console.WriteLine(betaManagedAgentsCredential);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

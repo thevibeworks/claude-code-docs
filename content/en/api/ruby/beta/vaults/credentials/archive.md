@@ -1,12 +1,12 @@
-## Archive Credential
+# Archive Credential
 
 `beta.vaults.credentials.archive(credential_id, **kwargs) -> BetaManagedAgentsCredential`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
 Archive Credential
 
-### Parameters
+## Parameters
 
 - `vault_id: String`
 
@@ -18,7 +18,7 @@ Archive Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -64,21 +64,31 @@ Archive Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaManagedAgentsCredential`
 
@@ -91,6 +101,8 @@ Archive Credential
   - `archived_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse | BetaManagedAgentsStaticBearerAuthResponse | BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -106,11 +118,11 @@ Archive Credential
 
       - `type: :mcp_oauth`
 
-        - `:mcp_oauth`
-
       - `expires_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh: BetaManagedAgentsMCPOAuthRefreshResponse`
 
@@ -134,23 +146,17 @@ Archive Credential
 
             - `type: :none`
 
-              - `:none`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: :client_secret_basic`
 
-              - `:client_secret_basic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: :client_secret_post`
-
-              - `:client_secret_post`
 
         - `resource: String`
 
@@ -169,8 +175,6 @@ Archive Credential
         URL of the MCP server this credential authenticates against.
 
       - `type: :static_bearer`
-
-        - `:static_bearer`
 
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -198,8 +202,6 @@ Archive Credential
 
           - `type: :unrestricted`
 
-            - `:unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
@@ -210,19 +212,17 @@ Archive Credential
 
           - `type: :limited`
 
-            - `:limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
 
       - `type: :environment_variable`
 
-        - `:environment_variable`
-
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Hash[Symbol, String]`
 
@@ -230,11 +230,11 @@ Archive Credential
 
   - `type: :vault_credential`
 
-    - `:vault_credential`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: String`
 
@@ -244,7 +244,7 @@ Archive Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -259,7 +259,7 @@ beta_managed_agents_credential = anthropic.beta.vaults.credentials.archive(
 puts(beta_managed_agents_credential)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

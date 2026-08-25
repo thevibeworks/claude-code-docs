@@ -1,12 +1,12 @@
-## Download Skill Version Content
+# Download Skill Version Content
 
 `$ ant beta:skills:versions download`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-### Parameters
+## Parameters
 
 - `--skill-id: string`
 
@@ -24,13 +24,13 @@ Download a skill version's content as a zip archive.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `unnamed_schema_1: file path`
+- `unnamed_schema_5: file path`
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:skills:versions download \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \

@@ -2,9 +2,9 @@
 
 ## Upload File
 
-`$client->beta->files->upload(string file, ?list<AnthropicBeta> betas): FileMetadata`
+`$client->beta->files->upload(string file, ?list<AnthropicBeta> betas): BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
@@ -20,7 +20,7 @@ Upload File
 
 ### Returns
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -67,15 +67,15 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$fileMetadata = $client->beta->files->upload(
+$betaFileMetadata = $client->beta->files->upload(
   file: FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
-var_dump($fileMetadata);
+var_dump($betaFileMetadata);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -95,9 +95,9 @@ var_dump($fileMetadata);
 
 ## List Files
 
-`$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<FileMetadata>`
+`$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<BetaFileMetadata>`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
@@ -117,6 +117,8 @@ List Files
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20
+
 - `scopeID?:optional string`
 
   Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
@@ -127,7 +129,7 @@ List Files
 
 ### Returns
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -179,13 +181,13 @@ $page = $client->beta->files->list(
   beforeID: 'before_id',
   limit: 1,
   scopeID: 'scope_id',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -214,7 +216,7 @@ var_dump($page);
 
 `$client->beta->files->download(string fileID, ?list<AnthropicBeta> betas): download`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
@@ -242,7 +244,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $response = $client->beta->files->download(
-  'file_id', betas: ['message-batches-2024-09-24']
+  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($response);
@@ -250,9 +252,9 @@ var_dump($response);
 
 ## Get File Metadata
 
-`$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas): FileMetadata`
+`$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas): BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
@@ -268,7 +270,7 @@ Get File Metadata
 
 ### Returns
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -315,14 +317,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$fileMetadata = $client->beta->files->retrieveMetadata(
-  'file_id', betas: ['message-batches-2024-09-24']
+$betaFileMetadata = $client->beta->files->retrieveMetadata(
+  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
-var_dump($fileMetadata);
+var_dump($betaFileMetadata);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -342,9 +344,9 @@ var_dump($fileMetadata);
 
 ## Delete File
 
-`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): DeletedFile`
+`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
@@ -360,7 +362,7 @@ Delete File
 
 ### Returns
 
-- `DeletedFile`
+- `BetaDeletedFile`
 
   - `string id`
 
@@ -381,14 +383,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$deletedFile = $client->beta->files->delete(
-  'file_id', betas: ['message-batches-2024-09-24']
+$betaDeletedFile = $client->beta->files->delete(
+  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
-var_dump($deletedFile);
+var_dump($betaDeletedFile);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -397,23 +399,11 @@ var_dump($deletedFile);
 }
 ```
 
-## Domain Types
+## Domain types
 
-### Beta File Scope
+### Beta Deleted File
 
-- `BetaFileScope`
-
-  - `string id`
-
-    The ID of the scoping resource (e.g., the session ID).
-
-  - `"session" type`
-
-    The type of scope (e.g., `"session"`).
-
-### Deleted File
-
-- `DeletedFile`
+- `BetaDeletedFile`
 
   - `string id`
 
@@ -425,9 +415,9 @@ var_dump($deletedFile);
 
     For file deletion, this is always `"file_deleted"`.
 
-### File Metadata
+### Beta File Metadata
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -464,3 +454,15 @@ var_dump($deletedFile);
   - `?BetaFileScope scope`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
+
+### Beta File Scope
+
+- `BetaFileScope`
+
+  - `string id`
+
+    The ID of the scoping resource (e.g., the session ID).
+
+  - `"session" type`
+
+    The type of scope (e.g., `"session"`).

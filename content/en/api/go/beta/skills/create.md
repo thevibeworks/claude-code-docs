@@ -1,12 +1,12 @@
-## Create Skill
+# Create Skill
 
 `client.Beta.Skills.New(ctx, params) (*BetaSkillNewResponse, error)`
 
-**post** `/v1/skills`
+**POST** `/v1/skills`
 
 Create Skill
 
-### Parameters
+## Parameters
 
 - `params BetaSkillNewParams`
 
@@ -16,13 +16,13 @@ Create Skill
 
     All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-  - `DisplayTitle param.Field[string]`
+  - `DisplayTitle param.Field[string] Optional`
 
     Body param: Display title for the skill.
 
     This is a human-readable label that is not included in the prompt sent to the model.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -74,21 +74,31 @@ Create Skill
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
-### Returns
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `type BetaSkillNewResponse struct{…}`
 
@@ -129,40 +139,42 @@ Create Skill
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `UpdatedAt string`
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+## Example
 
 ```go
 package main
 
 import (
-  "bytes"
-  "context"
-  "fmt"
-  "io"
+	"bytes"
+	"context"
+	"fmt"
+	"io"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  skill, err := client.Beta.Skills.New(context.TODO(), anthropic.BetaSkillNewParams{
-    Files: []io.Reader{io.Reader(bytes.NewBuffer([]byte("Example data")))},
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", skill.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	skill, err := client.Beta.Skills.New(context.TODO(), anthropic.BetaSkillNewParams{
+		Files: []io.Reader{io.Reader(bytes.NewBuffer([]byte("Example data")))},
+	})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", skill.ID)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

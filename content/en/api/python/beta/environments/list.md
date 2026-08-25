@@ -1,20 +1,24 @@
-## List Environments
+# List Environments
 
-`beta.environments.list(EnvironmentListParams**kwargs)  -> SyncPageCursor[BetaEnvironment]`
+`beta.environments.list(**kwargs)  -> SyncPageCursor[BetaEnvironment]`
 
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
-### Parameters
+## Parameters
 
 - `include_archived: Optional[bool]`
 
   Include archived environments in the response
 
+  default: false
+
 - `limit: Optional[int]`
 
   Maximum number of environments to return
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `page: Optional[str]`
 
@@ -26,7 +30,7 @@ List environments with pagination support.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -72,21 +76,31 @@ List environments with pagination support.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaEnvironment: …`
 
@@ -120,8 +134,6 @@ List environments with pagination support.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `class BetaLimitedNetwork: …`
 
           Limited network access.
@@ -141,8 +153,6 @@ List environments with pagination support.
           - `type: Literal["limited"]`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -176,13 +186,11 @@ List environments with pagination support.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: Literal["cloud"]`
 
         Environment type
-
-        - `"cloud"`
 
     - `class BetaSelfHostedConfig: …`
 
@@ -192,15 +200,13 @@ List environments with pagination support.
 
         Environment type
 
-        - `"self_hosted"`
-
   - `created_at: str`
 
     RFC 3339 timestamp when environment was created
 
-  - `description: str`
+  - `description: Optional[str]`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Dict[str, str]`
 
@@ -214,7 +220,7 @@ List environments with pagination support.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: str`
 
@@ -228,21 +234,23 @@ List environments with pagination support.
 
     - `"account"`
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.environments.list()
 page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

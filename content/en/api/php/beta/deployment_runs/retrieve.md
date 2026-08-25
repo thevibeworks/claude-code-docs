@@ -1,12 +1,12 @@
-## Get Deployment Run
+# Get Deployment Run
 
 `$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
 
-**get** `/v1/deployment_runs/{deployment_run_id}`
+**GET** `/v1/deployment_runs/{deployment_run_id}`
 
 Get Deployment Run
 
-### Parameters
+## Parameters
 
 - `deploymentRunID: string`
 
@@ -14,7 +14,7 @@ Get Deployment Run
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeploymentRun`
 
@@ -48,7 +48,7 @@ Get Deployment Run
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -58,13 +58,13 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
-  'deployment_run_id', betas: ['message-batches-2024-09-24']
+  'deployment_run_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaManagedAgentsDeploymentRun);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

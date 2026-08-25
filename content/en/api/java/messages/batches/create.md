@@ -1,8 +1,8 @@
-## Create a Message Batch
+# Create a Message Batch
 
-`MessageBatch messages().batches().create(BatchCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`MessageBatch messages().batches().create(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -10,7 +10,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `BatchCreateParams params`
 
@@ -22,11 +22,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     List of requests for prompt completion. Each is an individual request to create a Message.
 
+    maxItems: 100000, minItems: 1
+
     - `String customId`
 
       Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
 
       Must be unique for each request within the Message Batch.
+
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
 
     - `Params params`
 
@@ -43,6 +47,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
         Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+        minimum: 0
 
       - `List<MessageParam> messages`
 
@@ -105,17 +111,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String text`
 
-              - `JsonValue; type "text"constant`
+                minLength: 1
 
-                - `TEXT("text")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
                 Create a cache control breakpoint at this content block.
 
-                - `JsonValue; type "ephemeral"constant`
-
-                  - `EPHEMERAL("ephemeral")`
+                - `JsonValue type constant`
 
                 - `Optional<Ttl> ttl`
 
@@ -140,15 +144,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `long documentIndex`
 
+                    minimum: 0
+
                   - `Optional<String> documentTitle`
+
+                    maxLength: 500, minLength: 1
 
                   - `long endCharIndex`
 
                   - `long startCharIndex`
 
-                  - `JsonValue; type "char_location"constant`
+                    minimum: 0
 
-                    - `CHAR_LOCATION("char_location")`
+                  - `JsonValue type constant`
 
                 - `class CitationPageLocationParam:`
 
@@ -156,15 +164,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `long documentIndex`
 
+                    minimum: 0
+
                   - `Optional<String> documentTitle`
+
+                    maxLength: 500, minLength: 1
 
                   - `long endPageNumber`
 
                   - `long startPageNumber`
 
-                  - `JsonValue; type "page_location"constant`
+                    minimum: 1
 
-                    - `PAGE_LOCATION("page_location")`
+                  - `JsonValue type constant`
 
                 - `class CitationContentBlockLocationParam:`
 
@@ -176,7 +188,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `long documentIndex`
 
+                    minimum: 0
+
                   - `Optional<String> documentTitle`
+
+                    maxLength: 500, minLength: 1
 
                   - `long endBlockIndex`
 
@@ -188,9 +204,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     0-based index of the first cited block in the source's `content` array.
 
-                  - `JsonValue; type "content_block_location"constant`
+                    minimum: 0
 
-                    - `CONTENT_BLOCK_LOCATION("content_block_location")`
+                  - `JsonValue type constant`
 
                 - `class CitationWebSearchResultLocationParam:`
 
@@ -200,11 +216,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Optional<String> title`
 
-                  - `JsonValue; type "web_search_result_location"constant`
+                    maxLength: 512, minLength: 1
 
-                    - `WEB_SEARCH_RESULT_LOCATION("web_search_result_location")`
+                  - `JsonValue type constant`
 
                   - `String url`
+
+                    minLength: 1
 
                 - `class CitationSearchResultLocationParam:`
 
@@ -226,17 +244,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                    minimum: 0
+
                   - `String source`
 
                   - `long startBlockIndex`
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `Optional<String> title`
 
-                  - `JsonValue; type "search_result_location"constant`
-
-                    - `SEARCH_RESULT_LOCATION("search_result_location")`
+                  - `JsonValue type constant`
 
             - `class ImageBlockParam:`
 
@@ -245,6 +265,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `class Base64ImageSource:`
 
                   - `String data`
+
+                    format: byte
 
                   - `MediaType mediaType`
 
@@ -256,25 +278,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `IMAGE_WEBP("image/webp")`
 
-                  - `JsonValue; type "base64"constant`
-
-                    - `BASE64("base64")`
+                  - `JsonValue type constant`
 
                 - `class UrlImageSource:`
 
-                  - `JsonValue; type "url"constant`
-
-                    - `URL("url")`
+                  - `JsonValue type constant`
 
                   - `String url`
 
-              - `JsonValue; type "image"constant`
+                - `class FileImageSource:`
 
-                - `IMAGE("image")`
+                  - `String fileId`
+
+                  - `JsonValue type constant`
+
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
                 Create a cache control breakpoint at this content block.
+
+              - `Optional<ImageTransformationsParam> transformations`
+
+                Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+                - `Optional<OversizedImage> oversizedImage`
+
+                  What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                  - `DOWNSIZE("downsize")`
+
+                  - `ERROR("error")`
 
             - `class DocumentBlockParam:`
 
@@ -284,25 +318,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String data`
 
-                  - `JsonValue; mediaType "application/pdf"constant`
+                    format: byte
 
-                    - `APPLICATION_PDF("application/pdf")`
+                  - `JsonValue mediaType constant`
 
-                  - `JsonValue; type "base64"constant`
-
-                    - `BASE64("base64")`
+                  - `JsonValue type constant`
 
                 - `class PlainTextSource:`
 
                   - `String data`
 
-                  - `JsonValue; mediaType "text/plain"constant`
+                  - `JsonValue mediaType constant`
 
-                    - `TEXT_PLAIN("text/plain")`
-
-                  - `JsonValue; type "text"constant`
-
-                    - `TEXT("text")`
+                  - `JsonValue type constant`
 
                 - `class ContentBlockSource:`
 
@@ -316,21 +344,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `class ImageBlockParam:`
 
-                  - `JsonValue; type "content"constant`
-
-                    - `CONTENT("content")`
+                  - `JsonValue type constant`
 
                 - `class UrlPdfSource:`
 
-                  - `JsonValue; type "url"constant`
-
-                    - `URL("url")`
+                  - `JsonValue type constant`
 
                   - `String url`
 
-              - `JsonValue; type "document"constant`
+                - `class FileDocumentSource:`
 
-                - `DOCUMENT("document")`
+                  - `String fileId`
+
+                  - `JsonValue type constant`
+
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -342,7 +370,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Optional<String> context`
 
+                minLength: 1
+
               - `Optional<String> title`
+
+                maxLength: 500, minLength: 1
 
             - `class SearchResultBlockParam:`
 
@@ -350,7 +382,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `String text`
 
-                - `JsonValue; type "text"constant`
+                  minLength: 1
+
+                - `JsonValue type constant`
 
                 - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -362,9 +396,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String title`
 
-              - `JsonValue; type "search_result"constant`
-
-                - `SEARCH_RESULT("search_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -376,31 +408,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String signature`
 
+                The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+                Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
               - `String thinking`
 
-              - `JsonValue; type "thinking"constant`
+                The `thinking` text of this block as returned by the API.
 
-                - `THINKING("thinking")`
+              - `JsonValue type constant`
 
             - `class RedactedThinkingBlockParam:`
 
               - `String data`
 
-              - `JsonValue; type "redacted_thinking"constant`
+                The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-                - `REDACTED_THINKING("redacted_thinking")`
+              - `JsonValue type constant`
 
             - `class ToolUseBlockParam:`
 
               - `String id`
 
+                pattern: ^[a-zA-Z0-9_-]+$
+
               - `Input input`
 
               - `String name`
 
-              - `JsonValue; type "tool_use"constant`
+                maxLength: 200, minLength: 1
 
-                - `TOOL_USE("tool_use")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -414,9 +452,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Tool invocation directly from the model.
 
-                  - `JsonValue; type "direct"constant`
-
-                    - `DIRECT("direct")`
+                  - `JsonValue type constant`
 
                 - `class ServerToolCaller:`
 
@@ -424,25 +460,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String toolId`
 
-                  - `JsonValue; type "code_execution_20250825"constant`
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                    - `CODE_EXECUTION_20250825("code_execution_20250825")`
+                  - `JsonValue type constant`
 
                 - `class ServerToolCaller20260120:`
 
                   - `String toolId`
 
-                  - `JsonValue; type "code_execution_20260120"constant`
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                    - `CODE_EXECUTION_20260120("code_execution_20260120")`
+                  - `JsonValue type constant`
+
+              - `Optional<String> toolsetName`
+
+                For a toolset member tool_use, the toolset family this member belongs to.
+
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
             - `class ToolResultBlockParam:`
 
               - `String toolUseId`
 
-              - `JsonValue; type "tool_result"constant`
+                pattern: ^[a-zA-Z0-9_-]+$
 
-                - `TOOL_RESULT("tool_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -468,19 +510,170 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String toolName`
 
-                    - `JsonValue; type "tool_reference"constant`
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                      - `TOOL_REFERENCE("tool_reference")`
+                    - `JsonValue type constant`
 
                     - `Optional<CacheControlEphemeral> cacheControl`
 
                       Create a cache control breakpoint at this content block.
 
+                  - `class BrowserStateBlockParam:`
+
+                    The caller's browser state after a browser toolset member call —
+                    the full inventory of open tabs, which tab is active, and any side
+                    effects (tabs opened, download state changes) the call produced.
+
+                    At most one per `tool_result`, only on a non-error result answering a
+                    browser toolset member `tool_use`. The server renders the
+                    model-visible text from it; the model never sees the raw fields.
+
+                    - `List<BrowserStateTabEntry> tabs`
+
+                      All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                      maxItems: 100
+
+                      - `String tabId`
+
+                        The caller-assigned identifier for this tab, unique within the inventory.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `String title`
+
+                        The title of the page the tab is showing. May be empty.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `String url`
+
+                        The URL of the page the tab is showing. May be empty.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `Optional<Boolean> active`
+
+                        Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+                    - `JsonValue type constant`
+
+                    - `Optional<CacheControlEphemeral> cacheControl`
+
+                      Create a cache control breakpoint at this content block.
+
+                    - `Optional<List<BrowserStateChange>> stateChanges`
+
+                      Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                      maxItems: 200, minItems: 1
+
+                      - `class BrowserStateChangeTabOpened:`
+
+                        A tab this call's execution opened that remains open at its end —
+                        the creation delta of the `tabs` inventory, not an event log.
+
+                        Carries only the `tab_id`; the tab's `title` and `url` live on its
+                        `tabs` entry, which must include the same `tab_id`. A tab opened
+                        during a failed call gets no deferred `tab_opened`; it simply appears
+                        in the next result's `tabs` inventory.
+
+                        - `String tabId`
+
+                          The `tab_id` of the opened tab, present in `tabs`.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `JsonValue type constant`
+
+                      - `class BrowserStateChangeDownloadStarted:`
+
+                        A file download that started during this call.
+
+                        - `String downloadId`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `JsonValue type constant`
+
+                        - `String url`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `class BrowserStateChangeDownloadCompleted:`
+
+                        A file download that finished during this call, reported with the
+                        same `download_id` as its `download_started` — or without a prior
+                        `download_started`, when the download finished during the call that
+                        started it (at most one state change per `download_id` per result).
+
+                        - `String downloadId`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `JsonValue type constant`
+
+                        - `String url`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Optional<String> path`
+
+                          Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                        - `Optional<Long> sizeBytes`
+
+                          The completed download's size.
+
+                          minimum: 0
+
+                      - `class BrowserStateChangeDownloadFailed:`
+
+                        A file download that failed — or was cancelled — during this call.
+
+                        - `String downloadId`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `JsonValue type constant`
+
+                        - `String url`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Optional<String> error`
+
+                          The failure or cancellation detail, when known.
+
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
               - `Optional<Boolean> isError`
+
+              - `Optional<String> toolsetName`
+
+                For a toolset member tool_result, the toolset family of the paired tool_use.
+
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
             - `class ServerToolUseBlockParam:`
 
               - `String id`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `Input input`
 
@@ -500,9 +693,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
-              - `JsonValue; type "server_tool_use"constant`
-
-                - `SERVER_TOOL_USE("server_tool_use")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -532,9 +723,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String title`
 
-                  - `JsonValue; type "web_search_result"constant`
-
-                    - `WEB_SEARCH_RESULT("web_search_result")`
+                  - `JsonValue type constant`
 
                   - `String url`
 
@@ -556,15 +745,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `REQUEST_TOO_LARGE("request_too_large")`
 
-                  - `JsonValue; type "web_search_tool_result_error"constant`
-
-                    - `WEB_SEARCH_TOOL_RESULT_ERROR("web_search_tool_result_error")`
+                  - `JsonValue type constant`
 
               - `String toolUseId`
 
-              - `JsonValue; type "web_search_tool_result"constant`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `WEB_SEARCH_TOOL_RESULT("web_search_tool_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -610,17 +797,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `UNAVAILABLE("unavailable")`
 
-                  - `JsonValue; type "web_fetch_tool_result_error"constant`
-
-                    - `WEB_FETCH_TOOL_RESULT_ERROR("web_fetch_tool_result_error")`
+                  - `JsonValue type constant`
 
                 - `class WebFetchBlockParam:`
 
                   - `DocumentBlockParam content`
 
-                  - `JsonValue; type "web_fetch_result"constant`
-
-                    - `WEB_FETCH_RESULT("web_fetch_result")`
+                  - `JsonValue type constant`
 
                   - `String url`
 
@@ -632,9 +815,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String toolUseId`
 
-              - `JsonValue; type "web_fetch_tool_result"constant`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `WEB_FETCH_TOOL_RESULT("web_fetch_tool_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -672,9 +855,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                  - `JsonValue; type "code_execution_tool_result_error"constant`
-
-                    - `CODE_EXECUTION_TOOL_RESULT_ERROR("code_execution_tool_result_error")`
+                  - `JsonValue type constant`
 
                 - `class CodeExecutionResultBlockParam:`
 
@@ -682,9 +863,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue; type "code_execution_output"constant`
-
-                      - `CODE_EXECUTION_OUTPUT("code_execution_output")`
+                    - `JsonValue type constant`
 
                   - `long returnCode`
 
@@ -692,9 +871,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stdout`
 
-                  - `JsonValue; type "code_execution_result"constant`
-
-                    - `CODE_EXECUTION_RESULT("code_execution_result")`
+                  - `JsonValue type constant`
 
                 - `class EncryptedCodeExecutionResultBlockParam:`
 
@@ -704,7 +881,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue; type "code_execution_output"constant`
+                    - `JsonValue type constant`
 
                   - `String encryptedStdout`
 
@@ -712,15 +889,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stderr`
 
-                  - `JsonValue; type "encrypted_code_execution_result"constant`
-
-                    - `ENCRYPTED_CODE_EXECUTION_RESULT("encrypted_code_execution_result")`
+                  - `JsonValue type constant`
 
               - `String toolUseId`
 
-              - `JsonValue; type "code_execution_tool_result"constant`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `CODE_EXECUTION_TOOL_RESULT("code_execution_tool_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -744,9 +919,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `OUTPUT_FILE_TOO_LARGE("output_file_too_large")`
 
-                  - `JsonValue; type "bash_code_execution_tool_result_error"constant`
-
-                    - `BASH_CODE_EXECUTION_TOOL_RESULT_ERROR("bash_code_execution_tool_result_error")`
+                  - `JsonValue type constant`
 
                 - `class BashCodeExecutionResultBlockParam:`
 
@@ -754,9 +927,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String fileId`
 
-                    - `JsonValue; type "bash_code_execution_output"constant`
-
-                      - `BASH_CODE_EXECUTION_OUTPUT("bash_code_execution_output")`
+                    - `JsonValue type constant`
 
                   - `long returnCode`
 
@@ -764,15 +935,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `String stdout`
 
-                  - `JsonValue; type "bash_code_execution_result"constant`
-
-                    - `BASH_CODE_EXECUTION_RESULT("bash_code_execution_result")`
+                  - `JsonValue type constant`
 
               - `String toolUseId`
 
-              - `JsonValue; type "bash_code_execution_tool_result"constant`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `BASH_CODE_EXECUTION_TOOL_RESULT("bash_code_execution_tool_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -796,9 +965,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `FILE_NOT_FOUND("file_not_found")`
 
-                  - `JsonValue; type "text_editor_code_execution_tool_result_error"constant`
-
-                    - `TEXT_EDITOR_CODE_EXECUTION_TOOL_RESULT_ERROR("text_editor_code_execution_tool_result_error")`
+                  - `JsonValue type constant`
 
                   - `Optional<String> errorMessage`
 
@@ -814,9 +981,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `PDF("pdf")`
 
-                  - `JsonValue; type "text_editor_code_execution_view_result"constant`
-
-                    - `TEXT_EDITOR_CODE_EXECUTION_VIEW_RESULT("text_editor_code_execution_view_result")`
+                  - `JsonValue type constant`
 
                   - `Optional<Long> numLines`
 
@@ -828,15 +993,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `boolean isFileUpdate`
 
-                  - `JsonValue; type "text_editor_code_execution_create_result"constant`
-
-                    - `TEXT_EDITOR_CODE_EXECUTION_CREATE_RESULT("text_editor_code_execution_create_result")`
+                  - `JsonValue type constant`
 
                 - `class TextEditorCodeExecutionStrReplaceResultBlockParam:`
 
-                  - `JsonValue; type "text_editor_code_execution_str_replace_result"constant`
-
-                    - `TEXT_EDITOR_CODE_EXECUTION_STR_REPLACE_RESULT("text_editor_code_execution_str_replace_result")`
+                  - `JsonValue type constant`
 
                   - `Optional<List<String>> lines`
 
@@ -850,9 +1011,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String toolUseId`
 
-              - `JsonValue; type "text_editor_code_execution_tool_result"constant`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `TEXT_EDITOR_CODE_EXECUTION_TOOL_RESULT("text_editor_code_execution_tool_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -874,9 +1035,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `EXECUTION_TIME_EXCEEDED("execution_time_exceeded")`
 
-                  - `JsonValue; type "tool_search_tool_result_error"constant`
-
-                    - `TOOL_SEARCH_TOOL_RESULT_ERROR("tool_search_tool_result_error")`
+                  - `JsonValue type constant`
 
                   - `Optional<String> errorMessage`
 
@@ -886,21 +1045,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `String toolName`
 
-                    - `JsonValue; type "tool_reference"constant`
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
+                    - `JsonValue type constant`
 
                     - `Optional<CacheControlEphemeral> cacheControl`
 
                       Create a cache control breakpoint at this content block.
 
-                  - `JsonValue; type "tool_search_tool_search_result"constant`
-
-                    - `TOOL_SEARCH_TOOL_SEARCH_RESULT("tool_search_tool_search_result")`
+                  - `JsonValue type constant`
 
               - `String toolUseId`
 
-              - `JsonValue; type "tool_search_tool_result"constant`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `TOOL_SEARCH_TOOL_RESULT("tool_search_tool_result")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -913,38 +1072,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `String fileId`
 
-              - `JsonValue; type "container_upload"constant`
-
-                - `CONTAINER_UPLOAD("container_upload")`
-
-              - `Optional<CacheControlEphemeral> cacheControl`
-
-                Create a cache control breakpoint at this content block.
-
-            - `class MidConversationSystemBlockParam:`
-
-              System instructions that appear mid-conversation.
-
-              Use this block to provide or update system-level instructions at a specific
-              point in the conversation, rather than only via the top-level `system` parameter.
-
-              - `List<TextBlockParam> content`
-
-                System instruction text blocks.
-
-                - `String text`
-
-                - `JsonValue; type "text"constant`
-
-                - `Optional<CacheControlEphemeral> cacheControl`
-
-                  Create a cache control breakpoint at this content block.
-
-                - `Optional<List<TextCitationParam>> citations`
-
-              - `JsonValue; type "mid_conv_system"constant`
-
-                - `MID_CONV_SYSTEM("mid_conv_system")`
+              - `JsonValue type constant`
 
               - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -976,13 +1104,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Most capable model for cybersecurity and biology research
 
+        - `CLAUDE_OPUS_5("claude-opus-5")`
+
+          Powerful intelligence for long-running agents and coding
+
         - `CLAUDE_OPUS_4_8("claude-opus-4-8")`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `CLAUDE_OPUS_4_7("claude-opus-4-7")`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
 
@@ -990,7 +1122,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `CLAUDE_OPUS_4_6("claude-opus-4-6")`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `CLAUDE_SONNET_4_6("claude-sonnet-4-6")`
 
@@ -1006,11 +1138,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
 
@@ -1020,21 +1152,49 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           High-performance model for agents and coding
 
-        - `CLAUDE_OPUS_4_1("claude-opus-4-1")`
-
-          Exceptional model for specialized complex tasks
-
-        - `CLAUDE_OPUS_4_1_20250805("claude-opus-4-1-20250805")`
-
-          Exceptional model for specialized complex tasks
-
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-      - `Optional<String> container`
+      - `Optional<MessageCreateParamsContainer> container`
 
         Container identifier for reuse across requests.
+
+        - `class ContainerParams:`
+
+          Container parameters with skills to be loaded.
+
+          - `Optional<String> id`
+
+            Container id
+
+          - `Optional<List<SkillParams>> skills`
+
+            List of skills to load in the container
+
+            maxItems: 20
+
+            - `String skillId`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
+
+            - `Type type`
+
+              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+              - `ANTHROPIC("anthropic")`
+
+              - `CUSTOM("custom")`
+
+            - `Optional<String> version`
+
+              Skill version or 'latest' for most recent version
+
+              maxLength: 64, minLength: 1
+
+        - `String`
 
       - `Optional<String> inferenceGeo`
 
@@ -1049,6 +1209,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           An external identifier for the user who is associated with the request.
 
           This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+          maxLength: 512
 
       - `Optional<OutputConfig> outputConfig`
 
@@ -1076,9 +1238,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The JSON schema of the format
 
-          - `JsonValue; type "json_schema"constant`
-
-            - `JSON_SCHEMA("json_schema")`
+          - `JsonValue type constant`
 
       - `Optional<ServiceTier> serviceTier`
 
@@ -1116,21 +1276,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `String text`
 
-          - `JsonValue; type "text"constant`
+            minLength: 1
+
+          - `JsonValue type constant`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
 
           - `Optional<List<TextCitationParam>> citations`
-
-      - `Optional<Double> temperature`
-
-        Amount of randomness injected into the response.
-
-        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
       - `Optional<ThinkingConfigParam> thinking`
 
@@ -1150,9 +1304,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-          - `JsonValue; type "enabled"constant`
+            minimum: 1024
 
-            - `ENABLED("enabled")`
+          - `JsonValue type constant`
 
           - `Optional<Display> display`
 
@@ -1164,15 +1318,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ThinkingConfigDisabled:`
 
-          - `JsonValue; type "disabled"constant`
-
-            - `DISABLED("disabled")`
+          - `JsonValue type constant`
 
         - `class ThinkingConfigAdaptive:`
 
-          - `JsonValue; type "adaptive"constant`
-
-            - `ADAPTIVE("adaptive")`
+          - `JsonValue type constant`
 
           - `Optional<Display> display`
 
@@ -1190,9 +1340,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will automatically decide whether to use tools.
 
-          - `JsonValue; type "auto"constant`
-
-            - `AUTO("auto")`
+          - `JsonValue type constant`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -1204,9 +1352,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will use any available tools.
 
-          - `JsonValue; type "any"constant`
-
-            - `ANY("any")`
+          - `JsonValue type constant`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -1222,9 +1368,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The name of the tool to use.
 
-          - `JsonValue; type "tool"constant`
-
-            - `TOOL("tool")`
+          - `JsonValue type constant`
 
           - `Optional<Boolean> disableParallelToolUse`
 
@@ -1236,9 +1380,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The model will not be allowed to use tools.
 
-          - `JsonValue; type "none"constant`
-
-            - `NONE("none")`
+          - `JsonValue type constant`
 
       - `Optional<List<ToolUnion>> tools`
 
@@ -1312,9 +1454,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This defines the shape of the `input` that your tool accepts and that the model will produce.
 
-            - `JsonValue; type "object"constant`
-
-              - `OBJECT("object")`
+            - `JsonValue type constant`
 
             - `Optional<Properties> properties`
 
@@ -1325,6 +1465,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
+
+            maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1362,21 +1504,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Optional<Type> type`
 
-            - `CUSTOM("custom")`
-
         - `class ToolBash20250124:`
 
-          - `JsonValue; name "bash"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `BASH("bash")`
-
-          - `JsonValue; type "bash_20250124"constant`
-
-            - `BASH_20250124("bash_20250124")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1404,17 +1540,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class CodeExecutionTool20250522:`
 
-          - `JsonValue; name "code_execution"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `CODE_EXECUTION("code_execution")`
-
-          - `JsonValue; type "code_execution_20250522"constant`
-
-            - `CODE_EXECUTION_20250522("code_execution_20250522")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1440,17 +1572,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class CodeExecutionTool20250825:`
 
-          - `JsonValue; name "code_execution"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `CODE_EXECUTION("code_execution")`
-
-          - `JsonValue; type "code_execution_20250825"constant`
-
-            - `CODE_EXECUTION_20250825("code_execution_20250825")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1478,17 +1606,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-          - `JsonValue; name "code_execution"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `CODE_EXECUTION("code_execution")`
-
-          - `JsonValue; type "code_execution_20260120"constant`
-
-            - `CODE_EXECUTION_20260120("code_execution_20260120")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1516,17 +1640,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Code execution tool with REPL state persistence.
 
-          - `JsonValue; name "code_execution"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `CODE_EXECUTION("code_execution")`
-
-          - `JsonValue; type "code_execution_20260521"constant`
-
-            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1550,19 +1670,419 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+        - `class BrowserToolset20260801:`
+
+          The browser toolset: a single `tools[]` entry (carrying no
+          `name`) that declares the browser tool family. The model is served
+          the family's tool with any members disabled via `configs` removed
+          from its schema.
+
+          - `JsonValue type constant`
+
+          - `Optional<List<AllowedCaller>> allowedCallers`
+
+            - `DIRECT("direct")`
+
+            - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+            - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+          - `Optional<CacheControlEphemeral> cacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Optional<BrowserToolsetConfigs> configs`
+
+            Per-member configuration for `browser_toolset_20260801`: one
+            optional field per member tool, keyed by the member name — the same
+            name the member's `tool_use` blocks carry. Every member is an
+            accepted key, and a member's defaults apply wherever its key is
+            absent. Unknown keys are rejected: the field set is this toolset
+            version's complete member set.
+
+            - `Optional<BrowserCloseTabConfig> closeTab`
+
+              `close_tab`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserDoubleClickConfig> doubleClick`
+
+              `double_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserFileUploadConfig> fileUpload`
+
+              `file_upload`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserFindConfig> find`
+
+              `find`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserFormInputConfig> formInput`
+
+              `form_input`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserGetPageTextConfig> getPageText`
+
+              `get_page_text`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserHoldKeyConfig> holdKey`
+
+              `hold_key`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserHoverConfig> hover`
+
+              `hover`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserJavascriptExecConfig> javascriptExec`
+
+              `javascript_exec`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserKeyConfig> key`
+
+              `key`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserLeftClickConfig> leftClick`
+
+              `left_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserLeftClickDragConfig> leftClickDrag`
+
+              `left_click_drag`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserLeftMouseDownConfig> leftMouseDown`
+
+              `left_mouse_down`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserLeftMouseUpConfig> leftMouseUp`
+
+              `left_mouse_up`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserListTabsConfig> listTabs`
+
+              `list_tabs`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserMiddleClickConfig> middleClick`
+
+              `middle_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserMouseMoveConfig> mouseMove`
+
+              `mouse_move`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserNavigateConfig> navigate`
+
+              `navigate`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserNewTabConfig> newTab`
+
+              `new_tab`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserReadConsoleConfig> readConsole`
+
+              `read_console`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserReadNetworkConfig> readNetwork`
+
+              `read_network`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserReadPageConfig> readPage`
+
+              `read_page`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserRightClickConfig> rightClick`
+
+              `right_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserScreenshotConfig> screenshot`
+
+              `screenshot`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserScrollConfig> scroll`
+
+              `scroll`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserScrollToConfig> scrollTo`
+
+              `scroll_to`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserSwitchTabConfig> switchTab`
+
+              `switch_tab`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserTripleClickConfig> tripleClick`
+
+              `triple_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserTypeConfig> type`
+
+              `type`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserWaitConfig> wait`
+
+              `wait`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<BrowserZoomConfig> zoom`
+
+              `zoom`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
         - `class MemoryTool20250818:`
 
-          - `JsonValue; name "memory"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `MEMORY("memory")`
-
-          - `JsonValue; type "memory_20250818"constant`
-
-            - `MEMORY_20250818("memory_20250818")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1588,19 +2108,255 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+        - `class ComputerToolset20260801:`
+
+          The computer toolset: a single `tools[]` entry (carrying no
+          `name`) that declares the computer tool family. The model is
+          served the family's tool with any members disabled via `configs`
+          removed from its schema. Every member is enabled by default, zoom
+          included. The single-tool options `display_number` and
+          `enable_zoom` are not fields of a toolset entry — it carries only
+          `type`, `configs`, and `cache_control`; zoom is controlled
+          via `configs.zoom.enabled`.
+
+          - `JsonValue type constant`
+
+          - `Optional<List<AllowedCaller>> allowedCallers`
+
+            - `DIRECT("direct")`
+
+            - `CODE_EXECUTION_20250825("code_execution_20250825")`
+
+            - `CODE_EXECUTION_20260120("code_execution_20260120")`
+
+            - `CODE_EXECUTION_20260521("code_execution_20260521")`
+
+          - `Optional<CacheControlEphemeral> cacheControl`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Optional<ComputerToolsetConfigs> configs`
+
+            Per-member configuration for `computer_toolset_20260801`: one
+            optional field per member tool, keyed by the member name — the same
+            name the member's `tool_use` blocks carry. Every member is an
+            accepted key, and a member's defaults apply wherever its key is
+            absent. Unknown keys are rejected: the field set is this toolset
+            version's complete member set.
+
+            - `Optional<ComputerCursorPositionConfig> cursorPosition`
+
+              `cursor_position`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerDoubleClickConfig> doubleClick`
+
+              `double_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerHoldKeyConfig> holdKey`
+
+              `hold_key`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerKeyConfig> key`
+
+              `key`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerLeftClickConfig> leftClick`
+
+              `left_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerLeftClickDragConfig> leftClickDrag`
+
+              `left_click_drag`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerLeftMouseDownConfig> leftMouseDown`
+
+              `left_mouse_down`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerLeftMouseUpConfig> leftMouseUp`
+
+              `left_mouse_up`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerMiddleClickConfig> middleClick`
+
+              `middle_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerMouseMoveConfig> mouseMove`
+
+              `mouse_move`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerRightClickConfig> rightClick`
+
+              `right_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerScreenshotConfig> screenshot`
+
+              `screenshot`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerScrollConfig> scroll`
+
+              `scroll`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerTripleClickConfig> tripleClick`
+
+              `triple_click`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerTypeConfig> type`
+
+              `type`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerWaitConfig> wait`
+
+              `wait`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Optional<ComputerZoomConfig> zoom`
+
+              `zoom`'s config overrides.
+
+              - `Optional<Boolean> deferLoading`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Optional<Boolean> enabled`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
         - `class ToolTextEditor20250124:`
 
-          - `JsonValue; name "str_replace_editor"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `STR_REPLACE_EDITOR("str_replace_editor")`
-
-          - `JsonValue; type "text_editor_20250124"constant`
-
-            - `TEXT_EDITOR_20250124("text_editor_20250124")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1628,17 +2384,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolTextEditor20250429:`
 
-          - `JsonValue; name "str_replace_based_edit_tool"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `STR_REPLACE_BASED_EDIT_TOOL("str_replace_based_edit_tool")`
-
-          - `JsonValue; type "text_editor_20250429"constant`
-
-            - `TEXT_EDITOR_20250429("text_editor_20250429")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1666,17 +2418,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolTextEditor20250728:`
 
-          - `JsonValue; name "str_replace_based_edit_tool"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `STR_REPLACE_BASED_EDIT_TOOL("str_replace_based_edit_tool")`
-
-          - `JsonValue; type "text_editor_20250728"constant`
-
-            - `TEXT_EDITOR_20250728("text_editor_20250728")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1702,23 +2450,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+            minimum: 1
+
           - `Optional<Boolean> strict`
 
             When true, guarantees schema validation on tool names and inputs
 
         - `class WebSearchTool20250305:`
 
-          - `JsonValue; name "web_search"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `WEB_SEARCH("web_search")`
-
-          - `JsonValue; type "web_search_20250305"constant`
-
-            - `WEB_SEARCH_20250305("web_search_20250305")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1750,6 +2496,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of times the tool can be used in the API request.
 
+            exclusiveMinimum: 0
+
           - `Optional<Boolean> strict`
 
             When true, guarantees schema validation on tool names and inputs
@@ -1758,39 +2506,41 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Parameters for the user's location. Used to provide more relevant search results.
 
-            - `JsonValue; type "approximate"constant`
-
-              - `APPROXIMATE("approximate")`
+            - `JsonValue type constant`
 
             - `Optional<String> city`
 
               The city of the user.
 
+              maxLength: 255, minLength: 1
+
             - `Optional<String> country`
 
               The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+              maxLength: 2, minLength: 2
 
             - `Optional<String> region`
 
               The region of the user.
 
+              maxLength: 255, minLength: 1
+
             - `Optional<String> timezone`
 
               The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
+              maxLength: 255, minLength: 1
+
         - `class WebFetchTool20250910:`
 
-          - `JsonValue; name "web_fetch"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `WEB_FETCH("web_fetch")`
-
-          - `JsonValue; type "web_fetch_20250910"constant`
-
-            - `WEB_FETCH_20250910("web_fetch_20250910")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1826,9 +2576,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `Optional<Long> maxUses`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `Optional<Boolean> strict`
 
@@ -1836,17 +2590,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebSearchTool20260209:`
 
-          - `JsonValue; name "web_search"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `WEB_SEARCH("web_search")`
-
-          - `JsonValue; type "web_search_20260209"constant`
-
-            - `WEB_SEARCH_20260209("web_search_20260209")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1877,6 +2627,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `Optional<Long> maxUses`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `Optional<Boolean> strict`
 
@@ -1888,17 +2640,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebFetchTool20260209:`
 
-          - `JsonValue; name "web_fetch"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `WEB_FETCH("web_fetch")`
-
-          - `JsonValue; type "web_fetch_20260209"constant`
-
-            - `WEB_FETCH_20260209("web_fetch_20260209")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1934,9 +2682,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `Optional<Long> maxUses`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `Optional<Boolean> strict`
 
@@ -1946,17 +2698,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Web fetch tool with use_cache parameter for bypassing cached content.
 
-          - `JsonValue; name "web_fetch"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `WEB_FETCH("web_fetch")`
-
-          - `JsonValue; type "web_fetch_20260309"constant`
-
-            - `WEB_FETCH_20260309("web_fetch_20260309")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -1992,9 +2740,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `Optional<Long> maxUses`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `Optional<Boolean> strict`
 
@@ -2006,17 +2758,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebSearchTool20260318:`
 
-          - `JsonValue; name "web_search"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `WEB_SEARCH("web_search")`
-
-          - `JsonValue; type "web_search_20260318"constant`
-
-            - `WEB_SEARCH_20260318("web_search_20260318")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2047,6 +2795,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `Optional<Long> maxUses`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `Optional<ResponseInclusion> responseInclusion`
 
@@ -2066,17 +2816,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class WebFetchTool20260318:`
 
-          - `JsonValue; name "web_fetch"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `WEB_FETCH("web_fetch")`
-
-          - `JsonValue; type "web_fetch_20260318"constant`
-
-            - `WEB_FETCH_20260318("web_fetch_20260318")`
+          - `JsonValue type constant`
 
           - `Optional<List<AllowedCaller>> allowedCallers`
 
@@ -2112,9 +2858,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `Optional<Long> maxUses`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `Optional<ResponseInclusion> responseInclusion`
 
@@ -2134,13 +2884,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolSearchToolBm25_20251119:`
 
-          - `JsonValue; name "tool_search_tool_bm25"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-            - `TOOL_SEARCH_TOOL_BM25("tool_search_tool_bm25")`
 
           - `Type type`
 
@@ -2172,13 +2920,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `class ToolSearchToolRegex20251119:`
 
-          - `JsonValue; name "tool_search_tool_regex"constant`
+          - `JsonValue name constant`
 
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-            - `TOOL_SEARCH_TOOL_REGEX("tool_search_tool_regex")`
 
           - `Type type`
 
@@ -2208,7 +2954,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+      - `Optional<Double> temperature`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+        Amount of randomness injected into the response.
+
+        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+        maximum: 1, minimum: 0
+
       - `Optional<Long> topK`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
         Only sample from the top K options for each subsequent token.
 
@@ -2216,7 +2976,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Recommended for advanced use cases only.
 
+        minimum: 0
+
       - `Optional<Double> topP`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
         Use nucleus sampling.
 
@@ -2224,7 +2988,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Recommended for advanced use cases only.
 
-### Returns
+        maximum: 1, minimum: 0
+
+## Returns
 
 - `class MessageBatch:`
 
@@ -2238,13 +3004,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `Optional<LocalDateTime> cancelInitiatedAt`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `Optional<LocalDateTime> endedAt`
 
@@ -2252,9 +3024,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `LocalDateTime expiresAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `ProcessingStatus processingStatus`
 
@@ -2306,15 +3082,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue; type "message_batch"constant`
+  - `JsonValue type constant`
 
     Object type.
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `MESSAGE_BATCH("message_batch")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -2337,7 +3111,7 @@ public final class Main {
                 .params(BatchCreateParams.Request.Params.builder()
                     .maxTokens(1024L)
                     .addUserMessage("Hello, world")
-                    .model(Model.CLAUDE_OPUS_4_6)
+                    .model(Model.CLAUDE_OPUS_5)
                     .build())
                 .build())
             .build();
@@ -2346,7 +3120,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

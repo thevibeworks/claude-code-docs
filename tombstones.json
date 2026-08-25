@@ -1,0 +1,755 @@
+{
+  "version": 1,
+  "note": "URLs confirmed gone upstream. Kept so a page that died once does not report as a fresh failure on every later run, which would bury the failure that is actually new. An entry clears itself if the URL answers again -- but only while something still probes it. Entries whose local file was removed are no longer fetched, so they stay as a record of the restructure rather than a live check.",
+  "updated": "2026-08-25",
+  "urls": {
+    "https://code.claude.com/docs/en/sdk/migration-guide": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://modelcontextprotocol.io/community/auth/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/interest-groups/auth"
+    },
+    "https://modelcontextprotocol.io/community/file-uploads/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/file-uploads"
+    },
+    "https://modelcontextprotocol.io/community/inspector-v2/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/inspector-v2"
+    },
+    "https://modelcontextprotocol.io/community/interceptors/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/interceptors"
+    },
+    "https://modelcontextprotocol.io/community/registry/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/registry"
+    },
+    "https://modelcontextprotocol.io/community/sdk/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/sdk"
+    },
+    "https://modelcontextprotocol.io/community/server-card/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/server-card"
+    },
+    "https://modelcontextprotocol.io/community/skills-over-mcp/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/skills-over-mcp"
+    },
+    "https://modelcontextprotocol.io/community/tool-annotations/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/interest-groups/tool-annotations"
+    },
+    "https://modelcontextprotocol.io/community/triggers-events/charter": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/community/working-groups/triggers-events"
+    },
+    "https://modelcontextprotocol.io/docs/develop/build-client": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/develop/build-client"
+    },
+    "https://modelcontextprotocol.io/docs/develop/build-server": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/develop/build-server"
+    },
+    "https://modelcontextprotocol.io/docs/develop/build-with-agent-skills": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/develop/build-with-agent-skills"
+    },
+    "https://modelcontextprotocol.io/docs/develop/clients/client-best-practices": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/develop/clients/client-best-practices"
+    },
+    "https://modelcontextprotocol.io/docs/develop/connect-local-servers": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/develop/connect-local-servers"
+    },
+    "https://modelcontextprotocol.io/docs/develop/connect-remote-servers": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/develop/connect-remote-servers"
+    },
+    "https://modelcontextprotocol.io/docs/getting-started/intro": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/getting-started/intro"
+    },
+    "https://modelcontextprotocol.io/docs/learn/architecture": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/learn/architecture"
+    },
+    "https://modelcontextprotocol.io/docs/learn/client-concepts": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/learn/client-concepts"
+    },
+    "https://modelcontextprotocol.io/docs/learn/server-concepts": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/learn/server-concepts"
+    },
+    "https://modelcontextprotocol.io/docs/learn/versioning": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/learn/versioning"
+    },
+    "https://modelcontextprotocol.io/docs/sdk": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/sdk"
+    },
+    "https://modelcontextprotocol.io/docs/tools/debugging": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/tools/debugging"
+    },
+    "https://modelcontextprotocol.io/docs/tools/inspector": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/tools/inspector"
+    },
+    "https://modelcontextprotocol.io/docs/tutorials/security/authorization": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/authorization"
+    },
+    "https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices"
+    },
+    "https://modelcontextprotocol.io/specification/draft/basic/lifecycle": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/specification/draft/basic/versioning"
+    },
+    "https://modelcontextprotocol.io/specification/draft/basic/utilities/cancellation": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/specification/draft/basic/patterns/cancellation"
+    },
+    "https://modelcontextprotocol.io/specification/draft/basic/utilities/mrtr": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://modelcontextprotocol.io/specification/draft/basic/utilities/progress": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://modelcontextprotocol.io/specification/draft/basic/patterns/progress"
+    },
+    "https://modelcontextprotocol.io/specification/draft/basic/utilities/subscriptions": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/migrating-to-claude-4": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/about-claude/models/migration-guide"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/overview": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/overview"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-5": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/overview"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-6": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-8": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5"
+    },
+    "https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5"
+    },
+    "https://platform.claude.com/docs/en/about-claude/use-case-guides/classification": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/agent-sdk/stop-reasons": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/agents-and-tools/claude-for-sheets": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools"
+    },
+    "https://platform.claude.com/docs/en/api/cli/beta/webhooks/unwrap": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/client-sdks": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/overview"
+    },
+    "https://platform.claude.com/docs/en/api/compliance/apps/artifacts/content": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/compliance/apps/artifacts/download"
+    },
+    "https://platform.claude.com/docs/en/api/compliance/apps/chats/files/content": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/compliance/apps/chats/files/download"
+    },
+    "https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/content": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/download"
+    },
+    "https://platform.claude.com/docs/en/api/csharp/beta/webhooks/unwrap": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/csharp/completions/create": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/java/beta/webhooks/unwrap": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/openai-sdk": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk"
+    },
+    "https://platform.claude.com/docs/en/api/php/completions/create": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/python/completions/create": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/cli": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/csharp": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/go": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/go"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/java": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/java"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/php": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/php"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/python": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/python"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/ruby": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/ruby"
+    },
+    "https://platform.claude.com/docs/en/api/sdks/typescript": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/administration-api": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/admin-api"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/api-and-data-retention": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/claude-code-analytics-api": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/claude-code-analytics-api"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock-research-preview": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/data-residency": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/data-residency"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/be-clear-and-direct": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/chain-of-thought": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/chain-prompts": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/extended-thinking-tips": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/long-context-tips": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/multishot-prompting": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prefill-claudes-response": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-generator": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-improver": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-templates-and-variables": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-tools": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/system-prompts": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/use-xml-tags": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/rate-limits-api": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/rate-limits-api"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/usage-cost-api": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/usage-cost-api"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/workspaces": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/workspaces"
+    },
+    "https://platform.claude.com/docs/en/build-with-claude/zero-data-retention": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/api-and-data-retention"
+    },
+    "https://platform.claude.com/docs/en/manage-claude/overview": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/manage-claude/admin-api"
+    },
+    "https://platform.claude.com/docs/en/managed-agents/cloud-containers": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/managed-agents/cloud-sandboxes-reference"
+    },
+    "https://platform.claude.com/docs/en/managed-agents/multi-agent": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/managed-agents/multiagent-orchestration"
+    },
+    "https://platform.claude.com/docs/en/managed-agents/observability": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/managed-agents/events-and-streaming"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/adaptive-editor": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/airport-code-analyst": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/alien-anthropologist": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/alliteration-alchemist": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/babels-broadcasts": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/brand-builder": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/career-coach": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/cite-your-sources": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/code-clarifier": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/code-consultant": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/corporate-clairvoyant": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/csv-converter": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/culinary-creator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/data-organizer": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/direction-decoder": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/dream-interpreter": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/efficiency-estimator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/email-extractor": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/emoji-encoder": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/ethical-dilemma-navigator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/excel-formula-expert": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/function-fabricator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/futuristic-fashion-advisor": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/git-gud": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/google-apps-scripter": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/grading-guru": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/grammar-genie": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/hal-the-humorous-helper": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/idiom-illuminator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/interview-question-crafter": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/latex-legend": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/lesson-planner": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/library": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/master-moderator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/meeting-scribe": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/memo-maestro": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/mindfulness-mentor": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/mood-colorizer": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/motivational-muse": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/neologism-creator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/perspectives-ponderer": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/philosophical-musings": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/pii-purifier": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/polyglot-superpowers": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/portmanteau-poet": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/product-naming-pro": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/prose-polisher": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/pun-dit": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/python-bug-buster": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/review-classifier": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/riddle-me-this": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/sci-fi-scenario-simulator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/second-grade-simplifier": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/simile-savant": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/socratic-sage": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/spreadsheet-sorcerer": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/sql-sorcerer": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/storytelling-sidekick": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/time-travel-consultant": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/tongue-twister": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/trivia-generator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/tweet-tone-detector": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/resources/prompt-library/vr-fitness-innovator": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://platform.claude.com/docs/en/test-and-evaluate/define-success": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/test-and-evaluate/develop-tests"
+    },
+    "https://platform.claude.com/docs/en/test-and-evaluate/eval-tool": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/test-and-evaluate/develop-tests"
+    },
+    "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/keep-claude-in-character": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/increase-consistency"
+    },
+    "https://support.claude.com/en/articles/10366473-where-can-i-find-full-receipts-and-invoices-for-my-claude-api-and-console-payments": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/10684638-reporting-blocking-and-removing-content-from-claude": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/10684638-report-block-and-remove-content-from-claude"
+    },
+    "https://support.claude.com/en/articles/10722177-sharing-prompts-in-the-claude-console": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/11503834-build-custom-connectors-via-remote-mcp-servers": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/12386328-requesting-a-refund-for-a-paid-claude-plan": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/12386328-request-a-refund-for-a-paid-claude-plan"
+    },
+    "https://support.claude.com/en/articles/12650343-use-claude-for-excel": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/12922490-remote-mcp-server-submission-guide": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/12922832-local-mcp-server-submission-guide": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/12922929-building-desktop-extensions-with-mcpb": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/13371040-logging-in-to-your-console-account": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/13371040-log-in-to-your-console-account"
+    },
+    "https://support.claude.com/en/articles/13521390-use-claude-for-powerpoint": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/13851150-install-financial-services-plugins": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/13892150-work-across-microsoft-365-apps": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/13945233-use-claude-for-microsoft-365-with-third-party-platforms": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/14465370-use-claude-for-word": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/14479288-claude-cowork-desktop-architecture-overview": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/14479288-claude-cowork-architecture-overview"
+    },
+    "https://support.claude.com/en/articles/14479591-use-dictation-in-office-agents": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/14855664-use-claude-for-outlook": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/7996906-report-block-and-remove-content-from-claude"
+    },
+    "https://support.claude.com/en/articles/8114526-how-will-i-be-billed-for-claude-api-use": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/8230524-how-can-i-delete-or-rename-a-conversation": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/8230524-delete-or-rename-a-conversation"
+    },
+    "https://support.claude.com/en/articles/8606378-how-do-i-use-the-workbench": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/8606378-how-do-i-use-the-playground"
+    },
+    "https://support.claude.com/en/articles/8606395-how-large-is-the-claude-api-s-context-window": {
+      "since": "2026-08-25",
+      "reason": "soft-404 (HTML shell)"
+    },
+    "https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/9028421-delete-your-claude-account"
+    },
+    "https://support.claude.com/en/articles/9264804-how-can-i-cancel-my-claude-pro-subscription-on-the-claude-app-for-ios": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    },
+    "https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/9450526-export-your-claude-data"
+    },
+    "https://support.claude.com/en/articles/9547008-publishing-and-sharing-artifacts": {
+      "since": "2026-08-25",
+      "reason": "moved -> https://support.claude.com/en/articles/9547008-publish-and-share-artifacts"
+    },
+    "https://support.claude.com/en/articles/9612889-how-can-i-uninstall-claude-for-android": {
+      "since": "2026-08-25",
+      "reason": "HTTP 404"
+    }
+  }
+}

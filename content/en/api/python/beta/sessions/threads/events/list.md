@@ -1,12 +1,12 @@
-## List Session Thread Events
+# List Session Thread Events
 
-`beta.sessions.threads.events.list(strthread_id, EventListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
+`beta.sessions.threads.events.list(thread_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionEvent]`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/events`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
 List Session Thread Events
 
-### Parameters
+## Parameters
 
 - `session_id: str`
 
@@ -15,6 +15,8 @@ List Session Thread Events
 - `limit: Optional[int]`
 
   Query parameter for limit
+
+  format: int32
 
 - `page: Optional[str]`
 
@@ -26,7 +28,7 @@ List Session Thread Events
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -72,21 +74,31 @@ List Session Thread Events
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `BetaManagedAgentsSessionEvent`
 
@@ -112,9 +124,9 @@ List Session Thread Events
 
           The text content.
 
-        - `type: Literal["text"]`
+          minLength: 1
 
-          - `"text"`
+        - `type: Literal["text"]`
 
       - `class BetaManagedAgentsImageBlock: …`
 
@@ -132,13 +144,15 @@ List Session Thread Events
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: str`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: Literal["base64"]`
+              minLength: 1
 
-              - `"base64"`
+            - `type: Literal["base64"]`
 
           - `class BetaManagedAgentsURLImageSource: …`
 
@@ -146,11 +160,11 @@ List Session Thread Events
 
             - `type: Literal["url"]`
 
-              - `"url"`
-
             - `url: str`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileImageSource: …`
 
@@ -160,13 +174,11 @@ List Session Thread Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: Literal["file"]`
 
-              - `"file"`
-
         - `type: Literal["image"]`
-
-          - `"image"`
 
       - `class BetaManagedAgentsDocumentBlock: …`
 
@@ -184,13 +196,15 @@ List Session Thread Events
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: str`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: Literal["base64"]`
+              minLength: 1
 
-              - `"base64"`
+            - `type: Literal["base64"]`
 
           - `class BetaManagedAgentsPlainTextDocumentSource: …`
 
@@ -200,15 +214,13 @@ List Session Thread Events
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: Literal["text/plain"]`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `"text/plain"`
-
             - `type: Literal["text"]`
-
-              - `"text"`
 
           - `class BetaManagedAgentsURLDocumentSource: …`
 
@@ -216,11 +228,11 @@ List Session Thread Events
 
             - `type: Literal["url"]`
 
-              - `"url"`
-
             - `url: str`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileDocumentSource: …`
 
@@ -230,13 +242,11 @@ List Session Thread Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: Literal["file"]`
 
-              - `"file"`
-
         - `type: Literal["document"]`
-
-          - `"document"`
 
         - `context: Optional[str]`
 
@@ -246,13 +256,19 @@ List Session Thread Events
 
           The title of the document.
 
-    - `type: Literal["user.message"]`
+      - `class BetaManagedAgentsRedactedBlock: …`
 
-      - `"user.message"`
+        Placeholder for content withheld by Anthropic model policy.
+
+        - `type: Literal["redacted"]`
+
+    - `type: Literal["user.message"]`
 
     - `processed_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsUserInterruptEvent: …`
 
@@ -264,11 +280,11 @@ List Session Thread Events
 
     - `type: Literal["user.interrupt"]`
 
-      - `"user.interrupt"`
-
     - `processed_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: Optional[str]`
 
@@ -296,15 +312,17 @@ List Session Thread Events
 
     - `type: Literal["user.tool_confirmation"]`
 
-      - `"user.tool_confirmation"`
-
     - `deny_message: Optional[str]`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: Optional[str]`
 
@@ -323,8 +341,6 @@ List Session Thread Events
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: Literal["user.custom_tool_result"]`
-
-      - `"user.custom_tool_result"`
 
     - `content: Optional[List[Content]]`
 
@@ -362,21 +378,23 @@ List Session Thread Events
 
             The text content.
 
-          - `type: Literal["text"]`
+            minLength: 1
 
-            - `"text"`
+          - `type: Literal["text"]`
 
         - `source: str`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: str`
 
           The title of the search result.
 
-        - `type: Literal["search_result"]`
+          minLength: 1
 
-          - `"search_result"`
+        - `type: Literal["search_result"]`
 
     - `is_error: Optional[bool]`
 
@@ -385,6 +403,8 @@ List Session Thread Events
     - `processed_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: Optional[str]`
 
@@ -410,9 +430,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.custom_tool_use"]`
+      format: date-time
 
-      - `"agent.custom_tool_use"`
+    - `type: Literal["agent.custom_tool_use"]`
 
     - `session_thread_id: Optional[str]`
 
@@ -426,23 +446,25 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `content: List[BetaManagedAgentsTextBlock]`
+    - `content: List[Content]`
 
       Array of text blocks comprising the agent response.
 
-      - `text: str`
+      - `class BetaManagedAgentsTextBlock: …`
 
-        The text content.
+        Regular text content.
 
-      - `type: Literal["text"]`
+      - `class BetaManagedAgentsRedactedBlock: …`
+
+        Placeholder for content withheld by Anthropic model policy.
 
     - `processed_at: datetime`
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.message"]`
+      format: date-time
 
-      - `"agent.message"`
+    - `type: Literal["agent.message"]`
 
   - `class BetaManagedAgentsAgentThinkingEvent: …`
 
@@ -456,9 +478,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.thinking"]`
+      format: date-time
 
-      - `"agent.thinking"`
+    - `type: Literal["agent.thinking"]`
 
   - `class BetaManagedAgentsAgentMCPToolUseEvent: …`
 
@@ -484,9 +506,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.mcp_tool_use"]`
+      format: date-time
 
-      - `"agent.mcp_tool_use"`
+    - `type: Literal["agent.mcp_tool_use"]`
 
     - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
 
@@ -518,9 +540,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.mcp_tool_result"]`
+      format: date-time
 
-      - `"agent.mcp_tool_result"`
+    - `type: Literal["agent.mcp_tool_result"]`
 
     - `content: Optional[List[Content]]`
 
@@ -566,9 +588,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.tool_use"]`
+      format: date-time
 
-      - `"agent.tool_use"`
+    - `type: Literal["agent.tool_use"]`
 
     - `evaluated_permission: Optional[Literal["allow", "ask", "deny"]]`
 
@@ -596,13 +618,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: str`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: Literal["agent.tool_result"]`
-
-      - `"agent.tool_result"`
 
     - `content: Optional[List[Content]]`
 
@@ -652,6 +674,10 @@ List Session Thread Events
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock: …`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `from_session_thread_id: str`
 
       Public `sthr_` ID of the thread that sent the message.
@@ -660,9 +686,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.thread_message_received"]`
+      format: date-time
 
-      - `"agent.thread_message_received"`
+    - `type: Literal["agent.thread_message_received"]`
 
     - `from_agent_name: Optional[str]`
 
@@ -692,17 +718,21 @@ List Session Thread Events
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock: …`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `processed_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `to_session_thread_id: str`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: Literal["agent.thread_message_sent"]`
-
-      - `"agent.thread_message_sent"`
 
     - `to_agent_name: Optional[str]`
 
@@ -720,9 +750,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["agent.thread_context_compacted"]`
+      format: date-time
 
-      - `"agent.thread_context_compacted"`
+    - `type: Literal["agent.thread_context_compacted"]`
 
   - `class BetaManagedAgentsSessionErrorEvent: …`
 
@@ -754,15 +784,11 @@ List Session Thread Events
 
             - `type: Literal["retrying"]`
 
-              - `"retrying"`
-
           - `class BetaManagedAgentsRetryStatusExhausted: …`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: Literal["exhausted"]`
-
-              - `"exhausted"`
 
           - `class BetaManagedAgentsRetryStatusTerminal: …`
 
@@ -770,11 +796,7 @@ List Session Thread Events
 
             - `type: Literal["terminal"]`
 
-              - `"terminal"`
-
         - `type: Literal["unknown_error"]`
-
-          - `"unknown_error"`
 
       - `class BetaManagedAgentsModelOverloadedError: …`
 
@@ -802,8 +824,6 @@ List Session Thread Events
 
         - `type: Literal["model_overloaded_error"]`
 
-          - `"model_overloaded_error"`
-
       - `class BetaManagedAgentsModelRateLimitedError: …`
 
         The model request was rate-limited.
@@ -830,8 +850,6 @@ List Session Thread Events
 
         - `type: Literal["model_rate_limited_error"]`
 
-          - `"model_rate_limited_error"`
-
       - `class BetaManagedAgentsModelRequestFailedError: …`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -857,8 +875,6 @@ List Session Thread Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: Literal["model_request_failed_error"]`
-
-          - `"model_request_failed_error"`
 
       - `class BetaManagedAgentsMCPConnectionFailedError: …`
 
@@ -890,8 +906,6 @@ List Session Thread Events
 
         - `type: Literal["mcp_connection_failed_error"]`
 
-          - `"mcp_connection_failed_error"`
-
       - `class BetaManagedAgentsMCPAuthenticationFailedError: …`
 
         Authentication to an MCP server failed.
@@ -922,8 +936,6 @@ List Session Thread Events
 
         - `type: Literal["mcp_authentication_failed_error"]`
 
-          - `"mcp_authentication_failed_error"`
-
       - `class BetaManagedAgentsBillingError: …`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -949,8 +961,6 @@ List Session Thread Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: Literal["billing_error"]`
-
-          - `"billing_error"`
 
       - `class BetaManagedAgentsCredentialHostUnreachableError: …`
 
@@ -982,8 +992,6 @@ List Session Thread Events
 
         - `type: Literal["credential_host_unreachable_error"]`
 
-          - `"credential_host_unreachable_error"`
-
         - `vault_id: str`
 
           ID of the vault containing the affected credential.
@@ -992,9 +1000,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["session.error"]`
+      format: date-time
 
-      - `"session.error"`
+    - `type: Literal["session.error"]`
 
   - `class BetaManagedAgentsSessionStatusRescheduledEvent: …`
 
@@ -1008,9 +1016,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["session.status_rescheduled"]`
+      format: date-time
 
-      - `"session.status_rescheduled"`
+    - `type: Literal["session.status_rescheduled"]`
 
   - `class BetaManagedAgentsSessionStatusRunningEvent: …`
 
@@ -1024,9 +1032,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["session.status_running"]`
+      format: date-time
 
-      - `"session.status_running"`
+    - `type: Literal["session.status_running"]`
 
   - `class BetaManagedAgentsSessionStatusIdleEvent: …`
 
@@ -1040,6 +1048,8 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `stop_reason: StopReason`
 
       The agent completed its turn naturally and is ready for the next user message.
@@ -1049,8 +1059,6 @@ List Session Thread Events
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: Literal["end_turn"]`
-
-          - `"end_turn"`
 
       - `class BetaManagedAgentsSessionRequiresAction: …`
 
@@ -1062,19 +1070,19 @@ List Session Thread Events
 
         - `type: Literal["requires_action"]`
 
-          - `"requires_action"`
-
       - `class BetaManagedAgentsSessionRetriesExhausted: …`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: Literal["retries_exhausted"]`
 
-          - `"retries_exhausted"`
+      - `class BetaManagedAgentsSessionBudgetReached: …`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+        - `type: Literal["budget_reached"]`
 
     - `type: Literal["session.status_idle"]`
-
-      - `"session.status_idle"`
 
   - `class BetaManagedAgentsSessionStatusTerminatedEvent: …`
 
@@ -1088,9 +1096,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["session.status_terminated"]`
+      format: date-time
 
-      - `"session.status_terminated"`
+    - `type: Literal["session.status_terminated"]`
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent: …`
 
@@ -1108,13 +1116,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: str`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: Literal["session.thread_created"]`
-
-      - `"session.thread_created"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent: …`
 
@@ -1128,6 +1136,8 @@ List Session Thread Events
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: str`
 
       The `outc_` ID of the outcome being evaluated.
@@ -1136,9 +1146,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["span.outcome_evaluation_start"]`
+      format: date-time
 
-      - `"span.outcome_evaluation_start"`
+    - `type: Literal["span.outcome_evaluation_start"]`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent: …`
 
@@ -1156,6 +1166,8 @@ List Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: str`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -1168,13 +1180,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: str`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: Literal["span.outcome_evaluation_end"]`
-
-      - `"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -1184,17 +1196,25 @@ List Session Thread Events
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: int`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: int`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: int`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed: Optional[Literal["standard", "fast"]]`
 
@@ -1216,9 +1236,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["span.model_request_start"]`
+      format: date-time
 
-      - `"span.model_request_start"`
+    - `type: Literal["span.model_request_start"]`
 
   - `class BetaManagedAgentsSpanModelRequestEndEvent: …`
 
@@ -1244,9 +1264,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["span.model_request_end"]`
+      format: date-time
 
-      - `"span.model_request_end"`
+    - `type: Literal["span.model_request_end"]`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent: …`
 
@@ -1260,6 +1280,8 @@ List Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: str`
 
       The `outc_` ID of the outcome being evaluated.
@@ -1268,9 +1290,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["span.outcome_evaluation_ongoing"]`
+      format: date-time
 
-      - `"span.outcome_evaluation_ongoing"`
+    - `type: Literal["span.outcome_evaluation_ongoing"]`
 
   - `class BetaManagedAgentsUserDefineOutcomeEvent: …`
 
@@ -1288,6 +1310,8 @@ List Session Thread Events
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: str`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -1295,6 +1319,8 @@ List Session Thread Events
     - `processed_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: Rubric`
 
@@ -1310,8 +1336,6 @@ List Session Thread Events
 
         - `type: Literal["file"]`
 
-          - `"file"`
-
       - `class BetaManagedAgentsTextRubric: …`
 
         Rubric content provided inline as text.
@@ -1322,11 +1346,7 @@ List Session Thread Events
 
         - `type: Literal["text"]`
 
-          - `"text"`
-
     - `type: Literal["user.define_outcome"]`
-
-      - `"user.define_outcome"`
 
   - `class BetaManagedAgentsSessionDeletedEvent: …`
 
@@ -1340,9 +1360,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["session.deleted"]`
+      format: date-time
 
-      - `"session.deleted"`
+    - `type: Literal["session.deleted"]`
 
   - `class BetaManagedAgentsSessionThreadStatusRunningEvent: …`
 
@@ -1360,13 +1380,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: str`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: Literal["session.thread_status_running"]`
-
-      - `"session.thread_status_running"`
 
   - `class BetaManagedAgentsSessionThreadStatusIdleEvent: …`
 
@@ -1383,6 +1403,8 @@ List Session Thread Events
     - `processed_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: str`
 
@@ -1402,11 +1424,13 @@ List Session Thread Events
 
       - `class BetaManagedAgentsSessionRetriesExhausted: …`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
+
+      - `class BetaManagedAgentsSessionBudgetReached: …`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
     - `type: Literal["session.thread_status_idle"]`
-
-      - `"session.thread_status_idle"`
 
   - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent: …`
 
@@ -1424,13 +1448,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: str`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: Literal["session.thread_status_terminated"]`
-
-      - `"session.thread_status_terminated"`
 
   - `class BetaManagedAgentsUserToolResultEvent: …`
 
@@ -1445,8 +1469,6 @@ List Session Thread Events
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: Literal["user.tool_result"]`
-
-      - `"user.tool_result"`
 
     - `content: Optional[List[Content]]`
 
@@ -1476,6 +1498,8 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: Optional[str]`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -1496,13 +1520,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: str`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: Literal["session.thread_status_rescheduled"]`
-
-      - `"session.thread_status_rescheduled"`
 
   - `class BetaManagedAgentsSessionUpdatedEvent: …`
 
@@ -1516,9 +1540,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: Literal["session.updated"]`
+      format: date-time
 
-      - `"session.updated"`
+    - `type: Literal["session.updated"]`
 
     - `agent: Optional[BetaManagedAgentsSessionAgent]`
 
@@ -1534,8 +1558,6 @@ List Session Thread Events
 
         - `type: Literal["url"]`
 
-          - `"url"`
-
         - `url: str`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -1548,7 +1570,7 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-5", 10 more]`
 
             The model that will power your agent.
 
@@ -1556,14 +1578,15 @@ List Session Thread Events
 
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
-            - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-            - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
-            - `claude-opus-4-6` - Most intelligent model for building agents and coding
+            - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-6` - Best combination of speed and intelligence
             - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
             - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-            - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-            - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+            - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
 
@@ -1575,17 +1598,21 @@ List Session Thread Events
 
               Next generation of intelligence for the hardest knowledge work and coding problems
 
+            - `"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-6"`
 
-              Most intelligent model for building agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-6"`
 
@@ -1601,11 +1628,11 @@ List Session Thread Events
 
             - `"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-5"`
 
@@ -1616,6 +1643,44 @@ List Session Thread Events
               High-performance model for agents and coding
 
           - `str`
+
+        - `effort: Optional[Effort]`
+
+          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+          - `class BetaManagedAgentsEffortLow: …`
+
+            Low effort. Favors latency over reasoning depth.
+
+            - `type: Literal["low"]`
+
+          - `class BetaManagedAgentsEffortMedium: …`
+
+            Medium effort. Balances latency and reasoning depth.
+
+            - `type: Literal["medium"]`
+
+          - `class BetaManagedAgentsEffortHigh: …`
+
+            High effort. Favors reasoning depth.
+
+            - `type: Literal["high"]`
+
+          - `class BetaManagedAgentsEffortXhigh: …`
+
+            Extra-high effort. Not all models accept this level.
+
+            - `type: Literal["xhigh"]`
+
+          - `class BetaManagedAgentsEffortMax: …`
+
+            Maximum effort. Favors reasoning depth over latency.
+
+            - `type: Literal["max"]`
+
+        - `inference_geo: Optional[str]`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
         - `speed: Optional[Literal["standard", "fast"]]`
 
@@ -1629,203 +1694,383 @@ List Session Thread Events
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
-        - `agents: List[BetaManagedAgentsSessionThreadAgent]`
+        - `agents: List[Agent]`
 
           Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `id: str`
+          - `class BetaManagedAgentsSessionThreadAgent: …`
 
-          - `description: Optional[str]`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
+            - `id: str`
 
-            - `name: str`
+            - `description: Optional[str]`
 
-            - `type: Literal["url"]`
-
-            - `url: str`
-
-          - `model: BetaManagedAgentsModelConfig`
-
-            Model identifier and configuration.
-
-          - `name: str`
-
-          - `skills: List[Skill]`
-
-            - `class BetaManagedAgentsAnthropicSkill: …`
-
-              A resolved Anthropic-managed skill.
-
-              - `skill_id: str`
-
-              - `type: Literal["anthropic"]`
-
-                - `"anthropic"`
-
-              - `version: str`
-
-            - `class BetaManagedAgentsCustomSkill: …`
-
-              A resolved user-created custom skill.
-
-              - `skill_id: str`
-
-              - `type: Literal["custom"]`
-
-                - `"custom"`
-
-              - `version: str`
-
-          - `system: Optional[str]`
-
-          - `tools: List[Tool]`
-
-            - `class BetaManagedAgentsAgentToolset20260401: …`
-
-              - `configs: List[BetaManagedAgentsAgentToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: Literal["bash", "edit", "read", 5 more]`
-
-                  Built-in agent tool identifier.
-
-                  - `"bash"`
-
-                  - `"edit"`
-
-                  - `"read"`
-
-                  - `"write"`
-
-                  - `"glob"`
-
-                  - `"grep"`
-
-                  - `"web_fetch"`
-
-                  - `"web_search"`
-
-                - `permission_policy: PermissionPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy: …`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                    - `type: Literal["always_allow"]`
-
-                      - `"always_allow"`
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy: …`
-
-                    Tool calls require user confirmation before execution.
-
-                    - `type: Literal["always_ask"]`
-
-                      - `"always_ask"`
-
-              - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: bool`
-
-                - `permission_policy: PermissionPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy: …`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy: …`
-
-                    Tool calls require user confirmation before execution.
-
-              - `type: Literal["agent_toolset_20260401"]`
-
-                - `"agent_toolset_20260401"`
-
-            - `class BetaManagedAgentsMCPToolset: …`
-
-              - `configs: List[BetaManagedAgentsMCPToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: str`
-
-                - `permission_policy: PermissionPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy: …`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy: …`
-
-                    Tool calls require user confirmation before execution.
-
-              - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: bool`
-
-                - `permission_policy: PermissionPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy: …`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy: …`
-
-                    Tool calls require user confirmation before execution.
-
-              - `mcp_server_name: str`
-
-              - `type: Literal["mcp_toolset"]`
-
-                - `"mcp_toolset"`
-
-            - `class BetaManagedAgentsCustomTool: …`
-
-              A custom tool as returned in API responses.
-
-              - `description: str`
-
-              - `input_schema: BetaManagedAgentsCustomToolInputSchema`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: Literal["object"]`
-
-                  - `"object"`
-
-                - `properties: Optional[Dict[str, object]]`
-
-                - `required: Optional[List[str]]`
+            - `mcp_servers: List[BetaManagedAgentsMCPServerURLDefinition]`
 
               - `name: str`
 
-              - `type: Literal["custom"]`
+              - `type: Literal["url"]`
 
-                - `"custom"`
+              - `url: str`
 
-          - `type: Literal["agent"]`
+            - `model: BetaManagedAgentsModelConfig`
 
-            - `"agent"`
+              Model identifier and configuration.
 
-          - `version: int`
+            - `name: str`
+
+            - `skills: List[Skill]`
+
+              - `class BetaManagedAgentsAnthropicSkill: …`
+
+                A resolved Anthropic-managed skill.
+
+                - `skill_id: str`
+
+                - `type: Literal["anthropic"]`
+
+                - `version: str`
+
+              - `class BetaManagedAgentsCustomSkill: …`
+
+                A resolved user-created custom skill.
+
+                - `skill_id: str`
+
+                - `type: Literal["custom"]`
+
+                - `version: str`
+
+            - `system: Optional[str]`
+
+            - `tools: List[Tool]`
+
+              - `class BetaManagedAgentsAgentToolset20260401: …`
+
+                - `configs: List[BetaManagedAgentsAgentToolConfig]`
+
+                  - `class BetaManagedAgentsBashToolConfig: …`
+
+                    Configuration for the bash tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["bash"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: Literal["always_allow"]`
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: Literal["always_ask"]`
+
+                    - `type: Literal["bash"]`
+
+                  - `class BetaManagedAgentsEditToolConfig: …`
+
+                    Configuration for the edit tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["edit"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: Literal["edit"]`
+
+                  - `class BetaManagedAgentsReadToolConfig: …`
+
+                    Configuration for the read tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["read"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: Literal["read"]`
+
+                  - `class BetaManagedAgentsWriteToolConfig: …`
+
+                    Configuration for the write tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["write"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: Literal["write"]`
+
+                  - `class BetaManagedAgentsGlobToolConfig: …`
+
+                    Configuration for the glob tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["glob"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: Literal["glob"]`
+
+                  - `class BetaManagedAgentsGrepToolConfig: …`
+
+                    Configuration for the grep tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["grep"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: Literal["grep"]`
+
+                  - `class BetaManagedAgentsWebFetchToolConfig: …`
+
+                    Configuration for the web_fetch tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["web_fetch"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: Literal["web_fetch"]`
+
+                    - `allowed_domains: Optional[List[str]]`
+
+                    - `blocked_domains: Optional[List[str]]`
+
+                    - `max_content_tokens: Optional[int]`
+
+                      format: int32
+
+                  - `class BetaManagedAgentsWebSearchToolConfig: …`
+
+                    Configuration for the web_search tool.
+
+                    - `enabled: bool`
+
+                    - `name: Literal["web_search"]`
+
+                    - `permission_policy: PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: Literal["web_search"]`
+
+                    - `allowed_domains: Optional[List[str]]`
+
+                    - `blocked_domains: Optional[List[str]]`
+
+                    - `user_location: Optional[BetaManagedAgentsUserLocation]`
+
+                      Approximate user location for search result localization.
+
+                      - `type: Literal["approximate"]`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: Optional[str]`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: Optional[str]`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: Optional[str]`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: Optional[str]`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: PermissionPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                      Tool calls require user confirmation before execution.
+
+                - `type: Literal["agent_toolset_20260401"]`
+
+              - `class BetaManagedAgentsMCPToolset: …`
+
+                - `configs: List[BetaManagedAgentsMCPToolConfig]`
+
+                  - `enabled: bool`
+
+                  - `name: str`
+
+                  - `permission_policy: PermissionPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                      Tool calls require user confirmation before execution.
+
+                - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: PermissionPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+                      Tool calls require user confirmation before execution.
+
+                - `mcp_server_name: str`
+
+                - `type: Literal["mcp_toolset"]`
+
+              - `class BetaManagedAgentsCustomTool: …`
+
+                A custom tool as returned in API responses.
+
+                - `description: str`
+
+                - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: Literal["object"]`
+
+                  - `properties: Optional[Dict[str, object]]`
+
+                  - `required: Optional[List[str]]`
+
+                - `name: str`
+
+                - `type: Literal["custom"]`
+
+            - `type: Literal["agent"]`
+
+            - `version: int`
+
+              format: int32
+
+          - `class BetaManagedAgentsAdvisor: …`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `model: str`
+
+              The advisor model id.
+
+            - `type: Literal["advisor"]`
 
         - `type: Literal["coordinator"]`
-
-          - `"coordinator"`
 
       - `name: str`
 
@@ -1853,9 +2098,27 @@ List Session Thread Events
 
       - `type: Literal["agent"]`
 
-        - `"agent"`
-
       - `version: int`
+
+        format: int32
+
+    - `budget: Optional[BetaManagedAgentsBudgetLimit]`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+      - `max_list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+        - `amount: str`
+
+          Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        - `currency: BetaCurrency`
+
+          Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+      - `type: Literal["limit"]`
 
     - `metadata: Optional[Dict[str, str]]`
 
@@ -1881,26 +2144,112 @@ List Session Thread Events
 
         The text content.
 
+        minLength: 1
+
       - `type: Literal["text"]`
 
-        - `"text"`
-
     - `type: Literal["system.message"]`
-
-      - `"system.message"`
 
     - `processed_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
 
-### Example
+      format: date-time
+
+  - `class BetaManagedAgentsSessionUsageEvent: …`
+
+    Periodic snapshot of the session's cumulative usage and tracked list cost.
+
+    - `id: str`
+
+      Unique identifier for this event.
+
+    - `processed_at: datetime`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `type: Literal["session.usage"]`
+
+    - `usage: BetaManagedAgentsSessionUsageSnapshot`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+      - `active_seconds: Optional[float]`
+
+        Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+        format: double
+
+      - `cache_creation: Optional[BetaManagedAgentsCacheCreationUsage]`
+
+        Prompt-cache creation token usage broken down by cache lifetime.
+
+        - `ephemeral_1h_input_tokens: Optional[int]`
+
+          Tokens used to create 1-hour ephemeral cache entries.
+
+          format: int32
+
+        - `ephemeral_5m_input_tokens: Optional[int]`
+
+          Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
+
+      - `cache_read_input_tokens: Optional[int]`
+
+        Total tokens read from prompt cache.
+
+        format: int32
+
+      - `input_tokens: Optional[int]`
+
+        Total input tokens consumed across all turns.
+
+        format: int32
+
+      - `list_cost: Optional[BetaMonetaryAmount]`
+
+        A monetary amount in a specific currency.
+
+      - `output_tokens: Optional[int]`
+
+        Total output tokens generated across all turns.
+
+        format: int32
+
+      - `server_tool_use: Optional[BetaManagedAgentsServerToolUsage]`
+
+        Cumulative count of server-executed tool invocations, broken down by tool.
+
+        - `web_fetch_requests: Optional[int]`
+
+          Number of server-executed web fetch requests.
+
+          format: int32
+
+        - `web_search_requests: Optional[int]`
+
+          Number of server-executed web search requests.
+
+          format: int32
+
+    - `budget: Optional[BetaManagedAgentsBudgetLimit]`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.sessions.threads.events.list(
     thread_id="sthr_011CZkZVWa6oIjw0rgXZpnBt",
@@ -1910,7 +2259,7 @@ page = page.data[0]
 print(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

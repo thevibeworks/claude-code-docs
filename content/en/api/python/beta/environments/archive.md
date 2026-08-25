@@ -1,12 +1,12 @@
-## Archive Environment
+# Archive Environment
 
-`beta.environments.archive(strenvironment_id, EnvironmentArchiveParams**kwargs)  -> BetaEnvironment`
+`beta.environments.archive(environment_id, **kwargs)  -> BetaEnvironment`
 
-**post** `/v1/environments/{environment_id}/archive`
+**POST** `/v1/environments/{environment_id}/archive`
 
 Archive an environment by ID. Archived environments cannot be used to create new sessions.
 
-### Parameters
+## Parameters
 
 - `environment_id: str`
 
@@ -16,7 +16,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -62,21 +62,31 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaEnvironment: …`
 
@@ -110,8 +120,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `class BetaLimitedNetwork: …`
 
           Limited network access.
@@ -131,8 +139,6 @@ Archive an environment by ID. Archived environments cannot be used to create new
           - `type: Literal["limited"]`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -166,13 +172,11 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: Literal["cloud"]`
 
         Environment type
-
-        - `"cloud"`
 
     - `class BetaSelfHostedConfig: …`
 
@@ -182,15 +186,13 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
         Environment type
 
-        - `"self_hosted"`
-
   - `created_at: str`
 
     RFC 3339 timestamp when environment was created
 
-  - `description: str`
+  - `description: Optional[str]`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Dict[str, str]`
 
@@ -204,7 +206,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: str`
 
@@ -218,14 +220,16 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `"account"`
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_environment = client.beta.environments.archive(
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
@@ -233,7 +237,7 @@ beta_environment = client.beta.environments.archive(
 print(beta_environment.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

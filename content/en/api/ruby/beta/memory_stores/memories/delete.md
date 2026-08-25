@@ -1,12 +1,12 @@
-## Delete a memory
+# Delete a memory
 
 `beta.memory_stores.memories.delete(memory_id, **kwargs) -> BetaManagedAgentsDeletedMemory`
 
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
-### Parameters
+## Parameters
 
 - `memory_store_id: String`
 
@@ -22,7 +22,7 @@ Delete a memory
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -68,21 +68,31 @@ Delete a memory
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaManagedAgentsDeletedMemory`
 
@@ -94,9 +104,7 @@ Delete a memory
 
   - `type: :memory_deleted`
 
-    - `:memory_deleted`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -108,7 +116,7 @@ beta_managed_agents_deleted_memory = anthropic.beta.memory_stores.memories.delet
 puts(beta_managed_agents_deleted_memory)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

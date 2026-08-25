@@ -1,18 +1,20 @@
-## Create Environment
+# Create Environment
 
-`client.beta.environments.create(EnvironmentCreateParamsparams, RequestOptionsoptions?): BetaEnvironment`
+`client.beta.environments.create(params, options?): BetaEnvironment`
 
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+## Parameters
 
 - `params: EnvironmentCreateParams`
 
   - `name: string`
 
     Body param: Human-readable name for the environment
+
+    maxLength: 256, minLength: 1
 
   - `config?: BetaCloudConfigParams | BetaSelfHostedConfigParams | null`
 
@@ -29,8 +31,6 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `"cloud"`
-
       - `networking?: BetaUnrestrictedNetwork | BetaLimitedNetworkParams | null`
 
         Network configuration policy. Omit on update to preserve the existing value.
@@ -43,8 +43,6 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetworkParams`
 
           Limited network request params.
@@ -55,8 +53,6 @@ Create a new environment with the specified configuration.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
           - `allow_mcp_servers?: boolean | null`
 
@@ -104,7 +100,7 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
     - `BetaSelfHostedConfigParams`
 
@@ -114,11 +110,11 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `"self_hosted"`
-
   - `description?: string | null`
 
     Body param: Optional description of the environment
+
+    maxLength: 1024
 
   - `metadata?: Record<string, string>`
 
@@ -138,7 +134,7 @@ Create a new environment with the specified configuration.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -184,21 +180,31 @@ Create a new environment with the specified configuration.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
+
+      - `"fallback-credit-2026-07-01"`
 
       - `"agent-memory-2026-07-22"`
 
-### Returns
+      - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `BetaEnvironment`
 
@@ -232,8 +238,6 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetwork`
 
           Limited network access.
@@ -253,8 +257,6 @@ Create a new environment with the specified configuration.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -288,13 +290,11 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: "cloud"`
 
         Environment type
-
-        - `"cloud"`
 
     - `BetaSelfHostedConfig`
 
@@ -304,15 +304,13 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `"self_hosted"`
-
   - `created_at: string`
 
     RFC 3339 timestamp when environment was created
 
-  - `description: string`
+  - `description: string | null`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Record<string, string>`
 
@@ -326,7 +324,7 @@ Create a new environment with the specified configuration.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: string`
 
@@ -340,21 +338,23 @@ Create a new environment with the specified configuration.
 
     - `"account"`
 
-### Example
+## Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaEnvironment = await client.beta.environments.create({ name: 'python-data-analysis' });
+const betaEnvironment = await client.beta.environments.create({
+  name: "python-data-analysis"
+});
 
 console.log(betaEnvironment.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

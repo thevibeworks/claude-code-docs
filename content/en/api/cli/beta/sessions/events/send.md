@@ -1,12 +1,12 @@
-## Send Events
+# Send Events
 
 `$ ant beta:sessions:events send`
 
-**post** `/v1/sessions/{session_id}/events`
+**POST** `/v1/sessions/{session_id}/events`
 
 Send Events
 
-### Parameters
+## Parameters
 
 - `--session-id: string`
 
@@ -20,9 +20,9 @@ Send Events
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_send_session_events: object { data }`
+- `beta_managed_agents_send_session_events: object`
 
   Events that were successfully sent to the session.
 
@@ -30,7 +30,7 @@ Send Events
 
     Sent events
 
-    - `beta_managed_agents_user_message_event: object { id, content, type, processed_at }`
+    - `beta_managed_agents_user_message_event: object`
 
       A user message event in the session conversation.
 
@@ -38,11 +38,11 @@ Send Events
 
         Unique identifier for this event.
 
-      - `content: array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock`
+      - `content: array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsRedactedBlock`
 
         Array of content blocks comprising the user message.
 
-        - `beta_managed_agents_text_block: object { text, type }`
+        - `beta_managed_agents_text_block: object`
 
           Regular text content.
 
@@ -50,11 +50,11 @@ Send Events
 
             The text content.
 
+            minLength: 1
+
           - `type: "text"`
 
-            - `"text"`
-
-        - `beta_managed_agents_image_block: object { source, type }`
+        - `beta_managed_agents_image_block: object`
 
           Image content specified directly as base64 data or as a reference via a URL.
 
@@ -62,7 +62,7 @@ Send Events
 
             Union type for image source variants.
 
-            - `beta_managed_agents_base64_image_source: object { data, media_type, type }`
+            - `beta_managed_agents_base64_image_source: object`
 
               Base64-encoded image data.
 
@@ -70,27 +70,29 @@ Send Events
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
+                minLength: 1
+
               - `type: "base64"`
 
-                - `"base64"`
-
-            - `beta_managed_agents_url_image_source: object { type, url }`
+            - `beta_managed_agents_url_image_source: object`
 
               Image referenced by URL.
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the image to fetch.
 
-            - `beta_managed_agents_file_image_source: object { file_id, type }`
+                minLength: 1
+
+            - `beta_managed_agents_file_image_source: object`
 
               Image referenced by file ID.
 
@@ -98,15 +100,13 @@ Send Events
 
                 ID of a previously uploaded file.
 
-              - `type: "file"`
+                minLength: 1
 
-                - `"file"`
+              - `type: "file"`
 
           - `type: "image"`
 
-            - `"image"`
-
-        - `beta_managed_agents_document_block: object { source, type, context, title }`
+        - `beta_managed_agents_document_block: object`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
@@ -114,7 +114,7 @@ Send Events
 
             Union type for document source variants.
 
-            - `beta_managed_agents_base64_document_source: object { data, media_type, type }`
+            - `beta_managed_agents_base64_document_source: object`
 
               Base64-encoded document data.
 
@@ -122,15 +122,17 @@ Send Events
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the document (e.g., "application/pdf").
 
+                minLength: 1
+
               - `type: "base64"`
 
-                - `"base64"`
-
-            - `beta_managed_agents_plain_text_document_source: object { data, media_type, type }`
+            - `beta_managed_agents_plain_text_document_source: object`
 
               Plain text document content.
 
@@ -138,29 +140,27 @@ Send Events
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: "text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"`
-
               - `type: "text"`
 
-                - `"text"`
-
-            - `beta_managed_agents_url_document_source: object { type, url }`
+            - `beta_managed_agents_url_document_source: object`
 
               Document referenced by URL.
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the document to fetch.
 
-            - `beta_managed_agents_file_document_source: object { file_id, type }`
+                minLength: 1
+
+            - `beta_managed_agents_file_document_source: object`
 
               Document referenced by file ID.
 
@@ -168,13 +168,11 @@ Send Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "document"`
-
-            - `"document"`
 
           - `context: optional string`
 
@@ -184,15 +182,21 @@ Send Events
 
             The title of the document.
 
-      - `type: "user.message"`
+        - `beta_managed_agents_redacted_block: object`
 
-        - `"user.message"`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+      - `type: "user.message"`
 
       - `processed_at: optional string`
 
         A timestamp in RFC 3339 format
 
-    - `beta_managed_agents_user_interrupt_event: object { id, type, processed_at, session_thread_id }`
+        format: date-time
+
+    - `beta_managed_agents_user_interrupt_event: object`
 
       An interrupt event that pauses agent execution and returns control to the user.
 
@@ -202,17 +206,17 @@ Send Events
 
       - `type: "user.interrupt"`
 
-        - `"user.interrupt"`
-
       - `processed_at: optional string`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id: optional string`
 
         If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
-    - `beta_managed_agents_user_tool_confirmation_event: object { id, result, tool_use_id, 4 more }`
+    - `beta_managed_agents_user_tool_confirmation_event: object`
 
       A tool confirmation event that approves or denies a pending tool execution.
 
@@ -234,21 +238,23 @@ Send Events
 
       - `type: "user.tool_confirmation"`
 
-        - `"user.tool_confirmation"`
-
       - `deny_message: optional string`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+
+        maxLength: 10000
 
       - `processed_at: optional string`
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `session_thread_id: optional string`
 
         When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
-    - `beta_managed_agents_user_custom_tool_result_event: object { id, custom_tool_use_id, type, 4 more }`
+    - `beta_managed_agents_user_custom_tool_result_event: object`
 
       Event sent by the client providing the result of a custom tool execution.
 
@@ -262,29 +268,27 @@ Send Events
 
       - `type: "user.custom_tool_result"`
 
-        - `"user.custom_tool_result"`
-
       - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
         The result content returned by the tool.
 
-        - `beta_managed_agents_text_block: object { text, type }`
+        - `beta_managed_agents_text_block: object`
 
           Regular text content.
 
-        - `beta_managed_agents_image_block: object { source, type }`
+        - `beta_managed_agents_image_block: object`
 
           Image content specified directly as base64 data or as a reference via a URL.
 
-        - `beta_managed_agents_document_block: object { source, type, context, title }`
+        - `beta_managed_agents_document_block: object`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-        - `beta_managed_agents_search_result_block: object { citations, content, source, 2 more }`
+        - `beta_managed_agents_search_result_block: object`
 
           A block containing a web search result.
 
-          - `citations: object { enabled }`
+          - `citations: object`
 
             Citation settings for a search result.
 
@@ -300,21 +304,23 @@ Send Events
 
               The text content.
 
-            - `type: "text"`
+              minLength: 1
 
-              - `"text"`
+            - `type: "text"`
 
           - `source: string`
 
             The URL source of the search result.
 
+            minLength: 1
+
           - `title: string`
 
             The title of the search result.
 
-          - `type: "search_result"`
+            minLength: 1
 
-            - `"search_result"`
+          - `type: "search_result"`
 
       - `is_error: optional boolean`
 
@@ -324,11 +330,13 @@ Send Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `session_thread_id: optional string`
 
         Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
-    - `beta_managed_agents_user_define_outcome_event: object { id, description, max_iterations, 4 more }`
+    - `beta_managed_agents_user_define_outcome_event: object`
 
       Echo of a `user.define_outcome` input event. Carries the server-generated `outcome_id` that subsequent `span.outcome_evaluation_*` events reference.
 
@@ -344,6 +352,8 @@ Send Events
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+        format: int32
+
       - `outcome_id: string`
 
         Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -352,11 +362,13 @@ Send Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `rubric: BetaManagedAgentsFileRubric or BetaManagedAgentsTextRubric`
 
         Rubric for grading the quality of an outcome.
 
-        - `beta_managed_agents_file_rubric: object { file_id, type }`
+        - `beta_managed_agents_file_rubric: object`
 
           Rubric referenced by a file uploaded via the Files API.
 
@@ -366,9 +378,7 @@ Send Events
 
           - `type: "file"`
 
-            - `"file"`
-
-        - `beta_managed_agents_text_rubric: object { content, type }`
+        - `beta_managed_agents_text_rubric: object`
 
           Rubric content provided inline as text.
 
@@ -378,13 +388,9 @@ Send Events
 
           - `type: "text"`
 
-            - `"text"`
-
       - `type: "user.define_outcome"`
 
-        - `"user.define_outcome"`
-
-    - `beta_managed_agents_user_tool_result_event: object { id, tool_use_id, type, 4 more }`
+    - `beta_managed_agents_user_tool_result_event: object`
 
       Event sent by the client providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
 
@@ -398,25 +404,23 @@ Send Events
 
       - `type: "user.tool_result"`
 
-        - `"user.tool_result"`
-
       - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
         The result content returned by the tool.
 
-        - `beta_managed_agents_text_block: object { text, type }`
+        - `beta_managed_agents_text_block: object`
 
           Regular text content.
 
-        - `beta_managed_agents_image_block: object { source, type }`
+        - `beta_managed_agents_image_block: object`
 
           Image content specified directly as base64 data or as a reference via a URL.
 
-        - `beta_managed_agents_document_block: object { source, type, context, title }`
+        - `beta_managed_agents_document_block: object`
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-        - `beta_managed_agents_search_result_block: object { citations, content, source, 2 more }`
+        - `beta_managed_agents_search_result_block: object`
 
           A block containing a web search result.
 
@@ -428,11 +432,13 @@ Send Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `session_thread_id: optional string`
 
         Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
-    - `beta_managed_agents_system_message_event: object { id, content, type, processed_at }`
+    - `beta_managed_agents_system_message_event: object`
 
       A mid-conversation system message event. Carries system-role content that is appended to the session as a `role: "system"` turn.
 
@@ -448,28 +454,28 @@ Send Events
 
           The text content.
 
+          minLength: 1
+
         - `type: "text"`
 
-          - `"text"`
-
       - `type: "system.message"`
-
-        - `"system.message"`
 
       - `processed_at: optional string`
 
         A timestamp in RFC 3339 format
 
-### Example
+        format: date-time
 
-```cli
+## Example
+
+```bash
 ant beta:sessions:events send \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
-  --event "{content: [{text: 'Where is my order #1234?', type: text}], type: user.message}"
+  --event '{content: [{text: '\''Where is my order #1234?'\'', type: text}], type: user.message}'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

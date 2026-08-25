@@ -1,12 +1,12 @@
-## Create Credential
+# Create Credential
 
 `$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
 
-**post** `/v1/vaults/{vault_id}/credentials`
+**POST** `/v1/vaults/{vault_id}/credentials`
 
 Create Credential
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -26,7 +26,7 @@ Create Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsCredential`
 
@@ -64,7 +64,7 @@ Create Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -82,13 +82,13 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
   ],
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredential);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

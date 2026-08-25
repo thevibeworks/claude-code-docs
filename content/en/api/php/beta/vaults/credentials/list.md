@@ -1,12 +1,12 @@
-## List Credentials
+# List Credentials
 
 `$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsCredential>`
 
-**get** `/v1/vaults/{vault_id}/credentials`
+**GET** `/v1/vaults/{vault_id}/credentials`
 
 List Credentials
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -26,7 +26,7 @@ List Credentials
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsCredential`
 
@@ -64,7 +64,7 @@ List Credentials
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -78,13 +78,13 @@ $page = $client->beta->vaults->credentials->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

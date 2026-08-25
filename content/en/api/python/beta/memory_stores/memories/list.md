@@ -1,12 +1,12 @@
-## List memories
+# List memories
 
-`beta.memory_stores.memories.list(strmemory_store_id, MemoryListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryListItem]`
+`beta.memory_stores.memories.list(memory_store_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsMemoryListItem]`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
-### Parameters
+## Parameters
 
 - `memory_store_id: str`
 
@@ -14,9 +14,13 @@ List memories
 
   `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
+  format: int32
+
 - `limit: Optional[int]`
 
   Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
+
+  format: int32
 
 - `page: Optional[str]`
 
@@ -40,7 +44,7 @@ List memories
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -86,21 +90,31 @@ List memories
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `BetaManagedAgentsMemoryListItem`
 
@@ -122,9 +136,13 @@ List memories
 
       Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+      format: int32
+
     - `created_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `memory_store_id: str`
 
@@ -140,11 +158,11 @@ List memories
 
     - `type: Literal["memory"]`
 
-      - `"memory"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `content: Optional[str]`
 
@@ -160,16 +178,16 @@ List memories
 
     - `type: Literal["memory_prefix"]`
 
-      - `"memory_prefix"`
-
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.memory_stores.memories.list(
     memory_store_id="memory_store_id",
@@ -178,7 +196,7 @@ page = page.data[0]
 print(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

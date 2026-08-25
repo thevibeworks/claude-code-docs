@@ -1,12 +1,12 @@
-## List Agent Versions
+# List Agent Versions
 
-`VersionListPageResponse Beta.Agents.Versions.List(VersionListParamsparameters, CancellationTokencancellationToken = default)`
+`VersionListPageResponse Beta.Agents.Versions.List(parameters, cancellationToken = default)`
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
-### Parameters
+## Parameters
 
 - `VersionListParams parameters`
 
@@ -14,9 +14,11 @@ List Agent Versions
 
     Path param: Path parameter agent_id
 
-  - `Int limit`
+  - `int limit`
 
     Query param: Maximum results per page. Default 20, maximum 100.
+
+    format: int32
 
   - `string page`
 
@@ -26,65 +28,75 @@ List Agent Versions
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
 
-### Returns
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+## Returns
 
 - `class VersionListPageResponse:`
 
@@ -100,9 +112,13 @@ List Agent Versions
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `required DateTimeOffset CreatedAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `required string? Description`
 
@@ -111,8 +127,6 @@ List Agent Versions
       - `required string Name`
 
       - `required Type Type`
-
-        - `"url"Url`
 
       - `required string Url`
 
@@ -128,81 +142,135 @@ List Agent Versions
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `"claude-sonnet-5"ClaudeSonnet5`
+        - `ClaudeSonnet5`
 
           High-performance model for coding and agents
 
-        - `"claude-fable-5"ClaudeFable5`
+        - `ClaudeFable5`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
 
-        - `"claude-opus-4-8"ClaudeOpus4_8`
+        - `ClaudeOpus5`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-7"ClaudeOpus4_7`
+        - `ClaudeOpus4_8`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-6"ClaudeOpus4_6`
+        - `ClaudeOpus4_7`
 
-          Most intelligent model for building agents and coding
+          Powerful intelligence for long-running agents and coding
 
-        - `"claude-sonnet-4-6"ClaudeSonnet4_6`
+        - `ClaudeOpus4_6`
+
+          Powerful intelligence for long-running agents and coding
+
+        - `ClaudeSonnet4_6`
 
           Best combination of speed and intelligence
 
-        - `"claude-haiku-4-5"ClaudeHaiku4_5`
+        - `ClaudeHaiku4_5`
 
           Fastest model with near-frontier intelligence
 
-        - `"claude-haiku-4-5-20251001"ClaudeHaiku4_5_20251001`
+        - `ClaudeHaiku4_5_20251001`
 
           Fastest model with near-frontier intelligence
 
-        - `"claude-opus-4-5"ClaudeOpus4_5`
+        - `ClaudeOpus4_5`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-5-20251101"ClaudeOpus4_5_20251101`
+        - `ClaudeOpus4_5_20251101`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
-        - `"claude-sonnet-4-5"ClaudeSonnet4_5`
+        - `ClaudeSonnet4_5`
+
+          High-performance model for agents and coding
+
+        - `ClaudeSonnet4_5_20250929`
 
           High-performance model for agents and coding
 
-        - `"claude-sonnet-4-5-20250929"ClaudeSonnet4_5_20250929`
+      - `Effort Effort`
 
-          High-performance model for agents and coding
+        How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+        - `class BetaManagedAgentsEffortLow:`
+
+          Low effort. Favors latency over reasoning depth.
+
+          - `required Type Type`
+
+        - `class BetaManagedAgentsEffortMedium:`
+
+          Medium effort. Balances latency and reasoning depth.
+
+          - `required Type Type`
+
+        - `class BetaManagedAgentsEffortHigh:`
+
+          High effort. Favors reasoning depth.
+
+          - `required Type Type`
+
+        - `class BetaManagedAgentsEffortXhigh:`
+
+          Extra-high effort. Not all models accept this level.
+
+          - `required Type Type`
+
+        - `class BetaManagedAgentsEffortMax:`
+
+          Maximum effort. Favors reasoning depth over latency.
+
+          - `required Type Type`
+
+      - `string InferenceGeo`
+
+        Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
       - `Speed Speed`
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-        - `"standard"Standard`
+        - `Standard`
 
-        - `"fast"Fast`
+        - `Fast`
 
     - `required BetaManagedAgentsMultiagent? Multiagent`
 
       Resolved coordinator topology with a concrete agent roster.
 
-      - `required IReadOnlyList<BetaManagedAgentsAgentReference> Agents`
+      - `required IReadOnlyList<Agent> Agents`
 
         Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-        - `required string ID`
+        - `class BetaManagedAgentsAgentReference:`
 
-        - `required Type Type`
+          A resolved agent reference with a concrete version.
 
-          - `"agent"Agent`
+          - `required string ID`
 
-        - `required Int Version`
+          - `required Type Type`
+
+          - `required int Version`
+
+            format: int32
+
+        - `class BetaManagedAgentsAdvisor:`
+
+          Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+          - `required string Model`
+
+            The advisor model id.
+
+          - `required Type Type`
 
       - `required Type Type`
-
-        - `"coordinator"Coordinator`
 
     - `required string Name`
 
@@ -216,8 +284,6 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"anthropic"Anthropic`
-
         - `required string Version`
 
       - `class BetaManagedAgentsCustomSkill:`
@@ -227,8 +293,6 @@ List Agent Versions
         - `required string SkillID`
 
         - `required Type Type`
-
-          - `"custom"Custom`
 
         - `required string Version`
 
@@ -240,53 +304,233 @@ List Agent Versions
 
         - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
 
-          - `required Boolean Enabled`
+          - `class BetaManagedAgentsBashToolConfig:`
 
-          - `required Name Name`
+            Configuration for the bash tool.
 
-            Built-in agent tool identifier.
+            - `required bool Enabled`
 
-            - `"bash"Bash`
+            - `JsonElement Name constant`
 
-            - `"edit"Edit`
+            - `required PermissionPolicy PermissionPolicy`
 
-            - `"read"Read`
+              Permission policy for tool execution.
 
-            - `"write"Write`
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
 
-            - `"glob"Glob`
+                Tool calls are automatically approved without user confirmation.
 
-            - `"grep"Grep`
+                - `required Type Type`
 
-            - `"web_fetch"WebFetch`
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
 
-            - `"web_search"WebSearch`
+                Tool calls require user confirmation before execution.
 
-          - `required PermissionPolicy PermissionPolicy`
+                - `required Type Type`
 
-            Permission policy for tool execution.
+            - `JsonElement Type constant`
 
-            - `class BetaManagedAgentsAlwaysAllowPolicy:`
+          - `class BetaManagedAgentsEditToolConfig:`
 
-              Tool calls are automatically approved without user confirmation.
+            Configuration for the edit tool.
 
-              - `required Type Type`
+            - `required bool Enabled`
 
-                - `"always_allow"AlwaysAllow`
+            - `JsonElement Name constant`
 
-            - `class BetaManagedAgentsAlwaysAskPolicy:`
+            - `required PermissionPolicy PermissionPolicy`
 
-              Tool calls require user confirmation before execution.
+              Permission policy for tool execution.
 
-              - `required Type Type`
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
 
-                - `"always_ask"AlwaysAsk`
+                Tool calls are automatically approved without user confirmation.
+
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                Tool calls require user confirmation before execution.
+
+            - `JsonElement Type constant`
+
+          - `class BetaManagedAgentsReadToolConfig:`
+
+            Configuration for the read tool.
+
+            - `required bool Enabled`
+
+            - `JsonElement Name constant`
+
+            - `required PermissionPolicy PermissionPolicy`
+
+              Permission policy for tool execution.
+
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                Tool calls require user confirmation before execution.
+
+            - `JsonElement Type constant`
+
+          - `class BetaManagedAgentsWriteToolConfig:`
+
+            Configuration for the write tool.
+
+            - `required bool Enabled`
+
+            - `JsonElement Name constant`
+
+            - `required PermissionPolicy PermissionPolicy`
+
+              Permission policy for tool execution.
+
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                Tool calls require user confirmation before execution.
+
+            - `JsonElement Type constant`
+
+          - `class BetaManagedAgentsGlobToolConfig:`
+
+            Configuration for the glob tool.
+
+            - `required bool Enabled`
+
+            - `JsonElement Name constant`
+
+            - `required PermissionPolicy PermissionPolicy`
+
+              Permission policy for tool execution.
+
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                Tool calls require user confirmation before execution.
+
+            - `JsonElement Type constant`
+
+          - `class BetaManagedAgentsGrepToolConfig:`
+
+            Configuration for the grep tool.
+
+            - `required bool Enabled`
+
+            - `JsonElement Name constant`
+
+            - `required PermissionPolicy PermissionPolicy`
+
+              Permission policy for tool execution.
+
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                Tool calls require user confirmation before execution.
+
+            - `JsonElement Type constant`
+
+          - `class BetaManagedAgentsWebFetchToolConfig:`
+
+            Configuration for the web_fetch tool.
+
+            - `required bool Enabled`
+
+            - `JsonElement Name constant`
+
+            - `required PermissionPolicy PermissionPolicy`
+
+              Permission policy for tool execution.
+
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                Tool calls require user confirmation before execution.
+
+            - `JsonElement Type constant`
+
+            - `IReadOnlyList<string> AllowedDomains`
+
+            - `IReadOnlyList<string> BlockedDomains`
+
+            - `int? MaxContentTokens`
+
+              format: int32
+
+          - `class BetaManagedAgentsWebSearchToolConfig:`
+
+            Configuration for the web_search tool.
+
+            - `required bool Enabled`
+
+            - `JsonElement Name constant`
+
+            - `required PermissionPolicy PermissionPolicy`
+
+              Permission policy for tool execution.
+
+              - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                Tool calls are automatically approved without user confirmation.
+
+              - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                Tool calls require user confirmation before execution.
+
+            - `JsonElement Type constant`
+
+            - `IReadOnlyList<string> AllowedDomains`
+
+            - `IReadOnlyList<string> BlockedDomains`
+
+            - `BetaManagedAgentsUserLocation? UserLocation`
+
+              Approximate user location for search result localization.
+
+              - `JsonElement Type constant`
+
+                Location precision. Only "approximate" is supported.
+
+              - `string? City`
+
+                City name.
+
+                minLength: 1, maxLength: 255
+
+              - `string? Country`
+
+                Two-letter ISO 3166-1 country code, uppercase.
+
+              - `string? Region`
+
+                Region or state name.
+
+                minLength: 1, maxLength: 255
+
+              - `string? Timezone`
+
+                IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                minLength: 1, maxLength: 255
 
         - `required BetaManagedAgentsAgentToolsetDefaultConfig DefaultConfig`
 
           Resolved default configuration for agent tools.
 
-          - `required Boolean Enabled`
+          - `required bool Enabled`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -302,13 +546,11 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"agent_toolset_20260401"AgentToolset20260401`
-
       - `class BetaManagedAgentsMcpToolset:`
 
         - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
-          - `required Boolean Enabled`
+          - `required bool Enabled`
 
           - `required string Name`
 
@@ -328,7 +570,7 @@ List Agent Versions
 
           Resolved default configuration for all tools from an MCP server.
 
-          - `required Boolean Enabled`
+          - `required bool Enabled`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -346,8 +588,6 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"mcp_toolset"McpToolset`
-
       - `class BetaManagedAgentsCustomTool:`
 
         A custom tool as returned in API responses.
@@ -358,7 +598,7 @@ List Agent Versions
 
           JSON Schema for custom tool input parameters.
 
-          - `JsonElement Type "object"constant`
+          - `JsonElement Type constant`
 
           - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -368,25 +608,25 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"custom"Custom`
-
     - `required Type Type`
-
-      - `"agent"Agent`
 
     - `required DateTimeOffset UpdatedAt`
 
       A timestamp in RFC 3339 format
 
-    - `required Int Version`
+      format: date-time
+
+    - `required int Version`
 
       The agent's current version. Starts at 1 and increments when the agent is modified.
+
+      format: int32
 
   - `string? NextPage`
 
     Opaque cursor for the next page. Null when no more results.
 
-### Example
+## Example
 
 ```csharp
 VersionListParams parameters = new()
@@ -401,7 +641,7 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
@@ -422,7 +662,11 @@ await foreach (var item in page.Paginate())
         "foo": "bar"
       },
       "model": {
-        "id": "claude-sonnet-4-6",
+        "id": "claude-opus-5",
+        "effort": {
+          "type": "low"
+        },
+        "inference_geo": "inference_geo",
         "speed": "standard"
       },
       "multiagent": {
@@ -457,7 +701,8 @@ await foreach (var item in page.Paginate())
               "name": "bash",
               "permission_policy": {
                 "type": "always_allow"
-              }
+              },
+              "type": "bash"
             }
           ],
           "default_config": {

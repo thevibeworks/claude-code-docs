@@ -1,8 +1,8 @@
-## Create a Text Completion
+# Create a Text Completion
 
 `client.Completions.New(ctx, params) (*Completion, error)`
 
-**post** `/v1/complete`
+**POST** `/v1/complete`
 
 [Legacy] Create a Text Completion.
 
@@ -10,7 +10,7 @@ The Text Completions API is a legacy API. We recommend using the [Messages API](
 
 Future models and features will not be compatible with Text Completions. See our [migration guide](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) for guidance in migrating from Text Completions to Messages.
 
-### Parameters
+## Parameters
 
 - `params CompletionNewParams`
 
@@ -19,6 +19,8 @@ Future models and features will not be compatible with Text Completions. See our
     Body param: The maximum number of tokens to generate before stopping.
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
+
+    minimum: 1
 
   - `Model param.Field[Model]`
 
@@ -46,11 +48,13 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) for more details.
 
-  - `Metadata param.Field[Metadata]`
+    minLength: 1
+
+  - `Metadata param.Field[Metadata] Optional`
 
     Body param: An object describing metadata about the request.
 
-  - `StopSequences param.Field[[]string]`
+  - `StopSequences param.Field[[]string] Optional`
 
     Body param: Sequences that will cause the model to stop generating.
 
@@ -58,33 +62,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
 
-  - ``
-
-  - `Temperature param.Field[float64]`
-
-    Body param: Amount of randomness injected into the response.
-
-    Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-    Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-  - `TopK param.Field[int64]`
-
-    Body param: Only sample from the top K options for each subsequent token.
-
-    Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-    Recommended for advanced use cases only.
-
-  - `TopP param.Field[float64]`
-
-    Body param: Use nucleus sampling.
-
-    In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-    Recommended for advanced use cases only.
-
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -136,21 +114,67 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
-### Returns
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+  - `Temperature param.Field[float64] Optional`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+    Body param: Amount of randomness injected into the response.
+
+    Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+    Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+    maximum: 1, minimum: 0
+
+  - `TopK param.Field[int64] Optional`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+    Body param: Only sample from the top K options for each subsequent token.
+
+    Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+    Recommended for advanced use cases only.
+
+    minimum: 0
+
+  - `TopP param.Field[float64] Optional`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+    Body param: Use nucleus sampling.
+
+    In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+    Recommended for advanced use cases only.
+
+    maximum: 1, minimum: 0
+
+## Returns
 
 - `type Completion struct{…}`
 
@@ -188,13 +212,17 @@ Future models and features will not be compatible with Text Completions. See our
 
         Most capable model for cybersecurity and biology research
 
+      - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
       - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
@@ -202,7 +230,7 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
@@ -218,11 +246,11 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
@@ -231,14 +259,6 @@ Future models and features will not be compatible with Text Completions. See our
       - `const ModelClaudeSonnet4_5_20250929 Model = "claude-sonnet-4-5-20250929"`
 
         High-performance model for agents and coding
-
-      - `const ModelClaudeOpus4_1 Model = "claude-opus-4-1"`
-
-        Exceptional model for specialized complex tasks
-
-      - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
-
-        Exceptional model for specialized complex tasks
 
     - `string`
 
@@ -257,38 +277,40 @@ Future models and features will not be compatible with Text Completions. See our
 
     For Text Completions, this is always `"completion"`.
 
-    - `const CompletionCompletion Completion = "completion"`
+    default: completion
 
-### Example
+- `type Completion struct{…}`
+
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  completion, err := client.Completions.New(context.TODO(), anthropic.CompletionNewParams{
-    MaxTokensToSample: 256,
-    Model: anthropic.ModelClaudeSonnet5,
-    Prompt: "\n\nHuman: Hello, world!\n\nAssistant:",
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", completion.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	completion, err := client.Completions.New(context.TODO(), anthropic.CompletionNewParams{
+		MaxTokensToSample: 256,
+		Model:             anthropic.ModelClaudeSonnet5,
+		Prompt:            "\n\nHuman: Hello, world!\n\nAssistant:",
+	})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", completion.ID)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

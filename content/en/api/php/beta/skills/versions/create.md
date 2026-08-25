@@ -1,12 +1,12 @@
-## Create Skill Version
+# Create Skill Version
 
 `$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas): VersionNewResponse`
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Parameters
+## Parameters
 
 - `skillID: string`
 
@@ -24,7 +24,7 @@ Create Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `VersionNewResponse`
 
@@ -72,7 +72,7 @@ Create Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```php
 <?php
@@ -86,13 +86,13 @@ $version = $client->beta->skills->versions->create(
   files: [
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($version);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

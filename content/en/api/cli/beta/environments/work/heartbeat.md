@@ -1,14 +1,14 @@
-## Record Heartbeat
+# Record Heartbeat
 
 `$ ant beta:environments:work heartbeat`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Record a heartbeat for a work item to maintain the lease.
 
-### Parameters
+## Parameters
 
 - `--environment-id: string`
 
@@ -30,9 +30,9 @@ Record a heartbeat for a work item to maintain the lease.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_self_hosted_work_heartbeat_response: object { last_heartbeat, lease_extended, state, 2 more }`
+- `beta_self_hosted_work_heartbeat_response: object`
 
   Response after recording a heartbeat for a work item.
 
@@ -66,16 +66,16 @@ Record a heartbeat for a work item to maintain the lease.
 
     The type of response
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:environments:work heartbeat \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

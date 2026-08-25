@@ -1,12 +1,12 @@
-## Get Credential
+# Get Credential
 
 `$ ant beta:vaults:credentials retrieve`
 
-**get** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Get Credential
 
-### Parameters
+## Parameters
 
 - `--vault-id: string`
 
@@ -20,9 +20,9 @@ Get Credential
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_credential: object { id, archived_at, auth, 6 more }`
+- `beta_managed_agents_credential: object`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -34,11 +34,13 @@ Get Credential
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse or BetaManagedAgentsStaticBearerAuthResponse or BetaManagedAgentsEnvironmentVariableAuthResponse`
 
     Authentication details for a credential.
 
-    - `beta_managed_agents_mcp_oauth_auth_response: object { mcp_server_url, type, expires_at, refresh }`
+    - `beta_managed_agents_mcp_oauth_auth_response: object`
 
       OAuth credential details for an MCP server.
 
@@ -48,13 +50,13 @@ Get Credential
 
       - `type: "mcp_oauth"`
 
-        - `"mcp_oauth"`
-
       - `expires_at: optional string`
 
         A timestamp in RFC 3339 format
 
-      - `refresh: optional object { client_id, token_endpoint, token_endpoint_auth, 2 more }`
+        format: date-time
+
+      - `refresh: optional object`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -70,29 +72,23 @@ Get Credential
 
           Token endpoint requires no client authentication.
 
-          - `beta_managed_agents_token_endpoint_auth_none_response: object { type }`
+          - `beta_managed_agents_token_endpoint_auth_none_response: object`
 
             Token endpoint requires no client authentication.
 
             - `type: "none"`
 
-              - `"none"`
-
-          - `beta_managed_agents_token_endpoint_auth_basic_response: object { type }`
+          - `beta_managed_agents_token_endpoint_auth_basic_response: object`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: "client_secret_basic"`
 
-              - `"client_secret_basic"`
-
-          - `beta_managed_agents_token_endpoint_auth_post_response: object { type }`
+          - `beta_managed_agents_token_endpoint_auth_post_response: object`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: "client_secret_post"`
-
-              - `"client_secret_post"`
 
         - `resource: optional string`
 
@@ -102,7 +98,7 @@ Get Credential
 
           OAuth scope for the refresh request.
 
-    - `beta_managed_agents_static_bearer_auth_response: object { mcp_server_url, type }`
+    - `beta_managed_agents_static_bearer_auth_response: object`
 
       Static bearer token credential details for an MCP server.
 
@@ -112,13 +108,11 @@ Get Credential
 
       - `type: "static_bearer"`
 
-        - `"static_bearer"`
-
-    - `beta_managed_agents_environment_variable_auth_response: object { injection_location, networking, secret_name, type }`
+    - `beta_managed_agents_environment_variable_auth_response: object`
 
       Environment variable credential details. The secret value is never returned.
 
-      - `injection_location: object { body, header }`
+      - `injection_location: object`
 
         Where in the outbound request the secret value is substituted.
 
@@ -134,15 +128,13 @@ Get Credential
 
         Outbound hosts the secret value is substituted on.
 
-        - `beta_managed_agents_unrestricted_credential_networking_response: object { type }`
+        - `beta_managed_agents_unrestricted_credential_networking_response: object`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `type: "unrestricted"`
 
-            - `"unrestricted"`
-
-        - `beta_managed_agents_limited_credential_networking_response: object { allowed_hosts, type }`
+        - `beta_managed_agents_limited_credential_networking_response: object`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -152,19 +144,17 @@ Get Credential
 
           - `type: "limited"`
 
-            - `"limited"`
-
       - `secret_name: string`
 
         Name of the environment variable.
 
       - `type: "environment_variable"`
 
-        - `"environment_variable"`
-
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -172,11 +162,11 @@ Get Credential
 
   - `type: "vault_credential"`
 
-    - `"vault_credential"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: string`
 
@@ -186,16 +176,16 @@ Get Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:vaults:credentials retrieve \
   --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYOQfSkw
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

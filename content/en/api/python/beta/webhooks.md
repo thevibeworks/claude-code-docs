@@ -1,6 +1,24 @@
 # Webhooks
 
-## Domain Types
+## Unwrap
+
+`beta.webhooks.unwrap()`
+
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+client.beta.webhooks.unwrap()
+```
+
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 
@@ -13,8 +31,6 @@
   - `organization_id: str`
 
   - `type: Literal["agent.archived"]`
-
-    - `"agent.archived"`
 
   - `workspace_id: str`
 
@@ -30,8 +46,6 @@
 
   - `type: Literal["agent.created"]`
 
-    - `"agent.created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Agent Deleted Event Data
@@ -45,8 +59,6 @@
   - `organization_id: str`
 
   - `type: Literal["agent.deleted"]`
-
-    - `"agent.deleted"`
 
   - `workspace_id: str`
 
@@ -62,8 +74,6 @@
 
   - `type: Literal["agent.updated"]`
 
-    - `"agent.updated"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Archived Event Data
@@ -77,8 +87,6 @@
   - `organization_id: str`
 
   - `type: Literal["deployment.archived"]`
-
-    - `"deployment.archived"`
 
   - `workspace_id: str`
 
@@ -94,8 +102,6 @@
 
   - `type: Literal["deployment.created"]`
 
-    - `"deployment.created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Deleted Event Data
@@ -109,8 +115,6 @@
   - `organization_id: str`
 
   - `type: Literal["deployment.deleted"]`
-
-    - `"deployment.deleted"`
 
   - `workspace_id: str`
 
@@ -126,8 +130,6 @@
 
   - `type: Literal["deployment.paused"]`
 
-    - `"deployment.paused"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Run Failed Event Data
@@ -141,8 +143,6 @@
   - `organization_id: str`
 
   - `type: Literal["deployment_run.failed"]`
-
-    - `"deployment_run.failed"`
 
   - `workspace_id: str`
 
@@ -158,8 +158,6 @@
 
   - `type: Literal["deployment_run.started"]`
 
-    - `"deployment_run.started"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Run Succeeded Event Data
@@ -173,8 +171,6 @@
   - `organization_id: str`
 
   - `type: Literal["deployment_run.succeeded"]`
-
-    - `"deployment_run.succeeded"`
 
   - `workspace_id: str`
 
@@ -190,8 +186,6 @@
 
   - `type: Literal["deployment.unpaused"]`
 
-    - `"deployment.unpaused"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Updated Event Data
@@ -206,7 +200,61 @@
 
   - `type: Literal["deployment.updated"]`
 
-    - `"deployment.updated"`
+  - `workspace_id: str`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.archived"]`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.created"]`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.deleted"]`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.updated"]`
 
   - `workspace_id: str`
 
@@ -222,6 +270,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookEventData`
 
     - `class BetaWebhookSessionCreatedEventData: …`
@@ -233,8 +283,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.created"]`
-
-        - `"session.created"`
 
       - `workspace_id: str`
 
@@ -248,8 +296,6 @@
 
       - `type: Literal["session.pending"]`
 
-        - `"session.pending"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRunningEventData: …`
@@ -261,8 +307,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.running"]`
-
-        - `"session.running"`
 
       - `workspace_id: str`
 
@@ -276,8 +320,6 @@
 
       - `type: Literal["session.idled"]`
 
-        - `"session.idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRequiresActionEventData: …`
@@ -289,8 +331,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.requires_action"]`
-
-        - `"session.requires_action"`
 
       - `workspace_id: str`
 
@@ -304,8 +344,6 @@
 
       - `type: Literal["session.archived"]`
 
-        - `"session.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionDeletedEventData: …`
@@ -317,8 +355,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.deleted"]`
-
-        - `"session.deleted"`
 
       - `workspace_id: str`
 
@@ -332,8 +368,6 @@
 
       - `type: Literal["session.status_rescheduled"]`
 
-        - `"session.status_rescheduled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusRunStartedEventData: …`
@@ -345,8 +379,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.status_run_started"]`
-
-        - `"session.status_run_started"`
 
       - `workspace_id: str`
 
@@ -360,8 +392,6 @@
 
       - `type: Literal["session.status_idled"]`
 
-        - `"session.status_idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusTerminatedEventData: …`
@@ -373,8 +403,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.status_terminated"]`
-
-        - `"session.status_terminated"`
 
       - `workspace_id: str`
 
@@ -392,8 +420,6 @@
 
       - `type: Literal["session.thread_created"]`
 
-        - `"session.thread_created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionThreadIdledEventData: …`
@@ -409,8 +435,6 @@
         ID of the session thread this event refers to.
 
       - `type: Literal["session.thread_idled"]`
-
-        - `"session.thread_idled"`
 
       - `workspace_id: str`
 
@@ -428,8 +452,6 @@
 
       - `type: Literal["session.thread_terminated"]`
 
-        - `"session.thread_terminated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionOutcomeEvaluationEndedEventData: …`
@@ -441,8 +463,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.outcome_evaluation_ended"]`
-
-        - `"session.outcome_evaluation_ended"`
 
       - `workspace_id: str`
 
@@ -456,8 +476,6 @@
 
       - `type: Literal["vault.created"]`
 
-        - `"vault.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultArchivedEventData: …`
@@ -469,8 +487,6 @@
       - `organization_id: str`
 
       - `type: Literal["vault.archived"]`
-
-        - `"vault.archived"`
 
       - `workspace_id: str`
 
@@ -484,8 +500,6 @@
 
       - `type: Literal["vault.deleted"]`
 
-        - `"vault.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultCredentialCreatedEventData: …`
@@ -497,8 +511,6 @@
       - `organization_id: str`
 
       - `type: Literal["vault_credential.created"]`
-
-        - `"vault_credential.created"`
 
       - `vault_id: str`
 
@@ -516,8 +528,6 @@
 
       - `type: Literal["vault_credential.archived"]`
 
-        - `"vault_credential.archived"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -533,8 +543,6 @@
       - `organization_id: str`
 
       - `type: Literal["vault_credential.deleted"]`
-
-        - `"vault_credential.deleted"`
 
       - `vault_id: str`
 
@@ -552,8 +560,6 @@
 
       - `type: Literal["vault_credential.refresh_failed"]`
 
-        - `"vault_credential.refresh_failed"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -570,8 +576,6 @@
 
       - `type: Literal["session.updated"]`
 
-        - `"session.updated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentCreatedEventData: …`
@@ -583,8 +587,6 @@
       - `organization_id: str`
 
       - `type: Literal["agent.created"]`
-
-        - `"agent.created"`
 
       - `workspace_id: str`
 
@@ -598,8 +600,6 @@
 
       - `type: Literal["agent.archived"]`
 
-        - `"agent.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentDeletedEventData: …`
@@ -611,8 +611,6 @@
       - `organization_id: str`
 
       - `type: Literal["agent.deleted"]`
-
-        - `"agent.deleted"`
 
       - `workspace_id: str`
 
@@ -626,8 +624,6 @@
 
       - `type: Literal["deployment.paused"]`
 
-        - `"deployment.paused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunFailedEventData: …`
@@ -639,8 +635,6 @@
       - `organization_id: str`
 
       - `type: Literal["deployment_run.failed"]`
-
-        - `"deployment_run.failed"`
 
       - `workspace_id: str`
 
@@ -654,8 +648,6 @@
 
       - `type: Literal["deployment.created"]`
 
-        - `"deployment.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentUpdatedEventData: …`
@@ -667,8 +659,6 @@
       - `organization_id: str`
 
       - `type: Literal["deployment.updated"]`
-
-        - `"deployment.updated"`
 
       - `workspace_id: str`
 
@@ -682,8 +672,6 @@
 
       - `type: Literal["deployment.unpaused"]`
 
-        - `"deployment.unpaused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentUpdatedEventData: …`
@@ -695,8 +683,6 @@
       - `organization_id: str`
 
       - `type: Literal["agent.updated"]`
-
-        - `"agent.updated"`
 
       - `workspace_id: str`
 
@@ -710,8 +696,6 @@
 
       - `type: Literal["deployment.archived"]`
 
-        - `"deployment.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunStartedEventData: …`
@@ -723,8 +707,6 @@
       - `organization_id: str`
 
       - `type: Literal["deployment_run.started"]`
-
-        - `"deployment_run.started"`
 
       - `workspace_id: str`
 
@@ -738,8 +720,6 @@
 
       - `type: Literal["deployment.deleted"]`
 
-        - `"deployment.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunSucceededEventData: …`
@@ -752,15 +732,107 @@
 
       - `type: Literal["deployment_run.succeeded"]`
 
-        - `"deployment_run.succeeded"`
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.created"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.updated"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.archived"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.deleted"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.created"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.archived"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.deleted"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookSessionBudgetReachedEventData: …`
+
+      - `id: str`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["session.budget_reached"]`
 
       - `workspace_id: str`
 
   - `type: Literal["event"]`
 
     Object type. Always `event` for webhook payloads.
-
-    - `"event"`
 
 ### Beta Webhook Event Data
 
@@ -776,8 +848,6 @@
 
     - `type: Literal["session.created"]`
 
-      - `"session.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionPendingEventData: …`
@@ -789,8 +859,6 @@
     - `organization_id: str`
 
     - `type: Literal["session.pending"]`
-
-      - `"session.pending"`
 
     - `workspace_id: str`
 
@@ -804,8 +872,6 @@
 
     - `type: Literal["session.running"]`
 
-      - `"session.running"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionIdledEventData: …`
@@ -817,8 +883,6 @@
     - `organization_id: str`
 
     - `type: Literal["session.idled"]`
-
-      - `"session.idled"`
 
     - `workspace_id: str`
 
@@ -832,8 +896,6 @@
 
     - `type: Literal["session.requires_action"]`
 
-      - `"session.requires_action"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionArchivedEventData: …`
@@ -845,8 +907,6 @@
     - `organization_id: str`
 
     - `type: Literal["session.archived"]`
-
-      - `"session.archived"`
 
     - `workspace_id: str`
 
@@ -860,8 +920,6 @@
 
     - `type: Literal["session.deleted"]`
 
-      - `"session.deleted"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionStatusRescheduledEventData: …`
@@ -873,8 +931,6 @@
     - `organization_id: str`
 
     - `type: Literal["session.status_rescheduled"]`
-
-      - `"session.status_rescheduled"`
 
     - `workspace_id: str`
 
@@ -888,8 +944,6 @@
 
     - `type: Literal["session.status_run_started"]`
 
-      - `"session.status_run_started"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionStatusIdledEventData: …`
@@ -902,8 +956,6 @@
 
     - `type: Literal["session.status_idled"]`
 
-      - `"session.status_idled"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionStatusTerminatedEventData: …`
@@ -915,8 +967,6 @@
     - `organization_id: str`
 
     - `type: Literal["session.status_terminated"]`
-
-      - `"session.status_terminated"`
 
     - `workspace_id: str`
 
@@ -934,8 +984,6 @@
 
     - `type: Literal["session.thread_created"]`
 
-      - `"session.thread_created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionThreadIdledEventData: …`
@@ -951,8 +999,6 @@
       ID of the session thread this event refers to.
 
     - `type: Literal["session.thread_idled"]`
-
-      - `"session.thread_idled"`
 
     - `workspace_id: str`
 
@@ -970,8 +1016,6 @@
 
     - `type: Literal["session.thread_terminated"]`
 
-      - `"session.thread_terminated"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionOutcomeEvaluationEndedEventData: …`
@@ -983,8 +1027,6 @@
     - `organization_id: str`
 
     - `type: Literal["session.outcome_evaluation_ended"]`
-
-      - `"session.outcome_evaluation_ended"`
 
     - `workspace_id: str`
 
@@ -998,8 +1040,6 @@
 
     - `type: Literal["vault.created"]`
 
-      - `"vault.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookVaultArchivedEventData: …`
@@ -1011,8 +1051,6 @@
     - `organization_id: str`
 
     - `type: Literal["vault.archived"]`
-
-      - `"vault.archived"`
 
     - `workspace_id: str`
 
@@ -1026,8 +1064,6 @@
 
     - `type: Literal["vault.deleted"]`
 
-      - `"vault.deleted"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookVaultCredentialCreatedEventData: …`
@@ -1039,8 +1075,6 @@
     - `organization_id: str`
 
     - `type: Literal["vault_credential.created"]`
-
-      - `"vault_credential.created"`
 
     - `vault_id: str`
 
@@ -1058,8 +1092,6 @@
 
     - `type: Literal["vault_credential.archived"]`
 
-      - `"vault_credential.archived"`
-
     - `vault_id: str`
 
       ID of the vault that owns this credential.
@@ -1075,8 +1107,6 @@
     - `organization_id: str`
 
     - `type: Literal["vault_credential.deleted"]`
-
-      - `"vault_credential.deleted"`
 
     - `vault_id: str`
 
@@ -1094,8 +1124,6 @@
 
     - `type: Literal["vault_credential.refresh_failed"]`
 
-      - `"vault_credential.refresh_failed"`
-
     - `vault_id: str`
 
       ID of the vault that owns this credential.
@@ -1112,8 +1140,6 @@
 
     - `type: Literal["session.updated"]`
 
-      - `"session.updated"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookAgentCreatedEventData: …`
@@ -1125,8 +1151,6 @@
     - `organization_id: str`
 
     - `type: Literal["agent.created"]`
-
-      - `"agent.created"`
 
     - `workspace_id: str`
 
@@ -1140,8 +1164,6 @@
 
     - `type: Literal["agent.archived"]`
 
-      - `"agent.archived"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookAgentDeletedEventData: …`
@@ -1153,8 +1175,6 @@
     - `organization_id: str`
 
     - `type: Literal["agent.deleted"]`
-
-      - `"agent.deleted"`
 
     - `workspace_id: str`
 
@@ -1168,8 +1188,6 @@
 
     - `type: Literal["deployment.paused"]`
 
-      - `"deployment.paused"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentRunFailedEventData: …`
@@ -1181,8 +1199,6 @@
     - `organization_id: str`
 
     - `type: Literal["deployment_run.failed"]`
-
-      - `"deployment_run.failed"`
 
     - `workspace_id: str`
 
@@ -1196,8 +1212,6 @@
 
     - `type: Literal["deployment.created"]`
 
-      - `"deployment.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentUpdatedEventData: …`
@@ -1209,8 +1223,6 @@
     - `organization_id: str`
 
     - `type: Literal["deployment.updated"]`
-
-      - `"deployment.updated"`
 
     - `workspace_id: str`
 
@@ -1224,8 +1236,6 @@
 
     - `type: Literal["deployment.unpaused"]`
 
-      - `"deployment.unpaused"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookAgentUpdatedEventData: …`
@@ -1237,8 +1247,6 @@
     - `organization_id: str`
 
     - `type: Literal["agent.updated"]`
-
-      - `"agent.updated"`
 
     - `workspace_id: str`
 
@@ -1252,8 +1260,6 @@
 
     - `type: Literal["deployment.archived"]`
 
-      - `"deployment.archived"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentRunStartedEventData: …`
@@ -1265,8 +1271,6 @@
     - `organization_id: str`
 
     - `type: Literal["deployment_run.started"]`
-
-      - `"deployment_run.started"`
 
     - `workspace_id: str`
 
@@ -1280,8 +1284,6 @@
 
     - `type: Literal["deployment.deleted"]`
 
-      - `"deployment.deleted"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentRunSucceededEventData: …`
@@ -1294,9 +1296,145 @@
 
     - `type: Literal["deployment_run.succeeded"]`
 
-      - `"deployment_run.succeeded"`
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.created"]`
 
     - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.updated"]`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.archived"]`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.deleted"]`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.created"]`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.archived"]`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.deleted"]`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookSessionBudgetReachedEventData: …`
+
+    - `id: str`
+
+      ID of the session that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["session.budget_reached"]`
+
+    - `workspace_id: str`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.archived"]`
+
+  - `workspace_id: str`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.created"]`
+
+  - `workspace_id: str`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.deleted"]`
+
+  - `workspace_id: str`
 
 ### Beta Webhook Session Archived Event Data
 
@@ -1310,7 +1448,19 @@
 
   - `type: Literal["session.archived"]`
 
-    - `"session.archived"`
+  - `workspace_id: str`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `class BetaWebhookSessionBudgetReachedEventData: …`
+
+  - `id: str`
+
+    ID of the session that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["session.budget_reached"]`
 
   - `workspace_id: str`
 
@@ -1326,8 +1476,6 @@
 
   - `type: Literal["session.created"]`
 
-    - `"session.created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Deleted Event Data
@@ -1341,8 +1489,6 @@
   - `organization_id: str`
 
   - `type: Literal["session.deleted"]`
-
-    - `"session.deleted"`
 
   - `workspace_id: str`
 
@@ -1358,8 +1504,6 @@
 
   - `type: Literal["session.idled"]`
 
-    - `"session.idled"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Outcome Evaluation Ended Event Data
@@ -1373,8 +1517,6 @@
   - `organization_id: str`
 
   - `type: Literal["session.outcome_evaluation_ended"]`
-
-    - `"session.outcome_evaluation_ended"`
 
   - `workspace_id: str`
 
@@ -1390,8 +1532,6 @@
 
   - `type: Literal["session.pending"]`
 
-    - `"session.pending"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Requires Action Event Data
@@ -1405,8 +1545,6 @@
   - `organization_id: str`
 
   - `type: Literal["session.requires_action"]`
-
-    - `"session.requires_action"`
 
   - `workspace_id: str`
 
@@ -1422,8 +1560,6 @@
 
   - `type: Literal["session.running"]`
 
-    - `"session.running"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Status Idled Event Data
@@ -1437,8 +1573,6 @@
   - `organization_id: str`
 
   - `type: Literal["session.status_idled"]`
-
-    - `"session.status_idled"`
 
   - `workspace_id: str`
 
@@ -1454,8 +1588,6 @@
 
   - `type: Literal["session.status_rescheduled"]`
 
-    - `"session.status_rescheduled"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Status Run Started Event Data
@@ -1470,8 +1602,6 @@
 
   - `type: Literal["session.status_run_started"]`
 
-    - `"session.status_run_started"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Status Terminated Event Data
@@ -1485,8 +1615,6 @@
   - `organization_id: str`
 
   - `type: Literal["session.status_terminated"]`
-
-    - `"session.status_terminated"`
 
   - `workspace_id: str`
 
@@ -1506,8 +1634,6 @@
 
   - `type: Literal["session.thread_created"]`
 
-    - `"session.thread_created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Thread Idled Event Data
@@ -1525,8 +1651,6 @@
     ID of the session thread this event refers to.
 
   - `type: Literal["session.thread_idled"]`
-
-    - `"session.thread_idled"`
 
   - `workspace_id: str`
 
@@ -1546,8 +1670,6 @@
 
   - `type: Literal["session.thread_terminated"]`
 
-    - `"session.thread_terminated"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Updated Event Data
@@ -1561,8 +1683,6 @@
   - `organization_id: str`
 
   - `type: Literal["session.updated"]`
-
-    - `"session.updated"`
 
   - `workspace_id: str`
 
@@ -1578,8 +1698,6 @@
 
   - `type: Literal["vault.archived"]`
 
-    - `"vault.archived"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Vault Created Event Data
@@ -1594,8 +1712,6 @@
 
   - `type: Literal["vault.created"]`
 
-    - `"vault.created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Vault Credential Archived Event Data
@@ -1609,8 +1725,6 @@
   - `organization_id: str`
 
   - `type: Literal["vault_credential.archived"]`
-
-    - `"vault_credential.archived"`
 
   - `vault_id: str`
 
@@ -1630,8 +1744,6 @@
 
   - `type: Literal["vault_credential.created"]`
 
-    - `"vault_credential.created"`
-
   - `vault_id: str`
 
     ID of the vault that owns this credential.
@@ -1649,8 +1761,6 @@
   - `organization_id: str`
 
   - `type: Literal["vault_credential.deleted"]`
-
-    - `"vault_credential.deleted"`
 
   - `vault_id: str`
 
@@ -1670,8 +1780,6 @@
 
   - `type: Literal["vault_credential.refresh_failed"]`
 
-    - `"vault_credential.refresh_failed"`
-
   - `vault_id: str`
 
     ID of the vault that owns this credential.
@@ -1690,8 +1798,6 @@
 
   - `type: Literal["vault.deleted"]`
 
-    - `"vault.deleted"`
-
   - `workspace_id: str`
 
 ### Unwrap Webhook Event
@@ -1706,6 +1812,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookEventData`
 
     - `class BetaWebhookSessionCreatedEventData: …`
@@ -1717,8 +1825,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.created"]`
-
-        - `"session.created"`
 
       - `workspace_id: str`
 
@@ -1732,8 +1838,6 @@
 
       - `type: Literal["session.pending"]`
 
-        - `"session.pending"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRunningEventData: …`
@@ -1745,8 +1849,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.running"]`
-
-        - `"session.running"`
 
       - `workspace_id: str`
 
@@ -1760,8 +1862,6 @@
 
       - `type: Literal["session.idled"]`
 
-        - `"session.idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRequiresActionEventData: …`
@@ -1773,8 +1873,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.requires_action"]`
-
-        - `"session.requires_action"`
 
       - `workspace_id: str`
 
@@ -1788,8 +1886,6 @@
 
       - `type: Literal["session.archived"]`
 
-        - `"session.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionDeletedEventData: …`
@@ -1801,8 +1897,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.deleted"]`
-
-        - `"session.deleted"`
 
       - `workspace_id: str`
 
@@ -1816,8 +1910,6 @@
 
       - `type: Literal["session.status_rescheduled"]`
 
-        - `"session.status_rescheduled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusRunStartedEventData: …`
@@ -1829,8 +1921,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.status_run_started"]`
-
-        - `"session.status_run_started"`
 
       - `workspace_id: str`
 
@@ -1844,8 +1934,6 @@
 
       - `type: Literal["session.status_idled"]`
 
-        - `"session.status_idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusTerminatedEventData: …`
@@ -1857,8 +1945,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.status_terminated"]`
-
-        - `"session.status_terminated"`
 
       - `workspace_id: str`
 
@@ -1876,8 +1962,6 @@
 
       - `type: Literal["session.thread_created"]`
 
-        - `"session.thread_created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionThreadIdledEventData: …`
@@ -1893,8 +1977,6 @@
         ID of the session thread this event refers to.
 
       - `type: Literal["session.thread_idled"]`
-
-        - `"session.thread_idled"`
 
       - `workspace_id: str`
 
@@ -1912,8 +1994,6 @@
 
       - `type: Literal["session.thread_terminated"]`
 
-        - `"session.thread_terminated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionOutcomeEvaluationEndedEventData: …`
@@ -1925,8 +2005,6 @@
       - `organization_id: str`
 
       - `type: Literal["session.outcome_evaluation_ended"]`
-
-        - `"session.outcome_evaluation_ended"`
 
       - `workspace_id: str`
 
@@ -1940,8 +2018,6 @@
 
       - `type: Literal["vault.created"]`
 
-        - `"vault.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultArchivedEventData: …`
@@ -1953,8 +2029,6 @@
       - `organization_id: str`
 
       - `type: Literal["vault.archived"]`
-
-        - `"vault.archived"`
 
       - `workspace_id: str`
 
@@ -1968,8 +2042,6 @@
 
       - `type: Literal["vault.deleted"]`
 
-        - `"vault.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultCredentialCreatedEventData: …`
@@ -1981,8 +2053,6 @@
       - `organization_id: str`
 
       - `type: Literal["vault_credential.created"]`
-
-        - `"vault_credential.created"`
 
       - `vault_id: str`
 
@@ -2000,8 +2070,6 @@
 
       - `type: Literal["vault_credential.archived"]`
 
-        - `"vault_credential.archived"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -2017,8 +2085,6 @@
       - `organization_id: str`
 
       - `type: Literal["vault_credential.deleted"]`
-
-        - `"vault_credential.deleted"`
 
       - `vault_id: str`
 
@@ -2036,8 +2102,6 @@
 
       - `type: Literal["vault_credential.refresh_failed"]`
 
-        - `"vault_credential.refresh_failed"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -2054,8 +2118,6 @@
 
       - `type: Literal["session.updated"]`
 
-        - `"session.updated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentCreatedEventData: …`
@@ -2067,8 +2129,6 @@
       - `organization_id: str`
 
       - `type: Literal["agent.created"]`
-
-        - `"agent.created"`
 
       - `workspace_id: str`
 
@@ -2082,8 +2142,6 @@
 
       - `type: Literal["agent.archived"]`
 
-        - `"agent.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentDeletedEventData: …`
@@ -2095,8 +2153,6 @@
       - `organization_id: str`
 
       - `type: Literal["agent.deleted"]`
-
-        - `"agent.deleted"`
 
       - `workspace_id: str`
 
@@ -2110,8 +2166,6 @@
 
       - `type: Literal["deployment.paused"]`
 
-        - `"deployment.paused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunFailedEventData: …`
@@ -2123,8 +2177,6 @@
       - `organization_id: str`
 
       - `type: Literal["deployment_run.failed"]`
-
-        - `"deployment_run.failed"`
 
       - `workspace_id: str`
 
@@ -2138,8 +2190,6 @@
 
       - `type: Literal["deployment.created"]`
 
-        - `"deployment.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentUpdatedEventData: …`
@@ -2151,8 +2201,6 @@
       - `organization_id: str`
 
       - `type: Literal["deployment.updated"]`
-
-        - `"deployment.updated"`
 
       - `workspace_id: str`
 
@@ -2166,8 +2214,6 @@
 
       - `type: Literal["deployment.unpaused"]`
 
-        - `"deployment.unpaused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentUpdatedEventData: …`
@@ -2179,8 +2225,6 @@
       - `organization_id: str`
 
       - `type: Literal["agent.updated"]`
-
-        - `"agent.updated"`
 
       - `workspace_id: str`
 
@@ -2194,8 +2238,6 @@
 
       - `type: Literal["deployment.archived"]`
 
-        - `"deployment.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunStartedEventData: …`
@@ -2207,8 +2249,6 @@
       - `organization_id: str`
 
       - `type: Literal["deployment_run.started"]`
-
-        - `"deployment_run.started"`
 
       - `workspace_id: str`
 
@@ -2222,8 +2262,6 @@
 
       - `type: Literal["deployment.deleted"]`
 
-        - `"deployment.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunSucceededEventData: …`
@@ -2236,12 +2274,104 @@
 
       - `type: Literal["deployment_run.succeeded"]`
 
-        - `"deployment_run.succeeded"`
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.created"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.updated"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.archived"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.deleted"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.created"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.archived"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.deleted"]`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookSessionBudgetReachedEventData: …`
+
+      - `id: str`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["session.budget_reached"]`
 
       - `workspace_id: str`
 
   - `type: Literal["event"]`
 
     Object type. Always `event` for webhook payloads.
-
-    - `"event"`

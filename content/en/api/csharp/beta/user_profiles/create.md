@@ -1,18 +1,28 @@
-## Create User Profile
+# Create User Profile
 
-`BetaUserProfile Beta.UserProfiles.Create(UserProfileCreateParams?parameters, CancellationTokencancellationToken = default)`
+`BetaUserProfile Beta.UserProfiles.Create(parameters, cancellationToken = default)`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
-### Parameters
+## Parameters
 
 - `UserProfileCreateParams parameters`
+
+  - `AccessType accessType`
+
+    Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `Application`
+
+    - `Passthrough`
 
   - `string? externalID`
 
     Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string> metadata`
 
@@ -20,81 +30,93 @@ Create User Profile
 
   - `string? name`
 
-    Body param: Display name of the entity this profile represents. Required when relationship is `resold` (the resold-to company's name); optional otherwise. Maximum 255 characters.
+    Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `Relationship relationship`
 
     Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `"external"External`
+    - `External`
 
-    - `"resold"Resold`
+    - `Resold`
 
-    - `"internal"Internal`
+    - `Internal`
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
 
-### Returns
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+## Returns
 
 - `class BetaUserProfile:`
 
@@ -106,19 +128,11 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required IReadOnlyDictionary<string, string> Metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `required Relationship Relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"External`
-
-    - `"resold"Resold`
-
-    - `"internal"Internal`
 
   - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
@@ -128,21 +142,29 @@ Create User Profile
 
       Status of the trust grant.
 
-      - `"active"Active`
+      - `Active`
 
-      - `"pending"Pending`
+      - `Pending`
 
-      - `"rejected"Rejected`
+      - `Rejected`
 
   - `required Type Type`
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"UserProfile`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `AccessType AccessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `Application`
+
+    - `Passthrough`
 
   - `string? ExternalID`
 
@@ -150,9 +172,19 @@ Create User Profile
 
   - `string? Name`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
 
-### Example
+  - `Relationship Relationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `External`
+
+    - `Resold`
+
+    - `Internal`
+
+## Example
 
 ```csharp
 UserProfileCreateParams parameters = new();
@@ -162,14 +194,13 @@ var betaUserProfile = await client.Beta.UserProfiles.Create(parameters);
 Console.WriteLine(betaUserProfile);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -177,7 +208,9 @@ Console.WriteLine(betaUserProfile);
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```

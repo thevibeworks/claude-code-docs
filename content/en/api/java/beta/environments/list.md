@@ -1,12 +1,12 @@
-## List Environments
+# List Environments
 
-`EnvironmentListPage beta().environments().list(EnvironmentListParamsparams = EnvironmentListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`EnvironmentListPage beta().environments().list(params = EnvironmentListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
-### Parameters
+## Parameters
 
 - `EnvironmentListParams params`
 
@@ -17,6 +17,8 @@ List environments with pagination support.
   - `Optional<Long> limit`
 
     Maximum number of environments to return
+
+    maximum: 1000, minimum: 1
 
   - `Optional<String> page`
 
@@ -70,21 +72,31 @@ List environments with pagination support.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
+
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
 
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
 
-### Returns
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
+
+## Returns
 
 - `class BetaEnvironment:`
 
@@ -114,11 +126,9 @@ List environments with pagination support.
 
           Unrestricted network access.
 
-          - `JsonValue; type "unrestricted"constant`
+          - `JsonValue type constant`
 
             Network policy type
-
-            - `UNRESTRICTED("unrestricted")`
 
         - `class BetaLimitedNetwork:`
 
@@ -136,11 +146,9 @@ List environments with pagination support.
 
             Specifies domains the container can reach.
 
-          - `JsonValue; type "limited"constant`
+          - `JsonValue type constant`
 
             Network policy type
-
-            - `LIMITED("limited")`
 
       - `BetaPackages packages`
 
@@ -174,31 +182,25 @@ List environments with pagination support.
 
           Package configuration type
 
-          - `PACKAGES("packages")`
-
-      - `JsonValue; type "cloud"constant`
+      - `JsonValue type constant`
 
         Environment type
-
-        - `CLOUD("cloud")`
 
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
 
-      - `JsonValue; type "self_hosted"constant`
+      - `JsonValue type constant`
 
         Environment type
-
-        - `SELF_HOSTED("self_hosted")`
 
   - `String createdAt`
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -208,11 +210,9 @@ List environments with pagination support.
 
     Human-readable name for the environment
 
-  - `JsonValue; type "environment"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'environment')
-
-    - `ENVIRONMENT("environment")`
 
   - `String updatedAt`
 
@@ -226,7 +226,7 @@ List environments with pagination support.
 
     - `ACCOUNT("account")`
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -247,7 +247,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

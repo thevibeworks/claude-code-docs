@@ -1,14 +1,14 @@
-## List Message Batches
+# List Message Batches
 
-`BatchListPageResponse Messages.Batches.List(BatchListParams?parameters, CancellationTokencancellationToken = default)`
+`BatchListPageResponse Messages.Batches.List(parameters, cancellationToken = default)`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `BatchListParams parameters`
 
@@ -20,13 +20,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-  - `Long limit`
+  - `long limit`
 
     Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-### Returns
+    maximum: 1000, minimum: 1
+
+## Returns
 
 - `class BatchListPageResponse:`
 
@@ -42,13 +44,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+      format: date-time
+
     - `required DateTimeOffset? CancelInitiatedAt`
 
       RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+      format: date-time
+
     - `required DateTimeOffset CreatedAt`
 
       RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+      format: date-time
 
     - `required DateTimeOffset? EndedAt`
 
@@ -56,19 +64,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+      format: date-time
+
     - `required DateTimeOffset ExpiresAt`
 
       RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+      format: date-time
 
     - `required ProcessingStatus ProcessingStatus`
 
       Processing status of the Message Batch.
 
-      - `"in_progress"InProgress`
+      - `InProgress`
 
-      - `"canceling"Canceling`
+      - `Canceling`
 
-      - `"ended"Ended`
+      - `Ended`
 
     - `required MessageBatchRequestCounts RequestCounts`
 
@@ -76,29 +88,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
 
-      - `required Long Canceled`
+      - `required long Canceled`
 
         Number of requests in the Message Batch that have been canceled.
 
         This is zero until processing of the entire Message Batch has ended.
 
-      - `required Long Errored`
+      - `required long Errored`
 
         Number of requests in the Message Batch that encountered an error.
 
         This is zero until processing of the entire Message Batch has ended.
 
-      - `required Long Expired`
+      - `required long Expired`
 
         Number of requests in the Message Batch that have expired.
 
         This is zero until processing of the entire Message Batch has ended.
 
-      - `required Long Processing`
+      - `required long Processing`
 
         Number of requests in the Message Batch that are processing.
 
-      - `required Long Succeeded`
+      - `required long Succeeded`
 
         Number of requests in the Message Batch that have completed successfully.
 
@@ -110,7 +122,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-    - `JsonElement Type "message_batch"constant`
+    - `JsonElement Type constant`
 
       Object type.
 
@@ -120,7 +132,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     First ID in the `data` list. Can be used as the `before_id` for the previous page.
 
-  - `required Boolean HasMore`
+  - `required bool HasMore`
 
     Indicates if there are more results in the requested page direction.
 
@@ -128,7 +140,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
-### Example
+## Example
 
 ```csharp
 BatchListParams parameters = new();
@@ -140,7 +152,7 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

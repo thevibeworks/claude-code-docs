@@ -1,12 +1,12 @@
-## Get Session Resource
+# Get Session Resource
 
-`beta.sessions.resources.retrieve(strresource_id, ResourceRetrieveParams**kwargs)  -> ResourceRetrieveResponse`
+`beta.sessions.resources.retrieve(resource_id, **kwargs)  -> ResourceRetrieveResponse`
 
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
-### Parameters
+## Parameters
 
 - `session_id: str`
 
@@ -18,7 +18,7 @@ Get Session Resource
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -64,21 +64,31 @@ Get Session Resource
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `ResourceRetrieveResponse`
 
@@ -92,15 +102,17 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: str`
 
     - `type: Literal["github_repository"]`
 
-      - `"github_repository"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: str`
 
@@ -112,9 +124,9 @@ Get Session Resource
 
           Branch name to check out.
 
-        - `type: Literal["branch"]`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: Literal["branch"]`
 
       - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -122,9 +134,9 @@ Get Session Resource
 
           Full commit SHA to check out.
 
-        - `type: Literal["commit"]`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: Literal["commit"]`
 
   - `class BetaManagedAgentsFileResource: …`
 
@@ -134,17 +146,19 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: str`
 
     - `mount_path: str`
 
     - `type: Literal["file"]`
 
-      - `"file"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource: …`
 
@@ -155,8 +169,6 @@ Get Session Resource
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: Literal["memory_store"]`
-
-      - `"memory_store"`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -174,6 +186,8 @@ Get Session Resource
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `mount_path: Optional[str]`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -182,14 +196,16 @@ Get Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 resource = client.beta.sessions.resources.retrieve(
     resource_id="sesrsc_011CZkZBJq5dWxk9fVLNcPht",
@@ -198,7 +214,7 @@ resource = client.beta.sessions.resources.retrieve(
 print(resource)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

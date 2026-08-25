@@ -1,8 +1,8 @@
-## Count tokens in a Message
+# Count tokens in a Message
 
 `beta.messages.count_tokens(**kwargs) -> BetaMessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -10,7 +10,7 @@ The Token Count API can be used to count the number of tokens in a Message, incl
 
 Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-### Parameters
+## Parameters
 
 - `messages: Array[BetaMessageParam]`
 
@@ -73,17 +73,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `text: String`
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
 
           - `type: :ephemeral`
-
-            - `:ephemeral`
 
           - `ttl: :"5m" | :"1h"`
 
@@ -108,15 +106,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: Integer`
 
             - `start_char_index: Integer`
 
-            - `type: :char_location`
+              minimum: 0
 
-              - `:char_location`
+            - `type: :char_location`
 
           - `class BetaCitationPageLocationParam`
 
@@ -124,15 +126,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: Integer`
 
             - `start_page_number: Integer`
 
-            - `type: :page_location`
+              minimum: 1
 
-              - `:page_location`
+            - `type: :page_location`
 
           - `class BetaCitationContentBlockLocationParam`
 
@@ -144,7 +150,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: Integer`
 
@@ -156,9 +166,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: :content_block_location`
+              minimum: 0
 
-              - `:content_block_location`
+            - `type: :content_block_location`
 
           - `class BetaCitationWebSearchResultLocationParam`
 
@@ -168,11 +178,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `title: String`
 
+              maxLength: 512, minLength: 1
+
             - `type: :web_search_result_location`
 
-              - `:web_search_result_location`
-
             - `url: String`
+
+              minLength: 1
 
           - `class BetaCitationSearchResultLocationParam`
 
@@ -194,17 +206,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: String`
 
             - `start_block_index: Integer`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: String`
 
             - `type: :search_result_location`
-
-              - `:search_result_location`
 
       - `class BetaImageBlockParam`
 
@@ -213,6 +227,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `class BetaBase64ImageSource`
 
             - `data: String`
+
+              format: byte
 
             - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -226,13 +242,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :base64`
 
-              - `:base64`
-
           - `class BetaURLImageSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -242,15 +254,23 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
+
+        - `transformations: BetaImageTransformationsParam`
+
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `oversized_image: :downsize | :error`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `:downsize`
+
+            - `:error`
 
       - `class BetaRequestDocumentBlock`
 
@@ -260,13 +280,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `data: String`
 
+              format: byte
+
             - `media_type: :"application/pdf"`
 
-              - `:"application/pdf"`
-
             - `type: :base64`
-
-              - `:base64`
 
           - `class BetaPlainTextSource`
 
@@ -274,11 +292,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `media_type: :"text/plain"`
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaContentBlockSource`
 
@@ -294,13 +308,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :content`
 
-              - `:content`
-
           - `class BetaURLPDFSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -310,11 +320,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -326,13 +332,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `context: String`
 
+          minLength: 1
+
         - `title: String`
+
+          maxLength: 500, minLength: 1
 
       - `class BetaSearchResultBlockParam`
 
         - `content: Array[BetaTextBlockParam]`
 
           - `text: String`
+
+            minLength: 1
 
           - `type: :text`
 
@@ -348,8 +360,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :search_result`
 
-          - `:search_result`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -360,31 +370,37 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `signature: String`
 
+          The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+          Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
         - `thinking: String`
 
-        - `type: :thinking`
+          The `thinking` text of this block as returned by the API.
 
-          - `:thinking`
+        - `type: :thinking`
 
       - `class BetaRedactedThinkingBlockParam`
 
         - `data: String`
 
-        - `type: :redacted_thinking`
+          The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-          - `:redacted_thinking`
+        - `type: :redacted_thinking`
 
       - `class BetaToolUseBlockParam`
 
         - `id: String`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `input: Hash[Symbol, untyped]`
 
         - `name: String`
 
-        - `type: :tool_use`
+          maxLength: 200, minLength: 1
 
-          - `:tool_use`
+        - `type: :tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -400,43 +416,47 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :direct`
 
-              - `:direct`
-
           - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: String`
 
-            - `type: :code_execution_20250825`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20250825`
+            - `type: :code_execution_20250825`
 
           - `class BetaServerToolCaller20260120`
 
             - `tool_id: String`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: :code_execution_20260120`
 
-              - `:code_execution_20260120`
+        - `toolset_name: String`
+
+          For a toolset member tool_use, the toolset family this member belongs to.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaToolResultBlockParam`
 
         - `tool_use_id: String`
 
-        - `type: :tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:tool_result`
+        - `type: :tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
 
-        - `content: String | Array[BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | 2 more]`
+        - `content: String | Array[BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | 3 more]`
 
           - `String = String`
 
-          - `Content = Array[BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | 2 more]`
+          - `Content = Array[BetaTextBlockParam | BetaImageBlockParam | BetaSearchResultBlockParam | 3 more]`
 
             - `class BetaTextBlockParam`
 
@@ -452,19 +472,170 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `tool_name: String`
 
-              - `type: :tool_reference`
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `:tool_reference`
+              - `type: :tool_reference`
 
               - `cache_control: BetaCacheControlEphemeral`
 
                 Create a cache control breakpoint at this content block.
 
+            - `class BetaBrowserStateBlockParam`
+
+              The caller's browser state after a browser toolset member call —
+              the full inventory of open tabs, which tab is active, and any side
+              effects (tabs opened, download state changes) the call produced.
+
+              At most one per `tool_result`, only on a non-error result answering a
+              browser toolset member `tool_use`. The server renders the
+              model-visible text from it; the model never sees the raw fields.
+
+              - `tabs: Array[BetaBrowserStateTabEntry]`
+
+                All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                maxItems: 100
+
+                - `tab_id: String`
+
+                  The caller-assigned identifier for this tab, unique within the inventory.
+
+                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `title: String`
+
+                  The title of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `url: String`
+
+                  The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `active: bool`
+
+                  Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+              - `type: :browser_state`
+
+              - `cache_control: BetaCacheControlEphemeral`
+
+                Create a cache control breakpoint at this content block.
+
+              - `state_changes: Array[BetaBrowserStateChange]`
+
+                Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                maxItems: 200, minItems: 1
+
+                - `class BetaBrowserStateChangeTabOpened`
+
+                  A tab this call's execution opened that remains open at its end —
+                  the creation delta of the `tabs` inventory, not an event log.
+
+                  Carries only the `tab_id`; the tab's `title` and `url` live on its
+                  `tabs` entry, which must include the same `tab_id`. A tab opened
+                  during a failed call gets no deferred `tab_opened`; it simply appears
+                  in the next result's `tabs` inventory.
+
+                  - `tab_id: String`
+
+                    The `tab_id` of the opened tab, present in `tabs`.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: :tab_opened`
+
+                - `class BetaBrowserStateChangeDownloadStarted`
+
+                  A file download that started during this call.
+
+                  - `download_id: String`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: :download_started`
+
+                  - `url: String`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `class BetaBrowserStateChangeDownloadCompleted`
+
+                  A file download that finished during this call, reported with the
+                  same `download_id` as its `download_started` — or without a prior
+                  `download_started`, when the download finished during the call that
+                  started it (at most one state change per `download_id` per result).
+
+                  - `download_id: String`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: :download_completed`
+
+                  - `url: String`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `path: String`
+
+                    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                  - `size_bytes: Integer`
+
+                    The completed download's size.
+
+                    minimum: 0
+
+                - `class BetaBrowserStateChangeDownloadFailed`
+
+                  A file download that failed — or was cancelled — during this call.
+
+                  - `download_id: String`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: :download_failed`
+
+                  - `url: String`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `error: String`
+
+                    The failure or cancellation detail, when known.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
         - `is_error: bool`
+
+        - `toolset_name: String`
+
+          For a toolset member tool_result, the toolset family of the paired tool_use.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class BetaServerToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -487,8 +658,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `:tool_search_tool_bm25`
 
         - `type: :server_tool_use`
-
-          - `:server_tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -520,8 +689,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :web_search_result`
 
-              - `:web_search_result`
-
             - `url: String`
 
             - `page_age: String`
@@ -544,13 +711,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :web_search_tool_result_error`
 
-              - `:web_search_tool_result_error`
-
         - `tool_use_id: String`
 
-        - `type: :web_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_search_tool_result`
+        - `type: :web_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -598,15 +763,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :web_fetch_tool_result_error`
 
-              - `:web_fetch_tool_result_error`
-
           - `class BetaWebFetchBlockParam`
 
             - `content: BetaRequestDocumentBlock`
 
             - `type: :web_fetch_result`
-
-              - `:web_fetch_result`
 
             - `url: String`
 
@@ -618,9 +779,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: String`
 
-        - `type: :web_fetch_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_fetch_tool_result`
+        - `type: :web_fetch_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -664,15 +825,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :advisor_tool_result_error`
 
-              - `:advisor_tool_result_error`
-
           - `class BetaAdvisorResultBlockParam`
 
             - `text: String`
 
             - `type: :advisor_result`
-
-              - `:advisor_result`
 
             - `stop_reason: String`
 
@@ -684,15 +841,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :advisor_redacted_result`
 
-              - `:advisor_redacted_result`
-
             - `stop_reason: String`
 
         - `tool_use_id: String`
 
-        - `type: :advisor_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:advisor_tool_result`
+        - `type: :advisor_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -718,8 +873,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :code_execution_tool_result_error`
 
-              - `:code_execution_tool_result_error`
-
           - `class BetaCodeExecutionResultBlockParam`
 
             - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -728,8 +881,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: :code_execution_output`
 
-                - `:code_execution_output`
-
             - `return_code: Integer`
 
             - `stderr: String`
@@ -737,8 +888,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `stdout: String`
 
             - `type: :code_execution_result`
-
-              - `:code_execution_result`
 
           - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -758,13 +907,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :encrypted_code_execution_result`
 
-              - `:encrypted_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_tool_result`
+        - `type: :code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -790,8 +937,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :bash_code_execution_tool_result_error`
 
-              - `:bash_code_execution_tool_result_error`
-
           - `class BetaBashCodeExecutionResultBlockParam`
 
             - `content: Array[BetaBashCodeExecutionOutputBlockParam]`
@@ -799,8 +944,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `file_id: String`
 
               - `type: :bash_code_execution_output`
-
-                - `:bash_code_execution_output`
 
             - `return_code: Integer`
 
@@ -810,13 +953,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :bash_code_execution_result`
 
-              - `:bash_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :bash_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:bash_code_execution_tool_result`
+        - `type: :bash_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -842,8 +983,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :text_editor_code_execution_tool_result_error`
 
-              - `:text_editor_code_execution_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -860,8 +999,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :text_editor_code_execution_view_result`
 
-              - `:text_editor_code_execution_view_result`
-
             - `num_lines: Integer`
 
             - `start_line: Integer`
@@ -874,13 +1011,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :text_editor_code_execution_create_result`
 
-              - `:text_editor_code_execution_create_result`
-
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `type: :text_editor_code_execution_str_replace_result`
-
-              - `:text_editor_code_execution_str_replace_result`
 
             - `lines: Array[String]`
 
@@ -894,9 +1027,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: String`
 
-        - `type: :text_editor_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:text_editor_code_execution_tool_result`
+        - `type: :text_editor_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -920,8 +1053,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :tool_search_tool_result_error`
 
-              - `:tool_search_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaToolSearchToolSearchResultBlockParam`
@@ -929,6 +1060,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `tool_references: Array[BetaToolReferenceBlockParam]`
 
               - `tool_name: String`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `type: :tool_reference`
 
@@ -938,13 +1071,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :tool_search_tool_search_result`
 
-              - `:tool_search_tool_search_result`
-
         - `tool_use_id: String`
 
-        - `type: :tool_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:tool_search_tool_result`
+        - `type: :tool_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -953,6 +1084,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `class BetaMCPToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -964,8 +1097,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :mcp_tool_use`
 
-          - `:mcp_tool_use`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -974,9 +1105,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: String`
 
-        - `type: :mcp_tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:mcp_tool_result`
+        - `type: :mcp_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -989,6 +1120,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `BetaMCPToolResultBlockParamContent = Array[BetaTextBlockParam]`
 
             - `text: String`
+
+              minLength: 1
 
             - `type: :text`
 
@@ -1009,8 +1142,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :container_upload`
 
-          - `:container_upload`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -1027,8 +1158,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :compaction`
 
-          - `:compaction`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -1041,30 +1170,91 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
-      - `class BetaMidConversationSystemBlockParam`
+      - `class BetaRequestToolAdditionBlock`
 
-        System instructions that appear mid-conversation.
+        Mid-conversation directive to surface a declared tool.
 
-        Use this block to provide or update system-level instructions at a specific
-        point in the conversation, rather than only via the top-level `system` parameter.
+        `tool` references a tool (or MCP toolset) by name from the request's
+        `tools`; it is offered to the model from this point in the
+        conversation onward.
 
-        - `content: Array[BetaTextBlockParam]`
+        - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
 
-          System instruction text blocks.
+          Reference to a single tool the caller declared directly in
+          `tools[]`. Does not accept the composed `{server}_{name}` form the
+          server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+          `mcp_toolset_reference` for those.
 
-          - `text: String`
+          - `class BetaToolChangeToolReference`
 
-          - `type: :text`
+            Reference to a single tool the caller declared directly in
+            `tools[]`. Does not accept the composed `{server}_{name}` form the
+            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+            `mcp_toolset_reference` for those.
 
-          - `cache_control: BetaCacheControlEphemeral`
+            - `name: String`
 
-            Create a cache control breakpoint at this content block.
+              pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-          - `citations: Array[BetaTextCitationParam]`
+            - `type: :tool_reference`
 
-        - `type: :mid_conv_system`
+          - `class BetaToolChangeMCPToolReference`
 
-          - `:mid_conv_system`
+            Reference to a single MCP tool by its server and remote name — the
+            same `server_name`/`name` pair `mcp_tool_use` carries.
+
+            - `name: String`
+
+            - `server_name: String`
+
+            - `type: :mcp_tool_reference`
+
+          - `class BetaToolChangeMCPToolsetReference`
+
+            Reference to every tool in the named MCP server's toolset.
+
+            - `server_name: String`
+
+            - `type: :mcp_toolset_reference`
+
+        - `type: :tool_addition`
+
+        - `cache_control: BetaCacheControlEphemeral`
+
+          Create a cache control breakpoint at this content block.
+
+      - `class BetaRequestToolRemovalBlock`
+
+        Mid-conversation directive to withdraw a tool.
+
+        `tool` references a tool (or MCP toolset) by name from the request's
+        `tools`; it is no longer offered to the model from this point in the
+        conversation onward.
+
+        - `tool: BetaToolChangeToolReference | BetaToolChangeMCPToolReference | BetaToolChangeMCPToolsetReference`
+
+          Reference to a single tool the caller declared directly in
+          `tools[]`. Does not accept the composed `{server}_{name}` form the
+          server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+          `mcp_toolset_reference` for those.
+
+          - `class BetaToolChangeToolReference`
+
+            Reference to a single tool the caller declared directly in
+            `tools[]`. Does not accept the composed `{server}_{name}` form the
+            server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+            `mcp_toolset_reference` for those.
+
+          - `class BetaToolChangeMCPToolReference`
+
+            Reference to a single MCP tool by its server and remote name — the
+            same `server_name`/`name` pair `mcp_tool_use` carries.
+
+          - `class BetaToolChangeMCPToolsetReference`
+
+            Reference to every tool in the named MCP server's toolset.
+
+        - `type: :tool_removal`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1096,7 +1286,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 13 more`
+            - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
 
               The model that will complete your prompt.
 
@@ -1114,13 +1304,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 Most capable model for cybersecurity and biology research
 
+              - `:"claude-opus-5"`
+
+                Powerful intelligence for long-running agents and coding
+
               - `:"claude-opus-4-8"`
 
-                Frontier intelligence for long-running agents and coding
+                Powerful intelligence for long-running agents and coding
 
               - `:"claude-opus-4-7"`
 
-                Frontier intelligence for long-running agents and coding
+                Powerful intelligence for long-running agents and coding
 
               - `:"claude-mythos-preview"`
 
@@ -1128,7 +1322,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `:"claude-opus-4-6"`
 
-                Frontier intelligence for long-running agents and coding
+                Powerful intelligence for long-running agents and coding
 
               - `:"claude-sonnet-4-6"`
 
@@ -1144,11 +1338,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `:"claude-opus-4-5"`
 
-                Premium model combining maximum intelligence with practical performance
+                Powerful intelligence for long-running agents and coding
 
               - `:"claude-opus-4-5-20251101"`
 
-                Premium model combining maximum intelligence with practical performance
+                Powerful intelligence for long-running agents and coding
 
               - `:"claude-sonnet-4-5"`
 
@@ -1158,14 +1352,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 High-performance model for agents and coding
 
-              - `:"claude-opus-4-1"`
-
-                Exceptional model for specialized complex tasks
-
-              - `:"claude-opus-4-1-20250805"`
-
-                Exceptional model for specialized complex tasks
-
             - `String = String`
 
         - `to: BetaFallbackInfoParam`
@@ -1173,8 +1359,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           Identifies one hop of a fallback transition.
 
         - `type: :fallback`
-
-          - `:fallback`
 
         - `trigger: untyped`
 
@@ -1208,11 +1392,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     List of context management edits to apply
 
+    minItems: 0
+
     - `class BetaClearToolUses20250919Edit`
 
       - `type: :clear_tool_uses_20250919`
-
-        - `:clear_tool_uses_20250919`
 
       - `clear_at_least: BetaInputTokensClearAtLeast`
 
@@ -1220,9 +1404,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :input_tokens`
 
-          - `:input_tokens`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `clear_tool_inputs: bool | Array[String]`
 
@@ -1242,9 +1426,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :tool_uses`
 
-          - `:tool_uses`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `trigger: BetaInputTokensTrigger | BetaToolUsesTrigger`
 
@@ -1254,23 +1438,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: :input_tokens`
 
-            - `:input_tokens`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaToolUsesTrigger`
 
           - `type: :tool_uses`
 
-            - `:tool_uses`
-
           - `value: Integer`
+
+            minimum: 1
 
     - `class BetaClearThinking20251015Edit`
 
       - `type: :clear_thinking_20251015`
-
-        - `:clear_thinking_20251015`
 
       - `keep: BetaThinkingTurns | BetaAllThinkingTurns | :all`
 
@@ -1280,27 +1462,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: :thinking_turns`
 
-            - `:thinking_turns`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaAllThinkingTurns`
 
           - `type: :all`
 
-            - `:all`
-
         - `Keep = :all`
-
-          - `:all`
 
     - `class BetaCompact20260112Edit`
 
       Automatically compact older context when reaching the configured trigger threshold.
 
       - `type: :compact_20260112`
-
-        - `:compact_20260112`
 
       - `instructions: String`
 
@@ -1318,11 +1494,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   MCP servers to be utilized in this request
 
+  maxItems: 20
+
   - `name: String`
 
   - `type: :url`
-
-    - `:url`
 
   - `url: String`
 
@@ -1362,8 +1538,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :json_schema`
 
-      - `:json_schema`
-
   - `task_budget: BetaTokenTaskBudget`
 
     User-configurable total token budget across contexts.
@@ -1372,25 +1546,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Total token budget across all contexts in the session.
 
+      minimum: 1024
+
     - `type: :tokens`
 
       The budget type. Currently only 'tokens' is supported.
-
-      - `:tokens`
 
     - `remaining: Integer`
 
       Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-- `output_format: BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+      minimum: 0
 
 - `speed: :standard | :fast`
 
-  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
   - `:standard`
 
@@ -1407,6 +1577,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `UnionMember1 = Array[BetaTextBlockParam]`
 
     - `text: String`
+
+      minLength: 1
 
     - `type: :text`
 
@@ -1434,9 +1606,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-    - `type: :enabled`
+      minimum: 1024
 
-      - `:enabled`
+    - `type: :enabled`
 
     - `display_: :summarized | :omitted`
 
@@ -1450,13 +1622,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :disabled`
 
-      - `:disabled`
-
   - `class BetaThinkingConfigAdaptive`
 
     - `type: :adaptive`
-
-      - `:adaptive`
 
     - `display_: :summarized | :omitted`
 
@@ -1476,8 +1644,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :auto`
 
-      - `:auto`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -1489,8 +1655,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     The model will use any available tools.
 
     - `type: :any`
-
-      - `:any`
 
     - `disable_parallel_tool_use: bool`
 
@@ -1508,8 +1672,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :tool`
 
-      - `:tool`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -1522,9 +1684,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :none`
 
-      - `:none`
-
-- `tools: Array[BetaTool | BetaToolBash20241022 | BetaToolBash20250124 | 23 more]`
+- `tools: Array[BetaTool | BetaToolBash20241022 | BetaToolBash20250124 | 25 more]`
 
   Definitions of tools that the model may use.
 
@@ -1590,15 +1750,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaTool`
 
-    - `input_schema: InputSchema{ type, properties, required}`
+    - `input_schema: InputSchema`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
       This defines the shape of the `input` that your tool accepts and that the model will produce.
 
       - `type: :object`
-
-        - `:object`
 
       - `properties: Hash[Symbol, untyped]`
 
@@ -1609,6 +1767,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
+
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1646,8 +1806,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :custom`
 
-      - `:custom`
-
   - `class BetaToolBash20241022`
 
     - `name: :bash`
@@ -1656,11 +1814,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20241022`
-
-      - `:bash_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1694,11 +1848,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20250124`
-
-      - `:bash_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1732,11 +1882,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250522`
-
-      - `:code_execution_20250522`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1768,11 +1914,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250825`
-
-      - `:code_execution_20250825`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1806,11 +1948,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260120`
-
-      - `:code_execution_20260120`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1844,11 +1982,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260521`
-
-      - `:code_execution_20260521`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1872,15 +2006,423 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `class BetaBrowserToolset20260801`
+
+    The browser toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the browser tool family. The model is served
+    the family's tool with any members disabled via `configs` removed
+    from its schema.
+
+    - `type: :browser_toolset_20260801`
+
+    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
+
+      - `:direct`
+
+      - `:code_execution_20250825`
+
+      - `:code_execution_20260120`
+
+      - `:code_execution_20260521`
+
+    - `cache_control: BetaCacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs: BetaBrowserToolsetConfigs`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `close_tab: BetaBrowserCloseTabConfig`
+
+        `close_tab`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click: BetaBrowserDoubleClickConfig`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `file_upload: BetaBrowserFileUploadConfig`
+
+        `file_upload`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `find: BetaBrowserFindConfig`
+
+        `find`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `form_input: BetaBrowserFormInputConfig`
+
+        `form_input`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `get_page_text: BetaBrowserGetPageTextConfig`
+
+        `get_page_text`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key: BetaBrowserHoldKeyConfig`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hover: BetaBrowserHoverConfig`
+
+        `hover`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `javascript_exec: BetaBrowserJavascriptExecConfig`
+
+        `javascript_exec`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key: BetaBrowserKeyConfig`
+
+        `key`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click: BetaBrowserLeftClickConfig`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag: BetaBrowserLeftClickDragConfig`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down: BetaBrowserLeftMouseDownConfig`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up: BetaBrowserLeftMouseUpConfig`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `list_tabs: BetaBrowserListTabsConfig`
+
+        `list_tabs`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click: BetaBrowserMiddleClickConfig`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move: BetaBrowserMouseMoveConfig`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `navigate: BetaBrowserNavigateConfig`
+
+        `navigate`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `new_tab: BetaBrowserNewTabConfig`
+
+        `new_tab`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_console: BetaBrowserReadConsoleConfig`
+
+        `read_console`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_network: BetaBrowserReadNetworkConfig`
+
+        `read_network`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_page: BetaBrowserReadPageConfig`
+
+        `read_page`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click: BetaBrowserRightClickConfig`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot: BetaBrowserScreenshotConfig`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll: BetaBrowserScrollConfig`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll_to: BetaBrowserScrollToConfig`
+
+        `scroll_to`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `switch_tab: BetaBrowserSwitchTabConfig`
+
+        `switch_tab`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click: BetaBrowserTripleClickConfig`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type: BetaBrowserTypeConfig`
+
+        `type`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait: BetaBrowserWaitConfig`
+
+        `wait`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom: BetaBrowserZoomConfig`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `class BetaToolComputerUse20241022`
 
     - `display_height_px: Integer`
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -1888,11 +2430,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20241022`
-
-      - `:computer_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1916,6 +2454,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -1930,11 +2470,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:memory`
-
     - `type: :memory_20250818`
-
-      - `:memory_20250818`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -1966,9 +2502,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -1976,11 +2516,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20250124`
-
-      - `:computer_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2004,6 +2540,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -2018,11 +2556,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20241022`
-
-      - `:text_editor_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2054,9 +2588,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -2064,11 +2602,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20251124`
-
-      - `:computer_20251124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2092,6 +2626,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `enable_zoom: bool`
 
       Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -2102,6 +2638,246 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `class BetaComputerToolset20260801`
+
+    The computer toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the computer tool family. The model is
+    served the family's tool with any members disabled via `configs`
+    removed from its schema. Every member is enabled by default, zoom
+    included. The single-tool options `display_number` and
+    `enable_zoom` are not fields of a toolset entry — it carries only
+    `type`, `configs`, and `cache_control`; zoom is controlled
+    via `configs.zoom.enabled`.
+
+    - `type: :computer_toolset_20260801`
+
+    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
+
+      - `:direct`
+
+      - `:code_execution_20250825`
+
+      - `:code_execution_20260120`
+
+      - `:code_execution_20260521`
+
+    - `cache_control: BetaCacheControlEphemeral`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs: BetaComputerToolsetConfigs`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `cursor_position: BetaComputerCursorPositionConfig`
+
+        `cursor_position`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click: BetaComputerDoubleClickConfig`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key: BetaComputerHoldKeyConfig`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key: BetaComputerKeyConfig`
+
+        `key`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click: BetaComputerLeftClickConfig`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag: BetaComputerLeftClickDragConfig`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down: BetaComputerLeftMouseDownConfig`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up: BetaComputerLeftMouseUpConfig`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click: BetaComputerMiddleClickConfig`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move: BetaComputerMouseMoveConfig`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click: BetaComputerRightClickConfig`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot: BetaComputerScreenshotConfig`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll: BetaComputerScrollConfig`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click: BetaComputerTripleClickConfig`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type: BetaComputerTypeConfig`
+
+        `type`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait: BetaComputerWaitConfig`
+
+        `wait`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom: BetaComputerZoomConfig`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading: bool`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: bool`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `class BetaToolTextEditor20250124`
 
     - `name: :str_replace_editor`
@@ -2110,11 +2886,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20250124`
-
-      - `:text_editor_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2148,11 +2920,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250429`
-
-      - `:text_editor_20250429`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2186,11 +2954,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250728`
-
-      - `:text_editor_20250728`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2216,6 +2980,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -2228,11 +2994,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20250305`
-
-      - `:web_search_20250305`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2264,6 +3026,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -2274,23 +3038,29 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: :approximate`
 
-        - `:approximate`
-
       - `city: String`
 
         The city of the user.
+
+        maxLength: 255, minLength: 1
 
       - `country: String`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+        maxLength: 2, minLength: 2
+
       - `region: String`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: String`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+        maxLength: 255, minLength: 1
 
   - `class BetaWebFetchTool20250910`
 
@@ -2300,11 +3070,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20250910`
-
-      - `:web_fetch_20250910`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2340,9 +3106,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -2356,11 +3126,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260209`
-
-      - `:web_search_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2391,6 +3157,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -2408,11 +3176,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260209`
-
-      - `:web_fetch_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2448,9 +3212,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -2466,11 +3234,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260309`
-
-      - `:web_fetch_20260309`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2506,9 +3270,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -2526,11 +3294,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260318`
-
-      - `:web_search_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2561,6 +3325,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -2586,11 +3352,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260318`
-
-      - `:web_fetch_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2626,9 +3388,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -2660,11 +3426,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:advisor`
-
     - `type: :advisor_20260301`
-
-      - `:advisor_20260301`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2692,9 +3454,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+      minimum: 1024
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -2707,8 +3473,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_bm25`
 
     - `type: :tool_search_tool_bm25_20251119 | :tool_search_tool_bm25`
 
@@ -2745,8 +3509,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_regex`
 
     - `type: :tool_search_tool_regex_20251119 | :tool_search_tool_regex`
 
@@ -2787,9 +3549,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Name of the MCP server to configure tools for
 
-    - `type: :mcp_toolset`
+      maxLength: 255, minLength: 1
 
-      - `:mcp_toolset`
+    - `type: :mcp_toolset`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -2817,7 +3579,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -2863,25 +3625,43 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 - `user_profile_id: String`
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-### Returns
+- `output_format: BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+## Returns
 
 - `class BetaMessageTokensCount`
 
@@ -2897,7 +3677,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -2906,13 +3686,13 @@ anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
 beta_message_tokens_count = anthropic.beta.messages.count_tokens(
   messages: [{content: "Hello, world", role: :user}],
-  model: :"claude-opus-4-6"
+  model: Anthropic::Model::CLAUDE_OPUS_5
 )
 
 puts(beta_message_tokens_count)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

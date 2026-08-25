@@ -1,14 +1,14 @@
-## Stop Work
+# Stop Work
 
 `$ ant beta:environments:work stop`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Stop a work item, initiating graceful or forced shutdown.
 
-### Parameters
+## Parameters
 
 - `--environment-id: string`
 
@@ -26,9 +26,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -48,7 +48,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -71,6 +71,10 @@ Stop a work item, initiating graceful or forced shutdown.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -102,16 +106,16 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:environments:work stop \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
@@ -127,6 +131,7 @@ ant beta:environments:work stop \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",

@@ -1,12 +1,12 @@
-## Update Session Resource
+# Update Session Resource
 
 `$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas): ResourceUpdateResponse`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -20,7 +20,7 @@ Update Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ResourceUpdateResponse`
 
@@ -90,7 +90,7 @@ Update Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -103,13 +103,13 @@ $resource = $client->beta->sessions->resources->update(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   authorizationToken: 'ghp_exampletoken',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($resource);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

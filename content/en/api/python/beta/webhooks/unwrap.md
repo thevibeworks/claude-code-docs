@@ -1,17 +1,17 @@
-## Unwrap
+# Unwrap
 
 `beta.webhooks.unwrap()`
 
-**** ``
-
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 client.beta.webhooks.unwrap()
 ```

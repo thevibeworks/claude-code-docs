@@ -1,14 +1,14 @@
-## List Message Batches
+# List Message Batches
 
-`BatchListPage messages().batches().list(BatchListParamsparams = BatchListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BatchListPage messages().batches().list(params = BatchListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `BatchListParams params`
 
@@ -26,7 +26,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-### Returns
+    maximum: 1000, minimum: 1
+
+## Returns
 
 - `class MessageBatch:`
 
@@ -40,13 +42,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `Optional<LocalDateTime> cancelInitiatedAt`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `Optional<LocalDateTime> endedAt`
 
@@ -54,9 +62,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `LocalDateTime expiresAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `ProcessingStatus processingStatus`
 
@@ -108,15 +120,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue; type "message_batch"constant`
+  - `JsonValue type constant`
 
     Object type.
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `MESSAGE_BATCH("message_batch")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -137,7 +147,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

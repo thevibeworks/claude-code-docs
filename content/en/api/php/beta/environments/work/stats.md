@@ -1,12 +1,12 @@
-## Get Queue Statistics
+# Get Queue Statistics
 
 `$client->beta->environments->work->stats(string environmentID, ?list<AnthropicBeta> betas): SelfHostedWorkQueueStats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -14,7 +14,7 @@ Get statistics about the work queue for an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `SelfHostedWorkQueueStats`
 
@@ -38,7 +38,7 @@ Get statistics about the work queue for an environment.
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -48,13 +48,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW', betas: ['message-batches-2024-09-24']
+  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWorkQueueStats);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

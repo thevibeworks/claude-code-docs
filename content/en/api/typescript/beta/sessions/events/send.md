@@ -1,12 +1,12 @@
-## Send Events
+# Send Events
 
-`client.beta.sessions.events.send(stringsessionID, EventSendParamsparams, RequestOptionsoptions?): BetaManagedAgentsSendSessionEvents`
+`client.beta.sessions.events.send(sessionID, params, options?): BetaManagedAgentsSendSessionEvents`
 
-**post** `/v1/sessions/{session_id}/events`
+**POST** `/v1/sessions/{session_id}/events`
 
 Send Events
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -20,7 +20,7 @@ Send Events
 
       Parameters for sending a user message to the session.
 
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock>`
+      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
 
         Array of content blocks for the user message.
 
@@ -32,9 +32,9 @@ Send Events
 
             The text content.
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
         - `BetaManagedAgentsImageBlock`
 
@@ -52,13 +52,15 @@ Send Events
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `type: "base64"`
+                minLength: 1
 
-                - `"base64"`
+              - `type: "base64"`
 
             - `BetaManagedAgentsURLImageSource`
 
@@ -66,11 +68,11 @@ Send Events
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `BetaManagedAgentsFileImageSource`
 
@@ -80,13 +82,11 @@ Send Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "image"`
-
-            - `"image"`
 
         - `BetaManagedAgentsDocumentBlock`
 
@@ -104,13 +104,15 @@ Send Events
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `type: "base64"`
+                minLength: 1
 
-                - `"base64"`
+              - `type: "base64"`
 
             - `BetaManagedAgentsPlainTextDocumentSource`
 
@@ -120,15 +122,13 @@ Send Events
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: "text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"`
-
               - `type: "text"`
-
-                - `"text"`
 
             - `BetaManagedAgentsURLDocumentSource`
 
@@ -136,11 +136,11 @@ Send Events
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `BetaManagedAgentsFileDocumentSource`
 
@@ -150,13 +150,11 @@ Send Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "document"`
-
-            - `"document"`
 
           - `context?: string | null`
 
@@ -166,17 +164,19 @@ Send Events
 
             The title of the document.
 
-      - `type: "user.message"`
+        - `BetaManagedAgentsRedactedBlock`
 
-        - `"user.message"`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+      - `type: "user.message"`
 
     - `BetaManagedAgentsUserInterruptEventParams`
 
       Parameters for sending an interrupt to pause the agent.
 
       - `type: "user.interrupt"`
-
-        - `"user.interrupt"`
 
       - `session_thread_id?: string | null`
 
@@ -198,13 +198,15 @@ Send Events
 
         The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `type: "user.tool_confirmation"`
+        minLength: 1, maxLength: 128
 
-        - `"user.tool_confirmation"`
+      - `type: "user.tool_confirmation"`
 
       - `deny_message?: string | null`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+
+        maxLength: 10000
 
     - `BetaManagedAgentsUserCustomToolResultEventParams`
 
@@ -214,9 +216,9 @@ Send Events
 
         The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `type: "user.custom_tool_result"`
+        minLength: 1, maxLength: 128
 
-        - `"user.custom_tool_result"`
+      - `type: "user.custom_tool_result"`
 
       - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -254,21 +256,23 @@ Send Events
 
               The text content.
 
-            - `type: "text"`
+              minLength: 1
 
-              - `"text"`
+            - `type: "text"`
 
           - `source: string`
 
             The URL source of the search result.
 
+            minLength: 1
+
           - `title: string`
 
             The title of the search result.
 
-          - `type: "search_result"`
+            minLength: 1
 
-            - `"search_result"`
+          - `type: "search_result"`
 
       - `is_error?: boolean | null`
 
@@ -296,8 +300,6 @@ Send Events
 
           - `type: "file"`
 
-            - `"file"`
-
         - `BetaManagedAgentsTextRubricParams`
 
           Rubric content provided inline as text.
@@ -306,17 +308,17 @@ Send Events
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
+            maxLength: 262144
+
           - `type: "text"`
 
-            - `"text"`
-
       - `type: "user.define_outcome"`
-
-        - `"user.define_outcome"`
 
       - `max_iterations?: number | null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `BetaManagedAgentsUserToolResultEventParams`
 
@@ -326,9 +328,9 @@ Send Events
 
         The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-      - `type: "user.tool_result"`
+        minLength: 1, maxLength: 128
 
-        - `"user.tool_result"`
+      - `type: "user.tool_result"`
 
       - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -366,13 +368,11 @@ Send Events
 
           The text content.
 
+          minLength: 1
+
         - `type: "text"`
 
-          - `"text"`
-
       - `type: "system.message"`
-
-        - `"system.message"`
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -380,7 +380,7 @@ Send Events
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -426,21 +426,31 @@ Send Events
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
+
+      - `"fallback-credit-2026-07-01"`
 
       - `"agent-memory-2026-07-22"`
 
-### Returns
+      - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `BetaManagedAgentsSendSessionEvents`
 
@@ -458,7 +468,7 @@ Send Events
 
         Unique identifier for this event.
 
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock>`
+      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
 
         Array of content blocks comprising the user message.
 
@@ -470,9 +480,9 @@ Send Events
 
             The text content.
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
         - `BetaManagedAgentsImageBlock`
 
@@ -490,13 +500,15 @@ Send Events
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `type: "base64"`
+                minLength: 1
 
-                - `"base64"`
+              - `type: "base64"`
 
             - `BetaManagedAgentsURLImageSource`
 
@@ -504,11 +516,11 @@ Send Events
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `BetaManagedAgentsFileImageSource`
 
@@ -518,13 +530,11 @@ Send Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "image"`
-
-            - `"image"`
 
         - `BetaManagedAgentsDocumentBlock`
 
@@ -542,13 +552,15 @@ Send Events
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `type: "base64"`
+                minLength: 1
 
-                - `"base64"`
+              - `type: "base64"`
 
             - `BetaManagedAgentsPlainTextDocumentSource`
 
@@ -558,15 +570,13 @@ Send Events
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: "text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"`
-
               - `type: "text"`
-
-                - `"text"`
 
             - `BetaManagedAgentsURLDocumentSource`
 
@@ -574,11 +584,11 @@ Send Events
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `BetaManagedAgentsFileDocumentSource`
 
@@ -588,13 +598,11 @@ Send Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "document"`
-
-            - `"document"`
 
           - `context?: string | null`
 
@@ -604,13 +612,19 @@ Send Events
 
             The title of the document.
 
-      - `type: "user.message"`
+        - `BetaManagedAgentsRedactedBlock`
 
-        - `"user.message"`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+      - `type: "user.message"`
 
       - `processed_at?: string | null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `BetaManagedAgentsUserInterruptEvent`
 
@@ -622,11 +636,11 @@ Send Events
 
       - `type: "user.interrupt"`
 
-        - `"user.interrupt"`
-
       - `processed_at?: string | null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id?: string | null`
 
@@ -654,15 +668,17 @@ Send Events
 
       - `type: "user.tool_confirmation"`
 
-        - `"user.tool_confirmation"`
-
       - `deny_message?: string | null`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+        maxLength: 10000
+
       - `processed_at?: string | null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id?: string | null`
 
@@ -681,8 +697,6 @@ Send Events
         The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `type: "user.custom_tool_result"`
-
-        - `"user.custom_tool_result"`
 
       - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -720,21 +734,23 @@ Send Events
 
               The text content.
 
-            - `type: "text"`
+              minLength: 1
 
-              - `"text"`
+            - `type: "text"`
 
           - `source: string`
 
             The URL source of the search result.
 
+            minLength: 1
+
           - `title: string`
 
             The title of the search result.
 
-          - `type: "search_result"`
+            minLength: 1
 
-            - `"search_result"`
+          - `type: "search_result"`
 
       - `is_error?: boolean | null`
 
@@ -743,6 +759,8 @@ Send Events
       - `processed_at?: string | null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id?: string | null`
 
@@ -764,6 +782,8 @@ Send Events
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+        format: int32
+
       - `outcome_id: string`
 
         Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -771,6 +791,8 @@ Send Events
       - `processed_at: string`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -786,8 +808,6 @@ Send Events
 
           - `type: "file"`
 
-            - `"file"`
-
         - `BetaManagedAgentsTextRubric`
 
           Rubric content provided inline as text.
@@ -798,11 +818,7 @@ Send Events
 
           - `type: "text"`
 
-            - `"text"`
-
       - `type: "user.define_outcome"`
-
-        - `"user.define_outcome"`
 
     - `BetaManagedAgentsUserToolResultEvent`
 
@@ -817,8 +833,6 @@ Send Events
         The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `type: "user.tool_result"`
-
-        - `"user.tool_result"`
 
       - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -848,6 +862,8 @@ Send Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `session_thread_id?: string | null`
 
         Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -868,40 +884,40 @@ Send Events
 
           The text content.
 
+          minLength: 1
+
         - `type: "text"`
 
-          - `"text"`
-
       - `type: "system.message"`
-
-        - `"system.message"`
 
       - `processed_at?: string | null`
 
         A timestamp in RFC 3339 format
 
-### Example
+        format: date-time
+
+## Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const betaManagedAgentsSendSessionEvents = await client.beta.sessions.events.send(
-  'sesn_011CZkZAtmR3yMPDzynEDxu7',
+  "sesn_011CZkZAtmR3yMPDzynEDxu7",
   {
     events: [
-      { content: [{ text: 'Where is my order #1234?', type: 'text' }], type: 'user.message' },
-    ],
-  },
+      { content: [{ text: "Where is my order #1234?", type: "text" }], type: "user.message" }
+    ]
+  }
 );
 
 console.log(betaManagedAgentsSendSessionEvents.data);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

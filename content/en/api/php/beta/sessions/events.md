@@ -4,7 +4,7 @@
 
 `$client->beta->sessions->events->list(string sessionID, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?int limit, ?Order order, ?string page, ?list<string> types, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionEvent>`
 
-**get** `/v1/sessions/{session_id}/events`
+**GET** `/v1/sessions/{session_id}/events`
 
 List Events
 
@@ -14,19 +14,19 @@ List Events
 
 - `createdAtGt?:optional \Datetime`
 
-  Return events created after this time (exclusive).
+  Return events created after this time (exclusive). Compared against the event's `processed_at` value.
 
 - `createdAtGte?:optional \Datetime`
 
-  Return events created at or after this time (inclusive).
+  Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
 
 - `createdAtLt?:optional \Datetime`
 
-  Return events created before this time (exclusive).
+  Return events created before this time (exclusive). Compared against the event's `processed_at` value.
 
 - `createdAtLte?:optional \Datetime`
 
-  Return events created at or before this time (inclusive).
+  Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
 
 - `limit?:optional int`
 
@@ -34,7 +34,7 @@ List Events
 
 - `order?:optional Order`
 
-  Sort direction for results, ordered by created_at. Defaults to asc (chronological).
+  Sort direction for results, ordered by the event's `processed_at`. Defaults to asc (chronological).
 
 - `page?:optional string`
 
@@ -170,7 +170,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `list<ManagedAgentsTextBlock> content`
+    - `list<Content> content`
 
       Array of text blocks comprising the agent response.
 
@@ -728,6 +728,10 @@ List Events
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
     - `?array<string,string> metadata`
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
@@ -752,6 +756,26 @@ List Events
 
       A timestamp in RFC 3339 format
 
+  - `BetaManagedAgentsSessionUsageEvent`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      A timestamp in RFC 3339 format
+
+    - `Type type`
+
+    - `ManagedAgentsSessionUsageSnapshot usage`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -771,13 +795,13 @@ $page = $client->beta->sessions->events->list(
   order: 'asc',
   page: 'page',
   types: ['string'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -813,7 +837,7 @@ var_dump($page);
 
 `$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas): ManagedAgentsSendSessionEvents`
 
-**post** `/v1/sessions/{session_id}/events`
+**POST** `/v1/sessions/{session_id}/events`
 
 Send Events
 
@@ -854,13 +878,13 @@ $betaManagedAgentsSendSessionEvents = $client->beta->sessions->events->send(
       'type' => 'user.message',
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsSendSessionEvents);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -884,7 +908,7 @@ var_dump($betaManagedAgentsSendSessionEvents);
 
 `$client->beta->sessions->events->stream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionEvents`
 
-**get** `/v1/sessions/{session_id}/events/stream`
+**GET** `/v1/sessions/{session_id}/events/stream`
 
 Stream Events
 
@@ -1022,7 +1046,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `list<ManagedAgentsTextBlock> content`
+    - `list<Content> content`
 
       Array of text blocks comprising the agent response.
 
@@ -1580,6 +1604,10 @@ Stream Events
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
     - `?array<string,string> metadata`
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
@@ -1624,6 +1652,28 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+  - `BetaManagedAgentsSessionUsageEvent`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      A timestamp in RFC 3339 format
+
+    - `Type type`
+
+    - `ManagedAgentsSessionUsageSnapshot usage`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+- `ManagedAgentsStreamSessionEvents`
+
 ### Example
 
 ```php
@@ -1640,13 +1690,13 @@ $betaManagedAgentsStreamSessionEvents = $client
   ->streamStream(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsStreamSessionEvents);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1662,7 +1712,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Agent Custom Tool Use Event
 
@@ -1758,7 +1808,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
     Unique identifier for this event.
 
-  - `list<ManagedAgentsTextBlock> content`
+  - `list<Content> content`
 
     Array of text blocks comprising the agent response.
 
@@ -2220,6 +2270,12 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
   - `Type type`
 
+### Beta Managed Agents Redacted Block
+
+- `ManagedAgentsRedactedBlock`
+
+  - `Type type`
+
 ### Beta Managed Agents Retry Status Exhausted
 
 - `ManagedAgentsRetryStatusExhausted`
@@ -2285,6 +2341,12 @@ var_dump($betaManagedAgentsStreamSessionEvents);
   - `?list<Data> data`
 
     Sent events
+
+### Beta Managed Agents Session Budget Reached
+
+- `ManagedAgentsSessionBudgetReached`
+
+  - `Type type`
 
 ### Beta Managed Agents Session Deleted Event
 
@@ -2446,7 +2508,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Unique identifier for this event.
 
-    - `list<ManagedAgentsTextBlock> content`
+    - `list<Content> content`
 
       Array of text blocks comprising the agent response.
 
@@ -3004,6 +3066,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
     - `?array<string,string> metadata`
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
@@ -3027,6 +3093,26 @@ var_dump($betaManagedAgentsStreamSessionEvents);
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
+
+  - `BetaManagedAgentsSessionUsageEvent`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      A timestamp in RFC 3339 format
+
+    - `Type type`
+
+    - `ManagedAgentsSessionUsageSnapshot usage`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 ### Beta Managed Agents Session Requires Action
 
@@ -3217,6 +3303,38 @@ var_dump($betaManagedAgentsStreamSessionEvents);
     Public sthr_ ID of the thread that terminated.
 
   - `Type type`
+
+### Beta Managed Agents Session Usage Snapshot
+
+- `ManagedAgentsSessionUsageSnapshot`
+
+  - `?float activeSeconds`
+
+    Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+  - `?BetaManagedAgentsCacheCreationUsage cacheCreation`
+
+    Prompt-cache creation token usage broken down by cache lifetime.
+
+  - `?int cacheReadInputTokens`
+
+    Total tokens read from prompt cache.
+
+  - `?int inputTokens`
+
+    Total input tokens consumed across all turns.
+
+  - `?BetaMonetaryAmount listCost`
+
+    A monetary amount in a specific currency.
+
+  - `?int outputTokens`
+
+    Total output tokens generated across all turns.
+
+  - `?BetaManagedAgentsServerToolUsage serverToolUse`
+
+    Cumulative count of server-executed tool invocations, broken down by tool.
 
 ### Beta Managed Agents Span Model Request End Event
 
@@ -3486,7 +3604,7 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Unique identifier for this event.
 
-    - `list<ManagedAgentsTextBlock> content`
+    - `list<Content> content`
 
       Array of text blocks comprising the agent response.
 
@@ -4044,6 +4162,10 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
     - `?array<string,string> metadata`
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
@@ -4087,6 +4209,26 @@ var_dump($betaManagedAgentsStreamSessionEvents);
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
+
+  - `BetaManagedAgentsSessionUsageEvent`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      A timestamp in RFC 3339 format
+
+    - `Type type`
+
+    - `ManagedAgentsSessionUsageSnapshot usage`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 ### Beta Managed Agents System Message Event Params
 

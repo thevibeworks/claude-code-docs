@@ -1,8 +1,8 @@
-## Create a Message Batch
+# Create a Message Batch
 
 `$client->messages->batches->create(list<Request> requests, ?string userProfileID): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -10,7 +10,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `requests: list<Request>`
 
@@ -20,7 +20,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+## Returns
 
 - `MessageBatch`
 
@@ -74,7 +74,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -90,9 +90,14 @@ $messageBatch = $client->messages->batches->create(
       'params' => [
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
-        'model' => 'claude-opus-4-6',
+        'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
-        'container' => 'container',
+        'container' => [
+          'id' => 'id',
+          'skills' => [
+            ['skillID' => 'pdf', 'type' => 'anthropic', 'version' => 'latest']
+          ],
+        ],
         'inferenceGeo' => 'inference_geo',
         'metadata' => ['userID' => '13803d75-b4b5-4c3e-b2a2-6f21399b021b'],
         'outputConfig' => [
@@ -109,7 +114,7 @@ $messageBatch = $client->messages->batches->create(
             'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
             'citations' => [
               [
-                'citedText' => 'cited_text',
+                'citedText' => 'The grass is green. The sky is blue.',
                 'documentIndex' => 0,
                 'documentTitle' => 'x',
                 'endCharIndex' => 0,
@@ -151,7 +156,7 @@ $messageBatch = $client->messages->batches->create(
 var_dump($messageBatch);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

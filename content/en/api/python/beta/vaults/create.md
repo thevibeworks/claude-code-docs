@@ -1,16 +1,18 @@
-## Create Vault
+# Create Vault
 
-`beta.vaults.create(VaultCreateParams**kwargs)  -> BetaManagedAgentsVault`
+`beta.vaults.create(**kwargs)  -> BetaManagedAgentsVault`
 
-**post** `/v1/vaults`
+**POST** `/v1/vaults`
 
 Create Vault
 
-### Parameters
+## Parameters
 
 - `display_name: str`
 
   Human-readable name for the vault. 1-255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `metadata: Optional[Dict[str, str]]`
 
@@ -22,7 +24,7 @@ Create Vault
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -68,21 +70,31 @@ Create Vault
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaManagedAgentsVault: …`
 
@@ -96,9 +108,13 @@ Create Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: str`
 
@@ -110,20 +126,22 @@ Create Vault
 
   - `type: Literal["vault"]`
 
-    - `"vault"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_vault = client.beta.vaults.create(
     display_name="Example vault",
@@ -131,7 +149,7 @@ beta_managed_agents_vault = client.beta.vaults.create(
 print(beta_managed_agents_vault.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,12 +1,12 @@
-## Delete Credential
+# Delete Credential
 
 `$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsDeletedCredential`
 
-**delete** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Delete Credential
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -16,7 +16,7 @@ Delete Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsDeletedCredential`
 
@@ -26,7 +26,7 @@ Delete Credential
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -42,13 +42,13 @@ $betaManagedAgentsDeletedCredential = $client
   ->delete(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeletedCredential);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

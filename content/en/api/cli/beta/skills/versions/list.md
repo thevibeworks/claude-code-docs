@@ -1,12 +1,12 @@
-## List Skill Versions
+# List Skill Versions
 
 `$ ant beta:skills:versions list`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Parameters
+## Parameters
 
 - `--skill-id: string`
 
@@ -28,11 +28,11 @@ List Skill Versions
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaListSkillVersionsResponse: object { data, has_more, next_page }`
+- `BetaListSkillVersionsResponse: object`
 
-  - `data: array of object { id, created_at, description, 5 more }`
+  - `data: array of object`
 
     List of skill versions.
 
@@ -88,15 +88,15 @@ List Skill Versions
 
     Token to provide in as `page` in the subsequent request to retrieve the next page of data.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:skills:versions list \
   --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

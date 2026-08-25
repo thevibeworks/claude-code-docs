@@ -1,7 +1,7 @@
 {
   "version": "2.0",
-  "updated": "2026-07-08",
-  "description": "Complete Anthropic content source registry. Discovered via robots.txt/sitemap/llms.txt probing across all known Anthropic domains, GitHub API enumeration, and package registry checks.",
+  "updated": "2026-08-24",
+  "description": "Complete Anthropic content source registry. Discovered via robots.txt/sitemap/llms.txt probing across all known Anthropic domains, GitHub API enumeration, and package registry checks. Discovery surfaces are treated as incomplete: the fetcher also refreshes every doc already on disk, because upstream de-indexes pages it still serves.",
   "domains": {
     "anthropic.com": {
       "robots": true,
@@ -42,9 +42,15 @@
     },
     "claude.com": {
       "robots": true,
-      "sitemap": "cf-blocked",
+      "sitemap": true,
+      "llms_txt": true,
+      "notes": "Product docs since ~2026-08: Claude Tag, Cowork, office agents, connectors, government, claude-science, third-party. Serves .md variants under /docs/. Was recorded as cf-blocked marketing until 2026-08-24; support articles had been redirecting here for weeks. /resources/tutorials/ is HTML-only (no .md) and is not fetched."
+    },
+    "academy.claude.com": {
+      "robots": true,
+      "sitemap": true,
       "llms_txt": false,
-      "notes": "Product landing, redirects to claude.ai"
+      "notes": "Claude Academy: 725 pages (438 courses, 149 use-cases, 120 tutorials). Found 2026-08-24 by following an off-site redirect from a dead support article. NOT FETCHED: serves no .md variant (every path 404s to an HTML shell), the same HTML-only constraint that froze the anthropic.com blog when the jina.ai proxy was dropped. Adding it needs an HTML extraction path, which is a design decision, not a fetcher config change."
     }
   },
   "aliases": {
@@ -60,12 +66,13 @@
       "sitemap": "https://platform.claude.com/sitemap.xml",
       "filter": "/docs/en/",
       "output": "en/",
-      "pages": 1541,
+      "pages": 584,
       "enabled": true,
       "section": [
         "api",
         "platform"
-      ]
+      ],
+      "notes": "584 pages in sitemap/llms.txt. ~1,400 per-language SDK reference pages (api/python, api/typescript, api/go, api/java, api/ruby, api/php, api/csharp, api/cli) were dropped from both surfaces in 2026-07 but are still live and edited; they are kept fresh by the on-disk refresh pass, not by discovery. api/terraform 404s entirely."
     },
     {
       "name": "claude-code-docs",
@@ -86,7 +93,7 @@
       "sitemap": "https://modelcontextprotocol.io/sitemap.xml",
       "llms_txt": "https://modelcontextprotocol.io/llms.txt",
       "output": "mcp/",
-      "pages": 203,
+      "pages": 342,
       "enabled": true,
       "section": [
         "mcp"
@@ -98,13 +105,27 @@
       "type": "sitemap-md",
       "filter": "/en/articles/",
       "output": "support/",
-      "pages": 343,
+      "pages": 345,
       "enabled": true,
       "section": [
         "support"
       ],
       "notes": "Intercom-hosted; every article serves a .md variant directly (since ~2026-07), fetched sitemap + .md suffix. Previously jina.ai proxy. English-only filter.",
       "sitemap": "https://support.claude.com/sitemap.xml"
+    },
+    {
+      "name": "claude-com-docs",
+      "type": "sitemap-md",
+      "sitemap": "https://claude.com/docs/sitemap.xml",
+      "llms_txt": "https://claude.com/docs/llms.txt",
+      "filter": "/docs/",
+      "output": "claude/",
+      "pages": 215,
+      "enabled": true,
+      "section": [
+        "products"
+      ],
+      "notes": "Claude product docs. Sections: claude-tag (65), government (38), connectors (33), claude-science (29), third-party (28), office-agents (12), cowork (6), plugins (2), skills (2)."
     },
     {
       "name": "engineering-blog",
@@ -364,5 +385,6 @@
         "meta"
       ]
     }
-  ]
+  ],
+  "notes_on_discovery": "Two signals beyond domain probing, both of which found real gaps in 2026-08: (1) off-site redirects on pages we already fetch \u2014 this is how claude.com/docs (215 pages) and academy.claude.com (725 pages) surfaced, after upstream had been pointing at them for weeks; (2) refetching every doc already on disk, because sitemaps and llms.txt undercount what a site serves. Both are reported by a normal full run; neither is visible to --discover, which only probes domains already listed here."
 }

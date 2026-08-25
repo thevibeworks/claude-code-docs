@@ -2,9 +2,9 @@
 
 ## Create a Message
 
-`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?string container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID): Message`
+`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID): Message`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -85,7 +85,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `container?:optional string`
+- `container?:optional MessageCreateParamsContainer`
 
   Container identifier for reuse across requests.
 
@@ -126,14 +126,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   System prompt.
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
-
-- `temperature?:optional float`
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
 - `thinking?:optional ThinkingConfigParam`
 
@@ -211,7 +203,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
+- `userProfileID?:optional string`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `temperature?:optional float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
 - `topK?:optional int`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
   Only sample from the top K options for each subsequent token.
 
@@ -221,15 +229,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `topP?:optional float`
 
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
   Use nucleus sampling.
 
   In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
   Recommended for advanced use cases only.
-
-- `userProfileID?:optional string`
-
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
 ### Returns
 
@@ -302,6 +308,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -329,6 +336,60 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
+- `RawMessageStreamEvent`
+
+  - `RawMessageStartEvent`
+
+    - `Message message`
+
+    - `"message_start" type`
+
+  - `RawMessageDeltaEvent`
+
+    - `Delta delta`
+
+    - `"message_delta" type`
+
+    - `MessageDeltaUsage usage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+  - `RawMessageStopEvent`
+
+    - `"message_stop" type`
+
+  - `RawContentBlockStartEvent`
+
+    - `ContentBlock contentBlock`
+
+      Response model for a file uploaded to the container.
+
+    - `int index`
+
+    - `"content_block_start" type`
+
+  - `RawContentBlockDeltaEvent`
+
+    - `RawContentBlockDelta delta`
+
+    - `int index`
+
+    - `"content_block_delta" type`
+
+  - `RawContentBlockStopEvent`
+
+    - `int index`
+
+    - `"content_block_stop" type`
+
 ### Example
 
 ```php
@@ -341,9 +402,14 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $message = $client->messages->create(
   maxTokens: 1024,
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
-  container: 'container',
+  container: [
+    'id' => 'id',
+    'skills' => [
+      ['skillID' => 'pdf', 'type' => 'anthropic', 'version' => 'latest']
+    ],
+  ],
   inferenceGeo: 'inference_geo',
   metadata: ['userID' => '13803d75-b4b5-4c3e-b2a2-6f21399b021b'],
   outputConfig: [
@@ -359,7 +425,7 @@ $message = $client->messages->create(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,
@@ -398,24 +464,31 @@ $message = $client->messages->create(
 var_dump($message);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "container": {
-    "id": "id",
-    "expires_at": "2019-12-27T18:11:19.117Z"
+    "id": "container_011CpZohnwH4vuy7gazohgSP",
+    "expires_at": "2019-12-27T18:11:19.117Z",
+    "skills": [
+      {
+        "skill_id": "pdf",
+        "type": "anthropic",
+        "version": "latest"
+      }
+    ]
   },
   "content": [
     {
       "citations": [
         {
-          "cited_text": "cited_text",
+          "cited_text": "The grass is green. The sky is blue.",
           "document_index": 0,
-          "document_title": "document_title",
+          "document_title": "My Document",
           "end_char_index": 0,
-          "file_id": "file_id",
+          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
           "start_char_index": 0,
           "type": "char_location"
         }
@@ -424,11 +497,11 @@ var_dump($message);
       "type": "text"
     }
   ],
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
-    "explanation": "explanation",
+    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
     "type": "refusal"
   },
   "stop_reason": "end_turn",
@@ -441,7 +514,7 @@ var_dump($message);
     },
     "cache_creation_input_tokens": 2051,
     "cache_read_input_tokens": 2051,
-    "inference_geo": "inference_geo",
+    "inference_geo": "global",
     "input_tokens": 2095,
     "output_tokens": 503,
     "output_tokens_details": {
@@ -460,7 +533,7 @@ var_dump($message);
 
 `$client->messages->countTokens(list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?OutputConfig outputConfig, ?System system, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<MessageCountTokensTool> tools, ?string userProfileID): MessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -640,7 +713,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $messageTokensCount = $client->messages->countTokens(
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   outputConfig: [
     'effort' => 'low',
@@ -653,7 +726,7 @@ $messageTokensCount = $client->messages->countTokens(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,
@@ -689,7 +762,7 @@ $messageTokensCount = $client->messages->countTokens(
 var_dump($messageTokensCount);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -697,7 +770,7 @@ var_dump($messageTokensCount);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Base64 Image Source
 
@@ -816,6 +889,689 @@ var_dump($messageTokensCount);
   - `BashCodeExecutionToolResultErrorCode errorCode`
 
   - `"bash_code_execution_tool_result_error" type`
+
+### Browser Close Tab Config
+
+- `BrowserCloseTabConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Double Click Config
+
+- `BrowserDoubleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser File Upload Config
+
+- `BrowserFileUploadConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Find Config
+
+- `BrowserFindConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Form Input Config
+
+- `BrowserFormInputConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Get Page Text Config
+
+- `BrowserGetPageTextConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Hold Key Config
+
+- `BrowserHoldKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Hover Config
+
+- `BrowserHoverConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Javascript Exec Config
+
+- `BrowserJavascriptExecConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Key Config
+
+- `BrowserKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Click Config
+
+- `BrowserLeftClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Click Drag Config
+
+- `BrowserLeftClickDragConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Mouse Down Config
+
+- `BrowserLeftMouseDownConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Mouse Up Config
+
+- `BrowserLeftMouseUpConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser List Tabs Config
+
+- `BrowserListTabsConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Middle Click Config
+
+- `BrowserMiddleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Mouse Move Config
+
+- `BrowserMouseMoveConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Navigate Config
+
+- `BrowserNavigateConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser New Tab Config
+
+- `BrowserNewTabConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Read Console Config
+
+- `BrowserReadConsoleConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Read Network Config
+
+- `BrowserReadNetworkConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Read Page Config
+
+- `BrowserReadPageConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Right Click Config
+
+- `BrowserRightClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Screenshot Config
+
+- `BrowserScreenshotConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Scroll Config
+
+- `BrowserScrollConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Scroll To Config
+
+- `BrowserScrollToConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser State Block Param
+
+- `BrowserStateBlockParam`
+
+  - `list<BrowserStateTabEntry> tabs`
+
+    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+  - `"browser_state" type`
+
+  - `?CacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+  - `?list<BrowserStateChange> stateChanges`
+
+    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+### Browser State Change
+
+- `BrowserStateChange`
+
+  - `BrowserStateChangeTabOpened`
+
+    - `string tabID`
+
+      The `tab_id` of the opened tab, present in `tabs`.
+
+    - `"tab_opened" type`
+
+  - `BrowserStateChangeDownloadStarted`
+
+    - `string downloadID`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    - `"download_started" type`
+
+    - `string url`
+
+      The final post-redirect URL the download was served from.
+
+  - `BrowserStateChangeDownloadCompleted`
+
+    - `string downloadID`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    - `"download_completed" type`
+
+    - `string url`
+
+      The final post-redirect URL the download was served from.
+
+    - `?string path`
+
+      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+    - `?int sizeBytes`
+
+      The completed download's size.
+
+  - `BrowserStateChangeDownloadFailed`
+
+    - `string downloadID`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    - `"download_failed" type`
+
+    - `string url`
+
+      The final post-redirect URL the download was served from.
+
+    - `?string error`
+
+      The failure or cancellation detail, when known.
+
+### Browser State Change Download Completed
+
+- `BrowserStateChangeDownloadCompleted`
+
+  - `string downloadID`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+  - `"download_completed" type`
+
+  - `string url`
+
+    The final post-redirect URL the download was served from.
+
+  - `?string path`
+
+    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+  - `?int sizeBytes`
+
+    The completed download's size.
+
+### Browser State Change Download Failed
+
+- `BrowserStateChangeDownloadFailed`
+
+  - `string downloadID`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+  - `"download_failed" type`
+
+  - `string url`
+
+    The final post-redirect URL the download was served from.
+
+  - `?string error`
+
+    The failure or cancellation detail, when known.
+
+### Browser State Change Download Started
+
+- `BrowserStateChangeDownloadStarted`
+
+  - `string downloadID`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+  - `"download_started" type`
+
+  - `string url`
+
+    The final post-redirect URL the download was served from.
+
+### Browser State Change Tab Opened
+
+- `BrowserStateChangeTabOpened`
+
+  - `string tabID`
+
+    The `tab_id` of the opened tab, present in `tabs`.
+
+  - `"tab_opened" type`
+
+### Browser State Tab Entry
+
+- `BrowserStateTabEntry`
+
+  - `string tabID`
+
+    The caller-assigned identifier for this tab, unique within the inventory.
+
+  - `string title`
+
+    The title of the page the tab is showing. May be empty.
+
+  - `string url`
+
+    The URL of the page the tab is showing. May be empty.
+
+  - `?bool active`
+
+    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+### Browser Switch Tab Config
+
+- `BrowserSwitchTabConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Toolset 20260801
+
+- `BrowserToolset20260801`
+
+  - `"browser_toolset_20260801" type`
+
+  - `?list<AllowedCaller> allowedCallers`
+
+  - `?CacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+  - `?BrowserToolsetConfigs configs`
+
+    Per-member configuration for `browser_toolset_20260801`: one
+    optional field per member tool, keyed by the member name — the same
+    name the member's `tool_use` blocks carry. Every member is an
+    accepted key, and a member's defaults apply wherever its key is
+    absent. Unknown keys are rejected: the field set is this toolset
+    version's complete member set.
+
+### Browser Toolset Configs
+
+- `BrowserToolsetConfigs`
+
+  - `?BrowserCloseTabConfig closeTab`
+
+    `close_tab`'s config overrides.
+
+  - `?BrowserDoubleClickConfig doubleClick`
+
+    `double_click`'s config overrides.
+
+  - `?BrowserFileUploadConfig fileUpload`
+
+    `file_upload`'s config overrides.
+
+  - `?BrowserFindConfig find`
+
+    `find`'s config overrides.
+
+  - `?BrowserFormInputConfig formInput`
+
+    `form_input`'s config overrides.
+
+  - `?BrowserGetPageTextConfig getPageText`
+
+    `get_page_text`'s config overrides.
+
+  - `?BrowserHoldKeyConfig holdKey`
+
+    `hold_key`'s config overrides.
+
+  - `?BrowserHoverConfig hover`
+
+    `hover`'s config overrides.
+
+  - `?BrowserJavascriptExecConfig javascriptExec`
+
+    `javascript_exec`'s config overrides.
+
+  - `?BrowserKeyConfig key`
+
+    `key`'s config overrides.
+
+  - `?BrowserLeftClickConfig leftClick`
+
+    `left_click`'s config overrides.
+
+  - `?BrowserLeftClickDragConfig leftClickDrag`
+
+    `left_click_drag`'s config overrides.
+
+  - `?BrowserLeftMouseDownConfig leftMouseDown`
+
+    `left_mouse_down`'s config overrides.
+
+  - `?BrowserLeftMouseUpConfig leftMouseUp`
+
+    `left_mouse_up`'s config overrides.
+
+  - `?BrowserListTabsConfig listTabs`
+
+    `list_tabs`'s config overrides.
+
+  - `?BrowserMiddleClickConfig middleClick`
+
+    `middle_click`'s config overrides.
+
+  - `?BrowserMouseMoveConfig mouseMove`
+
+    `mouse_move`'s config overrides.
+
+  - `?BrowserNavigateConfig navigate`
+
+    `navigate`'s config overrides.
+
+  - `?BrowserNewTabConfig newTab`
+
+    `new_tab`'s config overrides.
+
+  - `?BrowserReadConsoleConfig readConsole`
+
+    `read_console`'s config overrides.
+
+  - `?BrowserReadNetworkConfig readNetwork`
+
+    `read_network`'s config overrides.
+
+  - `?BrowserReadPageConfig readPage`
+
+    `read_page`'s config overrides.
+
+  - `?BrowserRightClickConfig rightClick`
+
+    `right_click`'s config overrides.
+
+  - `?BrowserScreenshotConfig screenshot`
+
+    `screenshot`'s config overrides.
+
+  - `?BrowserScrollConfig scroll`
+
+    `scroll`'s config overrides.
+
+  - `?BrowserScrollToConfig scrollTo`
+
+    `scroll_to`'s config overrides.
+
+  - `?BrowserSwitchTabConfig switchTab`
+
+    `switch_tab`'s config overrides.
+
+  - `?BrowserTripleClickConfig tripleClick`
+
+    `triple_click`'s config overrides.
+
+  - `?BrowserTypeConfig type`
+
+    `type`'s config overrides.
+
+  - `?BrowserWaitConfig wait`
+
+    `wait`'s config overrides.
+
+  - `?BrowserZoomConfig zoom`
+
+    `zoom`'s config overrides.
+
+### Browser Triple Click Config
+
+- `BrowserTripleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Type Config
+
+- `BrowserTypeConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Wait Config
+
+- `BrowserWaitConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Zoom Config
+
+- `BrowserZoomConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
 ### Cache Control Ephemeral
 
@@ -1352,6 +2108,303 @@ var_dump($messageTokensCount);
 
   - `"code_execution_tool_result_error" type`
 
+### Computer Cursor Position Config
+
+- `ComputerCursorPositionConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Double Click Config
+
+- `ComputerDoubleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Hold Key Config
+
+- `ComputerHoldKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Key Config
+
+- `ComputerKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Click Config
+
+- `ComputerLeftClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Click Drag Config
+
+- `ComputerLeftClickDragConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Mouse Down Config
+
+- `ComputerLeftMouseDownConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Mouse Up Config
+
+- `ComputerLeftMouseUpConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Middle Click Config
+
+- `ComputerMiddleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Mouse Move Config
+
+- `ComputerMouseMoveConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Right Click Config
+
+- `ComputerRightClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Screenshot Config
+
+- `ComputerScreenshotConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Scroll Config
+
+- `ComputerScrollConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Toolset 20260801
+
+- `ComputerToolset20260801`
+
+  - `"computer_toolset_20260801" type`
+
+  - `?list<AllowedCaller> allowedCallers`
+
+  - `?CacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+  - `?ComputerToolsetConfigs configs`
+
+    Per-member configuration for `computer_toolset_20260801`: one
+    optional field per member tool, keyed by the member name — the same
+    name the member's `tool_use` blocks carry. Every member is an
+    accepted key, and a member's defaults apply wherever its key is
+    absent. Unknown keys are rejected: the field set is this toolset
+    version's complete member set.
+
+### Computer Toolset Configs
+
+- `ComputerToolsetConfigs`
+
+  - `?ComputerCursorPositionConfig cursorPosition`
+
+    `cursor_position`'s config overrides.
+
+  - `?ComputerDoubleClickConfig doubleClick`
+
+    `double_click`'s config overrides.
+
+  - `?ComputerHoldKeyConfig holdKey`
+
+    `hold_key`'s config overrides.
+
+  - `?ComputerKeyConfig key`
+
+    `key`'s config overrides.
+
+  - `?ComputerLeftClickConfig leftClick`
+
+    `left_click`'s config overrides.
+
+  - `?ComputerLeftClickDragConfig leftClickDrag`
+
+    `left_click_drag`'s config overrides.
+
+  - `?ComputerLeftMouseDownConfig leftMouseDown`
+
+    `left_mouse_down`'s config overrides.
+
+  - `?ComputerLeftMouseUpConfig leftMouseUp`
+
+    `left_mouse_up`'s config overrides.
+
+  - `?ComputerMiddleClickConfig middleClick`
+
+    `middle_click`'s config overrides.
+
+  - `?ComputerMouseMoveConfig mouseMove`
+
+    `mouse_move`'s config overrides.
+
+  - `?ComputerRightClickConfig rightClick`
+
+    `right_click`'s config overrides.
+
+  - `?ComputerScreenshotConfig screenshot`
+
+    `screenshot`'s config overrides.
+
+  - `?ComputerScrollConfig scroll`
+
+    `scroll`'s config overrides.
+
+  - `?ComputerTripleClickConfig tripleClick`
+
+    `triple_click`'s config overrides.
+
+  - `?ComputerTypeConfig type`
+
+    `type`'s config overrides.
+
+  - `?ComputerWaitConfig wait`
+
+    `wait`'s config overrides.
+
+  - `?ComputerZoomConfig zoom`
+
+    `zoom`'s config overrides.
+
+### Computer Triple Click Config
+
+- `ComputerTripleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Type Config
+
+- `ComputerTypeConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Wait Config
+
+- `ComputerWaitConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Zoom Config
+
+- `ComputerZoomConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
 ### Container
 
 - `Container`
@@ -1363,6 +2416,38 @@ var_dump($messageTokensCount);
   - `\Datetime expiresAt`
 
     The time at which the container will expire.
+
+  - `?list<ContainerSkill> skills`
+
+    Skills loaded in the container
+
+### Container Params
+
+- `ContainerParams`
+
+  - `?string id`
+
+    Container id
+
+  - `?list<SkillParams> skills`
+
+    List of skills to load in the container
+
+### Container Skill
+
+- `ContainerSkill`
+
+  - `string skillID`
+
+    Skill ID
+
+  - `Type type`
+
+    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+  - `string version`
+
+    The resolved version: a skill version ID for custom skills.
 
 ### Container Upload Block
 
@@ -1404,13 +2489,27 @@ var_dump($messageTokensCount);
 
     - `string signature`
 
+      A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+      This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
     - `string thinking`
+
+      The text of Claude's thinking process for this block.
 
     - `"thinking" type`
 
   - `RedactedThinkingBlock`
 
     - `string data`
+
+      The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+      Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
     - `"redacted_thinking" type`
 
@@ -1427,6 +2526,10 @@ var_dump($messageTokensCount);
     - `string name`
 
     - `"tool_use" type`
+
+    - `?string toolsetName`
+
+      For a toolset member tool_use, the toolset family.
 
   - `ServerToolUseBlock`
 
@@ -1532,6 +2635,10 @@ var_dump($messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
+    - `?ImageTransformationsParam transformations`
+
+      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
   - `DocumentBlockParam`
 
     - `Source source`
@@ -1568,13 +2675,21 @@ var_dump($messageTokensCount);
 
     - `string signature`
 
+      The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+      Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
     - `string thinking`
+
+      The `thinking` text of this block as returned by the API.
 
     - `"thinking" type`
 
   - `RedactedThinkingBlockParam`
 
     - `string data`
+
+      The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
     - `"redacted_thinking" type`
 
@@ -1596,6 +2711,10 @@ var_dump($messageTokensCount);
 
       Tool invocation directly from the model.
 
+    - `?string toolsetName`
+
+      For a toolset member tool_use, the toolset family this member belongs to.
+
   - `ToolResultBlockParam`
 
     - `string toolUseID`
@@ -1609,6 +2728,10 @@ var_dump($messageTokensCount);
     - `?Content content`
 
     - `?bool isError`
+
+    - `?string toolsetName`
+
+      For a toolset member tool_result, the toolset family of the paired tool_use.
 
   - `ServerToolUseBlockParam`
 
@@ -1720,18 +2843,6 @@ var_dump($messageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
-  - `MidConversationSystemBlockParam`
-
-    - `list<TextBlockParam> content`
-
-      System instruction text blocks.
-
-    - `"mid_conv_system" type`
-
-    - `?CacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
 ### Content Block Source
 
 - `ContentBlockSource`
@@ -1765,6 +2876,10 @@ var_dump($messageTokensCount);
     - `?CacheControlEphemeral cacheControl`
 
       Create a cache control breakpoint at this content block.
+
+    - `?ImageTransformationsParam transformations`
+
+      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
 ### Direct Caller
 
@@ -1834,6 +2949,22 @@ var_dump($messageTokensCount);
 
   - `"encrypted_code_execution_result" type`
 
+### File Document Source
+
+- `FileDocumentSource`
+
+  - `string fileID`
+
+  - `"file" type`
+
+### File Image Source
+
+- `FileImageSource`
+
+  - `string fileID`
+
+  - `"file" type`
+
 ### Image Block Param
 
 - `ImageBlockParam`
@@ -1845,6 +2976,18 @@ var_dump($messageTokensCount);
   - `?CacheControlEphemeral cacheControl`
 
     Create a cache control breakpoint at this content block.
+
+  - `?ImageTransformationsParam transformations`
+
+    Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+### Image Transformations Param
+
+- `ImageTransformationsParam`
+
+  - `?OversizedImage oversizedImage`
+
+    What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
 ### Input JSON Delta
 
@@ -1963,6 +3106,7 @@ var_dump($messageTokensCount);
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -2158,6 +3302,25 @@ var_dump($messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `BrowserToolset20260801`
+
+    - `"browser_toolset_20260801" type`
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?CacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BrowserToolsetConfigs configs`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
   - `MemoryTool20250818`
 
     - `"memory" name`
@@ -2183,6 +3346,25 @@ var_dump($messageTokensCount);
     - `?bool strict`
 
       When true, guarantees schema validation on tool names and inputs
+
+  - `ComputerToolset20260801`
+
+    - `"computer_toolset_20260801" type`
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?CacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?ComputerToolsetConfigs configs`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
 
   - `ToolTextEditor20250124`
 
@@ -2626,6 +3808,22 @@ var_dump($messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+### Message Create Params Container
+
+- `MessageCreateParamsContainer`
+
+  - `ContainerParams`
+
+    - `?string id`
+
+      Container id
+
+    - `?list<SkillParams> skills`
+
+      List of skills to load in the container
+
+  - `string`
+
 ### Message Delta Usage
 
 - `MessageDeltaUsage`
@@ -2685,20 +3883,6 @@ var_dump($messageTokensCount);
 
     This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
-### Mid Conversation System Block Param
-
-- `MidConversationSystemBlockParam`
-
-  - `list<TextBlockParam> content`
-
-    System instruction text blocks.
-
-  - `"mid_conv_system" type`
-
-  - `?CacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
 ### Model
 
 - `Model`
@@ -2715,13 +3899,17 @@ var_dump($messageTokensCount);
 
     Most capable model for cybersecurity and biology research
 
+  - `"claude-opus-5"`
+
+    Powerful intelligence for long-running agents and coding
+
   - `"claude-opus-4-8"`
 
-    Frontier intelligence for long-running agents and coding
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-opus-4-7"`
 
-    Frontier intelligence for long-running agents and coding
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-mythos-preview"`
 
@@ -2729,7 +3917,7 @@ var_dump($messageTokensCount);
 
   - `"claude-opus-4-6"`
 
-    Frontier intelligence for long-running agents and coding
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-sonnet-4-6"`
 
@@ -2745,11 +3933,11 @@ var_dump($messageTokensCount);
 
   - `"claude-opus-4-5"`
 
-    Premium model combining maximum intelligence with practical performance
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-opus-4-5-20251101"`
 
-    Premium model combining maximum intelligence with practical performance
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-sonnet-4-5"`
 
@@ -2758,14 +3946,6 @@ var_dump($messageTokensCount);
   - `"claude-sonnet-4-5-20250929"`
 
     High-performance model for agents and coding
-
-  - `"claude-opus-4-1"`
-
-    Exceptional model for specialized complex tasks
-
-  - `"claude-opus-4-1-20250805"`
-
-    Exceptional model for specialized complex tasks
 
 ### Output Config
 
@@ -2830,11 +4010,15 @@ var_dump($messageTokensCount);
 
     - `string thinking`
 
+      The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
     - `"thinking_delta" type`
 
   - `SignatureDelta`
 
     - `string signature`
+
+      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
     - `"signature_delta" type`
 
@@ -2964,6 +4148,12 @@ var_dump($messageTokensCount);
 
   - `string data`
 
+    The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+    Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
   - `"redacted_thinking" type`
 
 ### Redacted Thinking Block Param
@@ -2971,6 +4161,8 @@ var_dump($messageTokensCount);
 - `RedactedThinkingBlockParam`
 
   - `string data`
+
+    The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
   - `"redacted_thinking" type`
 
@@ -3078,7 +4270,25 @@ var_dump($messageTokensCount);
 
   - `string signature`
 
+    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
   - `"signature_delta" type`
+
+### Skill Params
+
+- `SkillParams`
+
+  - `string skillID`
+
+    Skill ID
+
+  - `Type type`
+
+    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+  - `?string version`
+
+    Skill version or 'latest' for most recent version
 
 ### Stop Reason
 
@@ -3095,6 +4305,8 @@ var_dump($messageTokensCount);
   - `"pause_turn"`
 
   - `"refusal"`
+
+  - `"model_context_window_exceeded"`
 
 ### Text Block
 
@@ -3478,7 +4690,15 @@ var_dump($messageTokensCount);
 
   - `string signature`
 
+    A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+    This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
   - `string thinking`
+
+    The text of Claude's thinking process for this block.
 
   - `"thinking" type`
 
@@ -3488,7 +4708,13 @@ var_dump($messageTokensCount);
 
   - `string signature`
 
+    The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+    Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
   - `string thinking`
+
+    The `thinking` text of this block as returned by the API.
 
   - `"thinking" type`
 
@@ -3563,6 +4789,8 @@ var_dump($messageTokensCount);
 - `ThinkingDelta`
 
   - `string thinking`
+
+    The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
   - `"thinking_delta" type`
 
@@ -3761,6 +4989,10 @@ var_dump($messageTokensCount);
   - `?Content content`
 
   - `?bool isError`
+
+  - `?string toolsetName`
+
+    For a toolset member tool_result, the toolset family of the paired tool_use.
 
 ### Tool Search Tool Bm25 20251119
 
@@ -4142,6 +5374,25 @@ var_dump($messageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `BrowserToolset20260801`
+
+    - `"browser_toolset_20260801" type`
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?CacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BrowserToolsetConfigs configs`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
   - `MemoryTool20250818`
 
     - `"memory" name`
@@ -4167,6 +5418,25 @@ var_dump($messageTokensCount);
     - `?bool strict`
 
       When true, guarantees schema validation on tool names and inputs
+
+  - `ComputerToolset20260801`
+
+    - `"computer_toolset_20260801" type`
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?CacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?ComputerToolsetConfigs configs`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
 
   - `ToolTextEditor20250124`
 
@@ -4626,6 +5896,10 @@ var_dump($messageTokensCount);
 
   - `"tool_use" type`
 
+  - `?string toolsetName`
+
+    For a toolset member tool_use, the toolset family.
+
 ### Tool Use Block Param
 
 - `ToolUseBlockParam`
@@ -4645,6 +5919,10 @@ var_dump($messageTokensCount);
   - `?Caller caller`
 
     Tool invocation directly from the model.
+
+  - `?string toolsetName`
+
+    For a toolset member tool_use, the toolset family this member belongs to.
 
 ### URL Image Source
 
@@ -5293,13 +6571,13 @@ var_dump($messageTokensCount);
 
   - `"request_too_large"`
 
-# Batches
+## Messages › Batches
 
-## Create a Message Batch
+### Create a Message Batch
 
 `$client->messages->batches->create(list<Request> requests, ?string userProfileID): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -5307,7 +6585,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `requests: list<Request>`
 
@@ -5317,7 +6595,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -5371,7 +6649,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -5387,9 +6665,14 @@ $messageBatch = $client->messages->batches->create(
       'params' => [
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
-        'model' => 'claude-opus-4-6',
+        'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
-        'container' => 'container',
+        'container' => [
+          'id' => 'id',
+          'skills' => [
+            ['skillID' => 'pdf', 'type' => 'anthropic', 'version' => 'latest']
+          ],
+        ],
         'inferenceGeo' => 'inference_geo',
         'metadata' => ['userID' => '13803d75-b4b5-4c3e-b2a2-6f21399b021b'],
         'outputConfig' => [
@@ -5406,7 +6689,7 @@ $messageBatch = $client->messages->batches->create(
             'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
             'citations' => [
               [
-                'citedText' => 'cited_text',
+                'citedText' => 'The grass is green. The sky is blue.',
                 'documentIndex' => 0,
                 'documentTitle' => 'x',
                 'endCharIndex' => 0,
@@ -5448,7 +6731,7 @@ $messageBatch = $client->messages->batches->create(
 var_dump($messageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -5471,23 +6754,23 @@ var_dump($messageBatch);
 }
 ```
 
-## Retrieve a Message Batch
+### Retrieve a Message Batch
 
 `$client->messages->batches->retrieve(string messageBatchID): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -5541,7 +6824,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -5555,7 +6838,7 @@ $messageBatch = $client->messages->batches->retrieve('message_batch_id');
 var_dump($messageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -5578,17 +6861,17 @@ var_dump($messageBatch);
 }
 ```
 
-## List Message Batches
+### List Message Batches
 
 `$client->messages->batches->list(?string afterID, ?string beforeID, ?int limit): Page<MessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `afterID?:optional string`
 
@@ -5604,7 +6887,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
-### Returns
+  default: 20
+
+#### Returns
 
 - `MessageBatch`
 
@@ -5658,7 +6943,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -5674,7 +6959,7 @@ $page = $client->messages->batches->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -5704,11 +6989,11 @@ var_dump($page);
 }
 ```
 
-## Cancel a Message Batch
+### Cancel a Message Batch
 
 `$client->messages->batches->cancel(string messageBatchID): MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -5716,13 +7001,13 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -5776,7 +7061,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -5790,7 +7075,7 @@ $messageBatch = $client->messages->batches->cancel('message_batch_id');
 var_dump($messageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -5813,11 +7098,11 @@ var_dump($messageBatch);
 }
 ```
 
-## Delete a Message Batch
+### Delete a Message Batch
 
 `$client->messages->batches->delete(string messageBatchID): DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -5825,13 +7110,13 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `DeletedMessageBatch`
 
@@ -5845,7 +7130,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -5859,7 +7144,7 @@ $deletedMessageBatch = $client->messages->batches->delete('message_batch_id');
 var_dump($deletedMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -5868,11 +7153,11 @@ var_dump($deletedMessageBatch);
 }
 ```
 
-## Retrieve Message Batch results
+### Retrieve Message Batch results
 
 `$client->messages->batches->results(string messageBatchID): MessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -5880,13 +7165,13 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatchIndividualResponse`
 
@@ -5902,7 +7187,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -5917,173 +7202,3 @@ $messageBatchIndividualResponse = $client->messages->batches->resultsStream(
 
 var_dump($messageBatchIndividualResponse);
 ```
-
-## Domain Types
-
-### Deleted Message Batch
-
-- `DeletedMessageBatch`
-
-  - `string id`
-
-    ID of the Message Batch.
-
-  - `"message_batch_deleted" type`
-
-    Deleted object type.
-
-    For Message Batches, this is always `"message_batch_deleted"`.
-
-### Message Batch
-
-- `MessageBatch`
-
-  - `string id`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `?\Datetime archivedAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
-
-  - `?\Datetime cancelInitiatedAt`
-
-    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was created.
-
-  - `?\Datetime endedAt`
-
-    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
-
-    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
-
-  - `\Datetime expiresAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
-
-  - `ProcessingStatus processingStatus`
-
-    Processing status of the Message Batch.
-
-  - `MessageBatchRequestCounts requestCounts`
-
-    Tallies requests within the Message Batch, categorized by their status.
-
-    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
-
-  - `?string resultsURL`
-
-    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
-
-    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-### Message Batch Canceled Result
-
-- `MessageBatchCanceledResult`
-
-  - `"canceled" type`
-
-### Message Batch Errored Result
-
-- `MessageBatchErroredResult`
-
-  - `ErrorResponse error`
-
-  - `"errored" type`
-
-### Message Batch Expired Result
-
-- `MessageBatchExpiredResult`
-
-  - `"expired" type`
-
-### Message Batch Individual Response
-
-- `MessageBatchIndividualResponse`
-
-  - `string customID`
-
-    Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
-
-    Must be unique for each request within the Message Batch.
-
-  - `MessageBatchResult result`
-
-    Processing result for this request.
-
-    Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-### Message Batch Request Counts
-
-- `MessageBatchRequestCounts`
-
-  - `int canceled`
-
-    Number of requests in the Message Batch that have been canceled.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int errored`
-
-    Number of requests in the Message Batch that encountered an error.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int expired`
-
-    Number of requests in the Message Batch that have expired.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int processing`
-
-    Number of requests in the Message Batch that are processing.
-
-  - `int succeeded`
-
-    Number of requests in the Message Batch that have completed successfully.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-### Message Batch Result
-
-- `MessageBatchResult`
-
-  - `MessageBatchSucceededResult`
-
-    - `Message message`
-
-    - `"succeeded" type`
-
-  - `MessageBatchErroredResult`
-
-    - `ErrorResponse error`
-
-    - `"errored" type`
-
-  - `MessageBatchCanceledResult`
-
-    - `"canceled" type`
-
-  - `MessageBatchExpiredResult`
-
-    - `"expired" type`
-
-### Message Batch Succeeded Result
-
-- `MessageBatchSucceededResult`
-
-  - `Message message`
-
-  - `"succeeded" type`

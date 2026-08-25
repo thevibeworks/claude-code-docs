@@ -2,9 +2,9 @@
 
 ## Create a Text Completion
 
-`client.completions.create(CompletionCreateParamsparams, RequestOptionsoptions?): Completion | Stream<Completion>`
+`client.completions.create(params, options?): Completion | Stream<Completion>`
 
-**post** `/v1/complete`
+**POST** `/v1/complete`
 
 [Legacy] Create a Text Completion.
 
@@ -24,13 +24,15 @@ Future models and features will not be compatible with Text Completions. See our
 
       Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
+      minimum: 1
+
     - `model: Model`
 
       Body param: The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
         - `"claude-sonnet-5"`
 
@@ -44,13 +46,17 @@ Future models and features will not be compatible with Text Completions. See our
 
           Most capable model for cybersecurity and biology research
 
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
         - `"claude-opus-4-8"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-7"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-mythos-preview"`
 
@@ -58,7 +64,7 @@ Future models and features will not be compatible with Text Completions. See our
 
         - `"claude-opus-4-6"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-6"`
 
@@ -74,11 +80,11 @@ Future models and features will not be compatible with Text Completions. See our
 
         - `"claude-opus-4-5"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-5-20251101"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-5"`
 
@@ -87,14 +93,6 @@ Future models and features will not be compatible with Text Completions. See our
         - `"claude-sonnet-4-5-20250929"`
 
           High-performance model for agents and coding
-
-        - `"claude-opus-4-1"`
-
-          Exceptional model for specialized complex tasks
-
-        - `"claude-opus-4-1-20250805"`
-
-          Exceptional model for specialized complex tasks
 
       - `(string & {})`
 
@@ -118,6 +116,8 @@ Future models and features will not be compatible with Text Completions. See our
 
       See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) for more details.
 
+      minLength: 1
+
     - `metadata?: Metadata`
 
       Body param: An object describing metadata about the request.
@@ -127,6 +127,8 @@ Future models and features will not be compatible with Text Completions. See our
         An external identifier for the user who is associated with the request.
 
         This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+        maxLength: 512
 
     - `stop_sequences?: Array<string>`
 
@@ -142,39 +144,13 @@ Future models and features will not be compatible with Text Completions. See our
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-      - `false`
-
-    - `temperature?: number`
-
-      Body param: Amount of randomness injected into the response.
-
-      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-    - `top_k?: number`
-
-      Body param: Only sample from the top K options for each subsequent token.
-
-      Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-      Recommended for advanced use cases only.
-
-    - `top_p?: number`
-
-      Body param: Use nucleus sampling.
-
-      In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-      Recommended for advanced use cases only.
-
     - `betas?: Array<AnthropicBeta>`
 
       Header param: Optional header to specify the beta version(s) you want to use.
 
       - `(string & {})`
 
-      - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+      - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
         - `"message-batches-2024-09-24"`
 
@@ -220,21 +196,67 @@ Future models and features will not be compatible with Text Completions. See our
 
         - `"user-profiles-2026-03-24"`
 
+        - `"user-profiles-2026-08-18"`
+
         - `"advisor-tool-2026-03-01"`
 
         - `"managed-agents-2026-04-01"`
 
         - `"cache-diagnosis-2026-04-07"`
 
+        - `"dreaming-2026-04-21"`
+
         - `"thinking-token-count-2026-05-13"`
 
         - `"server-side-fallback-2026-06-01"`
 
+        - `"server-side-fallback-2026-07-01"`
+
         - `"fallback-credit-2026-06-01"`
+
+        - `"fallback-credit-2026-07-01"`
 
         - `"agent-memory-2026-07-22"`
 
-  - `CompletionCreateParamsNonStreaming extends CompletionCreateParamsBase`
+        - `"mid-conversation-tool-changes-2026-07-01"`
+
+    - `temperature?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+      Body param: Amount of randomness injected into the response.
+
+      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+      maximum: 1, minimum: 0
+
+    - `top_k?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+      Body param: Only sample from the top K options for each subsequent token.
+
+      Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+      Recommended for advanced use cases only.
+
+      minimum: 0
+
+    - `top_p?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+      Body param: Use nucleus sampling.
+
+      In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+      Recommended for advanced use cases only.
+
+      maximum: 1, minimum: 0
+
+  - `CompletionCreateParamsNonStreaming extends  CompletionCreateParamsBase`
 
     - `stream?: false`
 
@@ -242,15 +264,13 @@ Future models and features will not be compatible with Text Completions. See our
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-  - `CompletionCreateParamsStreaming extends CompletionCreateParamsBase`
+  - `CompletionCreateParamsStreaming extends  CompletionCreateParamsBase`
 
     - `stream: true`
 
       Body param: Whether to incrementally stream the response using server-sent events.
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
-
-      - `true`
 
 ### Returns
 
@@ -272,7 +292,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
       - `"claude-sonnet-5"`
 
@@ -286,13 +306,17 @@ Future models and features will not be compatible with Text Completions. See our
 
         Most capable model for cybersecurity and biology research
 
+      - `"claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
       - `"claude-opus-4-8"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-7"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-mythos-preview"`
 
@@ -300,7 +324,7 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `"claude-opus-4-6"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-6"`
 
@@ -316,11 +340,11 @@ Future models and features will not be compatible with Text Completions. See our
 
       - `"claude-opus-4-5"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-5-20251101"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-5"`
 
@@ -329,14 +353,6 @@ Future models and features will not be compatible with Text Completions. See our
       - `"claude-sonnet-4-5-20250929"`
 
         High-performance model for agents and coding
-
-      - `"claude-opus-4-1"`
-
-        Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-1-20250805"`
-
-        Exceptional model for specialized complex tasks
 
     - `(string & {})`
 
@@ -355,27 +371,29 @@ Future models and features will not be compatible with Text Completions. See our
 
     For Text Completions, this is always `"completion"`.
 
-    - `"completion"`
+    default: completion
+
+- `Completion`
 
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const completion = await client.completions.create({
   max_tokens_to_sample: 256,
-  model: 'claude-2.1',
-  prompt: '\n\nHuman: Hello, world!\n\nAssistant:',
+  model: "claude-2.1",
+  prompt: "\n\nHuman: Hello, world!\n\nAssistant:"
 });
 
 console.log(completion.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -387,7 +405,7 @@ console.log(completion.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Completion
 
@@ -409,7 +427,7 @@ console.log(completion.id);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
       - `"claude-sonnet-5"`
 
@@ -423,13 +441,17 @@ console.log(completion.id);
 
         Most capable model for cybersecurity and biology research
 
+      - `"claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
       - `"claude-opus-4-8"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-7"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-mythos-preview"`
 
@@ -437,7 +459,7 @@ console.log(completion.id);
 
       - `"claude-opus-4-6"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-6"`
 
@@ -453,11 +475,11 @@ console.log(completion.id);
 
       - `"claude-opus-4-5"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-5-20251101"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-5"`
 
@@ -466,14 +488,6 @@ console.log(completion.id);
       - `"claude-sonnet-4-5-20250929"`
 
         High-performance model for agents and coding
-
-      - `"claude-opus-4-1"`
-
-        Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-1-20250805"`
-
-        Exceptional model for specialized complex tasks
 
     - `(string & {})`
 
@@ -492,4 +506,4 @@ console.log(completion.id);
 
     For Text Completions, this is always `"completion"`.
 
-    - `"completion"`
+    default: completion

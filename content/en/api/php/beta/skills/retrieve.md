@@ -1,12 +1,12 @@
-## Get Skill
+# Get Skill
 
 `$client->beta->skills->retrieve(string skillID, ?list<AnthropicBeta> betas): SkillGetResponse`
 
-**get** `/v1/skills/{skill_id}`
+**GET** `/v1/skills/{skill_id}`
 
 Get Skill
 
-### Parameters
+## Parameters
 
 - `skillID: string`
 
@@ -18,7 +18,7 @@ Get Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `SkillGetResponse`
 
@@ -63,7 +63,7 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -73,13 +73,13 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $skill = $client->beta->skills->retrieve(
-  'skill_id', betas: ['message-batches-2024-09-24']
+  'skill_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($skill);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

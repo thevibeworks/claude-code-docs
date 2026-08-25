@@ -1,18 +1,18 @@
-## Get Deployment Run
+# Get Deployment Run
 
 `client.Beta.DeploymentRuns.Get(ctx, deploymentRunID, query) (*BetaManagedAgentsDeploymentRun, error)`
 
-**get** `/v1/deployment_runs/{deployment_run_id}`
+**GET** `/v1/deployment_runs/{deployment_run_id}`
 
 Get Deployment Run
 
-### Parameters
+## Parameters
 
 - `deploymentRunID string`
 
 - `query BetaDeploymentRunGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -64,21 +64,31 @@ Get Deployment Run
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
-### Returns
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `type BetaManagedAgentsDeploymentRun struct{…}`
 
@@ -96,13 +106,15 @@ Get Deployment Run
 
     - `Type BetaManagedAgentsAgentReferenceType`
 
-      - `const BetaManagedAgentsAgentReferenceTypeAgent BetaManagedAgentsAgentReferenceType = "agent"`
-
     - `Version int64`
+
+      format: int32
 
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DeploymentID string`
 
@@ -122,8 +134,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsEnvironmentArchivedRunErrorType`
 
-        - `const BetaManagedAgentsEnvironmentArchivedRunErrorTypeEnvironmentArchivedError BetaManagedAgentsEnvironmentArchivedRunErrorType = "environment_archived_error"`
-
     - `type BetaManagedAgentsAgentArchivedRunError struct{…}`
 
       The deployment's agent was archived.
@@ -133,8 +143,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsAgentArchivedRunErrorType`
-
-        - `const BetaManagedAgentsAgentArchivedRunErrorTypeAgentArchivedError BetaManagedAgentsAgentArchivedRunErrorType = "agent_archived_error"`
 
     - `type BetaManagedAgentsEnvironmentNotFoundRunError struct{…}`
 
@@ -146,8 +154,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsEnvironmentNotFoundRunErrorType`
 
-        - `const BetaManagedAgentsEnvironmentNotFoundRunErrorTypeEnvironmentNotFoundError BetaManagedAgentsEnvironmentNotFoundRunErrorType = "environment_not_found_error"`
-
     - `type BetaManagedAgentsVaultNotFoundRunError struct{…}`
 
       A vault referenced by the deployment no longer exists.
@@ -157,8 +163,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsVaultNotFoundRunErrorType`
-
-        - `const BetaManagedAgentsVaultNotFoundRunErrorTypeVaultNotFoundError BetaManagedAgentsVaultNotFoundRunErrorType = "vault_not_found_error"`
 
     - `type BetaManagedAgentsVaultArchivedRunError struct{…}`
 
@@ -170,8 +174,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsVaultArchivedRunErrorType`
 
-        - `const BetaManagedAgentsVaultArchivedRunErrorTypeVaultArchivedError BetaManagedAgentsVaultArchivedRunErrorType = "vault_archived_error"`
-
     - `type BetaManagedAgentsFileNotFoundRunError struct{…}`
 
       A file resource referenced by the deployment no longer exists.
@@ -181,8 +183,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsFileNotFoundRunErrorType`
-
-        - `const BetaManagedAgentsFileNotFoundRunErrorTypeFileNotFoundError BetaManagedAgentsFileNotFoundRunErrorType = "file_not_found_error"`
 
     - `type BetaManagedAgentsMemoryStoreArchivedRunError struct{…}`
 
@@ -194,8 +194,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsMemoryStoreArchivedRunErrorType`
 
-        - `const BetaManagedAgentsMemoryStoreArchivedRunErrorTypeMemoryStoreArchivedError BetaManagedAgentsMemoryStoreArchivedRunErrorType = "memory_store_archived_error"`
-
     - `type BetaManagedAgentsSkillNotFoundRunError struct{…}`
 
       A skill referenced by the deployment's agent no longer exists.
@@ -205,8 +203,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsSkillNotFoundRunErrorType`
-
-        - `const BetaManagedAgentsSkillNotFoundRunErrorTypeSkillNotFoundError BetaManagedAgentsSkillNotFoundRunErrorType = "skill_not_found_error"`
 
     - `type BetaManagedAgentsSessionResourceNotFoundRunError struct{…}`
 
@@ -218,8 +214,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsSessionResourceNotFoundRunErrorType`
 
-        - `const BetaManagedAgentsSessionResourceNotFoundRunErrorTypeSessionResourceNotFoundError BetaManagedAgentsSessionResourceNotFoundRunErrorType = "session_resource_not_found_error"`
-
     - `type BetaManagedAgentsWorkspaceArchivedRunError struct{…}`
 
       The deployment's workspace was archived.
@@ -229,8 +223,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsWorkspaceArchivedRunErrorType`
-
-        - `const BetaManagedAgentsWorkspaceArchivedRunErrorTypeWorkspaceArchivedError BetaManagedAgentsWorkspaceArchivedRunErrorType = "workspace_archived_error"`
 
     - `type BetaManagedAgentsOrganizationDisabledRunError struct{…}`
 
@@ -242,8 +234,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsOrganizationDisabledRunErrorType`
 
-        - `const BetaManagedAgentsOrganizationDisabledRunErrorTypeOrganizationDisabledError BetaManagedAgentsOrganizationDisabledRunErrorType = "organization_disabled_error"`
-
     - `type BetaManagedAgentsSessionRateLimitedRunError struct{…}`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
@@ -253,8 +243,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsSessionRateLimitedRunErrorType`
-
-        - `const BetaManagedAgentsSessionRateLimitedRunErrorTypeSessionRateLimitedError BetaManagedAgentsSessionRateLimitedRunErrorType = "session_rate_limited_error"`
 
     - `type BetaManagedAgentsSessionCreationRejectedRunError struct{…}`
 
@@ -266,8 +254,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsSessionCreationRejectedRunErrorType`
 
-        - `const BetaManagedAgentsSessionCreationRejectedRunErrorTypeSessionCreationRejectedError BetaManagedAgentsSessionCreationRejectedRunErrorType = "session_creation_rejected_error"`
-
     - `type BetaManagedAgentsUnknownRunError struct{…}`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
@@ -277,8 +263,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsUnknownRunErrorType`
-
-        - `const BetaManagedAgentsUnknownRunErrorTypeUnknownError BetaManagedAgentsUnknownRunErrorType = "unknown_error"`
 
     - `type BetaManagedAgentsSelfHostedResourcesUnsupportedRunError struct{…}`
 
@@ -290,8 +274,6 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorType`
 
-        - `const BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorTypeSelfHostedResourcesUnsupportedError BetaManagedAgentsSelfHostedResourcesUnsupportedRunErrorType = "self_hosted_resources_unsupported_error"`
-
     - `type BetaManagedAgentsMCPEgressBlockedRunError struct{…}`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
@@ -301,8 +283,6 @@ Get Deployment Run
         Human-readable error description.
 
       - `Type BetaManagedAgentsMCPEgressBlockedRunErrorType`
-
-        - `const BetaManagedAgentsMCPEgressBlockedRunErrorTypeMCPEgressBlockedError BetaManagedAgentsMCPEgressBlockedRunErrorType = "mcp_egress_blocked_error"`
 
   - `SessionID string`
 
@@ -320,9 +300,9 @@ Get Deployment Run
 
         A timestamp in RFC 3339 format
 
-      - `Type BetaManagedAgentsScheduleTriggerContextType`
+        format: date-time
 
-        - `const BetaManagedAgentsScheduleTriggerContextTypeSchedule BetaManagedAgentsScheduleTriggerContextType = "schedule"`
+      - `Type BetaManagedAgentsScheduleTriggerContextType`
 
     - `type BetaManagedAgentsManualTriggerContext struct{…}`
 
@@ -330,44 +310,38 @@ Get Deployment Run
 
       - `Type BetaManagedAgentsManualTriggerContextType`
 
-        - `const BetaManagedAgentsManualTriggerContextTypeManual BetaManagedAgentsManualTriggerContextType = "manual"`
-
   - `Type BetaManagedAgentsDeploymentRunType`
 
-    - `const BetaManagedAgentsDeploymentRunTypeDeploymentRun BetaManagedAgentsDeploymentRunType = "deployment_run"`
-
-### Example
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaManagedAgentsDeploymentRun, err := client.Beta.DeploymentRuns.Get(
-    context.TODO(),
-    "deployment_run_id",
-    anthropic.BetaDeploymentRunGetParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaManagedAgentsDeploymentRun.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaManagedAgentsDeploymentRun, err := client.Beta.DeploymentRuns.Get(
+		context.TODO(),
+		"deployment_run_id",
+		anthropic.BetaDeploymentRunGetParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaManagedAgentsDeploymentRun.ID)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

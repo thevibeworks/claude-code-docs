@@ -4,7 +4,7 @@
 
 `$client->models->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas): Page<ModelInfo>`
 
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
@@ -25,6 +25,8 @@ The Models API response can be used to determine which models are available for 
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -77,19 +79,19 @@ $page = $client->models->list(
   afterID: 'after_id',
   beforeID: 'before_id',
   limit: 1,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "data": [
     {
-      "id": "claude-opus-4-6",
+      "id": "claude-opus-5",
       "capabilities": {
         "batch": {
           "supported": true
@@ -151,8 +153,8 @@ var_dump($page);
           }
         }
       },
-      "created_at": "2026-02-04T00:00:00Z",
-      "display_name": "Claude Opus 4.6",
+      "created_at": "2026-07-24T00:00:00Z",
+      "display_name": "Claude Opus 5",
       "max_input_tokens": 0,
       "max_tokens": 0,
       "type": "model"
@@ -168,7 +170,7 @@ var_dump($page);
 
 `$client->models->retrieve(string modelID, ?list<AnthropicBeta> betas): ModelInfo`
 
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
@@ -228,17 +230,17 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $modelInfo = $client->models->retrieve(
-  'model_id', betas: ['message-batches-2024-09-24']
+  'model_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($modelInfo);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
-  "id": "claude-opus-4-6",
+  "id": "claude-opus-5",
   "capabilities": {
     "batch": {
       "supported": true
@@ -300,15 +302,15 @@ var_dump($modelInfo);
       }
     }
   },
-  "created_at": "2026-02-04T00:00:00Z",
-  "display_name": "Claude Opus 4.6",
+  "created_at": "2026-07-24T00:00:00Z",
+  "display_name": "Claude Opus 5",
   "max_input_tokens": 0,
   "max_tokens": 0,
   "type": "model"
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Capability Support
 

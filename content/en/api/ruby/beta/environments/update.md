@@ -1,12 +1,12 @@
-## Update Environment
+# Update Environment
 
 `beta.environments.update(environment_id, **kwargs) -> BetaEnvironment`
 
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Parameters
+## Parameters
 
 - `environment_id: String`
 
@@ -25,8 +25,6 @@ Update an existing environment's configuration.
 
       Environment type
 
-      - `:cloud`
-
     - `networking: BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
 
       Network configuration policy. Omit on update to preserve the existing value.
@@ -39,8 +37,6 @@ Update an existing environment's configuration.
 
           Network policy type
 
-          - `:unrestricted`
-
       - `class BetaLimitedNetworkParams`
 
         Limited network request params.
@@ -51,8 +47,6 @@ Update an existing environment's configuration.
         - `type: :limited`
 
           Network policy type
-
-          - `:limited`
 
         - `allow_mcp_servers: bool`
 
@@ -100,8 +94,6 @@ Update an existing environment's configuration.
 
         Package configuration type
 
-        - `:packages`
-
   - `class BetaSelfHostedConfigParams`
 
     Request params for `self_hosted` environment configuration.
@@ -110,11 +102,11 @@ Update an existing environment's configuration.
 
       Environment type
 
-      - `:self_hosted`
-
 - `description: String`
 
-  Updated description of the environment
+  Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+
+  maxLength: 1024
 
 - `metadata: Hash[Symbol, String]`
 
@@ -123,6 +115,8 @@ Update an existing environment's configuration.
 - `name: String`
 
   Updated name for the environment
+
+  maxLength: 256, minLength: 1
 
 - `scope: :organization | :account`
 
@@ -138,7 +132,7 @@ Update an existing environment's configuration.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -184,21 +178,31 @@ Update an existing environment's configuration.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaEnvironment`
 
@@ -232,8 +236,6 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `:unrestricted`
-
         - `class BetaLimitedNetwork`
 
           Limited network access.
@@ -253,8 +255,6 @@ Update an existing environment's configuration.
           - `type: :limited`
 
             Network policy type
-
-            - `:limited`
 
       - `packages: BetaPackages`
 
@@ -288,13 +288,9 @@ Update an existing environment's configuration.
 
           Package configuration type
 
-          - `:packages`
-
       - `type: :cloud`
 
         Environment type
-
-        - `:cloud`
 
     - `class BetaSelfHostedConfig`
 
@@ -304,15 +300,13 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `:self_hosted`
-
   - `created_at: String`
 
     RFC 3339 timestamp when environment was created
 
   - `description: String`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Hash[Symbol, String]`
 
@@ -326,8 +320,6 @@ Update an existing environment's configuration.
 
     The type of object (always 'environment')
 
-    - `:environment`
-
   - `updated_at: String`
 
     RFC 3339 timestamp when environment was last updated
@@ -340,7 +332,7 @@ Update an existing environment's configuration.
 
     - `:account`
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -352,7 +344,7 @@ beta_environment = anthropic.beta.environments.update("env_011CZkZ9X2dpNyB7HsEFo
 puts(beta_environment)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

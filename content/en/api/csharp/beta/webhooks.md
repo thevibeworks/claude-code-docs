@@ -1,6 +1,6 @@
 # Webhooks
 
-## Domain Types
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 
@@ -12,7 +12,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "agent.archived"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -26,7 +26,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "agent.created"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -40,7 +40,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "agent.deleted"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -54,7 +54,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "agent.updated"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -68,7 +68,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment.archived"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -82,7 +82,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment.created"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -96,7 +96,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment.deleted"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -110,7 +110,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment.paused"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -124,7 +124,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment_run.failed"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -138,7 +138,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment_run.started"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -152,7 +152,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment_run.succeeded"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -166,7 +166,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment.unpaused"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -180,7 +180,63 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "deployment.updated"constant`
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -196,6 +252,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `required BetaWebhookEventData Data`
 
     - `class BetaWebhookSessionCreatedEventData:`
@@ -206,7 +264,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -218,7 +276,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.pending"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -230,7 +288,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.running"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -242,7 +300,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.idled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -254,7 +312,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.requires_action"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -266,7 +324,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -278,7 +336,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -290,7 +348,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_rescheduled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -302,7 +360,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_run_started"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -314,7 +372,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_idled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -326,7 +384,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_terminated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -342,7 +400,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type "session.thread_created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -358,7 +416,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type "session.thread_idled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -374,7 +432,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type "session.thread_terminated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -386,7 +444,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.outcome_evaluation_ended"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -398,7 +456,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -410,7 +468,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -422,7 +480,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -434,7 +492,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.created"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -450,7 +508,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -466,7 +524,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -482,7 +540,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.refresh_failed"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -498,7 +556,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.updated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -510,7 +568,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -522,7 +580,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -534,7 +592,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -546,7 +604,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.paused"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -558,7 +616,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment_run.failed"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -570,7 +628,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -582,7 +640,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.updated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -594,7 +652,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.unpaused"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -606,7 +664,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.updated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -618,7 +676,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -630,7 +688,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment_run.started"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -642,7 +700,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -654,17 +712,113 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment_run.succeeded"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
-  - `JsonElement Type "event"constant`
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `required string ID`
+
+        ID of the session that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+  - `JsonElement Type constant`
 
     Object type. Always `event` for webhook payloads.
 
 ### Beta Webhook Event Data
 
-- `class BetaWebhookEventData: A class that can be one of several variants.union`
+- `class BetaWebhookEventData: union`
 
   - `class BetaWebhookSessionCreatedEventData:`
 
@@ -674,7 +828,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.created"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -686,7 +840,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.pending"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -698,7 +852,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.running"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -710,7 +864,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.idled"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -722,7 +876,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.requires_action"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -734,7 +888,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.archived"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -746,7 +900,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.deleted"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -758,7 +912,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.status_rescheduled"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -770,7 +924,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.status_run_started"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -782,7 +936,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.status_idled"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -794,7 +948,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.status_terminated"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -810,7 +964,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonElement Type "session.thread_created"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -826,7 +980,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonElement Type "session.thread_idled"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -842,7 +996,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonElement Type "session.thread_terminated"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -854,7 +1008,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.outcome_evaluation_ended"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -866,7 +1020,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "vault.created"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -878,7 +1032,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "vault.archived"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -890,7 +1044,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "vault.deleted"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -902,7 +1056,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "vault_credential.created"constant`
+    - `JsonElement Type constant`
 
     - `required string VaultID`
 
@@ -918,7 +1072,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "vault_credential.archived"constant`
+    - `JsonElement Type constant`
 
     - `required string VaultID`
 
@@ -934,7 +1088,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "vault_credential.deleted"constant`
+    - `JsonElement Type constant`
 
     - `required string VaultID`
 
@@ -950,7 +1104,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "vault_credential.refresh_failed"constant`
+    - `JsonElement Type constant`
 
     - `required string VaultID`
 
@@ -966,7 +1120,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "session.updated"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -978,7 +1132,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "agent.created"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -990,7 +1144,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "agent.archived"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1002,7 +1156,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "agent.deleted"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1014,7 +1168,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment.paused"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1026,7 +1180,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment_run.failed"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1038,7 +1192,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment.created"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1050,7 +1204,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment.updated"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1062,7 +1216,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment.unpaused"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1074,7 +1228,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "agent.updated"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1086,7 +1240,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment.archived"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1098,7 +1252,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment_run.started"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1110,7 +1264,7 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment.deleted"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
 
@@ -1122,9 +1276,147 @@
 
     - `required string OrganizationID`
 
-    - `JsonElement Type "deployment_run.succeeded"constant`
+    - `JsonElement Type constant`
 
     - `required string WorkspaceID`
+
+  - `class BetaWebhookEnvironmentCreatedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookEnvironmentArchivedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookEnvironmentDeletedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+    - `required string ID`
+
+      ID of the memory store that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+    - `required string ID`
+
+      ID of the memory store that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+    - `required string ID`
+
+      ID of the memory store that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookSessionBudgetReachedEventData:`
+
+    - `required string ID`
+
+      ID of the session that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData:`
+
+  - `required string ID`
+
+    ID of the memory store that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData:`
+
+  - `required string ID`
+
+    ID of the memory store that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData:`
+
+  - `required string ID`
+
+    ID of the memory store that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
 
 ### Beta Webhook Session Archived Event Data
 
@@ -1136,7 +1428,21 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.archived"constant`
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `class BetaWebhookSessionBudgetReachedEventData:`
+
+  - `required string ID`
+
+    ID of the session that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1150,7 +1456,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.created"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1164,7 +1470,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.deleted"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1178,7 +1484,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.idled"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1192,7 +1498,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.outcome_evaluation_ended"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1206,7 +1512,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.pending"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1220,7 +1526,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.requires_action"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1234,7 +1540,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.running"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1248,7 +1554,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.status_idled"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1262,7 +1568,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.status_rescheduled"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1276,7 +1582,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.status_run_started"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1290,7 +1596,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.status_terminated"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1308,7 +1614,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonElement Type "session.thread_created"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1326,7 +1632,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonElement Type "session.thread_idled"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1344,7 +1650,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonElement Type "session.thread_terminated"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1358,7 +1664,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "session.updated"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1372,7 +1678,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "vault.archived"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1386,7 +1692,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "vault.created"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1400,7 +1706,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "vault_credential.archived"constant`
+  - `JsonElement Type constant`
 
   - `required string VaultID`
 
@@ -1418,7 +1724,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "vault_credential.created"constant`
+  - `JsonElement Type constant`
 
   - `required string VaultID`
 
@@ -1436,7 +1742,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "vault_credential.deleted"constant`
+  - `JsonElement Type constant`
 
   - `required string VaultID`
 
@@ -1454,7 +1760,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "vault_credential.refresh_failed"constant`
+  - `JsonElement Type constant`
 
   - `required string VaultID`
 
@@ -1472,7 +1778,7 @@
 
   - `required string OrganizationID`
 
-  - `JsonElement Type "vault.deleted"constant`
+  - `JsonElement Type constant`
 
   - `required string WorkspaceID`
 
@@ -1488,6 +1794,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `required BetaWebhookEventData Data`
 
     - `class BetaWebhookSessionCreatedEventData:`
@@ -1498,7 +1806,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1510,7 +1818,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.pending"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1522,7 +1830,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.running"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1534,7 +1842,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.idled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1546,7 +1854,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.requires_action"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1558,7 +1866,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1570,7 +1878,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1582,7 +1890,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_rescheduled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1594,7 +1902,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_run_started"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1606,7 +1914,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_idled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1618,7 +1926,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.status_terminated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1634,7 +1942,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type "session.thread_created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1650,7 +1958,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type "session.thread_idled"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1666,7 +1974,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonElement Type "session.thread_terminated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1678,7 +1986,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.outcome_evaluation_ended"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1690,7 +1998,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1702,7 +2010,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1714,7 +2022,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1726,7 +2034,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.created"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -1742,7 +2050,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -1758,7 +2066,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -1774,7 +2082,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "vault_credential.refresh_failed"constant`
+      - `JsonElement Type constant`
 
       - `required string VaultID`
 
@@ -1790,7 +2098,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "session.updated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1802,7 +2110,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1814,7 +2122,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1826,7 +2134,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1838,7 +2146,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.paused"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1850,7 +2158,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment_run.failed"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1862,7 +2170,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.created"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1874,7 +2182,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.updated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1886,7 +2194,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.unpaused"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1898,7 +2206,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "agent.updated"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1910,7 +2218,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.archived"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1922,7 +2230,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment_run.started"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1934,7 +2242,7 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment.deleted"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
@@ -1946,10 +2254,106 @@
 
       - `required string OrganizationID`
 
-      - `JsonElement Type "deployment_run.succeeded"constant`
+      - `JsonElement Type constant`
 
       - `required string WorkspaceID`
 
-  - `JsonElement Type "event"constant`
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `required string ID`
+
+        ID of the session that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type constant`
+
+      - `required string WorkspaceID`
+
+  - `JsonElement Type constant`
 
     Object type. Always `event` for webhook payloads.

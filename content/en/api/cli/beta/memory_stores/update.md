@@ -1,12 +1,12 @@
-## Update a memory store
+# Update a memory store
 
 `$ ant beta:memory-stores update`
 
-**post** `/v1/memory_stores/{memory_store_id}`
+**POST** `/v1/memory_stores/{memory_store_id}`
 
 Update a memory store
 
-### Parameters
+## Parameters
 
 - `--memory-store-id: string`
 
@@ -16,6 +16,8 @@ Update a memory store
 
   Body param: New description for the store, up to 1024 characters. Pass an empty string to clear it.
 
+  maxLength: 1024
+
 - `--metadata: optional map[string]`
 
   Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
@@ -24,13 +26,15 @@ Update a memory store
 
   Body param: New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
 
+  minLength: 1, maxLength: 255
+
 - `--beta: optional array of AnthropicBeta`
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_memory_store: object { id, created_at, name, 5 more }`
+- `beta_managed_agents_memory_store: object`
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
@@ -42,21 +46,25 @@ Update a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: string`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: "memory_store"`
 
-    - `"memory_store"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at: optional string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: optional string`
 
@@ -66,15 +74,15 @@ Update a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:memory-stores update \
   --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

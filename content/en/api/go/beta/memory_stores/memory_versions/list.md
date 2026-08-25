@@ -1,54 +1,64 @@
-## List memory versions
+# List memory versions
 
 `client.Beta.MemoryStores.MemoryVersions.List(ctx, memoryStoreID, params) (*PageCursor[BetaManagedAgentsMemoryVersion], error)`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
 List memory versions
 
-### Parameters
+## Parameters
 
 - `memoryStoreID string`
 
 - `params BetaMemoryStoreMemoryVersionListParams`
 
-  - `APIKeyID param.Field[string]`
+  - `APIKeyID param.Field[string] Optional`
 
     Query param: Query parameter for api_key_id
 
-  - `CreatedAtGte param.Field[Time]`
+  - `CreatedAtGte param.Field[Time] Optional`
 
     Query param: Return versions created at or after this time (inclusive).
 
-  - `CreatedAtLte param.Field[Time]`
+    format: date-time
+
+  - `CreatedAtLte param.Field[Time] Optional`
 
     Query param: Return versions created at or before this time (inclusive).
 
-  - `Limit param.Field[int64]`
+    format: date-time
+
+  - `Limit param.Field[int64] Optional`
 
     Query param: Query parameter for limit
 
-  - `MemoryID param.Field[string]`
+    format: int32
+
+  - `MemoryID param.Field[string] Optional`
 
     Query param: Query parameter for memory_id
 
-  - `Operation param.Field[BetaManagedAgentsMemoryVersionOperation]`
+  - `Operation param.Field[BetaManagedAgentsMemoryVersionOperation] Optional`
 
     Query param: Query parameter for operation
 
-  - `Page param.Field[string]`
+  - `Page param.Field[string] Optional`
 
     Query param: Query parameter for page
 
-  - `SessionID param.Field[string]`
+  - `ServiceAccountID param.Field[string] Optional`
+
+    Query param: Query parameter for service_account_id
+
+  - `SessionID param.Field[string] Optional`
 
     Query param: Query parameter for session_id
 
-  - `View param.Field[BetaManagedAgentsMemoryView]`
+  - `View param.Field[BetaManagedAgentsMemoryView] Optional`
 
     Query param: Query parameter for view
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -100,21 +110,31 @@ List memory versions
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
-### Returns
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `type BetaManagedAgentsMemoryVersion struct{…}`
 
@@ -127,6 +147,8 @@ List memory versions
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `MemoryID string`
 
@@ -148,21 +170,21 @@ List memory versions
 
   - `Type BetaManagedAgentsMemoryVersionType`
 
-    - `const BetaManagedAgentsMemoryVersionTypeMemoryVersion BetaManagedAgentsMemoryVersionType = "memory_version"`
-
-  - `Content string`
+  - `Content string Optional`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-  - `ContentSha256 string`
+  - `ContentSha256 string Optional`
 
     Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `ContentSizeBytes int64`
+  - `ContentSizeBytes int64 Optional`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `CreatedBy BetaManagedAgentsActorUnion`
+    format: int32
+
+  - `CreatedBy BetaManagedAgentsActorUnion Optional`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -174,9 +196,9 @@ List memory versions
 
         ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-      - `Type BetaManagedAgentsSessionActorType`
+        minLength: 1
 
-        - `const BetaManagedAgentsSessionActorTypeSessionActor BetaManagedAgentsSessionActorType = "session_actor"`
+      - `Type BetaManagedAgentsSessionActorType`
 
     - `type BetaManagedAgentsAPIActor struct{…}`
 
@@ -186,9 +208,9 @@ List memory versions
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
-      - `Type BetaManagedAgentsAPIActorType`
+        minLength: 1
 
-        - `const BetaManagedAgentsAPIActorTypeAPIActor BetaManagedAgentsAPIActorType = "api_actor"`
+      - `Type BetaManagedAgentsAPIActorType`
 
     - `type BetaManagedAgentsUserActor struct{…}`
 
@@ -196,56 +218,68 @@ List memory versions
 
       - `Type BetaManagedAgentsUserActorType`
 
-        - `const BetaManagedAgentsUserActorTypeUserActor BetaManagedAgentsUserActorType = "user_actor"`
-
       - `UserID string`
 
         ID of the user who performed the write (a `user_...` value).
 
-  - `Path string`
+        minLength: 1
+
+    - `type BetaManagedAgentsServiceAccountActor struct{…}`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `ServiceAccountID string`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+        minLength: 1
+
+      - `Type ServiceAccountActor`
+
+  - `Path string Optional`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-  - `RedactedAt Time`
+  - `RedactedAt Time Optional`
 
     A timestamp in RFC 3339 format
 
-  - `RedactedBy BetaManagedAgentsActorUnion`
+    format: date-time
+
+  - `RedactedBy BetaManagedAgentsActorUnion Optional`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  page, err := client.Beta.MemoryStores.MemoryVersions.List(
-    context.TODO(),
-    "memory_store_id",
-    anthropic.BetaMemoryStoreMemoryVersionListParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", page)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	page, err := client.Beta.MemoryStores.MemoryVersions.List(
+		context.TODO(),
+		"memory_store_id",
+		anthropic.BetaMemoryStoreMemoryVersionListParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", page)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

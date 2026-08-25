@@ -1,12 +1,12 @@
-## Add Session Resource
+# Add Session Resource
 
 `$ ant beta:sessions:resources add`
 
-**post** `/v1/sessions/{session_id}/resources`
+**POST** `/v1/sessions/{session_id}/resources`
 
 Add Session Resource
 
-### Parameters
+## Parameters
 
 - `--session-id: string`
 
@@ -16,6 +16,8 @@ Add Session Resource
 
   Body param: ID of a previously uploaded file.
 
+  minLength: 1, maxLength: 128
+
 - `--type: "file"`
 
   Body param
@@ -24,13 +26,15 @@ Add Session Resource
 
   Body param: Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
+  minLength: 1, maxLength: 4096
+
 - `--beta: optional array of AnthropicBeta`
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_file_resource: object { id, created_at, file_id, 3 more }`
+- `beta_managed_agents_file_resource: object`
 
   - `id: string`
 
@@ -38,21 +42,23 @@ Add Session Resource
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `file_id: string`
 
   - `mount_path: string`
 
   - `type: "file"`
 
-    - `"file"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
 
-```cli
+## Example
+
+```bash
 ant beta:sessions:resources add \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
@@ -60,7 +66,7 @@ ant beta:sessions:resources add \
   --type file
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

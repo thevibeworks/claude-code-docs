@@ -2,9 +2,9 @@
 
 ## Get Work Item
 
-`beta.environments.work.retrieve(strwork_id, WorkRetrieveParams**kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.retrieve(work_id, **kwargs)  -> BetaSelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -22,7 +22,7 @@ Retrieve detailed information about a specific work item.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -68,19 +68,29 @@ Retrieve detailed information about a specific work item.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -116,8 +126,6 @@ Retrieve detailed information about a specific work item.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -129,6 +137,10 @@ Retrieve detailed information about a specific work item.
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -160,7 +172,7 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
@@ -169,7 +181,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work = client.beta.environments.work.retrieve(
     work_id="work_id",
@@ -178,7 +192,7 @@ beta_self_hosted_work = client.beta.environments.work.retrieve(
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -194,6 +208,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -204,9 +219,9 @@ print(beta_self_hosted_work.id)
 
 ## Poll for Work
 
-`beta.environments.work.poll(strenvironment_id, WorkPollParams**kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.poll(environment_id, **kwargs)  -> BetaSelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -220,9 +235,13 @@ Long poll for work items in the queue.
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `reclaim_older_than_ms: Optional[int]`
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+  minimum: 1
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -230,7 +249,7 @@ Long poll for work items in the queue.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -276,19 +295,29 @@ Long poll for work items in the queue.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 - `anthropic_worker_id: Optional[str]`
 
@@ -328,8 +357,6 @@ Long poll for work items in the queue.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -341,6 +368,10 @@ Long poll for work items in the queue.
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -372,7 +403,7 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
@@ -381,7 +412,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work = client.beta.environments.work.poll(
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
@@ -389,7 +422,7 @@ beta_self_hosted_work = client.beta.environments.work.poll(
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -405,6 +438,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -415,9 +449,9 @@ print(beta_self_hosted_work.id)
 
 ## Acknowledge Work
 
-`beta.environments.work.ack(strwork_id, WorkAckParams**kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.ack(work_id, **kwargs)  -> BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -435,7 +469,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -481,19 +515,29 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -529,8 +573,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -542,6 +584,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -573,7 +619,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
@@ -582,7 +628,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work = client.beta.environments.work.ack(
     work_id="work_id",
@@ -591,7 +639,7 @@ beta_self_hosted_work = client.beta.environments.work.ack(
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -607,6 +655,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -617,9 +666,9 @@ print(beta_self_hosted_work.id)
 
 ## Record Heartbeat
 
-`beta.environments.work.heartbeat(strwork_id, WorkHeartbeatParams**kwargs)  -> BetaSelfHostedWorkHeartbeatResponse`
+`beta.environments.work.heartbeat(work_id, **kwargs)  -> BetaSelfHostedWorkHeartbeatResponse`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -645,7 +694,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -691,19 +740,29 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -741,7 +800,7 @@ Record a heartbeat for a work item to maintain the lease.
 
     The type of response
 
-    - `"work_heartbeat"`
+    default: work_heartbeat
 
 ### Example
 
@@ -750,7 +809,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work_heartbeat_response = client.beta.environments.work.heartbeat(
     work_id="work_id",
@@ -759,7 +820,7 @@ beta_self_hosted_work_heartbeat_response = client.beta.environments.work.heartbe
 print(beta_self_hosted_work_heartbeat_response.last_heartbeat)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -773,9 +834,9 @@ print(beta_self_hosted_work_heartbeat_response.last_heartbeat)
 
 ## Stop Work
 
-`beta.environments.work.stop(strwork_id, WorkStopParams**kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.stop(work_id, **kwargs)  -> BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -791,13 +852,15 @@ Stop a work item, initiating graceful or forced shutdown.
 
   If true, immediately stop work without graceful shutdown
 
+  default: false
+
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -843,19 +906,29 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -891,8 +964,6 @@ Stop a work item, initiating graceful or forced shutdown.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -904,6 +975,10 @@ Stop a work item, initiating graceful or forced shutdown.
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -935,7 +1010,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
@@ -944,7 +1019,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work = client.beta.environments.work.stop(
     work_id="work_id",
@@ -953,7 +1030,7 @@ beta_self_hosted_work = client.beta.environments.work.stop(
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -969,6 +1046,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -979,9 +1057,9 @@ print(beta_self_hosted_work.id)
 
 ## List Work Items
 
-`beta.environments.work.list(strenvironment_id, WorkListParams**kwargs)  -> SyncPageCursor[BetaSelfHostedWork]`
+`beta.environments.work.list(environment_id, **kwargs)  -> SyncPageCursor[BetaSelfHostedWork]`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -995,6 +1073,8 @@ List work items in an environment.
 
   Maximum number of work items to return
 
+  default: 20, maximum: 1000, minimum: 1
+
 - `page: Optional[str]`
 
   Opaque cursor from previous response for pagination
@@ -1005,7 +1085,7 @@ List work items in an environment.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1051,19 +1131,29 @@ List work items in an environment.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1099,8 +1189,6 @@ List work items in an environment.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1112,6 +1200,10 @@ List work items in an environment.
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -1143,7 +1235,7 @@ List work items in an environment.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
@@ -1152,7 +1244,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.environments.work.list(
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
@@ -1161,7 +1255,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1179,6 +1273,7 @@ print(page.id)
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -1192,9 +1287,9 @@ print(page.id)
 
 ## Update Work Item
 
-`beta.environments.work.update(strwork_id, WorkUpdateParams**kwargs)  -> BetaSelfHostedWork`
+`beta.environments.work.update(work_id, **kwargs)  -> BetaSelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -1216,7 +1311,7 @@ Update work item metadata with merge semantics.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1262,19 +1357,29 @@ Update work item metadata with merge semantics.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1310,8 +1415,6 @@ Update work item metadata with merge semantics.
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1323,6 +1426,10 @@ Update work item metadata with merge semantics.
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -1354,7 +1461,7 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
@@ -1363,19 +1470,19 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work = client.beta.environments.work.update(
     work_id="work_id",
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
-    metadata={
-        "foo": "string"
-    },
+    metadata={"foo": "string"},
 )
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1391,6 +1498,7 @@ print(beta_self_hosted_work.id)
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1401,9 +1509,9 @@ print(beta_self_hosted_work.id)
 
 ## Get Queue Statistics
 
-`beta.environments.work.stats(strenvironment_id, WorkStatsParams**kwargs)  -> BetaSelfHostedWorkQueueStats`
+`beta.environments.work.stats(environment_id, **kwargs)  -> BetaSelfHostedWorkQueueStats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
@@ -1417,7 +1525,7 @@ Get statistics about the work queue for an environment.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1463,19 +1571,29 @@ Get statistics about the work queue for an environment.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1497,11 +1615,13 @@ Get statistics about the work queue for an environment.
 
     Number of work items being processed (polled but not acknowledged)
 
+    default: 0
+
   - `type: Literal["work_queue_stats"]`
 
     The type of object
 
-    - `"work_queue_stats"`
+    default: work_queue_stats
 
   - `workers_polling: Optional[int]`
 
@@ -1514,7 +1634,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_self_hosted_work_queue_stats = client.beta.environments.work.stats(
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
@@ -1522,7 +1644,7 @@ beta_self_hosted_work_queue_stats = client.beta.environments.work.stats(
 print(beta_self_hosted_work_queue_stats.depth)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1534,7 +1656,7 @@ print(beta_self_hosted_work_queue_stats.depth)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Self Hosted Work
 
@@ -1570,8 +1692,6 @@ print(beta_self_hosted_work_queue_stats.depth)
 
       Type of work data
 
-      - `"session"`
-
   - `environment_id: str`
 
     Environment identifier this work belongs to (e.g., `env_...`)
@@ -1583,6 +1703,10 @@ print(beta_self_hosted_work_queue_stats.depth)
   - `metadata: Dict[str, str]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: Optional[str]`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: Optional[str]`
 
@@ -1614,7 +1738,7 @@ print(beta_self_hosted_work_queue_stats.depth)
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Beta Self Hosted Work Heartbeat Response
 
@@ -1652,7 +1776,7 @@ print(beta_self_hosted_work_queue_stats.depth)
 
     The type of response
 
-    - `"work_heartbeat"`
+    default: work_heartbeat
 
 ### Beta Self Hosted Work List Response
 
@@ -1688,8 +1812,6 @@ print(beta_self_hosted_work_queue_stats.depth)
 
         Type of work data
 
-        - `"session"`
-
     - `environment_id: str`
 
       Environment identifier this work belongs to (e.g., `env_...`)
@@ -1701,6 +1823,10 @@ print(beta_self_hosted_work_queue_stats.depth)
     - `metadata: Dict[str, str]`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `secret: Optional[str]`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `started_at: Optional[str]`
 
@@ -1732,7 +1858,7 @@ print(beta_self_hosted_work_queue_stats.depth)
 
       The type of object (always 'work')
 
-      - `"work"`
+      default: work
 
   - `next_page: Optional[str]`
 
@@ -1758,11 +1884,13 @@ print(beta_self_hosted_work_queue_stats.depth)
 
     Number of work items being processed (polled but not acknowledged)
 
+    default: 0
+
   - `type: Literal["work_queue_stats"]`
 
     The type of object
 
-    - `"work_queue_stats"`
+    default: work_queue_stats
 
   - `workers_polling: Optional[int]`
 
@@ -1777,6 +1905,8 @@ print(beta_self_hosted_work_queue_stats.depth)
   - `force: Optional[bool]`
 
     If true, immediately stop work without graceful shutdown
+
+    default: false
 
 ### Beta Self Hosted Work Update Request
 
@@ -1804,5 +1934,3 @@ print(beta_self_hosted_work_queue_stats.depth)
   - `type: Literal["session"]`
 
     Type of work data
-
-    - `"session"`

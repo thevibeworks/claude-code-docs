@@ -1,12 +1,12 @@
-## List memory versions
+# List memory versions
 
 `beta.memory_stores.memory_versions.list(memory_store_id, **kwargs) -> PageCursor<BetaManagedAgentsMemoryVersion>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
 List memory versions
 
-### Parameters
+## Parameters
 
 - `memory_store_id: String`
 
@@ -18,13 +18,19 @@ List memory versions
 
   Return versions created at or after this time (inclusive).
 
+  format: date-time
+
 - `created_at_lte: Time`
 
   Return versions created at or before this time (inclusive).
 
+  format: date-time
+
 - `limit: Integer`
 
   Query parameter for limit
+
+  format: int32
 
 - `memory_id: String`
 
@@ -44,6 +50,10 @@ List memory versions
 
   Query parameter for page
 
+- `service_account_id: String`
+
+  Query parameter for service_account_id
+
 - `session_id: String`
 
   Query parameter for session_id
@@ -62,7 +72,7 @@ List memory versions
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -108,21 +118,31 @@ List memory versions
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaManagedAgentsMemoryVersion`
 
@@ -135,6 +155,8 @@ List memory versions
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_id: String`
 
@@ -156,8 +178,6 @@ List memory versions
 
   - `type: :memory_version`
 
-    - `:memory_version`
-
   - `content: String`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -169,6 +189,8 @@ List memory versions
   - `content_size_bytes: Integer`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+
+    format: int32
 
   - `created_by: BetaManagedAgentsActor`
 
@@ -182,9 +204,9 @@ List memory versions
 
         ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-      - `type: :session_actor`
+        minLength: 1
 
-        - `:session_actor`
+      - `type: :session_actor`
 
     - `class BetaManagedAgentsAPIActor`
 
@@ -194,9 +216,9 @@ List memory versions
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
-      - `type: :api_actor`
+        minLength: 1
 
-        - `:api_actor`
+      - `type: :api_actor`
 
     - `class BetaManagedAgentsUserActor`
 
@@ -204,11 +226,23 @@ List memory versions
 
       - `type: :user_actor`
 
-        - `:user_actor`
-
       - `user_id: String`
 
         ID of the user who performed the write (a `user_...` value).
+
+        minLength: 1
+
+    - `class BetaManagedAgentsServiceAccountActor`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: String`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+        minLength: 1
+
+      - `type: :service_account_actor`
 
   - `path: String`
 
@@ -218,11 +252,13 @@ List memory versions
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `redacted_by: BetaManagedAgentsActor`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -234,7 +270,7 @@ page = anthropic.beta.memory_stores.memory_versions.list("memory_store_id")
 puts(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

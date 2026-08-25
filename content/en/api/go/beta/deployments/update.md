@@ -1,18 +1,18 @@
-## Update Deployment
+# Update Deployment
 
 `client.Beta.Deployments.Update(ctx, deploymentID, params) (*BetaManagedAgentsDeployment, error)`
 
-**post** `/v1/deployments/{deployment_id}`
+**POST** `/v1/deployments/{deployment_id}`
 
 Update Deployment
 
-### Parameters
+## Parameters
 
 - `deploymentID string`
 
 - `params BetaDeploymentUpdateParams`
 
-  - `Agent param.Field[BetaDeploymentUpdateParamsAgentUnion]`
+  - `Agent param.Field[BetaDeploymentUpdateParamsAgentUnion] Optional`
 
     Body param: Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
 
@@ -26,27 +26,37 @@ Update Deployment
 
         The `agent` ID.
 
+        minLength: 1, maxLength: 128
+
       - `Type BetaManagedAgentsAgentParamsType`
 
-        - `const BetaManagedAgentsAgentParamsTypeAgent BetaManagedAgentsAgentParamsType = "agent"`
-
-      - `Version int64`
+      - `Version int64 Optional`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
-  - `Description param.Field[string]`
+        format: int32
+
+  - `Budget param.Field[BetaManagedAgentsBudgetLimit] Optional`
+
+    Body param: A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+  - `Description param.Field[string] Optional`
 
     Body param: Description. Omit to preserve; send empty string or null to clear.
 
-  - `EnvironmentID param.Field[string]`
+    maxLength: 2048
+
+  - `EnvironmentID param.Field[string] Optional`
 
     Body param: ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
 
-  - `InitialEvents param.Field[[]BetaManagedAgentsDeploymentInitialEventParamsUnionResp]`
+    maxLength: 128
+
+  - `InitialEvents param.Field[[]BetaManagedAgentsDeploymentInitialEventParamsUnionResp] Optional`
 
     Body param: Initial events. Full replacement. Omit to preserve. Cannot be cleared. At least 1, maximum 50.
 
-    - `type BetaManagedAgentsUserMessageEventParamsResp struct{…}`
+    - `type BetaManagedAgentsUserMessageEventParams struct{…}`
 
       Parameters for sending a user message to the session.
 
@@ -62,9 +72,9 @@ Update Deployment
 
             The text content.
 
-          - `Type BetaManagedAgentsTextBlockType`
+            minLength: 1
 
-            - `const BetaManagedAgentsTextBlockTypeText BetaManagedAgentsTextBlockType = "text"`
+          - `Type BetaManagedAgentsTextBlockType`
 
         - `type BetaManagedAgentsImageBlock struct{…}`
 
@@ -82,13 +92,15 @@ Update Deployment
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `MediaType string`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `Type BetaManagedAgentsBase64ImageSourceType`
+                minLength: 1
 
-                - `const BetaManagedAgentsBase64ImageSourceTypeBase64 BetaManagedAgentsBase64ImageSourceType = "base64"`
+              - `Type BetaManagedAgentsBase64ImageSourceType`
 
             - `type BetaManagedAgentsURLImageSource struct{…}`
 
@@ -96,11 +108,11 @@ Update Deployment
 
               - `Type BetaManagedAgentsURLImageSourceType`
 
-                - `const BetaManagedAgentsURLImageSourceTypeURL BetaManagedAgentsURLImageSourceType = "url"`
-
               - `URL string`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `type BetaManagedAgentsFileImageSource struct{…}`
 
@@ -110,13 +122,11 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `Type BetaManagedAgentsFileImageSourceType`
 
-                - `const BetaManagedAgentsFileImageSourceTypeFile BetaManagedAgentsFileImageSourceType = "file"`
-
           - `Type BetaManagedAgentsImageBlockType`
-
-            - `const BetaManagedAgentsImageBlockTypeImage BetaManagedAgentsImageBlockType = "image"`
 
         - `type BetaManagedAgentsDocumentBlock struct{…}`
 
@@ -134,13 +144,15 @@ Update Deployment
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `MediaType string`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `Type BetaManagedAgentsBase64DocumentSourceType`
+                minLength: 1
 
-                - `const BetaManagedAgentsBase64DocumentSourceTypeBase64 BetaManagedAgentsBase64DocumentSourceType = "base64"`
+              - `Type BetaManagedAgentsBase64DocumentSourceType`
 
             - `type BetaManagedAgentsPlainTextDocumentSource struct{…}`
 
@@ -150,15 +162,13 @@ Update Deployment
 
                 The plain text content.
 
+                minLength: 1
+
               - `MediaType BetaManagedAgentsPlainTextDocumentSourceMediaType`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `const BetaManagedAgentsPlainTextDocumentSourceMediaTypeTextPlain BetaManagedAgentsPlainTextDocumentSourceMediaType = "text/plain"`
-
               - `Type BetaManagedAgentsPlainTextDocumentSourceType`
-
-                - `const BetaManagedAgentsPlainTextDocumentSourceTypeText BetaManagedAgentsPlainTextDocumentSourceType = "text"`
 
             - `type BetaManagedAgentsURLDocumentSource struct{…}`
 
@@ -166,11 +176,11 @@ Update Deployment
 
               - `Type BetaManagedAgentsURLDocumentSourceType`
 
-                - `const BetaManagedAgentsURLDocumentSourceTypeURL BetaManagedAgentsURLDocumentSourceType = "url"`
-
               - `URL string`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `type BetaManagedAgentsFileDocumentSource struct{…}`
 
@@ -180,27 +190,29 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
-              - `Type BetaManagedAgentsFileDocumentSourceType`
+                minLength: 1
 
-                - `const BetaManagedAgentsFileDocumentSourceTypeFile BetaManagedAgentsFileDocumentSourceType = "file"`
+              - `Type BetaManagedAgentsFileDocumentSourceType`
 
           - `Type BetaManagedAgentsDocumentBlockType`
 
-            - `const BetaManagedAgentsDocumentBlockTypeDocument BetaManagedAgentsDocumentBlockType = "document"`
-
-          - `Context string`
+          - `Context string Optional`
 
             Additional context about the document for the model.
 
-          - `Title string`
+          - `Title string Optional`
 
             The title of the document.
 
+        - `type BetaManagedAgentsRedactedBlockParam struct{…}`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `Type BetaManagedAgentsRedactedBlockType`
+
       - `Type BetaManagedAgentsUserMessageEventParamsType`
 
-        - `const BetaManagedAgentsUserMessageEventParamsTypeUserMessage BetaManagedAgentsUserMessageEventParamsType = "user.message"`
-
-    - `type BetaManagedAgentsUserDefineOutcomeEventParamsResp struct{…}`
+    - `type BetaManagedAgentsUserDefineOutcomeEventParams struct{…}`
 
       Parameters for defining an outcome the agent should work toward. The agent begins work on receipt.
 
@@ -212,7 +224,7 @@ Update Deployment
 
         Rubric for grading the quality of an outcome.
 
-        - `type BetaManagedAgentsFileRubricParamsResp struct{…}`
+        - `type BetaManagedAgentsFileRubricParams struct{…}`
 
           Rubric referenced by a file uploaded via the Files API.
 
@@ -222,9 +234,7 @@ Update Deployment
 
           - `Type BetaManagedAgentsFileRubricParamsType`
 
-            - `const BetaManagedAgentsFileRubricParamsTypeFile BetaManagedAgentsFileRubricParamsType = "file"`
-
-        - `type BetaManagedAgentsTextRubricParamsResp struct{…}`
+        - `type BetaManagedAgentsTextRubricParams struct{…}`
 
           Rubric content provided inline as text.
 
@@ -232,17 +242,17 @@ Update Deployment
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
-          - `Type BetaManagedAgentsTextRubricParamsType`
+            maxLength: 262144
 
-            - `const BetaManagedAgentsTextRubricParamsTypeText BetaManagedAgentsTextRubricParamsType = "text"`
+          - `Type BetaManagedAgentsTextRubricParamsType`
 
       - `Type BetaManagedAgentsUserDefineOutcomeEventParamsType`
 
-        - `const BetaManagedAgentsUserDefineOutcomeEventParamsTypeUserDefineOutcome BetaManagedAgentsUserDefineOutcomeEventParamsType = "user.define_outcome"`
-
-      - `MaxIterations int64`
+      - `MaxIterations int64 Optional`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `type BetaManagedAgentsSystemMessageEventParamsResp struct{…}`
 
@@ -256,23 +266,23 @@ Update Deployment
 
           The text content.
 
-        - `Type BetaManagedAgentsSystemContentBlockType`
+          minLength: 1
 
-          - `const BetaManagedAgentsSystemContentBlockTypeText BetaManagedAgentsSystemContentBlockType = "text"`
+        - `Type BetaManagedAgentsSystemContentBlockType`
 
       - `Type BetaManagedAgentsSystemMessageEventParamsType`
 
-        - `const BetaManagedAgentsSystemMessageEventParamsTypeSystemMessage BetaManagedAgentsSystemMessageEventParamsType = "system.message"`
-
-  - `Metadata param.Field[map[string, string]]`
+  - `Metadata param.Field[map[string, string]] Optional`
 
     Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
 
-  - `Name param.Field[string]`
+  - `Name param.Field[string] Optional`
 
     Body param: Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
 
-  - `Resources param.Field[[]BetaDeploymentUpdateParamsResourceUnion]`
+    maxLength: 256
+
+  - `Resources param.Field[[]BetaDeploymentUpdateParamsResourceUnion] Optional`
 
     Body param: Session resources. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 500.
 
@@ -284,15 +294,17 @@ Update Deployment
 
         GitHub authorization token used to clone the repository.
 
-      - `Type BetaManagedAgentsGitHubRepositoryResourceParamsType`
+        minLength: 1, maxLength: 4096
 
-        - `const BetaManagedAgentsGitHubRepositoryResourceParamsTypeGitHubRepository BetaManagedAgentsGitHubRepositoryResourceParamsType = "github_repository"`
+      - `Type BetaManagedAgentsGitHubRepositoryResourceParamsType`
 
       - `URL string`
 
         Github URL of the repository
 
-      - `Checkout BetaManagedAgentsGitHubRepositoryResourceParamsCheckoutUnionResp`
+        minLength: 1, maxLength: 2048
+
+      - `Checkout BetaManagedAgentsGitHubRepositoryResourceParamsCheckoutUnionResp Optional`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -302,9 +314,9 @@ Update Deployment
 
             Branch name to check out.
 
-          - `Type BetaManagedAgentsBranchCheckoutType`
+            minLength: 1, maxLength: 255
 
-            - `const BetaManagedAgentsBranchCheckoutTypeBranch BetaManagedAgentsBranchCheckoutType = "branch"`
+          - `Type BetaManagedAgentsBranchCheckoutType`
 
         - `type BetaManagedAgentsCommitCheckout struct{…}`
 
@@ -312,13 +324,15 @@ Update Deployment
 
             Full commit SHA to check out.
 
+            minLength: 7, maxLength: 64
+
           - `Type BetaManagedAgentsCommitCheckoutType`
 
-            - `const BetaManagedAgentsCommitCheckoutTypeCommit BetaManagedAgentsCommitCheckoutType = "commit"`
-
-      - `MountPath string`
+      - `MountPath string Optional`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
+
+        minLength: 1, maxLength: 4096
 
     - `type BetaManagedAgentsFileResourceParamsResp struct{…}`
 
@@ -328,13 +342,15 @@ Update Deployment
 
         ID of a previously uploaded file.
 
+        minLength: 1, maxLength: 128
+
       - `Type BetaManagedAgentsFileResourceParamsType`
 
-        - `const BetaManagedAgentsFileResourceParamsTypeFile BetaManagedAgentsFileResourceParamsType = "file"`
-
-      - `MountPath string`
+      - `MountPath string Optional`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+
+        minLength: 1, maxLength: 4096
 
     - `type BetaManagedAgentsMemoryStoreResourceParamResp struct{…}`
 
@@ -346,9 +362,7 @@ Update Deployment
 
       - `Type BetaManagedAgentsMemoryStoreResourceParamType`
 
-        - `const BetaManagedAgentsMemoryStoreResourceParamTypeMemoryStore BetaManagedAgentsMemoryStoreResourceParamType = "memory_store"`
-
-      - `Access BetaManagedAgentsMemoryStoreResourceParamAccess`
+      - `Access BetaManagedAgentsMemoryStoreResourceParamAccess Optional`
 
         Access mode for an attached memory store.
 
@@ -356,19 +370,21 @@ Update Deployment
 
         - `const BetaManagedAgentsMemoryStoreResourceParamAccessReadOnly BetaManagedAgentsMemoryStoreResourceParamAccess = "read_only"`
 
-      - `Instructions string`
+      - `Instructions string Optional`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-  - `Schedule param.Field[BetaManagedAgentsScheduleParamsResp]`
+        maxLength: 4096
+
+  - `Schedule param.Field[BetaManagedAgentsScheduleParamsResp] Optional`
 
     Body param: 5-field POSIX cron schedule. Literal wall-clock matching in the configured timezone.
 
-  - `VaultIDs param.Field[[]string]`
+  - `VaultIDs param.Field[[]string] Optional`
 
     Body param: Vault IDs. Full replacement. Omit to preserve; send empty array or null to clear. Maximum 50.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -420,21 +436,31 @@ Update Deployment
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
-### Returns
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `type BetaManagedAgentsDeployment struct{…}`
 
@@ -452,17 +478,21 @@ Update Deployment
 
     - `Type BetaManagedAgentsAgentReferenceType`
 
-      - `const BetaManagedAgentsAgentReferenceTypeAgent BetaManagedAgentsAgentReferenceType = "agent"`
-
     - `Version int64`
+
+      format: int32
 
   - `ArchivedAt Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Description string`
 
@@ -492,9 +522,9 @@ Update Deployment
 
             The text content.
 
-          - `Type BetaManagedAgentsTextBlockType`
+            minLength: 1
 
-            - `const BetaManagedAgentsTextBlockTypeText BetaManagedAgentsTextBlockType = "text"`
+          - `Type BetaManagedAgentsTextBlockType`
 
         - `type BetaManagedAgentsImageBlock struct{…}`
 
@@ -512,13 +542,15 @@ Update Deployment
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `MediaType string`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `Type BetaManagedAgentsBase64ImageSourceType`
+                minLength: 1
 
-                - `const BetaManagedAgentsBase64ImageSourceTypeBase64 BetaManagedAgentsBase64ImageSourceType = "base64"`
+              - `Type BetaManagedAgentsBase64ImageSourceType`
 
             - `type BetaManagedAgentsURLImageSource struct{…}`
 
@@ -526,11 +558,11 @@ Update Deployment
 
               - `Type BetaManagedAgentsURLImageSourceType`
 
-                - `const BetaManagedAgentsURLImageSourceTypeURL BetaManagedAgentsURLImageSourceType = "url"`
-
               - `URL string`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `type BetaManagedAgentsFileImageSource struct{…}`
 
@@ -540,13 +572,11 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `Type BetaManagedAgentsFileImageSourceType`
 
-                - `const BetaManagedAgentsFileImageSourceTypeFile BetaManagedAgentsFileImageSourceType = "file"`
-
           - `Type BetaManagedAgentsImageBlockType`
-
-            - `const BetaManagedAgentsImageBlockTypeImage BetaManagedAgentsImageBlockType = "image"`
 
         - `type BetaManagedAgentsDocumentBlock struct{…}`
 
@@ -564,13 +594,15 @@ Update Deployment
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `MediaType string`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `Type BetaManagedAgentsBase64DocumentSourceType`
+                minLength: 1
 
-                - `const BetaManagedAgentsBase64DocumentSourceTypeBase64 BetaManagedAgentsBase64DocumentSourceType = "base64"`
+              - `Type BetaManagedAgentsBase64DocumentSourceType`
 
             - `type BetaManagedAgentsPlainTextDocumentSource struct{…}`
 
@@ -580,15 +612,13 @@ Update Deployment
 
                 The plain text content.
 
+                minLength: 1
+
               - `MediaType BetaManagedAgentsPlainTextDocumentSourceMediaType`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `const BetaManagedAgentsPlainTextDocumentSourceMediaTypeTextPlain BetaManagedAgentsPlainTextDocumentSourceMediaType = "text/plain"`
-
               - `Type BetaManagedAgentsPlainTextDocumentSourceType`
-
-                - `const BetaManagedAgentsPlainTextDocumentSourceTypeText BetaManagedAgentsPlainTextDocumentSourceType = "text"`
 
             - `type BetaManagedAgentsURLDocumentSource struct{…}`
 
@@ -596,11 +626,11 @@ Update Deployment
 
               - `Type BetaManagedAgentsURLDocumentSourceType`
 
-                - `const BetaManagedAgentsURLDocumentSourceTypeURL BetaManagedAgentsURLDocumentSourceType = "url"`
-
               - `URL string`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `type BetaManagedAgentsFileDocumentSource struct{…}`
 
@@ -610,25 +640,27 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
-              - `Type BetaManagedAgentsFileDocumentSourceType`
+                minLength: 1
 
-                - `const BetaManagedAgentsFileDocumentSourceTypeFile BetaManagedAgentsFileDocumentSourceType = "file"`
+              - `Type BetaManagedAgentsFileDocumentSourceType`
 
           - `Type BetaManagedAgentsDocumentBlockType`
 
-            - `const BetaManagedAgentsDocumentBlockTypeDocument BetaManagedAgentsDocumentBlockType = "document"`
-
-          - `Context string`
+          - `Context string Optional`
 
             Additional context about the document for the model.
 
-          - `Title string`
+          - `Title string Optional`
 
             The title of the document.
 
-      - `Type BetaManagedAgentsDeploymentUserMessageEventType`
+        - `type BetaManagedAgentsRedactedBlockParam struct{…}`
 
-        - `const BetaManagedAgentsDeploymentUserMessageEventTypeUserMessage BetaManagedAgentsDeploymentUserMessageEventType = "user.message"`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `Type BetaManagedAgentsRedactedBlockType`
+
+      - `Type BetaManagedAgentsDeploymentUserMessageEventType`
 
     - `type BetaManagedAgentsDeploymentUserDefineOutcomeEvent struct{…}`
 
@@ -652,8 +684,6 @@ Update Deployment
 
           - `Type BetaManagedAgentsFileRubricType`
 
-            - `const BetaManagedAgentsFileRubricTypeFile BetaManagedAgentsFileRubricType = "file"`
-
         - `type BetaManagedAgentsTextRubric struct{…}`
 
           Rubric content provided inline as text.
@@ -664,15 +694,13 @@ Update Deployment
 
           - `Type BetaManagedAgentsTextRubricType`
 
-            - `const BetaManagedAgentsTextRubricTypeText BetaManagedAgentsTextRubricType = "text"`
-
       - `Type BetaManagedAgentsDeploymentUserDefineOutcomeEventType`
 
-        - `const BetaManagedAgentsDeploymentUserDefineOutcomeEventTypeUserDefineOutcome BetaManagedAgentsDeploymentUserDefineOutcomeEventType = "user.define_outcome"`
-
-      - `MaxIterations int64`
+      - `MaxIterations int64 Optional`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `type BetaManagedAgentsDeploymentSystemMessageEvent struct{…}`
 
@@ -686,13 +714,11 @@ Update Deployment
 
           The text content.
 
+          minLength: 1
+
         - `Type BetaManagedAgentsSystemContentBlockType`
 
-          - `const BetaManagedAgentsSystemContentBlockTypeText BetaManagedAgentsSystemContentBlockType = "text"`
-
       - `Type BetaManagedAgentsDeploymentSystemMessageEventType`
-
-        - `const BetaManagedAgentsDeploymentSystemMessageEventTypeSystemMessage BetaManagedAgentsDeploymentSystemMessageEventType = "system.message"`
 
   - `Metadata map[string, string]`
 
@@ -712,8 +738,6 @@ Update Deployment
 
       - `Type BetaManagedAgentsManualDeploymentPausedReasonType`
 
-        - `const BetaManagedAgentsManualDeploymentPausedReasonTypeManual BetaManagedAgentsManualDeploymentPausedReasonType = "manual"`
-
     - `type BetaManagedAgentsErrorDeploymentPausedReason struct{…}`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
@@ -728,15 +752,11 @@ Update Deployment
 
           - `Type BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorTypeEnvironmentArchivedError BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonErrorType = "environment_archived_error"`
-
         - `type BetaManagedAgentsAgentArchivedDeploymentPausedReasonError struct{…}`
 
           The deployment's agent was archived.
 
           - `Type BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorType`
-
-            - `const BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorTypeAgentArchivedError BetaManagedAgentsAgentArchivedDeploymentPausedReasonErrorType = "agent_archived_error"`
 
         - `type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError struct{…}`
 
@@ -744,15 +764,11 @@ Update Deployment
 
           - `Type BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorTypeEnvironmentNotFoundError BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonErrorType = "environment_not_found_error"`
-
         - `type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError struct{…}`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType`
-
-            - `const BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorTypeVaultNotFoundError BetaManagedAgentsVaultNotFoundDeploymentPausedReasonErrorType = "vault_not_found_error"`
 
         - `type BetaManagedAgentsFileNotFoundDeploymentPausedReasonError struct{…}`
 
@@ -760,15 +776,11 @@ Update Deployment
 
           - `Type BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorTypeFileNotFoundError BetaManagedAgentsFileNotFoundDeploymentPausedReasonErrorType = "file_not_found_error"`
-
         - `type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError struct{…}`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType`
-
-            - `const BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorTypeSessionResourceNotFoundError BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonErrorType = "session_resource_not_found_error"`
 
         - `type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError struct{…}`
 
@@ -776,15 +788,11 @@ Update Deployment
 
           - `Type BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorTypeWorkspaceArchivedError BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonErrorType = "workspace_archived_error"`
-
         - `type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError struct{…}`
 
           The deployment's organization is disabled.
 
           - `Type BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType`
-
-            - `const BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorTypeOrganizationDisabledError BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonErrorType = "organization_disabled_error"`
 
         - `type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError struct{…}`
 
@@ -792,15 +800,11 @@ Update Deployment
 
           - `Type BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorTypeMemoryStoreArchivedError BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonErrorType = "memory_store_archived_error"`
-
         - `type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError struct{…}`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorType`
-
-            - `const BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorTypeSkillNotFoundError BetaManagedAgentsSkillNotFoundDeploymentPausedReasonErrorType = "skill_not_found_error"`
 
         - `type BetaManagedAgentsVaultArchivedDeploymentPausedReasonError struct{…}`
 
@@ -808,15 +812,11 @@ Update Deployment
 
           - `Type BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorTypeVaultArchivedError BetaManagedAgentsVaultArchivedDeploymentPausedReasonErrorType = "vault_archived_error"`
-
         - `type BetaManagedAgentsUnknownDeploymentPausedReasonError struct{…}`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type BetaManagedAgentsUnknownDeploymentPausedReasonErrorType`
-
-            - `const BetaManagedAgentsUnknownDeploymentPausedReasonErrorTypeUnknownError BetaManagedAgentsUnknownDeploymentPausedReasonErrorType = "unknown_error"`
 
         - `type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError struct{…}`
 
@@ -824,19 +824,13 @@ Update Deployment
 
           - `Type BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorTypeSelfHostedResourcesUnsupportedError BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonErrorType = "self_hosted_resources_unsupported_error"`
-
         - `type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError struct{…}`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
           - `Type BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorType`
 
-            - `const BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorTypeMCPEgressBlockedError BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonErrorType = "mcp_egress_blocked_error"`
-
       - `Type BetaManagedAgentsErrorDeploymentPausedReasonType`
-
-        - `const BetaManagedAgentsErrorDeploymentPausedReasonTypeError BetaManagedAgentsErrorDeploymentPausedReasonType = "error"`
 
   - `Resources []BetaManagedAgentsSessionResourceConfigUnion`
 
@@ -848,13 +842,11 @@ Update Deployment
 
       - `Type BetaManagedAgentsGitHubRepositoryResourceConfigType`
 
-        - `const BetaManagedAgentsGitHubRepositoryResourceConfigTypeGitHubRepository BetaManagedAgentsGitHubRepositoryResourceConfigType = "github_repository"`
-
       - `URL string`
 
         Github URL of the repository
 
-      - `Checkout BetaManagedAgentsGitHubRepositoryResourceConfigCheckoutUnion`
+      - `Checkout BetaManagedAgentsGitHubRepositoryResourceConfigCheckoutUnion Optional`
 
         Branch or commit to check out. Defaults to the repository's default branch.
 
@@ -864,9 +856,9 @@ Update Deployment
 
             Branch name to check out.
 
-          - `Type BetaManagedAgentsBranchCheckoutType`
+            minLength: 1, maxLength: 255
 
-            - `const BetaManagedAgentsBranchCheckoutTypeBranch BetaManagedAgentsBranchCheckoutType = "branch"`
+          - `Type BetaManagedAgentsBranchCheckoutType`
 
         - `type BetaManagedAgentsCommitCheckout struct{…}`
 
@@ -874,11 +866,11 @@ Update Deployment
 
             Full commit SHA to check out.
 
+            minLength: 7, maxLength: 64
+
           - `Type BetaManagedAgentsCommitCheckoutType`
 
-            - `const BetaManagedAgentsCommitCheckoutTypeCommit BetaManagedAgentsCommitCheckoutType = "commit"`
-
-      - `MountPath string`
+      - `MountPath string Optional`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
 
@@ -892,9 +884,7 @@ Update Deployment
 
       - `Type BetaManagedAgentsFileResourceConfigType`
 
-        - `const BetaManagedAgentsFileResourceConfigTypeFile BetaManagedAgentsFileResourceConfigType = "file"`
-
-      - `MountPath string`
+      - `MountPath string Optional`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
 
@@ -908,9 +898,7 @@ Update Deployment
 
       - `Type BetaManagedAgentsMemoryStoreResourceConfigType`
 
-        - `const BetaManagedAgentsMemoryStoreResourceConfigTypeMemoryStore BetaManagedAgentsMemoryStoreResourceConfigType = "memory_store"`
-
-      - `Access BetaManagedAgentsMemoryStoreResourceConfigAccess`
+      - `Access BetaManagedAgentsMemoryStoreResourceConfigAccess Optional`
 
         Access mode for an attached memory store.
 
@@ -918,7 +906,7 @@ Update Deployment
 
         - `const BetaManagedAgentsMemoryStoreResourceConfigAccessReadOnly BetaManagedAgentsMemoryStoreResourceConfigAccess = "read_only"`
 
-      - `Instructions string`
+      - `Instructions string Optional`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
@@ -930,19 +918,23 @@ Update Deployment
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
 
+      minLength: 1, maxLength: 256
+
     - `Timezone string`
 
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
+      minLength: 1
+
     - `Type BetaManagedAgentsScheduleType`
 
-      - `const BetaManagedAgentsScheduleTypeCron BetaManagedAgentsScheduleType = "cron"`
-
-    - `LastRunAt Time`
+    - `LastRunAt Time Optional`
 
       A timestamp in RFC 3339 format
 
-    - `UpcomingRunsAt []Time`
+      format: date-time
+
+    - `UpcomingRunsAt []Time Optional`
 
       Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time.
 
@@ -956,48 +948,64 @@ Update Deployment
 
   - `Type BetaManagedAgentsDeploymentType`
 
-    - `const BetaManagedAgentsDeploymentTypeDeployment BetaManagedAgentsDeploymentType = "deployment"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `VaultIDs []string`
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-### Example
+  - `Budget BetaManagedAgentsBudgetLimit Optional`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+    - `MaxListCost BetaMonetaryAmount`
+
+      A monetary amount in a specific currency.
+
+      - `Amount string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `Currency BetaCurrency`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+    - `Type BetaManagedAgentsBudgetLimitType`
+
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaManagedAgentsDeployment, err := client.Beta.Deployments.Update(
-    context.TODO(),
-    "depl_011CZkZcDH3vPqd7xnEfwTai",
-    anthropic.BetaDeploymentUpdateParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaManagedAgentsDeployment.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaManagedAgentsDeployment, err := client.Beta.Deployments.Update(
+		context.TODO(),
+		"depl_011CZkZcDH3vPqd7xnEfwTai",
+		anthropic.BetaDeploymentUpdateParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaManagedAgentsDeployment.ID)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
@@ -1053,6 +1061,13 @@ func main() {
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

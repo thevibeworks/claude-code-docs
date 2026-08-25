@@ -1,12 +1,12 @@
-## Download File
+# Download File
 
 `$client->beta->files->download(string fileID, ?list<AnthropicBeta> betas): download`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
-### Parameters
+## Parameters
 
 - `fileID: string`
 
@@ -16,11 +16,11 @@ Download File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `mixed`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -30,7 +30,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $response = $client->beta->files->download(
-  'file_id', betas: ['message-batches-2024-09-24']
+  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($response);

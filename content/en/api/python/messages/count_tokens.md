@@ -1,8 +1,8 @@
-## Count tokens in a Message
+# Count tokens in a Message
 
-`messages.count_tokens(MessageCountTokensParams**kwargs)  -> MessageTokensCount`
+`messages.count_tokens(**kwargs)  -> MessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -10,7 +10,7 @@ The Token Count API can be used to count the number of tokens in a Message, incl
 
 Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-### Parameters
+## Parameters
 
 - `messages: Iterable[MessageParam]`
 
@@ -63,27 +63,25 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   There is a limit of 100,000 messages in a single request.
 
-  - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 15 more]]]`
+  - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]]`
 
     - `str`
 
-    - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 15 more]]`
+    - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]`
 
       - `class TextBlockParam: …`
 
         - `text: str`
 
-        - `type: Literal["text"]`
+          minLength: 1
 
-          - `"text"`
+        - `type: Literal["text"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
 
           - `type: Literal["ephemeral"]`
-
-            - `"ephemeral"`
 
           - `ttl: Optional[Literal["5m", "1h"]]`
 
@@ -108,15 +106,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: int`
 
+              minimum: 0
+
             - `document_title: Optional[str]`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: int`
 
             - `start_char_index: int`
 
-            - `type: Literal["char_location"]`
+              minimum: 0
 
-              - `"char_location"`
+            - `type: Literal["char_location"]`
 
           - `class CitationPageLocationParam: …`
 
@@ -124,15 +126,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: int`
 
+              minimum: 0
+
             - `document_title: Optional[str]`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: int`
 
             - `start_page_number: int`
 
-            - `type: Literal["page_location"]`
+              minimum: 1
 
-              - `"page_location"`
+            - `type: Literal["page_location"]`
 
           - `class CitationContentBlockLocationParam: …`
 
@@ -144,7 +150,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: int`
 
+              minimum: 0
+
             - `document_title: Optional[str]`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: int`
 
@@ -156,9 +166,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: Literal["content_block_location"]`
+              minimum: 0
 
-              - `"content_block_location"`
+            - `type: Literal["content_block_location"]`
 
           - `class CitationWebSearchResultLocationParam: …`
 
@@ -168,11 +178,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `title: Optional[str]`
 
+              maxLength: 512, minLength: 1
+
             - `type: Literal["web_search_result_location"]`
 
-              - `"web_search_result_location"`
-
             - `url: str`
+
+              minLength: 1
 
           - `class CitationSearchResultLocationParam: …`
 
@@ -194,17 +206,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: str`
 
             - `start_block_index: int`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: Optional[str]`
 
             - `type: Literal["search_result_location"]`
-
-              - `"search_result_location"`
 
       - `class ImageBlockParam: …`
 
@@ -213,6 +227,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `class Base64ImageSource: …`
 
             - `data: str`
+
+              format: byte
 
             - `media_type: Literal["image/jpeg", "image/png", "image/gif", "image/webp"]`
 
@@ -226,23 +242,35 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["base64"]`
 
-              - `"base64"`
-
           - `class URLImageSource: …`
 
             - `type: Literal["url"]`
 
-              - `"url"`
-
             - `url: str`
 
-        - `type: Literal["image"]`
+          - `class FileImageSource: …`
 
-          - `"image"`
+            - `file_id: str`
+
+            - `type: Literal["file"]`
+
+        - `type: Literal["image"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
+
+        - `transformations: Optional[ImageTransformationsParam]`
+
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `oversized_image: Optional[Literal["downsize", "error"]]`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `"downsize"`
+
+            - `"error"`
 
       - `class DocumentBlockParam: …`
 
@@ -252,13 +280,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `data: str`
 
+              format: byte
+
             - `media_type: Literal["application/pdf"]`
 
-              - `"application/pdf"`
-
             - `type: Literal["base64"]`
-
-              - `"base64"`
 
           - `class PlainTextSource: …`
 
@@ -266,11 +292,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `media_type: Literal["text/plain"]`
 
-              - `"text/plain"`
-
             - `type: Literal["text"]`
-
-              - `"text"`
 
           - `class ContentBlockSource: …`
 
@@ -286,19 +308,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["content"]`
 
-              - `"content"`
-
           - `class URLPDFSource: …`
 
             - `type: Literal["url"]`
 
-              - `"url"`
-
             - `url: str`
 
-        - `type: Literal["document"]`
+          - `class FileDocumentSource: …`
 
-          - `"document"`
+            - `file_id: str`
+
+            - `type: Literal["file"]`
+
+        - `type: Literal["document"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -310,13 +332,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `context: Optional[str]`
 
+          minLength: 1
+
         - `title: Optional[str]`
+
+          maxLength: 500, minLength: 1
 
       - `class SearchResultBlockParam: …`
 
         - `content: List[TextBlockParam]`
 
           - `text: str`
+
+            minLength: 1
 
           - `type: Literal["text"]`
 
@@ -332,8 +360,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: Literal["search_result"]`
 
-          - `"search_result"`
-
         - `cache_control: Optional[CacheControlEphemeral]`
 
           Create a cache control breakpoint at this content block.
@@ -344,31 +370,37 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `signature: str`
 
+          The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+          Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
         - `thinking: str`
 
-        - `type: Literal["thinking"]`
+          The `thinking` text of this block as returned by the API.
 
-          - `"thinking"`
+        - `type: Literal["thinking"]`
 
       - `class RedactedThinkingBlockParam: …`
 
         - `data: str`
 
-        - `type: Literal["redacted_thinking"]`
+          The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-          - `"redacted_thinking"`
+        - `type: Literal["redacted_thinking"]`
 
       - `class ToolUseBlockParam: …`
 
         - `id: str`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `input: Dict[str, object]`
 
         - `name: str`
 
-        - `type: Literal["tool_use"]`
+          maxLength: 200, minLength: 1
 
-          - `"tool_use"`
+        - `type: Literal["tool_use"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -384,33 +416,37 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["direct"]`
 
-              - `"direct"`
-
           - `class ServerToolCaller: …`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: str`
 
-            - `type: Literal["code_execution_20250825"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20250825"`
+            - `type: Literal["code_execution_20250825"]`
 
           - `class ServerToolCaller20260120: …`
 
             - `tool_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["code_execution_20260120"]`
 
-              - `"code_execution_20260120"`
+        - `toolset_name: Optional[str]`
+
+          For a toolset member tool_use, the toolset family this member belongs to.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class ToolResultBlockParam: …`
 
         - `tool_use_id: str`
 
-        - `type: Literal["tool_result"]`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `"tool_result"`
+        - `type: Literal["tool_result"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -436,19 +472,170 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `tool_name: str`
 
-              - `type: Literal["tool_reference"]`
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `"tool_reference"`
+              - `type: Literal["tool_reference"]`
 
               - `cache_control: Optional[CacheControlEphemeral]`
 
                 Create a cache control breakpoint at this content block.
 
+            - `class BrowserStateBlockParam: …`
+
+              The caller's browser state after a browser toolset member call —
+              the full inventory of open tabs, which tab is active, and any side
+              effects (tabs opened, download state changes) the call produced.
+
+              At most one per `tool_result`, only on a non-error result answering a
+              browser toolset member `tool_use`. The server renders the
+              model-visible text from it; the model never sees the raw fields.
+
+              - `tabs: List[BrowserStateTabEntry]`
+
+                All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                maxItems: 100
+
+                - `tab_id: str`
+
+                  The caller-assigned identifier for this tab, unique within the inventory.
+
+                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `title: str`
+
+                  The title of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `url: str`
+
+                  The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `active: Optional[bool]`
+
+                  Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+              - `type: Literal["browser_state"]`
+
+              - `cache_control: Optional[CacheControlEphemeral]`
+
+                Create a cache control breakpoint at this content block.
+
+              - `state_changes: Optional[List[BrowserStateChange]]`
+
+                Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                maxItems: 200, minItems: 1
+
+                - `class BrowserStateChangeTabOpened: …`
+
+                  A tab this call's execution opened that remains open at its end —
+                  the creation delta of the `tabs` inventory, not an event log.
+
+                  Carries only the `tab_id`; the tab's `title` and `url` live on its
+                  `tabs` entry, which must include the same `tab_id`. A tab opened
+                  during a failed call gets no deferred `tab_opened`; it simply appears
+                  in the next result's `tabs` inventory.
+
+                  - `tab_id: str`
+
+                    The `tab_id` of the opened tab, present in `tabs`.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: Literal["tab_opened"]`
+
+                - `class BrowserStateChangeDownloadStarted: …`
+
+                  A file download that started during this call.
+
+                  - `download_id: str`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: Literal["download_started"]`
+
+                  - `url: str`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `class BrowserStateChangeDownloadCompleted: …`
+
+                  A file download that finished during this call, reported with the
+                  same `download_id` as its `download_started` — or without a prior
+                  `download_started`, when the download finished during the call that
+                  started it (at most one state change per `download_id` per result).
+
+                  - `download_id: str`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: Literal["download_completed"]`
+
+                  - `url: str`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `path: Optional[str]`
+
+                    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                  - `size_bytes: Optional[int]`
+
+                    The completed download's size.
+
+                    minimum: 0
+
+                - `class BrowserStateChangeDownloadFailed: …`
+
+                  A file download that failed — or was cancelled — during this call.
+
+                  - `download_id: str`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: Literal["download_failed"]`
+
+                  - `url: str`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `error: Optional[str]`
+
+                    The failure or cancellation detail, when known.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
         - `is_error: Optional[bool]`
+
+        - `toolset_name: Optional[str]`
+
+          For a toolset member tool_result, the toolset family of the paired tool_use.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class ServerToolUseBlockParam: …`
 
         - `id: str`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: Dict[str, object]`
 
@@ -469,8 +656,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `"tool_search_tool_bm25"`
 
         - `type: Literal["server_tool_use"]`
-
-          - `"server_tool_use"`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -502,8 +687,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["web_search_result"]`
 
-              - `"web_search_result"`
-
             - `url: str`
 
             - `page_age: Optional[str]`
@@ -526,13 +709,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["web_search_tool_result_error"]`
 
-              - `"web_search_tool_result_error"`
-
         - `tool_use_id: str`
 
-        - `type: Literal["web_search_tool_result"]`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"web_search_tool_result"`
+        - `type: Literal["web_search_tool_result"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -580,15 +761,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["web_fetch_tool_result_error"]`
 
-              - `"web_fetch_tool_result_error"`
-
           - `class WebFetchBlockParam: …`
 
             - `content: DocumentBlockParam`
 
             - `type: Literal["web_fetch_result"]`
-
-              - `"web_fetch_result"`
 
             - `url: str`
 
@@ -600,9 +777,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: str`
 
-        - `type: Literal["web_fetch_tool_result"]`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"web_fetch_tool_result"`
+        - `type: Literal["web_fetch_tool_result"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -642,8 +819,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["code_execution_tool_result_error"]`
 
-              - `"code_execution_tool_result_error"`
-
           - `class CodeExecutionResultBlockParam: …`
 
             - `content: List[CodeExecutionOutputBlockParam]`
@@ -652,8 +827,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: Literal["code_execution_output"]`
 
-                - `"code_execution_output"`
-
             - `return_code: int`
 
             - `stderr: str`
@@ -661,8 +834,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `stdout: str`
 
             - `type: Literal["code_execution_result"]`
-
-              - `"code_execution_result"`
 
           - `class EncryptedCodeExecutionResultBlockParam: …`
 
@@ -682,13 +853,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["encrypted_code_execution_result"]`
 
-              - `"encrypted_code_execution_result"`
-
         - `tool_use_id: str`
 
-        - `type: Literal["code_execution_tool_result"]`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"code_execution_tool_result"`
+        - `type: Literal["code_execution_tool_result"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -714,8 +883,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["bash_code_execution_tool_result_error"]`
 
-              - `"bash_code_execution_tool_result_error"`
-
           - `class BashCodeExecutionResultBlockParam: …`
 
             - `content: List[BashCodeExecutionOutputBlockParam]`
@@ -723,8 +890,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `file_id: str`
 
               - `type: Literal["bash_code_execution_output"]`
-
-                - `"bash_code_execution_output"`
 
             - `return_code: int`
 
@@ -734,13 +899,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["bash_code_execution_result"]`
 
-              - `"bash_code_execution_result"`
-
         - `tool_use_id: str`
 
-        - `type: Literal["bash_code_execution_tool_result"]`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"bash_code_execution_tool_result"`
+        - `type: Literal["bash_code_execution_tool_result"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -766,8 +929,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
-              - `"text_editor_code_execution_tool_result_error"`
-
             - `error_message: Optional[str]`
 
           - `class TextEditorCodeExecutionViewResultBlockParam: …`
@@ -784,8 +945,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["text_editor_code_execution_view_result"]`
 
-              - `"text_editor_code_execution_view_result"`
-
             - `num_lines: Optional[int]`
 
             - `start_line: Optional[int]`
@@ -798,13 +957,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["text_editor_code_execution_create_result"]`
 
-              - `"text_editor_code_execution_create_result"`
-
           - `class TextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
             - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-              - `"text_editor_code_execution_str_replace_result"`
 
             - `lines: Optional[List[str]]`
 
@@ -818,9 +973,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: str`
 
-        - `type: Literal["text_editor_code_execution_tool_result"]`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"text_editor_code_execution_tool_result"`
+        - `type: Literal["text_editor_code_execution_tool_result"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -844,8 +999,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["tool_search_tool_result_error"]`
 
-              - `"tool_search_tool_result_error"`
-
             - `error_message: Optional[str]`
 
           - `class ToolSearchToolSearchResultBlockParam: …`
@@ -853,6 +1006,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `tool_references: List[ToolReferenceBlockParam]`
 
               - `tool_name: str`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `type: Literal["tool_reference"]`
 
@@ -862,13 +1017,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: Literal["tool_search_tool_search_result"]`
 
-              - `"tool_search_tool_search_result"`
-
         - `tool_use_id: str`
 
-        - `type: Literal["tool_search_tool_result"]`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"tool_search_tool_result"`
+        - `type: Literal["tool_search_tool_result"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -882,37 +1035,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `file_id: str`
 
         - `type: Literal["container_upload"]`
-
-          - `"container_upload"`
-
-        - `cache_control: Optional[CacheControlEphemeral]`
-
-          Create a cache control breakpoint at this content block.
-
-      - `class MidConversationSystemBlockParam: …`
-
-        System instructions that appear mid-conversation.
-
-        Use this block to provide or update system-level instructions at a specific
-        point in the conversation, rather than only via the top-level `system` parameter.
-
-        - `content: List[TextBlockParam]`
-
-          System instruction text blocks.
-
-          - `text: str`
-
-          - `type: Literal["text"]`
-
-          - `cache_control: Optional[CacheControlEphemeral]`
-
-            Create a cache control breakpoint at this content block.
-
-          - `citations: Optional[List[TextCitationParam]]`
-
-        - `type: Literal["mid_conv_system"]`
-
-          - `"mid_conv_system"`
 
         - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -932,7 +1054,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
+  - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 12 more]`
 
     The model that will complete your prompt.
 
@@ -941,19 +1063,18 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `claude-sonnet-5` - High-performance model for coding and agents
     - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
     - `claude-mythos-5` - Most capable model for cybersecurity and biology research
-    - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-    - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+    - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+    - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+    - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
     - `claude-mythos-preview` - Deprecated: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-    - `claude-opus-4-6` - Frontier intelligence for long-running agents and coding
+    - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
     - `claude-sonnet-4-6` - Best combination of speed and intelligence
     - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
     - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-    - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-    - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+    - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+    - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
     - `claude-sonnet-4-5` - High-performance model for agents and coding
     - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
-    - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-    - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
     - `"claude-sonnet-5"`
 
@@ -967,13 +1088,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Most capable model for cybersecurity and biology research
 
+    - `"claude-opus-5"`
+
+      Powerful intelligence for long-running agents and coding
+
     - `"claude-opus-4-8"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-7"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-mythos-preview"`
 
@@ -981,7 +1106,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `"claude-opus-4-6"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-6"`
 
@@ -997,11 +1122,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `"claude-opus-4-5"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-5-20251101"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-5"`
 
@@ -1010,14 +1135,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `"claude-sonnet-4-5-20250929"`
 
       High-performance model for agents and coding
-
-    - `"claude-opus-4-1"`
-
-      Exceptional model for specialized complex tasks
-
-    - `"claude-opus-4-1-20250805"`
-
-      Exceptional model for specialized complex tasks
 
   - `str`
 
@@ -1053,8 +1170,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: Literal["json_schema"]`
 
-      - `"json_schema"`
-
 - `system: Optional[Union[str, Iterable[TextBlockParam]]]`
 
   System prompt.
@@ -1066,6 +1181,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `Iterable[TextBlockParam]`
 
     - `text: str`
+
+      minLength: 1
 
     - `type: Literal["text"]`
 
@@ -1093,9 +1210,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-    - `type: Literal["enabled"]`
+      minimum: 1024
 
-      - `"enabled"`
+    - `type: Literal["enabled"]`
 
     - `display: Optional[Literal["summarized", "omitted"]]`
 
@@ -1109,13 +1226,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: Literal["disabled"]`
 
-      - `"disabled"`
-
   - `class ThinkingConfigAdaptive: …`
 
     - `type: Literal["adaptive"]`
-
-      - `"adaptive"`
 
     - `display: Optional[Literal["summarized", "omitted"]]`
 
@@ -1135,8 +1248,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: Literal["auto"]`
 
-      - `"auto"`
-
     - `disable_parallel_tool_use: Optional[bool]`
 
       Whether to disable parallel tool use.
@@ -1148,8 +1259,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     The model will use any available tools.
 
     - `type: Literal["any"]`
-
-      - `"any"`
 
     - `disable_parallel_tool_use: Optional[bool]`
 
@@ -1167,8 +1276,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: Literal["tool"]`
 
-      - `"tool"`
-
     - `disable_parallel_tool_use: Optional[bool]`
 
       Whether to disable parallel tool use.
@@ -1180,8 +1287,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     The model will not be allowed to use tools.
 
     - `type: Literal["none"]`
-
-      - `"none"`
 
 - `tools: Optional[Iterable[MessageCountTokensToolParam]]`
 
@@ -1257,8 +1362,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: Literal["object"]`
 
-        - `"object"`
-
       - `properties: Optional[Dict[str, object]]`
 
       - `required: Optional[List[str]]`
@@ -1268,6 +1371,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
+
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1305,8 +1410,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: Optional[Literal["custom"]]`
 
-      - `"custom"`
-
   - `class ToolBash20250124: …`
 
     - `name: Literal["bash"]`
@@ -1315,11 +1418,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"bash"`
-
     - `type: Literal["bash_20250124"]`
-
-      - `"bash_20250124"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1353,11 +1452,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: Literal["code_execution_20250522"]`
-
-      - `"code_execution_20250522"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1389,11 +1484,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: Literal["code_execution_20250825"]`
-
-      - `"code_execution_20250825"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1427,11 +1518,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: Literal["code_execution_20260120"]`
-
-      - `"code_execution_20260120"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1465,11 +1552,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: Literal["code_execution_20260521"]`
-
-      - `"code_execution_20260521"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1493,6 +1576,410 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `class BrowserToolset20260801: …`
+
+    The browser toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the browser tool family. The model is served
+    the family's tool with any members disabled via `configs` removed
+    from its schema.
+
+    - `type: Literal["browser_toolset_20260801"]`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control: Optional[CacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs: Optional[BrowserToolsetConfigs]`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `close_tab: Optional[BrowserCloseTabConfig]`
+
+        `close_tab`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click: Optional[BrowserDoubleClickConfig]`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `file_upload: Optional[BrowserFileUploadConfig]`
+
+        `file_upload`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `find: Optional[BrowserFindConfig]`
+
+        `find`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `form_input: Optional[BrowserFormInputConfig]`
+
+        `form_input`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `get_page_text: Optional[BrowserGetPageTextConfig]`
+
+        `get_page_text`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key: Optional[BrowserHoldKeyConfig]`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hover: Optional[BrowserHoverConfig]`
+
+        `hover`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `javascript_exec: Optional[BrowserJavascriptExecConfig]`
+
+        `javascript_exec`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key: Optional[BrowserKeyConfig]`
+
+        `key`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click: Optional[BrowserLeftClickConfig]`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag: Optional[BrowserLeftClickDragConfig]`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down: Optional[BrowserLeftMouseDownConfig]`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up: Optional[BrowserLeftMouseUpConfig]`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `list_tabs: Optional[BrowserListTabsConfig]`
+
+        `list_tabs`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click: Optional[BrowserMiddleClickConfig]`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move: Optional[BrowserMouseMoveConfig]`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `navigate: Optional[BrowserNavigateConfig]`
+
+        `navigate`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `new_tab: Optional[BrowserNewTabConfig]`
+
+        `new_tab`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_console: Optional[BrowserReadConsoleConfig]`
+
+        `read_console`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_network: Optional[BrowserReadNetworkConfig]`
+
+        `read_network`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_page: Optional[BrowserReadPageConfig]`
+
+        `read_page`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click: Optional[BrowserRightClickConfig]`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot: Optional[BrowserScreenshotConfig]`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll: Optional[BrowserScrollConfig]`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll_to: Optional[BrowserScrollToConfig]`
+
+        `scroll_to`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `switch_tab: Optional[BrowserSwitchTabConfig]`
+
+        `switch_tab`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click: Optional[BrowserTripleClickConfig]`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type: Optional[BrowserTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait: Optional[BrowserWaitConfig]`
+
+        `wait`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom: Optional[BrowserZoomConfig]`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `class MemoryTool20250818: …`
 
     - `name: Literal["memory"]`
@@ -1501,11 +1988,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"memory"`
-
     - `type: Literal["memory_20250818"]`
-
-      - `"memory_20250818"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1531,6 +2014,246 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `class ComputerToolset20260801: …`
+
+    The computer toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the computer tool family. The model is
+    served the family's tool with any members disabled via `configs`
+    removed from its schema. Every member is enabled by default, zoom
+    included. The single-tool options `display_number` and
+    `enable_zoom` are not fields of a toolset entry — it carries only
+    `type`, `configs`, and `cache_control`; zoom is controlled
+    via `configs.zoom.enabled`.
+
+    - `type: Literal["computer_toolset_20260801"]`
+
+    - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control: Optional[CacheControlEphemeral]`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs: Optional[ComputerToolsetConfigs]`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `cursor_position: Optional[ComputerCursorPositionConfig]`
+
+        `cursor_position`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click: Optional[ComputerDoubleClickConfig]`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key: Optional[ComputerHoldKeyConfig]`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key: Optional[ComputerKeyConfig]`
+
+        `key`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click: Optional[ComputerLeftClickConfig]`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag: Optional[ComputerLeftClickDragConfig]`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down: Optional[ComputerLeftMouseDownConfig]`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up: Optional[ComputerLeftMouseUpConfig]`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click: Optional[ComputerMiddleClickConfig]`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move: Optional[ComputerMouseMoveConfig]`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click: Optional[ComputerRightClickConfig]`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot: Optional[ComputerScreenshotConfig]`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll: Optional[ComputerScrollConfig]`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click: Optional[ComputerTripleClickConfig]`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type: Optional[ComputerTypeConfig]`
+
+        `type`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait: Optional[ComputerWaitConfig]`
+
+        `wait`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom: Optional[ComputerZoomConfig]`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading: Optional[bool]`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled: Optional[bool]`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `class ToolTextEditor20250124: …`
 
     - `name: Literal["str_replace_editor"]`
@@ -1539,11 +2262,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_editor"`
-
     - `type: Literal["text_editor_20250124"]`
-
-      - `"text_editor_20250124"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1577,11 +2296,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_based_edit_tool"`
-
     - `type: Literal["text_editor_20250429"]`
-
-      - `"text_editor_20250429"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1615,11 +2330,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_based_edit_tool"`
-
     - `type: Literal["text_editor_20250728"]`
-
-      - `"text_editor_20250728"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1645,6 +2356,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict: Optional[bool]`
 
       When true, guarantees schema validation on tool names and inputs
@@ -1657,11 +2370,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: Literal["web_search_20250305"]`
-
-      - `"web_search_20250305"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1693,6 +2402,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict: Optional[bool]`
 
       When true, guarantees schema validation on tool names and inputs
@@ -1703,23 +2414,29 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: Literal["approximate"]`
 
-        - `"approximate"`
-
       - `city: Optional[str]`
 
         The city of the user.
+
+        maxLength: 255, minLength: 1
 
       - `country: Optional[str]`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+        maxLength: 2, minLength: 2
+
       - `region: Optional[str]`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: Optional[str]`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+        maxLength: 255, minLength: 1
 
   - `class WebFetchTool20250910: …`
 
@@ -1729,11 +2446,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: Literal["web_fetch_20250910"]`
-
-      - `"web_fetch_20250910"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1769,9 +2482,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Optional[int]`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: Optional[bool]`
 
@@ -1785,11 +2502,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: Literal["web_search_20260209"]`
-
-      - `"web_search_20260209"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1820,6 +2533,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `max_uses: Optional[int]`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: Optional[bool]`
 
@@ -1837,11 +2552,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: Literal["web_fetch_20260209"]`
-
-      - `"web_fetch_20260209"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1877,9 +2588,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Optional[int]`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: Optional[bool]`
 
@@ -1895,11 +2610,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: Literal["web_fetch_20260309"]`
-
-      - `"web_fetch_20260309"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1935,9 +2646,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Optional[int]`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: Optional[bool]`
 
@@ -1955,11 +2670,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: Literal["web_search_20260318"]`
-
-      - `"web_search_20260318"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1990,6 +2701,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `max_uses: Optional[int]`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: Optional[Literal["full", "excluded"]]`
 
@@ -2015,11 +2728,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: Literal["web_fetch_20260318"]`
-
-      - `"web_fetch_20260318"`
 
     - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2055,9 +2764,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Optional[int]`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: Optional[Literal["full", "excluded"]]`
 
@@ -2082,8 +2795,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `"tool_search_tool_bm25"`
 
     - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
@@ -2121,8 +2832,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"tool_search_tool_regex"`
-
     - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
       - `"tool_search_tool_regex_20251119"`
@@ -2155,7 +2864,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-### Returns
+## Returns
 
 - `class MessageTokensCount: …`
 
@@ -2163,26 +2872,30 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 message_tokens_count = client.messages.count_tokens(
-    messages=[{
-        "content": "Hello, world",
-        "role": "user",
-    }],
-    model="claude-opus-4-6",
+    messages=[
+        {
+            "content": "Hello, world",
+            "role": "user",
+        }
+    ],
+    model="claude-opus-5",
 )
 print(message_tokens_count.input_tokens)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,12 +1,12 @@
-## Archive Vault
+# Archive Vault
 
 `$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
 
-**post** `/v1/vaults/{vault_id}/archive`
+**POST** `/v1/vaults/{vault_id}/archive`
 
 Archive Vault
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -14,7 +14,7 @@ Archive Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsVault`
 
@@ -44,7 +44,7 @@ Archive Vault
 
     A timestamp in RFC 3339 format
 
-### Example
+## Example
 
 ```php
 <?php
@@ -54,13 +54,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsVault = $client->beta->vaults->archive(
-  'vlt_011CZkZDLs7fYzm1hXNPeRjv', betas: ['message-batches-2024-09-24']
+  'vlt_011CZkZDLs7fYzm1hXNPeRjv',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsVault);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

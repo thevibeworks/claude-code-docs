@@ -1,12 +1,12 @@
-## Create Enrollment URL
+# Create Enrollment URL
 
 `$client->beta->userProfiles->createEnrollmentURL(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfileEnrollmentURL`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
-### Parameters
+## Parameters
 
 - `userProfileID: string`
 
@@ -14,7 +14,7 @@ Create Enrollment URL
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaUserProfileEnrollmentURL`
 
@@ -30,7 +30,7 @@ Create Enrollment URL
 
     Enrollment URL to send to the end user. Valid until `expires_at`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -43,13 +43,14 @@ $betaUserProfileEnrollmentURL = $client
   ->beta
   ->userProfiles
   ->createEnrollmentURL(
-  'uprof_011CZkZCu8hGbp5mYRQgUmz9', betas: ['message-batches-2024-09-24']
+  'uprof_011CZkZCu8hGbp5mYRQgUmz9',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaUserProfileEnrollmentURL);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

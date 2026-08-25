@@ -1,8 +1,8 @@
-## Retrieve Message Batch results
+# Retrieve Message Batch results
 
 `$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -10,7 +10,7 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `messageBatchID: string`
 
@@ -20,7 +20,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `MessageBatchIndividualResponse`
 
@@ -36,7 +36,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -49,7 +49,9 @@ $betaMessageBatchIndividualResponse = $client
   ->beta
   ->messages
   ->batches
-  ->resultsStream('message_batch_id', betas: ['message-batches-2024-09-24']);
+  ->resultsStream(
+  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+);
 
 var_dump($betaMessageBatchIndividualResponse);
 ```

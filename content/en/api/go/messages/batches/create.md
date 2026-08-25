@@ -1,8 +1,8 @@
-## Create a Message Batch
+# Create a Message Batch
 
 `client.Messages.Batches.New(ctx, params) (*MessageBatch, error)`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -10,7 +10,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `params MessageBatchNewParams`
 
@@ -18,11 +18,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Body param: List of requests for prompt completion. Each is an individual request to create a Message.
 
+    maxItems: 100000, minItems: 1
+
     - `CustomID string`
 
       Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
 
       Must be unique for each request within the Message Batch.
+
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
 
     - `Params MessageBatchNewParamsRequestParams`
 
@@ -39,6 +43,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
         Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+        minimum: 0
 
       - `Messages []MessageParamResp`
 
@@ -99,19 +105,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Text string`
 
+                minLength: 1
+
               - `Type Text`
 
-                - `const TextText Text = "text"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
                 - `Type Ephemeral`
 
-                  - `const EphemeralEphemeral Ephemeral = "ephemeral"`
-
-                - `TTL CacheControlEphemeralTTL`
+                - `TTL CacheControlEphemeralTTL Optional`
 
                   The time-to-live for the cache control breakpoint.
 
@@ -126,7 +130,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `const CacheControlEphemeralTTLTTL1h CacheControlEphemeralTTL = "1h"`
 
-              - `Citations []TextCitationParamUnionResp`
+              - `Citations []TextCitationParamUnionResp Optional`
 
                 - `type CitationCharLocationParamResp struct{…}`
 
@@ -134,15 +138,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `DocumentIndex int64`
 
+                    minimum: 0
+
                   - `DocumentTitle string`
+
+                    maxLength: 500, minLength: 1
 
                   - `EndCharIndex int64`
 
                   - `StartCharIndex int64`
 
-                  - `Type CharLocation`
+                    minimum: 0
 
-                    - `const CharLocationCharLocation CharLocation = "char_location"`
+                  - `Type CharLocation`
 
                 - `type CitationPageLocationParamResp struct{…}`
 
@@ -150,15 +158,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `DocumentIndex int64`
 
+                    minimum: 0
+
                   - `DocumentTitle string`
+
+                    maxLength: 500, minLength: 1
 
                   - `EndPageNumber int64`
 
                   - `StartPageNumber int64`
 
-                  - `Type PageLocation`
+                    minimum: 1
 
-                    - `const PageLocationPageLocation PageLocation = "page_location"`
+                  - `Type PageLocation`
 
                 - `type CitationContentBlockLocationParamResp struct{…}`
 
@@ -170,7 +182,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `DocumentIndex int64`
 
+                    minimum: 0
+
                   - `DocumentTitle string`
+
+                    maxLength: 500, minLength: 1
 
                   - `EndBlockIndex int64`
 
@@ -182,9 +198,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     0-based index of the first cited block in the source's `content` array.
 
-                  - `Type ContentBlockLocation`
+                    minimum: 0
 
-                    - `const ContentBlockLocationContentBlockLocation ContentBlockLocation = "content_block_location"`
+                  - `Type ContentBlockLocation`
 
                 - `type CitationWebSearchResultLocationParamResp struct{…}`
 
@@ -194,11 +210,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Title string`
 
+                    maxLength: 512, minLength: 1
+
                   - `Type WebSearchResultLocation`
 
-                    - `const WebSearchResultLocationWebSearchResultLocation WebSearchResultLocation = "web_search_result_location"`
-
                   - `URL string`
+
+                    minLength: 1
 
                 - `type CitationSearchResultLocationParamResp struct{…}`
 
@@ -220,17 +238,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                    minimum: 0
+
                   - `Source string`
 
                   - `StartBlockIndex int64`
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `Title string`
 
                   - `Type SearchResultLocation`
-
-                    - `const SearchResultLocationSearchResultLocation SearchResultLocation = "search_result_location"`
 
             - `type ImageBlockParamResp struct{…}`
 
@@ -239,6 +259,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `type Base64ImageSource struct{…}`
 
                   - `Data string`
+
+                    format: byte
 
                   - `MediaType Base64ImageSourceMediaType`
 
@@ -252,23 +274,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type Base64`
 
-                    - `const Base64Base64 Base64 = "base64"`
-
                 - `type URLImageSource struct{…}`
 
                   - `Type URL`
 
-                    - `const URLURL URL = "url"`
-
                   - `URL string`
+
+                - `type FileImageSource struct{…}`
+
+                  - `FileID string`
+
+                  - `Type File`
 
               - `Type Image`
 
-                - `const ImageImage Image = "image"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
+
+              - `Transformations ImageTransformationsParamResp Optional`
+
+                Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+                - `OversizedImage ImageTransformationsParamOversizedImage Optional`
+
+                  What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                  - `const ImageTransformationsParamOversizedImageDownsize ImageTransformationsParamOversizedImage = "downsize"`
+
+                  - `const ImageTransformationsParamOversizedImageError ImageTransformationsParamOversizedImage = "error"`
 
             - `type DocumentBlockParamResp struct{…}`
 
@@ -278,13 +312,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Data string`
 
+                    format: byte
+
                   - `MediaType ApplicationPDF`
 
-                    - `const ApplicationPDFApplicationPDF ApplicationPDF = "application/pdf"`
-
                   - `Type Base64`
-
-                    - `const Base64Base64 Base64 = "base64"`
 
                 - `type PlainTextSource struct{…}`
 
@@ -292,11 +324,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `MediaType TextPlain`
 
-                    - `const TextPlainTextPlain TextPlain = "text/plain"`
-
                   - `Type Text`
-
-                    - `const TextText Text = "text"`
 
                 - `type ContentBlockSource struct{…}`
 
@@ -312,31 +340,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type Content`
 
-                    - `const ContentContent Content = "content"`
-
                 - `type URLPDFSource struct{…}`
 
                   - `Type URL`
 
-                    - `const URLURL URL = "url"`
-
                   - `URL string`
+
+                - `type FileDocumentSource struct{…}`
+
+                  - `FileID string`
+
+                  - `Type File`
 
               - `Type Document`
 
-                - `const DocumentDocument Document = "document"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Citations CitationsConfigParamResp`
+              - `Citations CitationsConfigParamResp Optional`
 
-                - `Enabled bool`
+                - `Enabled bool Optional`
 
-              - `Context string`
+              - `Context string Optional`
 
-              - `Title string`
+                minLength: 1
+
+              - `Title string Optional`
+
+                maxLength: 500, minLength: 1
 
             - `type SearchResultBlockParamResp struct{…}`
 
@@ -344,13 +376,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Text string`
 
+                  minLength: 1
+
                 - `Type Text`
 
-                - `CacheControl CacheControlEphemeral`
+                - `CacheControl CacheControlEphemeral Optional`
 
                   Create a cache control breakpoint at this content block.
 
-                - `Citations []TextCitationParamUnionResp`
+                - `Citations []TextCitationParamUnionResp Optional`
 
               - `Source string`
 
@@ -358,49 +392,53 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Type SearchResult`
 
-                - `const SearchResultSearchResult SearchResult = "search_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Citations CitationsConfigParamResp`
+              - `Citations CitationsConfigParamResp Optional`
 
             - `type ThinkingBlockParamResp struct{…}`
 
               - `Signature string`
 
+                The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+                Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
               - `Thinking string`
 
-              - `Type Thinking`
+                The `thinking` text of this block as returned by the API.
 
-                - `const ThinkingThinking Thinking = "thinking"`
+              - `Type Thinking`
 
             - `type RedactedThinkingBlockParamResp struct{…}`
 
               - `Data string`
 
-              - `Type RedactedThinking`
+                The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-                - `const RedactedThinkingRedactedThinking RedactedThinking = "redacted_thinking"`
+              - `Type RedactedThinking`
 
             - `type ToolUseBlockParamResp struct{…}`
 
               - `ID string`
 
+                pattern: ^[a-zA-Z0-9_-]+$
+
               - `Input map[string, any]`
 
               - `Name string`
 
+                maxLength: 200, minLength: 1
+
               - `Type ToolUse`
 
-                - `const ToolUseToolUse ToolUse = "tool_use"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller ToolUseBlockParamCallerUnionResp`
+              - `Caller ToolUseBlockParamCallerUnionResp Optional`
 
                 Tool invocation directly from the model.
 
@@ -410,39 +448,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type Direct`
 
-                    - `const DirectDirect Direct = "direct"`
-
                 - `type ServerToolCaller struct{…}`
 
                   Tool invocation generated by a server-side tool.
 
                   - `ToolID string`
 
-                  - `Type CodeExecution20250825`
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                    - `const CodeExecution20250825CodeExecution20250825 CodeExecution20250825 = "code_execution_20250825"`
+                  - `Type CodeExecution20250825`
 
                 - `type ServerToolCaller20260120 struct{…}`
 
                   - `ToolID string`
 
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
                   - `Type CodeExecution20260120`
 
-                    - `const CodeExecution20260120CodeExecution20260120 CodeExecution20260120 = "code_execution_20260120"`
+              - `ToolsetName string Optional`
+
+                For a toolset member tool_use, the toolset family this member belongs to.
+
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
             - `type ToolResultBlockParamResp struct{…}`
 
               - `ToolUseID string`
 
+                pattern: ^[a-zA-Z0-9_-]+$
+
               - `Type ToolResult`
 
-                - `const ToolResultToolResult ToolResult = "tool_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Content []ToolResultBlockParamContentUnionResp`
+              - `Content []ToolResultBlockParamContentUnionResp Optional`
 
                 - `[]ToolResultBlockParamContentUnionResp`
 
@@ -460,19 +502,170 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ToolName string`
 
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                     - `Type ToolReference`
 
-                      - `const ToolReferenceToolReference ToolReference = "tool_reference"`
-
-                    - `CacheControl CacheControlEphemeral`
+                    - `CacheControl CacheControlEphemeral Optional`
 
                       Create a cache control breakpoint at this content block.
 
-              - `IsError bool`
+                  - `type BrowserStateBlockParamResp struct{…}`
+
+                    The caller's browser state after a browser toolset member call —
+                    the full inventory of open tabs, which tab is active, and any side
+                    effects (tabs opened, download state changes) the call produced.
+
+                    At most one per `tool_result`, only on a non-error result answering a
+                    browser toolset member `tool_use`. The server renders the
+                    model-visible text from it; the model never sees the raw fields.
+
+                    - `Tabs []BrowserStateTabEntry`
+
+                      All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                      maxItems: 100
+
+                      - `TabID string`
+
+                        The caller-assigned identifier for this tab, unique within the inventory.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `Title string`
+
+                        The title of the page the tab is showing. May be empty.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `URL string`
+
+                        The URL of the page the tab is showing. May be empty.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `Active bool Optional`
+
+                        Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+                    - `Type BrowserState`
+
+                    - `CacheControl CacheControlEphemeral Optional`
+
+                      Create a cache control breakpoint at this content block.
+
+                    - `StateChanges []BrowserStateChangeUnion Optional`
+
+                      Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                      maxItems: 200, minItems: 1
+
+                      - `type BrowserStateChangeTabOpened struct{…}`
+
+                        A tab this call's execution opened that remains open at its end —
+                        the creation delta of the `tabs` inventory, not an event log.
+
+                        Carries only the `tab_id`; the tab's `title` and `url` live on its
+                        `tabs` entry, which must include the same `tab_id`. A tab opened
+                        during a failed call gets no deferred `tab_opened`; it simply appears
+                        in the next result's `tabs` inventory.
+
+                        - `TabID string`
+
+                          The `tab_id` of the opened tab, present in `tabs`.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Type TabOpened`
+
+                      - `type BrowserStateChangeDownloadStarted struct{…}`
+
+                        A file download that started during this call.
+
+                        - `DownloadID string`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Type DownloadStarted`
+
+                        - `URL string`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type BrowserStateChangeDownloadCompleted struct{…}`
+
+                        A file download that finished during this call, reported with the
+                        same `download_id` as its `download_started` — or without a prior
+                        `download_started`, when the download finished during the call that
+                        started it (at most one state change per `download_id` per result).
+
+                        - `DownloadID string`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Type DownloadCompleted`
+
+                        - `URL string`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Path string Optional`
+
+                          Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                        - `SizeBytes int64 Optional`
+
+                          The completed download's size.
+
+                          minimum: 0
+
+                      - `type BrowserStateChangeDownloadFailed struct{…}`
+
+                        A file download that failed — or was cancelled — during this call.
+
+                        - `DownloadID string`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Type DownloadFailed`
+
+                        - `URL string`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `Error string Optional`
+
+                          The failure or cancellation detail, when known.
+
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+              - `IsError bool Optional`
+
+              - `ToolsetName string Optional`
+
+                For a toolset member tool_result, the toolset family of the paired tool_use.
+
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
             - `type ServerToolUseBlockParamResp struct{…}`
 
               - `ID string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `Input map[string, any]`
 
@@ -494,13 +687,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Type ServerToolUse`
 
-                - `const ServerToolUseServerToolUse ServerToolUse = "server_tool_use"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller ServerToolUseBlockParamCallerUnionResp`
+              - `Caller ServerToolUseBlockParamCallerUnionResp Optional`
 
                 Tool invocation directly from the model.
 
@@ -526,11 +717,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type WebSearchResult`
 
-                    - `const WebSearchResultWebSearchResult WebSearchResult = "web_search_result"`
-
                   - `URL string`
 
-                  - `PageAge string`
+                  - `PageAge string Optional`
 
                 - `type WebSearchToolRequestError struct{…}`
 
@@ -550,19 +739,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type WebSearchToolResultError`
 
-                    - `const WebSearchToolResultErrorWebSearchToolResultError WebSearchToolResultError = "web_search_tool_result_error"`
-
               - `ToolUseID string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `Type WebSearchToolResult`
 
-                - `const WebSearchToolResultWebSearchToolResult WebSearchToolResult = "web_search_tool_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller WebSearchToolResultBlockParamCallerUnionResp`
+              - `Caller WebSearchToolResultBlockParamCallerUnionResp Optional`
 
                 Tool invocation directly from the model.
 
@@ -604,35 +791,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type WebFetchToolResultError`
 
-                    - `const WebFetchToolResultErrorWebFetchToolResultError WebFetchToolResultError = "web_fetch_tool_result_error"`
-
                 - `type WebFetchBlockParamResp struct{…}`
 
                   - `Content DocumentBlockParamResp`
 
                   - `Type WebFetchResult`
 
-                    - `const WebFetchResultWebFetchResult WebFetchResult = "web_fetch_result"`
-
                   - `URL string`
 
                     Fetched content URL
 
-                  - `RetrievedAt string`
+                  - `RetrievedAt string Optional`
 
                     ISO 8601 timestamp when the content was retrieved
 
               - `ToolUseID string`
 
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
               - `Type WebFetchToolResult`
 
-                - `const WebFetchToolResultWebFetchToolResult WebFetchToolResult = "web_fetch_tool_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
-              - `Caller WebFetchToolResultBlockParamCallerUnionResp`
+              - `Caller WebFetchToolResultBlockParamCallerUnionResp Optional`
 
                 Tool invocation directly from the model.
 
@@ -666,8 +849,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type CodeExecutionToolResultError`
 
-                    - `const CodeExecutionToolResultErrorCodeExecutionToolResultError CodeExecutionToolResultError = "code_execution_tool_result_error"`
-
                 - `type CodeExecutionResultBlockParamResp struct{…}`
 
                   - `Content []CodeExecutionOutputBlockParamResp`
@@ -676,8 +857,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `Type CodeExecutionOutput`
 
-                      - `const CodeExecutionOutputCodeExecutionOutput CodeExecutionOutput = "code_execution_output"`
-
                   - `ReturnCode int64`
 
                   - `Stderr string`
@@ -685,8 +864,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `Stdout string`
 
                   - `Type CodeExecutionResult`
-
-                    - `const CodeExecutionResultCodeExecutionResult CodeExecutionResult = "code_execution_result"`
 
                 - `type EncryptedCodeExecutionResultBlockParamResp struct{…}`
 
@@ -706,15 +883,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type EncryptedCodeExecutionResult`
 
-                    - `const EncryptedCodeExecutionResultEncryptedCodeExecutionResult EncryptedCodeExecutionResult = "encrypted_code_execution_result"`
-
               - `ToolUseID string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `Type CodeExecutionToolResult`
 
-                - `const CodeExecutionToolResultCodeExecutionToolResult CodeExecutionToolResult = "code_execution_tool_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
@@ -738,8 +913,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type BashCodeExecutionToolResultError`
 
-                    - `const BashCodeExecutionToolResultErrorBashCodeExecutionToolResultError BashCodeExecutionToolResultError = "bash_code_execution_tool_result_error"`
-
                 - `type BashCodeExecutionResultBlockParamResp struct{…}`
 
                   - `Content []BashCodeExecutionOutputBlockParamResp`
@@ -747,8 +920,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                     - `FileID string`
 
                     - `Type BashCodeExecutionOutput`
-
-                      - `const BashCodeExecutionOutputBashCodeExecutionOutput BashCodeExecutionOutput = "bash_code_execution_output"`
 
                   - `ReturnCode int64`
 
@@ -758,15 +929,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type BashCodeExecutionResult`
 
-                    - `const BashCodeExecutionResultBashCodeExecutionResult BashCodeExecutionResult = "bash_code_execution_result"`
-
               - `ToolUseID string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `Type BashCodeExecutionToolResult`
 
-                - `const BashCodeExecutionToolResultBashCodeExecutionToolResult BashCodeExecutionToolResult = "bash_code_execution_tool_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
@@ -790,9 +959,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type TextEditorCodeExecutionToolResultError`
 
-                    - `const TextEditorCodeExecutionToolResultErrorTextEditorCodeExecutionToolResultError TextEditorCodeExecutionToolResultError = "text_editor_code_execution_tool_result_error"`
-
-                  - `ErrorMessage string`
+                  - `ErrorMessage string Optional`
 
                 - `type TextEditorCodeExecutionViewResultBlockParamResp struct{…}`
 
@@ -808,13 +975,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type TextEditorCodeExecutionViewResult`
 
-                    - `const TextEditorCodeExecutionViewResultTextEditorCodeExecutionViewResult TextEditorCodeExecutionViewResult = "text_editor_code_execution_view_result"`
+                  - `NumLines int64 Optional`
 
-                  - `NumLines int64`
+                  - `StartLine int64 Optional`
 
-                  - `StartLine int64`
-
-                  - `TotalLines int64`
+                  - `TotalLines int64 Optional`
 
                 - `type TextEditorCodeExecutionCreateResultBlockParamResp struct{…}`
 
@@ -822,31 +987,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type TextEditorCodeExecutionCreateResult`
 
-                    - `const TextEditorCodeExecutionCreateResultTextEditorCodeExecutionCreateResult TextEditorCodeExecutionCreateResult = "text_editor_code_execution_create_result"`
-
                 - `type TextEditorCodeExecutionStrReplaceResultBlockParamResp struct{…}`
 
                   - `Type TextEditorCodeExecutionStrReplaceResult`
 
-                    - `const TextEditorCodeExecutionStrReplaceResultTextEditorCodeExecutionStrReplaceResult TextEditorCodeExecutionStrReplaceResult = "text_editor_code_execution_str_replace_result"`
+                  - `Lines []string Optional`
 
-                  - `Lines []string`
+                  - `NewLines int64 Optional`
 
-                  - `NewLines int64`
+                  - `NewStart int64 Optional`
 
-                  - `NewStart int64`
+                  - `OldLines int64 Optional`
 
-                  - `OldLines int64`
-
-                  - `OldStart int64`
+                  - `OldStart int64 Optional`
 
               - `ToolUseID string`
 
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
               - `Type TextEditorCodeExecutionToolResult`
 
-                - `const TextEditorCodeExecutionToolResultTextEditorCodeExecutionToolResult TextEditorCodeExecutionToolResult = "text_editor_code_execution_tool_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
@@ -868,9 +1029,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type ToolSearchToolResultError`
 
-                    - `const ToolSearchToolResultErrorToolSearchToolResultError ToolSearchToolResultError = "tool_search_tool_result_error"`
-
-                  - `ErrorMessage string`
+                  - `ErrorMessage string Optional`
 
                 - `type ToolSearchToolSearchResultBlockParamResp struct{…}`
 
@@ -878,23 +1037,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `ToolName string`
 
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                     - `Type ToolReference`
 
-                    - `CacheControl CacheControlEphemeral`
+                    - `CacheControl CacheControlEphemeral Optional`
 
                       Create a cache control breakpoint at this content block.
 
                   - `Type ToolSearchToolSearchResult`
 
-                    - `const ToolSearchToolSearchResultToolSearchToolSearchResult ToolSearchToolSearchResult = "tool_search_tool_search_result"`
-
               - `ToolUseID string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `Type ToolSearchToolResult`
 
-                - `const ToolSearchToolResultToolSearchToolResult ToolSearchToolResult = "tool_search_tool_result"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
@@ -907,38 +1066,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Type ContainerUpload`
 
-                - `const ContainerUploadContainerUpload ContainerUpload = "container_upload"`
-
-              - `CacheControl CacheControlEphemeral`
-
-                Create a cache control breakpoint at this content block.
-
-            - `type MidConversationSystemBlockParamResp struct{…}`
-
-              System instructions that appear mid-conversation.
-
-              Use this block to provide or update system-level instructions at a specific
-              point in the conversation, rather than only via the top-level `system` parameter.
-
-              - `Content []TextBlockParamResp`
-
-                System instruction text blocks.
-
-                - `Text string`
-
-                - `Type Text`
-
-                - `CacheControl CacheControlEphemeral`
-
-                  Create a cache control breakpoint at this content block.
-
-                - `Citations []TextCitationParamUnionResp`
-
-              - `Type MidConvSystem`
-
-                - `const MidConvSystemMidConvSystem MidConvSystem = "mid_conv_system"`
-
-              - `CacheControl CacheControlEphemeral`
+              - `CacheControl CacheControlEphemeral Optional`
 
                 Create a cache control breakpoint at this content block.
 
@@ -974,13 +1102,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Most capable model for cybersecurity and biology research
 
+          - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+
+            Powerful intelligence for long-running agents and coding
+
           - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
@@ -988,7 +1120,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
@@ -1004,11 +1136,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
@@ -1018,43 +1150,73 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             High-performance model for agents and coding
 
-          - `const ModelClaudeOpus4_1 Model = "claude-opus-4-1"`
-
-            Exceptional model for specialized complex tasks
-
-          - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
-
-            Exceptional model for specialized complex tasks
-
         - `string`
 
-      - `CacheControl CacheControlEphemeral`
+      - `CacheControl CacheControlEphemeral Optional`
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-      - `Container string`
+      - `Container MessageCreateParamsContainerUnionResp Optional`
 
         Container identifier for reuse across requests.
 
-      - `InferenceGeo string`
+        - `type ContainerParamsResp struct{…}`
+
+          Container parameters with skills to be loaded.
+
+          - `ID string Optional`
+
+            Container id
+
+          - `Skills []SkillParamsResp Optional`
+
+            List of skills to load in the container
+
+            maxItems: 20
+
+            - `SkillID string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
+
+            - `Type SkillParamsType`
+
+              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+              - `const SkillParamsTypeAnthropic SkillParamsType = "anthropic"`
+
+              - `const SkillParamsTypeCustom SkillParamsType = "custom"`
+
+            - `Version string Optional`
+
+              Skill version or 'latest' for most recent version
+
+              maxLength: 64, minLength: 1
+
+        - `string`
+
+      - `InferenceGeo string Optional`
 
         Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
 
-      - `Metadata Metadata`
+      - `Metadata Metadata Optional`
 
         An object describing metadata about the request.
 
-        - `UserID string`
+        - `UserID string Optional`
 
           An external identifier for the user who is associated with the request.
 
           This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
-      - `OutputConfig OutputConfig`
+          maxLength: 512
+
+      - `OutputConfig OutputConfig Optional`
 
         Configuration options for the model's output, such as the output format.
 
-        - `Effort OutputConfigEffort`
+        - `Effort OutputConfigEffort Optional`
 
           All possible effort levels.
 
@@ -1068,7 +1230,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `const OutputConfigEffortMax OutputConfigEffort = "max"`
 
-        - `Format JSONOutputFormat`
+        - `Format JSONOutputFormat Optional`
 
           A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -1078,9 +1240,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type JSONSchema`
 
-            - `const JSONSchemaJSONSchema JSONSchema = "json_schema"`
-
-      - `ServiceTier string`
+      - `ServiceTier string Optional`
 
         Determines whether to use priority capacity (if available) or standard capacity for this request.
 
@@ -1090,7 +1250,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `const MessageBatchNewParamsRequestParamsServiceTierStandardOnly MessageBatchNewParamsRequestParamsServiceTier = "standard_only"`
 
-      - `StopSequences []string`
+      - `StopSequences []string Optional`
 
         Custom text sequences that will cause the model to stop generating.
 
@@ -1098,13 +1258,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         If you want the model to stop generating when it encounters custom strings of text, you can use the `stop_sequences` parameter. If the model encounters one of the custom sequences, the response `stop_reason` value will be `"stop_sequence"` and the response `stop_sequence` value will contain the matched stop sequence.
 
-      - `Stream bool`
+      - `Stream bool Optional`
 
         Whether to incrementally stream the response using server-sent events.
 
         See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-      - `System []TextBlockParamResp`
+      - `System []TextBlockParamResp Optional`
 
         System prompt.
 
@@ -1114,23 +1274,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Text string`
 
+            minLength: 1
+
           - `Type Text`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations []TextCitationParamUnionResp`
+          - `Citations []TextCitationParamUnionResp Optional`
 
-      - `Temperature float64`
-
-        Amount of randomness injected into the response.
-
-        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-      - `Thinking ThinkingConfigParamUnionResp`
+      - `Thinking ThinkingConfigParamUnionResp Optional`
 
         Configuration for enabling Claude's extended thinking.
 
@@ -1148,11 +1302,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
+            minimum: 1024
+
           - `Type Enabled`
 
-            - `const EnabledEnabled Enabled = "enabled"`
-
-          - `Display ThinkingConfigEnabledDisplay`
+          - `Display ThinkingConfigEnabledDisplay Optional`
 
             Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -1164,15 +1318,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type Disabled`
 
-            - `const DisabledDisabled Disabled = "disabled"`
-
         - `type ThinkingConfigAdaptive struct{…}`
 
           - `Type Adaptive`
 
-            - `const AdaptiveAdaptive Adaptive = "adaptive"`
-
-          - `Display ThinkingConfigAdaptiveDisplay`
+          - `Display ThinkingConfigAdaptiveDisplay Optional`
 
             Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
@@ -1180,7 +1330,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ThinkingConfigAdaptiveDisplayOmitted ThinkingConfigAdaptiveDisplay = "omitted"`
 
-      - `ToolChoice ToolChoiceUnion`
+      - `ToolChoice ToolChoiceUnion Optional`
 
         How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
@@ -1190,9 +1340,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type Auto`
 
-            - `const AutoAuto Auto = "auto"`
-
-          - `DisableParallelToolUse bool`
+          - `DisableParallelToolUse bool Optional`
 
             Whether to disable parallel tool use.
 
@@ -1204,9 +1352,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type Any`
 
-            - `const AnyAny Any = "any"`
-
-          - `DisableParallelToolUse bool`
+          - `DisableParallelToolUse bool Optional`
 
             Whether to disable parallel tool use.
 
@@ -1222,9 +1368,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type Tool`
 
-            - `const ToolTool Tool = "tool"`
-
-          - `DisableParallelToolUse bool`
+          - `DisableParallelToolUse bool Optional`
 
             Whether to disable parallel tool use.
 
@@ -1236,9 +1380,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type None`
 
-            - `const NoneNone None = "none"`
-
-      - `Tools []ToolUnion`
+      - `Tools []ToolUnion Optional`
 
         Definitions of tools that the model may use.
 
@@ -1312,11 +1454,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type Object`
 
-              - `const ObjectObject Object = "object"`
+            - `Properties map[string, any] Optional`
 
-            - `Properties map[string, any]`
-
-            - `Required []string`
+            - `Required []string Optional`
 
           - `Name string`
 
@@ -1324,7 +1464,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `AllowedCallers []string`
+            maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+
+          - `AllowedCallers []string Optional`
 
             - `const ToolAllowedCallerDirect ToolAllowedCaller = "direct"`
 
@@ -1334,33 +1476,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolAllowedCallerCodeExecution20260521 ToolAllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `Description string`
+          - `Description string Optional`
 
             Description of what this tool does.
 
             Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
 
-          - `EagerInputStreaming bool`
+          - `EagerInputStreaming bool Optional`
 
             Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
 
-          - `InputExamples []map[string, any]`
+          - `InputExamples []map[string, any] Optional`
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `Type ToolType`
-
-            - `const ToolTypeCustom ToolType = "custom"`
+          - `Type ToolType Optional`
 
         - `type ToolBash20250124 struct{…}`
 
@@ -1370,13 +1510,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const BashBash Bash = "bash"`
-
           - `Type Bash20250124`
 
-            - `const Bash20250124Bash20250124 Bash20250124 = "bash_20250124"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const ToolBash20250124AllowedCallerDirect ToolBash20250124AllowedCaller = "direct"`
 
@@ -1386,17 +1522,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolBash20250124AllowedCallerCodeExecution20260521 ToolBash20250124AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any]`
+          - `InputExamples []map[string, any] Optional`
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1408,13 +1544,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
-
           - `Type CodeExecution20250522`
 
-            - `const CodeExecution20250522CodeExecution20250522 CodeExecution20250522 = "code_execution_20250522"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const CodeExecutionTool20250522AllowedCallerDirect CodeExecutionTool20250522AllowedCaller = "direct"`
 
@@ -1424,15 +1556,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20250522AllowedCallerCodeExecution20260521 CodeExecutionTool20250522AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1444,13 +1576,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
-
           - `Type CodeExecution20250825`
 
-            - `const CodeExecution20250825CodeExecution20250825 CodeExecution20250825 = "code_execution_20250825"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const CodeExecutionTool20250825AllowedCallerDirect CodeExecutionTool20250825AllowedCaller = "direct"`
 
@@ -1460,15 +1588,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20250825AllowedCallerCodeExecution20260521 CodeExecutionTool20250825AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1482,13 +1610,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
-
           - `Type CodeExecution20260120`
 
-            - `const CodeExecution20260120CodeExecution20260120 CodeExecution20260120 = "code_execution_20260120"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const CodeExecutionTool20260120AllowedCallerDirect CodeExecutionTool20260120AllowedCaller = "direct"`
 
@@ -1498,15 +1622,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20260120AllowedCallerCodeExecution20260521 CodeExecutionTool20260120AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1520,13 +1644,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const CodeExecutionCodeExecution CodeExecution = "code_execution"`
-
           - `Type CodeExecution20260521`
 
-            - `const CodeExecution20260521CodeExecution20260521 CodeExecution20260521 = "code_execution_20260521"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const CodeExecutionTool20260521AllowedCallerDirect CodeExecutionTool20260521AllowedCaller = "direct"`
 
@@ -1536,17 +1656,421 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const CodeExecutionTool20260521AllowedCallerCodeExecution20260521 CodeExecutionTool20260521AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
+
+        - `type BrowserToolset20260801 struct{…}`
+
+          The browser toolset: a single `tools[]` entry (carrying no
+          `name`) that declares the browser tool family. The model is served
+          the family's tool with any members disabled via `configs` removed
+          from its schema.
+
+          - `Type BrowserToolset20260801`
+
+          - `AllowedCallers []string Optional`
+
+            - `const BrowserToolset20260801AllowedCallerDirect BrowserToolset20260801AllowedCaller = "direct"`
+
+            - `const BrowserToolset20260801AllowedCallerCodeExecution20250825 BrowserToolset20260801AllowedCaller = "code_execution_20250825"`
+
+            - `const BrowserToolset20260801AllowedCallerCodeExecution20260120 BrowserToolset20260801AllowedCaller = "code_execution_20260120"`
+
+            - `const BrowserToolset20260801AllowedCallerCodeExecution20260521 BrowserToolset20260801AllowedCaller = "code_execution_20260521"`
+
+          - `CacheControl CacheControlEphemeral Optional`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Configs BrowserToolsetConfigs Optional`
+
+            Per-member configuration for `browser_toolset_20260801`: one
+            optional field per member tool, keyed by the member name — the same
+            name the member's `tool_use` blocks carry. Every member is an
+            accepted key, and a member's defaults apply wherever its key is
+            absent. Unknown keys are rejected: the field set is this toolset
+            version's complete member set.
+
+            - `CloseTab BrowserCloseTabConfig Optional`
+
+              `close_tab`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `DoubleClick BrowserDoubleClickConfig Optional`
+
+              `double_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `FileUpload BrowserFileUploadConfig Optional`
+
+              `file_upload`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Find BrowserFindConfig Optional`
+
+              `find`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `FormInput BrowserFormInputConfig Optional`
+
+              `form_input`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `GetPageText BrowserGetPageTextConfig Optional`
+
+              `get_page_text`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `HoldKey BrowserHoldKeyConfig Optional`
+
+              `hold_key`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Hover BrowserHoverConfig Optional`
+
+              `hover`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `JavascriptExec BrowserJavascriptExecConfig Optional`
+
+              `javascript_exec`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Key BrowserKeyConfig Optional`
+
+              `key`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftClick BrowserLeftClickConfig Optional`
+
+              `left_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftClickDrag BrowserLeftClickDragConfig Optional`
+
+              `left_click_drag`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftMouseDown BrowserLeftMouseDownConfig Optional`
+
+              `left_mouse_down`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftMouseUp BrowserLeftMouseUpConfig Optional`
+
+              `left_mouse_up`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `ListTabs BrowserListTabsConfig Optional`
+
+              `list_tabs`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `MiddleClick BrowserMiddleClickConfig Optional`
+
+              `middle_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `MouseMove BrowserMouseMoveConfig Optional`
+
+              `mouse_move`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Navigate BrowserNavigateConfig Optional`
+
+              `navigate`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `NewTab BrowserNewTabConfig Optional`
+
+              `new_tab`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `ReadConsole BrowserReadConsoleConfig Optional`
+
+              `read_console`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `ReadNetwork BrowserReadNetworkConfig Optional`
+
+              `read_network`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `ReadPage BrowserReadPageConfig Optional`
+
+              `read_page`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `RightClick BrowserRightClickConfig Optional`
+
+              `right_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Screenshot BrowserScreenshotConfig Optional`
+
+              `screenshot`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Scroll BrowserScrollConfig Optional`
+
+              `scroll`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `ScrollTo BrowserScrollToConfig Optional`
+
+              `scroll_to`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `SwitchTab BrowserSwitchTabConfig Optional`
+
+              `switch_tab`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `TripleClick BrowserTripleClickConfig Optional`
+
+              `triple_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Type BrowserTypeConfig Optional`
+
+              `type`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Wait BrowserWaitConfig Optional`
+
+              `wait`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Zoom BrowserZoomConfig Optional`
+
+              `zoom`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
         - `type MemoryTool20250818 struct{…}`
 
@@ -1556,13 +2080,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const MemoryMemory Memory = "memory"`
-
           - `Type Memory20250818`
 
-            - `const Memory20250818Memory20250818 Memory20250818 = "memory_20250818"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const MemoryTool20250818AllowedCallerDirect MemoryTool20250818AllowedCaller = "direct"`
 
@@ -1572,19 +2092,259 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const MemoryTool20250818AllowedCallerCodeExecution20260521 MemoryTool20250818AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any]`
+          - `InputExamples []map[string, any] Optional`
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
+
+        - `type ComputerToolset20260801 struct{…}`
+
+          The computer toolset: a single `tools[]` entry (carrying no
+          `name`) that declares the computer tool family. The model is
+          served the family's tool with any members disabled via `configs`
+          removed from its schema. Every member is enabled by default, zoom
+          included. The single-tool options `display_number` and
+          `enable_zoom` are not fields of a toolset entry — it carries only
+          `type`, `configs`, and `cache_control`; zoom is controlled
+          via `configs.zoom.enabled`.
+
+          - `Type ComputerToolset20260801`
+
+          - `AllowedCallers []string Optional`
+
+            - `const ComputerToolset20260801AllowedCallerDirect ComputerToolset20260801AllowedCaller = "direct"`
+
+            - `const ComputerToolset20260801AllowedCallerCodeExecution20250825 ComputerToolset20260801AllowedCaller = "code_execution_20250825"`
+
+            - `const ComputerToolset20260801AllowedCallerCodeExecution20260120 ComputerToolset20260801AllowedCaller = "code_execution_20260120"`
+
+            - `const ComputerToolset20260801AllowedCallerCodeExecution20260521 ComputerToolset20260801AllowedCaller = "code_execution_20260521"`
+
+          - `CacheControl CacheControlEphemeral Optional`
+
+            Create a cache control breakpoint at this content block.
+
+          - `Configs ComputerToolsetConfigs Optional`
+
+            Per-member configuration for `computer_toolset_20260801`: one
+            optional field per member tool, keyed by the member name — the same
+            name the member's `tool_use` blocks carry. Every member is an
+            accepted key, and a member's defaults apply wherever its key is
+            absent. Unknown keys are rejected: the field set is this toolset
+            version's complete member set.
+
+            - `CursorPosition ComputerCursorPositionConfig Optional`
+
+              `cursor_position`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `DoubleClick ComputerDoubleClickConfig Optional`
+
+              `double_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `HoldKey ComputerHoldKeyConfig Optional`
+
+              `hold_key`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Key ComputerKeyConfig Optional`
+
+              `key`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftClick ComputerLeftClickConfig Optional`
+
+              `left_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftClickDrag ComputerLeftClickDragConfig Optional`
+
+              `left_click_drag`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftMouseDown ComputerLeftMouseDownConfig Optional`
+
+              `left_mouse_down`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `LeftMouseUp ComputerLeftMouseUpConfig Optional`
+
+              `left_mouse_up`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `MiddleClick ComputerMiddleClickConfig Optional`
+
+              `middle_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `MouseMove ComputerMouseMoveConfig Optional`
+
+              `mouse_move`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `RightClick ComputerRightClickConfig Optional`
+
+              `right_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Screenshot ComputerScreenshotConfig Optional`
+
+              `screenshot`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Scroll ComputerScrollConfig Optional`
+
+              `scroll`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `TripleClick ComputerTripleClickConfig Optional`
+
+              `triple_click`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Type ComputerTypeConfig Optional`
+
+              `type`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Wait ComputerWaitConfig Optional`
+
+              `wait`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `Zoom ComputerZoomConfig Optional`
+
+              `zoom`'s config overrides.
+
+              - `DeferLoading bool Optional`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `Enabled bool Optional`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
         - `type ToolTextEditor20250124 struct{…}`
 
@@ -1594,13 +2354,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const StrReplaceEditorStrReplaceEditor StrReplaceEditor = "str_replace_editor"`
-
           - `Type TextEditor20250124`
 
-            - `const TextEditor20250124TextEditor20250124 TextEditor20250124 = "text_editor_20250124"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const ToolTextEditor20250124AllowedCallerDirect ToolTextEditor20250124AllowedCaller = "direct"`
 
@@ -1610,17 +2366,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolTextEditor20250124AllowedCallerCodeExecution20260521 ToolTextEditor20250124AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any]`
+          - `InputExamples []map[string, any] Optional`
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1632,13 +2388,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const StrReplaceBasedEditToolStrReplaceBasedEditTool StrReplaceBasedEditTool = "str_replace_based_edit_tool"`
-
           - `Type TextEditor20250429`
 
-            - `const TextEditor20250429TextEditor20250429 TextEditor20250429 = "text_editor_20250429"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const ToolTextEditor20250429AllowedCallerDirect ToolTextEditor20250429AllowedCaller = "direct"`
 
@@ -1648,17 +2400,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolTextEditor20250429AllowedCallerCodeExecution20260521 ToolTextEditor20250429AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any]`
+          - `InputExamples []map[string, any] Optional`
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1670,13 +2422,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const StrReplaceBasedEditToolStrReplaceBasedEditTool StrReplaceBasedEditTool = "str_replace_based_edit_tool"`
-
           - `Type TextEditor20250728`
 
-            - `const TextEditor20250728TextEditor20250728 TextEditor20250728 = "text_editor_20250728"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const ToolTextEditor20250728AllowedCallerDirect ToolTextEditor20250728AllowedCaller = "direct"`
 
@@ -1686,21 +2434,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolTextEditor20250728AllowedCallerCodeExecution20260521 ToolTextEditor20250728AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `InputExamples []map[string, any]`
+          - `InputExamples []map[string, any] Optional`
 
-          - `MaxCharacters int64`
+          - `MaxCharacters int64 Optional`
 
             Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
-          - `Strict bool`
+            minimum: 1
+
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1712,13 +2462,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const WebSearchWebSearch WebSearch = "web_search"`
-
           - `Type WebSearch20250305`
 
-            - `const WebSearch20250305WebSearch20250305 WebSearch20250305 = "web_search_20250305"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const WebSearchTool20250305AllowedCallerDirect WebSearchTool20250305AllowedCaller = "direct"`
 
@@ -1728,53 +2474,61 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebSearchTool20250305AllowedCallerCodeExecution20260521 WebSearchTool20250305AllowedCaller = "code_execution_20260521"`
 
-          - `AllowedDomains []string`
+          - `AllowedDomains []string Optional`
 
             If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-          - `BlockedDomains []string`
+          - `BlockedDomains []string Optional`
 
             If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `MaxUses int64`
+          - `MaxUses int64 Optional`
 
             Maximum number of times the tool can be used in the API request.
 
-          - `Strict bool`
+            exclusiveMinimum: 0
+
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UserLocation UserLocation`
+          - `UserLocation UserLocation Optional`
 
             Parameters for the user's location. Used to provide more relevant search results.
 
             - `Type Approximate`
 
-              - `const ApproximateApproximate Approximate = "approximate"`
-
-            - `City string`
+            - `City string Optional`
 
               The city of the user.
 
-            - `Country string`
+              maxLength: 255, minLength: 1
+
+            - `Country string Optional`
 
               The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
-            - `Region string`
+              maxLength: 2, minLength: 2
+
+            - `Region string Optional`
 
               The region of the user.
 
-            - `Timezone string`
+              maxLength: 255, minLength: 1
+
+            - `Timezone string Optional`
 
               The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+              maxLength: 255, minLength: 1
 
         - `type WebFetchTool20250910 struct{…}`
 
@@ -1784,13 +2538,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const WebFetchWebFetch WebFetch = "web_fetch"`
-
           - `Type WebFetch20250910`
 
-            - `const WebFetch20250910WebFetch20250910 WebFetch20250910 = "web_fetch_20250910"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const WebFetchTool20250910AllowedCallerDirect WebFetchTool20250910AllowedCaller = "direct"`
 
@@ -1800,35 +2550,39 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebFetchTool20250910AllowedCallerCodeExecution20260521 WebFetchTool20250910AllowedCaller = "code_execution_20260521"`
 
-          - `AllowedDomains []string`
+          - `AllowedDomains []string Optional`
 
             List of domains to allow fetching from
 
-          - `BlockedDomains []string`
+          - `BlockedDomains []string Optional`
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp`
+          - `Citations CitationsConfigParamResp Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `MaxContentTokens int64`
+          - `MaxContentTokens int64 Optional`
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          - `MaxUses int64`
+            exclusiveMinimum: 0
+
+          - `MaxUses int64 Optional`
 
             Maximum number of times the tool can be used in the API request.
 
-          - `Strict bool`
+            exclusiveMinimum: 0
+
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1840,13 +2594,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const WebSearchWebSearch WebSearch = "web_search"`
-
           - `Type WebSearch20260209`
 
-            - `const WebSearch20260209WebSearch20260209 WebSearch20260209 = "web_search_20260209"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const WebSearchTool20260209AllowedCallerDirect WebSearchTool20260209AllowedCaller = "direct"`
 
@@ -1856,31 +2606,33 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebSearchTool20260209AllowedCallerCodeExecution20260521 WebSearchTool20260209AllowedCaller = "code_execution_20260521"`
 
-          - `AllowedDomains []string`
+          - `AllowedDomains []string Optional`
 
             If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-          - `BlockedDomains []string`
+          - `BlockedDomains []string Optional`
 
             If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `MaxUses int64`
+          - `MaxUses int64 Optional`
 
             Maximum number of times the tool can be used in the API request.
 
-          - `Strict bool`
+            exclusiveMinimum: 0
+
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UserLocation UserLocation`
+          - `UserLocation UserLocation Optional`
 
             Parameters for the user's location. Used to provide more relevant search results.
 
@@ -1892,13 +2644,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const WebFetchWebFetch WebFetch = "web_fetch"`
-
           - `Type WebFetch20260209`
 
-            - `const WebFetch20260209WebFetch20260209 WebFetch20260209 = "web_fetch_20260209"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const WebFetchTool20260209AllowedCallerDirect WebFetchTool20260209AllowedCaller = "direct"`
 
@@ -1908,35 +2656,39 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebFetchTool20260209AllowedCallerCodeExecution20260521 WebFetchTool20260209AllowedCaller = "code_execution_20260521"`
 
-          - `AllowedDomains []string`
+          - `AllowedDomains []string Optional`
 
             List of domains to allow fetching from
 
-          - `BlockedDomains []string`
+          - `BlockedDomains []string Optional`
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp`
+          - `Citations CitationsConfigParamResp Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `MaxContentTokens int64`
+          - `MaxContentTokens int64 Optional`
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          - `MaxUses int64`
+            exclusiveMinimum: 0
+
+          - `MaxUses int64 Optional`
 
             Maximum number of times the tool can be used in the API request.
 
-          - `Strict bool`
+            exclusiveMinimum: 0
+
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -1950,13 +2702,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const WebFetchWebFetch WebFetch = "web_fetch"`
-
           - `Type WebFetch20260309`
 
-            - `const WebFetch20260309WebFetch20260309 WebFetch20260309 = "web_fetch_20260309"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const WebFetchTool20260309AllowedCallerDirect WebFetchTool20260309AllowedCaller = "direct"`
 
@@ -1966,39 +2714,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebFetchTool20260309AllowedCallerCodeExecution20260521 WebFetchTool20260309AllowedCaller = "code_execution_20260521"`
 
-          - `AllowedDomains []string`
+          - `AllowedDomains []string Optional`
 
             List of domains to allow fetching from
 
-          - `BlockedDomains []string`
+          - `BlockedDomains []string Optional`
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp`
+          - `Citations CitationsConfigParamResp Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `MaxContentTokens int64`
+          - `MaxContentTokens int64 Optional`
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          - `MaxUses int64`
+            exclusiveMinimum: 0
+
+          - `MaxUses int64 Optional`
 
             Maximum number of times the tool can be used in the API request.
 
-          - `Strict bool`
+            exclusiveMinimum: 0
+
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UseCache bool`
+          - `UseCache bool Optional`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
@@ -2010,13 +2762,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const WebSearchWebSearch WebSearch = "web_search"`
-
           - `Type WebSearch20260318`
 
-            - `const WebSearch20260318WebSearch20260318 WebSearch20260318 = "web_search_20260318"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const WebSearchTool20260318AllowedCallerDirect WebSearchTool20260318AllowedCaller = "direct"`
 
@@ -2026,27 +2774,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebSearchTool20260318AllowedCallerCodeExecution20260521 WebSearchTool20260318AllowedCaller = "code_execution_20260521"`
 
-          - `AllowedDomains []string`
+          - `AllowedDomains []string Optional`
 
             If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
 
-          - `BlockedDomains []string`
+          - `BlockedDomains []string Optional`
 
             If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `MaxUses int64`
+          - `MaxUses int64 Optional`
 
             Maximum number of times the tool can be used in the API request.
 
-          - `ResponseInclusion WebSearchTool20260318ResponseInclusion`
+            exclusiveMinimum: 0
+
+          - `ResponseInclusion WebSearchTool20260318ResponseInclusion Optional`
 
             How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -2054,11 +2804,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebSearchTool20260318ResponseInclusionExcluded WebSearchTool20260318ResponseInclusion = "excluded"`
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UserLocation UserLocation`
+          - `UserLocation UserLocation Optional`
 
             Parameters for the user's location. Used to provide more relevant search results.
 
@@ -2070,13 +2820,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const WebFetchWebFetch WebFetch = "web_fetch"`
-
           - `Type WebFetch20260318`
 
-            - `const WebFetch20260318WebFetch20260318 WebFetch20260318 = "web_fetch_20260318"`
-
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const WebFetchTool20260318AllowedCallerDirect WebFetchTool20260318AllowedCaller = "direct"`
 
@@ -2086,35 +2832,39 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebFetchTool20260318AllowedCallerCodeExecution20260521 WebFetchTool20260318AllowedCaller = "code_execution_20260521"`
 
-          - `AllowedDomains []string`
+          - `AllowedDomains []string Optional`
 
             List of domains to allow fetching from
 
-          - `BlockedDomains []string`
+          - `BlockedDomains []string Optional`
 
             List of domains to block fetching from
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `Citations CitationsConfigParamResp`
+          - `Citations CitationsConfigParamResp Optional`
 
             Citations configuration for fetched documents. Citations are disabled by default.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `MaxContentTokens int64`
+          - `MaxContentTokens int64 Optional`
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
-          - `MaxUses int64`
+            exclusiveMinimum: 0
+
+          - `MaxUses int64 Optional`
 
             Maximum number of times the tool can be used in the API request.
 
-          - `ResponseInclusion WebFetchTool20260318ResponseInclusion`
+            exclusiveMinimum: 0
+
+          - `ResponseInclusion WebFetchTool20260318ResponseInclusion Optional`
 
             How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
 
@@ -2122,11 +2872,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const WebFetchTool20260318ResponseInclusionExcluded WebFetchTool20260318ResponseInclusion = "excluded"`
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
-          - `UseCache bool`
+          - `UseCache bool Optional`
 
             Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
@@ -2138,15 +2888,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const ToolSearchToolBm25ToolSearchToolBm25 ToolSearchToolBm25 = "tool_search_tool_bm25"`
-
           - `Type ToolSearchToolBm25_20251119Type`
 
             - `const ToolSearchToolBm25_20251119TypeToolSearchToolBm25_20251119 ToolSearchToolBm25_20251119Type = "tool_search_tool_bm25_20251119"`
 
             - `const ToolSearchToolBm25_20251119TypeToolSearchToolBm25 ToolSearchToolBm25_20251119Type = "tool_search_tool_bm25"`
 
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const ToolSearchToolBm25_20251119AllowedCallerDirect ToolSearchToolBm25_20251119AllowedCaller = "direct"`
 
@@ -2156,15 +2904,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolSearchToolBm25_20251119AllowedCallerCodeExecution20260521 ToolSearchToolBm25_20251119AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
@@ -2176,15 +2924,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `const ToolSearchToolRegexToolSearchToolRegex ToolSearchToolRegex = "tool_search_tool_regex"`
-
           - `Type ToolSearchToolRegex20251119Type`
 
             - `const ToolSearchToolRegex20251119TypeToolSearchToolRegex20251119 ToolSearchToolRegex20251119Type = "tool_search_tool_regex_20251119"`
 
             - `const ToolSearchToolRegex20251119TypeToolSearchToolRegex ToolSearchToolRegex20251119Type = "tool_search_tool_regex"`
 
-          - `AllowedCallers []string`
+          - `AllowedCallers []string Optional`
 
             - `const ToolSearchToolRegex20251119AllowedCallerDirect ToolSearchToolRegex20251119AllowedCaller = "direct"`
 
@@ -2194,19 +2940,33 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ToolSearchToolRegex20251119AllowedCallerCodeExecution20260521 ToolSearchToolRegex20251119AllowedCaller = "code_execution_20260521"`
 
-          - `CacheControl CacheControlEphemeral`
+          - `CacheControl CacheControlEphemeral Optional`
 
             Create a cache control breakpoint at this content block.
 
-          - `DeferLoading bool`
+          - `DeferLoading bool Optional`
 
             If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
 
-          - `Strict bool`
+          - `Strict bool Optional`
 
             When true, guarantees schema validation on tool names and inputs
 
-      - `TopK int64`
+      - `Temperature float64 Optional`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+        Amount of randomness injected into the response.
+
+        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+        maximum: 1, minimum: 0
+
+      - `TopK int64 Optional`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
         Only sample from the top K options for each subsequent token.
 
@@ -2214,7 +2974,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Recommended for advanced use cases only.
 
-      - `TopP float64`
+        minimum: 0
+
+      - `TopP float64 Optional`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
         Use nucleus sampling.
 
@@ -2222,11 +2986,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Recommended for advanced use cases only.
 
-  - `UserProfileID param.Field[string]`
+        maximum: 1, minimum: 0
+
+  - `UserProfileID param.Field[string] Optional`
 
     Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+## Returns
 
 - `type MessageBatch struct{…}`
 
@@ -2240,13 +3006,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `CancelInitiatedAt Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `CreatedAt Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `EndedAt Time`
 
@@ -2254,9 +3026,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `ProcessingStatus MessageBatchProcessingStatus`
 
@@ -2280,11 +3056,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `Errored int64`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `Expired int64`
 
@@ -2292,15 +3072,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `Processing int64`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `Succeeded int64`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `ResultsURL string`
 
@@ -2314,50 +3100,50 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `const MessageBatchMessageBatch MessageBatch = "message_batch"`
+    default: message_batch
 
-### Example
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  messageBatch, err := client.Messages.Batches.New(context.TODO(), anthropic.MessageBatchNewParams{
-    Requests: []anthropic.MessageBatchNewParamsRequest{anthropic.MessageBatchNewParamsRequest{
-      CustomID: "my-custom-id-1",
-      Params: anthropic.MessageBatchNewParamsRequestParams{
-        MaxTokens: 1024,
-        Messages: []anthropic.MessageParam{anthropic.MessageParam{
-          Content: []anthropic.ContentBlockParamUnion{anthropic.ContentBlockParamUnion{
-            OfText: &anthropic.TextBlockParam{
-              Text: "x",
-            },
-          }},
-          Role: anthropic.MessageParamRoleUser,
-        }},
-        Model: anthropic.ModelClaudeOpus4_6,
-      },
-    }},
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", messageBatch.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	messageBatch, err := client.Messages.Batches.New(context.TODO(), anthropic.MessageBatchNewParams{
+		Requests: []anthropic.MessageBatchNewParamsRequest{anthropic.MessageBatchNewParamsRequest{
+			CustomID: "my-custom-id-1",
+			Params: anthropic.MessageBatchNewParamsRequestParams{
+				MaxTokens: 1024,
+				Messages: []anthropic.MessageParam{anthropic.MessageParam{
+					Content: []anthropic.ContentBlockParamUnion{anthropic.ContentBlockParamUnion{
+						OfText: &anthropic.TextBlockParam{
+							Text: "x",
+						},
+					}},
+					Role: anthropic.MessageParamRoleUser,
+				}},
+				Model: anthropic.ModelClaudeOpus5,
+			},
+		}},
+	})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", messageBatch.ID)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

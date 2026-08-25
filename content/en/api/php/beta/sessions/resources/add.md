@@ -1,12 +1,12 @@
-## Add Session Resource
+# Add Session Resource
 
 `$client->beta->sessions->resources->add(string sessionID, string fileID, Type type, ?string mountPath, ?list<AnthropicBeta> betas): ManagedAgentsFileResource`
 
-**post** `/v1/sessions/{session_id}/resources`
+**POST** `/v1/sessions/{session_id}/resources`
 
 Add Session Resource
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -24,7 +24,7 @@ Add Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsFileResource`
 
@@ -44,7 +44,7 @@ Add Session Resource
 
     A timestamp in RFC 3339 format
 
-### Example
+## Example
 
 ```php
 <?php
@@ -58,13 +58,13 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
   fileID: 'file_011CNha8iCJcU1wXNR6q4V8w',
   type: 'file',
   mountPath: '/uploads/receipt.pdf',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsFileResource);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -2,9 +2,9 @@
 
 ## List Models
 
-`ModelListPageResponse Beta.Models.List(ModelListParams?parameters, CancellationTokencancellationToken = default)`
+`ModelListPageResponse Beta.Models.List(parameters, cancellationToken = default)`
 
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
@@ -22,73 +22,85 @@ The Models API response can be used to determine which models are available for 
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-  - `Long limit`
+  - `long limit`
 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
+    maximum: 1000, minimum: 1
+
   - `IReadOnlyList<AnthropicBeta> betas`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -112,7 +124,7 @@ The Models API response can be used to determine which models are available for 
 
         Whether the model supports the Batch API.
 
-        - `required Boolean Supported`
+        - `required bool Supported`
 
           Whether this capability is supported by the model.
 
@@ -140,7 +152,7 @@ The Models API response can be used to determine which models are available for 
 
           Indicates whether a capability is supported.
 
-        - `required Boolean Supported`
+        - `required bool Supported`
 
           Whether this capability is supported by the model.
 
@@ -164,7 +176,7 @@ The Models API response can be used to determine which models are available for 
 
           Whether the model supports medium effort level.
 
-        - `required Boolean Supported`
+        - `required bool Supported`
 
           Whether this capability is supported by the model.
 
@@ -188,7 +200,7 @@ The Models API response can be used to determine which models are available for 
 
         Thinking capability and supported type configurations.
 
-        - `required Boolean Supported`
+        - `required bool Supported`
 
           Whether this capability is supported by the model.
 
@@ -208,19 +220,21 @@ The Models API response can be used to determine which models are available for 
 
       RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+      format: date-time
+
     - `required string DisplayName`
 
       A human-readable name for the model.
 
-    - `required Long? MaxInputTokens`
+    - `required long? MaxInputTokens`
 
       Maximum input context window size in tokens for this model.
 
-    - `required Long? MaxTokens`
+    - `required long? MaxTokens`
 
       Maximum value for the `max_tokens` parameter when using this model.
 
-    - `JsonElement Type "model"constant`
+    - `JsonElement Type constant`
 
       Object type.
 
@@ -230,7 +244,7 @@ The Models API response can be used to determine which models are available for 
 
     First ID in the `data` list. Can be used as the `before_id` for the previous page.
 
-  - `required Boolean HasMore`
+  - `required bool HasMore`
 
     Indicates if there are more results in the requested page direction.
 
@@ -250,13 +264,13 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "data": [
     {
-      "id": "claude-opus-4-6",
+      "id": "claude-opus-5",
       "allowed_fallback_models": [
         "string"
       ],
@@ -321,8 +335,8 @@ await foreach (var item in page.Paginate())
           }
         }
       },
-      "created_at": "2026-02-04T00:00:00Z",
-      "display_name": "Claude Opus 4.6",
+      "created_at": "2026-07-24T00:00:00Z",
+      "display_name": "Claude Opus 5",
       "max_input_tokens": 0,
       "max_tokens": 0,
       "type": "model"
@@ -336,9 +350,9 @@ await foreach (var item in page.Paginate())
 
 ## Get a Model
 
-`BetaModelInfo Beta.Models.Retrieve(ModelRetrieveParamsparameters, CancellationTokencancellationToken = default)`
+`BetaModelInfo Beta.Models.Retrieve(parameters, cancellationToken = default)`
 
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
@@ -356,63 +370,73 @@ The Models API response can be used to determine information about a specific mo
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -434,7 +458,7 @@ The Models API response can be used to determine information about a specific mo
 
       Whether the model supports the Batch API.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -462,7 +486,7 @@ The Models API response can be used to determine information about a specific mo
 
         Indicates whether a capability is supported.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -486,7 +510,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether the model supports medium effort level.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -510,7 +534,7 @@ The Models API response can be used to determine information about a specific mo
 
       Thinking capability and supported type configurations.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -530,19 +554,21 @@ The Models API response can be used to determine information about a specific mo
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `required string DisplayName`
 
     A human-readable name for the model.
 
-  - `required Long? MaxInputTokens`
+  - `required long? MaxInputTokens`
 
     Maximum input context window size in tokens for this model.
 
-  - `required Long? MaxTokens`
+  - `required long? MaxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `JsonElement Type "model"constant`
+  - `JsonElement Type constant`
 
     Object type.
 
@@ -558,11 +584,11 @@ var betaModelInfo = await client.Beta.Models.Retrieve(parameters);
 Console.WriteLine(betaModelInfo);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
-  "id": "claude-opus-4-6",
+  "id": "claude-opus-5",
   "allowed_fallback_models": [
     "string"
   ],
@@ -627,15 +653,15 @@ Console.WriteLine(betaModelInfo);
       }
     }
   },
-  "created_at": "2026-02-04T00:00:00Z",
-  "display_name": "Claude Opus 4.6",
+  "created_at": "2026-07-24T00:00:00Z",
+  "display_name": "Claude Opus 5",
   "max_input_tokens": 0,
   "max_tokens": 0,
   "type": "model"
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Capability Support
 
@@ -643,7 +669,7 @@ Console.WriteLine(betaModelInfo);
 
   Indicates whether a capability is supported.
 
-  - `required Boolean Supported`
+  - `required bool Supported`
 
     Whether this capability is supported by the model.
 
@@ -657,7 +683,7 @@ Console.WriteLine(betaModelInfo);
 
     Indicates whether a capability is supported.
 
-    - `required Boolean Supported`
+    - `required bool Supported`
 
       Whether this capability is supported by the model.
 
@@ -669,7 +695,7 @@ Console.WriteLine(betaModelInfo);
 
     Indicates whether a capability is supported.
 
-  - `required Boolean Supported`
+  - `required bool Supported`
 
     Whether this capability is supported by the model.
 
@@ -683,7 +709,7 @@ Console.WriteLine(betaModelInfo);
 
     Whether the model supports high effort level.
 
-    - `required Boolean Supported`
+    - `required bool Supported`
 
       Whether this capability is supported by the model.
 
@@ -699,7 +725,7 @@ Console.WriteLine(betaModelInfo);
 
     Whether the model supports medium effort level.
 
-  - `required Boolean Supported`
+  - `required bool Supported`
 
     Whether this capability is supported by the model.
 
@@ -717,7 +743,7 @@ Console.WriteLine(betaModelInfo);
 
     Whether the model supports the Batch API.
 
-    - `required Boolean Supported`
+    - `required bool Supported`
 
       Whether this capability is supported by the model.
 
@@ -745,7 +771,7 @@ Console.WriteLine(betaModelInfo);
 
       Indicates whether a capability is supported.
 
-    - `required Boolean Supported`
+    - `required bool Supported`
 
       Whether this capability is supported by the model.
 
@@ -769,7 +795,7 @@ Console.WriteLine(betaModelInfo);
 
       Whether the model supports medium effort level.
 
-    - `required Boolean Supported`
+    - `required bool Supported`
 
       Whether this capability is supported by the model.
 
@@ -793,7 +819,7 @@ Console.WriteLine(betaModelInfo);
 
     Thinking capability and supported type configurations.
 
-    - `required Boolean Supported`
+    - `required bool Supported`
 
       Whether this capability is supported by the model.
 
@@ -829,7 +855,7 @@ Console.WriteLine(betaModelInfo);
 
       Whether the model supports the Batch API.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -857,7 +883,7 @@ Console.WriteLine(betaModelInfo);
 
         Indicates whether a capability is supported.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -881,7 +907,7 @@ Console.WriteLine(betaModelInfo);
 
         Whether the model supports medium effort level.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -905,7 +931,7 @@ Console.WriteLine(betaModelInfo);
 
       Thinking capability and supported type configurations.
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -925,19 +951,21 @@ Console.WriteLine(betaModelInfo);
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `required string DisplayName`
 
     A human-readable name for the model.
 
-  - `required Long? MaxInputTokens`
+  - `required long? MaxInputTokens`
 
     Maximum input context window size in tokens for this model.
 
-  - `required Long? MaxTokens`
+  - `required long? MaxTokens`
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `JsonElement Type "model"constant`
+  - `JsonElement Type constant`
 
     Object type.
 
@@ -949,7 +977,7 @@ Console.WriteLine(betaModelInfo);
 
   Thinking capability details.
 
-  - `required Boolean Supported`
+  - `required bool Supported`
 
     Whether this capability is supported by the model.
 
@@ -961,7 +989,7 @@ Console.WriteLine(betaModelInfo);
 
       Whether the model supports thinking with type 'adaptive' (auto).
 
-      - `required Boolean Supported`
+      - `required bool Supported`
 
         Whether this capability is supported by the model.
 
@@ -979,7 +1007,7 @@ Console.WriteLine(betaModelInfo);
 
     Whether the model supports thinking with type 'adaptive' (auto).
 
-    - `required Boolean Supported`
+    - `required bool Supported`
 
       Whether this capability is supported by the model.
 

@@ -1,12 +1,12 @@
-## Create Skill
+# Create Skill
 
 `$ ant beta:skills create`
 
-**post** `/v1/skills`
+**POST** `/v1/skills`
 
 Create Skill
 
-### Parameters
+## Parameters
 
 - `--file: array of string`
 
@@ -24,9 +24,9 @@ Create Skill
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaSkillNewResponse: object { id, created_at, display_title, 4 more }`
+- `BetaSkillNewResponse: object`
 
   - `id: string`
 
@@ -69,15 +69,15 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:skills create \
   --api-key my-anthropic-api-key \
   --file 'Example data'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

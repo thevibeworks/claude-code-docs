@@ -1,12 +1,12 @@
-## Get File Metadata
+# Get File Metadata
 
-`beta.files.retrieve_metadata(strfile_id, FileRetrieveMetadataParams**kwargs)  -> FileMetadata`
+`beta.files.retrieve_metadata(file_id, **kwargs)  -> BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
-### Parameters
+## Parameters
 
 - `file_id: str`
 
@@ -18,7 +18,7 @@ Get File Metadata
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -64,23 +64,33 @@ Get File Metadata
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
-- `class FileMetadata: …`
+## Returns
+
+- `class BetaFileMetadata: …`
 
   - `id: str`
 
@@ -92,17 +102,25 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -110,11 +128,11 @@ Get File Metadata
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -128,24 +146,24 @@ Get File Metadata
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
-file_metadata = client.beta.files.retrieve_metadata(
+beta_file_metadata = client.beta.files.retrieve_metadata(
     file_id="file_id",
 )
-print(file_metadata.id)
+print(beta_file_metadata.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,16 +1,18 @@
-## Create Vault
+# Create Vault
 
 `$ ant beta:vaults create`
 
-**post** `/v1/vaults`
+**POST** `/v1/vaults`
 
 Create Vault
 
-### Parameters
+## Parameters
 
 - `--display-name: string`
 
   Body param: Human-readable name for the vault. 1-255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `--metadata: optional map[string]`
 
@@ -20,9 +22,9 @@ Create Vault
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_vault: object { id, archived_at, created_at, 4 more }`
+- `beta_managed_agents_vault: object`
 
   A vault that stores credentials for use by agents during sessions.
 
@@ -34,9 +36,13 @@ Create Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -48,21 +54,21 @@ Create Vault
 
   - `type: "vault"`
 
-    - `"vault"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
 
-```cli
+## Example
+
+```bash
 ant beta:vaults create \
   --api-key my-anthropic-api-key \
   --display-name 'Example vault'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

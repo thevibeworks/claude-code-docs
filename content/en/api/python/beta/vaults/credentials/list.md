@@ -1,12 +1,12 @@
-## List Credentials
+# List Credentials
 
-`beta.vaults.credentials.list(strvault_id, CredentialListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsCredential]`
+`beta.vaults.credentials.list(vault_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsCredential]`
 
-**get** `/v1/vaults/{vault_id}/credentials`
+**GET** `/v1/vaults/{vault_id}/credentials`
 
 List Credentials
 
-### Parameters
+## Parameters
 
 - `vault_id: str`
 
@@ -18,6 +18,8 @@ List Credentials
 
   Maximum number of credentials to return per page. Defaults to 20, maximum 100.
 
+  format: int32
+
 - `page: Optional[str]`
 
   Opaque pagination token from a previous `list_credentials` response.
@@ -28,7 +30,7 @@ List Credentials
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -74,21 +76,31 @@ List Credentials
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaManagedAgentsCredential: …`
 
@@ -101,6 +113,8 @@ List Credentials
   - `archived_at: Optional[datetime]`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `auth: Auth`
 
@@ -116,11 +130,11 @@ List Credentials
 
       - `type: Literal["mcp_oauth"]`
 
-        - `"mcp_oauth"`
-
       - `expires_at: Optional[datetime]`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh: Optional[BetaManagedAgentsMCPOAuthRefreshResponse]`
 
@@ -144,23 +158,17 @@ List Credentials
 
             - `type: Literal["none"]`
 
-              - `"none"`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse: …`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: Literal["client_secret_basic"]`
 
-              - `"client_secret_basic"`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse: …`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: Literal["client_secret_post"]`
-
-              - `"client_secret_post"`
 
         - `resource: Optional[str]`
 
@@ -179,8 +187,6 @@ List Credentials
         URL of the MCP server this credential authenticates against.
 
       - `type: Literal["static_bearer"]`
-
-        - `"static_bearer"`
 
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse: …`
 
@@ -208,8 +214,6 @@ List Credentials
 
           - `type: Literal["unrestricted"]`
 
-            - `"unrestricted"`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse: …`
 
           The secret is substituted only on requests to the listed hosts.
@@ -220,19 +224,17 @@ List Credentials
 
           - `type: Literal["limited"]`
 
-            - `"limited"`
-
       - `secret_name: str`
 
         Name of the environment variable.
 
       - `type: Literal["environment_variable"]`
 
-        - `"environment_variable"`
-
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Dict[str, str]`
 
@@ -240,11 +242,11 @@ List Credentials
 
   - `type: Literal["vault_credential"]`
 
-    - `"vault_credential"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: str`
 
@@ -254,14 +256,16 @@ List Credentials
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.vaults.credentials.list(
     vault_id="vlt_011CZkZDLs7fYzm1hXNPeRjv",
@@ -270,7 +274,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

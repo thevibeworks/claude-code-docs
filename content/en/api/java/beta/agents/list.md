@@ -1,12 +1,12 @@
-## List Agents
+# List Agents
 
-`AgentListPage beta().agents().list(AgentListParamsparams = AgentListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`AgentListPage beta().agents().list(params = AgentListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/agents`
+**GET** `/v1/agents`
 
 List Agents
 
-### Parameters
+## Parameters
 
 - `AgentListParams params`
 
@@ -14,9 +14,13 @@ List Agents
 
     Return agents created at or after this time (inclusive).
 
+    format: date-time
+
   - `Optional<LocalDateTime> createdAtLte`
 
     Return agents created at or before this time (inclusive).
+
+    format: date-time
 
   - `Optional<Boolean> includeArchived`
 
@@ -25,6 +29,8 @@ List Agents
   - `Optional<Long> limit`
 
     Maximum results per page. Default 20, maximum 100.
+
+    format: int32
 
   - `Optional<String> page`
 
@@ -78,21 +84,31 @@ List Agents
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
+
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
 
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
 
-### Returns
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
+
+## Returns
 
 - `class BetaManagedAgentsAgent:`
 
@@ -104,9 +120,13 @@ List Agents
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> description`
 
@@ -115,8 +135,6 @@ List Agents
     - `String name`
 
     - `Type type`
-
-      - `URL("url")`
 
     - `String url`
 
@@ -140,17 +158,21 @@ List Agents
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
+      - `CLAUDE_OPUS_5("claude-opus-5")`
+
+        Powerful intelligence for long-running agents and coding
+
       - `CLAUDE_OPUS_4_8("claude-opus-4-8")`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `CLAUDE_OPUS_4_7("claude-opus-4-7")`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `CLAUDE_OPUS_4_6("claude-opus-4-6")`
 
-        Most intelligent model for building agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `CLAUDE_SONNET_4_6("claude-sonnet-4-6")`
 
@@ -166,11 +188,11 @@ List Agents
 
       - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
 
@@ -179,6 +201,44 @@ List Agents
       - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
 
         High-performance model for agents and coding
+
+    - `Optional<Effort> effort`
+
+      How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+      - `class BetaManagedAgentsEffortLow:`
+
+        Low effort. Favors latency over reasoning depth.
+
+        - `Type type`
+
+      - `class BetaManagedAgentsEffortMedium:`
+
+        Medium effort. Balances latency and reasoning depth.
+
+        - `Type type`
+
+      - `class BetaManagedAgentsEffortHigh:`
+
+        High effort. Favors reasoning depth.
+
+        - `Type type`
+
+      - `class BetaManagedAgentsEffortXhigh:`
+
+        Extra-high effort. Not all models accept this level.
+
+        - `Type type`
+
+      - `class BetaManagedAgentsEffortMax:`
+
+        Maximum effort. Favors reasoning depth over latency.
+
+        - `Type type`
+
+    - `Optional<String> inferenceGeo`
+
+      Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
     - `Optional<Speed> speed`
 
@@ -192,21 +252,33 @@ List Agents
 
     Resolved coordinator topology with a concrete agent roster.
 
-    - `List<BetaManagedAgentsAgentReference> agents`
+    - `List<Agent> agents`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-      - `String id`
+      - `class BetaManagedAgentsAgentReference:`
 
-      - `Type type`
+        A resolved agent reference with a concrete version.
 
-        - `AGENT("agent")`
+        - `String id`
 
-      - `long version`
+        - `Type type`
+
+        - `long version`
+
+          format: int32
+
+      - `class BetaManagedAgentsAdvisor:`
+
+        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+        - `String model`
+
+          The advisor model id.
+
+        - `Type type`
 
     - `Type type`
-
-      - `COORDINATOR("coordinator")`
 
   - `String name`
 
@@ -220,8 +292,6 @@ List Agents
 
       - `Type type`
 
-        - `ANTHROPIC("anthropic")`
-
       - `String version`
 
     - `class BetaManagedAgentsCustomSkill:`
@@ -231,8 +301,6 @@ List Agents
       - `String skillId`
 
       - `Type type`
-
-        - `CUSTOM("custom")`
 
       - `String version`
 
@@ -244,47 +312,227 @@ List Agents
 
       - `List<BetaManagedAgentsAgentToolConfig> configs`
 
-        - `boolean enabled`
+        - `class BetaManagedAgentsBashToolConfig:`
 
-        - `Name name`
+          Configuration for the bash tool.
 
-          Built-in agent tool identifier.
+          - `boolean enabled`
 
-          - `BASH("bash")`
+          - `JsonValue name constant`
 
-          - `EDIT("edit")`
+          - `PermissionPolicy permissionPolicy`
 
-          - `READ("read")`
+            Permission policy for tool execution.
 
-          - `WRITE("write")`
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
 
-          - `GLOB("glob")`
+              Tool calls are automatically approved without user confirmation.
 
-          - `GREP("grep")`
+              - `Type type`
 
-          - `WEB_FETCH("web_fetch")`
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
 
-          - `WEB_SEARCH("web_search")`
+              Tool calls require user confirmation before execution.
 
-        - `PermissionPolicy permissionPolicy`
+              - `Type type`
 
-          Permission policy for tool execution.
+          - `JsonValue type constant`
 
-          - `class BetaManagedAgentsAlwaysAllowPolicy:`
+        - `class BetaManagedAgentsEditToolConfig:`
 
-            Tool calls are automatically approved without user confirmation.
+          Configuration for the edit tool.
 
-            - `Type type`
+          - `boolean enabled`
 
-              - `ALWAYS_ALLOW("always_allow")`
+          - `JsonValue name constant`
 
-          - `class BetaManagedAgentsAlwaysAskPolicy:`
+          - `PermissionPolicy permissionPolicy`
 
-            Tool calls require user confirmation before execution.
+            Permission policy for tool execution.
 
-            - `Type type`
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
 
-              - `ALWAYS_ASK("always_ask")`
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+              Tool calls require user confirmation before execution.
+
+          - `JsonValue type constant`
+
+        - `class BetaManagedAgentsReadToolConfig:`
+
+          Configuration for the read tool.
+
+          - `boolean enabled`
+
+          - `JsonValue name constant`
+
+          - `PermissionPolicy permissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+              Tool calls require user confirmation before execution.
+
+          - `JsonValue type constant`
+
+        - `class BetaManagedAgentsWriteToolConfig:`
+
+          Configuration for the write tool.
+
+          - `boolean enabled`
+
+          - `JsonValue name constant`
+
+          - `PermissionPolicy permissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+              Tool calls require user confirmation before execution.
+
+          - `JsonValue type constant`
+
+        - `class BetaManagedAgentsGlobToolConfig:`
+
+          Configuration for the glob tool.
+
+          - `boolean enabled`
+
+          - `JsonValue name constant`
+
+          - `PermissionPolicy permissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+              Tool calls require user confirmation before execution.
+
+          - `JsonValue type constant`
+
+        - `class BetaManagedAgentsGrepToolConfig:`
+
+          Configuration for the grep tool.
+
+          - `boolean enabled`
+
+          - `JsonValue name constant`
+
+          - `PermissionPolicy permissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+              Tool calls require user confirmation before execution.
+
+          - `JsonValue type constant`
+
+        - `class BetaManagedAgentsWebFetchToolConfig:`
+
+          Configuration for the web_fetch tool.
+
+          - `boolean enabled`
+
+          - `JsonValue name constant`
+
+          - `PermissionPolicy permissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+              Tool calls require user confirmation before execution.
+
+          - `JsonValue type constant`
+
+          - `Optional<List<String>> allowedDomains`
+
+          - `Optional<List<String>> blockedDomains`
+
+          - `Optional<Long> maxContentTokens`
+
+            format: int32
+
+        - `class BetaManagedAgentsWebSearchToolConfig:`
+
+          Configuration for the web_search tool.
+
+          - `boolean enabled`
+
+          - `JsonValue name constant`
+
+          - `PermissionPolicy permissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+              Tool calls require user confirmation before execution.
+
+          - `JsonValue type constant`
+
+          - `Optional<List<String>> allowedDomains`
+
+          - `Optional<List<String>> blockedDomains`
+
+          - `Optional<BetaManagedAgentsUserLocation> userLocation`
+
+            Approximate user location for search result localization.
+
+            - `JsonValue type constant`
+
+              Location precision. Only "approximate" is supported.
+
+            - `Optional<String> city`
+
+              City name.
+
+              minLength: 1, maxLength: 255
+
+            - `Optional<String> country`
+
+              Two-letter ISO 3166-1 country code, uppercase.
+
+            - `Optional<String> region`
+
+              Region or state name.
+
+              minLength: 1, maxLength: 255
+
+            - `Optional<String> timezone`
+
+              IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `BetaManagedAgentsAgentToolsetDefaultConfig defaultConfig`
 
@@ -305,8 +553,6 @@ List Agents
             Tool calls require user confirmation before execution.
 
       - `Type type`
-
-        - `AGENT_TOOLSET_20260401("agent_toolset_20260401")`
 
     - `class BetaManagedAgentsMcpToolset:`
 
@@ -350,8 +596,6 @@ List Agents
 
       - `Type type`
 
-        - `MCP_TOOLSET("mcp_toolset")`
-
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
@@ -362,9 +606,7 @@ List Agents
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue; type "object"constant`
-
-          - `OBJECT("object")`
+        - `JsonValue type constant`
 
         - `Optional<Properties> properties`
 
@@ -374,21 +616,21 @@ List Agents
 
       - `Type type`
 
-        - `CUSTOM("custom")`
-
   - `Type type`
-
-    - `AGENT("agent")`
 
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `long version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+    format: int32
+
+## Example
 
 ```java
 package com.anthropic.example;
@@ -409,7 +651,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
@@ -430,7 +672,11 @@ public final class Main {
         "foo": "bar"
       },
       "model": {
-        "id": "claude-sonnet-4-6",
+        "id": "claude-opus-5",
+        "effort": {
+          "type": "low"
+        },
+        "inference_geo": "inference_geo",
         "speed": "standard"
       },
       "multiagent": {
@@ -465,7 +711,8 @@ public final class Main {
               "name": "bash",
               "permission_policy": {
                 "type": "always_allow"
-              }
+              },
+              "type": "bash"
             }
           ],
           "default_config": {

@@ -1,12 +1,12 @@
-## Get Session Resource
+# Get Session Resource
 
 `$client->beta->sessions->resources->retrieve(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ResourceGetResponse`
 
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -16,7 +16,7 @@ Get Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ResourceGetResponse`
 
@@ -86,7 +86,7 @@ Get Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -98,13 +98,13 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $resource = $client->beta->sessions->resources->retrieve(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($resource);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

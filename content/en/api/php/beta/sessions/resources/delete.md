@@ -1,12 +1,12 @@
-## Delete Session Resource
+# Delete Session Resource
 
 `$client->beta->sessions->resources->delete(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsDeleteSessionResource`
 
-**delete** `/v1/sessions/{session_id}/resources/{resource_id}`
+**DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Delete Session Resource
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -16,7 +16,7 @@ Delete Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsDeleteSessionResource`
 
@@ -24,7 +24,7 @@ Delete Session Resource
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -40,13 +40,13 @@ $betaManagedAgentsDeleteSessionResource = $client
   ->delete(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeleteSessionResource);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

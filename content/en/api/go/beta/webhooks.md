@@ -1,6 +1,33 @@
 # Webhooks
 
-## Domain Types
+## Unwrap
+
+`client.Beta.Webhooks.Unwrap(ctx) error`
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
+)
+
+func main() {
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	err := client.Beta.Webhooks.Unwrap(context.TODO())
+	if err != nil {
+		panic(err.Error())
+	}
+}
+```
+
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 
@@ -13,8 +40,6 @@
   - `OrganizationID string`
 
   - `Type AgentArchived`
-
-    - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
 
   - `WorkspaceID string`
 
@@ -30,8 +55,6 @@
 
   - `Type AgentCreated`
 
-    - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Agent Deleted Event Data
@@ -45,8 +68,6 @@
   - `OrganizationID string`
 
   - `Type AgentDeleted`
-
-    - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
 
   - `WorkspaceID string`
 
@@ -62,8 +83,6 @@
 
   - `Type AgentUpdated`
 
-    - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Deployment Archived Event Data
@@ -77,8 +96,6 @@
   - `OrganizationID string`
 
   - `Type DeploymentArchived`
-
-    - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
 
   - `WorkspaceID string`
 
@@ -94,8 +111,6 @@
 
   - `Type DeploymentCreated`
 
-    - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Deployment Deleted Event Data
@@ -109,8 +124,6 @@
   - `OrganizationID string`
 
   - `Type DeploymentDeleted`
-
-    - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
 
   - `WorkspaceID string`
 
@@ -126,8 +139,6 @@
 
   - `Type DeploymentPaused`
 
-    - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Deployment Run Failed Event Data
@@ -141,8 +152,6 @@
   - `OrganizationID string`
 
   - `Type DeploymentRunFailed`
-
-    - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
 
   - `WorkspaceID string`
 
@@ -158,8 +167,6 @@
 
   - `Type DeploymentRunStarted`
 
-    - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Deployment Run Succeeded Event Data
@@ -173,8 +180,6 @@
   - `OrganizationID string`
 
   - `Type DeploymentRunSucceeded`
-
-    - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
 
   - `WorkspaceID string`
 
@@ -190,8 +195,6 @@
 
   - `Type DeploymentUnpaused`
 
-    - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Deployment Updated Event Data
@@ -206,7 +209,61 @@
 
   - `Type DeploymentUpdated`
 
-    - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Archived Event Data
+
+- `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentArchived`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Created Event Data
+
+- `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentCreated`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentDeleted`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Updated Event Data
+
+- `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentUpdated`
 
   - `WorkspaceID string`
 
@@ -222,6 +279,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `Data BetaWebhookEventDataUnion`
 
     - `type BetaWebhookSessionCreatedEventData struct{…}`
@@ -233,8 +292,6 @@
       - `OrganizationID string`
 
       - `Type SessionCreated`
-
-        - `const SessionCreatedSessionCreated SessionCreated = "session.created"`
 
       - `WorkspaceID string`
 
@@ -248,8 +305,6 @@
 
       - `Type SessionPending`
 
-        - `const SessionPendingSessionPending SessionPending = "session.pending"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionRunningEventData struct{…}`
@@ -261,8 +316,6 @@
       - `OrganizationID string`
 
       - `Type SessionRunning`
-
-        - `const SessionRunningSessionRunning SessionRunning = "session.running"`
 
       - `WorkspaceID string`
 
@@ -276,8 +329,6 @@
 
       - `Type SessionIdled`
 
-        - `const SessionIdledSessionIdled SessionIdled = "session.idled"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionRequiresActionEventData struct{…}`
@@ -289,8 +340,6 @@
       - `OrganizationID string`
 
       - `Type SessionRequiresAction`
-
-        - `const SessionRequiresActionSessionRequiresAction SessionRequiresAction = "session.requires_action"`
 
       - `WorkspaceID string`
 
@@ -304,8 +353,6 @@
 
       - `Type SessionArchived`
 
-        - `const SessionArchivedSessionArchived SessionArchived = "session.archived"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionDeletedEventData struct{…}`
@@ -317,8 +364,6 @@
       - `OrganizationID string`
 
       - `Type SessionDeleted`
-
-        - `const SessionDeletedSessionDeleted SessionDeleted = "session.deleted"`
 
       - `WorkspaceID string`
 
@@ -332,8 +377,6 @@
 
       - `Type SessionStatusRescheduled`
 
-        - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionStatusRunStartedEventData struct{…}`
@@ -345,8 +388,6 @@
       - `OrganizationID string`
 
       - `Type SessionStatusRunStarted`
-
-        - `const SessionStatusRunStartedSessionStatusRunStarted SessionStatusRunStarted = "session.status_run_started"`
 
       - `WorkspaceID string`
 
@@ -360,8 +401,6 @@
 
       - `Type SessionStatusIdled`
 
-        - `const SessionStatusIdledSessionStatusIdled SessionStatusIdled = "session.status_idled"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionStatusTerminatedEventData struct{…}`
@@ -373,8 +412,6 @@
       - `OrganizationID string`
 
       - `Type SessionStatusTerminated`
-
-        - `const SessionStatusTerminatedSessionStatusTerminated SessionStatusTerminated = "session.status_terminated"`
 
       - `WorkspaceID string`
 
@@ -392,8 +429,6 @@
 
       - `Type SessionThreadCreated`
 
-        - `const SessionThreadCreatedSessionThreadCreated SessionThreadCreated = "session.thread_created"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionThreadIdledEventData struct{…}`
@@ -409,8 +444,6 @@
         ID of the session thread this event refers to.
 
       - `Type SessionThreadIdled`
-
-        - `const SessionThreadIdledSessionThreadIdled SessionThreadIdled = "session.thread_idled"`
 
       - `WorkspaceID string`
 
@@ -428,8 +461,6 @@
 
       - `Type SessionThreadTerminated`
 
-        - `const SessionThreadTerminatedSessionThreadTerminated SessionThreadTerminated = "session.thread_terminated"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionOutcomeEvaluationEndedEventData struct{…}`
@@ -441,8 +472,6 @@
       - `OrganizationID string`
 
       - `Type SessionOutcomeEvaluationEnded`
-
-        - `const SessionOutcomeEvaluationEndedSessionOutcomeEvaluationEnded SessionOutcomeEvaluationEnded = "session.outcome_evaluation_ended"`
 
       - `WorkspaceID string`
 
@@ -456,8 +485,6 @@
 
       - `Type VaultCreated`
 
-        - `const VaultCreatedVaultCreated VaultCreated = "vault.created"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookVaultArchivedEventData struct{…}`
@@ -469,8 +496,6 @@
       - `OrganizationID string`
 
       - `Type VaultArchived`
-
-        - `const VaultArchivedVaultArchived VaultArchived = "vault.archived"`
 
       - `WorkspaceID string`
 
@@ -484,8 +509,6 @@
 
       - `Type VaultDeleted`
 
-        - `const VaultDeletedVaultDeleted VaultDeleted = "vault.deleted"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookVaultCredentialCreatedEventData struct{…}`
@@ -497,8 +520,6 @@
       - `OrganizationID string`
 
       - `Type VaultCredentialCreated`
-
-        - `const VaultCredentialCreatedVaultCredentialCreated VaultCredentialCreated = "vault_credential.created"`
 
       - `VaultID string`
 
@@ -516,8 +537,6 @@
 
       - `Type VaultCredentialArchived`
 
-        - `const VaultCredentialArchivedVaultCredentialArchived VaultCredentialArchived = "vault_credential.archived"`
-
       - `VaultID string`
 
         ID of the vault that owns this credential.
@@ -533,8 +552,6 @@
       - `OrganizationID string`
 
       - `Type VaultCredentialDeleted`
-
-        - `const VaultCredentialDeletedVaultCredentialDeleted VaultCredentialDeleted = "vault_credential.deleted"`
 
       - `VaultID string`
 
@@ -552,8 +569,6 @@
 
       - `Type VaultCredentialRefreshFailed`
 
-        - `const VaultCredentialRefreshFailedVaultCredentialRefreshFailed VaultCredentialRefreshFailed = "vault_credential.refresh_failed"`
-
       - `VaultID string`
 
         ID of the vault that owns this credential.
@@ -570,8 +585,6 @@
 
       - `Type SessionUpdated`
 
-        - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookAgentCreatedEventData struct{…}`
@@ -583,8 +596,6 @@
       - `OrganizationID string`
 
       - `Type AgentCreated`
-
-        - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
 
       - `WorkspaceID string`
 
@@ -598,8 +609,6 @@
 
       - `Type AgentArchived`
 
-        - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookAgentDeletedEventData struct{…}`
@@ -611,8 +620,6 @@
       - `OrganizationID string`
 
       - `Type AgentDeleted`
-
-        - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
 
       - `WorkspaceID string`
 
@@ -626,8 +633,6 @@
 
       - `Type DeploymentPaused`
 
-        - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
@@ -639,8 +644,6 @@
       - `OrganizationID string`
 
       - `Type DeploymentRunFailed`
-
-        - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
 
       - `WorkspaceID string`
 
@@ -654,8 +657,6 @@
 
       - `Type DeploymentCreated`
 
-        - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
@@ -667,8 +668,6 @@
       - `OrganizationID string`
 
       - `Type DeploymentUpdated`
-
-        - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
 
       - `WorkspaceID string`
 
@@ -682,8 +681,6 @@
 
       - `Type DeploymentUnpaused`
 
-        - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookAgentUpdatedEventData struct{…}`
@@ -695,8 +692,6 @@
       - `OrganizationID string`
 
       - `Type AgentUpdated`
-
-        - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
 
       - `WorkspaceID string`
 
@@ -710,8 +705,6 @@
 
       - `Type DeploymentArchived`
 
-        - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
@@ -723,8 +716,6 @@
       - `OrganizationID string`
 
       - `Type DeploymentRunStarted`
-
-        - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
 
       - `WorkspaceID string`
 
@@ -738,8 +729,6 @@
 
       - `Type DeploymentDeleted`
 
-        - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
@@ -752,15 +741,107 @@
 
       - `Type DeploymentRunSucceeded`
 
-        - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentDeleted`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionBudgetReached`
 
       - `WorkspaceID string`
 
   - `Type Event`
 
     Object type. Always `event` for webhook payloads.
-
-    - `const EventEvent Event = "event"`
 
 ### Beta Webhook Event Data
 
@@ -776,8 +857,6 @@
 
     - `Type SessionCreated`
 
-      - `const SessionCreatedSessionCreated SessionCreated = "session.created"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionPendingEventData struct{…}`
@@ -789,8 +868,6 @@
     - `OrganizationID string`
 
     - `Type SessionPending`
-
-      - `const SessionPendingSessionPending SessionPending = "session.pending"`
 
     - `WorkspaceID string`
 
@@ -804,8 +881,6 @@
 
     - `Type SessionRunning`
 
-      - `const SessionRunningSessionRunning SessionRunning = "session.running"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionIdledEventData struct{…}`
@@ -817,8 +892,6 @@
     - `OrganizationID string`
 
     - `Type SessionIdled`
-
-      - `const SessionIdledSessionIdled SessionIdled = "session.idled"`
 
     - `WorkspaceID string`
 
@@ -832,8 +905,6 @@
 
     - `Type SessionRequiresAction`
 
-      - `const SessionRequiresActionSessionRequiresAction SessionRequiresAction = "session.requires_action"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionArchivedEventData struct{…}`
@@ -845,8 +916,6 @@
     - `OrganizationID string`
 
     - `Type SessionArchived`
-
-      - `const SessionArchivedSessionArchived SessionArchived = "session.archived"`
 
     - `WorkspaceID string`
 
@@ -860,8 +929,6 @@
 
     - `Type SessionDeleted`
 
-      - `const SessionDeletedSessionDeleted SessionDeleted = "session.deleted"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionStatusRescheduledEventData struct{…}`
@@ -873,8 +940,6 @@
     - `OrganizationID string`
 
     - `Type SessionStatusRescheduled`
-
-      - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
 
     - `WorkspaceID string`
 
@@ -888,8 +953,6 @@
 
     - `Type SessionStatusRunStarted`
 
-      - `const SessionStatusRunStartedSessionStatusRunStarted SessionStatusRunStarted = "session.status_run_started"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionStatusIdledEventData struct{…}`
@@ -902,8 +965,6 @@
 
     - `Type SessionStatusIdled`
 
-      - `const SessionStatusIdledSessionStatusIdled SessionStatusIdled = "session.status_idled"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionStatusTerminatedEventData struct{…}`
@@ -915,8 +976,6 @@
     - `OrganizationID string`
 
     - `Type SessionStatusTerminated`
-
-      - `const SessionStatusTerminatedSessionStatusTerminated SessionStatusTerminated = "session.status_terminated"`
 
     - `WorkspaceID string`
 
@@ -934,8 +993,6 @@
 
     - `Type SessionThreadCreated`
 
-      - `const SessionThreadCreatedSessionThreadCreated SessionThreadCreated = "session.thread_created"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionThreadIdledEventData struct{…}`
@@ -951,8 +1008,6 @@
       ID of the session thread this event refers to.
 
     - `Type SessionThreadIdled`
-
-      - `const SessionThreadIdledSessionThreadIdled SessionThreadIdled = "session.thread_idled"`
 
     - `WorkspaceID string`
 
@@ -970,8 +1025,6 @@
 
     - `Type SessionThreadTerminated`
 
-      - `const SessionThreadTerminatedSessionThreadTerminated SessionThreadTerminated = "session.thread_terminated"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookSessionOutcomeEvaluationEndedEventData struct{…}`
@@ -983,8 +1036,6 @@
     - `OrganizationID string`
 
     - `Type SessionOutcomeEvaluationEnded`
-
-      - `const SessionOutcomeEvaluationEndedSessionOutcomeEvaluationEnded SessionOutcomeEvaluationEnded = "session.outcome_evaluation_ended"`
 
     - `WorkspaceID string`
 
@@ -998,8 +1049,6 @@
 
     - `Type VaultCreated`
 
-      - `const VaultCreatedVaultCreated VaultCreated = "vault.created"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookVaultArchivedEventData struct{…}`
@@ -1011,8 +1060,6 @@
     - `OrganizationID string`
 
     - `Type VaultArchived`
-
-      - `const VaultArchivedVaultArchived VaultArchived = "vault.archived"`
 
     - `WorkspaceID string`
 
@@ -1026,8 +1073,6 @@
 
     - `Type VaultDeleted`
 
-      - `const VaultDeletedVaultDeleted VaultDeleted = "vault.deleted"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookVaultCredentialCreatedEventData struct{…}`
@@ -1039,8 +1084,6 @@
     - `OrganizationID string`
 
     - `Type VaultCredentialCreated`
-
-      - `const VaultCredentialCreatedVaultCredentialCreated VaultCredentialCreated = "vault_credential.created"`
 
     - `VaultID string`
 
@@ -1058,8 +1101,6 @@
 
     - `Type VaultCredentialArchived`
 
-      - `const VaultCredentialArchivedVaultCredentialArchived VaultCredentialArchived = "vault_credential.archived"`
-
     - `VaultID string`
 
       ID of the vault that owns this credential.
@@ -1075,8 +1116,6 @@
     - `OrganizationID string`
 
     - `Type VaultCredentialDeleted`
-
-      - `const VaultCredentialDeletedVaultCredentialDeleted VaultCredentialDeleted = "vault_credential.deleted"`
 
     - `VaultID string`
 
@@ -1094,8 +1133,6 @@
 
     - `Type VaultCredentialRefreshFailed`
 
-      - `const VaultCredentialRefreshFailedVaultCredentialRefreshFailed VaultCredentialRefreshFailed = "vault_credential.refresh_failed"`
-
     - `VaultID string`
 
       ID of the vault that owns this credential.
@@ -1112,8 +1149,6 @@
 
     - `Type SessionUpdated`
 
-      - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookAgentCreatedEventData struct{…}`
@@ -1125,8 +1160,6 @@
     - `OrganizationID string`
 
     - `Type AgentCreated`
-
-      - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
 
     - `WorkspaceID string`
 
@@ -1140,8 +1173,6 @@
 
     - `Type AgentArchived`
 
-      - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookAgentDeletedEventData struct{…}`
@@ -1153,8 +1184,6 @@
     - `OrganizationID string`
 
     - `Type AgentDeleted`
-
-      - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
 
     - `WorkspaceID string`
 
@@ -1168,8 +1197,6 @@
 
     - `Type DeploymentPaused`
 
-      - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
@@ -1181,8 +1208,6 @@
     - `OrganizationID string`
 
     - `Type DeploymentRunFailed`
-
-      - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
 
     - `WorkspaceID string`
 
@@ -1196,8 +1221,6 @@
 
     - `Type DeploymentCreated`
 
-      - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
@@ -1209,8 +1232,6 @@
     - `OrganizationID string`
 
     - `Type DeploymentUpdated`
-
-      - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
 
     - `WorkspaceID string`
 
@@ -1224,8 +1245,6 @@
 
     - `Type DeploymentUnpaused`
 
-      - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookAgentUpdatedEventData struct{…}`
@@ -1237,8 +1256,6 @@
     - `OrganizationID string`
 
     - `Type AgentUpdated`
-
-      - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
 
     - `WorkspaceID string`
 
@@ -1252,8 +1269,6 @@
 
     - `Type DeploymentArchived`
 
-      - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
@@ -1265,8 +1280,6 @@
     - `OrganizationID string`
 
     - `Type DeploymentRunStarted`
-
-      - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
 
     - `WorkspaceID string`
 
@@ -1280,8 +1293,6 @@
 
     - `Type DeploymentDeleted`
 
-      - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
-
     - `WorkspaceID string`
 
   - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
@@ -1294,9 +1305,145 @@
 
     - `Type DeploymentRunSucceeded`
 
-      - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentCreated`
 
     - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentUpdated`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentArchived`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentDeleted`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreCreated`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreArchived`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreDeleted`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the session that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type SessionBudgetReached`
+
+    - `WorkspaceID string`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreArchived`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreCreated`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreDeleted`
+
+  - `WorkspaceID string`
 
 ### Beta Webhook Session Archived Event Data
 
@@ -1310,7 +1457,19 @@
 
   - `Type SessionArchived`
 
-    - `const SessionArchivedSessionArchived SessionArchived = "session.archived"`
+  - `WorkspaceID string`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the session that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type SessionBudgetReached`
 
   - `WorkspaceID string`
 
@@ -1326,8 +1485,6 @@
 
   - `Type SessionCreated`
 
-    - `const SessionCreatedSessionCreated SessionCreated = "session.created"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Deleted Event Data
@@ -1341,8 +1498,6 @@
   - `OrganizationID string`
 
   - `Type SessionDeleted`
-
-    - `const SessionDeletedSessionDeleted SessionDeleted = "session.deleted"`
 
   - `WorkspaceID string`
 
@@ -1358,8 +1513,6 @@
 
   - `Type SessionIdled`
 
-    - `const SessionIdledSessionIdled SessionIdled = "session.idled"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Outcome Evaluation Ended Event Data
@@ -1373,8 +1526,6 @@
   - `OrganizationID string`
 
   - `Type SessionOutcomeEvaluationEnded`
-
-    - `const SessionOutcomeEvaluationEndedSessionOutcomeEvaluationEnded SessionOutcomeEvaluationEnded = "session.outcome_evaluation_ended"`
 
   - `WorkspaceID string`
 
@@ -1390,8 +1541,6 @@
 
   - `Type SessionPending`
 
-    - `const SessionPendingSessionPending SessionPending = "session.pending"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Requires Action Event Data
@@ -1405,8 +1554,6 @@
   - `OrganizationID string`
 
   - `Type SessionRequiresAction`
-
-    - `const SessionRequiresActionSessionRequiresAction SessionRequiresAction = "session.requires_action"`
 
   - `WorkspaceID string`
 
@@ -1422,8 +1569,6 @@
 
   - `Type SessionRunning`
 
-    - `const SessionRunningSessionRunning SessionRunning = "session.running"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Status Idled Event Data
@@ -1437,8 +1582,6 @@
   - `OrganizationID string`
 
   - `Type SessionStatusIdled`
-
-    - `const SessionStatusIdledSessionStatusIdled SessionStatusIdled = "session.status_idled"`
 
   - `WorkspaceID string`
 
@@ -1454,8 +1597,6 @@
 
   - `Type SessionStatusRescheduled`
 
-    - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Status Run Started Event Data
@@ -1470,8 +1611,6 @@
 
   - `Type SessionStatusRunStarted`
 
-    - `const SessionStatusRunStartedSessionStatusRunStarted SessionStatusRunStarted = "session.status_run_started"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Status Terminated Event Data
@@ -1485,8 +1624,6 @@
   - `OrganizationID string`
 
   - `Type SessionStatusTerminated`
-
-    - `const SessionStatusTerminatedSessionStatusTerminated SessionStatusTerminated = "session.status_terminated"`
 
   - `WorkspaceID string`
 
@@ -1506,8 +1643,6 @@
 
   - `Type SessionThreadCreated`
 
-    - `const SessionThreadCreatedSessionThreadCreated SessionThreadCreated = "session.thread_created"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Thread Idled Event Data
@@ -1525,8 +1660,6 @@
     ID of the session thread this event refers to.
 
   - `Type SessionThreadIdled`
-
-    - `const SessionThreadIdledSessionThreadIdled SessionThreadIdled = "session.thread_idled"`
 
   - `WorkspaceID string`
 
@@ -1546,8 +1679,6 @@
 
   - `Type SessionThreadTerminated`
 
-    - `const SessionThreadTerminatedSessionThreadTerminated SessionThreadTerminated = "session.thread_terminated"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Session Updated Event Data
@@ -1561,8 +1692,6 @@
   - `OrganizationID string`
 
   - `Type SessionUpdated`
-
-    - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
 
   - `WorkspaceID string`
 
@@ -1578,8 +1707,6 @@
 
   - `Type VaultArchived`
 
-    - `const VaultArchivedVaultArchived VaultArchived = "vault.archived"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Vault Created Event Data
@@ -1594,8 +1721,6 @@
 
   - `Type VaultCreated`
 
-    - `const VaultCreatedVaultCreated VaultCreated = "vault.created"`
-
   - `WorkspaceID string`
 
 ### Beta Webhook Vault Credential Archived Event Data
@@ -1609,8 +1734,6 @@
   - `OrganizationID string`
 
   - `Type VaultCredentialArchived`
-
-    - `const VaultCredentialArchivedVaultCredentialArchived VaultCredentialArchived = "vault_credential.archived"`
 
   - `VaultID string`
 
@@ -1630,8 +1753,6 @@
 
   - `Type VaultCredentialCreated`
 
-    - `const VaultCredentialCreatedVaultCredentialCreated VaultCredentialCreated = "vault_credential.created"`
-
   - `VaultID string`
 
     ID of the vault that owns this credential.
@@ -1649,8 +1770,6 @@
   - `OrganizationID string`
 
   - `Type VaultCredentialDeleted`
-
-    - `const VaultCredentialDeletedVaultCredentialDeleted VaultCredentialDeleted = "vault_credential.deleted"`
 
   - `VaultID string`
 
@@ -1670,8 +1789,6 @@
 
   - `Type VaultCredentialRefreshFailed`
 
-    - `const VaultCredentialRefreshFailedVaultCredentialRefreshFailed VaultCredentialRefreshFailed = "vault_credential.refresh_failed"`
-
   - `VaultID string`
 
     ID of the vault that owns this credential.
@@ -1690,8 +1807,6 @@
 
   - `Type VaultDeleted`
 
-    - `const VaultDeletedVaultDeleted VaultDeleted = "vault.deleted"`
-
   - `WorkspaceID string`
 
 ### Unwrap Webhook Event
@@ -1706,6 +1821,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `Data BetaWebhookEventDataUnion`
 
     - `type BetaWebhookSessionCreatedEventData struct{…}`
@@ -1717,8 +1834,6 @@
       - `OrganizationID string`
 
       - `Type SessionCreated`
-
-        - `const SessionCreatedSessionCreated SessionCreated = "session.created"`
 
       - `WorkspaceID string`
 
@@ -1732,8 +1847,6 @@
 
       - `Type SessionPending`
 
-        - `const SessionPendingSessionPending SessionPending = "session.pending"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionRunningEventData struct{…}`
@@ -1745,8 +1858,6 @@
       - `OrganizationID string`
 
       - `Type SessionRunning`
-
-        - `const SessionRunningSessionRunning SessionRunning = "session.running"`
 
       - `WorkspaceID string`
 
@@ -1760,8 +1871,6 @@
 
       - `Type SessionIdled`
 
-        - `const SessionIdledSessionIdled SessionIdled = "session.idled"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionRequiresActionEventData struct{…}`
@@ -1773,8 +1882,6 @@
       - `OrganizationID string`
 
       - `Type SessionRequiresAction`
-
-        - `const SessionRequiresActionSessionRequiresAction SessionRequiresAction = "session.requires_action"`
 
       - `WorkspaceID string`
 
@@ -1788,8 +1895,6 @@
 
       - `Type SessionArchived`
 
-        - `const SessionArchivedSessionArchived SessionArchived = "session.archived"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionDeletedEventData struct{…}`
@@ -1801,8 +1906,6 @@
       - `OrganizationID string`
 
       - `Type SessionDeleted`
-
-        - `const SessionDeletedSessionDeleted SessionDeleted = "session.deleted"`
 
       - `WorkspaceID string`
 
@@ -1816,8 +1919,6 @@
 
       - `Type SessionStatusRescheduled`
 
-        - `const SessionStatusRescheduledSessionStatusRescheduled SessionStatusRescheduled = "session.status_rescheduled"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionStatusRunStartedEventData struct{…}`
@@ -1829,8 +1930,6 @@
       - `OrganizationID string`
 
       - `Type SessionStatusRunStarted`
-
-        - `const SessionStatusRunStartedSessionStatusRunStarted SessionStatusRunStarted = "session.status_run_started"`
 
       - `WorkspaceID string`
 
@@ -1844,8 +1943,6 @@
 
       - `Type SessionStatusIdled`
 
-        - `const SessionStatusIdledSessionStatusIdled SessionStatusIdled = "session.status_idled"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionStatusTerminatedEventData struct{…}`
@@ -1857,8 +1954,6 @@
       - `OrganizationID string`
 
       - `Type SessionStatusTerminated`
-
-        - `const SessionStatusTerminatedSessionStatusTerminated SessionStatusTerminated = "session.status_terminated"`
 
       - `WorkspaceID string`
 
@@ -1876,8 +1971,6 @@
 
       - `Type SessionThreadCreated`
 
-        - `const SessionThreadCreatedSessionThreadCreated SessionThreadCreated = "session.thread_created"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionThreadIdledEventData struct{…}`
@@ -1893,8 +1986,6 @@
         ID of the session thread this event refers to.
 
       - `Type SessionThreadIdled`
-
-        - `const SessionThreadIdledSessionThreadIdled SessionThreadIdled = "session.thread_idled"`
 
       - `WorkspaceID string`
 
@@ -1912,8 +2003,6 @@
 
       - `Type SessionThreadTerminated`
 
-        - `const SessionThreadTerminatedSessionThreadTerminated SessionThreadTerminated = "session.thread_terminated"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookSessionOutcomeEvaluationEndedEventData struct{…}`
@@ -1925,8 +2014,6 @@
       - `OrganizationID string`
 
       - `Type SessionOutcomeEvaluationEnded`
-
-        - `const SessionOutcomeEvaluationEndedSessionOutcomeEvaluationEnded SessionOutcomeEvaluationEnded = "session.outcome_evaluation_ended"`
 
       - `WorkspaceID string`
 
@@ -1940,8 +2027,6 @@
 
       - `Type VaultCreated`
 
-        - `const VaultCreatedVaultCreated VaultCreated = "vault.created"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookVaultArchivedEventData struct{…}`
@@ -1953,8 +2038,6 @@
       - `OrganizationID string`
 
       - `Type VaultArchived`
-
-        - `const VaultArchivedVaultArchived VaultArchived = "vault.archived"`
 
       - `WorkspaceID string`
 
@@ -1968,8 +2051,6 @@
 
       - `Type VaultDeleted`
 
-        - `const VaultDeletedVaultDeleted VaultDeleted = "vault.deleted"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookVaultCredentialCreatedEventData struct{…}`
@@ -1981,8 +2062,6 @@
       - `OrganizationID string`
 
       - `Type VaultCredentialCreated`
-
-        - `const VaultCredentialCreatedVaultCredentialCreated VaultCredentialCreated = "vault_credential.created"`
 
       - `VaultID string`
 
@@ -2000,8 +2079,6 @@
 
       - `Type VaultCredentialArchived`
 
-        - `const VaultCredentialArchivedVaultCredentialArchived VaultCredentialArchived = "vault_credential.archived"`
-
       - `VaultID string`
 
         ID of the vault that owns this credential.
@@ -2017,8 +2094,6 @@
       - `OrganizationID string`
 
       - `Type VaultCredentialDeleted`
-
-        - `const VaultCredentialDeletedVaultCredentialDeleted VaultCredentialDeleted = "vault_credential.deleted"`
 
       - `VaultID string`
 
@@ -2036,8 +2111,6 @@
 
       - `Type VaultCredentialRefreshFailed`
 
-        - `const VaultCredentialRefreshFailedVaultCredentialRefreshFailed VaultCredentialRefreshFailed = "vault_credential.refresh_failed"`
-
       - `VaultID string`
 
         ID of the vault that owns this credential.
@@ -2054,8 +2127,6 @@
 
       - `Type SessionUpdated`
 
-        - `const SessionUpdatedSessionUpdated SessionUpdated = "session.updated"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookAgentCreatedEventData struct{…}`
@@ -2067,8 +2138,6 @@
       - `OrganizationID string`
 
       - `Type AgentCreated`
-
-        - `const AgentCreatedAgentCreated AgentCreated = "agent.created"`
 
       - `WorkspaceID string`
 
@@ -2082,8 +2151,6 @@
 
       - `Type AgentArchived`
 
-        - `const AgentArchivedAgentArchived AgentArchived = "agent.archived"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookAgentDeletedEventData struct{…}`
@@ -2095,8 +2162,6 @@
       - `OrganizationID string`
 
       - `Type AgentDeleted`
-
-        - `const AgentDeletedAgentDeleted AgentDeleted = "agent.deleted"`
 
       - `WorkspaceID string`
 
@@ -2110,8 +2175,6 @@
 
       - `Type DeploymentPaused`
 
-        - `const DeploymentPausedDeploymentPaused DeploymentPaused = "deployment.paused"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentRunFailedEventData struct{…}`
@@ -2123,8 +2186,6 @@
       - `OrganizationID string`
 
       - `Type DeploymentRunFailed`
-
-        - `const DeploymentRunFailedDeploymentRunFailed DeploymentRunFailed = "deployment_run.failed"`
 
       - `WorkspaceID string`
 
@@ -2138,8 +2199,6 @@
 
       - `Type DeploymentCreated`
 
-        - `const DeploymentCreatedDeploymentCreated DeploymentCreated = "deployment.created"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentUpdatedEventData struct{…}`
@@ -2151,8 +2210,6 @@
       - `OrganizationID string`
 
       - `Type DeploymentUpdated`
-
-        - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
 
       - `WorkspaceID string`
 
@@ -2166,8 +2223,6 @@
 
       - `Type DeploymentUnpaused`
 
-        - `const DeploymentUnpausedDeploymentUnpaused DeploymentUnpaused = "deployment.unpaused"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookAgentUpdatedEventData struct{…}`
@@ -2179,8 +2234,6 @@
       - `OrganizationID string`
 
       - `Type AgentUpdated`
-
-        - `const AgentUpdatedAgentUpdated AgentUpdated = "agent.updated"`
 
       - `WorkspaceID string`
 
@@ -2194,8 +2247,6 @@
 
       - `Type DeploymentArchived`
 
-        - `const DeploymentArchivedDeploymentArchived DeploymentArchived = "deployment.archived"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentRunStartedEventData struct{…}`
@@ -2207,8 +2258,6 @@
       - `OrganizationID string`
 
       - `Type DeploymentRunStarted`
-
-        - `const DeploymentRunStartedDeploymentRunStarted DeploymentRunStarted = "deployment_run.started"`
 
       - `WorkspaceID string`
 
@@ -2222,8 +2271,6 @@
 
       - `Type DeploymentDeleted`
 
-        - `const DeploymentDeletedDeploymentDeleted DeploymentDeleted = "deployment.deleted"`
-
       - `WorkspaceID string`
 
     - `type BetaWebhookDeploymentRunSucceededEventData struct{…}`
@@ -2236,12 +2283,104 @@
 
       - `Type DeploymentRunSucceeded`
 
-        - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentDeleted`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionBudgetReached`
 
       - `WorkspaceID string`
 
   - `Type Event`
 
     Object type. Always `event` for webhook payloads.
-
-    - `const EventEvent Event = "event"`

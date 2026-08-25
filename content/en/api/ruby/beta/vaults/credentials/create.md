@@ -1,12 +1,12 @@
-## Create Credential
+# Create Credential
 
 `beta.vaults.credentials.create(vault_id, **kwargs) -> BetaManagedAgentsCredential`
 
-**post** `/v1/vaults/{vault_id}/credentials`
+**POST** `/v1/vaults/{vault_id}/credentials`
 
 Create Credential
 
-### Parameters
+## Parameters
 
 - `vault_id: String`
 
@@ -22,17 +22,21 @@ Create Credential
 
       OAuth access token.
 
+      minLength: 1, maxLength: 8192
+
     - `mcp_server_url: String`
 
       URL of the MCP server this credential authenticates against.
 
-    - `type: :mcp_oauth`
+      minLength: 1, maxLength: 2047
 
-      - `:mcp_oauth`
+    - `type: :mcp_oauth`
 
     - `expires_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `refresh: BetaManagedAgentsMCPOAuthRefreshParams`
 
@@ -42,13 +46,19 @@ Create Credential
 
         OAuth client ID.
 
+        minLength: 1, maxLength: 1024
+
       - `refresh_token: String`
 
         OAuth refresh token.
 
+        minLength: 1, maxLength: 4096
+
       - `token_endpoint: String`
 
         Token endpoint URL used to refresh the access token.
+
+        minLength: 1, maxLength: 2047
 
       - `token_endpoint_auth: BetaManagedAgentsTokenEndpointAuthNoneParam | BetaManagedAgentsTokenEndpointAuthBasicParam | BetaManagedAgentsTokenEndpointAuthPostParam`
 
@@ -60,8 +70,6 @@ Create Credential
 
           - `type: :none`
 
-            - `:none`
-
         - `class BetaManagedAgentsTokenEndpointAuthBasicParam`
 
           Token endpoint uses HTTP Basic authentication with client credentials.
@@ -70,9 +78,9 @@ Create Credential
 
             OAuth client secret.
 
-          - `type: :client_secret_basic`
+            minLength: 1, maxLength: 512
 
-            - `:client_secret_basic`
+          - `type: :client_secret_basic`
 
         - `class BetaManagedAgentsTokenEndpointAuthPostParam`
 
@@ -82,17 +90,21 @@ Create Credential
 
             OAuth client secret.
 
-          - `type: :client_secret_post`
+            minLength: 1, maxLength: 512
 
-            - `:client_secret_post`
+          - `type: :client_secret_post`
 
       - `resource: String`
 
         OAuth resource indicator.
 
+        minLength: 1, maxLength: 2047
+
       - `scope: String`
 
         OAuth scope for the refresh request.
+
+        minLength: 1, maxLength: 8192
 
   - `class BetaManagedAgentsStaticBearerCreateParams`
 
@@ -102,13 +114,15 @@ Create Credential
 
       Static bearer token value.
 
+      minLength: 1, maxLength: 8192
+
     - `mcp_server_url: String`
 
       URL of the MCP server this credential authenticates against.
 
-    - `type: :static_bearer`
+      minLength: 1, maxLength: 2047
 
-      - `:static_bearer`
+    - `type: :static_bearer`
 
   - `class BetaManagedAgentsEnvironmentVariableCreateParams`
 
@@ -124,8 +138,6 @@ Create Credential
 
         - `type: :unrestricted`
 
-          - `:unrestricted`
-
       - `class BetaManagedAgentsLimitedCredentialNetworkingParams`
 
         Substitute the secret only on requests to the listed hosts.
@@ -136,19 +148,19 @@ Create Credential
 
         - `type: :limited`
 
-          - `:limited`
-
     - `secret_name: String`
 
       Name of the environment variable. Immutable after create.
+
+      minLength: 1, maxLength: 255
 
     - `secret_value: String`
 
       Secret value. Write-only; never returned in responses.
 
-    - `type: :environment_variable`
+      minLength: 1, maxLength: 4096
 
-      - `:environment_variable`
+    - `type: :environment_variable`
 
     - `injection_location: BetaManagedAgentsInjectionLocationParams`
 
@@ -166,6 +178,8 @@ Create Credential
 
   Human-readable name for the credential. Up to 255 characters.
 
+  maxLength: 255
+
 - `metadata: Hash[Symbol, String]`
 
   Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -176,7 +190,7 @@ Create Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -222,21 +236,31 @@ Create Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaManagedAgentsCredential`
 
@@ -249,6 +273,8 @@ Create Credential
   - `archived_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse | BetaManagedAgentsStaticBearerAuthResponse | BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -264,11 +290,11 @@ Create Credential
 
       - `type: :mcp_oauth`
 
-        - `:mcp_oauth`
-
       - `expires_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh: BetaManagedAgentsMCPOAuthRefreshResponse`
 
@@ -292,23 +318,17 @@ Create Credential
 
             - `type: :none`
 
-              - `:none`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: :client_secret_basic`
 
-              - `:client_secret_basic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: :client_secret_post`
-
-              - `:client_secret_post`
 
         - `resource: String`
 
@@ -327,8 +347,6 @@ Create Credential
         URL of the MCP server this credential authenticates against.
 
       - `type: :static_bearer`
-
-        - `:static_bearer`
 
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -356,8 +374,6 @@ Create Credential
 
           - `type: :unrestricted`
 
-            - `:unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
@@ -368,19 +384,17 @@ Create Credential
 
           - `type: :limited`
 
-            - `:limited`
-
       - `secret_name: String`
 
         Name of the environment variable.
 
       - `type: :environment_variable`
 
-        - `:environment_variable`
-
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Hash[Symbol, String]`
 
@@ -388,11 +402,11 @@ Create Credential
 
   - `type: :vault_credential`
 
-    - `:vault_credential`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: String`
 
@@ -402,7 +416,7 @@ Create Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -421,7 +435,7 @@ beta_managed_agents_credential = anthropic.beta.vaults.credentials.create(
 puts(beta_managed_agents_credential)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

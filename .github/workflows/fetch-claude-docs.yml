@@ -98,6 +98,7 @@ jobs:
             - `content/blog/` - FROZEN archive (anthropic.com is HTML-only; no longer fetched)
             - `content/github/` - GitHub repos (cookbooks, skills, plugins, courses)
             - `content/support/` - Support articles (sitemap + .md)
+            - `content/claude/` - Product docs (Claude Tag, Cowork, office agents, connectors)
 
             ## YOUR WORKFLOW
 
@@ -119,9 +120,34 @@ jobs:
             - Breaking changes
             - Security-related updates
             - New MCP spec versions
+            - ANY deleted files (`git status` shows `D`). The fetcher reaps
+              pages that died upstream. A page disappearing is a real editorial
+              event and a human should see it, so deletions are never `minor`
+              no matter which directory they are in. Say what went and why it
+              looks gone (moved? renamed? product sunset?).
+            - New entries in `tombstones.json` (pages newly gone upstream), or
+              entries removed from it (pages that came BACK). Both are
+              editorial news. `git diff tombstones.json` shows exactly what
+              changed - read it, do not just note that the file changed.
+            - ANY change to `discovery.json`. This is the archive finding
+              something it does not yet hold, and it is the highest-value
+              thing a run can produce - a source we are missing is worse
+              than a doc we are missing. `git diff discovery.json` and say
+              which of these happened:
+                * a domain appeared under `domains` with status `UNKNOWN` -
+                  upstream is redirecting somewhere we have never probed
+                * a `review` line appeared - a domain now serves .md and
+                  could be archived today but is not in `sources.json`
+                * `serves_markdown` flipped false -> true on a `not-fetched`
+                  domain (e.g. academy.claude.com getting .md variants)
+                * a repo appeared under `github_org_anthropics.not_fetched` -
+                  Anthropic published a new public repo
+              Name the domain or repo in the title. Adding the source is a
+              human decision; your job is to make sure it reaches one.
 
             **minor** (WHY: archive freshness, zero human value - PR is self-merged instantly):
             - Only github/ mirror or support/ content changed
+            - Additions and modifications only - never use `minor` if anything was deleted
             - Only .metadata.json / timestamps changed
             - Typo fixes, formatting tweaks, dead links, minor wording
 

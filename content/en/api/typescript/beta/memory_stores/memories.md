@@ -2,9 +2,9 @@
 
 ## Create a memory
 
-`client.beta.memoryStores.memories.create(stringmemoryStoreID, MemoryCreateParamsparams, RequestOptionsoptions?): BetaManagedAgentsMemory`
+`client.beta.memoryStores.memories.create(memoryStoreID, params, options?): BetaManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
@@ -22,6 +22,8 @@ Create a memory
 
     Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
 
+    minLength: 2, maxLength: 1024
+
   - `view?: BetaManagedAgentsMemoryView`
 
     Query param: Query parameter for view
@@ -36,7 +38,7 @@ Create a memory
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -82,19 +84,29 @@ Create a memory
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -114,9 +126,13 @@ Create a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -132,11 +148,11 @@ Create a memory
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content?: string | null`
 
@@ -145,21 +161,21 @@ Create a memory
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsMemory = await client.beta.memoryStores.memories.create('memory_store_id', {
-  content: 'content',
-  path: 'xx',
-});
+const betaManagedAgentsMemory = await client.beta.memoryStores.memories.create(
+  "memory_store_id",
+  { content: "content", path: "xx" }
+);
 
 console.log(betaManagedAgentsMemory.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -178,9 +194,9 @@ console.log(betaManagedAgentsMemory.id);
 
 ## List memories
 
-`client.beta.memoryStores.memories.list(stringmemoryStoreID, MemoryListParamsparams?, RequestOptionsoptions?): PageCursor<BetaManagedAgentsMemoryListItem>`
+`client.beta.memoryStores.memories.list(memoryStoreID, params?, options?): PageCursor<BetaManagedAgentsMemoryListItem>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
@@ -194,9 +210,13 @@ List memories
 
     Query param: `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
+    format: int32
+
   - `limit?: number`
 
     Query param: Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
+
+    format: int32
 
   - `page?: string`
 
@@ -220,7 +240,7 @@ List memories
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -266,19 +286,29 @@ List memories
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -302,9 +332,13 @@ List memories
 
       Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+      format: int32
+
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `memory_store_id: string`
 
@@ -320,11 +354,11 @@ List memories
 
     - `type: "memory"`
 
-      - `"memory"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `content?: string | null`
 
@@ -340,26 +374,24 @@ List memories
 
     - `type: "memory_prefix"`
 
-      - `"memory_prefix"`
-
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 // Automatically fetches more pages as needed.
 for await (const betaManagedAgentsMemoryListItem of client.beta.memoryStores.memories.list(
-  'memory_store_id',
+  "memory_store_id"
 )) {
   console.log(betaManagedAgentsMemoryListItem);
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -383,9 +415,9 @@ for await (const betaManagedAgentsMemoryListItem of client.beta.memoryStores.mem
 
 ## Retrieve a memory
 
-`client.beta.memoryStores.memories.retrieve(stringmemoryID, MemoryRetrieveParamsparams, RequestOptionsoptions?): BetaManagedAgentsMemory`
+`client.beta.memoryStores.memories.retrieve(memoryID, params, options?): BetaManagedAgentsMemory`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Retrieve a memory
 
@@ -413,7 +445,7 @@ Retrieve a memory
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -459,19 +491,29 @@ Retrieve a memory
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -491,9 +533,13 @@ Retrieve a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -509,11 +555,11 @@ Retrieve a memory
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content?: string | null`
 
@@ -522,20 +568,20 @@ Retrieve a memory
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsMemory = await client.beta.memoryStores.memories.retrieve('memory_id', {
-  memory_store_id: 'memory_store_id',
+const betaManagedAgentsMemory = await client.beta.memoryStores.memories.retrieve("memory_id", {
+  memory_store_id: "memory_store_id"
 });
 
 console.log(betaManagedAgentsMemory.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -554,9 +600,9 @@ console.log(betaManagedAgentsMemory.id);
 
 ## Update a memory
 
-`client.beta.memoryStores.memories.update(stringmemoryID, MemoryUpdateParamsparams, RequestOptionsoptions?): BetaManagedAgentsMemory`
+`client.beta.memoryStores.memories.update(memoryID, params, options?): BetaManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Update a memory
 
@@ -586,13 +632,13 @@ Update a memory
 
     Body param: New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
+    minLength: 2, maxLength: 1024
+
   - `precondition?: BetaManagedAgentsPrecondition`
 
     Body param: Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
 
     - `type: "content_sha256"`
-
-      - `"content_sha256"`
 
     - `content_sha256?: string`
 
@@ -604,7 +650,7 @@ Update a memory
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -650,19 +696,29 @@ Update a memory
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -682,9 +738,13 @@ Update a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -700,11 +760,11 @@ Update a memory
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content?: string | null`
 
@@ -713,20 +773,20 @@ Update a memory
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsMemory = await client.beta.memoryStores.memories.update('memory_id', {
-  memory_store_id: 'memory_store_id',
+const betaManagedAgentsMemory = await client.beta.memoryStores.memories.update("memory_id", {
+  memory_store_id: "memory_store_id"
 });
 
 console.log(betaManagedAgentsMemory.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -745,9 +805,9 @@ console.log(betaManagedAgentsMemory.id);
 
 ## Delete a memory
 
-`client.beta.memoryStores.memories.delete(stringmemoryID, MemoryDeleteParamsparams, RequestOptionsoptions?): BetaManagedAgentsDeletedMemory`
+`client.beta.memoryStores.memories.delete(memoryID, params, options?): BetaManagedAgentsDeletedMemory`
 
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
@@ -771,7 +831,7 @@ Delete a memory
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -817,19 +877,29 @@ Delete a memory
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -843,25 +913,24 @@ Delete a memory
 
   - `type: "memory_deleted"`
 
-    - `"memory_deleted"`
-
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaManagedAgentsDeletedMemory = await client.beta.memoryStores.memories.delete('memory_id', {
-  memory_store_id: 'memory_store_id',
-});
+const betaManagedAgentsDeletedMemory = await client.beta.memoryStores.memories.delete(
+  "memory_id",
+  { memory_store_id: "memory_store_id" }
+);
 
 console.log(betaManagedAgentsDeletedMemory.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -870,15 +939,13 @@ console.log(betaManagedAgentsDeletedMemory.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Conflict Error
 
 - `BetaManagedAgentsConflictError`
 
   - `type: "conflict_error"`
-
-    - `"conflict_error"`
 
   - `message?: string`
 
@@ -889,8 +956,6 @@ console.log(betaManagedAgentsDeletedMemory.id);
   Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
 
   - `type: "content_sha256"`
-
-    - `"content_sha256"`
 
   - `content_sha256?: string`
 
@@ -908,8 +973,6 @@ console.log(betaManagedAgentsDeletedMemory.id);
 
   - `type: "memory_deleted"`
 
-    - `"memory_deleted"`
-
 ### Beta Managed Agents Error
 
 - `BetaManagedAgentsError = BetaInvalidRequestError | BetaAuthenticationError | BetaBillingError | 9 more`
@@ -918,87 +981,101 @@ console.log(betaManagedAgentsDeletedMemory.id);
 
     - `message: string`
 
+      default: Invalid request
+
     - `type: "invalid_request_error"`
 
-      - `"invalid_request_error"`
+      default: invalid_request_error
 
   - `BetaAuthenticationError`
 
     - `message: string`
 
+      default: Authentication error
+
     - `type: "authentication_error"`
 
-      - `"authentication_error"`
+      default: authentication_error
 
   - `BetaBillingError`
 
     - `message: string`
 
+      default: Billing error
+
     - `type: "billing_error"`
 
-      - `"billing_error"`
+      default: billing_error
 
   - `BetaPermissionError`
 
     - `message: string`
 
+      default: Permission denied
+
     - `type: "permission_error"`
 
-      - `"permission_error"`
+      default: permission_error
 
   - `BetaNotFoundError`
 
     - `message: string`
 
+      default: Not found
+
     - `type: "not_found_error"`
 
-      - `"not_found_error"`
+      default: not_found_error
 
   - `BetaRateLimitError`
 
     - `message: string`
 
+      default: Rate limited
+
     - `type: "rate_limit_error"`
 
-      - `"rate_limit_error"`
+      default: rate_limit_error
 
   - `BetaGatewayTimeoutError`
 
     - `message: string`
 
+      default: Request timeout
+
     - `type: "timeout_error"`
 
-      - `"timeout_error"`
+      default: timeout_error
 
   - `BetaAPIError`
 
     - `message: string`
 
+      default: Internal server error
+
     - `type: "api_error"`
 
-      - `"api_error"`
+      default: api_error
 
   - `BetaOverloadedError`
 
     - `message: string`
 
+      default: Overloaded
+
     - `type: "overloaded_error"`
 
-      - `"overloaded_error"`
+      default: overloaded_error
 
   - `BetaManagedAgentsMemoryPreconditionFailedError`
 
     - `type: "memory_precondition_failed_error"`
-
-      - `"memory_precondition_failed_error"`
 
     - `message?: string`
 
   - `BetaManagedAgentsMemoryPathConflictError`
 
     - `type: "memory_path_conflict_error"`
-
-      - `"memory_path_conflict_error"`
 
     - `conflicting_memory_id?: string`
 
@@ -1009,8 +1086,6 @@ console.log(betaManagedAgentsDeletedMemory.id);
   - `BetaManagedAgentsConflictError`
 
     - `type: "conflict_error"`
-
-      - `"conflict_error"`
 
     - `message?: string`
 
@@ -1032,9 +1107,13 @@ console.log(betaManagedAgentsDeletedMemory.id);
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -1050,11 +1129,11 @@ console.log(betaManagedAgentsDeletedMemory.id);
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content?: string | null`
 
@@ -1082,9 +1161,13 @@ console.log(betaManagedAgentsDeletedMemory.id);
 
       Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+      format: int32
+
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `memory_store_id: string`
 
@@ -1100,11 +1183,11 @@ console.log(betaManagedAgentsDeletedMemory.id);
 
     - `type: "memory"`
 
-      - `"memory"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `content?: string | null`
 
@@ -1120,15 +1203,11 @@ console.log(betaManagedAgentsDeletedMemory.id);
 
     - `type: "memory_prefix"`
 
-      - `"memory_prefix"`
-
 ### Beta Managed Agents Memory Path Conflict Error
 
 - `BetaManagedAgentsMemoryPathConflictError`
 
   - `type: "memory_path_conflict_error"`
-
-    - `"memory_path_conflict_error"`
 
   - `conflicting_memory_id?: string`
 
@@ -1141,8 +1220,6 @@ console.log(betaManagedAgentsDeletedMemory.id);
 - `BetaManagedAgentsMemoryPreconditionFailedError`
 
   - `type: "memory_precondition_failed_error"`
-
-    - `"memory_precondition_failed_error"`
 
   - `message?: string`
 
@@ -1157,8 +1234,6 @@ console.log(betaManagedAgentsDeletedMemory.id);
     The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
 
   - `type: "memory_prefix"`
-
-    - `"memory_prefix"`
 
 ### Beta Managed Agents Memory View
 
@@ -1177,8 +1252,6 @@ console.log(betaManagedAgentsDeletedMemory.id);
   Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
 
   - `type: "content_sha256"`
-
-    - `"content_sha256"`
 
   - `content_sha256?: string`
 

@@ -1,20 +1,24 @@
-## List Environments
+# List Environments
 
 `$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaEnvironment>`
 
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
-### Parameters
+## Parameters
 
 - `includeArchived?:optional bool`
 
   Include archived environments in the response
 
+  default: false
+
 - `limit?:optional int`
 
   Maximum number of environments to return
+
+  default: 20
 
 - `page?:optional string`
 
@@ -24,7 +28,7 @@ List environments with pagination support.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaEnvironment`
 
@@ -44,9 +48,9 @@ List environments with pagination support.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -68,7 +72,7 @@ List environments with pagination support.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -81,13 +85,13 @@ $page = $client->beta->environments->list(
   includeArchived: true,
   limit: 1,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

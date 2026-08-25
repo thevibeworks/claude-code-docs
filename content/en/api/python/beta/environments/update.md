@@ -1,12 +1,12 @@
-## Update Environment
+# Update Environment
 
-`beta.environments.update(strenvironment_id, EnvironmentUpdateParams**kwargs)  -> BetaEnvironment`
+`beta.environments.update(environment_id, **kwargs)  -> BetaEnvironment`
 
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Parameters
+## Parameters
 
 - `environment_id: str`
 
@@ -25,8 +25,6 @@ Update an existing environment's configuration.
 
       Environment type
 
-      - `"cloud"`
-
     - `networking: Optional[Networking]`
 
       Network configuration policy. Omit on update to preserve the existing value.
@@ -39,8 +37,6 @@ Update an existing environment's configuration.
 
           Network policy type
 
-          - `"unrestricted"`
-
       - `class BetaLimitedNetworkParams: …`
 
         Limited network request params.
@@ -51,8 +47,6 @@ Update an existing environment's configuration.
         - `type: Literal["limited"]`
 
           Network policy type
-
-          - `"limited"`
 
         - `allow_mcp_servers: Optional[bool]`
 
@@ -100,7 +94,7 @@ Update an existing environment's configuration.
 
         Package configuration type
 
-        - `"packages"`
+        default: packages
 
   - `class BetaSelfHostedConfigParams: …`
 
@@ -110,11 +104,11 @@ Update an existing environment's configuration.
 
       Environment type
 
-      - `"self_hosted"`
-
 - `description: Optional[str]`
 
-  Updated description of the environment
+  Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+
+  maxLength: 1024
 
 - `metadata: Optional[Dict[str, Optional[str]]]`
 
@@ -123,6 +117,8 @@ Update an existing environment's configuration.
 - `name: Optional[str]`
 
   Updated name for the environment
+
+  maxLength: 256, minLength: 1
 
 - `scope: Optional[Literal["organization", "account"]]`
 
@@ -138,7 +134,7 @@ Update an existing environment's configuration.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -184,21 +180,31 @@ Update an existing environment's configuration.
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
-### Returns
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaEnvironment: …`
 
@@ -232,8 +238,6 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `class BetaLimitedNetwork: …`
 
           Limited network access.
@@ -253,8 +257,6 @@ Update an existing environment's configuration.
           - `type: Literal["limited"]`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -288,13 +290,11 @@ Update an existing environment's configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: Literal["cloud"]`
 
         Environment type
-
-        - `"cloud"`
 
     - `class BetaSelfHostedConfig: …`
 
@@ -304,15 +304,13 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `"self_hosted"`
-
   - `created_at: str`
 
     RFC 3339 timestamp when environment was created
 
-  - `description: str`
+  - `description: Optional[str]`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Dict[str, str]`
 
@@ -326,7 +324,7 @@ Update an existing environment's configuration.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: str`
 
@@ -340,14 +338,16 @@ Update an existing environment's configuration.
 
     - `"account"`
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_environment = client.beta.environments.update(
     environment_id="env_011CZkZ9X2dpNyB7HsEFoRfW",
@@ -355,7 +355,7 @@ beta_environment = client.beta.environments.update(
 print(beta_environment.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

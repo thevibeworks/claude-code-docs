@@ -1,12 +1,12 @@
-## List Skills
+# List Skills
 
 `$ ant beta:skills list`
 
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
-### Parameters
+## Parameters
 
 - `--limit: optional number`
 
@@ -33,11 +33,11 @@ List Skills
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaListSkillsResponse: object { data, has_more, next_page }`
+- `BetaListSkillsResponse: object`
 
-  - `data: array of object { id, created_at, display_title, 4 more }`
+  - `data: array of object`
 
     List of skills.
 
@@ -92,16 +92,16 @@ List Skills
 
     Token for fetching the next page of results.
 
-    If `null`, there are no more results available. Pass this value to the `page_token` parameter in the next request to get the next page.
+    If `null`, there are no more results available. Pass this value to the `page` parameter in the next request to get the next page.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:skills list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

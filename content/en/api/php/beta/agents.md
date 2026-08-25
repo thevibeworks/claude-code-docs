@@ -4,7 +4,7 @@
 
 `$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents`
+**POST** `/v1/agents`
 
 Create Agent
 
@@ -12,7 +12,7 @@ Create Agent
 
 - `model: Model`
 
-  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-4-6`, or a `model_config` object for additional configuration control
+  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
 - `name: string`
 
@@ -106,7 +106,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsAgent = $client->beta->agents->create(
-  model: 'claude-sonnet-4-6',
+  model: BetaManagedAgentsModel::CLAUDE_OPUS_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
   mcpServers: [
@@ -131,6 +131,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
           'name' => 'bash',
           'enabled' => true,
           'permissionPolicy' => ['type' => 'always_allow'],
+          'type' => 'bash',
         ],
       ],
       'defaultConfig' => [
@@ -138,13 +139,13 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
       ],
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -163,7 +164,11 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-sonnet-4-6",
+    "id": "claude-opus-5",
+    "effort": {
+      "type": "low"
+    },
+    "inference_geo": "inference_geo",
     "speed": "standard"
   },
   "multiagent": {
@@ -198,7 +203,8 @@ var_dump($betaManagedAgentsAgent);
           "name": "bash",
           "permission_policy": {
             "type": "always_allow"
-          }
+          },
+          "type": "bash"
         }
       ],
       "default_config": {
@@ -220,7 +226,7 @@ var_dump($betaManagedAgentsAgent);
 
 `$client->beta->agents->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents`
+**GET** `/v1/agents`
 
 List Agents
 
@@ -311,13 +317,13 @@ $page = $client->beta->agents->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -338,7 +344,11 @@ var_dump($page);
         "foo": "bar"
       },
       "model": {
-        "id": "claude-sonnet-4-6",
+        "id": "claude-opus-5",
+        "effort": {
+          "type": "low"
+        },
+        "inference_geo": "inference_geo",
         "speed": "standard"
       },
       "multiagent": {
@@ -373,7 +383,8 @@ var_dump($page);
               "name": "bash",
               "permission_policy": {
                 "type": "always_allow"
-              }
+              },
+              "type": "bash"
             }
           ],
           "default_config": {
@@ -398,7 +409,7 @@ var_dump($page);
 
 `$client->beta->agents->retrieve(string agentID, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**get** `/v1/agents/{agent_id}`
+**GET** `/v1/agents/{agent_id}`
 
 Get Agent
 
@@ -472,13 +483,13 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsAgent = $client->beta->agents->retrieve(
   'agent_011CZkYpogX7uDKUyvBTophP',
   version: 0,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -497,7 +508,11 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-sonnet-4-6",
+    "id": "claude-opus-5",
+    "effort": {
+      "type": "low"
+    },
+    "inference_geo": "inference_geo",
     "speed": "standard"
   },
   "multiagent": {
@@ -532,7 +547,8 @@ var_dump($betaManagedAgentsAgent);
           "name": "bash",
           "permission_policy": {
             "type": "always_allow"
-          }
+          },
+          "type": "bash"
         }
       ],
       "default_config": {
@@ -552,19 +568,15 @@ var_dump($betaManagedAgentsAgent);
 
 ## Update Agent
 
-`$client->beta->agents->update(string agentID, int version, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
+`$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents/{agent_id}`
+**POST** `/v1/agents/{agent_id}`
 
 Update Agent
 
 ### Parameters
 
 - `agentID: string`
-
-- `version: int`
-
-  The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. The request fails if this does not match the server's current version.
 
 - `description?:optional string`
 
@@ -580,7 +592,7 @@ Update Agent
 
 - `model?:optional Model`
 
-  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-4-6`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
+  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control. Omit to preserve. Cannot be cleared.
 
 - `multiagent?:optional BetaManagedAgentsMultiagentParams`
 
@@ -601,6 +613,10 @@ Update Agent
 - `tools?:optional list<Tool>`
 
   Tool configurations available to the agent. Full replacement. Omit to preserve; send empty array or null to clear. Maximum of 128 tools across all toolsets allowed.
+
+- `version?:optional int`
+
+  The agent's current version, used to prevent concurrent overwrites. Obtain this value from a create or retrieve response. Must be at least 1 if specified. When supplied, the request fails if it does not match the server's current version; omit to apply the update unconditionally.
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -663,8 +679,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsAgent = $client->beta->agents->update(
   'agent_011CZkYpogX7uDKUyvBTophP',
-  version: 1,
-  description: 'description',
+  description: 'updated',
   mcpServers: [
     [
       'name' => 'example-mcp',
@@ -673,7 +688,12 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
     ],
   ],
   metadata: ['foo' => 'string'],
-  model: ['id' => 'claude-opus-4-6', 'speed' => 'standard'],
+  model: [
+    'id' => BetaManagedAgentsModel::CLAUDE_OPUS_5,
+    'effort' => 'low',
+    'inferenceGeo' => 'inference_geo',
+    'speed' => 'standard',
+  ],
   multiagent: [
     'agents' => ['agent_011CZkYqphY8vELVzwCUpqiQ', ['type' => 'self']],
     'type' => 'coordinator',
@@ -689,6 +709,7 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
           'name' => 'bash',
           'enabled' => true,
           'permissionPolicy' => ['type' => 'always_allow'],
+          'type' => 'bash',
         ],
       ],
       'defaultConfig' => [
@@ -696,13 +717,14 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
       ],
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  version: 1,
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -721,7 +743,11 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-sonnet-4-6",
+    "id": "claude-opus-5",
+    "effort": {
+      "type": "low"
+    },
+    "inference_geo": "inference_geo",
     "speed": "standard"
   },
   "multiagent": {
@@ -756,7 +782,8 @@ var_dump($betaManagedAgentsAgent);
           "name": "bash",
           "permission_policy": {
             "type": "always_allow"
-          }
+          },
+          "type": "bash"
         }
       ],
       "default_config": {
@@ -778,7 +805,7 @@ var_dump($betaManagedAgentsAgent);
 
 `$client->beta->agents->archive(string agentID, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents/{agent_id}/archive`
+**POST** `/v1/agents/{agent_id}/archive`
 
 Archive Agent
 
@@ -846,13 +873,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsAgent = $client->beta->agents->archive(
-  'agent_011CZkYpogX7uDKUyvBTophP', betas: ['message-batches-2024-09-24']
+  'agent_011CZkYpogX7uDKUyvBTophP',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -871,7 +899,11 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-sonnet-4-6",
+    "id": "claude-opus-5",
+    "effort": {
+      "type": "low"
+    },
+    "inference_geo": "inference_geo",
     "speed": "standard"
   },
   "multiagent": {
@@ -906,7 +938,8 @@ var_dump($betaManagedAgentsAgent);
           "name": "bash",
           "permission_policy": {
             "type": "always_allow"
-          }
+          },
+          "type": "bash"
         }
       ],
       "default_config": {
@@ -924,7 +957,17 @@ var_dump($betaManagedAgentsAgent);
 }
 ```
 
-## Domain Types
+## Domain types
+
+### Beta Managed Agents Advisor
+
+- `BetaManagedAgentsAdvisor`
+
+  - `string model`
+
+    The advisor model id.
+
+  - `Type type`
 
 ### Beta Managed Agents Agent
 
@@ -986,31 +1029,271 @@ var_dump($betaManagedAgentsAgent);
 
 - `BetaManagedAgentsAgentToolConfig`
 
-  - `bool enabled`
+  - `BetaManagedAgentsBashToolConfig`
 
-  - `Name name`
+    - `bool enabled`
 
-    Built-in agent tool identifier.
+    - `"bash" name`
 
-  - `PermissionPolicy permissionPolicy`
+    - `PermissionPolicy permissionPolicy`
 
-    Permission policy for tool execution.
+      Permission policy for tool execution.
+
+    - `"bash" type`
+
+  - `BetaManagedAgentsEditToolConfig`
+
+    - `bool enabled`
+
+    - `"edit" name`
+
+    - `PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `"edit" type`
+
+  - `BetaManagedAgentsReadToolConfig`
+
+    - `bool enabled`
+
+    - `"read" name`
+
+    - `PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `"read" type`
+
+  - `BetaManagedAgentsWriteToolConfig`
+
+    - `bool enabled`
+
+    - `"write" name`
+
+    - `PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `"write" type`
+
+  - `BetaManagedAgentsGlobToolConfig`
+
+    - `bool enabled`
+
+    - `"glob" name`
+
+    - `PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `"glob" type`
+
+  - `BetaManagedAgentsGrepToolConfig`
+
+    - `bool enabled`
+
+    - `"grep" name`
+
+    - `PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `"grep" type`
+
+  - `BetaManagedAgentsWebFetchToolConfig`
+
+    - `bool enabled`
+
+    - `"web_fetch" name`
+
+    - `PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `"web_fetch" type`
+
+    - `?list<string> allowedDomains`
+
+    - `?list<string> blockedDomains`
+
+    - `?int maxContentTokens`
+
+  - `BetaManagedAgentsWebSearchToolConfig`
+
+    - `bool enabled`
+
+    - `"web_search" name`
+
+    - `PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `"web_search" type`
+
+    - `?list<string> allowedDomains`
+
+    - `?list<string> blockedDomains`
+
+    - `?BetaManagedAgentsUserLocation userLocation`
+
+      Approximate user location for search result localization.
 
 ### Beta Managed Agents Agent Tool Config Params
 
 - `BetaManagedAgentsAgentToolConfigParams`
 
-  - `Name name`
+  - `BetaManagedAgentsBashToolConfigParams`
 
-    Built-in agent tool identifier.
+    - `"bash" name`
 
-  - `?bool enabled`
+      Must be "bash".
 
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+    - `?bool enabled`
 
-  - `?PermissionPolicy permissionPolicy`
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
 
-    Permission policy for tool execution.
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+  - `BetaManagedAgentsEditToolConfigParams`
+
+    - `"edit" name`
+
+      Must be "edit".
+
+    - `?bool enabled`
+
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+  - `BetaManagedAgentsReadToolConfigParams`
+
+    - `"read" name`
+
+      Must be "read".
+
+    - `?bool enabled`
+
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+  - `BetaManagedAgentsWriteToolConfigParams`
+
+    - `"write" name`
+
+      Must be "write".
+
+    - `?bool enabled`
+
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+  - `BetaManagedAgentsGlobToolConfigParams`
+
+    - `"glob" name`
+
+      Must be "glob".
+
+    - `?bool enabled`
+
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+  - `BetaManagedAgentsGrepToolConfigParams`
+
+    - `"grep" name`
+
+      Must be "grep".
+
+    - `?bool enabled`
+
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+  - `BetaManagedAgentsWebFetchToolConfigParams`
+
+    - `"web_fetch" name`
+
+      Must be "web_fetch".
+
+    - `?list<string> allowedDomains`
+
+      Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
+
+    - `?list<string> blockedDomains`
+
+      Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
+
+    - `?bool enabled`
+
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+    - `?int maxContentTokens`
+
+      Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
+
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+  - `BetaManagedAgentsWebSearchToolConfigParams`
+
+    - `"web_search" name`
+
+      Must be "web_search".
+
+    - `?list<string> allowedDomains`
+
+      Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
+
+    - `?list<string> blockedDomains`
+
+      Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
+
+    - `?bool enabled`
+
+      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+    - `?PermissionPolicy permissionPolicy`
+
+      Permission policy for tool execution.
+
+    - `?Type type`
+
+    - `?BetaManagedAgentsUserLocation userLocation`
+
+      Approximate user location for search result localization.
 
 ### Beta Managed Agents Agent Toolset Default Config
 
@@ -1190,6 +1473,38 @@ var_dump($betaManagedAgentsAgent);
 
     Version to pin. Defaults to latest if omitted.
 
+### Beta Managed Agents Bash Tool Config
+
+- `BetaManagedAgentsBashToolConfig`
+
+  - `bool enabled`
+
+  - `"bash" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"bash" type`
+
+### Beta Managed Agents Bash Tool Config Params
+
+- `BetaManagedAgentsBashToolConfigParams`
+
+  - `"bash" name`
+
+    Must be "bash".
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
+
 ### Beta Managed Agents Custom Skill
 
 - `BetaManagedAgentsCustomSkill`
@@ -1244,7 +1559,7 @@ var_dump($betaManagedAgentsAgent);
 
   - `string description`
 
-    Description of what the tool does, shown to the agent to help it decide when to use the tool. 1-4096 characters.
+    Description of what the tool does, shown to the agent to help it decide when to use the tool.
 
   - `BetaManagedAgentsCustomToolInputSchema inputSchema`
 
@@ -1255,6 +1570,132 @@ var_dump($betaManagedAgentsAgent);
     Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
   - `Type type`
+
+### Beta Managed Agents Edit Tool Config
+
+- `BetaManagedAgentsEditToolConfig`
+
+  - `bool enabled`
+
+  - `"edit" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"edit" type`
+
+### Beta Managed Agents Edit Tool Config Params
+
+- `BetaManagedAgentsEditToolConfigParams`
+
+  - `"edit" name`
+
+    Must be "edit".
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
+
+### Beta Managed Agents Effort High
+
+- `BetaManagedAgentsEffortHigh`
+
+  - `Type type`
+
+### Beta Managed Agents Effort Low
+
+- `BetaManagedAgentsEffortLow`
+
+  - `Type type`
+
+### Beta Managed Agents Effort Max
+
+- `BetaManagedAgentsEffortMax`
+
+  - `Type type`
+
+### Beta Managed Agents Effort Medium
+
+- `BetaManagedAgentsEffortMedium`
+
+  - `Type type`
+
+### Beta Managed Agents Effort Xhigh
+
+- `BetaManagedAgentsEffortXhigh`
+
+  - `Type type`
+
+### Beta Managed Agents Glob Tool Config
+
+- `BetaManagedAgentsGlobToolConfig`
+
+  - `bool enabled`
+
+  - `"glob" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"glob" type`
+
+### Beta Managed Agents Glob Tool Config Params
+
+- `BetaManagedAgentsGlobToolConfigParams`
+
+  - `"glob" name`
+
+    Must be "glob".
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
+
+### Beta Managed Agents Grep Tool Config
+
+- `BetaManagedAgentsGrepToolConfig`
+
+  - `bool enabled`
+
+  - `"grep" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"grep" type`
+
+### Beta Managed Agents Grep Tool Config Params
+
+- `BetaManagedAgentsGrepToolConfigParams`
+
+  - `"grep" name`
+
+    Must be "grep".
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
 
 ### Beta Managed Agents MCP Server URL Definition
 
@@ -1360,17 +1801,21 @@ var_dump($betaManagedAgentsAgent);
 
     Next generation of intelligence for the hardest knowledge work and coding problems
 
+  - `"claude-opus-5"`
+
+    Powerful intelligence for long-running agents and coding
+
   - `"claude-opus-4-8"`
 
-    Frontier intelligence for long-running agents and coding
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-opus-4-7"`
 
-    Frontier intelligence for long-running agents and coding
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-opus-4-6"`
 
-    Most intelligent model for building agents and coding
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-sonnet-4-6"`
 
@@ -1386,11 +1831,11 @@ var_dump($betaManagedAgentsAgent);
 
   - `"claude-opus-4-5"`
 
-    Premium model combining maximum intelligence with practical performance
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-opus-4-5-20251101"`
 
-    Premium model combining maximum intelligence with practical performance
+    Powerful intelligence for long-running agents and coding
 
   - `"claude-sonnet-4-5"`
 
@@ -1410,6 +1855,14 @@ var_dump($betaManagedAgentsAgent);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `?Effort effort`
+
+    How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+  - `?string inferenceGeo`
+
+    Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
+
   - `?Speed speed`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
@@ -1424,6 +1877,14 @@ var_dump($betaManagedAgentsAgent);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `?Effort effort`
+
+    How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
+
+  - `?string inferenceGeo`
+
+    Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
+
   - `?Speed speed`
 
     Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
@@ -1432,7 +1893,7 @@ var_dump($betaManagedAgentsAgent);
 
 - `BetaManagedAgentsMultiagentCoordinator`
 
-  - `list<BetaManagedAgentsAgentReference> agents`
+  - `list<Agent> agents`
 
     Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
@@ -1453,6 +1914,38 @@ var_dump($betaManagedAgentsAgent);
 - `BetaManagedAgentsMultiagentSelfParams`
 
   - `Type type`
+
+### Beta Managed Agents Read Tool Config
+
+- `BetaManagedAgentsReadToolConfig`
+
+  - `bool enabled`
+
+  - `"read" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"read" type`
+
+### Beta Managed Agents Read Tool Config Params
+
+- `BetaManagedAgentsReadToolConfigParams`
+
+  - `"read" name`
+
+    Must be "read".
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
 
 ### Beta Managed Agents Session Thread Agent
 
@@ -1522,17 +2015,175 @@ var_dump($betaManagedAgentsAgent);
 
     Endpoint URL for the MCP server.
 
-# Versions
+### Beta Managed Agents User Location
 
-## List Agent Versions
+- `BetaManagedAgentsUserLocation`
+
+  - `"approximate" type`
+
+    Location precision. Only "approximate" is supported.
+
+  - `?string city`
+
+    City name.
+
+  - `?string country`
+
+    Two-letter ISO 3166-1 country code, uppercase.
+
+  - `?string region`
+
+    Region or state name.
+
+  - `?string timezone`
+
+    IANA timezone identifier, e.g. "America/Los_Angeles".
+
+### Beta Managed Agents Web Fetch Tool Config
+
+- `BetaManagedAgentsWebFetchToolConfig`
+
+  - `bool enabled`
+
+  - `"web_fetch" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"web_fetch" type`
+
+  - `?list<string> allowedDomains`
+
+  - `?list<string> blockedDomains`
+
+  - `?int maxContentTokens`
+
+### Beta Managed Agents Web Fetch Tool Config Params
+
+- `BetaManagedAgentsWebFetchToolConfigParams`
+
+  - `"web_fetch" name`
+
+    Must be "web_fetch".
+
+  - `?list<string> allowedDomains`
+
+    Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
+
+  - `?list<string> blockedDomains`
+
+    Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?int maxContentTokens`
+
+    Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
+
+### Beta Managed Agents Web Search Tool Config
+
+- `BetaManagedAgentsWebSearchToolConfig`
+
+  - `bool enabled`
+
+  - `"web_search" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"web_search" type`
+
+  - `?list<string> allowedDomains`
+
+  - `?list<string> blockedDomains`
+
+  - `?BetaManagedAgentsUserLocation userLocation`
+
+    Approximate user location for search result localization.
+
+### Beta Managed Agents Web Search Tool Config Params
+
+- `BetaManagedAgentsWebSearchToolConfigParams`
+
+  - `"web_search" name`
+
+    Must be "web_search".
+
+  - `?list<string> allowedDomains`
+
+    Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
+
+  - `?list<string> blockedDomains`
+
+    Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
+
+  - `?BetaManagedAgentsUserLocation userLocation`
+
+    Approximate user location for search result localization.
+
+### Beta Managed Agents Write Tool Config
+
+- `BetaManagedAgentsWriteToolConfig`
+
+  - `bool enabled`
+
+  - `"write" name`
+
+  - `PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `"write" type`
+
+### Beta Managed Agents Write Tool Config Params
+
+- `BetaManagedAgentsWriteToolConfigParams`
+
+  - `"write" name`
+
+    Must be "write".
+
+  - `?bool enabled`
+
+    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
+
+  - `?PermissionPolicy permissionPolicy`
+
+    Permission policy for tool execution.
+
+  - `?Type type`
+
+## Agents › Versions
+
+### List Agent Versions
 
 `$client->beta->agents->versions->list(string agentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
-### Parameters
+#### Parameters
 
 - `agentID: string`
 
@@ -1548,7 +2199,7 @@ List Agent Versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -1594,7 +2245,7 @@ List Agent Versions
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -1607,13 +2258,13 @@ $page = $client->beta->agents->versions->list(
   'agent_011CZkYpogX7uDKUyvBTophP',
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1634,7 +2285,11 @@ var_dump($page);
         "foo": "bar"
       },
       "model": {
-        "id": "claude-sonnet-4-6",
+        "id": "claude-opus-5",
+        "effort": {
+          "type": "low"
+        },
+        "inference_geo": "inference_geo",
         "speed": "standard"
       },
       "multiagent": {
@@ -1669,7 +2324,8 @@ var_dump($page);
               "name": "bash",
               "permission_policy": {
                 "type": "always_allow"
-              }
+              },
+              "type": "bash"
             }
           ],
           "default_config": {

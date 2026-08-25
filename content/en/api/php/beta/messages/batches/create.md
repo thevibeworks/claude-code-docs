@@ -1,8 +1,8 @@
-## Create a Message Batch
+# Create a Message Batch
 
 `$client->beta->messages->batches->create(list<Request> requests, ?list<AnthropicBeta> betas, ?string userProfileID): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -10,7 +10,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `requests: list<Request>`
 
@@ -24,7 +24,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+## Returns
 
 - `MessageBatch`
 
@@ -78,7 +78,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -94,7 +94,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       'params' => [
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
-        'model' => 'claude-opus-4-6',
+        'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'container' => [
           'id' => 'id',
@@ -116,27 +116,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
         ],
         'diagnostics' => ['previousMessageID' => 'previous_message_id'],
         'fallbackCreditToken' => 'x',
-        'fallbacks' => [
-          [
-            'model' => 'claude-sonnet-5',
-            'maxTokens' => 0,
-            'outputConfig' => [
-              'effort' => 'low',
-              'format' => [
-                'schema' => ['foo' => 'bar'], 'type' => 'json_schema'
-              ],
-              'taskBudget' => [
-                'total' => 1024, 'type' => 'tokens', 'remaining' => 0
-              ],
-            ],
-            'speed' => 'standard',
-            'thinking' => [
-              'budgetTokens' => 1024,
-              'type' => 'enabled',
-              'display' => 'summarized',
-            ],
-          ],
-        ],
+        'fallbacks' => 'default',
         'inferenceGeo' => 'inference_geo',
         'mcpServers' => [
           [
@@ -171,7 +151,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
             'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
             'citations' => [
               [
-                'citedText' => 'cited_text',
+                'citedText' => 'The grass is green. The sky is blue.',
                 'documentIndex' => 0,
                 'documentTitle' => 'x',
                 'endCharIndex' => 0,
@@ -207,14 +187,14 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       ],
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
 );
 
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

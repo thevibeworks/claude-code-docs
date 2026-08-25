@@ -1,12 +1,12 @@
-## Get Skill Version
+# Get Skill Version
 
 `$client->beta->skills->versions->retrieve(string version, string skillID, ?list<AnthropicBeta> betas): VersionGetResponse`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+## Parameters
 
 - `skillID: string`
 
@@ -24,7 +24,7 @@ Get Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `VersionGetResponse`
 
@@ -72,7 +72,7 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```php
 <?php
@@ -82,13 +82,15 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $version = $client->beta->skills->versions->retrieve(
-  'version', skillID: 'skill_id', betas: ['message-batches-2024-09-24']
+  'version',
+  skillID: 'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($version);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -2,9 +2,9 @@
 
 ## Create Credential
 
-`BetaManagedAgentsCredential Beta.Vaults.Credentials.Create(CredentialCreateParamsparameters, CancellationTokencancellationToken = default)`
+`BetaManagedAgentsCredential Beta.Vaults.Credentials.Create(parameters, cancellationToken = default)`
 
-**post** `/v1/vaults/{vault_id}/credentials`
+**POST** `/v1/vaults/{vault_id}/credentials`
 
 Create Credential
 
@@ -28,17 +28,21 @@ Create Credential
 
         OAuth access token.
 
+        minLength: 1, maxLength: 8192
+
       - `required string McpServerUrl`
 
         URL of the MCP server this credential authenticates against.
 
-      - `required Type Type`
+        minLength: 1, maxLength: 2047
 
-        - `"mcp_oauth"McpOAuth`
+      - `required Type Type`
 
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshParams? Refresh`
 
@@ -48,13 +52,19 @@ Create Credential
 
           OAuth client ID.
 
+          minLength: 1, maxLength: 1024
+
         - `required string RefreshToken`
 
           OAuth refresh token.
 
+          minLength: 1, maxLength: 4096
+
         - `required string TokenEndpoint`
 
           Token endpoint URL used to refresh the access token.
+
+          minLength: 1, maxLength: 2047
 
         - `required TokenEndpointAuth TokenEndpointAuth`
 
@@ -66,8 +76,6 @@ Create Credential
 
             - `required Type Type`
 
-              - `"none"None`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicParam:`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
@@ -76,9 +84,9 @@ Create Credential
 
               OAuth client secret.
 
-            - `required Type Type`
+              minLength: 1, maxLength: 512
 
-              - `"client_secret_basic"ClientSecretBasic`
+            - `required Type Type`
 
           - `class BetaManagedAgentsTokenEndpointAuthPostParam:`
 
@@ -88,17 +96,21 @@ Create Credential
 
               OAuth client secret.
 
-            - `required Type Type`
+              minLength: 1, maxLength: 512
 
-              - `"client_secret_post"ClientSecretPost`
+            - `required Type Type`
 
         - `string? Resource`
 
           OAuth resource indicator.
 
+          minLength: 1, maxLength: 2047
+
         - `string? Scope`
 
           OAuth scope for the refresh request.
+
+          minLength: 1, maxLength: 8192
 
     - `class BetaManagedAgentsStaticBearerCreateParams:`
 
@@ -108,13 +120,15 @@ Create Credential
 
         Static bearer token value.
 
+        minLength: 1, maxLength: 8192
+
       - `required string McpServerUrl`
 
         URL of the MCP server this credential authenticates against.
 
-      - `required Type Type`
+        minLength: 1, maxLength: 2047
 
-        - `"static_bearer"StaticBearer`
+      - `required Type Type`
 
     - `class BetaManagedAgentsEnvironmentVariableCreateParams:`
 
@@ -130,8 +144,6 @@ Create Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
 
           Substitute the secret only on requests to the listed hosts.
@@ -142,35 +154,37 @@ Create Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `required string SecretName`
 
         Name of the environment variable. Immutable after create.
+
+        minLength: 1, maxLength: 255
 
       - `required string SecretValue`
 
         Secret value. Write-only; never returned in responses.
 
-      - `required Type Type`
+        minLength: 1, maxLength: 4096
 
-        - `"environment_variable"EnvironmentVariable`
+      - `required Type Type`
 
       - `BetaManagedAgentsInjectionLocationParams InjectionLocation`
 
         Where in the outbound request the secret value may be substituted.
 
-        - `Boolean Body`
+        - `bool Body`
 
           Substitute when the placeholder appears in the request body.
 
-        - `Boolean Header`
+        - `bool Header`
 
           Substitute when the placeholder appears in a request header value.
 
   - `string? displayName`
 
     Body param: Human-readable name for the credential. Up to 255 characters.
+
+    maxLength: 255
 
   - `IReadOnlyDictionary<string, string> metadata`
 
@@ -180,63 +194,73 @@ Create Credential
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -252,6 +276,8 @@ Create Credential
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required Auth Auth`
 
     Authentication details for a credential.
@@ -266,11 +292,11 @@ Create Credential
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -294,23 +320,17 @@ Create Credential
 
             - `required Type Type`
 
-              - `"none"None`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `required Type Type`
-
-              - `"client_secret_post"ClientSecretPost`
 
         - `string? Resource`
 
@@ -330,8 +350,6 @@ Create Credential
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
@@ -340,11 +358,11 @@ Create Credential
 
         Where in the outbound request the secret value is substituted.
 
-        - `required Boolean Body`
+        - `required bool Body`
 
           Whether the placeholder is substituted in the request body.
 
-        - `required Boolean Header`
+        - `required bool Header`
 
           Whether the placeholder is substituted in request header values.
 
@@ -358,8 +376,6 @@ Create Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
           The secret is substituted only on requests to the listed hosts.
@@ -370,19 +386,17 @@ Create Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `required string SecretName`
 
         Name of the environment variable.
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -390,11 +404,11 @@ Create Credential
 
   - `required Type Type`
 
-    - `"vault_credential"VaultCredential`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -423,7 +437,7 @@ var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Create(pa
 Console.WriteLine(betaManagedAgentsCredential);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -446,9 +460,9 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ## List Credentials
 
-`CredentialListPageResponse Beta.Vaults.Credentials.List(CredentialListParamsparameters, CancellationTokencancellationToken = default)`
+`CredentialListPageResponse Beta.Vaults.Credentials.List(parameters, cancellationToken = default)`
 
-**get** `/v1/vaults/{vault_id}/credentials`
+**GET** `/v1/vaults/{vault_id}/credentials`
 
 List Credentials
 
@@ -460,13 +474,15 @@ List Credentials
 
     Path param: Path parameter vault_id
 
-  - `Boolean includeArchived`
+  - `bool includeArchived`
 
     Query param: Whether to include archived credentials in the results.
 
-  - `Int limit`
+  - `int limit`
 
     Query param: Maximum number of credentials to return per page. Defaults to 20, maximum 100.
+
+    format: int32
 
   - `string page`
 
@@ -476,63 +492,73 @@ List Credentials
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -552,6 +578,8 @@ List Credentials
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `required Auth Auth`
 
       Authentication details for a credential.
@@ -566,11 +594,11 @@ List Credentials
 
         - `required Type Type`
 
-          - `"mcp_oauth"McpOAuth`
-
         - `DateTimeOffset? ExpiresAt`
 
           A timestamp in RFC 3339 format
+
+          format: date-time
 
         - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -594,23 +622,17 @@ List Credentials
 
               - `required Type Type`
 
-                - `"none"None`
-
             - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
               Token endpoint uses HTTP Basic authentication with client credentials.
 
               - `required Type Type`
 
-                - `"client_secret_basic"ClientSecretBasic`
-
             - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
               Token endpoint uses POST body authentication with client credentials.
 
               - `required Type Type`
-
-                - `"client_secret_post"ClientSecretPost`
 
           - `string? Resource`
 
@@ -630,8 +652,6 @@ List Credentials
 
         - `required Type Type`
 
-          - `"static_bearer"StaticBearer`
-
       - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
         Environment variable credential details. The secret value is never returned.
@@ -640,11 +660,11 @@ List Credentials
 
           Where in the outbound request the secret value is substituted.
 
-          - `required Boolean Body`
+          - `required bool Body`
 
             Whether the placeholder is substituted in the request body.
 
-          - `required Boolean Header`
+          - `required bool Header`
 
             Whether the placeholder is substituted in request header values.
 
@@ -658,8 +678,6 @@ List Credentials
 
             - `required Type Type`
 
-              - `"unrestricted"Unrestricted`
-
           - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
             The secret is substituted only on requests to the listed hosts.
@@ -670,19 +688,17 @@ List Credentials
 
             - `required Type Type`
 
-              - `"limited"Limited`
-
         - `required string SecretName`
 
           Name of the environment variable.
 
         - `required Type Type`
 
-          - `"environment_variable"EnvironmentVariable`
-
     - `required DateTimeOffset CreatedAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -690,11 +706,11 @@ List Credentials
 
     - `required Type Type`
 
-      - `"vault_credential"VaultCredential`
-
     - `required DateTimeOffset UpdatedAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `required string VaultID`
 
@@ -723,7 +739,7 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -751,9 +767,9 @@ await foreach (var item in page.Paginate())
 
 ## Get Credential
 
-`BetaManagedAgentsCredential Beta.Vaults.Credentials.Retrieve(CredentialRetrieveParamsparameters, CancellationTokencancellationToken = default)`
+`BetaManagedAgentsCredential Beta.Vaults.Credentials.Retrieve(parameters, cancellationToken = default)`
 
-**get** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Get Credential
 
@@ -773,63 +789,73 @@ Get Credential
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -845,6 +871,8 @@ Get Credential
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required Auth Auth`
 
     Authentication details for a credential.
@@ -859,11 +887,11 @@ Get Credential
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -887,23 +915,17 @@ Get Credential
 
             - `required Type Type`
 
-              - `"none"None`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `required Type Type`
-
-              - `"client_secret_post"ClientSecretPost`
 
         - `string? Resource`
 
@@ -923,8 +945,6 @@ Get Credential
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
@@ -933,11 +953,11 @@ Get Credential
 
         Where in the outbound request the secret value is substituted.
 
-        - `required Boolean Body`
+        - `required bool Body`
 
           Whether the placeholder is substituted in the request body.
 
-        - `required Boolean Header`
+        - `required bool Header`
 
           Whether the placeholder is substituted in request header values.
 
@@ -951,8 +971,6 @@ Get Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
           The secret is substituted only on requests to the listed hosts.
@@ -963,19 +981,17 @@ Get Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `required string SecretName`
 
         Name of the environment variable.
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -983,11 +999,11 @@ Get Credential
 
   - `required Type Type`
 
-    - `"vault_credential"VaultCredential`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -1011,7 +1027,7 @@ var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Retrieve(
 Console.WriteLine(betaManagedAgentsCredential);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1034,9 +1050,9 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ## Update Credential
 
-`BetaManagedAgentsCredential Beta.Vaults.Credentials.Update(CredentialUpdateParamsparameters, CancellationTokencancellationToken = default)`
+`BetaManagedAgentsCredential Beta.Vaults.Credentials.Update(parameters, cancellationToken = default)`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Update Credential
 
@@ -1062,15 +1078,17 @@ Update Credential
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `string? AccessToken`
 
         Updated OAuth access token.
 
+        minLength: 1, maxLength: 8192
+
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshUpdateParams? Refresh`
 
@@ -1080,9 +1098,13 @@ Update Credential
 
           Updated OAuth refresh token.
 
+          minLength: 1, maxLength: 4096
+
         - `string? Scope`
 
           Updated OAuth scope for the refresh request.
+
+          maxLength: 8192
 
         - `TokenEndpointAuth TokenEndpointAuth`
 
@@ -1094,11 +1116,11 @@ Update Credential
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
             - `string? ClientSecret`
 
               Updated OAuth client secret.
+
+              minLength: 1, maxLength: 512
 
           - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
 
@@ -1106,11 +1128,11 @@ Update Credential
 
             - `required Type Type`
 
-              - `"client_secret_post"ClientSecretPost`
-
             - `string? ClientSecret`
 
               Updated OAuth client secret.
+
+              minLength: 1, maxLength: 512
 
     - `class BetaManagedAgentsStaticBearerUpdateParams:`
 
@@ -1118,11 +1140,11 @@ Update Credential
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
       - `string? Token`
 
         Updated static bearer token value.
+
+        minLength: 1, maxLength: 8192
 
     - `class BetaManagedAgentsEnvironmentVariableUpdateParams:`
 
@@ -1130,17 +1152,15 @@ Update Credential
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
       - `BetaManagedAgentsInjectionLocationUpdateParams InjectionLocation`
 
         Updated injection location.
 
-        - `Boolean Body`
+        - `bool Body`
 
           Substitute when the placeholder appears in the request body.
 
-        - `Boolean Header`
+        - `bool Header`
 
           Substitute when the placeholder appears in a request header value.
 
@@ -1154,8 +1174,6 @@ Update Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
 
           Substitute the secret only on requests to the listed hosts.
@@ -1166,15 +1184,17 @@ Update Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `string? SecretValue`
 
         Updated secret value.
 
+        minLength: 1, maxLength: 4096
+
   - `string? displayName`
 
     Body param: Updated human-readable name for the credential. 1-255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string>? metadata`
 
@@ -1184,63 +1204,73 @@ Update Credential
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1256,6 +1286,8 @@ Update Credential
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required Auth Auth`
 
     Authentication details for a credential.
@@ -1270,11 +1302,11 @@ Update Credential
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -1298,23 +1330,17 @@ Update Credential
 
             - `required Type Type`
 
-              - `"none"None`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `required Type Type`
-
-              - `"client_secret_post"ClientSecretPost`
 
         - `string? Resource`
 
@@ -1334,8 +1360,6 @@ Update Credential
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
@@ -1344,11 +1368,11 @@ Update Credential
 
         Where in the outbound request the secret value is substituted.
 
-        - `required Boolean Body`
+        - `required bool Body`
 
           Whether the placeholder is substituted in the request body.
 
-        - `required Boolean Header`
+        - `required bool Header`
 
           Whether the placeholder is substituted in request header values.
 
@@ -1362,8 +1386,6 @@ Update Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
           The secret is substituted only on requests to the listed hosts.
@@ -1374,19 +1396,17 @@ Update Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `required string SecretName`
 
         Name of the environment variable.
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -1394,11 +1414,11 @@ Update Credential
 
   - `required Type Type`
 
-    - `"vault_credential"VaultCredential`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -1422,7 +1442,7 @@ var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Update(pa
 Console.WriteLine(betaManagedAgentsCredential);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1445,9 +1465,9 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ## Delete Credential
 
-`BetaManagedAgentsDeletedCredential Beta.Vaults.Credentials.Delete(CredentialDeleteParamsparameters, CancellationTokencancellationToken = default)`
+`BetaManagedAgentsDeletedCredential Beta.Vaults.Credentials.Delete(parameters, cancellationToken = default)`
 
-**delete** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Delete Credential
 
@@ -1467,63 +1487,73 @@ Delete Credential
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1536,8 +1566,6 @@ Delete Credential
     Unique identifier of the deleted credential.
 
   - `required Type Type`
-
-    - `"vault_credential_deleted"VaultCredentialDeleted`
 
 ### Example
 
@@ -1553,7 +1581,7 @@ var betaManagedAgentsDeletedCredential = await client.Beta.Vaults.Credentials.De
 Console.WriteLine(betaManagedAgentsDeletedCredential);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1564,9 +1592,9 @@ Console.WriteLine(betaManagedAgentsDeletedCredential);
 
 ## Archive Credential
 
-`BetaManagedAgentsCredential Beta.Vaults.Credentials.Archive(CredentialArchiveParamsparameters, CancellationTokencancellationToken = default)`
+`BetaManagedAgentsCredential Beta.Vaults.Credentials.Archive(parameters, cancellationToken = default)`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
 Archive Credential
 
@@ -1586,63 +1614,73 @@ Archive Credential
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1658,6 +1696,8 @@ Archive Credential
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required Auth Auth`
 
     Authentication details for a credential.
@@ -1672,11 +1712,11 @@ Archive Credential
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -1700,23 +1740,17 @@ Archive Credential
 
             - `required Type Type`
 
-              - `"none"None`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `required Type Type`
-
-              - `"client_secret_post"ClientSecretPost`
 
         - `string? Resource`
 
@@ -1736,8 +1770,6 @@ Archive Credential
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
@@ -1746,11 +1778,11 @@ Archive Credential
 
         Where in the outbound request the secret value is substituted.
 
-        - `required Boolean Body`
+        - `required bool Body`
 
           Whether the placeholder is substituted in the request body.
 
-        - `required Boolean Header`
+        - `required bool Header`
 
           Whether the placeholder is substituted in request header values.
 
@@ -1764,8 +1796,6 @@ Archive Credential
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
           The secret is substituted only on requests to the listed hosts.
@@ -1776,19 +1806,17 @@ Archive Credential
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `required string SecretName`
 
         Name of the environment variable.
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -1796,11 +1824,11 @@ Archive Credential
 
   - `required Type Type`
 
-    - `"vault_credential"VaultCredential`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -1824,7 +1852,7 @@ var betaManagedAgentsCredential = await client.Beta.Vaults.Credentials.Archive(p
 Console.WriteLine(betaManagedAgentsCredential);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1847,9 +1875,9 @@ Console.WriteLine(betaManagedAgentsCredential);
 
 ## Validate Credential
 
-`BetaManagedAgentsCredentialValidation Beta.Vaults.Credentials.McpOAuthValidate(CredentialMcpOAuthValidateParamsparameters, CancellationTokencancellationToken = default)`
+`BetaManagedAgentsCredentialValidation Beta.Vaults.Credentials.McpOAuthValidate(parameters, cancellationToken = default)`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
 Validate Credential
 
@@ -1869,63 +1897,73 @@ Validate Credential
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1937,7 +1975,7 @@ Validate Credential
 
     Unique identifier of the credential that was validated.
 
-  - `required Boolean HasRefreshToken`
+  - `required bool HasRefreshToken`
 
     Whether the credential has a refresh token configured.
 
@@ -1953,7 +1991,7 @@ Validate Credential
 
         Response body. May be truncated and has sensitive values scrubbed.
 
-      - `required Boolean BodyTruncated`
+      - `required bool BodyTruncated`
 
         Whether `body` was truncated.
 
@@ -1961,9 +1999,11 @@ Validate Credential
 
         Value of the `Content-Type` response header.
 
-      - `required Int StatusCode`
+      - `required int StatusCode`
 
         HTTP status code.
+
+        format: int32
 
     - `required string Method`
 
@@ -1981,31 +2021,31 @@ Validate Credential
 
       Outcome of a refresh-token exchange attempted during credential validation.
 
-      - `"succeeded"Succeeded`
+      - `Succeeded`
 
-      - `"failed"Failed`
+      - `Failed`
 
-      - `"connect_error"ConnectError`
+      - `ConnectError`
 
-      - `"no_refresh_token"NoRefreshToken`
+      - `NoRefreshToken`
 
   - `required BetaManagedAgentsCredentialValidationStatus Status`
 
     Overall verdict of a credential validation probe.
 
-    - `"valid"Valid`
+    - `Valid`
 
-    - `"invalid"Invalid`
+    - `Invalid`
 
-    - `"unknown"Unknown`
+    - `Unknown`
 
   - `required Type Type`
-
-    - `"vault_credential_validation"VaultCredentialValidation`
 
   - `required DateTimeOffset ValidatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -2025,7 +2065,7 @@ var betaManagedAgentsCredentialValidation = await client.Beta.Vaults.Credentials
 Console.WriteLine(betaManagedAgentsCredentialValidation);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2056,7 +2096,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Credential
 
@@ -2072,6 +2112,8 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required Auth Auth`
 
     Authentication details for a credential.
@@ -2086,11 +2128,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"mcp_oauth"McpOAuth`
-
       - `DateTimeOffset? ExpiresAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -2114,23 +2156,17 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
             - `required Type Type`
 
-              - `"none"None`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `required Type Type`
 
-              - `"client_secret_basic"ClientSecretBasic`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `required Type Type`
-
-              - `"client_secret_post"ClientSecretPost`
 
         - `string? Resource`
 
@@ -2150,8 +2186,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"static_bearer"StaticBearer`
-
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
 
       Environment variable credential details. The secret value is never returned.
@@ -2160,11 +2194,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Where in the outbound request the secret value is substituted.
 
-        - `required Boolean Body`
+        - `required bool Body`
 
           Whether the placeholder is substituted in the request body.
 
-        - `required Boolean Header`
+        - `required bool Header`
 
           Whether the placeholder is substituted in request header values.
 
@@ -2178,8 +2212,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           - `required Type Type`
 
-            - `"unrestricted"Unrestricted`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
           The secret is substituted only on requests to the listed hosts.
@@ -2190,19 +2222,17 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           - `required Type Type`
 
-            - `"limited"Limited`
-
       - `required string SecretName`
 
         Name of the environment variable.
 
       - `required Type Type`
 
-        - `"environment_variable"EnvironmentVariable`
-
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -2210,11 +2240,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"vault_credential"VaultCredential`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -2226,7 +2256,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
 ### Beta Managed Agents Credential Networking Params
 
-- `class BetaManagedAgentsCredentialNetworkingParams: A class that can be one of several variants.union`
+- `class BetaManagedAgentsCredentialNetworkingParams: union`
 
   Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
@@ -2235,8 +2265,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
     Substitute the secret on any host the session's Environment network policy permits egress to. The Environment's network policy is the only boundary on where the secret can reach.
 
     - `required Type Type`
-
-      - `"unrestricted"Unrestricted`
 
   - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
 
@@ -2248,8 +2276,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     - `required Type Type`
 
-      - `"limited"Limited`
-
 ### Beta Managed Agents Credential Validation
 
 - `class BetaManagedAgentsCredentialValidation:`
@@ -2260,7 +2286,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Unique identifier of the credential that was validated.
 
-  - `required Boolean HasRefreshToken`
+  - `required bool HasRefreshToken`
 
     Whether the credential has a refresh token configured.
 
@@ -2276,7 +2302,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Response body. May be truncated and has sensitive values scrubbed.
 
-      - `required Boolean BodyTruncated`
+      - `required bool BodyTruncated`
 
         Whether `body` was truncated.
 
@@ -2284,9 +2310,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         Value of the `Content-Type` response header.
 
-      - `required Int StatusCode`
+      - `required int StatusCode`
 
         HTTP status code.
+
+        format: int32
 
     - `required string Method`
 
@@ -2304,31 +2332,31 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Outcome of a refresh-token exchange attempted during credential validation.
 
-      - `"succeeded"Succeeded`
+      - `Succeeded`
 
-      - `"failed"Failed`
+      - `Failed`
 
-      - `"connect_error"ConnectError`
+      - `ConnectError`
 
-      - `"no_refresh_token"NoRefreshToken`
+      - `NoRefreshToken`
 
   - `required BetaManagedAgentsCredentialValidationStatus Status`
 
     Overall verdict of a credential validation probe.
 
-    - `"valid"Valid`
+    - `Valid`
 
-    - `"invalid"Invalid`
+    - `Invalid`
 
-    - `"unknown"Unknown`
+    - `Unknown`
 
   - `required Type Type`
-
-    - `"vault_credential_validation"VaultCredentialValidation`
 
   - `required DateTimeOffset ValidatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string VaultID`
 
@@ -2340,11 +2368,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Overall verdict of a credential validation probe.
 
-  - `"valid"Valid`
+  - `Valid`
 
-  - `"invalid"Invalid`
+  - `Invalid`
 
-  - `"unknown"Unknown`
+  - `Unknown`
 
 ### Beta Managed Agents Deleted Credential
 
@@ -2358,8 +2386,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"vault_credential_deleted"VaultCredentialDeleted`
-
 ### Beta Managed Agents Environment Variable Auth Response
 
 - `class BetaManagedAgentsEnvironmentVariableAuthResponse:`
@@ -2370,11 +2396,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Where in the outbound request the secret value is substituted.
 
-    - `required Boolean Body`
+    - `required bool Body`
 
       Whether the placeholder is substituted in the request body.
 
-    - `required Boolean Header`
+    - `required bool Header`
 
       Whether the placeholder is substituted in request header values.
 
@@ -2388,8 +2414,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"unrestricted"Unrestricted`
-
     - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
 
       The secret is substituted only on requests to the listed hosts.
@@ -2400,15 +2424,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"limited"Limited`
-
   - `required string SecretName`
 
     Name of the environment variable.
 
   - `required Type Type`
-
-    - `"environment_variable"EnvironmentVariable`
 
 ### Beta Managed Agents Environment Variable Create Params
 
@@ -2426,8 +2446,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"unrestricted"Unrestricted`
-
     - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
 
       Substitute the secret only on requests to the listed hosts.
@@ -2438,29 +2456,29 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"limited"Limited`
-
   - `required string SecretName`
 
     Name of the environment variable. Immutable after create.
+
+    minLength: 1, maxLength: 255
 
   - `required string SecretValue`
 
     Secret value. Write-only; never returned in responses.
 
-  - `required Type Type`
+    minLength: 1, maxLength: 4096
 
-    - `"environment_variable"EnvironmentVariable`
+  - `required Type Type`
 
   - `BetaManagedAgentsInjectionLocationParams InjectionLocation`
 
     Where in the outbound request the secret value may be substituted.
 
-    - `Boolean Body`
+    - `bool Body`
 
       Substitute when the placeholder appears in the request body.
 
-    - `Boolean Header`
+    - `bool Header`
 
       Substitute when the placeholder appears in a request header value.
 
@@ -2472,17 +2490,15 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"environment_variable"EnvironmentVariable`
-
   - `BetaManagedAgentsInjectionLocationUpdateParams InjectionLocation`
 
     Updated injection location.
 
-    - `Boolean Body`
+    - `bool Body`
 
       Substitute when the placeholder appears in the request body.
 
-    - `Boolean Header`
+    - `bool Header`
 
       Substitute when the placeholder appears in a request header value.
 
@@ -2496,8 +2512,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"unrestricted"Unrestricted`
-
     - `class BetaManagedAgentsLimitedCredentialNetworkingParams:`
 
       Substitute the secret only on requests to the listed hosts.
@@ -2508,11 +2522,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"limited"Limited`
-
   - `string? SecretValue`
 
     Updated secret value.
+
+    minLength: 1, maxLength: 4096
 
 ### Beta Managed Agents Injection Location Params
 
@@ -2520,11 +2534,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Where in the outbound request the secret value may be substituted.
 
-  - `Boolean Body`
+  - `bool Body`
 
     Substitute when the placeholder appears in the request body.
 
-  - `Boolean Header`
+  - `bool Header`
 
     Substitute when the placeholder appears in a request header value.
 
@@ -2534,11 +2548,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Where in the outbound request the secret value is substituted.
 
-  - `required Boolean Body`
+  - `required bool Body`
 
     Whether the placeholder is substituted in the request body.
 
-  - `required Boolean Header`
+  - `required bool Header`
 
     Whether the placeholder is substituted in request header values.
 
@@ -2548,11 +2562,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   Updated injection location.
 
-  - `Boolean Body`
+  - `bool Body`
 
     Substitute when the placeholder appears in the request body.
 
-  - `Boolean Header`
+  - `bool Header`
 
     Substitute when the placeholder appears in a request header value.
 
@@ -2568,8 +2582,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"limited"Limited`
-
 ### Beta Managed Agents Limited Credential Networking Response
 
 - `class BetaManagedAgentsLimitedCredentialNetworkingResponse:`
@@ -2581,8 +2593,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
     Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
 
   - `required Type Type`
-
-    - `"limited"Limited`
 
 ### Beta Managed Agents MCP OAuth Auth Response
 
@@ -2596,11 +2606,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"mcp_oauth"McpOAuth`
-
   - `DateTimeOffset? ExpiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `BetaManagedAgentsMcpOAuthRefreshResponse? Refresh`
 
@@ -2624,23 +2634,17 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         - `required Type Type`
 
-          - `"none"None`
-
       - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
 
         - `required Type Type`
 
-          - `"client_secret_basic"ClientSecretBasic`
-
       - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
         Token endpoint uses POST body authentication with client credentials.
 
         - `required Type Type`
-
-          - `"client_secret_post"ClientSecretPost`
 
     - `string? Resource`
 
@@ -2660,17 +2664,21 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     OAuth access token.
 
+    minLength: 1, maxLength: 8192
+
   - `required string McpServerUrl`
 
     URL of the MCP server this credential authenticates against.
 
-  - `required Type Type`
+    minLength: 1, maxLength: 2047
 
-    - `"mcp_oauth"McpOAuth`
+  - `required Type Type`
 
   - `DateTimeOffset? ExpiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `BetaManagedAgentsMcpOAuthRefreshParams? Refresh`
 
@@ -2680,13 +2688,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       OAuth client ID.
 
+      minLength: 1, maxLength: 1024
+
     - `required string RefreshToken`
 
       OAuth refresh token.
 
+      minLength: 1, maxLength: 4096
+
     - `required string TokenEndpoint`
 
       Token endpoint URL used to refresh the access token.
+
+      minLength: 1, maxLength: 2047
 
     - `required TokenEndpointAuth TokenEndpointAuth`
 
@@ -2698,8 +2712,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         - `required Type Type`
 
-          - `"none"None`
-
       - `class BetaManagedAgentsTokenEndpointAuthBasicParam:`
 
         Token endpoint uses HTTP Basic authentication with client credentials.
@@ -2708,9 +2720,9 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           OAuth client secret.
 
-        - `required Type Type`
+          minLength: 1, maxLength: 512
 
-          - `"client_secret_basic"ClientSecretBasic`
+        - `required Type Type`
 
       - `class BetaManagedAgentsTokenEndpointAuthPostParam:`
 
@@ -2720,17 +2732,21 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
           OAuth client secret.
 
-        - `required Type Type`
+          minLength: 1, maxLength: 512
 
-          - `"client_secret_post"ClientSecretPost`
+        - `required Type Type`
 
     - `string? Resource`
 
       OAuth resource indicator.
 
+      minLength: 1, maxLength: 2047
+
     - `string? Scope`
 
       OAuth scope for the refresh request.
+
+      minLength: 1, maxLength: 8192
 
 ### Beta Managed Agents MCP OAuth Refresh Params
 
@@ -2742,13 +2758,19 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     OAuth client ID.
 
+    minLength: 1, maxLength: 1024
+
   - `required string RefreshToken`
 
     OAuth refresh token.
 
+    minLength: 1, maxLength: 4096
+
   - `required string TokenEndpoint`
 
     Token endpoint URL used to refresh the access token.
+
+    minLength: 1, maxLength: 2047
 
   - `required TokenEndpointAuth TokenEndpointAuth`
 
@@ -2760,8 +2782,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"none"None`
-
     - `class BetaManagedAgentsTokenEndpointAuthBasicParam:`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
@@ -2770,9 +2790,9 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         OAuth client secret.
 
-      - `required Type Type`
+        minLength: 1, maxLength: 512
 
-        - `"client_secret_basic"ClientSecretBasic`
+      - `required Type Type`
 
     - `class BetaManagedAgentsTokenEndpointAuthPostParam:`
 
@@ -2782,17 +2802,21 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         OAuth client secret.
 
-      - `required Type Type`
+        minLength: 1, maxLength: 512
 
-        - `"client_secret_post"ClientSecretPost`
+      - `required Type Type`
 
   - `string? Resource`
 
     OAuth resource indicator.
 
+    minLength: 1, maxLength: 2047
+
   - `string? Scope`
 
     OAuth scope for the refresh request.
+
+    minLength: 1, maxLength: 8192
 
 ### Beta Managed Agents MCP OAuth Refresh Response
 
@@ -2818,23 +2842,17 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"none"None`
-
     - `class BetaManagedAgentsTokenEndpointAuthBasicResponse:`
 
       Token endpoint uses HTTP Basic authentication with client credentials.
 
       - `required Type Type`
 
-        - `"client_secret_basic"ClientSecretBasic`
-
     - `class BetaManagedAgentsTokenEndpointAuthPostResponse:`
 
       Token endpoint uses POST body authentication with client credentials.
 
       - `required Type Type`
-
-        - `"client_secret_post"ClientSecretPost`
 
   - `string? Resource`
 
@@ -2854,9 +2872,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Updated OAuth refresh token.
 
+    minLength: 1, maxLength: 4096
+
   - `string? Scope`
 
     Updated OAuth scope for the refresh request.
+
+    maxLength: 8192
 
   - `TokenEndpointAuth TokenEndpointAuth`
 
@@ -2868,11 +2890,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"client_secret_basic"ClientSecretBasic`
-
       - `string? ClientSecret`
 
         Updated OAuth client secret.
+
+        minLength: 1, maxLength: 512
 
     - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
 
@@ -2880,11 +2902,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       - `required Type Type`
 
-        - `"client_secret_post"ClientSecretPost`
-
       - `string? ClientSecret`
 
         Updated OAuth client secret.
+
+        minLength: 1, maxLength: 512
 
 ### Beta Managed Agents MCP OAuth Update Params
 
@@ -2894,15 +2916,17 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"mcp_oauth"McpOAuth`
-
   - `string? AccessToken`
 
     Updated OAuth access token.
 
+    minLength: 1, maxLength: 8192
+
   - `DateTimeOffset? ExpiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `BetaManagedAgentsMcpOAuthRefreshUpdateParams? Refresh`
 
@@ -2912,9 +2936,13 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Updated OAuth refresh token.
 
+      minLength: 1, maxLength: 4096
+
     - `string? Scope`
 
       Updated OAuth scope for the refresh request.
+
+      maxLength: 8192
 
     - `TokenEndpointAuth TokenEndpointAuth`
 
@@ -2926,11 +2954,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         - `required Type Type`
 
-          - `"client_secret_basic"ClientSecretBasic`
-
         - `string? ClientSecret`
 
           Updated OAuth client secret.
+
+          minLength: 1, maxLength: 512
 
       - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
 
@@ -2938,11 +2966,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
         - `required Type Type`
 
-          - `"client_secret_post"ClientSecretPost`
-
         - `string? ClientSecret`
 
           Updated OAuth client secret.
+
+          minLength: 1, maxLength: 512
 
 ### Beta Managed Agents MCP Probe
 
@@ -2958,7 +2986,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Response body. May be truncated and has sensitive values scrubbed.
 
-    - `required Boolean BodyTruncated`
+    - `required bool BodyTruncated`
 
       Whether `body` was truncated.
 
@@ -2966,9 +2994,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Value of the `Content-Type` response header.
 
-    - `required Int StatusCode`
+    - `required int StatusCode`
 
       HTTP status code.
+
+      format: int32
 
   - `required string Method`
 
@@ -2984,7 +3014,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Response body. May be truncated and has sensitive values scrubbed.
 
-  - `required Boolean BodyTruncated`
+  - `required bool BodyTruncated`
 
     Whether `body` was truncated.
 
@@ -2992,9 +3022,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Value of the `Content-Type` response header.
 
-  - `required Int StatusCode`
+  - `required int StatusCode`
 
     HTTP status code.
+
+    format: int32
 
 ### Beta Managed Agents Refresh Object
 
@@ -3010,7 +3042,7 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Response body. May be truncated and has sensitive values scrubbed.
 
-    - `required Boolean BodyTruncated`
+    - `required bool BodyTruncated`
 
       Whether `body` was truncated.
 
@@ -3018,21 +3050,23 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
       Value of the `Content-Type` response header.
 
-    - `required Int StatusCode`
+    - `required int StatusCode`
 
       HTTP status code.
+
+      format: int32
 
   - `required Status Status`
 
     Outcome of a refresh-token exchange attempted during credential validation.
 
-    - `"succeeded"Succeeded`
+    - `Succeeded`
 
-    - `"failed"Failed`
+    - `Failed`
 
-    - `"connect_error"ConnectError`
+    - `ConnectError`
 
-    - `"no_refresh_token"NoRefreshToken`
+    - `NoRefreshToken`
 
 ### Beta Managed Agents Static Bearer Auth Response
 
@@ -3046,8 +3080,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"static_bearer"StaticBearer`
-
 ### Beta Managed Agents Static Bearer Create Params
 
 - `class BetaManagedAgentsStaticBearerCreateParams:`
@@ -3058,13 +3090,15 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     Static bearer token value.
 
+    minLength: 1, maxLength: 8192
+
   - `required string McpServerUrl`
 
     URL of the MCP server this credential authenticates against.
 
-  - `required Type Type`
+    minLength: 1, maxLength: 2047
 
-    - `"static_bearer"StaticBearer`
+  - `required Type Type`
 
 ### Beta Managed Agents Static Bearer Update Params
 
@@ -3074,11 +3108,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"static_bearer"StaticBearer`
-
   - `string? Token`
 
     Updated static bearer token value.
+
+    minLength: 1, maxLength: 8192
 
 ### Beta Managed Agents Token Endpoint Auth Basic Param
 
@@ -3090,9 +3124,9 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     OAuth client secret.
 
-  - `required Type Type`
+    minLength: 1, maxLength: 512
 
-    - `"client_secret_basic"ClientSecretBasic`
+  - `required Type Type`
 
 ### Beta Managed Agents Token Endpoint Auth Basic Response
 
@@ -3102,8 +3136,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"client_secret_basic"ClientSecretBasic`
-
 ### Beta Managed Agents Token Endpoint Auth Basic Update Param
 
 - `class BetaManagedAgentsTokenEndpointAuthBasicUpdateParam:`
@@ -3112,11 +3144,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"client_secret_basic"ClientSecretBasic`
-
   - `string? ClientSecret`
 
     Updated OAuth client secret.
+
+    minLength: 1, maxLength: 512
 
 ### Beta Managed Agents Token Endpoint Auth None Param
 
@@ -3126,8 +3158,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"none"None`
-
 ### Beta Managed Agents Token Endpoint Auth None Response
 
 - `class BetaManagedAgentsTokenEndpointAuthNoneResponse:`
@@ -3135,8 +3165,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
   Token endpoint requires no client authentication.
 
   - `required Type Type`
-
-    - `"none"None`
 
 ### Beta Managed Agents Token Endpoint Auth Post Param
 
@@ -3148,9 +3176,9 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
     OAuth client secret.
 
-  - `required Type Type`
+    minLength: 1, maxLength: 512
 
-    - `"client_secret_post"ClientSecretPost`
+  - `required Type Type`
 
 ### Beta Managed Agents Token Endpoint Auth Post Response
 
@@ -3160,8 +3188,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"client_secret_post"ClientSecretPost`
-
 ### Beta Managed Agents Token Endpoint Auth Post Update Param
 
 - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam:`
@@ -3170,11 +3196,11 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"client_secret_post"ClientSecretPost`
-
   - `string? ClientSecret`
 
     Updated OAuth client secret.
+
+    minLength: 1, maxLength: 512
 
 ### Beta Managed Agents Unrestricted Credential Networking Params
 
@@ -3184,8 +3210,6 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
 
   - `required Type Type`
 
-    - `"unrestricted"Unrestricted`
-
 ### Beta Managed Agents Unrestricted Credential Networking Response
 
 - `class BetaManagedAgentsUnrestrictedCredentialNetworkingResponse:`
@@ -3193,5 +3217,3 @@ Console.WriteLine(betaManagedAgentsCredentialValidation);
   The secret is substituted on any host the session's Environment network policy permits egress to.
 
   - `required Type Type`
-
-    - `"unrestricted"Unrestricted`

@@ -1,12 +1,12 @@
-## Archive Credential
+# Archive Credential
 
 `$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
 Archive Credential
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -16,7 +16,7 @@ Archive Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsCredential`
 
@@ -54,7 +54,7 @@ Archive Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -66,13 +66,13 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsCredential = $client->beta->vaults->credentials->archive(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredential);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,12 +1,12 @@
-## Upload File
+# Upload File
 
-`$client->beta->files->upload(string file, ?list<AnthropicBeta> betas): FileMetadata`
+`$client->beta->files->upload(string file, ?list<AnthropicBeta> betas): BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
-### Parameters
+## Parameters
 
 - `file: string`
 
@@ -16,9 +16,9 @@ Upload File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -56,7 +56,7 @@ Upload File
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-### Example
+## Example
 
 ```php
 <?php
@@ -65,15 +65,15 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$fileMetadata = $client->beta->files->upload(
+$betaFileMetadata = $client->beta->files->upload(
   file: FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
-var_dump($fileMetadata);
+var_dump($betaFileMetadata);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

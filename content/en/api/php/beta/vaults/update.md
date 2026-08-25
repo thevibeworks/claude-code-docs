@@ -1,12 +1,12 @@
-## Update Vault
+# Update Vault
 
 `$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
 
-**post** `/v1/vaults/{vault_id}`
+**POST** `/v1/vaults/{vault_id}`
 
 Update Vault
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -22,7 +22,7 @@ Update Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsVault`
 
@@ -52,7 +52,7 @@ Update Vault
 
     A timestamp in RFC 3339 format
 
-### Example
+## Example
 
 ```php
 <?php
@@ -65,13 +65,13 @@ $betaManagedAgentsVault = $client->beta->vaults->update(
   'vlt_011CZkZDLs7fYzm1hXNPeRjv',
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsVault);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

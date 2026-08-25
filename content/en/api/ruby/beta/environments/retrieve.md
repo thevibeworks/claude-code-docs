@@ -1,12 +1,12 @@
-## Get Environment
+# Get Environment
 
 `beta.environments.retrieve(environment_id, **kwargs) -> BetaEnvironment`
 
-**get** `/v1/environments/{environment_id}`
+**GET** `/v1/environments/{environment_id}`
 
 Retrieve a specific environment by ID.
 
-### Parameters
+## Parameters
 
 - `environment_id: String`
 
@@ -16,7 +16,7 @@ Retrieve a specific environment by ID.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -62,21 +62,31 @@ Retrieve a specific environment by ID.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaEnvironment`
 
@@ -110,8 +120,6 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-            - `:unrestricted`
-
         - `class BetaLimitedNetwork`
 
           Limited network access.
@@ -131,8 +139,6 @@ Retrieve a specific environment by ID.
           - `type: :limited`
 
             Network policy type
-
-            - `:limited`
 
       - `packages: BetaPackages`
 
@@ -166,13 +172,9 @@ Retrieve a specific environment by ID.
 
           Package configuration type
 
-          - `:packages`
-
       - `type: :cloud`
 
         Environment type
-
-        - `:cloud`
 
     - `class BetaSelfHostedConfig`
 
@@ -182,15 +184,13 @@ Retrieve a specific environment by ID.
 
         Environment type
 
-        - `:self_hosted`
-
   - `created_at: String`
 
     RFC 3339 timestamp when environment was created
 
   - `description: String`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Hash[Symbol, String]`
 
@@ -204,8 +204,6 @@ Retrieve a specific environment by ID.
 
     The type of object (always 'environment')
 
-    - `:environment`
-
   - `updated_at: String`
 
     RFC 3339 timestamp when environment was last updated
@@ -218,7 +216,7 @@ Retrieve a specific environment by ID.
 
     - `:account`
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -230,7 +228,7 @@ beta_environment = anthropic.beta.environments.retrieve("env_011CZkZ9X2dpNyB7HsE
 puts(beta_environment)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -2,9 +2,9 @@
 
 ## Upload File
 
-`beta.files.upload(FileUploadParams**kwargs)  -> FileMetadata`
+`beta.files.upload(**kwargs)  -> BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
@@ -14,13 +14,15 @@ Upload File
 
   The file to upload
 
+  format: binary
+
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -66,23 +68,33 @@ Upload File
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `class FileMetadata: …`
+- `class BetaFileMetadata: …`
 
   - `id: str`
 
@@ -94,17 +106,25 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -112,11 +132,11 @@ Upload File
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -130,8 +150,6 @@ Upload File
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
 ### Example
 
 ```python
@@ -139,15 +157,17 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
-file_metadata = client.beta.files.upload(
+beta_file_metadata = client.beta.files.upload(
     file=b"Example data",
 )
-print(file_metadata.id)
+print(beta_file_metadata.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -167,9 +187,9 @@ print(file_metadata.id)
 
 ## List Files
 
-`beta.files.list(FileListParams**kwargs)  -> SyncPage[FileMetadata]`
+`beta.files.list(**kwargs)  -> SyncPage[BetaFileMetadata]`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
@@ -189,6 +209,8 @@ List Files
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20, maximum: 1000, minimum: 1
+
 - `scope_id: Optional[str]`
 
   Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
@@ -199,7 +221,7 @@ List Files
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -245,23 +267,33 @@ List Files
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `class FileMetadata: …`
+- `class BetaFileMetadata: …`
 
   - `id: str`
 
@@ -273,17 +305,25 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -291,11 +331,11 @@ List Files
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -309,8 +349,6 @@ List Files
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
 ### Example
 
 ```python
@@ -318,14 +356,16 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.files.list()
 page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -352,9 +392,9 @@ print(page.id)
 
 ## Download File
 
-`beta.files.download(strfile_id, FileDownloadParams**kwargs)  -> BinaryResponseContent`
+`beta.files.download(file_id, **kwargs)  -> BinaryResponseContent`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
@@ -370,7 +410,7 @@ Download File
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -416,19 +456,29 @@ Download File
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -441,7 +491,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 response = client.beta.files.download(
     file_id="file_id",
@@ -453,9 +505,9 @@ print(content)
 
 ## Get File Metadata
 
-`beta.files.retrieve_metadata(strfile_id, FileRetrieveMetadataParams**kwargs)  -> FileMetadata`
+`beta.files.retrieve_metadata(file_id, **kwargs)  -> BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
@@ -471,7 +523,7 @@ Get File Metadata
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -517,23 +569,33 @@ Get File Metadata
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `class FileMetadata: …`
+- `class BetaFileMetadata: …`
 
   - `id: str`
 
@@ -545,17 +607,25 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -563,11 +633,11 @@ Get File Metadata
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -581,8 +651,6 @@ Get File Metadata
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
 ### Example
 
 ```python
@@ -590,15 +658,17 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
-file_metadata = client.beta.files.retrieve_metadata(
+beta_file_metadata = client.beta.files.retrieve_metadata(
     file_id="file_id",
 )
-print(file_metadata.id)
+print(beta_file_metadata.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -618,9 +688,9 @@ print(file_metadata.id)
 
 ## Delete File
 
-`beta.files.delete(strfile_id, FileDeleteParams**kwargs)  -> DeletedFile`
+`beta.files.delete(file_id, **kwargs)  -> BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
@@ -636,7 +706,7 @@ Delete File
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -682,23 +752,33 @@ Delete File
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
+
+    - `"fallback-credit-2026-07-01"`
 
     - `"agent-memory-2026-07-22"`
 
+    - `"mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `class DeletedFile: …`
+- `class BetaDeletedFile: …`
 
   - `id: str`
 
@@ -710,7 +790,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+    default: file_deleted
 
 ### Example
 
@@ -719,15 +799,17 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
-deleted_file = client.beta.files.delete(
+beta_deleted_file = client.beta.files.delete(
     file_id="file_id",
 )
-print(deleted_file.id)
+print(beta_deleted_file.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -736,25 +818,11 @@ print(deleted_file.id)
 }
 ```
 
-## Domain Types
+## Domain types
 
-### Beta File Scope
+### Beta Deleted File
 
-- `class BetaFileScope: …`
-
-  - `id: str`
-
-    The ID of the scoping resource (e.g., the session ID).
-
-  - `type: Literal["session"]`
-
-    The type of scope (e.g., `"session"`).
-
-    - `"session"`
-
-### Deleted File
-
-- `class DeletedFile: …`
+- `class BetaDeletedFile: …`
 
   - `id: str`
 
@@ -766,11 +834,11 @@ print(deleted_file.id)
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+    default: file_deleted
 
-### File Metadata
+### Beta File Metadata
 
-- `class FileMetadata: …`
+- `class BetaFileMetadata: …`
 
   - `id: str`
 
@@ -782,17 +850,25 @@ print(deleted_file.id)
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -800,11 +876,11 @@ print(deleted_file.id)
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -818,4 +894,14 @@ print(deleted_file.id)
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
+### Beta File Scope
+
+- `class BetaFileScope: …`
+
+  - `id: str`
+
+    The ID of the scoping resource (e.g., the session ID).
+
+  - `type: Literal["session"]`
+
+    The type of scope (e.g., `"session"`).

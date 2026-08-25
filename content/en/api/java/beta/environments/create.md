@@ -1,12 +1,12 @@
-## Create Environment
+# Create Environment
 
-`BetaEnvironment beta().environments().create(EnvironmentCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaEnvironment beta().environments().create(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+## Parameters
 
 - `EnvironmentCreateParams params`
 
@@ -58,23 +58,35 @@ Create a new environment with the specified configuration.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `String name`
 
     Human-readable name for the environment
+
+    maxLength: 256, minLength: 1
 
   - `Optional<Config> config`
 
@@ -87,11 +99,9 @@ Create a new environment with the specified configuration.
       Fields default to null; on update, omitted fields preserve the
       existing value.
 
-      - `JsonValue; type "cloud"constant`
+      - `JsonValue type constant`
 
         Environment type
-
-        - `CLOUD("cloud")`
 
       - `Optional<Networking> networking`
 
@@ -101,11 +111,9 @@ Create a new environment with the specified configuration.
 
           Unrestricted network access.
 
-          - `JsonValue; type "unrestricted"constant`
+          - `JsonValue type constant`
 
             Network policy type
-
-            - `UNRESTRICTED("unrestricted")`
 
         - `class BetaLimitedNetworkParams:`
 
@@ -114,11 +122,9 @@ Create a new environment with the specified configuration.
           Fields default to null; on update, omitted fields preserve the
           existing value.
 
-          - `JsonValue; type "limited"constant`
+          - `JsonValue type constant`
 
             Network policy type
-
-            - `LIMITED("limited")`
 
           - `Optional<Boolean> allowMcpServers`
 
@@ -166,21 +172,19 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `PACKAGES("packages")`
-
     - `class BetaSelfHostedConfigParams:`
 
       Request params for `self_hosted` environment configuration.
 
-      - `JsonValue; type "self_hosted"constant`
+      - `JsonValue type constant`
 
         Environment type
-
-        - `SELF_HOSTED("self_hosted")`
 
   - `Optional<String> description`
 
     Optional description of the environment
+
+    maxLength: 1024
 
   - `Optional<Metadata> metadata`
 
@@ -194,7 +198,7 @@ Create a new environment with the specified configuration.
 
     - `ACCOUNT("account")`
 
-### Returns
+## Returns
 
 - `class BetaEnvironment:`
 
@@ -224,11 +228,9 @@ Create a new environment with the specified configuration.
 
           Unrestricted network access.
 
-          - `JsonValue; type "unrestricted"constant`
+          - `JsonValue type constant`
 
             Network policy type
-
-            - `UNRESTRICTED("unrestricted")`
 
         - `class BetaLimitedNetwork:`
 
@@ -246,11 +248,9 @@ Create a new environment with the specified configuration.
 
             Specifies domains the container can reach.
 
-          - `JsonValue; type "limited"constant`
+          - `JsonValue type constant`
 
             Network policy type
-
-            - `LIMITED("limited")`
 
       - `BetaPackages packages`
 
@@ -284,31 +284,25 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `PACKAGES("packages")`
-
-      - `JsonValue; type "cloud"constant`
+      - `JsonValue type constant`
 
         Environment type
-
-        - `CLOUD("cloud")`
 
     - `class BetaSelfHostedConfig:`
 
       Configuration for self-hosted environments.
 
-      - `JsonValue; type "self_hosted"constant`
+      - `JsonValue type constant`
 
         Environment type
-
-        - `SELF_HOSTED("self_hosted")`
 
   - `String createdAt`
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -318,11 +312,9 @@ Create a new environment with the specified configuration.
 
     Human-readable name for the environment
 
-  - `JsonValue; type "environment"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'environment')
-
-    - `ENVIRONMENT("environment")`
 
   - `String updatedAt`
 
@@ -336,7 +328,7 @@ Create a new environment with the specified configuration.
 
     - `ACCOUNT("account")`
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -360,7 +352,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

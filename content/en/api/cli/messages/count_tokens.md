@@ -1,8 +1,8 @@
-## Count tokens in a Message
+# Count tokens in a Message
 
 `$ ant messages count-tokens`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -10,7 +10,7 @@ The Token Count API can be used to count the number of tokens in a Message, incl
 
 Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-### Parameters
+## Parameters
 
 - `--message: array of MessageParam`
 
@@ -63,17 +63,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   There is a limit of 100,000 messages in a single request.
 
-- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 13 more or string`
+- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
   Body param: The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-- `--cache-control: optional object { type, ttl }`
+- `--cache-control: optional object`
 
   Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `--output-config: optional object { effort, format }`
+- `--output-config: optional object`
 
   Body param: Configuration options for the model's output, such as the output format.
 
@@ -163,24 +163,24 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-### Returns
+## Returns
 
-- `message_tokens_count: object { input_tokens }`
+- `message_tokens_count: object`
 
   - `input_tokens: number`
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
+## Example
 
-```cli
+```bash
 ant messages count-tokens \
   --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
-  --model claude-opus-4-6
+  --model claude-opus-5
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

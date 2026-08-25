@@ -1,12 +1,12 @@
-## List Deployment Runs
+# List Deployment Runs
 
 `$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeploymentRun>`
 
-**get** `/v1/deployment_runs`
+**GET** `/v1/deployment_runs`
 
 List Deployment Runs
 
-### Parameters
+## Parameters
 
 - `createdAtGt?:optional \Datetime`
 
@@ -48,7 +48,7 @@ List Deployment Runs
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeploymentRun`
 
@@ -82,7 +82,7 @@ List Deployment Runs
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -101,13 +101,13 @@ $page = $client->beta->deploymentRuns->list(
   limit: 0,
   page: 'page',
   triggerType: BetaManagedAgentsTriggerType::SCHEDULE,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

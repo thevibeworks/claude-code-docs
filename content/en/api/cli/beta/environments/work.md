@@ -4,7 +4,7 @@
 
 `$ ant beta:environments:work retrieve`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -26,7 +26,7 @@ Retrieve detailed information about a specific work item.
 
 ### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -46,7 +46,7 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -69,6 +69,10 @@ Retrieve detailed information about a specific work item.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -102,14 +106,14 @@ Retrieve detailed information about a specific work item.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work retrieve \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -125,6 +129,7 @@ ant beta:environments:work retrieve \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -137,7 +142,7 @@ ant beta:environments:work retrieve \
 
 `$ ant beta:environments:work poll`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -153,9 +158,13 @@ Long poll for work items in the queue.
 
   Query param: How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `--reclaim-older-than-ms: optional number`
 
   Query param: Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+  minimum: 1
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -167,7 +176,7 @@ Long poll for work items in the queue.
 
 ### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -187,7 +196,7 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -210,6 +219,10 @@ Long poll for work items in the queue.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -243,13 +256,13 @@ Long poll for work items in the queue.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work poll \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -265,6 +278,7 @@ ant beta:environments:work poll \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -277,7 +291,7 @@ ant beta:environments:work poll \
 
 `$ ant beta:environments:work ack`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -299,7 +313,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -319,7 +333,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -342,6 +356,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -375,14 +393,14 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work ack \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -398,6 +416,7 @@ ant beta:environments:work ack \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -410,7 +429,7 @@ ant beta:environments:work ack \
 
 `$ ant beta:environments:work heartbeat`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -440,7 +459,7 @@ Record a heartbeat for a work item to maintain the lease.
 
 ### Returns
 
-- `beta_self_hosted_work_heartbeat_response: object { last_heartbeat, lease_extended, state, 2 more }`
+- `beta_self_hosted_work_heartbeat_response: object`
 
   Response after recording a heartbeat for a work item.
 
@@ -476,14 +495,14 @@ Record a heartbeat for a work item to maintain the lease.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work heartbeat \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -499,7 +518,7 @@ ant beta:environments:work heartbeat \
 
 `$ ant beta:environments:work stop`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -525,7 +544,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
 ### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -545,7 +564,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -568,6 +587,10 @@ Stop a work item, initiating graceful or forced shutdown.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -601,14 +624,14 @@ Stop a work item, initiating graceful or forced shutdown.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work stop \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -624,6 +647,7 @@ ant beta:environments:work stop \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -636,7 +660,7 @@ ant beta:environments:work stop \
 
 `$ ant beta:environments:work list`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -652,6 +676,8 @@ List work items in an environment.
 
   Query param: Maximum number of work items to return
 
+  maximum: 1000, minimum: 1
+
 - `--page: optional string`
 
   Query param: Opaque cursor from previous response for pagination
@@ -662,7 +688,7 @@ List work items in an environment.
 
 ### Returns
 
-- `beta_self_hosted_work_list_response: object { data, next_page }`
+- `beta_self_hosted_work_list_response: object`
 
   Response when listing work items with cursor-based pagination.
 
@@ -682,7 +708,7 @@ List work items in an environment.
 
       RFC 3339 timestamp when work was created
 
-    - `data: object { id, type }`
+    - `data: object`
 
       The actual work to be performed
 
@@ -705,6 +731,10 @@ List work items in an environment.
     - `metadata: map[string]`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `secret: string`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `started_at: string`
 
@@ -742,13 +772,13 @@ List work items in an environment.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work list \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -766,6 +796,7 @@ ant beta:environments:work list \
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -781,7 +812,7 @@ ant beta:environments:work list \
 
 `$ ant beta:environments:work update`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -807,7 +838,7 @@ Update work item metadata with merge semantics.
 
 ### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -827,7 +858,7 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -850,6 +881,10 @@ Update work item metadata with merge semantics.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -883,7 +918,7 @@ Update work item metadata with merge semantics.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work update \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
@@ -891,7 +926,7 @@ ant beta:environments:work update \
   --metadata '{foo: string}'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -907,6 +942,7 @@ ant beta:environments:work update \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -919,7 +955,7 @@ ant beta:environments:work update \
 
 `$ ant beta:environments:work stats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
@@ -933,7 +969,7 @@ Get statistics about the work queue for an environment.
 
 ### Returns
 
-- `beta_self_hosted_work_queue_stats: object { depth, oldest_queued_at, pending, 2 more }`
+- `beta_self_hosted_work_queue_stats: object`
 
   Statistics about the work queue for an environment.
 
@@ -961,13 +997,13 @@ Get statistics about the work queue for an environment.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments:work stats \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -979,11 +1015,11 @@ ant beta:environments:work stats \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Self Hosted Work
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1003,7 +1039,7 @@ ant beta:environments:work stats \
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -1026,6 +1062,10 @@ ant beta:environments:work stats \
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -1059,7 +1099,7 @@ ant beta:environments:work stats \
 
 ### Beta Self Hosted Work Heartbeat Response
 
-- `beta_self_hosted_work_heartbeat_response: object { last_heartbeat, lease_extended, state, 2 more }`
+- `beta_self_hosted_work_heartbeat_response: object`
 
   Response after recording a heartbeat for a work item.
 
@@ -1095,7 +1135,7 @@ ant beta:environments:work stats \
 
 ### Beta Self Hosted Work List Response
 
-- `beta_self_hosted_work_list_response: object { data, next_page }`
+- `beta_self_hosted_work_list_response: object`
 
   Response when listing work items with cursor-based pagination.
 
@@ -1115,7 +1155,7 @@ ant beta:environments:work stats \
 
       RFC 3339 timestamp when work was created
 
-    - `data: object { id, type }`
+    - `data: object`
 
       The actual work to be performed
 
@@ -1138,6 +1178,10 @@ ant beta:environments:work stats \
     - `metadata: map[string]`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `secret: string`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `started_at: string`
 
@@ -1175,7 +1219,7 @@ ant beta:environments:work stats \
 
 ### Beta Self Hosted Work Queue Stats
 
-- `beta_self_hosted_work_queue_stats: object { depth, oldest_queued_at, pending, 2 more }`
+- `beta_self_hosted_work_queue_stats: object`
 
   Statistics about the work queue for an environment.
 
@@ -1203,7 +1247,7 @@ ant beta:environments:work stats \
 
 ### Beta Self Hosted Work Stop Request
 
-- `beta_self_hosted_work_stop_request: object { force }`
+- `beta_self_hosted_work_stop_request: object`
 
   Request to stop a work item.
 
@@ -1213,7 +1257,7 @@ ant beta:environments:work stats \
 
 ### Beta Self Hosted Work Update Request
 
-- `beta_self_hosted_work_update_request: object { metadata }`
+- `beta_self_hosted_work_update_request: object`
 
   Request to update work item metadata.
 
@@ -1223,7 +1267,7 @@ ant beta:environments:work stats \
 
 ### Beta Session Work Data
 
-- `beta_session_work_data: object { id, type }`
+- `beta_session_work_data: object`
 
   Work data for session work items.
 

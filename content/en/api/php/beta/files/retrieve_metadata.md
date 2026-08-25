@@ -1,12 +1,12 @@
-## Get File Metadata
+# Get File Metadata
 
-`$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas): FileMetadata`
+`$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas): BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
-### Parameters
+## Parameters
 
 - `fileID: string`
 
@@ -16,9 +16,9 @@ Get File Metadata
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -56,7 +56,7 @@ Get File Metadata
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-### Example
+## Example
 
 ```php
 <?php
@@ -65,14 +65,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$fileMetadata = $client->beta->files->retrieveMetadata(
-  'file_id', betas: ['message-batches-2024-09-24']
+$betaFileMetadata = $client->beta->files->retrieveMetadata(
+  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
-var_dump($fileMetadata);
+var_dump($betaFileMetadata);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

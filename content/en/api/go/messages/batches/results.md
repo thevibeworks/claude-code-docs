@@ -1,8 +1,8 @@
-## Retrieve Message Batch results
+# Retrieve Message Batch results
 
 `client.Messages.Batches.Results(ctx, messageBatchID) (*MessageBatchIndividualResponse, error)`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -10,13 +10,13 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `messageBatchID string`
 
   ID of the Message Batch.
 
-### Returns
+## Returns
 
 - `type MessageBatchIndividualResponse struct{…}`
 
@@ -55,6 +55,32 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `ExpiresAt Time`
 
             The time at which the container will expire.
+
+            format: date-time
+
+          - `Skills []ContainerSkill`
+
+            Skills loaded in the container
+
+            - `SkillID string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
+
+            - `Type ContainerSkillType`
+
+              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+              - `const ContainerSkillTypeAnthropic ContainerSkillType = "anthropic"`
+
+              - `const ContainerSkillTypeCustom ContainerSkillType = "custom"`
+
+            - `Version string`
+
+              The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `Content []ContentBlockUnion`
 
@@ -99,6 +125,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `DocumentIndex int64`
 
+                  minimum: 0
+
                 - `DocumentTitle string`
 
                 - `EndCharIndex int64`
@@ -107,15 +135,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `StartCharIndex int64`
 
+                  minimum: 0
+
                 - `Type CharLocation`
 
-                  - `const CharLocationCharLocation CharLocation = "char_location"`
+                  default: char_location
 
               - `type CitationPageLocation struct{…}`
 
                 - `CitedText string`
 
                 - `DocumentIndex int64`
+
+                  minimum: 0
 
                 - `DocumentTitle string`
 
@@ -125,9 +157,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `StartPageNumber int64`
 
+                  minimum: 1
+
                 - `Type PageLocation`
 
-                  - `const PageLocationPageLocation PageLocation = "page_location"`
+                  default: page_location
 
               - `type CitationContentBlockLocation struct{…}`
 
@@ -138,6 +172,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `DocumentIndex int64`
+
+                  minimum: 0
 
                 - `DocumentTitle string`
 
@@ -153,9 +189,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `Type ContentBlockLocation`
 
-                  - `const ContentBlockLocationContentBlockLocation ContentBlockLocation = "content_block_location"`
+                  default: content_block_location
 
               - `type CitationsWebSearchResultLocation struct{…}`
 
@@ -165,9 +203,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Title string`
 
+                  maxLength: 512
+
                 - `Type WebSearchResultLocation`
 
-                  - `const WebSearchResultLocationWebSearchResultLocation WebSearchResultLocation = "web_search_result_location"`
+                  default: web_search_result_location
 
                 - `URL string`
 
@@ -191,49 +231,73 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `Source string`
 
                 - `StartBlockIndex int64`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `Title string`
 
                 - `Type SearchResultLocation`
 
-                  - `const SearchResultLocationSearchResultLocation SearchResultLocation = "search_result_location"`
+                  default: search_result_location
 
             - `Text string`
 
+              maxLength: 5000000, minLength: 0
+
             - `Type Text`
 
-              - `const TextText Text = "text"`
+              default: text
 
           - `type ThinkingBlock struct{…}`
 
             - `Signature string`
 
+              A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+              This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
             - `Thinking string`
+
+              The text of Claude's thinking process for this block.
 
             - `Type Thinking`
 
-              - `const ThinkingThinking Thinking = "thinking"`
+              default: thinking
 
           - `type RedactedThinkingBlock struct{…}`
 
             - `Data string`
 
+              The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+              Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
             - `Type RedactedThinking`
 
-              - `const RedactedThinkingRedactedThinking RedactedThinking = "redacted_thinking"`
+              default: redacted_thinking
 
           - `type ToolUseBlock struct{…}`
 
             - `ID string`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `Caller ToolUseBlockCallerUnion`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `type DirectCaller struct{…}`
 
@@ -241,41 +305,51 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type Direct`
 
-                  - `const DirectDirect Direct = "direct"`
-
               - `type ServerToolCaller struct{…}`
 
                 Tool invocation generated by a server-side tool.
 
                 - `ToolID string`
 
-                - `Type CodeExecution20250825`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `const CodeExecution20250825CodeExecution20250825 CodeExecution20250825 = "code_execution_20250825"`
+                - `Type CodeExecution20250825`
 
               - `type ServerToolCaller20260120 struct{…}`
 
                 - `ToolID string`
 
-                - `Type CodeExecution20260120`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `const CodeExecution20260120CodeExecution20260120 CodeExecution20260120 = "code_execution_20260120"`
+                - `Type CodeExecution20260120`
 
             - `Input map[string, any]`
 
             - `Name string`
 
+              minLength: 1
+
             - `Type ToolUse`
 
-              - `const ToolUseToolUse ToolUse = "tool_use"`
+              default: tool_use
+
+            - `ToolsetName string Optional`
+
+              For a toolset member tool_use, the toolset family.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `type ServerToolUseBlock struct{…}`
 
             - `ID string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `Caller ServerToolUseBlockCallerUnion`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `type DirectCaller struct{…}`
 
@@ -307,13 +381,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type ServerToolUse`
 
-              - `const ServerToolUseServerToolUse ServerToolUse = "server_tool_use"`
+              default: server_tool_use
 
           - `type WebSearchToolResultBlock struct{…}`
 
             - `Caller WebSearchToolResultBlockCallerUnion`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `type DirectCaller struct{…}`
 
@@ -345,7 +421,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type WebSearchToolResultError`
 
-                  - `const WebSearchToolResultErrorWebSearchToolResultError WebSearchToolResultError = "web_search_tool_result_error"`
+                  default: web_search_tool_result_error
 
               - `type WebSearchToolResultBlockContentArray []WebSearchResultBlock`
 
@@ -357,21 +433,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type WebSearchResult`
 
-                  - `const WebSearchResultWebSearchResult WebSearchResult = "web_search_result"`
+                  default: web_search_result
 
                 - `URL string`
 
             - `ToolUseID string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `Type WebSearchToolResult`
 
-              - `const WebSearchToolResultWebSearchToolResult WebSearchToolResult = "web_search_tool_result"`
+              default: web_search_tool_result
 
           - `type WebFetchToolResultBlock struct{…}`
 
             - `Caller WebFetchToolResultBlockCallerUnion`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `type DirectCaller struct{…}`
 
@@ -409,7 +489,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type WebFetchToolResultError`
 
-                  - `const WebFetchToolResultErrorWebFetchToolResultError WebFetchToolResultError = "web_fetch_tool_result_error"`
+                  default: web_fetch_tool_result_error
 
               - `type WebFetchBlock struct{…}`
 
@@ -421,19 +501,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `Enabled bool`
 
+                      default: false
+
                   - `Source DocumentBlockSourceUnion`
 
                     - `type Base64PDFSource struct{…}`
 
                       - `Data string`
 
+                        format: byte
+
                       - `MediaType ApplicationPDF`
 
-                        - `const ApplicationPDFApplicationPDF ApplicationPDF = "application/pdf"`
-
                       - `Type Base64`
-
-                        - `const Base64Base64 Base64 = "base64"`
 
                     - `type PlainTextSource struct{…}`
 
@@ -441,11 +521,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `MediaType TextPlain`
 
-                        - `const TextPlainTextPlain TextPlain = "text/plain"`
-
                       - `Type Text`
-
-                        - `const TextText Text = "text"`
 
                   - `Title string`
 
@@ -453,7 +529,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type Document`
 
-                    - `const DocumentDocument Document = "document"`
+                    default: document
 
                 - `RetrievedAt string`
 
@@ -461,7 +537,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type WebFetchResult`
 
-                  - `const WebFetchResultWebFetchResult WebFetchResult = "web_fetch_result"`
+                  default: web_fetch_result
 
                 - `URL string`
 
@@ -469,9 +545,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `ToolUseID string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `Type WebFetchToolResult`
 
-              - `const WebFetchToolResultWebFetchToolResult WebFetchToolResult = "web_fetch_tool_result"`
+              default: web_fetch_tool_result
 
           - `type CodeExecutionToolResultBlock struct{…}`
 
@@ -493,7 +571,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type CodeExecutionToolResultError`
 
-                  - `const CodeExecutionToolResultErrorCodeExecutionToolResultError CodeExecutionToolResultError = "code_execution_tool_result_error"`
+                  default: code_execution_tool_result_error
 
               - `type CodeExecutionResultBlock struct{…}`
 
@@ -503,7 +581,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type CodeExecutionOutput`
 
-                    - `const CodeExecutionOutputCodeExecutionOutput CodeExecutionOutput = "code_execution_output"`
+                    default: code_execution_output
 
                 - `ReturnCode int64`
 
@@ -513,7 +591,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type CodeExecutionResult`
 
-                  - `const CodeExecutionResultCodeExecutionResult CodeExecutionResult = "code_execution_result"`
+                  default: code_execution_result
 
               - `type EncryptedCodeExecutionResultBlock struct{…}`
 
@@ -525,6 +603,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type CodeExecutionOutput`
 
+                    default: code_execution_output
+
                 - `EncryptedStdout string`
 
                 - `ReturnCode int64`
@@ -533,13 +613,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type EncryptedCodeExecutionResult`
 
-                  - `const EncryptedCodeExecutionResultEncryptedCodeExecutionResult EncryptedCodeExecutionResult = "encrypted_code_execution_result"`
+                  default: encrypted_code_execution_result
 
             - `ToolUseID string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `Type CodeExecutionToolResult`
 
-              - `const CodeExecutionToolResultCodeExecutionToolResult CodeExecutionToolResult = "code_execution_tool_result"`
+              default: code_execution_tool_result
 
           - `type BashCodeExecutionToolResultBlock struct{…}`
 
@@ -561,7 +643,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type BashCodeExecutionToolResultError`
 
-                  - `const BashCodeExecutionToolResultErrorBashCodeExecutionToolResultError BashCodeExecutionToolResultError = "bash_code_execution_tool_result_error"`
+                  default: bash_code_execution_tool_result_error
 
               - `type BashCodeExecutionResultBlock struct{…}`
 
@@ -571,7 +653,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `Type BashCodeExecutionOutput`
 
-                    - `const BashCodeExecutionOutputBashCodeExecutionOutput BashCodeExecutionOutput = "bash_code_execution_output"`
+                    default: bash_code_execution_output
 
                 - `ReturnCode int64`
 
@@ -581,13 +663,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type BashCodeExecutionResult`
 
-                  - `const BashCodeExecutionResultBashCodeExecutionResult BashCodeExecutionResult = "bash_code_execution_result"`
+                  default: bash_code_execution_result
 
             - `ToolUseID string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `Type BashCodeExecutionToolResult`
 
-              - `const BashCodeExecutionToolResultBashCodeExecutionToolResult BashCodeExecutionToolResult = "bash_code_execution_tool_result"`
+              default: bash_code_execution_tool_result
 
           - `type TextEditorCodeExecutionToolResultBlock struct{…}`
 
@@ -611,7 +695,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type TextEditorCodeExecutionToolResultError`
 
-                  - `const TextEditorCodeExecutionToolResultErrorTextEditorCodeExecutionToolResultError TextEditorCodeExecutionToolResultError = "text_editor_code_execution_tool_result_error"`
+                  default: text_editor_code_execution_tool_result_error
 
               - `type TextEditorCodeExecutionViewResultBlock struct{…}`
 
@@ -633,7 +717,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type TextEditorCodeExecutionViewResult`
 
-                  - `const TextEditorCodeExecutionViewResultTextEditorCodeExecutionViewResult TextEditorCodeExecutionViewResult = "text_editor_code_execution_view_result"`
+                  default: text_editor_code_execution_view_result
 
               - `type TextEditorCodeExecutionCreateResultBlock struct{…}`
 
@@ -641,7 +725,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type TextEditorCodeExecutionCreateResult`
 
-                  - `const TextEditorCodeExecutionCreateResultTextEditorCodeExecutionCreateResult TextEditorCodeExecutionCreateResult = "text_editor_code_execution_create_result"`
+                  default: text_editor_code_execution_create_result
 
               - `type TextEditorCodeExecutionStrReplaceResultBlock struct{…}`
 
@@ -657,13 +741,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type TextEditorCodeExecutionStrReplaceResult`
 
-                  - `const TextEditorCodeExecutionStrReplaceResultTextEditorCodeExecutionStrReplaceResult TextEditorCodeExecutionStrReplaceResult = "text_editor_code_execution_str_replace_result"`
+                  default: text_editor_code_execution_str_replace_result
 
             - `ToolUseID string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `Type TextEditorCodeExecutionToolResult`
 
-              - `const TextEditorCodeExecutionToolResultTextEditorCodeExecutionToolResult TextEditorCodeExecutionToolResult = "text_editor_code_execution_tool_result"`
+              default: text_editor_code_execution_tool_result
 
           - `type ToolSearchToolResultBlock struct{…}`
 
@@ -685,7 +771,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Type ToolSearchToolResultError`
 
-                  - `const ToolSearchToolResultErrorToolSearchToolResultError ToolSearchToolResultError = "tool_search_tool_result_error"`
+                  default: tool_search_tool_result_error
 
               - `type ToolSearchToolSearchResultBlock struct{…}`
 
@@ -693,19 +779,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `ToolName string`
 
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                   - `Type ToolReference`
 
-                    - `const ToolReferenceToolReference ToolReference = "tool_reference"`
+                    default: tool_reference
 
                 - `Type ToolSearchToolSearchResult`
 
-                  - `const ToolSearchToolSearchResultToolSearchToolSearchResult ToolSearchToolSearchResult = "tool_search_tool_search_result"`
+                  default: tool_search_tool_search_result
 
             - `ToolUseID string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `Type ToolSearchToolResult`
 
-              - `const ToolSearchToolResultToolSearchToolResult ToolSearchToolResult = "tool_search_tool_result"`
+              default: tool_search_tool_result
 
           - `type ContainerUploadBlock struct{…}`
 
@@ -715,7 +805,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Type ContainerUpload`
 
-              - `const ContainerUploadContainerUpload ContainerUpload = "container_upload"`
+              default: container_upload
 
         - `Model Model`
 
@@ -741,13 +831,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Most capable model for cybersecurity and biology research
 
+            - `const ModelClaudeOpus5 Model = "claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `const ModelClaudeOpus4_8 Model = "claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `const ModelClaudeOpus4_7 Model = "claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `const ModelClaudeMythosPreview Model = "claude-mythos-preview"`
 
@@ -755,7 +849,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ModelClaudeOpus4_6 Model = "claude-opus-4-6"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `const ModelClaudeSonnet4_6 Model = "claude-sonnet-4-6"`
 
@@ -771,11 +865,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const ModelClaudeOpus4_5 Model = "claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `const ModelClaudeOpus4_5_20251101 Model = "claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `const ModelClaudeSonnet4_5 Model = "claude-sonnet-4-5"`
 
@@ -785,14 +879,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               High-performance model for agents and coding
 
-            - `const ModelClaudeOpus4_1 Model = "claude-opus-4-1"`
-
-              Exceptional model for specialized complex tasks
-
-            - `const ModelClaudeOpus4_1_20250805 Model = "claude-opus-4-1-20250805"`
-
-              Exceptional model for specialized complex tasks
-
           - `string`
 
         - `Role Assistant`
@@ -801,7 +887,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This will always be `"assistant"`.
 
-          - `const AssistantAssistant Assistant = "assistant"`
+          default: assistant
 
         - `StopDetails RefusalStopDetails`
 
@@ -813,11 +899,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `const RefusalStopDetailsCategoryCyber RefusalStopDetailsCategory = "cyber"`
 
+              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
             - `const RefusalStopDetailsCategoryBio RefusalStopDetailsCategory = "bio"`
+
+              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
             - `const RefusalStopDetailsCategoryFrontierLLM RefusalStopDetailsCategory = "frontier_llm"`
 
+              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
             - `const RefusalStopDetailsCategoryReasoningExtraction RefusalStopDetailsCategory = "reasoning_extraction"`
+
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+            - `const RefusalStopDetailsCategoryGeneralHarms RefusalStopDetailsCategory = "general_harms"`
+
+              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
           - `Explanation string`
 
@@ -827,7 +925,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `Type Refusal`
 
-            - `const RefusalRefusal Refusal = "refusal"`
+            default: refusal
 
         - `StopReason StopReason`
 
@@ -841,6 +939,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           * `"tool_use"`: the model invoked one or more tools
           * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
           * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+          * `"model_context_window_exceeded"`: we exceeded the model's context window
 
           In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -856,6 +955,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `const StopReasonRefusal StopReason = "refusal"`
 
+          - `const StopReasonModelContextWindowExceeded StopReason = "model_context_window_exceeded"`
+
         - `StopSequence string`
 
           Which custom stop sequence was generated, if any.
@@ -868,7 +969,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-          - `const MessageMessage Message = "message"`
+          default: message
 
         - `Usage Usage`
 
@@ -890,17 +991,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              default: 0, minimum: 0
+
             - `Ephemeral5mInputTokens int64`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              default: 0, minimum: 0
 
           - `CacheCreationInputTokens int64`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `CacheReadInputTokens int64`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `InferenceGeo string`
 
@@ -910,9 +1019,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `OutputTokens int64`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `OutputTokensDetails OutputTokensDetails`
 
@@ -934,6 +1047,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              default: 0, minimum: 0
+
           - `ServerToolUse ServerToolUsage`
 
             The number of server tool requests.
@@ -942,9 +1057,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              default: 0, minimum: 0
+
             - `WebSearchRequests int64`
 
               The number of web search tool requests.
+
+              default: 0, minimum: 0
 
           - `ServiceTier UsageServiceTier`
 
@@ -958,7 +1077,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `Type Succeeded`
 
-        - `const SucceededSucceeded Succeeded = "succeeded"`
+        default: succeeded
 
     - `type MessageBatchErroredResult struct{…}`
 
@@ -970,120 +1089,138 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `Message string`
 
+              default: Invalid request
+
             - `Type InvalidRequestError`
 
-              - `const InvalidRequestErrorInvalidRequestError InvalidRequestError = "invalid_request_error"`
+              default: invalid_request_error
 
           - `type AuthenticationError struct{…}`
 
             - `Message string`
 
+              default: Authentication error
+
             - `Type AuthenticationError`
 
-              - `const AuthenticationErrorAuthenticationError AuthenticationError = "authentication_error"`
+              default: authentication_error
 
           - `type BillingError struct{…}`
 
             - `Message string`
 
+              default: Billing error
+
             - `Type BillingError`
 
-              - `const BillingErrorBillingError BillingError = "billing_error"`
+              default: billing_error
 
           - `type PermissionError struct{…}`
 
             - `Message string`
 
+              default: Permission denied
+
             - `Type PermissionError`
 
-              - `const PermissionErrorPermissionError PermissionError = "permission_error"`
+              default: permission_error
 
           - `type NotFoundError struct{…}`
 
             - `Message string`
 
+              default: Not found
+
             - `Type NotFoundError`
 
-              - `const NotFoundErrorNotFoundError NotFoundError = "not_found_error"`
+              default: not_found_error
 
           - `type RateLimitError struct{…}`
 
             - `Message string`
 
+              default: Rate limited
+
             - `Type RateLimitError`
 
-              - `const RateLimitErrorRateLimitError RateLimitError = "rate_limit_error"`
+              default: rate_limit_error
 
           - `type GatewayTimeoutError struct{…}`
 
             - `Message string`
 
+              default: Request timeout
+
             - `Type TimeoutError`
 
-              - `const TimeoutErrorTimeoutError TimeoutError = "timeout_error"`
+              default: timeout_error
 
           - `type APIErrorObject struct{…}`
 
             - `Message string`
 
+              default: Internal server error
+
             - `Type APIError`
 
-              - `const APIErrorAPIError APIError = "api_error"`
+              default: api_error
 
           - `type OverloadedError struct{…}`
 
             - `Message string`
 
+              default: Overloaded
+
             - `Type OverloadedError`
 
-              - `const OverloadedErrorOverloadedError OverloadedError = "overloaded_error"`
+              default: overloaded_error
 
         - `RequestID string`
 
         - `Type Error`
 
-          - `const ErrorError Error = "error"`
+          default: error
 
       - `Type Errored`
 
-        - `const ErroredErrored Errored = "errored"`
+        default: errored
 
     - `type MessageBatchCanceledResult struct{…}`
 
       - `Type Canceled`
 
-        - `const CanceledCanceled Canceled = "canceled"`
+        default: canceled
 
     - `type MessageBatchExpiredResult struct{…}`
 
       - `Type Expired`
 
-        - `const ExpiredExpired Expired = "expired"`
+        default: expired
 
-### Example
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  stream := client.Messages.Batches.ResultsStreaming(context.TODO(), "message_batch_id")
-  for stream.Next() {
-  fmt.Printf("%+v\n", stream.Current())
-  }
-  err := stream.Err()
-  if err != nil {
-    panic(err.Error())
-  }
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	stream := client.Messages.Batches.ResultsStreaming(context.TODO(), "message_batch_id")
+	for stream.Next() {
+		fmt.Printf("%+v\n", stream.Current())
+	}
+	err := stream.Err()
+	if err != nil {
+		panic(err.Error())
+	}
 }
 ```

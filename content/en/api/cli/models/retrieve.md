@@ -1,14 +1,14 @@
-## Get a Model
+# Get a Model
 
 `$ ant models retrieve`
 
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
 The Models API response can be used to determine information about a specific model or resolve a model alias to a model ID.
 
-### Parameters
+## Parameters
 
 - `--model-id: string`
 
@@ -18,19 +18,19 @@ The Models API response can be used to determine information about a specific mo
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `model_info: object { id, capabilities, created_at, 4 more }`
+- `model_info: object`
 
   - `id: string`
 
     Unique model identifier.
 
-  - `capabilities: object { batch, citations, code_execution, 6 more }`
+  - `capabilities: object`
 
     Model capability information.
 
-    - `batch: object { supported }`
+    - `batch: object`
 
       Whether the model supports the Batch API.
 
@@ -38,7 +38,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-    - `citations: object { supported }`
+    - `citations: object`
 
       Whether the model supports citation generation.
 
@@ -46,7 +46,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-    - `code_execution: object { supported }`
+    - `code_execution: object`
 
       Whether the model supports code execution tools.
 
@@ -54,11 +54,11 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-    - `context_management: object { clear_thinking_20251015, clear_tool_uses_20250919, compact_20260112, supported }`
+    - `context_management: object`
 
       Context management support and available strategies.
 
-      - `clear_thinking_20251015: object { supported }`
+      - `clear_thinking_20251015: object`
 
         Indicates whether a capability is supported.
 
@@ -66,7 +66,7 @@ The Models API response can be used to determine information about a specific mo
 
           Whether this capability is supported by the model.
 
-      - `clear_tool_uses_20250919: object { supported }`
+      - `clear_tool_uses_20250919: object`
 
         Indicates whether a capability is supported.
 
@@ -74,7 +74,7 @@ The Models API response can be used to determine information about a specific mo
 
           Whether this capability is supported by the model.
 
-      - `compact_20260112: object { supported }`
+      - `compact_20260112: object`
 
         Indicates whether a capability is supported.
 
@@ -86,11 +86,11 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-    - `effort: object { high, low, max, 3 more }`
+    - `effort: object`
 
       Effort (reasoning_effort) support and available levels.
 
-      - `high: object { supported }`
+      - `high: object`
 
         Whether the model supports high effort level.
 
@@ -98,7 +98,7 @@ The Models API response can be used to determine information about a specific mo
 
           Whether this capability is supported by the model.
 
-      - `low: object { supported }`
+      - `low: object`
 
         Whether the model supports low effort level.
 
@@ -106,7 +106,7 @@ The Models API response can be used to determine information about a specific mo
 
           Whether this capability is supported by the model.
 
-      - `max: object { supported }`
+      - `max: object`
 
         Whether the model supports max effort level.
 
@@ -114,7 +114,7 @@ The Models API response can be used to determine information about a specific mo
 
           Whether this capability is supported by the model.
 
-      - `medium: object { supported }`
+      - `medium: object`
 
         Whether the model supports medium effort level.
 
@@ -126,7 +126,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-      - `xhigh: object { supported }`
+      - `xhigh: object`
 
         Indicates whether a capability is supported.
 
@@ -134,7 +134,7 @@ The Models API response can be used to determine information about a specific mo
 
           Whether this capability is supported by the model.
 
-    - `image_input: object { supported }`
+    - `image_input: object`
 
       Whether the model accepts image content blocks.
 
@@ -142,7 +142,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-    - `pdf_input: object { supported }`
+    - `pdf_input: object`
 
       Whether the model accepts PDF content blocks.
 
@@ -150,7 +150,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-    - `structured_outputs: object { supported }`
+    - `structured_outputs: object`
 
       Whether the model supports structured output / JSON mode / strict tool schemas.
 
@@ -158,7 +158,7 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-    - `thinking: object { supported, types }`
+    - `thinking: object`
 
       Thinking capability and supported type configurations.
 
@@ -166,11 +166,11 @@ The Models API response can be used to determine information about a specific mo
 
         Whether this capability is supported by the model.
 
-      - `types: object { adaptive, enabled }`
+      - `types: object`
 
         Supported thinking type configurations.
 
-        - `adaptive: object { supported }`
+        - `adaptive: object`
 
           Whether the model supports thinking with type 'adaptive' (auto).
 
@@ -178,7 +178,7 @@ The Models API response can be used to determine information about a specific mo
 
             Whether this capability is supported by the model.
 
-        - `enabled: object { supported }`
+        - `enabled: object`
 
           Whether the model supports thinking with type 'enabled'.
 
@@ -189,6 +189,8 @@ The Models API response can be used to determine information about a specific mo
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
+
+    format: date-time
 
   - `display_name: string`
 
@@ -208,19 +210,19 @@ The Models API response can be used to determine information about a specific mo
 
     For Models, this is always `"model"`.
 
-### Example
+## Example
 
-```cli
+```bash
 ant models retrieve \
   --api-key my-anthropic-api-key \
   --model-id model_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
-  "id": "claude-opus-4-6",
+  "id": "claude-opus-5",
   "capabilities": {
     "batch": {
       "supported": true
@@ -282,8 +284,8 @@ ant models retrieve \
       }
     }
   },
-  "created_at": "2026-02-04T00:00:00Z",
-  "display_name": "Claude Opus 4.6",
+  "created_at": "2026-07-24T00:00:00Z",
+  "display_name": "Claude Opus 5",
   "max_input_tokens": 0,
   "max_tokens": 0,
   "type": "model"

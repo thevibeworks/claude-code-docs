@@ -1,12 +1,12 @@
-## List Files
+# List Files
 
-`$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<FileMetadata>`
+`$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<BetaFileMetadata>`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
-### Parameters
+## Parameters
 
 - `afterID?:optional string`
 
@@ -22,6 +22,8 @@ List Files
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20
+
 - `scopeID?:optional string`
 
   Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
@@ -30,9 +32,9 @@ List Files
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -70,7 +72,7 @@ List Files
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-### Example
+## Example
 
 ```php
 <?php
@@ -84,13 +86,13 @@ $page = $client->beta->files->list(
   beforeID: 'before_id',
   limit: 1,
   scopeID: 'scope_id',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,12 +1,12 @@
-## List Events
+# List Events
 
-`EventListPageResponse Beta.Sessions.Events.List(EventListParamsparameters, CancellationTokencancellationToken = default)`
+`EventListPageResponse Beta.Sessions.Events.List(parameters, cancellationToken = default)`
 
-**get** `/v1/sessions/{session_id}/events`
+**GET** `/v1/sessions/{session_id}/events`
 
 List Events
 
-### Parameters
+## Parameters
 
 - `EventListParams parameters`
 
@@ -16,31 +16,41 @@ List Events
 
   - `DateTimeOffset createdAtGt`
 
-    Query param: Return events created after this time (exclusive).
+    Query param: Return events created after this time (exclusive). Compared against the event's `processed_at` value.
+
+    format: date-time
 
   - `DateTimeOffset createdAtGte`
 
-    Query param: Return events created at or after this time (inclusive).
+    Query param: Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
+
+    format: date-time
 
   - `DateTimeOffset createdAtLt`
 
-    Query param: Return events created before this time (exclusive).
+    Query param: Return events created before this time (exclusive). Compared against the event's `processed_at` value.
+
+    format: date-time
 
   - `DateTimeOffset createdAtLte`
 
-    Query param: Return events created at or before this time (inclusive).
+    Query param: Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
 
-  - `Int limit`
+    format: date-time
+
+  - `int limit`
 
     Query param: Query parameter for limit
 
+    format: int32
+
   - `Order order`
 
-    Query param: Sort direction for results, ordered by created_at. Defaults to asc (chronological).
+    Query param: Sort direction for results, ordered by the event's `processed_at`. Defaults to asc (chronological).
 
-    - `"asc"Asc`
+    - `Asc`
 
-    - `"desc"Desc`
+    - `Desc`
 
   - `string page`
 
@@ -54,65 +64,75 @@ List Events
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `UserProfiles2026_08_18`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `ManagedAgents2026_04_01`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `Dreaming2026_04_21`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `ServerSideFallback2026_06_01`
 
-### Returns
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+## Returns
 
 - `class EventListPageResponse:`
 
@@ -120,7 +140,7 @@ List Events
 
   - `IReadOnlyList<BetaManagedAgentsSessionEvent> Data`
 
-    Events for the session, ordered by `created_at`.
+    Events for the session, ordered by `processed_at`.
 
     - `class BetaManagedAgentsUserMessageEvent:`
 
@@ -142,9 +162,9 @@ List Events
 
             The text content.
 
-          - `required Type Type`
+            minLength: 1
 
-            - `"text"Text`
+          - `required Type Type`
 
         - `class BetaManagedAgentsImageBlock:`
 
@@ -162,13 +182,15 @@ List Events
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `required string MediaType`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `required Type Type`
+                minLength: 1
 
-                - `"base64"Base64`
+              - `required Type Type`
 
             - `class BetaManagedAgentsUrlImageSource:`
 
@@ -176,11 +198,11 @@ List Events
 
               - `required Type Type`
 
-                - `"url"Url`
-
               - `required string Url`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource:`
 
@@ -190,13 +212,11 @@ List Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `required Type Type`
 
-                - `"file"File`
-
           - `required Type Type`
-
-            - `"image"Image`
 
         - `class BetaManagedAgentsDocumentBlock:`
 
@@ -214,13 +234,15 @@ List Events
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `required string MediaType`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `required Type Type`
+                minLength: 1
 
-                - `"base64"Base64`
+              - `required Type Type`
 
             - `class BetaManagedAgentsPlainTextDocumentSource:`
 
@@ -230,15 +252,13 @@ List Events
 
                 The plain text content.
 
+                minLength: 1
+
               - `required MediaType MediaType`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"TextPlain`
-
               - `required Type Type`
-
-                - `"text"Text`
 
             - `class BetaManagedAgentsUrlDocumentSource:`
 
@@ -246,11 +266,11 @@ List Events
 
               - `required Type Type`
 
-                - `"url"Url`
-
               - `required string Url`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource:`
 
@@ -260,13 +280,11 @@ List Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `required Type Type`
 
-                - `"file"File`
-
           - `required Type Type`
-
-            - `"document"Document`
 
           - `string? Context`
 
@@ -276,13 +294,19 @@ List Events
 
             The title of the document.
 
-      - `required Type Type`
+        - `class BetaManagedAgentsRedactedBlock:`
 
-        - `"user.message"UserMessage`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `required Type Type`
+
+      - `required Type Type`
 
       - `DateTimeOffset? ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `class BetaManagedAgentsUserInterruptEvent:`
 
@@ -294,11 +318,11 @@ List Events
 
       - `required Type Type`
 
-        - `"user.interrupt"UserInterrupt`
-
       - `DateTimeOffset? ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `string? SessionThreadID`
 
@@ -316,9 +340,9 @@ List Events
 
         UserToolConfirmationResult enum
 
-        - `"allow"Allow`
+        - `Allow`
 
-        - `"deny"Deny`
+        - `Deny`
 
       - `required string ToolUseID`
 
@@ -326,15 +350,17 @@ List Events
 
       - `required Type Type`
 
-        - `"user.tool_confirmation"UserToolConfirmation`
-
       - `string? DenyMessage`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+        maxLength: 10000
+
       - `DateTimeOffset? ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `string? SessionThreadID`
 
@@ -353,8 +379,6 @@ List Events
         The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `required Type Type`
-
-        - `"user.custom_tool_result"UserCustomToolResult`
 
       - `IReadOnlyList<Content> Content`
 
@@ -380,7 +404,7 @@ List Events
 
             Citation settings for a search result.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
               Whether citations are enabled for this search result.
 
@@ -392,29 +416,33 @@ List Events
 
               The text content.
 
-            - `required Type Type`
+              minLength: 1
 
-              - `"text"Text`
+            - `required Type Type`
 
           - `required string Source`
 
             The URL source of the search result.
 
+            minLength: 1
+
           - `required string Title`
 
             The title of the search result.
 
+            minLength: 1
+
           - `required Type Type`
 
-            - `"search_result"SearchResult`
-
-      - `Boolean? IsError`
+      - `bool? IsError`
 
         Whether the tool execution resulted in an error.
 
       - `DateTimeOffset? ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `string? SessionThreadID`
 
@@ -440,9 +468,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.custom_tool_use"AgentCustomToolUse`
+      - `required Type Type`
 
       - `string? SessionThreadID`
 
@@ -456,23 +484,25 @@ List Events
 
         Unique identifier for this event.
 
-      - `required IReadOnlyList<BetaManagedAgentsTextBlock> Content`
+      - `required IReadOnlyList<Content> Content`
 
         Array of text blocks comprising the agent response.
 
-        - `required string Text`
+        - `class BetaManagedAgentsTextBlock:`
 
-          The text content.
+          Regular text content.
 
-        - `required Type Type`
+        - `class BetaManagedAgentsRedactedBlock:`
+
+          Placeholder for content withheld by Anthropic model policy.
 
       - `required DateTimeOffset ProcessedAt`
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.message"AgentMessage`
+      - `required Type Type`
 
     - `class BetaManagedAgentsAgentThinkingEvent:`
 
@@ -486,9 +516,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.thinking"AgentThinking`
+      - `required Type Type`
 
     - `class BetaManagedAgentsAgentMcpToolUseEvent:`
 
@@ -514,19 +544,19 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.mcp_tool_use"AgentMcpToolUse`
+      - `required Type Type`
 
       - `EvaluatedPermission EvaluatedPermission`
 
         AgentEvaluatedPermission enum
 
-        - `"allow"Allow`
+        - `Allow`
 
-        - `"ask"Ask`
+        - `Ask`
 
-        - `"deny"Deny`
+        - `Deny`
 
       - `string? SessionThreadID`
 
@@ -548,9 +578,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.mcp_tool_result"AgentMcpToolResult`
+      - `required Type Type`
 
       - `IReadOnlyList<Content> Content`
 
@@ -572,7 +602,7 @@ List Events
 
           A block containing a web search result.
 
-      - `Boolean? IsError`
+      - `bool? IsError`
 
         Whether the tool execution resulted in an error.
 
@@ -596,19 +626,19 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.tool_use"AgentToolUse`
+      - `required Type Type`
 
       - `EvaluatedPermission EvaluatedPermission`
 
         AgentEvaluatedPermission enum
 
-        - `"allow"Allow`
+        - `Allow`
 
-        - `"ask"Ask`
+        - `Ask`
 
-        - `"deny"Deny`
+        - `Deny`
 
       - `string? SessionThreadID`
 
@@ -626,13 +656,13 @@ List Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string ToolUseID`
 
         The id of the `agent.tool_use` event this result corresponds to.
 
       - `required Type Type`
-
-        - `"agent.tool_result"AgentToolResult`
 
       - `IReadOnlyList<Content> Content`
 
@@ -654,7 +684,7 @@ List Events
 
           A block containing a web search result.
 
-      - `Boolean? IsError`
+      - `bool? IsError`
 
         Whether the tool execution resulted in an error.
 
@@ -682,6 +712,10 @@ List Events
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+        - `class BetaManagedAgentsRedactedBlock:`
+
+          Placeholder for content withheld by Anthropic model policy.
+
       - `required string FromSessionThreadID`
 
         Public `sthr_` ID of the thread that sent the message.
@@ -690,9 +724,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.thread_message_received"AgentThreadMessageReceived`
+      - `required Type Type`
 
       - `string? FromAgentName`
 
@@ -722,17 +756,21 @@ List Events
 
           Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+        - `class BetaManagedAgentsRedactedBlock:`
+
+          Placeholder for content withheld by Anthropic model policy.
+
       - `required DateTimeOffset ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `required string ToSessionThreadID`
 
         Public `sthr_` ID of the thread the message was sent to.
 
       - `required Type Type`
-
-        - `"agent.thread_message_sent"AgentThreadMessageSent`
 
       - `string? ToAgentName`
 
@@ -750,9 +788,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"agent.thread_context_compacted"AgentThreadContextCompacted`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSessionErrorEvent:`
 
@@ -784,15 +822,11 @@ List Events
 
               - `required Type Type`
 
-                - `"retrying"Retrying`
-
             - `class BetaManagedAgentsRetryStatusExhausted:`
 
               This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
               - `required Type Type`
-
-                - `"exhausted"Exhausted`
 
             - `class BetaManagedAgentsRetryStatusTerminal:`
 
@@ -800,11 +834,7 @@ List Events
 
               - `required Type Type`
 
-                - `"terminal"Terminal`
-
           - `required Type Type`
-
-            - `"unknown_error"UnknownError`
 
         - `class BetaManagedAgentsModelOverloadedError:`
 
@@ -832,8 +862,6 @@ List Events
 
           - `required Type Type`
 
-            - `"model_overloaded_error"ModelOverloadedError`
-
         - `class BetaManagedAgentsModelRateLimitedError:`
 
           The model request was rate-limited.
@@ -860,8 +888,6 @@ List Events
 
           - `required Type Type`
 
-            - `"model_rate_limited_error"ModelRateLimitedError`
-
         - `class BetaManagedAgentsModelRequestFailedError:`
 
           A model request failed for a reason other than overload or rate-limiting.
@@ -887,8 +913,6 @@ List Events
               The session encountered a terminal error and will transition to `terminated` state.
 
           - `required Type Type`
-
-            - `"model_request_failed_error"ModelRequestFailedError`
 
         - `class BetaManagedAgentsMcpConnectionFailedError:`
 
@@ -920,8 +944,6 @@ List Events
 
           - `required Type Type`
 
-            - `"mcp_connection_failed_error"McpConnectionFailedError`
-
         - `class BetaManagedAgentsMcpAuthenticationFailedError:`
 
           Authentication to an MCP server failed.
@@ -952,8 +974,6 @@ List Events
 
           - `required Type Type`
 
-            - `"mcp_authentication_failed_error"McpAuthenticationFailedError`
-
         - `class BetaManagedAgentsBillingError:`
 
           The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -979,8 +999,6 @@ List Events
               The session encountered a terminal error and will transition to `terminated` state.
 
           - `required Type Type`
-
-            - `"billing_error"BillingError`
 
         - `class BetaManagedAgentsCredentialHostUnreachableError:`
 
@@ -1012,8 +1030,6 @@ List Events
 
           - `required Type Type`
 
-            - `"credential_host_unreachable_error"CredentialHostUnreachableError`
-
           - `required string VaultID`
 
             ID of the vault containing the affected credential.
@@ -1022,9 +1038,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"session.error"SessionError`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSessionStatusRescheduledEvent:`
 
@@ -1038,9 +1054,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"session.status_rescheduled"SessionStatusRescheduled`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSessionStatusRunningEvent:`
 
@@ -1054,9 +1070,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"session.status_running"SessionStatusRunning`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSessionStatusIdleEvent:`
 
@@ -1070,6 +1086,8 @@ List Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required StopReason StopReason`
 
         The agent completed its turn naturally and is ready for the next user message.
@@ -1079,8 +1097,6 @@ List Events
           The agent completed its turn naturally and is ready for the next user message.
 
           - `required Type Type`
-
-            - `"end_turn"EndTurn`
 
         - `class BetaManagedAgentsSessionRequiresAction:`
 
@@ -1092,19 +1108,19 @@ List Events
 
           - `required Type Type`
 
-            - `"requires_action"RequiresAction`
-
         - `class BetaManagedAgentsSessionRetriesExhausted:`
 
-          The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+          The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
           - `required Type Type`
 
-            - `"retries_exhausted"RetriesExhausted`
+        - `class BetaManagedAgentsSessionBudgetReached:`
+
+          The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+          - `required Type Type`
 
       - `required Type Type`
-
-        - `"session.status_idle"SessionStatusIdle`
 
     - `class BetaManagedAgentsSessionStatusTerminatedEvent:`
 
@@ -1118,9 +1134,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"session.status_terminated"SessionStatusTerminated`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSessionThreadCreatedEvent:`
 
@@ -1138,13 +1154,13 @@ List Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string SessionThreadID`
 
         Public `sthr_` ID of the newly created thread.
 
       - `required Type Type`
-
-        - `"session.thread_created"SessionThreadCreated`
 
     - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent:`
 
@@ -1154,9 +1170,11 @@ List Events
 
         Unique identifier for this event.
 
-      - `required Int Iteration`
+      - `required int Iteration`
 
         0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
+
+        format: int32
 
       - `required string OutcomeID`
 
@@ -1166,9 +1184,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"span.outcome_evaluation_start"SpanOutcomeEvaluationStart`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent:`
 
@@ -1182,9 +1200,11 @@ List Events
 
         Human-readable explanation of the verdict. For `needs_revision`, describes which criteria failed and why.
 
-      - `required Int Iteration`
+      - `required int Iteration`
 
         0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
+
+        format: int32
 
       - `required string OutcomeEvaluationStartID`
 
@@ -1198,41 +1218,49 @@ List Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string Result`
 
         Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
       - `required Type Type`
 
-        - `"span.outcome_evaluation_end"SpanOutcomeEvaluationEnd`
-
       - `required BetaManagedAgentsSpanModelUsage Usage`
 
         Token usage for a single model request.
 
-        - `required Int CacheCreationInputTokens`
+        - `required int CacheCreationInputTokens`
 
           Tokens used to create prompt cache in this request.
 
-        - `required Int CacheReadInputTokens`
+          format: int32
+
+        - `required int CacheReadInputTokens`
 
           Tokens read from prompt cache in this request.
 
-        - `required Int InputTokens`
+          format: int32
+
+        - `required int InputTokens`
 
           Input tokens consumed by this request.
 
-        - `required Int OutputTokens`
+          format: int32
+
+        - `required int OutputTokens`
 
           Output tokens generated by this request.
+
+          format: int32
 
         - `Speed? Speed`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-          - `"standard"Standard`
+          - `Standard`
 
-          - `"fast"Fast`
+          - `Fast`
 
     - `class BetaManagedAgentsSpanModelRequestStartEvent:`
 
@@ -1246,9 +1274,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"span.model_request_start"SpanModelRequestStart`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSpanModelRequestEndEvent:`
 
@@ -1258,7 +1286,7 @@ List Events
 
         Unique identifier for this event.
 
-      - `required Boolean? IsError`
+      - `required bool? IsError`
 
         Whether the model request resulted in an error.
 
@@ -1274,9 +1302,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"span.model_request_end"SpanModelRequestEnd`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent:`
 
@@ -1286,9 +1314,11 @@ List Events
 
         Unique identifier for this event.
 
-      - `required Int Iteration`
+      - `required int Iteration`
 
         0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
+
+        format: int32
 
       - `required string OutcomeID`
 
@@ -1298,9 +1328,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"span.outcome_evaluation_ongoing"SpanOutcomeEvaluationOngoing`
+      - `required Type Type`
 
     - `class BetaManagedAgentsUserDefineOutcomeEvent:`
 
@@ -1314,9 +1344,11 @@ List Events
 
         What the agent should produce. Copied from the input event.
 
-      - `required Int? MaxIterations`
+      - `required int? MaxIterations`
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
+
+        format: int32
 
       - `required string OutcomeID`
 
@@ -1325,6 +1357,8 @@ List Events
       - `required DateTimeOffset ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `required Rubric Rubric`
 
@@ -1340,8 +1374,6 @@ List Events
 
           - `required Type Type`
 
-            - `"file"File`
-
         - `class BetaManagedAgentsTextRubric:`
 
           Rubric content provided inline as text.
@@ -1352,11 +1384,7 @@ List Events
 
           - `required Type Type`
 
-            - `"text"Text`
-
       - `required Type Type`
-
-        - `"user.define_outcome"UserDefineOutcome`
 
     - `class BetaManagedAgentsSessionDeletedEvent:`
 
@@ -1370,9 +1398,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"session.deleted"SessionDeleted`
+      - `required Type Type`
 
     - `class BetaManagedAgentsSessionThreadStatusRunningEvent:`
 
@@ -1390,13 +1418,13 @@ List Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string SessionThreadID`
 
         Public sthr_ ID of the thread that started running.
 
       - `required Type Type`
-
-        - `"session.thread_status_running"SessionThreadStatusRunning`
 
     - `class BetaManagedAgentsSessionThreadStatusIdleEvent:`
 
@@ -1413,6 +1441,8 @@ List Events
       - `required DateTimeOffset ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `required string SessionThreadID`
 
@@ -1432,11 +1462,13 @@ List Events
 
         - `class BetaManagedAgentsSessionRetriesExhausted:`
 
-          The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+          The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
+
+        - `class BetaManagedAgentsSessionBudgetReached:`
+
+          The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
       - `required Type Type`
-
-        - `"session.thread_status_idle"SessionThreadStatusIdle`
 
     - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent:`
 
@@ -1454,13 +1486,13 @@ List Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string SessionThreadID`
 
         Public sthr_ ID of the thread that terminated.
 
       - `required Type Type`
-
-        - `"session.thread_status_terminated"SessionThreadStatusTerminated`
 
     - `class BetaManagedAgentsUserToolResultEvent:`
 
@@ -1475,8 +1507,6 @@ List Events
         The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `required Type Type`
-
-        - `"user.tool_result"UserToolResult`
 
       - `IReadOnlyList<Content> Content`
 
@@ -1498,13 +1528,15 @@ List Events
 
           A block containing a web search result.
 
-      - `Boolean? IsError`
+      - `bool? IsError`
 
         Whether the tool execution resulted in an error.
 
       - `DateTimeOffset? ProcessedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `string? SessionThreadID`
 
@@ -1526,13 +1558,13 @@ List Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string SessionThreadID`
 
         Public sthr_ ID of the thread that is retrying.
 
       - `required Type Type`
-
-        - `"session.thread_status_rescheduled"SessionThreadStatusRescheduled`
 
     - `class BetaManagedAgentsSessionUpdatedEvent:`
 
@@ -1546,9 +1578,9 @@ List Events
 
         A timestamp in RFC 3339 format
 
-      - `required Type Type`
+        format: date-time
 
-        - `"session.updated"SessionUpdated`
+      - `required Type Type`
 
       - `BetaManagedAgentsSessionAgent? Agent`
 
@@ -1564,8 +1596,6 @@ List Events
 
           - `required Type Type`
 
-            - `"url"Url`
-
           - `required string Url`
 
         - `required BetaManagedAgentsModelConfig Model`
@@ -1578,261 +1608,485 @@ List Events
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `"claude-sonnet-5"ClaudeSonnet5`
+            - `ClaudeSonnet5`
 
               High-performance model for coding and agents
 
-            - `"claude-fable-5"ClaudeFable5`
+            - `ClaudeFable5`
 
               Next generation of intelligence for the hardest knowledge work and coding problems
 
-            - `"claude-opus-4-8"ClaudeOpus4_8`
+            - `ClaudeOpus5`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
-            - `"claude-opus-4-7"ClaudeOpus4_7`
+            - `ClaudeOpus4_8`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
-            - `"claude-opus-4-6"ClaudeOpus4_6`
+            - `ClaudeOpus4_7`
 
-              Most intelligent model for building agents and coding
+              Powerful intelligence for long-running agents and coding
 
-            - `"claude-sonnet-4-6"ClaudeSonnet4_6`
+            - `ClaudeOpus4_6`
+
+              Powerful intelligence for long-running agents and coding
+
+            - `ClaudeSonnet4_6`
 
               Best combination of speed and intelligence
 
-            - `"claude-haiku-4-5"ClaudeHaiku4_5`
+            - `ClaudeHaiku4_5`
 
               Fastest model with near-frontier intelligence
 
-            - `"claude-haiku-4-5-20251001"ClaudeHaiku4_5_20251001`
+            - `ClaudeHaiku4_5_20251001`
 
               Fastest model with near-frontier intelligence
 
-            - `"claude-opus-4-5"ClaudeOpus4_5`
+            - `ClaudeOpus4_5`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
-            - `"claude-opus-4-5-20251101"ClaudeOpus4_5_20251101`
+            - `ClaudeOpus4_5_20251101`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
-            - `"claude-sonnet-4-5"ClaudeSonnet4_5`
+            - `ClaudeSonnet4_5`
+
+              High-performance model for agents and coding
+
+            - `ClaudeSonnet4_5_20250929`
 
               High-performance model for agents and coding
 
-            - `"claude-sonnet-4-5-20250929"ClaudeSonnet4_5_20250929`
+          - `Effort Effort`
 
-              High-performance model for agents and coding
+            How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+            - `class BetaManagedAgentsEffortLow:`
+
+              Low effort. Favors latency over reasoning depth.
+
+              - `required Type Type`
+
+            - `class BetaManagedAgentsEffortMedium:`
+
+              Medium effort. Balances latency and reasoning depth.
+
+              - `required Type Type`
+
+            - `class BetaManagedAgentsEffortHigh:`
+
+              High effort. Favors reasoning depth.
+
+              - `required Type Type`
+
+            - `class BetaManagedAgentsEffortXhigh:`
+
+              Extra-high effort. Not all models accept this level.
+
+              - `required Type Type`
+
+            - `class BetaManagedAgentsEffortMax:`
+
+              Maximum effort. Favors reasoning depth over latency.
+
+              - `required Type Type`
+
+          - `string InferenceGeo`
+
+            Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
           - `Speed Speed`
 
             Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-            - `"standard"Standard`
+            - `Standard`
 
-            - `"fast"Fast`
+            - `Fast`
 
         - `required BetaManagedAgentsSessionMultiagentCoordinator? Multiagent`
 
           Resolved coordinator topology with full agent definitions for each roster member.
 
-          - `required IReadOnlyList<BetaManagedAgentsSessionThreadAgent> Agents`
+          - `required IReadOnlyList<Agent> Agents`
 
             Full `agent` definitions the coordinator may spawn as session threads.
 
-            - `required string ID`
+            - `class BetaManagedAgentsSessionThreadAgent:`
 
-            - `required string? Description`
+              Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-            - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
+              - `required string ID`
 
-              - `required string Name`
+              - `required string? Description`
 
-              - `required Type Type`
-
-              - `required string Url`
-
-            - `required BetaManagedAgentsModelConfig Model`
-
-              Model identifier and configuration.
-
-            - `required string Name`
-
-            - `required IReadOnlyList<Skill> Skills`
-
-              - `class BetaManagedAgentsAnthropicSkill:`
-
-                A resolved Anthropic-managed skill.
-
-                - `required string SkillID`
-
-                - `required Type Type`
-
-                  - `"anthropic"Anthropic`
-
-                - `required string Version`
-
-              - `class BetaManagedAgentsCustomSkill:`
-
-                A resolved user-created custom skill.
-
-                - `required string SkillID`
-
-                - `required Type Type`
-
-                  - `"custom"Custom`
-
-                - `required string Version`
-
-            - `required string? System`
-
-            - `required IReadOnlyList<Tool> Tools`
-
-              - `class BetaManagedAgentsAgentToolset20260401:`
-
-                - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
-
-                  - `required Boolean Enabled`
-
-                  - `required Name Name`
-
-                    Built-in agent tool identifier.
-
-                    - `"bash"Bash`
-
-                    - `"edit"Edit`
-
-                    - `"read"Read`
-
-                    - `"write"Write`
-
-                    - `"glob"Glob`
-
-                    - `"grep"Grep`
-
-                    - `"web_fetch"WebFetch`
-
-                    - `"web_search"WebSearch`
-
-                  - `required PermissionPolicy PermissionPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy:`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                      - `required Type Type`
-
-                        - `"always_allow"AlwaysAllow`
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy:`
-
-                      Tool calls require user confirmation before execution.
-
-                      - `required Type Type`
-
-                        - `"always_ask"AlwaysAsk`
-
-                - `required BetaManagedAgentsAgentToolsetDefaultConfig DefaultConfig`
-
-                  Resolved default configuration for agent tools.
-
-                  - `required Boolean Enabled`
-
-                  - `required PermissionPolicy PermissionPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy:`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy:`
-
-                      Tool calls require user confirmation before execution.
-
-                - `required Type Type`
-
-                  - `"agent_toolset_20260401"AgentToolset20260401`
-
-              - `class BetaManagedAgentsMcpToolset:`
-
-                - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
-
-                  - `required Boolean Enabled`
-
-                  - `required string Name`
-
-                  - `required PermissionPolicy PermissionPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy:`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy:`
-
-                      Tool calls require user confirmation before execution.
-
-                - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
-
-                  Resolved default configuration for all tools from an MCP server.
-
-                  - `required Boolean Enabled`
-
-                  - `required PermissionPolicy PermissionPolicy`
-
-                    Permission policy for tool execution.
-
-                    - `class BetaManagedAgentsAlwaysAllowPolicy:`
-
-                      Tool calls are automatically approved without user confirmation.
-
-                    - `class BetaManagedAgentsAlwaysAskPolicy:`
-
-                      Tool calls require user confirmation before execution.
-
-                - `required string McpServerName`
-
-                - `required Type Type`
-
-                  - `"mcp_toolset"McpToolset`
-
-              - `class BetaManagedAgentsCustomTool:`
-
-                A custom tool as returned in API responses.
-
-                - `required string Description`
-
-                - `required BetaManagedAgentsCustomToolInputSchema InputSchema`
-
-                  JSON Schema for custom tool input parameters.
-
-                  - `JsonElement Type "object"constant`
-
-                  - `IReadOnlyDictionary<string, JsonElement>? Properties`
-
-                  - `IReadOnlyList<string>? Required`
+              - `required IReadOnlyList<BetaManagedAgentsMcpServerUrlDefinition> McpServers`
 
                 - `required string Name`
 
                 - `required Type Type`
 
-                  - `"custom"Custom`
+                - `required string Url`
 
-            - `required Type Type`
+              - `required BetaManagedAgentsModelConfig Model`
 
-              - `"agent"Agent`
+                Model identifier and configuration.
 
-            - `required Int Version`
+              - `required string Name`
+
+              - `required IReadOnlyList<Skill> Skills`
+
+                - `class BetaManagedAgentsAnthropicSkill:`
+
+                  A resolved Anthropic-managed skill.
+
+                  - `required string SkillID`
+
+                  - `required Type Type`
+
+                  - `required string Version`
+
+                - `class BetaManagedAgentsCustomSkill:`
+
+                  A resolved user-created custom skill.
+
+                  - `required string SkillID`
+
+                  - `required Type Type`
+
+                  - `required string Version`
+
+              - `required string? System`
+
+              - `required IReadOnlyList<Tool> Tools`
+
+                - `class BetaManagedAgentsAgentToolset20260401:`
+
+                  - `required IReadOnlyList<BetaManagedAgentsAgentToolConfig> Configs`
+
+                    - `class BetaManagedAgentsBashToolConfig:`
+
+                      Configuration for the bash tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                          - `required Type Type`
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                          - `required Type Type`
+
+                      - `JsonElement Type constant`
+
+                    - `class BetaManagedAgentsEditToolConfig:`
+
+                      Configuration for the edit tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                      - `JsonElement Type constant`
+
+                    - `class BetaManagedAgentsReadToolConfig:`
+
+                      Configuration for the read tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                      - `JsonElement Type constant`
+
+                    - `class BetaManagedAgentsWriteToolConfig:`
+
+                      Configuration for the write tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                      - `JsonElement Type constant`
+
+                    - `class BetaManagedAgentsGlobToolConfig:`
+
+                      Configuration for the glob tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                      - `JsonElement Type constant`
+
+                    - `class BetaManagedAgentsGrepToolConfig:`
+
+                      Configuration for the grep tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                      - `JsonElement Type constant`
+
+                    - `class BetaManagedAgentsWebFetchToolConfig:`
+
+                      Configuration for the web_fetch tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                      - `JsonElement Type constant`
+
+                      - `IReadOnlyList<string> AllowedDomains`
+
+                      - `IReadOnlyList<string> BlockedDomains`
+
+                      - `int? MaxContentTokens`
+
+                        format: int32
+
+                    - `class BetaManagedAgentsWebSearchToolConfig:`
+
+                      Configuration for the web_search tool.
+
+                      - `required bool Enabled`
+
+                      - `JsonElement Name constant`
+
+                      - `required PermissionPolicy PermissionPolicy`
+
+                        Permission policy for tool execution.
+
+                        - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                          Tool calls are automatically approved without user confirmation.
+
+                        - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                          Tool calls require user confirmation before execution.
+
+                      - `JsonElement Type constant`
+
+                      - `IReadOnlyList<string> AllowedDomains`
+
+                      - `IReadOnlyList<string> BlockedDomains`
+
+                      - `BetaManagedAgentsUserLocation? UserLocation`
+
+                        Approximate user location for search result localization.
+
+                        - `JsonElement Type constant`
+
+                          Location precision. Only "approximate" is supported.
+
+                        - `string? City`
+
+                          City name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `string? Country`
+
+                          Two-letter ISO 3166-1 country code, uppercase.
+
+                        - `string? Region`
+
+                          Region or state name.
+
+                          minLength: 1, maxLength: 255
+
+                        - `string? Timezone`
+
+                          IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                          minLength: 1, maxLength: 255
+
+                  - `required BetaManagedAgentsAgentToolsetDefaultConfig DefaultConfig`
+
+                    Resolved default configuration for agent tools.
+
+                    - `required bool Enabled`
+
+                    - `required PermissionPolicy PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                        Tool calls require user confirmation before execution.
+
+                  - `required Type Type`
+
+                - `class BetaManagedAgentsMcpToolset:`
+
+                  - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
+
+                    - `required bool Enabled`
+
+                    - `required string Name`
+
+                    - `required PermissionPolicy PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                        Tool calls require user confirmation before execution.
+
+                  - `required BetaManagedAgentsMcpToolsetDefaultConfig DefaultConfig`
+
+                    Resolved default configuration for all tools from an MCP server.
+
+                    - `required bool Enabled`
+
+                    - `required PermissionPolicy PermissionPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy:`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy:`
+
+                        Tool calls require user confirmation before execution.
+
+                  - `required string McpServerName`
+
+                  - `required Type Type`
+
+                - `class BetaManagedAgentsCustomTool:`
+
+                  A custom tool as returned in API responses.
+
+                  - `required string Description`
+
+                  - `required BetaManagedAgentsCustomToolInputSchema InputSchema`
+
+                    JSON Schema for custom tool input parameters.
+
+                    - `JsonElement Type constant`
+
+                    - `IReadOnlyDictionary<string, JsonElement>? Properties`
+
+                    - `IReadOnlyList<string>? Required`
+
+                  - `required string Name`
+
+                  - `required Type Type`
+
+              - `required Type Type`
+
+              - `required int Version`
+
+                format: int32
+
+            - `class BetaManagedAgentsAdvisor:`
+
+              Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+              - `required string Model`
+
+                The advisor model id.
+
+              - `required Type Type`
 
           - `required Type Type`
-
-            - `"coordinator"Coordinator`
 
         - `required string Name`
 
@@ -1860,9 +2114,27 @@ List Events
 
         - `required Type Type`
 
-          - `"agent"Agent`
+        - `required int Version`
 
-        - `required Int Version`
+          format: int32
+
+      - `BetaManagedAgentsBudgetLimit? Budget`
+
+        A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+        - `required BetaMonetaryAmount MaxListCost`
+
+          A monetary amount in a specific currency.
+
+          - `required string Amount`
+
+            Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+          - `required BetaCurrency Currency`
+
+            Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+        - `required Type Type`
 
       - `IReadOnlyDictionary<string, string> Metadata`
 
@@ -1888,23 +2160,107 @@ List Events
 
           The text content.
 
+          minLength: 1
+
         - `required Type Type`
 
-          - `"text"Text`
-
       - `required Type Type`
-
-        - `"system.message"SystemMessage`
 
       - `DateTimeOffset? ProcessedAt`
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
+    - `class BetaManagedAgentsSessionUsageEvent:`
+
+      Periodic snapshot of the session's cumulative usage and tracked list cost.
+
+      - `required string ID`
+
+        Unique identifier for this event.
+
+      - `required DateTimeOffset ProcessedAt`
+
+        A timestamp in RFC 3339 format
+
+        format: date-time
+
+      - `required Type Type`
+
+      - `required BetaManagedAgentsSessionUsageSnapshot Usage`
+
+        Point-in-time snapshot of a session's cumulative usage.
+
+        - `double ActiveSeconds`
+
+          Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+          format: double
+
+        - `BetaManagedAgentsCacheCreationUsage CacheCreation`
+
+          Prompt-cache creation token usage broken down by cache lifetime.
+
+          - `int Ephemeral1hInputTokens`
+
+            Tokens used to create 1-hour ephemeral cache entries.
+
+            format: int32
+
+          - `int Ephemeral5mInputTokens`
+
+            Tokens used to create 5-minute ephemeral cache entries.
+
+            format: int32
+
+        - `int CacheReadInputTokens`
+
+          Total tokens read from prompt cache.
+
+          format: int32
+
+        - `int InputTokens`
+
+          Total input tokens consumed across all turns.
+
+          format: int32
+
+        - `BetaMonetaryAmount ListCost`
+
+          A monetary amount in a specific currency.
+
+        - `int OutputTokens`
+
+          Total output tokens generated across all turns.
+
+          format: int32
+
+        - `BetaManagedAgentsServerToolUsage ServerToolUse`
+
+          Cumulative count of server-executed tool invocations, broken down by tool.
+
+          - `int WebFetchRequests`
+
+            Number of server-executed web fetch requests.
+
+            format: int32
+
+          - `int WebSearchRequests`
+
+            Number of server-executed web search requests.
+
+            format: int32
+
+      - `BetaManagedAgentsBudgetLimit? Budget`
+
+        A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
   - `string? NextPage`
 
     Opaque cursor for the next page. Null when no more results.
 
-### Example
+## Example
 
 ```csharp
 EventListParams parameters = new()
@@ -1919,7 +2275,7 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

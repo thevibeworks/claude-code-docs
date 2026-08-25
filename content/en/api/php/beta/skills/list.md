@@ -1,18 +1,20 @@
-## List Skills
+# List Skills
 
 `$client->beta->skills->list(?int limit, ?string page, ?string source, ?list<AnthropicBeta> betas): PageCursor<SkillListResponse>`
 
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
-### Parameters
+## Parameters
 
 - `limit?:optional int`
 
   Number of results to return per page.
 
   Maximum value is 100. Defaults to 20.
+
+  default: 20
 
 - `page?:optional string`
 
@@ -33,7 +35,7 @@ List Skills
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `SkillListResponse`
 
@@ -78,7 +80,7 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -91,13 +93,13 @@ $page = $client->beta->skills->list(
   limit: 0,
   page: 'page',
   source: 'source',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

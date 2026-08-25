@@ -1,16 +1,18 @@
-## Create Environment
+# Create Environment
 
 `beta.environments.create(**kwargs) -> BetaEnvironment`
 
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+## Parameters
 
 - `name: String`
 
   Human-readable name for the environment
+
+  maxLength: 256, minLength: 1
 
 - `config: BetaCloudConfigParams | BetaSelfHostedConfigParams`
 
@@ -27,8 +29,6 @@ Create a new environment with the specified configuration.
 
       Environment type
 
-      - `:cloud`
-
     - `networking: BetaUnrestrictedNetwork | BetaLimitedNetworkParams`
 
       Network configuration policy. Omit on update to preserve the existing value.
@@ -41,8 +41,6 @@ Create a new environment with the specified configuration.
 
           Network policy type
 
-          - `:unrestricted`
-
       - `class BetaLimitedNetworkParams`
 
         Limited network request params.
@@ -53,8 +51,6 @@ Create a new environment with the specified configuration.
         - `type: :limited`
 
           Network policy type
-
-          - `:limited`
 
         - `allow_mcp_servers: bool`
 
@@ -102,8 +98,6 @@ Create a new environment with the specified configuration.
 
         Package configuration type
 
-        - `:packages`
-
   - `class BetaSelfHostedConfigParams`
 
     Request params for `self_hosted` environment configuration.
@@ -112,11 +106,11 @@ Create a new environment with the specified configuration.
 
       Environment type
 
-      - `:self_hosted`
-
 - `description: String`
 
   Optional description of the environment
+
+  maxLength: 1024
 
 - `metadata: Hash[Symbol, String]`
 
@@ -136,7 +130,7 @@ Create a new environment with the specified configuration.
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -182,21 +176,31 @@ Create a new environment with the specified configuration.
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaEnvironment`
 
@@ -230,8 +234,6 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `:unrestricted`
-
         - `class BetaLimitedNetwork`
 
           Limited network access.
@@ -251,8 +253,6 @@ Create a new environment with the specified configuration.
           - `type: :limited`
 
             Network policy type
-
-            - `:limited`
 
       - `packages: BetaPackages`
 
@@ -286,13 +286,9 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `:packages`
-
       - `type: :cloud`
 
         Environment type
-
-        - `:cloud`
 
     - `class BetaSelfHostedConfig`
 
@@ -302,15 +298,13 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `:self_hosted`
-
   - `created_at: String`
 
     RFC 3339 timestamp when environment was created
 
   - `description: String`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: Hash[Symbol, String]`
 
@@ -324,8 +318,6 @@ Create a new environment with the specified configuration.
 
     The type of object (always 'environment')
 
-    - `:environment`
-
   - `updated_at: String`
 
     RFC 3339 timestamp when environment was last updated
@@ -338,7 +330,7 @@ Create a new environment with the specified configuration.
 
     - `:account`
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -350,7 +342,7 @@ beta_environment = anthropic.beta.environments.create(name: "python-data-analysi
 puts(beta_environment)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

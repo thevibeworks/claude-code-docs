@@ -1,20 +1,24 @@
-## List memory stores
+# List memory stores
 
 `$ ant beta:memory-stores list`
 
-**get** `/v1/memory_stores`
+**GET** `/v1/memory_stores`
 
 List memory stores
 
-### Parameters
+## Parameters
 
 - `--created-at-gte: optional string`
 
   Query param: Return only stores whose `created_at` is at or after this time (inclusive). Sent on the wire as `created_at[gte]`.
 
+  format: date-time
+
 - `--created-at-lte: optional string`
 
   Query param: Return only stores whose `created_at` is at or before this time (inclusive). Sent on the wire as `created_at[lte]`.
+
+  format: date-time
 
 - `--include-archived: optional boolean`
 
@@ -24,6 +28,8 @@ List memory stores
 
   Query param: Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
+  format: int32
+
 - `--page: optional string`
 
   Query param: Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
@@ -32,9 +38,9 @@ List memory stores
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsListMemoryStoresResponse: object { data, next_page }`
+- `BetaManagedAgentsListMemoryStoresResponse: object`
 
   A page of `memory_store` results, ordered by `created_at` descending (newest first).
 
@@ -50,21 +56,25 @@ List memory stores
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `name: string`
 
       Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
     - `type: "memory_store"`
 
-      - `"memory_store"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `archived_at: optional string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `description: optional string`
 
@@ -78,14 +88,14 @@ List memory stores
 
     Opaque cursor for the next page (a `page_...` value). Pass as `page` on the next request. `null` when there are no more results.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:memory-stores list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

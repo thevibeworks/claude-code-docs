@@ -2,9 +2,9 @@
 
 ## Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?string fallbackCreditToken, ?list<BetaFallbackParam> fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessage`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -100,7 +100,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Request-level diagnostics. Currently carries the previous response
   id for prompt-cache divergence reporting.
 
-- `fallbackCreditToken?:optional string`
+- `fallbackCreditToken?:optional FallbackCreditToken`
 
   The `fallback_credit_token` from a prior refusal's `stop_details`.
 
@@ -123,9 +123,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   When the appended-assistant form is used on a model that otherwise disallows
   assistant-turn prefill, this token also authorizes that one prefill.
 
-- `fallbacks?:optional list<BetaFallbackParam>`
+- `fallbacks?:optional BetaFallbacksParam`
 
-  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on.
+  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
 
 - `inferenceGeo?:optional string`
 
@@ -143,12 +143,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Configuration options for the model's output, such as the output format.
 
-- `outputFormat?:optional BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-
 - `serviceTier?:optional ServiceTier`
 
   Determines whether to use priority capacity (if available) or standard capacity for this request.
@@ -157,7 +151,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `speed?:optional Speed`
 
-  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
 - `stopSequences?:optional list<string>`
 
@@ -178,14 +172,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   System prompt.
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
-
-- `temperature?:optional float`
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
 - `thinking?:optional BetaThinkingConfigParam`
 
@@ -263,7 +249,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
+- `betas?:optional list<AnthropicBeta>`
+
+  Optional header to specify the beta version(s) you want to use.
+
+- `userProfileID?:optional string`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `outputFormat?:optional BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+- `temperature?:optional float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
 - `topK?:optional int`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
   Only sample from the top K options for each subsequent token.
 
@@ -273,19 +287,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `topP?:optional float`
 
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
   Use nucleus sampling.
 
   In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
   Recommended for advanced use cases only.
-
-- `betas?:optional list<AnthropicBeta>`
-
-  Optional header to specify the beta version(s) you want to use.
-
-- `userProfileID?:optional string`
-
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
 ### Returns
 
@@ -369,6 +377,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -396,6 +405,64 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
+- `BetaRawMessageStreamEvent`
+
+  - `BetaRawMessageStartEvent`
+
+    - `BetaMessage message`
+
+    - `"message_start" type`
+
+  - `BetaRawMessageDeltaEvent`
+
+    - `?BetaContextManagementResponse contextManagement`
+
+      Information about context management strategies applied during the request
+
+    - `Delta delta`
+
+    - `"message_delta" type`
+
+    - `BetaMessageDeltaUsage usage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+  - `BetaRawMessageStopEvent`
+
+    - `"message_stop" type`
+
+  - `BetaRawContentBlockStartEvent`
+
+    - `ContentBlock contentBlock`
+
+      Response model for a file uploaded to the container.
+
+    - `int index`
+
+    - `"content_block_start" type`
+
+  - `BetaRawContentBlockDeltaEvent`
+
+    - `BetaRawContentBlockDelta delta`
+
+    - `int index`
+
+    - `"content_block_delta" type`
+
+  - `BetaRawContentBlockStopEvent`
+
+    - `int index`
+
+    - `"content_block_stop" type`
+
 ### Example
 
 ```php
@@ -408,7 +475,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaMessage = $client->beta->messages->create(
   maxTokens: 1024,
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   container: [
     'id' => 'id',
@@ -430,21 +497,7 @@ $betaMessage = $client->beta->messages->create(
   ],
   diagnostics: ['previousMessageID' => 'previous_message_id'],
   fallbackCreditToken: 'x',
-  fallbacks: [
-    [
-      'model' => 'claude-sonnet-5',
-      'maxTokens' => 0,
-      'outputConfig' => [
-        'effort' => 'low',
-        'format' => ['schema' => ['foo' => 'bar'], 'type' => 'json_schema'],
-        'taskBudget' => ['total' => 1024, 'type' => 'tokens', 'remaining' => 0],
-      ],
-      'speed' => 'standard',
-      'thinking' => [
-        'budgetTokens' => 1024, 'type' => 'enabled', 'display' => 'summarized'
-      ],
-    ],
-  ],
+  fallbacks: 'default',
   inferenceGeo: 'inference_geo',
   mcpServers: [
     [
@@ -472,7 +525,7 @@ $betaMessage = $client->beta->messages->create(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,
@@ -505,20 +558,20 @@ $betaMessage = $client->beta->messages->create(
   ],
   topK: 5,
   topP: 0.7,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
 );
 
 var_dump($betaMessage);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "container": {
-    "id": "id",
+    "id": "container_011CpZohnwH4vuy7gazohgSP",
     "expires_at": "2019-12-27T18:11:19.117Z",
     "skills": [
       {
@@ -532,11 +585,11 @@ var_dump($betaMessage);
     {
       "citations": [
         {
-          "cited_text": "cited_text",
+          "cited_text": "The grass is green. The sky is blue.",
           "document_index": 0,
-          "document_title": "document_title",
+          "document_title": "My Document",
           "end_char_index": 0,
-          "file_id": "file_id",
+          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
           "start_char_index": 0,
           "type": "char_location"
         }
@@ -560,14 +613,14 @@ var_dump($betaMessage);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
-    "explanation": "explanation",
-    "fallback_credit_token": "fallback_credit_token",
+    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
+    "fallback_credit_token": "QW50aHJvcGljL0NsYXVkZQ==",
     "fallback_has_prefill_claim": true,
-    "recommended_model": "recommended_model",
+    "recommended_model": "claude-opus-4-8",
     "type": "refusal"
   },
   "stop_reason": "end_turn",
@@ -580,7 +633,12 @@ var_dump($betaMessage);
     },
     "cache_creation_input_tokens": 2051,
     "cache_read_input_tokens": 2051,
-    "inference_geo": "inference_geo",
+    "fallback_credit": {
+      "status": {
+        "type": "redeemed"
+      }
+    },
+    "inference_geo": "global",
     "input_tokens": 2095,
     "iterations": [
       {
@@ -614,7 +672,7 @@ var_dump($betaMessage);
 
 `$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -699,15 +757,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Configuration options for the model's output, such as the output format.
 
-- `outputFormat?:optional BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-
 - `speed?:optional Speed`
 
-  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
 - `system?:optional System`
 
@@ -799,6 +851,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `outputFormat?:optional BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
 ### Returns
 
 - `BetaMessageTokensCount`
@@ -822,7 +882,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageTokensCount = $client->beta->messages->countTokens(
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   contextManagement: [
     'edits' => [
@@ -859,7 +919,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,
@@ -889,14 +949,14 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       'type' => 'custom',
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
 );
 
 var_dump($betaMessageTokensCount);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -907,7 +967,7 @@ var_dump($betaMessageTokensCount);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Advisor Message Iteration Usage
 
@@ -1184,6 +1244,689 @@ var_dump($betaMessageTokensCount);
   - `ErrorCode errorCode`
 
   - `"bash_code_execution_tool_result_error" type`
+
+### Beta Browser Close Tab Config
+
+- `BetaBrowserCloseTabConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Double Click Config
+
+- `BetaBrowserDoubleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser File Upload Config
+
+- `BetaBrowserFileUploadConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Find Config
+
+- `BetaBrowserFindConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Form Input Config
+
+- `BetaBrowserFormInputConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Get Page Text Config
+
+- `BetaBrowserGetPageTextConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Hold Key Config
+
+- `BetaBrowserHoldKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Hover Config
+
+- `BetaBrowserHoverConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Javascript Exec Config
+
+- `BetaBrowserJavascriptExecConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Key Config
+
+- `BetaBrowserKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Left Click Config
+
+- `BetaBrowserLeftClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Left Click Drag Config
+
+- `BetaBrowserLeftClickDragConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Left Mouse Down Config
+
+- `BetaBrowserLeftMouseDownConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Left Mouse Up Config
+
+- `BetaBrowserLeftMouseUpConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser List Tabs Config
+
+- `BetaBrowserListTabsConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Middle Click Config
+
+- `BetaBrowserMiddleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Mouse Move Config
+
+- `BetaBrowserMouseMoveConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Navigate Config
+
+- `BetaBrowserNavigateConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser New Tab Config
+
+- `BetaBrowserNewTabConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Read Console Config
+
+- `BetaBrowserReadConsoleConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Read Network Config
+
+- `BetaBrowserReadNetworkConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Read Page Config
+
+- `BetaBrowserReadPageConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Right Click Config
+
+- `BetaBrowserRightClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Screenshot Config
+
+- `BetaBrowserScreenshotConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Scroll Config
+
+- `BetaBrowserScrollConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Scroll To Config
+
+- `BetaBrowserScrollToConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser State Block Param
+
+- `BetaBrowserStateBlockParam`
+
+  - `list<BetaBrowserStateTabEntry> tabs`
+
+    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+  - `"browser_state" type`
+
+  - `?BetaCacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+  - `?list<BetaBrowserStateChange> stateChanges`
+
+    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+### Beta Browser State Change
+
+- `BetaBrowserStateChange`
+
+  - `BetaBrowserStateChangeTabOpened`
+
+    - `string tabID`
+
+      The `tab_id` of the opened tab, present in `tabs`.
+
+    - `"tab_opened" type`
+
+  - `BetaBrowserStateChangeDownloadStarted`
+
+    - `string downloadID`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    - `"download_started" type`
+
+    - `string url`
+
+      The final post-redirect URL the download was served from.
+
+  - `BetaBrowserStateChangeDownloadCompleted`
+
+    - `string downloadID`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    - `"download_completed" type`
+
+    - `string url`
+
+      The final post-redirect URL the download was served from.
+
+    - `?string path`
+
+      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+    - `?int sizeBytes`
+
+      The completed download's size.
+
+  - `BetaBrowserStateChangeDownloadFailed`
+
+    - `string downloadID`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    - `"download_failed" type`
+
+    - `string url`
+
+      The final post-redirect URL the download was served from.
+
+    - `?string error`
+
+      The failure or cancellation detail, when known.
+
+### Beta Browser State Change Download Completed
+
+- `BetaBrowserStateChangeDownloadCompleted`
+
+  - `string downloadID`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+  - `"download_completed" type`
+
+  - `string url`
+
+    The final post-redirect URL the download was served from.
+
+  - `?string path`
+
+    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+  - `?int sizeBytes`
+
+    The completed download's size.
+
+### Beta Browser State Change Download Failed
+
+- `BetaBrowserStateChangeDownloadFailed`
+
+  - `string downloadID`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+  - `"download_failed" type`
+
+  - `string url`
+
+    The final post-redirect URL the download was served from.
+
+  - `?string error`
+
+    The failure or cancellation detail, when known.
+
+### Beta Browser State Change Download Started
+
+- `BetaBrowserStateChangeDownloadStarted`
+
+  - `string downloadID`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+  - `"download_started" type`
+
+  - `string url`
+
+    The final post-redirect URL the download was served from.
+
+### Beta Browser State Change Tab Opened
+
+- `BetaBrowserStateChangeTabOpened`
+
+  - `string tabID`
+
+    The `tab_id` of the opened tab, present in `tabs`.
+
+  - `"tab_opened" type`
+
+### Beta Browser State Tab Entry
+
+- `BetaBrowserStateTabEntry`
+
+  - `string tabID`
+
+    The caller-assigned identifier for this tab, unique within the inventory.
+
+  - `string title`
+
+    The title of the page the tab is showing. May be empty.
+
+  - `string url`
+
+    The URL of the page the tab is showing. May be empty.
+
+  - `?bool active`
+
+    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+### Beta Browser Switch Tab Config
+
+- `BetaBrowserSwitchTabConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Toolset 20260801
+
+- `BetaBrowserToolset20260801`
+
+  - `"browser_toolset_20260801" type`
+
+  - `?list<AllowedCaller> allowedCallers`
+
+  - `?BetaCacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+  - `?BetaBrowserToolsetConfigs configs`
+
+    Per-member configuration for `browser_toolset_20260801`: one
+    optional field per member tool, keyed by the member name — the same
+    name the member's `tool_use` blocks carry. Every member is an
+    accepted key, and a member's defaults apply wherever its key is
+    absent. Unknown keys are rejected: the field set is this toolset
+    version's complete member set.
+
+### Beta Browser Toolset Configs
+
+- `BetaBrowserToolsetConfigs`
+
+  - `?BetaBrowserCloseTabConfig closeTab`
+
+    `close_tab`'s config overrides.
+
+  - `?BetaBrowserDoubleClickConfig doubleClick`
+
+    `double_click`'s config overrides.
+
+  - `?BetaBrowserFileUploadConfig fileUpload`
+
+    `file_upload`'s config overrides.
+
+  - `?BetaBrowserFindConfig find`
+
+    `find`'s config overrides.
+
+  - `?BetaBrowserFormInputConfig formInput`
+
+    `form_input`'s config overrides.
+
+  - `?BetaBrowserGetPageTextConfig getPageText`
+
+    `get_page_text`'s config overrides.
+
+  - `?BetaBrowserHoldKeyConfig holdKey`
+
+    `hold_key`'s config overrides.
+
+  - `?BetaBrowserHoverConfig hover`
+
+    `hover`'s config overrides.
+
+  - `?BetaBrowserJavascriptExecConfig javascriptExec`
+
+    `javascript_exec`'s config overrides.
+
+  - `?BetaBrowserKeyConfig key`
+
+    `key`'s config overrides.
+
+  - `?BetaBrowserLeftClickConfig leftClick`
+
+    `left_click`'s config overrides.
+
+  - `?BetaBrowserLeftClickDragConfig leftClickDrag`
+
+    `left_click_drag`'s config overrides.
+
+  - `?BetaBrowserLeftMouseDownConfig leftMouseDown`
+
+    `left_mouse_down`'s config overrides.
+
+  - `?BetaBrowserLeftMouseUpConfig leftMouseUp`
+
+    `left_mouse_up`'s config overrides.
+
+  - `?BetaBrowserListTabsConfig listTabs`
+
+    `list_tabs`'s config overrides.
+
+  - `?BetaBrowserMiddleClickConfig middleClick`
+
+    `middle_click`'s config overrides.
+
+  - `?BetaBrowserMouseMoveConfig mouseMove`
+
+    `mouse_move`'s config overrides.
+
+  - `?BetaBrowserNavigateConfig navigate`
+
+    `navigate`'s config overrides.
+
+  - `?BetaBrowserNewTabConfig newTab`
+
+    `new_tab`'s config overrides.
+
+  - `?BetaBrowserReadConsoleConfig readConsole`
+
+    `read_console`'s config overrides.
+
+  - `?BetaBrowserReadNetworkConfig readNetwork`
+
+    `read_network`'s config overrides.
+
+  - `?BetaBrowserReadPageConfig readPage`
+
+    `read_page`'s config overrides.
+
+  - `?BetaBrowserRightClickConfig rightClick`
+
+    `right_click`'s config overrides.
+
+  - `?BetaBrowserScreenshotConfig screenshot`
+
+    `screenshot`'s config overrides.
+
+  - `?BetaBrowserScrollConfig scroll`
+
+    `scroll`'s config overrides.
+
+  - `?BetaBrowserScrollToConfig scrollTo`
+
+    `scroll_to`'s config overrides.
+
+  - `?BetaBrowserSwitchTabConfig switchTab`
+
+    `switch_tab`'s config overrides.
+
+  - `?BetaBrowserTripleClickConfig tripleClick`
+
+    `triple_click`'s config overrides.
+
+  - `?BetaBrowserTypeConfig type`
+
+    `type`'s config overrides.
+
+  - `?BetaBrowserWaitConfig wait`
+
+    `wait`'s config overrides.
+
+  - `?BetaBrowserZoomConfig zoom`
+
+    `zoom`'s config overrides.
+
+### Beta Browser Triple Click Config
+
+- `BetaBrowserTripleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Type Config
+
+- `BetaBrowserTypeConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Wait Config
+
+- `BetaBrowserWaitConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Browser Zoom Config
+
+- `BetaBrowserZoomConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
 ### Beta Cache Control Ephemeral
 
@@ -1930,6 +2673,303 @@ var_dump($betaMessageTokensCount);
 
     Usage for a compaction iteration
 
+### Beta Computer Cursor Position Config
+
+- `BetaComputerCursorPositionConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Double Click Config
+
+- `BetaComputerDoubleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Hold Key Config
+
+- `BetaComputerHoldKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Key Config
+
+- `BetaComputerKeyConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Left Click Config
+
+- `BetaComputerLeftClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Left Click Drag Config
+
+- `BetaComputerLeftClickDragConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Left Mouse Down Config
+
+- `BetaComputerLeftMouseDownConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Left Mouse Up Config
+
+- `BetaComputerLeftMouseUpConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Middle Click Config
+
+- `BetaComputerMiddleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Mouse Move Config
+
+- `BetaComputerMouseMoveConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Right Click Config
+
+- `BetaComputerRightClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Screenshot Config
+
+- `BetaComputerScreenshotConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Scroll Config
+
+- `BetaComputerScrollConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Toolset 20260801
+
+- `BetaComputerToolset20260801`
+
+  - `"computer_toolset_20260801" type`
+
+  - `?list<AllowedCaller> allowedCallers`
+
+  - `?BetaCacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+  - `?BetaComputerToolsetConfigs configs`
+
+    Per-member configuration for `computer_toolset_20260801`: one
+    optional field per member tool, keyed by the member name — the same
+    name the member's `tool_use` blocks carry. Every member is an
+    accepted key, and a member's defaults apply wherever its key is
+    absent. Unknown keys are rejected: the field set is this toolset
+    version's complete member set.
+
+### Beta Computer Toolset Configs
+
+- `BetaComputerToolsetConfigs`
+
+  - `?BetaComputerCursorPositionConfig cursorPosition`
+
+    `cursor_position`'s config overrides.
+
+  - `?BetaComputerDoubleClickConfig doubleClick`
+
+    `double_click`'s config overrides.
+
+  - `?BetaComputerHoldKeyConfig holdKey`
+
+    `hold_key`'s config overrides.
+
+  - `?BetaComputerKeyConfig key`
+
+    `key`'s config overrides.
+
+  - `?BetaComputerLeftClickConfig leftClick`
+
+    `left_click`'s config overrides.
+
+  - `?BetaComputerLeftClickDragConfig leftClickDrag`
+
+    `left_click_drag`'s config overrides.
+
+  - `?BetaComputerLeftMouseDownConfig leftMouseDown`
+
+    `left_mouse_down`'s config overrides.
+
+  - `?BetaComputerLeftMouseUpConfig leftMouseUp`
+
+    `left_mouse_up`'s config overrides.
+
+  - `?BetaComputerMiddleClickConfig middleClick`
+
+    `middle_click`'s config overrides.
+
+  - `?BetaComputerMouseMoveConfig mouseMove`
+
+    `mouse_move`'s config overrides.
+
+  - `?BetaComputerRightClickConfig rightClick`
+
+    `right_click`'s config overrides.
+
+  - `?BetaComputerScreenshotConfig screenshot`
+
+    `screenshot`'s config overrides.
+
+  - `?BetaComputerScrollConfig scroll`
+
+    `scroll`'s config overrides.
+
+  - `?BetaComputerTripleClickConfig tripleClick`
+
+    `triple_click`'s config overrides.
+
+  - `?BetaComputerTypeConfig type`
+
+    `type`'s config overrides.
+
+  - `?BetaComputerWaitConfig wait`
+
+    `wait`'s config overrides.
+
+  - `?BetaComputerZoomConfig zoom`
+
+    `zoom`'s config overrides.
+
+### Beta Computer Triple Click Config
+
+- `BetaComputerTripleClickConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Type Config
+
+- `BetaComputerTypeConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Wait Config
+
+- `BetaComputerWaitConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Beta Computer Zoom Config
+
+- `BetaComputerZoomConfig`
+
+  - `?bool deferLoading`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `?bool enabled`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
 ### Beta Container
 
 - `BetaContainer`
@@ -1998,13 +3038,27 @@ var_dump($betaMessageTokensCount);
 
     - `string signature`
 
+      A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+      This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
     - `string thinking`
+
+      The text of Claude's thinking process for this block.
 
     - `"thinking" type`
 
   - `BetaRedactedThinkingBlock`
 
     - `string data`
+
+      The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+      Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
     - `"redacted_thinking" type`
 
@@ -2021,6 +3075,10 @@ var_dump($betaMessageTokensCount);
     - `?Caller caller`
 
       Tool invocation directly from the model.
+
+    - `?string toolsetName`
+
+      For a toolset member tool_use, the toolset family.
 
   - `BetaServerToolUseBlock`
 
@@ -2188,6 +3246,10 @@ var_dump($betaMessageTokensCount);
 
       Create a cache control breakpoint at this content block.
 
+    - `?BetaImageTransformationsParam transformations`
+
+      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
   - `BetaRequestDocumentBlock`
 
     - `Source source`
@@ -2224,13 +3286,21 @@ var_dump($betaMessageTokensCount);
 
     - `string signature`
 
+      The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+      Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
     - `string thinking`
+
+      The `thinking` text of this block as returned by the API.
 
     - `"thinking" type`
 
   - `BetaRedactedThinkingBlockParam`
 
     - `string data`
+
+      The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
     - `"redacted_thinking" type`
 
@@ -2252,6 +3322,10 @@ var_dump($betaMessageTokensCount);
 
       Tool invocation directly from the model.
 
+    - `?string toolsetName`
+
+      For a toolset member tool_use, the toolset family this member belongs to.
+
   - `BetaToolResultBlockParam`
 
     - `string toolUseID`
@@ -2265,6 +3339,10 @@ var_dump($betaMessageTokensCount);
     - `?Content content`
 
     - `?bool isError`
+
+    - `?string toolsetName`
+
+      For a toolset member tool_result, the toolset family of the paired tool_use.
 
   - `BetaServerToolUseBlockParam`
 
@@ -2436,13 +3514,31 @@ var_dump($betaMessageTokensCount);
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
-  - `BetaMidConversationSystemBlockParam`
+  - `BetaRequestToolAdditionBlock`
 
-    - `list<BetaTextBlockParam> content`
+    - `Tool tool`
 
-      System instruction text blocks.
+      Reference to a single tool the caller declared directly in
+      `tools[]`. Does not accept the composed `{server}_{name}` form the
+      server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+      `mcp_toolset_reference` for those.
 
-    - `"mid_conv_system" type`
+    - `"tool_addition" type`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+  - `BetaRequestToolRemovalBlock`
+
+    - `Tool tool`
+
+      Reference to a single tool the caller declared directly in
+      `tools[]`. Does not accept the composed `{server}_{name}` form the
+      server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+      `mcp_toolset_reference` for those.
+
+    - `"tool_removal" type`
 
     - `?BetaCacheControlEphemeral cacheControl`
 
@@ -2497,6 +3593,10 @@ var_dump($betaMessageTokensCount);
     - `?BetaCacheControlEphemeral cacheControl`
 
       Create a cache control breakpoint at this content block.
+
+    - `?BetaImageTransformationsParam transformations`
+
+      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
 ### Beta Context Management Config
 
@@ -2624,6 +3724,61 @@ var_dump($betaMessageTokensCount);
 
     The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
 
+### Beta Fallback Credit Not Applied
+
+- `BetaFallbackCreditNotApplied`
+
+  - `Reason reason`
+
+    Why the reprice was not applied.
+
+    A closed enum; additions to the redemption-check vocabulary arrive as
+    deliberate schema updates.
+
+  - `"not_applied" type`
+
+  - `?list<string> removeToRedeem`
+
+    Request fields to remove before retrying, so the retry can redeem this
+    token.
+
+    Present exactly when `reason` is `variant_fields_present` — never null,
+    never an empty array; absent otherwise. Fields are named only from your own request, and only after
+    the sealed variant hash matched. A served best-effort retry has already
+    been billed at normal price; nothing redeems retroactively, but a corrected
+    re-send inside the token's five-minute window can still redeem.
+
+### Beta Fallback Credit Redeemed
+
+- `BetaFallbackCreditRedeemed`
+
+  - `"redeemed" type`
+
+### Beta Fallback Credit Token Param
+
+- `BetaFallbackCreditTokenParam`
+
+  - `string token`
+
+    The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
+
+  - `?Mode mode`
+
+    How a failing token affects the retry. `strict` (the default, and the bare-string behavior): a failing redemption is a 400 and the retry is not served. `best_effort`: the retry is served either way — a token-layer failure no longer rejects the request; the retry proceeds at normal price and the outcome is reported on the response's `usage.fallback_credit`. Two failures stay hard in both modes: a malformed token, and combining `fallback_credit_token` with `fallbacks`.
+
+### Beta Fallback Credit Usage
+
+- `BetaFallbackCreditUsage`
+
+  - `Status status`
+
+    Whether the fallback-credit reprice was applied to this response's billing.
+
+    A union discriminated on `type`. `redeemed`: the retry is billed as if
+    the conversation had been on the retry model all along — including when the
+    resulting shift is zero because there was nothing to move. `not_applied`:
+    no reprice was applied; the arm's `reason` says why.
+
 ### Beta Fallback Info
 
 - `BetaFallbackInfo`
@@ -2694,6 +3849,8 @@ var_dump($betaMessageTokensCount);
 
   - `?Speed speed`
 
+    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+
   - `?Thinking thinking`
 
 ### Beta Fallback Refusal Trigger
@@ -2705,6 +3862,30 @@ var_dump($betaMessageTokensCount);
     The policy category that triggered a refusal.
 
   - `"refusal" type`
+
+### Beta Fallbacks Param
+
+- `BetaFallbacksParam`
+
+  - `list<BetaFallbackParam>`
+
+    - `Model model`
+
+      The model that will complete your prompt.
+
+      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `?int maxTokens`
+
+    - `?BetaOutputConfig outputConfig`
+
+    - `?Speed speed`
+
+      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
+
+    - `?Thinking thinking`
+
+  - `"default"`
 
 ### Beta File Document Source
 
@@ -2733,6 +3914,18 @@ var_dump($betaMessageTokensCount);
   - `?BetaCacheControlEphemeral cacheControl`
 
     Create a cache control breakpoint at this content block.
+
+  - `?BetaImageTransformationsParam transformations`
+
+    Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+### Beta Image Transformations Param
+
+- `BetaImageTransformationsParam`
+
+  - `?OversizedImage oversizedImage`
+
+    What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
 
 ### Beta Input JSON Delta
 
@@ -3284,6 +4477,7 @@ var_dump($betaMessageTokensCount);
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -3322,6 +4516,10 @@ var_dump($betaMessageTokensCount);
   - `?int cacheReadInputTokens`
 
     The cumulative number of input tokens read from the cache.
+
+  - `?BetaFallbackCreditUsage fallbackCredit`
+
+    Outcome of the `fallback_credit_token` presented on this request.
 
   - `?int inputTokens`
 
@@ -3418,20 +4616,6 @@ var_dump($betaMessageTokensCount);
 
     This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
-### Beta Mid Conversation System Block Param
-
-- `BetaMidConversationSystemBlockParam`
-
-  - `list<BetaTextBlockParam> content`
-
-    System instruction text blocks.
-
-  - `"mid_conv_system" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
 ### Beta Output Config
 
 - `BetaOutputConfig`
@@ -3503,11 +4687,15 @@ var_dump($betaMessageTokensCount);
 
     - `string thinking`
 
+      The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
     - `"thinking_delta" type`
 
   - `BetaSignatureDelta`
 
     - `string signature`
+
+      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
     - `"signature_delta" type`
 
@@ -3655,6 +4843,12 @@ var_dump($betaMessageTokensCount);
 
   - `string data`
 
+    The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+    Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
   - `"redacted_thinking" type`
 
 ### Beta Redacted Thinking Block Param
@@ -3662,6 +4856,8 @@ var_dump($betaMessageTokensCount);
 - `BetaRedactedThinkingBlockParam`
 
   - `string data`
+
+    The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
   - `"redacted_thinking" type`
 
@@ -3786,6 +4982,40 @@ var_dump($betaMessageTokensCount);
 
   - `?bool isError`
 
+### Beta Request Tool Addition Block
+
+- `BetaRequestToolAdditionBlock`
+
+  - `Tool tool`
+
+    Reference to a single tool the caller declared directly in
+    `tools[]`. Does not accept the composed `{server}_{name}` form the
+    server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+    `mcp_toolset_reference` for those.
+
+  - `"tool_addition" type`
+
+  - `?BetaCacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
+### Beta Request Tool Removal Block
+
+- `BetaRequestToolRemovalBlock`
+
+  - `Tool tool`
+
+    Reference to a single tool the caller declared directly in
+    `tools[]`. Does not accept the composed `{server}_{name}` form the
+    server assigns to MCP-resolved tools — use `mcp_tool_reference` or
+    `mcp_toolset_reference` for those.
+
+  - `"tool_removal" type`
+
+  - `?BetaCacheControlEphemeral cacheControl`
+
+    Create a cache control breakpoint at this content block.
+
 ### Beta Search Result Block Param
 
 - `BetaSearchResultBlockParam`
@@ -3874,6 +5104,8 @@ var_dump($betaMessageTokensCount);
 
   - `string signature`
 
+    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
   - `"signature_delta" type`
 
 ### Beta Skill
@@ -3890,7 +5122,7 @@ var_dump($betaMessageTokensCount);
 
   - `string version`
 
-    Skill version or 'latest' for most recent version
+    The resolved version: a skill version ID for custom skills.
 
 ### Beta Skill Params
 
@@ -4296,7 +5528,15 @@ var_dump($betaMessageTokensCount);
 
   - `string signature`
 
+    A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+    This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
   - `string thinking`
+
+    The text of Claude's thinking process for this block.
 
   - `"thinking" type`
 
@@ -4306,7 +5546,13 @@ var_dump($betaMessageTokensCount);
 
   - `string signature`
 
+    The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+    Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
   - `string thinking`
+
+    The `thinking` text of this block as returned by the API.
 
   - `"thinking" type`
 
@@ -4385,6 +5631,8 @@ var_dump($betaMessageTokensCount);
     Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
 
   - `string thinking`
+
+    The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
   - `"thinking_delta" type`
 
@@ -4511,6 +5759,32 @@ var_dump($betaMessageTokensCount);
   - `?bool strict`
 
     When true, guarantees schema validation on tool names and inputs
+
+### Beta Tool Change MCP Tool Reference
+
+- `BetaToolChangeMCPToolReference`
+
+  - `string name`
+
+  - `string serverName`
+
+  - `"mcp_tool_reference" type`
+
+### Beta Tool Change MCP Toolset Reference
+
+- `BetaToolChangeMCPToolsetReference`
+
+  - `string serverName`
+
+  - `"mcp_toolset_reference" type`
+
+### Beta Tool Change Tool Reference
+
+- `BetaToolChangeToolReference`
+
+  - `string name`
+
+  - `"tool_reference" type`
 
 ### Beta Tool Choice
 
@@ -4759,6 +6033,10 @@ var_dump($betaMessageTokensCount);
   - `?Content content`
 
   - `?bool isError`
+
+  - `?string toolsetName`
+
+    For a toolset member tool_result, the toolset family of the paired tool_use.
 
 ### Beta Tool Search Tool Bm25 20251119
 
@@ -5182,6 +6460,25 @@ var_dump($betaMessageTokensCount);
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `BetaBrowserToolset20260801`
+
+    - `"browser_toolset_20260801" type`
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaBrowserToolsetConfigs configs`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
   - `BetaToolComputerUse20241022`
 
     - `int displayHeightPx`
@@ -5351,6 +6648,25 @@ var_dump($betaMessageTokensCount);
     - `?bool strict`
 
       When true, guarantees schema validation on tool names and inputs
+
+  - `BetaComputerToolset20260801`
+
+    - `"computer_toolset_20260801" type`
+
+    - `?list<AllowedCaller> allowedCallers`
+
+    - `?BetaCacheControlEphemeral cacheControl`
+
+      Create a cache control breakpoint at this content block.
+
+    - `?BetaComputerToolsetConfigs configs`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
 
   - `BetaToolTextEditor20250124`
 
@@ -5872,6 +7188,10 @@ var_dump($betaMessageTokensCount);
 
     Tool invocation directly from the model.
 
+  - `?string toolsetName`
+
+    For a toolset member tool_use, the toolset family.
+
 ### Beta Tool Use Block Param
 
 - `BetaToolUseBlockParam`
@@ -5891,6 +7211,10 @@ var_dump($betaMessageTokensCount);
   - `?Caller caller`
 
     Tool invocation directly from the model.
+
+  - `?string toolsetName`
+
+    For a toolset member tool_use, the toolset family this member belongs to.
 
 ### Beta Tool Uses Keep
 
@@ -5940,6 +7264,10 @@ var_dump($betaMessageTokensCount);
 
     The number of input tokens read from the cache.
 
+  - `?BetaFallbackCreditUsage fallbackCredit`
+
+    Outcome of the `fallback_credit_token` presented on this request.
+
   - `?string inferenceGeo`
 
     The geographic region where inference was performed for this request.
@@ -5981,7 +7309,7 @@ var_dump($betaMessageTokensCount);
 
   - `?Speed speed`
 
-    The inference speed mode used for this request.
+    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
 ### Beta User Location
 
@@ -6569,13 +7897,13 @@ var_dump($betaMessageTokensCount);
 
   - `"request_too_large"`
 
-# Batches
+## Messages › Batches
 
-## Create a Message Batch
+### Create a Message Batch
 
 `$client->beta->messages->batches->create(list<Request> requests, ?list<AnthropicBeta> betas, ?string userProfileID): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -6583,7 +7911,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `requests: list<Request>`
 
@@ -6597,7 +7925,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -6651,7 +7979,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -6667,7 +7995,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       'params' => [
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
-        'model' => 'claude-opus-4-6',
+        'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'container' => [
           'id' => 'id',
@@ -6689,27 +8017,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
         ],
         'diagnostics' => ['previousMessageID' => 'previous_message_id'],
         'fallbackCreditToken' => 'x',
-        'fallbacks' => [
-          [
-            'model' => 'claude-sonnet-5',
-            'maxTokens' => 0,
-            'outputConfig' => [
-              'effort' => 'low',
-              'format' => [
-                'schema' => ['foo' => 'bar'], 'type' => 'json_schema'
-              ],
-              'taskBudget' => [
-                'total' => 1024, 'type' => 'tokens', 'remaining' => 0
-              ],
-            ],
-            'speed' => 'standard',
-            'thinking' => [
-              'budgetTokens' => 1024,
-              'type' => 'enabled',
-              'display' => 'summarized',
-            ],
-          ],
-        ],
+        'fallbacks' => 'default',
         'inferenceGeo' => 'inference_geo',
         'mcpServers' => [
           [
@@ -6744,7 +8052,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
             'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
             'citations' => [
               [
-                'citedText' => 'cited_text',
+                'citedText' => 'The grass is green. The sky is blue.',
                 'documentIndex' => 0,
                 'documentTitle' => 'x',
                 'endCharIndex' => 0,
@@ -6780,14 +8088,14 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       ],
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
 );
 
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -6810,17 +8118,17 @@ var_dump($betaMessageBatch);
 }
 ```
 
-## Retrieve a Message Batch
+### Retrieve a Message Batch
 
 `$client->beta->messages->batches->retrieve(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -6830,7 +8138,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -6884,7 +8192,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -6894,13 +8202,13 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageBatch = $client->beta->messages->batches->retrieve(
-  'message_batch_id', betas: ['message-batches-2024-09-24']
+  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -6923,17 +8231,17 @@ var_dump($betaMessageBatch);
 }
 ```
 
-## List Message Batches
+### List Message Batches
 
 `$client->beta->messages->batches->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas): Page<MessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `afterID?:optional string`
 
@@ -6949,11 +8257,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20
+
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -7007,7 +8317,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -7020,13 +8330,13 @@ $page = $client->beta->messages->batches->list(
   afterID: 'after_id',
   beforeID: 'before_id',
   limit: 1,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -7056,11 +8366,11 @@ var_dump($page);
 }
 ```
 
-## Cancel a Message Batch
+### Cancel a Message Batch
 
 `$client->beta->messages->batches->cancel(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -7068,7 +8378,7 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -7078,7 +8388,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -7132,7 +8442,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -7142,13 +8452,13 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageBatch = $client->beta->messages->batches->cancel(
-  'message_batch_id', betas: ['message-batches-2024-09-24']
+  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -7171,11 +8481,11 @@ var_dump($betaMessageBatch);
 }
 ```
 
-## Delete a Message Batch
+### Delete a Message Batch
 
 `$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas): DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -7183,7 +8493,7 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -7193,7 +8503,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `DeletedMessageBatch`
 
@@ -7207,7 +8517,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -7217,13 +8527,13 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedMessageBatch = $client->beta->messages->batches->delete(
-  'message_batch_id', betas: ['message-batches-2024-09-24']
+  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaDeletedMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -7232,11 +8542,11 @@ var_dump($betaDeletedMessageBatch);
 }
 ```
 
-## Retrieve Message Batch results
+### Retrieve Message Batch results
 
 `$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -7244,7 +8554,7 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -7254,7 +8564,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatchIndividualResponse`
 
@@ -7270,7 +8580,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -7283,177 +8593,9 @@ $betaMessageBatchIndividualResponse = $client
   ->beta
   ->messages
   ->batches
-  ->resultsStream('message_batch_id', betas: ['message-batches-2024-09-24']);
+  ->resultsStream(
+  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
+);
 
 var_dump($betaMessageBatchIndividualResponse);
 ```
-
-## Domain Types
-
-### Beta Deleted Message Batch
-
-- `DeletedMessageBatch`
-
-  - `string id`
-
-    ID of the Message Batch.
-
-  - `"message_batch_deleted" type`
-
-    Deleted object type.
-
-    For Message Batches, this is always `"message_batch_deleted"`.
-
-### Beta Message Batch
-
-- `MessageBatch`
-
-  - `string id`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `?\Datetime archivedAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
-
-  - `?\Datetime cancelInitiatedAt`
-
-    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was created.
-
-  - `?\Datetime endedAt`
-
-    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
-
-    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
-
-  - `\Datetime expiresAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
-
-  - `ProcessingStatus processingStatus`
-
-    Processing status of the Message Batch.
-
-  - `MessageBatchRequestCounts requestCounts`
-
-    Tallies requests within the Message Batch, categorized by their status.
-
-    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
-
-  - `?string resultsURL`
-
-    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
-
-    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-### Beta Message Batch Canceled Result
-
-- `MessageBatchCanceledResult`
-
-  - `"canceled" type`
-
-### Beta Message Batch Errored Result
-
-- `MessageBatchErroredResult`
-
-  - `BetaErrorResponse error`
-
-  - `"errored" type`
-
-### Beta Message Batch Expired Result
-
-- `MessageBatchExpiredResult`
-
-  - `"expired" type`
-
-### Beta Message Batch Individual Response
-
-- `MessageBatchIndividualResponse`
-
-  - `string customID`
-
-    Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
-
-    Must be unique for each request within the Message Batch.
-
-  - `MessageBatchResult result`
-
-    Processing result for this request.
-
-    Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-### Beta Message Batch Request Counts
-
-- `MessageBatchRequestCounts`
-
-  - `int canceled`
-
-    Number of requests in the Message Batch that have been canceled.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int errored`
-
-    Number of requests in the Message Batch that encountered an error.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int expired`
-
-    Number of requests in the Message Batch that have expired.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int processing`
-
-    Number of requests in the Message Batch that are processing.
-
-  - `int succeeded`
-
-    Number of requests in the Message Batch that have completed successfully.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-### Beta Message Batch Result
-
-- `MessageBatchResult`
-
-  - `MessageBatchSucceededResult`
-
-    - `BetaMessage message`
-
-    - `"succeeded" type`
-
-  - `MessageBatchErroredResult`
-
-    - `BetaErrorResponse error`
-
-    - `"errored" type`
-
-  - `MessageBatchCanceledResult`
-
-    - `"canceled" type`
-
-  - `MessageBatchExpiredResult`
-
-    - `"expired" type`
-
-### Beta Message Batch Succeeded Result
-
-- `MessageBatchSucceededResult`
-
-  - `BetaMessage message`
-
-  - `"succeeded" type`

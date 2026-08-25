@@ -1,8 +1,8 @@
-## Create a Text Completion
+# Create a Text Completion
 
-`Completion completions().create(CompletionCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`Completion completions().create(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/complete`
+**POST** `/v1/complete`
 
 [Legacy] Create a Text Completion.
 
@@ -10,7 +10,7 @@ The Text Completions API is a legacy API. We recommend using the [Messages API](
 
 Future models and features will not be compatible with Text Completions. See our [migration guide](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) for guidance in migrating from Text Completions to Messages.
 
-### Parameters
+## Parameters
 
 - `CompletionCreateParams params`
 
@@ -62,25 +62,37 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `long maxTokensToSample`
 
     The maximum number of tokens to generate before stopping.
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
+
+    minimum: 1
 
   - `Model model`
 
@@ -108,6 +120,8 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) for more details.
 
+    minLength: 1
+
   - `Optional<Metadata> metadata`
 
     An object describing metadata about the request.
@@ -122,13 +136,19 @@ Future models and features will not be compatible with Text Completions. See our
 
   - `Optional<Double> temperature`
 
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
     Amount of randomness injected into the response.
 
     Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
 
     Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
+    maximum: 1, minimum: 0
+
   - `Optional<Long> topK`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
     Only sample from the top K options for each subsequent token.
 
@@ -136,7 +156,11 @@ Future models and features will not be compatible with Text Completions. See our
 
     Recommended for advanced use cases only.
 
+    minimum: 0
+
   - `Optional<Double> topP`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
     Use nucleus sampling.
 
@@ -144,7 +168,9 @@ Future models and features will not be compatible with Text Completions. See our
 
     Recommended for advanced use cases only.
 
-### Returns
+    maximum: 1, minimum: 0
+
+## Returns
 
 - `class Completion:`
 
@@ -176,13 +202,17 @@ Future models and features will not be compatible with Text Completions. See our
 
       Most capable model for cybersecurity and biology research
 
+    - `CLAUDE_OPUS_5("claude-opus-5")`
+
+      Powerful intelligence for long-running agents and coding
+
     - `CLAUDE_OPUS_4_8("claude-opus-4-8")`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_OPUS_4_7("claude-opus-4-7")`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
 
@@ -190,7 +220,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `CLAUDE_OPUS_4_6("claude-opus-4-6")`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_SONNET_4_6("claude-sonnet-4-6")`
 
@@ -206,11 +236,11 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
 
@@ -219,14 +249,6 @@ Future models and features will not be compatible with Text Completions. See our
     - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
 
       High-performance model for agents and coding
-
-    - `CLAUDE_OPUS_4_1("claude-opus-4-1")`
-
-      Exceptional model for specialized complex tasks
-
-    - `CLAUDE_OPUS_4_1_20250805("claude-opus-4-1-20250805")`
-
-      Exceptional model for specialized complex tasks
 
   - `Optional<String> stopReason`
 
@@ -237,15 +259,15 @@ Future models and features will not be compatible with Text Completions. See our
     * `"stop_sequence"`: we reached a stop sequence — either provided by you via the `stop_sequences` parameter, or a stop sequence built into the model
     * `"max_tokens"`: we exceeded `max_tokens_to_sample` or the model's maximum
 
-  - `JsonValue; type "completion"constant`
+  - `JsonValue type constant`
 
     Object type.
 
     For Text Completions, this is always `"completion"`.
 
-    - `COMPLETION("completion")`
+- `class Completion:`
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -272,7 +294,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

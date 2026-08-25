@@ -4,7 +4,7 @@
 
 `beta.sessions.events.list(session_id, **kwargs) -> PageCursor<BetaManagedAgentsSessionEvent>`
 
-**get** `/v1/sessions/{session_id}/events`
+**GET** `/v1/sessions/{session_id}/events`
 
 List Events
 
@@ -14,27 +14,37 @@ List Events
 
 - `created_at_gt: Time`
 
-  Return events created after this time (exclusive).
+  Return events created after this time (exclusive). Compared against the event's `processed_at` value.
+
+  format: date-time
 
 - `created_at_gte: Time`
 
-  Return events created at or after this time (inclusive).
+  Return events created at or after this time (inclusive). Compared against the event's `processed_at` value.
+
+  format: date-time
 
 - `created_at_lt: Time`
 
-  Return events created before this time (exclusive).
+  Return events created before this time (exclusive). Compared against the event's `processed_at` value.
+
+  format: date-time
 
 - `created_at_lte: Time`
 
-  Return events created at or before this time (inclusive).
+  Return events created at or before this time (inclusive). Compared against the event's `processed_at` value.
+
+  format: date-time
 
 - `limit: Integer`
 
   Query parameter for limit
 
+  format: int32
+
 - `order: :asc | :desc`
 
-  Sort direction for results, ordered by created_at. Defaults to asc (chronological).
+  Sort direction for results, ordered by the event's `processed_at`. Defaults to asc (chronological).
 
   - `:asc`
 
@@ -54,7 +64,7 @@ List Events
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -100,23 +110,33 @@ List Events
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `BetaManagedAgentsSessionEvent = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 31 more`
+- `BetaManagedAgentsSessionEvent = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 32 more`
 
   Union type for all event types in a session.
 
@@ -128,7 +148,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of content blocks comprising the user message.
 
@@ -140,9 +160,9 @@ List Events
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `class BetaManagedAgentsImageBlock`
 
@@ -160,13 +180,15 @@ List Events
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsURLImageSource`
 
@@ -174,11 +196,11 @@ List Events
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileImageSource`
 
@@ -188,13 +210,11 @@ List Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
       - `class BetaManagedAgentsDocumentBlock`
 
@@ -212,13 +232,15 @@ List Events
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -228,15 +250,13 @@ List Events
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: :"text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaManagedAgentsURLDocumentSource`
 
@@ -244,11 +264,11 @@ List Events
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileDocumentSource`
 
@@ -258,13 +278,11 @@ List Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `context: String`
 
@@ -274,13 +292,19 @@ List Events
 
           The title of the document.
 
-    - `type: :"user.message"`
+      - `class BetaManagedAgentsRedactedBlock`
 
-      - `:"user.message"`
+        Placeholder for content withheld by Anthropic model policy.
+
+        - `type: :redacted`
+
+    - `type: :"user.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsUserInterruptEvent`
 
@@ -292,11 +316,11 @@ List Events
 
     - `type: :"user.interrupt"`
 
-      - `:"user.interrupt"`
-
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -324,15 +348,17 @@ List Events
 
     - `type: :"user.tool_confirmation"`
 
-      - `:"user.tool_confirmation"`
-
     - `deny_message: String`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -351,8 +377,6 @@ List Events
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.custom_tool_result"`
-
-      - `:"user.custom_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -390,21 +414,23 @@ List Events
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `source: String`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: String`
 
           The title of the search result.
 
-        - `type: :search_result`
+          minLength: 1
 
-          - `:search_result`
+        - `type: :search_result`
 
     - `is_error: bool`
 
@@ -413,6 +439,8 @@ List Events
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -438,9 +466,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.custom_tool_use"`
+      format: date-time
 
-      - `:"agent.custom_tool_use"`
+    - `type: :"agent.custom_tool_use"`
 
     - `session_thread_id: String`
 
@@ -454,23 +482,25 @@ List Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of text blocks comprising the agent response.
 
-      - `text: String`
+      - `class BetaManagedAgentsTextBlock`
 
-        The text content.
+        Regular text content.
 
-      - `type: :text`
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.message"`
+      format: date-time
 
-      - `:"agent.message"`
+    - `type: :"agent.message"`
 
   - `class BetaManagedAgentsAgentThinkingEvent`
 
@@ -484,9 +514,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thinking"`
+      format: date-time
 
-      - `:"agent.thinking"`
+    - `type: :"agent.thinking"`
 
   - `class BetaManagedAgentsAgentMCPToolUseEvent`
 
@@ -512,9 +542,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_use"`
+      format: date-time
 
-      - `:"agent.mcp_tool_use"`
+    - `type: :"agent.mcp_tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -546,9 +576,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_result"`
+      format: date-time
 
-      - `:"agent.mcp_tool_result"`
+    - `type: :"agent.mcp_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -594,9 +624,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.tool_use"`
+      format: date-time
 
-      - `:"agent.tool_use"`
+    - `type: :"agent.tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -624,13 +654,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: String`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: :"agent.tool_result"`
-
-      - `:"agent.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -664,7 +694,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -680,6 +710,10 @@ List Events
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `from_session_thread_id: String`
 
       Public `sthr_` ID of the thread that sent the message.
@@ -688,9 +722,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_message_received"`
+      format: date-time
 
-      - `:"agent.thread_message_received"`
+    - `type: :"agent.thread_message_received"`
 
     - `from_agent_name: String`
 
@@ -704,7 +738,7 @@ List Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -720,17 +754,21 @@ List Events
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `to_session_thread_id: String`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: :"agent.thread_message_sent"`
-
-      - `:"agent.thread_message_sent"`
 
     - `to_agent_name: String`
 
@@ -748,9 +786,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_context_compacted"`
+      format: date-time
 
-      - `:"agent.thread_context_compacted"`
+    - `type: :"agent.thread_context_compacted"`
 
   - `class BetaManagedAgentsSessionErrorEvent`
 
@@ -782,15 +820,11 @@ List Events
 
             - `type: :retrying`
 
-              - `:retrying`
-
           - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: :exhausted`
-
-              - `:exhausted`
 
           - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -798,11 +832,7 @@ List Events
 
             - `type: :terminal`
 
-              - `:terminal`
-
         - `type: :unknown_error`
-
-          - `:unknown_error`
 
       - `class BetaManagedAgentsModelOverloadedError`
 
@@ -830,8 +860,6 @@ List Events
 
         - `type: :model_overloaded_error`
 
-          - `:model_overloaded_error`
-
       - `class BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
@@ -858,8 +886,6 @@ List Events
 
         - `type: :model_rate_limited_error`
 
-          - `:model_rate_limited_error`
-
       - `class BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -885,8 +911,6 @@ List Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :model_request_failed_error`
-
-          - `:model_request_failed_error`
 
       - `class BetaManagedAgentsMCPConnectionFailedError`
 
@@ -918,8 +942,6 @@ List Events
 
         - `type: :mcp_connection_failed_error`
 
-          - `:mcp_connection_failed_error`
-
       - `class BetaManagedAgentsMCPAuthenticationFailedError`
 
         Authentication to an MCP server failed.
@@ -950,8 +972,6 @@ List Events
 
         - `type: :mcp_authentication_failed_error`
 
-          - `:mcp_authentication_failed_error`
-
       - `class BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -977,8 +997,6 @@ List Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :billing_error`
-
-          - `:billing_error`
 
       - `class BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -1010,8 +1028,6 @@ List Events
 
         - `type: :credential_host_unreachable_error`
 
-          - `:credential_host_unreachable_error`
-
         - `vault_id: String`
 
           ID of the vault containing the affected credential.
@@ -1020,9 +1036,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.error"`
+      format: date-time
 
-      - `:"session.error"`
+    - `type: :"session.error"`
 
   - `class BetaManagedAgentsSessionStatusRescheduledEvent`
 
@@ -1036,9 +1052,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_rescheduled"`
+      format: date-time
 
-      - `:"session.status_rescheduled"`
+    - `type: :"session.status_rescheduled"`
 
   - `class BetaManagedAgentsSessionStatusRunningEvent`
 
@@ -1052,9 +1068,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_running"`
+      format: date-time
 
-      - `:"session.status_running"`
+    - `type: :"session.status_running"`
 
   - `class BetaManagedAgentsSessionStatusIdleEvent`
 
@@ -1068,7 +1084,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+      format: date-time
+
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -1077,8 +1095,6 @@ List Events
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: :end_turn`
-
-          - `:end_turn`
 
       - `class BetaManagedAgentsSessionRequiresAction`
 
@@ -1090,19 +1106,19 @@ List Events
 
         - `type: :requires_action`
 
-          - `:requires_action`
-
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: :retries_exhausted`
 
-          - `:retries_exhausted`
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+        - `type: :budget_reached`
 
     - `type: :"session.status_idle"`
-
-      - `:"session.status_idle"`
 
   - `class BetaManagedAgentsSessionStatusTerminatedEvent`
 
@@ -1116,9 +1132,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_terminated"`
+      format: date-time
 
-      - `:"session.status_terminated"`
+    - `type: :"session.status_terminated"`
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
@@ -1136,13 +1152,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: :"session.thread_created"`
-
-      - `:"session.thread_created"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -1156,6 +1172,8 @@ List Events
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -1164,9 +1182,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_start"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_start"`
+    - `type: :"span.outcome_evaluation_start"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -1184,6 +1202,8 @@ List Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: String`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -1196,13 +1216,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: String`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: :"span.outcome_evaluation_end"`
-
-      - `:"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -1212,17 +1232,25 @@ List Events
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: Integer`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: Integer`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: Integer`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed: :standard | :fast`
 
@@ -1244,9 +1272,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_start"`
+      format: date-time
 
-      - `:"span.model_request_start"`
+    - `type: :"span.model_request_start"`
 
   - `class BetaManagedAgentsSpanModelRequestEndEvent`
 
@@ -1272,9 +1300,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_end"`
+      format: date-time
 
-      - `:"span.model_request_end"`
+    - `type: :"span.model_request_end"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -1288,6 +1316,8 @@ List Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -1296,9 +1326,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_ongoing"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_ongoing"`
+    - `type: :"span.outcome_evaluation_ongoing"`
 
   - `class BetaManagedAgentsUserDefineOutcomeEvent`
 
@@ -1316,6 +1346,8 @@ List Events
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: String`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -1323,6 +1355,8 @@ List Events
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -1338,8 +1372,6 @@ List Events
 
         - `type: :file`
 
-          - `:file`
-
       - `class BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
@@ -1350,11 +1382,7 @@ List Events
 
         - `type: :text`
 
-          - `:text`
-
     - `type: :"user.define_outcome"`
-
-      - `:"user.define_outcome"`
 
   - `class BetaManagedAgentsSessionDeletedEvent`
 
@@ -1368,9 +1396,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.deleted"`
+      format: date-time
 
-      - `:"session.deleted"`
+    - `type: :"session.deleted"`
 
   - `class BetaManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -1388,13 +1416,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: :"session.thread_status_running"`
-
-      - `:"session.thread_status_running"`
 
   - `class BetaManagedAgentsSessionThreadStatusIdleEvent`
 
@@ -1412,11 +1440,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that went idle.
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -1430,11 +1460,13 @@ List Events
 
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
+
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
     - `type: :"session.thread_status_idle"`
-
-      - `:"session.thread_status_idle"`
 
   - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -1452,13 +1484,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: :"session.thread_status_terminated"`
-
-      - `:"session.thread_status_terminated"`
 
   - `class BetaManagedAgentsUserToolResultEvent`
 
@@ -1473,8 +1505,6 @@ List Events
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.tool_result"`
-
-      - `:"user.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -1504,6 +1534,8 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -1524,13 +1556,13 @@ List Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: :"session.thread_status_rescheduled"`
-
-      - `:"session.thread_status_rescheduled"`
 
   - `class BetaManagedAgentsSessionUpdatedEvent`
 
@@ -1544,9 +1576,9 @@ List Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.updated"`
+      format: date-time
 
-      - `:"session.updated"`
+    - `type: :"session.updated"`
 
     - `agent: BetaManagedAgentsSessionAgent`
 
@@ -1562,8 +1594,6 @@ List Events
 
         - `type: :url`
 
-          - `:url`
-
         - `url: String`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -1576,7 +1606,7 @@ List Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-4-8" | 9 more`
+          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-5" | 10 more`
 
             The model that will power your agent.
 
@@ -1590,17 +1620,21 @@ List Events
 
               Next generation of intelligence for the hardest knowledge work and coding problems
 
+            - `:"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `:"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-6"`
 
-              Most intelligent model for building agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-6"`
 
@@ -1616,11 +1650,11 @@ List Events
 
             - `:"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-5"`
 
@@ -1631,6 +1665,44 @@ List Events
               High-performance model for agents and coding
 
           - `String = String`
+
+        - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+
+          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+          - `class BetaManagedAgentsEffortLow`
+
+            Low effort. Favors latency over reasoning depth.
+
+            - `type: :low`
+
+          - `class BetaManagedAgentsEffortMedium`
+
+            Medium effort. Balances latency and reasoning depth.
+
+            - `type: :medium`
+
+          - `class BetaManagedAgentsEffortHigh`
+
+            High effort. Favors reasoning depth.
+
+            - `type: :high`
+
+          - `class BetaManagedAgentsEffortXhigh`
+
+            Extra-high effort. Not all models accept this level.
+
+            - `type: :xhigh`
+
+          - `class BetaManagedAgentsEffortMax`
+
+            Maximum effort. Favors reasoning depth over latency.
+
+            - `type: :max`
+
+        - `inference_geo: String`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
         - `speed: :standard | :fast`
 
@@ -1644,203 +1716,383 @@ List Events
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
-        - `agents: Array[BetaManagedAgentsSessionThreadAgent]`
+        - `agents: Array[BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor]`
 
           Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `id: String`
+          - `class BetaManagedAgentsSessionThreadAgent`
 
-          - `description: String`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
+            - `id: String`
 
-            - `name: String`
+            - `description: String`
 
-            - `type: :url`
-
-            - `url: String`
-
-          - `model: BetaManagedAgentsModelConfig`
-
-            Model identifier and configuration.
-
-          - `name: String`
-
-          - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
-
-            - `class BetaManagedAgentsAnthropicSkill`
-
-              A resolved Anthropic-managed skill.
-
-              - `skill_id: String`
-
-              - `type: :anthropic`
-
-                - `:anthropic`
-
-              - `version: String`
-
-            - `class BetaManagedAgentsCustomSkill`
-
-              A resolved user-created custom skill.
-
-              - `skill_id: String`
-
-              - `type: :custom`
-
-                - `:custom`
-
-              - `version: String`
-
-          - `system_: String`
-
-          - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
-
-            - `class BetaManagedAgentsAgentToolset20260401`
-
-              - `configs: Array[BetaManagedAgentsAgentToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: :bash | :edit | :read | 5 more`
-
-                  Built-in agent tool identifier.
-
-                  - `:bash`
-
-                  - `:edit`
-
-                  - `:read`
-
-                  - `:write`
-
-                  - `:glob`
-
-                  - `:grep`
-
-                  - `:web_fetch`
-
-                  - `:web_search`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                    - `type: :always_allow`
-
-                      - `:always_allow`
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-                    - `type: :always_ask`
-
-                      - `:always_ask`
-
-              - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `type: :agent_toolset_20260401`
-
-                - `:agent_toolset_20260401`
-
-            - `class BetaManagedAgentsMCPToolset`
-
-              - `configs: Array[BetaManagedAgentsMCPToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: String`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `mcp_server_name: String`
-
-              - `type: :mcp_toolset`
-
-                - `:mcp_toolset`
-
-            - `class BetaManagedAgentsCustomTool`
-
-              A custom tool as returned in API responses.
-
-              - `description: String`
-
-              - `input_schema: BetaManagedAgentsCustomToolInputSchema`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: :object`
-
-                  - `:object`
-
-                - `properties: Hash[Symbol, untyped]`
-
-                - `required: Array[String]`
+            - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
               - `name: String`
 
-              - `type: :custom`
+              - `type: :url`
 
-                - `:custom`
+              - `url: String`
 
-          - `type: :agent`
+            - `model: BetaManagedAgentsModelConfig`
 
-            - `:agent`
+              Model identifier and configuration.
 
-          - `version: Integer`
+            - `name: String`
+
+            - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
+
+              - `class BetaManagedAgentsAnthropicSkill`
+
+                A resolved Anthropic-managed skill.
+
+                - `skill_id: String`
+
+                - `type: :anthropic`
+
+                - `version: String`
+
+              - `class BetaManagedAgentsCustomSkill`
+
+                A resolved user-created custom skill.
+
+                - `skill_id: String`
+
+                - `type: :custom`
+
+                - `version: String`
+
+            - `system_: String`
+
+            - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
+
+              - `class BetaManagedAgentsAgentToolset20260401`
+
+                - `configs: Array[BetaManagedAgentsAgentToolConfig]`
+
+                  - `class BetaManagedAgentsBashToolConfig`
+
+                    Configuration for the bash tool.
+
+                    - `enabled: bool`
+
+                    - `name: :bash`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: :always_allow`
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: :always_ask`
+
+                    - `type: :bash`
+
+                  - `class BetaManagedAgentsEditToolConfig`
+
+                    Configuration for the edit tool.
+
+                    - `enabled: bool`
+
+                    - `name: :edit`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :edit`
+
+                  - `class BetaManagedAgentsReadToolConfig`
+
+                    Configuration for the read tool.
+
+                    - `enabled: bool`
+
+                    - `name: :read`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :read`
+
+                  - `class BetaManagedAgentsWriteToolConfig`
+
+                    Configuration for the write tool.
+
+                    - `enabled: bool`
+
+                    - `name: :write`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :write`
+
+                  - `class BetaManagedAgentsGlobToolConfig`
+
+                    Configuration for the glob tool.
+
+                    - `enabled: bool`
+
+                    - `name: :glob`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :glob`
+
+                  - `class BetaManagedAgentsGrepToolConfig`
+
+                    Configuration for the grep tool.
+
+                    - `enabled: bool`
+
+                    - `name: :grep`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :grep`
+
+                  - `class BetaManagedAgentsWebFetchToolConfig`
+
+                    Configuration for the web_fetch tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_fetch`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_fetch`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `max_content_tokens: Integer`
+
+                      format: int32
+
+                  - `class BetaManagedAgentsWebSearchToolConfig`
+
+                    Configuration for the web_search tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_search`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_search`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `user_location: BetaManagedAgentsUserLocation`
+
+                      Approximate user location for search result localization.
+
+                      - `type: :approximate`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: String`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: String`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: String`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: String`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `type: :agent_toolset_20260401`
+
+              - `class BetaManagedAgentsMCPToolset`
+
+                - `configs: Array[BetaManagedAgentsMCPToolConfig]`
+
+                  - `enabled: bool`
+
+                  - `name: String`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `mcp_server_name: String`
+
+                - `type: :mcp_toolset`
+
+              - `class BetaManagedAgentsCustomTool`
+
+                A custom tool as returned in API responses.
+
+                - `description: String`
+
+                - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: :object`
+
+                  - `properties: Hash[Symbol, untyped]`
+
+                  - `required: Array[String]`
+
+                - `name: String`
+
+                - `type: :custom`
+
+            - `type: :agent`
+
+            - `version: Integer`
+
+              format: int32
+
+          - `class BetaManagedAgentsAdvisor`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `model: String`
+
+              The advisor model id.
+
+            - `type: :advisor`
 
         - `type: :coordinator`
-
-          - `:coordinator`
 
       - `name: String`
 
@@ -1868,9 +2120,27 @@ List Events
 
       - `type: :agent`
 
-        - `:agent`
-
       - `version: Integer`
+
+        format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+      - `max_list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+        - `amount: String`
+
+          Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        - `currency: BetaCurrency`
+
+          Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+      - `type: :limit`
 
     - `metadata: Hash[Symbol, String]`
 
@@ -1896,17 +2166,101 @@ List Events
 
         The text content.
 
+        minLength: 1
+
       - `type: :text`
 
-        - `:text`
-
     - `type: :"system.message"`
-
-      - `:"system.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
+
+  - `class BetaManagedAgentsSessionUsageEvent`
+
+    Periodic snapshot of the session's cumulative usage and tracked list cost.
+
+    - `id: String`
+
+      Unique identifier for this event.
+
+    - `processed_at: Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `type: :"session.usage"`
+
+    - `usage: BetaManagedAgentsSessionUsageSnapshot`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+      - `active_seconds: Float`
+
+        Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+        format: double
+
+      - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+
+        Prompt-cache creation token usage broken down by cache lifetime.
+
+        - `ephemeral_1h_input_tokens: Integer`
+
+          Tokens used to create 1-hour ephemeral cache entries.
+
+          format: int32
+
+        - `ephemeral_5m_input_tokens: Integer`
+
+          Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
+
+      - `cache_read_input_tokens: Integer`
+
+        Total tokens read from prompt cache.
+
+        format: int32
+
+      - `input_tokens: Integer`
+
+        Total input tokens consumed across all turns.
+
+        format: int32
+
+      - `list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+      - `output_tokens: Integer`
+
+        Total output tokens generated across all turns.
+
+        format: int32
+
+      - `server_tool_use: BetaManagedAgentsServerToolUsage`
+
+        Cumulative count of server-executed tool invocations, broken down by tool.
+
+        - `web_fetch_requests: Integer`
+
+          Number of server-executed web fetch requests.
+
+          format: int32
+
+        - `web_search_requests: Integer`
+
+          Number of server-executed web search requests.
+
+          format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 ### Example
 
@@ -1920,7 +2274,7 @@ page = anthropic.beta.sessions.events.list("sesn_011CZkZAtmR3yMPDzynEDxu7")
 puts(page)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1956,7 +2310,7 @@ puts(page)
 
 `beta.sessions.events.send_(session_id, **kwargs) -> BetaManagedAgentsSendSessionEvents`
 
-**post** `/v1/sessions/{session_id}/events`
+**POST** `/v1/sessions/{session_id}/events`
 
 Send Events
 
@@ -1972,7 +2326,7 @@ Send Events
 
     Parameters for sending a user message to the session.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of content blocks for the user message.
 
@@ -1984,9 +2338,9 @@ Send Events
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `class BetaManagedAgentsImageBlock`
 
@@ -2004,13 +2358,15 @@ Send Events
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsURLImageSource`
 
@@ -2018,11 +2374,11 @@ Send Events
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileImageSource`
 
@@ -2032,13 +2388,11 @@ Send Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
       - `class BetaManagedAgentsDocumentBlock`
 
@@ -2056,13 +2410,15 @@ Send Events
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -2072,15 +2428,13 @@ Send Events
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: :"text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaManagedAgentsURLDocumentSource`
 
@@ -2088,11 +2442,11 @@ Send Events
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileDocumentSource`
 
@@ -2102,13 +2456,11 @@ Send Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `context: String`
 
@@ -2118,17 +2470,19 @@ Send Events
 
           The title of the document.
 
-    - `type: :"user.message"`
+      - `class BetaManagedAgentsRedactedBlock`
 
-      - `:"user.message"`
+        Placeholder for content withheld by Anthropic model policy.
+
+        - `type: :redacted`
+
+    - `type: :"user.message"`
 
   - `class BetaManagedAgentsUserInterruptEventParams`
 
     Parameters for sending an interrupt to pause the agent.
 
     - `type: :"user.interrupt"`
-
-      - `:"user.interrupt"`
 
     - `session_thread_id: String`
 
@@ -2150,13 +2504,15 @@ Send Events
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `type: :"user.tool_confirmation"`
+      minLength: 1, maxLength: 128
 
-      - `:"user.tool_confirmation"`
+    - `type: :"user.tool_confirmation"`
 
     - `deny_message: String`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+
+      maxLength: 10000
 
   - `class BetaManagedAgentsUserCustomToolResultEventParams`
 
@@ -2166,9 +2522,9 @@ Send Events
 
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `type: :"user.custom_tool_result"`
+      minLength: 1, maxLength: 128
 
-      - `:"user.custom_tool_result"`
+    - `type: :"user.custom_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -2206,21 +2562,23 @@ Send Events
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `source: String`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: String`
 
           The title of the search result.
 
-        - `type: :search_result`
+          minLength: 1
 
-          - `:search_result`
+        - `type: :search_result`
 
     - `is_error: bool`
 
@@ -2248,8 +2606,6 @@ Send Events
 
         - `type: :file`
 
-          - `:file`
-
       - `class BetaManagedAgentsTextRubricParams`
 
         Rubric content provided inline as text.
@@ -2258,17 +2614,17 @@ Send Events
 
           Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
+          maxLength: 262144
+
         - `type: :text`
 
-          - `:text`
-
     - `type: :"user.define_outcome"`
-
-      - `:"user.define_outcome"`
 
     - `max_iterations: Integer`
 
       Eval→revision cycles before giving up. Default 3, max 20.
+
+      format: int32
 
   - `class BetaManagedAgentsUserToolResultEventParams`
 
@@ -2278,9 +2634,9 @@ Send Events
 
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `type: :"user.tool_result"`
+      minLength: 1, maxLength: 128
 
-      - `:"user.tool_result"`
+    - `type: :"user.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -2318,13 +2674,11 @@ Send Events
 
         The text content.
 
+        minLength: 1
+
       - `type: :text`
 
-        - `:text`
-
     - `type: :"system.message"`
-
-      - `:"system.message"`
 
 - `betas: Array[AnthropicBeta]`
 
@@ -2332,7 +2686,7 @@ Send Events
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -2378,19 +2732,29 @@ Send Events
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -2410,7 +2774,7 @@ Send Events
 
         Unique identifier for this event.
 
-      - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+      - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
         Array of content blocks comprising the user message.
 
@@ -2422,9 +2786,9 @@ Send Events
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `class BetaManagedAgentsImageBlock`
 
@@ -2442,13 +2806,15 @@ Send Events
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: String`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `type: :base64`
+                minLength: 1
 
-                - `:base64`
+              - `type: :base64`
 
             - `class BetaManagedAgentsURLImageSource`
 
@@ -2456,11 +2822,11 @@ Send Events
 
               - `type: :url`
 
-                - `:url`
-
               - `url: String`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource`
 
@@ -2470,13 +2836,11 @@ Send Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: :file`
 
-                - `:file`
-
           - `type: :image`
-
-            - `:image`
 
         - `class BetaManagedAgentsDocumentBlock`
 
@@ -2494,13 +2858,15 @@ Send Events
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: String`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `type: :base64`
+                minLength: 1
 
-                - `:base64`
+              - `type: :base64`
 
             - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -2510,15 +2876,13 @@ Send Events
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: :"text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `:"text/plain"`
-
               - `type: :text`
-
-                - `:text`
 
             - `class BetaManagedAgentsURLDocumentSource`
 
@@ -2526,11 +2890,11 @@ Send Events
 
               - `type: :url`
 
-                - `:url`
-
               - `url: String`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource`
 
@@ -2540,13 +2904,11 @@ Send Events
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: :file`
 
-                - `:file`
-
           - `type: :document`
-
-            - `:document`
 
           - `context: String`
 
@@ -2556,13 +2918,19 @@ Send Events
 
             The title of the document.
 
-      - `type: :"user.message"`
+        - `class BetaManagedAgentsRedactedBlock`
 
-        - `:"user.message"`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: :redacted`
+
+      - `type: :"user.message"`
 
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `class BetaManagedAgentsUserInterruptEvent`
 
@@ -2574,11 +2942,11 @@ Send Events
 
       - `type: :"user.interrupt"`
 
-        - `:"user.interrupt"`
-
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id: String`
 
@@ -2606,15 +2974,17 @@ Send Events
 
       - `type: :"user.tool_confirmation"`
 
-        - `:"user.tool_confirmation"`
-
       - `deny_message: String`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+        maxLength: 10000
+
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id: String`
 
@@ -2633,8 +3003,6 @@ Send Events
         The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `type: :"user.custom_tool_result"`
-
-        - `:"user.custom_tool_result"`
 
       - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -2672,21 +3040,23 @@ Send Events
 
               The text content.
 
-            - `type: :text`
+              minLength: 1
 
-              - `:text`
+            - `type: :text`
 
           - `source: String`
 
             The URL source of the search result.
 
+            minLength: 1
+
           - `title: String`
 
             The title of the search result.
 
-          - `type: :search_result`
+            minLength: 1
 
-            - `:search_result`
+          - `type: :search_result`
 
       - `is_error: bool`
 
@@ -2695,6 +3065,8 @@ Send Events
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id: String`
 
@@ -2716,6 +3088,8 @@ Send Events
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+        format: int32
+
       - `outcome_id: String`
 
         Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -2723,6 +3097,8 @@ Send Events
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -2738,8 +3114,6 @@ Send Events
 
           - `type: :file`
 
-            - `:file`
-
         - `class BetaManagedAgentsTextRubric`
 
           Rubric content provided inline as text.
@@ -2750,11 +3124,7 @@ Send Events
 
           - `type: :text`
 
-            - `:text`
-
       - `type: :"user.define_outcome"`
-
-        - `:"user.define_outcome"`
 
     - `class BetaManagedAgentsUserToolResultEvent`
 
@@ -2769,8 +3139,6 @@ Send Events
         The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `type: :"user.tool_result"`
-
-        - `:"user.tool_result"`
 
       - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -2800,6 +3168,8 @@ Send Events
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `session_thread_id: String`
 
         Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -2820,17 +3190,17 @@ Send Events
 
           The text content.
 
+          minLength: 1
+
         - `type: :text`
 
-          - `:text`
-
       - `type: :"system.message"`
-
-        - `:"system.message"`
 
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
 ### Example
 
@@ -2847,7 +3217,7 @@ beta_managed_agents_send_session_events = anthropic.beta.sessions.events.send_(
 puts(beta_managed_agents_send_session_events)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2871,7 +3241,7 @@ puts(beta_managed_agents_send_session_events)
 
 `beta.sessions.events.stream(session_id, **kwargs) -> BetaManagedAgentsStreamSessionEvents`
 
-**get** `/v1/sessions/{session_id}/events/stream`
+**GET** `/v1/sessions/{session_id}/events/stream`
 
 Stream Events
 
@@ -2893,7 +3263,7 @@ Stream Events
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -2939,23 +3309,33 @@ Stream Events
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `BetaManagedAgentsStreamSessionEvents = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 33 more`
+- `BetaManagedAgentsStreamSessionEvents = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 34 more`
 
   Server-sent event in the session stream.
 
@@ -2967,7 +3347,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of content blocks comprising the user message.
 
@@ -2979,9 +3359,9 @@ Stream Events
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `class BetaManagedAgentsImageBlock`
 
@@ -2999,13 +3379,15 @@ Stream Events
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsURLImageSource`
 
@@ -3013,11 +3395,11 @@ Stream Events
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileImageSource`
 
@@ -3027,13 +3409,11 @@ Stream Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
       - `class BetaManagedAgentsDocumentBlock`
 
@@ -3051,13 +3431,15 @@ Stream Events
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -3067,15 +3449,13 @@ Stream Events
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: :"text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaManagedAgentsURLDocumentSource`
 
@@ -3083,11 +3463,11 @@ Stream Events
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileDocumentSource`
 
@@ -3097,13 +3477,11 @@ Stream Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `context: String`
 
@@ -3113,13 +3491,19 @@ Stream Events
 
           The title of the document.
 
-    - `type: :"user.message"`
+      - `class BetaManagedAgentsRedactedBlock`
 
-      - `:"user.message"`
+        Placeholder for content withheld by Anthropic model policy.
+
+        - `type: :redacted`
+
+    - `type: :"user.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsUserInterruptEvent`
 
@@ -3131,11 +3515,11 @@ Stream Events
 
     - `type: :"user.interrupt"`
 
-      - `:"user.interrupt"`
-
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -3163,15 +3547,17 @@ Stream Events
 
     - `type: :"user.tool_confirmation"`
 
-      - `:"user.tool_confirmation"`
-
     - `deny_message: String`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -3190,8 +3576,6 @@ Stream Events
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.custom_tool_result"`
-
-      - `:"user.custom_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -3229,21 +3613,23 @@ Stream Events
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `source: String`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: String`
 
           The title of the search result.
 
-        - `type: :search_result`
+          minLength: 1
 
-          - `:search_result`
+        - `type: :search_result`
 
     - `is_error: bool`
 
@@ -3252,6 +3638,8 @@ Stream Events
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -3277,9 +3665,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.custom_tool_use"`
+      format: date-time
 
-      - `:"agent.custom_tool_use"`
+    - `type: :"agent.custom_tool_use"`
 
     - `session_thread_id: String`
 
@@ -3293,23 +3681,25 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of text blocks comprising the agent response.
 
-      - `text: String`
+      - `class BetaManagedAgentsTextBlock`
 
-        The text content.
+        Regular text content.
 
-      - `type: :text`
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.message"`
+      format: date-time
 
-      - `:"agent.message"`
+    - `type: :"agent.message"`
 
   - `class BetaManagedAgentsAgentThinkingEvent`
 
@@ -3323,9 +3713,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thinking"`
+      format: date-time
 
-      - `:"agent.thinking"`
+    - `type: :"agent.thinking"`
 
   - `class BetaManagedAgentsAgentMCPToolUseEvent`
 
@@ -3351,9 +3741,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_use"`
+      format: date-time
 
-      - `:"agent.mcp_tool_use"`
+    - `type: :"agent.mcp_tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -3385,9 +3775,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_result"`
+      format: date-time
 
-      - `:"agent.mcp_tool_result"`
+    - `type: :"agent.mcp_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -3433,9 +3823,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.tool_use"`
+      format: date-time
 
-      - `:"agent.tool_use"`
+    - `type: :"agent.tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -3463,13 +3853,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: String`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: :"agent.tool_result"`
-
-      - `:"agent.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -3503,7 +3893,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -3519,6 +3909,10 @@ Stream Events
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `from_session_thread_id: String`
 
       Public `sthr_` ID of the thread that sent the message.
@@ -3527,9 +3921,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_message_received"`
+      format: date-time
 
-      - `:"agent.thread_message_received"`
+    - `type: :"agent.thread_message_received"`
 
     - `from_agent_name: String`
 
@@ -3543,7 +3937,7 @@ Stream Events
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -3559,17 +3953,21 @@ Stream Events
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `to_session_thread_id: String`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: :"agent.thread_message_sent"`
-
-      - `:"agent.thread_message_sent"`
 
     - `to_agent_name: String`
 
@@ -3587,9 +3985,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_context_compacted"`
+      format: date-time
 
-      - `:"agent.thread_context_compacted"`
+    - `type: :"agent.thread_context_compacted"`
 
   - `class BetaManagedAgentsSessionErrorEvent`
 
@@ -3621,15 +4019,11 @@ Stream Events
 
             - `type: :retrying`
 
-              - `:retrying`
-
           - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: :exhausted`
-
-              - `:exhausted`
 
           - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -3637,11 +4031,7 @@ Stream Events
 
             - `type: :terminal`
 
-              - `:terminal`
-
         - `type: :unknown_error`
-
-          - `:unknown_error`
 
       - `class BetaManagedAgentsModelOverloadedError`
 
@@ -3669,8 +4059,6 @@ Stream Events
 
         - `type: :model_overloaded_error`
 
-          - `:model_overloaded_error`
-
       - `class BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
@@ -3697,8 +4085,6 @@ Stream Events
 
         - `type: :model_rate_limited_error`
 
-          - `:model_rate_limited_error`
-
       - `class BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -3724,8 +4110,6 @@ Stream Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :model_request_failed_error`
-
-          - `:model_request_failed_error`
 
       - `class BetaManagedAgentsMCPConnectionFailedError`
 
@@ -3757,8 +4141,6 @@ Stream Events
 
         - `type: :mcp_connection_failed_error`
 
-          - `:mcp_connection_failed_error`
-
       - `class BetaManagedAgentsMCPAuthenticationFailedError`
 
         Authentication to an MCP server failed.
@@ -3789,8 +4171,6 @@ Stream Events
 
         - `type: :mcp_authentication_failed_error`
 
-          - `:mcp_authentication_failed_error`
-
       - `class BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -3816,8 +4196,6 @@ Stream Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :billing_error`
-
-          - `:billing_error`
 
       - `class BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -3849,8 +4227,6 @@ Stream Events
 
         - `type: :credential_host_unreachable_error`
 
-          - `:credential_host_unreachable_error`
-
         - `vault_id: String`
 
           ID of the vault containing the affected credential.
@@ -3859,9 +4235,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.error"`
+      format: date-time
 
-      - `:"session.error"`
+    - `type: :"session.error"`
 
   - `class BetaManagedAgentsSessionStatusRescheduledEvent`
 
@@ -3875,9 +4251,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_rescheduled"`
+      format: date-time
 
-      - `:"session.status_rescheduled"`
+    - `type: :"session.status_rescheduled"`
 
   - `class BetaManagedAgentsSessionStatusRunningEvent`
 
@@ -3891,9 +4267,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_running"`
+      format: date-time
 
-      - `:"session.status_running"`
+    - `type: :"session.status_running"`
 
   - `class BetaManagedAgentsSessionStatusIdleEvent`
 
@@ -3907,7 +4283,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+      format: date-time
+
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -3916,8 +4294,6 @@ Stream Events
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: :end_turn`
-
-          - `:end_turn`
 
       - `class BetaManagedAgentsSessionRequiresAction`
 
@@ -3929,19 +4305,19 @@ Stream Events
 
         - `type: :requires_action`
 
-          - `:requires_action`
-
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: :retries_exhausted`
 
-          - `:retries_exhausted`
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+        - `type: :budget_reached`
 
     - `type: :"session.status_idle"`
-
-      - `:"session.status_idle"`
 
   - `class BetaManagedAgentsSessionStatusTerminatedEvent`
 
@@ -3955,9 +4331,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_terminated"`
+      format: date-time
 
-      - `:"session.status_terminated"`
+    - `type: :"session.status_terminated"`
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
@@ -3975,13 +4351,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: :"session.thread_created"`
-
-      - `:"session.thread_created"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -3995,6 +4371,8 @@ Stream Events
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -4003,9 +4381,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_start"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_start"`
+    - `type: :"span.outcome_evaluation_start"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -4023,6 +4401,8 @@ Stream Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: String`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -4035,13 +4415,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: String`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: :"span.outcome_evaluation_end"`
-
-      - `:"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -4051,17 +4431,25 @@ Stream Events
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: Integer`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: Integer`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: Integer`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed: :standard | :fast`
 
@@ -4083,9 +4471,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_start"`
+      format: date-time
 
-      - `:"span.model_request_start"`
+    - `type: :"span.model_request_start"`
 
   - `class BetaManagedAgentsSpanModelRequestEndEvent`
 
@@ -4111,9 +4499,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_end"`
+      format: date-time
 
-      - `:"span.model_request_end"`
+    - `type: :"span.model_request_end"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -4127,6 +4515,8 @@ Stream Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -4135,9 +4525,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_ongoing"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_ongoing"`
+    - `type: :"span.outcome_evaluation_ongoing"`
 
   - `class BetaManagedAgentsUserDefineOutcomeEvent`
 
@@ -4155,6 +4545,8 @@ Stream Events
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: String`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -4162,6 +4554,8 @@ Stream Events
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -4177,8 +4571,6 @@ Stream Events
 
         - `type: :file`
 
-          - `:file`
-
       - `class BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
@@ -4189,11 +4581,7 @@ Stream Events
 
         - `type: :text`
 
-          - `:text`
-
     - `type: :"user.define_outcome"`
-
-      - `:"user.define_outcome"`
 
   - `class BetaManagedAgentsSessionDeletedEvent`
 
@@ -4207,9 +4595,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.deleted"`
+      format: date-time
 
-      - `:"session.deleted"`
+    - `type: :"session.deleted"`
 
   - `class BetaManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -4227,13 +4615,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: :"session.thread_status_running"`
-
-      - `:"session.thread_status_running"`
 
   - `class BetaManagedAgentsSessionThreadStatusIdleEvent`
 
@@ -4251,11 +4639,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that went idle.
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -4269,11 +4659,13 @@ Stream Events
 
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
+
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
     - `type: :"session.thread_status_idle"`
-
-      - `:"session.thread_status_idle"`
 
   - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -4291,13 +4683,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: :"session.thread_status_terminated"`
-
-      - `:"session.thread_status_terminated"`
 
   - `class BetaManagedAgentsUserToolResultEvent`
 
@@ -4312,8 +4704,6 @@ Stream Events
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.tool_result"`
-
-      - `:"user.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -4343,6 +4733,8 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -4363,13 +4755,13 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: :"session.thread_status_rescheduled"`
-
-      - `:"session.thread_status_rescheduled"`
 
   - `class BetaManagedAgentsSessionUpdatedEvent`
 
@@ -4383,9 +4775,9 @@ Stream Events
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.updated"`
+      format: date-time
 
-      - `:"session.updated"`
+    - `type: :"session.updated"`
 
     - `agent: BetaManagedAgentsSessionAgent`
 
@@ -4401,8 +4793,6 @@ Stream Events
 
         - `type: :url`
 
-          - `:url`
-
         - `url: String`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -4415,7 +4805,7 @@ Stream Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-4-8" | 9 more`
+          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-5" | 10 more`
 
             The model that will power your agent.
 
@@ -4429,17 +4819,21 @@ Stream Events
 
               Next generation of intelligence for the hardest knowledge work and coding problems
 
+            - `:"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `:"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-6"`
 
-              Most intelligent model for building agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-6"`
 
@@ -4455,11 +4849,11 @@ Stream Events
 
             - `:"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-5"`
 
@@ -4470,6 +4864,44 @@ Stream Events
               High-performance model for agents and coding
 
           - `String = String`
+
+        - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+
+          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+          - `class BetaManagedAgentsEffortLow`
+
+            Low effort. Favors latency over reasoning depth.
+
+            - `type: :low`
+
+          - `class BetaManagedAgentsEffortMedium`
+
+            Medium effort. Balances latency and reasoning depth.
+
+            - `type: :medium`
+
+          - `class BetaManagedAgentsEffortHigh`
+
+            High effort. Favors reasoning depth.
+
+            - `type: :high`
+
+          - `class BetaManagedAgentsEffortXhigh`
+
+            Extra-high effort. Not all models accept this level.
+
+            - `type: :xhigh`
+
+          - `class BetaManagedAgentsEffortMax`
+
+            Maximum effort. Favors reasoning depth over latency.
+
+            - `type: :max`
+
+        - `inference_geo: String`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
         - `speed: :standard | :fast`
 
@@ -4483,203 +4915,383 @@ Stream Events
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
-        - `agents: Array[BetaManagedAgentsSessionThreadAgent]`
+        - `agents: Array[BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor]`
 
           Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `id: String`
+          - `class BetaManagedAgentsSessionThreadAgent`
 
-          - `description: String`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
+            - `id: String`
 
-            - `name: String`
+            - `description: String`
 
-            - `type: :url`
-
-            - `url: String`
-
-          - `model: BetaManagedAgentsModelConfig`
-
-            Model identifier and configuration.
-
-          - `name: String`
-
-          - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
-
-            - `class BetaManagedAgentsAnthropicSkill`
-
-              A resolved Anthropic-managed skill.
-
-              - `skill_id: String`
-
-              - `type: :anthropic`
-
-                - `:anthropic`
-
-              - `version: String`
-
-            - `class BetaManagedAgentsCustomSkill`
-
-              A resolved user-created custom skill.
-
-              - `skill_id: String`
-
-              - `type: :custom`
-
-                - `:custom`
-
-              - `version: String`
-
-          - `system_: String`
-
-          - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
-
-            - `class BetaManagedAgentsAgentToolset20260401`
-
-              - `configs: Array[BetaManagedAgentsAgentToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: :bash | :edit | :read | 5 more`
-
-                  Built-in agent tool identifier.
-
-                  - `:bash`
-
-                  - `:edit`
-
-                  - `:read`
-
-                  - `:write`
-
-                  - `:glob`
-
-                  - `:grep`
-
-                  - `:web_fetch`
-
-                  - `:web_search`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                    - `type: :always_allow`
-
-                      - `:always_allow`
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-                    - `type: :always_ask`
-
-                      - `:always_ask`
-
-              - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `type: :agent_toolset_20260401`
-
-                - `:agent_toolset_20260401`
-
-            - `class BetaManagedAgentsMCPToolset`
-
-              - `configs: Array[BetaManagedAgentsMCPToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: String`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `mcp_server_name: String`
-
-              - `type: :mcp_toolset`
-
-                - `:mcp_toolset`
-
-            - `class BetaManagedAgentsCustomTool`
-
-              A custom tool as returned in API responses.
-
-              - `description: String`
-
-              - `input_schema: BetaManagedAgentsCustomToolInputSchema`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: :object`
-
-                  - `:object`
-
-                - `properties: Hash[Symbol, untyped]`
-
-                - `required: Array[String]`
+            - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
               - `name: String`
 
-              - `type: :custom`
+              - `type: :url`
 
-                - `:custom`
+              - `url: String`
 
-          - `type: :agent`
+            - `model: BetaManagedAgentsModelConfig`
 
-            - `:agent`
+              Model identifier and configuration.
 
-          - `version: Integer`
+            - `name: String`
+
+            - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
+
+              - `class BetaManagedAgentsAnthropicSkill`
+
+                A resolved Anthropic-managed skill.
+
+                - `skill_id: String`
+
+                - `type: :anthropic`
+
+                - `version: String`
+
+              - `class BetaManagedAgentsCustomSkill`
+
+                A resolved user-created custom skill.
+
+                - `skill_id: String`
+
+                - `type: :custom`
+
+                - `version: String`
+
+            - `system_: String`
+
+            - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
+
+              - `class BetaManagedAgentsAgentToolset20260401`
+
+                - `configs: Array[BetaManagedAgentsAgentToolConfig]`
+
+                  - `class BetaManagedAgentsBashToolConfig`
+
+                    Configuration for the bash tool.
+
+                    - `enabled: bool`
+
+                    - `name: :bash`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: :always_allow`
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: :always_ask`
+
+                    - `type: :bash`
+
+                  - `class BetaManagedAgentsEditToolConfig`
+
+                    Configuration for the edit tool.
+
+                    - `enabled: bool`
+
+                    - `name: :edit`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :edit`
+
+                  - `class BetaManagedAgentsReadToolConfig`
+
+                    Configuration for the read tool.
+
+                    - `enabled: bool`
+
+                    - `name: :read`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :read`
+
+                  - `class BetaManagedAgentsWriteToolConfig`
+
+                    Configuration for the write tool.
+
+                    - `enabled: bool`
+
+                    - `name: :write`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :write`
+
+                  - `class BetaManagedAgentsGlobToolConfig`
+
+                    Configuration for the glob tool.
+
+                    - `enabled: bool`
+
+                    - `name: :glob`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :glob`
+
+                  - `class BetaManagedAgentsGrepToolConfig`
+
+                    Configuration for the grep tool.
+
+                    - `enabled: bool`
+
+                    - `name: :grep`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :grep`
+
+                  - `class BetaManagedAgentsWebFetchToolConfig`
+
+                    Configuration for the web_fetch tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_fetch`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_fetch`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `max_content_tokens: Integer`
+
+                      format: int32
+
+                  - `class BetaManagedAgentsWebSearchToolConfig`
+
+                    Configuration for the web_search tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_search`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_search`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `user_location: BetaManagedAgentsUserLocation`
+
+                      Approximate user location for search result localization.
+
+                      - `type: :approximate`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: String`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: String`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: String`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: String`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `type: :agent_toolset_20260401`
+
+              - `class BetaManagedAgentsMCPToolset`
+
+                - `configs: Array[BetaManagedAgentsMCPToolConfig]`
+
+                  - `enabled: bool`
+
+                  - `name: String`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `mcp_server_name: String`
+
+                - `type: :mcp_toolset`
+
+              - `class BetaManagedAgentsCustomTool`
+
+                A custom tool as returned in API responses.
+
+                - `description: String`
+
+                - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: :object`
+
+                  - `properties: Hash[Symbol, untyped]`
+
+                  - `required: Array[String]`
+
+                - `name: String`
+
+                - `type: :custom`
+
+            - `type: :agent`
+
+            - `version: Integer`
+
+              format: int32
+
+          - `class BetaManagedAgentsAdvisor`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `model: String`
+
+              The advisor model id.
+
+            - `type: :advisor`
 
         - `type: :coordinator`
-
-          - `:coordinator`
 
       - `name: String`
 
@@ -4707,9 +5319,27 @@ Stream Events
 
       - `type: :agent`
 
-        - `:agent`
-
       - `version: Integer`
+
+        format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+      - `max_list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+        - `amount: String`
+
+          Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        - `currency: BetaCurrency`
+
+          Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+      - `type: :limit`
 
     - `metadata: Hash[Symbol, String]`
 
@@ -4735,8 +5365,6 @@ Stream Events
 
         - `type: :"agent.message"`
 
-          - `:"agent.message"`
-
       - `class BetaManagedAgentsAgentThinkingPreview`
 
         - `id: String`
@@ -4745,11 +5373,7 @@ Stream Events
 
         - `type: :"agent.thinking"`
 
-          - `:"agent.thinking"`
-
     - `type: :event_start`
-
-      - `:event_start`
 
   - `class BetaManagedAgentsDeltaEvent`
 
@@ -4765,19 +5389,17 @@ Stream Events
 
       - `type: :content_delta`
 
-        - `:content_delta`
-
       - `index: Integer`
 
         Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+        format: uint32
 
     - `event_id: String`
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
     - `type: :event_delta`
-
-      - `:event_delta`
 
   - `class BetaManagedAgentsSystemMessageEvent`
 
@@ -4795,17 +5417,105 @@ Stream Events
 
         The text content.
 
+        minLength: 1
+
       - `type: :text`
 
-        - `:text`
-
     - `type: :"system.message"`
-
-      - `:"system.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
+
+  - `class BetaManagedAgentsSessionUsageEvent`
+
+    Periodic snapshot of the session's cumulative usage and tracked list cost.
+
+    - `id: String`
+
+      Unique identifier for this event.
+
+    - `processed_at: Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `type: :"session.usage"`
+
+    - `usage: BetaManagedAgentsSessionUsageSnapshot`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+      - `active_seconds: Float`
+
+        Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+        format: double
+
+      - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+
+        Prompt-cache creation token usage broken down by cache lifetime.
+
+        - `ephemeral_1h_input_tokens: Integer`
+
+          Tokens used to create 1-hour ephemeral cache entries.
+
+          format: int32
+
+        - `ephemeral_5m_input_tokens: Integer`
+
+          Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
+
+      - `cache_read_input_tokens: Integer`
+
+        Total tokens read from prompt cache.
+
+        format: int32
+
+      - `input_tokens: Integer`
+
+        Total input tokens consumed across all turns.
+
+        format: int32
+
+      - `list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+      - `output_tokens: Integer`
+
+        Total output tokens generated across all turns.
+
+        format: int32
+
+      - `server_tool_use: BetaManagedAgentsServerToolUsage`
+
+        Cumulative count of server-executed tool invocations, broken down by tool.
+
+        - `web_fetch_requests: Integer`
+
+          Number of server-executed web fetch requests.
+
+          format: int32
+
+        - `web_search_requests: Integer`
+
+          Number of server-executed web search requests.
+
+          format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+- `BetaManagedAgentsStreamSessionEvents = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 34 more`
+
+  Server-sent event in the session stream.
 
 ### Example
 
@@ -4819,7 +5529,7 @@ beta_managed_agents_stream_session_events = anthropic.beta.sessions.events.strea
 puts(beta_managed_agents_stream_session_events)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -4835,7 +5545,7 @@ puts(beta_managed_agents_stream_session_events)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Agent Custom Tool Use Event
 
@@ -4859,9 +5569,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.custom_tool_use"`
+    format: date-time
 
-    - `:"agent.custom_tool_use"`
+  - `type: :"agent.custom_tool_use"`
 
   - `session_thread_id: String`
 
@@ -4885,9 +5595,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.mcp_tool_result"`
+    format: date-time
 
-    - `:"agent.mcp_tool_result"`
+  - `type: :"agent.mcp_tool_result"`
 
   - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -4901,9 +5611,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -4921,13 +5631,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -4935,11 +5647,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -4949,13 +5661,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -4973,13 +5683,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -4989,15 +5701,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -5005,11 +5715,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -5019,13 +5729,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -5055,21 +5763,23 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `source: String`
 
         The URL source of the search result.
 
+        minLength: 1
+
       - `title: String`
 
         The title of the search result.
 
-      - `type: :search_result`
+        minLength: 1
 
-        - `:search_result`
+      - `type: :search_result`
 
   - `is_error: bool`
 
@@ -5101,9 +5811,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.mcp_tool_use"`
+    format: date-time
 
-    - `:"agent.mcp_tool_use"`
+  - `type: :"agent.mcp_tool_use"`
 
   - `evaluated_permission: :allow | :ask | :deny`
 
@@ -5129,25 +5839,35 @@ puts(beta_managed_agents_stream_session_events)
 
     Unique identifier for this event.
 
-  - `content: Array[BetaManagedAgentsTextBlock]`
+  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsRedactedBlock]`
 
     Array of text blocks comprising the agent response.
 
-    - `text: String`
+    - `class BetaManagedAgentsTextBlock`
 
-      The text content.
+      Regular text content.
 
-    - `type: :text`
+      - `text: String`
 
-      - `:text`
+        The text content.
+
+        minLength: 1
+
+      - `type: :text`
+
+    - `class BetaManagedAgentsRedactedBlock`
+
+      Placeholder for content withheld by Anthropic model policy.
+
+      - `type: :redacted`
 
   - `processed_at: Time`
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.message"`
+    format: date-time
 
-    - `:"agent.message"`
+  - `type: :"agent.message"`
 
 ### Beta Managed Agents Agent Thinking Event
 
@@ -5163,9 +5883,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.thinking"`
+    format: date-time
 
-    - `:"agent.thinking"`
+  - `type: :"agent.thinking"`
 
 ### Beta Managed Agents Agent Thread Context Compacted Event
 
@@ -5181,9 +5901,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.thread_context_compacted"`
+    format: date-time
 
-    - `:"agent.thread_context_compacted"`
+  - `type: :"agent.thread_context_compacted"`
 
 ### Beta Managed Agents Agent Thread Message Received Event
 
@@ -5195,7 +5915,7 @@ puts(beta_managed_agents_stream_session_events)
 
     Unique identifier for this event.
 
-  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
     Message content blocks.
 
@@ -5207,9 +5927,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -5227,13 +5947,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -5241,11 +5963,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -5255,13 +5977,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -5279,13 +5999,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -5295,15 +6017,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -5311,11 +6031,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -5325,13 +6045,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -5341,6 +6059,12 @@ puts(beta_managed_agents_stream_session_events)
 
         The title of the document.
 
+    - `class BetaManagedAgentsRedactedBlock`
+
+      Placeholder for content withheld by Anthropic model policy.
+
+      - `type: :redacted`
+
   - `from_session_thread_id: String`
 
     Public `sthr_` ID of the thread that sent the message.
@@ -5349,9 +6073,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.thread_message_received"`
+    format: date-time
 
-    - `:"agent.thread_message_received"`
+  - `type: :"agent.thread_message_received"`
 
   - `from_agent_name: String`
 
@@ -5367,7 +6091,7 @@ puts(beta_managed_agents_stream_session_events)
 
     Unique identifier for this event.
 
-  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
     Message content blocks.
 
@@ -5379,9 +6103,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -5399,13 +6123,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -5413,11 +6139,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -5427,13 +6153,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -5451,13 +6175,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -5467,15 +6193,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -5483,11 +6207,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -5497,13 +6221,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -5513,17 +6235,23 @@ puts(beta_managed_agents_stream_session_events)
 
         The title of the document.
 
+    - `class BetaManagedAgentsRedactedBlock`
+
+      Placeholder for content withheld by Anthropic model policy.
+
+      - `type: :redacted`
+
   - `processed_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `to_session_thread_id: String`
 
     Public `sthr_` ID of the thread the message was sent to.
 
   - `type: :"agent.thread_message_sent"`
-
-    - `:"agent.thread_message_sent"`
 
   - `to_agent_name: String`
 
@@ -5543,13 +6271,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `tool_use_id: String`
 
     The id of the `agent.tool_use` event this result corresponds to.
 
   - `type: :"agent.tool_result"`
-
-    - `:"agent.tool_result"`
 
   - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -5563,9 +6291,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -5583,13 +6311,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -5597,11 +6327,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -5611,13 +6341,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -5635,13 +6363,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -5651,15 +6381,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -5667,11 +6395,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -5681,13 +6409,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -5717,21 +6443,23 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `source: String`
 
         The URL source of the search result.
 
+        minLength: 1
+
       - `title: String`
 
         The title of the search result.
 
-      - `type: :search_result`
+        minLength: 1
 
-        - `:search_result`
+      - `type: :search_result`
 
   - `is_error: bool`
 
@@ -5759,9 +6487,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"agent.tool_use"`
+    format: date-time
 
-    - `:"agent.tool_use"`
+  - `type: :"agent.tool_use"`
 
   - `evaluated_permission: :allow | :ask | :deny`
 
@@ -5787,13 +6515,15 @@ puts(beta_managed_agents_stream_session_events)
 
     Base64-encoded document data.
 
+    minLength: 1
+
   - `media_type: String`
 
     MIME type of the document (e.g., "application/pdf").
 
-  - `type: :base64`
+    minLength: 1
 
-    - `:base64`
+  - `type: :base64`
 
 ### Beta Managed Agents Base64 Image Source
 
@@ -5805,13 +6535,15 @@ puts(beta_managed_agents_stream_session_events)
 
     Base64-encoded image data.
 
+    minLength: 1
+
   - `media_type: String`
 
     MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-  - `type: :base64`
+    minLength: 1
 
-    - `:base64`
+  - `type: :base64`
 
 ### Beta Managed Agents Billing Error
 
@@ -5833,15 +6565,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -5849,11 +6577,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :billing_error`
-
-    - `:billing_error`
 
 ### Beta Managed Agents Credential Host Unreachable Error
 
@@ -5879,15 +6603,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -5895,11 +6615,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :credential_host_unreachable_error`
-
-    - `:credential_host_unreachable_error`
 
   - `vault_id: String`
 
@@ -5923,13 +6639,15 @@ puts(beta_managed_agents_stream_session_events)
 
         Base64-encoded document data.
 
+        minLength: 1
+
       - `media_type: String`
 
         MIME type of the document (e.g., "application/pdf").
 
-      - `type: :base64`
+        minLength: 1
 
-        - `:base64`
+      - `type: :base64`
 
     - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -5939,15 +6657,13 @@ puts(beta_managed_agents_stream_session_events)
 
         The plain text content.
 
+        minLength: 1
+
       - `media_type: :"text/plain"`
 
         MIME type of the text content. Must be "text/plain".
 
-        - `:"text/plain"`
-
       - `type: :text`
-
-        - `:text`
 
     - `class BetaManagedAgentsURLDocumentSource`
 
@@ -5955,11 +6671,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :url`
 
-        - `:url`
-
       - `url: String`
 
         URL of the document to fetch.
+
+        minLength: 1
 
     - `class BetaManagedAgentsFileDocumentSource`
 
@@ -5969,13 +6685,11 @@ puts(beta_managed_agents_stream_session_events)
 
         ID of a previously uploaded file.
 
+        minLength: 1
+
       - `type: :file`
 
-        - `:file`
-
   - `type: :document`
-
-    - `:document`
 
   - `context: String`
 
@@ -5995,7 +6709,7 @@ puts(beta_managed_agents_stream_session_events)
 
     Parameters for sending a user message to the session.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of content blocks for the user message.
 
@@ -6007,9 +6721,9 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `class BetaManagedAgentsImageBlock`
 
@@ -6027,13 +6741,15 @@ puts(beta_managed_agents_stream_session_events)
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsURLImageSource`
 
@@ -6041,11 +6757,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileImageSource`
 
@@ -6055,13 +6771,11 @@ puts(beta_managed_agents_stream_session_events)
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
       - `class BetaManagedAgentsDocumentBlock`
 
@@ -6079,13 +6793,15 @@ puts(beta_managed_agents_stream_session_events)
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -6095,15 +6811,13 @@ puts(beta_managed_agents_stream_session_events)
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: :"text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaManagedAgentsURLDocumentSource`
 
@@ -6111,11 +6825,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileDocumentSource`
 
@@ -6125,13 +6839,11 @@ puts(beta_managed_agents_stream_session_events)
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `context: String`
 
@@ -6141,17 +6853,19 @@ puts(beta_managed_agents_stream_session_events)
 
           The title of the document.
 
-    - `type: :"user.message"`
+      - `class BetaManagedAgentsRedactedBlock`
 
-      - `:"user.message"`
+        Placeholder for content withheld by Anthropic model policy.
+
+        - `type: :redacted`
+
+    - `type: :"user.message"`
 
   - `class BetaManagedAgentsUserInterruptEventParams`
 
     Parameters for sending an interrupt to pause the agent.
 
     - `type: :"user.interrupt"`
-
-      - `:"user.interrupt"`
 
     - `session_thread_id: String`
 
@@ -6173,13 +6887,15 @@ puts(beta_managed_agents_stream_session_events)
 
       The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `type: :"user.tool_confirmation"`
+      minLength: 1, maxLength: 128
 
-      - `:"user.tool_confirmation"`
+    - `type: :"user.tool_confirmation"`
 
     - `deny_message: String`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+
+      maxLength: 10000
 
   - `class BetaManagedAgentsUserCustomToolResultEventParams`
 
@@ -6189,9 +6905,9 @@ puts(beta_managed_agents_stream_session_events)
 
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `type: :"user.custom_tool_result"`
+      minLength: 1, maxLength: 128
 
-      - `:"user.custom_tool_result"`
+    - `type: :"user.custom_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -6229,21 +6945,23 @@ puts(beta_managed_agents_stream_session_events)
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `source: String`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: String`
 
           The title of the search result.
 
-        - `type: :search_result`
+          minLength: 1
 
-          - `:search_result`
+        - `type: :search_result`
 
     - `is_error: bool`
 
@@ -6271,8 +6989,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :file`
 
-          - `:file`
-
       - `class BetaManagedAgentsTextRubricParams`
 
         Rubric content provided inline as text.
@@ -6281,17 +6997,17 @@ puts(beta_managed_agents_stream_session_events)
 
           Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
+          maxLength: 262144
+
         - `type: :text`
 
-          - `:text`
-
     - `type: :"user.define_outcome"`
-
-      - `:"user.define_outcome"`
 
     - `max_iterations: Integer`
 
       Eval→revision cycles before giving up. Default 3, max 20.
+
+      format: int32
 
   - `class BetaManagedAgentsUserToolResultEventParams`
 
@@ -6301,9 +7017,9 @@ puts(beta_managed_agents_stream_session_events)
 
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-    - `type: :"user.tool_result"`
+      minLength: 1, maxLength: 128
 
-      - `:"user.tool_result"`
+    - `type: :"user.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -6341,13 +7057,11 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
+        minLength: 1
+
       - `type: :text`
 
-        - `:text`
-
     - `type: :"system.message"`
-
-      - `:"system.message"`
 
 ### Beta Managed Agents File Document Source
 
@@ -6359,9 +7073,9 @@ puts(beta_managed_agents_stream_session_events)
 
     ID of a previously uploaded file.
 
-  - `type: :file`
+    minLength: 1
 
-    - `:file`
+  - `type: :file`
 
 ### Beta Managed Agents File Image Source
 
@@ -6373,9 +7087,9 @@ puts(beta_managed_agents_stream_session_events)
 
     ID of a previously uploaded file.
 
-  - `type: :file`
+    minLength: 1
 
-    - `:file`
+  - `type: :file`
 
 ### Beta Managed Agents File Rubric
 
@@ -6389,8 +7103,6 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :file`
 
-    - `:file`
-
 ### Beta Managed Agents File Rubric Params
 
 - `class BetaManagedAgentsFileRubricParams`
@@ -6402,8 +7114,6 @@ puts(beta_managed_agents_stream_session_events)
     ID of the rubric file.
 
   - `type: :file`
-
-    - `:file`
 
 ### Beta Managed Agents Image Block
 
@@ -6423,13 +7133,15 @@ puts(beta_managed_agents_stream_session_events)
 
         Base64-encoded image data.
 
+        minLength: 1
+
       - `media_type: String`
 
         MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-      - `type: :base64`
+        minLength: 1
 
-        - `:base64`
+      - `type: :base64`
 
     - `class BetaManagedAgentsURLImageSource`
 
@@ -6437,11 +7149,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :url`
 
-        - `:url`
-
       - `url: String`
 
         URL of the image to fetch.
+
+        minLength: 1
 
     - `class BetaManagedAgentsFileImageSource`
 
@@ -6451,13 +7163,11 @@ puts(beta_managed_agents_stream_session_events)
 
         ID of a previously uploaded file.
 
+        minLength: 1
+
       - `type: :file`
 
-        - `:file`
-
   - `type: :image`
-
-    - `:image`
 
 ### Beta Managed Agents MCP Authentication Failed Error
 
@@ -6483,15 +7193,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -6499,11 +7205,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :mcp_authentication_failed_error`
-
-    - `:mcp_authentication_failed_error`
 
 ### Beta Managed Agents MCP Connection Failed Error
 
@@ -6529,15 +7231,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -6545,11 +7243,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :mcp_connection_failed_error`
-
-    - `:mcp_connection_failed_error`
 
 ### Beta Managed Agents Model Overloaded Error
 
@@ -6571,15 +7265,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -6587,11 +7277,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :model_overloaded_error`
-
-    - `:model_overloaded_error`
 
 ### Beta Managed Agents Model Rate Limited Error
 
@@ -6613,15 +7299,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -6629,11 +7311,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :model_rate_limited_error`
-
-    - `:model_rate_limited_error`
 
 ### Beta Managed Agents Model Request Failed Error
 
@@ -6655,15 +7333,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -6671,11 +7345,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :model_request_failed_error`
-
-    - `:model_request_failed_error`
 
 ### Beta Managed Agents Plain Text Document Source
 
@@ -6687,15 +7357,21 @@ puts(beta_managed_agents_stream_session_events)
 
     The plain text content.
 
+    minLength: 1
+
   - `media_type: :"text/plain"`
 
     MIME type of the text content. Must be "text/plain".
 
-    - `:"text/plain"`
-
   - `type: :text`
 
-    - `:text`
+### Beta Managed Agents Redacted Block
+
+- `class BetaManagedAgentsRedactedBlock`
+
+  Placeholder for content withheld by Anthropic model policy.
+
+  - `type: :redacted`
 
 ### Beta Managed Agents Retry Status Exhausted
 
@@ -6705,8 +7381,6 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :exhausted`
 
-    - `:exhausted`
-
 ### Beta Managed Agents Retry Status Retrying
 
 - `class BetaManagedAgentsRetryStatusRetrying`
@@ -6715,8 +7389,6 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :retrying`
 
-    - `:retrying`
-
 ### Beta Managed Agents Retry Status Terminal
 
 - `class BetaManagedAgentsRetryStatusTerminal`
@@ -6724,8 +7396,6 @@ puts(beta_managed_agents_stream_session_events)
   The session encountered a terminal error and will transition to `terminated` state.
 
   - `type: :terminal`
-
-    - `:terminal`
 
 ### Beta Managed Agents Search Result Block
 
@@ -6749,21 +7419,23 @@ puts(beta_managed_agents_stream_session_events)
 
       The text content.
 
-    - `type: :text`
+      minLength: 1
 
-      - `:text`
+    - `type: :text`
 
   - `source: String`
 
     The URL source of the search result.
 
+    minLength: 1
+
   - `title: String`
 
     The title of the search result.
 
-  - `type: :search_result`
+    minLength: 1
 
-    - `:search_result`
+  - `type: :search_result`
 
 ### Beta Managed Agents Search Result Citations
 
@@ -6785,9 +7457,9 @@ puts(beta_managed_agents_stream_session_events)
 
     The text content.
 
-  - `type: :text`
+    minLength: 1
 
-    - `:text`
+  - `type: :text`
 
 ### Beta Managed Agents Send Session Events
 
@@ -6807,7 +7479,7 @@ puts(beta_managed_agents_stream_session_events)
 
         Unique identifier for this event.
 
-      - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+      - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
         Array of content blocks comprising the user message.
 
@@ -6819,9 +7491,9 @@ puts(beta_managed_agents_stream_session_events)
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `class BetaManagedAgentsImageBlock`
 
@@ -6839,13 +7511,15 @@ puts(beta_managed_agents_stream_session_events)
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: String`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `type: :base64`
+                minLength: 1
 
-                - `:base64`
+              - `type: :base64`
 
             - `class BetaManagedAgentsURLImageSource`
 
@@ -6853,11 +7527,11 @@ puts(beta_managed_agents_stream_session_events)
 
               - `type: :url`
 
-                - `:url`
-
               - `url: String`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource`
 
@@ -6867,13 +7541,11 @@ puts(beta_managed_agents_stream_session_events)
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: :file`
 
-                - `:file`
-
           - `type: :image`
-
-            - `:image`
 
         - `class BetaManagedAgentsDocumentBlock`
 
@@ -6891,13 +7563,15 @@ puts(beta_managed_agents_stream_session_events)
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: String`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `type: :base64`
+                minLength: 1
 
-                - `:base64`
+              - `type: :base64`
 
             - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -6907,15 +7581,13 @@ puts(beta_managed_agents_stream_session_events)
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: :"text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `:"text/plain"`
-
               - `type: :text`
-
-                - `:text`
 
             - `class BetaManagedAgentsURLDocumentSource`
 
@@ -6923,11 +7595,11 @@ puts(beta_managed_agents_stream_session_events)
 
               - `type: :url`
 
-                - `:url`
-
               - `url: String`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource`
 
@@ -6937,13 +7609,11 @@ puts(beta_managed_agents_stream_session_events)
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: :file`
 
-                - `:file`
-
           - `type: :document`
-
-            - `:document`
 
           - `context: String`
 
@@ -6953,13 +7623,19 @@ puts(beta_managed_agents_stream_session_events)
 
             The title of the document.
 
-      - `type: :"user.message"`
+        - `class BetaManagedAgentsRedactedBlock`
 
-        - `:"user.message"`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: :redacted`
+
+      - `type: :"user.message"`
 
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `class BetaManagedAgentsUserInterruptEvent`
 
@@ -6971,11 +7647,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :"user.interrupt"`
 
-        - `:"user.interrupt"`
-
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id: String`
 
@@ -7003,15 +7679,17 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :"user.tool_confirmation"`
 
-        - `:"user.tool_confirmation"`
-
       - `deny_message: String`
 
         Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+        maxLength: 10000
+
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id: String`
 
@@ -7030,8 +7708,6 @@ puts(beta_managed_agents_stream_session_events)
         The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `type: :"user.custom_tool_result"`
-
-        - `:"user.custom_tool_result"`
 
       - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -7069,21 +7745,23 @@ puts(beta_managed_agents_stream_session_events)
 
               The text content.
 
-            - `type: :text`
+              minLength: 1
 
-              - `:text`
+            - `type: :text`
 
           - `source: String`
 
             The URL source of the search result.
 
+            minLength: 1
+
           - `title: String`
 
             The title of the search result.
 
-          - `type: :search_result`
+            minLength: 1
 
-            - `:search_result`
+          - `type: :search_result`
 
       - `is_error: bool`
 
@@ -7092,6 +7770,8 @@ puts(beta_managed_agents_stream_session_events)
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `session_thread_id: String`
 
@@ -7113,6 +7793,8 @@ puts(beta_managed_agents_stream_session_events)
 
         Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+        format: int32
+
       - `outcome_id: String`
 
         Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -7120,6 +7802,8 @@ puts(beta_managed_agents_stream_session_events)
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -7135,8 +7819,6 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :file`
 
-            - `:file`
-
         - `class BetaManagedAgentsTextRubric`
 
           Rubric content provided inline as text.
@@ -7147,11 +7829,7 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :text`
 
-            - `:text`
-
       - `type: :"user.define_outcome"`
-
-        - `:"user.define_outcome"`
 
     - `class BetaManagedAgentsUserToolResultEvent`
 
@@ -7166,8 +7844,6 @@ puts(beta_managed_agents_stream_session_events)
         The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
       - `type: :"user.tool_result"`
-
-        - `:"user.tool_result"`
 
       - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -7197,6 +7873,8 @@ puts(beta_managed_agents_stream_session_events)
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `session_thread_id: String`
 
         Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -7217,17 +7895,25 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
+          minLength: 1
+
         - `type: :text`
 
-          - `:text`
-
       - `type: :"system.message"`
-
-        - `:"system.message"`
 
       - `processed_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
+
+### Beta Managed Agents Session Budget Reached
+
+- `class BetaManagedAgentsSessionBudgetReached`
+
+  The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+  - `type: :budget_reached`
 
 ### Beta Managed Agents Session Deleted Event
 
@@ -7243,9 +7929,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"session.deleted"`
+    format: date-time
 
-    - `:"session.deleted"`
+  - `type: :"session.deleted"`
 
 ### Beta Managed Agents Session End Turn
 
@@ -7254,8 +7940,6 @@ puts(beta_managed_agents_stream_session_events)
   The agent completed its turn naturally and is ready for the next user message.
 
   - `type: :end_turn`
-
-    - `:end_turn`
 
 ### Beta Managed Agents Session Error Event
 
@@ -7289,15 +7973,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :retrying`
 
-            - `:retrying`
-
         - `class BetaManagedAgentsRetryStatusExhausted`
 
           This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
           - `type: :exhausted`
-
-            - `:exhausted`
 
         - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -7305,11 +7985,7 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :terminal`
 
-            - `:terminal`
-
       - `type: :unknown_error`
-
-        - `:unknown_error`
 
     - `class BetaManagedAgentsModelOverloadedError`
 
@@ -7337,8 +8013,6 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :model_overloaded_error`
 
-        - `:model_overloaded_error`
-
     - `class BetaManagedAgentsModelRateLimitedError`
 
       The model request was rate-limited.
@@ -7365,8 +8039,6 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :model_rate_limited_error`
 
-        - `:model_rate_limited_error`
-
     - `class BetaManagedAgentsModelRequestFailedError`
 
       A model request failed for a reason other than overload or rate-limiting.
@@ -7392,8 +8064,6 @@ puts(beta_managed_agents_stream_session_events)
           The session encountered a terminal error and will transition to `terminated` state.
 
       - `type: :model_request_failed_error`
-
-        - `:model_request_failed_error`
 
     - `class BetaManagedAgentsMCPConnectionFailedError`
 
@@ -7425,8 +8095,6 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :mcp_connection_failed_error`
 
-        - `:mcp_connection_failed_error`
-
     - `class BetaManagedAgentsMCPAuthenticationFailedError`
 
       Authentication to an MCP server failed.
@@ -7457,8 +8125,6 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :mcp_authentication_failed_error`
 
-        - `:mcp_authentication_failed_error`
-
     - `class BetaManagedAgentsBillingError`
 
       The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -7484,8 +8150,6 @@ puts(beta_managed_agents_stream_session_events)
           The session encountered a terminal error and will transition to `terminated` state.
 
       - `type: :billing_error`
-
-        - `:billing_error`
 
     - `class BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -7517,8 +8181,6 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :credential_host_unreachable_error`
 
-        - `:credential_host_unreachable_error`
-
       - `vault_id: String`
 
         ID of the vault containing the affected credential.
@@ -7527,13 +8189,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"session.error"`
+    format: date-time
 
-    - `:"session.error"`
+  - `type: :"session.error"`
 
 ### Beta Managed Agents Session Event
 
-- `BetaManagedAgentsSessionEvent = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 31 more`
+- `BetaManagedAgentsSessionEvent = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 32 more`
 
   Union type for all event types in a session.
 
@@ -7545,7 +8207,7 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of content blocks comprising the user message.
 
@@ -7557,9 +8219,9 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `class BetaManagedAgentsImageBlock`
 
@@ -7577,13 +8239,15 @@ puts(beta_managed_agents_stream_session_events)
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsURLImageSource`
 
@@ -7591,11 +8255,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileImageSource`
 
@@ -7605,13 +8269,11 @@ puts(beta_managed_agents_stream_session_events)
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
       - `class BetaManagedAgentsDocumentBlock`
 
@@ -7629,13 +8291,15 @@ puts(beta_managed_agents_stream_session_events)
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -7645,15 +8309,13 @@ puts(beta_managed_agents_stream_session_events)
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: :"text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaManagedAgentsURLDocumentSource`
 
@@ -7661,11 +8323,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileDocumentSource`
 
@@ -7675,13 +8337,11 @@ puts(beta_managed_agents_stream_session_events)
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `context: String`
 
@@ -7691,13 +8351,19 @@ puts(beta_managed_agents_stream_session_events)
 
           The title of the document.
 
-    - `type: :"user.message"`
+      - `class BetaManagedAgentsRedactedBlock`
 
-      - `:"user.message"`
+        Placeholder for content withheld by Anthropic model policy.
+
+        - `type: :redacted`
+
+    - `type: :"user.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsUserInterruptEvent`
 
@@ -7709,11 +8375,11 @@ puts(beta_managed_agents_stream_session_events)
 
     - `type: :"user.interrupt"`
 
-      - `:"user.interrupt"`
-
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -7741,15 +8407,17 @@ puts(beta_managed_agents_stream_session_events)
 
     - `type: :"user.tool_confirmation"`
 
-      - `:"user.tool_confirmation"`
-
     - `deny_message: String`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -7768,8 +8436,6 @@ puts(beta_managed_agents_stream_session_events)
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.custom_tool_result"`
-
-      - `:"user.custom_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -7807,21 +8473,23 @@ puts(beta_managed_agents_stream_session_events)
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `source: String`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: String`
 
           The title of the search result.
 
-        - `type: :search_result`
+          minLength: 1
 
-          - `:search_result`
+        - `type: :search_result`
 
     - `is_error: bool`
 
@@ -7830,6 +8498,8 @@ puts(beta_managed_agents_stream_session_events)
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -7855,9 +8525,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.custom_tool_use"`
+      format: date-time
 
-      - `:"agent.custom_tool_use"`
+    - `type: :"agent.custom_tool_use"`
 
     - `session_thread_id: String`
 
@@ -7871,23 +8541,25 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of text blocks comprising the agent response.
 
-      - `text: String`
+      - `class BetaManagedAgentsTextBlock`
 
-        The text content.
+        Regular text content.
 
-      - `type: :text`
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.message"`
+      format: date-time
 
-      - `:"agent.message"`
+    - `type: :"agent.message"`
 
   - `class BetaManagedAgentsAgentThinkingEvent`
 
@@ -7901,9 +8573,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thinking"`
+      format: date-time
 
-      - `:"agent.thinking"`
+    - `type: :"agent.thinking"`
 
   - `class BetaManagedAgentsAgentMCPToolUseEvent`
 
@@ -7929,9 +8601,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_use"`
+      format: date-time
 
-      - `:"agent.mcp_tool_use"`
+    - `type: :"agent.mcp_tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -7963,9 +8635,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_result"`
+      format: date-time
 
-      - `:"agent.mcp_tool_result"`
+    - `type: :"agent.mcp_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -8011,9 +8683,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.tool_use"`
+      format: date-time
 
-      - `:"agent.tool_use"`
+    - `type: :"agent.tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -8041,13 +8713,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: String`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: :"agent.tool_result"`
-
-      - `:"agent.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -8081,7 +8753,7 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -8097,6 +8769,10 @@ puts(beta_managed_agents_stream_session_events)
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `from_session_thread_id: String`
 
       Public `sthr_` ID of the thread that sent the message.
@@ -8105,9 +8781,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_message_received"`
+      format: date-time
 
-      - `:"agent.thread_message_received"`
+    - `type: :"agent.thread_message_received"`
 
     - `from_agent_name: String`
 
@@ -8121,7 +8797,7 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -8137,17 +8813,21 @@ puts(beta_managed_agents_stream_session_events)
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `to_session_thread_id: String`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: :"agent.thread_message_sent"`
-
-      - `:"agent.thread_message_sent"`
 
     - `to_agent_name: String`
 
@@ -8165,9 +8845,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_context_compacted"`
+      format: date-time
 
-      - `:"agent.thread_context_compacted"`
+    - `type: :"agent.thread_context_compacted"`
 
   - `class BetaManagedAgentsSessionErrorEvent`
 
@@ -8199,15 +8879,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :retrying`
 
-              - `:retrying`
-
           - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: :exhausted`
-
-              - `:exhausted`
 
           - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -8215,11 +8891,7 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :terminal`
 
-              - `:terminal`
-
         - `type: :unknown_error`
-
-          - `:unknown_error`
 
       - `class BetaManagedAgentsModelOverloadedError`
 
@@ -8247,8 +8919,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :model_overloaded_error`
 
-          - `:model_overloaded_error`
-
       - `class BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
@@ -8275,8 +8945,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :model_rate_limited_error`
 
-          - `:model_rate_limited_error`
-
       - `class BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -8302,8 +8970,6 @@ puts(beta_managed_agents_stream_session_events)
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :model_request_failed_error`
-
-          - `:model_request_failed_error`
 
       - `class BetaManagedAgentsMCPConnectionFailedError`
 
@@ -8335,8 +9001,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :mcp_connection_failed_error`
 
-          - `:mcp_connection_failed_error`
-
       - `class BetaManagedAgentsMCPAuthenticationFailedError`
 
         Authentication to an MCP server failed.
@@ -8367,8 +9031,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :mcp_authentication_failed_error`
 
-          - `:mcp_authentication_failed_error`
-
       - `class BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -8394,8 +9056,6 @@ puts(beta_managed_agents_stream_session_events)
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :billing_error`
-
-          - `:billing_error`
 
       - `class BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -8427,8 +9087,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :credential_host_unreachable_error`
 
-          - `:credential_host_unreachable_error`
-
         - `vault_id: String`
 
           ID of the vault containing the affected credential.
@@ -8437,9 +9095,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.error"`
+      format: date-time
 
-      - `:"session.error"`
+    - `type: :"session.error"`
 
   - `class BetaManagedAgentsSessionStatusRescheduledEvent`
 
@@ -8453,9 +9111,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_rescheduled"`
+      format: date-time
 
-      - `:"session.status_rescheduled"`
+    - `type: :"session.status_rescheduled"`
 
   - `class BetaManagedAgentsSessionStatusRunningEvent`
 
@@ -8469,9 +9127,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_running"`
+      format: date-time
 
-      - `:"session.status_running"`
+    - `type: :"session.status_running"`
 
   - `class BetaManagedAgentsSessionStatusIdleEvent`
 
@@ -8485,7 +9143,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+      format: date-time
+
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -8494,8 +9154,6 @@ puts(beta_managed_agents_stream_session_events)
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: :end_turn`
-
-          - `:end_turn`
 
       - `class BetaManagedAgentsSessionRequiresAction`
 
@@ -8507,19 +9165,19 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :requires_action`
 
-          - `:requires_action`
-
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: :retries_exhausted`
 
-          - `:retries_exhausted`
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+        - `type: :budget_reached`
 
     - `type: :"session.status_idle"`
-
-      - `:"session.status_idle"`
 
   - `class BetaManagedAgentsSessionStatusTerminatedEvent`
 
@@ -8533,9 +9191,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_terminated"`
+      format: date-time
 
-      - `:"session.status_terminated"`
+    - `type: :"session.status_terminated"`
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
@@ -8553,13 +9211,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: :"session.thread_created"`
-
-      - `:"session.thread_created"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -8573,6 +9231,8 @@ puts(beta_managed_agents_stream_session_events)
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -8581,9 +9241,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_start"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_start"`
+    - `type: :"span.outcome_evaluation_start"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -8601,6 +9261,8 @@ puts(beta_managed_agents_stream_session_events)
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: String`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -8613,13 +9275,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: String`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: :"span.outcome_evaluation_end"`
-
-      - `:"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -8629,17 +9291,25 @@ puts(beta_managed_agents_stream_session_events)
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: Integer`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: Integer`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: Integer`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed: :standard | :fast`
 
@@ -8661,9 +9331,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_start"`
+      format: date-time
 
-      - `:"span.model_request_start"`
+    - `type: :"span.model_request_start"`
 
   - `class BetaManagedAgentsSpanModelRequestEndEvent`
 
@@ -8689,9 +9359,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_end"`
+      format: date-time
 
-      - `:"span.model_request_end"`
+    - `type: :"span.model_request_end"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -8705,6 +9375,8 @@ puts(beta_managed_agents_stream_session_events)
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -8713,9 +9385,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_ongoing"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_ongoing"`
+    - `type: :"span.outcome_evaluation_ongoing"`
 
   - `class BetaManagedAgentsUserDefineOutcomeEvent`
 
@@ -8733,6 +9405,8 @@ puts(beta_managed_agents_stream_session_events)
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: String`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -8740,6 +9414,8 @@ puts(beta_managed_agents_stream_session_events)
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -8755,8 +9431,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :file`
 
-          - `:file`
-
       - `class BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
@@ -8767,11 +9441,7 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :text`
 
-          - `:text`
-
     - `type: :"user.define_outcome"`
-
-      - `:"user.define_outcome"`
 
   - `class BetaManagedAgentsSessionDeletedEvent`
 
@@ -8785,9 +9455,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.deleted"`
+      format: date-time
 
-      - `:"session.deleted"`
+    - `type: :"session.deleted"`
 
   - `class BetaManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -8805,13 +9475,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: :"session.thread_status_running"`
-
-      - `:"session.thread_status_running"`
 
   - `class BetaManagedAgentsSessionThreadStatusIdleEvent`
 
@@ -8829,11 +9499,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that went idle.
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -8847,11 +9519,13 @@ puts(beta_managed_agents_stream_session_events)
 
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
+
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
     - `type: :"session.thread_status_idle"`
-
-      - `:"session.thread_status_idle"`
 
   - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -8869,13 +9543,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: :"session.thread_status_terminated"`
-
-      - `:"session.thread_status_terminated"`
 
   - `class BetaManagedAgentsUserToolResultEvent`
 
@@ -8890,8 +9564,6 @@ puts(beta_managed_agents_stream_session_events)
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.tool_result"`
-
-      - `:"user.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -8921,6 +9593,8 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -8941,13 +9615,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: :"session.thread_status_rescheduled"`
-
-      - `:"session.thread_status_rescheduled"`
 
   - `class BetaManagedAgentsSessionUpdatedEvent`
 
@@ -8961,9 +9635,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.updated"`
+      format: date-time
 
-      - `:"session.updated"`
+    - `type: :"session.updated"`
 
     - `agent: BetaManagedAgentsSessionAgent`
 
@@ -8979,8 +9653,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :url`
 
-          - `:url`
-
         - `url: String`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -8993,7 +9665,7 @@ puts(beta_managed_agents_stream_session_events)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-4-8" | 9 more`
+          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-5" | 10 more`
 
             The model that will power your agent.
 
@@ -9007,17 +9679,21 @@ puts(beta_managed_agents_stream_session_events)
 
               Next generation of intelligence for the hardest knowledge work and coding problems
 
+            - `:"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `:"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-6"`
 
-              Most intelligent model for building agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-6"`
 
@@ -9033,11 +9709,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `:"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-5"`
 
@@ -9048,6 +9724,44 @@ puts(beta_managed_agents_stream_session_events)
               High-performance model for agents and coding
 
           - `String = String`
+
+        - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+
+          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+          - `class BetaManagedAgentsEffortLow`
+
+            Low effort. Favors latency over reasoning depth.
+
+            - `type: :low`
+
+          - `class BetaManagedAgentsEffortMedium`
+
+            Medium effort. Balances latency and reasoning depth.
+
+            - `type: :medium`
+
+          - `class BetaManagedAgentsEffortHigh`
+
+            High effort. Favors reasoning depth.
+
+            - `type: :high`
+
+          - `class BetaManagedAgentsEffortXhigh`
+
+            Extra-high effort. Not all models accept this level.
+
+            - `type: :xhigh`
+
+          - `class BetaManagedAgentsEffortMax`
+
+            Maximum effort. Favors reasoning depth over latency.
+
+            - `type: :max`
+
+        - `inference_geo: String`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
         - `speed: :standard | :fast`
 
@@ -9061,203 +9775,383 @@ puts(beta_managed_agents_stream_session_events)
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
-        - `agents: Array[BetaManagedAgentsSessionThreadAgent]`
+        - `agents: Array[BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor]`
 
           Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `id: String`
+          - `class BetaManagedAgentsSessionThreadAgent`
 
-          - `description: String`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
+            - `id: String`
 
-            - `name: String`
+            - `description: String`
 
-            - `type: :url`
-
-            - `url: String`
-
-          - `model: BetaManagedAgentsModelConfig`
-
-            Model identifier and configuration.
-
-          - `name: String`
-
-          - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
-
-            - `class BetaManagedAgentsAnthropicSkill`
-
-              A resolved Anthropic-managed skill.
-
-              - `skill_id: String`
-
-              - `type: :anthropic`
-
-                - `:anthropic`
-
-              - `version: String`
-
-            - `class BetaManagedAgentsCustomSkill`
-
-              A resolved user-created custom skill.
-
-              - `skill_id: String`
-
-              - `type: :custom`
-
-                - `:custom`
-
-              - `version: String`
-
-          - `system_: String`
-
-          - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
-
-            - `class BetaManagedAgentsAgentToolset20260401`
-
-              - `configs: Array[BetaManagedAgentsAgentToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: :bash | :edit | :read | 5 more`
-
-                  Built-in agent tool identifier.
-
-                  - `:bash`
-
-                  - `:edit`
-
-                  - `:read`
-
-                  - `:write`
-
-                  - `:glob`
-
-                  - `:grep`
-
-                  - `:web_fetch`
-
-                  - `:web_search`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                    - `type: :always_allow`
-
-                      - `:always_allow`
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-                    - `type: :always_ask`
-
-                      - `:always_ask`
-
-              - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `type: :agent_toolset_20260401`
-
-                - `:agent_toolset_20260401`
-
-            - `class BetaManagedAgentsMCPToolset`
-
-              - `configs: Array[BetaManagedAgentsMCPToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: String`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `mcp_server_name: String`
-
-              - `type: :mcp_toolset`
-
-                - `:mcp_toolset`
-
-            - `class BetaManagedAgentsCustomTool`
-
-              A custom tool as returned in API responses.
-
-              - `description: String`
-
-              - `input_schema: BetaManagedAgentsCustomToolInputSchema`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: :object`
-
-                  - `:object`
-
-                - `properties: Hash[Symbol, untyped]`
-
-                - `required: Array[String]`
+            - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
               - `name: String`
 
-              - `type: :custom`
+              - `type: :url`
 
-                - `:custom`
+              - `url: String`
 
-          - `type: :agent`
+            - `model: BetaManagedAgentsModelConfig`
 
-            - `:agent`
+              Model identifier and configuration.
 
-          - `version: Integer`
+            - `name: String`
+
+            - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
+
+              - `class BetaManagedAgentsAnthropicSkill`
+
+                A resolved Anthropic-managed skill.
+
+                - `skill_id: String`
+
+                - `type: :anthropic`
+
+                - `version: String`
+
+              - `class BetaManagedAgentsCustomSkill`
+
+                A resolved user-created custom skill.
+
+                - `skill_id: String`
+
+                - `type: :custom`
+
+                - `version: String`
+
+            - `system_: String`
+
+            - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
+
+              - `class BetaManagedAgentsAgentToolset20260401`
+
+                - `configs: Array[BetaManagedAgentsAgentToolConfig]`
+
+                  - `class BetaManagedAgentsBashToolConfig`
+
+                    Configuration for the bash tool.
+
+                    - `enabled: bool`
+
+                    - `name: :bash`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: :always_allow`
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: :always_ask`
+
+                    - `type: :bash`
+
+                  - `class BetaManagedAgentsEditToolConfig`
+
+                    Configuration for the edit tool.
+
+                    - `enabled: bool`
+
+                    - `name: :edit`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :edit`
+
+                  - `class BetaManagedAgentsReadToolConfig`
+
+                    Configuration for the read tool.
+
+                    - `enabled: bool`
+
+                    - `name: :read`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :read`
+
+                  - `class BetaManagedAgentsWriteToolConfig`
+
+                    Configuration for the write tool.
+
+                    - `enabled: bool`
+
+                    - `name: :write`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :write`
+
+                  - `class BetaManagedAgentsGlobToolConfig`
+
+                    Configuration for the glob tool.
+
+                    - `enabled: bool`
+
+                    - `name: :glob`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :glob`
+
+                  - `class BetaManagedAgentsGrepToolConfig`
+
+                    Configuration for the grep tool.
+
+                    - `enabled: bool`
+
+                    - `name: :grep`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :grep`
+
+                  - `class BetaManagedAgentsWebFetchToolConfig`
+
+                    Configuration for the web_fetch tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_fetch`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_fetch`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `max_content_tokens: Integer`
+
+                      format: int32
+
+                  - `class BetaManagedAgentsWebSearchToolConfig`
+
+                    Configuration for the web_search tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_search`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_search`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `user_location: BetaManagedAgentsUserLocation`
+
+                      Approximate user location for search result localization.
+
+                      - `type: :approximate`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: String`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: String`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: String`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: String`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `type: :agent_toolset_20260401`
+
+              - `class BetaManagedAgentsMCPToolset`
+
+                - `configs: Array[BetaManagedAgentsMCPToolConfig]`
+
+                  - `enabled: bool`
+
+                  - `name: String`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `mcp_server_name: String`
+
+                - `type: :mcp_toolset`
+
+              - `class BetaManagedAgentsCustomTool`
+
+                A custom tool as returned in API responses.
+
+                - `description: String`
+
+                - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: :object`
+
+                  - `properties: Hash[Symbol, untyped]`
+
+                  - `required: Array[String]`
+
+                - `name: String`
+
+                - `type: :custom`
+
+            - `type: :agent`
+
+            - `version: Integer`
+
+              format: int32
+
+          - `class BetaManagedAgentsAdvisor`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `model: String`
+
+              The advisor model id.
+
+            - `type: :advisor`
 
         - `type: :coordinator`
-
-          - `:coordinator`
 
       - `name: String`
 
@@ -9285,9 +10179,27 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :agent`
 
-        - `:agent`
-
       - `version: Integer`
+
+        format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+      - `max_list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+        - `amount: String`
+
+          Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        - `currency: BetaCurrency`
+
+          Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+      - `type: :limit`
 
     - `metadata: Hash[Symbol, String]`
 
@@ -9313,17 +10225,101 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
+        minLength: 1
+
       - `type: :text`
 
-        - `:text`
-
     - `type: :"system.message"`
-
-      - `:"system.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
+
+  - `class BetaManagedAgentsSessionUsageEvent`
+
+    Periodic snapshot of the session's cumulative usage and tracked list cost.
+
+    - `id: String`
+
+      Unique identifier for this event.
+
+    - `processed_at: Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `type: :"session.usage"`
+
+    - `usage: BetaManagedAgentsSessionUsageSnapshot`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+      - `active_seconds: Float`
+
+        Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+        format: double
+
+      - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+
+        Prompt-cache creation token usage broken down by cache lifetime.
+
+        - `ephemeral_1h_input_tokens: Integer`
+
+          Tokens used to create 1-hour ephemeral cache entries.
+
+          format: int32
+
+        - `ephemeral_5m_input_tokens: Integer`
+
+          Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
+
+      - `cache_read_input_tokens: Integer`
+
+        Total tokens read from prompt cache.
+
+        format: int32
+
+      - `input_tokens: Integer`
+
+        Total input tokens consumed across all turns.
+
+        format: int32
+
+      - `list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+      - `output_tokens: Integer`
+
+        Total output tokens generated across all turns.
+
+        format: int32
+
+      - `server_tool_use: BetaManagedAgentsServerToolUsage`
+
+        Cumulative count of server-executed tool invocations, broken down by tool.
+
+        - `web_fetch_requests: Integer`
+
+          Number of server-executed web fetch requests.
+
+          format: int32
+
+        - `web_search_requests: Integer`
+
+          Number of server-executed web search requests.
+
+          format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 ### Beta Managed Agents Session Requires Action
 
@@ -9337,17 +10333,13 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :requires_action`
 
-    - `:requires_action`
-
 ### Beta Managed Agents Session Retries Exhausted
 
 - `class BetaManagedAgentsSessionRetriesExhausted`
 
-  The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+  The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
   - `type: :retries_exhausted`
-
-    - `:retries_exhausted`
 
 ### Beta Managed Agents Session Status Idle Event
 
@@ -9363,7 +10355,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+    format: date-time
+
+  - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
     The agent completed its turn naturally and is ready for the next user message.
 
@@ -9372,8 +10366,6 @@ puts(beta_managed_agents_stream_session_events)
       The agent completed its turn naturally and is ready for the next user message.
 
       - `type: :end_turn`
-
-        - `:end_turn`
 
     - `class BetaManagedAgentsSessionRequiresAction`
 
@@ -9385,19 +10377,19 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :requires_action`
 
-        - `:requires_action`
-
     - `class BetaManagedAgentsSessionRetriesExhausted`
 
-      The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+      The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
       - `type: :retries_exhausted`
 
-        - `:retries_exhausted`
+    - `class BetaManagedAgentsSessionBudgetReached`
+
+      The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+      - `type: :budget_reached`
 
   - `type: :"session.status_idle"`
-
-    - `:"session.status_idle"`
 
 ### Beta Managed Agents Session Status Rescheduled Event
 
@@ -9413,9 +10405,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"session.status_rescheduled"`
+    format: date-time
 
-    - `:"session.status_rescheduled"`
+  - `type: :"session.status_rescheduled"`
 
 ### Beta Managed Agents Session Status Running Event
 
@@ -9431,9 +10423,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"session.status_running"`
+    format: date-time
 
-    - `:"session.status_running"`
+  - `type: :"session.status_running"`
 
 ### Beta Managed Agents Session Status Terminated Event
 
@@ -9449,9 +10441,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"session.status_terminated"`
+    format: date-time
 
-    - `:"session.status_terminated"`
+  - `type: :"session.status_terminated"`
 
 ### Beta Managed Agents Session Thread Created Event
 
@@ -9471,13 +10463,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `session_thread_id: String`
 
     Public `sthr_` ID of the newly created thread.
 
   - `type: :"session.thread_created"`
-
-    - `:"session.thread_created"`
 
 ### Beta Managed Agents Session Thread Status Idle Event
 
@@ -9497,11 +10489,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `session_thread_id: String`
 
     Public sthr_ ID of the thread that went idle.
 
-  - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+  - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
     The agent completed its turn naturally and is ready for the next user message.
 
@@ -9510,8 +10504,6 @@ puts(beta_managed_agents_stream_session_events)
       The agent completed its turn naturally and is ready for the next user message.
 
       - `type: :end_turn`
-
-        - `:end_turn`
 
     - `class BetaManagedAgentsSessionRequiresAction`
 
@@ -9523,19 +10515,19 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :requires_action`
 
-        - `:requires_action`
-
     - `class BetaManagedAgentsSessionRetriesExhausted`
 
-      The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+      The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
       - `type: :retries_exhausted`
 
-        - `:retries_exhausted`
+    - `class BetaManagedAgentsSessionBudgetReached`
+
+      The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+      - `type: :budget_reached`
 
   - `type: :"session.thread_status_idle"`
-
-    - `:"session.thread_status_idle"`
 
 ### Beta Managed Agents Session Thread Status Rescheduled Event
 
@@ -9555,13 +10547,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `session_thread_id: String`
 
     Public sthr_ ID of the thread that is retrying.
 
   - `type: :"session.thread_status_rescheduled"`
-
-    - `:"session.thread_status_rescheduled"`
 
 ### Beta Managed Agents Session Thread Status Running Event
 
@@ -9581,13 +10573,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `session_thread_id: String`
 
     Public sthr_ ID of the thread that started running.
 
   - `type: :"session.thread_status_running"`
-
-    - `:"session.thread_status_running"`
 
 ### Beta Managed Agents Session Thread Status Terminated Event
 
@@ -9607,13 +10599,87 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `session_thread_id: String`
 
     Public sthr_ ID of the thread that terminated.
 
   - `type: :"session.thread_status_terminated"`
 
-    - `:"session.thread_status_terminated"`
+### Beta Managed Agents Session Usage Snapshot
+
+- `class BetaManagedAgentsSessionUsageSnapshot`
+
+  Point-in-time snapshot of a session's cumulative usage.
+
+  - `active_seconds: Float`
+
+    Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+    format: double
+
+  - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+
+    Prompt-cache creation token usage broken down by cache lifetime.
+
+    - `ephemeral_1h_input_tokens: Integer`
+
+      Tokens used to create 1-hour ephemeral cache entries.
+
+      format: int32
+
+    - `ephemeral_5m_input_tokens: Integer`
+
+      Tokens used to create 5-minute ephemeral cache entries.
+
+      format: int32
+
+  - `cache_read_input_tokens: Integer`
+
+    Total tokens read from prompt cache.
+
+    format: int32
+
+  - `input_tokens: Integer`
+
+    Total input tokens consumed across all turns.
+
+    format: int32
+
+  - `list_cost: BetaMonetaryAmount`
+
+    A monetary amount in a specific currency.
+
+    - `amount: String`
+
+      Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+    - `currency: BetaCurrency`
+
+      Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+  - `output_tokens: Integer`
+
+    Total output tokens generated across all turns.
+
+    format: int32
+
+  - `server_tool_use: BetaManagedAgentsServerToolUsage`
+
+    Cumulative count of server-executed tool invocations, broken down by tool.
+
+    - `web_fetch_requests: Integer`
+
+      Number of server-executed web fetch requests.
+
+      format: int32
+
+    - `web_search_requests: Integer`
+
+      Number of server-executed web search requests.
+
+      format: int32
 
 ### Beta Managed Agents Span Model Request End Event
 
@@ -9641,17 +10707,25 @@ puts(beta_managed_agents_stream_session_events)
 
       Tokens used to create prompt cache in this request.
 
+      format: int32
+
     - `cache_read_input_tokens: Integer`
 
       Tokens read from prompt cache in this request.
+
+      format: int32
 
     - `input_tokens: Integer`
 
       Input tokens consumed by this request.
 
+      format: int32
+
     - `output_tokens: Integer`
 
       Output tokens generated by this request.
+
+      format: int32
 
     - `speed: :standard | :fast`
 
@@ -9665,9 +10739,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"span.model_request_end"`
+    format: date-time
 
-    - `:"span.model_request_end"`
+  - `type: :"span.model_request_end"`
 
 ### Beta Managed Agents Span Model Request Start Event
 
@@ -9683,9 +10757,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"span.model_request_start"`
+    format: date-time
 
-    - `:"span.model_request_start"`
+  - `type: :"span.model_request_start"`
 
 ### Beta Managed Agents Span Model Usage
 
@@ -9697,17 +10771,25 @@ puts(beta_managed_agents_stream_session_events)
 
     Tokens used to create prompt cache in this request.
 
+    format: int32
+
   - `cache_read_input_tokens: Integer`
 
     Tokens read from prompt cache in this request.
+
+    format: int32
 
   - `input_tokens: Integer`
 
     Input tokens consumed by this request.
 
+    format: int32
+
   - `output_tokens: Integer`
 
     Output tokens generated by this request.
+
+    format: int32
 
   - `speed: :standard | :fast`
 
@@ -9735,6 +10817,8 @@ puts(beta_managed_agents_stream_session_events)
 
     0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+    format: int32
+
   - `outcome_evaluation_start_id: String`
 
     The id of the corresponding `span.outcome_evaluation_start` event.
@@ -9747,13 +10831,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `result: String`
 
     Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
   - `type: :"span.outcome_evaluation_end"`
-
-    - `:"span.outcome_evaluation_end"`
 
   - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -9763,17 +10847,25 @@ puts(beta_managed_agents_stream_session_events)
 
       Tokens used to create prompt cache in this request.
 
+      format: int32
+
     - `cache_read_input_tokens: Integer`
 
       Tokens read from prompt cache in this request.
+
+      format: int32
 
     - `input_tokens: Integer`
 
       Input tokens consumed by this request.
 
+      format: int32
+
     - `output_tokens: Integer`
 
       Output tokens generated by this request.
+
+      format: int32
 
     - `speed: :standard | :fast`
 
@@ -9797,6 +10889,8 @@ puts(beta_managed_agents_stream_session_events)
 
     0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+    format: int32
+
   - `outcome_id: String`
 
     The `outc_` ID of the outcome being evaluated.
@@ -9805,9 +10899,9 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"span.outcome_evaluation_ongoing"`
+    format: date-time
 
-    - `:"span.outcome_evaluation_ongoing"`
+  - `type: :"span.outcome_evaluation_ongoing"`
 
 ### Beta Managed Agents Span Outcome Evaluation Start Event
 
@@ -9823,6 +10917,8 @@ puts(beta_managed_agents_stream_session_events)
 
     0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+    format: int32
+
   - `outcome_id: String`
 
     The `outc_` ID of the outcome being evaluated.
@@ -9831,13 +10927,13 @@ puts(beta_managed_agents_stream_session_events)
 
     A timestamp in RFC 3339 format
 
-  - `type: :"span.outcome_evaluation_start"`
+    format: date-time
 
-    - `:"span.outcome_evaluation_start"`
+  - `type: :"span.outcome_evaluation_start"`
 
 ### Beta Managed Agents Stream Session Events
 
-- `BetaManagedAgentsStreamSessionEvents = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 33 more`
+- `BetaManagedAgentsStreamSessionEvents = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 34 more`
 
   Server-sent event in the session stream.
 
@@ -9849,7 +10945,7 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of content blocks comprising the user message.
 
@@ -9861,9 +10957,9 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `class BetaManagedAgentsImageBlock`
 
@@ -9881,13 +10977,15 @@ puts(beta_managed_agents_stream_session_events)
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsURLImageSource`
 
@@ -9895,11 +10993,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileImageSource`
 
@@ -9909,13 +11007,11 @@ puts(beta_managed_agents_stream_session_events)
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
       - `class BetaManagedAgentsDocumentBlock`
 
@@ -9933,13 +11029,15 @@ puts(beta_managed_agents_stream_session_events)
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: String`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: :base64`
+              minLength: 1
 
-              - `:base64`
+            - `type: :base64`
 
           - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -9949,15 +11047,13 @@ puts(beta_managed_agents_stream_session_events)
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: :"text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaManagedAgentsURLDocumentSource`
 
@@ -9965,11 +11061,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :url`
 
-              - `:url`
-
             - `url: String`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `class BetaManagedAgentsFileDocumentSource`
 
@@ -9979,13 +11075,11 @@ puts(beta_managed_agents_stream_session_events)
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `context: String`
 
@@ -9995,13 +11089,19 @@ puts(beta_managed_agents_stream_session_events)
 
           The title of the document.
 
-    - `type: :"user.message"`
+      - `class BetaManagedAgentsRedactedBlock`
 
-      - `:"user.message"`
+        Placeholder for content withheld by Anthropic model policy.
+
+        - `type: :redacted`
+
+    - `type: :"user.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsUserInterruptEvent`
 
@@ -10013,11 +11113,11 @@ puts(beta_managed_agents_stream_session_events)
 
     - `type: :"user.interrupt"`
 
-      - `:"user.interrupt"`
-
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -10045,15 +11145,17 @@ puts(beta_managed_agents_stream_session_events)
 
     - `type: :"user.tool_confirmation"`
 
-      - `:"user.tool_confirmation"`
-
     - `deny_message: String`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -10072,8 +11174,6 @@ puts(beta_managed_agents_stream_session_events)
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.custom_tool_result"`
-
-      - `:"user.custom_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -10111,21 +11211,23 @@ puts(beta_managed_agents_stream_session_events)
 
             The text content.
 
-          - `type: :text`
+            minLength: 1
 
-            - `:text`
+          - `type: :text`
 
         - `source: String`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: String`
 
           The title of the search result.
 
-        - `type: :search_result`
+          minLength: 1
 
-          - `:search_result`
+        - `type: :search_result`
 
     - `is_error: bool`
 
@@ -10134,6 +11236,8 @@ puts(beta_managed_agents_stream_session_events)
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: String`
 
@@ -10159,9 +11263,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.custom_tool_use"`
+      format: date-time
 
-      - `:"agent.custom_tool_use"`
+    - `type: :"agent.custom_tool_use"`
 
     - `session_thread_id: String`
 
@@ -10175,23 +11279,25 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsRedactedBlock]`
 
       Array of text blocks comprising the agent response.
 
-      - `text: String`
+      - `class BetaManagedAgentsTextBlock`
 
-        The text content.
+        Regular text content.
 
-      - `type: :text`
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.message"`
+      format: date-time
 
-      - `:"agent.message"`
+    - `type: :"agent.message"`
 
   - `class BetaManagedAgentsAgentThinkingEvent`
 
@@ -10205,9 +11311,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thinking"`
+      format: date-time
 
-      - `:"agent.thinking"`
+    - `type: :"agent.thinking"`
 
   - `class BetaManagedAgentsAgentMCPToolUseEvent`
 
@@ -10233,9 +11339,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_use"`
+      format: date-time
 
-      - `:"agent.mcp_tool_use"`
+    - `type: :"agent.mcp_tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -10267,9 +11373,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.mcp_tool_result"`
+      format: date-time
 
-      - `:"agent.mcp_tool_result"`
+    - `type: :"agent.mcp_tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -10315,9 +11421,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.tool_use"`
+      format: date-time
 
-      - `:"agent.tool_use"`
+    - `type: :"agent.tool_use"`
 
     - `evaluated_permission: :allow | :ask | :deny`
 
@@ -10345,13 +11451,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: String`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: :"agent.tool_result"`
-
-      - `:"agent.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -10385,7 +11491,7 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -10401,6 +11507,10 @@ puts(beta_managed_agents_stream_session_events)
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `from_session_thread_id: String`
 
       Public `sthr_` ID of the thread that sent the message.
@@ -10409,9 +11519,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_message_received"`
+      format: date-time
 
-      - `:"agent.thread_message_received"`
+    - `type: :"agent.thread_message_received"`
 
     - `from_agent_name: String`
 
@@ -10425,7 +11535,7 @@ puts(beta_managed_agents_stream_session_events)
 
       Unique identifier for this event.
 
-    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+    - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
       Message content blocks.
 
@@ -10441,17 +11551,21 @@ puts(beta_managed_agents_stream_session_events)
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
+      - `class BetaManagedAgentsRedactedBlock`
+
+        Placeholder for content withheld by Anthropic model policy.
+
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `to_session_thread_id: String`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: :"agent.thread_message_sent"`
-
-      - `:"agent.thread_message_sent"`
 
     - `to_agent_name: String`
 
@@ -10469,9 +11583,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"agent.thread_context_compacted"`
+      format: date-time
 
-      - `:"agent.thread_context_compacted"`
+    - `type: :"agent.thread_context_compacted"`
 
   - `class BetaManagedAgentsSessionErrorEvent`
 
@@ -10503,15 +11617,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :retrying`
 
-              - `:retrying`
-
           - `class BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: :exhausted`
-
-              - `:exhausted`
 
           - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -10519,11 +11629,7 @@ puts(beta_managed_agents_stream_session_events)
 
             - `type: :terminal`
 
-              - `:terminal`
-
         - `type: :unknown_error`
-
-          - `:unknown_error`
 
       - `class BetaManagedAgentsModelOverloadedError`
 
@@ -10551,8 +11657,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :model_overloaded_error`
 
-          - `:model_overloaded_error`
-
       - `class BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
@@ -10579,8 +11683,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :model_rate_limited_error`
 
-          - `:model_rate_limited_error`
-
       - `class BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -10606,8 +11708,6 @@ puts(beta_managed_agents_stream_session_events)
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :model_request_failed_error`
-
-          - `:model_request_failed_error`
 
       - `class BetaManagedAgentsMCPConnectionFailedError`
 
@@ -10639,8 +11739,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :mcp_connection_failed_error`
 
-          - `:mcp_connection_failed_error`
-
       - `class BetaManagedAgentsMCPAuthenticationFailedError`
 
         Authentication to an MCP server failed.
@@ -10671,8 +11769,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :mcp_authentication_failed_error`
 
-          - `:mcp_authentication_failed_error`
-
       - `class BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -10698,8 +11794,6 @@ puts(beta_managed_agents_stream_session_events)
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: :billing_error`
-
-          - `:billing_error`
 
       - `class BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -10731,8 +11825,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :credential_host_unreachable_error`
 
-          - `:credential_host_unreachable_error`
-
         - `vault_id: String`
 
           ID of the vault containing the affected credential.
@@ -10741,9 +11833,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.error"`
+      format: date-time
 
-      - `:"session.error"`
+    - `type: :"session.error"`
 
   - `class BetaManagedAgentsSessionStatusRescheduledEvent`
 
@@ -10757,9 +11849,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_rescheduled"`
+      format: date-time
 
-      - `:"session.status_rescheduled"`
+    - `type: :"session.status_rescheduled"`
 
   - `class BetaManagedAgentsSessionStatusRunningEvent`
 
@@ -10773,9 +11865,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_running"`
+      format: date-time
 
-      - `:"session.status_running"`
+    - `type: :"session.status_running"`
 
   - `class BetaManagedAgentsSessionStatusIdleEvent`
 
@@ -10789,7 +11881,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+      format: date-time
+
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -10798,8 +11892,6 @@ puts(beta_managed_agents_stream_session_events)
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: :end_turn`
-
-          - `:end_turn`
 
       - `class BetaManagedAgentsSessionRequiresAction`
 
@@ -10811,19 +11903,19 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :requires_action`
 
-          - `:requires_action`
-
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: :retries_exhausted`
 
-          - `:retries_exhausted`
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
+
+        - `type: :budget_reached`
 
     - `type: :"session.status_idle"`
-
-      - `:"session.status_idle"`
 
   - `class BetaManagedAgentsSessionStatusTerminatedEvent`
 
@@ -10837,9 +11929,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.status_terminated"`
+      format: date-time
 
-      - `:"session.status_terminated"`
+    - `type: :"session.status_terminated"`
 
   - `class BetaManagedAgentsSessionThreadCreatedEvent`
 
@@ -10857,13 +11949,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: :"session.thread_created"`
-
-      - `:"session.thread_created"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -10877,6 +11969,8 @@ puts(beta_managed_agents_stream_session_events)
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -10885,9 +11979,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_start"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_start"`
+    - `type: :"span.outcome_evaluation_start"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -10905,6 +11999,8 @@ puts(beta_managed_agents_stream_session_events)
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: String`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -10917,13 +12013,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: String`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: :"span.outcome_evaluation_end"`
-
-      - `:"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -10933,17 +12029,25 @@ puts(beta_managed_agents_stream_session_events)
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: Integer`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: Integer`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: Integer`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed: :standard | :fast`
 
@@ -10965,9 +12069,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_start"`
+      format: date-time
 
-      - `:"span.model_request_start"`
+    - `type: :"span.model_request_start"`
 
   - `class BetaManagedAgentsSpanModelRequestEndEvent`
 
@@ -10993,9 +12097,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.model_request_end"`
+      format: date-time
 
-      - `:"span.model_request_end"`
+    - `type: :"span.model_request_end"`
 
   - `class BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -11009,6 +12113,8 @@ puts(beta_managed_agents_stream_session_events)
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: String`
 
       The `outc_` ID of the outcome being evaluated.
@@ -11017,9 +12123,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"span.outcome_evaluation_ongoing"`
+      format: date-time
 
-      - `:"span.outcome_evaluation_ongoing"`
+    - `type: :"span.outcome_evaluation_ongoing"`
 
   - `class BetaManagedAgentsUserDefineOutcomeEvent`
 
@@ -11037,6 +12143,8 @@ puts(beta_managed_agents_stream_session_events)
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: String`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -11044,6 +12152,8 @@ puts(beta_managed_agents_stream_session_events)
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -11059,8 +12169,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :file`
 
-          - `:file`
-
       - `class BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
@@ -11071,11 +12179,7 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :text`
 
-          - `:text`
-
     - `type: :"user.define_outcome"`
-
-      - `:"user.define_outcome"`
 
   - `class BetaManagedAgentsSessionDeletedEvent`
 
@@ -11089,9 +12193,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.deleted"`
+      format: date-time
 
-      - `:"session.deleted"`
+    - `type: :"session.deleted"`
 
   - `class BetaManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -11109,13 +12213,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: :"session.thread_status_running"`
-
-      - `:"session.thread_status_running"`
 
   - `class BetaManagedAgentsSessionThreadStatusIdleEvent`
 
@@ -11133,11 +12237,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that went idle.
 
-    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted`
+    - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
@@ -11151,11 +12257,13 @@ puts(beta_managed_agents_stream_session_events)
 
       - `class BetaManagedAgentsSessionRetriesExhausted`
 
-        The turn ended because the retry budget was exhausted (`max_iterations` hit or an error escalated to `retry_status: 'exhausted'`).
+        The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
+
+      - `class BetaManagedAgentsSessionBudgetReached`
+
+        The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
     - `type: :"session.thread_status_idle"`
-
-      - `:"session.thread_status_idle"`
 
   - `class BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
@@ -11173,13 +12281,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: :"session.thread_status_terminated"`
-
-      - `:"session.thread_status_terminated"`
 
   - `class BetaManagedAgentsUserToolResultEvent`
 
@@ -11194,8 +12302,6 @@ puts(beta_managed_agents_stream_session_events)
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: :"user.tool_result"`
-
-      - `:"user.tool_result"`
 
     - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -11225,6 +12331,8 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -11245,13 +12353,13 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: String`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: :"session.thread_status_rescheduled"`
-
-      - `:"session.thread_status_rescheduled"`
 
   - `class BetaManagedAgentsSessionUpdatedEvent`
 
@@ -11265,9 +12373,9 @@ puts(beta_managed_agents_stream_session_events)
 
       A timestamp in RFC 3339 format
 
-    - `type: :"session.updated"`
+      format: date-time
 
-      - `:"session.updated"`
+    - `type: :"session.updated"`
 
     - `agent: BetaManagedAgentsSessionAgent`
 
@@ -11283,8 +12391,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :url`
 
-          - `:url`
-
         - `url: String`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -11297,7 +12403,7 @@ puts(beta_managed_agents_stream_session_events)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-4-8" | 9 more`
+          - `BetaManagedAgentsModel = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-opus-5" | 10 more`
 
             The model that will power your agent.
 
@@ -11311,17 +12417,21 @@ puts(beta_managed_agents_stream_session_events)
 
               Next generation of intelligence for the hardest knowledge work and coding problems
 
+            - `:"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `:"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-6"`
 
-              Most intelligent model for building agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-6"`
 
@@ -11337,11 +12447,11 @@ puts(beta_managed_agents_stream_session_events)
 
             - `:"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `:"claude-sonnet-4-5"`
 
@@ -11352,6 +12462,44 @@ puts(beta_managed_agents_stream_session_events)
               High-performance model for agents and coding
 
           - `String = String`
+
+        - `effort: BetaManagedAgentsEffortLow | BetaManagedAgentsEffortMedium | BetaManagedAgentsEffortHigh | 2 more`
+
+          How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+          - `class BetaManagedAgentsEffortLow`
+
+            Low effort. Favors latency over reasoning depth.
+
+            - `type: :low`
+
+          - `class BetaManagedAgentsEffortMedium`
+
+            Medium effort. Balances latency and reasoning depth.
+
+            - `type: :medium`
+
+          - `class BetaManagedAgentsEffortHigh`
+
+            High effort. Favors reasoning depth.
+
+            - `type: :high`
+
+          - `class BetaManagedAgentsEffortXhigh`
+
+            Extra-high effort. Not all models accept this level.
+
+            - `type: :xhigh`
+
+          - `class BetaManagedAgentsEffortMax`
+
+            Maximum effort. Favors reasoning depth over latency.
+
+            - `type: :max`
+
+        - `inference_geo: String`
+
+          Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
         - `speed: :standard | :fast`
 
@@ -11365,203 +12513,383 @@ puts(beta_managed_agents_stream_session_events)
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
-        - `agents: Array[BetaManagedAgentsSessionThreadAgent]`
+        - `agents: Array[BetaManagedAgentsSessionThreadAgent | BetaManagedAgentsAdvisor]`
 
           Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `id: String`
+          - `class BetaManagedAgentsSessionThreadAgent`
 
-          - `description: String`
+            Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
-          - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
+            - `id: String`
 
-            - `name: String`
+            - `description: String`
 
-            - `type: :url`
-
-            - `url: String`
-
-          - `model: BetaManagedAgentsModelConfig`
-
-            Model identifier and configuration.
-
-          - `name: String`
-
-          - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
-
-            - `class BetaManagedAgentsAnthropicSkill`
-
-              A resolved Anthropic-managed skill.
-
-              - `skill_id: String`
-
-              - `type: :anthropic`
-
-                - `:anthropic`
-
-              - `version: String`
-
-            - `class BetaManagedAgentsCustomSkill`
-
-              A resolved user-created custom skill.
-
-              - `skill_id: String`
-
-              - `type: :custom`
-
-                - `:custom`
-
-              - `version: String`
-
-          - `system_: String`
-
-          - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
-
-            - `class BetaManagedAgentsAgentToolset20260401`
-
-              - `configs: Array[BetaManagedAgentsAgentToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: :bash | :edit | :read | 5 more`
-
-                  Built-in agent tool identifier.
-
-                  - `:bash`
-
-                  - `:edit`
-
-                  - `:read`
-
-                  - `:write`
-
-                  - `:glob`
-
-                  - `:grep`
-
-                  - `:web_fetch`
-
-                  - `:web_search`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                    - `type: :always_allow`
-
-                      - `:always_allow`
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-                    - `type: :always_ask`
-
-                      - `:always_ask`
-
-              - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
-
-                Resolved default configuration for agent tools.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `type: :agent_toolset_20260401`
-
-                - `:agent_toolset_20260401`
-
-            - `class BetaManagedAgentsMCPToolset`
-
-              - `configs: Array[BetaManagedAgentsMCPToolConfig]`
-
-                - `enabled: bool`
-
-                - `name: String`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
-
-                Resolved default configuration for all tools from an MCP server.
-
-                - `enabled: bool`
-
-                - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
-
-                  Permission policy for tool execution.
-
-                  - `class BetaManagedAgentsAlwaysAllowPolicy`
-
-                    Tool calls are automatically approved without user confirmation.
-
-                  - `class BetaManagedAgentsAlwaysAskPolicy`
-
-                    Tool calls require user confirmation before execution.
-
-              - `mcp_server_name: String`
-
-              - `type: :mcp_toolset`
-
-                - `:mcp_toolset`
-
-            - `class BetaManagedAgentsCustomTool`
-
-              A custom tool as returned in API responses.
-
-              - `description: String`
-
-              - `input_schema: BetaManagedAgentsCustomToolInputSchema`
-
-                JSON Schema for custom tool input parameters.
-
-                - `type: :object`
-
-                  - `:object`
-
-                - `properties: Hash[Symbol, untyped]`
-
-                - `required: Array[String]`
+            - `mcp_servers: Array[BetaManagedAgentsMCPServerURLDefinition]`
 
               - `name: String`
 
-              - `type: :custom`
+              - `type: :url`
 
-                - `:custom`
+              - `url: String`
 
-          - `type: :agent`
+            - `model: BetaManagedAgentsModelConfig`
 
-            - `:agent`
+              Model identifier and configuration.
 
-          - `version: Integer`
+            - `name: String`
+
+            - `skills: Array[BetaManagedAgentsAnthropicSkill | BetaManagedAgentsCustomSkill]`
+
+              - `class BetaManagedAgentsAnthropicSkill`
+
+                A resolved Anthropic-managed skill.
+
+                - `skill_id: String`
+
+                - `type: :anthropic`
+
+                - `version: String`
+
+              - `class BetaManagedAgentsCustomSkill`
+
+                A resolved user-created custom skill.
+
+                - `skill_id: String`
+
+                - `type: :custom`
+
+                - `version: String`
+
+            - `system_: String`
+
+            - `tools: Array[BetaManagedAgentsAgentToolset20260401 | BetaManagedAgentsMCPToolset | BetaManagedAgentsCustomTool]`
+
+              - `class BetaManagedAgentsAgentToolset20260401`
+
+                - `configs: Array[BetaManagedAgentsAgentToolConfig]`
+
+                  - `class BetaManagedAgentsBashToolConfig`
+
+                    Configuration for the bash tool.
+
+                    - `enabled: bool`
+
+                    - `name: :bash`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                        - `type: :always_allow`
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                        - `type: :always_ask`
+
+                    - `type: :bash`
+
+                  - `class BetaManagedAgentsEditToolConfig`
+
+                    Configuration for the edit tool.
+
+                    - `enabled: bool`
+
+                    - `name: :edit`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :edit`
+
+                  - `class BetaManagedAgentsReadToolConfig`
+
+                    Configuration for the read tool.
+
+                    - `enabled: bool`
+
+                    - `name: :read`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :read`
+
+                  - `class BetaManagedAgentsWriteToolConfig`
+
+                    Configuration for the write tool.
+
+                    - `enabled: bool`
+
+                    - `name: :write`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :write`
+
+                  - `class BetaManagedAgentsGlobToolConfig`
+
+                    Configuration for the glob tool.
+
+                    - `enabled: bool`
+
+                    - `name: :glob`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :glob`
+
+                  - `class BetaManagedAgentsGrepToolConfig`
+
+                    Configuration for the grep tool.
+
+                    - `enabled: bool`
+
+                    - `name: :grep`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :grep`
+
+                  - `class BetaManagedAgentsWebFetchToolConfig`
+
+                    Configuration for the web_fetch tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_fetch`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_fetch`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `max_content_tokens: Integer`
+
+                      format: int32
+
+                  - `class BetaManagedAgentsWebSearchToolConfig`
+
+                    Configuration for the web_search tool.
+
+                    - `enabled: bool`
+
+                    - `name: :web_search`
+
+                    - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                      Permission policy for tool execution.
+
+                      - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                        Tool calls are automatically approved without user confirmation.
+
+                      - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                        Tool calls require user confirmation before execution.
+
+                    - `type: :web_search`
+
+                    - `allowed_domains: Array[String]`
+
+                    - `blocked_domains: Array[String]`
+
+                    - `user_location: BetaManagedAgentsUserLocation`
+
+                      Approximate user location for search result localization.
+
+                      - `type: :approximate`
+
+                        Location precision. Only "approximate" is supported.
+
+                      - `city: String`
+
+                        City name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `country: String`
+
+                        Two-letter ISO 3166-1 country code, uppercase.
+
+                      - `region: String`
+
+                        Region or state name.
+
+                        minLength: 1, maxLength: 255
+
+                      - `timezone: String`
+
+                        IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
+
+                - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
+
+                  Resolved default configuration for agent tools.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `type: :agent_toolset_20260401`
+
+              - `class BetaManagedAgentsMCPToolset`
+
+                - `configs: Array[BetaManagedAgentsMCPToolConfig]`
+
+                  - `enabled: bool`
+
+                  - `name: String`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `default_config: BetaManagedAgentsMCPToolsetDefaultConfig`
+
+                  Resolved default configuration for all tools from an MCP server.
+
+                  - `enabled: bool`
+
+                  - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
+
+                    Permission policy for tool execution.
+
+                    - `class BetaManagedAgentsAlwaysAllowPolicy`
+
+                      Tool calls are automatically approved without user confirmation.
+
+                    - `class BetaManagedAgentsAlwaysAskPolicy`
+
+                      Tool calls require user confirmation before execution.
+
+                - `mcp_server_name: String`
+
+                - `type: :mcp_toolset`
+
+              - `class BetaManagedAgentsCustomTool`
+
+                A custom tool as returned in API responses.
+
+                - `description: String`
+
+                - `input_schema: BetaManagedAgentsCustomToolInputSchema`
+
+                  JSON Schema for custom tool input parameters.
+
+                  - `type: :object`
+
+                  - `properties: Hash[Symbol, untyped]`
+
+                  - `required: Array[String]`
+
+                - `name: String`
+
+                - `type: :custom`
+
+            - `type: :agent`
+
+            - `version: Integer`
+
+              format: int32
+
+          - `class BetaManagedAgentsAdvisor`
+
+            Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+            - `model: String`
+
+              The advisor model id.
+
+            - `type: :advisor`
 
         - `type: :coordinator`
-
-          - `:coordinator`
 
       - `name: String`
 
@@ -11589,9 +12917,27 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :agent`
 
-        - `:agent`
-
       - `version: Integer`
+
+        format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+      - `max_list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+        - `amount: String`
+
+          Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+        - `currency: BetaCurrency`
+
+          Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+      - `type: :limit`
 
     - `metadata: Hash[Symbol, String]`
 
@@ -11617,8 +12963,6 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :"agent.message"`
 
-          - `:"agent.message"`
-
       - `class BetaManagedAgentsAgentThinkingPreview`
 
         - `id: String`
@@ -11627,11 +12971,7 @@ puts(beta_managed_agents_stream_session_events)
 
         - `type: :"agent.thinking"`
 
-          - `:"agent.thinking"`
-
     - `type: :event_start`
-
-      - `:event_start`
 
   - `class BetaManagedAgentsDeltaEvent`
 
@@ -11647,19 +12987,17 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :content_delta`
 
-        - `:content_delta`
-
       - `index: Integer`
 
         Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+        format: uint32
 
     - `event_id: String`
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
     - `type: :event_delta`
-
-      - `:event_delta`
 
   - `class BetaManagedAgentsSystemMessageEvent`
 
@@ -11677,17 +13015,101 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
+        minLength: 1
+
       - `type: :text`
 
-        - `:text`
-
     - `type: :"system.message"`
-
-      - `:"system.message"`
 
     - `processed_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
+
+  - `class BetaManagedAgentsSessionUsageEvent`
+
+    Periodic snapshot of the session's cumulative usage and tracked list cost.
+
+    - `id: String`
+
+      Unique identifier for this event.
+
+    - `processed_at: Time`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
+    - `type: :"session.usage"`
+
+    - `usage: BetaManagedAgentsSessionUsageSnapshot`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+      - `active_seconds: Float`
+
+        Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
+
+        format: double
+
+      - `cache_creation: BetaManagedAgentsCacheCreationUsage`
+
+        Prompt-cache creation token usage broken down by cache lifetime.
+
+        - `ephemeral_1h_input_tokens: Integer`
+
+          Tokens used to create 1-hour ephemeral cache entries.
+
+          format: int32
+
+        - `ephemeral_5m_input_tokens: Integer`
+
+          Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
+
+      - `cache_read_input_tokens: Integer`
+
+        Total tokens read from prompt cache.
+
+        format: int32
+
+      - `input_tokens: Integer`
+
+        Total input tokens consumed across all turns.
+
+        format: int32
+
+      - `list_cost: BetaMonetaryAmount`
+
+        A monetary amount in a specific currency.
+
+      - `output_tokens: Integer`
+
+        Total output tokens generated across all turns.
+
+        format: int32
+
+      - `server_tool_use: BetaManagedAgentsServerToolUsage`
+
+        Cumulative count of server-executed tool invocations, broken down by tool.
+
+        - `web_fetch_requests: Integer`
+
+          Number of server-executed web fetch requests.
+
+          format: int32
+
+        - `web_search_requests: Integer`
+
+          Number of server-executed web search requests.
+
+          format: int32
+
+    - `budget: BetaManagedAgentsBudgetLimit`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 ### Beta Managed Agents System Message Event Params
 
@@ -11703,13 +13125,11 @@ puts(beta_managed_agents_stream_session_events)
 
       The text content.
 
+      minLength: 1
+
     - `type: :text`
 
-      - `:text`
-
   - `type: :"system.message"`
-
-    - `:"system.message"`
 
 ### Beta Managed Agents Text Block
 
@@ -11721,9 +13141,9 @@ puts(beta_managed_agents_stream_session_events)
 
     The text content.
 
-  - `type: :text`
+    minLength: 1
 
-    - `:text`
+  - `type: :text`
 
 ### Beta Managed Agents Text Rubric
 
@@ -11737,8 +13157,6 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :text`
 
-    - `:text`
-
 ### Beta Managed Agents Text Rubric Params
 
 - `class BetaManagedAgentsTextRubricParams`
@@ -11749,9 +13167,9 @@ puts(beta_managed_agents_stream_session_events)
 
     Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
-  - `type: :text`
+    maxLength: 262144
 
-    - `:text`
+  - `type: :text`
 
 ### Beta Managed Agents Unknown Error
 
@@ -11773,15 +13191,11 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :retrying`
 
-        - `:retrying`
-
     - `class BetaManagedAgentsRetryStatusExhausted`
 
       This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
       - `type: :exhausted`
-
-        - `:exhausted`
 
     - `class BetaManagedAgentsRetryStatusTerminal`
 
@@ -11789,11 +13203,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :terminal`
 
-        - `:terminal`
-
   - `type: :unknown_error`
-
-    - `:unknown_error`
 
 ### Beta Managed Agents URL Document Source
 
@@ -11803,11 +13213,11 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :url`
 
-    - `:url`
-
   - `url: String`
 
     URL of the document to fetch.
+
+    minLength: 1
 
 ### Beta Managed Agents URL Image Source
 
@@ -11817,11 +13227,11 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :url`
 
-    - `:url`
-
   - `url: String`
 
     URL of the image to fetch.
+
+    minLength: 1
 
 ### Beta Managed Agents User Custom Tool Result Event
 
@@ -11839,8 +13249,6 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :"user.custom_tool_result"`
 
-    - `:"user.custom_tool_result"`
-
   - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
     The result content returned by the tool.
@@ -11853,9 +13261,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -11873,13 +13281,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -11887,11 +13297,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -11901,13 +13311,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -11925,13 +13333,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -11941,15 +13351,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -11957,11 +13365,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -11971,13 +13379,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -12007,21 +13413,23 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `source: String`
 
         The URL source of the search result.
 
+        minLength: 1
+
       - `title: String`
 
         The title of the search result.
 
-      - `type: :search_result`
+        minLength: 1
 
-        - `:search_result`
+      - `type: :search_result`
 
   - `is_error: bool`
 
@@ -12030,6 +13438,8 @@ puts(beta_managed_agents_stream_session_events)
   - `processed_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `session_thread_id: String`
 
@@ -12045,9 +13455,9 @@ puts(beta_managed_agents_stream_session_events)
 
     The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-  - `type: :"user.custom_tool_result"`
+    minLength: 1, maxLength: 128
 
-    - `:"user.custom_tool_result"`
+  - `type: :"user.custom_tool_result"`
 
   - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -12061,9 +13471,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -12081,13 +13491,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -12095,11 +13507,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -12109,13 +13521,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -12133,13 +13543,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -12149,15 +13561,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -12165,11 +13575,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -12179,13 +13589,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -12215,21 +13623,23 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `source: String`
 
         The URL source of the search result.
 
+        minLength: 1
+
       - `title: String`
 
         The title of the search result.
 
-      - `type: :search_result`
+        minLength: 1
 
-        - `:search_result`
+      - `type: :search_result`
 
   - `is_error: bool`
 
@@ -12253,6 +13663,8 @@ puts(beta_managed_agents_stream_session_events)
 
     Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+    format: int32
+
   - `outcome_id: String`
 
     Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -12260,6 +13672,8 @@ puts(beta_managed_agents_stream_session_events)
   - `processed_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -12275,8 +13689,6 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :file`
 
-        - `:file`
-
     - `class BetaManagedAgentsTextRubric`
 
       Rubric content provided inline as text.
@@ -12287,11 +13699,7 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :text`
 
-        - `:text`
-
   - `type: :"user.define_outcome"`
-
-    - `:"user.define_outcome"`
 
 ### Beta Managed Agents User Define Outcome Event Params
 
@@ -12317,8 +13725,6 @@ puts(beta_managed_agents_stream_session_events)
 
       - `type: :file`
 
-        - `:file`
-
     - `class BetaManagedAgentsTextRubricParams`
 
       Rubric content provided inline as text.
@@ -12327,17 +13733,17 @@ puts(beta_managed_agents_stream_session_events)
 
         Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
+        maxLength: 262144
+
       - `type: :text`
 
-        - `:text`
-
   - `type: :"user.define_outcome"`
-
-    - `:"user.define_outcome"`
 
   - `max_iterations: Integer`
 
     Eval→revision cycles before giving up. Default 3, max 20.
+
+    format: int32
 
 ### Beta Managed Agents User Interrupt Event
 
@@ -12351,11 +13757,11 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :"user.interrupt"`
 
-    - `:"user.interrupt"`
-
   - `processed_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `session_thread_id: String`
 
@@ -12368,8 +13774,6 @@ puts(beta_managed_agents_stream_session_events)
   Parameters for sending an interrupt to pause the agent.
 
   - `type: :"user.interrupt"`
-
-    - `:"user.interrupt"`
 
   - `session_thread_id: String`
 
@@ -12385,7 +13789,7 @@ puts(beta_managed_agents_stream_session_events)
 
     Unique identifier for this event.
 
-  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
     Array of content blocks comprising the user message.
 
@@ -12397,9 +13801,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -12417,13 +13821,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -12431,11 +13837,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -12445,13 +13851,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -12469,13 +13873,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -12485,15 +13891,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -12501,11 +13905,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -12515,13 +13919,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -12531,13 +13933,19 @@ puts(beta_managed_agents_stream_session_events)
 
         The title of the document.
 
-  - `type: :"user.message"`
+    - `class BetaManagedAgentsRedactedBlock`
 
-    - `:"user.message"`
+      Placeholder for content withheld by Anthropic model policy.
+
+      - `type: :redacted`
+
+  - `type: :"user.message"`
 
   - `processed_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
 ### Beta Managed Agents User Message Event Params
 
@@ -12545,7 +13953,7 @@ puts(beta_managed_agents_stream_session_events)
 
   Parameters for sending a user message to the session.
 
-  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock]`
+  - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock]`
 
     Array of content blocks for the user message.
 
@@ -12557,9 +13965,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -12577,13 +13985,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -12591,11 +14001,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -12605,13 +14015,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -12629,13 +14037,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -12645,15 +14055,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -12661,11 +14069,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -12675,13 +14083,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -12691,9 +14097,13 @@ puts(beta_managed_agents_stream_session_events)
 
         The title of the document.
 
-  - `type: :"user.message"`
+    - `class BetaManagedAgentsRedactedBlock`
 
-    - `:"user.message"`
+      Placeholder for content withheld by Anthropic model policy.
+
+      - `type: :redacted`
+
+  - `type: :"user.message"`
 
 ### Beta Managed Agents User Tool Confirmation Event
 
@@ -12719,15 +14129,17 @@ puts(beta_managed_agents_stream_session_events)
 
   - `type: :"user.tool_confirmation"`
 
-    - `:"user.tool_confirmation"`
-
   - `deny_message: String`
 
     Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+    maxLength: 10000
+
   - `processed_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `session_thread_id: String`
 
@@ -12751,13 +14163,15 @@ puts(beta_managed_agents_stream_session_events)
 
     The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-  - `type: :"user.tool_confirmation"`
+    minLength: 1, maxLength: 128
 
-    - `:"user.tool_confirmation"`
+  - `type: :"user.tool_confirmation"`
 
   - `deny_message: String`
 
     Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+
+    maxLength: 10000
 
 ### Beta Managed Agents User Tool Result Event Params
 
@@ -12769,9 +14183,9 @@ puts(beta_managed_agents_stream_session_events)
 
     The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
-  - `type: :"user.tool_result"`
+    minLength: 1, maxLength: 128
 
-    - `:"user.tool_result"`
+  - `type: :"user.tool_result"`
 
   - `content: Array[BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock]`
 
@@ -12785,9 +14199,9 @@ puts(beta_managed_agents_stream_session_events)
 
         The text content.
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaManagedAgentsImageBlock`
 
@@ -12805,13 +14219,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded image data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsURLImageSource`
 
@@ -12819,11 +14235,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the image to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileImageSource`
 
@@ -12833,13 +14249,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :image`
-
-        - `:image`
 
     - `class BetaManagedAgentsDocumentBlock`
 
@@ -12857,13 +14271,15 @@ puts(beta_managed_agents_stream_session_events)
 
             Base64-encoded document data.
 
+            minLength: 1
+
           - `media_type: String`
 
             MIME type of the document (e.g., "application/pdf").
 
-          - `type: :base64`
+            minLength: 1
 
-            - `:base64`
+          - `type: :base64`
 
         - `class BetaManagedAgentsPlainTextDocumentSource`
 
@@ -12873,15 +14289,13 @@ puts(beta_managed_agents_stream_session_events)
 
             The plain text content.
 
+            minLength: 1
+
           - `media_type: :"text/plain"`
 
             MIME type of the text content. Must be "text/plain".
 
-            - `:"text/plain"`
-
           - `type: :text`
-
-            - `:text`
 
         - `class BetaManagedAgentsURLDocumentSource`
 
@@ -12889,11 +14303,11 @@ puts(beta_managed_agents_stream_session_events)
 
           - `type: :url`
 
-            - `:url`
-
           - `url: String`
 
             URL of the document to fetch.
+
+            minLength: 1
 
         - `class BetaManagedAgentsFileDocumentSource`
 
@@ -12903,13 +14317,11 @@ puts(beta_managed_agents_stream_session_events)
 
             ID of a previously uploaded file.
 
+            minLength: 1
+
           - `type: :file`
 
-            - `:file`
-
       - `type: :document`
-
-        - `:document`
 
       - `context: String`
 
@@ -12939,21 +14351,23 @@ puts(beta_managed_agents_stream_session_events)
 
           The text content.
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
       - `source: String`
 
         The URL source of the search result.
 
+        minLength: 1
+
       - `title: String`
 
         The title of the search result.
 
-      - `type: :search_result`
+        minLength: 1
 
-        - `:search_result`
+      - `type: :search_result`
 
   - `is_error: bool`
 

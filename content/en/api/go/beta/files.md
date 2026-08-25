@@ -2,9 +2,9 @@
 
 ## Upload File
 
-`client.Beta.Files.Upload(ctx, params) (*FileMetadata, error)`
+`client.Beta.Files.Upload(ctx, params) (*BetaFileMetadata, error)`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
@@ -16,7 +16,9 @@ Upload File
 
     Body param: The file to upload
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    format: binary
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -68,23 +70,33 @@ Upload File
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `type FileMetadata struct{…}`
+- `type BetaFileMetadata struct{…}`
 
   - `ID string`
 
@@ -96,17 +108,25 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `Filename string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `MimeType string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `SizeBytes int64`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `Type File`
 
@@ -114,13 +134,13 @@ Upload File
 
     For files, this is always `"file"`.
 
-    - `const FileFile File = "file"`
-
-  - `Downloadable bool`
+  - `Downloadable bool Optional`
 
     Whether the file can be downloaded.
 
-  - `Scope BetaFileScope`
+    default: false
+
+  - `Scope BetaFileScope Optional`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -132,38 +152,36 @@ Upload File
 
       The type of scope (e.g., `"session"`).
 
-      - `const SessionSession Session = "session"`
-
 ### Example
 
 ```go
 package main
 
 import (
-  "bytes"
-  "context"
-  "fmt"
-  "io"
+	"bytes"
+	"context"
+	"fmt"
+	"io"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  fileMetadata, err := client.Beta.Files.Upload(context.TODO(), anthropic.BetaFileUploadParams{
-    File: io.Reader(bytes.NewBuffer([]byte("Example data"))),
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", fileMetadata.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaFileMetadata, err := client.Beta.Files.Upload(context.TODO(), anthropic.BetaFileUploadParams{
+		File: io.Reader(bytes.NewBuffer([]byte("Example data"))),
+	})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaFileMetadata.ID)
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -183,9 +201,9 @@ func main() {
 
 ## List Files
 
-`client.Beta.Files.List(ctx, params) (*Page[FileMetadata], error)`
+`client.Beta.Files.List(ctx, params) (*Page[BetaFileMetadata], error)`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
@@ -193,25 +211,27 @@ List Files
 
 - `params BetaFileListParams`
 
-  - `AfterID param.Field[string]`
+  - `AfterID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
-  - `BeforeID param.Field[string]`
+  - `BeforeID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-  - `ScopeID param.Field[string]`
+    maximum: 1000, minimum: 1
+
+  - `ScopeID param.Field[string] Optional`
 
     Query param: Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -263,23 +283,33 @@ List Files
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `type FileMetadata struct{…}`
+- `type BetaFileMetadata struct{…}`
 
   - `ID string`
 
@@ -291,17 +321,25 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `Filename string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `MimeType string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `SizeBytes int64`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `Type File`
 
@@ -309,13 +347,13 @@ List Files
 
     For files, this is always `"file"`.
 
-    - `const FileFile File = "file"`
-
-  - `Downloadable bool`
+  - `Downloadable bool Optional`
 
     Whether the file can be downloaded.
 
-  - `Scope BetaFileScope`
+    default: false
+
+  - `Scope BetaFileScope Optional`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -327,36 +365,32 @@ List Files
 
       The type of scope (e.g., `"session"`).
 
-      - `const SessionSession Session = "session"`
-
 ### Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  page, err := client.Beta.Files.List(context.TODO(), anthropic.BetaFileListParams{
-
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", page)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	page, err := client.Beta.Files.List(context.TODO(), anthropic.BetaFileListParams{})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", page)
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -385,7 +419,7 @@ func main() {
 
 `client.Beta.Files.Download(ctx, fileID, query) (*Response, error)`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
@@ -397,7 +431,7 @@ Download File
 
 - `query BetaFileDownloadParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -449,19 +483,29 @@ Download File
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -473,36 +517,34 @@ Download File
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  response, err := client.Beta.Files.Download(
-    context.TODO(),
-    "file_id",
-    anthropic.BetaFileDownloadParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", response)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	response, err := client.Beta.Files.Download(
+		context.TODO(),
+		"file_id",
+		anthropic.BetaFileDownloadParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", response)
 }
 ```
 
 ## Get File Metadata
 
-`client.Beta.Files.GetMetadata(ctx, fileID, query) (*FileMetadata, error)`
+`client.Beta.Files.GetMetadata(ctx, fileID, query) (*BetaFileMetadata, error)`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
@@ -514,7 +556,7 @@ Get File Metadata
 
 - `query BetaFileGetMetadataParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -566,23 +608,33 @@ Get File Metadata
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `type FileMetadata struct{…}`
+- `type BetaFileMetadata struct{…}`
 
   - `ID string`
 
@@ -594,17 +646,25 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `Filename string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `MimeType string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `SizeBytes int64`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `Type File`
 
@@ -612,13 +672,13 @@ Get File Metadata
 
     For files, this is always `"file"`.
 
-    - `const FileFile File = "file"`
-
-  - `Downloadable bool`
+  - `Downloadable bool Optional`
 
     Whether the file can be downloaded.
 
-  - `Scope BetaFileScope`
+    default: false
+
+  - `Scope BetaFileScope Optional`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -630,40 +690,36 @@ Get File Metadata
 
       The type of scope (e.g., `"session"`).
 
-      - `const SessionSession Session = "session"`
-
 ### Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  fileMetadata, err := client.Beta.Files.GetMetadata(
-    context.TODO(),
-    "file_id",
-    anthropic.BetaFileGetMetadataParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", fileMetadata.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaFileMetadata, err := client.Beta.Files.GetMetadata(
+		context.TODO(),
+		"file_id",
+		anthropic.BetaFileGetMetadataParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaFileMetadata.ID)
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -683,9 +739,9 @@ func main() {
 
 ## Delete File
 
-`client.Beta.Files.Delete(ctx, fileID, body) (*DeletedFile, error)`
+`client.Beta.Files.Delete(ctx, fileID, body) (*BetaDeletedFile, error)`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
@@ -697,7 +753,7 @@ Delete File
 
 - `body BetaFileDeleteParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -749,35 +805,45 @@ Delete File
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
 ### Returns
 
-- `type DeletedFile struct{…}`
+- `type BetaDeletedFile struct{…}`
 
   - `ID string`
 
     ID of the deleted file.
 
-  - `Type DeletedFileType`
+  - `Type BetaDeletedFileType Optional`
 
     Deleted object type.
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `const DeletedFileTypeFileDeleted DeletedFileType = "file_deleted"`
+    default: file_deleted
 
 ### Example
 
@@ -785,32 +851,30 @@ Delete File
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  deletedFile, err := client.Beta.Files.Delete(
-    context.TODO(),
-    "file_id",
-    anthropic.BetaFileDeleteParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", deletedFile.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaDeletedFile, err := client.Beta.Files.Delete(
+		context.TODO(),
+		"file_id",
+		anthropic.BetaFileDeleteParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaDeletedFile.ID)
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -819,7 +883,81 @@ func main() {
 }
 ```
 
-## Domain Types
+## Domain types
+
+### Beta Deleted File
+
+- `type BetaDeletedFile struct{…}`
+
+  - `ID string`
+
+    ID of the deleted file.
+
+  - `Type BetaDeletedFileType Optional`
+
+    Deleted object type.
+
+    For file deletion, this is always `"file_deleted"`.
+
+    default: file_deleted
+
+### Beta File Metadata
+
+- `type BetaFileMetadata struct{…}`
+
+  - `ID string`
+
+    Unique object identifier.
+
+    The format and length of IDs may change over time.
+
+  - `CreatedAt Time`
+
+    RFC 3339 datetime string representing when the file was created.
+
+    format: date-time
+
+  - `Filename string`
+
+    Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
+
+  - `MimeType string`
+
+    MIME type of the file.
+
+    maxLength: 255, minLength: 1
+
+  - `SizeBytes int64`
+
+    Size of the file in bytes.
+
+    minimum: 0
+
+  - `Type File`
+
+    Object type.
+
+    For files, this is always `"file"`.
+
+  - `Downloadable bool Optional`
+
+    Whether the file can be downloaded.
+
+    default: false
+
+  - `Scope BetaFileScope Optional`
+
+    The scope of this file, indicating the context in which it was created (e.g., a session).
+
+    - `ID string`
+
+      The ID of the scoping resource (e.g., the session ID).
+
+    - `Type Session`
+
+      The type of scope (e.g., `"session"`).
 
 ### Beta File Scope
 
@@ -832,73 +970,3 @@ func main() {
   - `Type Session`
 
     The type of scope (e.g., `"session"`).
-
-    - `const SessionSession Session = "session"`
-
-### Deleted File
-
-- `type DeletedFile struct{…}`
-
-  - `ID string`
-
-    ID of the deleted file.
-
-  - `Type DeletedFileType`
-
-    Deleted object type.
-
-    For file deletion, this is always `"file_deleted"`.
-
-    - `const DeletedFileTypeFileDeleted DeletedFileType = "file_deleted"`
-
-### File Metadata
-
-- `type FileMetadata struct{…}`
-
-  - `ID string`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `CreatedAt Time`
-
-    RFC 3339 datetime string representing when the file was created.
-
-  - `Filename string`
-
-    Original filename of the uploaded file.
-
-  - `MimeType string`
-
-    MIME type of the file.
-
-  - `SizeBytes int64`
-
-    Size of the file in bytes.
-
-  - `Type File`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
-    - `const FileFile File = "file"`
-
-  - `Downloadable bool`
-
-    Whether the file can be downloaded.
-
-  - `Scope BetaFileScope`
-
-    The scope of this file, indicating the context in which it was created (e.g., a session).
-
-    - `ID string`
-
-      The ID of the scoping resource (e.g., the session ID).
-
-    - `Type Session`
-
-      The type of scope (e.g., `"session"`).
-
-      - `const SessionSession Session = "session"`

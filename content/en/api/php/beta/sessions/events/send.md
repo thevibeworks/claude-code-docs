@@ -1,12 +1,12 @@
-## Send Events
+# Send Events
 
 `$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas): ManagedAgentsSendSessionEvents`
 
-**post** `/v1/sessions/{session_id}/events`
+**POST** `/v1/sessions/{session_id}/events`
 
 Send Events
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -18,7 +18,7 @@ Send Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsSendSessionEvents`
 
@@ -26,7 +26,7 @@ Send Events
 
     Sent events
 
-### Example
+## Example
 
 ```php
 <?php
@@ -43,13 +43,13 @@ $betaManagedAgentsSendSessionEvents = $client->beta->sessions->events->send(
       'type' => 'user.message',
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsSendSessionEvents);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

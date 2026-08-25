@@ -1,6 +1,22 @@
 # Webhooks
 
-## Domain Types
+## Unwrap
+
+`client.beta.webhooks.unwrap(options?): void`
+
+### Example
+
+```typescript
+import Anthropic from "@anthropic-ai/sdk";
+
+const client = new Anthropic({
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
+});
+
+await client.beta.webhooks.unwrap();
+```
+
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 
@@ -13,8 +29,6 @@
   - `organization_id: string`
 
   - `type: "agent.archived"`
-
-    - `"agent.archived"`
 
   - `workspace_id: string`
 
@@ -30,8 +44,6 @@
 
   - `type: "agent.created"`
 
-    - `"agent.created"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Agent Deleted Event Data
@@ -45,8 +57,6 @@
   - `organization_id: string`
 
   - `type: "agent.deleted"`
-
-    - `"agent.deleted"`
 
   - `workspace_id: string`
 
@@ -62,8 +72,6 @@
 
   - `type: "agent.updated"`
 
-    - `"agent.updated"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Deployment Archived Event Data
@@ -77,8 +85,6 @@
   - `organization_id: string`
 
   - `type: "deployment.archived"`
-
-    - `"deployment.archived"`
 
   - `workspace_id: string`
 
@@ -94,8 +100,6 @@
 
   - `type: "deployment.created"`
 
-    - `"deployment.created"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Deployment Deleted Event Data
@@ -109,8 +113,6 @@
   - `organization_id: string`
 
   - `type: "deployment.deleted"`
-
-    - `"deployment.deleted"`
 
   - `workspace_id: string`
 
@@ -126,8 +128,6 @@
 
   - `type: "deployment.paused"`
 
-    - `"deployment.paused"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Deployment Run Failed Event Data
@@ -141,8 +141,6 @@
   - `organization_id: string`
 
   - `type: "deployment_run.failed"`
-
-    - `"deployment_run.failed"`
 
   - `workspace_id: string`
 
@@ -158,8 +156,6 @@
 
   - `type: "deployment_run.started"`
 
-    - `"deployment_run.started"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Deployment Run Succeeded Event Data
@@ -173,8 +169,6 @@
   - `organization_id: string`
 
   - `type: "deployment_run.succeeded"`
-
-    - `"deployment_run.succeeded"`
 
   - `workspace_id: string`
 
@@ -190,8 +184,6 @@
 
   - `type: "deployment.unpaused"`
 
-    - `"deployment.unpaused"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Deployment Updated Event Data
@@ -206,7 +198,61 @@
 
   - `type: "deployment.updated"`
 
-    - `"deployment.updated"`
+  - `workspace_id: string`
+
+### Beta Webhook Environment Archived Event Data
+
+- `BetaWebhookEnvironmentArchivedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.archived"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Environment Created Event Data
+
+- `BetaWebhookEnvironmentCreatedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.created"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `BetaWebhookEnvironmentDeletedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.deleted"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Environment Updated Event Data
+
+- `BetaWebhookEnvironmentUpdatedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.updated"`
 
   - `workspace_id: string`
 
@@ -222,6 +268,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookEventData`
 
     - `BetaWebhookSessionCreatedEventData`
@@ -233,8 +281,6 @@
       - `organization_id: string`
 
       - `type: "session.created"`
-
-        - `"session.created"`
 
       - `workspace_id: string`
 
@@ -248,8 +294,6 @@
 
       - `type: "session.pending"`
 
-        - `"session.pending"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionRunningEventData`
@@ -261,8 +305,6 @@
       - `organization_id: string`
 
       - `type: "session.running"`
-
-        - `"session.running"`
 
       - `workspace_id: string`
 
@@ -276,8 +318,6 @@
 
       - `type: "session.idled"`
 
-        - `"session.idled"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionRequiresActionEventData`
@@ -289,8 +329,6 @@
       - `organization_id: string`
 
       - `type: "session.requires_action"`
-
-        - `"session.requires_action"`
 
       - `workspace_id: string`
 
@@ -304,8 +342,6 @@
 
       - `type: "session.archived"`
 
-        - `"session.archived"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionDeletedEventData`
@@ -317,8 +353,6 @@
       - `organization_id: string`
 
       - `type: "session.deleted"`
-
-        - `"session.deleted"`
 
       - `workspace_id: string`
 
@@ -332,8 +366,6 @@
 
       - `type: "session.status_rescheduled"`
 
-        - `"session.status_rescheduled"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionStatusRunStartedEventData`
@@ -345,8 +377,6 @@
       - `organization_id: string`
 
       - `type: "session.status_run_started"`
-
-        - `"session.status_run_started"`
 
       - `workspace_id: string`
 
@@ -360,8 +390,6 @@
 
       - `type: "session.status_idled"`
 
-        - `"session.status_idled"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionStatusTerminatedEventData`
@@ -373,8 +401,6 @@
       - `organization_id: string`
 
       - `type: "session.status_terminated"`
-
-        - `"session.status_terminated"`
 
       - `workspace_id: string`
 
@@ -392,8 +418,6 @@
 
       - `type: "session.thread_created"`
 
-        - `"session.thread_created"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionThreadIdledEventData`
@@ -409,8 +433,6 @@
         ID of the session thread this event refers to.
 
       - `type: "session.thread_idled"`
-
-        - `"session.thread_idled"`
 
       - `workspace_id: string`
 
@@ -428,8 +450,6 @@
 
       - `type: "session.thread_terminated"`
 
-        - `"session.thread_terminated"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionOutcomeEvaluationEndedEventData`
@@ -441,8 +461,6 @@
       - `organization_id: string`
 
       - `type: "session.outcome_evaluation_ended"`
-
-        - `"session.outcome_evaluation_ended"`
 
       - `workspace_id: string`
 
@@ -456,8 +474,6 @@
 
       - `type: "vault.created"`
 
-        - `"vault.created"`
-
       - `workspace_id: string`
 
     - `BetaWebhookVaultArchivedEventData`
@@ -469,8 +485,6 @@
       - `organization_id: string`
 
       - `type: "vault.archived"`
-
-        - `"vault.archived"`
 
       - `workspace_id: string`
 
@@ -484,8 +498,6 @@
 
       - `type: "vault.deleted"`
 
-        - `"vault.deleted"`
-
       - `workspace_id: string`
 
     - `BetaWebhookVaultCredentialCreatedEventData`
@@ -497,8 +509,6 @@
       - `organization_id: string`
 
       - `type: "vault_credential.created"`
-
-        - `"vault_credential.created"`
 
       - `vault_id: string`
 
@@ -516,8 +526,6 @@
 
       - `type: "vault_credential.archived"`
 
-        - `"vault_credential.archived"`
-
       - `vault_id: string`
 
         ID of the vault that owns this credential.
@@ -533,8 +541,6 @@
       - `organization_id: string`
 
       - `type: "vault_credential.deleted"`
-
-        - `"vault_credential.deleted"`
 
       - `vault_id: string`
 
@@ -552,8 +558,6 @@
 
       - `type: "vault_credential.refresh_failed"`
 
-        - `"vault_credential.refresh_failed"`
-
       - `vault_id: string`
 
         ID of the vault that owns this credential.
@@ -570,8 +574,6 @@
 
       - `type: "session.updated"`
 
-        - `"session.updated"`
-
       - `workspace_id: string`
 
     - `BetaWebhookAgentCreatedEventData`
@@ -583,8 +585,6 @@
       - `organization_id: string`
 
       - `type: "agent.created"`
-
-        - `"agent.created"`
 
       - `workspace_id: string`
 
@@ -598,8 +598,6 @@
 
       - `type: "agent.archived"`
 
-        - `"agent.archived"`
-
       - `workspace_id: string`
 
     - `BetaWebhookAgentDeletedEventData`
@@ -611,8 +609,6 @@
       - `organization_id: string`
 
       - `type: "agent.deleted"`
-
-        - `"agent.deleted"`
 
       - `workspace_id: string`
 
@@ -626,8 +622,6 @@
 
       - `type: "deployment.paused"`
 
-        - `"deployment.paused"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentRunFailedEventData`
@@ -639,8 +633,6 @@
       - `organization_id: string`
 
       - `type: "deployment_run.failed"`
-
-        - `"deployment_run.failed"`
 
       - `workspace_id: string`
 
@@ -654,8 +646,6 @@
 
       - `type: "deployment.created"`
 
-        - `"deployment.created"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentUpdatedEventData`
@@ -667,8 +657,6 @@
       - `organization_id: string`
 
       - `type: "deployment.updated"`
-
-        - `"deployment.updated"`
 
       - `workspace_id: string`
 
@@ -682,8 +670,6 @@
 
       - `type: "deployment.unpaused"`
 
-        - `"deployment.unpaused"`
-
       - `workspace_id: string`
 
     - `BetaWebhookAgentUpdatedEventData`
@@ -695,8 +681,6 @@
       - `organization_id: string`
 
       - `type: "agent.updated"`
-
-        - `"agent.updated"`
 
       - `workspace_id: string`
 
@@ -710,8 +694,6 @@
 
       - `type: "deployment.archived"`
 
-        - `"deployment.archived"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentRunStartedEventData`
@@ -723,8 +705,6 @@
       - `organization_id: string`
 
       - `type: "deployment_run.started"`
-
-        - `"deployment_run.started"`
 
       - `workspace_id: string`
 
@@ -738,8 +718,6 @@
 
       - `type: "deployment.deleted"`
 
-        - `"deployment.deleted"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentRunSucceededEventData`
@@ -752,7 +730,101 @@
 
       - `type: "deployment_run.succeeded"`
 
-        - `"deployment_run.succeeded"`
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.updated"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookSessionBudgetReachedEventData`
+
+      - `id: string`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "session.budget_reached"`
 
       - `workspace_id: string`
 
@@ -760,11 +832,9 @@
 
     Object type. Always `event` for webhook payloads.
 
-    - `"event"`
-
 ### Beta Webhook Event Data
 
-- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 33 more`
+- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 41 more`
 
   - `BetaWebhookSessionCreatedEventData`
 
@@ -775,8 +845,6 @@
     - `organization_id: string`
 
     - `type: "session.created"`
-
-      - `"session.created"`
 
     - `workspace_id: string`
 
@@ -790,8 +858,6 @@
 
     - `type: "session.pending"`
 
-      - `"session.pending"`
-
     - `workspace_id: string`
 
   - `BetaWebhookSessionRunningEventData`
@@ -803,8 +869,6 @@
     - `organization_id: string`
 
     - `type: "session.running"`
-
-      - `"session.running"`
 
     - `workspace_id: string`
 
@@ -818,8 +882,6 @@
 
     - `type: "session.idled"`
 
-      - `"session.idled"`
-
     - `workspace_id: string`
 
   - `BetaWebhookSessionRequiresActionEventData`
@@ -831,8 +893,6 @@
     - `organization_id: string`
 
     - `type: "session.requires_action"`
-
-      - `"session.requires_action"`
 
     - `workspace_id: string`
 
@@ -846,8 +906,6 @@
 
     - `type: "session.archived"`
 
-      - `"session.archived"`
-
     - `workspace_id: string`
 
   - `BetaWebhookSessionDeletedEventData`
@@ -859,8 +917,6 @@
     - `organization_id: string`
 
     - `type: "session.deleted"`
-
-      - `"session.deleted"`
 
     - `workspace_id: string`
 
@@ -874,8 +930,6 @@
 
     - `type: "session.status_rescheduled"`
 
-      - `"session.status_rescheduled"`
-
     - `workspace_id: string`
 
   - `BetaWebhookSessionStatusRunStartedEventData`
@@ -887,8 +941,6 @@
     - `organization_id: string`
 
     - `type: "session.status_run_started"`
-
-      - `"session.status_run_started"`
 
     - `workspace_id: string`
 
@@ -902,8 +954,6 @@
 
     - `type: "session.status_idled"`
 
-      - `"session.status_idled"`
-
     - `workspace_id: string`
 
   - `BetaWebhookSessionStatusTerminatedEventData`
@@ -915,8 +965,6 @@
     - `organization_id: string`
 
     - `type: "session.status_terminated"`
-
-      - `"session.status_terminated"`
 
     - `workspace_id: string`
 
@@ -934,8 +982,6 @@
 
     - `type: "session.thread_created"`
 
-      - `"session.thread_created"`
-
     - `workspace_id: string`
 
   - `BetaWebhookSessionThreadIdledEventData`
@@ -951,8 +997,6 @@
       ID of the session thread this event refers to.
 
     - `type: "session.thread_idled"`
-
-      - `"session.thread_idled"`
 
     - `workspace_id: string`
 
@@ -970,8 +1014,6 @@
 
     - `type: "session.thread_terminated"`
 
-      - `"session.thread_terminated"`
-
     - `workspace_id: string`
 
   - `BetaWebhookSessionOutcomeEvaluationEndedEventData`
@@ -983,8 +1025,6 @@
     - `organization_id: string`
 
     - `type: "session.outcome_evaluation_ended"`
-
-      - `"session.outcome_evaluation_ended"`
 
     - `workspace_id: string`
 
@@ -998,8 +1038,6 @@
 
     - `type: "vault.created"`
 
-      - `"vault.created"`
-
     - `workspace_id: string`
 
   - `BetaWebhookVaultArchivedEventData`
@@ -1011,8 +1049,6 @@
     - `organization_id: string`
 
     - `type: "vault.archived"`
-
-      - `"vault.archived"`
 
     - `workspace_id: string`
 
@@ -1026,8 +1062,6 @@
 
     - `type: "vault.deleted"`
 
-      - `"vault.deleted"`
-
     - `workspace_id: string`
 
   - `BetaWebhookVaultCredentialCreatedEventData`
@@ -1039,8 +1073,6 @@
     - `organization_id: string`
 
     - `type: "vault_credential.created"`
-
-      - `"vault_credential.created"`
 
     - `vault_id: string`
 
@@ -1058,8 +1090,6 @@
 
     - `type: "vault_credential.archived"`
 
-      - `"vault_credential.archived"`
-
     - `vault_id: string`
 
       ID of the vault that owns this credential.
@@ -1075,8 +1105,6 @@
     - `organization_id: string`
 
     - `type: "vault_credential.deleted"`
-
-      - `"vault_credential.deleted"`
 
     - `vault_id: string`
 
@@ -1094,8 +1122,6 @@
 
     - `type: "vault_credential.refresh_failed"`
 
-      - `"vault_credential.refresh_failed"`
-
     - `vault_id: string`
 
       ID of the vault that owns this credential.
@@ -1112,8 +1138,6 @@
 
     - `type: "session.updated"`
 
-      - `"session.updated"`
-
     - `workspace_id: string`
 
   - `BetaWebhookAgentCreatedEventData`
@@ -1125,8 +1149,6 @@
     - `organization_id: string`
 
     - `type: "agent.created"`
-
-      - `"agent.created"`
 
     - `workspace_id: string`
 
@@ -1140,8 +1162,6 @@
 
     - `type: "agent.archived"`
 
-      - `"agent.archived"`
-
     - `workspace_id: string`
 
   - `BetaWebhookAgentDeletedEventData`
@@ -1153,8 +1173,6 @@
     - `organization_id: string`
 
     - `type: "agent.deleted"`
-
-      - `"agent.deleted"`
 
     - `workspace_id: string`
 
@@ -1168,8 +1186,6 @@
 
     - `type: "deployment.paused"`
 
-      - `"deployment.paused"`
-
     - `workspace_id: string`
 
   - `BetaWebhookDeploymentRunFailedEventData`
@@ -1181,8 +1197,6 @@
     - `organization_id: string`
 
     - `type: "deployment_run.failed"`
-
-      - `"deployment_run.failed"`
 
     - `workspace_id: string`
 
@@ -1196,8 +1210,6 @@
 
     - `type: "deployment.created"`
 
-      - `"deployment.created"`
-
     - `workspace_id: string`
 
   - `BetaWebhookDeploymentUpdatedEventData`
@@ -1209,8 +1221,6 @@
     - `organization_id: string`
 
     - `type: "deployment.updated"`
-
-      - `"deployment.updated"`
 
     - `workspace_id: string`
 
@@ -1224,8 +1234,6 @@
 
     - `type: "deployment.unpaused"`
 
-      - `"deployment.unpaused"`
-
     - `workspace_id: string`
 
   - `BetaWebhookAgentUpdatedEventData`
@@ -1237,8 +1245,6 @@
     - `organization_id: string`
 
     - `type: "agent.updated"`
-
-      - `"agent.updated"`
 
     - `workspace_id: string`
 
@@ -1252,8 +1258,6 @@
 
     - `type: "deployment.archived"`
 
-      - `"deployment.archived"`
-
     - `workspace_id: string`
 
   - `BetaWebhookDeploymentRunStartedEventData`
@@ -1265,8 +1269,6 @@
     - `organization_id: string`
 
     - `type: "deployment_run.started"`
-
-      - `"deployment_run.started"`
 
     - `workspace_id: string`
 
@@ -1280,8 +1282,6 @@
 
     - `type: "deployment.deleted"`
 
-      - `"deployment.deleted"`
-
     - `workspace_id: string`
 
   - `BetaWebhookDeploymentRunSucceededEventData`
@@ -1294,9 +1294,145 @@
 
     - `type: "deployment_run.succeeded"`
 
-      - `"deployment_run.succeeded"`
+    - `workspace_id: string`
+
+  - `BetaWebhookEnvironmentCreatedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.created"`
 
     - `workspace_id: string`
+
+  - `BetaWebhookEnvironmentUpdatedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.updated"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookEnvironmentArchivedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.archived"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookEnvironmentDeletedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.deleted"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookMemoryStoreCreatedEventData`
+
+    - `id: string`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "memory_store.created"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookMemoryStoreArchivedEventData`
+
+    - `id: string`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "memory_store.archived"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookMemoryStoreDeletedEventData`
+
+    - `id: string`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "memory_store.deleted"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookSessionBudgetReachedEventData`
+
+    - `id: string`
+
+      ID of the session that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "session.budget_reached"`
+
+    - `workspace_id: string`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `BetaWebhookMemoryStoreArchivedEventData`
+
+  - `id: string`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "memory_store.archived"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `BetaWebhookMemoryStoreCreatedEventData`
+
+  - `id: string`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "memory_store.created"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `BetaWebhookMemoryStoreDeletedEventData`
+
+  - `id: string`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "memory_store.deleted"`
+
+  - `workspace_id: string`
 
 ### Beta Webhook Session Archived Event Data
 
@@ -1310,7 +1446,19 @@
 
   - `type: "session.archived"`
 
-    - `"session.archived"`
+  - `workspace_id: string`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `BetaWebhookSessionBudgetReachedEventData`
+
+  - `id: string`
+
+    ID of the session that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "session.budget_reached"`
 
   - `workspace_id: string`
 
@@ -1326,8 +1474,6 @@
 
   - `type: "session.created"`
 
-    - `"session.created"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Deleted Event Data
@@ -1341,8 +1487,6 @@
   - `organization_id: string`
 
   - `type: "session.deleted"`
-
-    - `"session.deleted"`
 
   - `workspace_id: string`
 
@@ -1358,8 +1502,6 @@
 
   - `type: "session.idled"`
 
-    - `"session.idled"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Outcome Evaluation Ended Event Data
@@ -1373,8 +1515,6 @@
   - `organization_id: string`
 
   - `type: "session.outcome_evaluation_ended"`
-
-    - `"session.outcome_evaluation_ended"`
 
   - `workspace_id: string`
 
@@ -1390,8 +1530,6 @@
 
   - `type: "session.pending"`
 
-    - `"session.pending"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Requires Action Event Data
@@ -1405,8 +1543,6 @@
   - `organization_id: string`
 
   - `type: "session.requires_action"`
-
-    - `"session.requires_action"`
 
   - `workspace_id: string`
 
@@ -1422,8 +1558,6 @@
 
   - `type: "session.running"`
 
-    - `"session.running"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Status Idled Event Data
@@ -1437,8 +1571,6 @@
   - `organization_id: string`
 
   - `type: "session.status_idled"`
-
-    - `"session.status_idled"`
 
   - `workspace_id: string`
 
@@ -1454,8 +1586,6 @@
 
   - `type: "session.status_rescheduled"`
 
-    - `"session.status_rescheduled"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Status Run Started Event Data
@@ -1470,8 +1600,6 @@
 
   - `type: "session.status_run_started"`
 
-    - `"session.status_run_started"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Status Terminated Event Data
@@ -1485,8 +1613,6 @@
   - `organization_id: string`
 
   - `type: "session.status_terminated"`
-
-    - `"session.status_terminated"`
 
   - `workspace_id: string`
 
@@ -1506,8 +1632,6 @@
 
   - `type: "session.thread_created"`
 
-    - `"session.thread_created"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Thread Idled Event Data
@@ -1525,8 +1649,6 @@
     ID of the session thread this event refers to.
 
   - `type: "session.thread_idled"`
-
-    - `"session.thread_idled"`
 
   - `workspace_id: string`
 
@@ -1546,8 +1668,6 @@
 
   - `type: "session.thread_terminated"`
 
-    - `"session.thread_terminated"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Session Updated Event Data
@@ -1561,8 +1681,6 @@
   - `organization_id: string`
 
   - `type: "session.updated"`
-
-    - `"session.updated"`
 
   - `workspace_id: string`
 
@@ -1578,8 +1696,6 @@
 
   - `type: "vault.archived"`
 
-    - `"vault.archived"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Vault Created Event Data
@@ -1594,8 +1710,6 @@
 
   - `type: "vault.created"`
 
-    - `"vault.created"`
-
   - `workspace_id: string`
 
 ### Beta Webhook Vault Credential Archived Event Data
@@ -1609,8 +1723,6 @@
   - `organization_id: string`
 
   - `type: "vault_credential.archived"`
-
-    - `"vault_credential.archived"`
 
   - `vault_id: string`
 
@@ -1630,8 +1742,6 @@
 
   - `type: "vault_credential.created"`
 
-    - `"vault_credential.created"`
-
   - `vault_id: string`
 
     ID of the vault that owns this credential.
@@ -1649,8 +1759,6 @@
   - `organization_id: string`
 
   - `type: "vault_credential.deleted"`
-
-    - `"vault_credential.deleted"`
 
   - `vault_id: string`
 
@@ -1670,8 +1778,6 @@
 
   - `type: "vault_credential.refresh_failed"`
 
-    - `"vault_credential.refresh_failed"`
-
   - `vault_id: string`
 
     ID of the vault that owns this credential.
@@ -1690,8 +1796,6 @@
 
   - `type: "vault.deleted"`
 
-    - `"vault.deleted"`
-
   - `workspace_id: string`
 
 ### Unwrap Webhook Event
@@ -1706,6 +1810,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookEventData`
 
     - `BetaWebhookSessionCreatedEventData`
@@ -1717,8 +1823,6 @@
       - `organization_id: string`
 
       - `type: "session.created"`
-
-        - `"session.created"`
 
       - `workspace_id: string`
 
@@ -1732,8 +1836,6 @@
 
       - `type: "session.pending"`
 
-        - `"session.pending"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionRunningEventData`
@@ -1745,8 +1847,6 @@
       - `organization_id: string`
 
       - `type: "session.running"`
-
-        - `"session.running"`
 
       - `workspace_id: string`
 
@@ -1760,8 +1860,6 @@
 
       - `type: "session.idled"`
 
-        - `"session.idled"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionRequiresActionEventData`
@@ -1773,8 +1871,6 @@
       - `organization_id: string`
 
       - `type: "session.requires_action"`
-
-        - `"session.requires_action"`
 
       - `workspace_id: string`
 
@@ -1788,8 +1884,6 @@
 
       - `type: "session.archived"`
 
-        - `"session.archived"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionDeletedEventData`
@@ -1801,8 +1895,6 @@
       - `organization_id: string`
 
       - `type: "session.deleted"`
-
-        - `"session.deleted"`
 
       - `workspace_id: string`
 
@@ -1816,8 +1908,6 @@
 
       - `type: "session.status_rescheduled"`
 
-        - `"session.status_rescheduled"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionStatusRunStartedEventData`
@@ -1829,8 +1919,6 @@
       - `organization_id: string`
 
       - `type: "session.status_run_started"`
-
-        - `"session.status_run_started"`
 
       - `workspace_id: string`
 
@@ -1844,8 +1932,6 @@
 
       - `type: "session.status_idled"`
 
-        - `"session.status_idled"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionStatusTerminatedEventData`
@@ -1857,8 +1943,6 @@
       - `organization_id: string`
 
       - `type: "session.status_terminated"`
-
-        - `"session.status_terminated"`
 
       - `workspace_id: string`
 
@@ -1876,8 +1960,6 @@
 
       - `type: "session.thread_created"`
 
-        - `"session.thread_created"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionThreadIdledEventData`
@@ -1893,8 +1975,6 @@
         ID of the session thread this event refers to.
 
       - `type: "session.thread_idled"`
-
-        - `"session.thread_idled"`
 
       - `workspace_id: string`
 
@@ -1912,8 +1992,6 @@
 
       - `type: "session.thread_terminated"`
 
-        - `"session.thread_terminated"`
-
       - `workspace_id: string`
 
     - `BetaWebhookSessionOutcomeEvaluationEndedEventData`
@@ -1925,8 +2003,6 @@
       - `organization_id: string`
 
       - `type: "session.outcome_evaluation_ended"`
-
-        - `"session.outcome_evaluation_ended"`
 
       - `workspace_id: string`
 
@@ -1940,8 +2016,6 @@
 
       - `type: "vault.created"`
 
-        - `"vault.created"`
-
       - `workspace_id: string`
 
     - `BetaWebhookVaultArchivedEventData`
@@ -1953,8 +2027,6 @@
       - `organization_id: string`
 
       - `type: "vault.archived"`
-
-        - `"vault.archived"`
 
       - `workspace_id: string`
 
@@ -1968,8 +2040,6 @@
 
       - `type: "vault.deleted"`
 
-        - `"vault.deleted"`
-
       - `workspace_id: string`
 
     - `BetaWebhookVaultCredentialCreatedEventData`
@@ -1981,8 +2051,6 @@
       - `organization_id: string`
 
       - `type: "vault_credential.created"`
-
-        - `"vault_credential.created"`
 
       - `vault_id: string`
 
@@ -2000,8 +2068,6 @@
 
       - `type: "vault_credential.archived"`
 
-        - `"vault_credential.archived"`
-
       - `vault_id: string`
 
         ID of the vault that owns this credential.
@@ -2017,8 +2083,6 @@
       - `organization_id: string`
 
       - `type: "vault_credential.deleted"`
-
-        - `"vault_credential.deleted"`
 
       - `vault_id: string`
 
@@ -2036,8 +2100,6 @@
 
       - `type: "vault_credential.refresh_failed"`
 
-        - `"vault_credential.refresh_failed"`
-
       - `vault_id: string`
 
         ID of the vault that owns this credential.
@@ -2054,8 +2116,6 @@
 
       - `type: "session.updated"`
 
-        - `"session.updated"`
-
       - `workspace_id: string`
 
     - `BetaWebhookAgentCreatedEventData`
@@ -2067,8 +2127,6 @@
       - `organization_id: string`
 
       - `type: "agent.created"`
-
-        - `"agent.created"`
 
       - `workspace_id: string`
 
@@ -2082,8 +2140,6 @@
 
       - `type: "agent.archived"`
 
-        - `"agent.archived"`
-
       - `workspace_id: string`
 
     - `BetaWebhookAgentDeletedEventData`
@@ -2095,8 +2151,6 @@
       - `organization_id: string`
 
       - `type: "agent.deleted"`
-
-        - `"agent.deleted"`
 
       - `workspace_id: string`
 
@@ -2110,8 +2164,6 @@
 
       - `type: "deployment.paused"`
 
-        - `"deployment.paused"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentRunFailedEventData`
@@ -2123,8 +2175,6 @@
       - `organization_id: string`
 
       - `type: "deployment_run.failed"`
-
-        - `"deployment_run.failed"`
 
       - `workspace_id: string`
 
@@ -2138,8 +2188,6 @@
 
       - `type: "deployment.created"`
 
-        - `"deployment.created"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentUpdatedEventData`
@@ -2151,8 +2199,6 @@
       - `organization_id: string`
 
       - `type: "deployment.updated"`
-
-        - `"deployment.updated"`
 
       - `workspace_id: string`
 
@@ -2166,8 +2212,6 @@
 
       - `type: "deployment.unpaused"`
 
-        - `"deployment.unpaused"`
-
       - `workspace_id: string`
 
     - `BetaWebhookAgentUpdatedEventData`
@@ -2179,8 +2223,6 @@
       - `organization_id: string`
 
       - `type: "agent.updated"`
-
-        - `"agent.updated"`
 
       - `workspace_id: string`
 
@@ -2194,8 +2236,6 @@
 
       - `type: "deployment.archived"`
 
-        - `"deployment.archived"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentRunStartedEventData`
@@ -2207,8 +2247,6 @@
       - `organization_id: string`
 
       - `type: "deployment_run.started"`
-
-        - `"deployment_run.started"`
 
       - `workspace_id: string`
 
@@ -2222,8 +2260,6 @@
 
       - `type: "deployment.deleted"`
 
-        - `"deployment.deleted"`
-
       - `workspace_id: string`
 
     - `BetaWebhookDeploymentRunSucceededEventData`
@@ -2236,12 +2272,104 @@
 
       - `type: "deployment_run.succeeded"`
 
-        - `"deployment_run.succeeded"`
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.updated"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookSessionBudgetReachedEventData`
+
+      - `id: string`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "session.budget_reached"`
 
       - `workspace_id: string`
 
   - `type: "event"`
 
     Object type. Always `event` for webhook payloads.
-
-    - `"event"`

@@ -1,12 +1,12 @@
-## List Skill Versions
+# List Skill Versions
 
 `$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<VersionListResponse>`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Parameters
+## Parameters
 
 - `skillID: string`
 
@@ -28,7 +28,7 @@ List Skill Versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `VersionListResponse`
 
@@ -76,7 +76,7 @@ List Skill Versions
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```php
 <?php
@@ -86,13 +86,16 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->skills->versions->list(
-  'skill_id', limit: 0, page: 'page', betas: ['message-batches-2024-09-24']
+  'skill_id',
+  limit: 0,
+  page: 'page',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

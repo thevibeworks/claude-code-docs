@@ -1,8 +1,8 @@
-## Delete a Message Batch
+# Delete a Message Batch
 
-`messages.batches.delete(strmessage_batch_id)  -> DeletedMessageBatch`
+`messages.batches.delete(message_batch_id)  -> DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -10,13 +10,13 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `message_batch_id: str`
 
   ID of the Message Batch.
 
-### Returns
+## Returns
 
 - `class DeletedMessageBatch: …`
 
@@ -30,16 +30,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `"message_batch_deleted"`
+    default: message_batch_deleted
 
-### Example
+## Example
 
 ```python
 import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 deleted_message_batch = client.messages.batches.delete(
     "message_batch_id",
@@ -47,7 +49,7 @@ deleted_message_batch = client.messages.batches.delete(
 print(deleted_message_batch.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

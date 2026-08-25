@@ -1,12 +1,12 @@
-## Pause Deployment
+# Pause Deployment
 
-`client.beta.deployments.pause(stringdeploymentID, DeploymentPauseParamsparams?, RequestOptionsoptions?): BetaManagedAgentsDeployment`
+`client.beta.deployments.pause(deploymentID, params?, options?): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/pause`
+**POST** `/v1/deployments/{deployment_id}/pause`
 
 Pause Deployment
 
-### Parameters
+## Parameters
 
 - `deploymentID: string`
 
@@ -18,7 +18,7 @@ Pause Deployment
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -64,21 +64,31 @@ Pause Deployment
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
+
+      - `"fallback-credit-2026-07-01"`
 
       - `"agent-memory-2026-07-22"`
 
-### Returns
+      - `"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -96,17 +106,21 @@ Pause Deployment
 
     - `type: "agent"`
 
-      - `"agent"`
-
     - `version: number`
+
+      format: int32
 
   - `archived_at: string | null`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: string | null`
 
@@ -124,7 +138,7 @@ Pause Deployment
 
       A user message sent to the session.
 
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock>`
+      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
 
         Array of content blocks for the user message.
 
@@ -136,9 +150,9 @@ Pause Deployment
 
             The text content.
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
         - `BetaManagedAgentsImageBlock`
 
@@ -156,13 +170,15 @@ Pause Deployment
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `type: "base64"`
+                minLength: 1
 
-                - `"base64"`
+              - `type: "base64"`
 
             - `BetaManagedAgentsURLImageSource`
 
@@ -170,11 +186,11 @@ Pause Deployment
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `BetaManagedAgentsFileImageSource`
 
@@ -184,13 +200,11 @@ Pause Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "image"`
-
-            - `"image"`
 
         - `BetaManagedAgentsDocumentBlock`
 
@@ -208,13 +222,15 @@ Pause Deployment
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: string`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `type: "base64"`
+                minLength: 1
 
-                - `"base64"`
+              - `type: "base64"`
 
             - `BetaManagedAgentsPlainTextDocumentSource`
 
@@ -224,15 +240,13 @@ Pause Deployment
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: "text/plain"`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"`
-
               - `type: "text"`
-
-                - `"text"`
 
             - `BetaManagedAgentsURLDocumentSource`
 
@@ -240,11 +254,11 @@ Pause Deployment
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `BetaManagedAgentsFileDocumentSource`
 
@@ -254,13 +268,11 @@ Pause Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "document"`
-
-            - `"document"`
 
           - `context?: string | null`
 
@@ -270,9 +282,13 @@ Pause Deployment
 
             The title of the document.
 
-      - `type: "user.message"`
+        - `BetaManagedAgentsRedactedBlock`
 
-        - `"user.message"`
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+      - `type: "user.message"`
 
     - `BetaManagedAgentsDeploymentUserDefineOutcomeEvent`
 
@@ -296,8 +312,6 @@ Pause Deployment
 
           - `type: "file"`
 
-            - `"file"`
-
         - `BetaManagedAgentsTextRubric`
 
           Rubric content provided inline as text.
@@ -308,15 +322,13 @@ Pause Deployment
 
           - `type: "text"`
 
-            - `"text"`
-
       - `type: "user.define_outcome"`
-
-        - `"user.define_outcome"`
 
       - `max_iterations?: number | null`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `BetaManagedAgentsDeploymentSystemMessageEvent`
 
@@ -330,13 +342,11 @@ Pause Deployment
 
           The text content.
 
+          minLength: 1
+
         - `type: "text"`
 
-          - `"text"`
-
       - `type: "system.message"`
-
-        - `"system.message"`
 
   - `metadata: Record<string, string>`
 
@@ -356,8 +366,6 @@ Pause Deployment
 
       - `type: "manual"`
 
-        - `"manual"`
-
     - `BetaManagedAgentsErrorDeploymentPausedReason`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
@@ -372,15 +380,11 @@ Pause Deployment
 
           - `type: "environment_archived_error"`
 
-            - `"environment_archived_error"`
-
         - `BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
 
           The deployment's agent was archived.
 
           - `type: "agent_archived_error"`
-
-            - `"agent_archived_error"`
 
         - `BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
 
@@ -388,15 +392,11 @@ Pause Deployment
 
           - `type: "environment_not_found_error"`
 
-            - `"environment_not_found_error"`
-
         - `BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
 
           A vault referenced by the deployment no longer exists.
 
           - `type: "vault_not_found_error"`
-
-            - `"vault_not_found_error"`
 
         - `BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
 
@@ -404,15 +404,11 @@ Pause Deployment
 
           - `type: "file_not_found_error"`
 
-            - `"file_not_found_error"`
-
         - `BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `type: "session_resource_not_found_error"`
-
-            - `"session_resource_not_found_error"`
 
         - `BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
 
@@ -420,15 +416,11 @@ Pause Deployment
 
           - `type: "workspace_archived_error"`
 
-            - `"workspace_archived_error"`
-
         - `BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
 
           The deployment's organization is disabled.
 
           - `type: "organization_disabled_error"`
-
-            - `"organization_disabled_error"`
 
         - `BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
 
@@ -436,15 +428,11 @@ Pause Deployment
 
           - `type: "memory_store_archived_error"`
 
-            - `"memory_store_archived_error"`
-
         - `BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `type: "skill_not_found_error"`
-
-            - `"skill_not_found_error"`
 
         - `BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
 
@@ -452,15 +440,11 @@ Pause Deployment
 
           - `type: "vault_archived_error"`
 
-            - `"vault_archived_error"`
-
         - `BetaManagedAgentsUnknownDeploymentPausedReasonError`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `type: "unknown_error"`
-
-            - `"unknown_error"`
 
         - `BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
 
@@ -468,19 +452,13 @@ Pause Deployment
 
           - `type: "self_hosted_resources_unsupported_error"`
 
-            - `"self_hosted_resources_unsupported_error"`
-
         - `BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
           - `type: "mcp_egress_blocked_error"`
 
-            - `"mcp_egress_blocked_error"`
-
       - `type: "error"`
-
-        - `"error"`
 
   - `resources: Array<BetaManagedAgentsSessionResourceConfig>`
 
@@ -491,8 +469,6 @@ Pause Deployment
       A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
 
       - `type: "github_repository"`
-
-        - `"github_repository"`
 
       - `url: string`
 
@@ -508,9 +484,9 @@ Pause Deployment
 
             Branch name to check out.
 
-          - `type: "branch"`
+            minLength: 1, maxLength: 255
 
-            - `"branch"`
+          - `type: "branch"`
 
         - `BetaManagedAgentsCommitCheckout`
 
@@ -518,9 +494,9 @@ Pause Deployment
 
             Full commit SHA to check out.
 
-          - `type: "commit"`
+            minLength: 7, maxLength: 64
 
-            - `"commit"`
+          - `type: "commit"`
 
       - `mount_path?: string | null`
 
@@ -536,8 +512,6 @@ Pause Deployment
 
       - `type: "file"`
 
-        - `"file"`
-
       - `mount_path?: string | null`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
@@ -551,8 +525,6 @@ Pause Deployment
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
       - `type: "memory_store"`
-
-        - `"memory_store"`
 
       - `access?: "read_write" | "read_only" | null`
 
@@ -574,17 +546,21 @@ Pause Deployment
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
 
+      minLength: 1, maxLength: 256
+
     - `timezone: string`
 
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
-    - `type: "cron"`
+      minLength: 1
 
-      - `"cron"`
+    - `type: "cron"`
 
     - `last_run_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `upcoming_runs_at?: Array<string>`
 
@@ -600,33 +576,51 @@ Pause Deployment
 
   - `type: "deployment"`
 
-    - `"deployment"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_ids: Array<string>`
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
-### Example
+  - `budget?: BetaManagedAgentsBudgetLimit | null`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+    - `max_list_cost: BetaMonetaryAmount`
+
+      A monetary amount in a specific currency.
+
+      - `amount: string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `currency: BetaCurrency`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+    - `type: "limit"`
+
+## Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const betaManagedAgentsDeployment = await client.beta.deployments.pause(
-  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  "depl_011CZkZcDH3vPqd7xnEfwTai"
 );
 
 console.log(betaManagedAgentsDeployment.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
@@ -682,6 +676,13 @@ console.log(betaManagedAgentsDeployment.id);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

@@ -4,7 +4,7 @@
 
 `$ ant beta:environments create`
 
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
@@ -14,6 +14,8 @@ Create a new environment with the specified configuration.
 
   Body param: Human-readable name for the environment
 
+  maxLength: 256, minLength: 1
+
 - `--config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams`
 
   Body param: Environment configuration
@@ -21,6 +23,8 @@ Create a new environment with the specified configuration.
 - `--description: optional string`
 
   Body param: Optional description of the environment
+
+  maxLength: 1024
 
 - `--metadata: optional map[string]`
 
@@ -36,7 +40,7 @@ Create a new environment with the specified configuration.
 
 ### Returns
 
-- `beta_environment: object { id, archived_at, config, 7 more }`
+- `beta_environment: object`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -52,7 +56,7 @@ Create a new environment with the specified configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `beta_cloud_config: object { networking, packages, type }`
+    - `beta_cloud_config: object`
 
       `cloud` environment configuration.
 
@@ -60,7 +64,7 @@ Create a new environment with the specified configuration.
 
         Network configuration policy.
 
-        - `beta_unrestricted_network: object { type }`
+        - `beta_unrestricted_network: object`
 
           Unrestricted network access.
 
@@ -68,7 +72,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-        - `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+        - `beta_limited_network: object`
 
           Limited network access.
 
@@ -88,7 +92,7 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-      - `packages: object { apt, cargo, gem, 4 more }`
+      - `packages: object`
 
         Package manager configuration.
 
@@ -120,13 +124,11 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `"packages"`
-
       - `type: "cloud"`
 
         Environment type
 
-    - `beta_self_hosted_config: object { type }`
+    - `beta_self_hosted_config: object`
 
       Configuration for self-hosted environments.
 
@@ -140,7 +142,7 @@ Create a new environment with the specified configuration.
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 
@@ -168,13 +170,13 @@ Create a new environment with the specified configuration.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments create \
   --api-key my-anthropic-api-key \
   --name python-data-analysis
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -227,7 +229,7 @@ ant beta:environments create \
 
 `$ ant beta:environments list`
 
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
@@ -241,6 +243,8 @@ List environments with pagination support.
 
   Query param: Maximum number of environments to return
 
+  maximum: 1000, minimum: 1
+
 - `--page: optional string`
 
   Query param: Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
@@ -251,7 +255,7 @@ List environments with pagination support.
 
 ### Returns
 
-- `BetaEnvironmentListResponse: object { data, next_page }`
+- `BetaEnvironmentListResponse: object`
 
   Response when listing environments.
 
@@ -274,7 +278,7 @@ List environments with pagination support.
 
       Environment configuration (either Anthropic Cloud or self-hosted)
 
-      - `beta_cloud_config: object { networking, packages, type }`
+      - `beta_cloud_config: object`
 
         `cloud` environment configuration.
 
@@ -282,7 +286,7 @@ List environments with pagination support.
 
           Network configuration policy.
 
-          - `beta_unrestricted_network: object { type }`
+          - `beta_unrestricted_network: object`
 
             Unrestricted network access.
 
@@ -290,7 +294,7 @@ List environments with pagination support.
 
               Network policy type
 
-          - `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+          - `beta_limited_network: object`
 
             Limited network access.
 
@@ -310,7 +314,7 @@ List environments with pagination support.
 
               Network policy type
 
-        - `packages: object { apt, cargo, gem, 4 more }`
+        - `packages: object`
 
           Package manager configuration.
 
@@ -342,13 +346,11 @@ List environments with pagination support.
 
             Package configuration type
 
-            - `"packages"`
-
         - `type: "cloud"`
 
           Environment type
 
-      - `beta_self_hosted_config: object { type }`
+      - `beta_self_hosted_config: object`
 
         Configuration for self-hosted environments.
 
@@ -362,7 +364,7 @@ List environments with pagination support.
 
     - `description: string`
 
-      User-provided description for the environment
+      User-provided description for the environment; null when unset
 
     - `metadata: map[string]`
 
@@ -394,12 +396,12 @@ List environments with pagination support.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -457,7 +459,7 @@ ant beta:environments list \
 
 `$ ant beta:environments retrieve`
 
-**get** `/v1/environments/{environment_id}`
+**GET** `/v1/environments/{environment_id}`
 
 Retrieve a specific environment by ID.
 
@@ -471,7 +473,7 @@ Retrieve a specific environment by ID.
 
 ### Returns
 
-- `beta_environment: object { id, archived_at, config, 7 more }`
+- `beta_environment: object`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -487,7 +489,7 @@ Retrieve a specific environment by ID.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `beta_cloud_config: object { networking, packages, type }`
+    - `beta_cloud_config: object`
 
       `cloud` environment configuration.
 
@@ -495,7 +497,7 @@ Retrieve a specific environment by ID.
 
         Network configuration policy.
 
-        - `beta_unrestricted_network: object { type }`
+        - `beta_unrestricted_network: object`
 
           Unrestricted network access.
 
@@ -503,7 +505,7 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-        - `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+        - `beta_limited_network: object`
 
           Limited network access.
 
@@ -523,7 +525,7 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-      - `packages: object { apt, cargo, gem, 4 more }`
+      - `packages: object`
 
         Package manager configuration.
 
@@ -555,13 +557,11 @@ Retrieve a specific environment by ID.
 
           Package configuration type
 
-          - `"packages"`
-
       - `type: "cloud"`
 
         Environment type
 
-    - `beta_self_hosted_config: object { type }`
+    - `beta_self_hosted_config: object`
 
       Configuration for self-hosted environments.
 
@@ -575,7 +575,7 @@ Retrieve a specific environment by ID.
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 
@@ -603,13 +603,13 @@ Retrieve a specific environment by ID.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments retrieve \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -662,7 +662,7 @@ ant beta:environments retrieve \
 
 `$ ant beta:environments update`
 
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
@@ -678,7 +678,9 @@ Update an existing environment's configuration.
 
 - `--description: optional string`
 
-  Body param: Updated description of the environment
+  Body param: Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+
+  maxLength: 1024
 
 - `--metadata: optional map[string]`
 
@@ -687,6 +689,8 @@ Update an existing environment's configuration.
 - `--name: optional string`
 
   Body param: Updated name for the environment
+
+  maxLength: 256, minLength: 1
 
 - `--scope: optional "organization" or "account"`
 
@@ -698,7 +702,7 @@ Update an existing environment's configuration.
 
 ### Returns
 
-- `beta_environment: object { id, archived_at, config, 7 more }`
+- `beta_environment: object`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -714,7 +718,7 @@ Update an existing environment's configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `beta_cloud_config: object { networking, packages, type }`
+    - `beta_cloud_config: object`
 
       `cloud` environment configuration.
 
@@ -722,7 +726,7 @@ Update an existing environment's configuration.
 
         Network configuration policy.
 
-        - `beta_unrestricted_network: object { type }`
+        - `beta_unrestricted_network: object`
 
           Unrestricted network access.
 
@@ -730,7 +734,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-        - `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+        - `beta_limited_network: object`
 
           Limited network access.
 
@@ -750,7 +754,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-      - `packages: object { apt, cargo, gem, 4 more }`
+      - `packages: object`
 
         Package manager configuration.
 
@@ -782,13 +786,11 @@ Update an existing environment's configuration.
 
           Package configuration type
 
-          - `"packages"`
-
       - `type: "cloud"`
 
         Environment type
 
-    - `beta_self_hosted_config: object { type }`
+    - `beta_self_hosted_config: object`
 
       Configuration for self-hosted environments.
 
@@ -802,7 +804,7 @@ Update an existing environment's configuration.
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 
@@ -830,13 +832,13 @@ Update an existing environment's configuration.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments update \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -889,7 +891,7 @@ ant beta:environments update \
 
 `$ ant beta:environments delete`
 
-**delete** `/v1/environments/{environment_id}`
+**DELETE** `/v1/environments/{environment_id}`
 
 Delete an environment by ID. Returns a confirmation of the deletion.
 
@@ -903,7 +905,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ### Returns
 
-- `beta_environment_delete_response: object { id, type }`
+- `beta_environment_delete_response: object`
 
   Response after deleting an environment.
 
@@ -917,13 +919,13 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
 ### Example
 
-```cli
+```bash
 ant beta:environments delete \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -936,7 +938,7 @@ ant beta:environments delete \
 
 `$ ant beta:environments archive`
 
-**post** `/v1/environments/{environment_id}/archive`
+**POST** `/v1/environments/{environment_id}/archive`
 
 Archive an environment by ID. Archived environments cannot be used to create new sessions.
 
@@ -950,7 +952,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ### Returns
 
-- `beta_environment: object { id, archived_at, config, 7 more }`
+- `beta_environment: object`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -966,7 +968,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `beta_cloud_config: object { networking, packages, type }`
+    - `beta_cloud_config: object`
 
       `cloud` environment configuration.
 
@@ -974,7 +976,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
         Network configuration policy.
 
-        - `beta_unrestricted_network: object { type }`
+        - `beta_unrestricted_network: object`
 
           Unrestricted network access.
 
@@ -982,7 +984,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Network policy type
 
-        - `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+        - `beta_limited_network: object`
 
           Limited network access.
 
@@ -1002,7 +1004,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
             Network policy type
 
-      - `packages: object { apt, cargo, gem, 4 more }`
+      - `packages: object`
 
         Package manager configuration.
 
@@ -1034,13 +1036,11 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
           Package configuration type
 
-          - `"packages"`
-
       - `type: "cloud"`
 
         Environment type
 
-    - `beta_self_hosted_config: object { type }`
+    - `beta_self_hosted_config: object`
 
       Configuration for self-hosted environments.
 
@@ -1054,7 +1054,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 
@@ -1082,13 +1082,13 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
 ### Example
 
-```cli
+```bash
 ant beta:environments archive \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1137,11 +1137,11 @@ ant beta:environments archive \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Cloud Config
 
-- `beta_cloud_config: object { networking, packages, type }`
+- `beta_cloud_config: object`
 
   `cloud` environment configuration.
 
@@ -1149,7 +1149,7 @@ ant beta:environments archive \
 
     Network configuration policy.
 
-    - `beta_unrestricted_network: object { type }`
+    - `beta_unrestricted_network: object`
 
       Unrestricted network access.
 
@@ -1157,7 +1157,7 @@ ant beta:environments archive \
 
         Network policy type
 
-    - `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+    - `beta_limited_network: object`
 
       Limited network access.
 
@@ -1177,7 +1177,7 @@ ant beta:environments archive \
 
         Network policy type
 
-  - `packages: object { apt, cargo, gem, 4 more }`
+  - `packages: object`
 
     Package manager configuration.
 
@@ -1209,15 +1209,13 @@ ant beta:environments archive \
 
       Package configuration type
 
-      - `"packages"`
-
   - `type: "cloud"`
 
     Environment type
 
 ### Beta Cloud Config Params
 
-- `beta_cloud_config_params: object { type, networking, packages }`
+- `beta_cloud_config_params: object`
 
   Request params for `cloud` environment configuration.
 
@@ -1232,7 +1230,7 @@ ant beta:environments archive \
 
     Network configuration policy. Omit on update to preserve the existing value.
 
-    - `beta_unrestricted_network: object { type }`
+    - `beta_unrestricted_network: object`
 
       Unrestricted network access.
 
@@ -1240,7 +1238,7 @@ ant beta:environments archive \
 
         Network policy type
 
-    - `beta_limited_network_params: object { type, allow_mcp_servers, allow_package_managers, allowed_hosts }`
+    - `beta_limited_network_params: object`
 
       Limited network request params.
 
@@ -1263,7 +1261,7 @@ ant beta:environments archive \
 
         Specifies domains the container can reach.
 
-  - `packages: optional object { apt, cargo, gem, 4 more }`
+  - `packages: optional object`
 
     Specify packages (and optionally their versions) available in this environment.
 
@@ -1297,11 +1295,9 @@ ant beta:environments archive \
 
       Package configuration type
 
-      - `"packages"`
-
 ### Beta Environment
 
-- `beta_environment: object { id, archived_at, config, 7 more }`
+- `beta_environment: object`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -1317,7 +1313,7 @@ ant beta:environments archive \
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `beta_cloud_config: object { networking, packages, type }`
+    - `beta_cloud_config: object`
 
       `cloud` environment configuration.
 
@@ -1325,7 +1321,7 @@ ant beta:environments archive \
 
         Network configuration policy.
 
-        - `beta_unrestricted_network: object { type }`
+        - `beta_unrestricted_network: object`
 
           Unrestricted network access.
 
@@ -1333,7 +1329,7 @@ ant beta:environments archive \
 
             Network policy type
 
-        - `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+        - `beta_limited_network: object`
 
           Limited network access.
 
@@ -1353,7 +1349,7 @@ ant beta:environments archive \
 
             Network policy type
 
-      - `packages: object { apt, cargo, gem, 4 more }`
+      - `packages: object`
 
         Package manager configuration.
 
@@ -1385,13 +1381,11 @@ ant beta:environments archive \
 
           Package configuration type
 
-          - `"packages"`
-
       - `type: "cloud"`
 
         Environment type
 
-    - `beta_self_hosted_config: object { type }`
+    - `beta_self_hosted_config: object`
 
       Configuration for self-hosted environments.
 
@@ -1405,7 +1399,7 @@ ant beta:environments archive \
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 
@@ -1433,7 +1427,7 @@ ant beta:environments archive \
 
 ### Beta Environment Delete Response
 
-- `beta_environment_delete_response: object { id, type }`
+- `beta_environment_delete_response: object`
 
   Response after deleting an environment.
 
@@ -1447,7 +1441,7 @@ ant beta:environments archive \
 
 ### Beta Limited Network
 
-- `beta_limited_network: object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+- `beta_limited_network: object`
 
   Limited network access.
 
@@ -1469,7 +1463,7 @@ ant beta:environments archive \
 
 ### Beta Limited Network Params
 
-- `beta_limited_network_params: object { type, allow_mcp_servers, allow_package_managers, allowed_hosts }`
+- `beta_limited_network_params: object`
 
   Limited network request params.
 
@@ -1494,7 +1488,7 @@ ant beta:environments archive \
 
 ### Beta Packages
 
-- `beta_packages: object { apt, cargo, gem, 4 more }`
+- `beta_packages: object`
 
   Packages (and their versions) available in this environment.
 
@@ -1526,11 +1520,9 @@ ant beta:environments archive \
 
     Package configuration type
 
-    - `"packages"`
-
 ### Beta Packages Params
 
-- `beta_packages_params: object { apt, cargo, gem, 4 more }`
+- `beta_packages_params: object`
 
   Specify packages (and optionally their versions) available in this environment.
 
@@ -1564,11 +1556,9 @@ ant beta:environments archive \
 
     Package configuration type
 
-    - `"packages"`
-
 ### Beta Self Hosted Config
 
-- `beta_self_hosted_config: object { type }`
+- `beta_self_hosted_config: object`
 
   Configuration for self-hosted environments.
 
@@ -1578,7 +1568,7 @@ ant beta:environments archive \
 
 ### Beta Self Hosted Config Params
 
-- `beta_self_hosted_config_params: object { type }`
+- `beta_self_hosted_config_params: object`
 
   Request params for `self_hosted` environment configuration.
 
@@ -1588,7 +1578,7 @@ ant beta:environments archive \
 
 ### Beta Unrestricted Network
 
-- `beta_unrestricted_network: object { type }`
+- `beta_unrestricted_network: object`
 
   Unrestricted network access.
 
@@ -1596,19 +1586,19 @@ ant beta:environments archive \
 
     Network policy type
 
-# Work
+## Environments › Work
 
-## Get Work Item
+### Get Work Item
 
 `$ ant beta:environments:work retrieve`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Retrieve detailed information about a specific work item.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -1622,9 +1612,9 @@ Retrieve detailed information about a specific work item.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1644,7 +1634,7 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -1667,6 +1657,10 @@ Retrieve detailed information about a specific work item.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -1698,16 +1692,16 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work retrieve \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1723,6 +1717,7 @@ ant beta:environments:work retrieve \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1731,17 +1726,17 @@ ant beta:environments:work retrieve \
 }
 ```
 
-## Poll for Work
+### Poll for Work
 
 `$ ant beta:environments:work poll`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -1751,9 +1746,13 @@ Long poll for work items in the queue.
 
   Query param: How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `--reclaim-older-than-ms: optional number`
 
   Query param: Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+  minimum: 1
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -1763,9 +1762,9 @@ Long poll for work items in the queue.
 
   Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1785,7 +1784,7 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -1808,6 +1807,10 @@ Long poll for work items in the queue.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -1839,15 +1842,15 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work poll \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1863,6 +1866,7 @@ ant beta:environments:work poll \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1871,17 +1875,17 @@ ant beta:environments:work poll \
 }
 ```
 
-## Acknowledge Work
+### Acknowledge Work
 
 `$ ant beta:environments:work ack`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting' and removing it from the queue.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -1895,9 +1899,9 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1917,7 +1921,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -1940,6 +1944,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -1971,16 +1979,16 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work ack \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1996,6 +2004,7 @@ ant beta:environments:work ack \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -2004,17 +2013,17 @@ ant beta:environments:work ack \
 }
 ```
 
-## Record Heartbeat
+### Record Heartbeat
 
 `$ ant beta:environments:work heartbeat`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Record a heartbeat for a work item to maintain the lease.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -2036,9 +2045,9 @@ Record a heartbeat for a work item to maintain the lease.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work_heartbeat_response: object { last_heartbeat, lease_extended, state, 2 more }`
+- `beta_self_hosted_work_heartbeat_response: object`
 
   Response after recording a heartbeat for a work item.
 
@@ -2072,16 +2081,16 @@ Record a heartbeat for a work item to maintain the lease.
 
     The type of response
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work heartbeat \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2093,17 +2102,17 @@ ant beta:environments:work heartbeat \
 }
 ```
 
-## Stop Work
+### Stop Work
 
 `$ ant beta:environments:work stop`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Stop a work item, initiating graceful or forced shutdown.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -2121,9 +2130,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -2143,7 +2152,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -2166,6 +2175,10 @@ Stop a work item, initiating graceful or forced shutdown.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -2197,16 +2210,16 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work stop \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2222,6 +2235,7 @@ ant beta:environments:work stop \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -2230,17 +2244,17 @@ ant beta:environments:work stop \
 }
 ```
 
-## List Work Items
+### List Work Items
 
 `$ ant beta:environments:work list`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 List work items in an environment.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -2250,6 +2264,8 @@ List work items in an environment.
 
   Query param: Maximum number of work items to return
 
+  maximum: 1000, minimum: 1
+
 - `--page: optional string`
 
   Query param: Opaque cursor from previous response for pagination
@@ -2258,9 +2274,9 @@ List work items in an environment.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work_list_response: object { data, next_page }`
+- `beta_self_hosted_work_list_response: object`
 
   Response when listing work items with cursor-based pagination.
 
@@ -2280,7 +2296,7 @@ List work items in an environment.
 
       RFC 3339 timestamp when work was created
 
-    - `data: object { id, type }`
+    - `data: object`
 
       The actual work to be performed
 
@@ -2303,6 +2319,10 @@ List work items in an environment.
     - `metadata: map[string]`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `secret: string`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `started_at: string`
 
@@ -2338,15 +2358,15 @@ List work items in an environment.
 
     Opaque cursor for fetching the next page of results
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work list \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2364,6 +2384,7 @@ ant beta:environments:work list \
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -2375,17 +2396,17 @@ ant beta:environments:work list \
 }
 ```
 
-## Update Work Item
+### Update Work Item
 
 `$ ant beta:environments:work update`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -2403,9 +2424,9 @@ Update work item metadata with merge semantics.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -2425,7 +2446,7 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -2448,6 +2469,10 @@ Update work item metadata with merge semantics.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -2479,9 +2504,9 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work update \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
@@ -2489,7 +2514,7 @@ ant beta:environments:work update \
   --metadata '{foo: string}'
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2505,6 +2530,7 @@ ant beta:environments:work update \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -2513,15 +2539,15 @@ ant beta:environments:work update \
 }
 ```
 
-## Get Queue Statistics
+### Get Queue Statistics
 
 `$ ant beta:environments:work stats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
-### Parameters
+#### Parameters
 
 - `--environment-id: string`
 
@@ -2529,9 +2555,9 @@ Get statistics about the work queue for an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_self_hosted_work_queue_stats: object { depth, oldest_queued_at, pending, 2 more }`
+- `beta_self_hosted_work_queue_stats: object`
 
   Statistics about the work queue for an environment.
 
@@ -2557,15 +2583,15 @@ Get statistics about the work queue for an environment.
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:environments:work stats \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2576,262 +2602,3 @@ ant beta:environments:work stats \
   "workers_polling": 0
 }
 ```
-
-## Domain Types
-
-### Beta Self Hosted Work
-
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
-
-  Work resource representing a unit of work in a self-hosted environment.
-
-  Work items are queued when sessions are created or when long-dormant sessions
-  receive new messages. The environment worker polls for work to execute in a
-  self-hosted sandbox.
-
-  - `id: string`
-
-    Work identifier (e.g., 'work_...')
-
-  - `acknowledged_at: string`
-
-    RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
-
-  - `created_at: string`
-
-    RFC 3339 timestamp when work was created
-
-  - `data: object { id, type }`
-
-    The actual work to be performed
-
-    - `id: string`
-
-      Session identifier (e.g., 'session_...')
-
-    - `type: "session"`
-
-      Type of work data
-
-  - `environment_id: string`
-
-    Environment identifier this work belongs to (e.g., `env_...`)
-
-  - `latest_heartbeat_at: string`
-
-    RFC 3339 timestamp of the most recent heartbeat
-
-  - `metadata: map[string]`
-
-    User-provided metadata key-value pairs associated with this work item
-
-  - `started_at: string`
-
-    RFC 3339 timestamp when work execution started
-
-  - `state: "queued" or "starting" or "active" or 2 more`
-
-    Current state of the work item
-
-    - `"queued"`
-
-    - `"starting"`
-
-    - `"active"`
-
-    - `"stopping"`
-
-    - `"stopped"`
-
-  - `stop_requested_at: string`
-
-    RFC 3339 timestamp when stop was requested
-
-  - `stopped_at: string`
-
-    RFC 3339 timestamp when work execution stopped
-
-  - `type: "work"`
-
-    The type of object (always 'work')
-
-### Beta Self Hosted Work Heartbeat Response
-
-- `beta_self_hosted_work_heartbeat_response: object { last_heartbeat, lease_extended, state, 2 more }`
-
-  Response after recording a heartbeat for a work item.
-
-  - `last_heartbeat: string`
-
-    RFC 3339 timestamp of the actual heartbeat from DB
-
-  - `lease_extended: boolean`
-
-    Whether the heartbeat succeeded in extending the lease
-
-  - `state: "queued" or "starting" or "active" or 2 more`
-
-    Current state of the work item (active/stopping/stopped)
-
-    - `"queued"`
-
-    - `"starting"`
-
-    - `"active"`
-
-    - `"stopping"`
-
-    - `"stopped"`
-
-  - `ttl_seconds: number`
-
-    Effective TTL applied to the lease
-
-  - `type: "work_heartbeat"`
-
-    The type of response
-
-### Beta Self Hosted Work List Response
-
-- `beta_self_hosted_work_list_response: object { data, next_page }`
-
-  Response when listing work items with cursor-based pagination.
-
-  - `data: array of BetaSelfHostedWork`
-
-    List of work items
-
-    - `id: string`
-
-      Work identifier (e.g., 'work_...')
-
-    - `acknowledged_at: string`
-
-      RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
-
-    - `created_at: string`
-
-      RFC 3339 timestamp when work was created
-
-    - `data: object { id, type }`
-
-      The actual work to be performed
-
-      - `id: string`
-
-        Session identifier (e.g., 'session_...')
-
-      - `type: "session"`
-
-        Type of work data
-
-    - `environment_id: string`
-
-      Environment identifier this work belongs to (e.g., `env_...`)
-
-    - `latest_heartbeat_at: string`
-
-      RFC 3339 timestamp of the most recent heartbeat
-
-    - `metadata: map[string]`
-
-      User-provided metadata key-value pairs associated with this work item
-
-    - `started_at: string`
-
-      RFC 3339 timestamp when work execution started
-
-    - `state: "queued" or "starting" or "active" or 2 more`
-
-      Current state of the work item
-
-      - `"queued"`
-
-      - `"starting"`
-
-      - `"active"`
-
-      - `"stopping"`
-
-      - `"stopped"`
-
-    - `stop_requested_at: string`
-
-      RFC 3339 timestamp when stop was requested
-
-    - `stopped_at: string`
-
-      RFC 3339 timestamp when work execution stopped
-
-    - `type: "work"`
-
-      The type of object (always 'work')
-
-  - `next_page: string`
-
-    Opaque cursor for fetching the next page of results
-
-### Beta Self Hosted Work Queue Stats
-
-- `beta_self_hosted_work_queue_stats: object { depth, oldest_queued_at, pending, 2 more }`
-
-  Statistics about the work queue for an environment.
-
-  Uses Redis Stream consumer group metrics for O(1) queries.
-
-  - `depth: number`
-
-    Number of work items waiting to be picked up (lag from consumer group)
-
-  - `oldest_queued_at: string`
-
-    RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
-
-  - `pending: number`
-
-    Number of work items being processed (polled but not acknowledged)
-
-  - `type: "work_queue_stats"`
-
-    The type of object
-
-  - `workers_polling: number`
-
-    Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
-
-### Beta Self Hosted Work Stop Request
-
-- `beta_self_hosted_work_stop_request: object { force }`
-
-  Request to stop a work item.
-
-  - `force: optional boolean`
-
-    If true, immediately stop work without graceful shutdown
-
-### Beta Self Hosted Work Update Request
-
-- `beta_self_hosted_work_update_request: object { metadata }`
-
-  Request to update work item metadata.
-
-  - `metadata: map[string]`
-
-    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve existing metadata.
-
-### Beta Session Work Data
-
-- `beta_session_work_data: object { id, type }`
-
-  Work data for session work items.
-
-  This resource type is used when work represents a session that needs to be executed
-  in a self-hosted environment.
-
-  - `id: string`
-
-    Session identifier (e.g., 'session_...')
-
-  - `type: "session"`
-
-    Type of work data

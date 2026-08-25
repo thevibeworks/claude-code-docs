@@ -4,15 +4,25 @@
 
 `beta.user_profiles.create(**kwargs) -> BetaUserProfile`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
 ### Parameters
 
+- `access_type: :application | :passthrough`
+
+  How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+  - `:application`
+
+  - `:passthrough`
+
 - `external_id: String`
 
   Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `metadata: Hash[Symbol, String]`
 
@@ -20,7 +30,9 @@ Create User Profile
 
 - `name: String`
 
-  Display name of the entity this profile represents. Required when relationship is `resold` (the resold-to company's name); optional otherwise. Maximum 255 characters.
+  Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `relationship: :external | :resold | :internal`
 
@@ -38,7 +50,7 @@ Create User Profile
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -84,19 +96,29 @@ Create User Profile
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -110,19 +132,11 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `relationship: :external | :resold | :internal`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `:external`
-
-    - `:resold`
-
-    - `:internal`
 
   - `trust_grants: Hash[Symbol, BetaUserProfileTrustGrant]`
 
@@ -142,11 +156,19 @@ Create User Profile
 
     Object type. Always `user_profile`.
 
-    - `:user_profile`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `access_type: :application | :passthrough`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `:application`
+
+    - `:passthrough`
 
   - `external_id: String`
 
@@ -154,7 +176,17 @@ Create User Profile
 
   - `name: String`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `relationship: :external | :resold | :internal`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `:external`
+
+    - `:resold`
+
+    - `:internal`
 
 ### Example
 
@@ -168,14 +200,13 @@ beta_user_profile = anthropic.beta.user_profiles.create
 puts(beta_user_profile)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -183,8 +214,10 @@ puts(beta_user_profile)
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```
 
@@ -192,7 +225,7 @@ puts(beta_user_profile)
 
 `beta.user_profiles.list(**kwargs) -> PageCursor<BetaUserProfile>`
 
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
@@ -201,6 +234,8 @@ List User Profiles
 - `limit: Integer`
 
   Query parameter for limit
+
+  format: int32
 
 - `order: :asc | :desc`
 
@@ -220,7 +255,7 @@ List User Profiles
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -266,19 +301,29 @@ List User Profiles
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -292,19 +337,11 @@ List User Profiles
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `relationship: :external | :resold | :internal`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `:external`
-
-    - `:resold`
-
-    - `:internal`
 
   - `trust_grants: Hash[Symbol, BetaUserProfileTrustGrant]`
 
@@ -324,11 +361,19 @@ List User Profiles
 
     Object type. Always `user_profile`.
 
-    - `:user_profile`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `access_type: :application | :passthrough`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `:application`
+
+    - `:passthrough`
 
   - `external_id: String`
 
@@ -336,7 +381,17 @@ List User Profiles
 
   - `name: String`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `relationship: :external | :resold | :internal`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `:external`
+
+    - `:resold`
+
+    - `:internal`
 
 ### Example
 
@@ -350,7 +405,7 @@ page = anthropic.beta.user_profiles.list
 puts(page)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -359,7 +414,6 @@ puts(page)
       "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
       "created_at": "2026-03-15T10:00:00Z",
       "metadata": {},
-      "relationship": "external",
       "trust_grants": {
         "cyber": {
           "status": "active"
@@ -367,8 +421,10 @@ puts(page)
       },
       "type": "user_profile",
       "updated_at": "2026-03-15T10:00:00Z",
+      "access_type": "application",
       "external_id": "user_12345",
-      "name": "Example User"
+      "name": "Example User",
+      "relationship": "external"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -379,7 +435,7 @@ puts(page)
 
 `beta.user_profiles.retrieve(user_profile_id, **kwargs) -> BetaUserProfile`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
@@ -393,7 +449,7 @@ Get User Profile
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -439,19 +495,29 @@ Get User Profile
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -465,19 +531,11 @@ Get User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `relationship: :external | :resold | :internal`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `:external`
-
-    - `:resold`
-
-    - `:internal`
 
   - `trust_grants: Hash[Symbol, BetaUserProfileTrustGrant]`
 
@@ -497,11 +555,19 @@ Get User Profile
 
     Object type. Always `user_profile`.
 
-    - `:user_profile`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `access_type: :application | :passthrough`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `:application`
+
+    - `:passthrough`
 
   - `external_id: String`
 
@@ -509,7 +575,17 @@ Get User Profile
 
   - `name: String`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `relationship: :external | :resold | :internal`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `:external`
+
+    - `:resold`
+
+    - `:internal`
 
 ### Example
 
@@ -523,14 +599,13 @@ beta_user_profile = anthropic.beta.user_profiles.retrieve("uprof_011CZkZCu8hGbp5
 puts(beta_user_profile)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -538,8 +613,10 @@ puts(beta_user_profile)
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```
 
@@ -547,7 +624,7 @@ puts(beta_user_profile)
 
 `beta.user_profiles.update(user_profile_id, **kwargs) -> BetaUserProfile`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
@@ -555,9 +632,19 @@ Update User Profile
 
 - `user_profile_id: String`
 
+- `access_type: :application | :passthrough`
+
+  How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+  - `:application`
+
+  - `:passthrough`
+
 - `external_id: String`
 
   If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `metadata: Hash[Symbol, String]`
 
@@ -566,6 +653,8 @@ Update User Profile
 - `name: String`
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `relationship: :external | :resold | :internal`
 
@@ -583,7 +672,7 @@ Update User Profile
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -629,19 +718,29 @@ Update User Profile
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -655,19 +754,11 @@ Update User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `relationship: :external | :resold | :internal`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `:external`
-
-    - `:resold`
-
-    - `:internal`
 
   - `trust_grants: Hash[Symbol, BetaUserProfileTrustGrant]`
 
@@ -687,11 +778,19 @@ Update User Profile
 
     Object type. Always `user_profile`.
 
-    - `:user_profile`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `access_type: :application | :passthrough`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `:application`
+
+    - `:passthrough`
 
   - `external_id: String`
 
@@ -699,7 +798,17 @@ Update User Profile
 
   - `name: String`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `relationship: :external | :resold | :internal`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `:external`
+
+    - `:resold`
+
+    - `:internal`
 
 ### Example
 
@@ -713,14 +822,13 @@ beta_user_profile = anthropic.beta.user_profiles.update("uprof_011CZkZCu8hGbp5mY
 puts(beta_user_profile)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -728,8 +836,10 @@ puts(beta_user_profile)
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```
 
@@ -737,7 +847,7 @@ puts(beta_user_profile)
 
 `beta.user_profiles.create_enrollment_url(user_profile_id, **kwargs) -> BetaUserProfileEnrollmentURL`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
@@ -751,7 +861,7 @@ Create Enrollment URL
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -797,19 +907,29 @@ Create Enrollment URL
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -819,11 +939,11 @@ Create Enrollment URL
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `type: :enrollment_url`
 
     Object type. Always `enrollment_url`.
-
-    - `:enrollment_url`
 
   - `url: String`
 
@@ -841,7 +961,7 @@ beta_user_profile_enrollment_url = anthropic.beta.user_profiles.create_enrollmen
 puts(beta_user_profile_enrollment_url)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -851,7 +971,7 @@ puts(beta_user_profile_enrollment_url)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta User Profile
 
@@ -865,19 +985,11 @@ puts(beta_user_profile_enrollment_url)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `relationship: :external | :resold | :internal`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `:external`
-
-    - `:resold`
-
-    - `:internal`
 
   - `trust_grants: Hash[Symbol, BetaUserProfileTrustGrant]`
 
@@ -897,11 +1009,19 @@ puts(beta_user_profile_enrollment_url)
 
     Object type. Always `user_profile`.
 
-    - `:user_profile`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
+
+  - `access_type: :application | :passthrough`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `:application`
+
+    - `:passthrough`
 
   - `external_id: String`
 
@@ -909,7 +1029,17 @@ puts(beta_user_profile_enrollment_url)
 
   - `name: String`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `relationship: :external | :resold | :internal`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `:external`
+
+    - `:resold`
+
+    - `:internal`
 
 ### Beta User Profile Enrollment URL
 
@@ -919,11 +1049,11 @@ puts(beta_user_profile_enrollment_url)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `type: :enrollment_url`
 
     Object type. Always `enrollment_url`.
-
-    - `:enrollment_url`
 
   - `url: String`
 

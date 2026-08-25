@@ -1,12 +1,12 @@
-## Get Session Resource
+# Get Session Resource
 
 `client.Beta.Sessions.Resources.Get(ctx, resourceID, params) (*BetaSessionResourceGetResponseUnion, error)`
 
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
-### Parameters
+## Parameters
 
 - `resourceID string`
 
@@ -16,7 +16,7 @@ Get Session Resource
 
     Path param: Path parameter session_id
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -68,21 +68,31 @@ Get Session Resource
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
-### Returns
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `type BetaSessionResourceGetResponseUnion interface{…}`
 
@@ -96,19 +106,21 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `MountPath string`
 
     - `Type BetaManagedAgentsGitHubRepositoryResourceType`
-
-      - `const BetaManagedAgentsGitHubRepositoryResourceTypeGitHubRepository BetaManagedAgentsGitHubRepositoryResourceType = "github_repository"`
 
     - `UpdatedAt Time`
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `URL string`
 
-    - `Checkout BetaManagedAgentsGitHubRepositoryResourceCheckoutUnion`
+    - `Checkout BetaManagedAgentsGitHubRepositoryResourceCheckoutUnion Optional`
 
       - `type BetaManagedAgentsBranchCheckout struct{…}`
 
@@ -116,9 +128,9 @@ Get Session Resource
 
           Branch name to check out.
 
-        - `Type BetaManagedAgentsBranchCheckoutType`
+          minLength: 1, maxLength: 255
 
-          - `const BetaManagedAgentsBranchCheckoutTypeBranch BetaManagedAgentsBranchCheckoutType = "branch"`
+        - `Type BetaManagedAgentsBranchCheckoutType`
 
       - `type BetaManagedAgentsCommitCheckout struct{…}`
 
@@ -126,9 +138,9 @@ Get Session Resource
 
           Full commit SHA to check out.
 
-        - `Type BetaManagedAgentsCommitCheckoutType`
+          minLength: 7, maxLength: 64
 
-          - `const BetaManagedAgentsCommitCheckoutTypeCommit BetaManagedAgentsCommitCheckoutType = "commit"`
+        - `Type BetaManagedAgentsCommitCheckoutType`
 
   - `type BetaManagedAgentsFileResource struct{…}`
 
@@ -138,17 +150,19 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `FileID string`
 
     - `MountPath string`
 
     - `Type BetaManagedAgentsFileResourceType`
 
-      - `const BetaManagedAgentsFileResourceTypeFile BetaManagedAgentsFileResourceType = "file"`
-
     - `UpdatedAt Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `type BetaManagedAgentsMemoryStoreResource struct{…}`
 
@@ -160,9 +174,7 @@ Get Session Resource
 
     - `Type BetaManagedAgentsMemoryStoreResourceType`
 
-      - `const BetaManagedAgentsMemoryStoreResourceTypeMemoryStore BetaManagedAgentsMemoryStoreResourceType = "memory_store"`
-
-    - `Access BetaManagedAgentsMemoryStoreResourceAccess`
+    - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
       Access mode for an attached memory store.
 
@@ -170,54 +182,56 @@ Get Session Resource
 
       - `const BetaManagedAgentsMemoryStoreResourceAccessReadOnly BetaManagedAgentsMemoryStoreResourceAccess = "read_only"`
 
-    - `Description string`
+    - `Description string Optional`
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `Instructions string`
+    - `Instructions string Optional`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-    - `MountPath string`
+      maxLength: 4096
+
+    - `MountPath string Optional`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `Name string`
+    - `Name string Optional`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  resource, err := client.Beta.Sessions.Resources.Get(
-    context.TODO(),
-    "sesrsc_011CZkZBJq5dWxk9fVLNcPht",
-    anthropic.BetaSessionResourceGetParams{
-      SessionID: "sesn_011CZkZAtmR3yMPDzynEDxu7",
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", resource)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	resource, err := client.Beta.Sessions.Resources.Get(
+		context.TODO(),
+		"sesrsc_011CZkZBJq5dWxk9fVLNcPht",
+		anthropic.BetaSessionResourceGetParams{
+			SessionID: "sesn_011CZkZAtmR3yMPDzynEDxu7",
+		},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", resource)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

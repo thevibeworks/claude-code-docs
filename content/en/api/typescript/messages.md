@@ -2,9 +2,9 @@
 
 ## Create a Message
 
-`client.messages.create(MessageCreateParamsparams, RequestOptionsoptions?): Message | Stream<RawMessageStreamEvent>`
+`client.messages.create(params, options?): Message | Stream<RawMessageStreamEvent>`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -27,6 +27,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
       Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+      minimum: 0
 
     - `messages: Array<MessageParam>`
 
@@ -89,17 +91,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `text: string`
 
-            - `type: "text"`
+              minLength: 1
 
-              - `"text"`
+            - `type: "text"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
               Create a cache control breakpoint at this content block.
 
               - `type: "ephemeral"`
-
-                - `"ephemeral"`
 
               - `ttl?: "5m" | "1h"`
 
@@ -124,15 +124,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_char_index: number`
 
                 - `start_char_index: number`
 
-                - `type: "char_location"`
+                  minimum: 0
 
-                  - `"char_location"`
+                - `type: "char_location"`
 
               - `CitationPageLocationParam`
 
@@ -140,15 +144,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_page_number: number`
 
                 - `start_page_number: number`
 
-                - `type: "page_location"`
+                  minimum: 1
 
-                  - `"page_location"`
+                - `type: "page_location"`
 
               - `CitationContentBlockLocationParam`
 
@@ -160,7 +168,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_block_index: number`
 
@@ -172,9 +184,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `type: "content_block_location"`
+                  minimum: 0
 
-                  - `"content_block_location"`
+                - `type: "content_block_location"`
 
               - `CitationWebSearchResultLocationParam`
 
@@ -184,11 +196,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `title: string | null`
 
+                  maxLength: 512, minLength: 1
+
                 - `type: "web_search_result_location"`
 
-                  - `"web_search_result_location"`
-
                 - `url: string`
+
+                  minLength: 1
 
               - `CitationSearchResultLocationParam`
 
@@ -210,25 +224,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: string | null`
 
                 - `type: "search_result_location"`
 
-                  - `"search_result_location"`
-
           - `ImageBlockParam`
 
-            - `source: Base64ImageSource | URLImageSource`
+            - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
               - `Base64ImageSource`
 
                 - `data: string`
+
+                  format: byte
 
                 - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -242,39 +260,49 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "base64"`
 
-                  - `"base64"`
-
               - `URLImageSource`
 
                 - `type: "url"`
 
-                  - `"url"`
-
                 - `url: string`
 
-            - `type: "image"`
+              - `FileImageSource`
 
-              - `"image"`
+                - `file_id: string`
+
+                - `type: "file"`
+
+            - `type: "image"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
               Create a cache control breakpoint at this content block.
 
+            - `transformations?: ImageTransformationsParam | null`
+
+              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+              - `oversized_image?: "downsize" | "error"`
+
+                What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                - `"downsize"`
+
+                - `"error"`
+
           - `DocumentBlockParam`
 
-            - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+            - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
               - `Base64PDFSource`
 
                 - `data: string`
 
+                  format: byte
+
                 - `media_type: "application/pdf"`
 
-                  - `"application/pdf"`
-
                 - `type: "base64"`
-
-                  - `"base64"`
 
               - `PlainTextSource`
 
@@ -282,11 +310,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `media_type: "text/plain"`
 
-                  - `"text/plain"`
-
                 - `type: "text"`
-
-                  - `"text"`
 
               - `ContentBlockSource`
 
@@ -302,19 +326,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "content"`
 
-                  - `"content"`
-
               - `URLPDFSource`
 
                 - `type: "url"`
 
-                  - `"url"`
-
                 - `url: string`
 
-            - `type: "document"`
+              - `FileDocumentSource`
 
-              - `"document"`
+                - `file_id: string`
+
+                - `type: "file"`
+
+            - `type: "document"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -326,13 +350,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `context?: string | null`
 
+              minLength: 1
+
             - `title?: string | null`
+
+              maxLength: 500, minLength: 1
 
           - `SearchResultBlockParam`
 
             - `content: Array<TextBlockParam>`
 
               - `text: string`
+
+                minLength: 1
 
               - `type: "text"`
 
@@ -348,8 +378,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: "search_result"`
 
-              - `"search_result"`
-
             - `cache_control?: CacheControlEphemeral | null`
 
               Create a cache control breakpoint at this content block.
@@ -360,31 +388,37 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `signature: string`
 
+              The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+              Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
             - `thinking: string`
 
-            - `type: "thinking"`
+              The `thinking` text of this block as returned by the API.
 
-              - `"thinking"`
+            - `type: "thinking"`
 
           - `RedactedThinkingBlockParam`
 
             - `data: string`
 
-            - `type: "redacted_thinking"`
+              The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-              - `"redacted_thinking"`
+            - `type: "redacted_thinking"`
 
           - `ToolUseBlockParam`
 
             - `id: string`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `input: Record<string, unknown>`
 
             - `name: string`
 
-            - `type: "tool_use"`
+              maxLength: 200, minLength: 1
 
-              - `"tool_use"`
+            - `type: "tool_use"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -400,43 +434,47 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "direct"`
 
-                  - `"direct"`
-
               - `ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: string`
 
-                - `type: "code_execution_20250825"`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: "code_execution_20250825"`
 
               - `ServerToolCaller20260120`
 
                 - `tool_id: string`
 
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
                 - `type: "code_execution_20260120"`
 
-                  - `"code_execution_20260120"`
+            - `toolset_name?: string | null`
+
+              For a toolset member tool_use, the toolset family this member belongs to.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ToolResultBlockParam`
 
             - `tool_use_id: string`
 
-            - `type: "tool_result"`
+              pattern: ^[a-zA-Z0-9_-]+$
 
-              - `"tool_result"`
+            - `type: "tool_result"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
               Create a cache control breakpoint at this content block.
 
-            - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+            - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
               - `string`
 
-              - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+              - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
                 - `TextBlockParam`
 
@@ -452,19 +490,170 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `tool_name: string`
 
-                  - `type: "tool_reference"`
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `"tool_reference"`
+                  - `type: "tool_reference"`
 
                   - `cache_control?: CacheControlEphemeral | null`
 
                     Create a cache control breakpoint at this content block.
 
+                - `BrowserStateBlockParam`
+
+                  The caller's browser state after a browser toolset member call —
+                  the full inventory of open tabs, which tab is active, and any side
+                  effects (tabs opened, download state changes) the call produced.
+
+                  At most one per `tool_result`, only on a non-error result answering a
+                  browser toolset member `tool_use`. The server renders the
+                  model-visible text from it; the model never sees the raw fields.
+
+                  - `tabs: Array<BrowserStateTabEntry>`
+
+                    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                    maxItems: 100
+
+                    - `tab_id: string`
+
+                      The caller-assigned identifier for this tab, unique within the inventory.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `title: string`
+
+                      The title of the page the tab is showing. May be empty.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `url: string`
+
+                      The URL of the page the tab is showing. May be empty.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `active?: boolean`
+
+                      Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+                  - `type: "browser_state"`
+
+                  - `cache_control?: CacheControlEphemeral | null`
+
+                    Create a cache control breakpoint at this content block.
+
+                  - `state_changes?: Array<BrowserStateChange> | null`
+
+                    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                    maxItems: 200, minItems: 1
+
+                    - `BrowserStateChangeTabOpened`
+
+                      A tab this call's execution opened that remains open at its end —
+                      the creation delta of the `tabs` inventory, not an event log.
+
+                      Carries only the `tab_id`; the tab's `title` and `url` live on its
+                      `tabs` entry, which must include the same `tab_id`. A tab opened
+                      during a failed call gets no deferred `tab_opened`; it simply appears
+                      in the next result's `tabs` inventory.
+
+                      - `tab_id: string`
+
+                        The `tab_id` of the opened tab, present in `tabs`.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: "tab_opened"`
+
+                    - `BrowserStateChangeDownloadStarted`
+
+                      A file download that started during this call.
+
+                      - `download_id: string`
+
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: "download_started"`
+
+                      - `url: string`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `BrowserStateChangeDownloadCompleted`
+
+                      A file download that finished during this call, reported with the
+                      same `download_id` as its `download_started` — or without a prior
+                      `download_started`, when the download finished during the call that
+                      started it (at most one state change per `download_id` per result).
+
+                      - `download_id: string`
+
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: "download_completed"`
+
+                      - `url: string`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `path?: string | null`
+
+                        Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                      - `size_bytes?: number | null`
+
+                        The completed download's size.
+
+                        minimum: 0
+
+                    - `BrowserStateChangeDownloadFailed`
+
+                      A file download that failed — or was cancelled — during this call.
+
+                      - `download_id: string`
+
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: "download_failed"`
+
+                      - `url: string`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `error?: string | null`
+
+                        The failure or cancellation detail, when known.
+
+                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
             - `is_error?: boolean`
+
+            - `toolset_name?: string | null`
+
+              For a toolset member tool_result, the toolset family of the paired tool_use.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ServerToolUseBlockParam`
 
             - `id: string`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `input: Record<string, unknown>`
 
@@ -485,8 +674,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
               - `"tool_search_tool_bm25"`
 
             - `type: "server_tool_use"`
-
-              - `"server_tool_use"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -518,8 +705,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "web_search_result"`
 
-                  - `"web_search_result"`
-
                 - `url: string`
 
                 - `page_age?: string | null`
@@ -542,13 +727,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "web_search_tool_result_error"`
 
-                  - `"web_search_tool_result_error"`
-
             - `tool_use_id: string`
 
-            - `type: "web_search_tool_result"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"web_search_tool_result"`
+            - `type: "web_search_tool_result"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -596,15 +779,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "web_fetch_tool_result_error"`
 
-                  - `"web_fetch_tool_result_error"`
-
               - `WebFetchBlockParam`
 
                 - `content: DocumentBlockParam`
 
                 - `type: "web_fetch_result"`
-
-                  - `"web_fetch_result"`
 
                 - `url: string`
 
@@ -616,9 +795,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `tool_use_id: string`
 
-            - `type: "web_fetch_tool_result"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"web_fetch_tool_result"`
+            - `type: "web_fetch_tool_result"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -658,8 +837,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "code_execution_tool_result_error"`
 
-                  - `"code_execution_tool_result_error"`
-
               - `CodeExecutionResultBlockParam`
 
                 - `content: Array<CodeExecutionOutputBlockParam>`
@@ -668,8 +845,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                   - `type: "code_execution_output"`
 
-                    - `"code_execution_output"`
-
                 - `return_code: number`
 
                 - `stderr: string`
@@ -677,8 +852,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                 - `stdout: string`
 
                 - `type: "code_execution_result"`
-
-                  - `"code_execution_result"`
 
               - `EncryptedCodeExecutionResultBlockParam`
 
@@ -698,13 +871,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "encrypted_code_execution_result"`
 
-                  - `"encrypted_code_execution_result"`
-
             - `tool_use_id: string`
 
-            - `type: "code_execution_tool_result"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_tool_result"`
+            - `type: "code_execution_tool_result"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -730,8 +901,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "bash_code_execution_tool_result_error"`
 
-                  - `"bash_code_execution_tool_result_error"`
-
               - `BashCodeExecutionResultBlockParam`
 
                 - `content: Array<BashCodeExecutionOutputBlockParam>`
@@ -739,8 +908,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                   - `file_id: string`
 
                   - `type: "bash_code_execution_output"`
-
-                    - `"bash_code_execution_output"`
 
                 - `return_code: number`
 
@@ -750,13 +917,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "bash_code_execution_result"`
 
-                  - `"bash_code_execution_result"`
-
             - `tool_use_id: string`
 
-            - `type: "bash_code_execution_tool_result"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"bash_code_execution_tool_result"`
+            - `type: "bash_code_execution_tool_result"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -782,8 +947,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
-                  - `"text_editor_code_execution_tool_result_error"`
-
                 - `error_message?: string | null`
 
               - `TextEditorCodeExecutionViewResultBlockParam`
@@ -800,8 +963,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "text_editor_code_execution_view_result"`
 
-                  - `"text_editor_code_execution_view_result"`
-
                 - `num_lines?: number | null`
 
                 - `start_line?: number | null`
@@ -814,13 +975,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "text_editor_code_execution_create_result"`
 
-                  - `"text_editor_code_execution_create_result"`
-
               - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
                 - `type: "text_editor_code_execution_str_replace_result"`
-
-                  - `"text_editor_code_execution_str_replace_result"`
 
                 - `lines?: Array<string> | null`
 
@@ -834,9 +991,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `tool_use_id: string`
 
-            - `type: "text_editor_code_execution_tool_result"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"text_editor_code_execution_tool_result"`
+            - `type: "text_editor_code_execution_tool_result"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -860,8 +1017,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "tool_search_tool_result_error"`
 
-                  - `"tool_search_tool_result_error"`
-
                 - `error_message?: string | null`
 
               - `ToolSearchToolSearchResultBlockParam`
@@ -869,6 +1024,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
                 - `tool_references: Array<ToolReferenceBlockParam>`
 
                   - `tool_name: string`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `type: "tool_reference"`
 
@@ -878,13 +1035,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `type: "tool_search_tool_search_result"`
 
-                  - `"tool_search_tool_search_result"`
-
             - `tool_use_id: string`
 
-            - `type: "tool_search_tool_result"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"tool_search_tool_result"`
+            - `type: "tool_search_tool_result"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -898,37 +1053,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             - `file_id: string`
 
             - `type: "container_upload"`
-
-              - `"container_upload"`
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-          - `MidConversationSystemBlockParam`
-
-            System instructions that appear mid-conversation.
-
-            Use this block to provide or update system-level instructions at a specific
-            point in the conversation, rather than only via the top-level `system` parameter.
-
-            - `content: Array<TextBlockParam>`
-
-              System instruction text blocks.
-
-              - `text: string`
-
-              - `type: "text"`
-
-              - `cache_control?: CacheControlEphemeral | null`
-
-                Create a cache control breakpoint at this content block.
-
-              - `citations?: Array<TextCitationParam> | null`
-
-            - `type: "mid_conv_system"`
-
-              - `"mid_conv_system"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
@@ -948,7 +1072,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
         - `"claude-sonnet-5"`
 
@@ -962,13 +1086,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Most capable model for cybersecurity and biology research
 
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
         - `"claude-opus-4-8"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-7"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-mythos-preview"`
 
@@ -976,7 +1104,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"claude-opus-4-6"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-6"`
 
@@ -992,11 +1120,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `"claude-opus-4-5"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-5-20251101"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-5"`
 
@@ -1006,23 +1134,51 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           High-performance model for agents and coding
 
-        - `"claude-opus-4-1"`
-
-          Exceptional model for specialized complex tasks
-
-        - `"claude-opus-4-1-20250805"`
-
-          Exceptional model for specialized complex tasks
-
       - `(string & {})`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-    - `container?: string | null`
+    - `container?: MessageCreateParamsContainer | null`
 
       Body param: Container identifier for reuse across requests.
+
+      - `ContainerParams`
+
+        Container parameters with skills to be loaded.
+
+        - `id?: string | null`
+
+          Container id
+
+        - `skills?: Array<SkillParams> | null`
+
+          List of skills to load in the container
+
+          maxItems: 20
+
+          - `skill_id: string`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
+
+          - `type: "anthropic" | "custom"`
+
+            Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+            - `"anthropic"`
+
+            - `"custom"`
+
+          - `version?: string`
+
+            Skill version or 'latest' for most recent version
+
+            maxLength: 64, minLength: 1
+
+      - `string`
 
     - `inference_geo?: string | null`
 
@@ -1037,6 +1193,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         An external identifier for the user who is associated with the request.
 
         This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+        maxLength: 512
 
     - `output_config?: OutputConfig`
 
@@ -1066,8 +1224,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "json_schema"`
 
-          - `"json_schema"`
-
     - `service_tier?: "auto" | "standard_only"`
 
       Body param: Determines whether to use priority capacity (if available) or standard capacity for this request.
@@ -1092,8 +1248,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-      - `false`
-
     - `system?: string | Array<TextBlockParam>`
 
       Body param: System prompt.
@@ -1106,6 +1260,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `text: string`
 
+          minLength: 1
+
         - `type: "text"`
 
         - `cache_control?: CacheControlEphemeral | null`
@@ -1113,14 +1269,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Create a cache control breakpoint at this content block.
 
         - `citations?: Array<TextCitationParam> | null`
-
-    - `temperature?: number`
-
-      Body param: Amount of randomness injected into the response.
-
-      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
     - `thinking?: ThinkingConfigParam`
 
@@ -1140,9 +1288,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-        - `type: "enabled"`
+          minimum: 1024
 
-          - `"enabled"`
+        - `type: "enabled"`
 
         - `display?: "summarized" | "omitted" | null`
 
@@ -1156,13 +1304,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "disabled"`
 
-          - `"disabled"`
-
       - `ThinkingConfigAdaptive`
 
         - `type: "adaptive"`
-
-          - `"adaptive"`
 
         - `display?: "summarized" | "omitted" | null`
 
@@ -1182,8 +1326,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "auto"`
 
-          - `"auto"`
-
         - `disable_parallel_tool_use?: boolean`
 
           Whether to disable parallel tool use.
@@ -1195,8 +1337,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         The model will use any available tools.
 
         - `type: "any"`
-
-          - `"any"`
 
         - `disable_parallel_tool_use?: boolean`
 
@@ -1214,8 +1354,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "tool"`
 
-          - `"tool"`
-
         - `disable_parallel_tool_use?: boolean`
 
           Whether to disable parallel tool use.
@@ -1227,8 +1365,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         The model will not be allowed to use tools.
 
         - `type: "none"`
-
-          - `"none"`
 
     - `tools?: Array<ToolUnion>`
 
@@ -1304,8 +1440,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "object"`
 
-            - `"object"`
-
           - `properties?: Record<string, unknown> | null`
 
           - `required?: Array<string> | null`
@@ -1315,6 +1449,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
+
+          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1352,8 +1488,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type?: "custom" | null`
 
-          - `"custom"`
-
       - `ToolBash20250124`
 
         - `name: "bash"`
@@ -1362,11 +1496,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"bash"`
-
         - `type: "bash_20250124"`
-
-          - `"bash_20250124"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1400,11 +1530,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: "code_execution_20250522"`
-
-          - `"code_execution_20250522"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1436,11 +1562,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: "code_execution_20250825"`
-
-          - `"code_execution_20250825"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1474,11 +1596,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: "code_execution_20260120"`
-
-          - `"code_execution_20260120"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1512,11 +1630,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: "code_execution_20260521"`
-
-          - `"code_execution_20260521"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1540,6 +1654,410 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           When true, guarantees schema validation on tool names and inputs
 
+      - `BrowserToolset20260801`
+
+        The browser toolset: a single `tools[]` entry (carrying no
+        `name`) that declares the browser tool family. The model is served
+        the family's tool with any members disabled via `configs` removed
+        from its schema.
+
+        - `type: "browser_toolset_20260801"`
+
+        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+          - `"direct"`
+
+          - `"code_execution_20250825"`
+
+          - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
+
+        - `cache_control?: CacheControlEphemeral | null`
+
+          Create a cache control breakpoint at this content block.
+
+        - `configs?: BrowserToolsetConfigs | null`
+
+          Per-member configuration for `browser_toolset_20260801`: one
+          optional field per member tool, keyed by the member name — the same
+          name the member's `tool_use` blocks carry. Every member is an
+          accepted key, and a member's defaults apply wherever its key is
+          absent. Unknown keys are rejected: the field set is this toolset
+          version's complete member set.
+
+          - `close_tab?: BrowserCloseTabConfig | null`
+
+            `close_tab`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `double_click?: BrowserDoubleClickConfig | null`
+
+            `double_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `file_upload?: BrowserFileUploadConfig | null`
+
+            `file_upload`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `find?: BrowserFindConfig | null`
+
+            `find`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `form_input?: BrowserFormInputConfig | null`
+
+            `form_input`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `get_page_text?: BrowserGetPageTextConfig | null`
+
+            `get_page_text`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `hold_key?: BrowserHoldKeyConfig | null`
+
+            `hold_key`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `hover?: BrowserHoverConfig | null`
+
+            `hover`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+            `javascript_exec`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `key?: BrowserKeyConfig | null`
+
+            `key`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click?: BrowserLeftClickConfig | null`
+
+            `left_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+            `left_click_drag`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+            `left_mouse_down`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+            `left_mouse_up`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `list_tabs?: BrowserListTabsConfig | null`
+
+            `list_tabs`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `middle_click?: BrowserMiddleClickConfig | null`
+
+            `middle_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `mouse_move?: BrowserMouseMoveConfig | null`
+
+            `mouse_move`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `navigate?: BrowserNavigateConfig | null`
+
+            `navigate`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `new_tab?: BrowserNewTabConfig | null`
+
+            `new_tab`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `read_console?: BrowserReadConsoleConfig | null`
+
+            `read_console`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `read_network?: BrowserReadNetworkConfig | null`
+
+            `read_network`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `read_page?: BrowserReadPageConfig | null`
+
+            `read_page`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `right_click?: BrowserRightClickConfig | null`
+
+            `right_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `screenshot?: BrowserScreenshotConfig | null`
+
+            `screenshot`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `scroll?: BrowserScrollConfig | null`
+
+            `scroll`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `scroll_to?: BrowserScrollToConfig | null`
+
+            `scroll_to`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `switch_tab?: BrowserSwitchTabConfig | null`
+
+            `switch_tab`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `triple_click?: BrowserTripleClickConfig | null`
+
+            `triple_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `type?: BrowserTypeConfig | null`
+
+            `type`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `wait?: BrowserWaitConfig | null`
+
+            `wait`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `zoom?: BrowserZoomConfig | null`
+
+            `zoom`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
       - `MemoryTool20250818`
 
         - `name: "memory"`
@@ -1548,11 +2066,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"memory"`
-
         - `type: "memory_20250818"`
-
-          - `"memory_20250818"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1578,6 +2092,246 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           When true, guarantees schema validation on tool names and inputs
 
+      - `ComputerToolset20260801`
+
+        The computer toolset: a single `tools[]` entry (carrying no
+        `name`) that declares the computer tool family. The model is
+        served the family's tool with any members disabled via `configs`
+        removed from its schema. Every member is enabled by default, zoom
+        included. The single-tool options `display_number` and
+        `enable_zoom` are not fields of a toolset entry — it carries only
+        `type`, `configs`, and `cache_control`; zoom is controlled
+        via `configs.zoom.enabled`.
+
+        - `type: "computer_toolset_20260801"`
+
+        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+          - `"direct"`
+
+          - `"code_execution_20250825"`
+
+          - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
+
+        - `cache_control?: CacheControlEphemeral | null`
+
+          Create a cache control breakpoint at this content block.
+
+        - `configs?: ComputerToolsetConfigs | null`
+
+          Per-member configuration for `computer_toolset_20260801`: one
+          optional field per member tool, keyed by the member name — the same
+          name the member's `tool_use` blocks carry. Every member is an
+          accepted key, and a member's defaults apply wherever its key is
+          absent. Unknown keys are rejected: the field set is this toolset
+          version's complete member set.
+
+          - `cursor_position?: ComputerCursorPositionConfig | null`
+
+            `cursor_position`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `double_click?: ComputerDoubleClickConfig | null`
+
+            `double_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `hold_key?: ComputerHoldKeyConfig | null`
+
+            `hold_key`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `key?: ComputerKeyConfig | null`
+
+            `key`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click?: ComputerLeftClickConfig | null`
+
+            `left_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+            `left_click_drag`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+            `left_mouse_down`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+            `left_mouse_up`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `middle_click?: ComputerMiddleClickConfig | null`
+
+            `middle_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `mouse_move?: ComputerMouseMoveConfig | null`
+
+            `mouse_move`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `right_click?: ComputerRightClickConfig | null`
+
+            `right_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `screenshot?: ComputerScreenshotConfig | null`
+
+            `screenshot`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `scroll?: ComputerScrollConfig | null`
+
+            `scroll`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `triple_click?: ComputerTripleClickConfig | null`
+
+            `triple_click`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `type?: ComputerTypeConfig | null`
+
+            `type`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `wait?: ComputerWaitConfig | null`
+
+            `wait`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `zoom?: ComputerZoomConfig | null`
+
+            `zoom`'s config overrides.
+
+            - `defer_loading?: boolean | null`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled?: boolean | null`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
       - `ToolTextEditor20250124`
 
         - `name: "str_replace_editor"`
@@ -1586,11 +2340,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"str_replace_editor"`
-
         - `type: "text_editor_20250124"`
-
-          - `"text_editor_20250124"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1624,11 +2374,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"str_replace_based_edit_tool"`
-
         - `type: "text_editor_20250429"`
-
-          - `"text_editor_20250429"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1662,11 +2408,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"str_replace_based_edit_tool"`
-
         - `type: "text_editor_20250728"`
-
-          - `"text_editor_20250728"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1692,6 +2434,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+          minimum: 1
+
         - `strict?: boolean`
 
           When true, guarantees schema validation on tool names and inputs
@@ -1704,11 +2448,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_search"`
-
         - `type: "web_search_20250305"`
-
-          - `"web_search_20250305"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1740,6 +2480,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Maximum number of times the tool can be used in the API request.
 
+          exclusiveMinimum: 0
+
         - `strict?: boolean`
 
           When true, guarantees schema validation on tool names and inputs
@@ -1750,23 +2492,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "approximate"`
 
-            - `"approximate"`
-
           - `city?: string | null`
 
             The city of the user.
+
+            maxLength: 255, minLength: 1
 
           - `country?: string | null`
 
             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+            maxLength: 2, minLength: 2
+
           - `region?: string | null`
 
             The region of the user.
 
+            maxLength: 255, minLength: 1
+
           - `timezone?: string | null`
 
             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+            maxLength: 255, minLength: 1
 
       - `WebFetchTool20250910`
 
@@ -1776,11 +2524,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: "web_fetch_20250910"`
-
-          - `"web_fetch_20250910"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1816,9 +2560,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses?: number | null`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict?: boolean`
 
@@ -1832,11 +2580,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_search"`
-
         - `type: "web_search_20260209"`
-
-          - `"web_search_20260209"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1867,6 +2611,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `max_uses?: number | null`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict?: boolean`
 
@@ -1884,11 +2630,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: "web_fetch_20260209"`
-
-          - `"web_fetch_20260209"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1924,9 +2666,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses?: number | null`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict?: boolean`
 
@@ -1942,11 +2688,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: "web_fetch_20260309"`
-
-          - `"web_fetch_20260309"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1982,9 +2724,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses?: number | null`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict?: boolean`
 
@@ -2002,11 +2748,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_search"`
-
         - `type: "web_search_20260318"`
-
-          - `"web_search_20260318"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2037,6 +2779,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `max_uses?: number | null`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `response_inclusion?: "full" | "excluded"`
 
@@ -2062,11 +2806,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: "web_fetch_20260318"`
-
-          - `"web_fetch_20260318"`
 
         - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2102,9 +2842,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses?: number | null`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `response_inclusion?: "full" | "excluded"`
 
@@ -2129,8 +2873,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `"tool_search_tool_bm25"`
 
         - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -2168,8 +2910,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"tool_search_tool_regex"`
-
         - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
           - `"tool_search_tool_regex_20251119"`
@@ -2198,7 +2938,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           When true, guarantees schema validation on tool names and inputs
 
+    - `user_profile_id?: string`
+
+      Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+    - `temperature?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+      Body param: Amount of randomness injected into the response.
+
+      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+      maximum: 1, minimum: 0
+
     - `top_k?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
       Body param: Only sample from the top K options for each subsequent token.
 
@@ -2206,7 +2964,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Recommended for advanced use cases only.
 
+      minimum: 0
+
     - `top_p?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
       Body param: Use nucleus sampling.
 
@@ -2214,11 +2976,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Recommended for advanced use cases only.
 
-    - `user_profile_id?: string`
+      maximum: 1, minimum: 0
 
-      Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
-
-  - `MessageCreateParamsNonStreaming extends MessageCreateParamsBase`
+  - `MessageCreateParamsNonStreaming extends  MessageCreateParamsBase`
 
     - `stream?: false`
 
@@ -2226,15 +2986,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-  - `MessageCreateParamsStreaming extends MessageCreateParamsBase`
+  - `MessageCreateParamsStreaming extends  MessageCreateParamsBase`
 
     - `stream: true`
 
       Body param: Whether to incrementally stream the response using server-sent events.
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
-
-      - `true`
 
 ### Returns
 
@@ -2257,6 +3015,32 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `expires_at: string`
 
       The time at which the container will expire.
+
+      format: date-time
+
+    - `skills: Array<ContainerSkill> | null`
+
+      Skills loaded in the container
+
+      - `skill_id: string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
+
+      - `type: "anthropic" | "custom"`
+
+        Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+        - `"anthropic"`
+
+        - `"custom"`
+
+      - `version: string`
+
+        The resolved version: a skill version ID for custom skills.
+
+        maxLength: 64, minLength: 1
 
   - `content: Array<ContentBlock>`
 
@@ -2301,6 +3085,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string | null`
 
           - `end_char_index: number`
@@ -2309,15 +3095,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-            - `"char_location"`
+            default: char_location
 
         - `CitationPageLocation`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -2327,9 +3117,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-            - `"page_location"`
+            default: page_location
 
         - `CitationContentBlockLocation`
 
@@ -2340,6 +3132,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -2355,9 +3149,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-            - `"content_block_location"`
+            default: content_block_location
 
         - `CitationsWebSearchResultLocation`
 
@@ -2367,9 +3163,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `title: string | null`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
-            - `"web_search_result_location"`
+            default: web_search_result_location
 
           - `url: string`
 
@@ -2393,49 +3191,73 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: string | null`
 
           - `type: "search_result_location"`
 
-            - `"search_result_location"`
+            default: search_result_location
 
       - `text: string`
 
+        maxLength: 5000000, minLength: 0
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
     - `ThinkingBlock`
 
       - `signature: string`
 
+        A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+        This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
       - `thinking: string`
+
+        The text of Claude's thinking process for this block.
 
       - `type: "thinking"`
 
-        - `"thinking"`
+        default: thinking
 
     - `RedactedThinkingBlock`
 
       - `data: string`
 
+        The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+        Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
       - `type: "redacted_thinking"`
 
-        - `"redacted_thinking"`
+        default: redacted_thinking
 
     - `ToolUseBlock`
 
       - `id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -2443,41 +3265,51 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "direct"`
 
-            - `"direct"`
-
         - `ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: string`
 
-          - `type: "code_execution_20250825"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_20250825"`
+          - `type: "code_execution_20250825"`
 
         - `ServerToolCaller20260120`
 
           - `tool_id: string`
 
-          - `type: "code_execution_20260120"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_20260120"`
+          - `type: "code_execution_20260120"`
 
       - `input: Record<string, unknown>`
 
       - `name: string`
 
+        minLength: 1
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
+
+      - `toolset_name?: string | null`
+
+        For a toolset member tool_use, the toolset family.
+
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock`
 
       - `id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -2509,13 +3341,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "server_tool_use"`
 
-        - `"server_tool_use"`
+        default: server_tool_use
 
     - `WebSearchToolResultBlock`
 
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -2547,7 +3381,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "web_search_tool_result_error"`
 
-            - `"web_search_tool_result_error"`
+            default: web_search_tool_result_error
 
         - `Array<WebSearchResultBlock>`
 
@@ -2559,21 +3393,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "web_search_result"`
 
-            - `"web_search_result"`
+            default: web_search_result
 
           - `url: string`
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_search_tool_result"`
 
-        - `"web_search_tool_result"`
+        default: web_search_tool_result
 
     - `WebFetchToolResultBlock`
 
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -2611,7 +3449,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "web_fetch_tool_result_error"`
 
-            - `"web_fetch_tool_result_error"`
+            default: web_fetch_tool_result_error
 
         - `WebFetchBlock`
 
@@ -2623,19 +3461,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `enabled: boolean`
 
+                default: false
+
             - `source: Base64PDFSource | PlainTextSource`
 
               - `Base64PDFSource`
 
                 - `data: string`
 
+                  format: byte
+
                 - `media_type: "application/pdf"`
 
-                  - `"application/pdf"`
-
                 - `type: "base64"`
-
-                  - `"base64"`
 
               - `PlainTextSource`
 
@@ -2643,11 +3481,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `media_type: "text/plain"`
 
-                  - `"text/plain"`
-
                 - `type: "text"`
-
-                  - `"text"`
 
             - `title: string | null`
 
@@ -2655,7 +3489,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: "document"`
 
-              - `"document"`
+              default: document
 
           - `retrieved_at: string | null`
 
@@ -2663,7 +3497,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "web_fetch_result"`
 
-            - `"web_fetch_result"`
+            default: web_fetch_result
 
           - `url: string`
 
@@ -2671,9 +3505,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_fetch_tool_result"`
 
-        - `"web_fetch_tool_result"`
+        default: web_fetch_tool_result
 
     - `CodeExecutionToolResultBlock`
 
@@ -2695,7 +3531,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "code_execution_tool_result_error"`
 
-            - `"code_execution_tool_result_error"`
+            default: code_execution_tool_result_error
 
         - `CodeExecutionResultBlock`
 
@@ -2705,7 +3541,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: "code_execution_output"`
 
-              - `"code_execution_output"`
+              default: code_execution_output
 
           - `return_code: number`
 
@@ -2715,7 +3551,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "code_execution_result"`
 
-            - `"code_execution_result"`
+            default: code_execution_result
 
         - `EncryptedCodeExecutionResultBlock`
 
@@ -2727,6 +3563,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: "code_execution_output"`
 
+              default: code_execution_output
+
           - `encrypted_stdout: string`
 
           - `return_code: number`
@@ -2735,13 +3573,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "encrypted_code_execution_result"`
 
-            - `"encrypted_code_execution_result"`
+            default: encrypted_code_execution_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_tool_result"`
 
-        - `"code_execution_tool_result"`
+        default: code_execution_tool_result
 
     - `BashCodeExecutionToolResultBlock`
 
@@ -2763,7 +3603,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "bash_code_execution_tool_result_error"`
 
-            - `"bash_code_execution_tool_result_error"`
+            default: bash_code_execution_tool_result_error
 
         - `BashCodeExecutionResultBlock`
 
@@ -2773,7 +3613,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: "bash_code_execution_output"`
 
-              - `"bash_code_execution_output"`
+              default: bash_code_execution_output
 
           - `return_code: number`
 
@@ -2783,13 +3623,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "bash_code_execution_result"`
 
-            - `"bash_code_execution_result"`
+            default: bash_code_execution_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "bash_code_execution_tool_result"`
 
-        - `"bash_code_execution_tool_result"`
+        default: bash_code_execution_tool_result
 
     - `TextEditorCodeExecutionToolResultBlock`
 
@@ -2813,7 +3655,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
-            - `"text_editor_code_execution_tool_result_error"`
+            default: text_editor_code_execution_tool_result_error
 
         - `TextEditorCodeExecutionViewResultBlock`
 
@@ -2835,7 +3677,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text_editor_code_execution_view_result"`
 
-            - `"text_editor_code_execution_view_result"`
+            default: text_editor_code_execution_view_result
 
         - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -2843,7 +3685,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text_editor_code_execution_create_result"`
 
-            - `"text_editor_code_execution_create_result"`
+            default: text_editor_code_execution_create_result
 
         - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -2859,13 +3701,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
-            - `"text_editor_code_execution_str_replace_result"`
+            default: text_editor_code_execution_str_replace_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "text_editor_code_execution_tool_result"`
 
-        - `"text_editor_code_execution_tool_result"`
+        default: text_editor_code_execution_tool_result
 
     - `ToolSearchToolResultBlock`
 
@@ -2887,7 +3731,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "tool_search_tool_result_error"`
 
-            - `"tool_search_tool_result_error"`
+            default: tool_search_tool_result_error
 
         - `ToolSearchToolSearchResultBlock`
 
@@ -2895,19 +3739,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `tool_name: string`
 
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `type: "tool_reference"`
 
-              - `"tool_reference"`
+              default: tool_reference
 
           - `type: "tool_search_tool_search_result"`
 
-            - `"tool_search_tool_search_result"`
+            default: tool_search_tool_search_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "tool_search_tool_result"`
 
-        - `"tool_search_tool_result"`
+        default: tool_search_tool_result
 
     - `ContainerUploadBlock`
 
@@ -2917,7 +3765,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "container_upload"`
 
-        - `"container_upload"`
+        default: container_upload
 
   - `model: Model`
 
@@ -2925,7 +3773,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
       - `"claude-sonnet-5"`
 
@@ -2939,13 +3787,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Most capable model for cybersecurity and biology research
 
+      - `"claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
       - `"claude-opus-4-8"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-7"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-mythos-preview"`
 
@@ -2953,7 +3805,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"claude-opus-4-6"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-6"`
 
@@ -2969,11 +3821,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"claude-opus-4-5"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-5-20251101"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-5"`
 
@@ -2983,14 +3835,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         High-performance model for agents and coding
 
-      - `"claude-opus-4-1"`
-
-        Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-1-20250805"`
-
-        Exceptional model for specialized complex tasks
-
     - `(string & {})`
 
   - `role: "assistant"`
@@ -2999,23 +3843,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     This will always be `"assistant"`.
 
-    - `"assistant"`
+    default: assistant
 
   - `stop_details: RefusalStopDetails | null`
 
     Structured information about a refusal.
 
-    - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
+    - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
       The policy category that triggered a refusal.
 
       - `"cyber"`
 
+        The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
       - `"bio"`
+
+        The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
       - `"frontier_llm"`
 
+        The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
       - `"reasoning_extraction"`
+
+        The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+      - `"general_harms"`
+
+        The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
     - `explanation: string | null`
 
@@ -3025,7 +3881,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: "refusal"`
 
-      - `"refusal"`
+      default: refusal
 
   - `stop_reason: StopReason | null`
 
@@ -3039,6 +3895,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -3054,6 +3911,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `"refusal"`
 
+    - `"model_context_window_exceeded"`
+
   - `stop_sequence: string | null`
 
     Which custom stop sequence was generated, if any.
@@ -3066,7 +3925,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     For Messages, this is always `"message"`.
 
-    - `"message"`
+    default: message
 
   - `usage: Usage`
 
@@ -3088,17 +3947,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        default: 0, minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        default: 0, minimum: 0
 
     - `cache_creation_input_tokens: number | null`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number | null`
 
       The number of input tokens read from the cache.
+
+      minimum: 0
 
     - `inference_geo: string | null`
 
@@ -3108,9 +3975,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The number of input tokens which were used.
 
+      minimum: 0
+
     - `output_tokens: number`
 
       The number of output tokens which were used.
+
+      minimum: 0
 
     - `output_tokens_details: OutputTokensDetails | null`
 
@@ -3132,6 +4003,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+        default: 0, minimum: 0
+
     - `server_tool_use: ServerToolUsage | null`
 
       The number of server tool requests.
@@ -3140,9 +4013,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of web fetch tool requests.
 
+        default: 0, minimum: 0
+
       - `web_search_requests: number`
 
         The number of web search tool requests.
+
+        default: 0, minimum: 0
 
     - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -3154,42 +4031,242 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"batch"`
 
+- `RawMessageStreamEvent = RawMessageStartEvent | RawMessageDeltaEvent | RawMessageStopEvent | 3 more`
+
+  - `RawMessageStartEvent`
+
+    - `message: Message`
+
+    - `type: "message_start"`
+
+      default: message_start
+
+  - `RawMessageDeltaEvent`
+
+    - `delta: Delta`
+
+      - `container: Container | null`
+
+        Information about the container used in the request (for the code execution tool)
+
+      - `stop_details: RefusalStopDetails | null`
+
+        Structured information about a refusal.
+
+      - `stop_reason: StopReason | null`
+
+      - `stop_sequence: string | null`
+
+    - `type: "message_delta"`
+
+      default: message_delta
+
+    - `usage: MessageDeltaUsage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+      - `cache_creation_input_tokens: number | null`
+
+        The cumulative number of input tokens used to create the cache entry.
+
+        minimum: 0
+
+      - `cache_read_input_tokens: number | null`
+
+        The cumulative number of input tokens read from the cache.
+
+        minimum: 0
+
+      - `input_tokens: number | null`
+
+        The cumulative number of input tokens which were used.
+
+        minimum: 0
+
+      - `output_tokens: number`
+
+        The cumulative number of output tokens which were used.
+
+      - `output_tokens_details: OutputTokensDetails | null`
+
+        Breakdown of output tokens by category.
+
+        `output_tokens` remains the inclusive, authoritative total used for billing.
+        This object provides a read-only decomposition for observability — for example,
+        how many of the billed output tokens were spent on internal reasoning that may
+        have been summarized before being returned to you.
+
+      - `server_tool_use: ServerToolUsage | null`
+
+        The number of server tool requests.
+
+  - `RawMessageStopEvent`
+
+    - `type: "message_stop"`
+
+      default: message_stop
+
+  - `RawContentBlockStartEvent`
+
+    - `content_block: TextBlock | ThinkingBlock | RedactedThinkingBlock | 9 more`
+
+      Response model for a file uploaded to the container.
+
+      - `TextBlock`
+
+      - `ThinkingBlock`
+
+      - `RedactedThinkingBlock`
+
+      - `ToolUseBlock`
+
+      - `ServerToolUseBlock`
+
+      - `WebSearchToolResultBlock`
+
+      - `WebFetchToolResultBlock`
+
+      - `CodeExecutionToolResultBlock`
+
+      - `BashCodeExecutionToolResultBlock`
+
+      - `TextEditorCodeExecutionToolResultBlock`
+
+      - `ToolSearchToolResultBlock`
+
+      - `ContainerUploadBlock`
+
+        Response model for a file uploaded to the container.
+
+    - `index: number`
+
+    - `type: "content_block_start"`
+
+      default: content_block_start
+
+  - `RawContentBlockDeltaEvent`
+
+    - `delta: RawContentBlockDelta`
+
+      - `TextDelta`
+
+        - `text: string`
+
+        - `type: "text_delta"`
+
+          default: text_delta
+
+      - `InputJSONDelta`
+
+        - `partial_json: string`
+
+        - `type: "input_json_delta"`
+
+          default: input_json_delta
+
+      - `CitationsDelta`
+
+        - `citation: CitationCharLocation | CitationPageLocation | CitationContentBlockLocation | 2 more`
+
+          - `CitationCharLocation`
+
+          - `CitationPageLocation`
+
+          - `CitationContentBlockLocation`
+
+          - `CitationsWebSearchResultLocation`
+
+          - `CitationsSearchResultLocation`
+
+        - `type: "citations_delta"`
+
+          default: citations_delta
+
+      - `ThinkingDelta`
+
+        - `thinking: string`
+
+          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
+        - `type: "thinking_delta"`
+
+          default: thinking_delta
+
+      - `SignatureDelta`
+
+        - `signature: string`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
+        - `type: "signature_delta"`
+
+          default: signature_delta
+
+    - `index: number`
+
+    - `type: "content_block_delta"`
+
+      default: content_block_delta
+
+  - `RawContentBlockStopEvent`
+
+    - `index: number`
+
+    - `type: "content_block_stop"`
+
+      default: content_block_stop
+
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const message = await client.messages.create({
   max_tokens: 1024,
-  messages: [{ content: 'Hello, world', role: 'user' }],
-  model: 'claude-opus-4-6',
+  messages: [{ content: "Hello, world", role: "user" }],
+  model: "claude-opus-5"
 });
 
 console.log(message.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
   "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "container": {
-    "id": "id",
-    "expires_at": "2019-12-27T18:11:19.117Z"
+    "id": "container_011CpZohnwH4vuy7gazohgSP",
+    "expires_at": "2019-12-27T18:11:19.117Z",
+    "skills": [
+      {
+        "skill_id": "pdf",
+        "type": "anthropic",
+        "version": "latest"
+      }
+    ]
   },
   "content": [
     {
       "citations": [
         {
-          "cited_text": "cited_text",
+          "cited_text": "The grass is green. The sky is blue.",
           "document_index": 0,
-          "document_title": "document_title",
+          "document_title": "My Document",
           "end_char_index": 0,
-          "file_id": "file_id",
+          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
           "start_char_index": 0,
           "type": "char_location"
         }
@@ -3198,11 +4275,11 @@ console.log(message.id);
       "type": "text"
     }
   ],
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
-    "explanation": "explanation",
+    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
     "type": "refusal"
   },
   "stop_reason": "end_turn",
@@ -3215,7 +4292,7 @@ console.log(message.id);
     },
     "cache_creation_input_tokens": 2051,
     "cache_read_input_tokens": 2051,
-    "inference_geo": "inference_geo",
+    "inference_geo": "global",
     "input_tokens": 2095,
     "output_tokens": 503,
     "output_tokens_details": {
@@ -3232,9 +4309,9 @@ console.log(message.id);
 
 ## Count tokens in a Message
 
-`client.messages.countTokens(MessageCountTokensParamsparams, RequestOptionsoptions?): MessageTokensCount`
+`client.messages.countTokens(params, options?): MessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -3307,17 +4384,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `text: string`
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
 
             - `type: "ephemeral"`
-
-              - `"ephemeral"`
 
             - `ttl?: "5m" | "1h"`
 
@@ -3342,15 +4417,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
 
               - `end_char_index: number`
 
               - `start_char_index: number`
 
-              - `type: "char_location"`
+                minimum: 0
 
-                - `"char_location"`
+              - `type: "char_location"`
 
             - `CitationPageLocationParam`
 
@@ -3358,15 +4437,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
 
               - `end_page_number: number`
 
               - `start_page_number: number`
 
-              - `type: "page_location"`
+                minimum: 1
 
-                - `"page_location"`
+              - `type: "page_location"`
 
             - `CitationContentBlockLocationParam`
 
@@ -3378,7 +4461,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
 
               - `end_block_index: number`
 
@@ -3390,9 +4477,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 0-based index of the first cited block in the source's `content` array.
 
-              - `type: "content_block_location"`
+                minimum: 0
 
-                - `"content_block_location"`
+              - `type: "content_block_location"`
 
             - `CitationWebSearchResultLocationParam`
 
@@ -3402,11 +4489,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `title: string | null`
 
+                maxLength: 512, minLength: 1
+
               - `type: "web_search_result_location"`
 
-                - `"web_search_result_location"`
-
               - `url: string`
+
+                minLength: 1
 
             - `CitationSearchResultLocationParam`
 
@@ -3428,25 +4517,29 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                minimum: 0
+
               - `source: string`
 
               - `start_block_index: number`
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `title: string | null`
 
               - `type: "search_result_location"`
 
-                - `"search_result_location"`
-
         - `ImageBlockParam`
 
-          - `source: Base64ImageSource | URLImageSource`
+          - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
             - `Base64ImageSource`
 
               - `data: string`
+
+                format: byte
 
               - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -3460,39 +4553,49 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "base64"`
 
-                - `"base64"`
-
             - `URLImageSource`
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
-          - `type: "image"`
+            - `FileImageSource`
 
-            - `"image"`
+              - `file_id: string`
+
+              - `type: "file"`
+
+          - `type: "image"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
 
+          - `transformations?: ImageTransformationsParam | null`
+
+            Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+            - `oversized_image?: "downsize" | "error"`
+
+              What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+              - `"downsize"`
+
+              - `"error"`
+
         - `DocumentBlockParam`
 
-          - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+          - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
             - `Base64PDFSource`
 
               - `data: string`
 
+                format: byte
+
               - `media_type: "application/pdf"`
 
-                - `"application/pdf"`
-
               - `type: "base64"`
-
-                - `"base64"`
 
             - `PlainTextSource`
 
@@ -3500,11 +4603,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `media_type: "text/plain"`
 
-                - `"text/plain"`
-
               - `type: "text"`
-
-                - `"text"`
 
             - `ContentBlockSource`
 
@@ -3520,19 +4619,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "content"`
 
-                - `"content"`
-
             - `URLPDFSource`
 
               - `type: "url"`
 
-                - `"url"`
-
               - `url: string`
 
-          - `type: "document"`
+            - `FileDocumentSource`
 
-            - `"document"`
+              - `file_id: string`
+
+              - `type: "file"`
+
+          - `type: "document"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -3544,13 +4643,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `context?: string | null`
 
+            minLength: 1
+
           - `title?: string | null`
+
+            maxLength: 500, minLength: 1
 
         - `SearchResultBlockParam`
 
           - `content: Array<TextBlockParam>`
 
             - `text: string`
+
+              minLength: 1
 
             - `type: "text"`
 
@@ -3566,8 +4671,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "search_result"`
 
-            - `"search_result"`
-
           - `cache_control?: CacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
@@ -3578,31 +4681,37 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `signature: string`
 
+            The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+            Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
           - `thinking: string`
 
-          - `type: "thinking"`
+            The `thinking` text of this block as returned by the API.
 
-            - `"thinking"`
+          - `type: "thinking"`
 
         - `RedactedThinkingBlockParam`
 
           - `data: string`
 
-          - `type: "redacted_thinking"`
+            The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-            - `"redacted_thinking"`
+          - `type: "redacted_thinking"`
 
         - `ToolUseBlockParam`
 
           - `id: string`
 
+            pattern: ^[a-zA-Z0-9_-]+$
+
           - `input: Record<string, unknown>`
 
           - `name: string`
 
-          - `type: "tool_use"`
+            maxLength: 200, minLength: 1
 
-            - `"tool_use"`
+          - `type: "tool_use"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -3618,43 +4727,47 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "direct"`
 
-                - `"direct"`
-
             - `ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
               - `tool_id: string`
 
-              - `type: "code_execution_20250825"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20250825"`
+              - `type: "code_execution_20250825"`
 
             - `ServerToolCaller20260120`
 
               - `tool_id: string`
 
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
               - `type: "code_execution_20260120"`
 
-                - `"code_execution_20260120"`
+          - `toolset_name?: string | null`
+
+            For a toolset member tool_use, the toolset family this member belongs to.
+
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
         - `ToolResultBlockParam`
 
           - `tool_use_id: string`
 
-          - `type: "tool_result"`
+            pattern: ^[a-zA-Z0-9_-]+$
 
-            - `"tool_result"`
+          - `type: "tool_result"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
 
-          - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+          - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
             - `string`
 
-            - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+            - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
               - `TextBlockParam`
 
@@ -3670,19 +4783,170 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `tool_name: string`
 
-                - `type: "tool_reference"`
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `"tool_reference"`
+                - `type: "tool_reference"`
 
                 - `cache_control?: CacheControlEphemeral | null`
 
                   Create a cache control breakpoint at this content block.
 
+              - `BrowserStateBlockParam`
+
+                The caller's browser state after a browser toolset member call —
+                the full inventory of open tabs, which tab is active, and any side
+                effects (tabs opened, download state changes) the call produced.
+
+                At most one per `tool_result`, only on a non-error result answering a
+                browser toolset member `tool_use`. The server renders the
+                model-visible text from it; the model never sees the raw fields.
+
+                - `tabs: Array<BrowserStateTabEntry>`
+
+                  All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                  maxItems: 100
+
+                  - `tab_id: string`
+
+                    The caller-assigned identifier for this tab, unique within the inventory.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `title: string`
+
+                    The title of the page the tab is showing. May be empty.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `url: string`
+
+                    The URL of the page the tab is showing. May be empty.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `active?: boolean`
+
+                    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+                - `type: "browser_state"`
+
+                - `cache_control?: CacheControlEphemeral | null`
+
+                  Create a cache control breakpoint at this content block.
+
+                - `state_changes?: Array<BrowserStateChange> | null`
+
+                  Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                  maxItems: 200, minItems: 1
+
+                  - `BrowserStateChangeTabOpened`
+
+                    A tab this call's execution opened that remains open at its end —
+                    the creation delta of the `tabs` inventory, not an event log.
+
+                    Carries only the `tab_id`; the tab's `title` and `url` live on its
+                    `tabs` entry, which must include the same `tab_id`. A tab opened
+                    during a failed call gets no deferred `tab_opened`; it simply appears
+                    in the next result's `tabs` inventory.
+
+                    - `tab_id: string`
+
+                      The `tab_id` of the opened tab, present in `tabs`.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `type: "tab_opened"`
+
+                  - `BrowserStateChangeDownloadStarted`
+
+                    A file download that started during this call.
+
+                    - `download_id: string`
+
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `type: "download_started"`
+
+                    - `url: string`
+
+                      The final post-redirect URL the download was served from.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `BrowserStateChangeDownloadCompleted`
+
+                    A file download that finished during this call, reported with the
+                    same `download_id` as its `download_started` — or without a prior
+                    `download_started`, when the download finished during the call that
+                    started it (at most one state change per `download_id` per result).
+
+                    - `download_id: string`
+
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `type: "download_completed"`
+
+                    - `url: string`
+
+                      The final post-redirect URL the download was served from.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `path?: string | null`
+
+                      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                    - `size_bytes?: number | null`
+
+                      The completed download's size.
+
+                      minimum: 0
+
+                  - `BrowserStateChangeDownloadFailed`
+
+                    A file download that failed — or was cancelled — during this call.
+
+                    - `download_id: string`
+
+                      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `type: "download_failed"`
+
+                    - `url: string`
+
+                      The final post-redirect URL the download was served from.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `error?: string | null`
+
+                      The failure or cancellation detail, when known.
+
+                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
           - `is_error?: boolean`
+
+          - `toolset_name?: string | null`
+
+            For a toolset member tool_result, the toolset family of the paired tool_use.
+
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
         - `ServerToolUseBlockParam`
 
           - `id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `input: Record<string, unknown>`
 
@@ -3703,8 +4967,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `"tool_search_tool_bm25"`
 
           - `type: "server_tool_use"`
-
-            - `"server_tool_use"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -3736,8 +4998,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "web_search_result"`
 
-                - `"web_search_result"`
-
               - `url: string`
 
               - `page_age?: string | null`
@@ -3760,13 +5020,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "web_search_tool_result_error"`
 
-                - `"web_search_tool_result_error"`
-
           - `tool_use_id: string`
 
-          - `type: "web_search_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"web_search_tool_result"`
+          - `type: "web_search_tool_result"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -3814,15 +5072,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "web_fetch_tool_result_error"`
 
-                - `"web_fetch_tool_result_error"`
-
             - `WebFetchBlockParam`
 
               - `content: DocumentBlockParam`
 
               - `type: "web_fetch_result"`
-
-                - `"web_fetch_result"`
 
               - `url: string`
 
@@ -3834,9 +5088,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `tool_use_id: string`
 
-          - `type: "web_fetch_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"web_fetch_tool_result"`
+          - `type: "web_fetch_tool_result"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -3876,8 +5130,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "code_execution_tool_result_error"`
 
-                - `"code_execution_tool_result_error"`
-
             - `CodeExecutionResultBlockParam`
 
               - `content: Array<CodeExecutionOutputBlockParam>`
@@ -3886,8 +5138,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `type: "code_execution_output"`
 
-                  - `"code_execution_output"`
-
               - `return_code: number`
 
               - `stderr: string`
@@ -3895,8 +5145,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `stdout: string`
 
               - `type: "code_execution_result"`
-
-                - `"code_execution_result"`
 
             - `EncryptedCodeExecutionResultBlockParam`
 
@@ -3916,13 +5164,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "encrypted_code_execution_result"`
 
-                - `"encrypted_code_execution_result"`
-
           - `tool_use_id: string`
 
-          - `type: "code_execution_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_tool_result"`
+          - `type: "code_execution_tool_result"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -3948,8 +5194,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "bash_code_execution_tool_result_error"`
 
-                - `"bash_code_execution_tool_result_error"`
-
             - `BashCodeExecutionResultBlockParam`
 
               - `content: Array<BashCodeExecutionOutputBlockParam>`
@@ -3957,8 +5201,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                 - `file_id: string`
 
                 - `type: "bash_code_execution_output"`
-
-                  - `"bash_code_execution_output"`
 
               - `return_code: number`
 
@@ -3968,13 +5210,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "bash_code_execution_result"`
 
-                - `"bash_code_execution_result"`
-
           - `tool_use_id: string`
 
-          - `type: "bash_code_execution_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"bash_code_execution_tool_result"`
+          - `type: "bash_code_execution_tool_result"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -4000,8 +5240,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
-                - `"text_editor_code_execution_tool_result_error"`
-
               - `error_message?: string | null`
 
             - `TextEditorCodeExecutionViewResultBlockParam`
@@ -4018,8 +5256,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "text_editor_code_execution_view_result"`
 
-                - `"text_editor_code_execution_view_result"`
-
               - `num_lines?: number | null`
 
               - `start_line?: number | null`
@@ -4032,13 +5268,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "text_editor_code_execution_create_result"`
 
-                - `"text_editor_code_execution_create_result"`
-
             - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
               - `type: "text_editor_code_execution_str_replace_result"`
-
-                - `"text_editor_code_execution_str_replace_result"`
 
               - `lines?: Array<string> | null`
 
@@ -4052,9 +5284,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `tool_use_id: string`
 
-          - `type: "text_editor_code_execution_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"text_editor_code_execution_tool_result"`
+          - `type: "text_editor_code_execution_tool_result"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -4078,8 +5310,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "tool_search_tool_result_error"`
 
-                - `"tool_search_tool_result_error"`
-
               - `error_message?: string | null`
 
             - `ToolSearchToolSearchResultBlockParam`
@@ -4087,6 +5317,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `tool_references: Array<ToolReferenceBlockParam>`
 
                 - `tool_name: string`
+
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                 - `type: "tool_reference"`
 
@@ -4096,13 +5328,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "tool_search_tool_search_result"`
 
-                - `"tool_search_tool_search_result"`
-
           - `tool_use_id: string`
 
-          - `type: "tool_search_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"tool_search_tool_result"`
+          - `type: "tool_search_tool_result"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -4116,37 +5346,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `file_id: string`
 
           - `type: "container_upload"`
-
-            - `"container_upload"`
-
-          - `cache_control?: CacheControlEphemeral | null`
-
-            Create a cache control breakpoint at this content block.
-
-        - `MidConversationSystemBlockParam`
-
-          System instructions that appear mid-conversation.
-
-          Use this block to provide or update system-level instructions at a specific
-          point in the conversation, rather than only via the top-level `system` parameter.
-
-          - `content: Array<TextBlockParam>`
-
-            System instruction text blocks.
-
-            - `text: string`
-
-            - `type: "text"`
-
-            - `cache_control?: CacheControlEphemeral | null`
-
-              Create a cache control breakpoint at this content block.
-
-            - `citations?: Array<TextCitationParam> | null`
-
-          - `type: "mid_conv_system"`
-
-            - `"mid_conv_system"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -4166,7 +5365,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
       - `"claude-sonnet-5"`
 
@@ -4180,13 +5379,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Most capable model for cybersecurity and biology research
 
+      - `"claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
       - `"claude-opus-4-8"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-7"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-mythos-preview"`
 
@@ -4194,7 +5397,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"claude-opus-4-6"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-6"`
 
@@ -4210,11 +5413,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `"claude-opus-4-5"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-5-20251101"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-5"`
 
@@ -4223,14 +5426,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `"claude-sonnet-4-5-20250929"`
 
         High-performance model for agents and coding
-
-      - `"claude-opus-4-1"`
-
-        Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-1-20250805"`
-
-        Exceptional model for specialized complex tasks
 
     - `(string & {})`
 
@@ -4266,8 +5461,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "json_schema"`
 
-        - `"json_schema"`
-
   - `system?: string | Array<TextBlockParam>`
 
     Body param: System prompt.
@@ -4279,6 +5472,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `Array<TextBlockParam>`
 
       - `text: string`
+
+        minLength: 1
 
       - `type: "text"`
 
@@ -4306,9 +5501,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-      - `type: "enabled"`
+        minimum: 1024
 
-        - `"enabled"`
+      - `type: "enabled"`
 
       - `display?: "summarized" | "omitted" | null`
 
@@ -4322,13 +5517,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "disabled"`
 
-        - `"disabled"`
-
     - `ThinkingConfigAdaptive`
 
       - `type: "adaptive"`
-
-        - `"adaptive"`
 
       - `display?: "summarized" | "omitted" | null`
 
@@ -4348,8 +5539,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "auto"`
 
-        - `"auto"`
-
       - `disable_parallel_tool_use?: boolean`
 
         Whether to disable parallel tool use.
@@ -4361,8 +5550,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       The model will use any available tools.
 
       - `type: "any"`
-
-        - `"any"`
 
       - `disable_parallel_tool_use?: boolean`
 
@@ -4380,8 +5567,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "tool"`
 
-        - `"tool"`
-
       - `disable_parallel_tool_use?: boolean`
 
         Whether to disable parallel tool use.
@@ -4393,8 +5578,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       The model will not be allowed to use tools.
 
       - `type: "none"`
-
-        - `"none"`
 
   - `tools?: Array<MessageCountTokensTool>`
 
@@ -4470,8 +5653,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: "object"`
 
-          - `"object"`
-
         - `properties?: Record<string, unknown> | null`
 
         - `required?: Array<string> | null`
@@ -4481,6 +5662,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
+
+        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4518,8 +5701,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type?: "custom" | null`
 
-        - `"custom"`
-
     - `ToolBash20250124`
 
       - `name: "bash"`
@@ -4528,11 +5709,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"bash"`
-
       - `type: "bash_20250124"`
-
-        - `"bash_20250124"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4566,11 +5743,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20250522"`
-
-        - `"code_execution_20250522"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4602,11 +5775,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20250825"`
-
-        - `"code_execution_20250825"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4640,11 +5809,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20260120"`
-
-        - `"code_execution_20260120"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4678,11 +5843,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20260521"`
-
-        - `"code_execution_20260521"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4706,6 +5867,410 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+    - `BrowserToolset20260801`
+
+      The browser toolset: a single `tools[]` entry (carrying no
+      `name`) that declares the browser tool family. The model is served
+      the family's tool with any members disabled via `configs` removed
+      from its schema.
+
+      - `type: "browser_toolset_20260801"`
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `configs?: BrowserToolsetConfigs | null`
+
+        Per-member configuration for `browser_toolset_20260801`: one
+        optional field per member tool, keyed by the member name — the same
+        name the member's `tool_use` blocks carry. Every member is an
+        accepted key, and a member's defaults apply wherever its key is
+        absent. Unknown keys are rejected: the field set is this toolset
+        version's complete member set.
+
+        - `close_tab?: BrowserCloseTabConfig | null`
+
+          `close_tab`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `double_click?: BrowserDoubleClickConfig | null`
+
+          `double_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `file_upload?: BrowserFileUploadConfig | null`
+
+          `file_upload`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `find?: BrowserFindConfig | null`
+
+          `find`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `form_input?: BrowserFormInputConfig | null`
+
+          `form_input`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `get_page_text?: BrowserGetPageTextConfig | null`
+
+          `get_page_text`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `hold_key?: BrowserHoldKeyConfig | null`
+
+          `hold_key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `hover?: BrowserHoverConfig | null`
+
+          `hover`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+          `javascript_exec`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `key?: BrowserKeyConfig | null`
+
+          `key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click?: BrowserLeftClickConfig | null`
+
+          `left_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+          `left_click_drag`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+          `left_mouse_down`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+          `left_mouse_up`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `list_tabs?: BrowserListTabsConfig | null`
+
+          `list_tabs`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `middle_click?: BrowserMiddleClickConfig | null`
+
+          `middle_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `mouse_move?: BrowserMouseMoveConfig | null`
+
+          `mouse_move`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `navigate?: BrowserNavigateConfig | null`
+
+          `navigate`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `new_tab?: BrowserNewTabConfig | null`
+
+          `new_tab`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `read_console?: BrowserReadConsoleConfig | null`
+
+          `read_console`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `read_network?: BrowserReadNetworkConfig | null`
+
+          `read_network`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `read_page?: BrowserReadPageConfig | null`
+
+          `read_page`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `right_click?: BrowserRightClickConfig | null`
+
+          `right_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `screenshot?: BrowserScreenshotConfig | null`
+
+          `screenshot`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `scroll?: BrowserScrollConfig | null`
+
+          `scroll`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `scroll_to?: BrowserScrollToConfig | null`
+
+          `scroll_to`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `switch_tab?: BrowserSwitchTabConfig | null`
+
+          `switch_tab`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `triple_click?: BrowserTripleClickConfig | null`
+
+          `triple_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `type?: BrowserTypeConfig | null`
+
+          `type`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `wait?: BrowserWaitConfig | null`
+
+          `wait`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `zoom?: BrowserZoomConfig | null`
+
+          `zoom`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
     - `MemoryTool20250818`
 
       - `name: "memory"`
@@ -4714,11 +6279,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"memory"`
-
       - `type: "memory_20250818"`
-
-        - `"memory_20250818"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4744,6 +6305,246 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         When true, guarantees schema validation on tool names and inputs
 
+    - `ComputerToolset20260801`
+
+      The computer toolset: a single `tools[]` entry (carrying no
+      `name`) that declares the computer tool family. The model is
+      served the family's tool with any members disabled via `configs`
+      removed from its schema. Every member is enabled by default, zoom
+      included. The single-tool options `display_number` and
+      `enable_zoom` are not fields of a toolset entry — it carries only
+      `type`, `configs`, and `cache_control`; zoom is controlled
+      via `configs.zoom.enabled`.
+
+      - `type: "computer_toolset_20260801"`
+
+      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+        - `"direct"`
+
+        - `"code_execution_20250825"`
+
+        - `"code_execution_20260120"`
+
+        - `"code_execution_20260521"`
+
+      - `cache_control?: CacheControlEphemeral | null`
+
+        Create a cache control breakpoint at this content block.
+
+      - `configs?: ComputerToolsetConfigs | null`
+
+        Per-member configuration for `computer_toolset_20260801`: one
+        optional field per member tool, keyed by the member name — the same
+        name the member's `tool_use` blocks carry. Every member is an
+        accepted key, and a member's defaults apply wherever its key is
+        absent. Unknown keys are rejected: the field set is this toolset
+        version's complete member set.
+
+        - `cursor_position?: ComputerCursorPositionConfig | null`
+
+          `cursor_position`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `double_click?: ComputerDoubleClickConfig | null`
+
+          `double_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `hold_key?: ComputerHoldKeyConfig | null`
+
+          `hold_key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `key?: ComputerKeyConfig | null`
+
+          `key`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click?: ComputerLeftClickConfig | null`
+
+          `left_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+          `left_click_drag`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+          `left_mouse_down`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+          `left_mouse_up`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `middle_click?: ComputerMiddleClickConfig | null`
+
+          `middle_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `mouse_move?: ComputerMouseMoveConfig | null`
+
+          `mouse_move`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `right_click?: ComputerRightClickConfig | null`
+
+          `right_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `screenshot?: ComputerScreenshotConfig | null`
+
+          `screenshot`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `scroll?: ComputerScrollConfig | null`
+
+          `scroll`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `triple_click?: ComputerTripleClickConfig | null`
+
+          `triple_click`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `type?: ComputerTypeConfig | null`
+
+          `type`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `wait?: ComputerWaitConfig | null`
+
+          `wait`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+        - `zoom?: ComputerZoomConfig | null`
+
+          `zoom`'s config overrides.
+
+          - `defer_loading?: boolean | null`
+
+            Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+          - `enabled?: boolean | null`
+
+            Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
     - `ToolTextEditor20250124`
 
       - `name: "str_replace_editor"`
@@ -4752,11 +6553,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"str_replace_editor"`
-
       - `type: "text_editor_20250124"`
-
-        - `"text_editor_20250124"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4790,11 +6587,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"str_replace_based_edit_tool"`
-
       - `type: "text_editor_20250429"`
-
-        - `"text_editor_20250429"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4828,11 +6621,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"str_replace_based_edit_tool"`
-
       - `type: "text_editor_20250728"`
-
-        - `"text_editor_20250728"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4858,6 +6647,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+        minimum: 1
+
       - `strict?: boolean`
 
         When true, guarantees schema validation on tool names and inputs
@@ -4870,11 +6661,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_search"`
-
       - `type: "web_search_20250305"`
-
-        - `"web_search_20250305"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4906,6 +6693,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of times the tool can be used in the API request.
 
+        exclusiveMinimum: 0
+
       - `strict?: boolean`
 
         When true, guarantees schema validation on tool names and inputs
@@ -4916,23 +6705,29 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: "approximate"`
 
-          - `"approximate"`
-
         - `city?: string | null`
 
           The city of the user.
+
+          maxLength: 255, minLength: 1
 
         - `country?: string | null`
 
           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+          maxLength: 2, minLength: 2
+
         - `region?: string | null`
 
           The region of the user.
 
+          maxLength: 255, minLength: 1
+
         - `timezone?: string | null`
 
           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+          maxLength: 255, minLength: 1
 
     - `WebFetchTool20250910`
 
@@ -4942,11 +6737,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20250910"`
-
-        - `"web_fetch_20250910"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -4982,9 +6773,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -4998,11 +6793,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_search"`
-
       - `type: "web_search_20260209"`
-
-        - `"web_search_20260209"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -5033,6 +6824,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -5050,11 +6843,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20260209"`
-
-        - `"web_fetch_20260209"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -5090,9 +6879,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -5108,11 +6901,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20260309"`
-
-        - `"web_fetch_20260309"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -5148,9 +6937,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -5168,11 +6961,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_search"`
-
       - `type: "web_search_20260318"`
-
-        - `"web_search_20260318"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -5203,6 +6992,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `response_inclusion?: "full" | "excluded"`
 
@@ -5228,11 +7019,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20260318"`
-
-        - `"web_fetch_20260318"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -5268,9 +7055,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `response_inclusion?: "full" | "excluded"`
 
@@ -5295,8 +7086,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `"tool_search_tool_bm25"`
 
       - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -5333,8 +7122,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `"tool_search_tool_regex"`
 
       - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
@@ -5379,21 +7166,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const messageTokensCount = await client.messages.countTokens({
-  messages: [{ content: 'Hello, world', role: 'user' }],
-  model: 'claude-opus-4-6',
+  messages: [{ content: "Hello, world", role: "user" }],
+  model: "claude-opus-5"
 });
 
 console.log(messageTokensCount.input_tokens);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -5401,13 +7188,15 @@ console.log(messageTokensCount.input_tokens);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Base64 Image Source
 
 - `Base64ImageSource`
 
   - `data: string`
+
+    format: byte
 
   - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -5421,21 +7210,17 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "base64"`
 
-    - `"base64"`
-
 ### Base64 PDF Source
 
 - `Base64PDFSource`
 
   - `data: string`
 
+    format: byte
+
   - `media_type: "application/pdf"`
 
-    - `"application/pdf"`
-
   - `type: "base64"`
-
-    - `"base64"`
 
 ### Bash Code Execution Output Block
 
@@ -5445,7 +7230,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "bash_code_execution_output"`
 
-    - `"bash_code_execution_output"`
+    default: bash_code_execution_output
 
 ### Bash Code Execution Output Block Param
 
@@ -5454,8 +7239,6 @@ console.log(messageTokensCount.input_tokens);
   - `file_id: string`
 
   - `type: "bash_code_execution_output"`
-
-    - `"bash_code_execution_output"`
 
 ### Bash Code Execution Result Block
 
@@ -5467,7 +7250,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "bash_code_execution_output"`
 
-      - `"bash_code_execution_output"`
+      default: bash_code_execution_output
 
   - `return_code: number`
 
@@ -5477,7 +7260,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "bash_code_execution_result"`
 
-    - `"bash_code_execution_result"`
+    default: bash_code_execution_result
 
 ### Bash Code Execution Result Block Param
 
@@ -5489,8 +7272,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "bash_code_execution_output"`
 
-      - `"bash_code_execution_output"`
-
   - `return_code: number`
 
   - `stderr: string`
@@ -5498,8 +7279,6 @@ console.log(messageTokensCount.input_tokens);
   - `stdout: string`
 
   - `type: "bash_code_execution_result"`
-
-    - `"bash_code_execution_result"`
 
 ### Bash Code Execution Tool Result Block
 
@@ -5523,7 +7302,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "bash_code_execution_tool_result_error"`
 
-        - `"bash_code_execution_tool_result_error"`
+        default: bash_code_execution_tool_result_error
 
     - `BashCodeExecutionResultBlock`
 
@@ -5533,7 +7312,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "bash_code_execution_output"`
 
-          - `"bash_code_execution_output"`
+          default: bash_code_execution_output
 
       - `return_code: number`
 
@@ -5543,13 +7322,15 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "bash_code_execution_result"`
 
-        - `"bash_code_execution_result"`
+        default: bash_code_execution_result
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "bash_code_execution_tool_result"`
 
-    - `"bash_code_execution_tool_result"`
+    default: bash_code_execution_tool_result
 
 ### Bash Code Execution Tool Result Block Param
 
@@ -5573,8 +7354,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "bash_code_execution_tool_result_error"`
 
-        - `"bash_code_execution_tool_result_error"`
-
     - `BashCodeExecutionResultBlockParam`
 
       - `content: Array<BashCodeExecutionOutputBlockParam>`
@@ -5582,8 +7361,6 @@ console.log(messageTokensCount.input_tokens);
         - `file_id: string`
 
         - `type: "bash_code_execution_output"`
-
-          - `"bash_code_execution_output"`
 
       - `return_code: number`
 
@@ -5593,21 +7370,17 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "bash_code_execution_result"`
 
-        - `"bash_code_execution_result"`
-
   - `tool_use_id: string`
 
-  - `type: "bash_code_execution_tool_result"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"bash_code_execution_tool_result"`
+  - `type: "bash_code_execution_tool_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -5642,7 +7415,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "bash_code_execution_tool_result_error"`
 
-    - `"bash_code_execution_tool_result_error"`
+    default: bash_code_execution_tool_result_error
 
 ### Bash Code Execution Tool Result Error Code
 
@@ -5676,15 +7449,1654 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "bash_code_execution_tool_result_error"`
 
-    - `"bash_code_execution_tool_result_error"`
+### Browser Close Tab Config
+
+- `BrowserCloseTabConfig`
+
+  `close_tab`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Double Click Config
+
+- `BrowserDoubleClickConfig`
+
+  `double_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser File Upload Config
+
+- `BrowserFileUploadConfig`
+
+  `file_upload`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Find Config
+
+- `BrowserFindConfig`
+
+  `find`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Form Input Config
+
+- `BrowserFormInputConfig`
+
+  `form_input`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Get Page Text Config
+
+- `BrowserGetPageTextConfig`
+
+  `get_page_text`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Hold Key Config
+
+- `BrowserHoldKeyConfig`
+
+  `hold_key`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Hover Config
+
+- `BrowserHoverConfig`
+
+  `hover`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Javascript Exec Config
+
+- `BrowserJavascriptExecConfig`
+
+  `javascript_exec`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Key Config
+
+- `BrowserKeyConfig`
+
+  `key`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Click Config
+
+- `BrowserLeftClickConfig`
+
+  `left_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Click Drag Config
+
+- `BrowserLeftClickDragConfig`
+
+  `left_click_drag`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Mouse Down Config
+
+- `BrowserLeftMouseDownConfig`
+
+  `left_mouse_down`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Left Mouse Up Config
+
+- `BrowserLeftMouseUpConfig`
+
+  `left_mouse_up`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser List Tabs Config
+
+- `BrowserListTabsConfig`
+
+  `list_tabs`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Middle Click Config
+
+- `BrowserMiddleClickConfig`
+
+  `middle_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Mouse Move Config
+
+- `BrowserMouseMoveConfig`
+
+  `mouse_move`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Navigate Config
+
+- `BrowserNavigateConfig`
+
+  `navigate`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser New Tab Config
+
+- `BrowserNewTabConfig`
+
+  `new_tab`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Read Console Config
+
+- `BrowserReadConsoleConfig`
+
+  `read_console`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Read Network Config
+
+- `BrowserReadNetworkConfig`
+
+  `read_network`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Read Page Config
+
+- `BrowserReadPageConfig`
+
+  `read_page`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Right Click Config
+
+- `BrowserRightClickConfig`
+
+  `right_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Screenshot Config
+
+- `BrowserScreenshotConfig`
+
+  `screenshot`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Scroll Config
+
+- `BrowserScrollConfig`
+
+  `scroll`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Scroll To Config
+
+- `BrowserScrollToConfig`
+
+  `scroll_to`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser State Block Param
+
+- `BrowserStateBlockParam`
+
+  The caller's browser state after a browser toolset member call —
+  the full inventory of open tabs, which tab is active, and any side
+  effects (tabs opened, download state changes) the call produced.
+
+  At most one per `tool_result`, only on a non-error result answering a
+  browser toolset member `tool_use`. The server renders the
+  model-visible text from it; the model never sees the raw fields.
+
+  - `tabs: Array<BrowserStateTabEntry>`
+
+    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+    maxItems: 100
+
+    - `tab_id: string`
+
+      The caller-assigned identifier for this tab, unique within the inventory.
+
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `title: string`
+
+      The title of the page the tab is showing. May be empty.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `url: string`
+
+      The URL of the page the tab is showing. May be empty.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `active?: boolean`
+
+      Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+  - `type: "browser_state"`
+
+  - `cache_control?: CacheControlEphemeral | null`
+
+    Create a cache control breakpoint at this content block.
+
+    - `type: "ephemeral"`
+
+    - `ttl?: "5m" | "1h"`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `"5m"`
+
+      - `"1h"`
+
+  - `state_changes?: Array<BrowserStateChange> | null`
+
+    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+    maxItems: 200, minItems: 1
+
+    - `BrowserStateChangeTabOpened`
+
+      A tab this call's execution opened that remains open at its end —
+      the creation delta of the `tabs` inventory, not an event log.
+
+      Carries only the `tab_id`; the tab's `title` and `url` live on its
+      `tabs` entry, which must include the same `tab_id`. A tab opened
+      during a failed call gets no deferred `tab_opened`; it simply appears
+      in the next result's `tabs` inventory.
+
+      - `tab_id: string`
+
+        The `tab_id` of the opened tab, present in `tabs`.
+
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `type: "tab_opened"`
+
+    - `BrowserStateChangeDownloadStarted`
+
+      A file download that started during this call.
+
+      - `download_id: string`
+
+        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `type: "download_started"`
+
+      - `url: string`
+
+        The final post-redirect URL the download was served from.
+
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `BrowserStateChangeDownloadCompleted`
+
+      A file download that finished during this call, reported with the
+      same `download_id` as its `download_started` — or without a prior
+      `download_started`, when the download finished during the call that
+      started it (at most one state change per `download_id` per result).
+
+      - `download_id: string`
+
+        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `type: "download_completed"`
+
+      - `url: string`
+
+        The final post-redirect URL the download was served from.
+
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `path?: string | null`
+
+        Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+      - `size_bytes?: number | null`
+
+        The completed download's size.
+
+        minimum: 0
+
+    - `BrowserStateChangeDownloadFailed`
+
+      A file download that failed — or was cancelled — during this call.
+
+      - `download_id: string`
+
+        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `type: "download_failed"`
+
+      - `url: string`
+
+        The final post-redirect URL the download was served from.
+
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+      - `error?: string | null`
+
+        The failure or cancellation detail, when known.
+
+        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+### Browser State Change
+
+- `BrowserStateChange = BrowserStateChangeTabOpened | BrowserStateChangeDownloadStarted | BrowserStateChangeDownloadCompleted | BrowserStateChangeDownloadFailed`
+
+  A tab this call's execution opened that remains open at its end —
+  the creation delta of the `tabs` inventory, not an event log.
+
+  Carries only the `tab_id`; the tab's `title` and `url` live on its
+  `tabs` entry, which must include the same `tab_id`. A tab opened
+  during a failed call gets no deferred `tab_opened`; it simply appears
+  in the next result's `tabs` inventory.
+
+  - `BrowserStateChangeTabOpened`
+
+    A tab this call's execution opened that remains open at its end —
+    the creation delta of the `tabs` inventory, not an event log.
+
+    Carries only the `tab_id`; the tab's `title` and `url` live on its
+    `tabs` entry, which must include the same `tab_id`. A tab opened
+    during a failed call gets no deferred `tab_opened`; it simply appears
+    in the next result's `tabs` inventory.
+
+    - `tab_id: string`
+
+      The `tab_id` of the opened tab, present in `tabs`.
+
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `type: "tab_opened"`
+
+  - `BrowserStateChangeDownloadStarted`
+
+    A file download that started during this call.
+
+    - `download_id: string`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `type: "download_started"`
+
+    - `url: string`
+
+      The final post-redirect URL the download was served from.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `BrowserStateChangeDownloadCompleted`
+
+    A file download that finished during this call, reported with the
+    same `download_id` as its `download_started` — or without a prior
+    `download_started`, when the download finished during the call that
+    started it (at most one state change per `download_id` per result).
+
+    - `download_id: string`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `type: "download_completed"`
+
+    - `url: string`
+
+      The final post-redirect URL the download was served from.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `path?: string | null`
+
+      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+    - `size_bytes?: number | null`
+
+      The completed download's size.
+
+      minimum: 0
+
+  - `BrowserStateChangeDownloadFailed`
+
+    A file download that failed — or was cancelled — during this call.
+
+    - `download_id: string`
+
+      The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `type: "download_failed"`
+
+    - `url: string`
+
+      The final post-redirect URL the download was served from.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `error?: string | null`
+
+      The failure or cancellation detail, when known.
+
+      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+### Browser State Change Download Completed
+
+- `BrowserStateChangeDownloadCompleted`
+
+  A file download that finished during this call, reported with the
+  same `download_id` as its `download_started` — or without a prior
+  `download_started`, when the download finished during the call that
+  started it (at most one state change per `download_id` per result).
+
+  - `download_id: string`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `type: "download_completed"`
+
+  - `url: string`
+
+    The final post-redirect URL the download was served from.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `path?: string | null`
+
+    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+  - `size_bytes?: number | null`
+
+    The completed download's size.
+
+    minimum: 0
+
+### Browser State Change Download Failed
+
+- `BrowserStateChangeDownloadFailed`
+
+  A file download that failed — or was cancelled — during this call.
+
+  - `download_id: string`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `type: "download_failed"`
+
+  - `url: string`
+
+    The final post-redirect URL the download was served from.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `error?: string | null`
+
+    The failure or cancellation detail, when known.
+
+    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+### Browser State Change Download Started
+
+- `BrowserStateChangeDownloadStarted`
+
+  A file download that started during this call.
+
+  - `download_id: string`
+
+    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `type: "download_started"`
+
+  - `url: string`
+
+    The final post-redirect URL the download was served from.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+### Browser State Change Tab Opened
+
+- `BrowserStateChangeTabOpened`
+
+  A tab this call's execution opened that remains open at its end —
+  the creation delta of the `tabs` inventory, not an event log.
+
+  Carries only the `tab_id`; the tab's `title` and `url` live on its
+  `tabs` entry, which must include the same `tab_id`. A tab opened
+  during a failed call gets no deferred `tab_opened`; it simply appears
+  in the next result's `tabs` inventory.
+
+  - `tab_id: string`
+
+    The `tab_id` of the opened tab, present in `tabs`.
+
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `type: "tab_opened"`
+
+### Browser State Tab Entry
+
+- `BrowserStateTabEntry`
+
+  One open browser tab reported in a `browser_state` block's `tabs`
+  inventory.
+
+  `tab_id` is the caller-assigned identifier for the tab; `title` and
+  `url` describe the page the tab is currently showing and may be empty
+  strings (a blank tab legitimately has both empty). `active` marks the
+  tab that is active after this call; whenever `tabs` is non-empty,
+  exactly one entry is marked.
+
+  - `tab_id: string`
+
+    The caller-assigned identifier for this tab, unique within the inventory.
+
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `title: string`
+
+    The title of the page the tab is showing. May be empty.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `url: string`
+
+    The URL of the page the tab is showing. May be empty.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `active?: boolean`
+
+    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+### Browser Switch Tab Config
+
+- `BrowserSwitchTabConfig`
+
+  `switch_tab`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Toolset 20260801
+
+- `BrowserToolset20260801`
+
+  The browser toolset: a single `tools[]` entry (carrying no
+  `name`) that declares the browser tool family. The model is served
+  the family's tool with any members disabled via `configs` removed
+  from its schema.
+
+  - `type: "browser_toolset_20260801"`
+
+  - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+    - `"direct"`
+
+    - `"code_execution_20250825"`
+
+    - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
+
+  - `cache_control?: CacheControlEphemeral | null`
+
+    Create a cache control breakpoint at this content block.
+
+    - `type: "ephemeral"`
+
+    - `ttl?: "5m" | "1h"`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `"5m"`
+
+      - `"1h"`
+
+  - `configs?: BrowserToolsetConfigs | null`
+
+    Per-member configuration for `browser_toolset_20260801`: one
+    optional field per member tool, keyed by the member name — the same
+    name the member's `tool_use` blocks carry. Every member is an
+    accepted key, and a member's defaults apply wherever its key is
+    absent. Unknown keys are rejected: the field set is this toolset
+    version's complete member set.
+
+    - `close_tab?: BrowserCloseTabConfig | null`
+
+      `close_tab`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `double_click?: BrowserDoubleClickConfig | null`
+
+      `double_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `file_upload?: BrowserFileUploadConfig | null`
+
+      `file_upload`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `find?: BrowserFindConfig | null`
+
+      `find`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `form_input?: BrowserFormInputConfig | null`
+
+      `form_input`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `get_page_text?: BrowserGetPageTextConfig | null`
+
+      `get_page_text`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `hold_key?: BrowserHoldKeyConfig | null`
+
+      `hold_key`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `hover?: BrowserHoverConfig | null`
+
+      `hover`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+      `javascript_exec`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `key?: BrowserKeyConfig | null`
+
+      `key`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_click?: BrowserLeftClickConfig | null`
+
+      `left_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+      `left_click_drag`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+      `left_mouse_down`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+      `left_mouse_up`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `list_tabs?: BrowserListTabsConfig | null`
+
+      `list_tabs`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `middle_click?: BrowserMiddleClickConfig | null`
+
+      `middle_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `mouse_move?: BrowserMouseMoveConfig | null`
+
+      `mouse_move`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `navigate?: BrowserNavigateConfig | null`
+
+      `navigate`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `new_tab?: BrowserNewTabConfig | null`
+
+      `new_tab`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `read_console?: BrowserReadConsoleConfig | null`
+
+      `read_console`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `read_network?: BrowserReadNetworkConfig | null`
+
+      `read_network`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `read_page?: BrowserReadPageConfig | null`
+
+      `read_page`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `right_click?: BrowserRightClickConfig | null`
+
+      `right_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `screenshot?: BrowserScreenshotConfig | null`
+
+      `screenshot`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `scroll?: BrowserScrollConfig | null`
+
+      `scroll`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `scroll_to?: BrowserScrollToConfig | null`
+
+      `scroll_to`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `switch_tab?: BrowserSwitchTabConfig | null`
+
+      `switch_tab`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `triple_click?: BrowserTripleClickConfig | null`
+
+      `triple_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `type?: BrowserTypeConfig | null`
+
+      `type`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `wait?: BrowserWaitConfig | null`
+
+      `wait`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `zoom?: BrowserZoomConfig | null`
+
+      `zoom`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Toolset Configs
+
+- `BrowserToolsetConfigs`
+
+  Per-member configuration for `browser_toolset_20260801`: one
+  optional field per member tool, keyed by the member name — the same
+  name the member's `tool_use` blocks carry. Every member is an
+  accepted key, and a member's defaults apply wherever its key is
+  absent. Unknown keys are rejected: the field set is this toolset
+  version's complete member set.
+
+  - `close_tab?: BrowserCloseTabConfig | null`
+
+    `close_tab`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `double_click?: BrowserDoubleClickConfig | null`
+
+    `double_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `file_upload?: BrowserFileUploadConfig | null`
+
+    `file_upload`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `find?: BrowserFindConfig | null`
+
+    `find`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `form_input?: BrowserFormInputConfig | null`
+
+    `form_input`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `get_page_text?: BrowserGetPageTextConfig | null`
+
+    `get_page_text`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `hold_key?: BrowserHoldKeyConfig | null`
+
+    `hold_key`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `hover?: BrowserHoverConfig | null`
+
+    `hover`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+    `javascript_exec`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `key?: BrowserKeyConfig | null`
+
+    `key`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_click?: BrowserLeftClickConfig | null`
+
+    `left_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+    `left_click_drag`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+    `left_mouse_down`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+    `left_mouse_up`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `list_tabs?: BrowserListTabsConfig | null`
+
+    `list_tabs`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `middle_click?: BrowserMiddleClickConfig | null`
+
+    `middle_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `mouse_move?: BrowserMouseMoveConfig | null`
+
+    `mouse_move`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `navigate?: BrowserNavigateConfig | null`
+
+    `navigate`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `new_tab?: BrowserNewTabConfig | null`
+
+    `new_tab`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `read_console?: BrowserReadConsoleConfig | null`
+
+    `read_console`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `read_network?: BrowserReadNetworkConfig | null`
+
+    `read_network`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `read_page?: BrowserReadPageConfig | null`
+
+    `read_page`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `right_click?: BrowserRightClickConfig | null`
+
+    `right_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `screenshot?: BrowserScreenshotConfig | null`
+
+    `screenshot`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `scroll?: BrowserScrollConfig | null`
+
+    `scroll`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `scroll_to?: BrowserScrollToConfig | null`
+
+    `scroll_to`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `switch_tab?: BrowserSwitchTabConfig | null`
+
+    `switch_tab`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `triple_click?: BrowserTripleClickConfig | null`
+
+    `triple_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `type?: BrowserTypeConfig | null`
+
+    `type`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `wait?: BrowserWaitConfig | null`
+
+    `wait`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `zoom?: BrowserZoomConfig | null`
+
+    `zoom`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Triple Click Config
+
+- `BrowserTripleClickConfig`
+
+  `triple_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Type Config
+
+- `BrowserTypeConfig`
+
+  `type`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Wait Config
+
+- `BrowserWaitConfig`
+
+  `wait`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Browser Zoom Config
+
+- `BrowserZoomConfig`
+
+  `zoom`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
 ### Cache Control Ephemeral
 
 - `CacheControlEphemeral`
 
   - `type: "ephemeral"`
-
-    - `"ephemeral"`
 
   - `ttl?: "5m" | "1h"`
 
@@ -5709,9 +9121,13 @@ console.log(messageTokensCount.input_tokens);
 
     The number of input tokens used to create the 1 hour cache entry.
 
+    default: 0, minimum: 0
+
   - `ephemeral_5m_input_tokens: number`
 
     The number of input tokens used to create the 5 minute cache entry.
+
+    default: 0, minimum: 0
 
 ### Citation Char Location
 
@@ -5721,6 +9137,8 @@ console.log(messageTokensCount.input_tokens);
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string | null`
 
   - `end_char_index: number`
@@ -5729,9 +9147,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `start_char_index: number`
 
+    minimum: 0
+
   - `type: "char_location"`
 
-    - `"char_location"`
+    default: char_location
 
 ### Citation Char Location Param
 
@@ -5741,15 +9161,19 @@ console.log(messageTokensCount.input_tokens);
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string | null`
+
+    maxLength: 500, minLength: 1
 
   - `end_char_index: number`
 
   - `start_char_index: number`
 
-  - `type: "char_location"`
+    minimum: 0
 
-    - `"char_location"`
+  - `type: "char_location"`
 
 ### Citation Content Block Location
 
@@ -5763,6 +9187,8 @@ console.log(messageTokensCount.input_tokens);
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string | null`
 
   - `end_block_index: number`
@@ -5777,9 +9203,11 @@ console.log(messageTokensCount.input_tokens);
 
     0-based index of the first cited block in the source's `content` array.
 
+    minimum: 0
+
   - `type: "content_block_location"`
 
-    - `"content_block_location"`
+    default: content_block_location
 
 ### Citation Content Block Location Param
 
@@ -5793,7 +9221,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string | null`
+
+    maxLength: 500, minLength: 1
 
   - `end_block_index: number`
 
@@ -5805,9 +9237,9 @@ console.log(messageTokensCount.input_tokens);
 
     0-based index of the first cited block in the source's `content` array.
 
-  - `type: "content_block_location"`
+    minimum: 0
 
-    - `"content_block_location"`
+  - `type: "content_block_location"`
 
 ### Citation Page Location
 
@@ -5817,6 +9249,8 @@ console.log(messageTokensCount.input_tokens);
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string | null`
 
   - `end_page_number: number`
@@ -5825,9 +9259,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `start_page_number: number`
 
+    minimum: 1
+
   - `type: "page_location"`
 
-    - `"page_location"`
+    default: page_location
 
 ### Citation Page Location Param
 
@@ -5837,15 +9273,19 @@ console.log(messageTokensCount.input_tokens);
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string | null`
+
+    maxLength: 500, minLength: 1
 
   - `end_page_number: number`
 
   - `start_page_number: number`
 
-  - `type: "page_location"`
+    minimum: 1
 
-    - `"page_location"`
+  - `type: "page_location"`
 
 ### Citation Search Result Location Param
 
@@ -5869,17 +9309,19 @@ console.log(messageTokensCount.input_tokens);
 
     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+    minimum: 0
+
   - `source: string`
 
   - `start_block_index: number`
 
     0-based index of the first cited block in the source's `content` array.
 
+    minimum: 0
+
   - `title: string | null`
 
   - `type: "search_result_location"`
-
-    - `"search_result_location"`
 
 ### Citation Web Search Result Location Param
 
@@ -5891,17 +9333,21 @@ console.log(messageTokensCount.input_tokens);
 
   - `title: string | null`
 
+    maxLength: 512, minLength: 1
+
   - `type: "web_search_result_location"`
 
-    - `"web_search_result_location"`
-
   - `url: string`
+
+    minLength: 1
 
 ### Citations Config
 
 - `CitationsConfig`
 
   - `enabled: boolean`
+
+    default: false
 
 ### Citations Config Param
 
@@ -5921,6 +9367,8 @@ console.log(messageTokensCount.input_tokens);
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string | null`
 
       - `end_char_index: number`
@@ -5929,15 +9377,19 @@ console.log(messageTokensCount.input_tokens);
 
       - `start_char_index: number`
 
+        minimum: 0
+
       - `type: "char_location"`
 
-        - `"char_location"`
+        default: char_location
 
     - `CitationPageLocation`
 
       - `cited_text: string`
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string | null`
 
@@ -5947,9 +9399,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `start_page_number: number`
 
+        minimum: 1
+
       - `type: "page_location"`
 
-        - `"page_location"`
+        default: page_location
 
     - `CitationContentBlockLocation`
 
@@ -5960,6 +9414,8 @@ console.log(messageTokensCount.input_tokens);
         Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string | null`
 
@@ -5975,9 +9431,11 @@ console.log(messageTokensCount.input_tokens);
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `type: "content_block_location"`
 
-        - `"content_block_location"`
+        default: content_block_location
 
     - `CitationsWebSearchResultLocation`
 
@@ -5987,9 +9445,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `title: string | null`
 
+        maxLength: 512
+
       - `type: "web_search_result_location"`
 
-        - `"web_search_result_location"`
+        default: web_search_result_location
 
       - `url: string`
 
@@ -6013,21 +9473,25 @@ console.log(messageTokensCount.input_tokens);
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: string`
 
       - `start_block_index: number`
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `title: string | null`
 
       - `type: "search_result_location"`
 
-        - `"search_result_location"`
+        default: search_result_location
 
   - `type: "citations_delta"`
 
-    - `"citations_delta"`
+    default: citations_delta
 
 ### Citations Search Result Location
 
@@ -6051,17 +9515,21 @@ console.log(messageTokensCount.input_tokens);
 
     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+    minimum: 0
+
   - `source: string`
 
   - `start_block_index: number`
 
     0-based index of the first cited block in the source's `content` array.
 
+    minimum: 0
+
   - `title: string | null`
 
   - `type: "search_result_location"`
 
-    - `"search_result_location"`
+    default: search_result_location
 
 ### Citations Web Search Result Location
 
@@ -6073,9 +9541,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `title: string | null`
 
+    maxLength: 512
+
   - `type: "web_search_result_location"`
 
-    - `"web_search_result_location"`
+    default: web_search_result_location
 
   - `url: string`
 
@@ -6087,7 +9557,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "code_execution_output"`
 
-    - `"code_execution_output"`
+    default: code_execution_output
 
 ### Code Execution Output Block Param
 
@@ -6096,8 +9566,6 @@ console.log(messageTokensCount.input_tokens);
   - `file_id: string`
 
   - `type: "code_execution_output"`
-
-    - `"code_execution_output"`
 
 ### Code Execution Result Block
 
@@ -6109,7 +9577,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "code_execution_output"`
 
-      - `"code_execution_output"`
+      default: code_execution_output
 
   - `return_code: number`
 
@@ -6119,7 +9587,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "code_execution_result"`
 
-    - `"code_execution_result"`
+    default: code_execution_result
 
 ### Code Execution Result Block Param
 
@@ -6131,8 +9599,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "code_execution_output"`
 
-      - `"code_execution_output"`
-
   - `return_code: number`
 
   - `stderr: string`
@@ -6140,8 +9606,6 @@ console.log(messageTokensCount.input_tokens);
   - `stdout: string`
 
   - `type: "code_execution_result"`
-
-    - `"code_execution_result"`
 
 ### Code Execution Tool 20250522
 
@@ -6153,11 +9617,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"code_execution"`
-
   - `type: "code_execution_20250522"`
-
-    - `"code_execution_20250522"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -6174,8 +9634,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -6210,11 +9668,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"code_execution"`
-
   - `type: "code_execution_20250825"`
-
-    - `"code_execution_20250825"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -6231,8 +9685,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -6269,11 +9721,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"code_execution"`
-
   - `type: "code_execution_20260120"`
-
-    - `"code_execution_20260120"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -6290,8 +9738,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -6328,11 +9774,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"code_execution"`
-
   - `type: "code_execution_20260521"`
-
-    - `"code_execution_20260521"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -6349,8 +9791,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -6397,7 +9837,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "code_execution_tool_result_error"`
 
-        - `"code_execution_tool_result_error"`
+        default: code_execution_tool_result_error
 
     - `CodeExecutionResultBlock`
 
@@ -6407,7 +9847,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "code_execution_output"`
 
-          - `"code_execution_output"`
+          default: code_execution_output
 
       - `return_code: number`
 
@@ -6417,7 +9857,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "code_execution_result"`
 
-        - `"code_execution_result"`
+        default: code_execution_result
 
     - `EncryptedCodeExecutionResultBlock`
 
@@ -6429,6 +9869,8 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "code_execution_output"`
 
+          default: code_execution_output
+
       - `encrypted_stdout: string`
 
       - `return_code: number`
@@ -6437,13 +9879,15 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "encrypted_code_execution_result"`
 
-        - `"encrypted_code_execution_result"`
+        default: encrypted_code_execution_result
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "code_execution_tool_result"`
 
-    - `"code_execution_tool_result"`
+    default: code_execution_tool_result
 
 ### Code Execution Tool Result Block Content
 
@@ -6465,7 +9909,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "code_execution_tool_result_error"`
 
-      - `"code_execution_tool_result_error"`
+      default: code_execution_tool_result_error
 
   - `CodeExecutionResultBlock`
 
@@ -6475,7 +9919,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "code_execution_output"`
 
-        - `"code_execution_output"`
+        default: code_execution_output
 
     - `return_code: number`
 
@@ -6485,7 +9929,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "code_execution_result"`
 
-      - `"code_execution_result"`
+      default: code_execution_result
 
   - `EncryptedCodeExecutionResultBlock`
 
@@ -6497,6 +9941,8 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "code_execution_output"`
 
+        default: code_execution_output
+
     - `encrypted_stdout: string`
 
     - `return_code: number`
@@ -6505,7 +9951,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "encrypted_code_execution_result"`
 
-      - `"encrypted_code_execution_result"`
+      default: encrypted_code_execution_result
 
 ### Code Execution Tool Result Block Param
 
@@ -6529,8 +9975,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "code_execution_tool_result_error"`
 
-        - `"code_execution_tool_result_error"`
-
     - `CodeExecutionResultBlockParam`
 
       - `content: Array<CodeExecutionOutputBlockParam>`
@@ -6539,8 +9983,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "code_execution_output"`
 
-          - `"code_execution_output"`
-
       - `return_code: number`
 
       - `stderr: string`
@@ -6548,8 +9990,6 @@ console.log(messageTokensCount.input_tokens);
       - `stdout: string`
 
       - `type: "code_execution_result"`
-
-        - `"code_execution_result"`
 
     - `EncryptedCodeExecutionResultBlockParam`
 
@@ -6569,21 +10009,17 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "encrypted_code_execution_result"`
 
-        - `"encrypted_code_execution_result"`
-
   - `tool_use_id: string`
 
-  - `type: "code_execution_tool_result"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"code_execution_tool_result"`
+  - `type: "code_execution_tool_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -6620,8 +10056,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "code_execution_tool_result_error"`
 
-      - `"code_execution_tool_result_error"`
-
   - `CodeExecutionResultBlockParam`
 
     - `content: Array<CodeExecutionOutputBlockParam>`
@@ -6630,8 +10064,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "code_execution_output"`
 
-        - `"code_execution_output"`
-
     - `return_code: number`
 
     - `stderr: string`
@@ -6639,8 +10071,6 @@ console.log(messageTokensCount.input_tokens);
     - `stdout: string`
 
     - `type: "code_execution_result"`
-
-      - `"code_execution_result"`
 
   - `EncryptedCodeExecutionResultBlockParam`
 
@@ -6660,8 +10090,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "encrypted_code_execution_result"`
 
-      - `"encrypted_code_execution_result"`
-
 ### Code Execution Tool Result Error
 
 - `CodeExecutionToolResultError`
@@ -6678,7 +10106,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "code_execution_tool_result_error"`
 
-    - `"code_execution_tool_result_error"`
+    default: code_execution_tool_result_error
 
 ### Code Execution Tool Result Error Code
 
@@ -6708,7 +10136,717 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "code_execution_tool_result_error"`
 
-    - `"code_execution_tool_result_error"`
+### Computer Cursor Position Config
+
+- `ComputerCursorPositionConfig`
+
+  `cursor_position`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Double Click Config
+
+- `ComputerDoubleClickConfig`
+
+  `double_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Hold Key Config
+
+- `ComputerHoldKeyConfig`
+
+  `hold_key`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Key Config
+
+- `ComputerKeyConfig`
+
+  `key`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Click Config
+
+- `ComputerLeftClickConfig`
+
+  `left_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Click Drag Config
+
+- `ComputerLeftClickDragConfig`
+
+  `left_click_drag`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Mouse Down Config
+
+- `ComputerLeftMouseDownConfig`
+
+  `left_mouse_down`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Left Mouse Up Config
+
+- `ComputerLeftMouseUpConfig`
+
+  `left_mouse_up`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Middle Click Config
+
+- `ComputerMiddleClickConfig`
+
+  `middle_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Mouse Move Config
+
+- `ComputerMouseMoveConfig`
+
+  `mouse_move`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Right Click Config
+
+- `ComputerRightClickConfig`
+
+  `right_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Screenshot Config
+
+- `ComputerScreenshotConfig`
+
+  `screenshot`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Scroll Config
+
+- `ComputerScrollConfig`
+
+  `scroll`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Toolset 20260801
+
+- `ComputerToolset20260801`
+
+  The computer toolset: a single `tools[]` entry (carrying no
+  `name`) that declares the computer tool family. The model is
+  served the family's tool with any members disabled via `configs`
+  removed from its schema. Every member is enabled by default, zoom
+  included. The single-tool options `display_number` and
+  `enable_zoom` are not fields of a toolset entry — it carries only
+  `type`, `configs`, and `cache_control`; zoom is controlled
+  via `configs.zoom.enabled`.
+
+  - `type: "computer_toolset_20260801"`
+
+  - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+    - `"direct"`
+
+    - `"code_execution_20250825"`
+
+    - `"code_execution_20260120"`
+
+    - `"code_execution_20260521"`
+
+  - `cache_control?: CacheControlEphemeral | null`
+
+    Create a cache control breakpoint at this content block.
+
+    - `type: "ephemeral"`
+
+    - `ttl?: "5m" | "1h"`
+
+      The time-to-live for the cache control breakpoint.
+
+      This may be one the following values:
+
+      - `5m`: 5 minutes
+      - `1h`: 1 hour
+
+      Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
+
+      - `"5m"`
+
+      - `"1h"`
+
+  - `configs?: ComputerToolsetConfigs | null`
+
+    Per-member configuration for `computer_toolset_20260801`: one
+    optional field per member tool, keyed by the member name — the same
+    name the member's `tool_use` blocks carry. Every member is an
+    accepted key, and a member's defaults apply wherever its key is
+    absent. Unknown keys are rejected: the field set is this toolset
+    version's complete member set.
+
+    - `cursor_position?: ComputerCursorPositionConfig | null`
+
+      `cursor_position`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `double_click?: ComputerDoubleClickConfig | null`
+
+      `double_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `hold_key?: ComputerHoldKeyConfig | null`
+
+      `hold_key`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `key?: ComputerKeyConfig | null`
+
+      `key`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_click?: ComputerLeftClickConfig | null`
+
+      `left_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+      `left_click_drag`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+      `left_mouse_down`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+      `left_mouse_up`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `middle_click?: ComputerMiddleClickConfig | null`
+
+      `middle_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `mouse_move?: ComputerMouseMoveConfig | null`
+
+      `mouse_move`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `right_click?: ComputerRightClickConfig | null`
+
+      `right_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `screenshot?: ComputerScreenshotConfig | null`
+
+      `screenshot`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `scroll?: ComputerScrollConfig | null`
+
+      `scroll`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `triple_click?: ComputerTripleClickConfig | null`
+
+      `triple_click`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `type?: ComputerTypeConfig | null`
+
+      `type`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `wait?: ComputerWaitConfig | null`
+
+      `wait`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+    - `zoom?: ComputerZoomConfig | null`
+
+      `zoom`'s config overrides.
+
+      - `defer_loading?: boolean | null`
+
+        Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+      - `enabled?: boolean | null`
+
+        Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Toolset Configs
+
+- `ComputerToolsetConfigs`
+
+  Per-member configuration for `computer_toolset_20260801`: one
+  optional field per member tool, keyed by the member name — the same
+  name the member's `tool_use` blocks carry. Every member is an
+  accepted key, and a member's defaults apply wherever its key is
+  absent. Unknown keys are rejected: the field set is this toolset
+  version's complete member set.
+
+  - `cursor_position?: ComputerCursorPositionConfig | null`
+
+    `cursor_position`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `double_click?: ComputerDoubleClickConfig | null`
+
+    `double_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `hold_key?: ComputerHoldKeyConfig | null`
+
+    `hold_key`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `key?: ComputerKeyConfig | null`
+
+    `key`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_click?: ComputerLeftClickConfig | null`
+
+    `left_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+    `left_click_drag`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+    `left_mouse_down`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+    `left_mouse_up`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `middle_click?: ComputerMiddleClickConfig | null`
+
+    `middle_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `mouse_move?: ComputerMouseMoveConfig | null`
+
+    `mouse_move`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `right_click?: ComputerRightClickConfig | null`
+
+    `right_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `screenshot?: ComputerScreenshotConfig | null`
+
+    `screenshot`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `scroll?: ComputerScrollConfig | null`
+
+    `scroll`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `triple_click?: ComputerTripleClickConfig | null`
+
+    `triple_click`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `type?: ComputerTypeConfig | null`
+
+    `type`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `wait?: ComputerWaitConfig | null`
+
+    `wait`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+  - `zoom?: ComputerZoomConfig | null`
+
+    `zoom`'s config overrides.
+
+    - `defer_loading?: boolean | null`
+
+      Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+    - `enabled?: boolean | null`
+
+      Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Triple Click Config
+
+- `ComputerTripleClickConfig`
+
+  `triple_click`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Type Config
+
+- `ComputerTypeConfig`
+
+  `type`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Wait Config
+
+- `ComputerWaitConfig`
+
+  `wait`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+### Computer Zoom Config
+
+- `ComputerZoomConfig`
+
+  `zoom`'s config overrides.
+
+  - `defer_loading?: boolean | null`
+
+    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+  - `enabled?: boolean | null`
+
+    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
 ### Container
 
@@ -6724,6 +10862,94 @@ console.log(messageTokensCount.input_tokens);
 
     The time at which the container will expire.
 
+    format: date-time
+
+  - `skills: Array<ContainerSkill> | null`
+
+    Skills loaded in the container
+
+    - `skill_id: string`
+
+      Skill ID
+
+      maxLength: 64, minLength: 1
+
+    - `type: "anthropic" | "custom"`
+
+      Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+      - `"anthropic"`
+
+      - `"custom"`
+
+    - `version: string`
+
+      The resolved version: a skill version ID for custom skills.
+
+      maxLength: 64, minLength: 1
+
+### Container Params
+
+- `ContainerParams`
+
+  Container parameters with skills to be loaded.
+
+  - `id?: string | null`
+
+    Container id
+
+  - `skills?: Array<SkillParams> | null`
+
+    List of skills to load in the container
+
+    maxItems: 20
+
+    - `skill_id: string`
+
+      Skill ID
+
+      maxLength: 64, minLength: 1
+
+    - `type: "anthropic" | "custom"`
+
+      Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+      - `"anthropic"`
+
+      - `"custom"`
+
+    - `version?: string`
+
+      Skill version or 'latest' for most recent version
+
+      maxLength: 64, minLength: 1
+
+### Container Skill
+
+- `ContainerSkill`
+
+  A skill that was loaded in a container (response model).
+
+  - `skill_id: string`
+
+    Skill ID
+
+    maxLength: 64, minLength: 1
+
+  - `type: "anthropic" | "custom"`
+
+    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+    - `"anthropic"`
+
+    - `"custom"`
+
+  - `version: string`
+
+    The resolved version: a skill version ID for custom skills.
+
+    maxLength: 64, minLength: 1
+
 ### Container Upload Block
 
 - `ContainerUploadBlock`
@@ -6734,7 +10960,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "container_upload"`
 
-    - `"container_upload"`
+    default: container_upload
 
 ### Container Upload Block Param
 
@@ -6747,15 +10973,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "container_upload"`
 
-    - `"container_upload"`
-
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -6792,6 +11014,8 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
 
         - `end_char_index: number`
@@ -6800,15 +11024,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `start_char_index: number`
 
+          minimum: 0
+
         - `type: "char_location"`
 
-          - `"char_location"`
+          default: char_location
 
       - `CitationPageLocation`
 
         - `cited_text: string`
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string | null`
 
@@ -6818,9 +11046,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `start_page_number: number`
 
+          minimum: 1
+
         - `type: "page_location"`
 
-          - `"page_location"`
+          default: page_location
 
       - `CitationContentBlockLocation`
 
@@ -6831,6 +11061,8 @@ console.log(messageTokensCount.input_tokens);
           Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string | null`
 
@@ -6846,9 +11078,11 @@ console.log(messageTokensCount.input_tokens);
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `type: "content_block_location"`
 
-          - `"content_block_location"`
+          default: content_block_location
 
       - `CitationsWebSearchResultLocation`
 
@@ -6858,9 +11092,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `title: string | null`
 
+          maxLength: 512
+
         - `type: "web_search_result_location"`
 
-          - `"web_search_result_location"`
+          default: web_search_result_location
 
         - `url: string`
 
@@ -6884,49 +11120,73 @@ console.log(messageTokensCount.input_tokens);
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: string | null`
 
         - `type: "search_result_location"`
 
-          - `"search_result_location"`
+          default: search_result_location
 
     - `text: string`
 
+      maxLength: 5000000, minLength: 0
+
     - `type: "text"`
 
-      - `"text"`
+      default: text
 
   - `ThinkingBlock`
 
     - `signature: string`
 
+      A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+      This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
     - `thinking: string`
+
+      The text of Claude's thinking process for this block.
 
     - `type: "thinking"`
 
-      - `"thinking"`
+      default: thinking
 
   - `RedactedThinkingBlock`
 
     - `data: string`
 
+      The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+      Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
     - `type: "redacted_thinking"`
 
-      - `"redacted_thinking"`
+      default: redacted_thinking
 
   - `ToolUseBlock`
 
     - `id: string`
 
+      pattern: ^[a-zA-Z0-9_-]+$
+
     - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
       Tool invocation directly from the model.
+
+      default: {"type":"direct"}
 
       - `DirectCaller`
 
@@ -6934,41 +11194,51 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "direct"`
 
-          - `"direct"`
-
       - `ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
         - `tool_id: string`
 
-        - `type: "code_execution_20250825"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"code_execution_20250825"`
+        - `type: "code_execution_20250825"`
 
       - `ServerToolCaller20260120`
 
         - `tool_id: string`
 
-        - `type: "code_execution_20260120"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"code_execution_20260120"`
+        - `type: "code_execution_20260120"`
 
     - `input: Record<string, unknown>`
 
     - `name: string`
 
+      minLength: 1
+
     - `type: "tool_use"`
 
-      - `"tool_use"`
+      default: tool_use
+
+    - `toolset_name?: string | null`
+
+      For a toolset member tool_use, the toolset family.
+
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
   - `ServerToolUseBlock`
 
     - `id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
       Tool invocation directly from the model.
+
+      default: {"type":"direct"}
 
       - `DirectCaller`
 
@@ -7000,13 +11270,15 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "server_tool_use"`
 
-      - `"server_tool_use"`
+      default: server_tool_use
 
   - `WebSearchToolResultBlock`
 
     - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
       Tool invocation directly from the model.
+
+      default: {"type":"direct"}
 
       - `DirectCaller`
 
@@ -7038,7 +11310,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "web_search_tool_result_error"`
 
-          - `"web_search_tool_result_error"`
+          default: web_search_tool_result_error
 
       - `Array<WebSearchResultBlock>`
 
@@ -7050,21 +11322,25 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "web_search_result"`
 
-          - `"web_search_result"`
+          default: web_search_result
 
         - `url: string`
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "web_search_tool_result"`
 
-      - `"web_search_tool_result"`
+      default: web_search_tool_result
 
   - `WebFetchToolResultBlock`
 
     - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
       Tool invocation directly from the model.
+
+      default: {"type":"direct"}
 
       - `DirectCaller`
 
@@ -7102,7 +11378,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "web_fetch_tool_result_error"`
 
-          - `"web_fetch_tool_result_error"`
+          default: web_fetch_tool_result_error
 
       - `WebFetchBlock`
 
@@ -7114,19 +11390,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `enabled: boolean`
 
+              default: false
+
           - `source: Base64PDFSource | PlainTextSource`
 
             - `Base64PDFSource`
 
               - `data: string`
 
+                format: byte
+
               - `media_type: "application/pdf"`
 
-                - `"application/pdf"`
-
               - `type: "base64"`
-
-                - `"base64"`
 
             - `PlainTextSource`
 
@@ -7134,11 +11410,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `media_type: "text/plain"`
 
-                - `"text/plain"`
-
               - `type: "text"`
-
-                - `"text"`
 
           - `title: string | null`
 
@@ -7146,7 +11418,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "document"`
 
-            - `"document"`
+            default: document
 
         - `retrieved_at: string | null`
 
@@ -7154,7 +11426,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "web_fetch_result"`
 
-          - `"web_fetch_result"`
+          default: web_fetch_result
 
         - `url: string`
 
@@ -7162,9 +11434,11 @@ console.log(messageTokensCount.input_tokens);
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "web_fetch_tool_result"`
 
-      - `"web_fetch_tool_result"`
+      default: web_fetch_tool_result
 
   - `CodeExecutionToolResultBlock`
 
@@ -7186,7 +11460,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "code_execution_tool_result_error"`
 
-          - `"code_execution_tool_result_error"`
+          default: code_execution_tool_result_error
 
       - `CodeExecutionResultBlock`
 
@@ -7196,7 +11470,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "code_execution_output"`
 
-            - `"code_execution_output"`
+            default: code_execution_output
 
         - `return_code: number`
 
@@ -7206,7 +11480,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "code_execution_result"`
 
-          - `"code_execution_result"`
+          default: code_execution_result
 
       - `EncryptedCodeExecutionResultBlock`
 
@@ -7218,6 +11492,8 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "code_execution_output"`
 
+            default: code_execution_output
+
         - `encrypted_stdout: string`
 
         - `return_code: number`
@@ -7226,13 +11502,15 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "encrypted_code_execution_result"`
 
-          - `"encrypted_code_execution_result"`
+          default: encrypted_code_execution_result
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "code_execution_tool_result"`
 
-      - `"code_execution_tool_result"`
+      default: code_execution_tool_result
 
   - `BashCodeExecutionToolResultBlock`
 
@@ -7254,7 +11532,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "bash_code_execution_tool_result_error"`
 
-          - `"bash_code_execution_tool_result_error"`
+          default: bash_code_execution_tool_result_error
 
       - `BashCodeExecutionResultBlock`
 
@@ -7264,7 +11542,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "bash_code_execution_output"`
 
-            - `"bash_code_execution_output"`
+            default: bash_code_execution_output
 
         - `return_code: number`
 
@@ -7274,13 +11552,15 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "bash_code_execution_result"`
 
-          - `"bash_code_execution_result"`
+          default: bash_code_execution_result
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "bash_code_execution_tool_result"`
 
-      - `"bash_code_execution_tool_result"`
+      default: bash_code_execution_tool_result
 
   - `TextEditorCodeExecutionToolResultBlock`
 
@@ -7304,7 +11584,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_editor_code_execution_tool_result_error"`
 
-          - `"text_editor_code_execution_tool_result_error"`
+          default: text_editor_code_execution_tool_result_error
 
       - `TextEditorCodeExecutionViewResultBlock`
 
@@ -7326,7 +11606,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_editor_code_execution_view_result"`
 
-          - `"text_editor_code_execution_view_result"`
+          default: text_editor_code_execution_view_result
 
       - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -7334,7 +11614,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_editor_code_execution_create_result"`
 
-          - `"text_editor_code_execution_create_result"`
+          default: text_editor_code_execution_create_result
 
       - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -7350,13 +11630,15 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_editor_code_execution_str_replace_result"`
 
-          - `"text_editor_code_execution_str_replace_result"`
+          default: text_editor_code_execution_str_replace_result
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "text_editor_code_execution_tool_result"`
 
-      - `"text_editor_code_execution_tool_result"`
+      default: text_editor_code_execution_tool_result
 
   - `ToolSearchToolResultBlock`
 
@@ -7378,7 +11660,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "tool_search_tool_result_error"`
 
-          - `"tool_search_tool_result_error"`
+          default: tool_search_tool_result_error
 
       - `ToolSearchToolSearchResultBlock`
 
@@ -7386,19 +11668,23 @@ console.log(messageTokensCount.input_tokens);
 
           - `tool_name: string`
 
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
           - `type: "tool_reference"`
 
-            - `"tool_reference"`
+            default: tool_reference
 
         - `type: "tool_search_tool_search_result"`
 
-          - `"tool_search_tool_search_result"`
+          default: tool_search_tool_search_result
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "tool_search_tool_result"`
 
-      - `"tool_search_tool_result"`
+      default: tool_search_tool_result
 
   - `ContainerUploadBlock`
 
@@ -7408,11 +11694,11 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "container_upload"`
 
-      - `"container_upload"`
+      default: container_upload
 
 ### Content Block Param
 
-- `ContentBlockParam = TextBlockParam | ImageBlockParam | DocumentBlockParam | 14 more`
+- `ContentBlockParam = TextBlockParam | ImageBlockParam | DocumentBlockParam | 13 more`
 
   Regular text content.
 
@@ -7420,17 +11706,15 @@ console.log(messageTokensCount.input_tokens);
 
     - `text: string`
 
-    - `type: "text"`
+      minLength: 1
 
-      - `"text"`
+    - `type: "text"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
 
       - `type: "ephemeral"`
-
-        - `"ephemeral"`
 
       - `ttl?: "5m" | "1h"`
 
@@ -7455,15 +11739,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: number`
 
         - `start_char_index: number`
 
-        - `type: "char_location"`
+          minimum: 0
 
-          - `"char_location"`
+        - `type: "char_location"`
 
       - `CitationPageLocationParam`
 
@@ -7471,15 +11759,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: number`
 
         - `start_page_number: number`
 
-        - `type: "page_location"`
+          minimum: 1
 
-          - `"page_location"`
+        - `type: "page_location"`
 
       - `CitationContentBlockLocationParam`
 
@@ -7491,7 +11783,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: number`
 
@@ -7503,9 +11799,9 @@ console.log(messageTokensCount.input_tokens);
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: "content_block_location"`
+          minimum: 0
 
-          - `"content_block_location"`
+        - `type: "content_block_location"`
 
       - `CitationWebSearchResultLocationParam`
 
@@ -7515,11 +11811,13 @@ console.log(messageTokensCount.input_tokens);
 
         - `title: string | null`
 
+          maxLength: 512, minLength: 1
+
         - `type: "web_search_result_location"`
 
-          - `"web_search_result_location"`
-
         - `url: string`
+
+          minLength: 1
 
       - `CitationSearchResultLocationParam`
 
@@ -7541,25 +11839,29 @@ console.log(messageTokensCount.input_tokens);
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: string | null`
 
         - `type: "search_result_location"`
 
-          - `"search_result_location"`
-
   - `ImageBlockParam`
 
-    - `source: Base64ImageSource | URLImageSource`
+    - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
       - `Base64ImageSource`
 
         - `data: string`
+
+          format: byte
 
         - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -7573,39 +11875,49 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "base64"`
 
-          - `"base64"`
-
       - `URLImageSource`
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
-    - `type: "image"`
+      - `FileImageSource`
 
-      - `"image"`
+        - `file_id: string`
+
+        - `type: "file"`
+
+    - `type: "image"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
 
+    - `transformations?: ImageTransformationsParam | null`
+
+      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+      - `oversized_image?: "downsize" | "error"`
+
+        What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+        - `"downsize"`
+
+        - `"error"`
+
   - `DocumentBlockParam`
 
-    - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+    - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
       - `Base64PDFSource`
 
         - `data: string`
 
+          format: byte
+
         - `media_type: "application/pdf"`
 
-          - `"application/pdf"`
-
         - `type: "base64"`
-
-          - `"base64"`
 
       - `PlainTextSource`
 
@@ -7613,11 +11925,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `media_type: "text/plain"`
 
-          - `"text/plain"`
-
         - `type: "text"`
-
-          - `"text"`
 
       - `ContentBlockSource`
 
@@ -7633,19 +11941,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "content"`
 
-          - `"content"`
-
       - `URLPDFSource`
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
-    - `type: "document"`
+      - `FileDocumentSource`
 
-      - `"document"`
+        - `file_id: string`
+
+        - `type: "file"`
+
+    - `type: "document"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -7657,13 +11965,19 @@ console.log(messageTokensCount.input_tokens);
 
     - `context?: string | null`
 
+      minLength: 1
+
     - `title?: string | null`
+
+      maxLength: 500, minLength: 1
 
   - `SearchResultBlockParam`
 
     - `content: Array<TextBlockParam>`
 
       - `text: string`
+
+        minLength: 1
 
       - `type: "text"`
 
@@ -7679,8 +11993,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "search_result"`
 
-      - `"search_result"`
-
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
@@ -7691,31 +12003,37 @@ console.log(messageTokensCount.input_tokens);
 
     - `signature: string`
 
+      The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+      Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
     - `thinking: string`
 
-    - `type: "thinking"`
+      The `thinking` text of this block as returned by the API.
 
-      - `"thinking"`
+    - `type: "thinking"`
 
   - `RedactedThinkingBlockParam`
 
     - `data: string`
 
-    - `type: "redacted_thinking"`
+      The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-      - `"redacted_thinking"`
+    - `type: "redacted_thinking"`
 
   - `ToolUseBlockParam`
 
     - `id: string`
 
+      pattern: ^[a-zA-Z0-9_-]+$
+
     - `input: Record<string, unknown>`
 
     - `name: string`
 
-    - `type: "tool_use"`
+      maxLength: 200, minLength: 1
 
-      - `"tool_use"`
+    - `type: "tool_use"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -7731,43 +12049,47 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "direct"`
 
-          - `"direct"`
-
       - `ServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
         - `tool_id: string`
 
-        - `type: "code_execution_20250825"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"code_execution_20250825"`
+        - `type: "code_execution_20250825"`
 
       - `ServerToolCaller20260120`
 
         - `tool_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "code_execution_20260120"`
 
-          - `"code_execution_20260120"`
+    - `toolset_name?: string | null`
+
+      For a toolset member tool_use, the toolset family this member belongs to.
+
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
   - `ToolResultBlockParam`
 
     - `tool_use_id: string`
 
-    - `type: "tool_result"`
+      pattern: ^[a-zA-Z0-9_-]+$
 
-      - `"tool_result"`
+    - `type: "tool_result"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
 
-    - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+    - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
       - `string`
 
-      - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+      - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
         - `TextBlockParam`
 
@@ -7783,19 +12105,170 @@ console.log(messageTokensCount.input_tokens);
 
           - `tool_name: string`
 
-          - `type: "tool_reference"`
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-            - `"tool_reference"`
+          - `type: "tool_reference"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
 
+        - `BrowserStateBlockParam`
+
+          The caller's browser state after a browser toolset member call —
+          the full inventory of open tabs, which tab is active, and any side
+          effects (tabs opened, download state changes) the call produced.
+
+          At most one per `tool_result`, only on a non-error result answering a
+          browser toolset member `tool_use`. The server renders the
+          model-visible text from it; the model never sees the raw fields.
+
+          - `tabs: Array<BrowserStateTabEntry>`
+
+            All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+            maxItems: 100
+
+            - `tab_id: string`
+
+              The caller-assigned identifier for this tab, unique within the inventory.
+
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `title: string`
+
+              The title of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `url: string`
+
+              The URL of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `active?: boolean`
+
+              Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+          - `type: "browser_state"`
+
+          - `cache_control?: CacheControlEphemeral | null`
+
+            Create a cache control breakpoint at this content block.
+
+          - `state_changes?: Array<BrowserStateChange> | null`
+
+            Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+            maxItems: 200, minItems: 1
+
+            - `BrowserStateChangeTabOpened`
+
+              A tab this call's execution opened that remains open at its end —
+              the creation delta of the `tabs` inventory, not an event log.
+
+              Carries only the `tab_id`; the tab's `title` and `url` live on its
+              `tabs` entry, which must include the same `tab_id`. A tab opened
+              during a failed call gets no deferred `tab_opened`; it simply appears
+              in the next result's `tabs` inventory.
+
+              - `tab_id: string`
+
+                The `tab_id` of the opened tab, present in `tabs`.
+
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `type: "tab_opened"`
+
+            - `BrowserStateChangeDownloadStarted`
+
+              A file download that started during this call.
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `type: "download_started"`
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `BrowserStateChangeDownloadCompleted`
+
+              A file download that finished during this call, reported with the
+              same `download_id` as its `download_started` — or without a prior
+              `download_started`, when the download finished during the call that
+              started it (at most one state change per `download_id` per result).
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `type: "download_completed"`
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `path?: string | null`
+
+                Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+              - `size_bytes?: number | null`
+
+                The completed download's size.
+
+                minimum: 0
+
+            - `BrowserStateChangeDownloadFailed`
+
+              A file download that failed — or was cancelled — during this call.
+
+              - `download_id: string`
+
+                The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `type: "download_failed"`
+
+              - `url: string`
+
+                The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+              - `error?: string | null`
+
+                The failure or cancellation detail, when known.
+
+                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
     - `is_error?: boolean`
+
+    - `toolset_name?: string | null`
+
+      For a toolset member tool_result, the toolset family of the paired tool_use.
+
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
   - `ServerToolUseBlockParam`
 
     - `id: string`
+
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
     - `input: Record<string, unknown>`
 
@@ -7816,8 +12289,6 @@ console.log(messageTokensCount.input_tokens);
       - `"tool_search_tool_bm25"`
 
     - `type: "server_tool_use"`
-
-      - `"server_tool_use"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -7849,8 +12320,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "web_search_result"`
 
-          - `"web_search_result"`
-
         - `url: string`
 
         - `page_age?: string | null`
@@ -7873,13 +12342,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "web_search_tool_result_error"`
 
-          - `"web_search_tool_result_error"`
-
     - `tool_use_id: string`
 
-    - `type: "web_search_tool_result"`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `"web_search_tool_result"`
+    - `type: "web_search_tool_result"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -7927,15 +12394,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "web_fetch_tool_result_error"`
 
-          - `"web_fetch_tool_result_error"`
-
       - `WebFetchBlockParam`
 
         - `content: DocumentBlockParam`
 
         - `type: "web_fetch_result"`
-
-          - `"web_fetch_result"`
 
         - `url: string`
 
@@ -7947,9 +12410,9 @@ console.log(messageTokensCount.input_tokens);
 
     - `tool_use_id: string`
 
-    - `type: "web_fetch_tool_result"`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `"web_fetch_tool_result"`
+    - `type: "web_fetch_tool_result"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -7989,8 +12452,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "code_execution_tool_result_error"`
 
-          - `"code_execution_tool_result_error"`
-
       - `CodeExecutionResultBlockParam`
 
         - `content: Array<CodeExecutionOutputBlockParam>`
@@ -7999,8 +12460,6 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "code_execution_output"`
 
-            - `"code_execution_output"`
-
         - `return_code: number`
 
         - `stderr: string`
@@ -8008,8 +12467,6 @@ console.log(messageTokensCount.input_tokens);
         - `stdout: string`
 
         - `type: "code_execution_result"`
-
-          - `"code_execution_result"`
 
       - `EncryptedCodeExecutionResultBlockParam`
 
@@ -8029,13 +12486,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "encrypted_code_execution_result"`
 
-          - `"encrypted_code_execution_result"`
-
     - `tool_use_id: string`
 
-    - `type: "code_execution_tool_result"`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `"code_execution_tool_result"`
+    - `type: "code_execution_tool_result"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -8061,8 +12516,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "bash_code_execution_tool_result_error"`
 
-          - `"bash_code_execution_tool_result_error"`
-
       - `BashCodeExecutionResultBlockParam`
 
         - `content: Array<BashCodeExecutionOutputBlockParam>`
@@ -8070,8 +12523,6 @@ console.log(messageTokensCount.input_tokens);
           - `file_id: string`
 
           - `type: "bash_code_execution_output"`
-
-            - `"bash_code_execution_output"`
 
         - `return_code: number`
 
@@ -8081,13 +12532,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "bash_code_execution_result"`
 
-          - `"bash_code_execution_result"`
-
     - `tool_use_id: string`
 
-    - `type: "bash_code_execution_tool_result"`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `"bash_code_execution_tool_result"`
+    - `type: "bash_code_execution_tool_result"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -8113,8 +12562,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_editor_code_execution_tool_result_error"`
 
-          - `"text_editor_code_execution_tool_result_error"`
-
         - `error_message?: string | null`
 
       - `TextEditorCodeExecutionViewResultBlockParam`
@@ -8131,8 +12578,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_editor_code_execution_view_result"`
 
-          - `"text_editor_code_execution_view_result"`
-
         - `num_lines?: number | null`
 
         - `start_line?: number | null`
@@ -8145,13 +12590,9 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_editor_code_execution_create_result"`
 
-          - `"text_editor_code_execution_create_result"`
-
       - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
         - `type: "text_editor_code_execution_str_replace_result"`
-
-          - `"text_editor_code_execution_str_replace_result"`
 
         - `lines?: Array<string> | null`
 
@@ -8165,9 +12606,9 @@ console.log(messageTokensCount.input_tokens);
 
     - `tool_use_id: string`
 
-    - `type: "text_editor_code_execution_tool_result"`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `"text_editor_code_execution_tool_result"`
+    - `type: "text_editor_code_execution_tool_result"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -8191,8 +12632,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "tool_search_tool_result_error"`
 
-          - `"tool_search_tool_result_error"`
-
         - `error_message?: string | null`
 
       - `ToolSearchToolSearchResultBlockParam`
@@ -8200,6 +12639,8 @@ console.log(messageTokensCount.input_tokens);
         - `tool_references: Array<ToolReferenceBlockParam>`
 
           - `tool_name: string`
+
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `type: "tool_reference"`
 
@@ -8209,13 +12650,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "tool_search_tool_search_result"`
 
-          - `"tool_search_tool_search_result"`
-
     - `tool_use_id: string`
 
-    - `type: "tool_search_tool_result"`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `"tool_search_tool_result"`
+    - `type: "tool_search_tool_result"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -8229,37 +12668,6 @@ console.log(messageTokensCount.input_tokens);
     - `file_id: string`
 
     - `type: "container_upload"`
-
-      - `"container_upload"`
-
-    - `cache_control?: CacheControlEphemeral | null`
-
-      Create a cache control breakpoint at this content block.
-
-  - `MidConversationSystemBlockParam`
-
-    System instructions that appear mid-conversation.
-
-    Use this block to provide or update system-level instructions at a specific
-    point in the conversation, rather than only via the top-level `system` parameter.
-
-    - `content: Array<TextBlockParam>`
-
-      System instruction text blocks.
-
-      - `text: string`
-
-      - `type: "text"`
-
-      - `cache_control?: CacheControlEphemeral | null`
-
-        Create a cache control breakpoint at this content block.
-
-      - `citations?: Array<TextCitationParam> | null`
-
-    - `type: "mid_conv_system"`
-
-      - `"mid_conv_system"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -8279,17 +12687,15 @@ console.log(messageTokensCount.input_tokens);
 
         - `text: string`
 
-        - `type: "text"`
+          minLength: 1
 
-          - `"text"`
+        - `type: "text"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
 
           - `type: "ephemeral"`
-
-            - `"ephemeral"`
 
           - `ttl?: "5m" | "1h"`
 
@@ -8314,15 +12720,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: number`
 
             - `start_char_index: number`
 
-            - `type: "char_location"`
+              minimum: 0
 
-              - `"char_location"`
+            - `type: "char_location"`
 
           - `CitationPageLocationParam`
 
@@ -8330,15 +12740,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: number`
 
             - `start_page_number: number`
 
-            - `type: "page_location"`
+              minimum: 1
 
-              - `"page_location"`
+            - `type: "page_location"`
 
           - `CitationContentBlockLocationParam`
 
@@ -8350,7 +12764,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: number`
 
@@ -8362,9 +12780,9 @@ console.log(messageTokensCount.input_tokens);
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: "content_block_location"`
+              minimum: 0
 
-              - `"content_block_location"`
+            - `type: "content_block_location"`
 
           - `CitationWebSearchResultLocationParam`
 
@@ -8374,11 +12792,13 @@ console.log(messageTokensCount.input_tokens);
 
             - `title: string | null`
 
+              maxLength: 512, minLength: 1
+
             - `type: "web_search_result_location"`
 
-              - `"web_search_result_location"`
-
             - `url: string`
+
+              minLength: 1
 
           - `CitationSearchResultLocationParam`
 
@@ -8400,25 +12820,29 @@ console.log(messageTokensCount.input_tokens);
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: string | null`
 
             - `type: "search_result_location"`
 
-              - `"search_result_location"`
-
       - `ImageBlockParam`
 
-        - `source: Base64ImageSource | URLImageSource`
+        - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
           - `Base64ImageSource`
 
             - `data: string`
+
+              format: byte
 
             - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -8432,27 +12856,37 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "base64"`
 
-              - `"base64"`
-
           - `URLImageSource`
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
-        - `type: "image"`
+          - `FileImageSource`
 
-          - `"image"`
+            - `file_id: string`
+
+            - `type: "file"`
+
+        - `type: "image"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
 
-  - `type: "content"`
+        - `transformations?: ImageTransformationsParam | null`
 
-    - `"content"`
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `oversized_image?: "downsize" | "error"`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `"downsize"`
+
+            - `"error"`
+
+  - `type: "content"`
 
 ### Content Block Source Content
 
@@ -8462,17 +12896,15 @@ console.log(messageTokensCount.input_tokens);
 
     - `text: string`
 
-    - `type: "text"`
+      minLength: 1
 
-      - `"text"`
+    - `type: "text"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
 
       - `type: "ephemeral"`
-
-        - `"ephemeral"`
 
       - `ttl?: "5m" | "1h"`
 
@@ -8497,15 +12929,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: number`
 
         - `start_char_index: number`
 
-        - `type: "char_location"`
+          minimum: 0
 
-          - `"char_location"`
+        - `type: "char_location"`
 
       - `CitationPageLocationParam`
 
@@ -8513,15 +12949,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: number`
 
         - `start_page_number: number`
 
-        - `type: "page_location"`
+          minimum: 1
 
-          - `"page_location"`
+        - `type: "page_location"`
 
       - `CitationContentBlockLocationParam`
 
@@ -8533,7 +12973,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: number`
 
@@ -8545,9 +12989,9 @@ console.log(messageTokensCount.input_tokens);
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: "content_block_location"`
+          minimum: 0
 
-          - `"content_block_location"`
+        - `type: "content_block_location"`
 
       - `CitationWebSearchResultLocationParam`
 
@@ -8557,11 +13001,13 @@ console.log(messageTokensCount.input_tokens);
 
         - `title: string | null`
 
+          maxLength: 512, minLength: 1
+
         - `type: "web_search_result_location"`
 
-          - `"web_search_result_location"`
-
         - `url: string`
+
+          minLength: 1
 
       - `CitationSearchResultLocationParam`
 
@@ -8583,25 +13029,29 @@ console.log(messageTokensCount.input_tokens);
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: string | null`
 
         - `type: "search_result_location"`
 
-          - `"search_result_location"`
-
   - `ImageBlockParam`
 
-    - `source: Base64ImageSource | URLImageSource`
+    - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
       - `Base64ImageSource`
 
         - `data: string`
+
+          format: byte
 
         - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -8615,23 +13065,35 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "base64"`
 
-          - `"base64"`
-
       - `URLImageSource`
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
-    - `type: "image"`
+      - `FileImageSource`
 
-      - `"image"`
+        - `file_id: string`
+
+        - `type: "file"`
+
+    - `type: "image"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
+
+    - `transformations?: ImageTransformationsParam | null`
+
+      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+      - `oversized_image?: "downsize" | "error"`
+
+        What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+        - `"downsize"`
+
+        - `"error"`
 
 ### Direct Caller
 
@@ -8640,8 +13102,6 @@ console.log(messageTokensCount.input_tokens);
   Tool invocation directly from the model.
 
   - `type: "direct"`
-
-    - `"direct"`
 
 ### Document Block
 
@@ -8653,19 +13113,19 @@ console.log(messageTokensCount.input_tokens);
 
     - `enabled: boolean`
 
+      default: false
+
   - `source: Base64PDFSource | PlainTextSource`
 
     - `Base64PDFSource`
 
       - `data: string`
 
+        format: byte
+
       - `media_type: "application/pdf"`
 
-        - `"application/pdf"`
-
       - `type: "base64"`
-
-        - `"base64"`
 
     - `PlainTextSource`
 
@@ -8673,11 +13133,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `media_type: "text/plain"`
 
-        - `"text/plain"`
-
       - `type: "text"`
-
-        - `"text"`
 
   - `title: string | null`
 
@@ -8685,25 +13141,23 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "document"`
 
-    - `"document"`
+    default: document
 
 ### Document Block Param
 
 - `DocumentBlockParam`
 
-  - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+  - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
     - `Base64PDFSource`
 
       - `data: string`
 
+        format: byte
+
       - `media_type: "application/pdf"`
 
-        - `"application/pdf"`
-
       - `type: "base64"`
-
-        - `"base64"`
 
     - `PlainTextSource`
 
@@ -8711,11 +13165,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `media_type: "text/plain"`
 
-        - `"text/plain"`
-
       - `type: "text"`
-
-        - `"text"`
 
     - `ContentBlockSource`
 
@@ -8729,17 +13179,15 @@ console.log(messageTokensCount.input_tokens);
 
             - `text: string`
 
-            - `type: "text"`
+              minLength: 1
 
-              - `"text"`
+            - `type: "text"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
               Create a cache control breakpoint at this content block.
 
               - `type: "ephemeral"`
-
-                - `"ephemeral"`
 
               - `ttl?: "5m" | "1h"`
 
@@ -8764,15 +13212,19 @@ console.log(messageTokensCount.input_tokens);
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_char_index: number`
 
                 - `start_char_index: number`
 
-                - `type: "char_location"`
+                  minimum: 0
 
-                  - `"char_location"`
+                - `type: "char_location"`
 
               - `CitationPageLocationParam`
 
@@ -8780,15 +13232,19 @@ console.log(messageTokensCount.input_tokens);
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_page_number: number`
 
                 - `start_page_number: number`
 
-                - `type: "page_location"`
+                  minimum: 1
 
-                  - `"page_location"`
+                - `type: "page_location"`
 
               - `CitationContentBlockLocationParam`
 
@@ -8800,7 +13256,11 @@ console.log(messageTokensCount.input_tokens);
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_block_index: number`
 
@@ -8812,9 +13272,9 @@ console.log(messageTokensCount.input_tokens);
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `type: "content_block_location"`
+                  minimum: 0
 
-                  - `"content_block_location"`
+                - `type: "content_block_location"`
 
               - `CitationWebSearchResultLocationParam`
 
@@ -8824,11 +13284,13 @@ console.log(messageTokensCount.input_tokens);
 
                 - `title: string | null`
 
+                  maxLength: 512, minLength: 1
+
                 - `type: "web_search_result_location"`
 
-                  - `"web_search_result_location"`
-
                 - `url: string`
+
+                  minLength: 1
 
               - `CitationSearchResultLocationParam`
 
@@ -8850,25 +13312,29 @@ console.log(messageTokensCount.input_tokens);
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: string | null`
 
                 - `type: "search_result_location"`
 
-                  - `"search_result_location"`
-
           - `ImageBlockParam`
 
-            - `source: Base64ImageSource | URLImageSource`
+            - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
               - `Base64ImageSource`
 
                 - `data: string`
+
+                  format: byte
 
                 - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -8882,39 +13348,51 @@ console.log(messageTokensCount.input_tokens);
 
                 - `type: "base64"`
 
-                  - `"base64"`
-
               - `URLImageSource`
 
                 - `type: "url"`
 
-                  - `"url"`
-
                 - `url: string`
 
-            - `type: "image"`
+              - `FileImageSource`
 
-              - `"image"`
+                - `file_id: string`
+
+                - `type: "file"`
+
+            - `type: "image"`
 
             - `cache_control?: CacheControlEphemeral | null`
 
               Create a cache control breakpoint at this content block.
 
-      - `type: "content"`
+            - `transformations?: ImageTransformationsParam | null`
 
-        - `"content"`
+              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+              - `oversized_image?: "downsize" | "error"`
+
+                What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                - `"downsize"`
+
+                - `"error"`
+
+      - `type: "content"`
 
     - `URLPDFSource`
 
       - `type: "url"`
 
-        - `"url"`
-
       - `url: string`
 
-  - `type: "document"`
+    - `FileDocumentSource`
 
-    - `"document"`
+      - `file_id: string`
+
+      - `type: "file"`
+
+  - `type: "document"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
@@ -8926,7 +13404,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `context?: string | null`
 
+    minLength: 1
+
   - `title?: string | null`
+
+    maxLength: 500, minLength: 1
 
 ### Encrypted Code Execution Result Block
 
@@ -8940,7 +13422,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "code_execution_output"`
 
-      - `"code_execution_output"`
+      default: code_execution_output
 
   - `encrypted_stdout: string`
 
@@ -8950,7 +13432,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "encrypted_code_execution_result"`
 
-    - `"encrypted_code_execution_result"`
+    default: encrypted_code_execution_result
 
 ### Encrypted Code Execution Result Block Param
 
@@ -8964,8 +13446,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "code_execution_output"`
 
-      - `"code_execution_output"`
-
   - `encrypted_stdout: string`
 
   - `return_code: number`
@@ -8974,17 +13454,33 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "encrypted_code_execution_result"`
 
-    - `"encrypted_code_execution_result"`
+### File Document Source
+
+- `FileDocumentSource`
+
+  - `file_id: string`
+
+  - `type: "file"`
+
+### File Image Source
+
+- `FileImageSource`
+
+  - `file_id: string`
+
+  - `type: "file"`
 
 ### Image Block Param
 
 - `ImageBlockParam`
 
-  - `source: Base64ImageSource | URLImageSource`
+  - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
     - `Base64ImageSource`
 
       - `data: string`
+
+        format: byte
 
       - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -8998,27 +13494,25 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "base64"`
 
-        - `"base64"`
-
     - `URLImageSource`
 
       - `type: "url"`
 
-        - `"url"`
-
       - `url: string`
 
-  - `type: "image"`
+    - `FileImageSource`
 
-    - `"image"`
+      - `file_id: string`
+
+      - `type: "file"`
+
+  - `type: "image"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -9035,6 +13529,32 @@ console.log(messageTokensCount.input_tokens);
 
       - `"1h"`
 
+  - `transformations?: ImageTransformationsParam | null`
+
+    Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+    - `oversized_image?: "downsize" | "error"`
+
+      What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+      - `"downsize"`
+
+      - `"error"`
+
+### Image Transformations Param
+
+- `ImageTransformationsParam`
+
+  Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+  - `oversized_image?: "downsize" | "error"`
+
+    What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+    - `"downsize"`
+
+    - `"error"`
+
 ### Input JSON Delta
 
 - `InputJSONDelta`
@@ -9043,7 +13563,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "input_json_delta"`
 
-    - `"input_json_delta"`
+    default: input_json_delta
 
 ### JSON Output Format
 
@@ -9055,8 +13575,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "json_schema"`
 
-    - `"json_schema"`
-
 ### Memory Tool 20250818
 
 - `MemoryTool20250818`
@@ -9067,11 +13585,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"memory"`
-
   - `type: "memory_20250818"`
-
-    - `"memory_20250818"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -9088,8 +13602,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -9138,6 +13650,32 @@ console.log(messageTokensCount.input_tokens);
 
       The time at which the container will expire.
 
+      format: date-time
+
+    - `skills: Array<ContainerSkill> | null`
+
+      Skills loaded in the container
+
+      - `skill_id: string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
+
+      - `type: "anthropic" | "custom"`
+
+        Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+        - `"anthropic"`
+
+        - `"custom"`
+
+      - `version: string`
+
+        The resolved version: a skill version ID for custom skills.
+
+        maxLength: 64, minLength: 1
+
   - `content: Array<ContentBlock>`
 
     Content generated by the model.
@@ -9181,6 +13719,8 @@ console.log(messageTokensCount.input_tokens);
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string | null`
 
           - `end_char_index: number`
@@ -9189,15 +13729,19 @@ console.log(messageTokensCount.input_tokens);
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-            - `"char_location"`
+            default: char_location
 
         - `CitationPageLocation`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -9207,9 +13751,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-            - `"page_location"`
+            default: page_location
 
         - `CitationContentBlockLocation`
 
@@ -9220,6 +13766,8 @@ console.log(messageTokensCount.input_tokens);
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -9235,9 +13783,11 @@ console.log(messageTokensCount.input_tokens);
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-            - `"content_block_location"`
+            default: content_block_location
 
         - `CitationsWebSearchResultLocation`
 
@@ -9247,9 +13797,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `title: string | null`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
-            - `"web_search_result_location"`
+            default: web_search_result_location
 
           - `url: string`
 
@@ -9273,49 +13825,73 @@ console.log(messageTokensCount.input_tokens);
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: string | null`
 
           - `type: "search_result_location"`
 
-            - `"search_result_location"`
+            default: search_result_location
 
       - `text: string`
 
+        maxLength: 5000000, minLength: 0
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
     - `ThinkingBlock`
 
       - `signature: string`
 
+        A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+        This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
       - `thinking: string`
+
+        The text of Claude's thinking process for this block.
 
       - `type: "thinking"`
 
-        - `"thinking"`
+        default: thinking
 
     - `RedactedThinkingBlock`
 
       - `data: string`
 
+        The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+        Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
       - `type: "redacted_thinking"`
 
-        - `"redacted_thinking"`
+        default: redacted_thinking
 
     - `ToolUseBlock`
 
       - `id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -9323,41 +13899,51 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "direct"`
 
-            - `"direct"`
-
         - `ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: string`
 
-          - `type: "code_execution_20250825"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_20250825"`
+          - `type: "code_execution_20250825"`
 
         - `ServerToolCaller20260120`
 
           - `tool_id: string`
 
-          - `type: "code_execution_20260120"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_20260120"`
+          - `type: "code_execution_20260120"`
 
       - `input: Record<string, unknown>`
 
       - `name: string`
 
+        minLength: 1
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
+
+      - `toolset_name?: string | null`
+
+        For a toolset member tool_use, the toolset family.
+
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock`
 
       - `id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -9389,13 +13975,15 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "server_tool_use"`
 
-        - `"server_tool_use"`
+        default: server_tool_use
 
     - `WebSearchToolResultBlock`
 
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -9427,7 +14015,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_search_tool_result_error"`
 
-            - `"web_search_tool_result_error"`
+            default: web_search_tool_result_error
 
         - `Array<WebSearchResultBlock>`
 
@@ -9439,21 +14027,25 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_search_result"`
 
-            - `"web_search_result"`
+            default: web_search_result
 
           - `url: string`
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_search_tool_result"`
 
-        - `"web_search_tool_result"`
+        default: web_search_tool_result
 
     - `WebFetchToolResultBlock`
 
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -9491,7 +14083,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_fetch_tool_result_error"`
 
-            - `"web_fetch_tool_result_error"`
+            default: web_fetch_tool_result_error
 
         - `WebFetchBlock`
 
@@ -9503,19 +14095,19 @@ console.log(messageTokensCount.input_tokens);
 
               - `enabled: boolean`
 
+                default: false
+
             - `source: Base64PDFSource | PlainTextSource`
 
               - `Base64PDFSource`
 
                 - `data: string`
 
+                  format: byte
+
                 - `media_type: "application/pdf"`
 
-                  - `"application/pdf"`
-
                 - `type: "base64"`
-
-                  - `"base64"`
 
               - `PlainTextSource`
 
@@ -9523,11 +14115,7 @@ console.log(messageTokensCount.input_tokens);
 
                 - `media_type: "text/plain"`
 
-                  - `"text/plain"`
-
                 - `type: "text"`
-
-                  - `"text"`
 
             - `title: string | null`
 
@@ -9535,7 +14123,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "document"`
 
-              - `"document"`
+              default: document
 
           - `retrieved_at: string | null`
 
@@ -9543,7 +14131,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_fetch_result"`
 
-            - `"web_fetch_result"`
+            default: web_fetch_result
 
           - `url: string`
 
@@ -9551,9 +14139,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_fetch_tool_result"`
 
-        - `"web_fetch_tool_result"`
+        default: web_fetch_tool_result
 
     - `CodeExecutionToolResultBlock`
 
@@ -9575,7 +14165,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "code_execution_tool_result_error"`
 
-            - `"code_execution_tool_result_error"`
+            default: code_execution_tool_result_error
 
         - `CodeExecutionResultBlock`
 
@@ -9585,7 +14175,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "code_execution_output"`
 
-              - `"code_execution_output"`
+              default: code_execution_output
 
           - `return_code: number`
 
@@ -9595,7 +14185,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "code_execution_result"`
 
-            - `"code_execution_result"`
+            default: code_execution_result
 
         - `EncryptedCodeExecutionResultBlock`
 
@@ -9607,6 +14197,8 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "code_execution_output"`
 
+              default: code_execution_output
+
           - `encrypted_stdout: string`
 
           - `return_code: number`
@@ -9615,13 +14207,15 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "encrypted_code_execution_result"`
 
-            - `"encrypted_code_execution_result"`
+            default: encrypted_code_execution_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_tool_result"`
 
-        - `"code_execution_tool_result"`
+        default: code_execution_tool_result
 
     - `BashCodeExecutionToolResultBlock`
 
@@ -9643,7 +14237,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "bash_code_execution_tool_result_error"`
 
-            - `"bash_code_execution_tool_result_error"`
+            default: bash_code_execution_tool_result_error
 
         - `BashCodeExecutionResultBlock`
 
@@ -9653,7 +14247,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "bash_code_execution_output"`
 
-              - `"bash_code_execution_output"`
+              default: bash_code_execution_output
 
           - `return_code: number`
 
@@ -9663,13 +14257,15 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "bash_code_execution_result"`
 
-            - `"bash_code_execution_result"`
+            default: bash_code_execution_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "bash_code_execution_tool_result"`
 
-        - `"bash_code_execution_tool_result"`
+        default: bash_code_execution_tool_result
 
     - `TextEditorCodeExecutionToolResultBlock`
 
@@ -9693,7 +14289,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
-            - `"text_editor_code_execution_tool_result_error"`
+            default: text_editor_code_execution_tool_result_error
 
         - `TextEditorCodeExecutionViewResultBlock`
 
@@ -9715,7 +14311,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_view_result"`
 
-            - `"text_editor_code_execution_view_result"`
+            default: text_editor_code_execution_view_result
 
         - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -9723,7 +14319,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_create_result"`
 
-            - `"text_editor_code_execution_create_result"`
+            default: text_editor_code_execution_create_result
 
         - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -9739,13 +14335,15 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
-            - `"text_editor_code_execution_str_replace_result"`
+            default: text_editor_code_execution_str_replace_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "text_editor_code_execution_tool_result"`
 
-        - `"text_editor_code_execution_tool_result"`
+        default: text_editor_code_execution_tool_result
 
     - `ToolSearchToolResultBlock`
 
@@ -9767,7 +14365,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "tool_search_tool_result_error"`
 
-            - `"tool_search_tool_result_error"`
+            default: tool_search_tool_result_error
 
         - `ToolSearchToolSearchResultBlock`
 
@@ -9775,19 +14373,23 @@ console.log(messageTokensCount.input_tokens);
 
             - `tool_name: string`
 
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `type: "tool_reference"`
 
-              - `"tool_reference"`
+              default: tool_reference
 
           - `type: "tool_search_tool_search_result"`
 
-            - `"tool_search_tool_search_result"`
+            default: tool_search_tool_search_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "tool_search_tool_result"`
 
-        - `"tool_search_tool_result"`
+        default: tool_search_tool_result
 
     - `ContainerUploadBlock`
 
@@ -9797,7 +14399,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "container_upload"`
 
-        - `"container_upload"`
+        default: container_upload
 
   - `model: Model`
 
@@ -9805,7 +14407,7 @@ console.log(messageTokensCount.input_tokens);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
       - `"claude-sonnet-5"`
 
@@ -9819,13 +14421,17 @@ console.log(messageTokensCount.input_tokens);
 
         Most capable model for cybersecurity and biology research
 
+      - `"claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
       - `"claude-opus-4-8"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-7"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-mythos-preview"`
 
@@ -9833,7 +14439,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `"claude-opus-4-6"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-6"`
 
@@ -9849,11 +14455,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `"claude-opus-4-5"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-5-20251101"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-5"`
 
@@ -9863,14 +14469,6 @@ console.log(messageTokensCount.input_tokens);
 
         High-performance model for agents and coding
 
-      - `"claude-opus-4-1"`
-
-        Exceptional model for specialized complex tasks
-
-      - `"claude-opus-4-1-20250805"`
-
-        Exceptional model for specialized complex tasks
-
     - `(string & {})`
 
   - `role: "assistant"`
@@ -9879,23 +14477,35 @@ console.log(messageTokensCount.input_tokens);
 
     This will always be `"assistant"`.
 
-    - `"assistant"`
+    default: assistant
 
   - `stop_details: RefusalStopDetails | null`
 
     Structured information about a refusal.
 
-    - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
+    - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
       The policy category that triggered a refusal.
 
       - `"cyber"`
 
+        The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
       - `"bio"`
+
+        The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
       - `"frontier_llm"`
 
+        The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
       - `"reasoning_extraction"`
+
+        The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+      - `"general_harms"`
+
+        The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
     - `explanation: string | null`
 
@@ -9905,7 +14515,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "refusal"`
 
-      - `"refusal"`
+      default: refusal
 
   - `stop_reason: StopReason | null`
 
@@ -9919,6 +14529,7 @@ console.log(messageTokensCount.input_tokens);
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -9934,6 +14545,8 @@ console.log(messageTokensCount.input_tokens);
 
     - `"refusal"`
 
+    - `"model_context_window_exceeded"`
+
   - `stop_sequence: string | null`
 
     Which custom stop sequence was generated, if any.
@@ -9946,7 +14559,7 @@ console.log(messageTokensCount.input_tokens);
 
     For Messages, this is always `"message"`.
 
-    - `"message"`
+    default: message
 
   - `usage: Usage`
 
@@ -9968,17 +14581,25 @@ console.log(messageTokensCount.input_tokens);
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        default: 0, minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        default: 0, minimum: 0
 
     - `cache_creation_input_tokens: number | null`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number | null`
 
       The number of input tokens read from the cache.
+
+      minimum: 0
 
     - `inference_geo: string | null`
 
@@ -9988,9 +14609,13 @@ console.log(messageTokensCount.input_tokens);
 
       The number of input tokens which were used.
 
+      minimum: 0
+
     - `output_tokens: number`
 
       The number of output tokens which were used.
+
+      minimum: 0
 
     - `output_tokens_details: OutputTokensDetails | null`
 
@@ -10012,6 +14637,8 @@ console.log(messageTokensCount.input_tokens);
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+        default: 0, minimum: 0
+
     - `server_tool_use: ServerToolUsage | null`
 
       The number of server tool requests.
@@ -10020,9 +14647,13 @@ console.log(messageTokensCount.input_tokens);
 
         The number of web fetch tool requests.
 
+        default: 0, minimum: 0
+
       - `web_search_requests: number`
 
         The number of web search tool requests.
+
+        default: 0, minimum: 0
 
     - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -10036,7 +14667,7 @@ console.log(messageTokensCount.input_tokens);
 
 ### Message Count Tokens Tool
 
-- `MessageCountTokensTool = Tool | ToolBash20250124 | CodeExecutionTool20250522 | 16 more`
+- `MessageCountTokensTool = Tool | ToolBash20250124 | CodeExecutionTool20250522 | 18 more`
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -10050,8 +14681,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "object"`
 
-        - `"object"`
-
       - `properties?: Record<string, unknown> | null`
 
       - `required?: Array<string> | null`
@@ -10061,6 +14690,8 @@ console.log(messageTokensCount.input_tokens);
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
+
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10077,8 +14708,6 @@ console.log(messageTokensCount.input_tokens);
       Create a cache control breakpoint at this content block.
 
       - `type: "ephemeral"`
-
-        - `"ephemeral"`
 
       - `ttl?: "5m" | "1h"`
 
@@ -10117,8 +14746,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type?: "custom" | null`
 
-      - `"custom"`
-
   - `ToolBash20250124`
 
     - `name: "bash"`
@@ -10127,11 +14754,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"bash"`
-
     - `type: "bash_20250124"`
-
-      - `"bash_20250124"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10165,11 +14788,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20250522"`
-
-      - `"code_execution_20250522"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10201,11 +14820,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20250825"`
-
-      - `"code_execution_20250825"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10239,11 +14854,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20260120"`
-
-      - `"code_execution_20260120"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10277,11 +14888,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20260521"`
-
-      - `"code_execution_20260521"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10305,6 +14912,410 @@ console.log(messageTokensCount.input_tokens);
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `BrowserToolset20260801`
+
+    The browser toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the browser tool family. The model is served
+    the family's tool with any members disabled via `configs` removed
+    from its schema.
+
+    - `type: "browser_toolset_20260801"`
+
+    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control?: CacheControlEphemeral | null`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs?: BrowserToolsetConfigs | null`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `close_tab?: BrowserCloseTabConfig | null`
+
+        `close_tab`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click?: BrowserDoubleClickConfig | null`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `file_upload?: BrowserFileUploadConfig | null`
+
+        `file_upload`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `find?: BrowserFindConfig | null`
+
+        `find`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `form_input?: BrowserFormInputConfig | null`
+
+        `form_input`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `get_page_text?: BrowserGetPageTextConfig | null`
+
+        `get_page_text`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key?: BrowserHoldKeyConfig | null`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hover?: BrowserHoverConfig | null`
+
+        `hover`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+        `javascript_exec`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key?: BrowserKeyConfig | null`
+
+        `key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click?: BrowserLeftClickConfig | null`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `list_tabs?: BrowserListTabsConfig | null`
+
+        `list_tabs`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click?: BrowserMiddleClickConfig | null`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move?: BrowserMouseMoveConfig | null`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `navigate?: BrowserNavigateConfig | null`
+
+        `navigate`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `new_tab?: BrowserNewTabConfig | null`
+
+        `new_tab`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_console?: BrowserReadConsoleConfig | null`
+
+        `read_console`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_network?: BrowserReadNetworkConfig | null`
+
+        `read_network`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_page?: BrowserReadPageConfig | null`
+
+        `read_page`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click?: BrowserRightClickConfig | null`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot?: BrowserScreenshotConfig | null`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll?: BrowserScrollConfig | null`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll_to?: BrowserScrollToConfig | null`
+
+        `scroll_to`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `switch_tab?: BrowserSwitchTabConfig | null`
+
+        `switch_tab`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click?: BrowserTripleClickConfig | null`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type?: BrowserTypeConfig | null`
+
+        `type`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait?: BrowserWaitConfig | null`
+
+        `wait`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom?: BrowserZoomConfig | null`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `MemoryTool20250818`
 
     - `name: "memory"`
@@ -10313,11 +15324,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"memory"`
-
     - `type: "memory_20250818"`
-
-      - `"memory_20250818"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10343,6 +15350,246 @@ console.log(messageTokensCount.input_tokens);
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `ComputerToolset20260801`
+
+    The computer toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the computer tool family. The model is
+    served the family's tool with any members disabled via `configs`
+    removed from its schema. Every member is enabled by default, zoom
+    included. The single-tool options `display_number` and
+    `enable_zoom` are not fields of a toolset entry — it carries only
+    `type`, `configs`, and `cache_control`; zoom is controlled
+    via `configs.zoom.enabled`.
+
+    - `type: "computer_toolset_20260801"`
+
+    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control?: CacheControlEphemeral | null`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs?: ComputerToolsetConfigs | null`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `cursor_position?: ComputerCursorPositionConfig | null`
+
+        `cursor_position`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click?: ComputerDoubleClickConfig | null`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key?: ComputerHoldKeyConfig | null`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key?: ComputerKeyConfig | null`
+
+        `key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click?: ComputerLeftClickConfig | null`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click?: ComputerMiddleClickConfig | null`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move?: ComputerMouseMoveConfig | null`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click?: ComputerRightClickConfig | null`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot?: ComputerScreenshotConfig | null`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll?: ComputerScrollConfig | null`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click?: ComputerTripleClickConfig | null`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type?: ComputerTypeConfig | null`
+
+        `type`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait?: ComputerWaitConfig | null`
+
+        `wait`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom?: ComputerZoomConfig | null`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `ToolTextEditor20250124`
 
     - `name: "str_replace_editor"`
@@ -10351,11 +15598,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_editor"`
-
     - `type: "text_editor_20250124"`
-
-      - `"text_editor_20250124"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10389,11 +15632,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_based_edit_tool"`
-
     - `type: "text_editor_20250429"`
-
-      - `"text_editor_20250429"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10427,11 +15666,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_based_edit_tool"`
-
     - `type: "text_editor_20250728"`
-
-      - `"text_editor_20250728"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10457,6 +15692,8 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict?: boolean`
 
       When true, guarantees schema validation on tool names and inputs
@@ -10469,11 +15706,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: "web_search_20250305"`
-
-      - `"web_search_20250305"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10505,6 +15738,8 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict?: boolean`
 
       When true, guarantees schema validation on tool names and inputs
@@ -10515,23 +15750,29 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "approximate"`
 
-        - `"approximate"`
-
       - `city?: string | null`
 
         The city of the user.
+
+        maxLength: 255, minLength: 1
 
       - `country?: string | null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+        maxLength: 2, minLength: 2
+
       - `region?: string | null`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone?: string | null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+        maxLength: 255, minLength: 1
 
   - `WebFetchTool20250910`
 
@@ -10541,11 +15782,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20250910"`
-
-      - `"web_fetch_20250910"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10583,9 +15820,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -10599,11 +15840,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: "web_search_20260209"`
-
-      - `"web_search_20260209"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10634,6 +15871,8 @@ console.log(messageTokensCount.input_tokens);
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -10651,11 +15890,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20260209"`
-
-      - `"web_fetch_20260209"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10691,9 +15926,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -10709,11 +15948,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20260309"`
-
-      - `"web_fetch_20260309"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10749,9 +15984,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -10769,11 +16008,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: "web_search_20260318"`
-
-      - `"web_search_20260318"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10804,6 +16039,8 @@ console.log(messageTokensCount.input_tokens);
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion?: "full" | "excluded"`
 
@@ -10829,11 +16066,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20260318"`
-
-      - `"web_fetch_20260318"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -10869,9 +16102,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion?: "full" | "excluded"`
 
@@ -10896,8 +16133,6 @@ console.log(messageTokensCount.input_tokens);
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `"tool_search_tool_bm25"`
 
     - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -10935,8 +16170,6 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"tool_search_tool_regex"`
-
     - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
       - `"tool_search_tool_regex_20251119"`
@@ -10965,6 +16198,48 @@ console.log(messageTokensCount.input_tokens);
 
       When true, guarantees schema validation on tool names and inputs
 
+### Message Create Params Container
+
+- `MessageCreateParamsContainer = ContainerParams | string | null`
+
+  Container identifier for reuse across requests.
+
+  - `ContainerParams`
+
+    Container parameters with skills to be loaded.
+
+    - `id?: string | null`
+
+      Container id
+
+    - `skills?: Array<SkillParams> | null`
+
+      List of skills to load in the container
+
+      maxItems: 20
+
+      - `skill_id: string`
+
+        Skill ID
+
+        maxLength: 64, minLength: 1
+
+      - `type: "anthropic" | "custom"`
+
+        Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+        - `"anthropic"`
+
+        - `"custom"`
+
+      - `version?: string`
+
+        Skill version or 'latest' for most recent version
+
+        maxLength: 64, minLength: 1
+
+  - `string`
+
 ### Message Delta Usage
 
 - `MessageDeltaUsage`
@@ -10973,13 +16248,19 @@ console.log(messageTokensCount.input_tokens);
 
     The cumulative number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number | null`
 
     The cumulative number of input tokens read from the cache.
 
+    minimum: 0
+
   - `input_tokens: number | null`
 
     The cumulative number of input tokens which were used.
+
+    minimum: 0
 
   - `output_tokens: number`
 
@@ -11005,6 +16286,8 @@ console.log(messageTokensCount.input_tokens);
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+      default: 0, minimum: 0
+
   - `server_tool_use: ServerToolUsage | null`
 
     The number of server tool requests.
@@ -11013,9 +16296,13 @@ console.log(messageTokensCount.input_tokens);
 
       The number of web fetch tool requests.
 
+      default: 0, minimum: 0
+
     - `web_search_requests: number`
 
       The number of web search tool requests.
+
+      default: 0, minimum: 0
 
 ### Message Param
 
@@ -11031,17 +16318,15 @@ console.log(messageTokensCount.input_tokens);
 
         - `text: string`
 
-        - `type: "text"`
+          minLength: 1
 
-          - `"text"`
+        - `type: "text"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
 
           - `type: "ephemeral"`
-
-            - `"ephemeral"`
 
           - `ttl?: "5m" | "1h"`
 
@@ -11066,15 +16351,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: number`
 
             - `start_char_index: number`
 
-            - `type: "char_location"`
+              minimum: 0
 
-              - `"char_location"`
+            - `type: "char_location"`
 
           - `CitationPageLocationParam`
 
@@ -11082,15 +16371,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: number`
 
             - `start_page_number: number`
 
-            - `type: "page_location"`
+              minimum: 1
 
-              - `"page_location"`
+            - `type: "page_location"`
 
           - `CitationContentBlockLocationParam`
 
@@ -11102,7 +16395,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: number`
 
@@ -11114,9 +16411,9 @@ console.log(messageTokensCount.input_tokens);
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: "content_block_location"`
+              minimum: 0
 
-              - `"content_block_location"`
+            - `type: "content_block_location"`
 
           - `CitationWebSearchResultLocationParam`
 
@@ -11126,11 +16423,13 @@ console.log(messageTokensCount.input_tokens);
 
             - `title: string | null`
 
+              maxLength: 512, minLength: 1
+
             - `type: "web_search_result_location"`
 
-              - `"web_search_result_location"`
-
             - `url: string`
+
+              minLength: 1
 
           - `CitationSearchResultLocationParam`
 
@@ -11152,25 +16451,29 @@ console.log(messageTokensCount.input_tokens);
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: string | null`
 
             - `type: "search_result_location"`
 
-              - `"search_result_location"`
-
       - `ImageBlockParam`
 
-        - `source: Base64ImageSource | URLImageSource`
+        - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
           - `Base64ImageSource`
 
             - `data: string`
+
+              format: byte
 
             - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -11184,39 +16487,49 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "base64"`
 
-              - `"base64"`
-
           - `URLImageSource`
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
-        - `type: "image"`
+          - `FileImageSource`
 
-          - `"image"`
+            - `file_id: string`
+
+            - `type: "file"`
+
+        - `type: "image"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
 
+        - `transformations?: ImageTransformationsParam | null`
+
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `oversized_image?: "downsize" | "error"`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `"downsize"`
+
+            - `"error"`
+
       - `DocumentBlockParam`
 
-        - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+        - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
           - `Base64PDFSource`
 
             - `data: string`
 
+              format: byte
+
             - `media_type: "application/pdf"`
 
-              - `"application/pdf"`
-
             - `type: "base64"`
-
-              - `"base64"`
 
           - `PlainTextSource`
 
@@ -11224,11 +16537,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `media_type: "text/plain"`
 
-              - `"text/plain"`
-
             - `type: "text"`
-
-              - `"text"`
 
           - `ContentBlockSource`
 
@@ -11244,19 +16553,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "content"`
 
-              - `"content"`
-
           - `URLPDFSource`
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
-        - `type: "document"`
+          - `FileDocumentSource`
 
-          - `"document"`
+            - `file_id: string`
+
+            - `type: "file"`
+
+        - `type: "document"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11268,13 +16577,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `context?: string | null`
 
+          minLength: 1
+
         - `title?: string | null`
+
+          maxLength: 500, minLength: 1
 
       - `SearchResultBlockParam`
 
         - `content: Array<TextBlockParam>`
 
           - `text: string`
+
+            minLength: 1
 
           - `type: "text"`
 
@@ -11290,8 +16605,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "search_result"`
 
-          - `"search_result"`
-
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
@@ -11302,31 +16615,37 @@ console.log(messageTokensCount.input_tokens);
 
         - `signature: string`
 
+          The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+          Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
         - `thinking: string`
 
-        - `type: "thinking"`
+          The `thinking` text of this block as returned by the API.
 
-          - `"thinking"`
+        - `type: "thinking"`
 
       - `RedactedThinkingBlockParam`
 
         - `data: string`
 
-        - `type: "redacted_thinking"`
+          The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-          - `"redacted_thinking"`
+        - `type: "redacted_thinking"`
 
       - `ToolUseBlockParam`
 
         - `id: string`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `input: Record<string, unknown>`
 
         - `name: string`
 
-        - `type: "tool_use"`
+          maxLength: 200, minLength: 1
 
-          - `"tool_use"`
+        - `type: "tool_use"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11342,43 +16661,47 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "direct"`
 
-              - `"direct"`
-
           - `ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: string`
 
-            - `type: "code_execution_20250825"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20250825"`
+            - `type: "code_execution_20250825"`
 
           - `ServerToolCaller20260120`
 
             - `tool_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "code_execution_20260120"`
 
-              - `"code_execution_20260120"`
+        - `toolset_name?: string | null`
+
+          For a toolset member tool_use, the toolset family this member belongs to.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ToolResultBlockParam`
 
         - `tool_use_id: string`
 
-        - `type: "tool_result"`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `"tool_result"`
+        - `type: "tool_result"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
 
-        - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+        - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
           - `string`
 
-          - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+          - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
             - `TextBlockParam`
 
@@ -11394,19 +16717,170 @@ console.log(messageTokensCount.input_tokens);
 
               - `tool_name: string`
 
-              - `type: "tool_reference"`
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `"tool_reference"`
+              - `type: "tool_reference"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
 
+            - `BrowserStateBlockParam`
+
+              The caller's browser state after a browser toolset member call —
+              the full inventory of open tabs, which tab is active, and any side
+              effects (tabs opened, download state changes) the call produced.
+
+              At most one per `tool_result`, only on a non-error result answering a
+              browser toolset member `tool_use`. The server renders the
+              model-visible text from it; the model never sees the raw fields.
+
+              - `tabs: Array<BrowserStateTabEntry>`
+
+                All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                maxItems: 100
+
+                - `tab_id: string`
+
+                  The caller-assigned identifier for this tab, unique within the inventory.
+
+                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `title: string`
+
+                  The title of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `url: string`
+
+                  The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `active?: boolean`
+
+                  Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+              - `type: "browser_state"`
+
+              - `cache_control?: CacheControlEphemeral | null`
+
+                Create a cache control breakpoint at this content block.
+
+              - `state_changes?: Array<BrowserStateChange> | null`
+
+                Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                maxItems: 200, minItems: 1
+
+                - `BrowserStateChangeTabOpened`
+
+                  A tab this call's execution opened that remains open at its end —
+                  the creation delta of the `tabs` inventory, not an event log.
+
+                  Carries only the `tab_id`; the tab's `title` and `url` live on its
+                  `tabs` entry, which must include the same `tab_id`. A tab opened
+                  during a failed call gets no deferred `tab_opened`; it simply appears
+                  in the next result's `tabs` inventory.
+
+                  - `tab_id: string`
+
+                    The `tab_id` of the opened tab, present in `tabs`.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: "tab_opened"`
+
+                - `BrowserStateChangeDownloadStarted`
+
+                  A file download that started during this call.
+
+                  - `download_id: string`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: "download_started"`
+
+                  - `url: string`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                - `BrowserStateChangeDownloadCompleted`
+
+                  A file download that finished during this call, reported with the
+                  same `download_id` as its `download_started` — or without a prior
+                  `download_started`, when the download finished during the call that
+                  started it (at most one state change per `download_id` per result).
+
+                  - `download_id: string`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: "download_completed"`
+
+                  - `url: string`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `path?: string | null`
+
+                    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                  - `size_bytes?: number | null`
+
+                    The completed download's size.
+
+                    minimum: 0
+
+                - `BrowserStateChangeDownloadFailed`
+
+                  A file download that failed — or was cancelled — during this call.
+
+                  - `download_id: string`
+
+                    The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `type: "download_failed"`
+
+                  - `url: string`
+
+                    The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                  - `error?: string | null`
+
+                    The failure or cancellation detail, when known.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
         - `is_error?: boolean`
+
+        - `toolset_name?: string | null`
+
+          For a toolset member tool_result, the toolset family of the paired tool_use.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ServerToolUseBlockParam`
 
         - `id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: Record<string, unknown>`
 
@@ -11427,8 +16901,6 @@ console.log(messageTokensCount.input_tokens);
           - `"tool_search_tool_bm25"`
 
         - `type: "server_tool_use"`
-
-          - `"server_tool_use"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11460,8 +16932,6 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "web_search_result"`
 
-              - `"web_search_result"`
-
             - `url: string`
 
             - `page_age?: string | null`
@@ -11484,13 +16954,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "web_search_tool_result_error"`
 
-              - `"web_search_tool_result_error"`
-
         - `tool_use_id: string`
 
-        - `type: "web_search_tool_result"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"web_search_tool_result"`
+        - `type: "web_search_tool_result"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11538,15 +17006,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "web_fetch_tool_result_error"`
 
-              - `"web_fetch_tool_result_error"`
-
           - `WebFetchBlockParam`
 
             - `content: DocumentBlockParam`
 
             - `type: "web_fetch_result"`
-
-              - `"web_fetch_result"`
 
             - `url: string`
 
@@ -11558,9 +17022,9 @@ console.log(messageTokensCount.input_tokens);
 
         - `tool_use_id: string`
 
-        - `type: "web_fetch_tool_result"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"web_fetch_tool_result"`
+        - `type: "web_fetch_tool_result"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11600,8 +17064,6 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "code_execution_tool_result_error"`
 
-              - `"code_execution_tool_result_error"`
-
           - `CodeExecutionResultBlockParam`
 
             - `content: Array<CodeExecutionOutputBlockParam>`
@@ -11610,8 +17072,6 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "code_execution_output"`
 
-                - `"code_execution_output"`
-
             - `return_code: number`
 
             - `stderr: string`
@@ -11619,8 +17079,6 @@ console.log(messageTokensCount.input_tokens);
             - `stdout: string`
 
             - `type: "code_execution_result"`
-
-              - `"code_execution_result"`
 
           - `EncryptedCodeExecutionResultBlockParam`
 
@@ -11640,13 +17098,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "encrypted_code_execution_result"`
 
-              - `"encrypted_code_execution_result"`
-
         - `tool_use_id: string`
 
-        - `type: "code_execution_tool_result"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"code_execution_tool_result"`
+        - `type: "code_execution_tool_result"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11672,8 +17128,6 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "bash_code_execution_tool_result_error"`
 
-              - `"bash_code_execution_tool_result_error"`
-
           - `BashCodeExecutionResultBlockParam`
 
             - `content: Array<BashCodeExecutionOutputBlockParam>`
@@ -11681,8 +17135,6 @@ console.log(messageTokensCount.input_tokens);
               - `file_id: string`
 
               - `type: "bash_code_execution_output"`
-
-                - `"bash_code_execution_output"`
 
             - `return_code: number`
 
@@ -11692,13 +17144,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "bash_code_execution_result"`
 
-              - `"bash_code_execution_result"`
-
         - `tool_use_id: string`
 
-        - `type: "bash_code_execution_tool_result"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"bash_code_execution_tool_result"`
+        - `type: "bash_code_execution_tool_result"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11724,8 +17174,6 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
-              - `"text_editor_code_execution_tool_result_error"`
-
             - `error_message?: string | null`
 
           - `TextEditorCodeExecutionViewResultBlockParam`
@@ -11742,8 +17190,6 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "text_editor_code_execution_view_result"`
 
-              - `"text_editor_code_execution_view_result"`
-
             - `num_lines?: number | null`
 
             - `start_line?: number | null`
@@ -11756,13 +17202,9 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "text_editor_code_execution_create_result"`
 
-              - `"text_editor_code_execution_create_result"`
-
           - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `type: "text_editor_code_execution_str_replace_result"`
-
-              - `"text_editor_code_execution_str_replace_result"`
 
             - `lines?: Array<string> | null`
 
@@ -11776,9 +17218,9 @@ console.log(messageTokensCount.input_tokens);
 
         - `tool_use_id: string`
 
-        - `type: "text_editor_code_execution_tool_result"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"text_editor_code_execution_tool_result"`
+        - `type: "text_editor_code_execution_tool_result"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11802,8 +17244,6 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "tool_search_tool_result_error"`
 
-              - `"tool_search_tool_result_error"`
-
             - `error_message?: string | null`
 
           - `ToolSearchToolSearchResultBlockParam`
@@ -11811,6 +17251,8 @@ console.log(messageTokensCount.input_tokens);
             - `tool_references: Array<ToolReferenceBlockParam>`
 
               - `tool_name: string`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `type: "tool_reference"`
 
@@ -11820,13 +17262,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "tool_search_tool_search_result"`
 
-              - `"tool_search_tool_search_result"`
-
         - `tool_use_id: string`
 
-        - `type: "tool_search_tool_result"`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `"tool_search_tool_result"`
+        - `type: "tool_search_tool_result"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11840,37 +17280,6 @@ console.log(messageTokensCount.input_tokens);
         - `file_id: string`
 
         - `type: "container_upload"`
-
-          - `"container_upload"`
-
-        - `cache_control?: CacheControlEphemeral | null`
-
-          Create a cache control breakpoint at this content block.
-
-      - `MidConversationSystemBlockParam`
-
-        System instructions that appear mid-conversation.
-
-        Use this block to provide or update system-level instructions at a specific
-        point in the conversation, rather than only via the top-level `system` parameter.
-
-        - `content: Array<TextBlockParam>`
-
-          System instruction text blocks.
-
-          - `text: string`
-
-          - `type: "text"`
-
-          - `cache_control?: CacheControlEphemeral | null`
-
-            Create a cache control breakpoint at this content block.
-
-          - `citations?: Array<TextCitationParam> | null`
-
-        - `type: "mid_conv_system"`
-
-          - `"mid_conv_system"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -11902,171 +17311,17 @@ console.log(messageTokensCount.input_tokens);
 
     This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
-### Mid Conversation System Block Param
-
-- `MidConversationSystemBlockParam`
-
-  System instructions that appear mid-conversation.
-
-  Use this block to provide or update system-level instructions at a specific
-  point in the conversation, rather than only via the top-level `system` parameter.
-
-  - `content: Array<TextBlockParam>`
-
-    System instruction text blocks.
-
-    - `text: string`
-
-    - `type: "text"`
-
-      - `"text"`
-
-    - `cache_control?: CacheControlEphemeral | null`
-
-      Create a cache control breakpoint at this content block.
-
-      - `type: "ephemeral"`
-
-        - `"ephemeral"`
-
-      - `ttl?: "5m" | "1h"`
-
-        The time-to-live for the cache control breakpoint.
-
-        This may be one the following values:
-
-        - `5m`: 5 minutes
-        - `1h`: 1 hour
-
-        Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
-
-        - `"5m"`
-
-        - `"1h"`
-
-    - `citations?: Array<TextCitationParam> | null`
-
-      - `CitationCharLocationParam`
-
-        - `cited_text: string`
-
-        - `document_index: number`
-
-        - `document_title: string | null`
-
-        - `end_char_index: number`
-
-        - `start_char_index: number`
-
-        - `type: "char_location"`
-
-          - `"char_location"`
-
-      - `CitationPageLocationParam`
-
-        - `cited_text: string`
-
-        - `document_index: number`
-
-        - `document_title: string | null`
-
-        - `end_page_number: number`
-
-        - `start_page_number: number`
-
-        - `type: "page_location"`
-
-          - `"page_location"`
-
-      - `CitationContentBlockLocationParam`
-
-        - `cited_text: string`
-
-          The full text of the cited block range, concatenated.
-
-          Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-        - `document_index: number`
-
-        - `document_title: string | null`
-
-        - `end_block_index: number`
-
-          Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-          Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-        - `start_block_index: number`
-
-          0-based index of the first cited block in the source's `content` array.
-
-        - `type: "content_block_location"`
-
-          - `"content_block_location"`
-
-      - `CitationWebSearchResultLocationParam`
-
-        - `cited_text: string`
-
-        - `encrypted_index: string`
-
-        - `title: string | null`
-
-        - `type: "web_search_result_location"`
-
-          - `"web_search_result_location"`
-
-        - `url: string`
-
-      - `CitationSearchResultLocationParam`
-
-        - `cited_text: string`
-
-          The full text of the cited block range, concatenated.
-
-          Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-        - `end_block_index: number`
-
-          Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-          Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-        - `search_result_index: number`
-
-          0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-          Counted separately from `document_index`; server-side web search results are not included in this count.
-
-        - `source: string`
-
-        - `start_block_index: number`
-
-          0-based index of the first cited block in the source's `content` array.
-
-        - `title: string | null`
-
-        - `type: "search_result_location"`
-
-          - `"search_result_location"`
-
-  - `type: "mid_conv_system"`
-
-    - `"mid_conv_system"`
-
-  - `cache_control?: CacheControlEphemeral | null`
-
-    Create a cache control breakpoint at this content block.
+    maxLength: 512
 
 ### Model
 
-- `Model = "claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more | (string & {})`
+- `Model = "claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more | (string & {})`
 
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+  - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
     - `"claude-sonnet-5"`
 
@@ -12080,13 +17335,17 @@ console.log(messageTokensCount.input_tokens);
 
       Most capable model for cybersecurity and biology research
 
+    - `"claude-opus-5"`
+
+      Powerful intelligence for long-running agents and coding
+
     - `"claude-opus-4-8"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-7"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-mythos-preview"`
 
@@ -12094,7 +17353,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `"claude-opus-4-6"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-6"`
 
@@ -12110,11 +17369,11 @@ console.log(messageTokensCount.input_tokens);
 
     - `"claude-opus-4-5"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-5-20251101"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-5"`
 
@@ -12123,14 +17382,6 @@ console.log(messageTokensCount.input_tokens);
     - `"claude-sonnet-4-5-20250929"`
 
       High-performance model for agents and coding
-
-    - `"claude-opus-4-1"`
-
-      Exceptional model for specialized complex tasks
-
-    - `"claude-opus-4-1-20250805"`
-
-      Exceptional model for specialized complex tasks
 
   - `(string & {})`
 
@@ -12162,8 +17413,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "json_schema"`
 
-      - `"json_schema"`
-
 ### Output Tokens Details
 
 - `OutputTokensDetails`
@@ -12179,6 +17428,8 @@ console.log(messageTokensCount.input_tokens);
     generation count by a small number of tokens. Always ≤ `output_tokens`;
     `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+    default: 0, minimum: 0
+
 ### Plain Text Source
 
 - `PlainTextSource`
@@ -12187,11 +17438,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `media_type: "text/plain"`
 
-    - `"text/plain"`
-
   - `type: "text"`
-
-    - `"text"`
 
 ### Raw Content Block Delta
 
@@ -12203,7 +17450,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "text_delta"`
 
-      - `"text_delta"`
+      default: text_delta
 
   - `InputJSONDelta`
 
@@ -12211,7 +17458,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "input_json_delta"`
 
-      - `"input_json_delta"`
+      default: input_json_delta
 
   - `CitationsDelta`
 
@@ -12223,6 +17470,8 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
 
         - `end_char_index: number`
@@ -12231,15 +17480,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `start_char_index: number`
 
+          minimum: 0
+
         - `type: "char_location"`
 
-          - `"char_location"`
+          default: char_location
 
       - `CitationPageLocation`
 
         - `cited_text: string`
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string | null`
 
@@ -12249,9 +17502,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `start_page_number: number`
 
+          minimum: 1
+
         - `type: "page_location"`
 
-          - `"page_location"`
+          default: page_location
 
       - `CitationContentBlockLocation`
 
@@ -12262,6 +17517,8 @@ console.log(messageTokensCount.input_tokens);
           Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string | null`
 
@@ -12277,9 +17534,11 @@ console.log(messageTokensCount.input_tokens);
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `type: "content_block_location"`
 
-          - `"content_block_location"`
+          default: content_block_location
 
       - `CitationsWebSearchResultLocation`
 
@@ -12289,9 +17548,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `title: string | null`
 
+          maxLength: 512
+
         - `type: "web_search_result_location"`
 
-          - `"web_search_result_location"`
+          default: web_search_result_location
 
         - `url: string`
 
@@ -12315,37 +17576,45 @@ console.log(messageTokensCount.input_tokens);
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: string | null`
 
         - `type: "search_result_location"`
 
-          - `"search_result_location"`
+          default: search_result_location
 
     - `type: "citations_delta"`
 
-      - `"citations_delta"`
+      default: citations_delta
 
   - `ThinkingDelta`
 
     - `thinking: string`
 
+      The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
     - `type: "thinking_delta"`
 
-      - `"thinking_delta"`
+      default: thinking_delta
 
   - `SignatureDelta`
 
     - `signature: string`
 
+      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
     - `type: "signature_delta"`
 
-      - `"signature_delta"`
+      default: signature_delta
 
 ### Raw Content Block Delta Event
 
@@ -12359,7 +17628,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_delta"`
 
-        - `"text_delta"`
+        default: text_delta
 
     - `InputJSONDelta`
 
@@ -12367,7 +17636,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "input_json_delta"`
 
-        - `"input_json_delta"`
+        default: input_json_delta
 
     - `CitationsDelta`
 
@@ -12379,6 +17648,8 @@ console.log(messageTokensCount.input_tokens);
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string | null`
 
           - `end_char_index: number`
@@ -12387,15 +17658,19 @@ console.log(messageTokensCount.input_tokens);
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-            - `"char_location"`
+            default: char_location
 
         - `CitationPageLocation`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -12405,9 +17680,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-            - `"page_location"`
+            default: page_location
 
         - `CitationContentBlockLocation`
 
@@ -12418,6 +17695,8 @@ console.log(messageTokensCount.input_tokens);
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -12433,9 +17712,11 @@ console.log(messageTokensCount.input_tokens);
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-            - `"content_block_location"`
+            default: content_block_location
 
         - `CitationsWebSearchResultLocation`
 
@@ -12445,9 +17726,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `title: string | null`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
-            - `"web_search_result_location"`
+            default: web_search_result_location
 
           - `url: string`
 
@@ -12471,43 +17754,51 @@ console.log(messageTokensCount.input_tokens);
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: string | null`
 
           - `type: "search_result_location"`
 
-            - `"search_result_location"`
+            default: search_result_location
 
       - `type: "citations_delta"`
 
-        - `"citations_delta"`
+        default: citations_delta
 
     - `ThinkingDelta`
 
       - `thinking: string`
 
+        The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
       - `type: "thinking_delta"`
 
-        - `"thinking_delta"`
+        default: thinking_delta
 
     - `SignatureDelta`
 
       - `signature: string`
 
+        The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
       - `type: "signature_delta"`
 
-        - `"signature_delta"`
+        default: signature_delta
 
   - `index: number`
 
   - `type: "content_block_delta"`
 
-    - `"content_block_delta"`
+    default: content_block_delta
 
 ### Raw Content Block Start Event
 
@@ -12531,6 +17822,8 @@ console.log(messageTokensCount.input_tokens);
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string | null`
 
           - `end_char_index: number`
@@ -12539,15 +17832,19 @@ console.log(messageTokensCount.input_tokens);
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-            - `"char_location"`
+            default: char_location
 
         - `CitationPageLocation`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -12557,9 +17854,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-            - `"page_location"`
+            default: page_location
 
         - `CitationContentBlockLocation`
 
@@ -12570,6 +17869,8 @@ console.log(messageTokensCount.input_tokens);
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string | null`
 
@@ -12585,9 +17886,11 @@ console.log(messageTokensCount.input_tokens);
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-            - `"content_block_location"`
+            default: content_block_location
 
         - `CitationsWebSearchResultLocation`
 
@@ -12597,9 +17900,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `title: string | null`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
-            - `"web_search_result_location"`
+            default: web_search_result_location
 
           - `url: string`
 
@@ -12623,49 +17928,73 @@ console.log(messageTokensCount.input_tokens);
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: string | null`
 
           - `type: "search_result_location"`
 
-            - `"search_result_location"`
+            default: search_result_location
 
       - `text: string`
 
+        maxLength: 5000000, minLength: 0
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
     - `ThinkingBlock`
 
       - `signature: string`
 
+        A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+        This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
       - `thinking: string`
+
+        The text of Claude's thinking process for this block.
 
       - `type: "thinking"`
 
-        - `"thinking"`
+        default: thinking
 
     - `RedactedThinkingBlock`
 
       - `data: string`
 
+        The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+        Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+        See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
       - `type: "redacted_thinking"`
 
-        - `"redacted_thinking"`
+        default: redacted_thinking
 
     - `ToolUseBlock`
 
       - `id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -12673,41 +18002,51 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "direct"`
 
-            - `"direct"`
-
         - `ServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: string`
 
-          - `type: "code_execution_20250825"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_20250825"`
+          - `type: "code_execution_20250825"`
 
         - `ServerToolCaller20260120`
 
           - `tool_id: string`
 
-          - `type: "code_execution_20260120"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_20260120"`
+          - `type: "code_execution_20260120"`
 
       - `input: Record<string, unknown>`
 
       - `name: string`
 
+        minLength: 1
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
+
+      - `toolset_name?: string | null`
+
+        For a toolset member tool_use, the toolset family.
+
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
     - `ServerToolUseBlock`
 
       - `id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -12739,13 +18078,15 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "server_tool_use"`
 
-        - `"server_tool_use"`
+        default: server_tool_use
 
     - `WebSearchToolResultBlock`
 
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -12777,7 +18118,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_search_tool_result_error"`
 
-            - `"web_search_tool_result_error"`
+            default: web_search_tool_result_error
 
         - `Array<WebSearchResultBlock>`
 
@@ -12789,21 +18130,25 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_search_result"`
 
-            - `"web_search_result"`
+            default: web_search_result
 
           - `url: string`
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_search_tool_result"`
 
-        - `"web_search_tool_result"`
+        default: web_search_tool_result
 
     - `WebFetchToolResultBlock`
 
       - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
         Tool invocation directly from the model.
+
+        default: {"type":"direct"}
 
         - `DirectCaller`
 
@@ -12841,7 +18186,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_fetch_tool_result_error"`
 
-            - `"web_fetch_tool_result_error"`
+            default: web_fetch_tool_result_error
 
         - `WebFetchBlock`
 
@@ -12853,19 +18198,19 @@ console.log(messageTokensCount.input_tokens);
 
               - `enabled: boolean`
 
+                default: false
+
             - `source: Base64PDFSource | PlainTextSource`
 
               - `Base64PDFSource`
 
                 - `data: string`
 
+                  format: byte
+
                 - `media_type: "application/pdf"`
 
-                  - `"application/pdf"`
-
                 - `type: "base64"`
-
-                  - `"base64"`
 
               - `PlainTextSource`
 
@@ -12873,11 +18218,7 @@ console.log(messageTokensCount.input_tokens);
 
                 - `media_type: "text/plain"`
 
-                  - `"text/plain"`
-
                 - `type: "text"`
-
-                  - `"text"`
 
             - `title: string | null`
 
@@ -12885,7 +18226,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "document"`
 
-              - `"document"`
+              default: document
 
           - `retrieved_at: string | null`
 
@@ -12893,7 +18234,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "web_fetch_result"`
 
-            - `"web_fetch_result"`
+            default: web_fetch_result
 
           - `url: string`
 
@@ -12901,9 +18242,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_fetch_tool_result"`
 
-        - `"web_fetch_tool_result"`
+        default: web_fetch_tool_result
 
     - `CodeExecutionToolResultBlock`
 
@@ -12925,7 +18268,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "code_execution_tool_result_error"`
 
-            - `"code_execution_tool_result_error"`
+            default: code_execution_tool_result_error
 
         - `CodeExecutionResultBlock`
 
@@ -12935,7 +18278,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "code_execution_output"`
 
-              - `"code_execution_output"`
+              default: code_execution_output
 
           - `return_code: number`
 
@@ -12945,7 +18288,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "code_execution_result"`
 
-            - `"code_execution_result"`
+            default: code_execution_result
 
         - `EncryptedCodeExecutionResultBlock`
 
@@ -12957,6 +18300,8 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "code_execution_output"`
 
+              default: code_execution_output
+
           - `encrypted_stdout: string`
 
           - `return_code: number`
@@ -12965,13 +18310,15 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "encrypted_code_execution_result"`
 
-            - `"encrypted_code_execution_result"`
+            default: encrypted_code_execution_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_tool_result"`
 
-        - `"code_execution_tool_result"`
+        default: code_execution_tool_result
 
     - `BashCodeExecutionToolResultBlock`
 
@@ -12993,7 +18340,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "bash_code_execution_tool_result_error"`
 
-            - `"bash_code_execution_tool_result_error"`
+            default: bash_code_execution_tool_result_error
 
         - `BashCodeExecutionResultBlock`
 
@@ -13003,7 +18350,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "bash_code_execution_output"`
 
-              - `"bash_code_execution_output"`
+              default: bash_code_execution_output
 
           - `return_code: number`
 
@@ -13013,13 +18360,15 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "bash_code_execution_result"`
 
-            - `"bash_code_execution_result"`
+            default: bash_code_execution_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "bash_code_execution_tool_result"`
 
-        - `"bash_code_execution_tool_result"`
+        default: bash_code_execution_tool_result
 
     - `TextEditorCodeExecutionToolResultBlock`
 
@@ -13043,7 +18392,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
-            - `"text_editor_code_execution_tool_result_error"`
+            default: text_editor_code_execution_tool_result_error
 
         - `TextEditorCodeExecutionViewResultBlock`
 
@@ -13065,7 +18414,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_view_result"`
 
-            - `"text_editor_code_execution_view_result"`
+            default: text_editor_code_execution_view_result
 
         - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -13073,7 +18422,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_create_result"`
 
-            - `"text_editor_code_execution_create_result"`
+            default: text_editor_code_execution_create_result
 
         - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -13089,13 +18438,15 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
-            - `"text_editor_code_execution_str_replace_result"`
+            default: text_editor_code_execution_str_replace_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "text_editor_code_execution_tool_result"`
 
-        - `"text_editor_code_execution_tool_result"`
+        default: text_editor_code_execution_tool_result
 
     - `ToolSearchToolResultBlock`
 
@@ -13117,7 +18468,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "tool_search_tool_result_error"`
 
-            - `"tool_search_tool_result_error"`
+            default: tool_search_tool_result_error
 
         - `ToolSearchToolSearchResultBlock`
 
@@ -13125,19 +18476,23 @@ console.log(messageTokensCount.input_tokens);
 
             - `tool_name: string`
 
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `type: "tool_reference"`
 
-              - `"tool_reference"`
+              default: tool_reference
 
           - `type: "tool_search_tool_search_result"`
 
-            - `"tool_search_tool_search_result"`
+            default: tool_search_tool_search_result
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "tool_search_tool_result"`
 
-        - `"tool_search_tool_result"`
+        default: tool_search_tool_result
 
     - `ContainerUploadBlock`
 
@@ -13147,13 +18502,13 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "container_upload"`
 
-        - `"container_upload"`
+        default: container_upload
 
   - `index: number`
 
   - `type: "content_block_start"`
 
-    - `"content_block_start"`
+    default: content_block_start
 
 ### Raw Content Block Stop Event
 
@@ -13163,7 +18518,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "content_block_stop"`
 
-    - `"content_block_stop"`
+    default: content_block_stop
 
 ### Raw Message Delta Event
 
@@ -13183,21 +18538,59 @@ console.log(messageTokensCount.input_tokens);
 
         The time at which the container will expire.
 
+        format: date-time
+
+      - `skills: Array<ContainerSkill> | null`
+
+        Skills loaded in the container
+
+        - `skill_id: string`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
+
+        - `type: "anthropic" | "custom"`
+
+          Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+          - `"anthropic"`
+
+          - `"custom"`
+
+        - `version: string`
+
+          The resolved version: a skill version ID for custom skills.
+
+          maxLength: 64, minLength: 1
+
     - `stop_details: RefusalStopDetails | null`
 
       Structured information about a refusal.
 
-      - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
+      - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
         The policy category that triggered a refusal.
 
         - `"cyber"`
 
+          The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
         - `"bio"`
+
+          The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
         - `"frontier_llm"`
 
+          The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
         - `"reasoning_extraction"`
+
+          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+        - `"general_harms"`
+
+          The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
       - `explanation: string | null`
 
@@ -13207,7 +18600,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "refusal"`
 
-        - `"refusal"`
+        default: refusal
 
     - `stop_reason: StopReason | null`
 
@@ -13223,11 +18616,13 @@ console.log(messageTokensCount.input_tokens);
 
       - `"refusal"`
 
+      - `"model_context_window_exceeded"`
+
     - `stop_sequence: string | null`
 
   - `type: "message_delta"`
 
-    - `"message_delta"`
+    default: message_delta
 
   - `usage: MessageDeltaUsage`
 
@@ -13245,13 +18640,19 @@ console.log(messageTokensCount.input_tokens);
 
       The cumulative number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number | null`
 
       The cumulative number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: number | null`
 
       The cumulative number of input tokens which were used.
+
+      minimum: 0
 
     - `output_tokens: number`
 
@@ -13277,6 +18678,8 @@ console.log(messageTokensCount.input_tokens);
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+        default: 0, minimum: 0
+
     - `server_tool_use: ServerToolUsage | null`
 
       The number of server tool requests.
@@ -13285,9 +18688,13 @@ console.log(messageTokensCount.input_tokens);
 
         The number of web fetch tool requests.
 
+        default: 0, minimum: 0
+
       - `web_search_requests: number`
 
         The number of web search tool requests.
+
+        default: 0, minimum: 0
 
 ### Raw Message Start Event
 
@@ -13312,6 +18719,32 @@ console.log(messageTokensCount.input_tokens);
       - `expires_at: string`
 
         The time at which the container will expire.
+
+        format: date-time
+
+      - `skills: Array<ContainerSkill> | null`
+
+        Skills loaded in the container
+
+        - `skill_id: string`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
+
+        - `type: "anthropic" | "custom"`
+
+          Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+          - `"anthropic"`
+
+          - `"custom"`
+
+        - `version: string`
+
+          The resolved version: a skill version ID for custom skills.
+
+          maxLength: 64, minLength: 1
 
     - `content: Array<ContentBlock>`
 
@@ -13356,6 +18789,8 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
 
             - `end_char_index: number`
@@ -13364,15 +18799,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `start_char_index: number`
 
+              minimum: 0
+
             - `type: "char_location"`
 
-              - `"char_location"`
+              default: char_location
 
           - `CitationPageLocation`
 
             - `cited_text: string`
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string | null`
 
@@ -13382,9 +18821,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `start_page_number: number`
 
+              minimum: 1
+
             - `type: "page_location"`
 
-              - `"page_location"`
+              default: page_location
 
           - `CitationContentBlockLocation`
 
@@ -13395,6 +18836,8 @@ console.log(messageTokensCount.input_tokens);
               Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string | null`
 
@@ -13410,9 +18853,11 @@ console.log(messageTokensCount.input_tokens);
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `type: "content_block_location"`
 
-              - `"content_block_location"`
+              default: content_block_location
 
           - `CitationsWebSearchResultLocation`
 
@@ -13422,9 +18867,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `title: string | null`
 
+              maxLength: 512
+
             - `type: "web_search_result_location"`
 
-              - `"web_search_result_location"`
+              default: web_search_result_location
 
             - `url: string`
 
@@ -13448,49 +18895,73 @@ console.log(messageTokensCount.input_tokens);
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: string | null`
 
             - `type: "search_result_location"`
 
-              - `"search_result_location"`
+              default: search_result_location
 
         - `text: string`
 
+          maxLength: 5000000, minLength: 0
+
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `ThinkingBlock`
 
         - `signature: string`
 
+          A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+          This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
         - `thinking: string`
+
+          The text of Claude's thinking process for this block.
 
         - `type: "thinking"`
 
-          - `"thinking"`
+          default: thinking
 
       - `RedactedThinkingBlock`
 
         - `data: string`
 
+          The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+          Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
         - `type: "redacted_thinking"`
 
-          - `"redacted_thinking"`
+          default: redacted_thinking
 
       - `ToolUseBlock`
 
         - `id: string`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -13498,41 +18969,51 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "direct"`
 
-              - `"direct"`
-
           - `ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: string`
 
-            - `type: "code_execution_20250825"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20250825"`
+            - `type: "code_execution_20250825"`
 
           - `ServerToolCaller20260120`
 
             - `tool_id: string`
 
-            - `type: "code_execution_20260120"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20260120"`
+            - `type: "code_execution_20260120"`
 
         - `input: Record<string, unknown>`
 
         - `name: string`
 
+          minLength: 1
+
         - `type: "tool_use"`
 
-          - `"tool_use"`
+          default: tool_use
+
+        - `toolset_name?: string | null`
+
+          For a toolset member tool_use, the toolset family.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `ServerToolUseBlock`
 
         - `id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -13564,13 +19045,15 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "server_tool_use"`
 
-          - `"server_tool_use"`
+          default: server_tool_use
 
       - `WebSearchToolResultBlock`
 
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -13602,7 +19085,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "web_search_tool_result_error"`
 
-              - `"web_search_tool_result_error"`
+              default: web_search_tool_result_error
 
           - `Array<WebSearchResultBlock>`
 
@@ -13614,21 +19097,25 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "web_search_result"`
 
-              - `"web_search_result"`
+              default: web_search_result
 
             - `url: string`
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "web_search_tool_result"`
 
-          - `"web_search_tool_result"`
+          default: web_search_tool_result
 
       - `WebFetchToolResultBlock`
 
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -13666,7 +19153,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "web_fetch_tool_result_error"`
 
-              - `"web_fetch_tool_result_error"`
+              default: web_fetch_tool_result_error
 
           - `WebFetchBlock`
 
@@ -13678,19 +19165,19 @@ console.log(messageTokensCount.input_tokens);
 
                 - `enabled: boolean`
 
+                  default: false
+
               - `source: Base64PDFSource | PlainTextSource`
 
                 - `Base64PDFSource`
 
                   - `data: string`
 
+                    format: byte
+
                   - `media_type: "application/pdf"`
 
-                    - `"application/pdf"`
-
                   - `type: "base64"`
-
-                    - `"base64"`
 
                 - `PlainTextSource`
 
@@ -13698,11 +19185,7 @@ console.log(messageTokensCount.input_tokens);
 
                   - `media_type: "text/plain"`
 
-                    - `"text/plain"`
-
                   - `type: "text"`
-
-                    - `"text"`
 
               - `title: string | null`
 
@@ -13710,7 +19193,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "document"`
 
-                - `"document"`
+                default: document
 
             - `retrieved_at: string | null`
 
@@ -13718,7 +19201,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "web_fetch_result"`
 
-              - `"web_fetch_result"`
+              default: web_fetch_result
 
             - `url: string`
 
@@ -13726,9 +19209,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "web_fetch_tool_result"`
 
-          - `"web_fetch_tool_result"`
+          default: web_fetch_tool_result
 
       - `CodeExecutionToolResultBlock`
 
@@ -13750,7 +19235,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "code_execution_tool_result_error"`
 
-              - `"code_execution_tool_result_error"`
+              default: code_execution_tool_result_error
 
           - `CodeExecutionResultBlock`
 
@@ -13760,7 +19245,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "code_execution_output"`
 
-                - `"code_execution_output"`
+                default: code_execution_output
 
             - `return_code: number`
 
@@ -13770,7 +19255,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "code_execution_result"`
 
-              - `"code_execution_result"`
+              default: code_execution_result
 
           - `EncryptedCodeExecutionResultBlock`
 
@@ -13782,6 +19267,8 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "code_execution_output"`
 
+                default: code_execution_output
+
             - `encrypted_stdout: string`
 
             - `return_code: number`
@@ -13790,13 +19277,15 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "encrypted_code_execution_result"`
 
-              - `"encrypted_code_execution_result"`
+              default: encrypted_code_execution_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "code_execution_tool_result"`
 
-          - `"code_execution_tool_result"`
+          default: code_execution_tool_result
 
       - `BashCodeExecutionToolResultBlock`
 
@@ -13818,7 +19307,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "bash_code_execution_tool_result_error"`
 
-              - `"bash_code_execution_tool_result_error"`
+              default: bash_code_execution_tool_result_error
 
           - `BashCodeExecutionResultBlock`
 
@@ -13828,7 +19317,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "bash_code_execution_output"`
 
-                - `"bash_code_execution_output"`
+                default: bash_code_execution_output
 
             - `return_code: number`
 
@@ -13838,13 +19327,15 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "bash_code_execution_result"`
 
-              - `"bash_code_execution_result"`
+              default: bash_code_execution_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "bash_code_execution_tool_result"`
 
-          - `"bash_code_execution_tool_result"`
+          default: bash_code_execution_tool_result
 
       - `TextEditorCodeExecutionToolResultBlock`
 
@@ -13868,7 +19359,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
-              - `"text_editor_code_execution_tool_result_error"`
+              default: text_editor_code_execution_tool_result_error
 
           - `TextEditorCodeExecutionViewResultBlock`
 
@@ -13890,7 +19381,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "text_editor_code_execution_view_result"`
 
-              - `"text_editor_code_execution_view_result"`
+              default: text_editor_code_execution_view_result
 
           - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -13898,7 +19389,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "text_editor_code_execution_create_result"`
 
-              - `"text_editor_code_execution_create_result"`
+              default: text_editor_code_execution_create_result
 
           - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -13914,13 +19405,15 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "text_editor_code_execution_str_replace_result"`
 
-              - `"text_editor_code_execution_str_replace_result"`
+              default: text_editor_code_execution_str_replace_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "text_editor_code_execution_tool_result"`
 
-          - `"text_editor_code_execution_tool_result"`
+          default: text_editor_code_execution_tool_result
 
       - `ToolSearchToolResultBlock`
 
@@ -13942,7 +19435,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "tool_search_tool_result_error"`
 
-              - `"tool_search_tool_result_error"`
+              default: tool_search_tool_result_error
 
           - `ToolSearchToolSearchResultBlock`
 
@@ -13950,19 +19443,23 @@ console.log(messageTokensCount.input_tokens);
 
               - `tool_name: string`
 
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
               - `type: "tool_reference"`
 
-                - `"tool_reference"`
+                default: tool_reference
 
             - `type: "tool_search_tool_search_result"`
 
-              - `"tool_search_tool_search_result"`
+              default: tool_search_tool_search_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "tool_search_tool_result"`
 
-          - `"tool_search_tool_result"`
+          default: tool_search_tool_result
 
       - `ContainerUploadBlock`
 
@@ -13972,7 +19469,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "container_upload"`
 
-          - `"container_upload"`
+          default: container_upload
 
     - `model: Model`
 
@@ -13980,7 +19477,7 @@ console.log(messageTokensCount.input_tokens);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
         - `"claude-sonnet-5"`
 
@@ -13994,13 +19491,17 @@ console.log(messageTokensCount.input_tokens);
 
           Most capable model for cybersecurity and biology research
 
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
         - `"claude-opus-4-8"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-7"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-mythos-preview"`
 
@@ -14008,7 +19509,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `"claude-opus-4-6"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-6"`
 
@@ -14024,11 +19525,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `"claude-opus-4-5"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-5-20251101"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-5"`
 
@@ -14038,14 +19539,6 @@ console.log(messageTokensCount.input_tokens);
 
           High-performance model for agents and coding
 
-        - `"claude-opus-4-1"`
-
-          Exceptional model for specialized complex tasks
-
-        - `"claude-opus-4-1-20250805"`
-
-          Exceptional model for specialized complex tasks
-
       - `(string & {})`
 
     - `role: "assistant"`
@@ -14054,23 +19547,35 @@ console.log(messageTokensCount.input_tokens);
 
       This will always be `"assistant"`.
 
-      - `"assistant"`
+      default: assistant
 
     - `stop_details: RefusalStopDetails | null`
 
       Structured information about a refusal.
 
-      - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
+      - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
         The policy category that triggered a refusal.
 
         - `"cyber"`
 
+          The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
         - `"bio"`
+
+          The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
         - `"frontier_llm"`
 
+          The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
         - `"reasoning_extraction"`
+
+          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+        - `"general_harms"`
+
+          The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
       - `explanation: string | null`
 
@@ -14080,7 +19585,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "refusal"`
 
-        - `"refusal"`
+        default: refusal
 
     - `stop_reason: StopReason | null`
 
@@ -14094,6 +19599,7 @@ console.log(messageTokensCount.input_tokens);
       * `"tool_use"`: the model invoked one or more tools
       * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
       * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+      * `"model_context_window_exceeded"`: we exceeded the model's context window
 
       In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -14109,6 +19615,8 @@ console.log(messageTokensCount.input_tokens);
 
       - `"refusal"`
 
+      - `"model_context_window_exceeded"`
+
     - `stop_sequence: string | null`
 
       Which custom stop sequence was generated, if any.
@@ -14121,7 +19629,7 @@ console.log(messageTokensCount.input_tokens);
 
       For Messages, this is always `"message"`.
 
-      - `"message"`
+      default: message
 
     - `usage: Usage`
 
@@ -14143,17 +19651,25 @@ console.log(messageTokensCount.input_tokens);
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          default: 0, minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          default: 0, minimum: 0
 
       - `cache_creation_input_tokens: number | null`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number | null`
 
         The number of input tokens read from the cache.
+
+        minimum: 0
 
       - `inference_geo: string | null`
 
@@ -14163,9 +19679,13 @@ console.log(messageTokensCount.input_tokens);
 
         The number of input tokens which were used.
 
+        minimum: 0
+
       - `output_tokens: number`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `output_tokens_details: OutputTokensDetails | null`
 
@@ -14187,6 +19707,8 @@ console.log(messageTokensCount.input_tokens);
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+          default: 0, minimum: 0
+
       - `server_tool_use: ServerToolUsage | null`
 
         The number of server tool requests.
@@ -14195,9 +19717,13 @@ console.log(messageTokensCount.input_tokens);
 
           The number of web fetch tool requests.
 
+          default: 0, minimum: 0
+
         - `web_search_requests: number`
 
           The number of web search tool requests.
+
+          default: 0, minimum: 0
 
       - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -14211,7 +19737,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "message_start"`
 
-    - `"message_start"`
+    default: message_start
 
 ### Raw Message Stop Event
 
@@ -14219,7 +19745,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "message_stop"`
 
-    - `"message_stop"`
+    default: message_stop
 
 ### Raw Message Stream Event
 
@@ -14246,6 +19772,32 @@ console.log(messageTokensCount.input_tokens);
         - `expires_at: string`
 
           The time at which the container will expire.
+
+          format: date-time
+
+        - `skills: Array<ContainerSkill> | null`
+
+          Skills loaded in the container
+
+          - `skill_id: string`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
+
+          - `type: "anthropic" | "custom"`
+
+            Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+            - `"anthropic"`
+
+            - `"custom"`
+
+          - `version: string`
+
+            The resolved version: a skill version ID for custom skills.
+
+            maxLength: 64, minLength: 1
 
       - `content: Array<ContentBlock>`
 
@@ -14290,6 +19842,8 @@ console.log(messageTokensCount.input_tokens);
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
 
               - `end_char_index: number`
@@ -14298,15 +19852,19 @@ console.log(messageTokensCount.input_tokens);
 
               - `start_char_index: number`
 
+                minimum: 0
+
               - `type: "char_location"`
 
-                - `"char_location"`
+                default: char_location
 
             - `CitationPageLocation`
 
               - `cited_text: string`
 
               - `document_index: number`
+
+                minimum: 0
 
               - `document_title: string | null`
 
@@ -14316,9 +19874,11 @@ console.log(messageTokensCount.input_tokens);
 
               - `start_page_number: number`
 
+                minimum: 1
+
               - `type: "page_location"`
 
-                - `"page_location"`
+                default: page_location
 
             - `CitationContentBlockLocation`
 
@@ -14329,6 +19889,8 @@ console.log(messageTokensCount.input_tokens);
                 Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
               - `document_index: number`
+
+                minimum: 0
 
               - `document_title: string | null`
 
@@ -14344,9 +19906,11 @@ console.log(messageTokensCount.input_tokens);
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `type: "content_block_location"`
 
-                - `"content_block_location"`
+                default: content_block_location
 
             - `CitationsWebSearchResultLocation`
 
@@ -14356,9 +19920,11 @@ console.log(messageTokensCount.input_tokens);
 
               - `title: string | null`
 
+                maxLength: 512
+
               - `type: "web_search_result_location"`
 
-                - `"web_search_result_location"`
+                default: web_search_result_location
 
               - `url: string`
 
@@ -14382,49 +19948,73 @@ console.log(messageTokensCount.input_tokens);
 
                 Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                minimum: 0
+
               - `source: string`
 
               - `start_block_index: number`
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `title: string | null`
 
               - `type: "search_result_location"`
 
-                - `"search_result_location"`
+                default: search_result_location
 
           - `text: string`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: "text"`
 
-            - `"text"`
+            default: text
 
         - `ThinkingBlock`
 
           - `signature: string`
 
+            A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+            This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
           - `thinking: string`
+
+            The text of Claude's thinking process for this block.
 
           - `type: "thinking"`
 
-            - `"thinking"`
+            default: thinking
 
         - `RedactedThinkingBlock`
 
           - `data: string`
 
+            The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+            Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
           - `type: "redacted_thinking"`
 
-            - `"redacted_thinking"`
+            default: redacted_thinking
 
         - `ToolUseBlock`
 
           - `id: string`
 
+            pattern: ^[a-zA-Z0-9_-]+$
+
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -14432,41 +20022,51 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "direct"`
 
-                - `"direct"`
-
             - `ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
               - `tool_id: string`
 
-              - `type: "code_execution_20250825"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20250825"`
+              - `type: "code_execution_20250825"`
 
             - `ServerToolCaller20260120`
 
               - `tool_id: string`
 
-              - `type: "code_execution_20260120"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20260120"`
+              - `type: "code_execution_20260120"`
 
           - `input: Record<string, unknown>`
 
           - `name: string`
 
+            minLength: 1
+
           - `type: "tool_use"`
 
-            - `"tool_use"`
+            default: tool_use
+
+          - `toolset_name?: string | null`
+
+            For a toolset member tool_use, the toolset family.
+
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
         - `ServerToolUseBlock`
 
           - `id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -14498,13 +20098,15 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "server_tool_use"`
 
-            - `"server_tool_use"`
+            default: server_tool_use
 
         - `WebSearchToolResultBlock`
 
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -14536,7 +20138,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "web_search_tool_result_error"`
 
-                - `"web_search_tool_result_error"`
+                default: web_search_tool_result_error
 
             - `Array<WebSearchResultBlock>`
 
@@ -14548,21 +20150,25 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "web_search_result"`
 
-                - `"web_search_result"`
+                default: web_search_result
 
               - `url: string`
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "web_search_tool_result"`
 
-            - `"web_search_tool_result"`
+            default: web_search_tool_result
 
         - `WebFetchToolResultBlock`
 
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -14600,7 +20206,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "web_fetch_tool_result_error"`
 
-                - `"web_fetch_tool_result_error"`
+                default: web_fetch_tool_result_error
 
             - `WebFetchBlock`
 
@@ -14612,19 +20218,19 @@ console.log(messageTokensCount.input_tokens);
 
                   - `enabled: boolean`
 
+                    default: false
+
                 - `source: Base64PDFSource | PlainTextSource`
 
                   - `Base64PDFSource`
 
                     - `data: string`
 
+                      format: byte
+
                     - `media_type: "application/pdf"`
 
-                      - `"application/pdf"`
-
                     - `type: "base64"`
-
-                      - `"base64"`
 
                   - `PlainTextSource`
 
@@ -14632,11 +20238,7 @@ console.log(messageTokensCount.input_tokens);
 
                     - `media_type: "text/plain"`
 
-                      - `"text/plain"`
-
                     - `type: "text"`
-
-                      - `"text"`
 
                 - `title: string | null`
 
@@ -14644,7 +20246,7 @@ console.log(messageTokensCount.input_tokens);
 
                 - `type: "document"`
 
-                  - `"document"`
+                  default: document
 
               - `retrieved_at: string | null`
 
@@ -14652,7 +20254,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "web_fetch_result"`
 
-                - `"web_fetch_result"`
+                default: web_fetch_result
 
               - `url: string`
 
@@ -14660,9 +20262,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "web_fetch_tool_result"`
 
-            - `"web_fetch_tool_result"`
+            default: web_fetch_tool_result
 
         - `CodeExecutionToolResultBlock`
 
@@ -14684,7 +20288,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "code_execution_tool_result_error"`
 
-                - `"code_execution_tool_result_error"`
+                default: code_execution_tool_result_error
 
             - `CodeExecutionResultBlock`
 
@@ -14694,7 +20298,7 @@ console.log(messageTokensCount.input_tokens);
 
                 - `type: "code_execution_output"`
 
-                  - `"code_execution_output"`
+                  default: code_execution_output
 
               - `return_code: number`
 
@@ -14704,7 +20308,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "code_execution_result"`
 
-                - `"code_execution_result"`
+                default: code_execution_result
 
             - `EncryptedCodeExecutionResultBlock`
 
@@ -14716,6 +20320,8 @@ console.log(messageTokensCount.input_tokens);
 
                 - `type: "code_execution_output"`
 
+                  default: code_execution_output
+
               - `encrypted_stdout: string`
 
               - `return_code: number`
@@ -14724,13 +20330,15 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "encrypted_code_execution_result"`
 
-                - `"encrypted_code_execution_result"`
+                default: encrypted_code_execution_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "code_execution_tool_result"`
 
-            - `"code_execution_tool_result"`
+            default: code_execution_tool_result
 
         - `BashCodeExecutionToolResultBlock`
 
@@ -14752,7 +20360,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "bash_code_execution_tool_result_error"`
 
-                - `"bash_code_execution_tool_result_error"`
+                default: bash_code_execution_tool_result_error
 
             - `BashCodeExecutionResultBlock`
 
@@ -14762,7 +20370,7 @@ console.log(messageTokensCount.input_tokens);
 
                 - `type: "bash_code_execution_output"`
 
-                  - `"bash_code_execution_output"`
+                  default: bash_code_execution_output
 
               - `return_code: number`
 
@@ -14772,13 +20380,15 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "bash_code_execution_result"`
 
-                - `"bash_code_execution_result"`
+                default: bash_code_execution_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "bash_code_execution_tool_result"`
 
-            - `"bash_code_execution_tool_result"`
+            default: bash_code_execution_tool_result
 
         - `TextEditorCodeExecutionToolResultBlock`
 
@@ -14802,7 +20412,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
-                - `"text_editor_code_execution_tool_result_error"`
+                default: text_editor_code_execution_tool_result_error
 
             - `TextEditorCodeExecutionViewResultBlock`
 
@@ -14824,7 +20434,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "text_editor_code_execution_view_result"`
 
-                - `"text_editor_code_execution_view_result"`
+                default: text_editor_code_execution_view_result
 
             - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -14832,7 +20442,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "text_editor_code_execution_create_result"`
 
-                - `"text_editor_code_execution_create_result"`
+                default: text_editor_code_execution_create_result
 
             - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -14848,13 +20458,15 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "text_editor_code_execution_str_replace_result"`
 
-                - `"text_editor_code_execution_str_replace_result"`
+                default: text_editor_code_execution_str_replace_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "text_editor_code_execution_tool_result"`
 
-            - `"text_editor_code_execution_tool_result"`
+            default: text_editor_code_execution_tool_result
 
         - `ToolSearchToolResultBlock`
 
@@ -14876,7 +20488,7 @@ console.log(messageTokensCount.input_tokens);
 
               - `type: "tool_search_tool_result_error"`
 
-                - `"tool_search_tool_result_error"`
+                default: tool_search_tool_result_error
 
             - `ToolSearchToolSearchResultBlock`
 
@@ -14884,19 +20496,23 @@ console.log(messageTokensCount.input_tokens);
 
                 - `tool_name: string`
 
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                 - `type: "tool_reference"`
 
-                  - `"tool_reference"`
+                  default: tool_reference
 
               - `type: "tool_search_tool_search_result"`
 
-                - `"tool_search_tool_search_result"`
+                default: tool_search_tool_search_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "tool_search_tool_result"`
 
-            - `"tool_search_tool_result"`
+            default: tool_search_tool_result
 
         - `ContainerUploadBlock`
 
@@ -14906,7 +20522,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `type: "container_upload"`
 
-            - `"container_upload"`
+            default: container_upload
 
       - `model: Model`
 
@@ -14914,7 +20530,7 @@ console.log(messageTokensCount.input_tokens);
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+        - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
           - `"claude-sonnet-5"`
 
@@ -14928,13 +20544,17 @@ console.log(messageTokensCount.input_tokens);
 
             Most capable model for cybersecurity and biology research
 
+          - `"claude-opus-5"`
+
+            Powerful intelligence for long-running agents and coding
+
           - `"claude-opus-4-8"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-opus-4-7"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-mythos-preview"`
 
@@ -14942,7 +20562,7 @@ console.log(messageTokensCount.input_tokens);
 
           - `"claude-opus-4-6"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-sonnet-4-6"`
 
@@ -14958,11 +20578,11 @@ console.log(messageTokensCount.input_tokens);
 
           - `"claude-opus-4-5"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-opus-4-5-20251101"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-sonnet-4-5"`
 
@@ -14972,14 +20592,6 @@ console.log(messageTokensCount.input_tokens);
 
             High-performance model for agents and coding
 
-          - `"claude-opus-4-1"`
-
-            Exceptional model for specialized complex tasks
-
-          - `"claude-opus-4-1-20250805"`
-
-            Exceptional model for specialized complex tasks
-
         - `(string & {})`
 
       - `role: "assistant"`
@@ -14988,23 +20600,35 @@ console.log(messageTokensCount.input_tokens);
 
         This will always be `"assistant"`.
 
-        - `"assistant"`
+        default: assistant
 
       - `stop_details: RefusalStopDetails | null`
 
         Structured information about a refusal.
 
-        - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
+        - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
           The policy category that triggered a refusal.
 
           - `"cyber"`
 
+            The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
           - `"bio"`
+
+            The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
           - `"frontier_llm"`
 
+            The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
           - `"reasoning_extraction"`
+
+            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+          - `"general_harms"`
+
+            The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
         - `explanation: string | null`
 
@@ -15014,7 +20638,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "refusal"`
 
-          - `"refusal"`
+          default: refusal
 
       - `stop_reason: StopReason | null`
 
@@ -15028,6 +20652,7 @@ console.log(messageTokensCount.input_tokens);
         * `"tool_use"`: the model invoked one or more tools
         * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
         * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+        * `"model_context_window_exceeded"`: we exceeded the model's context window
 
         In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -15043,6 +20668,8 @@ console.log(messageTokensCount.input_tokens);
 
         - `"refusal"`
 
+        - `"model_context_window_exceeded"`
+
       - `stop_sequence: string | null`
 
         Which custom stop sequence was generated, if any.
@@ -15055,7 +20682,7 @@ console.log(messageTokensCount.input_tokens);
 
         For Messages, this is always `"message"`.
 
-        - `"message"`
+        default: message
 
       - `usage: Usage`
 
@@ -15077,17 +20704,25 @@ console.log(messageTokensCount.input_tokens);
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            default: 0, minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            default: 0, minimum: 0
 
         - `cache_creation_input_tokens: number | null`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number | null`
 
           The number of input tokens read from the cache.
+
+          minimum: 0
 
         - `inference_geo: string | null`
 
@@ -15097,9 +20732,13 @@ console.log(messageTokensCount.input_tokens);
 
           The number of input tokens which were used.
 
+          minimum: 0
+
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `output_tokens_details: OutputTokensDetails | null`
 
@@ -15121,6 +20760,8 @@ console.log(messageTokensCount.input_tokens);
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+            default: 0, minimum: 0
+
         - `server_tool_use: ServerToolUsage | null`
 
           The number of server tool requests.
@@ -15129,9 +20770,13 @@ console.log(messageTokensCount.input_tokens);
 
             The number of web fetch tool requests.
 
+            default: 0, minimum: 0
+
           - `web_search_requests: number`
 
             The number of web search tool requests.
+
+            default: 0, minimum: 0
 
         - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -15145,7 +20790,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "message_start"`
 
-      - `"message_start"`
+      default: message_start
 
   - `RawMessageDeltaEvent`
 
@@ -15165,7 +20810,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "message_delta"`
 
-      - `"message_delta"`
+      default: message_delta
 
     - `usage: MessageDeltaUsage`
 
@@ -15183,13 +20828,19 @@ console.log(messageTokensCount.input_tokens);
 
         The cumulative number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number | null`
 
         The cumulative number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number | null`
 
         The cumulative number of input tokens which were used.
+
+        minimum: 0
 
       - `output_tokens: number`
 
@@ -15212,7 +20863,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "message_stop"`
 
-      - `"message_stop"`
+      default: message_stop
 
   - `RawContentBlockStartEvent`
 
@@ -15250,7 +20901,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "content_block_start"`
 
-      - `"content_block_start"`
+      default: content_block_start
 
   - `RawContentBlockDeltaEvent`
 
@@ -15262,7 +20913,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "text_delta"`
 
-          - `"text_delta"`
+          default: text_delta
 
       - `InputJSONDelta`
 
@@ -15270,7 +20921,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "input_json_delta"`
 
-          - `"input_json_delta"`
+          default: input_json_delta
 
       - `CitationsDelta`
 
@@ -15288,29 +20939,33 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "citations_delta"`
 
-          - `"citations_delta"`
+          default: citations_delta
 
       - `ThinkingDelta`
 
         - `thinking: string`
 
+          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
         - `type: "thinking_delta"`
 
-          - `"thinking_delta"`
+          default: thinking_delta
 
       - `SignatureDelta`
 
         - `signature: string`
 
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
         - `type: "signature_delta"`
 
-          - `"signature_delta"`
+          default: signature_delta
 
     - `index: number`
 
     - `type: "content_block_delta"`
 
-      - `"content_block_delta"`
+      default: content_block_delta
 
   - `RawContentBlockStopEvent`
 
@@ -15318,7 +20973,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "content_block_stop"`
 
-      - `"content_block_stop"`
+      default: content_block_stop
 
 ### Redacted Thinking Block
 
@@ -15326,9 +20981,15 @@ console.log(messageTokensCount.input_tokens);
 
   - `data: string`
 
+    The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+    Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
   - `type: "redacted_thinking"`
 
-    - `"redacted_thinking"`
+    default: redacted_thinking
 
 ### Redacted Thinking Block Param
 
@@ -15336,9 +20997,9 @@ console.log(messageTokensCount.input_tokens);
 
   - `data: string`
 
-  - `type: "redacted_thinking"`
+    The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-    - `"redacted_thinking"`
+  - `type: "redacted_thinking"`
 
 ### Refusal Stop Details
 
@@ -15346,17 +21007,29 @@ console.log(messageTokensCount.input_tokens);
 
   Structured information about a refusal.
 
-  - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
+  - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
     The policy category that triggered a refusal.
 
     - `"cyber"`
 
+      The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
     - `"bio"`
+
+      The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
     - `"frontier_llm"`
 
+      The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
     - `"reasoning_extraction"`
+
+      The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+    - `"general_harms"`
+
+      The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
   - `explanation: string | null`
 
@@ -15366,7 +21039,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "refusal"`
 
-    - `"refusal"`
+    default: refusal
 
 ### Search Result Block Param
 
@@ -15376,17 +21049,15 @@ console.log(messageTokensCount.input_tokens);
 
     - `text: string`
 
-    - `type: "text"`
+      minLength: 1
 
-      - `"text"`
+    - `type: "text"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
 
       - `type: "ephemeral"`
-
-        - `"ephemeral"`
 
       - `ttl?: "5m" | "1h"`
 
@@ -15411,15 +21082,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: number`
 
         - `start_char_index: number`
 
-        - `type: "char_location"`
+          minimum: 0
 
-          - `"char_location"`
+        - `type: "char_location"`
 
       - `CitationPageLocationParam`
 
@@ -15427,15 +21102,19 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: number`
 
         - `start_page_number: number`
 
-        - `type: "page_location"`
+          minimum: 1
 
-          - `"page_location"`
+        - `type: "page_location"`
 
       - `CitationContentBlockLocationParam`
 
@@ -15447,7 +21126,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string | null`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: number`
 
@@ -15459,9 +21142,9 @@ console.log(messageTokensCount.input_tokens);
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: "content_block_location"`
+          minimum: 0
 
-          - `"content_block_location"`
+        - `type: "content_block_location"`
 
       - `CitationWebSearchResultLocationParam`
 
@@ -15471,11 +21154,13 @@ console.log(messageTokensCount.input_tokens);
 
         - `title: string | null`
 
+          maxLength: 512, minLength: 1
+
         - `type: "web_search_result_location"`
 
-          - `"web_search_result_location"`
-
         - `url: string`
+
+          minLength: 1
 
       - `CitationSearchResultLocationParam`
 
@@ -15497,25 +21182,25 @@ console.log(messageTokensCount.input_tokens);
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: string | null`
 
         - `type: "search_result_location"`
-
-          - `"search_result_location"`
 
   - `source: string`
 
   - `title: string`
 
   - `type: "search_result"`
-
-    - `"search_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
@@ -15533,9 +21218,9 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_id: string`
 
-  - `type: "code_execution_20250825"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"code_execution_20250825"`
+  - `type: "code_execution_20250825"`
 
 ### Server Tool Caller 20260120
 
@@ -15543,9 +21228,9 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_id: string`
 
-  - `type: "code_execution_20260120"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"code_execution_20260120"`
+  - `type: "code_execution_20260120"`
 
 ### Server Tool Usage
 
@@ -15555,9 +21240,13 @@ console.log(messageTokensCount.input_tokens);
 
     The number of web fetch tool requests.
 
+    default: 0, minimum: 0
+
   - `web_search_requests: number`
 
     The number of web search tool requests.
+
+    default: 0, minimum: 0
 
 ### Server Tool Use Block
 
@@ -15565,9 +21254,13 @@ console.log(messageTokensCount.input_tokens);
 
   - `id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
     Tool invocation directly from the model.
+
+    default: {"type":"direct"}
 
     - `DirectCaller`
 
@@ -15575,25 +21268,23 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "direct"`
 
-        - `"direct"`
-
     - `ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
-      - `type: "code_execution_20260120"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20260120"`
+      - `type: "code_execution_20260120"`
 
   - `input: Record<string, unknown>`
 
@@ -15615,7 +21306,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "server_tool_use"`
 
-    - `"server_tool_use"`
+    default: server_tool_use
 
 ### Server Tool Use Block Param
 
@@ -15623,6 +21314,8 @@ console.log(messageTokensCount.input_tokens);
 
   - `id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `input: Record<string, unknown>`
 
   - `name: "web_search" | "web_fetch" | "code_execution" | 4 more`
@@ -15643,15 +21336,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "server_tool_use"`
 
-    - `"server_tool_use"`
-
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -15678,25 +21367,23 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "direct"`
 
-        - `"direct"`
-
     - `ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
-      - `type: "code_execution_20260120"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20260120"`
+      - `type: "code_execution_20260120"`
 
 ### Signature Delta
 
@@ -15704,13 +21391,41 @@ console.log(messageTokensCount.input_tokens);
 
   - `signature: string`
 
+    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
   - `type: "signature_delta"`
 
-    - `"signature_delta"`
+    default: signature_delta
+
+### Skill Params
+
+- `SkillParams`
+
+  Specification for a skill to be loaded in a container (request model).
+
+  - `skill_id: string`
+
+    Skill ID
+
+    maxLength: 64, minLength: 1
+
+  - `type: "anthropic" | "custom"`
+
+    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+    - `"anthropic"`
+
+    - `"custom"`
+
+  - `version?: string`
+
+    Skill version or 'latest' for most recent version
+
+    maxLength: 64, minLength: 1
 
 ### Stop Reason
 
-- `StopReason = "end_turn" | "max_tokens" | "stop_sequence" | 3 more`
+- `StopReason = "end_turn" | "max_tokens" | "stop_sequence" | 4 more`
 
   - `"end_turn"`
 
@@ -15723,6 +21438,8 @@ console.log(messageTokensCount.input_tokens);
   - `"pause_turn"`
 
   - `"refusal"`
+
+  - `"model_context_window_exceeded"`
 
 ### Text Block
 
@@ -15740,6 +21457,8 @@ console.log(messageTokensCount.input_tokens);
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string | null`
 
       - `end_char_index: number`
@@ -15748,15 +21467,19 @@ console.log(messageTokensCount.input_tokens);
 
       - `start_char_index: number`
 
+        minimum: 0
+
       - `type: "char_location"`
 
-        - `"char_location"`
+        default: char_location
 
     - `CitationPageLocation`
 
       - `cited_text: string`
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string | null`
 
@@ -15766,9 +21489,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `start_page_number: number`
 
+        minimum: 1
+
       - `type: "page_location"`
 
-        - `"page_location"`
+        default: page_location
 
     - `CitationContentBlockLocation`
 
@@ -15779,6 +21504,8 @@ console.log(messageTokensCount.input_tokens);
         Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string | null`
 
@@ -15794,9 +21521,11 @@ console.log(messageTokensCount.input_tokens);
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `type: "content_block_location"`
 
-        - `"content_block_location"`
+        default: content_block_location
 
     - `CitationsWebSearchResultLocation`
 
@@ -15806,9 +21535,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `title: string | null`
 
+        maxLength: 512
+
       - `type: "web_search_result_location"`
 
-        - `"web_search_result_location"`
+        default: web_search_result_location
 
       - `url: string`
 
@@ -15832,23 +21563,29 @@ console.log(messageTokensCount.input_tokens);
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: string`
 
       - `start_block_index: number`
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `title: string | null`
 
       - `type: "search_result_location"`
 
-        - `"search_result_location"`
+        default: search_result_location
 
   - `text: string`
 
+    maxLength: 5000000, minLength: 0
+
   - `type: "text"`
 
-    - `"text"`
+    default: text
 
 ### Text Block Param
 
@@ -15856,17 +21593,15 @@ console.log(messageTokensCount.input_tokens);
 
   - `text: string`
 
-  - `type: "text"`
+    minLength: 1
 
-    - `"text"`
+  - `type: "text"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -15891,15 +21626,19 @@ console.log(messageTokensCount.input_tokens);
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string | null`
+
+        maxLength: 500, minLength: 1
 
       - `end_char_index: number`
 
       - `start_char_index: number`
 
-      - `type: "char_location"`
+        minimum: 0
 
-        - `"char_location"`
+      - `type: "char_location"`
 
     - `CitationPageLocationParam`
 
@@ -15907,15 +21646,19 @@ console.log(messageTokensCount.input_tokens);
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string | null`
+
+        maxLength: 500, minLength: 1
 
       - `end_page_number: number`
 
       - `start_page_number: number`
 
-      - `type: "page_location"`
+        minimum: 1
 
-        - `"page_location"`
+      - `type: "page_location"`
 
     - `CitationContentBlockLocationParam`
 
@@ -15927,7 +21670,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string | null`
+
+        maxLength: 500, minLength: 1
 
       - `end_block_index: number`
 
@@ -15939,9 +21686,9 @@ console.log(messageTokensCount.input_tokens);
 
         0-based index of the first cited block in the source's `content` array.
 
-      - `type: "content_block_location"`
+        minimum: 0
 
-        - `"content_block_location"`
+      - `type: "content_block_location"`
 
     - `CitationWebSearchResultLocationParam`
 
@@ -15951,11 +21698,13 @@ console.log(messageTokensCount.input_tokens);
 
       - `title: string | null`
 
+        maxLength: 512, minLength: 1
+
       - `type: "web_search_result_location"`
 
-        - `"web_search_result_location"`
-
       - `url: string`
+
+        minLength: 1
 
     - `CitationSearchResultLocationParam`
 
@@ -15977,17 +21726,19 @@ console.log(messageTokensCount.input_tokens);
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: string`
 
       - `start_block_index: number`
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `title: string | null`
 
       - `type: "search_result_location"`
-
-        - `"search_result_location"`
 
 ### Text Citation
 
@@ -15999,6 +21750,8 @@ console.log(messageTokensCount.input_tokens);
 
     - `document_index: number`
 
+      minimum: 0
+
     - `document_title: string | null`
 
     - `end_char_index: number`
@@ -16007,15 +21760,19 @@ console.log(messageTokensCount.input_tokens);
 
     - `start_char_index: number`
 
+      minimum: 0
+
     - `type: "char_location"`
 
-      - `"char_location"`
+      default: char_location
 
   - `CitationPageLocation`
 
     - `cited_text: string`
 
     - `document_index: number`
+
+      minimum: 0
 
     - `document_title: string | null`
 
@@ -16025,9 +21782,11 @@ console.log(messageTokensCount.input_tokens);
 
     - `start_page_number: number`
 
+      minimum: 1
+
     - `type: "page_location"`
 
-      - `"page_location"`
+      default: page_location
 
   - `CitationContentBlockLocation`
 
@@ -16038,6 +21797,8 @@ console.log(messageTokensCount.input_tokens);
       Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
     - `document_index: number`
+
+      minimum: 0
 
     - `document_title: string | null`
 
@@ -16053,9 +21814,11 @@ console.log(messageTokensCount.input_tokens);
 
       0-based index of the first cited block in the source's `content` array.
 
+      minimum: 0
+
     - `type: "content_block_location"`
 
-      - `"content_block_location"`
+      default: content_block_location
 
   - `CitationsWebSearchResultLocation`
 
@@ -16065,9 +21828,11 @@ console.log(messageTokensCount.input_tokens);
 
     - `title: string | null`
 
+      maxLength: 512
+
     - `type: "web_search_result_location"`
 
-      - `"web_search_result_location"`
+      default: web_search_result_location
 
     - `url: string`
 
@@ -16091,17 +21856,21 @@ console.log(messageTokensCount.input_tokens);
 
       Counted separately from `document_index`; server-side web search results are not included in this count.
 
+      minimum: 0
+
     - `source: string`
 
     - `start_block_index: number`
 
       0-based index of the first cited block in the source's `content` array.
 
+      minimum: 0
+
     - `title: string | null`
 
     - `type: "search_result_location"`
 
-      - `"search_result_location"`
+      default: search_result_location
 
 ### Text Citation Param
 
@@ -16113,15 +21882,19 @@ console.log(messageTokensCount.input_tokens);
 
     - `document_index: number`
 
+      minimum: 0
+
     - `document_title: string | null`
+
+      maxLength: 500, minLength: 1
 
     - `end_char_index: number`
 
     - `start_char_index: number`
 
-    - `type: "char_location"`
+      minimum: 0
 
-      - `"char_location"`
+    - `type: "char_location"`
 
   - `CitationPageLocationParam`
 
@@ -16129,15 +21902,19 @@ console.log(messageTokensCount.input_tokens);
 
     - `document_index: number`
 
+      minimum: 0
+
     - `document_title: string | null`
+
+      maxLength: 500, minLength: 1
 
     - `end_page_number: number`
 
     - `start_page_number: number`
 
-    - `type: "page_location"`
+      minimum: 1
 
-      - `"page_location"`
+    - `type: "page_location"`
 
   - `CitationContentBlockLocationParam`
 
@@ -16149,7 +21926,11 @@ console.log(messageTokensCount.input_tokens);
 
     - `document_index: number`
 
+      minimum: 0
+
     - `document_title: string | null`
+
+      maxLength: 500, minLength: 1
 
     - `end_block_index: number`
 
@@ -16161,9 +21942,9 @@ console.log(messageTokensCount.input_tokens);
 
       0-based index of the first cited block in the source's `content` array.
 
-    - `type: "content_block_location"`
+      minimum: 0
 
-      - `"content_block_location"`
+    - `type: "content_block_location"`
 
   - `CitationWebSearchResultLocationParam`
 
@@ -16173,11 +21954,13 @@ console.log(messageTokensCount.input_tokens);
 
     - `title: string | null`
 
+      maxLength: 512, minLength: 1
+
     - `type: "web_search_result_location"`
 
-      - `"web_search_result_location"`
-
     - `url: string`
+
+      minLength: 1
 
   - `CitationSearchResultLocationParam`
 
@@ -16199,17 +21982,19 @@ console.log(messageTokensCount.input_tokens);
 
       Counted separately from `document_index`; server-side web search results are not included in this count.
 
+      minimum: 0
+
     - `source: string`
 
     - `start_block_index: number`
 
       0-based index of the first cited block in the source's `content` array.
 
+      minimum: 0
+
     - `title: string | null`
 
     - `type: "search_result_location"`
-
-      - `"search_result_location"`
 
 ### Text Delta
 
@@ -16219,7 +22004,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "text_delta"`
 
-    - `"text_delta"`
+    default: text_delta
 
 ### Text Editor Code Execution Create Result Block
 
@@ -16229,7 +22014,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "text_editor_code_execution_create_result"`
 
-    - `"text_editor_code_execution_create_result"`
+    default: text_editor_code_execution_create_result
 
 ### Text Editor Code Execution Create Result Block Param
 
@@ -16238,8 +22023,6 @@ console.log(messageTokensCount.input_tokens);
   - `is_file_update: boolean`
 
   - `type: "text_editor_code_execution_create_result"`
-
-    - `"text_editor_code_execution_create_result"`
 
 ### Text Editor Code Execution Str Replace Result Block
 
@@ -16257,15 +22040,13 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "text_editor_code_execution_str_replace_result"`
 
-    - `"text_editor_code_execution_str_replace_result"`
+    default: text_editor_code_execution_str_replace_result
 
 ### Text Editor Code Execution Str Replace Result Block Param
 
 - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
   - `type: "text_editor_code_execution_str_replace_result"`
-
-    - `"text_editor_code_execution_str_replace_result"`
 
   - `lines?: Array<string> | null`
 
@@ -16301,7 +22082,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_editor_code_execution_tool_result_error"`
 
-        - `"text_editor_code_execution_tool_result_error"`
+        default: text_editor_code_execution_tool_result_error
 
     - `TextEditorCodeExecutionViewResultBlock`
 
@@ -16323,7 +22104,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_editor_code_execution_view_result"`
 
-        - `"text_editor_code_execution_view_result"`
+        default: text_editor_code_execution_view_result
 
     - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -16331,7 +22112,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_editor_code_execution_create_result"`
 
-        - `"text_editor_code_execution_create_result"`
+        default: text_editor_code_execution_create_result
 
     - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -16347,13 +22128,15 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_editor_code_execution_str_replace_result"`
 
-        - `"text_editor_code_execution_str_replace_result"`
+        default: text_editor_code_execution_str_replace_result
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "text_editor_code_execution_tool_result"`
 
-    - `"text_editor_code_execution_tool_result"`
+    default: text_editor_code_execution_tool_result
 
 ### Text Editor Code Execution Tool Result Block Param
 
@@ -16377,8 +22160,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_editor_code_execution_tool_result_error"`
 
-        - `"text_editor_code_execution_tool_result_error"`
-
       - `error_message?: string | null`
 
     - `TextEditorCodeExecutionViewResultBlockParam`
@@ -16395,8 +22176,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_editor_code_execution_view_result"`
 
-        - `"text_editor_code_execution_view_result"`
-
       - `num_lines?: number | null`
 
       - `start_line?: number | null`
@@ -16409,13 +22188,9 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "text_editor_code_execution_create_result"`
 
-        - `"text_editor_code_execution_create_result"`
-
     - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
       - `type: "text_editor_code_execution_str_replace_result"`
-
-        - `"text_editor_code_execution_str_replace_result"`
 
       - `lines?: Array<string> | null`
 
@@ -16429,17 +22204,15 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_use_id: string`
 
-  - `type: "text_editor_code_execution_tool_result"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"text_editor_code_execution_tool_result"`
+  - `type: "text_editor_code_execution_tool_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -16476,7 +22249,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "text_editor_code_execution_tool_result_error"`
 
-    - `"text_editor_code_execution_tool_result_error"`
+    default: text_editor_code_execution_tool_result_error
 
 ### Text Editor Code Execution Tool Result Error Code
 
@@ -16510,8 +22283,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "text_editor_code_execution_tool_result_error"`
 
-    - `"text_editor_code_execution_tool_result_error"`
-
   - `error_message?: string | null`
 
 ### Text Editor Code Execution View Result Block
@@ -16536,7 +22307,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "text_editor_code_execution_view_result"`
 
-    - `"text_editor_code_execution_view_result"`
+    default: text_editor_code_execution_view_result
 
 ### Text Editor Code Execution View Result Block Param
 
@@ -16554,8 +22325,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "text_editor_code_execution_view_result"`
 
-    - `"text_editor_code_execution_view_result"`
-
   - `num_lines?: number | null`
 
   - `start_line?: number | null`
@@ -16568,11 +22337,19 @@ console.log(messageTokensCount.input_tokens);
 
   - `signature: string`
 
+    A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+    This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
   - `thinking: string`
+
+    The text of Claude's thinking process for this block.
 
   - `type: "thinking"`
 
-    - `"thinking"`
+    default: thinking
 
 ### Thinking Block Param
 
@@ -16580,19 +22357,21 @@ console.log(messageTokensCount.input_tokens);
 
   - `signature: string`
 
+    The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+    Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
   - `thinking: string`
 
-  - `type: "thinking"`
+    The `thinking` text of this block as returned by the API.
 
-    - `"thinking"`
+  - `type: "thinking"`
 
 ### Thinking Config Adaptive
 
 - `ThinkingConfigAdaptive`
 
   - `type: "adaptive"`
-
-    - `"adaptive"`
 
   - `display?: "summarized" | "omitted" | null`
 
@@ -16608,8 +22387,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "disabled"`
 
-    - `"disabled"`
-
 ### Thinking Config Enabled
 
 - `ThinkingConfigEnabled`
@@ -16622,9 +22399,9 @@ console.log(messageTokensCount.input_tokens);
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `type: "enabled"`
+    minimum: 1024
 
-    - `"enabled"`
+  - `type: "enabled"`
 
   - `display?: "summarized" | "omitted" | null`
 
@@ -16654,9 +22431,9 @@ console.log(messageTokensCount.input_tokens);
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-    - `type: "enabled"`
+      minimum: 1024
 
-      - `"enabled"`
+    - `type: "enabled"`
 
     - `display?: "summarized" | "omitted" | null`
 
@@ -16670,13 +22447,9 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "disabled"`
 
-      - `"disabled"`
-
   - `ThinkingConfigAdaptive`
 
     - `type: "adaptive"`
-
-      - `"adaptive"`
 
     - `display?: "summarized" | "omitted" | null`
 
@@ -16692,9 +22465,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `thinking: string`
 
+    The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
   - `type: "thinking_delta"`
 
-    - `"thinking_delta"`
+    default: thinking_delta
 
 ### Tool
 
@@ -16708,8 +22483,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "object"`
 
-      - `"object"`
-
     - `properties?: Record<string, unknown> | null`
 
     - `required?: Array<string> | null`
@@ -16719,6 +22492,8 @@ console.log(messageTokensCount.input_tokens);
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
+
+    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -16735,8 +22510,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -16775,8 +22548,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type?: "custom" | null`
 
-    - `"custom"`
-
 ### Tool Bash 20250124
 
 - `ToolBash20250124`
@@ -16787,11 +22558,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"bash"`
-
   - `type: "bash_20250124"`
-
-    - `"bash_20250124"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -16808,8 +22575,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -16848,8 +22613,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "auto"`
 
-      - `"auto"`
-
     - `disable_parallel_tool_use?: boolean`
 
       Whether to disable parallel tool use.
@@ -16861,8 +22624,6 @@ console.log(messageTokensCount.input_tokens);
     The model will use any available tools.
 
     - `type: "any"`
-
-      - `"any"`
 
     - `disable_parallel_tool_use?: boolean`
 
@@ -16880,8 +22641,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "tool"`
 
-      - `"tool"`
-
     - `disable_parallel_tool_use?: boolean`
 
       Whether to disable parallel tool use.
@@ -16894,8 +22653,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "none"`
 
-      - `"none"`
-
 ### Tool Choice Any
 
 - `ToolChoiceAny`
@@ -16903,8 +22660,6 @@ console.log(messageTokensCount.input_tokens);
   The model will use any available tools.
 
   - `type: "any"`
-
-    - `"any"`
 
   - `disable_parallel_tool_use?: boolean`
 
@@ -16920,8 +22675,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "auto"`
 
-    - `"auto"`
-
   - `disable_parallel_tool_use?: boolean`
 
     Whether to disable parallel tool use.
@@ -16936,8 +22689,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "none"`
 
-    - `"none"`
-
 ### Tool Choice Tool
 
 - `ToolChoiceTool`
@@ -16949,8 +22700,6 @@ console.log(messageTokensCount.input_tokens);
     The name of the tool to use.
 
   - `type: "tool"`
-
-    - `"tool"`
 
   - `disable_parallel_tool_use?: boolean`
 
@@ -16964,9 +22713,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_name: string`
 
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
   - `type: "tool_reference"`
 
-    - `"tool_reference"`
+    default: tool_reference
 
 ### Tool Reference Block Param
 
@@ -16976,17 +22727,15 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_name: string`
 
-  - `type: "tool_reference"`
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-    - `"tool_reference"`
+  - `type: "tool_reference"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -17009,17 +22758,15 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_use_id: string`
 
-  - `type: "tool_result"`
+    pattern: ^[a-zA-Z0-9_-]+$
 
-    - `"tool_result"`
+  - `type: "tool_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -17036,19 +22783,19 @@ console.log(messageTokensCount.input_tokens);
 
       - `"1h"`
 
-  - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+  - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
     - `string`
 
-    - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+    - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
       - `TextBlockParam`
 
         - `text: string`
 
-        - `type: "text"`
+          minLength: 1
 
-          - `"text"`
+        - `type: "text"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -17062,15 +22809,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: number`
 
             - `start_char_index: number`
 
-            - `type: "char_location"`
+              minimum: 0
 
-              - `"char_location"`
+            - `type: "char_location"`
 
           - `CitationPageLocationParam`
 
@@ -17078,15 +22829,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: number`
 
             - `start_page_number: number`
 
-            - `type: "page_location"`
+              minimum: 1
 
-              - `"page_location"`
+            - `type: "page_location"`
 
           - `CitationContentBlockLocationParam`
 
@@ -17098,7 +22853,11 @@ console.log(messageTokensCount.input_tokens);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: number`
 
@@ -17110,9 +22869,9 @@ console.log(messageTokensCount.input_tokens);
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: "content_block_location"`
+              minimum: 0
 
-              - `"content_block_location"`
+            - `type: "content_block_location"`
 
           - `CitationWebSearchResultLocationParam`
 
@@ -17122,11 +22881,13 @@ console.log(messageTokensCount.input_tokens);
 
             - `title: string | null`
 
+              maxLength: 512, minLength: 1
+
             - `type: "web_search_result_location"`
 
-              - `"web_search_result_location"`
-
             - `url: string`
+
+              minLength: 1
 
           - `CitationSearchResultLocationParam`
 
@@ -17148,25 +22909,29 @@ console.log(messageTokensCount.input_tokens);
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: string | null`
 
             - `type: "search_result_location"`
 
-              - `"search_result_location"`
-
       - `ImageBlockParam`
 
-        - `source: Base64ImageSource | URLImageSource`
+        - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
           - `Base64ImageSource`
 
             - `data: string`
+
+              format: byte
 
             - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -17180,29 +22945,43 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "base64"`
 
-              - `"base64"`
-
           - `URLImageSource`
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
-        - `type: "image"`
+          - `FileImageSource`
 
-          - `"image"`
+            - `file_id: string`
+
+            - `type: "file"`
+
+        - `type: "image"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
+
+        - `transformations?: ImageTransformationsParam | null`
+
+          Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+          - `oversized_image?: "downsize" | "error"`
+
+            What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+            - `"downsize"`
+
+            - `"error"`
 
       - `SearchResultBlockParam`
 
         - `content: Array<TextBlockParam>`
 
           - `text: string`
+
+            minLength: 1
 
           - `type: "text"`
 
@@ -17218,8 +22997,6 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "search_result"`
 
-          - `"search_result"`
-
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
@@ -17230,19 +23007,17 @@ console.log(messageTokensCount.input_tokens);
 
       - `DocumentBlockParam`
 
-        - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+        - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
           - `Base64PDFSource`
 
             - `data: string`
 
+              format: byte
+
             - `media_type: "application/pdf"`
 
-              - `"application/pdf"`
-
             - `type: "base64"`
-
-              - `"base64"`
 
           - `PlainTextSource`
 
@@ -17250,11 +23025,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `media_type: "text/plain"`
 
-              - `"text/plain"`
-
             - `type: "text"`
-
-              - `"text"`
 
           - `ContentBlockSource`
 
@@ -17270,19 +23041,19 @@ console.log(messageTokensCount.input_tokens);
 
             - `type: "content"`
 
-              - `"content"`
-
           - `URLPDFSource`
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
-        - `type: "document"`
+          - `FileDocumentSource`
 
-          - `"document"`
+            - `file_id: string`
+
+            - `type: "file"`
+
+        - `type: "document"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -17292,7 +23063,11 @@ console.log(messageTokensCount.input_tokens);
 
         - `context?: string | null`
 
+          minLength: 1
+
         - `title?: string | null`
+
+          maxLength: 500, minLength: 1
 
       - `ToolReferenceBlockParam`
 
@@ -17300,15 +23075,164 @@ console.log(messageTokensCount.input_tokens);
 
         - `tool_name: string`
 
-        - `type: "tool_reference"`
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `"tool_reference"`
+        - `type: "tool_reference"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
 
+      - `BrowserStateBlockParam`
+
+        The caller's browser state after a browser toolset member call —
+        the full inventory of open tabs, which tab is active, and any side
+        effects (tabs opened, download state changes) the call produced.
+
+        At most one per `tool_result`, only on a non-error result answering a
+        browser toolset member `tool_use`. The server renders the
+        model-visible text from it; the model never sees the raw fields.
+
+        - `tabs: Array<BrowserStateTabEntry>`
+
+          All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+          maxItems: 100
+
+          - `tab_id: string`
+
+            The caller-assigned identifier for this tab, unique within the inventory.
+
+            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+          - `title: string`
+
+            The title of the page the tab is showing. May be empty.
+
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+          - `url: string`
+
+            The URL of the page the tab is showing. May be empty.
+
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+          - `active?: boolean`
+
+            Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+        - `type: "browser_state"`
+
+        - `cache_control?: CacheControlEphemeral | null`
+
+          Create a cache control breakpoint at this content block.
+
+        - `state_changes?: Array<BrowserStateChange> | null`
+
+          Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+          maxItems: 200, minItems: 1
+
+          - `BrowserStateChangeTabOpened`
+
+            A tab this call's execution opened that remains open at its end —
+            the creation delta of the `tabs` inventory, not an event log.
+
+            Carries only the `tab_id`; the tab's `title` and `url` live on its
+            `tabs` entry, which must include the same `tab_id`. A tab opened
+            during a failed call gets no deferred `tab_opened`; it simply appears
+            in the next result's `tabs` inventory.
+
+            - `tab_id: string`
+
+              The `tab_id` of the opened tab, present in `tabs`.
+
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `type: "tab_opened"`
+
+          - `BrowserStateChangeDownloadStarted`
+
+            A file download that started during this call.
+
+            - `download_id: string`
+
+              The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `type: "download_started"`
+
+            - `url: string`
+
+              The final post-redirect URL the download was served from.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+          - `BrowserStateChangeDownloadCompleted`
+
+            A file download that finished during this call, reported with the
+            same `download_id` as its `download_started` — or without a prior
+            `download_started`, when the download finished during the call that
+            started it (at most one state change per `download_id` per result).
+
+            - `download_id: string`
+
+              The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `type: "download_completed"`
+
+            - `url: string`
+
+              The final post-redirect URL the download was served from.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `path?: string | null`
+
+              Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+            - `size_bytes?: number | null`
+
+              The completed download's size.
+
+              minimum: 0
+
+          - `BrowserStateChangeDownloadFailed`
+
+            A file download that failed — or was cancelled — during this call.
+
+            - `download_id: string`
+
+              The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `type: "download_failed"`
+
+            - `url: string`
+
+              The final post-redirect URL the download was served from.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `error?: string | null`
+
+              The failure or cancellation detail, when known.
+
+              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
   - `is_error?: boolean`
+
+  - `toolset_name?: string | null`
+
+    For a toolset member tool_result, the toolset family of the paired tool_use.
+
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Tool Search Tool Bm25 20251119
 
@@ -17319,8 +23243,6 @@ console.log(messageTokensCount.input_tokens);
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"tool_search_tool_bm25"`
 
   - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -17343,8 +23265,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -17379,8 +23299,6 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"tool_search_tool_regex"`
-
   - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
     - `"tool_search_tool_regex_20251119"`
@@ -17402,8 +23320,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -17450,7 +23366,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "tool_search_tool_result_error"`
 
-        - `"tool_search_tool_result_error"`
+        default: tool_search_tool_result_error
 
     - `ToolSearchToolSearchResultBlock`
 
@@ -17458,19 +23374,23 @@ console.log(messageTokensCount.input_tokens);
 
         - `tool_name: string`
 
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
         - `type: "tool_reference"`
 
-          - `"tool_reference"`
+          default: tool_reference
 
       - `type: "tool_search_tool_search_result"`
 
-        - `"tool_search_tool_search_result"`
+        default: tool_search_tool_search_result
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "tool_search_tool_result"`
 
-    - `"tool_search_tool_result"`
+    default: tool_search_tool_result
 
 ### Tool Search Tool Result Block Param
 
@@ -17492,8 +23412,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "tool_search_tool_result_error"`
 
-        - `"tool_search_tool_result_error"`
-
       - `error_message?: string | null`
 
     - `ToolSearchToolSearchResultBlockParam`
@@ -17502,17 +23420,15 @@ console.log(messageTokensCount.input_tokens);
 
         - `tool_name: string`
 
-        - `type: "tool_reference"`
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `"tool_reference"`
+        - `type: "tool_reference"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
 
           - `type: "ephemeral"`
-
-            - `"ephemeral"`
 
           - `ttl?: "5m" | "1h"`
 
@@ -17531,13 +23447,11 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "tool_search_tool_search_result"`
 
-        - `"tool_search_tool_search_result"`
-
   - `tool_use_id: string`
 
-  - `type: "tool_search_tool_result"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"tool_search_tool_result"`
+  - `type: "tool_search_tool_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
@@ -17561,7 +23475,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "tool_search_tool_result_error"`
 
-    - `"tool_search_tool_result_error"`
+    default: tool_search_tool_result_error
 
 ### Tool Search Tool Result Error Code
 
@@ -17591,8 +23505,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "tool_search_tool_result_error"`
 
-    - `"tool_search_tool_result_error"`
-
   - `error_message?: string | null`
 
 ### Tool Search Tool Search Result Block
@@ -17603,13 +23515,15 @@ console.log(messageTokensCount.input_tokens);
 
     - `tool_name: string`
 
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
     - `type: "tool_reference"`
 
-      - `"tool_reference"`
+      default: tool_reference
 
   - `type: "tool_search_tool_search_result"`
 
-    - `"tool_search_tool_search_result"`
+    default: tool_search_tool_search_result
 
 ### Tool Search Tool Search Result Block Param
 
@@ -17619,17 +23533,15 @@ console.log(messageTokensCount.input_tokens);
 
     - `tool_name: string`
 
-    - `type: "tool_reference"`
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-      - `"tool_reference"`
+    - `type: "tool_reference"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
 
       - `type: "ephemeral"`
-
-        - `"ephemeral"`
 
       - `ttl?: "5m" | "1h"`
 
@@ -17648,8 +23560,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "tool_search_tool_search_result"`
 
-    - `"tool_search_tool_search_result"`
-
 ### Tool Text Editor 20250124
 
 - `ToolTextEditor20250124`
@@ -17660,11 +23570,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"str_replace_editor"`
-
   - `type: "text_editor_20250124"`
-
-    - `"text_editor_20250124"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -17681,8 +23587,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -17719,11 +23623,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"str_replace_based_edit_tool"`
-
   - `type: "text_editor_20250429"`
-
-    - `"text_editor_20250429"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -17740,8 +23640,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -17778,11 +23676,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"str_replace_based_edit_tool"`
-
   - `type: "text_editor_20250728"`
-
-    - `"text_editor_20250728"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -17799,8 +23693,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -17827,13 +23719,15 @@ console.log(messageTokensCount.input_tokens);
 
     Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+    minimum: 1
+
   - `strict?: boolean`
 
     When true, guarantees schema validation on tool names and inputs
 
 ### Tool Union
 
-- `ToolUnion = Tool | ToolBash20250124 | CodeExecutionTool20250522 | 16 more`
+- `ToolUnion = Tool | ToolBash20250124 | CodeExecutionTool20250522 | 18 more`
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -17847,8 +23741,6 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "object"`
 
-        - `"object"`
-
       - `properties?: Record<string, unknown> | null`
 
       - `required?: Array<string> | null`
@@ -17858,6 +23750,8 @@ console.log(messageTokensCount.input_tokens);
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
+
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -17874,8 +23768,6 @@ console.log(messageTokensCount.input_tokens);
       Create a cache control breakpoint at this content block.
 
       - `type: "ephemeral"`
-
-        - `"ephemeral"`
 
       - `ttl?: "5m" | "1h"`
 
@@ -17914,8 +23806,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type?: "custom" | null`
 
-      - `"custom"`
-
   - `ToolBash20250124`
 
     - `name: "bash"`
@@ -17924,11 +23814,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"bash"`
-
     - `type: "bash_20250124"`
-
-      - `"bash_20250124"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -17962,11 +23848,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20250522"`
-
-      - `"code_execution_20250522"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -17998,11 +23880,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20250825"`
-
-      - `"code_execution_20250825"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18036,11 +23914,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20260120"`
-
-      - `"code_execution_20260120"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18074,11 +23948,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"code_execution"`
-
     - `type: "code_execution_20260521"`
-
-      - `"code_execution_20260521"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18102,6 +23972,410 @@ console.log(messageTokensCount.input_tokens);
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `BrowserToolset20260801`
+
+    The browser toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the browser tool family. The model is served
+    the family's tool with any members disabled via `configs` removed
+    from its schema.
+
+    - `type: "browser_toolset_20260801"`
+
+    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control?: CacheControlEphemeral | null`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs?: BrowserToolsetConfigs | null`
+
+      Per-member configuration for `browser_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `close_tab?: BrowserCloseTabConfig | null`
+
+        `close_tab`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click?: BrowserDoubleClickConfig | null`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `file_upload?: BrowserFileUploadConfig | null`
+
+        `file_upload`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `find?: BrowserFindConfig | null`
+
+        `find`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `form_input?: BrowserFormInputConfig | null`
+
+        `form_input`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `get_page_text?: BrowserGetPageTextConfig | null`
+
+        `get_page_text`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key?: BrowserHoldKeyConfig | null`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hover?: BrowserHoverConfig | null`
+
+        `hover`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+        `javascript_exec`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key?: BrowserKeyConfig | null`
+
+        `key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click?: BrowserLeftClickConfig | null`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `list_tabs?: BrowserListTabsConfig | null`
+
+        `list_tabs`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click?: BrowserMiddleClickConfig | null`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move?: BrowserMouseMoveConfig | null`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `navigate?: BrowserNavigateConfig | null`
+
+        `navigate`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `new_tab?: BrowserNewTabConfig | null`
+
+        `new_tab`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_console?: BrowserReadConsoleConfig | null`
+
+        `read_console`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_network?: BrowserReadNetworkConfig | null`
+
+        `read_network`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `read_page?: BrowserReadPageConfig | null`
+
+        `read_page`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click?: BrowserRightClickConfig | null`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot?: BrowserScreenshotConfig | null`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll?: BrowserScrollConfig | null`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll_to?: BrowserScrollToConfig | null`
+
+        `scroll_to`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `switch_tab?: BrowserSwitchTabConfig | null`
+
+        `switch_tab`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click?: BrowserTripleClickConfig | null`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type?: BrowserTypeConfig | null`
+
+        `type`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait?: BrowserWaitConfig | null`
+
+        `wait`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom?: BrowserZoomConfig | null`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `MemoryTool20250818`
 
     - `name: "memory"`
@@ -18110,11 +24384,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"memory"`
-
     - `type: "memory_20250818"`
-
-      - `"memory_20250818"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18140,6 +24410,246 @@ console.log(messageTokensCount.input_tokens);
 
       When true, guarantees schema validation on tool names and inputs
 
+  - `ComputerToolset20260801`
+
+    The computer toolset: a single `tools[]` entry (carrying no
+    `name`) that declares the computer tool family. The model is
+    served the family's tool with any members disabled via `configs`
+    removed from its schema. Every member is enabled by default, zoom
+    included. The single-tool options `display_number` and
+    `enable_zoom` are not fields of a toolset entry — it carries only
+    `type`, `configs`, and `cache_control`; zoom is controlled
+    via `configs.zoom.enabled`.
+
+    - `type: "computer_toolset_20260801"`
+
+    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+      - `"direct"`
+
+      - `"code_execution_20250825"`
+
+      - `"code_execution_20260120"`
+
+      - `"code_execution_20260521"`
+
+    - `cache_control?: CacheControlEphemeral | null`
+
+      Create a cache control breakpoint at this content block.
+
+    - `configs?: ComputerToolsetConfigs | null`
+
+      Per-member configuration for `computer_toolset_20260801`: one
+      optional field per member tool, keyed by the member name — the same
+      name the member's `tool_use` blocks carry. Every member is an
+      accepted key, and a member's defaults apply wherever its key is
+      absent. Unknown keys are rejected: the field set is this toolset
+      version's complete member set.
+
+      - `cursor_position?: ComputerCursorPositionConfig | null`
+
+        `cursor_position`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `double_click?: ComputerDoubleClickConfig | null`
+
+        `double_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `hold_key?: ComputerHoldKeyConfig | null`
+
+        `hold_key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `key?: ComputerKeyConfig | null`
+
+        `key`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click?: ComputerLeftClickConfig | null`
+
+        `left_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+        `left_click_drag`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+        `left_mouse_down`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+        `left_mouse_up`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `middle_click?: ComputerMiddleClickConfig | null`
+
+        `middle_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `mouse_move?: ComputerMouseMoveConfig | null`
+
+        `mouse_move`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `right_click?: ComputerRightClickConfig | null`
+
+        `right_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `screenshot?: ComputerScreenshotConfig | null`
+
+        `screenshot`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `scroll?: ComputerScrollConfig | null`
+
+        `scroll`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `triple_click?: ComputerTripleClickConfig | null`
+
+        `triple_click`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `type?: ComputerTypeConfig | null`
+
+        `type`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `wait?: ComputerWaitConfig | null`
+
+        `wait`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+      - `zoom?: ComputerZoomConfig | null`
+
+        `zoom`'s config overrides.
+
+        - `defer_loading?: boolean | null`
+
+          Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+        - `enabled?: boolean | null`
+
+          Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
   - `ToolTextEditor20250124`
 
     - `name: "str_replace_editor"`
@@ -18148,11 +24658,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_editor"`
-
     - `type: "text_editor_20250124"`
-
-      - `"text_editor_20250124"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18186,11 +24692,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_based_edit_tool"`
-
     - `type: "text_editor_20250429"`
-
-      - `"text_editor_20250429"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18224,11 +24726,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"str_replace_based_edit_tool"`
-
     - `type: "text_editor_20250728"`
-
-      - `"text_editor_20250728"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18254,6 +24752,8 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict?: boolean`
 
       When true, guarantees schema validation on tool names and inputs
@@ -18266,11 +24766,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: "web_search_20250305"`
-
-      - `"web_search_20250305"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18302,6 +24798,8 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict?: boolean`
 
       When true, guarantees schema validation on tool names and inputs
@@ -18312,23 +24810,29 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "approximate"`
 
-        - `"approximate"`
-
       - `city?: string | null`
 
         The city of the user.
+
+        maxLength: 255, minLength: 1
 
       - `country?: string | null`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+        maxLength: 2, minLength: 2
+
       - `region?: string | null`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone?: string | null`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+        maxLength: 255, minLength: 1
 
   - `WebFetchTool20250910`
 
@@ -18338,11 +24842,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20250910"`
-
-      - `"web_fetch_20250910"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18380,9 +24880,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -18396,11 +24900,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: "web_search_20260209"`
-
-      - `"web_search_20260209"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18431,6 +24931,8 @@ console.log(messageTokensCount.input_tokens);
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -18448,11 +24950,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20260209"`
-
-      - `"web_fetch_20260209"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18488,9 +24986,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -18506,11 +25008,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20260309"`
-
-      - `"web_fetch_20260309"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18546,9 +25044,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict?: boolean`
 
@@ -18566,11 +25068,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_search"`
-
     - `type: "web_search_20260318"`
-
-      - `"web_search_20260318"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18601,6 +25099,8 @@ console.log(messageTokensCount.input_tokens);
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion?: "full" | "excluded"`
 
@@ -18626,11 +25126,7 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"web_fetch"`
-
     - `type: "web_fetch_20260318"`
-
-      - `"web_fetch_20260318"`
 
     - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -18666,9 +25162,13 @@ console.log(messageTokensCount.input_tokens);
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses?: number | null`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion?: "full" | "excluded"`
 
@@ -18693,8 +25193,6 @@ console.log(messageTokensCount.input_tokens);
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `"tool_search_tool_bm25"`
 
     - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -18732,8 +25230,6 @@ console.log(messageTokensCount.input_tokens);
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `"tool_search_tool_regex"`
-
     - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
       - `"tool_search_tool_regex_20251119"`
@@ -18768,9 +25264,13 @@ console.log(messageTokensCount.input_tokens);
 
   - `id: string`
 
+    pattern: ^[a-zA-Z0-9_-]+$
+
   - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
     Tool invocation directly from the model.
+
+    default: {"type":"direct"}
 
     - `DirectCaller`
 
@@ -18778,33 +25278,39 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "direct"`
 
-        - `"direct"`
-
     - `ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
-      - `type: "code_execution_20260120"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20260120"`
+      - `type: "code_execution_20260120"`
 
   - `input: Record<string, unknown>`
 
   - `name: string`
 
+    minLength: 1
+
   - `type: "tool_use"`
 
-    - `"tool_use"`
+    default: tool_use
+
+  - `toolset_name?: string | null`
+
+    For a toolset member tool_use, the toolset family.
+
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Tool Use Block Param
 
@@ -18812,21 +25318,21 @@ console.log(messageTokensCount.input_tokens);
 
   - `id: string`
 
+    pattern: ^[a-zA-Z0-9_-]+$
+
   - `input: Record<string, unknown>`
 
   - `name: string`
 
-  - `type: "tool_use"`
+    maxLength: 200, minLength: 1
 
-    - `"tool_use"`
+  - `type: "tool_use"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -18853,33 +25359,35 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "direct"`
 
-        - `"direct"`
-
     - `ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20260120"`
 
-        - `"code_execution_20260120"`
+  - `toolset_name?: string | null`
+
+    For a toolset member tool_use, the toolset family this member belongs to.
+
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
 ### URL Image Source
 
 - `URLImageSource`
 
   - `type: "url"`
-
-    - `"url"`
 
   - `url: string`
 
@@ -18888,8 +25396,6 @@ console.log(messageTokensCount.input_tokens);
 - `URLPDFSource`
 
   - `type: "url"`
-
-    - `"url"`
 
   - `url: string`
 
@@ -18905,17 +25411,25 @@ console.log(messageTokensCount.input_tokens);
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      default: 0, minimum: 0
+
     - `ephemeral_5m_input_tokens: number`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      default: 0, minimum: 0
 
   - `cache_creation_input_tokens: number | null`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number | null`
 
     The number of input tokens read from the cache.
+
+    minimum: 0
 
   - `inference_geo: string | null`
 
@@ -18925,9 +25439,13 @@ console.log(messageTokensCount.input_tokens);
 
     The number of input tokens which were used.
 
+    minimum: 0
+
   - `output_tokens: number`
 
     The number of output tokens which were used.
+
+    minimum: 0
 
   - `output_tokens_details: OutputTokensDetails | null`
 
@@ -18949,6 +25467,8 @@ console.log(messageTokensCount.input_tokens);
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+      default: 0, minimum: 0
+
   - `server_tool_use: ServerToolUsage | null`
 
     The number of server tool requests.
@@ -18957,9 +25477,13 @@ console.log(messageTokensCount.input_tokens);
 
       The number of web fetch tool requests.
 
+      default: 0, minimum: 0
+
     - `web_search_requests: number`
 
       The number of web search tool requests.
+
+      default: 0, minimum: 0
 
   - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -18977,23 +25501,29 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "approximate"`
 
-    - `"approximate"`
-
   - `city?: string | null`
 
     The city of the user.
+
+    maxLength: 255, minLength: 1
 
   - `country?: string | null`
 
     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+    maxLength: 2, minLength: 2
+
   - `region?: string | null`
 
     The region of the user.
 
+    maxLength: 255, minLength: 1
+
   - `timezone?: string | null`
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+    maxLength: 255, minLength: 1
 
 ### Web Fetch Block
 
@@ -19007,19 +25537,19 @@ console.log(messageTokensCount.input_tokens);
 
       - `enabled: boolean`
 
+        default: false
+
     - `source: Base64PDFSource | PlainTextSource`
 
       - `Base64PDFSource`
 
         - `data: string`
 
+          format: byte
+
         - `media_type: "application/pdf"`
 
-          - `"application/pdf"`
-
         - `type: "base64"`
-
-          - `"base64"`
 
       - `PlainTextSource`
 
@@ -19027,11 +25557,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `media_type: "text/plain"`
 
-          - `"text/plain"`
-
         - `type: "text"`
-
-          - `"text"`
 
     - `title: string | null`
 
@@ -19039,7 +25565,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "document"`
 
-      - `"document"`
+      default: document
 
   - `retrieved_at: string | null`
 
@@ -19047,7 +25573,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "web_fetch_result"`
 
-    - `"web_fetch_result"`
+    default: web_fetch_result
 
   - `url: string`
 
@@ -19059,19 +25585,17 @@ console.log(messageTokensCount.input_tokens);
 
   - `content: DocumentBlockParam`
 
-    - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+    - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
       - `Base64PDFSource`
 
         - `data: string`
 
+          format: byte
+
         - `media_type: "application/pdf"`
 
-          - `"application/pdf"`
-
         - `type: "base64"`
-
-          - `"base64"`
 
       - `PlainTextSource`
 
@@ -19079,11 +25603,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `media_type: "text/plain"`
 
-          - `"text/plain"`
-
         - `type: "text"`
-
-          - `"text"`
 
       - `ContentBlockSource`
 
@@ -19097,17 +25617,15 @@ console.log(messageTokensCount.input_tokens);
 
               - `text: string`
 
-              - `type: "text"`
+                minLength: 1
 
-                - `"text"`
+              - `type: "text"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
 
                 - `type: "ephemeral"`
-
-                  - `"ephemeral"`
 
                 - `ttl?: "5m" | "1h"`
 
@@ -19132,15 +25650,19 @@ console.log(messageTokensCount.input_tokens);
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_char_index: number`
 
                   - `start_char_index: number`
 
-                  - `type: "char_location"`
+                    minimum: 0
 
-                    - `"char_location"`
+                  - `type: "char_location"`
 
                 - `CitationPageLocationParam`
 
@@ -19148,15 +25670,19 @@ console.log(messageTokensCount.input_tokens);
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_page_number: number`
 
                   - `start_page_number: number`
 
-                  - `type: "page_location"`
+                    minimum: 1
 
-                    - `"page_location"`
+                  - `type: "page_location"`
 
                 - `CitationContentBlockLocationParam`
 
@@ -19168,7 +25694,11 @@ console.log(messageTokensCount.input_tokens);
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_block_index: number`
 
@@ -19180,9 +25710,9 @@ console.log(messageTokensCount.input_tokens);
 
                     0-based index of the first cited block in the source's `content` array.
 
-                  - `type: "content_block_location"`
+                    minimum: 0
 
-                    - `"content_block_location"`
+                  - `type: "content_block_location"`
 
                 - `CitationWebSearchResultLocationParam`
 
@@ -19192,11 +25722,13 @@ console.log(messageTokensCount.input_tokens);
 
                   - `title: string | null`
 
+                    maxLength: 512, minLength: 1
+
                   - `type: "web_search_result_location"`
 
-                    - `"web_search_result_location"`
-
                   - `url: string`
+
+                    minLength: 1
 
                 - `CitationSearchResultLocationParam`
 
@@ -19218,25 +25750,29 @@ console.log(messageTokensCount.input_tokens);
 
                     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                    minimum: 0
+
                   - `source: string`
 
                   - `start_block_index: number`
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `title: string | null`
 
                   - `type: "search_result_location"`
 
-                    - `"search_result_location"`
-
             - `ImageBlockParam`
 
-              - `source: Base64ImageSource | URLImageSource`
+              - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
                 - `Base64ImageSource`
 
                   - `data: string`
+
+                    format: byte
 
                   - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -19250,39 +25786,51 @@ console.log(messageTokensCount.input_tokens);
 
                   - `type: "base64"`
 
-                    - `"base64"`
-
                 - `URLImageSource`
 
                   - `type: "url"`
 
-                    - `"url"`
-
                   - `url: string`
 
-              - `type: "image"`
+                - `FileImageSource`
 
-                - `"image"`
+                  - `file_id: string`
+
+                  - `type: "file"`
+
+              - `type: "image"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
 
-        - `type: "content"`
+              - `transformations?: ImageTransformationsParam | null`
 
-          - `"content"`
+                Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+                - `oversized_image?: "downsize" | "error"`
+
+                  What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                  - `"downsize"`
+
+                  - `"error"`
+
+        - `type: "content"`
 
       - `URLPDFSource`
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
-    - `type: "document"`
+      - `FileDocumentSource`
 
-      - `"document"`
+        - `file_id: string`
+
+        - `type: "file"`
+
+    - `type: "document"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -19294,11 +25842,13 @@ console.log(messageTokensCount.input_tokens);
 
     - `context?: string | null`
 
+      minLength: 1
+
     - `title?: string | null`
 
-  - `type: "web_fetch_result"`
+      maxLength: 500, minLength: 1
 
-    - `"web_fetch_result"`
+  - `type: "web_fetch_result"`
 
   - `url: string`
 
@@ -19318,11 +25868,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"web_fetch"`
-
   - `type: "web_fetch_20250910"`
-
-    - `"web_fetch_20250910"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -19347,8 +25893,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -19379,9 +25923,13 @@ console.log(messageTokensCount.input_tokens);
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses?: number | null`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict?: boolean`
 
@@ -19397,11 +25945,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"web_fetch"`
-
   - `type: "web_fetch_20260209"`
-
-    - `"web_fetch_20260209"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -19426,8 +25970,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -19458,9 +26000,13 @@ console.log(messageTokensCount.input_tokens);
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses?: number | null`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict?: boolean`
 
@@ -19478,11 +26024,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"web_fetch"`
-
   - `type: "web_fetch_20260309"`
-
-    - `"web_fetch_20260309"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -19507,8 +26049,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -19539,9 +26079,13 @@ console.log(messageTokensCount.input_tokens);
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses?: number | null`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict?: boolean`
 
@@ -19561,11 +26105,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"web_fetch"`
-
   - `type: "web_fetch_20260318"`
-
-    - `"web_fetch_20260318"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -19590,8 +26130,6 @@ console.log(messageTokensCount.input_tokens);
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -19622,9 +26160,13 @@ console.log(messageTokensCount.input_tokens);
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses?: number | null`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `response_inclusion?: "full" | "excluded"`
 
@@ -19650,13 +26192,13 @@ console.log(messageTokensCount.input_tokens);
 
     Tool invocation directly from the model.
 
+    default: {"type":"direct"}
+
     - `DirectCaller`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
-
-        - `"direct"`
 
     - `ServerToolCaller`
 
@@ -19664,17 +26206,17 @@ console.log(messageTokensCount.input_tokens);
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
-      - `type: "code_execution_20260120"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20260120"`
+      - `type: "code_execution_20260120"`
 
   - `content: WebFetchToolResultErrorBlock | WebFetchBlock`
 
@@ -19702,7 +26244,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "web_fetch_tool_result_error"`
 
-        - `"web_fetch_tool_result_error"`
+        default: web_fetch_tool_result_error
 
     - `WebFetchBlock`
 
@@ -19714,19 +26256,19 @@ console.log(messageTokensCount.input_tokens);
 
           - `enabled: boolean`
 
+            default: false
+
         - `source: Base64PDFSource | PlainTextSource`
 
           - `Base64PDFSource`
 
             - `data: string`
 
+              format: byte
+
             - `media_type: "application/pdf"`
 
-              - `"application/pdf"`
-
             - `type: "base64"`
-
-              - `"base64"`
 
           - `PlainTextSource`
 
@@ -19734,11 +26276,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `media_type: "text/plain"`
 
-              - `"text/plain"`
-
             - `type: "text"`
-
-              - `"text"`
 
         - `title: string | null`
 
@@ -19746,7 +26284,7 @@ console.log(messageTokensCount.input_tokens);
 
         - `type: "document"`
 
-          - `"document"`
+          default: document
 
       - `retrieved_at: string | null`
 
@@ -19754,7 +26292,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "web_fetch_result"`
 
-        - `"web_fetch_result"`
+        default: web_fetch_result
 
       - `url: string`
 
@@ -19762,9 +26300,11 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "web_fetch_tool_result"`
 
-    - `"web_fetch_tool_result"`
+    default: web_fetch_tool_result
 
 ### Web Fetch Tool Result Block Param
 
@@ -19796,25 +26336,21 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "web_fetch_tool_result_error"`
 
-        - `"web_fetch_tool_result_error"`
-
     - `WebFetchBlockParam`
 
       - `content: DocumentBlockParam`
 
-        - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+        - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
           - `Base64PDFSource`
 
             - `data: string`
 
+              format: byte
+
             - `media_type: "application/pdf"`
 
-              - `"application/pdf"`
-
             - `type: "base64"`
-
-              - `"base64"`
 
           - `PlainTextSource`
 
@@ -19822,11 +26358,7 @@ console.log(messageTokensCount.input_tokens);
 
             - `media_type: "text/plain"`
 
-              - `"text/plain"`
-
             - `type: "text"`
-
-              - `"text"`
 
           - `ContentBlockSource`
 
@@ -19840,17 +26372,15 @@ console.log(messageTokensCount.input_tokens);
 
                   - `text: string`
 
-                  - `type: "text"`
+                    minLength: 1
 
-                    - `"text"`
+                  - `type: "text"`
 
                   - `cache_control?: CacheControlEphemeral | null`
 
                     Create a cache control breakpoint at this content block.
 
                     - `type: "ephemeral"`
-
-                      - `"ephemeral"`
 
                     - `ttl?: "5m" | "1h"`
 
@@ -19875,15 +26405,19 @@ console.log(messageTokensCount.input_tokens);
 
                       - `document_index: number`
 
+                        minimum: 0
+
                       - `document_title: string | null`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_char_index: number`
 
                       - `start_char_index: number`
 
-                      - `type: "char_location"`
+                        minimum: 0
 
-                        - `"char_location"`
+                      - `type: "char_location"`
 
                     - `CitationPageLocationParam`
 
@@ -19891,15 +26425,19 @@ console.log(messageTokensCount.input_tokens);
 
                       - `document_index: number`
 
+                        minimum: 0
+
                       - `document_title: string | null`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_page_number: number`
 
                       - `start_page_number: number`
 
-                      - `type: "page_location"`
+                        minimum: 1
 
-                        - `"page_location"`
+                      - `type: "page_location"`
 
                     - `CitationContentBlockLocationParam`
 
@@ -19911,7 +26449,11 @@ console.log(messageTokensCount.input_tokens);
 
                       - `document_index: number`
 
+                        minimum: 0
+
                       - `document_title: string | null`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_block_index: number`
 
@@ -19923,9 +26465,9 @@ console.log(messageTokensCount.input_tokens);
 
                         0-based index of the first cited block in the source's `content` array.
 
-                      - `type: "content_block_location"`
+                        minimum: 0
 
-                        - `"content_block_location"`
+                      - `type: "content_block_location"`
 
                     - `CitationWebSearchResultLocationParam`
 
@@ -19935,11 +26477,13 @@ console.log(messageTokensCount.input_tokens);
 
                       - `title: string | null`
 
+                        maxLength: 512, minLength: 1
+
                       - `type: "web_search_result_location"`
 
-                        - `"web_search_result_location"`
-
                       - `url: string`
+
+                        minLength: 1
 
                     - `CitationSearchResultLocationParam`
 
@@ -19961,25 +26505,29 @@ console.log(messageTokensCount.input_tokens);
 
                         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                        minimum: 0
+
                       - `source: string`
 
                       - `start_block_index: number`
 
                         0-based index of the first cited block in the source's `content` array.
 
+                        minimum: 0
+
                       - `title: string | null`
 
                       - `type: "search_result_location"`
 
-                        - `"search_result_location"`
-
                 - `ImageBlockParam`
 
-                  - `source: Base64ImageSource | URLImageSource`
+                  - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
                     - `Base64ImageSource`
 
                       - `data: string`
+
+                        format: byte
 
                       - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -19993,39 +26541,51 @@ console.log(messageTokensCount.input_tokens);
 
                       - `type: "base64"`
 
-                        - `"base64"`
-
                     - `URLImageSource`
 
                       - `type: "url"`
 
-                        - `"url"`
-
                       - `url: string`
 
-                  - `type: "image"`
+                    - `FileImageSource`
 
-                    - `"image"`
+                      - `file_id: string`
+
+                      - `type: "file"`
+
+                  - `type: "image"`
 
                   - `cache_control?: CacheControlEphemeral | null`
 
                     Create a cache control breakpoint at this content block.
 
-            - `type: "content"`
+                  - `transformations?: ImageTransformationsParam | null`
 
-              - `"content"`
+                    Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+                    - `oversized_image?: "downsize" | "error"`
+
+                      What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                      - `"downsize"`
+
+                      - `"error"`
+
+            - `type: "content"`
 
           - `URLPDFSource`
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
-        - `type: "document"`
+          - `FileDocumentSource`
 
-          - `"document"`
+            - `file_id: string`
+
+            - `type: "file"`
+
+        - `type: "document"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -20037,11 +26597,13 @@ console.log(messageTokensCount.input_tokens);
 
         - `context?: string | null`
 
+          minLength: 1
+
         - `title?: string | null`
 
-      - `type: "web_fetch_result"`
+          maxLength: 500, minLength: 1
 
-        - `"web_fetch_result"`
+      - `type: "web_fetch_result"`
 
       - `url: string`
 
@@ -20053,9 +26615,9 @@ console.log(messageTokensCount.input_tokens);
 
   - `tool_use_id: string`
 
-  - `type: "web_fetch_tool_result"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"web_fetch_tool_result"`
+  - `type: "web_fetch_tool_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
@@ -20071,25 +26633,23 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "direct"`
 
-        - `"direct"`
-
     - `ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
-      - `type: "code_execution_20260120"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20260120"`
+      - `type: "code_execution_20260120"`
 
 ### Web Fetch Tool Result Error Block
 
@@ -20117,7 +26677,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "web_fetch_tool_result_error"`
 
-    - `"web_fetch_tool_result_error"`
+    default: web_fetch_tool_result_error
 
 ### Web Fetch Tool Result Error Block Param
 
@@ -20144,8 +26704,6 @@ console.log(messageTokensCount.input_tokens);
     - `"unavailable"`
 
   - `type: "web_fetch_tool_result_error"`
-
-    - `"web_fetch_tool_result_error"`
 
 ### Web Fetch Tool Result Error Code
 
@@ -20181,7 +26739,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "web_search_result"`
 
-    - `"web_search_result"`
+    default: web_search_result
 
   - `url: string`
 
@@ -20194,8 +26752,6 @@ console.log(messageTokensCount.input_tokens);
   - `title: string`
 
   - `type: "web_search_result"`
-
-    - `"web_search_result"`
 
   - `url: string`
 
@@ -20211,11 +26767,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"web_search"`
-
   - `type: "web_search_20250305"`
-
-    - `"web_search_20250305"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -20241,8 +26793,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "ephemeral"`
 
-      - `"ephemeral"`
-
     - `ttl?: "5m" | "1h"`
 
       The time-to-live for the cache control breakpoint.
@@ -20266,6 +26816,8 @@ console.log(messageTokensCount.input_tokens);
 
     Maximum number of times the tool can be used in the API request.
 
+    exclusiveMinimum: 0
+
   - `strict?: boolean`
 
     When true, guarantees schema validation on tool names and inputs
@@ -20276,23 +26828,29 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "approximate"`
 
-      - `"approximate"`
-
     - `city?: string | null`
 
       The city of the user.
+
+      maxLength: 255, minLength: 1
 
     - `country?: string | null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+      maxLength: 2, minLength: 2
+
     - `region?: string | null`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone?: string | null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+      maxLength: 255, minLength: 1
 
 ### Web Search Tool 20260209
 
@@ -20304,11 +26862,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"web_search"`
-
   - `type: "web_search_20260209"`
-
-    - `"web_search_20260209"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -20334,8 +26888,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "ephemeral"`
 
-      - `"ephemeral"`
-
     - `ttl?: "5m" | "1h"`
 
       The time-to-live for the cache control breakpoint.
@@ -20358,6 +26910,8 @@ console.log(messageTokensCount.input_tokens);
   - `max_uses?: number | null`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict?: boolean`
 
@@ -20369,23 +26923,29 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "approximate"`
 
-      - `"approximate"`
-
     - `city?: string | null`
 
       The city of the user.
+
+      maxLength: 255, minLength: 1
 
     - `country?: string | null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+      maxLength: 2, minLength: 2
+
     - `region?: string | null`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone?: string | null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+      maxLength: 255, minLength: 1
 
 ### Web Search Tool 20260318
 
@@ -20397,11 +26957,7 @@ console.log(messageTokensCount.input_tokens);
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `"web_search"`
-
   - `type: "web_search_20260318"`
-
-    - `"web_search_20260318"`
 
   - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -20427,8 +26983,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "ephemeral"`
 
-      - `"ephemeral"`
-
     - `ttl?: "5m" | "1h"`
 
       The time-to-live for the cache control breakpoint.
@@ -20451,6 +27005,8 @@ console.log(messageTokensCount.input_tokens);
   - `max_uses?: number | null`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `response_inclusion?: "full" | "excluded"`
 
@@ -20470,23 +27026,29 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "approximate"`
 
-      - `"approximate"`
-
     - `city?: string | null`
 
       The city of the user.
+
+      maxLength: 255, minLength: 1
 
     - `country?: string | null`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+      maxLength: 2, minLength: 2
+
     - `region?: string | null`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone?: string | null`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+      maxLength: 255, minLength: 1
 
 ### Web Search Tool Request Error
 
@@ -20508,8 +27070,6 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "web_search_tool_result_error"`
 
-    - `"web_search_tool_result_error"`
-
 ### Web Search Tool Result Block
 
 - `WebSearchToolResultBlock`
@@ -20518,13 +27078,13 @@ console.log(messageTokensCount.input_tokens);
 
     Tool invocation directly from the model.
 
+    default: {"type":"direct"}
+
     - `DirectCaller`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
-
-        - `"direct"`
 
     - `ServerToolCaller`
 
@@ -20532,17 +27092,17 @@ console.log(messageTokensCount.input_tokens);
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
-      - `type: "code_execution_20260120"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20260120"`
+      - `type: "code_execution_20260120"`
 
   - `content: WebSearchToolResultBlockContent`
 
@@ -20564,7 +27124,7 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "web_search_tool_result_error"`
 
-        - `"web_search_tool_result_error"`
+        default: web_search_tool_result_error
 
     - `Array<WebSearchResultBlock>`
 
@@ -20576,15 +27136,17 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "web_search_result"`
 
-        - `"web_search_result"`
+        default: web_search_result
 
       - `url: string`
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "web_search_tool_result"`
 
-    - `"web_search_tool_result"`
+    default: web_search_tool_result
 
 ### Web Search Tool Result Block Content
 
@@ -20608,7 +27170,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "web_search_tool_result_error"`
 
-      - `"web_search_tool_result_error"`
+      default: web_search_tool_result_error
 
   - `Array<WebSearchResultBlock>`
 
@@ -20620,7 +27182,7 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "web_search_result"`
 
-      - `"web_search_result"`
+      default: web_search_result
 
     - `url: string`
 
@@ -20637,8 +27199,6 @@ console.log(messageTokensCount.input_tokens);
       - `title: string`
 
       - `type: "web_search_result"`
-
-        - `"web_search_result"`
 
       - `url: string`
 
@@ -20662,21 +27222,17 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "web_search_tool_result_error"`
 
-        - `"web_search_tool_result_error"`
-
   - `tool_use_id: string`
 
-  - `type: "web_search_tool_result"`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `"web_search_tool_result"`
+  - `type: "web_search_tool_result"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
     Create a cache control breakpoint at this content block.
 
     - `type: "ephemeral"`
-
-      - `"ephemeral"`
 
     - `ttl?: "5m" | "1h"`
 
@@ -20703,25 +27259,23 @@ console.log(messageTokensCount.input_tokens);
 
       - `type: "direct"`
 
-        - `"direct"`
-
     - `ServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
-      - `type: "code_execution_20250825"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20250825"`
+      - `type: "code_execution_20250825"`
 
     - `ServerToolCaller20260120`
 
       - `tool_id: string`
 
-      - `type: "code_execution_20260120"`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `"code_execution_20260120"`
+      - `type: "code_execution_20260120"`
 
 ### Web Search Tool Result Block Param Content
 
@@ -20734,8 +27288,6 @@ console.log(messageTokensCount.input_tokens);
     - `title: string`
 
     - `type: "web_search_result"`
-
-      - `"web_search_result"`
 
     - `url: string`
 
@@ -20759,8 +27311,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "web_search_tool_result_error"`
 
-      - `"web_search_tool_result_error"`
-
 ### Web Search Tool Result Error
 
 - `WebSearchToolResultError`
@@ -20781,7 +27331,7 @@ console.log(messageTokensCount.input_tokens);
 
   - `type: "web_search_tool_result_error"`
 
-    - `"web_search_tool_result_error"`
+    default: web_search_tool_result_error
 
 ### Web Search Tool Result Error Code
 
@@ -20799,13 +27349,13 @@ console.log(messageTokensCount.input_tokens);
 
   - `"request_too_large"`
 
-# Batches
+## Messages › Batches
 
-## Create a Message Batch
+### Create a Message Batch
 
-`client.messages.batches.create(BatchCreateParamsparams, RequestOptionsoptions?): MessageBatch`
+`client.messages.batches.create(params, options?): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -20813,7 +27363,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `params: BatchCreateParams`
 
@@ -20821,11 +27371,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Body param: List of requests for prompt completion. Each is an individual request to create a Message.
 
+    maxItems: 100000, minItems: 1
+
     - `custom_id: string`
 
       Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
 
       Must be unique for each request within the Message Batch.
+
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
 
     - `params: Params`
 
@@ -20842,6 +27396,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
         Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+        minimum: 0
 
       - `messages: Array<MessageParam>`
 
@@ -20904,17 +27460,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `text: string`
 
-              - `type: "text"`
+                minLength: 1
 
-                - `"text"`
+              - `type: "text"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
 
                 - `type: "ephemeral"`
-
-                  - `"ephemeral"`
 
                 - `ttl?: "5m" | "1h"`
 
@@ -20939,15 +27493,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_char_index: number`
 
                   - `start_char_index: number`
 
-                  - `type: "char_location"`
+                    minimum: 0
 
-                    - `"char_location"`
+                  - `type: "char_location"`
 
                 - `CitationPageLocationParam`
 
@@ -20955,15 +27513,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_page_number: number`
 
                   - `start_page_number: number`
 
-                  - `type: "page_location"`
+                    minimum: 1
 
-                    - `"page_location"`
+                  - `type: "page_location"`
 
                 - `CitationContentBlockLocationParam`
 
@@ -20975,7 +27537,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_block_index: number`
 
@@ -20987,9 +27553,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     0-based index of the first cited block in the source's `content` array.
 
-                  - `type: "content_block_location"`
+                    minimum: 0
 
-                    - `"content_block_location"`
+                  - `type: "content_block_location"`
 
                 - `CitationWebSearchResultLocationParam`
 
@@ -20999,11 +27565,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `title: string | null`
 
+                    maxLength: 512, minLength: 1
+
                   - `type: "web_search_result_location"`
 
-                    - `"web_search_result_location"`
-
                   - `url: string`
+
+                    minLength: 1
 
                 - `CitationSearchResultLocationParam`
 
@@ -21025,25 +27593,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                    minimum: 0
+
                   - `source: string`
 
                   - `start_block_index: number`
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `title: string | null`
 
                   - `type: "search_result_location"`
 
-                    - `"search_result_location"`
-
             - `ImageBlockParam`
 
-              - `source: Base64ImageSource | URLImageSource`
+              - `source: Base64ImageSource | URLImageSource | FileImageSource`
 
                 - `Base64ImageSource`
 
                   - `data: string`
+
+                    format: byte
 
                   - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -21057,39 +27629,49 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "base64"`
 
-                    - `"base64"`
-
                 - `URLImageSource`
 
                   - `type: "url"`
 
-                    - `"url"`
-
                   - `url: string`
 
-              - `type: "image"`
+                - `FileImageSource`
 
-                - `"image"`
+                  - `file_id: string`
+
+                  - `type: "file"`
+
+              - `type: "image"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
 
+              - `transformations?: ImageTransformationsParam | null`
+
+                Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+                - `oversized_image?: "downsize" | "error"`
+
+                  What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                  - `"downsize"`
+
+                  - `"error"`
+
             - `DocumentBlockParam`
 
-              - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | URLPDFSource`
+              - `source: Base64PDFSource | PlainTextSource | ContentBlockSource | 2 more`
 
                 - `Base64PDFSource`
 
                   - `data: string`
 
+                    format: byte
+
                   - `media_type: "application/pdf"`
 
-                    - `"application/pdf"`
-
                   - `type: "base64"`
-
-                    - `"base64"`
 
                 - `PlainTextSource`
 
@@ -21097,11 +27679,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `media_type: "text/plain"`
 
-                    - `"text/plain"`
-
                   - `type: "text"`
-
-                    - `"text"`
 
                 - `ContentBlockSource`
 
@@ -21117,19 +27695,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "content"`
 
-                    - `"content"`
-
                 - `URLPDFSource`
 
                   - `type: "url"`
 
-                    - `"url"`
-
                   - `url: string`
 
-              - `type: "document"`
+                - `FileDocumentSource`
 
-                - `"document"`
+                  - `file_id: string`
+
+                  - `type: "file"`
+
+              - `type: "document"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21141,13 +27719,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `context?: string | null`
 
+                minLength: 1
+
               - `title?: string | null`
+
+                maxLength: 500, minLength: 1
 
             - `SearchResultBlockParam`
 
               - `content: Array<TextBlockParam>`
 
                 - `text: string`
+
+                  minLength: 1
 
                 - `type: "text"`
 
@@ -21163,8 +27747,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "search_result"`
 
-                - `"search_result"`
-
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
@@ -21175,31 +27757,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `signature: string`
 
+                The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+                Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
               - `thinking: string`
 
-              - `type: "thinking"`
+                The `thinking` text of this block as returned by the API.
 
-                - `"thinking"`
+              - `type: "thinking"`
 
             - `RedactedThinkingBlockParam`
 
               - `data: string`
 
-              - `type: "redacted_thinking"`
+                The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-                - `"redacted_thinking"`
+              - `type: "redacted_thinking"`
 
             - `ToolUseBlockParam`
 
               - `id: string`
 
+                pattern: ^[a-zA-Z0-9_-]+$
+
               - `input: Record<string, unknown>`
 
               - `name: string`
 
-              - `type: "tool_use"`
+                maxLength: 200, minLength: 1
 
-                - `"tool_use"`
+              - `type: "tool_use"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21215,43 +27803,47 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "direct"`
 
-                    - `"direct"`
-
                 - `ServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
                   - `tool_id: string`
 
-                  - `type: "code_execution_20250825"`
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                    - `"code_execution_20250825"`
+                  - `type: "code_execution_20250825"`
 
                 - `ServerToolCaller20260120`
 
                   - `tool_id: string`
 
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
                   - `type: "code_execution_20260120"`
 
-                    - `"code_execution_20260120"`
+              - `toolset_name?: string | null`
+
+                For a toolset member tool_use, the toolset family this member belongs to.
+
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
             - `ToolResultBlockParam`
 
               - `tool_use_id: string`
 
-              - `type: "tool_result"`
+                pattern: ^[a-zA-Z0-9_-]+$
 
-                - `"tool_result"`
+              - `type: "tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
 
-              - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+              - `content?: string | Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
                 - `string`
 
-                - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 2 more>`
+                - `Array<TextBlockParam | ImageBlockParam | SearchResultBlockParam | 3 more>`
 
                   - `TextBlockParam`
 
@@ -21267,19 +27859,170 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `tool_name: string`
 
-                    - `type: "tool_reference"`
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                      - `"tool_reference"`
+                    - `type: "tool_reference"`
 
                     - `cache_control?: CacheControlEphemeral | null`
 
                       Create a cache control breakpoint at this content block.
 
+                  - `BrowserStateBlockParam`
+
+                    The caller's browser state after a browser toolset member call —
+                    the full inventory of open tabs, which tab is active, and any side
+                    effects (tabs opened, download state changes) the call produced.
+
+                    At most one per `tool_result`, only on a non-error result answering a
+                    browser toolset member `tool_use`. The server renders the
+                    model-visible text from it; the model never sees the raw fields.
+
+                    - `tabs: Array<BrowserStateTabEntry>`
+
+                      All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                      maxItems: 100
+
+                      - `tab_id: string`
+
+                        The caller-assigned identifier for this tab, unique within the inventory.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `title: string`
+
+                        The title of the page the tab is showing. May be empty.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `url: string`
+
+                        The URL of the page the tab is showing. May be empty.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `active?: boolean`
+
+                        Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+                    - `type: "browser_state"`
+
+                    - `cache_control?: CacheControlEphemeral | null`
+
+                      Create a cache control breakpoint at this content block.
+
+                    - `state_changes?: Array<BrowserStateChange> | null`
+
+                      Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                      maxItems: 200, minItems: 1
+
+                      - `BrowserStateChangeTabOpened`
+
+                        A tab this call's execution opened that remains open at its end —
+                        the creation delta of the `tabs` inventory, not an event log.
+
+                        Carries only the `tab_id`; the tab's `title` and `url` live on its
+                        `tabs` entry, which must include the same `tab_id`. A tab opened
+                        during a failed call gets no deferred `tab_opened`; it simply appears
+                        in the next result's `tabs` inventory.
+
+                        - `tab_id: string`
+
+                          The `tab_id` of the opened tab, present in `tabs`.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `type: "tab_opened"`
+
+                      - `BrowserStateChangeDownloadStarted`
+
+                        A file download that started during this call.
+
+                        - `download_id: string`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `type: "download_started"`
+
+                        - `url: string`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `BrowserStateChangeDownloadCompleted`
+
+                        A file download that finished during this call, reported with the
+                        same `download_id` as its `download_started` — or without a prior
+                        `download_started`, when the download finished during the call that
+                        started it (at most one state change per `download_id` per result).
+
+                        - `download_id: string`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `type: "download_completed"`
+
+                        - `url: string`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `path?: string | null`
+
+                          Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                        - `size_bytes?: number | null`
+
+                          The completed download's size.
+
+                          minimum: 0
+
+                      - `BrowserStateChangeDownloadFailed`
+
+                        A file download that failed — or was cancelled — during this call.
+
+                        - `download_id: string`
+
+                          The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `type: "download_failed"`
+
+                        - `url: string`
+
+                          The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                        - `error?: string | null`
+
+                          The failure or cancellation detail, when known.
+
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
               - `is_error?: boolean`
+
+              - `toolset_name?: string | null`
+
+                For a toolset member tool_result, the toolset family of the paired tool_use.
+
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
             - `ServerToolUseBlockParam`
 
               - `id: string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `input: Record<string, unknown>`
 
@@ -21300,8 +28043,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `"tool_search_tool_bm25"`
 
               - `type: "server_tool_use"`
-
-                - `"server_tool_use"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21333,8 +28074,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "web_search_result"`
 
-                    - `"web_search_result"`
-
                   - `url: string`
 
                   - `page_age?: string | null`
@@ -21357,13 +28096,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "web_search_tool_result_error"`
 
-                    - `"web_search_tool_result_error"`
-
               - `tool_use_id: string`
 
-              - `type: "web_search_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"web_search_tool_result"`
+              - `type: "web_search_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21411,15 +28148,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "web_fetch_tool_result_error"`
 
-                    - `"web_fetch_tool_result_error"`
-
                 - `WebFetchBlockParam`
 
                   - `content: DocumentBlockParam`
 
                   - `type: "web_fetch_result"`
-
-                    - `"web_fetch_result"`
 
                   - `url: string`
 
@@ -21431,9 +28164,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `tool_use_id: string`
 
-              - `type: "web_fetch_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"web_fetch_tool_result"`
+              - `type: "web_fetch_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21473,8 +28206,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "code_execution_tool_result_error"`
 
-                    - `"code_execution_tool_result_error"`
-
                 - `CodeExecutionResultBlockParam`
 
                   - `content: Array<CodeExecutionOutputBlockParam>`
@@ -21483,8 +28214,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `type: "code_execution_output"`
 
-                      - `"code_execution_output"`
-
                   - `return_code: number`
 
                   - `stderr: string`
@@ -21492,8 +28221,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `stdout: string`
 
                   - `type: "code_execution_result"`
-
-                    - `"code_execution_result"`
 
                 - `EncryptedCodeExecutionResultBlockParam`
 
@@ -21513,13 +28240,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "encrypted_code_execution_result"`
 
-                    - `"encrypted_code_execution_result"`
-
               - `tool_use_id: string`
 
-              - `type: "code_execution_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_tool_result"`
+              - `type: "code_execution_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21545,8 +28270,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "bash_code_execution_tool_result_error"`
 
-                    - `"bash_code_execution_tool_result_error"`
-
                 - `BashCodeExecutionResultBlockParam`
 
                   - `content: Array<BashCodeExecutionOutputBlockParam>`
@@ -21554,8 +28277,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                     - `file_id: string`
 
                     - `type: "bash_code_execution_output"`
-
-                      - `"bash_code_execution_output"`
 
                   - `return_code: number`
 
@@ -21565,13 +28286,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "bash_code_execution_result"`
 
-                    - `"bash_code_execution_result"`
-
               - `tool_use_id: string`
 
-              - `type: "bash_code_execution_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"bash_code_execution_tool_result"`
+              - `type: "bash_code_execution_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21597,8 +28316,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "text_editor_code_execution_tool_result_error"`
 
-                    - `"text_editor_code_execution_tool_result_error"`
-
                   - `error_message?: string | null`
 
                 - `TextEditorCodeExecutionViewResultBlockParam`
@@ -21615,8 +28332,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "text_editor_code_execution_view_result"`
 
-                    - `"text_editor_code_execution_view_result"`
-
                   - `num_lines?: number | null`
 
                   - `start_line?: number | null`
@@ -21629,13 +28344,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "text_editor_code_execution_create_result"`
 
-                    - `"text_editor_code_execution_create_result"`
-
                 - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
                   - `type: "text_editor_code_execution_str_replace_result"`
-
-                    - `"text_editor_code_execution_str_replace_result"`
 
                   - `lines?: Array<string> | null`
 
@@ -21649,9 +28360,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `tool_use_id: string`
 
-              - `type: "text_editor_code_execution_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"text_editor_code_execution_tool_result"`
+              - `type: "text_editor_code_execution_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21675,8 +28386,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "tool_search_tool_result_error"`
 
-                    - `"tool_search_tool_result_error"`
-
                   - `error_message?: string | null`
 
                 - `ToolSearchToolSearchResultBlockParam`
@@ -21684,6 +28393,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `tool_references: Array<ToolReferenceBlockParam>`
 
                     - `tool_name: string`
+
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                     - `type: "tool_reference"`
 
@@ -21693,13 +28404,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "tool_search_tool_search_result"`
 
-                    - `"tool_search_tool_search_result"`
-
               - `tool_use_id: string`
 
-              - `type: "tool_search_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"tool_search_tool_result"`
+              - `type: "tool_search_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21713,37 +28422,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `file_id: string`
 
               - `type: "container_upload"`
-
-                - `"container_upload"`
-
-              - `cache_control?: CacheControlEphemeral | null`
-
-                Create a cache control breakpoint at this content block.
-
-            - `MidConversationSystemBlockParam`
-
-              System instructions that appear mid-conversation.
-
-              Use this block to provide or update system-level instructions at a specific
-              point in the conversation, rather than only via the top-level `system` parameter.
-
-              - `content: Array<TextBlockParam>`
-
-                System instruction text blocks.
-
-                - `text: string`
-
-                - `type: "text"`
-
-                - `cache_control?: CacheControlEphemeral | null`
-
-                  Create a cache control breakpoint at this content block.
-
-                - `citations?: Array<TextCitationParam> | null`
-
-              - `type: "mid_conv_system"`
-
-                - `"mid_conv_system"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -21763,7 +28441,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+        - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
           - `"claude-sonnet-5"`
 
@@ -21777,13 +28455,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Most capable model for cybersecurity and biology research
 
+          - `"claude-opus-5"`
+
+            Powerful intelligence for long-running agents and coding
+
           - `"claude-opus-4-8"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-opus-4-7"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-mythos-preview"`
 
@@ -21791,7 +28473,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"claude-opus-4-6"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-sonnet-4-6"`
 
@@ -21807,11 +28489,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"claude-opus-4-5"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-opus-4-5-20251101"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-sonnet-4-5"`
 
@@ -21821,23 +28503,51 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             High-performance model for agents and coding
 
-          - `"claude-opus-4-1"`
-
-            Exceptional model for specialized complex tasks
-
-          - `"claude-opus-4-1-20250805"`
-
-            Exceptional model for specialized complex tasks
-
         - `(string & {})`
 
       - `cache_control?: CacheControlEphemeral | null`
 
         Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-      - `container?: string | null`
+      - `container?: MessageCreateParamsContainer | null`
 
         Container identifier for reuse across requests.
+
+        - `ContainerParams`
+
+          Container parameters with skills to be loaded.
+
+          - `id?: string | null`
+
+            Container id
+
+          - `skills?: Array<SkillParams> | null`
+
+            List of skills to load in the container
+
+            maxItems: 20
+
+            - `skill_id: string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
+
+            - `type: "anthropic" | "custom"`
+
+              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+              - `"anthropic"`
+
+              - `"custom"`
+
+            - `version?: string`
+
+              Skill version or 'latest' for most recent version
+
+              maxLength: 64, minLength: 1
+
+        - `string`
 
       - `inference_geo?: string | null`
 
@@ -21852,6 +28562,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           An external identifier for the user who is associated with the request.
 
           This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+          maxLength: 512
 
       - `output_config?: OutputConfig`
 
@@ -21880,8 +28592,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             The JSON schema of the format
 
           - `type: "json_schema"`
-
-            - `"json_schema"`
 
       - `service_tier?: "auto" | "standard_only"`
 
@@ -21919,6 +28629,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `text: string`
 
+            minLength: 1
+
           - `type: "text"`
 
           - `cache_control?: CacheControlEphemeral | null`
@@ -21926,14 +28638,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Create a cache control breakpoint at this content block.
 
           - `citations?: Array<TextCitationParam> | null`
-
-      - `temperature?: number`
-
-        Amount of randomness injected into the response.
-
-        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
       - `thinking?: ThinkingConfigParam`
 
@@ -21953,9 +28657,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-          - `type: "enabled"`
+            minimum: 1024
 
-            - `"enabled"`
+          - `type: "enabled"`
 
           - `display?: "summarized" | "omitted" | null`
 
@@ -21969,13 +28673,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "disabled"`
 
-            - `"disabled"`
-
         - `ThinkingConfigAdaptive`
 
           - `type: "adaptive"`
-
-            - `"adaptive"`
 
           - `display?: "summarized" | "omitted" | null`
 
@@ -21995,8 +28695,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "auto"`
 
-            - `"auto"`
-
           - `disable_parallel_tool_use?: boolean`
 
             Whether to disable parallel tool use.
@@ -22008,8 +28706,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The model will use any available tools.
 
           - `type: "any"`
-
-            - `"any"`
 
           - `disable_parallel_tool_use?: boolean`
 
@@ -22027,8 +28723,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "tool"`
 
-            - `"tool"`
-
           - `disable_parallel_tool_use?: boolean`
 
             Whether to disable parallel tool use.
@@ -22040,8 +28734,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The model will not be allowed to use tools.
 
           - `type: "none"`
-
-            - `"none"`
 
       - `tools?: Array<ToolUnion>`
 
@@ -22117,8 +28809,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "object"`
 
-              - `"object"`
-
             - `properties?: Record<string, unknown> | null`
 
             - `required?: Array<string> | null`
@@ -22128,6 +28818,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
+
+            maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22165,8 +28857,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type?: "custom" | null`
 
-            - `"custom"`
-
         - `ToolBash20250124`
 
           - `name: "bash"`
@@ -22175,11 +28865,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"bash"`
-
           - `type: "bash_20250124"`
-
-            - `"bash_20250124"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22213,11 +28899,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20250522"`
-
-            - `"code_execution_20250522"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22249,11 +28931,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20250825"`
-
-            - `"code_execution_20250825"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22287,11 +28965,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20260120"`
-
-            - `"code_execution_20260120"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22325,11 +28999,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20260521"`
-
-            - `"code_execution_20260521"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22353,6 +29023,410 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+        - `BrowserToolset20260801`
+
+          The browser toolset: a single `tools[]` entry (carrying no
+          `name`) that declares the browser tool family. The model is served
+          the family's tool with any members disabled via `configs` removed
+          from its schema.
+
+          - `type: "browser_toolset_20260801"`
+
+          - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+            - `"direct"`
+
+            - `"code_execution_20250825"`
+
+            - `"code_execution_20260120"`
+
+            - `"code_execution_20260521"`
+
+          - `cache_control?: CacheControlEphemeral | null`
+
+            Create a cache control breakpoint at this content block.
+
+          - `configs?: BrowserToolsetConfigs | null`
+
+            Per-member configuration for `browser_toolset_20260801`: one
+            optional field per member tool, keyed by the member name — the same
+            name the member's `tool_use` blocks carry. Every member is an
+            accepted key, and a member's defaults apply wherever its key is
+            absent. Unknown keys are rejected: the field set is this toolset
+            version's complete member set.
+
+            - `close_tab?: BrowserCloseTabConfig | null`
+
+              `close_tab`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `double_click?: BrowserDoubleClickConfig | null`
+
+              `double_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `file_upload?: BrowserFileUploadConfig | null`
+
+              `file_upload`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `find?: BrowserFindConfig | null`
+
+              `find`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `form_input?: BrowserFormInputConfig | null`
+
+              `form_input`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `get_page_text?: BrowserGetPageTextConfig | null`
+
+              `get_page_text`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `hold_key?: BrowserHoldKeyConfig | null`
+
+              `hold_key`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `hover?: BrowserHoverConfig | null`
+
+              `hover`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `javascript_exec?: BrowserJavascriptExecConfig | null`
+
+              `javascript_exec`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `key?: BrowserKeyConfig | null`
+
+              `key`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_click?: BrowserLeftClickConfig | null`
+
+              `left_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_click_drag?: BrowserLeftClickDragConfig | null`
+
+              `left_click_drag`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_mouse_down?: BrowserLeftMouseDownConfig | null`
+
+              `left_mouse_down`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_mouse_up?: BrowserLeftMouseUpConfig | null`
+
+              `left_mouse_up`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `list_tabs?: BrowserListTabsConfig | null`
+
+              `list_tabs`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `middle_click?: BrowserMiddleClickConfig | null`
+
+              `middle_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `mouse_move?: BrowserMouseMoveConfig | null`
+
+              `mouse_move`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `navigate?: BrowserNavigateConfig | null`
+
+              `navigate`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `new_tab?: BrowserNewTabConfig | null`
+
+              `new_tab`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `read_console?: BrowserReadConsoleConfig | null`
+
+              `read_console`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `read_network?: BrowserReadNetworkConfig | null`
+
+              `read_network`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `read_page?: BrowserReadPageConfig | null`
+
+              `read_page`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `right_click?: BrowserRightClickConfig | null`
+
+              `right_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `screenshot?: BrowserScreenshotConfig | null`
+
+              `screenshot`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `scroll?: BrowserScrollConfig | null`
+
+              `scroll`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `scroll_to?: BrowserScrollToConfig | null`
+
+              `scroll_to`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `switch_tab?: BrowserSwitchTabConfig | null`
+
+              `switch_tab`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `triple_click?: BrowserTripleClickConfig | null`
+
+              `triple_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `type?: BrowserTypeConfig | null`
+
+              `type`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `wait?: BrowserWaitConfig | null`
+
+              `wait`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `zoom?: BrowserZoomConfig | null`
+
+              `zoom`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
         - `MemoryTool20250818`
 
           - `name: "memory"`
@@ -22361,11 +29435,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"memory"`
-
           - `type: "memory_20250818"`
-
-            - `"memory_20250818"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22391,6 +29461,246 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+        - `ComputerToolset20260801`
+
+          The computer toolset: a single `tools[]` entry (carrying no
+          `name`) that declares the computer tool family. The model is
+          served the family's tool with any members disabled via `configs`
+          removed from its schema. Every member is enabled by default, zoom
+          included. The single-tool options `display_number` and
+          `enable_zoom` are not fields of a toolset entry — it carries only
+          `type`, `configs`, and `cache_control`; zoom is controlled
+          via `configs.zoom.enabled`.
+
+          - `type: "computer_toolset_20260801"`
+
+          - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
+
+            - `"direct"`
+
+            - `"code_execution_20250825"`
+
+            - `"code_execution_20260120"`
+
+            - `"code_execution_20260521"`
+
+          - `cache_control?: CacheControlEphemeral | null`
+
+            Create a cache control breakpoint at this content block.
+
+          - `configs?: ComputerToolsetConfigs | null`
+
+            Per-member configuration for `computer_toolset_20260801`: one
+            optional field per member tool, keyed by the member name — the same
+            name the member's `tool_use` blocks carry. Every member is an
+            accepted key, and a member's defaults apply wherever its key is
+            absent. Unknown keys are rejected: the field set is this toolset
+            version's complete member set.
+
+            - `cursor_position?: ComputerCursorPositionConfig | null`
+
+              `cursor_position`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `double_click?: ComputerDoubleClickConfig | null`
+
+              `double_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `hold_key?: ComputerHoldKeyConfig | null`
+
+              `hold_key`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `key?: ComputerKeyConfig | null`
+
+              `key`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_click?: ComputerLeftClickConfig | null`
+
+              `left_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_click_drag?: ComputerLeftClickDragConfig | null`
+
+              `left_click_drag`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_mouse_down?: ComputerLeftMouseDownConfig | null`
+
+              `left_mouse_down`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `left_mouse_up?: ComputerLeftMouseUpConfig | null`
+
+              `left_mouse_up`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `middle_click?: ComputerMiddleClickConfig | null`
+
+              `middle_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `mouse_move?: ComputerMouseMoveConfig | null`
+
+              `mouse_move`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `right_click?: ComputerRightClickConfig | null`
+
+              `right_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `screenshot?: ComputerScreenshotConfig | null`
+
+              `screenshot`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `scroll?: ComputerScrollConfig | null`
+
+              `scroll`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `triple_click?: ComputerTripleClickConfig | null`
+
+              `triple_click`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `type?: ComputerTypeConfig | null`
+
+              `type`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `wait?: ComputerWaitConfig | null`
+
+              `wait`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+            - `zoom?: ComputerZoomConfig | null`
+
+              `zoom`'s config overrides.
+
+              - `defer_loading?: boolean | null`
+
+                Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+              - `enabled?: boolean | null`
+
+                Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
         - `ToolTextEditor20250124`
 
           - `name: "str_replace_editor"`
@@ -22399,11 +29709,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"str_replace_editor"`
-
           - `type: "text_editor_20250124"`
-
-            - `"text_editor_20250124"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22437,11 +29743,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"str_replace_based_edit_tool"`
-
           - `type: "text_editor_20250429"`
-
-            - `"text_editor_20250429"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22475,11 +29777,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"str_replace_based_edit_tool"`
-
           - `type: "text_editor_20250728"`
-
-            - `"text_editor_20250728"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22505,6 +29803,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+            minimum: 1
+
           - `strict?: boolean`
 
             When true, guarantees schema validation on tool names and inputs
@@ -22517,11 +29817,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_search"`
-
           - `type: "web_search_20250305"`
-
-            - `"web_search_20250305"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22553,6 +29849,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of times the tool can be used in the API request.
 
+            exclusiveMinimum: 0
+
           - `strict?: boolean`
 
             When true, guarantees schema validation on tool names and inputs
@@ -22563,23 +29861,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "approximate"`
 
-              - `"approximate"`
-
             - `city?: string | null`
 
               The city of the user.
+
+              maxLength: 255, minLength: 1
 
             - `country?: string | null`
 
               The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+              maxLength: 2, minLength: 2
+
             - `region?: string | null`
 
               The region of the user.
 
+              maxLength: 255, minLength: 1
+
             - `timezone?: string | null`
 
               The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+              maxLength: 255, minLength: 1
 
         - `WebFetchTool20250910`
 
@@ -22589,11 +29893,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20250910"`
-
-            - `"web_fetch_20250910"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22629,9 +29929,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -22645,11 +29949,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_search"`
-
           - `type: "web_search_20260209"`
-
-            - `"web_search_20260209"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22680,6 +29980,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -22697,11 +29999,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20260209"`
-
-            - `"web_fetch_20260209"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22737,9 +30035,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -22755,11 +30057,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20260309"`
-
-            - `"web_fetch_20260309"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22795,9 +30093,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -22815,11 +30117,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_search"`
-
           - `type: "web_search_20260318"`
-
-            - `"web_search_20260318"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22850,6 +30148,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `response_inclusion?: "full" | "excluded"`
 
@@ -22875,11 +30175,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20260318"`
-
-            - `"web_fetch_20260318"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -22915,9 +30211,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `response_inclusion?: "full" | "excluded"`
 
@@ -22942,8 +30242,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-            - `"tool_search_tool_bm25"`
 
           - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -22981,8 +30279,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"tool_search_tool_regex"`
-
           - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
             - `"tool_search_tool_regex_20251119"`
@@ -23011,7 +30307,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+      - `temperature?: number`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+        Amount of randomness injected into the response.
+
+        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+        maximum: 1, minimum: 0
+
       - `top_k?: number`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
         Only sample from the top K options for each subsequent token.
 
@@ -23019,7 +30329,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Recommended for advanced use cases only.
 
+        minimum: 0
+
       - `top_p?: number`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
         Use nucleus sampling.
 
@@ -23027,11 +30341,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Recommended for advanced use cases only.
 
+        maximum: 1, minimum: 0
+
   - `user_profile_id?: string`
 
     Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -23045,13 +30361,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -23059,9 +30381,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -23085,11 +30411,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -23097,15 +30427,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -23119,34 +30455,34 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
-### Example
+#### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const messageBatch = await client.messages.batches.create({
   requests: [
     {
-      custom_id: 'my-custom-id-1',
+      custom_id: "my-custom-id-1",
       params: {
         max_tokens: 1024,
-        messages: [{ content: 'Hello, world', role: 'user' }],
-        model: 'claude-opus-4-6',
-      },
-    },
-  ],
+        messages: [{ content: "Hello, world", role: "user" }],
+        model: "claude-opus-5"
+      }
+    }
+  ]
 });
 
 console.log(messageBatch.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -23169,23 +30505,23 @@ console.log(messageBatch.id);
 }
 ```
 
-## Retrieve a Message Batch
+### Retrieve a Message Batch
 
-`client.messages.batches.retrieve(stringmessageBatchID, RequestOptionsoptions?): MessageBatch`
+`client.messages.batches.retrieve(messageBatchID, options?): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -23199,13 +30535,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -23213,9 +30555,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -23239,11 +30585,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -23251,15 +30601,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -23273,23 +30629,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
-### Example
+#### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const messageBatch = await client.messages.batches.retrieve('message_batch_id');
+const messageBatch = await client.messages.batches.retrieve("message_batch_id");
 
 console.log(messageBatch.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -23312,17 +30668,17 @@ console.log(messageBatch.id);
 }
 ```
 
-## List Message Batches
+### List Message Batches
 
-`client.messages.batches.list(BatchListParamsquery?, RequestOptionsoptions?): Page<MessageBatch>`
+`client.messages.batches.list(query?, options?): Page<MessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `query: BatchListParams`
 
@@ -23340,7 +30696,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-### Returns
+    maximum: 1000, minimum: 1
+
+#### Returns
 
 - `MessageBatch`
 
@@ -23354,13 +30712,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -23368,9 +30732,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -23394,11 +30762,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -23406,15 +30778,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -23428,15 +30806,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
-### Example
+#### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 // Automatically fetches more pages as needed.
@@ -23445,7 +30823,7 @@ for await (const messageBatch of client.messages.batches.list()) {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -23475,11 +30853,11 @@ for await (const messageBatch of client.messages.batches.list()) {
 }
 ```
 
-## Cancel a Message Batch
+### Cancel a Message Batch
 
-`client.messages.batches.cancel(stringmessageBatchID, RequestOptionsoptions?): MessageBatch`
+`client.messages.batches.cancel(messageBatchID, options?): MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -23487,13 +30865,13 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -23507,13 +30885,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -23521,9 +30905,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -23547,11 +30935,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -23559,15 +30951,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -23581,23 +30979,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
-### Example
+#### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const messageBatch = await client.messages.batches.cancel('message_batch_id');
+const messageBatch = await client.messages.batches.cancel("message_batch_id");
 
 console.log(messageBatch.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -23620,11 +31018,11 @@ console.log(messageBatch.id);
 }
 ```
 
-## Delete a Message Batch
+### Delete a Message Batch
 
-`client.messages.batches.delete(stringmessageBatchID, RequestOptionsoptions?): DeletedMessageBatch`
+`client.messages.batches.delete(messageBatchID, options?): DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -23632,13 +31030,13 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `DeletedMessageBatch`
 
@@ -23652,23 +31050,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `"message_batch_deleted"`
+    default: message_batch_deleted
 
-### Example
+#### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const deletedMessageBatch = await client.messages.batches.delete('message_batch_id');
+const deletedMessageBatch = await client.messages.batches.delete("message_batch_id");
 
 console.log(deletedMessageBatch.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -23677,11 +31075,11 @@ console.log(deletedMessageBatch.id);
 }
 ```
 
-## Retrieve Message Batch results
+### Retrieve Message Batch results
 
-`client.messages.batches.results(stringmessageBatchID, RequestOptionsoptions?): MessageBatchIndividualResponse | Stream<MessageBatchIndividualResponse>`
+`client.messages.batches.results(messageBatchID, options?): MessageBatchIndividualResponse | Stream<MessageBatchIndividualResponse>`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -23689,13 +31087,13 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatchIndividualResponse`
 
@@ -23734,6 +31132,32 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `expires_at: string`
 
             The time at which the container will expire.
+
+            format: date-time
+
+          - `skills: Array<ContainerSkill> | null`
+
+            Skills loaded in the container
+
+            - `skill_id: string`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
+
+            - `type: "anthropic" | "custom"`
+
+              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+              - `"anthropic"`
+
+              - `"custom"`
+
+            - `version: string`
+
+              The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `content: Array<ContentBlock>`
 
@@ -23778,6 +31202,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
 
                 - `end_char_index: number`
@@ -23786,15 +31212,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_char_index: number`
 
+                  minimum: 0
+
                 - `type: "char_location"`
 
-                  - `"char_location"`
+                  default: char_location
 
               - `CitationPageLocation`
 
                 - `cited_text: string`
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string | null`
 
@@ -23804,9 +31234,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_page_number: number`
 
+                  minimum: 1
+
                 - `type: "page_location"`
 
-                  - `"page_location"`
+                  default: page_location
 
               - `CitationContentBlockLocation`
 
@@ -23817,6 +31249,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string | null`
 
@@ -23832,9 +31266,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: "content_block_location"`
 
-                  - `"content_block_location"`
+                  default: content_block_location
 
               - `CitationsWebSearchResultLocation`
 
@@ -23844,9 +31280,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string | null`
 
+                  maxLength: 512
+
                 - `type: "web_search_result_location"`
 
-                  - `"web_search_result_location"`
+                  default: web_search_result_location
 
                 - `url: string`
 
@@ -23870,49 +31308,73 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: string | null`
 
                 - `type: "search_result_location"`
 
-                  - `"search_result_location"`
+                  default: search_result_location
 
             - `text: string`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: "text"`
 
-              - `"text"`
+              default: text
 
           - `ThinkingBlock`
 
             - `signature: string`
 
+              A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+              This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
             - `thinking: string`
+
+              The text of Claude's thinking process for this block.
 
             - `type: "thinking"`
 
-              - `"thinking"`
+              default: thinking
 
           - `RedactedThinkingBlock`
 
             - `data: string`
 
+              The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+              Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
             - `type: "redacted_thinking"`
 
-              - `"redacted_thinking"`
+              default: redacted_thinking
 
           - `ToolUseBlock`
 
             - `id: string`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -23920,41 +31382,51 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "direct"`
 
-                  - `"direct"`
-
               - `ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: string`
 
-                - `type: "code_execution_20250825"`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: "code_execution_20250825"`
 
               - `ServerToolCaller20260120`
 
                 - `tool_id: string`
 
-                - `type: "code_execution_20260120"`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20260120"`
+                - `type: "code_execution_20260120"`
 
             - `input: Record<string, unknown>`
 
             - `name: string`
 
+              minLength: 1
+
             - `type: "tool_use"`
 
-              - `"tool_use"`
+              default: tool_use
+
+            - `toolset_name?: string | null`
+
+              For a toolset member tool_use, the toolset family.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `ServerToolUseBlock`
 
             - `id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -23986,13 +31458,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "server_tool_use"`
 
-              - `"server_tool_use"`
+              default: server_tool_use
 
           - `WebSearchToolResultBlock`
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -24024,7 +31498,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_search_tool_result_error"`
 
-                  - `"web_search_tool_result_error"`
+                  default: web_search_tool_result_error
 
               - `Array<WebSearchResultBlock>`
 
@@ -24036,21 +31510,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_search_result"`
 
-                  - `"web_search_result"`
+                  default: web_search_result
 
                 - `url: string`
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_search_tool_result"`
 
-              - `"web_search_tool_result"`
+              default: web_search_tool_result
 
           - `WebFetchToolResultBlock`
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -24088,7 +31566,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_fetch_tool_result_error"`
 
-                  - `"web_fetch_tool_result_error"`
+                  default: web_fetch_tool_result_error
 
               - `WebFetchBlock`
 
@@ -24100,19 +31578,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `enabled: boolean`
 
+                      default: false
+
                   - `source: Base64PDFSource | PlainTextSource`
 
                     - `Base64PDFSource`
 
                       - `data: string`
 
+                        format: byte
+
                       - `media_type: "application/pdf"`
 
-                        - `"application/pdf"`
-
                       - `type: "base64"`
-
-                        - `"base64"`
 
                     - `PlainTextSource`
 
@@ -24120,11 +31598,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `media_type: "text/plain"`
 
-                        - `"text/plain"`
-
                       - `type: "text"`
-
-                        - `"text"`
 
                   - `title: string | null`
 
@@ -24132,7 +31606,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "document"`
 
-                    - `"document"`
+                    default: document
 
                 - `retrieved_at: string | null`
 
@@ -24140,7 +31614,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_fetch_result"`
 
-                  - `"web_fetch_result"`
+                  default: web_fetch_result
 
                 - `url: string`
 
@@ -24148,9 +31622,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_fetch_tool_result"`
 
-              - `"web_fetch_tool_result"`
+              default: web_fetch_tool_result
 
           - `CodeExecutionToolResultBlock`
 
@@ -24172,7 +31648,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_tool_result_error"`
 
-                  - `"code_execution_tool_result_error"`
+                  default: code_execution_tool_result_error
 
               - `CodeExecutionResultBlock`
 
@@ -24182,7 +31658,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "code_execution_output"`
 
-                    - `"code_execution_output"`
+                    default: code_execution_output
 
                 - `return_code: number`
 
@@ -24192,7 +31668,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_result"`
 
-                  - `"code_execution_result"`
+                  default: code_execution_result
 
               - `EncryptedCodeExecutionResultBlock`
 
@@ -24204,6 +31680,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "code_execution_output"`
 
+                    default: code_execution_output
+
                 - `encrypted_stdout: string`
 
                 - `return_code: number`
@@ -24212,13 +31690,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "encrypted_code_execution_result"`
 
-                  - `"encrypted_code_execution_result"`
+                  default: encrypted_code_execution_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "code_execution_tool_result"`
 
-              - `"code_execution_tool_result"`
+              default: code_execution_tool_result
 
           - `BashCodeExecutionToolResultBlock`
 
@@ -24240,7 +31720,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "bash_code_execution_tool_result_error"`
 
-                  - `"bash_code_execution_tool_result_error"`
+                  default: bash_code_execution_tool_result_error
 
               - `BashCodeExecutionResultBlock`
 
@@ -24250,7 +31730,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "bash_code_execution_output"`
 
-                    - `"bash_code_execution_output"`
+                    default: bash_code_execution_output
 
                 - `return_code: number`
 
@@ -24260,13 +31740,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "bash_code_execution_result"`
 
-                  - `"bash_code_execution_result"`
+                  default: bash_code_execution_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "bash_code_execution_tool_result"`
 
-              - `"bash_code_execution_tool_result"`
+              default: bash_code_execution_tool_result
 
           - `TextEditorCodeExecutionToolResultBlock`
 
@@ -24290,7 +31772,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
-                  - `"text_editor_code_execution_tool_result_error"`
+                  default: text_editor_code_execution_tool_result_error
 
               - `TextEditorCodeExecutionViewResultBlock`
 
@@ -24312,7 +31794,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_view_result"`
 
-                  - `"text_editor_code_execution_view_result"`
+                  default: text_editor_code_execution_view_result
 
               - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -24320,7 +31802,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_create_result"`
 
-                  - `"text_editor_code_execution_create_result"`
+                  default: text_editor_code_execution_create_result
 
               - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -24336,13 +31818,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_str_replace_result"`
 
-                  - `"text_editor_code_execution_str_replace_result"`
+                  default: text_editor_code_execution_str_replace_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "text_editor_code_execution_tool_result"`
 
-              - `"text_editor_code_execution_tool_result"`
+              default: text_editor_code_execution_tool_result
 
           - `ToolSearchToolResultBlock`
 
@@ -24364,7 +31848,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "tool_search_tool_result_error"`
 
-                  - `"tool_search_tool_result_error"`
+                  default: tool_search_tool_result_error
 
               - `ToolSearchToolSearchResultBlock`
 
@@ -24372,19 +31856,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: string`
 
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                   - `type: "tool_reference"`
 
-                    - `"tool_reference"`
+                    default: tool_reference
 
                 - `type: "tool_search_tool_search_result"`
 
-                  - `"tool_search_tool_search_result"`
+                  default: tool_search_tool_search_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "tool_search_tool_result"`
 
-              - `"tool_search_tool_result"`
+              default: tool_search_tool_result
 
           - `ContainerUploadBlock`
 
@@ -24394,7 +31882,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "container_upload"`
 
-              - `"container_upload"`
+              default: container_upload
 
         - `model: Model`
 
@@ -24402,7 +31890,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
+          - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
 
             - `"claude-sonnet-5"`
 
@@ -24416,13 +31904,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Most capable model for cybersecurity and biology research
 
+            - `"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-mythos-preview"`
 
@@ -24430,7 +31922,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"claude-opus-4-6"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-6"`
 
@@ -24446,11 +31938,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-5"`
 
@@ -24460,14 +31952,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               High-performance model for agents and coding
 
-            - `"claude-opus-4-1"`
-
-              Exceptional model for specialized complex tasks
-
-            - `"claude-opus-4-1-20250805"`
-
-              Exceptional model for specialized complex tasks
-
           - `(string & {})`
 
         - `role: "assistant"`
@@ -24476,23 +31960,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This will always be `"assistant"`.
 
-          - `"assistant"`
+          default: assistant
 
         - `stop_details: RefusalStopDetails | null`
 
           Structured information about a refusal.
 
-          - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
+          - `category: "cyber" | "bio" | "frontier_llm" | 2 more | null`
 
             The policy category that triggered a refusal.
 
             - `"cyber"`
 
+              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
             - `"bio"`
+
+              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
             - `"frontier_llm"`
 
+              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
             - `"reasoning_extraction"`
+
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+            - `"general_harms"`
+
+              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
           - `explanation: string | null`
 
@@ -24502,7 +31998,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "refusal"`
 
-            - `"refusal"`
+            default: refusal
 
         - `stop_reason: StopReason | null`
 
@@ -24516,6 +32012,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           * `"tool_use"`: the model invoked one or more tools
           * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
           * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+          * `"model_context_window_exceeded"`: we exceeded the model's context window
 
           In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -24531,6 +32028,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"refusal"`
 
+          - `"model_context_window_exceeded"`
+
         - `stop_sequence: string | null`
 
           Which custom stop sequence was generated, if any.
@@ -24543,7 +32042,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-          - `"message"`
+          default: message
 
         - `usage: Usage`
 
@@ -24565,17 +32064,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              default: 0, minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              default: 0, minimum: 0
 
           - `cache_creation_input_tokens: number | null`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number | null`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `inference_geo: string | null`
 
@@ -24585,9 +32092,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `output_tokens: number`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `output_tokens_details: OutputTokensDetails | null`
 
@@ -24609,6 +32120,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              default: 0, minimum: 0
+
           - `server_tool_use: ServerToolUsage | null`
 
             The number of server tool requests.
@@ -24617,9 +32130,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              default: 0, minimum: 0
+
             - `web_search_requests: number`
 
               The number of web search tool requests.
+
+              default: 0, minimum: 0
 
           - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -24633,7 +32150,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: "succeeded"`
 
-        - `"succeeded"`
+        default: succeeded
 
     - `MessageBatchErroredResult`
 
@@ -24645,3346 +32162,126 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `message: string`
 
+              default: Invalid request
+
             - `type: "invalid_request_error"`
 
-              - `"invalid_request_error"`
+              default: invalid_request_error
 
           - `AuthenticationError`
 
             - `message: string`
 
+              default: Authentication error
+
             - `type: "authentication_error"`
 
-              - `"authentication_error"`
+              default: authentication_error
 
           - `BillingError`
 
             - `message: string`
 
+              default: Billing error
+
             - `type: "billing_error"`
 
-              - `"billing_error"`
+              default: billing_error
 
           - `PermissionError`
 
             - `message: string`
 
+              default: Permission denied
+
             - `type: "permission_error"`
 
-              - `"permission_error"`
+              default: permission_error
 
           - `NotFoundError`
 
             - `message: string`
 
+              default: Not found
+
             - `type: "not_found_error"`
 
-              - `"not_found_error"`
+              default: not_found_error
 
           - `RateLimitError`
 
             - `message: string`
 
+              default: Rate limited
+
             - `type: "rate_limit_error"`
 
-              - `"rate_limit_error"`
+              default: rate_limit_error
 
           - `GatewayTimeoutError`
 
             - `message: string`
 
+              default: Request timeout
+
             - `type: "timeout_error"`
 
-              - `"timeout_error"`
+              default: timeout_error
 
           - `APIErrorObject`
 
             - `message: string`
 
+              default: Internal server error
+
             - `type: "api_error"`
 
-              - `"api_error"`
+              default: api_error
 
           - `OverloadedError`
 
             - `message: string`
 
+              default: Overloaded
+
             - `type: "overloaded_error"`
 
-              - `"overloaded_error"`
+              default: overloaded_error
 
         - `request_id: string | null`
 
         - `type: "error"`
 
-          - `"error"`
+          default: error
 
       - `type: "errored"`
 
-        - `"errored"`
+        default: errored
 
     - `MessageBatchCanceledResult`
 
       - `type: "canceled"`
 
-        - `"canceled"`
+        default: canceled
 
     - `MessageBatchExpiredResult`
 
       - `type: "expired"`
 
-        - `"expired"`
+        default: expired
 
-### Example
+#### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const messageBatchIndividualResponse = await client.messages.batches.results('message_batch_id');
+const messageBatchIndividualResponse = await client.messages.batches.results(
+  "message_batch_id"
+);
 
 console.log(messageBatchIndividualResponse.custom_id);
 ```
-
-## Domain Types
-
-### Deleted Message Batch
-
-- `DeletedMessageBatch`
-
-  - `id: string`
-
-    ID of the Message Batch.
-
-  - `type: "message_batch_deleted"`
-
-    Deleted object type.
-
-    For Message Batches, this is always `"message_batch_deleted"`.
-
-    - `"message_batch_deleted"`
-
-### Message Batch
-
-- `MessageBatch`
-
-  - `id: string`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `archived_at: string | null`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
-
-  - `cancel_initiated_at: string | null`
-
-    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
-
-  - `created_at: string`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was created.
-
-  - `ended_at: string | null`
-
-    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
-
-    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
-
-  - `expires_at: string`
-
-    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
-
-  - `processing_status: "in_progress" | "canceling" | "ended"`
-
-    Processing status of the Message Batch.
-
-    - `"in_progress"`
-
-    - `"canceling"`
-
-    - `"ended"`
-
-  - `request_counts: MessageBatchRequestCounts`
-
-    Tallies requests within the Message Batch, categorized by their status.
-
-    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
-
-    - `canceled: number`
-
-      Number of requests in the Message Batch that have been canceled.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `errored: number`
-
-      Number of requests in the Message Batch that encountered an error.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `expired: number`
-
-      Number of requests in the Message Batch that have expired.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `processing: number`
-
-      Number of requests in the Message Batch that are processing.
-
-    - `succeeded: number`
-
-      Number of requests in the Message Batch that have completed successfully.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-  - `results_url: string | null`
-
-    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
-
-    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: "message_batch"`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    - `"message_batch"`
-
-### Message Batch Canceled Result
-
-- `MessageBatchCanceledResult`
-
-  - `type: "canceled"`
-
-    - `"canceled"`
-
-### Message Batch Errored Result
-
-- `MessageBatchErroredResult`
-
-  - `error: ErrorResponse`
-
-    - `error: ErrorObject`
-
-      - `InvalidRequestError`
-
-        - `message: string`
-
-        - `type: "invalid_request_error"`
-
-          - `"invalid_request_error"`
-
-      - `AuthenticationError`
-
-        - `message: string`
-
-        - `type: "authentication_error"`
-
-          - `"authentication_error"`
-
-      - `BillingError`
-
-        - `message: string`
-
-        - `type: "billing_error"`
-
-          - `"billing_error"`
-
-      - `PermissionError`
-
-        - `message: string`
-
-        - `type: "permission_error"`
-
-          - `"permission_error"`
-
-      - `NotFoundError`
-
-        - `message: string`
-
-        - `type: "not_found_error"`
-
-          - `"not_found_error"`
-
-      - `RateLimitError`
-
-        - `message: string`
-
-        - `type: "rate_limit_error"`
-
-          - `"rate_limit_error"`
-
-      - `GatewayTimeoutError`
-
-        - `message: string`
-
-        - `type: "timeout_error"`
-
-          - `"timeout_error"`
-
-      - `APIErrorObject`
-
-        - `message: string`
-
-        - `type: "api_error"`
-
-          - `"api_error"`
-
-      - `OverloadedError`
-
-        - `message: string`
-
-        - `type: "overloaded_error"`
-
-          - `"overloaded_error"`
-
-    - `request_id: string | null`
-
-    - `type: "error"`
-
-      - `"error"`
-
-  - `type: "errored"`
-
-    - `"errored"`
-
-### Message Batch Expired Result
-
-- `MessageBatchExpiredResult`
-
-  - `type: "expired"`
-
-    - `"expired"`
-
-### Message Batch Individual Response
-
-- `MessageBatchIndividualResponse`
-
-  This is a single line in the response `.jsonl` file and does not represent the response as a whole.
-
-  - `custom_id: string`
-
-    Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
-
-    Must be unique for each request within the Message Batch.
-
-  - `result: MessageBatchResult`
-
-    Processing result for this request.
-
-    Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-    - `MessageBatchSucceededResult`
-
-      - `message: Message`
-
-        - `id: string`
-
-          Unique object identifier.
-
-          The format and length of IDs may change over time.
-
-        - `container: Container | null`
-
-          Information about the container used in the request (for the code execution tool)
-
-          - `id: string`
-
-            Identifier for the container used in this request
-
-          - `expires_at: string`
-
-            The time at which the container will expire.
-
-        - `content: Array<ContentBlock>`
-
-          Content generated by the model.
-
-          This is an array of content blocks, each of which has a `type` that determines its shape.
-
-          Example:
-
-          ```json
-          [{"type": "text", "text": "Hi, I'm Claude."}]
-          ```
-
-          If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-          For example, if the input `messages` were:
-
-          ```json
-          [
-            {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-            {"role": "assistant", "content": "The best answer is ("}
-          ]
-          ```
-
-          Then the response `content` might be:
-
-          ```json
-          [{"type": "text", "text": "B)"}]
-          ```
-
-          - `TextBlock`
-
-            - `citations: Array<TextCitation> | null`
-
-              Citations supporting the text block.
-
-              The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-              - `CitationCharLocation`
-
-                - `cited_text: string`
-
-                - `document_index: number`
-
-                - `document_title: string | null`
-
-                - `end_char_index: number`
-
-                - `file_id: string | null`
-
-                - `start_char_index: number`
-
-                - `type: "char_location"`
-
-                  - `"char_location"`
-
-              - `CitationPageLocation`
-
-                - `cited_text: string`
-
-                - `document_index: number`
-
-                - `document_title: string | null`
-
-                - `end_page_number: number`
-
-                - `file_id: string | null`
-
-                - `start_page_number: number`
-
-                - `type: "page_location"`
-
-                  - `"page_location"`
-
-              - `CitationContentBlockLocation`
-
-                - `cited_text: string`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `document_index: number`
-
-                - `document_title: string | null`
-
-                - `end_block_index: number`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `file_id: string | null`
-
-                - `start_block_index: number`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                - `type: "content_block_location"`
-
-                  - `"content_block_location"`
-
-              - `CitationsWebSearchResultLocation`
-
-                - `cited_text: string`
-
-                - `encrypted_index: string`
-
-                - `title: string | null`
-
-                - `type: "web_search_result_location"`
-
-                  - `"web_search_result_location"`
-
-                - `url: string`
-
-              - `CitationsSearchResultLocation`
-
-                - `cited_text: string`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `end_block_index: number`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `search_result_index: number`
-
-                  0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                  Counted separately from `document_index`; server-side web search results are not included in this count.
-
-                - `source: string`
-
-                - `start_block_index: number`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                - `title: string | null`
-
-                - `type: "search_result_location"`
-
-                  - `"search_result_location"`
-
-            - `text: string`
-
-            - `type: "text"`
-
-              - `"text"`
-
-          - `ThinkingBlock`
-
-            - `signature: string`
-
-            - `thinking: string`
-
-            - `type: "thinking"`
-
-              - `"thinking"`
-
-          - `RedactedThinkingBlock`
-
-            - `data: string`
-
-            - `type: "redacted_thinking"`
-
-              - `"redacted_thinking"`
-
-          - `ToolUseBlock`
-
-            - `id: string`
-
-            - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `DirectCaller`
-
-                Tool invocation directly from the model.
-
-                - `type: "direct"`
-
-                  - `"direct"`
-
-              - `ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-                - `tool_id: string`
-
-                - `type: "code_execution_20250825"`
-
-                  - `"code_execution_20250825"`
-
-              - `ServerToolCaller20260120`
-
-                - `tool_id: string`
-
-                - `type: "code_execution_20260120"`
-
-                  - `"code_execution_20260120"`
-
-            - `input: Record<string, unknown>`
-
-            - `name: string`
-
-            - `type: "tool_use"`
-
-              - `"tool_use"`
-
-          - `ServerToolUseBlock`
-
-            - `id: string`
-
-            - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `DirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `ServerToolCaller20260120`
-
-            - `input: Record<string, unknown>`
-
-            - `name: "web_search" | "web_fetch" | "code_execution" | 4 more`
-
-              - `"web_search"`
-
-              - `"web_fetch"`
-
-              - `"code_execution"`
-
-              - `"bash_code_execution"`
-
-              - `"text_editor_code_execution"`
-
-              - `"tool_search_tool_regex"`
-
-              - `"tool_search_tool_bm25"`
-
-            - `type: "server_tool_use"`
-
-              - `"server_tool_use"`
-
-          - `WebSearchToolResultBlock`
-
-            - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `DirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `ServerToolCaller20260120`
-
-            - `content: WebSearchToolResultBlockContent`
-
-              - `WebSearchToolResultError`
-
-                - `error_code: WebSearchToolResultErrorCode`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"max_uses_exceeded"`
-
-                  - `"too_many_requests"`
-
-                  - `"query_too_long"`
-
-                  - `"request_too_large"`
-
-                - `type: "web_search_tool_result_error"`
-
-                  - `"web_search_tool_result_error"`
-
-              - `Array<WebSearchResultBlock>`
-
-                - `encrypted_content: string`
-
-                - `page_age: string | null`
-
-                - `title: string`
-
-                - `type: "web_search_result"`
-
-                  - `"web_search_result"`
-
-                - `url: string`
-
-            - `tool_use_id: string`
-
-            - `type: "web_search_tool_result"`
-
-              - `"web_search_tool_result"`
-
-          - `WebFetchToolResultBlock`
-
-            - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `DirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `ServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `ServerToolCaller20260120`
-
-            - `content: WebFetchToolResultErrorBlock | WebFetchBlock`
-
-              - `WebFetchToolResultErrorBlock`
-
-                - `error_code: WebFetchToolResultErrorCode`
-
-                  - `"invalid_tool_input"`
-
-                  - `"url_too_long"`
-
-                  - `"url_not_allowed"`
-
-                  - `"url_not_in_prior_context"`
-
-                  - `"url_not_accessible"`
-
-                  - `"unsupported_content_type"`
-
-                  - `"too_many_requests"`
-
-                  - `"max_uses_exceeded"`
-
-                  - `"unavailable"`
-
-                - `type: "web_fetch_tool_result_error"`
-
-                  - `"web_fetch_tool_result_error"`
-
-              - `WebFetchBlock`
-
-                - `content: DocumentBlock`
-
-                  - `citations: CitationsConfig | null`
-
-                    Citation configuration for the document
-
-                    - `enabled: boolean`
-
-                  - `source: Base64PDFSource | PlainTextSource`
-
-                    - `Base64PDFSource`
-
-                      - `data: string`
-
-                      - `media_type: "application/pdf"`
-
-                        - `"application/pdf"`
-
-                      - `type: "base64"`
-
-                        - `"base64"`
-
-                    - `PlainTextSource`
-
-                      - `data: string`
-
-                      - `media_type: "text/plain"`
-
-                        - `"text/plain"`
-
-                      - `type: "text"`
-
-                        - `"text"`
-
-                  - `title: string | null`
-
-                    The title of the document
-
-                  - `type: "document"`
-
-                    - `"document"`
-
-                - `retrieved_at: string | null`
-
-                  ISO 8601 timestamp when the content was retrieved
-
-                - `type: "web_fetch_result"`
-
-                  - `"web_fetch_result"`
-
-                - `url: string`
-
-                  Fetched content URL
-
-            - `tool_use_id: string`
-
-            - `type: "web_fetch_tool_result"`
-
-              - `"web_fetch_tool_result"`
-
-          - `CodeExecutionToolResultBlock`
-
-            - `content: CodeExecutionToolResultBlockContent`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `CodeExecutionToolResultError`
-
-                - `error_code: CodeExecutionToolResultErrorCode`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                - `type: "code_execution_tool_result_error"`
-
-                  - `"code_execution_tool_result_error"`
-
-              - `CodeExecutionResultBlock`
-
-                - `content: Array<CodeExecutionOutputBlock>`
-
-                  - `file_id: string`
-
-                  - `type: "code_execution_output"`
-
-                    - `"code_execution_output"`
-
-                - `return_code: number`
-
-                - `stderr: string`
-
-                - `stdout: string`
-
-                - `type: "code_execution_result"`
-
-                  - `"code_execution_result"`
-
-              - `EncryptedCodeExecutionResultBlock`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
-
-                - `content: Array<CodeExecutionOutputBlock>`
-
-                  - `file_id: string`
-
-                  - `type: "code_execution_output"`
-
-                - `encrypted_stdout: string`
-
-                - `return_code: number`
-
-                - `stderr: string`
-
-                - `type: "encrypted_code_execution_result"`
-
-                  - `"encrypted_code_execution_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "code_execution_tool_result"`
-
-              - `"code_execution_tool_result"`
-
-          - `BashCodeExecutionToolResultBlock`
-
-            - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
-
-              - `BashCodeExecutionToolResultError`
-
-                - `error_code: BashCodeExecutionToolResultErrorCode`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                  - `"output_file_too_large"`
-
-                - `type: "bash_code_execution_tool_result_error"`
-
-                  - `"bash_code_execution_tool_result_error"`
-
-              - `BashCodeExecutionResultBlock`
-
-                - `content: Array<BashCodeExecutionOutputBlock>`
-
-                  - `file_id: string`
-
-                  - `type: "bash_code_execution_output"`
-
-                    - `"bash_code_execution_output"`
-
-                - `return_code: number`
-
-                - `stderr: string`
-
-                - `stdout: string`
-
-                - `type: "bash_code_execution_result"`
-
-                  - `"bash_code_execution_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "bash_code_execution_tool_result"`
-
-              - `"bash_code_execution_tool_result"`
-
-          - `TextEditorCodeExecutionToolResultBlock`
-
-            - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
-
-              - `TextEditorCodeExecutionToolResultError`
-
-                - `error_code: TextEditorCodeExecutionToolResultErrorCode`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                  - `"file_not_found"`
-
-                - `error_message: string | null`
-
-                - `type: "text_editor_code_execution_tool_result_error"`
-
-                  - `"text_editor_code_execution_tool_result_error"`
-
-              - `TextEditorCodeExecutionViewResultBlock`
-
-                - `content: string`
-
-                - `file_type: "text" | "image" | "pdf"`
-
-                  - `"text"`
-
-                  - `"image"`
-
-                  - `"pdf"`
-
-                - `num_lines: number | null`
-
-                - `start_line: number | null`
-
-                - `total_lines: number | null`
-
-                - `type: "text_editor_code_execution_view_result"`
-
-                  - `"text_editor_code_execution_view_result"`
-
-              - `TextEditorCodeExecutionCreateResultBlock`
-
-                - `is_file_update: boolean`
-
-                - `type: "text_editor_code_execution_create_result"`
-
-                  - `"text_editor_code_execution_create_result"`
-
-              - `TextEditorCodeExecutionStrReplaceResultBlock`
-
-                - `lines: Array<string> | null`
-
-                - `new_lines: number | null`
-
-                - `new_start: number | null`
-
-                - `old_lines: number | null`
-
-                - `old_start: number | null`
-
-                - `type: "text_editor_code_execution_str_replace_result"`
-
-                  - `"text_editor_code_execution_str_replace_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "text_editor_code_execution_tool_result"`
-
-              - `"text_editor_code_execution_tool_result"`
-
-          - `ToolSearchToolResultBlock`
-
-            - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
-
-              - `ToolSearchToolResultError`
-
-                - `error_code: ToolSearchToolResultErrorCode`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                - `error_message: string | null`
-
-                - `type: "tool_search_tool_result_error"`
-
-                  - `"tool_search_tool_result_error"`
-
-              - `ToolSearchToolSearchResultBlock`
-
-                - `tool_references: Array<ToolReferenceBlock>`
-
-                  - `tool_name: string`
-
-                  - `type: "tool_reference"`
-
-                    - `"tool_reference"`
-
-                - `type: "tool_search_tool_search_result"`
-
-                  - `"tool_search_tool_search_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "tool_search_tool_result"`
-
-              - `"tool_search_tool_result"`
-
-          - `ContainerUploadBlock`
-
-            Response model for a file uploaded to the container.
-
-            - `file_id: string`
-
-            - `type: "container_upload"`
-
-              - `"container_upload"`
-
-        - `model: Model`
-
-          The model that will complete your prompt.
-
-          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
-
-            - `"claude-sonnet-5"`
-
-              High-performance model for coding and agents
-
-            - `"claude-fable-5"`
-
-              Next generation of intelligence for the hardest knowledge work and coding problems
-
-            - `"claude-mythos-5"`
-
-              Most capable model for cybersecurity and biology research
-
-            - `"claude-opus-4-8"`
-
-              Frontier intelligence for long-running agents and coding
-
-            - `"claude-opus-4-7"`
-
-              Frontier intelligence for long-running agents and coding
-
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
-            - `"claude-opus-4-6"`
-
-              Frontier intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-6"`
-
-              Best combination of speed and intelligence
-
-            - `"claude-haiku-4-5"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-opus-4-5"`
-
-              Premium model combining maximum intelligence with practical performance
-
-            - `"claude-opus-4-5-20251101"`
-
-              Premium model combining maximum intelligence with practical performance
-
-            - `"claude-sonnet-4-5"`
-
-              High-performance model for agents and coding
-
-            - `"claude-sonnet-4-5-20250929"`
-
-              High-performance model for agents and coding
-
-            - `"claude-opus-4-1"`
-
-              Exceptional model for specialized complex tasks
-
-            - `"claude-opus-4-1-20250805"`
-
-              Exceptional model for specialized complex tasks
-
-          - `(string & {})`
-
-        - `role: "assistant"`
-
-          Conversational role of the generated message.
-
-          This will always be `"assistant"`.
-
-          - `"assistant"`
-
-        - `stop_details: RefusalStopDetails | null`
-
-          Structured information about a refusal.
-
-          - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
-
-            The policy category that triggered a refusal.
-
-            - `"cyber"`
-
-            - `"bio"`
-
-            - `"frontier_llm"`
-
-            - `"reasoning_extraction"`
-
-          - `explanation: string | null`
-
-            Human-readable explanation of the refusal.
-
-            This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-          - `type: "refusal"`
-
-            - `"refusal"`
-
-        - `stop_reason: StopReason | null`
-
-          The reason that we stopped.
-
-          This may be one the following values:
-
-          * `"end_turn"`: the model reached a natural stopping point
-          * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-          * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-          * `"tool_use"`: the model invoked one or more tools
-          * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-          * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-
-          In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-          - `"end_turn"`
-
-          - `"max_tokens"`
-
-          - `"stop_sequence"`
-
-          - `"tool_use"`
-
-          - `"pause_turn"`
-
-          - `"refusal"`
-
-        - `stop_sequence: string | null`
-
-          Which custom stop sequence was generated, if any.
-
-          This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `type: "message"`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-          - `"message"`
-
-        - `usage: Usage`
-
-          Billing and rate-limit usage.
-
-          Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-          Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-          For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-          Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-          - `cache_creation: CacheCreation | null`
-
-            Breakdown of cached tokens by TTL
-
-            - `ephemeral_1h_input_tokens: number`
-
-              The number of input tokens used to create the 1 hour cache entry.
-
-            - `ephemeral_5m_input_tokens: number`
-
-              The number of input tokens used to create the 5 minute cache entry.
-
-          - `cache_creation_input_tokens: number | null`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: number | null`
-
-            The number of input tokens read from the cache.
-
-          - `inference_geo: string | null`
-
-            The geographic region where inference was performed for this request.
-
-          - `input_tokens: number`
-
-            The number of input tokens which were used.
-
-          - `output_tokens: number`
-
-            The number of output tokens which were used.
-
-          - `output_tokens_details: OutputTokensDetails | null`
-
-            Breakdown of output tokens by category.
-
-            `output_tokens` remains the inclusive, authoritative total used for billing.
-            This object provides a read-only decomposition for observability — for example,
-            how many of the billed output tokens were spent on internal reasoning that may
-            have been summarized before being returned to you.
-
-            - `thinking_tokens: number`
-
-              Number of output tokens the model generated as internal reasoning, including
-              the thinking-block delimiter tokens.
-
-              Reflects the raw reasoning the model produced, not the (possibly shorter)
-              summarized thinking text returned in the response body. Computed by
-              re-tokenizing the raw reasoning text, so it may differ from the model's exact
-              generation count by a small number of tokens. Always ≤ `output_tokens`;
-              `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-          - `server_tool_use: ServerToolUsage | null`
-
-            The number of server tool requests.
-
-            - `web_fetch_requests: number`
-
-              The number of web fetch tool requests.
-
-            - `web_search_requests: number`
-
-              The number of web search tool requests.
-
-          - `service_tier: "standard" | "priority" | "batch" | null`
-
-            If the request used the priority, standard, or batch tier.
-
-            - `"standard"`
-
-            - `"priority"`
-
-            - `"batch"`
-
-      - `type: "succeeded"`
-
-        - `"succeeded"`
-
-    - `MessageBatchErroredResult`
-
-      - `error: ErrorResponse`
-
-        - `error: ErrorObject`
-
-          - `InvalidRequestError`
-
-            - `message: string`
-
-            - `type: "invalid_request_error"`
-
-              - `"invalid_request_error"`
-
-          - `AuthenticationError`
-
-            - `message: string`
-
-            - `type: "authentication_error"`
-
-              - `"authentication_error"`
-
-          - `BillingError`
-
-            - `message: string`
-
-            - `type: "billing_error"`
-
-              - `"billing_error"`
-
-          - `PermissionError`
-
-            - `message: string`
-
-            - `type: "permission_error"`
-
-              - `"permission_error"`
-
-          - `NotFoundError`
-
-            - `message: string`
-
-            - `type: "not_found_error"`
-
-              - `"not_found_error"`
-
-          - `RateLimitError`
-
-            - `message: string`
-
-            - `type: "rate_limit_error"`
-
-              - `"rate_limit_error"`
-
-          - `GatewayTimeoutError`
-
-            - `message: string`
-
-            - `type: "timeout_error"`
-
-              - `"timeout_error"`
-
-          - `APIErrorObject`
-
-            - `message: string`
-
-            - `type: "api_error"`
-
-              - `"api_error"`
-
-          - `OverloadedError`
-
-            - `message: string`
-
-            - `type: "overloaded_error"`
-
-              - `"overloaded_error"`
-
-        - `request_id: string | null`
-
-        - `type: "error"`
-
-          - `"error"`
-
-      - `type: "errored"`
-
-        - `"errored"`
-
-    - `MessageBatchCanceledResult`
-
-      - `type: "canceled"`
-
-        - `"canceled"`
-
-    - `MessageBatchExpiredResult`
-
-      - `type: "expired"`
-
-        - `"expired"`
-
-### Message Batch Request Counts
-
-- `MessageBatchRequestCounts`
-
-  - `canceled: number`
-
-    Number of requests in the Message Batch that have been canceled.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `errored: number`
-
-    Number of requests in the Message Batch that encountered an error.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `expired: number`
-
-    Number of requests in the Message Batch that have expired.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `processing: number`
-
-    Number of requests in the Message Batch that are processing.
-
-  - `succeeded: number`
-
-    Number of requests in the Message Batch that have completed successfully.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-### Message Batch Result
-
-- `MessageBatchResult = MessageBatchSucceededResult | MessageBatchErroredResult | MessageBatchCanceledResult | MessageBatchExpiredResult`
-
-  Processing result for this request.
-
-  Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-  - `MessageBatchSucceededResult`
-
-    - `message: Message`
-
-      - `id: string`
-
-        Unique object identifier.
-
-        The format and length of IDs may change over time.
-
-      - `container: Container | null`
-
-        Information about the container used in the request (for the code execution tool)
-
-        - `id: string`
-
-          Identifier for the container used in this request
-
-        - `expires_at: string`
-
-          The time at which the container will expire.
-
-      - `content: Array<ContentBlock>`
-
-        Content generated by the model.
-
-        This is an array of content blocks, each of which has a `type` that determines its shape.
-
-        Example:
-
-        ```json
-        [{"type": "text", "text": "Hi, I'm Claude."}]
-        ```
-
-        If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-        For example, if the input `messages` were:
-
-        ```json
-        [
-          {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-          {"role": "assistant", "content": "The best answer is ("}
-        ]
-        ```
-
-        Then the response `content` might be:
-
-        ```json
-        [{"type": "text", "text": "B)"}]
-        ```
-
-        - `TextBlock`
-
-          - `citations: Array<TextCitation> | null`
-
-            Citations supporting the text block.
-
-            The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-            - `CitationCharLocation`
-
-              - `cited_text: string`
-
-              - `document_index: number`
-
-              - `document_title: string | null`
-
-              - `end_char_index: number`
-
-              - `file_id: string | null`
-
-              - `start_char_index: number`
-
-              - `type: "char_location"`
-
-                - `"char_location"`
-
-            - `CitationPageLocation`
-
-              - `cited_text: string`
-
-              - `document_index: number`
-
-              - `document_title: string | null`
-
-              - `end_page_number: number`
-
-              - `file_id: string | null`
-
-              - `start_page_number: number`
-
-              - `type: "page_location"`
-
-                - `"page_location"`
-
-            - `CitationContentBlockLocation`
-
-              - `cited_text: string`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `document_index: number`
-
-              - `document_title: string | null`
-
-              - `end_block_index: number`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `file_id: string | null`
-
-              - `start_block_index: number`
-
-                0-based index of the first cited block in the source's `content` array.
-
-              - `type: "content_block_location"`
-
-                - `"content_block_location"`
-
-            - `CitationsWebSearchResultLocation`
-
-              - `cited_text: string`
-
-              - `encrypted_index: string`
-
-              - `title: string | null`
-
-              - `type: "web_search_result_location"`
-
-                - `"web_search_result_location"`
-
-              - `url: string`
-
-            - `CitationsSearchResultLocation`
-
-              - `cited_text: string`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `end_block_index: number`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `search_result_index: number`
-
-                0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                Counted separately from `document_index`; server-side web search results are not included in this count.
-
-              - `source: string`
-
-              - `start_block_index: number`
-
-                0-based index of the first cited block in the source's `content` array.
-
-              - `title: string | null`
-
-              - `type: "search_result_location"`
-
-                - `"search_result_location"`
-
-          - `text: string`
-
-          - `type: "text"`
-
-            - `"text"`
-
-        - `ThinkingBlock`
-
-          - `signature: string`
-
-          - `thinking: string`
-
-          - `type: "thinking"`
-
-            - `"thinking"`
-
-        - `RedactedThinkingBlock`
-
-          - `data: string`
-
-          - `type: "redacted_thinking"`
-
-            - `"redacted_thinking"`
-
-        - `ToolUseBlock`
-
-          - `id: string`
-
-          - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `DirectCaller`
-
-              Tool invocation directly from the model.
-
-              - `type: "direct"`
-
-                - `"direct"`
-
-            - `ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-              - `tool_id: string`
-
-              - `type: "code_execution_20250825"`
-
-                - `"code_execution_20250825"`
-
-            - `ServerToolCaller20260120`
-
-              - `tool_id: string`
-
-              - `type: "code_execution_20260120"`
-
-                - `"code_execution_20260120"`
-
-          - `input: Record<string, unknown>`
-
-          - `name: string`
-
-          - `type: "tool_use"`
-
-            - `"tool_use"`
-
-        - `ServerToolUseBlock`
-
-          - `id: string`
-
-          - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `ServerToolCaller20260120`
-
-          - `input: Record<string, unknown>`
-
-          - `name: "web_search" | "web_fetch" | "code_execution" | 4 more`
-
-            - `"web_search"`
-
-            - `"web_fetch"`
-
-            - `"code_execution"`
-
-            - `"bash_code_execution"`
-
-            - `"text_editor_code_execution"`
-
-            - `"tool_search_tool_regex"`
-
-            - `"tool_search_tool_bm25"`
-
-          - `type: "server_tool_use"`
-
-            - `"server_tool_use"`
-
-        - `WebSearchToolResultBlock`
-
-          - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `ServerToolCaller20260120`
-
-          - `content: WebSearchToolResultBlockContent`
-
-            - `WebSearchToolResultError`
-
-              - `error_code: WebSearchToolResultErrorCode`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"max_uses_exceeded"`
-
-                - `"too_many_requests"`
-
-                - `"query_too_long"`
-
-                - `"request_too_large"`
-
-              - `type: "web_search_tool_result_error"`
-
-                - `"web_search_tool_result_error"`
-
-            - `Array<WebSearchResultBlock>`
-
-              - `encrypted_content: string`
-
-              - `page_age: string | null`
-
-              - `title: string`
-
-              - `type: "web_search_result"`
-
-                - `"web_search_result"`
-
-              - `url: string`
-
-          - `tool_use_id: string`
-
-          - `type: "web_search_tool_result"`
-
-            - `"web_search_tool_result"`
-
-        - `WebFetchToolResultBlock`
-
-          - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `DirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `ServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `ServerToolCaller20260120`
-
-          - `content: WebFetchToolResultErrorBlock | WebFetchBlock`
-
-            - `WebFetchToolResultErrorBlock`
-
-              - `error_code: WebFetchToolResultErrorCode`
-
-                - `"invalid_tool_input"`
-
-                - `"url_too_long"`
-
-                - `"url_not_allowed"`
-
-                - `"url_not_in_prior_context"`
-
-                - `"url_not_accessible"`
-
-                - `"unsupported_content_type"`
-
-                - `"too_many_requests"`
-
-                - `"max_uses_exceeded"`
-
-                - `"unavailable"`
-
-              - `type: "web_fetch_tool_result_error"`
-
-                - `"web_fetch_tool_result_error"`
-
-            - `WebFetchBlock`
-
-              - `content: DocumentBlock`
-
-                - `citations: CitationsConfig | null`
-
-                  Citation configuration for the document
-
-                  - `enabled: boolean`
-
-                - `source: Base64PDFSource | PlainTextSource`
-
-                  - `Base64PDFSource`
-
-                    - `data: string`
-
-                    - `media_type: "application/pdf"`
-
-                      - `"application/pdf"`
-
-                    - `type: "base64"`
-
-                      - `"base64"`
-
-                  - `PlainTextSource`
-
-                    - `data: string`
-
-                    - `media_type: "text/plain"`
-
-                      - `"text/plain"`
-
-                    - `type: "text"`
-
-                      - `"text"`
-
-                - `title: string | null`
-
-                  The title of the document
-
-                - `type: "document"`
-
-                  - `"document"`
-
-              - `retrieved_at: string | null`
-
-                ISO 8601 timestamp when the content was retrieved
-
-              - `type: "web_fetch_result"`
-
-                - `"web_fetch_result"`
-
-              - `url: string`
-
-                Fetched content URL
-
-          - `tool_use_id: string`
-
-          - `type: "web_fetch_tool_result"`
-
-            - `"web_fetch_tool_result"`
-
-        - `CodeExecutionToolResultBlock`
-
-          - `content: CodeExecutionToolResultBlockContent`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
-
-            - `CodeExecutionToolResultError`
-
-              - `error_code: CodeExecutionToolResultErrorCode`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-              - `type: "code_execution_tool_result_error"`
-
-                - `"code_execution_tool_result_error"`
-
-            - `CodeExecutionResultBlock`
-
-              - `content: Array<CodeExecutionOutputBlock>`
-
-                - `file_id: string`
-
-                - `type: "code_execution_output"`
-
-                  - `"code_execution_output"`
-
-              - `return_code: number`
-
-              - `stderr: string`
-
-              - `stdout: string`
-
-              - `type: "code_execution_result"`
-
-                - `"code_execution_result"`
-
-            - `EncryptedCodeExecutionResultBlock`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `content: Array<CodeExecutionOutputBlock>`
-
-                - `file_id: string`
-
-                - `type: "code_execution_output"`
-
-              - `encrypted_stdout: string`
-
-              - `return_code: number`
-
-              - `stderr: string`
-
-              - `type: "encrypted_code_execution_result"`
-
-                - `"encrypted_code_execution_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "code_execution_tool_result"`
-
-            - `"code_execution_tool_result"`
-
-        - `BashCodeExecutionToolResultBlock`
-
-          - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
-
-            - `BashCodeExecutionToolResultError`
-
-              - `error_code: BashCodeExecutionToolResultErrorCode`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-                - `"output_file_too_large"`
-
-              - `type: "bash_code_execution_tool_result_error"`
-
-                - `"bash_code_execution_tool_result_error"`
-
-            - `BashCodeExecutionResultBlock`
-
-              - `content: Array<BashCodeExecutionOutputBlock>`
-
-                - `file_id: string`
-
-                - `type: "bash_code_execution_output"`
-
-                  - `"bash_code_execution_output"`
-
-              - `return_code: number`
-
-              - `stderr: string`
-
-              - `stdout: string`
-
-              - `type: "bash_code_execution_result"`
-
-                - `"bash_code_execution_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "bash_code_execution_tool_result"`
-
-            - `"bash_code_execution_tool_result"`
-
-        - `TextEditorCodeExecutionToolResultBlock`
-
-          - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
-
-            - `TextEditorCodeExecutionToolResultError`
-
-              - `error_code: TextEditorCodeExecutionToolResultErrorCode`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-                - `"file_not_found"`
-
-              - `error_message: string | null`
-
-              - `type: "text_editor_code_execution_tool_result_error"`
-
-                - `"text_editor_code_execution_tool_result_error"`
-
-            - `TextEditorCodeExecutionViewResultBlock`
-
-              - `content: string`
-
-              - `file_type: "text" | "image" | "pdf"`
-
-                - `"text"`
-
-                - `"image"`
-
-                - `"pdf"`
-
-              - `num_lines: number | null`
-
-              - `start_line: number | null`
-
-              - `total_lines: number | null`
-
-              - `type: "text_editor_code_execution_view_result"`
-
-                - `"text_editor_code_execution_view_result"`
-
-            - `TextEditorCodeExecutionCreateResultBlock`
-
-              - `is_file_update: boolean`
-
-              - `type: "text_editor_code_execution_create_result"`
-
-                - `"text_editor_code_execution_create_result"`
-
-            - `TextEditorCodeExecutionStrReplaceResultBlock`
-
-              - `lines: Array<string> | null`
-
-              - `new_lines: number | null`
-
-              - `new_start: number | null`
-
-              - `old_lines: number | null`
-
-              - `old_start: number | null`
-
-              - `type: "text_editor_code_execution_str_replace_result"`
-
-                - `"text_editor_code_execution_str_replace_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "text_editor_code_execution_tool_result"`
-
-            - `"text_editor_code_execution_tool_result"`
-
-        - `ToolSearchToolResultBlock`
-
-          - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
-
-            - `ToolSearchToolResultError`
-
-              - `error_code: ToolSearchToolResultErrorCode`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-              - `error_message: string | null`
-
-              - `type: "tool_search_tool_result_error"`
-
-                - `"tool_search_tool_result_error"`
-
-            - `ToolSearchToolSearchResultBlock`
-
-              - `tool_references: Array<ToolReferenceBlock>`
-
-                - `tool_name: string`
-
-                - `type: "tool_reference"`
-
-                  - `"tool_reference"`
-
-              - `type: "tool_search_tool_search_result"`
-
-                - `"tool_search_tool_search_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "tool_search_tool_result"`
-
-            - `"tool_search_tool_result"`
-
-        - `ContainerUploadBlock`
-
-          Response model for a file uploaded to the container.
-
-          - `file_id: string`
-
-          - `type: "container_upload"`
-
-            - `"container_upload"`
-
-      - `model: Model`
-
-        The model that will complete your prompt.
-
-        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-        - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
-
-          - `"claude-sonnet-5"`
-
-            High-performance model for coding and agents
-
-          - `"claude-fable-5"`
-
-            Next generation of intelligence for the hardest knowledge work and coding problems
-
-          - `"claude-mythos-5"`
-
-            Most capable model for cybersecurity and biology research
-
-          - `"claude-opus-4-8"`
-
-            Frontier intelligence for long-running agents and coding
-
-          - `"claude-opus-4-7"`
-
-            Frontier intelligence for long-running agents and coding
-
-          - `"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
-          - `"claude-opus-4-6"`
-
-            Frontier intelligence for long-running agents and coding
-
-          - `"claude-sonnet-4-6"`
-
-            Best combination of speed and intelligence
-
-          - `"claude-haiku-4-5"`
-
-            Fastest model with near-frontier intelligence
-
-          - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
-
-          - `"claude-opus-4-5"`
-
-            Premium model combining maximum intelligence with practical performance
-
-          - `"claude-opus-4-5-20251101"`
-
-            Premium model combining maximum intelligence with practical performance
-
-          - `"claude-sonnet-4-5"`
-
-            High-performance model for agents and coding
-
-          - `"claude-sonnet-4-5-20250929"`
-
-            High-performance model for agents and coding
-
-          - `"claude-opus-4-1"`
-
-            Exceptional model for specialized complex tasks
-
-          - `"claude-opus-4-1-20250805"`
-
-            Exceptional model for specialized complex tasks
-
-        - `(string & {})`
-
-      - `role: "assistant"`
-
-        Conversational role of the generated message.
-
-        This will always be `"assistant"`.
-
-        - `"assistant"`
-
-      - `stop_details: RefusalStopDetails | null`
-
-        Structured information about a refusal.
-
-        - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
-
-          The policy category that triggered a refusal.
-
-          - `"cyber"`
-
-          - `"bio"`
-
-          - `"frontier_llm"`
-
-          - `"reasoning_extraction"`
-
-        - `explanation: string | null`
-
-          Human-readable explanation of the refusal.
-
-          This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-        - `type: "refusal"`
-
-          - `"refusal"`
-
-      - `stop_reason: StopReason | null`
-
-        The reason that we stopped.
-
-        This may be one the following values:
-
-        * `"end_turn"`: the model reached a natural stopping point
-        * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-        * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-        * `"tool_use"`: the model invoked one or more tools
-        * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-        * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-
-        In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-        - `"end_turn"`
-
-        - `"max_tokens"`
-
-        - `"stop_sequence"`
-
-        - `"tool_use"`
-
-        - `"pause_turn"`
-
-        - `"refusal"`
-
-      - `stop_sequence: string | null`
-
-        Which custom stop sequence was generated, if any.
-
-        This value will be a non-null string if one of your custom stop sequences was generated.
-
-      - `type: "message"`
-
-        Object type.
-
-        For Messages, this is always `"message"`.
-
-        - `"message"`
-
-      - `usage: Usage`
-
-        Billing and rate-limit usage.
-
-        Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-        Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-        For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-        Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-        - `cache_creation: CacheCreation | null`
-
-          Breakdown of cached tokens by TTL
-
-          - `ephemeral_1h_input_tokens: number`
-
-            The number of input tokens used to create the 1 hour cache entry.
-
-          - `ephemeral_5m_input_tokens: number`
-
-            The number of input tokens used to create the 5 minute cache entry.
-
-        - `cache_creation_input_tokens: number | null`
-
-          The number of input tokens used to create the cache entry.
-
-        - `cache_read_input_tokens: number | null`
-
-          The number of input tokens read from the cache.
-
-        - `inference_geo: string | null`
-
-          The geographic region where inference was performed for this request.
-
-        - `input_tokens: number`
-
-          The number of input tokens which were used.
-
-        - `output_tokens: number`
-
-          The number of output tokens which were used.
-
-        - `output_tokens_details: OutputTokensDetails | null`
-
-          Breakdown of output tokens by category.
-
-          `output_tokens` remains the inclusive, authoritative total used for billing.
-          This object provides a read-only decomposition for observability — for example,
-          how many of the billed output tokens were spent on internal reasoning that may
-          have been summarized before being returned to you.
-
-          - `thinking_tokens: number`
-
-            Number of output tokens the model generated as internal reasoning, including
-            the thinking-block delimiter tokens.
-
-            Reflects the raw reasoning the model produced, not the (possibly shorter)
-            summarized thinking text returned in the response body. Computed by
-            re-tokenizing the raw reasoning text, so it may differ from the model's exact
-            generation count by a small number of tokens. Always ≤ `output_tokens`;
-            `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-        - `server_tool_use: ServerToolUsage | null`
-
-          The number of server tool requests.
-
-          - `web_fetch_requests: number`
-
-            The number of web fetch tool requests.
-
-          - `web_search_requests: number`
-
-            The number of web search tool requests.
-
-        - `service_tier: "standard" | "priority" | "batch" | null`
-
-          If the request used the priority, standard, or batch tier.
-
-          - `"standard"`
-
-          - `"priority"`
-
-          - `"batch"`
-
-    - `type: "succeeded"`
-
-      - `"succeeded"`
-
-  - `MessageBatchErroredResult`
-
-    - `error: ErrorResponse`
-
-      - `error: ErrorObject`
-
-        - `InvalidRequestError`
-
-          - `message: string`
-
-          - `type: "invalid_request_error"`
-
-            - `"invalid_request_error"`
-
-        - `AuthenticationError`
-
-          - `message: string`
-
-          - `type: "authentication_error"`
-
-            - `"authentication_error"`
-
-        - `BillingError`
-
-          - `message: string`
-
-          - `type: "billing_error"`
-
-            - `"billing_error"`
-
-        - `PermissionError`
-
-          - `message: string`
-
-          - `type: "permission_error"`
-
-            - `"permission_error"`
-
-        - `NotFoundError`
-
-          - `message: string`
-
-          - `type: "not_found_error"`
-
-            - `"not_found_error"`
-
-        - `RateLimitError`
-
-          - `message: string`
-
-          - `type: "rate_limit_error"`
-
-            - `"rate_limit_error"`
-
-        - `GatewayTimeoutError`
-
-          - `message: string`
-
-          - `type: "timeout_error"`
-
-            - `"timeout_error"`
-
-        - `APIErrorObject`
-
-          - `message: string`
-
-          - `type: "api_error"`
-
-            - `"api_error"`
-
-        - `OverloadedError`
-
-          - `message: string`
-
-          - `type: "overloaded_error"`
-
-            - `"overloaded_error"`
-
-      - `request_id: string | null`
-
-      - `type: "error"`
-
-        - `"error"`
-
-    - `type: "errored"`
-
-      - `"errored"`
-
-  - `MessageBatchCanceledResult`
-
-    - `type: "canceled"`
-
-      - `"canceled"`
-
-  - `MessageBatchExpiredResult`
-
-    - `type: "expired"`
-
-      - `"expired"`
-
-### Message Batch Succeeded Result
-
-- `MessageBatchSucceededResult`
-
-  - `message: Message`
-
-    - `id: string`
-
-      Unique object identifier.
-
-      The format and length of IDs may change over time.
-
-    - `container: Container | null`
-
-      Information about the container used in the request (for the code execution tool)
-
-      - `id: string`
-
-        Identifier for the container used in this request
-
-      - `expires_at: string`
-
-        The time at which the container will expire.
-
-    - `content: Array<ContentBlock>`
-
-      Content generated by the model.
-
-      This is an array of content blocks, each of which has a `type` that determines its shape.
-
-      Example:
-
-      ```json
-      [{"type": "text", "text": "Hi, I'm Claude."}]
-      ```
-
-      If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-      For example, if the input `messages` were:
-
-      ```json
-      [
-        {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-        {"role": "assistant", "content": "The best answer is ("}
-      ]
-      ```
-
-      Then the response `content` might be:
-
-      ```json
-      [{"type": "text", "text": "B)"}]
-      ```
-
-      - `TextBlock`
-
-        - `citations: Array<TextCitation> | null`
-
-          Citations supporting the text block.
-
-          The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-          - `CitationCharLocation`
-
-            - `cited_text: string`
-
-            - `document_index: number`
-
-            - `document_title: string | null`
-
-            - `end_char_index: number`
-
-            - `file_id: string | null`
-
-            - `start_char_index: number`
-
-            - `type: "char_location"`
-
-              - `"char_location"`
-
-          - `CitationPageLocation`
-
-            - `cited_text: string`
-
-            - `document_index: number`
-
-            - `document_title: string | null`
-
-            - `end_page_number: number`
-
-            - `file_id: string | null`
-
-            - `start_page_number: number`
-
-            - `type: "page_location"`
-
-              - `"page_location"`
-
-          - `CitationContentBlockLocation`
-
-            - `cited_text: string`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `document_index: number`
-
-            - `document_title: string | null`
-
-            - `end_block_index: number`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `file_id: string | null`
-
-            - `start_block_index: number`
-
-              0-based index of the first cited block in the source's `content` array.
-
-            - `type: "content_block_location"`
-
-              - `"content_block_location"`
-
-          - `CitationsWebSearchResultLocation`
-
-            - `cited_text: string`
-
-            - `encrypted_index: string`
-
-            - `title: string | null`
-
-            - `type: "web_search_result_location"`
-
-              - `"web_search_result_location"`
-
-            - `url: string`
-
-          - `CitationsSearchResultLocation`
-
-            - `cited_text: string`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `end_block_index: number`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `search_result_index: number`
-
-              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-              Counted separately from `document_index`; server-side web search results are not included in this count.
-
-            - `source: string`
-
-            - `start_block_index: number`
-
-              0-based index of the first cited block in the source's `content` array.
-
-            - `title: string | null`
-
-            - `type: "search_result_location"`
-
-              - `"search_result_location"`
-
-        - `text: string`
-
-        - `type: "text"`
-
-          - `"text"`
-
-      - `ThinkingBlock`
-
-        - `signature: string`
-
-        - `thinking: string`
-
-        - `type: "thinking"`
-
-          - `"thinking"`
-
-      - `RedactedThinkingBlock`
-
-        - `data: string`
-
-        - `type: "redacted_thinking"`
-
-          - `"redacted_thinking"`
-
-      - `ToolUseBlock`
-
-        - `id: string`
-
-        - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `DirectCaller`
-
-            Tool invocation directly from the model.
-
-            - `type: "direct"`
-
-              - `"direct"`
-
-          - `ServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-            - `tool_id: string`
-
-            - `type: "code_execution_20250825"`
-
-              - `"code_execution_20250825"`
-
-          - `ServerToolCaller20260120`
-
-            - `tool_id: string`
-
-            - `type: "code_execution_20260120"`
-
-              - `"code_execution_20260120"`
-
-        - `input: Record<string, unknown>`
-
-        - `name: string`
-
-        - `type: "tool_use"`
-
-          - `"tool_use"`
-
-      - `ServerToolUseBlock`
-
-        - `id: string`
-
-        - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `DirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `ServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `ServerToolCaller20260120`
-
-        - `input: Record<string, unknown>`
-
-        - `name: "web_search" | "web_fetch" | "code_execution" | 4 more`
-
-          - `"web_search"`
-
-          - `"web_fetch"`
-
-          - `"code_execution"`
-
-          - `"bash_code_execution"`
-
-          - `"text_editor_code_execution"`
-
-          - `"tool_search_tool_regex"`
-
-          - `"tool_search_tool_bm25"`
-
-        - `type: "server_tool_use"`
-
-          - `"server_tool_use"`
-
-      - `WebSearchToolResultBlock`
-
-        - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `DirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `ServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `ServerToolCaller20260120`
-
-        - `content: WebSearchToolResultBlockContent`
-
-          - `WebSearchToolResultError`
-
-            - `error_code: WebSearchToolResultErrorCode`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"max_uses_exceeded"`
-
-              - `"too_many_requests"`
-
-              - `"query_too_long"`
-
-              - `"request_too_large"`
-
-            - `type: "web_search_tool_result_error"`
-
-              - `"web_search_tool_result_error"`
-
-          - `Array<WebSearchResultBlock>`
-
-            - `encrypted_content: string`
-
-            - `page_age: string | null`
-
-            - `title: string`
-
-            - `type: "web_search_result"`
-
-              - `"web_search_result"`
-
-            - `url: string`
-
-        - `tool_use_id: string`
-
-        - `type: "web_search_tool_result"`
-
-          - `"web_search_tool_result"`
-
-      - `WebFetchToolResultBlock`
-
-        - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `DirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `ServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `ServerToolCaller20260120`
-
-        - `content: WebFetchToolResultErrorBlock | WebFetchBlock`
-
-          - `WebFetchToolResultErrorBlock`
-
-            - `error_code: WebFetchToolResultErrorCode`
-
-              - `"invalid_tool_input"`
-
-              - `"url_too_long"`
-
-              - `"url_not_allowed"`
-
-              - `"url_not_in_prior_context"`
-
-              - `"url_not_accessible"`
-
-              - `"unsupported_content_type"`
-
-              - `"too_many_requests"`
-
-              - `"max_uses_exceeded"`
-
-              - `"unavailable"`
-
-            - `type: "web_fetch_tool_result_error"`
-
-              - `"web_fetch_tool_result_error"`
-
-          - `WebFetchBlock`
-
-            - `content: DocumentBlock`
-
-              - `citations: CitationsConfig | null`
-
-                Citation configuration for the document
-
-                - `enabled: boolean`
-
-              - `source: Base64PDFSource | PlainTextSource`
-
-                - `Base64PDFSource`
-
-                  - `data: string`
-
-                  - `media_type: "application/pdf"`
-
-                    - `"application/pdf"`
-
-                  - `type: "base64"`
-
-                    - `"base64"`
-
-                - `PlainTextSource`
-
-                  - `data: string`
-
-                  - `media_type: "text/plain"`
-
-                    - `"text/plain"`
-
-                  - `type: "text"`
-
-                    - `"text"`
-
-              - `title: string | null`
-
-                The title of the document
-
-              - `type: "document"`
-
-                - `"document"`
-
-            - `retrieved_at: string | null`
-
-              ISO 8601 timestamp when the content was retrieved
-
-            - `type: "web_fetch_result"`
-
-              - `"web_fetch_result"`
-
-            - `url: string`
-
-              Fetched content URL
-
-        - `tool_use_id: string`
-
-        - `type: "web_fetch_tool_result"`
-
-          - `"web_fetch_tool_result"`
-
-      - `CodeExecutionToolResultBlock`
-
-        - `content: CodeExecutionToolResultBlockContent`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
-
-          - `CodeExecutionToolResultError`
-
-            - `error_code: CodeExecutionToolResultErrorCode`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-            - `type: "code_execution_tool_result_error"`
-
-              - `"code_execution_tool_result_error"`
-
-          - `CodeExecutionResultBlock`
-
-            - `content: Array<CodeExecutionOutputBlock>`
-
-              - `file_id: string`
-
-              - `type: "code_execution_output"`
-
-                - `"code_execution_output"`
-
-            - `return_code: number`
-
-            - `stderr: string`
-
-            - `stdout: string`
-
-            - `type: "code_execution_result"`
-
-              - `"code_execution_result"`
-
-          - `EncryptedCodeExecutionResultBlock`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
-
-            - `content: Array<CodeExecutionOutputBlock>`
-
-              - `file_id: string`
-
-              - `type: "code_execution_output"`
-
-            - `encrypted_stdout: string`
-
-            - `return_code: number`
-
-            - `stderr: string`
-
-            - `type: "encrypted_code_execution_result"`
-
-              - `"encrypted_code_execution_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "code_execution_tool_result"`
-
-          - `"code_execution_tool_result"`
-
-      - `BashCodeExecutionToolResultBlock`
-
-        - `content: BashCodeExecutionToolResultError | BashCodeExecutionResultBlock`
-
-          - `BashCodeExecutionToolResultError`
-
-            - `error_code: BashCodeExecutionToolResultErrorCode`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-              - `"output_file_too_large"`
-
-            - `type: "bash_code_execution_tool_result_error"`
-
-              - `"bash_code_execution_tool_result_error"`
-
-          - `BashCodeExecutionResultBlock`
-
-            - `content: Array<BashCodeExecutionOutputBlock>`
-
-              - `file_id: string`
-
-              - `type: "bash_code_execution_output"`
-
-                - `"bash_code_execution_output"`
-
-            - `return_code: number`
-
-            - `stderr: string`
-
-            - `stdout: string`
-
-            - `type: "bash_code_execution_result"`
-
-              - `"bash_code_execution_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "bash_code_execution_tool_result"`
-
-          - `"bash_code_execution_tool_result"`
-
-      - `TextEditorCodeExecutionToolResultBlock`
-
-        - `content: TextEditorCodeExecutionToolResultError | TextEditorCodeExecutionViewResultBlock | TextEditorCodeExecutionCreateResultBlock | TextEditorCodeExecutionStrReplaceResultBlock`
-
-          - `TextEditorCodeExecutionToolResultError`
-
-            - `error_code: TextEditorCodeExecutionToolResultErrorCode`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-              - `"file_not_found"`
-
-            - `error_message: string | null`
-
-            - `type: "text_editor_code_execution_tool_result_error"`
-
-              - `"text_editor_code_execution_tool_result_error"`
-
-          - `TextEditorCodeExecutionViewResultBlock`
-
-            - `content: string`
-
-            - `file_type: "text" | "image" | "pdf"`
-
-              - `"text"`
-
-              - `"image"`
-
-              - `"pdf"`
-
-            - `num_lines: number | null`
-
-            - `start_line: number | null`
-
-            - `total_lines: number | null`
-
-            - `type: "text_editor_code_execution_view_result"`
-
-              - `"text_editor_code_execution_view_result"`
-
-          - `TextEditorCodeExecutionCreateResultBlock`
-
-            - `is_file_update: boolean`
-
-            - `type: "text_editor_code_execution_create_result"`
-
-              - `"text_editor_code_execution_create_result"`
-
-          - `TextEditorCodeExecutionStrReplaceResultBlock`
-
-            - `lines: Array<string> | null`
-
-            - `new_lines: number | null`
-
-            - `new_start: number | null`
-
-            - `old_lines: number | null`
-
-            - `old_start: number | null`
-
-            - `type: "text_editor_code_execution_str_replace_result"`
-
-              - `"text_editor_code_execution_str_replace_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "text_editor_code_execution_tool_result"`
-
-          - `"text_editor_code_execution_tool_result"`
-
-      - `ToolSearchToolResultBlock`
-
-        - `content: ToolSearchToolResultError | ToolSearchToolSearchResultBlock`
-
-          - `ToolSearchToolResultError`
-
-            - `error_code: ToolSearchToolResultErrorCode`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-            - `error_message: string | null`
-
-            - `type: "tool_search_tool_result_error"`
-
-              - `"tool_search_tool_result_error"`
-
-          - `ToolSearchToolSearchResultBlock`
-
-            - `tool_references: Array<ToolReferenceBlock>`
-
-              - `tool_name: string`
-
-              - `type: "tool_reference"`
-
-                - `"tool_reference"`
-
-            - `type: "tool_search_tool_search_result"`
-
-              - `"tool_search_tool_search_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "tool_search_tool_result"`
-
-          - `"tool_search_tool_result"`
-
-      - `ContainerUploadBlock`
-
-        Response model for a file uploaded to the container.
-
-        - `file_id: string`
-
-        - `type: "container_upload"`
-
-          - `"container_upload"`
-
-    - `model: Model`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 13 more`
-
-        - `"claude-sonnet-5"`
-
-          High-performance model for coding and agents
-
-        - `"claude-fable-5"`
-
-          Next generation of intelligence for the hardest knowledge work and coding problems
-
-        - `"claude-mythos-5"`
-
-          Most capable model for cybersecurity and biology research
-
-        - `"claude-opus-4-8"`
-
-          Frontier intelligence for long-running agents and coding
-
-        - `"claude-opus-4-7"`
-
-          Frontier intelligence for long-running agents and coding
-
-        - `"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
-        - `"claude-opus-4-6"`
-
-          Frontier intelligence for long-running agents and coding
-
-        - `"claude-sonnet-4-6"`
-
-          Best combination of speed and intelligence
-
-        - `"claude-haiku-4-5"`
-
-          Fastest model with near-frontier intelligence
-
-        - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
-
-        - `"claude-opus-4-5"`
-
-          Premium model combining maximum intelligence with practical performance
-
-        - `"claude-opus-4-5-20251101"`
-
-          Premium model combining maximum intelligence with practical performance
-
-        - `"claude-sonnet-4-5"`
-
-          High-performance model for agents and coding
-
-        - `"claude-sonnet-4-5-20250929"`
-
-          High-performance model for agents and coding
-
-        - `"claude-opus-4-1"`
-
-          Exceptional model for specialized complex tasks
-
-        - `"claude-opus-4-1-20250805"`
-
-          Exceptional model for specialized complex tasks
-
-      - `(string & {})`
-
-    - `role: "assistant"`
-
-      Conversational role of the generated message.
-
-      This will always be `"assistant"`.
-
-      - `"assistant"`
-
-    - `stop_details: RefusalStopDetails | null`
-
-      Structured information about a refusal.
-
-      - `category: "cyber" | "bio" | "frontier_llm" | "reasoning_extraction" | null`
-
-        The policy category that triggered a refusal.
-
-        - `"cyber"`
-
-        - `"bio"`
-
-        - `"frontier_llm"`
-
-        - `"reasoning_extraction"`
-
-      - `explanation: string | null`
-
-        Human-readable explanation of the refusal.
-
-        This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-      - `type: "refusal"`
-
-        - `"refusal"`
-
-    - `stop_reason: StopReason | null`
-
-      The reason that we stopped.
-
-      This may be one the following values:
-
-      * `"end_turn"`: the model reached a natural stopping point
-      * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-      * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-      * `"tool_use"`: the model invoked one or more tools
-      * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-      * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-
-      In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-      - `"end_turn"`
-
-      - `"max_tokens"`
-
-      - `"stop_sequence"`
-
-      - `"tool_use"`
-
-      - `"pause_turn"`
-
-      - `"refusal"`
-
-    - `stop_sequence: string | null`
-
-      Which custom stop sequence was generated, if any.
-
-      This value will be a non-null string if one of your custom stop sequences was generated.
-
-    - `type: "message"`
-
-      Object type.
-
-      For Messages, this is always `"message"`.
-
-      - `"message"`
-
-    - `usage: Usage`
-
-      Billing and rate-limit usage.
-
-      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-      - `cache_creation: CacheCreation | null`
-
-        Breakdown of cached tokens by TTL
-
-        - `ephemeral_1h_input_tokens: number`
-
-          The number of input tokens used to create the 1 hour cache entry.
-
-        - `ephemeral_5m_input_tokens: number`
-
-          The number of input tokens used to create the 5 minute cache entry.
-
-      - `cache_creation_input_tokens: number | null`
-
-        The number of input tokens used to create the cache entry.
-
-      - `cache_read_input_tokens: number | null`
-
-        The number of input tokens read from the cache.
-
-      - `inference_geo: string | null`
-
-        The geographic region where inference was performed for this request.
-
-      - `input_tokens: number`
-
-        The number of input tokens which were used.
-
-      - `output_tokens: number`
-
-        The number of output tokens which were used.
-
-      - `output_tokens_details: OutputTokensDetails | null`
-
-        Breakdown of output tokens by category.
-
-        `output_tokens` remains the inclusive, authoritative total used for billing.
-        This object provides a read-only decomposition for observability — for example,
-        how many of the billed output tokens were spent on internal reasoning that may
-        have been summarized before being returned to you.
-
-        - `thinking_tokens: number`
-
-          Number of output tokens the model generated as internal reasoning, including
-          the thinking-block delimiter tokens.
-
-          Reflects the raw reasoning the model produced, not the (possibly shorter)
-          summarized thinking text returned in the response body. Computed by
-          re-tokenizing the raw reasoning text, so it may differ from the model's exact
-          generation count by a small number of tokens. Always ≤ `output_tokens`;
-          `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-      - `server_tool_use: ServerToolUsage | null`
-
-        The number of server tool requests.
-
-        - `web_fetch_requests: number`
-
-          The number of web fetch tool requests.
-
-        - `web_search_requests: number`
-
-          The number of web search tool requests.
-
-      - `service_tier: "standard" | "priority" | "batch" | null`
-
-        If the request used the priority, standard, or batch tier.
-
-        - `"standard"`
-
-        - `"priority"`
-
-        - `"batch"`
-
-  - `type: "succeeded"`
-
-    - `"succeeded"`

@@ -1,12 +1,12 @@
-## Delete Skill
+# Delete Skill
 
 `$client->beta->skills->delete(string skillID, ?list<AnthropicBeta> betas): SkillDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}`
+**DELETE** `/v1/skills/{skill_id}`
 
 Delete Skill
 
-### Parameters
+## Parameters
 
 - `skillID: string`
 
@@ -18,7 +18,7 @@ Delete Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `SkillDeleteResponse`
 
@@ -34,7 +34,7 @@ Delete Skill
 
     For Skills, this is always `"skill_deleted"`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -44,13 +44,13 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $skill = $client->beta->skills->delete(
-  'skill_id', betas: ['message-batches-2024-09-24']
+  'skill_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($skill);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

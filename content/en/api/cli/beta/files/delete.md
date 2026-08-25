@@ -1,12 +1,12 @@
-## Delete File
+# Delete File
 
 `$ ant beta:files delete`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
-### Parameters
+## Parameters
 
 - `--file-id: string`
 
@@ -16,9 +16,9 @@ Delete File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `deleted_file: object { id, type }`
+- `beta_deleted_file: object`
 
   - `id: string`
 
@@ -30,17 +30,15 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+## Example
 
-### Example
-
-```cli
+```bash
 ant beta:files delete \
   --api-key my-anthropic-api-key \
   --file-id file_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

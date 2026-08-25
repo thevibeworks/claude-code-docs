@@ -1,12 +1,12 @@
-## Delete Skill Version
+# Delete Skill Version
 
 `$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas): VersionDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+## Parameters
 
 - `skillID: string`
 
@@ -24,7 +24,7 @@ Delete Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `VersionDeleteResponse`
 
@@ -40,7 +40,7 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -50,13 +50,15 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $version = $client->beta->skills->versions->delete(
-  'version', skillID: 'skill_id', betas: ['message-batches-2024-09-24']
+  'version',
+  skillID: 'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($version);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

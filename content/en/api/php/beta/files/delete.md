@@ -1,12 +1,12 @@
-## Delete File
+# Delete File
 
-`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): DeletedFile`
+`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
-### Parameters
+## Parameters
 
 - `fileID: string`
 
@@ -16,9 +16,9 @@ Delete File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `DeletedFile`
+- `BetaDeletedFile`
 
   - `string id`
 
@@ -30,7 +30,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -39,14 +39,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$deletedFile = $client->beta->files->delete(
-  'file_id', betas: ['message-batches-2024-09-24']
+$betaDeletedFile = $client->beta->files->delete(
+  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
-var_dump($deletedFile);
+var_dump($betaDeletedFile);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

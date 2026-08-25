@@ -1,12 +1,12 @@
-## Validate Credential
+# Validate Credential
 
 `beta.vaults.credentials.mcp_oauth_validate(credential_id, **kwargs) -> BetaManagedAgentsCredentialValidation`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
 Validate Credential
 
-### Parameters
+## Parameters
 
 - `vault_id: String`
 
@@ -18,7 +18,7 @@ Validate Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -64,21 +64,31 @@ Validate Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
+
+    - `:"fallback-credit-2026-07-01"`
 
     - `:"agent-memory-2026-07-22"`
 
-### Returns
+    - `:"mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `class BetaManagedAgentsCredentialValidation`
 
@@ -116,6 +126,8 @@ Validate Credential
 
         HTTP status code.
 
+        format: int32
+
     - `method_: String`
 
       The MCP method that failed (for example `initialize` or `tools/list`).
@@ -152,17 +164,17 @@ Validate Credential
 
   - `type: :vault_credential_validation`
 
-    - `:vault_credential_validation`
-
   - `validated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: String`
 
     Identifier of the vault containing the credential.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -177,7 +189,7 @@ beta_managed_agents_credential_validation = anthropic.beta.vaults.credentials.mc
 puts(beta_managed_agents_credential_validation)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,6 +1,6 @@
 # Webhooks
 
-## Domain Types
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 
@@ -12,9 +12,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "agent.archived"constant`
-
-    - `AGENT_ARCHIVED("agent.archived")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -28,9 +26,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "agent.created"constant`
-
-    - `AGENT_CREATED("agent.created")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -44,9 +40,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "agent.deleted"constant`
-
-    - `AGENT_DELETED("agent.deleted")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -60,9 +54,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "agent.updated"constant`
-
-    - `AGENT_UPDATED("agent.updated")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -76,9 +68,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment.archived"constant`
-
-    - `DEPLOYMENT_ARCHIVED("deployment.archived")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -92,9 +82,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment.created"constant`
-
-    - `DEPLOYMENT_CREATED("deployment.created")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -108,9 +96,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment.deleted"constant`
-
-    - `DEPLOYMENT_DELETED("deployment.deleted")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -124,9 +110,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment.paused"constant`
-
-    - `DEPLOYMENT_PAUSED("deployment.paused")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -140,9 +124,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment_run.failed"constant`
-
-    - `DEPLOYMENT_RUN_FAILED("deployment_run.failed")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -156,9 +138,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment_run.started"constant`
-
-    - `DEPLOYMENT_RUN_STARTED("deployment_run.started")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -172,9 +152,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment_run.succeeded"constant`
-
-    - `DEPLOYMENT_RUN_SUCCEEDED("deployment_run.succeeded")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -188,9 +166,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment.unpaused"constant`
-
-    - `DEPLOYMENT_UNPAUSED("deployment.unpaused")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -204,9 +180,63 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "deployment.updated"constant`
+  - `JsonValue type constant`
 
-    - `DEPLOYMENT_UPDATED("deployment.updated")`
+  - `String workspaceId`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
+
+  - `String workspaceId`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
+
+  - `String workspaceId`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
+
+  - `String workspaceId`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -222,6 +252,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `BetaWebhookEventData data`
 
     - `class BetaWebhookSessionCreatedEventData:`
@@ -232,9 +264,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.created"constant`
-
-        - `SESSION_CREATED("session.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -246,9 +276,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.pending"constant`
-
-        - `SESSION_PENDING("session.pending")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -260,9 +288,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.running"constant`
-
-        - `SESSION_RUNNING("session.running")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -274,9 +300,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.idled"constant`
-
-        - `SESSION_IDLED("session.idled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -288,9 +312,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.requires_action"constant`
-
-        - `SESSION_REQUIRES_ACTION("session.requires_action")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -302,9 +324,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.archived"constant`
-
-        - `SESSION_ARCHIVED("session.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -316,9 +336,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.deleted"constant`
-
-        - `SESSION_DELETED("session.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -330,9 +348,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_rescheduled"constant`
-
-        - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -344,9 +360,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_run_started"constant`
-
-        - `SESSION_STATUS_RUN_STARTED("session.status_run_started")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -358,9 +372,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_idled"constant`
-
-        - `SESSION_STATUS_IDLED("session.status_idled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -372,9 +384,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_terminated"constant`
-
-        - `SESSION_STATUS_TERMINATED("session.status_terminated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -390,9 +400,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonValue; type "session.thread_created"constant`
-
-        - `SESSION_THREAD_CREATED("session.thread_created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -408,9 +416,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonValue; type "session.thread_idled"constant`
-
-        - `SESSION_THREAD_IDLED("session.thread_idled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -426,9 +432,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonValue; type "session.thread_terminated"constant`
-
-        - `SESSION_THREAD_TERMINATED("session.thread_terminated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -440,9 +444,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.outcome_evaluation_ended"constant`
-
-        - `SESSION_OUTCOME_EVALUATION_ENDED("session.outcome_evaluation_ended")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -454,9 +456,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault.created"constant`
-
-        - `VAULT_CREATED("vault.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -468,9 +468,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault.archived"constant`
-
-        - `VAULT_ARCHIVED("vault.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -482,9 +480,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault.deleted"constant`
-
-        - `VAULT_DELETED("vault.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -496,9 +492,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.created"constant`
-
-        - `VAULT_CREDENTIAL_CREATED("vault_credential.created")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -514,9 +508,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.archived"constant`
-
-        - `VAULT_CREDENTIAL_ARCHIVED("vault_credential.archived")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -532,9 +524,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.deleted"constant`
-
-        - `VAULT_CREDENTIAL_DELETED("vault_credential.deleted")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -550,9 +540,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.refresh_failed"constant`
-
-        - `VAULT_CREDENTIAL_REFRESH_FAILED("vault_credential.refresh_failed")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -568,9 +556,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.updated"constant`
-
-        - `SESSION_UPDATED("session.updated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -582,9 +568,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.created"constant`
-
-        - `AGENT_CREATED("agent.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -596,9 +580,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.archived"constant`
-
-        - `AGENT_ARCHIVED("agent.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -610,9 +592,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.deleted"constant`
-
-        - `AGENT_DELETED("agent.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -624,9 +604,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.paused"constant`
-
-        - `DEPLOYMENT_PAUSED("deployment.paused")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -638,9 +616,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment_run.failed"constant`
-
-        - `DEPLOYMENT_RUN_FAILED("deployment_run.failed")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -652,9 +628,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.created"constant`
-
-        - `DEPLOYMENT_CREATED("deployment.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -666,9 +640,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.updated"constant`
-
-        - `DEPLOYMENT_UPDATED("deployment.updated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -680,9 +652,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.unpaused"constant`
-
-        - `DEPLOYMENT_UNPAUSED("deployment.unpaused")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -694,9 +664,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.updated"constant`
-
-        - `AGENT_UPDATED("agent.updated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -708,9 +676,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.archived"constant`
-
-        - `DEPLOYMENT_ARCHIVED("deployment.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -722,9 +688,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment_run.started"constant`
-
-        - `DEPLOYMENT_RUN_STARTED("deployment_run.started")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -736,9 +700,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.deleted"constant`
-
-        - `DEPLOYMENT_DELETED("deployment.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -750,21 +712,113 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment_run.succeeded"constant`
-
-        - `DEPLOYMENT_RUN_SUCCEEDED("deployment_run.succeeded")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
-  - `JsonValue; type "event"constant`
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+  - `JsonValue type constant`
 
     Object type. Always `event` for webhook payloads.
 
-    - `EVENT("event")`
-
 ### Beta Webhook Event Data
 
-- `class BetaWebhookEventData: A class that can be one of several variants.union`
+- `class BetaWebhookEventData: union`
 
   - `class BetaWebhookSessionCreatedEventData:`
 
@@ -774,9 +828,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.created"constant`
-
-      - `SESSION_CREATED("session.created")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -788,9 +840,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.pending"constant`
-
-      - `SESSION_PENDING("session.pending")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -802,9 +852,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.running"constant`
-
-      - `SESSION_RUNNING("session.running")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -816,9 +864,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.idled"constant`
-
-      - `SESSION_IDLED("session.idled")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -830,9 +876,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.requires_action"constant`
-
-      - `SESSION_REQUIRES_ACTION("session.requires_action")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -844,9 +888,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.archived"constant`
-
-      - `SESSION_ARCHIVED("session.archived")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -858,9 +900,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.deleted"constant`
-
-      - `SESSION_DELETED("session.deleted")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -872,9 +912,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.status_rescheduled"constant`
-
-      - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -886,9 +924,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.status_run_started"constant`
-
-      - `SESSION_STATUS_RUN_STARTED("session.status_run_started")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -900,9 +936,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.status_idled"constant`
-
-      - `SESSION_STATUS_IDLED("session.status_idled")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -914,9 +948,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.status_terminated"constant`
-
-      - `SESSION_STATUS_TERMINATED("session.status_terminated")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -932,9 +964,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonValue; type "session.thread_created"constant`
-
-      - `SESSION_THREAD_CREATED("session.thread_created")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -950,9 +980,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonValue; type "session.thread_idled"constant`
-
-      - `SESSION_THREAD_IDLED("session.thread_idled")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -968,9 +996,7 @@
 
       ID of the session thread this event refers to.
 
-    - `JsonValue; type "session.thread_terminated"constant`
-
-      - `SESSION_THREAD_TERMINATED("session.thread_terminated")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -982,9 +1008,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.outcome_evaluation_ended"constant`
-
-      - `SESSION_OUTCOME_EVALUATION_ENDED("session.outcome_evaluation_ended")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -996,9 +1020,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "vault.created"constant`
-
-      - `VAULT_CREATED("vault.created")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1010,9 +1032,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "vault.archived"constant`
-
-      - `VAULT_ARCHIVED("vault.archived")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1024,9 +1044,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "vault.deleted"constant`
-
-      - `VAULT_DELETED("vault.deleted")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1038,9 +1056,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "vault_credential.created"constant`
-
-      - `VAULT_CREDENTIAL_CREATED("vault_credential.created")`
+    - `JsonValue type constant`
 
     - `String vaultId`
 
@@ -1056,9 +1072,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "vault_credential.archived"constant`
-
-      - `VAULT_CREDENTIAL_ARCHIVED("vault_credential.archived")`
+    - `JsonValue type constant`
 
     - `String vaultId`
 
@@ -1074,9 +1088,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "vault_credential.deleted"constant`
-
-      - `VAULT_CREDENTIAL_DELETED("vault_credential.deleted")`
+    - `JsonValue type constant`
 
     - `String vaultId`
 
@@ -1092,9 +1104,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "vault_credential.refresh_failed"constant`
-
-      - `VAULT_CREDENTIAL_REFRESH_FAILED("vault_credential.refresh_failed")`
+    - `JsonValue type constant`
 
     - `String vaultId`
 
@@ -1110,9 +1120,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "session.updated"constant`
-
-      - `SESSION_UPDATED("session.updated")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1124,9 +1132,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "agent.created"constant`
-
-      - `AGENT_CREATED("agent.created")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1138,9 +1144,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "agent.archived"constant`
-
-      - `AGENT_ARCHIVED("agent.archived")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1152,9 +1156,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "agent.deleted"constant`
-
-      - `AGENT_DELETED("agent.deleted")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1166,9 +1168,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment.paused"constant`
-
-      - `DEPLOYMENT_PAUSED("deployment.paused")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1180,9 +1180,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment_run.failed"constant`
-
-      - `DEPLOYMENT_RUN_FAILED("deployment_run.failed")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1194,9 +1192,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment.created"constant`
-
-      - `DEPLOYMENT_CREATED("deployment.created")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1208,9 +1204,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment.updated"constant`
-
-      - `DEPLOYMENT_UPDATED("deployment.updated")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1222,9 +1216,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment.unpaused"constant`
-
-      - `DEPLOYMENT_UNPAUSED("deployment.unpaused")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1236,9 +1228,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "agent.updated"constant`
-
-      - `AGENT_UPDATED("agent.updated")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1250,9 +1240,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment.archived"constant`
-
-      - `DEPLOYMENT_ARCHIVED("deployment.archived")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1264,9 +1252,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment_run.started"constant`
-
-      - `DEPLOYMENT_RUN_STARTED("deployment_run.started")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1278,9 +1264,7 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment.deleted"constant`
-
-      - `DEPLOYMENT_DELETED("deployment.deleted")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
 
@@ -1292,11 +1276,147 @@
 
     - `String organizationId`
 
-    - `JsonValue; type "deployment_run.succeeded"constant`
-
-      - `DEPLOYMENT_RUN_SUCCEEDED("deployment_run.succeeded")`
+    - `JsonValue type constant`
 
     - `String workspaceId`
+
+  - `class BetaWebhookEnvironmentCreatedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookEnvironmentArchivedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookEnvironmentDeletedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+    - `String id`
+
+      ID of the memory store that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+    - `String id`
+
+      ID of the memory store that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+    - `String id`
+
+      ID of the memory store that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookSessionBudgetReachedEventData:`
+
+    - `String id`
+
+      ID of the session that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue type constant`
+
+    - `String workspaceId`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData:`
+
+  - `String id`
+
+    ID of the memory store that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
+
+  - `String workspaceId`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData:`
+
+  - `String id`
+
+    ID of the memory store that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
+
+  - `String workspaceId`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData:`
+
+  - `String id`
+
+    ID of the memory store that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
+
+  - `String workspaceId`
 
 ### Beta Webhook Session Archived Event Data
 
@@ -1308,9 +1428,21 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.archived"constant`
+  - `JsonValue type constant`
 
-    - `SESSION_ARCHIVED("session.archived")`
+  - `String workspaceId`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `class BetaWebhookSessionBudgetReachedEventData:`
+
+  - `String id`
+
+    ID of the session that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1324,9 +1456,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.created"constant`
-
-    - `SESSION_CREATED("session.created")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1340,9 +1470,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.deleted"constant`
-
-    - `SESSION_DELETED("session.deleted")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1356,9 +1484,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.idled"constant`
-
-    - `SESSION_IDLED("session.idled")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1372,9 +1498,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.outcome_evaluation_ended"constant`
-
-    - `SESSION_OUTCOME_EVALUATION_ENDED("session.outcome_evaluation_ended")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1388,9 +1512,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.pending"constant`
-
-    - `SESSION_PENDING("session.pending")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1404,9 +1526,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.requires_action"constant`
-
-    - `SESSION_REQUIRES_ACTION("session.requires_action")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1420,9 +1540,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.running"constant`
-
-    - `SESSION_RUNNING("session.running")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1436,9 +1554,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.status_idled"constant`
-
-    - `SESSION_STATUS_IDLED("session.status_idled")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1452,9 +1568,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.status_rescheduled"constant`
-
-    - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1468,9 +1582,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.status_run_started"constant`
-
-    - `SESSION_STATUS_RUN_STARTED("session.status_run_started")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1484,9 +1596,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.status_terminated"constant`
-
-    - `SESSION_STATUS_TERMINATED("session.status_terminated")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1504,9 +1614,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonValue; type "session.thread_created"constant`
-
-    - `SESSION_THREAD_CREATED("session.thread_created")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1524,9 +1632,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonValue; type "session.thread_idled"constant`
-
-    - `SESSION_THREAD_IDLED("session.thread_idled")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1544,9 +1650,7 @@
 
     ID of the session thread this event refers to.
 
-  - `JsonValue; type "session.thread_terminated"constant`
-
-    - `SESSION_THREAD_TERMINATED("session.thread_terminated")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1560,9 +1664,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "session.updated"constant`
-
-    - `SESSION_UPDATED("session.updated")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1576,9 +1678,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "vault.archived"constant`
-
-    - `VAULT_ARCHIVED("vault.archived")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1592,9 +1692,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "vault.created"constant`
-
-    - `VAULT_CREATED("vault.created")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1608,9 +1706,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "vault_credential.archived"constant`
-
-    - `VAULT_CREDENTIAL_ARCHIVED("vault_credential.archived")`
+  - `JsonValue type constant`
 
   - `String vaultId`
 
@@ -1628,9 +1724,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "vault_credential.created"constant`
-
-    - `VAULT_CREDENTIAL_CREATED("vault_credential.created")`
+  - `JsonValue type constant`
 
   - `String vaultId`
 
@@ -1648,9 +1742,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "vault_credential.deleted"constant`
-
-    - `VAULT_CREDENTIAL_DELETED("vault_credential.deleted")`
+  - `JsonValue type constant`
 
   - `String vaultId`
 
@@ -1668,9 +1760,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "vault_credential.refresh_failed"constant`
-
-    - `VAULT_CREDENTIAL_REFRESH_FAILED("vault_credential.refresh_failed")`
+  - `JsonValue type constant`
 
   - `String vaultId`
 
@@ -1688,9 +1778,7 @@
 
   - `String organizationId`
 
-  - `JsonValue; type "vault.deleted"constant`
-
-    - `VAULT_DELETED("vault.deleted")`
+  - `JsonValue type constant`
 
   - `String workspaceId`
 
@@ -1706,6 +1794,8 @@
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `BetaWebhookEventData data`
 
     - `class BetaWebhookSessionCreatedEventData:`
@@ -1716,9 +1806,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.created"constant`
-
-        - `SESSION_CREATED("session.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1730,9 +1818,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.pending"constant`
-
-        - `SESSION_PENDING("session.pending")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1744,9 +1830,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.running"constant`
-
-        - `SESSION_RUNNING("session.running")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1758,9 +1842,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.idled"constant`
-
-        - `SESSION_IDLED("session.idled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1772,9 +1854,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.requires_action"constant`
-
-        - `SESSION_REQUIRES_ACTION("session.requires_action")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1786,9 +1866,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.archived"constant`
-
-        - `SESSION_ARCHIVED("session.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1800,9 +1878,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.deleted"constant`
-
-        - `SESSION_DELETED("session.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1814,9 +1890,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_rescheduled"constant`
-
-        - `SESSION_STATUS_RESCHEDULED("session.status_rescheduled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1828,9 +1902,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_run_started"constant`
-
-        - `SESSION_STATUS_RUN_STARTED("session.status_run_started")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1842,9 +1914,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_idled"constant`
-
-        - `SESSION_STATUS_IDLED("session.status_idled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1856,9 +1926,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.status_terminated"constant`
-
-        - `SESSION_STATUS_TERMINATED("session.status_terminated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1874,9 +1942,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonValue; type "session.thread_created"constant`
-
-        - `SESSION_THREAD_CREATED("session.thread_created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1892,9 +1958,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonValue; type "session.thread_idled"constant`
-
-        - `SESSION_THREAD_IDLED("session.thread_idled")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1910,9 +1974,7 @@
 
         ID of the session thread this event refers to.
 
-      - `JsonValue; type "session.thread_terminated"constant`
-
-        - `SESSION_THREAD_TERMINATED("session.thread_terminated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1924,9 +1986,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.outcome_evaluation_ended"constant`
-
-        - `SESSION_OUTCOME_EVALUATION_ENDED("session.outcome_evaluation_ended")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1938,9 +1998,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault.created"constant`
-
-        - `VAULT_CREATED("vault.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1952,9 +2010,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault.archived"constant`
-
-        - `VAULT_ARCHIVED("vault.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1966,9 +2022,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault.deleted"constant`
-
-        - `VAULT_DELETED("vault.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -1980,9 +2034,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.created"constant`
-
-        - `VAULT_CREDENTIAL_CREATED("vault_credential.created")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -1998,9 +2050,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.archived"constant`
-
-        - `VAULT_CREDENTIAL_ARCHIVED("vault_credential.archived")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -2016,9 +2066,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.deleted"constant`
-
-        - `VAULT_CREDENTIAL_DELETED("vault_credential.deleted")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -2034,9 +2082,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "vault_credential.refresh_failed"constant`
-
-        - `VAULT_CREDENTIAL_REFRESH_FAILED("vault_credential.refresh_failed")`
+      - `JsonValue type constant`
 
       - `String vaultId`
 
@@ -2052,9 +2098,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "session.updated"constant`
-
-        - `SESSION_UPDATED("session.updated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2066,9 +2110,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.created"constant`
-
-        - `AGENT_CREATED("agent.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2080,9 +2122,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.archived"constant`
-
-        - `AGENT_ARCHIVED("agent.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2094,9 +2134,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.deleted"constant`
-
-        - `AGENT_DELETED("agent.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2108,9 +2146,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.paused"constant`
-
-        - `DEPLOYMENT_PAUSED("deployment.paused")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2122,9 +2158,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment_run.failed"constant`
-
-        - `DEPLOYMENT_RUN_FAILED("deployment_run.failed")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2136,9 +2170,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.created"constant`
-
-        - `DEPLOYMENT_CREATED("deployment.created")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2150,9 +2182,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.updated"constant`
-
-        - `DEPLOYMENT_UPDATED("deployment.updated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2164,9 +2194,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.unpaused"constant`
-
-        - `DEPLOYMENT_UNPAUSED("deployment.unpaused")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2178,9 +2206,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "agent.updated"constant`
-
-        - `AGENT_UPDATED("agent.updated")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2192,9 +2218,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.archived"constant`
-
-        - `DEPLOYMENT_ARCHIVED("deployment.archived")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2206,9 +2230,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment_run.started"constant`
-
-        - `DEPLOYMENT_RUN_STARTED("deployment_run.started")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2220,9 +2242,7 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment.deleted"constant`
-
-        - `DEPLOYMENT_DELETED("deployment.deleted")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
@@ -2234,14 +2254,106 @@
 
       - `String organizationId`
 
-      - `JsonValue; type "deployment_run.succeeded"constant`
-
-        - `DEPLOYMENT_RUN_SUCCEEDED("deployment_run.succeeded")`
+      - `JsonValue type constant`
 
       - `String workspaceId`
 
-  - `JsonValue; type "event"constant`
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue type constant`
+
+      - `String workspaceId`
+
+  - `JsonValue type constant`
 
     Object type. Always `event` for webhook payloads.
-
-    - `EVENT("event")`

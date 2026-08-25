@@ -1,18 +1,18 @@
-## Update Environment
+# Update Environment
 
 `client.Beta.Environments.Update(ctx, environmentID, params) (*BetaEnvironment, error)`
 
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Parameters
+## Parameters
 
 - `environmentID string`
 
 - `params BetaEnvironmentUpdateParams`
 
-  - `Config param.Field[BetaEnvironmentUpdateParamsConfigUnion]`
+  - `Config param.Field[BetaEnvironmentUpdateParamsConfigUnion] Optional`
 
     Body param: Updated environment configuration
 
@@ -27,9 +27,7 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `const CloudCloud Cloud = "cloud"`
-
-      - `Networking BetaCloudConfigParamsNetworkingUnionResp`
+      - `Networking BetaCloudConfigParamsNetworkingUnionResp Optional`
 
         Network configuration policy. Omit on update to preserve the existing value.
 
@@ -40,8 +38,6 @@ Update an existing environment's configuration.
           - `Type Unrestricted`
 
             Network policy type
-
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
 
         - `type BetaLimitedNetworkParamsResp struct{…}`
 
@@ -54,55 +50,53 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `const LimitedLimited Limited = "limited"`
-
-          - `AllowMCPServers bool`
+          - `AllowMCPServers bool Optional`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-          - `AllowPackageManagers bool`
+          - `AllowPackageManagers bool Optional`
 
             Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-          - `AllowedHosts []string`
+          - `AllowedHosts []string Optional`
 
             Specifies domains the container can reach.
 
-      - `Packages BetaPackagesParamsResp`
+      - `Packages BetaPackagesParamsResp Optional`
 
         Specify packages (and optionally their versions) available in this environment.
 
         When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-        - `Apt []string`
+        - `Apt []string Optional`
 
           Ubuntu/Debian packages to install
 
-        - `Cargo []string`
+        - `Cargo []string Optional`
 
           Rust packages to install
 
-        - `Gem []string`
+        - `Gem []string Optional`
 
           Ruby packages to install
 
-        - `Go []string`
+        - `Go []string Optional`
 
           Go packages to install
 
-        - `Npm []string`
+        - `Npm []string Optional`
 
           Node.js packages to install
 
-        - `Pip []string`
+        - `Pip []string Optional`
 
           Python packages to install
 
-        - `Type BetaPackagesParamsType`
+        - `Type BetaPackagesParamsType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesParamsTypePackages BetaPackagesParamsType = "packages"`
+          default: packages
 
     - `type BetaSelfHostedConfigParamsResp struct{…}`
 
@@ -112,21 +106,23 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
+  - `Description param.Field[string] Optional`
 
-  - `Description param.Field[string]`
+    Body param: Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
-    Body param: Updated description of the environment
+    maxLength: 1024
 
-  - `Metadata param.Field[map[string, string]]`
+  - `Metadata param.Field[map[string, string]] Optional`
 
     Body param: User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-  - `Name param.Field[string]`
+  - `Name param.Field[string] Optional`
 
     Body param: Updated name for the environment
 
-  - `Scope param.Field[BetaEnvironmentUpdateParamsScope]`
+    maxLength: 256, minLength: 1
+
+  - `Scope param.Field[BetaEnvironmentUpdateParamsScope] Optional`
 
     Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -134,7 +130,7 @@ Update an existing environment's configuration.
 
     - `const BetaEnvironmentUpdateParamsScopeAccount BetaEnvironmentUpdateParamsScope = "account"`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -186,21 +182,31 @@ Update an existing environment's configuration.
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
+
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
 
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
-### Returns
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+## Returns
 
 - `type BetaEnvironment struct{…}`
 
@@ -234,8 +240,6 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
-
         - `type BetaLimitedNetwork struct{…}`
 
           Limited network access.
@@ -255,8 +259,6 @@ Update an existing environment's configuration.
           - `Type Limited`
 
             Network policy type
-
-            - `const LimitedLimited Limited = "limited"`
 
       - `Packages BetaPackages`
 
@@ -286,17 +288,15 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-        - `Type BetaPackagesType`
+        - `Type BetaPackagesType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesTypePackages BetaPackagesType = "packages"`
+          default: packages
 
       - `Type Cloud`
 
         Environment type
-
-        - `const CloudCloud Cloud = "cloud"`
 
     - `type BetaSelfHostedConfig struct{…}`
 
@@ -306,15 +306,13 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
-
   - `CreatedAt string`
 
     RFC 3339 timestamp when environment was created
 
   - `Description string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata map[string, string]`
 
@@ -328,13 +326,13 @@ Update an existing environment's configuration.
 
     The type of object (always 'environment')
 
-    - `const EnvironmentEnvironment Environment = "environment"`
+    default: environment
 
   - `UpdatedAt string`
 
     RFC 3339 timestamp when environment was last updated
 
-  - `Scope BetaEnvironmentScope`
+  - `Scope BetaEnvironmentScope Optional`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -342,38 +340,36 @@ Update an existing environment's configuration.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
-### Example
+## Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaEnvironment, err := client.Beta.Environments.Update(
-    context.TODO(),
-    "env_011CZkZ9X2dpNyB7HsEFoRfW",
-    anthropic.BetaEnvironmentUpdateParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaEnvironment.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaEnvironment, err := client.Beta.Environments.Update(
+		context.TODO(),
+		"env_011CZkZ9X2dpNyB7HsEFoRfW",
+		anthropic.BetaEnvironmentUpdateParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaEnvironment.ID)
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

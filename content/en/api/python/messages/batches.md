@@ -2,9 +2,9 @@
 
 ## Create a Message Batch
 
-`messages.batches.create(BatchCreateParams**kwargs)  -> MessageBatch`
+`messages.batches.create(**kwargs)  -> MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -18,11 +18,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   List of requests for prompt completion. Each is an individual request to create a Message.
 
+  maxItems: 100000, minItems: 1
+
   - `custom_id: str`
 
     Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
 
     Must be unique for each request within the Message Batch.
+
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
 
   - `params: RequestParams`
 
@@ -39,6 +43,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
       Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+      minimum: 0
 
     - `messages: Iterable[MessageParam]`
 
@@ -91,27 +97,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       There is a limit of 100,000 messages in a single request.
 
-      - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 15 more]]]`
+      - `content: Union[str, List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]]`
 
         - `str`
 
-        - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 15 more]]`
+        - `List[Union[TextBlockParam, ImageBlockParam, DocumentBlockParam, 14 more]]`
 
           - `class TextBlockParam: …`
 
             - `text: str`
 
-            - `type: Literal["text"]`
+              minLength: 1
 
-              - `"text"`
+            - `type: Literal["text"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
 
               - `type: Literal["ephemeral"]`
-
-                - `"ephemeral"`
 
               - `ttl: Optional[Literal["5m", "1h"]]`
 
@@ -136,15 +140,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: int`
 
+                  minimum: 0
+
                 - `document_title: Optional[str]`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_char_index: int`
 
                 - `start_char_index: int`
 
-                - `type: Literal["char_location"]`
+                  minimum: 0
 
-                  - `"char_location"`
+                - `type: Literal["char_location"]`
 
               - `class CitationPageLocationParam: …`
 
@@ -152,15 +160,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: int`
 
+                  minimum: 0
+
                 - `document_title: Optional[str]`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_page_number: int`
 
                 - `start_page_number: int`
 
-                - `type: Literal["page_location"]`
+                  minimum: 1
 
-                  - `"page_location"`
+                - `type: Literal["page_location"]`
 
               - `class CitationContentBlockLocationParam: …`
 
@@ -172,7 +184,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: int`
 
+                  minimum: 0
+
                 - `document_title: Optional[str]`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_block_index: int`
 
@@ -184,9 +200,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `type: Literal["content_block_location"]`
+                  minimum: 0
 
-                  - `"content_block_location"`
+                - `type: Literal["content_block_location"]`
 
               - `class CitationWebSearchResultLocationParam: …`
 
@@ -196,11 +212,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: Optional[str]`
 
+                  maxLength: 512, minLength: 1
+
                 - `type: Literal["web_search_result_location"]`
 
-                  - `"web_search_result_location"`
-
                 - `url: str`
+
+                  minLength: 1
 
               - `class CitationSearchResultLocationParam: …`
 
@@ -222,17 +240,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: str`
 
                 - `start_block_index: int`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: Optional[str]`
 
                 - `type: Literal["search_result_location"]`
-
-                  - `"search_result_location"`
 
           - `class ImageBlockParam: …`
 
@@ -241,6 +261,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `class Base64ImageSource: …`
 
                 - `data: str`
+
+                  format: byte
 
                 - `media_type: Literal["image/jpeg", "image/png", "image/gif", "image/webp"]`
 
@@ -254,23 +276,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["base64"]`
 
-                  - `"base64"`
-
               - `class URLImageSource: …`
 
                 - `type: Literal["url"]`
 
-                  - `"url"`
-
                 - `url: str`
 
-            - `type: Literal["image"]`
+              - `class FileImageSource: …`
 
-              - `"image"`
+                - `file_id: str`
+
+                - `type: Literal["file"]`
+
+            - `type: Literal["image"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
+
+            - `transformations: Optional[ImageTransformationsParam]`
+
+              Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
+
+              - `oversized_image: Optional[Literal["downsize", "error"]]`
+
+                What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
+
+                - `"downsize"`
+
+                - `"error"`
 
           - `class DocumentBlockParam: …`
 
@@ -280,13 +314,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `data: str`
 
+                  format: byte
+
                 - `media_type: Literal["application/pdf"]`
 
-                  - `"application/pdf"`
-
                 - `type: Literal["base64"]`
-
-                  - `"base64"`
 
               - `class PlainTextSource: …`
 
@@ -294,11 +326,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `media_type: Literal["text/plain"]`
 
-                  - `"text/plain"`
-
                 - `type: Literal["text"]`
-
-                  - `"text"`
 
               - `class ContentBlockSource: …`
 
@@ -314,19 +342,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["content"]`
 
-                  - `"content"`
-
               - `class URLPDFSource: …`
 
                 - `type: Literal["url"]`
 
-                  - `"url"`
-
                 - `url: str`
 
-            - `type: Literal["document"]`
+              - `class FileDocumentSource: …`
 
-              - `"document"`
+                - `file_id: str`
+
+                - `type: Literal["file"]`
+
+            - `type: Literal["document"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -338,13 +366,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `context: Optional[str]`
 
+              minLength: 1
+
             - `title: Optional[str]`
+
+              maxLength: 500, minLength: 1
 
           - `class SearchResultBlockParam: …`
 
             - `content: List[TextBlockParam]`
 
               - `text: str`
+
+                minLength: 1
 
               - `type: Literal["text"]`
 
@@ -360,8 +394,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["search_result"]`
 
-              - `"search_result"`
-
             - `cache_control: Optional[CacheControlEphemeral]`
 
               Create a cache control breakpoint at this content block.
@@ -372,31 +404,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `signature: str`
 
+              The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
+
+              Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
+
             - `thinking: str`
 
-            - `type: Literal["thinking"]`
+              The `thinking` text of this block as returned by the API.
 
-              - `"thinking"`
+            - `type: Literal["thinking"]`
 
           - `class RedactedThinkingBlockParam: …`
 
             - `data: str`
 
-            - `type: Literal["redacted_thinking"]`
+              The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
-              - `"redacted_thinking"`
+            - `type: Literal["redacted_thinking"]`
 
           - `class ToolUseBlockParam: …`
 
             - `id: str`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `input: Dict[str, object]`
 
             - `name: str`
 
-            - `type: Literal["tool_use"]`
+              maxLength: 200, minLength: 1
 
-              - `"tool_use"`
+            - `type: Literal["tool_use"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -412,33 +450,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["direct"]`
 
-                  - `"direct"`
-
               - `class ServerToolCaller: …`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: str`
 
-                - `type: Literal["code_execution_20250825"]`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: Literal["code_execution_20250825"]`
 
               - `class ServerToolCaller20260120: …`
 
                 - `tool_id: str`
 
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
                 - `type: Literal["code_execution_20260120"]`
 
-                  - `"code_execution_20260120"`
+            - `toolset_name: Optional[str]`
+
+              For a toolset member tool_use, the toolset family this member belongs to.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class ToolResultBlockParam: …`
 
             - `tool_use_id: str`
 
-            - `type: Literal["tool_result"]`
+              pattern: ^[a-zA-Z0-9_-]+$
 
-              - `"tool_result"`
+            - `type: Literal["tool_result"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -464,19 +506,170 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: str`
 
-                  - `type: Literal["tool_reference"]`
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `"tool_reference"`
+                  - `type: Literal["tool_reference"]`
 
                   - `cache_control: Optional[CacheControlEphemeral]`
 
                     Create a cache control breakpoint at this content block.
 
+                - `class BrowserStateBlockParam: …`
+
+                  The caller's browser state after a browser toolset member call —
+                  the full inventory of open tabs, which tab is active, and any side
+                  effects (tabs opened, download state changes) the call produced.
+
+                  At most one per `tool_result`, only on a non-error result answering a
+                  browser toolset member `tool_use`. The server renders the
+                  model-visible text from it; the model never sees the raw fields.
+
+                  - `tabs: List[BrowserStateTabEntry]`
+
+                    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
+
+                    maxItems: 100
+
+                    - `tab_id: str`
+
+                      The caller-assigned identifier for this tab, unique within the inventory.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `title: str`
+
+                      The title of the page the tab is showing. May be empty.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `url: str`
+
+                      The URL of the page the tab is showing. May be empty.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `active: Optional[bool]`
+
+                      Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
+
+                  - `type: Literal["browser_state"]`
+
+                  - `cache_control: Optional[CacheControlEphemeral]`
+
+                    Create a cache control breakpoint at this content block.
+
+                  - `state_changes: Optional[List[BrowserStateChange]]`
+
+                    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                    maxItems: 200, minItems: 1
+
+                    - `class BrowserStateChangeTabOpened: …`
+
+                      A tab this call's execution opened that remains open at its end —
+                      the creation delta of the `tabs` inventory, not an event log.
+
+                      Carries only the `tab_id`; the tab's `title` and `url` live on its
+                      `tabs` entry, which must include the same `tab_id`. A tab opened
+                      during a failed call gets no deferred `tab_opened`; it simply appears
+                      in the next result's `tabs` inventory.
+
+                      - `tab_id: str`
+
+                        The `tab_id` of the opened tab, present in `tabs`.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: Literal["tab_opened"]`
+
+                    - `class BrowserStateChangeDownloadStarted: …`
+
+                      A file download that started during this call.
+
+                      - `download_id: str`
+
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: Literal["download_started"]`
+
+                      - `url: str`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                    - `class BrowserStateChangeDownloadCompleted: …`
+
+                      A file download that finished during this call, reported with the
+                      same `download_id` as its `download_started` — or without a prior
+                      `download_started`, when the download finished during the call that
+                      started it (at most one state change per `download_id` per result).
+
+                      - `download_id: str`
+
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: Literal["download_completed"]`
+
+                      - `url: str`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `path: Optional[str]`
+
+                        Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
+                      - `size_bytes: Optional[int]`
+
+                        The completed download's size.
+
+                        minimum: 0
+
+                    - `class BrowserStateChangeDownloadFailed: …`
+
+                      A file download that failed — or was cancelled — during this call.
+
+                      - `download_id: str`
+
+                        The caller-assigned identifier for this download, stable across the state changes reporting it.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `type: Literal["download_failed"]`
+
+                      - `url: str`
+
+                        The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+                      - `error: Optional[str]`
+
+                        The failure or cancellation detail, when known.
+
+                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
             - `is_error: Optional[bool]`
+
+            - `toolset_name: Optional[str]`
+
+              For a toolset member tool_result, the toolset family of the paired tool_use.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class ServerToolUseBlockParam: …`
 
             - `id: str`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `input: Dict[str, object]`
 
@@ -497,8 +690,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `"tool_search_tool_bm25"`
 
             - `type: Literal["server_tool_use"]`
-
-              - `"server_tool_use"`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -530,8 +721,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_search_result"]`
 
-                  - `"web_search_result"`
-
                 - `url: str`
 
                 - `page_age: Optional[str]`
@@ -554,13 +743,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_search_tool_result_error"]`
 
-                  - `"web_search_tool_result_error"`
-
             - `tool_use_id: str`
 
-            - `type: Literal["web_search_tool_result"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"web_search_tool_result"`
+            - `type: Literal["web_search_tool_result"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -608,15 +795,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_fetch_tool_result_error"]`
 
-                  - `"web_fetch_tool_result_error"`
-
               - `class WebFetchBlockParam: …`
 
                 - `content: DocumentBlockParam`
 
                 - `type: Literal["web_fetch_result"]`
-
-                  - `"web_fetch_result"`
 
                 - `url: str`
 
@@ -628,9 +811,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: str`
 
-            - `type: Literal["web_fetch_tool_result"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"web_fetch_tool_result"`
+            - `type: Literal["web_fetch_tool_result"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -670,8 +853,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
-                  - `"code_execution_tool_result_error"`
-
               - `class CodeExecutionResultBlockParam: …`
 
                 - `content: List[CodeExecutionOutputBlockParam]`
@@ -680,8 +861,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["code_execution_output"]`
 
-                    - `"code_execution_output"`
-
                 - `return_code: int`
 
                 - `stderr: str`
@@ -689,8 +868,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `stdout: str`
 
                 - `type: Literal["code_execution_result"]`
-
-                  - `"code_execution_result"`
 
               - `class EncryptedCodeExecutionResultBlockParam: …`
 
@@ -710,13 +887,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["encrypted_code_execution_result"]`
 
-                  - `"encrypted_code_execution_result"`
-
             - `tool_use_id: str`
 
-            - `type: Literal["code_execution_tool_result"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_tool_result"`
+            - `type: Literal["code_execution_tool_result"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -742,8 +917,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
-                  - `"bash_code_execution_tool_result_error"`
-
               - `class BashCodeExecutionResultBlockParam: …`
 
                 - `content: List[BashCodeExecutionOutputBlockParam]`
@@ -751,8 +924,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `file_id: str`
 
                   - `type: Literal["bash_code_execution_output"]`
-
-                    - `"bash_code_execution_output"`
 
                 - `return_code: int`
 
@@ -762,13 +933,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["bash_code_execution_result"]`
 
-                  - `"bash_code_execution_result"`
-
             - `tool_use_id: str`
 
-            - `type: Literal["bash_code_execution_tool_result"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"bash_code_execution_tool_result"`
+            - `type: Literal["bash_code_execution_tool_result"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -794,8 +963,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
-                  - `"text_editor_code_execution_tool_result_error"`
-
                 - `error_message: Optional[str]`
 
               - `class TextEditorCodeExecutionViewResultBlockParam: …`
@@ -812,8 +979,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_view_result"]`
 
-                  - `"text_editor_code_execution_view_result"`
-
                 - `num_lines: Optional[int]`
 
                 - `start_line: Optional[int]`
@@ -826,13 +991,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_create_result"]`
 
-                  - `"text_editor_code_execution_create_result"`
-
               - `class TextEditorCodeExecutionStrReplaceResultBlockParam: …`
 
                 - `type: Literal["text_editor_code_execution_str_replace_result"]`
-
-                  - `"text_editor_code_execution_str_replace_result"`
 
                 - `lines: Optional[List[str]]`
 
@@ -846,9 +1007,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: str`
 
-            - `type: Literal["text_editor_code_execution_tool_result"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"text_editor_code_execution_tool_result"`
+            - `type: Literal["text_editor_code_execution_tool_result"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -872,8 +1033,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
-                  - `"tool_search_tool_result_error"`
-
                 - `error_message: Optional[str]`
 
               - `class ToolSearchToolSearchResultBlockParam: …`
@@ -881,6 +1040,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `tool_references: List[ToolReferenceBlockParam]`
 
                   - `tool_name: str`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `type: Literal["tool_reference"]`
 
@@ -890,13 +1051,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["tool_search_tool_search_result"]`
 
-                  - `"tool_search_tool_search_result"`
-
             - `tool_use_id: str`
 
-            - `type: Literal["tool_search_tool_result"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"tool_search_tool_result"`
+            - `type: Literal["tool_search_tool_result"]`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -910,37 +1069,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `file_id: str`
 
             - `type: Literal["container_upload"]`
-
-              - `"container_upload"`
-
-            - `cache_control: Optional[CacheControlEphemeral]`
-
-              Create a cache control breakpoint at this content block.
-
-          - `class MidConversationSystemBlockParam: …`
-
-            System instructions that appear mid-conversation.
-
-            Use this block to provide or update system-level instructions at a specific
-            point in the conversation, rather than only via the top-level `system` parameter.
-
-            - `content: List[TextBlockParam]`
-
-              System instruction text blocks.
-
-              - `text: str`
-
-              - `type: Literal["text"]`
-
-              - `cache_control: Optional[CacheControlEphemeral]`
-
-                Create a cache control breakpoint at this content block.
-
-              - `citations: Optional[List[TextCitationParam]]`
-
-            - `type: Literal["mid_conv_system"]`
-
-              - `"mid_conv_system"`
 
             - `cache_control: Optional[CacheControlEphemeral]`
 
@@ -960,7 +1088,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 12 more]`
 
         The model that will complete your prompt.
 
@@ -969,19 +1097,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-mythos-5` - Most capable model for cybersecurity and biology research
-        - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-        - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+        - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
         - `claude-mythos-preview` - Deprecated: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-6` - Frontier intelligence for long-running agents and coding
+        - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-6` - Best combination of speed and intelligence
         - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
         - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-        - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-        - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+        - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
-        - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         - `"claude-sonnet-5"`
 
@@ -995,13 +1122,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Most capable model for cybersecurity and biology research
 
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
         - `"claude-opus-4-8"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-7"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-mythos-preview"`
 
@@ -1009,7 +1140,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `"claude-opus-4-6"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-6"`
 
@@ -1025,11 +1156,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `"claude-opus-4-5"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-5-20251101"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-5"`
 
@@ -1039,23 +1170,51 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           High-performance model for agents and coding
 
-        - `"claude-opus-4-1"`
-
-          Exceptional model for specialized complex tasks
-
-        - `"claude-opus-4-1-20250805"`
-
-          Exceptional model for specialized complex tasks
-
       - `str`
 
     - `cache_control: Optional[CacheControlEphemeralParam]`
 
       Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-    - `container: Optional[str]`
+    - `container: Optional[MessageCreateParamsContainerParam]`
 
       Container identifier for reuse across requests.
+
+      - `class ContainerParams: …`
+
+        Container parameters with skills to be loaded.
+
+        - `id: Optional[str]`
+
+          Container id
+
+        - `skills: Optional[List[SkillParams]]`
+
+          List of skills to load in the container
+
+          maxItems: 20
+
+          - `skill_id: str`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
+
+          - `type: Literal["anthropic", "custom"]`
+
+            Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+            - `"anthropic"`
+
+            - `"custom"`
+
+          - `version: Optional[str]`
+
+            Skill version or 'latest' for most recent version
+
+            maxLength: 64, minLength: 1
+
+      - `str`
 
     - `inference_geo: Optional[str]`
 
@@ -1070,6 +1229,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         An external identifier for the user who is associated with the request.
 
         This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+        maxLength: 512
 
     - `output_config: Optional[OutputConfigParam]`
 
@@ -1098,8 +1259,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The JSON schema of the format
 
         - `type: Literal["json_schema"]`
-
-          - `"json_schema"`
 
     - `service_tier: Optional[Literal["auto", "standard_only"]]`
 
@@ -1137,6 +1296,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `text: str`
 
+          minLength: 1
+
         - `type: Literal["text"]`
 
         - `cache_control: Optional[CacheControlEphemeral]`
@@ -1144,14 +1305,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Create a cache control breakpoint at this content block.
 
         - `citations: Optional[List[TextCitationParam]]`
-
-    - `temperature: Optional[float]`
-
-      Amount of randomness injected into the response.
-
-      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
     - `thinking: Optional[ThinkingConfigParam]`
 
@@ -1171,9 +1324,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-        - `type: Literal["enabled"]`
+          minimum: 1024
 
-          - `"enabled"`
+        - `type: Literal["enabled"]`
 
         - `display: Optional[Literal["summarized", "omitted"]]`
 
@@ -1187,13 +1340,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: Literal["disabled"]`
 
-          - `"disabled"`
-
       - `class ThinkingConfigAdaptive: …`
 
         - `type: Literal["adaptive"]`
-
-          - `"adaptive"`
 
         - `display: Optional[Literal["summarized", "omitted"]]`
 
@@ -1213,8 +1362,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: Literal["auto"]`
 
-          - `"auto"`
-
         - `disable_parallel_tool_use: Optional[bool]`
 
           Whether to disable parallel tool use.
@@ -1226,8 +1373,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         The model will use any available tools.
 
         - `type: Literal["any"]`
-
-          - `"any"`
 
         - `disable_parallel_tool_use: Optional[bool]`
 
@@ -1245,8 +1390,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: Literal["tool"]`
 
-          - `"tool"`
-
         - `disable_parallel_tool_use: Optional[bool]`
 
           Whether to disable parallel tool use.
@@ -1258,8 +1401,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         The model will not be allowed to use tools.
 
         - `type: Literal["none"]`
-
-          - `"none"`
 
     - `tools: Optional[Iterable[ToolUnionParam]]`
 
@@ -1335,8 +1476,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: Literal["object"]`
 
-            - `"object"`
-
           - `properties: Optional[Dict[str, object]]`
 
           - `required: Optional[List[str]]`
@@ -1346,6 +1485,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
+
+          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1383,8 +1524,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: Optional[Literal["custom"]]`
 
-          - `"custom"`
-
       - `class ToolBash20250124: …`
 
         - `name: Literal["bash"]`
@@ -1393,11 +1532,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"bash"`
-
         - `type: Literal["bash_20250124"]`
-
-          - `"bash_20250124"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1431,11 +1566,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: Literal["code_execution_20250522"]`
-
-          - `"code_execution_20250522"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1467,11 +1598,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: Literal["code_execution_20250825"]`
-
-          - `"code_execution_20250825"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1505,11 +1632,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: Literal["code_execution_20260120"]`
-
-          - `"code_execution_20260120"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1543,11 +1666,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"code_execution"`
-
         - `type: Literal["code_execution_20260521"]`
-
-          - `"code_execution_20260521"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1571,6 +1690,410 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
+      - `class BrowserToolset20260801: …`
+
+        The browser toolset: a single `tools[]` entry (carrying no
+        `name`) that declares the browser tool family. The model is served
+        the family's tool with any members disabled via `configs` removed
+        from its schema.
+
+        - `type: Literal["browser_toolset_20260801"]`
+
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+          - `"direct"`
+
+          - `"code_execution_20250825"`
+
+          - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
+
+        - `cache_control: Optional[CacheControlEphemeral]`
+
+          Create a cache control breakpoint at this content block.
+
+        - `configs: Optional[BrowserToolsetConfigs]`
+
+          Per-member configuration for `browser_toolset_20260801`: one
+          optional field per member tool, keyed by the member name — the same
+          name the member's `tool_use` blocks carry. Every member is an
+          accepted key, and a member's defaults apply wherever its key is
+          absent. Unknown keys are rejected: the field set is this toolset
+          version's complete member set.
+
+          - `close_tab: Optional[BrowserCloseTabConfig]`
+
+            `close_tab`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `double_click: Optional[BrowserDoubleClickConfig]`
+
+            `double_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `file_upload: Optional[BrowserFileUploadConfig]`
+
+            `file_upload`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `find: Optional[BrowserFindConfig]`
+
+            `find`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `form_input: Optional[BrowserFormInputConfig]`
+
+            `form_input`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `get_page_text: Optional[BrowserGetPageTextConfig]`
+
+            `get_page_text`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `hold_key: Optional[BrowserHoldKeyConfig]`
+
+            `hold_key`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `hover: Optional[BrowserHoverConfig]`
+
+            `hover`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `javascript_exec: Optional[BrowserJavascriptExecConfig]`
+
+            `javascript_exec`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `key: Optional[BrowserKeyConfig]`
+
+            `key`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click: Optional[BrowserLeftClickConfig]`
+
+            `left_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click_drag: Optional[BrowserLeftClickDragConfig]`
+
+            `left_click_drag`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_down: Optional[BrowserLeftMouseDownConfig]`
+
+            `left_mouse_down`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_up: Optional[BrowserLeftMouseUpConfig]`
+
+            `left_mouse_up`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `list_tabs: Optional[BrowserListTabsConfig]`
+
+            `list_tabs`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `middle_click: Optional[BrowserMiddleClickConfig]`
+
+            `middle_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `mouse_move: Optional[BrowserMouseMoveConfig]`
+
+            `mouse_move`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `navigate: Optional[BrowserNavigateConfig]`
+
+            `navigate`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `new_tab: Optional[BrowserNewTabConfig]`
+
+            `new_tab`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `read_console: Optional[BrowserReadConsoleConfig]`
+
+            `read_console`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `read_network: Optional[BrowserReadNetworkConfig]`
+
+            `read_network`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `read_page: Optional[BrowserReadPageConfig]`
+
+            `read_page`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `right_click: Optional[BrowserRightClickConfig]`
+
+            `right_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `screenshot: Optional[BrowserScreenshotConfig]`
+
+            `screenshot`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `scroll: Optional[BrowserScrollConfig]`
+
+            `scroll`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `scroll_to: Optional[BrowserScrollToConfig]`
+
+            `scroll_to`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `switch_tab: Optional[BrowserSwitchTabConfig]`
+
+            `switch_tab`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `triple_click: Optional[BrowserTripleClickConfig]`
+
+            `triple_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `type: Optional[BrowserTypeConfig]`
+
+            `type`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `wait: Optional[BrowserWaitConfig]`
+
+            `wait`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `zoom: Optional[BrowserZoomConfig]`
+
+            `zoom`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
       - `class MemoryTool20250818: …`
 
         - `name: Literal["memory"]`
@@ -1579,11 +2102,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"memory"`
-
         - `type: Literal["memory_20250818"]`
-
-          - `"memory_20250818"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1609,6 +2128,246 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
+      - `class ComputerToolset20260801: …`
+
+        The computer toolset: a single `tools[]` entry (carrying no
+        `name`) that declares the computer tool family. The model is
+        served the family's tool with any members disabled via `configs`
+        removed from its schema. Every member is enabled by default, zoom
+        included. The single-tool options `display_number` and
+        `enable_zoom` are not fields of a toolset entry — it carries only
+        `type`, `configs`, and `cache_control`; zoom is controlled
+        via `configs.zoom.enabled`.
+
+        - `type: Literal["computer_toolset_20260801"]`
+
+        - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
+
+          - `"direct"`
+
+          - `"code_execution_20250825"`
+
+          - `"code_execution_20260120"`
+
+          - `"code_execution_20260521"`
+
+        - `cache_control: Optional[CacheControlEphemeral]`
+
+          Create a cache control breakpoint at this content block.
+
+        - `configs: Optional[ComputerToolsetConfigs]`
+
+          Per-member configuration for `computer_toolset_20260801`: one
+          optional field per member tool, keyed by the member name — the same
+          name the member's `tool_use` blocks carry. Every member is an
+          accepted key, and a member's defaults apply wherever its key is
+          absent. Unknown keys are rejected: the field set is this toolset
+          version's complete member set.
+
+          - `cursor_position: Optional[ComputerCursorPositionConfig]`
+
+            `cursor_position`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `double_click: Optional[ComputerDoubleClickConfig]`
+
+            `double_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `hold_key: Optional[ComputerHoldKeyConfig]`
+
+            `hold_key`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `key: Optional[ComputerKeyConfig]`
+
+            `key`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click: Optional[ComputerLeftClickConfig]`
+
+            `left_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_click_drag: Optional[ComputerLeftClickDragConfig]`
+
+            `left_click_drag`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_down: Optional[ComputerLeftMouseDownConfig]`
+
+            `left_mouse_down`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `left_mouse_up: Optional[ComputerLeftMouseUpConfig]`
+
+            `left_mouse_up`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `middle_click: Optional[ComputerMiddleClickConfig]`
+
+            `middle_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `mouse_move: Optional[ComputerMouseMoveConfig]`
+
+            `mouse_move`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `right_click: Optional[ComputerRightClickConfig]`
+
+            `right_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `screenshot: Optional[ComputerScreenshotConfig]`
+
+            `screenshot`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `scroll: Optional[ComputerScrollConfig]`
+
+            `scroll`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `triple_click: Optional[ComputerTripleClickConfig]`
+
+            `triple_click`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `type: Optional[ComputerTypeConfig]`
+
+            `type`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `wait: Optional[ComputerWaitConfig]`
+
+            `wait`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
+          - `zoom: Optional[ComputerZoomConfig]`
+
+            `zoom`'s config overrides.
+
+            - `defer_loading: Optional[bool]`
+
+              Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
+
+            - `enabled: Optional[bool]`
+
+              Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
+
       - `class ToolTextEditor20250124: …`
 
         - `name: Literal["str_replace_editor"]`
@@ -1617,11 +2376,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"str_replace_editor"`
-
         - `type: Literal["text_editor_20250124"]`
-
-          - `"text_editor_20250124"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1655,11 +2410,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"str_replace_based_edit_tool"`
-
         - `type: Literal["text_editor_20250429"]`
-
-          - `"text_editor_20250429"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1693,11 +2444,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"str_replace_based_edit_tool"`
-
         - `type: Literal["text_editor_20250728"]`
-
-          - `"text_editor_20250728"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1723,6 +2470,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+          minimum: 1
+
         - `strict: Optional[bool]`
 
           When true, guarantees schema validation on tool names and inputs
@@ -1735,11 +2484,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_search"`
-
         - `type: Literal["web_search_20250305"]`
-
-          - `"web_search_20250305"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1771,6 +2516,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of times the tool can be used in the API request.
 
+          exclusiveMinimum: 0
+
         - `strict: Optional[bool]`
 
           When true, guarantees schema validation on tool names and inputs
@@ -1781,23 +2528,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: Literal["approximate"]`
 
-            - `"approximate"`
-
           - `city: Optional[str]`
 
             The city of the user.
+
+            maxLength: 255, minLength: 1
 
           - `country: Optional[str]`
 
             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+            maxLength: 2, minLength: 2
+
           - `region: Optional[str]`
 
             The region of the user.
 
+            maxLength: 255, minLength: 1
+
           - `timezone: Optional[str]`
 
             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+            maxLength: 255, minLength: 1
 
       - `class WebFetchTool20250910: …`
 
@@ -1807,11 +2560,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: Literal["web_fetch_20250910"]`
-
-          - `"web_fetch_20250910"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1847,9 +2596,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Optional[int]`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: Optional[bool]`
 
@@ -1863,11 +2616,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_search"`
-
         - `type: Literal["web_search_20260209"]`
-
-          - `"web_search_20260209"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1898,6 +2647,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `max_uses: Optional[int]`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: Optional[bool]`
 
@@ -1915,11 +2666,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: Literal["web_fetch_20260209"]`
-
-          - `"web_fetch_20260209"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -1955,9 +2702,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Optional[int]`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: Optional[bool]`
 
@@ -1973,11 +2724,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: Literal["web_fetch_20260309"]`
-
-          - `"web_fetch_20260309"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2013,9 +2760,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Optional[int]`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: Optional[bool]`
 
@@ -2033,11 +2784,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_search"`
-
         - `type: Literal["web_search_20260318"]`
-
-          - `"web_search_20260318"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2068,6 +2815,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `max_uses: Optional[int]`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `response_inclusion: Optional[Literal["full", "excluded"]]`
 
@@ -2093,11 +2842,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"web_fetch"`
-
         - `type: Literal["web_fetch_20260318"]`
-
-          - `"web_fetch_20260318"`
 
         - `allowed_callers: Optional[List[Literal["direct", "code_execution_20250825", "code_execution_20260120", "code_execution_20260521"]]]`
 
@@ -2133,9 +2878,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Optional[int]`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `response_inclusion: Optional[Literal["full", "excluded"]]`
 
@@ -2160,8 +2909,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `"tool_search_tool_bm25"`
 
         - `type: Literal["tool_search_tool_bm25_20251119", "tool_search_tool_bm25"]`
 
@@ -2199,8 +2946,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `"tool_search_tool_regex"`
-
         - `type: Literal["tool_search_tool_regex_20251119", "tool_search_tool_regex"]`
 
           - `"tool_search_tool_regex_20251119"`
@@ -2229,22 +2974,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           When true, guarantees schema validation on tool names and inputs
 
-    - `top_k: Optional[int]`
-
-      Only sample from the top K options for each subsequent token.
-
-      Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-      Recommended for advanced use cases only.
-
-    - `top_p: Optional[float]`
-
-      Use nucleus sampling.
-
-      In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-      Recommended for advanced use cases only.
-
 - `user_profile_id: Optional[str]`
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -2263,13 +2992,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Optional[datetime]`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Optional[datetime]`
 
@@ -2277,9 +3012,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: Literal["in_progress", "canceling", "ended"]`
 
@@ -2303,11 +3042,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: int`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: int`
 
@@ -2315,15 +3058,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: int`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: int`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: Optional[str]`
 
@@ -2337,7 +3086,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -2346,25 +3095,31 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 message_batch = client.messages.batches.create(
-    requests=[{
-        "custom_id": "my-custom-id-1",
-        "params": {
-            "max_tokens": 1024,
-            "messages": [{
-                "content": "Hello, world",
-                "role": "user",
-            }],
-            "model": "claude-opus-4-6",
-        },
-    }],
+    requests=[
+        {
+            "custom_id": "my-custom-id-1",
+            "params": {
+                "max_tokens": 1024,
+                "messages": [
+                    {
+                        "content": "Hello, world",
+                        "role": "user",
+                    }
+                ],
+                "model": "claude-opus-5",
+            },
+        }
+    ],
 )
 print(message_batch.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2389,9 +3144,9 @@ print(message_batch.id)
 
 ## Retrieve a Message Batch
 
-`messages.batches.retrieve(strmessage_batch_id)  -> MessageBatch`
+`messages.batches.retrieve(message_batch_id)  -> MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
@@ -2417,13 +3172,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Optional[datetime]`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Optional[datetime]`
 
@@ -2431,9 +3192,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: Literal["in_progress", "canceling", "ended"]`
 
@@ -2457,11 +3222,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: int`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: int`
 
@@ -2469,15 +3238,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: int`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: int`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: Optional[str]`
 
@@ -2491,7 +3266,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -2500,7 +3275,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 message_batch = client.messages.batches.retrieve(
     "message_batch_id",
@@ -2508,7 +3285,7 @@ message_batch = client.messages.batches.retrieve(
 print(message_batch.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2533,9 +3310,9 @@ print(message_batch.id)
 
 ## List Message Batches
 
-`messages.batches.list(BatchListParams**kwargs)  -> SyncPage[MessageBatch]`
+`messages.batches.list(**kwargs)  -> SyncPage[MessageBatch]`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
@@ -2557,6 +3334,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20, maximum: 1000, minimum: 1
+
 ### Returns
 
 - `class MessageBatch: …`
@@ -2571,13 +3350,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Optional[datetime]`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Optional[datetime]`
 
@@ -2585,9 +3370,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: Literal["in_progress", "canceling", "ended"]`
 
@@ -2611,11 +3400,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: int`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: int`
 
@@ -2623,15 +3416,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: int`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: int`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: Optional[str]`
 
@@ -2645,7 +3444,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -2654,14 +3453,16 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.messages.batches.list()
 page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2693,9 +3494,9 @@ print(page.id)
 
 ## Cancel a Message Batch
 
-`messages.batches.cancel(strmessage_batch_id)  -> MessageBatch`
+`messages.batches.cancel(message_batch_id)  -> MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -2723,13 +3524,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Optional[datetime]`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Optional[datetime]`
 
@@ -2737,9 +3544,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: Literal["in_progress", "canceling", "ended"]`
 
@@ -2763,11 +3574,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: int`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: int`
 
@@ -2775,15 +3590,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: int`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: int`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: Optional[str]`
 
@@ -2797,7 +3618,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -2806,7 +3627,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 message_batch = client.messages.batches.cancel(
     "message_batch_id",
@@ -2814,7 +3637,7 @@ message_batch = client.messages.batches.cancel(
 print(message_batch.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2839,9 +3662,9 @@ print(message_batch.id)
 
 ## Delete a Message Batch
 
-`messages.batches.delete(strmessage_batch_id)  -> DeletedMessageBatch`
+`messages.batches.delete(message_batch_id)  -> DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -2869,7 +3692,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `"message_batch_deleted"`
+    default: message_batch_deleted
 
 ### Example
 
@@ -2878,7 +3701,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 deleted_message_batch = client.messages.batches.delete(
     "message_batch_id",
@@ -2886,7 +3711,7 @@ deleted_message_batch = client.messages.batches.delete(
 print(deleted_message_batch.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2897,9 +3722,9 @@ print(deleted_message_batch.id)
 
 ## Retrieve Message Batch results
 
-`messages.batches.results(strmessage_batch_id)  -> MessageBatchIndividualResponse`
+`messages.batches.results(message_batch_id)  -> MessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -2953,6 +3778,32 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
+            format: date-time
+
+          - `skills: Optional[List[ContainerSkill]]`
+
+            Skills loaded in the container
+
+            - `skill_id: str`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
+
+            - `type: Literal["anthropic", "custom"]`
+
+              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+              - `"anthropic"`
+
+              - `"custom"`
+
+            - `version: str`
+
+              The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
+
         - `content: List[ContentBlock]`
 
           Content generated by the model.
@@ -2996,6 +3847,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: int`
 
+                  minimum: 0
+
                 - `document_title: Optional[str]`
 
                 - `end_char_index: int`
@@ -3004,15 +3857,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_char_index: int`
 
+                  minimum: 0
+
                 - `type: Literal["char_location"]`
 
-                  - `"char_location"`
+                  default: char_location
 
               - `class CitationPageLocation: …`
 
                 - `cited_text: str`
 
                 - `document_index: int`
+
+                  minimum: 0
 
                 - `document_title: Optional[str]`
 
@@ -3022,9 +3879,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_page_number: int`
 
+                  minimum: 1
+
                 - `type: Literal["page_location"]`
 
-                  - `"page_location"`
+                  default: page_location
 
               - `class CitationContentBlockLocation: …`
 
@@ -3035,6 +3894,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: int`
+
+                  minimum: 0
 
                 - `document_title: Optional[str]`
 
@@ -3050,9 +3911,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: Literal["content_block_location"]`
 
-                  - `"content_block_location"`
+                  default: content_block_location
 
               - `class CitationsWebSearchResultLocation: …`
 
@@ -3062,9 +3925,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: Optional[str]`
 
+                  maxLength: 512
+
                 - `type: Literal["web_search_result_location"]`
 
-                  - `"web_search_result_location"`
+                  default: web_search_result_location
 
                 - `url: str`
 
@@ -3088,49 +3953,73 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: str`
 
                 - `start_block_index: int`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: Optional[str]`
 
                 - `type: Literal["search_result_location"]`
 
-                  - `"search_result_location"`
+                  default: search_result_location
 
             - `text: str`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: Literal["text"]`
 
-              - `"text"`
+              default: text
 
           - `class ThinkingBlock: …`
 
             - `signature: str`
 
+              A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+              This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
             - `thinking: str`
+
+              The text of Claude's thinking process for this block.
 
             - `type: Literal["thinking"]`
 
-              - `"thinking"`
+              default: thinking
 
           - `class RedactedThinkingBlock: …`
 
             - `data: str`
 
+              The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+              Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
             - `type: Literal["redacted_thinking"]`
 
-              - `"redacted_thinking"`
+              default: redacted_thinking
 
           - `class ToolUseBlock: …`
 
             - `id: str`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -3138,41 +4027,51 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["direct"]`
 
-                  - `"direct"`
-
               - `class ServerToolCaller: …`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: str`
 
-                - `type: Literal["code_execution_20250825"]`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: Literal["code_execution_20250825"]`
 
               - `class ServerToolCaller20260120: …`
 
                 - `tool_id: str`
 
-                - `type: Literal["code_execution_20260120"]`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20260120"`
+                - `type: Literal["code_execution_20260120"]`
 
             - `input: Dict[str, object]`
 
             - `name: str`
 
+              minLength: 1
+
             - `type: Literal["tool_use"]`
 
-              - `"tool_use"`
+              default: tool_use
+
+            - `toolset_name: Optional[str]`
+
+              For a toolset member tool_use, the toolset family.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class ServerToolUseBlock: …`
 
             - `id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -3204,13 +4103,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["server_tool_use"]`
 
-              - `"server_tool_use"`
+              default: server_tool_use
 
           - `class WebSearchToolResultBlock: …`
 
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -3242,7 +4143,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_search_tool_result_error"]`
 
-                  - `"web_search_tool_result_error"`
+                  default: web_search_tool_result_error
 
               - `List[WebSearchResultBlock]`
 
@@ -3254,21 +4155,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_search_result"]`
 
-                  - `"web_search_result"`
+                  default: web_search_result
 
                 - `url: str`
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["web_search_tool_result"]`
 
-              - `"web_search_tool_result"`
+              default: web_search_tool_result
 
           - `class WebFetchToolResultBlock: …`
 
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -3306,7 +4211,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_fetch_tool_result_error"]`
 
-                  - `"web_fetch_tool_result_error"`
+                  default: web_fetch_tool_result_error
 
               - `class WebFetchBlock: …`
 
@@ -3318,19 +4223,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `enabled: bool`
 
+                      default: false
+
                   - `source: Source`
 
                     - `class Base64PDFSource: …`
 
                       - `data: str`
 
+                        format: byte
+
                       - `media_type: Literal["application/pdf"]`
 
-                        - `"application/pdf"`
-
                       - `type: Literal["base64"]`
-
-                        - `"base64"`
 
                     - `class PlainTextSource: …`
 
@@ -3338,11 +4243,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `media_type: Literal["text/plain"]`
 
-                        - `"text/plain"`
-
                       - `type: Literal["text"]`
-
-                        - `"text"`
 
                   - `title: Optional[str]`
 
@@ -3350,7 +4251,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["document"]`
 
-                    - `"document"`
+                    default: document
 
                 - `retrieved_at: Optional[str]`
 
@@ -3358,7 +4259,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_fetch_result"]`
 
-                  - `"web_fetch_result"`
+                  default: web_fetch_result
 
                 - `url: str`
 
@@ -3366,9 +4267,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["web_fetch_tool_result"]`
 
-              - `"web_fetch_tool_result"`
+              default: web_fetch_tool_result
 
           - `class CodeExecutionToolResultBlock: …`
 
@@ -3390,7 +4293,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
-                  - `"code_execution_tool_result_error"`
+                  default: code_execution_tool_result_error
 
               - `class CodeExecutionResultBlock: …`
 
@@ -3400,7 +4303,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["code_execution_output"]`
 
-                    - `"code_execution_output"`
+                    default: code_execution_output
 
                 - `return_code: int`
 
@@ -3410,7 +4313,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["code_execution_result"]`
 
-                  - `"code_execution_result"`
+                  default: code_execution_result
 
               - `class EncryptedCodeExecutionResultBlock: …`
 
@@ -3422,6 +4325,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["code_execution_output"]`
 
+                    default: code_execution_output
+
                 - `encrypted_stdout: str`
 
                 - `return_code: int`
@@ -3430,13 +4335,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["encrypted_code_execution_result"]`
 
-                  - `"encrypted_code_execution_result"`
+                  default: encrypted_code_execution_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["code_execution_tool_result"]`
 
-              - `"code_execution_tool_result"`
+              default: code_execution_tool_result
 
           - `class BashCodeExecutionToolResultBlock: …`
 
@@ -3458,7 +4365,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
-                  - `"bash_code_execution_tool_result_error"`
+                  default: bash_code_execution_tool_result_error
 
               - `class BashCodeExecutionResultBlock: …`
 
@@ -3468,7 +4375,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["bash_code_execution_output"]`
 
-                    - `"bash_code_execution_output"`
+                    default: bash_code_execution_output
 
                 - `return_code: int`
 
@@ -3478,13 +4385,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["bash_code_execution_result"]`
 
-                  - `"bash_code_execution_result"`
+                  default: bash_code_execution_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["bash_code_execution_tool_result"]`
 
-              - `"bash_code_execution_tool_result"`
+              default: bash_code_execution_tool_result
 
           - `class TextEditorCodeExecutionToolResultBlock: …`
 
@@ -3508,7 +4417,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
-                  - `"text_editor_code_execution_tool_result_error"`
+                  default: text_editor_code_execution_tool_result_error
 
               - `class TextEditorCodeExecutionViewResultBlock: …`
 
@@ -3530,7 +4439,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_view_result"]`
 
-                  - `"text_editor_code_execution_view_result"`
+                  default: text_editor_code_execution_view_result
 
               - `class TextEditorCodeExecutionCreateResultBlock: …`
 
@@ -3538,7 +4447,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_create_result"]`
 
-                  - `"text_editor_code_execution_create_result"`
+                  default: text_editor_code_execution_create_result
 
               - `class TextEditorCodeExecutionStrReplaceResultBlock: …`
 
@@ -3554,13 +4463,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
-                  - `"text_editor_code_execution_str_replace_result"`
+                  default: text_editor_code_execution_str_replace_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["text_editor_code_execution_tool_result"]`
 
-              - `"text_editor_code_execution_tool_result"`
+              default: text_editor_code_execution_tool_result
 
           - `class ToolSearchToolResultBlock: …`
 
@@ -3582,7 +4493,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
-                  - `"tool_search_tool_result_error"`
+                  default: tool_search_tool_result_error
 
               - `class ToolSearchToolSearchResultBlock: …`
 
@@ -3590,19 +4501,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: str`
 
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                   - `type: Literal["tool_reference"]`
 
-                    - `"tool_reference"`
+                    default: tool_reference
 
                 - `type: Literal["tool_search_tool_search_result"]`
 
-                  - `"tool_search_tool_search_result"`
+                  default: tool_search_tool_search_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["tool_search_tool_result"]`
 
-              - `"tool_search_tool_result"`
+              default: tool_search_tool_result
 
           - `class ContainerUploadBlock: …`
 
@@ -3612,7 +4527,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["container_upload"]`
 
-              - `"container_upload"`
+              default: container_upload
 
         - `model: Model`
 
@@ -3620,7 +4535,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 12 more]`
 
             The model that will complete your prompt.
 
@@ -3629,19 +4544,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-mythos-5` - Most capable model for cybersecurity and biology research
-            - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-            - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+            - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
             - `claude-mythos-preview` - Deprecated: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-6` - Frontier intelligence for long-running agents and coding
+            - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-6` - Best combination of speed and intelligence
             - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
             - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-            - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-            - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+            - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
-            - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             - `"claude-sonnet-5"`
 
@@ -3655,13 +4569,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Most capable model for cybersecurity and biology research
 
+            - `"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-mythos-preview"`
 
@@ -3669,7 +4587,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"claude-opus-4-6"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-6"`
 
@@ -3685,11 +4603,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-5"`
 
@@ -3699,14 +4617,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               High-performance model for agents and coding
 
-            - `"claude-opus-4-1"`
-
-              Exceptional model for specialized complex tasks
-
-            - `"claude-opus-4-1-20250805"`
-
-              Exceptional model for specialized complex tasks
-
           - `str`
 
         - `role: Literal["assistant"]`
@@ -3715,23 +4625,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This will always be `"assistant"`.
 
-          - `"assistant"`
+          default: assistant
 
         - `stop_details: Optional[RefusalStopDetails]`
 
           Structured information about a refusal.
 
-          - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+          - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
             The policy category that triggered a refusal.
 
             - `"cyber"`
 
+              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
             - `"bio"`
+
+              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
             - `"frontier_llm"`
 
+              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
             - `"reasoning_extraction"`
+
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+            - `"general_harms"`
+
+              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
           - `explanation: Optional[str]`
 
@@ -3741,7 +4663,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: Literal["refusal"]`
 
-            - `"refusal"`
+            default: refusal
 
         - `stop_reason: Optional[StopReason]`
 
@@ -3755,6 +4677,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           * `"tool_use"`: the model invoked one or more tools
           * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
           * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+          * `"model_context_window_exceeded"`: we exceeded the model's context window
 
           In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -3770,6 +4693,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `"refusal"`
 
+          - `"model_context_window_exceeded"`
+
         - `stop_sequence: Optional[str]`
 
           Which custom stop sequence was generated, if any.
@@ -3782,7 +4707,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-          - `"message"`
+          default: message
 
         - `usage: Usage`
 
@@ -3804,17 +4729,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              default: 0, minimum: 0
+
             - `ephemeral_5m_input_tokens: int`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              default: 0, minimum: 0
 
           - `cache_creation_input_tokens: Optional[int]`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Optional[int]`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `inference_geo: Optional[str]`
 
@@ -3824,9 +4757,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `output_tokens: int`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `output_tokens_details: Optional[OutputTokensDetails]`
 
@@ -3848,6 +4785,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              default: 0, minimum: 0
+
           - `server_tool_use: Optional[ServerToolUsage]`
 
             The number of server tool requests.
@@ -3856,9 +4795,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              default: 0, minimum: 0
+
             - `web_search_requests: int`
 
               The number of web search tool requests.
+
+              default: 0, minimum: 0
 
           - `service_tier: Optional[Literal["standard", "priority", "batch"]]`
 
@@ -3872,7 +4815,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: Literal["succeeded"]`
 
-        - `"succeeded"`
+        default: succeeded
 
     - `class MessageBatchErroredResult: …`
 
@@ -3884,95 +4827,113 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `message: str`
 
+              default: Invalid request
+
             - `type: Literal["invalid_request_error"]`
 
-              - `"invalid_request_error"`
+              default: invalid_request_error
 
           - `class AuthenticationError: …`
 
             - `message: str`
 
+              default: Authentication error
+
             - `type: Literal["authentication_error"]`
 
-              - `"authentication_error"`
+              default: authentication_error
 
           - `class BillingError: …`
 
             - `message: str`
 
+              default: Billing error
+
             - `type: Literal["billing_error"]`
 
-              - `"billing_error"`
+              default: billing_error
 
           - `class PermissionError: …`
 
             - `message: str`
 
+              default: Permission denied
+
             - `type: Literal["permission_error"]`
 
-              - `"permission_error"`
+              default: permission_error
 
           - `class NotFoundError: …`
 
             - `message: str`
 
+              default: Not found
+
             - `type: Literal["not_found_error"]`
 
-              - `"not_found_error"`
+              default: not_found_error
 
           - `class RateLimitError: …`
 
             - `message: str`
 
+              default: Rate limited
+
             - `type: Literal["rate_limit_error"]`
 
-              - `"rate_limit_error"`
+              default: rate_limit_error
 
           - `class GatewayTimeoutError: …`
 
             - `message: str`
 
+              default: Request timeout
+
             - `type: Literal["timeout_error"]`
 
-              - `"timeout_error"`
+              default: timeout_error
 
           - `class APIErrorObject: …`
 
             - `message: str`
 
+              default: Internal server error
+
             - `type: Literal["api_error"]`
 
-              - `"api_error"`
+              default: api_error
 
           - `class OverloadedError: …`
 
             - `message: str`
 
+              default: Overloaded
+
             - `type: Literal["overloaded_error"]`
 
-              - `"overloaded_error"`
+              default: overloaded_error
 
         - `request_id: Optional[str]`
 
         - `type: Literal["error"]`
 
-          - `"error"`
+          default: error
 
       - `type: Literal["errored"]`
 
-        - `"errored"`
+        default: errored
 
     - `class MessageBatchCanceledResult: …`
 
       - `type: Literal["canceled"]`
 
-        - `"canceled"`
+        default: canceled
 
     - `class MessageBatchExpiredResult: …`
 
       - `type: Literal["expired"]`
 
-        - `"expired"`
+        default: expired
 
 ### Example
 
@@ -3981,15 +4942,17 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 for batch in client.messages.batches.results(
     "message_batch_id",
 ):
-  print(batch)
+    print(batch)
 ```
 
-## Domain Types
+## Domain types
 
 ### Deleted Message Batch
 
@@ -4005,7 +4968,7 @@ for batch in client.messages.batches.results(
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `"message_batch_deleted"`
+    default: message_batch_deleted
 
 ### Message Batch
 
@@ -4021,13 +4984,19 @@ for batch in client.messages.batches.results(
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Optional[datetime]`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Optional[datetime]`
 
@@ -4035,9 +5004,13 @@ for batch in client.messages.batches.results(
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: datetime`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: Literal["in_progress", "canceling", "ended"]`
 
@@ -4061,11 +5034,15 @@ for batch in client.messages.batches.results(
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: int`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: int`
 
@@ -4073,15 +5050,21 @@ for batch in client.messages.batches.results(
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: int`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: int`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: Optional[str]`
 
@@ -4095,7 +5078,7 @@ for batch in client.messages.batches.results(
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Message Batch Canceled Result
 
@@ -4103,7 +5086,7 @@ for batch in client.messages.batches.results(
 
   - `type: Literal["canceled"]`
 
-    - `"canceled"`
+    default: canceled
 
 ### Message Batch Errored Result
 
@@ -4117,83 +5100,101 @@ for batch in client.messages.batches.results(
 
         - `message: str`
 
+          default: Invalid request
+
         - `type: Literal["invalid_request_error"]`
 
-          - `"invalid_request_error"`
+          default: invalid_request_error
 
       - `class AuthenticationError: …`
 
         - `message: str`
 
+          default: Authentication error
+
         - `type: Literal["authentication_error"]`
 
-          - `"authentication_error"`
+          default: authentication_error
 
       - `class BillingError: …`
 
         - `message: str`
 
+          default: Billing error
+
         - `type: Literal["billing_error"]`
 
-          - `"billing_error"`
+          default: billing_error
 
       - `class PermissionError: …`
 
         - `message: str`
 
+          default: Permission denied
+
         - `type: Literal["permission_error"]`
 
-          - `"permission_error"`
+          default: permission_error
 
       - `class NotFoundError: …`
 
         - `message: str`
 
+          default: Not found
+
         - `type: Literal["not_found_error"]`
 
-          - `"not_found_error"`
+          default: not_found_error
 
       - `class RateLimitError: …`
 
         - `message: str`
 
+          default: Rate limited
+
         - `type: Literal["rate_limit_error"]`
 
-          - `"rate_limit_error"`
+          default: rate_limit_error
 
       - `class GatewayTimeoutError: …`
 
         - `message: str`
 
+          default: Request timeout
+
         - `type: Literal["timeout_error"]`
 
-          - `"timeout_error"`
+          default: timeout_error
 
       - `class APIErrorObject: …`
 
         - `message: str`
 
+          default: Internal server error
+
         - `type: Literal["api_error"]`
 
-          - `"api_error"`
+          default: api_error
 
       - `class OverloadedError: …`
 
         - `message: str`
 
+          default: Overloaded
+
         - `type: Literal["overloaded_error"]`
 
-          - `"overloaded_error"`
+          default: overloaded_error
 
     - `request_id: Optional[str]`
 
     - `type: Literal["error"]`
 
-      - `"error"`
+      default: error
 
   - `type: Literal["errored"]`
 
-    - `"errored"`
+    default: errored
 
 ### Message Batch Expired Result
 
@@ -4201,7 +5202,7 @@ for batch in client.messages.batches.results(
 
   - `type: Literal["expired"]`
 
-    - `"expired"`
+    default: expired
 
 ### Message Batch Individual Response
 
@@ -4243,6 +5244,32 @@ for batch in client.messages.batches.results(
 
             The time at which the container will expire.
 
+            format: date-time
+
+          - `skills: Optional[List[ContainerSkill]]`
+
+            Skills loaded in the container
+
+            - `skill_id: str`
+
+              Skill ID
+
+              maxLength: 64, minLength: 1
+
+            - `type: Literal["anthropic", "custom"]`
+
+              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+              - `"anthropic"`
+
+              - `"custom"`
+
+            - `version: str`
+
+              The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
+
         - `content: List[ContentBlock]`
 
           Content generated by the model.
@@ -4286,6 +5313,8 @@ for batch in client.messages.batches.results(
 
                 - `document_index: int`
 
+                  minimum: 0
+
                 - `document_title: Optional[str]`
 
                 - `end_char_index: int`
@@ -4294,15 +5323,19 @@ for batch in client.messages.batches.results(
 
                 - `start_char_index: int`
 
+                  minimum: 0
+
                 - `type: Literal["char_location"]`
 
-                  - `"char_location"`
+                  default: char_location
 
               - `class CitationPageLocation: …`
 
                 - `cited_text: str`
 
                 - `document_index: int`
+
+                  minimum: 0
 
                 - `document_title: Optional[str]`
 
@@ -4312,9 +5345,11 @@ for batch in client.messages.batches.results(
 
                 - `start_page_number: int`
 
+                  minimum: 1
+
                 - `type: Literal["page_location"]`
 
-                  - `"page_location"`
+                  default: page_location
 
               - `class CitationContentBlockLocation: …`
 
@@ -4325,6 +5360,8 @@ for batch in client.messages.batches.results(
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: int`
+
+                  minimum: 0
 
                 - `document_title: Optional[str]`
 
@@ -4340,9 +5377,11 @@ for batch in client.messages.batches.results(
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: Literal["content_block_location"]`
 
-                  - `"content_block_location"`
+                  default: content_block_location
 
               - `class CitationsWebSearchResultLocation: …`
 
@@ -4352,9 +5391,11 @@ for batch in client.messages.batches.results(
 
                 - `title: Optional[str]`
 
+                  maxLength: 512
+
                 - `type: Literal["web_search_result_location"]`
 
-                  - `"web_search_result_location"`
+                  default: web_search_result_location
 
                 - `url: str`
 
@@ -4378,49 +5419,73 @@ for batch in client.messages.batches.results(
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: str`
 
                 - `start_block_index: int`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: Optional[str]`
 
                 - `type: Literal["search_result_location"]`
 
-                  - `"search_result_location"`
+                  default: search_result_location
 
             - `text: str`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: Literal["text"]`
 
-              - `"text"`
+              default: text
 
           - `class ThinkingBlock: …`
 
             - `signature: str`
 
+              A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+              This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
             - `thinking: str`
+
+              The text of Claude's thinking process for this block.
 
             - `type: Literal["thinking"]`
 
-              - `"thinking"`
+              default: thinking
 
           - `class RedactedThinkingBlock: …`
 
             - `data: str`
 
+              The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+              Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
             - `type: Literal["redacted_thinking"]`
 
-              - `"redacted_thinking"`
+              default: redacted_thinking
 
           - `class ToolUseBlock: …`
 
             - `id: str`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -4428,41 +5493,51 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["direct"]`
 
-                  - `"direct"`
-
               - `class ServerToolCaller: …`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: str`
 
-                - `type: Literal["code_execution_20250825"]`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: Literal["code_execution_20250825"]`
 
               - `class ServerToolCaller20260120: …`
 
                 - `tool_id: str`
 
-                - `type: Literal["code_execution_20260120"]`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20260120"`
+                - `type: Literal["code_execution_20260120"]`
 
             - `input: Dict[str, object]`
 
             - `name: str`
 
+              minLength: 1
+
             - `type: Literal["tool_use"]`
 
-              - `"tool_use"`
+              default: tool_use
+
+            - `toolset_name: Optional[str]`
+
+              For a toolset member tool_use, the toolset family.
+
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
           - `class ServerToolUseBlock: …`
 
             - `id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -4494,13 +5569,15 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["server_tool_use"]`
 
-              - `"server_tool_use"`
+              default: server_tool_use
 
           - `class WebSearchToolResultBlock: …`
 
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -4532,7 +5609,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["web_search_tool_result_error"]`
 
-                  - `"web_search_tool_result_error"`
+                  default: web_search_tool_result_error
 
               - `List[WebSearchResultBlock]`
 
@@ -4544,21 +5621,25 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["web_search_result"]`
 
-                  - `"web_search_result"`
+                  default: web_search_result
 
                 - `url: str`
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["web_search_tool_result"]`
 
-              - `"web_search_tool_result"`
+              default: web_search_tool_result
 
           - `class WebFetchToolResultBlock: …`
 
             - `caller: Caller`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `class DirectCaller: …`
 
@@ -4596,7 +5677,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["web_fetch_tool_result_error"]`
 
-                  - `"web_fetch_tool_result_error"`
+                  default: web_fetch_tool_result_error
 
               - `class WebFetchBlock: …`
 
@@ -4608,19 +5689,19 @@ for batch in client.messages.batches.results(
 
                     - `enabled: bool`
 
+                      default: false
+
                   - `source: Source`
 
                     - `class Base64PDFSource: …`
 
                       - `data: str`
 
+                        format: byte
+
                       - `media_type: Literal["application/pdf"]`
 
-                        - `"application/pdf"`
-
                       - `type: Literal["base64"]`
-
-                        - `"base64"`
 
                     - `class PlainTextSource: …`
 
@@ -4628,11 +5709,7 @@ for batch in client.messages.batches.results(
 
                       - `media_type: Literal["text/plain"]`
 
-                        - `"text/plain"`
-
                       - `type: Literal["text"]`
-
-                        - `"text"`
 
                   - `title: Optional[str]`
 
@@ -4640,7 +5717,7 @@ for batch in client.messages.batches.results(
 
                   - `type: Literal["document"]`
 
-                    - `"document"`
+                    default: document
 
                 - `retrieved_at: Optional[str]`
 
@@ -4648,7 +5725,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["web_fetch_result"]`
 
-                  - `"web_fetch_result"`
+                  default: web_fetch_result
 
                 - `url: str`
 
@@ -4656,9 +5733,11 @@ for batch in client.messages.batches.results(
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["web_fetch_tool_result"]`
 
-              - `"web_fetch_tool_result"`
+              default: web_fetch_tool_result
 
           - `class CodeExecutionToolResultBlock: …`
 
@@ -4680,7 +5759,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
-                  - `"code_execution_tool_result_error"`
+                  default: code_execution_tool_result_error
 
               - `class CodeExecutionResultBlock: …`
 
@@ -4690,7 +5769,7 @@ for batch in client.messages.batches.results(
 
                   - `type: Literal["code_execution_output"]`
 
-                    - `"code_execution_output"`
+                    default: code_execution_output
 
                 - `return_code: int`
 
@@ -4700,7 +5779,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["code_execution_result"]`
 
-                  - `"code_execution_result"`
+                  default: code_execution_result
 
               - `class EncryptedCodeExecutionResultBlock: …`
 
@@ -4712,6 +5791,8 @@ for batch in client.messages.batches.results(
 
                   - `type: Literal["code_execution_output"]`
 
+                    default: code_execution_output
+
                 - `encrypted_stdout: str`
 
                 - `return_code: int`
@@ -4720,13 +5801,15 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["encrypted_code_execution_result"]`
 
-                  - `"encrypted_code_execution_result"`
+                  default: encrypted_code_execution_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["code_execution_tool_result"]`
 
-              - `"code_execution_tool_result"`
+              default: code_execution_tool_result
 
           - `class BashCodeExecutionToolResultBlock: …`
 
@@ -4748,7 +5831,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
-                  - `"bash_code_execution_tool_result_error"`
+                  default: bash_code_execution_tool_result_error
 
               - `class BashCodeExecutionResultBlock: …`
 
@@ -4758,7 +5841,7 @@ for batch in client.messages.batches.results(
 
                   - `type: Literal["bash_code_execution_output"]`
 
-                    - `"bash_code_execution_output"`
+                    default: bash_code_execution_output
 
                 - `return_code: int`
 
@@ -4768,13 +5851,15 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["bash_code_execution_result"]`
 
-                  - `"bash_code_execution_result"`
+                  default: bash_code_execution_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["bash_code_execution_tool_result"]`
 
-              - `"bash_code_execution_tool_result"`
+              default: bash_code_execution_tool_result
 
           - `class TextEditorCodeExecutionToolResultBlock: …`
 
@@ -4798,7 +5883,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
-                  - `"text_editor_code_execution_tool_result_error"`
+                  default: text_editor_code_execution_tool_result_error
 
               - `class TextEditorCodeExecutionViewResultBlock: …`
 
@@ -4820,7 +5905,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["text_editor_code_execution_view_result"]`
 
-                  - `"text_editor_code_execution_view_result"`
+                  default: text_editor_code_execution_view_result
 
               - `class TextEditorCodeExecutionCreateResultBlock: …`
 
@@ -4828,7 +5913,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["text_editor_code_execution_create_result"]`
 
-                  - `"text_editor_code_execution_create_result"`
+                  default: text_editor_code_execution_create_result
 
               - `class TextEditorCodeExecutionStrReplaceResultBlock: …`
 
@@ -4844,13 +5929,15 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
-                  - `"text_editor_code_execution_str_replace_result"`
+                  default: text_editor_code_execution_str_replace_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["text_editor_code_execution_tool_result"]`
 
-              - `"text_editor_code_execution_tool_result"`
+              default: text_editor_code_execution_tool_result
 
           - `class ToolSearchToolResultBlock: …`
 
@@ -4872,7 +5959,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
-                  - `"tool_search_tool_result_error"`
+                  default: tool_search_tool_result_error
 
               - `class ToolSearchToolSearchResultBlock: …`
 
@@ -4880,19 +5967,23 @@ for batch in client.messages.batches.results(
 
                   - `tool_name: str`
 
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                   - `type: Literal["tool_reference"]`
 
-                    - `"tool_reference"`
+                    default: tool_reference
 
                 - `type: Literal["tool_search_tool_search_result"]`
 
-                  - `"tool_search_tool_search_result"`
+                  default: tool_search_tool_search_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["tool_search_tool_result"]`
 
-              - `"tool_search_tool_result"`
+              default: tool_search_tool_result
 
           - `class ContainerUploadBlock: …`
 
@@ -4902,7 +5993,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["container_upload"]`
 
-              - `"container_upload"`
+              default: container_upload
 
         - `model: Model`
 
@@ -4910,7 +6001,7 @@ for batch in client.messages.batches.results(
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
+          - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 12 more]`
 
             The model that will complete your prompt.
 
@@ -4919,19 +6010,18 @@ for batch in client.messages.batches.results(
             - `claude-sonnet-5` - High-performance model for coding and agents
             - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
             - `claude-mythos-5` - Most capable model for cybersecurity and biology research
-            - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-            - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+            - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
             - `claude-mythos-preview` - Deprecated: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-6` - Frontier intelligence for long-running agents and coding
+            - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-6` - Best combination of speed and intelligence
             - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
             - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-            - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-            - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+            - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+            - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
             - `claude-sonnet-4-5` - High-performance model for agents and coding
             - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
-            - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-            - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
             - `"claude-sonnet-5"`
 
@@ -4945,13 +6035,17 @@ for batch in client.messages.batches.results(
 
               Most capable model for cybersecurity and biology research
 
+            - `"claude-opus-5"`
+
+              Powerful intelligence for long-running agents and coding
+
             - `"claude-opus-4-8"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-7"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-mythos-preview"`
 
@@ -4959,7 +6053,7 @@ for batch in client.messages.batches.results(
 
             - `"claude-opus-4-6"`
 
-              Frontier intelligence for long-running agents and coding
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-6"`
 
@@ -4975,11 +6069,11 @@ for batch in client.messages.batches.results(
 
             - `"claude-opus-4-5"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-opus-4-5-20251101"`
 
-              Premium model combining maximum intelligence with practical performance
+              Powerful intelligence for long-running agents and coding
 
             - `"claude-sonnet-4-5"`
 
@@ -4989,14 +6083,6 @@ for batch in client.messages.batches.results(
 
               High-performance model for agents and coding
 
-            - `"claude-opus-4-1"`
-
-              Exceptional model for specialized complex tasks
-
-            - `"claude-opus-4-1-20250805"`
-
-              Exceptional model for specialized complex tasks
-
           - `str`
 
         - `role: Literal["assistant"]`
@@ -5005,23 +6091,35 @@ for batch in client.messages.batches.results(
 
           This will always be `"assistant"`.
 
-          - `"assistant"`
+          default: assistant
 
         - `stop_details: Optional[RefusalStopDetails]`
 
           Structured information about a refusal.
 
-          - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+          - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
             The policy category that triggered a refusal.
 
             - `"cyber"`
 
+              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
             - `"bio"`
+
+              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
             - `"frontier_llm"`
 
+              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
             - `"reasoning_extraction"`
+
+              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+            - `"general_harms"`
+
+              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
           - `explanation: Optional[str]`
 
@@ -5031,7 +6129,7 @@ for batch in client.messages.batches.results(
 
           - `type: Literal["refusal"]`
 
-            - `"refusal"`
+            default: refusal
 
         - `stop_reason: Optional[StopReason]`
 
@@ -5045,6 +6143,7 @@ for batch in client.messages.batches.results(
           * `"tool_use"`: the model invoked one or more tools
           * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
           * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+          * `"model_context_window_exceeded"`: we exceeded the model's context window
 
           In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -5060,6 +6159,8 @@ for batch in client.messages.batches.results(
 
           - `"refusal"`
 
+          - `"model_context_window_exceeded"`
+
         - `stop_sequence: Optional[str]`
 
           Which custom stop sequence was generated, if any.
@@ -5072,7 +6173,7 @@ for batch in client.messages.batches.results(
 
           For Messages, this is always `"message"`.
 
-          - `"message"`
+          default: message
 
         - `usage: Usage`
 
@@ -5094,17 +6195,25 @@ for batch in client.messages.batches.results(
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              default: 0, minimum: 0
+
             - `ephemeral_5m_input_tokens: int`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              default: 0, minimum: 0
 
           - `cache_creation_input_tokens: Optional[int]`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Optional[int]`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `inference_geo: Optional[str]`
 
@@ -5114,9 +6223,13 @@ for batch in client.messages.batches.results(
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `output_tokens: int`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `output_tokens_details: Optional[OutputTokensDetails]`
 
@@ -5138,6 +6251,8 @@ for batch in client.messages.batches.results(
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              default: 0, minimum: 0
+
           - `server_tool_use: Optional[ServerToolUsage]`
 
             The number of server tool requests.
@@ -5146,9 +6261,13 @@ for batch in client.messages.batches.results(
 
               The number of web fetch tool requests.
 
+              default: 0, minimum: 0
+
             - `web_search_requests: int`
 
               The number of web search tool requests.
+
+              default: 0, minimum: 0
 
           - `service_tier: Optional[Literal["standard", "priority", "batch"]]`
 
@@ -5162,7 +6281,7 @@ for batch in client.messages.batches.results(
 
       - `type: Literal["succeeded"]`
 
-        - `"succeeded"`
+        default: succeeded
 
     - `class MessageBatchErroredResult: …`
 
@@ -5174,95 +6293,113 @@ for batch in client.messages.batches.results(
 
             - `message: str`
 
+              default: Invalid request
+
             - `type: Literal["invalid_request_error"]`
 
-              - `"invalid_request_error"`
+              default: invalid_request_error
 
           - `class AuthenticationError: …`
 
             - `message: str`
 
+              default: Authentication error
+
             - `type: Literal["authentication_error"]`
 
-              - `"authentication_error"`
+              default: authentication_error
 
           - `class BillingError: …`
 
             - `message: str`
 
+              default: Billing error
+
             - `type: Literal["billing_error"]`
 
-              - `"billing_error"`
+              default: billing_error
 
           - `class PermissionError: …`
 
             - `message: str`
 
+              default: Permission denied
+
             - `type: Literal["permission_error"]`
 
-              - `"permission_error"`
+              default: permission_error
 
           - `class NotFoundError: …`
 
             - `message: str`
 
+              default: Not found
+
             - `type: Literal["not_found_error"]`
 
-              - `"not_found_error"`
+              default: not_found_error
 
           - `class RateLimitError: …`
 
             - `message: str`
 
+              default: Rate limited
+
             - `type: Literal["rate_limit_error"]`
 
-              - `"rate_limit_error"`
+              default: rate_limit_error
 
           - `class GatewayTimeoutError: …`
 
             - `message: str`
 
+              default: Request timeout
+
             - `type: Literal["timeout_error"]`
 
-              - `"timeout_error"`
+              default: timeout_error
 
           - `class APIErrorObject: …`
 
             - `message: str`
 
+              default: Internal server error
+
             - `type: Literal["api_error"]`
 
-              - `"api_error"`
+              default: api_error
 
           - `class OverloadedError: …`
 
             - `message: str`
 
+              default: Overloaded
+
             - `type: Literal["overloaded_error"]`
 
-              - `"overloaded_error"`
+              default: overloaded_error
 
         - `request_id: Optional[str]`
 
         - `type: Literal["error"]`
 
-          - `"error"`
+          default: error
 
       - `type: Literal["errored"]`
 
-        - `"errored"`
+        default: errored
 
     - `class MessageBatchCanceledResult: …`
 
       - `type: Literal["canceled"]`
 
-        - `"canceled"`
+        default: canceled
 
     - `class MessageBatchExpiredResult: …`
 
       - `type: Literal["expired"]`
 
-        - `"expired"`
+        default: expired
 
 ### Message Batch Request Counts
 
@@ -5274,11 +6411,15 @@ for batch in client.messages.batches.results(
 
     This is zero until processing of the entire Message Batch has ended.
 
+    default: 0
+
   - `errored: int`
 
     Number of requests in the Message Batch that encountered an error.
 
     This is zero until processing of the entire Message Batch has ended.
+
+    default: 0
 
   - `expired: int`
 
@@ -5286,15 +6427,21 @@ for batch in client.messages.batches.results(
 
     This is zero until processing of the entire Message Batch has ended.
 
+    default: 0
+
   - `processing: int`
 
     Number of requests in the Message Batch that are processing.
+
+    default: 0
 
   - `succeeded: int`
 
     Number of requests in the Message Batch that have completed successfully.
 
     This is zero until processing of the entire Message Batch has ended.
+
+    default: 0
 
 ### Message Batch Result
 
@@ -5325,6 +6472,32 @@ for batch in client.messages.batches.results(
         - `expires_at: datetime`
 
           The time at which the container will expire.
+
+          format: date-time
+
+        - `skills: Optional[List[ContainerSkill]]`
+
+          Skills loaded in the container
+
+          - `skill_id: str`
+
+            Skill ID
+
+            maxLength: 64, minLength: 1
+
+          - `type: Literal["anthropic", "custom"]`
+
+            Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+            - `"anthropic"`
+
+            - `"custom"`
+
+          - `version: str`
+
+            The resolved version: a skill version ID for custom skills.
+
+            maxLength: 64, minLength: 1
 
       - `content: List[ContentBlock]`
 
@@ -5369,6 +6542,8 @@ for batch in client.messages.batches.results(
 
               - `document_index: int`
 
+                minimum: 0
+
               - `document_title: Optional[str]`
 
               - `end_char_index: int`
@@ -5377,15 +6552,19 @@ for batch in client.messages.batches.results(
 
               - `start_char_index: int`
 
+                minimum: 0
+
               - `type: Literal["char_location"]`
 
-                - `"char_location"`
+                default: char_location
 
             - `class CitationPageLocation: …`
 
               - `cited_text: str`
 
               - `document_index: int`
+
+                minimum: 0
 
               - `document_title: Optional[str]`
 
@@ -5395,9 +6574,11 @@ for batch in client.messages.batches.results(
 
               - `start_page_number: int`
 
+                minimum: 1
+
               - `type: Literal["page_location"]`
 
-                - `"page_location"`
+                default: page_location
 
             - `class CitationContentBlockLocation: …`
 
@@ -5408,6 +6589,8 @@ for batch in client.messages.batches.results(
                 Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
               - `document_index: int`
+
+                minimum: 0
 
               - `document_title: Optional[str]`
 
@@ -5423,9 +6606,11 @@ for batch in client.messages.batches.results(
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `type: Literal["content_block_location"]`
 
-                - `"content_block_location"`
+                default: content_block_location
 
             - `class CitationsWebSearchResultLocation: …`
 
@@ -5435,9 +6620,11 @@ for batch in client.messages.batches.results(
 
               - `title: Optional[str]`
 
+                maxLength: 512
+
               - `type: Literal["web_search_result_location"]`
 
-                - `"web_search_result_location"`
+                default: web_search_result_location
 
               - `url: str`
 
@@ -5461,49 +6648,73 @@ for batch in client.messages.batches.results(
 
                 Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                minimum: 0
+
               - `source: str`
 
               - `start_block_index: int`
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `title: Optional[str]`
 
               - `type: Literal["search_result_location"]`
 
-                - `"search_result_location"`
+                default: search_result_location
 
           - `text: str`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: Literal["text"]`
 
-            - `"text"`
+            default: text
 
         - `class ThinkingBlock: …`
 
           - `signature: str`
 
+            A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+            This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
           - `thinking: str`
+
+            The text of Claude's thinking process for this block.
 
           - `type: Literal["thinking"]`
 
-            - `"thinking"`
+            default: thinking
 
         - `class RedactedThinkingBlock: …`
 
           - `data: str`
 
+            The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+            Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
           - `type: Literal["redacted_thinking"]`
 
-            - `"redacted_thinking"`
+            default: redacted_thinking
 
         - `class ToolUseBlock: …`
 
           - `id: str`
 
+            pattern: ^[a-zA-Z0-9_-]+$
+
           - `caller: Caller`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `class DirectCaller: …`
 
@@ -5511,41 +6722,51 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["direct"]`
 
-                - `"direct"`
-
             - `class ServerToolCaller: …`
 
               Tool invocation generated by a server-side tool.
 
               - `tool_id: str`
 
-              - `type: Literal["code_execution_20250825"]`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20250825"`
+              - `type: Literal["code_execution_20250825"]`
 
             - `class ServerToolCaller20260120: …`
 
               - `tool_id: str`
 
-              - `type: Literal["code_execution_20260120"]`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20260120"`
+              - `type: Literal["code_execution_20260120"]`
 
           - `input: Dict[str, object]`
 
           - `name: str`
 
+            minLength: 1
+
           - `type: Literal["tool_use"]`
 
-            - `"tool_use"`
+            default: tool_use
+
+          - `toolset_name: Optional[str]`
+
+            For a toolset member tool_use, the toolset family.
+
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
         - `class ServerToolUseBlock: …`
 
           - `id: str`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `caller: Caller`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `class DirectCaller: …`
 
@@ -5577,13 +6798,15 @@ for batch in client.messages.batches.results(
 
           - `type: Literal["server_tool_use"]`
 
-            - `"server_tool_use"`
+            default: server_tool_use
 
         - `class WebSearchToolResultBlock: …`
 
           - `caller: Caller`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `class DirectCaller: …`
 
@@ -5615,7 +6838,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["web_search_tool_result_error"]`
 
-                - `"web_search_tool_result_error"`
+                default: web_search_tool_result_error
 
             - `List[WebSearchResultBlock]`
 
@@ -5627,21 +6850,25 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["web_search_result"]`
 
-                - `"web_search_result"`
+                default: web_search_result
 
               - `url: str`
 
           - `tool_use_id: str`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: Literal["web_search_tool_result"]`
 
-            - `"web_search_tool_result"`
+            default: web_search_tool_result
 
         - `class WebFetchToolResultBlock: …`
 
           - `caller: Caller`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `class DirectCaller: …`
 
@@ -5679,7 +6906,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["web_fetch_tool_result_error"]`
 
-                - `"web_fetch_tool_result_error"`
+                default: web_fetch_tool_result_error
 
             - `class WebFetchBlock: …`
 
@@ -5691,19 +6918,19 @@ for batch in client.messages.batches.results(
 
                   - `enabled: bool`
 
+                    default: false
+
                 - `source: Source`
 
                   - `class Base64PDFSource: …`
 
                     - `data: str`
 
+                      format: byte
+
                     - `media_type: Literal["application/pdf"]`
 
-                      - `"application/pdf"`
-
                     - `type: Literal["base64"]`
-
-                      - `"base64"`
 
                   - `class PlainTextSource: …`
 
@@ -5711,11 +6938,7 @@ for batch in client.messages.batches.results(
 
                     - `media_type: Literal["text/plain"]`
 
-                      - `"text/plain"`
-
                     - `type: Literal["text"]`
-
-                      - `"text"`
 
                 - `title: Optional[str]`
 
@@ -5723,7 +6946,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["document"]`
 
-                  - `"document"`
+                  default: document
 
               - `retrieved_at: Optional[str]`
 
@@ -5731,7 +6954,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["web_fetch_result"]`
 
-                - `"web_fetch_result"`
+                default: web_fetch_result
 
               - `url: str`
 
@@ -5739,9 +6962,11 @@ for batch in client.messages.batches.results(
 
           - `tool_use_id: str`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: Literal["web_fetch_tool_result"]`
 
-            - `"web_fetch_tool_result"`
+            default: web_fetch_tool_result
 
         - `class CodeExecutionToolResultBlock: …`
 
@@ -5763,7 +6988,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["code_execution_tool_result_error"]`
 
-                - `"code_execution_tool_result_error"`
+                default: code_execution_tool_result_error
 
             - `class CodeExecutionResultBlock: …`
 
@@ -5773,7 +6998,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["code_execution_output"]`
 
-                  - `"code_execution_output"`
+                  default: code_execution_output
 
               - `return_code: int`
 
@@ -5783,7 +7008,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["code_execution_result"]`
 
-                - `"code_execution_result"`
+                default: code_execution_result
 
             - `class EncryptedCodeExecutionResultBlock: …`
 
@@ -5795,6 +7020,8 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["code_execution_output"]`
 
+                  default: code_execution_output
+
               - `encrypted_stdout: str`
 
               - `return_code: int`
@@ -5803,13 +7030,15 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["encrypted_code_execution_result"]`
 
-                - `"encrypted_code_execution_result"`
+                default: encrypted_code_execution_result
 
           - `tool_use_id: str`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: Literal["code_execution_tool_result"]`
 
-            - `"code_execution_tool_result"`
+            default: code_execution_tool_result
 
         - `class BashCodeExecutionToolResultBlock: …`
 
@@ -5831,7 +7060,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["bash_code_execution_tool_result_error"]`
 
-                - `"bash_code_execution_tool_result_error"`
+                default: bash_code_execution_tool_result_error
 
             - `class BashCodeExecutionResultBlock: …`
 
@@ -5841,7 +7070,7 @@ for batch in client.messages.batches.results(
 
                 - `type: Literal["bash_code_execution_output"]`
 
-                  - `"bash_code_execution_output"`
+                  default: bash_code_execution_output
 
               - `return_code: int`
 
@@ -5851,13 +7080,15 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["bash_code_execution_result"]`
 
-                - `"bash_code_execution_result"`
+                default: bash_code_execution_result
 
           - `tool_use_id: str`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: Literal["bash_code_execution_tool_result"]`
 
-            - `"bash_code_execution_tool_result"`
+            default: bash_code_execution_tool_result
 
         - `class TextEditorCodeExecutionToolResultBlock: …`
 
@@ -5881,7 +7112,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
-                - `"text_editor_code_execution_tool_result_error"`
+                default: text_editor_code_execution_tool_result_error
 
             - `class TextEditorCodeExecutionViewResultBlock: …`
 
@@ -5903,7 +7134,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["text_editor_code_execution_view_result"]`
 
-                - `"text_editor_code_execution_view_result"`
+                default: text_editor_code_execution_view_result
 
             - `class TextEditorCodeExecutionCreateResultBlock: …`
 
@@ -5911,7 +7142,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["text_editor_code_execution_create_result"]`
 
-                - `"text_editor_code_execution_create_result"`
+                default: text_editor_code_execution_create_result
 
             - `class TextEditorCodeExecutionStrReplaceResultBlock: …`
 
@@ -5927,13 +7158,15 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
-                - `"text_editor_code_execution_str_replace_result"`
+                default: text_editor_code_execution_str_replace_result
 
           - `tool_use_id: str`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: Literal["text_editor_code_execution_tool_result"]`
 
-            - `"text_editor_code_execution_tool_result"`
+            default: text_editor_code_execution_tool_result
 
         - `class ToolSearchToolResultBlock: …`
 
@@ -5955,7 +7188,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["tool_search_tool_result_error"]`
 
-                - `"tool_search_tool_result_error"`
+                default: tool_search_tool_result_error
 
             - `class ToolSearchToolSearchResultBlock: …`
 
@@ -5963,19 +7196,23 @@ for batch in client.messages.batches.results(
 
                 - `tool_name: str`
 
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                 - `type: Literal["tool_reference"]`
 
-                  - `"tool_reference"`
+                  default: tool_reference
 
               - `type: Literal["tool_search_tool_search_result"]`
 
-                - `"tool_search_tool_search_result"`
+                default: tool_search_tool_search_result
 
           - `tool_use_id: str`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: Literal["tool_search_tool_result"]`
 
-            - `"tool_search_tool_result"`
+            default: tool_search_tool_result
 
         - `class ContainerUploadBlock: …`
 
@@ -5985,7 +7222,7 @@ for batch in client.messages.batches.results(
 
           - `type: Literal["container_upload"]`
 
-            - `"container_upload"`
+            default: container_upload
 
       - `model: Model`
 
@@ -5993,7 +7230,7 @@ for batch in client.messages.batches.results(
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
+        - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 12 more]`
 
           The model that will complete your prompt.
 
@@ -6002,19 +7239,18 @@ for batch in client.messages.batches.results(
           - `claude-sonnet-5` - High-performance model for coding and agents
           - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
           - `claude-mythos-5` - Most capable model for cybersecurity and biology research
-          - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-          - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+          - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+          - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+          - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
           - `claude-mythos-preview` - Deprecated: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-6` - Frontier intelligence for long-running agents and coding
+          - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
           - `claude-sonnet-4-6` - Best combination of speed and intelligence
           - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
           - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-          - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-          - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+          - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+          - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
           - `claude-sonnet-4-5` - High-performance model for agents and coding
           - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
-          - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-          - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
           - `"claude-sonnet-5"`
 
@@ -6028,13 +7264,17 @@ for batch in client.messages.batches.results(
 
             Most capable model for cybersecurity and biology research
 
+          - `"claude-opus-5"`
+
+            Powerful intelligence for long-running agents and coding
+
           - `"claude-opus-4-8"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-opus-4-7"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-mythos-preview"`
 
@@ -6042,7 +7282,7 @@ for batch in client.messages.batches.results(
 
           - `"claude-opus-4-6"`
 
-            Frontier intelligence for long-running agents and coding
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-sonnet-4-6"`
 
@@ -6058,11 +7298,11 @@ for batch in client.messages.batches.results(
 
           - `"claude-opus-4-5"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-opus-4-5-20251101"`
 
-            Premium model combining maximum intelligence with practical performance
+            Powerful intelligence for long-running agents and coding
 
           - `"claude-sonnet-4-5"`
 
@@ -6072,14 +7312,6 @@ for batch in client.messages.batches.results(
 
             High-performance model for agents and coding
 
-          - `"claude-opus-4-1"`
-
-            Exceptional model for specialized complex tasks
-
-          - `"claude-opus-4-1-20250805"`
-
-            Exceptional model for specialized complex tasks
-
         - `str`
 
       - `role: Literal["assistant"]`
@@ -6088,23 +7320,35 @@ for batch in client.messages.batches.results(
 
         This will always be `"assistant"`.
 
-        - `"assistant"`
+        default: assistant
 
       - `stop_details: Optional[RefusalStopDetails]`
 
         Structured information about a refusal.
 
-        - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+        - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
           The policy category that triggered a refusal.
 
           - `"cyber"`
 
+            The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
           - `"bio"`
+
+            The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
           - `"frontier_llm"`
 
+            The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
           - `"reasoning_extraction"`
+
+            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+          - `"general_harms"`
+
+            The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
         - `explanation: Optional[str]`
 
@@ -6114,7 +7358,7 @@ for batch in client.messages.batches.results(
 
         - `type: Literal["refusal"]`
 
-          - `"refusal"`
+          default: refusal
 
       - `stop_reason: Optional[StopReason]`
 
@@ -6128,6 +7372,7 @@ for batch in client.messages.batches.results(
         * `"tool_use"`: the model invoked one or more tools
         * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
         * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+        * `"model_context_window_exceeded"`: we exceeded the model's context window
 
         In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -6143,6 +7388,8 @@ for batch in client.messages.batches.results(
 
         - `"refusal"`
 
+        - `"model_context_window_exceeded"`
+
       - `stop_sequence: Optional[str]`
 
         Which custom stop sequence was generated, if any.
@@ -6155,7 +7402,7 @@ for batch in client.messages.batches.results(
 
         For Messages, this is always `"message"`.
 
-        - `"message"`
+        default: message
 
       - `usage: Usage`
 
@@ -6177,17 +7424,25 @@ for batch in client.messages.batches.results(
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            default: 0, minimum: 0
+
           - `ephemeral_5m_input_tokens: int`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            default: 0, minimum: 0
 
         - `cache_creation_input_tokens: Optional[int]`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Optional[int]`
 
           The number of input tokens read from the cache.
+
+          minimum: 0
 
         - `inference_geo: Optional[str]`
 
@@ -6197,9 +7452,13 @@ for batch in client.messages.batches.results(
 
           The number of input tokens which were used.
 
+          minimum: 0
+
         - `output_tokens: int`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `output_tokens_details: Optional[OutputTokensDetails]`
 
@@ -6221,6 +7480,8 @@ for batch in client.messages.batches.results(
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+            default: 0, minimum: 0
+
         - `server_tool_use: Optional[ServerToolUsage]`
 
           The number of server tool requests.
@@ -6229,9 +7490,13 @@ for batch in client.messages.batches.results(
 
             The number of web fetch tool requests.
 
+            default: 0, minimum: 0
+
           - `web_search_requests: int`
 
             The number of web search tool requests.
+
+            default: 0, minimum: 0
 
         - `service_tier: Optional[Literal["standard", "priority", "batch"]]`
 
@@ -6245,7 +7510,7 @@ for batch in client.messages.batches.results(
 
     - `type: Literal["succeeded"]`
 
-      - `"succeeded"`
+      default: succeeded
 
   - `class MessageBatchErroredResult: …`
 
@@ -6257,95 +7522,113 @@ for batch in client.messages.batches.results(
 
           - `message: str`
 
+            default: Invalid request
+
           - `type: Literal["invalid_request_error"]`
 
-            - `"invalid_request_error"`
+            default: invalid_request_error
 
         - `class AuthenticationError: …`
 
           - `message: str`
 
+            default: Authentication error
+
           - `type: Literal["authentication_error"]`
 
-            - `"authentication_error"`
+            default: authentication_error
 
         - `class BillingError: …`
 
           - `message: str`
 
+            default: Billing error
+
           - `type: Literal["billing_error"]`
 
-            - `"billing_error"`
+            default: billing_error
 
         - `class PermissionError: …`
 
           - `message: str`
 
+            default: Permission denied
+
           - `type: Literal["permission_error"]`
 
-            - `"permission_error"`
+            default: permission_error
 
         - `class NotFoundError: …`
 
           - `message: str`
 
+            default: Not found
+
           - `type: Literal["not_found_error"]`
 
-            - `"not_found_error"`
+            default: not_found_error
 
         - `class RateLimitError: …`
 
           - `message: str`
 
+            default: Rate limited
+
           - `type: Literal["rate_limit_error"]`
 
-            - `"rate_limit_error"`
+            default: rate_limit_error
 
         - `class GatewayTimeoutError: …`
 
           - `message: str`
 
+            default: Request timeout
+
           - `type: Literal["timeout_error"]`
 
-            - `"timeout_error"`
+            default: timeout_error
 
         - `class APIErrorObject: …`
 
           - `message: str`
 
+            default: Internal server error
+
           - `type: Literal["api_error"]`
 
-            - `"api_error"`
+            default: api_error
 
         - `class OverloadedError: …`
 
           - `message: str`
 
+            default: Overloaded
+
           - `type: Literal["overloaded_error"]`
 
-            - `"overloaded_error"`
+            default: overloaded_error
 
       - `request_id: Optional[str]`
 
       - `type: Literal["error"]`
 
-        - `"error"`
+        default: error
 
     - `type: Literal["errored"]`
 
-      - `"errored"`
+      default: errored
 
   - `class MessageBatchCanceledResult: …`
 
     - `type: Literal["canceled"]`
 
-      - `"canceled"`
+      default: canceled
 
   - `class MessageBatchExpiredResult: …`
 
     - `type: Literal["expired"]`
 
-      - `"expired"`
+      default: expired
 
 ### Message Batch Succeeded Result
 
@@ -6370,6 +7653,32 @@ for batch in client.messages.batches.results(
       - `expires_at: datetime`
 
         The time at which the container will expire.
+
+        format: date-time
+
+      - `skills: Optional[List[ContainerSkill]]`
+
+        Skills loaded in the container
+
+        - `skill_id: str`
+
+          Skill ID
+
+          maxLength: 64, minLength: 1
+
+        - `type: Literal["anthropic", "custom"]`
+
+          Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+          - `"anthropic"`
+
+          - `"custom"`
+
+        - `version: str`
+
+          The resolved version: a skill version ID for custom skills.
+
+          maxLength: 64, minLength: 1
 
     - `content: List[ContentBlock]`
 
@@ -6414,6 +7723,8 @@ for batch in client.messages.batches.results(
 
             - `document_index: int`
 
+              minimum: 0
+
             - `document_title: Optional[str]`
 
             - `end_char_index: int`
@@ -6422,15 +7733,19 @@ for batch in client.messages.batches.results(
 
             - `start_char_index: int`
 
+              minimum: 0
+
             - `type: Literal["char_location"]`
 
-              - `"char_location"`
+              default: char_location
 
           - `class CitationPageLocation: …`
 
             - `cited_text: str`
 
             - `document_index: int`
+
+              minimum: 0
 
             - `document_title: Optional[str]`
 
@@ -6440,9 +7755,11 @@ for batch in client.messages.batches.results(
 
             - `start_page_number: int`
 
+              minimum: 1
+
             - `type: Literal["page_location"]`
 
-              - `"page_location"`
+              default: page_location
 
           - `class CitationContentBlockLocation: …`
 
@@ -6453,6 +7770,8 @@ for batch in client.messages.batches.results(
               Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
             - `document_index: int`
+
+              minimum: 0
 
             - `document_title: Optional[str]`
 
@@ -6468,9 +7787,11 @@ for batch in client.messages.batches.results(
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `type: Literal["content_block_location"]`
 
-              - `"content_block_location"`
+              default: content_block_location
 
           - `class CitationsWebSearchResultLocation: …`
 
@@ -6480,9 +7801,11 @@ for batch in client.messages.batches.results(
 
             - `title: Optional[str]`
 
+              maxLength: 512
+
             - `type: Literal["web_search_result_location"]`
 
-              - `"web_search_result_location"`
+              default: web_search_result_location
 
             - `url: str`
 
@@ -6506,49 +7829,73 @@ for batch in client.messages.batches.results(
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: str`
 
             - `start_block_index: int`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: Optional[str]`
 
             - `type: Literal["search_result_location"]`
 
-              - `"search_result_location"`
+              default: search_result_location
 
         - `text: str`
 
+          maxLength: 5000000, minLength: 0
+
         - `type: Literal["text"]`
 
-          - `"text"`
+          default: text
 
       - `class ThinkingBlock: …`
 
         - `signature: str`
 
+          A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+          This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
         - `thinking: str`
+
+          The text of Claude's thinking process for this block.
 
         - `type: Literal["thinking"]`
 
-          - `"thinking"`
+          default: thinking
 
       - `class RedactedThinkingBlock: …`
 
         - `data: str`
 
+          The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+          Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
         - `type: Literal["redacted_thinking"]`
 
-          - `"redacted_thinking"`
+          default: redacted_thinking
 
       - `class ToolUseBlock: …`
 
         - `id: str`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `caller: Caller`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `class DirectCaller: …`
 
@@ -6556,41 +7903,51 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["direct"]`
 
-              - `"direct"`
-
           - `class ServerToolCaller: …`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: str`
 
-            - `type: Literal["code_execution_20250825"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20250825"`
+            - `type: Literal["code_execution_20250825"]`
 
           - `class ServerToolCaller20260120: …`
 
             - `tool_id: str`
 
-            - `type: Literal["code_execution_20260120"]`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20260120"`
+            - `type: Literal["code_execution_20260120"]`
 
         - `input: Dict[str, object]`
 
         - `name: str`
 
+          minLength: 1
+
         - `type: Literal["tool_use"]`
 
-          - `"tool_use"`
+          default: tool_use
+
+        - `toolset_name: Optional[str]`
+
+          For a toolset member tool_use, the toolset family.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
       - `class ServerToolUseBlock: …`
 
         - `id: str`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `caller: Caller`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `class DirectCaller: …`
 
@@ -6622,13 +7979,15 @@ for batch in client.messages.batches.results(
 
         - `type: Literal["server_tool_use"]`
 
-          - `"server_tool_use"`
+          default: server_tool_use
 
       - `class WebSearchToolResultBlock: …`
 
         - `caller: Caller`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `class DirectCaller: …`
 
@@ -6660,7 +8019,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["web_search_tool_result_error"]`
 
-              - `"web_search_tool_result_error"`
+              default: web_search_tool_result_error
 
           - `List[WebSearchResultBlock]`
 
@@ -6672,21 +8031,25 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["web_search_result"]`
 
-              - `"web_search_result"`
+              default: web_search_result
 
             - `url: str`
 
         - `tool_use_id: str`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: Literal["web_search_tool_result"]`
 
-          - `"web_search_tool_result"`
+          default: web_search_tool_result
 
       - `class WebFetchToolResultBlock: …`
 
         - `caller: Caller`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `class DirectCaller: …`
 
@@ -6724,7 +8087,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["web_fetch_tool_result_error"]`
 
-              - `"web_fetch_tool_result_error"`
+              default: web_fetch_tool_result_error
 
           - `class WebFetchBlock: …`
 
@@ -6736,19 +8099,19 @@ for batch in client.messages.batches.results(
 
                 - `enabled: bool`
 
+                  default: false
+
               - `source: Source`
 
                 - `class Base64PDFSource: …`
 
                   - `data: str`
 
+                    format: byte
+
                   - `media_type: Literal["application/pdf"]`
 
-                    - `"application/pdf"`
-
                   - `type: Literal["base64"]`
-
-                    - `"base64"`
 
                 - `class PlainTextSource: …`
 
@@ -6756,11 +8119,7 @@ for batch in client.messages.batches.results(
 
                   - `media_type: Literal["text/plain"]`
 
-                    - `"text/plain"`
-
                   - `type: Literal["text"]`
-
-                    - `"text"`
 
               - `title: Optional[str]`
 
@@ -6768,7 +8127,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["document"]`
 
-                - `"document"`
+                default: document
 
             - `retrieved_at: Optional[str]`
 
@@ -6776,7 +8135,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["web_fetch_result"]`
 
-              - `"web_fetch_result"`
+              default: web_fetch_result
 
             - `url: str`
 
@@ -6784,9 +8143,11 @@ for batch in client.messages.batches.results(
 
         - `tool_use_id: str`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: Literal["web_fetch_tool_result"]`
 
-          - `"web_fetch_tool_result"`
+          default: web_fetch_tool_result
 
       - `class CodeExecutionToolResultBlock: …`
 
@@ -6808,7 +8169,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["code_execution_tool_result_error"]`
 
-              - `"code_execution_tool_result_error"`
+              default: code_execution_tool_result_error
 
           - `class CodeExecutionResultBlock: …`
 
@@ -6818,7 +8179,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["code_execution_output"]`
 
-                - `"code_execution_output"`
+                default: code_execution_output
 
             - `return_code: int`
 
@@ -6828,7 +8189,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["code_execution_result"]`
 
-              - `"code_execution_result"`
+              default: code_execution_result
 
           - `class EncryptedCodeExecutionResultBlock: …`
 
@@ -6840,6 +8201,8 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["code_execution_output"]`
 
+                default: code_execution_output
+
             - `encrypted_stdout: str`
 
             - `return_code: int`
@@ -6848,13 +8211,15 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["encrypted_code_execution_result"]`
 
-              - `"encrypted_code_execution_result"`
+              default: encrypted_code_execution_result
 
         - `tool_use_id: str`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: Literal["code_execution_tool_result"]`
 
-          - `"code_execution_tool_result"`
+          default: code_execution_tool_result
 
       - `class BashCodeExecutionToolResultBlock: …`
 
@@ -6876,7 +8241,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["bash_code_execution_tool_result_error"]`
 
-              - `"bash_code_execution_tool_result_error"`
+              default: bash_code_execution_tool_result_error
 
           - `class BashCodeExecutionResultBlock: …`
 
@@ -6886,7 +8251,7 @@ for batch in client.messages.batches.results(
 
               - `type: Literal["bash_code_execution_output"]`
 
-                - `"bash_code_execution_output"`
+                default: bash_code_execution_output
 
             - `return_code: int`
 
@@ -6896,13 +8261,15 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["bash_code_execution_result"]`
 
-              - `"bash_code_execution_result"`
+              default: bash_code_execution_result
 
         - `tool_use_id: str`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: Literal["bash_code_execution_tool_result"]`
 
-          - `"bash_code_execution_tool_result"`
+          default: bash_code_execution_tool_result
 
       - `class TextEditorCodeExecutionToolResultBlock: …`
 
@@ -6926,7 +8293,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
-              - `"text_editor_code_execution_tool_result_error"`
+              default: text_editor_code_execution_tool_result_error
 
           - `class TextEditorCodeExecutionViewResultBlock: …`
 
@@ -6948,7 +8315,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["text_editor_code_execution_view_result"]`
 
-              - `"text_editor_code_execution_view_result"`
+              default: text_editor_code_execution_view_result
 
           - `class TextEditorCodeExecutionCreateResultBlock: …`
 
@@ -6956,7 +8323,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["text_editor_code_execution_create_result"]`
 
-              - `"text_editor_code_execution_create_result"`
+              default: text_editor_code_execution_create_result
 
           - `class TextEditorCodeExecutionStrReplaceResultBlock: …`
 
@@ -6972,13 +8339,15 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
-              - `"text_editor_code_execution_str_replace_result"`
+              default: text_editor_code_execution_str_replace_result
 
         - `tool_use_id: str`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: Literal["text_editor_code_execution_tool_result"]`
 
-          - `"text_editor_code_execution_tool_result"`
+          default: text_editor_code_execution_tool_result
 
       - `class ToolSearchToolResultBlock: …`
 
@@ -7000,7 +8369,7 @@ for batch in client.messages.batches.results(
 
             - `type: Literal["tool_search_tool_result_error"]`
 
-              - `"tool_search_tool_result_error"`
+              default: tool_search_tool_result_error
 
           - `class ToolSearchToolSearchResultBlock: …`
 
@@ -7008,19 +8377,23 @@ for batch in client.messages.batches.results(
 
               - `tool_name: str`
 
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
               - `type: Literal["tool_reference"]`
 
-                - `"tool_reference"`
+                default: tool_reference
 
             - `type: Literal["tool_search_tool_search_result"]`
 
-              - `"tool_search_tool_search_result"`
+              default: tool_search_tool_search_result
 
         - `tool_use_id: str`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: Literal["tool_search_tool_result"]`
 
-          - `"tool_search_tool_result"`
+          default: tool_search_tool_result
 
       - `class ContainerUploadBlock: …`
 
@@ -7030,7 +8403,7 @@ for batch in client.messages.batches.results(
 
         - `type: Literal["container_upload"]`
 
-          - `"container_upload"`
+          default: container_upload
 
     - `model: Model`
 
@@ -7038,7 +8411,7 @@ for batch in client.messages.batches.results(
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 13 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-mythos-5", 12 more]`
 
         The model that will complete your prompt.
 
@@ -7047,19 +8420,18 @@ for batch in client.messages.batches.results(
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
         - `claude-mythos-5` - Most capable model for cybersecurity and biology research
-        - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-        - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
+        - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
         - `claude-mythos-preview` - Deprecated: Will reach end-of-life on June 30, 2026. Please migrate to claude-mythos-5. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-6` - Frontier intelligence for long-running agents and coding
+        - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-6` - Best combination of speed and intelligence
         - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
         - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-        - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-        - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+        - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
-        - `claude-opus-4-1` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
-        - `claude-opus-4-1-20250805` - Deprecated: Will reach end-of-life on August 5, 2026. Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.
 
         - `"claude-sonnet-5"`
 
@@ -7073,13 +8445,17 @@ for batch in client.messages.batches.results(
 
           Most capable model for cybersecurity and biology research
 
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
         - `"claude-opus-4-8"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-7"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-mythos-preview"`
 
@@ -7087,7 +8463,7 @@ for batch in client.messages.batches.results(
 
         - `"claude-opus-4-6"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-6"`
 
@@ -7103,11 +8479,11 @@ for batch in client.messages.batches.results(
 
         - `"claude-opus-4-5"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-5-20251101"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-5"`
 
@@ -7117,14 +8493,6 @@ for batch in client.messages.batches.results(
 
           High-performance model for agents and coding
 
-        - `"claude-opus-4-1"`
-
-          Exceptional model for specialized complex tasks
-
-        - `"claude-opus-4-1-20250805"`
-
-          Exceptional model for specialized complex tasks
-
       - `str`
 
     - `role: Literal["assistant"]`
@@ -7133,23 +8501,35 @@ for batch in client.messages.batches.results(
 
       This will always be `"assistant"`.
 
-      - `"assistant"`
+      default: assistant
 
     - `stop_details: Optional[RefusalStopDetails]`
 
       Structured information about a refusal.
 
-      - `category: Optional[Literal["cyber", "bio", "frontier_llm", "reasoning_extraction"]]`
+      - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
         The policy category that triggered a refusal.
 
         - `"cyber"`
 
+          The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+
         - `"bio"`
+
+          The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
         - `"frontier_llm"`
 
+          The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+
         - `"reasoning_extraction"`
+
+          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+
+        - `"general_harms"`
+
+          The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
       - `explanation: Optional[str]`
 
@@ -7159,7 +8539,7 @@ for batch in client.messages.batches.results(
 
       - `type: Literal["refusal"]`
 
-        - `"refusal"`
+        default: refusal
 
     - `stop_reason: Optional[StopReason]`
 
@@ -7173,6 +8553,7 @@ for batch in client.messages.batches.results(
       * `"tool_use"`: the model invoked one or more tools
       * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
       * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+      * `"model_context_window_exceeded"`: we exceeded the model's context window
 
       In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -7188,6 +8569,8 @@ for batch in client.messages.batches.results(
 
       - `"refusal"`
 
+      - `"model_context_window_exceeded"`
+
     - `stop_sequence: Optional[str]`
 
       Which custom stop sequence was generated, if any.
@@ -7200,7 +8583,7 @@ for batch in client.messages.batches.results(
 
       For Messages, this is always `"message"`.
 
-      - `"message"`
+      default: message
 
     - `usage: Usage`
 
@@ -7222,17 +8605,25 @@ for batch in client.messages.batches.results(
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          default: 0, minimum: 0
+
         - `ephemeral_5m_input_tokens: int`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          default: 0, minimum: 0
 
       - `cache_creation_input_tokens: Optional[int]`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Optional[int]`
 
         The number of input tokens read from the cache.
+
+        minimum: 0
 
       - `inference_geo: Optional[str]`
 
@@ -7242,9 +8633,13 @@ for batch in client.messages.batches.results(
 
         The number of input tokens which were used.
 
+        minimum: 0
+
       - `output_tokens: int`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `output_tokens_details: Optional[OutputTokensDetails]`
 
@@ -7266,6 +8661,8 @@ for batch in client.messages.batches.results(
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+          default: 0, minimum: 0
+
       - `server_tool_use: Optional[ServerToolUsage]`
 
         The number of server tool requests.
@@ -7274,9 +8671,13 @@ for batch in client.messages.batches.results(
 
           The number of web fetch tool requests.
 
+          default: 0, minimum: 0
+
         - `web_search_requests: int`
 
           The number of web search tool requests.
+
+          default: 0, minimum: 0
 
       - `service_tier: Optional[Literal["standard", "priority", "batch"]]`
 
@@ -7290,4 +8691,4 @@ for batch in client.messages.batches.results(
 
   - `type: Literal["succeeded"]`
 
-    - `"succeeded"`
+    default: succeeded

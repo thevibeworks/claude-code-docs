@@ -2,9 +2,9 @@
 
 ## Add Session Resource
 
-`beta.sessions.resources.add(strsession_id, ResourceAddParams**kwargs)  -> BetaManagedAgentsFileResource`
+`beta.sessions.resources.add(session_id, **kwargs)  -> BetaManagedAgentsFileResource`
 
-**post** `/v1/sessions/{session_id}/resources`
+**POST** `/v1/sessions/{session_id}/resources`
 
 Add Session Resource
 
@@ -16,13 +16,15 @@ Add Session Resource
 
   ID of a previously uploaded file.
 
-- `type: Literal["file"]`
+  minLength: 1, maxLength: 128
 
-  - `"file"`
+- `type: Literal["file"]`
 
 - `mount_path: Optional[str]`
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+
+  minLength: 1, maxLength: 4096
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -30,7 +32,7 @@ Add Session Resource
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -76,19 +78,29 @@ Add Session Resource
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -100,17 +112,19 @@ Add Session Resource
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `file_id: str`
 
   - `mount_path: str`
 
   - `type: Literal["file"]`
 
-    - `"file"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
 ### Example
 
@@ -119,7 +133,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_file_resource = client.beta.sessions.resources.add(
     session_id="sesn_011CZkZAtmR3yMPDzynEDxu7",
@@ -129,7 +145,7 @@ beta_managed_agents_file_resource = client.beta.sessions.resources.add(
 print(beta_managed_agents_file_resource.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -144,9 +160,9 @@ print(beta_managed_agents_file_resource.id)
 
 ## List Session Resources
 
-`beta.sessions.resources.list(strsession_id, ResourceListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionResource]`
+`beta.sessions.resources.list(session_id, **kwargs)  -> SyncPageCursor[BetaManagedAgentsSessionResource]`
 
-**get** `/v1/sessions/{session_id}/resources`
+**GET** `/v1/sessions/{session_id}/resources`
 
 List Session Resources
 
@@ -158,6 +174,8 @@ List Session Resources
 
   Maximum number of resources to return per page (max 1000). If omitted, returns all resources.
 
+  format: int32
+
 - `page: Optional[str]`
 
   Opaque cursor from a previous response's next_page field.
@@ -168,7 +186,7 @@ List Session Resources
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -214,19 +232,29 @@ List Session Resources
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -242,15 +270,17 @@ List Session Resources
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: str`
 
     - `type: Literal["github_repository"]`
 
-      - `"github_repository"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: str`
 
@@ -262,9 +292,9 @@ List Session Resources
 
           Branch name to check out.
 
-        - `type: Literal["branch"]`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: Literal["branch"]`
 
       - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -272,9 +302,9 @@ List Session Resources
 
           Full commit SHA to check out.
 
-        - `type: Literal["commit"]`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: Literal["commit"]`
 
   - `class BetaManagedAgentsFileResource: …`
 
@@ -284,17 +314,19 @@ List Session Resources
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: str`
 
     - `mount_path: str`
 
     - `type: Literal["file"]`
 
-      - `"file"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource: …`
 
@@ -305,8 +337,6 @@ List Session Resources
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: Literal["memory_store"]`
-
-      - `"memory_store"`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -324,6 +354,8 @@ List Session Resources
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `mount_path: Optional[str]`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -339,7 +371,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.sessions.resources.list(
     session_id="sesn_011CZkZAtmR3yMPDzynEDxu7",
@@ -348,7 +382,7 @@ page = page.data[0]
 print(page)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -380,9 +414,9 @@ print(page)
 
 ## Get Session Resource
 
-`beta.sessions.resources.retrieve(strresource_id, ResourceRetrieveParams**kwargs)  -> ResourceRetrieveResponse`
+`beta.sessions.resources.retrieve(resource_id, **kwargs)  -> ResourceRetrieveResponse`
 
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
@@ -398,7 +432,7 @@ Get Session Resource
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -444,19 +478,29 @@ Get Session Resource
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -472,15 +516,17 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: str`
 
     - `type: Literal["github_repository"]`
 
-      - `"github_repository"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: str`
 
@@ -492,9 +538,9 @@ Get Session Resource
 
           Branch name to check out.
 
-        - `type: Literal["branch"]`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: Literal["branch"]`
 
       - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -502,9 +548,9 @@ Get Session Resource
 
           Full commit SHA to check out.
 
-        - `type: Literal["commit"]`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: Literal["commit"]`
 
   - `class BetaManagedAgentsFileResource: …`
 
@@ -514,17 +560,19 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: str`
 
     - `mount_path: str`
 
     - `type: Literal["file"]`
 
-      - `"file"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource: …`
 
@@ -535,8 +583,6 @@ Get Session Resource
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: Literal["memory_store"]`
-
-      - `"memory_store"`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -554,6 +600,8 @@ Get Session Resource
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `mount_path: Optional[str]`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -569,7 +617,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 resource = client.beta.sessions.resources.retrieve(
     resource_id="sesrsc_011CZkZBJq5dWxk9fVLNcPht",
@@ -578,7 +628,7 @@ resource = client.beta.sessions.resources.retrieve(
 print(resource)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -597,9 +647,9 @@ print(resource)
 
 ## Update Session Resource
 
-`beta.sessions.resources.update(strresource_id, ResourceUpdateParams**kwargs)  -> ResourceUpdateResponse`
+`beta.sessions.resources.update(resource_id, **kwargs)  -> ResourceUpdateResponse`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
@@ -613,13 +663,15 @@ Update Session Resource
 
   New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
+  minLength: 1, maxLength: 4096
+
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -665,19 +717,29 @@ Update Session Resource
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -693,15 +755,17 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: str`
 
     - `type: Literal["github_repository"]`
 
-      - `"github_repository"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: str`
 
@@ -713,9 +777,9 @@ Update Session Resource
 
           Branch name to check out.
 
-        - `type: Literal["branch"]`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: Literal["branch"]`
 
       - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -723,9 +787,9 @@ Update Session Resource
 
           Full commit SHA to check out.
 
-        - `type: Literal["commit"]`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: Literal["commit"]`
 
   - `class BetaManagedAgentsFileResource: …`
 
@@ -735,17 +799,19 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: str`
 
     - `mount_path: str`
 
     - `type: Literal["file"]`
 
-      - `"file"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource: …`
 
@@ -756,8 +822,6 @@ Update Session Resource
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: Literal["memory_store"]`
-
-      - `"memory_store"`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -775,6 +839,8 @@ Update Session Resource
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `mount_path: Optional[str]`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -790,7 +856,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 resource = client.beta.sessions.resources.update(
     resource_id="sesrsc_011CZkZBJq5dWxk9fVLNcPht",
@@ -800,7 +868,7 @@ resource = client.beta.sessions.resources.update(
 print(resource)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -819,9 +887,9 @@ print(resource)
 
 ## Delete Session Resource
 
-`beta.sessions.resources.delete(strresource_id, ResourceDeleteParams**kwargs)  -> BetaManagedAgentsDeleteSessionResource`
+`beta.sessions.resources.delete(resource_id, **kwargs)  -> BetaManagedAgentsDeleteSessionResource`
 
-**delete** `/v1/sessions/{session_id}/resources/{resource_id}`
+**DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Delete Session Resource
 
@@ -837,7 +905,7 @@ Delete Session Resource
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -883,19 +951,29 @@ Delete Session Resource
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -907,8 +985,6 @@ Delete Session Resource
 
   - `type: Literal["session_resource_deleted"]`
 
-    - `"session_resource_deleted"`
-
 ### Example
 
 ```python
@@ -916,7 +992,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_delete_session_resource = client.beta.sessions.resources.delete(
     resource_id="sesrsc_011CZkZBJq5dWxk9fVLNcPht",
@@ -925,7 +1003,7 @@ beta_managed_agents_delete_session_resource = client.beta.sessions.resources.del
 print(beta_managed_agents_delete_session_resource.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -934,7 +1012,7 @@ print(beta_managed_agents_delete_session_resource.id)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Delete Session Resource
 
@@ -946,8 +1024,6 @@ print(beta_managed_agents_delete_session_resource.id)
 
   - `type: Literal["session_resource_deleted"]`
 
-    - `"session_resource_deleted"`
-
 ### Beta Managed Agents File Resource
 
 - `class BetaManagedAgentsFileResource: …`
@@ -958,17 +1034,19 @@ print(beta_managed_agents_delete_session_resource.id)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `file_id: str`
 
   - `mount_path: str`
 
   - `type: Literal["file"]`
 
-    - `"file"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
 ### Beta Managed Agents GitHub Repository Resource
 
@@ -980,15 +1058,17 @@ print(beta_managed_agents_delete_session_resource.id)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `mount_path: str`
 
   - `type: Literal["github_repository"]`
 
-    - `"github_repository"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `url: str`
 
@@ -1000,9 +1080,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
         Branch name to check out.
 
-      - `type: Literal["branch"]`
+        minLength: 1, maxLength: 255
 
-        - `"branch"`
+      - `type: Literal["branch"]`
 
     - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -1010,9 +1090,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
         Full commit SHA to check out.
 
-      - `type: Literal["commit"]`
+        minLength: 7, maxLength: 64
 
-        - `"commit"`
+      - `type: Literal["commit"]`
 
 ### Beta Managed Agents Memory Store Resource
 
@@ -1025,8 +1105,6 @@ print(beta_managed_agents_delete_session_resource.id)
     The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
   - `type: Literal["memory_store"]`
-
-    - `"memory_store"`
 
   - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -1043,6 +1121,8 @@ print(beta_managed_agents_delete_session_resource.id)
   - `instructions: Optional[str]`
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+
+    maxLength: 4096
 
   - `mount_path: Optional[str]`
 
@@ -1066,15 +1146,17 @@ print(beta_managed_agents_delete_session_resource.id)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: str`
 
     - `type: Literal["github_repository"]`
 
-      - `"github_repository"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: str`
 
@@ -1086,9 +1168,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
           Branch name to check out.
 
-        - `type: Literal["branch"]`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: Literal["branch"]`
 
       - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -1096,9 +1178,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
           Full commit SHA to check out.
 
-        - `type: Literal["commit"]`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: Literal["commit"]`
 
   - `class BetaManagedAgentsFileResource: …`
 
@@ -1108,17 +1190,19 @@ print(beta_managed_agents_delete_session_resource.id)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: str`
 
     - `mount_path: str`
 
     - `type: Literal["file"]`
 
-      - `"file"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource: …`
 
@@ -1129,8 +1213,6 @@ print(beta_managed_agents_delete_session_resource.id)
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: Literal["memory_store"]`
-
-      - `"memory_store"`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -1147,6 +1229,8 @@ print(beta_managed_agents_delete_session_resource.id)
     - `instructions: Optional[str]`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+
+      maxLength: 4096
 
     - `mount_path: Optional[str]`
 
@@ -1170,15 +1254,17 @@ print(beta_managed_agents_delete_session_resource.id)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: str`
 
     - `type: Literal["github_repository"]`
 
-      - `"github_repository"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: str`
 
@@ -1190,9 +1276,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
           Branch name to check out.
 
-        - `type: Literal["branch"]`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: Literal["branch"]`
 
       - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -1200,9 +1286,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
           Full commit SHA to check out.
 
-        - `type: Literal["commit"]`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: Literal["commit"]`
 
   - `class BetaManagedAgentsFileResource: …`
 
@@ -1212,17 +1298,19 @@ print(beta_managed_agents_delete_session_resource.id)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: str`
 
     - `mount_path: str`
 
     - `type: Literal["file"]`
 
-      - `"file"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource: …`
 
@@ -1233,8 +1321,6 @@ print(beta_managed_agents_delete_session_resource.id)
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: Literal["memory_store"]`
-
-      - `"memory_store"`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -1251,6 +1337,8 @@ print(beta_managed_agents_delete_session_resource.id)
     - `instructions: Optional[str]`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+
+      maxLength: 4096
 
     - `mount_path: Optional[str]`
 
@@ -1274,15 +1362,17 @@ print(beta_managed_agents_delete_session_resource.id)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: str`
 
     - `type: Literal["github_repository"]`
 
-      - `"github_repository"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: str`
 
@@ -1294,9 +1384,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
           Branch name to check out.
 
-        - `type: Literal["branch"]`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: Literal["branch"]`
 
       - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -1304,9 +1394,9 @@ print(beta_managed_agents_delete_session_resource.id)
 
           Full commit SHA to check out.
 
-        - `type: Literal["commit"]`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: Literal["commit"]`
 
   - `class BetaManagedAgentsFileResource: …`
 
@@ -1316,17 +1406,19 @@ print(beta_managed_agents_delete_session_resource.id)
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: str`
 
     - `mount_path: str`
 
     - `type: Literal["file"]`
 
-      - `"file"`
-
     - `updated_at: datetime`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource: …`
 
@@ -1337,8 +1429,6 @@ print(beta_managed_agents_delete_session_resource.id)
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: Literal["memory_store"]`
-
-      - `"memory_store"`
 
     - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -1355,6 +1445,8 @@ print(beta_managed_agents_delete_session_resource.id)
     - `instructions: Optional[str]`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+
+      maxLength: 4096
 
     - `mount_path: Optional[str]`
 
