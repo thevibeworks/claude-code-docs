@@ -109,7 +109,7 @@ On the [Config](/docs/government/org-admin/configuration) page, expand the **Mic
 | **Azure cloud** | **Commercial** for most tenants, including Microsoft 365 GCC. Choose **US Government GCC-High** or **US Government DoD** only if your Microsoft tenant is in one of those clouds.                                                                                                     |
 | **Access**      | The Microsoft Graph permissions the connector requests when a member signs in. The standard read-only permissions are already selected; add or remove permissions as needed. See [Choose which Microsoft 365 permissions to allow](#choose-which-microsoft-365-permissions-to-allow). |
 
-Save the card. The connector is delivered to each member's Claude Desktop the next time it refreshes its configuration, which happens at launch or sign-in. Members who already have Claude Desktop open may need to restart it.
+Save the card. The connector reaches each member's Claude Desktop the next time it starts or the member signs in to Claude for Government. Members who already have Claude Desktop open are prompted to relaunch the next time the app checks for changes, which it does about every 30 minutes, and the connector appears after the relaunch.
 
 ## Choose which Microsoft 365 permissions to allow
 

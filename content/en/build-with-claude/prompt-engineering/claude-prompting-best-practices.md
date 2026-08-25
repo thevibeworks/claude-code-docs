@@ -1084,7 +1084,7 @@ For detailed migration steps, see the [Migration guide](https://platform.claude.
 
 ### Migrating to Claude Sonnet 5 from Claude Sonnet 4.5 or earlier
 
-See [Migrating to Claude Sonnet 5 from Claude Sonnet 4.5 or earlier](https://platform.claude.com/docs/en/about-claude/models/migration-guide#migrating-from-sonnet-45) in the migration guide, which covers the effort default change and the removal of manual extended thinking (`budget_tokens`).
+See [Migrating to Claude Sonnet 5 from Claude Sonnet 4.5 or earlier](https://platform.claude.com/docs/en/models/sonnet-5/migration-guide#migrating-from-sonnet-45) in the migration guide, which covers the effort default change and the removal of manual extended thinking (`budget_tokens`).
 
 ## Next steps
 

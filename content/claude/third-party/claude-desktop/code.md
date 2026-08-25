@@ -53,7 +53,7 @@ To have Claude Desktop's restrictions apply on top of your Claude Code policy, s
 }
 ```
 
-With `"merge"`, Claude Desktop's policy values are layered under your Claude Code policy. Your values win any conflict, deny and allow lists are unioned, and Claude Desktop's values are filtered so they can only tighten policy, never loosen it. See [`parentSettingsBehavior`](https://code.claude.com/docs/en/settings#available-settings) in the Claude Code settings reference. Requires Claude Code v2.1.133 or later, which ships with Claude Desktop on 3P.
+With `"merge"`, Claude Desktop's policy values are layered under your Claude Code policy. Your values win any conflict, deny and allow lists are unioned, and Claude Desktop's values are filtered so they can only tighten policy, never loosen it. See [`parentSettingsBehavior`](https://code.claude.com/docs/en/settings-reference#parentsettingsbehavior) in the Claude Code settings reference. Requires Claude Code v2.1.133 or later, which ships with Claude Desktop on 3P.
 
 <Note>
   In a third-party deployment there is no Anthropic authentication, so Claude Code's server-managed settings tier is never present. If you have not separately deployed a Claude Code `managed-settings.json` or OS profile, Claude Desktop's policy applies automatically and you do not need to set `parentSettingsBehavior`.
@@ -61,7 +61,7 @@ With `"merge"`, Claude Desktop's policy values are layered under your Claude Cod
 
 ## Further reading
 
-* [Claude Code settings reference](https://code.claude.com/docs/en/settings)
+* [Claude Code settings reference](https://code.claude.com/docs/en/settings-reference)
 * [Claude Code sandboxing](https://code.claude.com/docs/en/sandboxing)
 * [Settings precedence](https://code.claude.com/docs/en/settings#settings-precedence)
 
