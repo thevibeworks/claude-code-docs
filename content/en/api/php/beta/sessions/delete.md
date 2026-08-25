@@ -1,3 +1,8 @@
+---
+title: Delete Session
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/delete
+---
+
 ## Delete Session
 
 `$client->beta->sessions->delete(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedSession`
@@ -32,7 +37,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeletedSession = $client->beta->sessions->delete(
-  'sesn_011CZkZAtmR3yMPDzynEDxu7', betas: ['message-batches-2024-09-24']
+  'sesn_011CZkZAtmR3yMPDzynEDxu7',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeletedSession);

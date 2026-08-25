@@ -1,3 +1,8 @@
+---
+title: List Credentials
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/list
+---
+
 ## List Credentials
 
 `$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsCredential>`
@@ -78,7 +83,7 @@ $page = $client->beta->vaults->credentials->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);

@@ -204,7 +204,7 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
 
     * `mcp.log` will contain general logging about MCP connections and connection failures.
 
-    * Files named `mcp-server-SERVERNAME.log` will contain error (stderr) logging from the named server.
+    * Files named `mcp-server-SERVERNAME.log` will contain the stderr output from the named server. Stdio servers may use stderr for all their logging, so these files are not limited to errors.
 
     You can run the following command to list recent logs and follow along with any new ones (on Windows, it will only show recent logs):
 
@@ -228,7 +228,7 @@ If you encounter issues setting up or using the Filesystem Server, these solutio
   </Accordion>
 
   <Accordion title="None of this is working. What do I do?">
-    Please refer to our [debugging guide](/docs/tools/debugging) for better debugging tools and more detailed guidance.
+    Please refer to our [debugging guide](/docs/2026-07-28/tools/debugging) for better debugging tools and more detailed guidance.
   </Accordion>
 
   <Accordion title="ENOENT error and `${APPDATA}` in paths on Windows">
@@ -271,17 +271,17 @@ Now that you've successfully connected Claude Desktop to a local MCP server, exp
     additional capabilities
   </Card>
 
-  <Card title="Build your own server" icon="code" href="/docs/develop/build-server">
+  <Card title="Build your own server" icon="code" href="/docs/2026-07-28/develop/build-server">
     Create custom MCP servers tailored to your specific workflows and
     integrations
   </Card>
 
-  <Card title="Connect to remote servers" icon="cloud" href="/docs/develop/connect-remote-servers">
+  <Card title="Connect to remote servers" icon="cloud" href="/docs/2026-07-28/develop/connect-remote-servers">
     Learn how to connect Claude to remote MCP servers for cloud-based tools and
     services
   </Card>
 
-  <Card title="Understand the protocol" icon="book" href="/docs/learn/architecture">
+  <Card title="Understand the protocol" icon="book" href="/docs/2026-07-28/learn/architecture">
     Dive deeper into how MCP works and its architecture
   </Card>
 </CardGroup>

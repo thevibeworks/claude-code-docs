@@ -44,15 +44,15 @@ These steps apply to Claude for iOS, listed on the App Store as Claude by Anthro
 
 4. If deleting, tap "Delete" again in the confirmation prompt.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599501318/75c28edc693efbe8befd21e4da64/d18a921a-df4b-4788-833c-12c966a32527?expires=1786536000&amp;signature=54f22868056772a8eece16d62b96e6e5e0b7a7a14201448d2b11a36bcba28e96&amp;req=diUuH8x%2BnIJeUfMW3nq%2Bgcnum%2FlSDXu5oRGqhleo9aAP7ym8GHbEGecefCpo%0AzTR%2F2LlxX4sxyu7xZTmCoi6iEDs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599501318/75c28edc693efbe8befd21e4da64/d18a921a-df4b-4788-833c-12c966a32527?expires=1787588100&amp;signature=7888ac56293d754a141328f110a35ee91574c09e22461e8faa1ca093646e3d09&amp;req=diUuH8x%2BnIJeUfMW1HO4zSc12alfgGiq1DBI29QsIlF2ceVUgKG31vZpxnP9%0AI6id2pZvgk0Jddz5DgA%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493852/2e58b92d18f307bb79ae30650f26/1bbe52f3-202b-4d5d-9f9a-eeda4d6952c3?expires=1786536000&amp;signature=7101fec108fc03ed284f23ac98bc1a3c7fe7d32e9b45bd754995530a589bdbfc&amp;req=diUuH813nolaW%2FMW3nq%2BgSNa%2FzQq2FmWT7LeWkerT3HBErRrM5M2zIvVXL5V%0A6fjB%2F4NE7tyUcye3JiIihGZcRAc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493852/2e58b92d18f307bb79ae30650f26/1bbe52f3-202b-4d5d-9f9a-eeda4d6952c3?expires=1787588100&amp;signature=191db40ba986baf512b37b0b0d845cb035b5a559c41394727c09acab279a125d&amp;req=diUuH813nolaW%2FMW1HO4zTjXMuCJJsjkj7blKEDtUI3p0klacQeIeOUcZ1LE%0A3ENsjersV7NltGmgk7w%3D%0A)
 
 You can also delete the conversation you have open: tap the "⋯" button in the top right corner, tap "Delete," then confirm.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493848/997184c386d0e6fb0bd2d7c1f2b6/5d2bc394-25fc-4814-8c2a-2f54d004f83f?expires=1786536000&amp;signature=a72415ab7283950c5eec26f29e2bf9053c8deeb4b9519f4bccbb5d48d0636b61&amp;req=diUuH813nolbUfMW3nq%2BgbvcA5qitGb3Q7wbzV4hhFc85TwuDTavKz7gDorh%0Av02H10vzSyhjN8aCY8UbrwdxjHs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493848/997184c386d0e6fb0bd2d7c1f2b6/5d2bc394-25fc-4814-8c2a-2f54d004f83f?expires=1787588100&amp;signature=d2654e23ed684a1d5c8126ce43b86bc9bc5bc4b1bbba21a83dc5d5a953dfbae0&amp;req=diUuH813nolbUfMW1HO4zVCIqp3Kw9RHzQl%2BKgU984wyXQ10N5yflMEJcRvS%0Am7mlcFfChgTazP5Qseo%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493856/799041da9fa918e90068c5ebf5bd/2e8d5cee-c45a-41d7-a14b-486e50a37f88?expires=1786536000&amp;signature=8798e6a7fe9123032823df0d99d86c7bbbcde266014ffeace614270ec52cdc1b&amp;req=diUuH813nolaX%2FMW3nq%2Bgd5mh3Cvi5%2FrHk6kmGIZWnEUMDKTHDTXoX6qsNe%2B%0AQvCJ6KKqrbAJNVXH2gGWWUUbygg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493856/799041da9fa918e90068c5ebf5bd/2e8d5cee-c45a-41d7-a14b-486e50a37f88?expires=1787588100&amp;signature=fad0563d25730fc8212735b8e54f9d80b14a13c6409c81ef5caace4d1ee25f39&amp;req=diUuH813nolaX%2FMW1HO4zVCl4A%2F32W1MEDIU8RT6jk1X19lxka7L%2BCzgO%2FAF%0AQiRiqoupRnfYFFgRKqg%3D%0A)
 
 ## Delete or rename a conversation on Claude for Android
 
@@ -66,9 +66,9 @@ These steps apply to the Claude for Android, listed on Google Play as Claude by 
 
 3. If deleting, tap "Delete" again in the confirmation prompt.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493850/a64e6561222d535f2f5bd03e71f0/5de429c2-d8ed-4e8a-89e8-a13ccaa49767?expires=1786536000&amp;signature=0debf35da137ed00cf3af24221b085ec3f697dc948c0901de7f043cd7dc2bd08&amp;req=diUuH813nolaWfMW3nq%2BgSg0pZEDVeEEqtLcwz%2FLdr7CxXfniDaM8JBlT3tH%0AH6ds20b2uA0sTNAjr6NxSnJ94Vw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493850/a64e6561222d535f2f5bd03e71f0/5de429c2-d8ed-4e8a-89e8-a13ccaa49767?expires=1787588100&amp;signature=7a909aa59bb7fbc2fed24bd119a49a8f26f0d4e2e447fc16321ee95d57a6845b&amp;req=diUuH813nolaWfMW1HO4zVTdd9Upylh0rqtc0YNNUtKzn9RH3Au6WEK0qqKM%0AGeBaKPOUvlsg%2BN474Rw%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493851/f21b39c60e88050d4b0745325f0d/0a8c0d08-dc53-4ef1-8d9f-2b995242c1f9?expires=1786536000&amp;signature=27304f89ae722e136f9db1e841e8fcd41af8d4a1d5c09cd2f7094cdc159d9efd&amp;req=diUuH813nolaWPMW3nq%2BgYwnzNiTvLhqfOr6TR1xIAr%2BH2D%2B7KZ5Gxdfb3zt%0Ar2F4sO5nWD%2BMvdj6M7%2F4TvfzQck%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493851/f21b39c60e88050d4b0745325f0d/0a8c0d08-dc53-4ef1-8d9f-2b995242c1f9?expires=1787588100&amp;signature=4ed90200937f1950e633d5eeb12c4b12cfa0846d3b2e9c4c9377cb71ce5a1978&amp;req=diUuH813nolaWPMW1HO4zUYvw1IOqjZd%2FjekULCQNzVDW7zVLZNKKecVr%2FXJ%0A2XIpr8Dg2TUHRwzf%2Bjo%3D%0A)
 
 **To delete multiple conversations at once:**
 
@@ -78,9 +78,9 @@ These steps apply to the Claude for Android, listed on Google Play as Claude by 
 
 3. Tap the trash icon, then tap "Delete" in the confirmation prompt.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493849/3013a0ab921337b4544f7ffeffa6/e828ec14-fb52-4205-a840-707b6f2a848d?expires=1786536000&amp;signature=4165ae746ee8ca2a1bedeee7fbd6dbf24fd37f11befbceb10e0a49fa1e1017b4&amp;req=diUuH813nolbUPMW3nq%2BgUlB5OJ36I432%2Frw2emiCkRHaNKw1q%2B9GWYs%2BVpW%0Arh6cX7GcGEC2A6MmmujcHcE8O9s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493849/3013a0ab921337b4544f7ffeffa6/e828ec14-fb52-4205-a840-707b6f2a848d?expires=1787588100&amp;signature=dc0fd85daaf90489c9823aad2b4f9830e539133a1c79a6456e50c55e58229f87&amp;req=diUuH813nolbUPMW1HO4zWGamMBxcoXe4AqhTnZa84USBFMiMUyzK1RXg6Sw%0AXp%2B5LrcxL6aEG%2FZ0Ny4%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493853/e2507f53cce8a26776a22a457b1a/bd79bb8a-b078-420f-a4e1-75590367aa80?expires=1786536000&amp;signature=430f77ce601bec4130345868f5457c8d13982070aca155598f53c7c9de472d49&amp;req=diUuH813nolaWvMW3nq%2Bgc29FUV9yuQWptvBVsECh7QonRVPcB2eW5ZpGmJo%0AsGEW8C5AOZ5SXiQh9lvmE9Mrd7A%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493853/e2507f53cce8a26776a22a457b1a/bd79bb8a-b078-420f-a4e1-75590367aa80?expires=1787588100&amp;signature=6115bae680011b41071e92b45b6ce80cf49b92cee9f45d6fd9c7a9d4c83b875d&amp;req=diUuH813nolaWvMW1HO4zQTtExL0zEg5SBGfF3I2bRgdSL9g9PxXsdc%2FBmbQ%0AkEUcaDwHH%2BJIPyjyyT4%3D%0A)
 
 ## What happens when you delete a conversation
 

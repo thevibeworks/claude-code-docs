@@ -1,3 +1,8 @@
+---
+title: List Agent Versions
+url: https://platform.claude.com/docs/en/api/python/beta/agents/versions/list
+---
+
 ## List Agent Versions
 
 `beta.agents.versions.list(stragent_id, VersionListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsAgent]`
@@ -24,7 +29,7 @@ List Agent Versions
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -70,19 +75,29 @@ List Agent Versions
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -124,7 +139,7 @@ List Agent Versions
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-4-8", 9 more]`
+      - `Literal["claude-sonnet-5", "claude-fable-5", "claude-opus-5", 10 more]`
 
         The model that will power your agent.
 
@@ -132,14 +147,15 @@ List Agent Versions
 
         - `claude-sonnet-5` - High-performance model for coding and agents
         - `claude-fable-5` - Next generation of intelligence for the hardest knowledge work and coding problems
-        - `claude-opus-4-8` - Frontier intelligence for long-running agents and coding
-        - `claude-opus-4-7` - Frontier intelligence for long-running agents and coding
-        - `claude-opus-4-6` - Most intelligent model for building agents and coding
+        - `claude-opus-5` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-8` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-7` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-6` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-6` - Best combination of speed and intelligence
         - `claude-haiku-4-5` - Fastest model with near-frontier intelligence
         - `claude-haiku-4-5-20251001` - Fastest model with near-frontier intelligence
-        - `claude-opus-4-5` - Premium model combining maximum intelligence with practical performance
-        - `claude-opus-4-5-20251101` - Premium model combining maximum intelligence with practical performance
+        - `claude-opus-4-5` - Powerful intelligence for long-running agents and coding
+        - `claude-opus-4-5-20251101` - Powerful intelligence for long-running agents and coding
         - `claude-sonnet-4-5` - High-performance model for agents and coding
         - `claude-sonnet-4-5-20250929` - High-performance model for agents and coding
 
@@ -151,17 +167,21 @@ List Agent Versions
 
           Next generation of intelligence for the hardest knowledge work and coding problems
 
+        - `"claude-opus-5"`
+
+          Powerful intelligence for long-running agents and coding
+
         - `"claude-opus-4-8"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-7"`
 
-          Frontier intelligence for long-running agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-6"`
 
-          Most intelligent model for building agents and coding
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-6"`
 
@@ -177,11 +197,11 @@ List Agent Versions
 
         - `"claude-opus-4-5"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-opus-4-5-20251101"`
 
-          Premium model combining maximum intelligence with practical performance
+          Powerful intelligence for long-running agents and coding
 
         - `"claude-sonnet-4-5"`
 
@@ -192,6 +212,54 @@ List Agent Versions
           High-performance model for agents and coding
 
       - `str`
+
+    - `effort: Optional[Effort]`
+
+      How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+      - `class BetaManagedAgentsEffortLow: …`
+
+        Low effort. Favors latency over reasoning depth.
+
+        - `type: Literal["low"]`
+
+          - `"low"`
+
+      - `class BetaManagedAgentsEffortMedium: …`
+
+        Medium effort. Balances latency and reasoning depth.
+
+        - `type: Literal["medium"]`
+
+          - `"medium"`
+
+      - `class BetaManagedAgentsEffortHigh: …`
+
+        High effort. Favors reasoning depth.
+
+        - `type: Literal["high"]`
+
+          - `"high"`
+
+      - `class BetaManagedAgentsEffortXhigh: …`
+
+        Extra-high effort. Not all models accept this level.
+
+        - `type: Literal["xhigh"]`
+
+          - `"xhigh"`
+
+      - `class BetaManagedAgentsEffortMax: …`
+
+        Maximum effort. Favors reasoning depth over latency.
+
+        - `type: Literal["max"]`
+
+          - `"max"`
+
+    - `inference_geo: Optional[str]`
+
+      Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
     - `speed: Optional[Literal["standard", "fast"]]`
 
@@ -205,17 +273,33 @@ List Agent Versions
 
     Resolved coordinator topology with a concrete agent roster.
 
-    - `agents: List[BetaManagedAgentsAgentReference]`
+    - `agents: List[Agent]`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-      - `id: str`
+      - `class BetaManagedAgentsAgentReference: …`
 
-      - `type: Literal["agent"]`
+        A resolved agent reference with a concrete version.
 
-        - `"agent"`
+        - `id: str`
 
-      - `version: int`
+        - `type: Literal["agent"]`
+
+          - `"agent"`
+
+        - `version: int`
+
+      - `class BetaManagedAgentsAdvisor: …`
+
+        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+        - `model: str`
+
+          The advisor model id.
+
+        - `type: Literal["advisor"]`
+
+          - `"advisor"`
 
     - `type: Literal["coordinator"]`
 
@@ -257,47 +341,257 @@ List Agent Versions
 
       - `configs: List[BetaManagedAgentsAgentToolConfig]`
 
-        - `enabled: bool`
+        - `class BetaManagedAgentsBashToolConfig: …`
 
-        - `name: Literal["bash", "edit", "read", 5 more]`
+          Configuration for the bash tool.
 
-          Built-in agent tool identifier.
+          - `enabled: bool`
 
-          - `"bash"`
+          - `name: Literal["bash"]`
 
-          - `"edit"`
+            - `"bash"`
 
-          - `"read"`
+          - `permission_policy: PermissionPolicy`
 
-          - `"write"`
+            Permission policy for tool execution.
 
-          - `"glob"`
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
 
-          - `"grep"`
+              Tool calls are automatically approved without user confirmation.
 
-          - `"web_fetch"`
+              - `type: Literal["always_allow"]`
 
-          - `"web_search"`
+                - `"always_allow"`
 
-        - `permission_policy: PermissionPolicy`
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
 
-          Permission policy for tool execution.
+              Tool calls require user confirmation before execution.
 
-          - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+              - `type: Literal["always_ask"]`
 
-            Tool calls are automatically approved without user confirmation.
+                - `"always_ask"`
 
-            - `type: Literal["always_allow"]`
+          - `type: Literal["bash"]`
 
-              - `"always_allow"`
+            - `"bash"`
 
-          - `class BetaManagedAgentsAlwaysAskPolicy: …`
+        - `class BetaManagedAgentsEditToolConfig: …`
 
-            Tool calls require user confirmation before execution.
+          Configuration for the edit tool.
 
-            - `type: Literal["always_ask"]`
+          - `enabled: bool`
 
-              - `"always_ask"`
+          - `name: Literal["edit"]`
+
+            - `"edit"`
+
+          - `permission_policy: PermissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: Literal["edit"]`
+
+            - `"edit"`
+
+        - `class BetaManagedAgentsReadToolConfig: …`
+
+          Configuration for the read tool.
+
+          - `enabled: bool`
+
+          - `name: Literal["read"]`
+
+            - `"read"`
+
+          - `permission_policy: PermissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: Literal["read"]`
+
+            - `"read"`
+
+        - `class BetaManagedAgentsWriteToolConfig: …`
+
+          Configuration for the write tool.
+
+          - `enabled: bool`
+
+          - `name: Literal["write"]`
+
+            - `"write"`
+
+          - `permission_policy: PermissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: Literal["write"]`
+
+            - `"write"`
+
+        - `class BetaManagedAgentsGlobToolConfig: …`
+
+          Configuration for the glob tool.
+
+          - `enabled: bool`
+
+          - `name: Literal["glob"]`
+
+            - `"glob"`
+
+          - `permission_policy: PermissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: Literal["glob"]`
+
+            - `"glob"`
+
+        - `class BetaManagedAgentsGrepToolConfig: …`
+
+          Configuration for the grep tool.
+
+          - `enabled: bool`
+
+          - `name: Literal["grep"]`
+
+            - `"grep"`
+
+          - `permission_policy: PermissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: Literal["grep"]`
+
+            - `"grep"`
+
+        - `class BetaManagedAgentsWebFetchToolConfig: …`
+
+          Configuration for the web_fetch tool.
+
+          - `enabled: bool`
+
+          - `name: Literal["web_fetch"]`
+
+            - `"web_fetch"`
+
+          - `permission_policy: PermissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: Literal["web_fetch"]`
+
+            - `"web_fetch"`
+
+          - `allowed_domains: Optional[List[str]]`
+
+          - `blocked_domains: Optional[List[str]]`
+
+          - `max_content_tokens: Optional[int]`
+
+        - `class BetaManagedAgentsWebSearchToolConfig: …`
+
+          Configuration for the web_search tool.
+
+          - `enabled: bool`
+
+          - `name: Literal["web_search"]`
+
+            - `"web_search"`
+
+          - `permission_policy: PermissionPolicy`
+
+            Permission policy for tool execution.
+
+            - `class BetaManagedAgentsAlwaysAllowPolicy: …`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `class BetaManagedAgentsAlwaysAskPolicy: …`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: Literal["web_search"]`
+
+            - `"web_search"`
+
+          - `allowed_domains: Optional[List[str]]`
+
+          - `blocked_domains: Optional[List[str]]`
+
+          - `user_location: Optional[BetaManagedAgentsUserLocation]`
+
+            Approximate user location for search result localization.
+
+            - `type: Literal["approximate"]`
+
+              Location precision. Only "approximate" is supported.
+
+              - `"approximate"`
+
+            - `city: Optional[str]`
+
+              City name.
+
+            - `country: Optional[str]`
+
+              Two-letter ISO 3166-1 country code, uppercase.
+
+            - `region: Optional[str]`
+
+              Region or state name.
+
+            - `timezone: Optional[str]`
+
+              IANA timezone identifier, e.g. "America/Los_Angeles".
 
       - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -408,7 +702,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.agents.versions.list(
     agent_id="agent_011CZkYpogX7uDKUyvBTophP",
@@ -438,7 +734,11 @@ print(page.id)
         "foo": "bar"
       },
       "model": {
-        "id": "claude-sonnet-4-6",
+        "id": "claude-opus-5",
+        "effort": {
+          "type": "low"
+        },
+        "inference_geo": "inference_geo",
         "speed": "standard"
       },
       "multiagent": {
@@ -473,7 +773,8 @@ print(page.id)
               "name": "bash",
               "permission_policy": {
                 "type": "always_allow"
-              }
+              },
+              "type": "bash"
             }
           ],
           "default_config": {

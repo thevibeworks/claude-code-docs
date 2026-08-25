@@ -1,3 +1,8 @@
+---
+title: Count tokens in a Message
+url: https://platform.claude.com/docs/en/api/cli/beta/messages/count_tokens
+---
+
 ## Count tokens in a Message
 
 `$ ant beta:messages count-tokens`
@@ -63,7 +68,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   There is a limit of 100,000 messages in a single request.
 
-- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 13 more or string`
+- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
   Body param: The model that will complete your prompt.
 
@@ -95,7 +100,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `--speed: optional "standard" or "fast"`
 
-  Body param: The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  Body param: Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
 - `--system: optional string or array of BetaTextBlockParam`
 
@@ -115,7 +120,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Body param: How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-- `--tool: optional array of BetaTool or BetaToolBash20241022 or BetaToolBash20250124 or 23 more`
+- `--tool: optional array of BetaTool or BetaToolBash20241022 or BetaToolBash20250124 or 25 more`
 
   Body param: Definitions of tools that the model may use.
 
@@ -209,7 +214,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 ant beta:messages count-tokens \
   --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
-  --model claude-opus-4-6
+  --model claude-opus-5
 ```
 
 #### Response

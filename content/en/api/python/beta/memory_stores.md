@@ -1,3 +1,8 @@
+---
+title: Memory Stores
+url: https://platform.claude.com/docs/en/api/python/beta/memory_stores
+---
+
 # Memory Stores
 
 ## Create a memory store
@@ -28,7 +33,7 @@ Create a memory store
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -74,19 +79,29 @@ Create a memory store
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -133,7 +148,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory_store = client.beta.memory_stores.create(
     name="x",
@@ -194,7 +211,7 @@ List memory stores
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -240,19 +257,29 @@ List memory stores
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -299,7 +326,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.memory_stores.list()
 page = page.data[0]
@@ -346,7 +375,7 @@ Retrieve a memory store
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -392,19 +421,29 @@ Retrieve a memory store
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -451,7 +490,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory_store = client.beta.memory_stores.retrieve(
     memory_store_id="memory_store_id",
@@ -506,7 +547,7 @@ Update a memory store
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -552,19 +593,29 @@ Update a memory store
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -611,7 +662,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory_store = client.beta.memory_stores.update(
     memory_store_id="memory_store_id",
@@ -654,7 +707,7 @@ Delete a memory store
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -700,19 +753,29 @@ Delete a memory store
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -735,7 +798,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_deleted_memory_store = client.beta.memory_stores.delete(
     memory_store_id="memory_store_id",
@@ -770,7 +835,7 @@ Archive a memory store
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -816,19 +881,29 @@ Archive a memory store
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -875,7 +950,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory_store = client.beta.memory_stores.archive(
     memory_store_id="memory_store_id",
@@ -990,7 +1067,7 @@ Create a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1036,19 +1113,29 @@ Create a memory
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1103,7 +1190,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory = client.beta.memory_stores.memories.create(
     memory_store_id="memory_store_id",
@@ -1172,7 +1261,7 @@ List memories
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1218,19 +1307,29 @@ List memories
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1301,7 +1400,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.memory_stores.memories.list(
     memory_store_id="memory_store_id",
@@ -1360,7 +1461,7 @@ Retrieve a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1406,19 +1507,29 @@ Retrieve a memory
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1473,7 +1584,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory = client.beta.memory_stores.memories.retrieve(
     memory_id="memory_id",
@@ -1547,7 +1660,7 @@ Update a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1593,19 +1706,29 @@ Update a memory
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1660,7 +1783,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory = client.beta.memory_stores.memories.update(
     memory_id="memory_id",
@@ -1710,7 +1835,7 @@ Delete a memory
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1756,19 +1881,29 @@ Delete a memory
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1791,7 +1926,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_deleted_memory = client.beta.memory_stores.memories.delete(
     memory_id="memory_id",
@@ -2171,6 +2308,10 @@ List memory versions
 
   Query parameter for page
 
+- `service_account_id: Optional[str]`
+
+  Query parameter for service_account_id
+
 - `session_id: Optional[str]`
 
   Query parameter for session_id
@@ -2189,7 +2330,7 @@ List memory versions
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -2235,19 +2376,29 @@ List memory versions
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -2337,6 +2488,18 @@ List memory versions
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `class BetaManagedAgentsServiceAccountActor: …`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: str`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: Literal["service_account_actor"]`
+
+        - `"service_account_actor"`
+
   - `path: Optional[str]`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -2356,7 +2519,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.memory_stores.memory_versions.list(
     memory_store_id="memory_store_id",
@@ -2424,7 +2589,7 @@ Retrieve a memory version
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -2470,19 +2635,29 @@ Retrieve a memory version
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -2572,6 +2747,18 @@ Retrieve a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `class BetaManagedAgentsServiceAccountActor: …`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: str`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: Literal["service_account_actor"]`
+
+        - `"service_account_actor"`
+
   - `path: Optional[str]`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -2591,7 +2778,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory_version = client.beta.memory_stores.memory_versions.retrieve(
     memory_version_id="memory_version_id",
@@ -2646,7 +2835,7 @@ Redact a memory version
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -2692,19 +2881,29 @@ Redact a memory version
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -2794,6 +2993,18 @@ Redact a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `class BetaManagedAgentsServiceAccountActor: …`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: str`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: Literal["service_account_actor"]`
+
+        - `"service_account_actor"`
+
   - `path: Optional[str]`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -2813,7 +3024,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_memory_version = client.beta.memory_stores.memory_versions.redact(
     memory_version_id="memory_version_id",
@@ -2891,6 +3104,18 @@ print(beta_managed_agents_memory_version.id)
     - `user_id: str`
 
       ID of the user who performed the write (a `user_...` value).
+
+  - `class BetaManagedAgentsServiceAccountActor: …`
+
+    Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+    - `service_account_id: str`
+
+      ID of the service account that performed the write (a `svac_...` value).
+
+    - `type: Literal["service_account_actor"]`
+
+      - `"service_account_actor"`
 
 ### Beta Managed Agents API Actor
 
@@ -2994,6 +3219,18 @@ print(beta_managed_agents_memory_version.id)
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `class BetaManagedAgentsServiceAccountActor: …`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: str`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: Literal["service_account_actor"]`
+
+        - `"service_account_actor"`
+
   - `path: Optional[str]`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -3017,6 +3254,20 @@ print(beta_managed_agents_memory_version.id)
   - `"modified"`
 
   - `"deleted"`
+
+### Beta Managed Agents Service Account Actor
+
+- `class BetaManagedAgentsServiceAccountActor: …`
+
+  Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+  - `service_account_id: str`
+
+    ID of the service account that performed the write (a `svac_...` value).
+
+  - `type: Literal["service_account_actor"]`
+
+    - `"service_account_actor"`
 
 ### Beta Managed Agents Session Actor
 

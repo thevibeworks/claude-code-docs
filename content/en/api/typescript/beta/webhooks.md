@@ -1,3 +1,8 @@
+---
+title: Webhooks
+url: https://platform.claude.com/docs/en/api/typescript/beta/webhooks
+---
+
 # Webhooks
 
 ## Domain Types
@@ -207,6 +212,70 @@
   - `type: "deployment.updated"`
 
     - `"deployment.updated"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Environment Archived Event Data
+
+- `BetaWebhookEnvironmentArchivedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.archived"`
+
+    - `"environment.archived"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Environment Created Event Data
+
+- `BetaWebhookEnvironmentCreatedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.created"`
+
+    - `"environment.created"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `BetaWebhookEnvironmentDeletedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.deleted"`
+
+    - `"environment.deleted"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Environment Updated Event Data
+
+- `BetaWebhookEnvironmentUpdatedEventData`
+
+  - `id: string`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "environment.updated"`
+
+    - `"environment.updated"`
 
   - `workspace_id: string`
 
@@ -756,6 +825,118 @@
 
       - `workspace_id: string`
 
+    - `BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.created"`
+
+        - `"environment.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.updated"`
+
+        - `"environment.updated"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.archived"`
+
+        - `"environment.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.deleted"`
+
+        - `"environment.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.created"`
+
+        - `"memory_store.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.archived"`
+
+        - `"memory_store.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.deleted"`
+
+        - `"memory_store.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookSessionBudgetReachedEventData`
+
+      - `id: string`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "session.budget_reached"`
+
+        - `"session.budget_reached"`
+
+      - `workspace_id: string`
+
   - `type: "event"`
 
     Object type. Always `event` for webhook payloads.
@@ -764,7 +945,7 @@
 
 ### Beta Webhook Event Data
 
-- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 33 more`
+- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 41 more`
 
   - `BetaWebhookSessionCreatedEventData`
 
@@ -1298,6 +1479,166 @@
 
     - `workspace_id: string`
 
+  - `BetaWebhookEnvironmentCreatedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.created"`
+
+      - `"environment.created"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookEnvironmentUpdatedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.updated"`
+
+      - `"environment.updated"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookEnvironmentArchivedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.archived"`
+
+      - `"environment.archived"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookEnvironmentDeletedEventData`
+
+    - `id: string`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "environment.deleted"`
+
+      - `"environment.deleted"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookMemoryStoreCreatedEventData`
+
+    - `id: string`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "memory_store.created"`
+
+      - `"memory_store.created"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookMemoryStoreArchivedEventData`
+
+    - `id: string`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "memory_store.archived"`
+
+      - `"memory_store.archived"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookMemoryStoreDeletedEventData`
+
+    - `id: string`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "memory_store.deleted"`
+
+      - `"memory_store.deleted"`
+
+    - `workspace_id: string`
+
+  - `BetaWebhookSessionBudgetReachedEventData`
+
+    - `id: string`
+
+      ID of the session that triggered the event.
+
+    - `organization_id: string`
+
+    - `type: "session.budget_reached"`
+
+      - `"session.budget_reached"`
+
+    - `workspace_id: string`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `BetaWebhookMemoryStoreArchivedEventData`
+
+  - `id: string`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "memory_store.archived"`
+
+    - `"memory_store.archived"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `BetaWebhookMemoryStoreCreatedEventData`
+
+  - `id: string`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "memory_store.created"`
+
+    - `"memory_store.created"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `BetaWebhookMemoryStoreDeletedEventData`
+
+  - `id: string`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "memory_store.deleted"`
+
+    - `"memory_store.deleted"`
+
+  - `workspace_id: string`
+
 ### Beta Webhook Session Archived Event Data
 
 - `BetaWebhookSessionArchivedEventData`
@@ -1311,6 +1652,22 @@
   - `type: "session.archived"`
 
     - `"session.archived"`
+
+  - `workspace_id: string`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `BetaWebhookSessionBudgetReachedEventData`
+
+  - `id: string`
+
+    ID of the session that triggered the event.
+
+  - `organization_id: string`
+
+  - `type: "session.budget_reached"`
+
+    - `"session.budget_reached"`
 
   - `workspace_id: string`
 
@@ -2237,6 +2594,118 @@
       - `type: "deployment_run.succeeded"`
 
         - `"deployment_run.succeeded"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.created"`
+
+        - `"environment.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.updated"`
+
+        - `"environment.updated"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.archived"`
+
+        - `"environment.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: string`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "environment.deleted"`
+
+        - `"environment.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.created"`
+
+        - `"memory_store.created"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.archived"`
+
+        - `"memory_store.archived"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: string`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "memory_store.deleted"`
+
+        - `"memory_store.deleted"`
+
+      - `workspace_id: string`
+
+    - `BetaWebhookSessionBudgetReachedEventData`
+
+      - `id: string`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: string`
+
+      - `type: "session.budget_reached"`
+
+        - `"session.budget_reached"`
 
       - `workspace_id: string`
 

@@ -1,3 +1,8 @@
+---
+title: Archive Environment
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/archive
+---
+
 ## Archive Environment
 
 `$ ant beta:environments archive`
@@ -120,7 +125,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 

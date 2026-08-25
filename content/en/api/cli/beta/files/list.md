@@ -1,3 +1,8 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/cli/beta/files/list
+---
+
 ## List Files
 
 `$ ant beta:files list`
@@ -34,7 +39,7 @@ List Files
 
 - `BetaFileListResponse: object { data, first_id, has_more, last_id }`
 
-  - `data: array of FileMetadata`
+  - `data: array of BetaFileMetadata`
 
     List of file metadata objects.
 

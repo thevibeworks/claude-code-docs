@@ -1,3 +1,8 @@
+---
+title: Memories
+url: https://platform.claude.com/docs/en/api/csharp/beta/memory_stores/memories
+---
+
 # Memories
 
 ## Create a memory
@@ -76,19 +81,29 @@ Create a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -252,19 +267,29 @@ List memories
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -442,19 +467,29 @@ Retrieve a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -617,19 +652,29 @@ Update a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -780,19 +825,29 @@ Delete a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 

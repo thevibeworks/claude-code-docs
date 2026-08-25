@@ -1,3 +1,8 @@
+---
+title: Delete Vault
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/delete
+---
+
 ## Delete Vault
 
 `$ ant beta:vaults delete`

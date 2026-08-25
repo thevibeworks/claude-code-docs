@@ -1,6 +1,11 @@
+---
+title: Delete File
+url: https://platform.claude.com/docs/en/api/php/beta/files/delete
+---
+
 ## Delete File
 
-`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): DeletedFile`
+`$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): BetaDeletedFile`
 
 **delete** `/v1/files/{file_id}`
 
@@ -18,7 +23,7 @@ Delete File
 
 ### Returns
 
-- `DeletedFile`
+- `BetaDeletedFile`
 
   - `string id`
 
@@ -39,11 +44,11 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$deletedFile = $client->beta->files->delete(
-  'file_id', betas: ['message-batches-2024-09-24']
+$betaDeletedFile = $client->beta->files->delete(
+  'file_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
-var_dump($deletedFile);
+var_dump($betaDeletedFile);
 ```
 
 #### Response

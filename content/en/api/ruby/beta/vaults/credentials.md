@@ -1,3 +1,8 @@
+---
+title: Credentials
+url: https://platform.claude.com/docs/en/api/ruby/beta/vaults/credentials
+---
+
 # Credentials
 
 ## Create Credential
@@ -178,7 +183,7 @@ Create Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -224,19 +229,29 @@ Create Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -474,7 +489,7 @@ List Credentials
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -520,19 +535,29 @@ List Credentials
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -758,7 +783,7 @@ Get Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -804,19 +829,29 @@ Get Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1168,7 +1203,7 @@ Update Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1214,19 +1249,29 @@ Update Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1450,7 +1495,7 @@ Delete Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1496,19 +1541,29 @@ Delete Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1568,7 +1623,7 @@ Archive Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1614,19 +1669,29 @@ Archive Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -1850,7 +1915,7 @@ Validate Credential
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -1896,19 +1961,29 @@ Validate Credential
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 

@@ -1,3 +1,8 @@
+---
+title: Update Deployment
+url: https://platform.claude.com/docs/en/api/typescript/beta/deployments/update
+---
+
 ## Update Deployment
 
 `client.beta.deployments.update(stringdeploymentID, DeploymentUpdateParamsparams, RequestOptionsoptions?): BetaManagedAgentsDeployment`
@@ -34,6 +39,28 @@ Update Deployment
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
+  - `budget?: BetaManagedAgentsBudgetLimit | null`
+
+    Body param: A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+    - `max_list_cost: BetaMonetaryAmount`
+
+      A monetary amount in a specific currency.
+
+      - `amount: string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `currency: BetaCurrency`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+        - `"USD"`
+
+    - `type: "limit"`
+
+      - `"limit"`
+
   - `description?: string | null`
 
     Body param: Description. Omit to preserve; send empty string or null to clear.
@@ -50,7 +77,7 @@ Update Deployment
 
       Parameters for sending a user message to the session.
 
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock>`
+      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
 
         Array of content blocks for the user message.
 
@@ -195,6 +222,14 @@ Update Deployment
           - `title?: string | null`
 
             The title of the document.
+
+        - `BetaManagedAgentsRedactedBlock`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+            - `"redacted"`
 
       - `type: "user.message"`
 
@@ -386,7 +421,7 @@ Update Deployment
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -432,19 +467,29 @@ Update Deployment
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -492,7 +537,7 @@ Update Deployment
 
       A user message sent to the session.
 
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock>`
+      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
 
         Array of content blocks for the user message.
 
@@ -637,6 +682,14 @@ Update Deployment
           - `title?: string | null`
 
             The title of the document.
+
+        - `BetaManagedAgentsRedactedBlock`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+            - `"redacted"`
 
       - `type: "user.message"`
 
@@ -978,17 +1031,39 @@ Update Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `budget?: BetaManagedAgentsBudgetLimit | null`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+    - `max_list_cost: BetaMonetaryAmount`
+
+      A monetary amount in a specific currency.
+
+      - `amount: string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `currency: BetaCurrency`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+        - `"USD"`
+
+    - `type: "limit"`
+
+      - `"limit"`
+
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const betaManagedAgentsDeployment = await client.beta.deployments.update(
-  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  "depl_011CZkZcDH3vPqd7xnEfwTai"
 );
 
 console.log(betaManagedAgentsDeployment.id);
@@ -1050,6 +1125,13 @@ console.log(betaManagedAgentsDeployment.id);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

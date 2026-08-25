@@ -1,3 +1,8 @@
+---
+title: Send Events
+url: https://platform.claude.com/docs/en/api/go/beta/sessions/events/send
+---
+
 ## Send Events
 
 `client.Beta.Sessions.Events.Send(ctx, sessionID, params) (*BetaManagedAgentsSendSessionEvents, error)`
@@ -16,7 +21,7 @@ Send Events
 
     Body param: Events to send to the `session`.
 
-    - `type BetaManagedAgentsUserMessageEventParamsResp struct{…}`
+    - `type BetaManagedAgentsUserMessageEventParams struct{…}`
 
       Parameters for sending a user message to the session.
 
@@ -166,6 +171,14 @@ Send Events
 
             The title of the document.
 
+        - `type BetaManagedAgentsRedactedBlockParam struct{…}`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `Type BetaManagedAgentsRedactedBlockType`
+
+            - `const BetaManagedAgentsRedactedBlockTypeRedacted BetaManagedAgentsRedactedBlockType = "redacted"`
+
       - `Type BetaManagedAgentsUserMessageEventParamsType`
 
         - `const BetaManagedAgentsUserMessageEventParamsTypeUserMessage BetaManagedAgentsUserMessageEventParamsType = "user.message"`
@@ -274,7 +287,7 @@ Send Events
 
         Whether the tool execution resulted in an error.
 
-    - `type BetaManagedAgentsUserDefineOutcomeEventParamsResp struct{…}`
+    - `type BetaManagedAgentsUserDefineOutcomeEventParams struct{…}`
 
       Parameters for defining an outcome the agent should work toward. The agent begins work on receipt.
 
@@ -286,7 +299,7 @@ Send Events
 
         Rubric for grading the quality of an outcome.
 
-        - `type BetaManagedAgentsFileRubricParamsResp struct{…}`
+        - `type BetaManagedAgentsFileRubricParams struct{…}`
 
           Rubric referenced by a file uploaded via the Files API.
 
@@ -298,7 +311,7 @@ Send Events
 
             - `const BetaManagedAgentsFileRubricParamsTypeFile BetaManagedAgentsFileRubricParamsType = "file"`
 
-        - `type BetaManagedAgentsTextRubricParamsResp struct{…}`
+        - `type BetaManagedAgentsTextRubricParams struct{…}`
 
           Rubric content provided inline as text.
 
@@ -426,19 +439,29 @@ Send Events
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -603,6 +626,14 @@ Send Events
           - `Title string`
 
             The title of the document.
+
+        - `type BetaManagedAgentsRedactedBlockParam struct{…}`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `Type BetaManagedAgentsRedactedBlockType`
+
+            - `const BetaManagedAgentsRedactedBlockTypeRedacted BetaManagedAgentsRedactedBlockType = "redacted"`
 
       - `Type BetaManagedAgentsUserMessageEventType`
 
@@ -886,38 +917,38 @@ Send Events
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaManagedAgentsSendSessionEvents, err := client.Beta.Sessions.Events.Send(
-    context.TODO(),
-    "sesn_011CZkZAtmR3yMPDzynEDxu7",
-    anthropic.BetaSessionEventSendParams{
-      Events: []anthropic.BetaManagedAgentsEventParamsUnion{anthropic.BetaManagedAgentsEventParamsUnion{
-        OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
-          Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{
-            OfText: &anthropic.BetaManagedAgentsTextBlockParam{
-              Text: "Where is my order #1234?",
-              Type: anthropic.BetaManagedAgentsTextBlockTypeText,
-            },
-          }},
-          Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
-        },
-      }},
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaManagedAgentsSendSessionEvents.Data)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaManagedAgentsSendSessionEvents, err := client.Beta.Sessions.Events.Send(
+		context.TODO(),
+		"sesn_011CZkZAtmR3yMPDzynEDxu7",
+		anthropic.BetaSessionEventSendParams{
+			Events: []anthropic.BetaManagedAgentsEventParamsUnion{anthropic.BetaManagedAgentsEventParamsUnion{
+				OfUserMessage: &anthropic.BetaManagedAgentsUserMessageEventParams{
+					Content: []anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{anthropic.BetaManagedAgentsUserMessageEventParamsContentUnion{
+						OfText: &anthropic.BetaManagedAgentsTextBlockParam{
+							Text: "Where is my order #1234?",
+							Type: anthropic.BetaManagedAgentsTextBlockTypeText,
+						},
+					}},
+					Type: anthropic.BetaManagedAgentsUserMessageEventParamsTypeUserMessage,
+				},
+			}},
+		},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaManagedAgentsSendSessionEvents.Data)
 }
 ```
 

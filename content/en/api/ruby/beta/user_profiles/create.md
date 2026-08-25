@@ -1,3 +1,8 @@
+---
+title: Create User Profile
+url: https://platform.claude.com/docs/en/api/ruby/beta/user_profiles/create
+---
+
 ## Create User Profile
 
 `beta.user_profiles.create(**kwargs) -> BetaUserProfile`
@@ -7,6 +12,14 @@
 Create User Profile
 
 ### Parameters
+
+- `access_type: :application | :passthrough`
+
+  How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+  - `:application`
+
+  - `:passthrough`
 
 - `external_id: String`
 
@@ -18,7 +31,7 @@ Create User Profile
 
 - `name: String`
 
-  Display name of the entity this profile represents. Required when relationship is `resold` (the resold-to company's name); optional otherwise. Maximum 255 characters.
+  Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
 - `relationship: :external | :resold | :internal`
 
@@ -36,7 +49,7 @@ Create User Profile
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 26 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 31 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -82,19 +95,29 @@ Create User Profile
 
     - `:"user-profiles-2026-03-24"`
 
+    - `:"user-profiles-2026-08-18"`
+
     - `:"advisor-tool-2026-03-01"`
 
     - `:"managed-agents-2026-04-01"`
 
     - `:"cache-diagnosis-2026-04-07"`
 
+    - `:"dreaming-2026-04-21"`
+
     - `:"thinking-token-count-2026-05-13"`
 
     - `:"server-side-fallback-2026-06-01"`
 
+    - `:"server-side-fallback-2026-07-01"`
+
     - `:"fallback-credit-2026-06-01"`
 
+    - `:"fallback-credit-2026-07-01"`
+
     - `:"agent-memory-2026-07-22"`
+
+    - `:"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -111,16 +134,6 @@ Create User Profile
   - `metadata: Hash[Symbol, String]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `relationship: :external | :resold | :internal`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `:external`
-
-    - `:resold`
-
-    - `:internal`
 
   - `trust_grants: Hash[Symbol, BetaUserProfileTrustGrant]`
 
@@ -146,13 +159,31 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
+  - `access_type: :application | :passthrough`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `:application`
+
+    - `:passthrough`
+
   - `external_id: String`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `name: String`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `relationship: :external | :resold | :internal`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `:external`
+
+    - `:resold`
+
+    - `:internal`
 
 ### Example
 
@@ -173,7 +204,6 @@ puts(beta_user_profile)
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -181,7 +211,9 @@ puts(beta_user_profile)
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```

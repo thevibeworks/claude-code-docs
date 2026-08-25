@@ -1,3 +1,8 @@
+---
+title: List Credentials
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/list
+---
+
 ## List Credentials
 
 `$ ant beta:vaults:credentials list`

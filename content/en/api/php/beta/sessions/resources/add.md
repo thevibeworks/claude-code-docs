@@ -1,3 +1,8 @@
+---
+title: Add Session Resource
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/add
+---
+
 ## Add Session Resource
 
 `$client->beta->sessions->resources->add(string sessionID, string fileID, Type type, ?string mountPath, ?list<AnthropicBeta> betas): ManagedAgentsFileResource`
@@ -58,7 +63,7 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
   fileID: 'file_011CNha8iCJcU1wXNR6q4V8w',
   type: 'file',
   mountPath: '/uploads/receipt.pdf',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsFileResource);

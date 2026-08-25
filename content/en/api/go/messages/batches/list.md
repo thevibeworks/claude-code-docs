@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/go/messages/batches/list
+---
+
 ## List Message Batches
 
 `client.Messages.Batches.List(ctx, query) (*Page[MessageBatch], error)`
@@ -122,24 +127,22 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  page, err := client.Messages.Batches.List(context.TODO(), anthropic.MessageBatchListParams{
-
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", page)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	page, err := client.Messages.Batches.List(context.TODO(), anthropic.MessageBatchListParams{})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", page)
 }
 ```
 

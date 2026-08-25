@@ -1,3 +1,8 @@
+---
+title: Batches
+url: https://platform.claude.com/docs/en/api/php/messages/batches
+---
+
 # Batches
 
 ## Create a Message Batch
@@ -92,9 +97,14 @@ $messageBatch = $client->messages->batches->create(
       'params' => [
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
-        'model' => 'claude-opus-4-6',
+        'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
-        'container' => 'container',
+        'container' => [
+          'id' => 'id',
+          'skills' => [
+            ['skillID' => 'pdf', 'type' => 'anthropic', 'version' => 'latest']
+          ],
+        ],
         'inferenceGeo' => 'inference_geo',
         'metadata' => ['userID' => '13803d75-b4b5-4c3e-b2a2-6f21399b021b'],
         'outputConfig' => [
@@ -111,7 +121,7 @@ $messageBatch = $client->messages->batches->create(
             'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
             'citations' => [
               [
-                'citedText' => 'cited_text',
+                'citedText' => 'The grass is green. The sky is blue.',
                 'documentIndex' => 0,
                 'documentTitle' => 'x',
                 'endCharIndex' => 0,

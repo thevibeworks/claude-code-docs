@@ -1,3 +1,8 @@
+---
+title: Update a memory
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memories/update
+---
+
 ## Update a memory
 
 `$client->beta->memoryStores->memories->update(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?string content, ?string path, ?ManagedAgentsPrecondition precondition, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
@@ -92,7 +97,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
   precondition: [
     'type' => 'content_sha256', 'contentSha256' => 'content_sha256'
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsMemory);

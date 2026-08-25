@@ -1,3 +1,8 @@
+---
+title: Record Heartbeat
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/heartbeat
+---
+
 ## Record Heartbeat
 
 `$ ant beta:environments:work heartbeat`

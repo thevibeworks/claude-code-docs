@@ -1,3 +1,8 @@
+---
+title: Completions
+url: https://platform.claude.com/docs/en/api/cli/completions
+---
+
 # Completions
 
 ## Create a Text Completion
@@ -20,7 +25,7 @@ Future models and features will not be compatible with Text Completions. See our
 
   Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
 
-- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 13 more or string`
+- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
   Body param: The model that will complete your prompt.
 
@@ -100,7 +105,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     The resulting completion up to and excluding the stop sequences.
 
-  - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 13 more or string`
+  - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
     The model that will complete your prompt.
 
@@ -118,13 +123,17 @@ Future models and features will not be compatible with Text Completions. See our
 
       Most capable model for cybersecurity and biology research
 
+    - `"claude-opus-5"`
+
+      Powerful intelligence for long-running agents and coding
+
     - `"claude-opus-4-8"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-7"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-mythos-preview"`
 
@@ -132,7 +141,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `"claude-opus-4-6"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-6"`
 
@@ -148,11 +157,11 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `"claude-opus-4-5"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-5-20251101"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-5"`
 
@@ -161,14 +170,6 @@ Future models and features will not be compatible with Text Completions. See our
     - `"claude-sonnet-4-5-20250929"`
 
       High-performance model for agents and coding
-
-    - `"claude-opus-4-1"`
-
-      Exceptional model for specialized complex tasks
-
-    - `"claude-opus-4-1-20250805"`
-
-      Exceptional model for specialized complex tasks
 
   - `stop_reason: string`
 
@@ -227,7 +228,7 @@ Assistant:'
 
     The resulting completion up to and excluding the stop sequences.
 
-  - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 13 more or string`
+  - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
     The model that will complete your prompt.
 
@@ -245,13 +246,17 @@ Assistant:'
 
       Most capable model for cybersecurity and biology research
 
+    - `"claude-opus-5"`
+
+      Powerful intelligence for long-running agents and coding
+
     - `"claude-opus-4-8"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-7"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-mythos-preview"`
 
@@ -259,7 +264,7 @@ Assistant:'
 
     - `"claude-opus-4-6"`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-6"`
 
@@ -275,11 +280,11 @@ Assistant:'
 
     - `"claude-opus-4-5"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-opus-4-5-20251101"`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `"claude-sonnet-4-5"`
 
@@ -288,14 +293,6 @@ Assistant:'
     - `"claude-sonnet-4-5-20250929"`
 
       High-performance model for agents and coding
-
-    - `"claude-opus-4-1"`
-
-      Exceptional model for specialized complex tasks
-
-    - `"claude-opus-4-1-20250805"`
-
-      Exceptional model for specialized complex tasks
 
   - `stop_reason: string`
 

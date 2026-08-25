@@ -1,3 +1,8 @@
+---
+title: Webhooks
+url: https://platform.claude.com/docs/en/api/csharp/beta/webhooks
+---
+
 # Webhooks
 
 ## Domain Types
@@ -181,6 +186,62 @@
   - `required string OrganizationID`
 
   - `JsonElement Type "deployment.updated"constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "environment.archived"constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "environment.created"constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "environment.deleted"constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData:`
+
+  - `required string ID`
+
+    ID of the environment that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "environment.updated"constant`
 
   - `required string WorkspaceID`
 
@@ -658,6 +719,102 @@
 
       - `required string WorkspaceID`
 
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.created"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.updated"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.archived"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.deleted"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "memory_store.created"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "memory_store.archived"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "memory_store.deleted"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `required string ID`
+
+        ID of the session that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "session.budget_reached"constant`
+
+      - `required string WorkspaceID`
+
   - `JsonElement Type "event"constant`
 
     Object type. Always `event` for webhook payloads.
@@ -1126,6 +1283,144 @@
 
     - `required string WorkspaceID`
 
+  - `class BetaWebhookEnvironmentCreatedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "environment.created"constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "environment.updated"constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookEnvironmentArchivedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "environment.archived"constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookEnvironmentDeletedEventData:`
+
+    - `required string ID`
+
+      ID of the environment that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "environment.deleted"constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+    - `required string ID`
+
+      ID of the memory store that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "memory_store.created"constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+    - `required string ID`
+
+      ID of the memory store that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "memory_store.archived"constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+    - `required string ID`
+
+      ID of the memory store that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "memory_store.deleted"constant`
+
+    - `required string WorkspaceID`
+
+  - `class BetaWebhookSessionBudgetReachedEventData:`
+
+    - `required string ID`
+
+      ID of the session that triggered the event.
+
+    - `required string OrganizationID`
+
+    - `JsonElement Type "session.budget_reached"constant`
+
+    - `required string WorkspaceID`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData:`
+
+  - `required string ID`
+
+    ID of the memory store that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "memory_store.archived"constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData:`
+
+  - `required string ID`
+
+    ID of the memory store that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "memory_store.created"constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData:`
+
+  - `required string ID`
+
+    ID of the memory store that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "memory_store.deleted"constant`
+
+  - `required string WorkspaceID`
+
 ### Beta Webhook Session Archived Event Data
 
 - `class BetaWebhookSessionArchivedEventData:`
@@ -1137,6 +1432,20 @@
   - `required string OrganizationID`
 
   - `JsonElement Type "session.archived"constant`
+
+  - `required string WorkspaceID`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `class BetaWebhookSessionBudgetReachedEventData:`
+
+  - `required string ID`
+
+    ID of the session that triggered the event.
+
+  - `required string OrganizationID`
+
+  - `JsonElement Type "session.budget_reached"constant`
 
   - `required string WorkspaceID`
 
@@ -1947,6 +2256,102 @@
       - `required string OrganizationID`
 
       - `JsonElement Type "deployment_run.succeeded"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.created"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.updated"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.archived"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the environment that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "environment.deleted"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "memory_store.created"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "memory_store.archived"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `required string ID`
+
+        ID of the memory store that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "memory_store.deleted"constant`
+
+      - `required string WorkspaceID`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `required string ID`
+
+        ID of the session that triggered the event.
+
+      - `required string OrganizationID`
+
+      - `JsonElement Type "session.budget_reached"constant`
 
       - `required string WorkspaceID`
 

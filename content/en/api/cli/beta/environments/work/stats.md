@@ -1,3 +1,8 @@
+---
+title: Get Queue Statistics
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/stats
+---
+
 ## Get Queue Statistics
 
 `$ ant beta:environments:work stats`

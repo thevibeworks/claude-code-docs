@@ -1,3 +1,8 @@
+---
+title: List memory stores
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/list
+---
+
 ## List memory stores
 
 `$client->beta->memoryStores->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsMemoryStore>`
@@ -81,7 +86,7 @@ $page = $client->beta->memoryStores->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);

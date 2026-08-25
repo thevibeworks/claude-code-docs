@@ -1,3 +1,8 @@
+---
+title: Validate Credential
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/mcp_oauth_validate
+---
+
 ## Validate Credential
 
 `$ ant beta:vaults:credentials mcp-oauth-validate`

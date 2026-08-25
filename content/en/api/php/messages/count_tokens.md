@@ -1,3 +1,8 @@
+---
+title: Count tokens in a Message
+url: https://platform.claude.com/docs/en/api/php/messages/count_tokens
+---
+
 ## Count tokens in a Message
 
 `$client->messages->countTokens(list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?OutputConfig outputConfig, ?System system, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<MessageCountTokensTool> tools, ?string userProfileID): MessageTokensCount`
@@ -182,7 +187,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $messageTokensCount = $client->messages->countTokens(
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   outputConfig: [
     'effort' => 'low',
@@ -195,7 +200,7 @@ $messageTokensCount = $client->messages->countTokens(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,

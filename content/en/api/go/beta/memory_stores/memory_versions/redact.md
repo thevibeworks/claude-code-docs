@@ -1,3 +1,8 @@
+---
+title: Redact a memory version
+url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/memory_versions/redact
+---
+
 ## Redact a memory version
 
 `client.Beta.MemoryStores.MemoryVersions.Redact(ctx, memoryVersionID, params) (*BetaManagedAgentsMemoryVersion, error)`
@@ -68,19 +73,29 @@ Redact a memory version
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -170,6 +185,18 @@ Redact a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `type BetaManagedAgentsServiceAccountActor struct{…}`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `ServiceAccountID string`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `Type ServiceAccountActor`
+
+        - `const ServiceAccountActorServiceAccountActor ServiceAccountActor = "service_account_actor"`
+
   - `Path string`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -188,28 +215,28 @@ Redact a memory version
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaManagedAgentsMemoryVersion, err := client.Beta.MemoryStores.MemoryVersions.Redact(
-    context.TODO(),
-    "memory_version_id",
-    anthropic.BetaMemoryStoreMemoryVersionRedactParams{
-      MemoryStoreID: "memory_store_id",
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaManagedAgentsMemoryVersion.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaManagedAgentsMemoryVersion, err := client.Beta.MemoryStores.MemoryVersions.Redact(
+		context.TODO(),
+		"memory_version_id",
+		anthropic.BetaMemoryStoreMemoryVersionRedactParams{
+			MemoryStoreID: "memory_store_id",
+		},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaManagedAgentsMemoryVersion.ID)
 }
 ```
 

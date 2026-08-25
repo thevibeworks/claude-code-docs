@@ -1,3 +1,8 @@
+---
+title: Create a Message Batch
+url: https://platform.claude.com/docs/en/api/php/beta/messages/batches/create
+---
+
 ## Create a Message Batch
 
 `$client->beta->messages->batches->create(list<Request> requests, ?list<AnthropicBeta> betas, ?string userProfileID): MessageBatch`
@@ -94,7 +99,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       'params' => [
         'maxTokens' => 1024,
         'messages' => [['content' => 'Hello, world', 'role' => 'user']],
-        'model' => 'claude-opus-4-6',
+        'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'container' => [
           'id' => 'id',
@@ -116,27 +121,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
         ],
         'diagnostics' => ['previousMessageID' => 'previous_message_id'],
         'fallbackCreditToken' => 'x',
-        'fallbacks' => [
-          [
-            'model' => 'claude-sonnet-5',
-            'maxTokens' => 0,
-            'outputConfig' => [
-              'effort' => 'low',
-              'format' => [
-                'schema' => ['foo' => 'bar'], 'type' => 'json_schema'
-              ],
-              'taskBudget' => [
-                'total' => 1024, 'type' => 'tokens', 'remaining' => 0
-              ],
-            ],
-            'speed' => 'standard',
-            'thinking' => [
-              'budgetTokens' => 1024,
-              'type' => 'enabled',
-              'display' => 'summarized',
-            ],
-          ],
-        ],
+        'fallbacks' => 'default',
         'inferenceGeo' => 'inference_geo',
         'mcpServers' => [
           [
@@ -171,7 +156,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
             'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
             'citations' => [
               [
-                'citedText' => 'cited_text',
+                'citedText' => 'The grass is green. The sky is blue.',
                 'documentIndex' => 0,
                 'documentTitle' => 'x',
                 'endCharIndex' => 0,
@@ -207,7 +192,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       ],
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
 );
 

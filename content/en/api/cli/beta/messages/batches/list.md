@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/cli/beta/messages/batches/list
+---
+
 ## List Message Batches
 
 `$ ant beta:messages:batches list`

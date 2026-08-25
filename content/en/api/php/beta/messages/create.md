@@ -1,6 +1,11 @@
+---
+title: Create a Message
+url: https://platform.claude.com/docs/en/api/php/beta/messages/create
+---
+
 ## Create a Message
 
-`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?string fallbackCreditToken, ?list<BetaFallbackParam> fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessage`
+`$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessage`
 
 **post** `/v1/messages`
 
@@ -98,7 +103,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Request-level diagnostics. Currently carries the previous response
   id for prompt-cache divergence reporting.
 
-- `fallbackCreditToken?:optional string`
+- `fallbackCreditToken?:optional FallbackCreditToken`
 
   The `fallback_credit_token` from a prior refusal's `stop_details`.
 
@@ -121,9 +126,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   When the appended-assistant form is used on a model that otherwise disallows
   assistant-turn prefill, this token also authorizes that one prefill.
 
-- `fallbacks?:optional list<BetaFallbackParam>`
+- `fallbacks?:optional BetaFallbacksParam`
 
-  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on.
+  Opt-in server-side retry on one or more substitute models when the requested model declines for policy reasons. Tried in order: if the first entry also declines, the second is tried, and so on. The string "default" requests the requested model's server-defined default fallback configuration.
 
 - `inferenceGeo?:optional string`
 
@@ -155,7 +160,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `speed?:optional Speed`
 
-  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
 - `stopSequences?:optional list<string>`
 
@@ -367,6 +372,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -406,7 +412,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaMessage = $client->beta->messages->create(
   maxTokens: 1024,
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   container: [
     'id' => 'id',
@@ -428,21 +434,7 @@ $betaMessage = $client->beta->messages->create(
   ],
   diagnostics: ['previousMessageID' => 'previous_message_id'],
   fallbackCreditToken: 'x',
-  fallbacks: [
-    [
-      'model' => 'claude-sonnet-5',
-      'maxTokens' => 0,
-      'outputConfig' => [
-        'effort' => 'low',
-        'format' => ['schema' => ['foo' => 'bar'], 'type' => 'json_schema'],
-        'taskBudget' => ['total' => 1024, 'type' => 'tokens', 'remaining' => 0],
-      ],
-      'speed' => 'standard',
-      'thinking' => [
-        'budgetTokens' => 1024, 'type' => 'enabled', 'display' => 'summarized'
-      ],
-    ],
-  ],
+  fallbacks: 'default',
   inferenceGeo: 'inference_geo',
   mcpServers: [
     [
@@ -470,7 +462,7 @@ $betaMessage = $client->beta->messages->create(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,
@@ -503,7 +495,7 @@ $betaMessage = $client->beta->messages->create(
   ],
   topK: 5,
   topP: 0.7,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
 );
 
@@ -516,7 +508,7 @@ var_dump($betaMessage);
 {
   "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "container": {
-    "id": "id",
+    "id": "container_011CpZohnwH4vuy7gazohgSP",
     "expires_at": "2019-12-27T18:11:19.117Z",
     "skills": [
       {
@@ -530,11 +522,11 @@ var_dump($betaMessage);
     {
       "citations": [
         {
-          "cited_text": "cited_text",
+          "cited_text": "The grass is green. The sky is blue.",
           "document_index": 0,
-          "document_title": "document_title",
+          "document_title": "My Document",
           "end_char_index": 0,
-          "file_id": "file_id",
+          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
           "start_char_index": 0,
           "type": "char_location"
         }
@@ -558,14 +550,14 @@ var_dump($betaMessage);
       "type": "model_changed"
     }
   },
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
-    "explanation": "explanation",
-    "fallback_credit_token": "fallback_credit_token",
+    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
+    "fallback_credit_token": "QW50aHJvcGljL0NsYXVkZQ==",
     "fallback_has_prefill_claim": true,
-    "recommended_model": "recommended_model",
+    "recommended_model": "claude-opus-4-8",
     "type": "refusal"
   },
   "stop_reason": "end_turn",
@@ -578,7 +570,12 @@ var_dump($betaMessage);
     },
     "cache_creation_input_tokens": 2051,
     "cache_read_input_tokens": 2051,
-    "inference_geo": "inference_geo",
+    "fallback_credit": {
+      "status": {
+        "type": "redeemed"
+      }
+    },
+    "inference_geo": "global",
     "input_tokens": 2095,
     "iterations": [
       {

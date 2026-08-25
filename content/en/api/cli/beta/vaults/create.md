@@ -1,3 +1,8 @@
+---
+title: Create Vault
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/create
+---
+
 ## Create Vault
 
 `$ ant beta:vaults create`

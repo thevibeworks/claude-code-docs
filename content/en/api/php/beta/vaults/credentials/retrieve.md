@@ -1,3 +1,8 @@
+---
+title: Get Credential
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/retrieve
+---
+
 ## Get Credential
 
 `$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
@@ -66,7 +71,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredential);

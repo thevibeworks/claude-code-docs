@@ -1,3 +1,8 @@
+---
+title: Create Enrollment URL
+url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/create_enrollment_url
+---
+
 ## Create Enrollment URL
 
 `$client->beta->userProfiles->createEnrollmentURL(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfileEnrollmentURL`
@@ -43,7 +48,8 @@ $betaUserProfileEnrollmentURL = $client
   ->beta
   ->userProfiles
   ->createEnrollmentURL(
-  'uprof_011CZkZCu8hGbp5mYRQgUmz9', betas: ['message-batches-2024-09-24']
+  'uprof_011CZkZCu8hGbp5mYRQgUmz9',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaUserProfileEnrollmentURL);

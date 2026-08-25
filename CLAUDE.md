@@ -5,26 +5,39 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Purpose
 
 Comprehensive archive of everything Anthropic publishes for building with
-Claude. 2,900+ docs from 11 sources; active sources auto-updated four
+Claude. 3,900+ docs from 12 sources; active sources auto-updated four
 times daily (blog archive frozen, see Fetcher).
 
 ## Fetcher
 
 `scripts/fetcher.py` -- single-file multi-source fetcher.
 
-Sources: code.claude.com, platform.claude.com, modelcontextprotocol.io,
-support.claude.com (sitemap + .md), github.com/anthropics/* (10 repos).
-anthropic.com blog (engineering/research/news) is a FROZEN archive as of
-2026-07: the site is HTML-only and the jina.ai proxy path was removed.
+Sources: code.claude.com, platform.claude.com, claude.com/docs,
+modelcontextprotocol.io, support.claude.com (sitemap + .md),
+github.com/anthropics/* (10 repos). anthropic.com blog
+(engineering/research/news) is a FROZEN archive as of 2026-07: the site is
+HTML-only and the jina.ai proxy path was removed.
+
+Two rules keep the archive honest, both learned the hard way:
+
+- **Discovery surfaces are incomplete.** Sitemaps and llms.txt undercount what
+  a site serves, so every full run also refetches what is already on disk.
+  Without this, 1,560 de-indexed-but-live API pages sat stale for seven weeks.
+- **The archive must be able to shrink.** Full runs reap files whose URL is
+  gone (404/410 or HTML shell). Only markup is deleted automatically; real
+  markdown that died upstream is reported for a human. A >200-file reap is
+  refused outright as an upstream outage.
 
 ```bash
 uv run scripts/fetcher.py                    # Fetch everything
 uv run scripts/fetcher.py --section mcp      # Single section
 uv run scripts/fetcher.py --tree             # Show sources
 uv run scripts/fetcher.py --discover         # Probe for new sources
+uv run scripts/fetcher.py --no-reap          # Report dead pages, delete none
 ```
 
-Sections: `claude-code`, `api`, `platform`, `mcp`, `github`, `support`, `all`
+Sections: `claude-code`, `api`, `platform`, `mcp`, `github`, `support`,
+`products`, `all`
 
 Source registry: `sources.json`
 Architecture: `REFACTOR.md`
@@ -100,6 +113,15 @@ Use these paths to reference documentation when helping users:
 - `content/en/managed-agents/` - Managed agents API
 - `content/en/test-and-evaluate/` - Testing and evaluation
 
+#### Product Docs (from claude.com/docs)
+- `content/claude/claude-tag/` - Claude Tag / Claude in Slack (65)
+- `content/claude/government/` - Government offerings (38)
+- `content/claude/connectors/` - Connectors, building + publishing (33)
+- `content/claude/claude-science/` - Claude for Science (29)
+- `content/claude/third-party/` - Bedrock, Vertex, Foundry desktop setups (28)
+- `content/claude/office-agents/` - Claude for Excel, Word, PowerPoint, Outlook (12)
+- `content/claude/cowork/` - Claude Cowork (6)
+
 #### MCP Protocol (from modelcontextprotocol.io)
 - `content/mcp/docs/` - Getting started, build client/server
 - `content/mcp/specification/` - Protocol spec versions
@@ -123,15 +145,16 @@ Use these paths to reference documentation when helping users:
 ## Repository Structure
 
 ```
-content/                       2,900+ files
-  en/docs/claude-code/         Claude Code + Agent SDK (141)
-  en/api/                      API reference (1,500+)
+content/                       3,900+ files
+  en/docs/claude-code/         Claude Code + Agent SDK (198)
+  en/api/                      API reference (1,900+)
   en/build-with-claude/        Platform features
   en/agents-and-tools/         Tool use, agent skills
-  mcp/                         MCP protocol spec (203)
+  claude/                      Product docs (215)
+  mcp/                         MCP protocol spec (373)
   blog/                        Engineering, research, news
   github/                      10 repos (718 files)
-  support/                     Help articles
+  support/                     Help articles (365)
 scripts/
   fetcher.py                   Multi-source fetcher
 sources.json                   Source registry
@@ -143,3 +166,4 @@ sources.json                   Source registry
 - https://code.claude.com/docs/en/overview
 - https://platform.claude.com/docs/en/home
 - https://modelcontextprotocol.io
+- https://claude.com/docs/llms.txt

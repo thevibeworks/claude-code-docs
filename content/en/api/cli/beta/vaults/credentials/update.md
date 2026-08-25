@@ -1,3 +1,8 @@
+---
+title: Update Credential
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/update
+---
+
 ## Update Credential
 
 `$ ant beta:vaults:credentials update`

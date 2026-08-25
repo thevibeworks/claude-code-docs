@@ -1,3 +1,8 @@
+---
+title: Record Heartbeat
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/heartbeat
+---
+
 ## Record Heartbeat
 
 `$client->beta->environments->work->heartbeat(string workID, string environmentID, ?int desiredTTLSeconds, ?string expectedLastHeartbeat, ?list<AnthropicBeta> betas): SelfHostedWorkHeartbeatResponse`
@@ -68,7 +73,7 @@ $betaSelfHostedWorkHeartbeatResponse = $client
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   desiredTTLSeconds: 0,
   expectedLastHeartbeat: 'expected_last_heartbeat',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWorkHeartbeatResponse);

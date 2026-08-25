@@ -1,3 +1,8 @@
+---
+title: Retrieve a Message Batch
+url: https://platform.claude.com/docs/en/api/php/messages/batches/retrieve
+---
+
 ## Retrieve a Message Batch
 
 `$client->messages->batches->retrieve(string messageBatchID): MessageBatch`

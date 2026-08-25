@@ -1,3 +1,8 @@
+---
+title: List Credentials
+url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials/list
+---
+
 ## List Credentials
 
 `beta.vaults.credentials.list(strvault_id, CredentialListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsCredential]`
@@ -28,7 +33,7 @@ List Credentials
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -74,19 +79,29 @@ List Credentials
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -261,7 +276,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.beta.vaults.credentials.list(
     vault_id="vlt_011CZkZDLs7fYzm1hXNPeRjv",

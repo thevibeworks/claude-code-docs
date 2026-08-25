@@ -1,8 +1,13 @@
+---
+title: Memory Versions
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memory_versions
+---
+
 # Memory Versions
 
 ## List memory versions
 
-`$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryVersion>`
+`$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string serviceAccountID, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryVersion>`
 
 **get** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
@@ -39,6 +44,10 @@ List memory versions
 - `page?:optional string`
 
   Query parameter for page
+
+- `serviceAccountID?:optional string`
+
+  Query parameter for service_account_id
 
 - `sessionID?:optional string`
 
@@ -124,9 +133,10 @@ $page = $client->beta->memoryStores->memoryVersions->list(
   memoryID: 'memory_id',
   operation: ManagedAgentsMemoryVersionOperation::CREATED,
   page: 'page',
+  serviceAccountID: 'service_account_id',
   sessionID: 'session_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -256,7 +266,7 @@ $betaManagedAgentsMemoryVersion = $client
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsMemoryVersion);
@@ -376,7 +386,7 @@ $betaManagedAgentsMemoryVersion = $client
   ->redact(
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsMemoryVersion);
@@ -437,6 +447,14 @@ var_dump($betaManagedAgentsMemoryVersion);
     - `string userID`
 
       ID of the user who performed the write (a `user_...` value).
+
+  - `ManagedAgentsServiceAccountActor`
+
+    - `string serviceAccountID`
+
+      ID of the service account that performed the write (a `svac_...` value).
+
+    - `"service_account_actor" type`
 
 ### Beta Managed Agents API Actor
 
@@ -511,6 +529,16 @@ var_dump($betaManagedAgentsMemoryVersion);
   - `"modified"`
 
   - `"deleted"`
+
+### Beta Managed Agents Service Account Actor
+
+- `ManagedAgentsServiceAccountActor`
+
+  - `string serviceAccountID`
+
+    ID of the service account that performed the write (a `svac_...` value).
+
+  - `"service_account_actor" type`
 
 ### Beta Managed Agents Session Actor
 

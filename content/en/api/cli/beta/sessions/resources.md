@@ -1,3 +1,8 @@
+---
+title: Resources
+url: https://platform.claude.com/docs/en/api/cli/beta/sessions/resources
+---
+
 # Resources
 
 ## Add Session Resource

@@ -1,3 +1,8 @@
+---
+title: Get File Metadata
+url: https://platform.claude.com/docs/en/api/cli/beta/files/retrieve_metadata
+---
+
 ## Get File Metadata
 
 `$ ant beta:files retrieve-metadata`
@@ -18,7 +23,7 @@ Get File Metadata
 
 ### Returns
 
-- `file_metadata: object { id, created_at, filename, 5 more }`
+- `beta_file_metadata: object { id, created_at, filename, 5 more }`
 
   - `id: string`
 

@@ -1,3 +1,8 @@
+---
+title: Create Environment
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/create
+---
+
 ## Create Environment
 
 `$ ant beta:environments create`
@@ -138,7 +143,7 @@ Create a new environment with the specified configuration.
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 

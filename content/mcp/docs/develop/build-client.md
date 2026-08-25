@@ -8,7 +8,7 @@
 
 In this tutorial, you'll learn how to build an LLM-powered chatbot client that connects to MCP servers.
 
-Before you begin, it helps to have gone through our [Build an MCP Server](/docs/develop/build-server) tutorial so you can understand how clients and servers communicate.
+Before you begin, it helps to have gone through our [Build an MCP Server](/docs/2026-07-28/develop/build-server) tutorial so you can understand how clients and servers communicate.
 
 <Tabs>
   <Tab title="Python">
@@ -21,6 +21,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
     * Mac or Windows computer
     * Latest Python version installed
     * Latest version of `uv` installed
+    * You must use the Python MCP SDK 2.0.0 or higher
 
     ## Setting Up Your Environment
 
@@ -92,73 +93,58 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
     ## Creating the Client
 
-    ### Basic Client Structure
+    ### Imports and Setup
 
-    First, let's set up our imports and create the basic client class:
+    First, let's set up our imports and the pieces the rest of the file shares:
 
     ```python theme={null}
     import asyncio
-    from typing import Optional
-    from contextlib import AsyncExitStack
+    import sys
 
-    from mcp import ClientSession, StdioServerParameters
+    from mcp import Client, StdioServerParameters
     from mcp.client.stdio import stdio_client
+    from mcp_types import TextContent
 
     from anthropic import Anthropic
     from dotenv import load_dotenv
 
     load_dotenv()  # load environment variables from .env
 
-    class MCPClient:
-        def __init__(self):
-            # Initialize session and client objects
-            self.session: Optional[ClientSession] = None
-            self.exit_stack = AsyncExitStack()
-            self.anthropic = Anthropic()
-        # methods will go here
+    MODEL = "claude-opus-5"
+    anthropic = Anthropic()
     ```
+
+    `Client` is the single object your program talks to the server through. Listing the tools, calling one, reading a resource: each of those is a method on it.
 
     ### Server Connection Management
 
-    Next, we'll implement the method to connect to an MCP server:
+    Next, we'll work out which process to launch for a given server script:
 
     ```python theme={null}
-    async def connect_to_server(self, server_script_path: str):
-        """Connect to an MCP server
+    def server_params(server_script_path: str) -> StdioServerParameters:
+        """Describe the subprocess that runs an MCP server
 
         Args:
             server_script_path: Path to the server script (.py or .js)
         """
-        is_python = server_script_path.endswith('.py')
-        is_js = server_script_path.endswith('.js')
-        if not (is_python or is_js):
+        if server_script_path.endswith(".py"):
+            command = "python"
+        elif server_script_path.endswith(".js"):
+            command = "node"
+        else:
             raise ValueError("Server script must be a .py or .js file")
 
-        command = "python" if is_python else "node"
-        server_params = StdioServerParameters(
-            command=command,
-            args=[server_script_path],
-            env=None
-        )
-
-        stdio_transport = await self.exit_stack.enter_async_context(stdio_client(server_params))
-        self.stdio, self.write = stdio_transport
-        self.session = await self.exit_stack.enter_async_context(ClientSession(self.stdio, self.write))
-
-        await self.session.initialize()
-
-        # List available tools
-        response = await self.session.list_tools()
-        tools = response.tools
-        print("\nConnected to server with tools:", [tool.name for tool in tools])
+        return StdioServerParameters(command=command, args=[server_script_path])
     ```
+
+    `StdioServerParameters` is configuration, not a connection. `stdio_client()` turns it into a stdio transport, and `Client` opens that transport when you enter its `async with` block. We'll do both in `main()`.
 
     ### Query Processing Logic
 
     Now let's add the core functionality for processing queries and handling tool calls:
 
     ```python theme={null}
-    async def process_query(self, query: str) -> str:
+    async def process_query(client: Client, query: str) -> str:
         """Process a query using Claude and available tools"""
         messages = [
             {
@@ -167,16 +153,16 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
             }
         ]
 
-        response = await self.session.list_tools()
+        tool_list = await client.list_tools()
         available_tools = [{
             "name": tool.name,
             "description": tool.description,
-            "input_schema": tool.inputSchema
-        } for tool in response.tools]
+            "input_schema": tool.input_schema
+        } for tool in tool_list.tools]
 
         # Initial Claude API call
-        response = self.anthropic.messages.create(
-            model="claude-sonnet-4-20250514",
+        response = anthropic.messages.create(
+            model=MODEL,
             max_tokens=1000,
             messages=messages,
             tools=available_tools
@@ -184,98 +170,102 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
         # Process response and handle tool calls
         final_text = []
+        tool_results = []
 
-        assistant_message_content = []
         for content in response.content:
             if content.type == 'text':
                 final_text.append(content.text)
-                assistant_message_content.append(content)
             elif content.type == 'tool_use':
                 tool_name = content.name
                 tool_args = content.input
 
                 # Execute tool call
-                result = await self.session.call_tool(tool_name, tool_args)
+                result = await client.call_tool(tool_name, tool_args)
                 final_text.append(f"[Calling tool {tool_name} with args {tool_args}]")
 
-                assistant_message_content.append(content)
-                messages.append({
-                    "role": "assistant",
-                    "content": assistant_message_content
-                })
-                messages.append({
-                    "role": "user",
-                    "content": [
-                        {
-                            "type": "tool_result",
-                            "tool_use_id": content.id,
-                            "content": result.content
-                        }
-                    ]
+                tool_results.append({
+                    "type": "tool_result",
+                    "tool_use_id": content.id,
+                    "content": "\n".join(
+                        block.text
+                        for block in result.content
+                        if isinstance(block, TextContent)
+                    ),
+                    "is_error": result.is_error
                 })
 
-                # Get next response from Claude
-                response = self.anthropic.messages.create(
-                    model="claude-sonnet-4-20250514",
-                    max_tokens=1000,
-                    messages=messages,
-                    tools=available_tools
-                )
+        if tool_results:
+            messages.append({"role": "assistant", "content": response.content})
+            messages.append({"role": "user", "content": tool_results})
 
-                final_text.append(response.content[0].text)
+            # Get next response from Claude
+            response = anthropic.messages.create(
+                model=MODEL,
+                max_tokens=1000,
+                messages=messages,
+                tools=available_tools
+            )
+
+            for content in response.content:
+                if content.type == 'text':
+                    final_text.append(content.text)
 
         return "\n".join(final_text)
     ```
 
+    `call_tool` returns a `CallToolResult`. Its `content` is a list of blocks, which is why we narrow to `TextContent` before reading `.text`. A tool that raises does not raise here: it answers with `is_error` set, and passing that flag on lets Claude read the message and try something else.
+
     ### Interactive Chat Interface
 
-    Now we'll add the chat loop and cleanup functionality:
+    Now we'll add the chat loop:
 
     ```python theme={null}
-    async def chat_loop(self):
+    async def chat_loop(client: Client) -> None:
         """Run an interactive chat loop"""
         print("\nMCP Client Started!")
         print("Type your queries or 'quit' to exit.")
 
         while True:
             try:
-                query = input("\nQuery: ").strip()
+                query = (await asyncio.to_thread(input, "\nQuery: ")).strip()
+            except EOFError:
+                break
 
-                if query.lower() == 'quit':
-                    break
+            if query.lower() == 'quit':
+                break
 
-                response = await self.process_query(query)
+            try:
+                response = await process_query(client, query)
                 print("\n" + response)
-
             except Exception as e:
-                print(f"\nError: {str(e)}")
-
-    async def cleanup(self):
-        """Clean up resources"""
-        await self.exit_stack.aclose()
+                print(f"\nError: {e}")
     ```
+
+    `input()` blocks, so it runs on a worker thread. That keeps the event loop free to service the connection while you type.
 
     ### Main Entry Point
 
     Finally, we'll add the main execution logic:
 
     ```python theme={null}
-    async def main():
+    async def main() -> None:
         if len(sys.argv) < 2:
             print("Usage: python client.py <path_to_server_script>")
             sys.exit(1)
 
-        client = MCPClient()
-        try:
-            await client.connect_to_server(sys.argv[1])
-            await client.chat_loop()
-        finally:
-            await client.cleanup()
+        async with Client(stdio_client(server_params(sys.argv[1]))) as client:
+            tool_list = await client.list_tools()
+            tool_names = [tool.name for tool in tool_list.tools]
+            print("\nConnected to server with tools:", tool_names)
+
+            await chat_loop(client)
+
 
     if __name__ == "__main__":
-        import sys
         asyncio.run(main())
     ```
+
+    That `async with` is the entire connection lifecycle. Entering it launches the server and agrees a protocol version with it; leaving it disconnects and shuts the subprocess down. There is nothing to close by hand.
 
     You can find the complete `client.py` file [here](https://github.com/modelcontextprotocol/quickstart-resources/blob/main/mcp-client-python/client.py).
 
@@ -283,16 +273,16 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
     ### 1. Client Initialization
 
-    * The `MCPClient` class initializes with session management and API clients
-    * Uses `AsyncExitStack` for proper resource management
+    * A single `Client` carries the connection, and `async with` is its whole lifecycle
+    * There is no connect/close pair to call and nothing to clean up afterwards
     * Configures the Anthropic client for Claude interactions
 
     ### 2. Server Connection
 
     * Supports both Python and Node.js servers
     * Validates server script type
-    * Sets up proper communication channels
-    * Initializes the session and lists available tools
+    * Launches the server as a subprocess and speaks stdio to it
+    * Lists the available tools once the connection is open
 
     ### 3. Query Processing
 
@@ -310,9 +300,9 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
     ### 5. Resource Management
 
-    * Proper cleanup of resources
-    * Error handling for connection issues
-    * Graceful shutdown procedures
+    * Leaving the `async with` block disconnects and shuts the server subprocess down
+    * A failing query is reported without ending the session
+    * Typing `quit`, or closing standard input, exits cleanly
 
     ## Common Customization Points
 
@@ -374,13 +364,13 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
     ## Best practices
 
     1. **Error Handling**
-       * Always wrap tool calls in try-catch blocks
+       * Check `result.is_error` rather than expecting a failing tool to raise
        * Provide meaningful error messages
        * Gracefully handle connection issues
 
     2. **Resource Management**
-       * Use `AsyncExitStack` for proper cleanup
-       * Close connections when done
+       * Let the `async with` block own the connection
+       * Keep it open for as long as you need the server
        * Handle server disconnections
 
     3. **Security**
@@ -389,7 +379,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
        * Be cautious with tool permissions
 
     4. **Tool Names**
-       * Tool names can be validated according to the format specified [here](/specification/draft/server/tools#tool-names)
+       * Tool names can be validated according to the format specified [here](/specification/2026-07-28/server/tools#tool-names)
        * If a tool name conforms to the specified format, it should not fail validation by an MCP client
 
     ## Troubleshooting
@@ -432,7 +422,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
     * `FileNotFoundError`: Check your server path
     * `Connection refused`: Ensure the server is running and the path is correct
     * `Tool execution failed`: Verify the tool's required environment variables are set
-    * `Timeout error`: Consider increasing the timeout in your client configuration
+    * `Timeout error`: Consider raising `read_timeout_seconds` on the `Client`
   </Tab>
 
   <Tab title="TypeScript">
@@ -443,7 +433,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
     Before starting, ensure your system meets these requirements:
 
     * Mac or Windows computer
-    * Node.js 17 or higher installed
+    * Node.js 20 or higher installed
     * Latest version of `npm` installed
     * Anthropic API key (Claude)
 
@@ -461,7 +451,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
       npm init -y
 
       # Install dependencies
-      npm install @anthropic-ai/sdk @modelcontextprotocol/sdk dotenv
+      npm install @anthropic-ai/sdk @modelcontextprotocol/client dotenv
 
       # Install dev dependencies
       npm install -D @types/node typescript
@@ -479,7 +469,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
       npm init -y
 
       # Install dependencies
-      npm install @anthropic-ai/sdk @modelcontextprotocol/sdk dotenv
+      npm install @anthropic-ai/sdk @modelcontextprotocol/client dotenv
 
       # Install dev dependencies
       npm install -D @types/node typescript
@@ -508,6 +498,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
         "target": "ES2022",
         "module": "Node16",
         "moduleResolution": "Node16",
+        "types": ["node"],
         "outDir": "./build",
         "rootDir": "./",
         "strict": true,
@@ -552,8 +543,8 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
       MessageParam,
       Tool,
     } from "@anthropic-ai/sdk/resources/messages/messages.mjs";
-    import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-    import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+    import { Client } from "@modelcontextprotocol/client";
+    import { StdioClientTransport } from "@modelcontextprotocol/client/stdio";
     import readline from "readline/promises";
     import dotenv from "dotenv";
 
@@ -637,7 +628,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
       ];
 
       const response = await this.anthropic.messages.create({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-opus-5",
         max_tokens: 1000,
         messages,
         tools: this.tools,
@@ -662,11 +653,14 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
           messages.push({
             role: "user",
-            content: result.content as string,
+            content: result.content
+              .filter((block) => block.type === "text")
+              .map((block) => block.text)
+              .join("\n"),
           });
 
           const response = await this.anthropic.messages.create({
-            model: "claude-sonnet-4-20250514",
+            model: "claude-opus-5",
             max_tokens: 1000,
             messages,
           });
@@ -840,7 +834,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
   <Tab title="Java">
     <Note>
       This is a quickstart demo based on Spring AI MCP auto-configuration and boot starters.
-      To learn how to create sync and async MCP Clients manually, consult the [Java SDK Client](https://java.sdk.modelcontextprotocol.io/) documentation
+      To learn how to create sync and async MCP Clients manually, consult the [Java SDK Client](https://java.sdk.modelcontextprotocol.io/) documentation.
     </Note>
 
     This example demonstrates how to build an interactive chatbot that combines Spring AI's Model Context Protocol (MCP) with the [Brave Search MCP Server](https://github.com/modelcontextprotocol/servers-archived/tree/main/src/brave-search). The application creates a conversational interface powered by Anthropic's Claude AI model that can perform internet searches through Brave Search, enabling natural language interactions with real-time web data.
@@ -1000,21 +994,27 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
     The MCP client supports additional configuration options:
 
-    * Client customization through `McpSyncClientCustomizer` or `McpAsyncClientCustomizer`
-    * Multiple clients with multiple transport types: `STDIO` and `SSE` (Server-Sent Events)
+    * Client customization through `McpClientCustomizer<McpClient.SyncSpec>` or `McpClientCustomizer<McpClient.AsyncSpec>` beans
+    * Multiple clients with multiple transport types: `STDIO` and Streamable HTTP
     * Integration with Spring AI's tool execution framework
     * Automatic client initialization and lifecycle management
+
+    To connect to a remote MCP server over Streamable HTTP, configure a connection URL:
+
+    ```properties theme={null}
+    spring.ai.mcp.client.streamable-http.connections.server1.url=http://localhost:8080
+    ```
 
     For WebFlux-based applications, you can use the WebFlux starter instead:
 
     ```xml theme={null}
     <dependency>
         <groupId>org.springframework.ai</groupId>
-        <artifactId>spring-ai-mcp-client-webflux-spring-boot-starter</artifactId>
+        <artifactId>spring-ai-starter-mcp-client-webflux</artifactId>
     </dependency>
     ```
 
-    This provides similar functionality but uses a WebFlux-based SSE transport implementation, recommended for production deployments.
+    This provides similar functionality but uses a WebFlux-based Streamable HTTP transport implementation, recommended for production deployments.
   </Tab>
 
   <Tab title="Kotlin">
@@ -1212,7 +1212,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
         val response = anthropic.messages().create(
             MessageCreateParams.builder()
-                .model("claude-sonnet-4-20250514")
+                .model("claude-opus-5")
                 .maxTokens(1024)
                 .messages(messages)
                 .tools(tools)
@@ -1248,7 +1248,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
 
                     val aiResponse = anthropic.messages().create(
                         MessageCreateParams.builder()
-                            .model("claude-sonnet-4-20250514")
+                            .model("claude-opus-5")
                             .maxTokens(1024)
                             .messages(messages)
                             .build(),
@@ -1555,7 +1555,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
     var options = new ChatOptions
     {
         MaxOutputTokens = 1000,
-        ModelId = "claude-sonnet-4-20250514",
+        ModelId = "claude-opus-5",
         Tools = [.. tools]
     };
 
@@ -1722,7 +1722,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
     require "mcp"
 
     class MCPClient
-      ANTHROPIC_MODEL = "claude-sonnet-4-20250514"
+      ANTHROPIC_MODEL = "claude-opus-5"
 
       def initialize
         @mcp_client = nil
@@ -1997,7 +1997,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
        * Be cautious with tool permissions
 
     4. **Tool Names**
-       * Tool names can be validated according to the format specified [here](/specification/draft/server/tools#tool-names)
+       * Tool names can be validated according to the format specified [here](/specification/2026-07-28/server/tools#tool-names)
        * If a tool name conforms to the specified format, it should not fail validation by an MCP client
 
     ## Troubleshooting
@@ -2126,7 +2126,7 @@ Before you begin, it helps to have gone through our [Build an MCP Server](/docs/
     use tokio::io::{self, AsyncBufReadExt, BufReader};
     use tokio::process::Command;
 
-    const MODEL_ANTHROPIC: &str = "claude-sonnet-4-20250514";
+    const MODEL_ANTHROPIC: &str = "claude-opus-5";
 
     struct MCPClient {
         anthropic: Client,

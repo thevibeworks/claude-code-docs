@@ -1,3 +1,8 @@
+---
+title: List Session Resources
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/list
+---
+
 ## List Session Resources
 
 `$client->beta->sessions->resources->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionResource>`
@@ -105,7 +110,7 @@ $page = $client->beta->sessions->resources->list(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);

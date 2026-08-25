@@ -1,3 +1,8 @@
+---
+title: Environments
+url: https://platform.claude.com/docs/en/api/java/beta/environments
+---
+
 # Environments
 
 ## Create Environment
@@ -60,19 +65,29 @@ Create a new environment with the specified configuration.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `String name`
 
@@ -308,9 +323,9 @@ Create a new environment with the specified configuration.
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -483,19 +498,29 @@ List environments with pagination support.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -609,9 +634,9 @@ List environments with pagination support.
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -776,19 +801,29 @@ Retrieve a specific environment by ID.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -902,9 +937,9 @@ Retrieve a specific environment by ID.
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -1064,19 +1099,29 @@ Update an existing environment's configuration.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `Optional<Config> config`
 
@@ -1182,7 +1227,7 @@ Update an existing environment's configuration.
 
   - `Optional<String> description`
 
-    Updated description of the environment
+    Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
   - `Optional<Metadata> metadata`
 
@@ -1312,9 +1357,9 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -1474,19 +1519,29 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -1498,7 +1553,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     Environment identifier
 
-  - `JsonValue; type "environment_deleted"constant`
+  - `Type type`
 
     The type of response
 
@@ -1596,19 +1651,29 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -1722,9 +1787,9 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -2108,9 +2173,9 @@ public final class Main {
 
     RFC 3339 timestamp when environment was created
 
-  - `String description`
+  - `Optional<String> description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `Metadata metadata`
 
@@ -2148,7 +2213,7 @@ public final class Main {
 
     Environment identifier
 
-  - `JsonValue; type "environment_deleted"constant`
+  - `Type type`
 
     The type of response
 
@@ -2383,19 +2448,29 @@ Retrieve detailed information about a specific work item.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -2444,6 +2519,10 @@ Retrieve detailed information about a specific work item.
   - `Metadata metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `Optional<String> secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `Optional<String> startedAt`
 
@@ -2518,6 +2597,7 @@ public final class Main {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -2598,19 +2678,29 @@ Long poll for work items in the queue.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `Optional<String> anthropicWorkerId`
 
@@ -2663,6 +2753,10 @@ Long poll for work items in the queue.
   - `Metadata metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `Optional<String> secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `Optional<String> startedAt`
 
@@ -2734,6 +2828,7 @@ public final class Main {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -2808,19 +2903,29 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -2869,6 +2974,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
   - `Metadata metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `Optional<String> secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `Optional<String> startedAt`
 
@@ -2943,6 +3052,7 @@ public final class Main {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -3025,19 +3135,29 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -3180,19 +3300,29 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `BetaSelfHostedWorkStopRequest betaSelfHostedWorkStopRequest`
 
@@ -3245,6 +3375,10 @@ Stop a work item, initiating graceful or forced shutdown.
   - `Metadata metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `Optional<String> secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `Optional<String> startedAt`
 
@@ -3321,6 +3455,7 @@ public final class Main {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -3401,19 +3536,29 @@ List work items in an environment.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -3462,6 +3607,10 @@ List work items in an environment.
   - `Metadata metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `Optional<String> secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `Optional<String> startedAt`
 
@@ -3534,6 +3683,7 @@ public final class Main {
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -3611,19 +3761,29 @@ Update work item metadata with merge semantics.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `BetaSelfHostedWorkUpdateRequest betaSelfHostedWorkUpdateRequest`
 
@@ -3676,6 +3836,10 @@ Update work item metadata with merge semantics.
   - `Metadata metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `Optional<String> secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `Optional<String> startedAt`
 
@@ -3757,6 +3921,7 @@ public final class Main {
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -3827,19 +3992,29 @@ Get statistics about the work queue for an environment.
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -3953,6 +4128,10 @@ public final class Main {
   - `Metadata metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `Optional<String> secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `Optional<String> startedAt`
 
@@ -4071,6 +4250,10 @@ public final class Main {
     - `Metadata metadata`
 
       User-provided metadata key-value pairs associated with this work item
+
+    - `Optional<String> secret`
+
+      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
     - `Optional<String> startedAt`
 

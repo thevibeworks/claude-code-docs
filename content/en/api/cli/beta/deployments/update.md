@@ -1,3 +1,8 @@
+---
+title: Update Deployment
+url: https://platform.claude.com/docs/en/api/cli/beta/deployments/update
+---
+
 ## Update Deployment
 
 `$ ant beta:deployments update`
@@ -15,6 +20,10 @@ Update Deployment
 - `--agent: optional string or BetaManagedAgentsAgentParams`
 
   Body param: Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
+
+- `--budget: optional object { max_list_cost, type }`
+
+  Body param: A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 - `--description: optional string`
 
@@ -54,7 +63,7 @@ Update Deployment
 
 ### Returns
 
-- `beta_managed_agents_deployment: object { id, agent, archived_at, 13 more }`
+- `beta_managed_agents_deployment: object { id, agent, archived_at, 14 more }`
 
   A deployment is a configured instance of an agent — it binds the agent to everything needed to run it autonomously: an environment, credentials, initial events, and an optional schedule.
 
@@ -98,7 +107,7 @@ Update Deployment
 
       A user message sent to the session.
 
-      - `content: array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock`
+      - `content: array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsRedactedBlock`
 
         Array of content blocks for the user message.
 
@@ -243,6 +252,14 @@ Update Deployment
           - `title: optional string`
 
             The title of the document.
+
+        - `beta_managed_agents_redacted_block: object { type }`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+            - `"redacted"`
 
       - `type: "user.message"`
 
@@ -584,6 +601,28 @@ Update Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `budget: optional object { max_list_cost, type }`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+    - `max_list_cost: object { amount, currency }`
+
+      A monetary amount in a specific currency.
+
+      - `amount: string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `currency: "USD"`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+        - `"USD"`
+
+    - `type: "limit"`
+
+      - `"limit"`
+
 ### Example
 
 ```cli
@@ -648,6 +687,13 @@ ant beta:deployments update \
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

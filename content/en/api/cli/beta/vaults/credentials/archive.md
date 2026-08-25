@@ -1,3 +1,8 @@
+---
+title: Archive Credential
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/archive
+---
+
 ## Archive Credential
 
 `$ ant beta:vaults:credentials archive`

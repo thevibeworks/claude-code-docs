@@ -1,6 +1,11 @@
+---
+title: Create a Message
+url: https://platform.claude.com/docs/en/api/php/messages/create
+---
+
 ## Create a Message
 
-`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?string container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID): Message`
+`$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID): Message`
 
 **post** `/v1/messages`
 
@@ -83,7 +88,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `container?:optional string`
+- `container?:optional MessageCreateParamsContainer`
 
   Container identifier for reuse across requests.
 
@@ -300,6 +305,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     * `"tool_use"`: the model invoked one or more tools
     * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
     * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+    * `"model_context_window_exceeded"`: we exceeded the model's context window
 
     In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
@@ -339,9 +345,14 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $message = $client->messages->create(
   maxTokens: 1024,
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
-  container: 'container',
+  container: [
+    'id' => 'id',
+    'skills' => [
+      ['skillID' => 'pdf', 'type' => 'anthropic', 'version' => 'latest']
+    ],
+  ],
   inferenceGeo: 'inference_geo',
   metadata: ['userID' => '13803d75-b4b5-4c3e-b2a2-6f21399b021b'],
   outputConfig: [
@@ -357,7 +368,7 @@ $message = $client->messages->create(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,
@@ -402,18 +413,25 @@ var_dump($message);
 {
   "id": "msg_013Zva2CMHLNnXjNJJKqJ2EF",
   "container": {
-    "id": "id",
-    "expires_at": "2019-12-27T18:11:19.117Z"
+    "id": "container_011CpZohnwH4vuy7gazohgSP",
+    "expires_at": "2019-12-27T18:11:19.117Z",
+    "skills": [
+      {
+        "skill_id": "pdf",
+        "type": "anthropic",
+        "version": "latest"
+      }
+    ]
   },
   "content": [
     {
       "citations": [
         {
-          "cited_text": "cited_text",
+          "cited_text": "The grass is green. The sky is blue.",
           "document_index": 0,
-          "document_title": "document_title",
+          "document_title": "My Document",
           "end_char_index": 0,
-          "file_id": "file_id",
+          "file_id": "file_011CNha8iCJcU1wXNR6q4V8w",
           "start_char_index": 0,
           "type": "char_location"
         }
@@ -422,11 +440,11 @@ var_dump($message);
       "type": "text"
     }
   ],
-  "model": "claude-opus-4-6",
+  "model": "claude-opus-5",
   "role": "assistant",
   "stop_details": {
     "category": "cyber",
-    "explanation": "explanation",
+    "explanation": "This request was declined because it conflicts with Anthropic's Usage Policy.",
     "type": "refusal"
   },
   "stop_reason": "end_turn",
@@ -439,7 +457,7 @@ var_dump($message);
     },
     "cache_creation_input_tokens": 2051,
     "cache_read_input_tokens": 2051,
-    "inference_geo": "inference_geo",
+    "inference_geo": "global",
     "input_tokens": 2095,
     "output_tokens": 503,
     "output_tokens_details": {

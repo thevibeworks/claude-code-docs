@@ -1,42 +1,37 @@
-Title: How can I export my Claude data?
+# Export your Claude data
 
-URL Source: https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data
+Data exports are available to individual Claude users on Free, Pro, and Max plans. Data exports include conversation data and the user data for your account.
 
-Markdown Content:
-Data exports are available to individual Claude users (free, Pro, and Max) with active accounts. Data exports include conversation data and the user data for your account.
+If you're a member of a Team or Enterprise plan, only your organization's Primary Owner can access data exports. For more information, see **[Export your organization's data](https://support.claude.com/en/articles/13346720)**.
 
-Individual Claude users can export user information and chat history from [Settings > Privacy](https://claude.ai/settings/data-privacy-controls) on the web app or Claude Desktop (it's not possible to run an export from Claude for iOS or Android).
+Individual Claude users can export user information and chat history from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** on the web app or Claude Desktop (it's not possible to run an export from Claude for iOS or Android).
 
 Follow these steps to export your data:
 
-1.   Click on your initials in the lower left corner of your account.
+1. Click on your initials in the lower left corner of your account.
 
-2.   Select "Settings" from the menu.
+2. Select "Settings" from the menu.
 
-3.   Navigate to the "Privacy" section.
+3. Navigate to the "Privacy" section.
 
-4.   Click the "Export data" button.
+4. Click the "Export data" button.
 
 Once the export has been processed, you will receive a download link via email.
 
 Please note:
 
-*   There may be a small delay while the export is generated.
+- There may be a small delay while the export is generated.
 
-*   The email will be sent to the address associated with your account.
+- The email will be sent to the address associated with your account.
 
-*   You must be signed in to your account to download your data using this link.
+- You must be signed in to your account to download your data using this link.
 
-*   The download link will expire 24 hours after delivery.
+- The download link will expire 24 hours after delivery.
 
-*   If your link expires, you can always request a new one by repeating the export process.
+- If your link expires, you can always request a new one by repeating the export process.
 
 ## Can I import or migrate this data to another Claude account?
 
-We do not support migrating data between separate accounts at this time.
+Exported data can't be imported into another personal Claude account, and we don't support migrating data between personal accounts.
 
-* * *
-
-Related Articles
-
-[I would like to input sensitive data into my chats with Claude. Who can view my conversations?](https://support.claude.com/en/articles/8325621-i-would-like-to-input-sensitive-data-into-my-chats-with-claude-who-can-view-my-conversations)[Does Anthropic Act as a Data Processor or Controller?](https://support.claude.com/en/articles/9267385-does-anthropic-act-as-a-data-processor-or-controller)[Who owns and manages the data of my Claude for Education account?](https://support.claude.com/en/articles/11732894-who-owns-and-manages-the-data-of-my-claude-for-education-account)[Use Claude’s chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context)[Export your organization's data](https://support.claude.com/en/articles/13346720-export-your-organization-s-data)
+If you're joining a Team or Enterprise organization, you don't need an export to bring your work with you—you can migrate your personal account directly into the organization's workspace. For details, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.

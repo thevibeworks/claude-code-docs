@@ -1,3 +1,8 @@
+---
+title: Archive Deployment
+url: https://platform.claude.com/docs/en/api/php/beta/deployments/archive
+---
+
 ## Archive Deployment
 
 `$client->beta->deployments->archive(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
@@ -80,6 +85,10 @@ Archive Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -90,7 +99,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->archive(
-  'depl_011CZkZcDH3vPqd7xnEfwTai', betas: ['message-batches-2024-09-24']
+  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -152,6 +162,13 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

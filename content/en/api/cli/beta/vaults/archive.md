@@ -1,3 +1,8 @@
+---
+title: Archive Vault
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/archive
+---
+
 ## Archive Vault
 
 `$ ant beta:vaults archive`

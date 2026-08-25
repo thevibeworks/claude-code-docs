@@ -1,3 +1,8 @@
+---
+title: Create a Message Batch
+url: https://platform.claude.com/docs/en/api/cli/beta/messages/batches/create
+---
+
 ## Create a Message Batch
 
 `$ ant beta:messages:batches create`
@@ -117,7 +122,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 ```cli
 ant beta:messages:batches create \
   --api-key my-anthropic-api-key \
-  --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-4-6}}'
+  --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-5}}'
 ```
 
 #### Response

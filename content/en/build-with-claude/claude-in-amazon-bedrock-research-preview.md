@@ -1,26 +1,27 @@
-# Claude in Amazon Bedrock (research preview)
-
-Access Claude models through Amazon Bedrock with AWS-native authentication, billing, and security boundaries.
-
+---
+title: Claude in Amazon Bedrock (Opus 4.7 and later)
+url: https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock
+description: Access Claude models through Amazon Bedrock with AWS-native authentication, billing, and security boundaries.
 ---
 
 This guide walks you through setting up and making API calls to Claude in Amazon Bedrock. Claude in Amazon Bedrock runs on AWS-managed infrastructure with zero operator access (Anthropic personnel have no access to the inference infrastructure), letting you build sensitive applications entirely inside the AWS security boundary while using the same Messages API shape you use with Anthropic's first-party API.
 
 <Note>
-This page covers the research preview of the new Claude in Amazon Bedrock offering, which exposes the Messages API at `/anthropic/v1/messages`. For the existing Bedrock integration (the `InvokeModel` and `Converse` APIs with ARN-versioned model identifiers and AWS event-stream encoding), see [Claude on Amazon Bedrock](/docs/en/build-with-claude/claude-on-amazon-bedrock).
+  This page covers Claude in Amazon Bedrock, which serves Claude through the Messages API at `/anthropic/v1/messages` on AWS-managed infrastructure. The previous Amazon Bedrock integration (the `InvokeModel` and `Converse` APIs with ARN-versioned model identifiers) remains available and is documented at [Claude on Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy). For an Anthropic-operated alternative on AWS with AWS Marketplace billing and typically same-day feature access, see [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws).
 </Note>
 
-## Research preview
+## Access
 
-The Claude in Amazon Bedrock endpoint is in research preview, available in the US East (N. Virginia) `us-east-1` region. Contact your Anthropic account executive to request access.
+Amazon Bedrock sets access criteria for each Claude model individually. Claude Fable 5, Claude Opus 4.8, Claude Sonnet 5, Claude Opus 4.7, and Claude Haiku 4.5 are open to all Amazon Bedrock customers; for any other model's current criteria, check [Amazon Bedrock model access](https://console.aws.amazon.com/bedrock/home#/modelaccess) in the AWS console. Claude Mythos Preview requires an invitation; see [Project Glasswing](https://anthropic.com/glasswing). For region availability, see [Regions](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#regions).
 
 ## Prerequisites
 
 Before you begin, ensure you have:
 
-- A **new AWS account** in `us-east-1`. The research preview requires a dedicated account for isolation. Your Anthropic account executive will submit your account ID to the Bedrock Marketplace team for allowlisting (typically processed within 24 hours).
-- The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed and configured (optional, for credential management)
-- After allowlisting, AWS sends a welcome email with additional setup details.
+* An AWS account with [Amazon Bedrock model access](https://console.aws.amazon.com/bedrock/home#/modelaccess) enabled for the Claude models you intend to use.
+* The [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) installed and configured (optional, for credential management).
+
+Claude Mythos Preview additionally requires a dedicated AWS account that has been allowlisted by the Bedrock Marketplace team. Your Anthropic account executive can submit your account ID for allowlisting (typically processed within 24 hours), and AWS sends a welcome email once it's complete.
 
 ## Authentication
 
@@ -31,12 +32,13 @@ Claude in Amazon Bedrock supports three authentication paths. Choose the one tha
 Use a Bedrock service role with AWS-managed keys for the most secure, long-lived access:
 
 <Steps>
-<Step title="Admin: provision the service role">
-An AWS administrator provisions a Bedrock service role and grants developers `iam:PassRole` permission on the service role ARN.
-</Step>
-<Step title="Developer: pass the role">
-When calling the API, Bedrock assumes the service role on your behalf. See the [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html) for how to associate the role with your requests.
-</Step>
+  <Step title="Admin: provision the service role">
+    An AWS administrator provisions a Bedrock service role and grants developers `iam:PassRole` permission on the service role ARN.
+  </Step>
+
+  <Step title="Developer: pass the role">
+    When calling the API, Bedrock assumes the service role on your behalf. See the [Amazon Bedrock documentation](https://docs.aws.amazon.com/bedrock/latest/userguide/bedrock-mantle.html) for how to associate the role with your requests.
+  </Step>
 </Steps>
 
 ### IAM assumed roles
@@ -44,12 +46,13 @@ When calling the API, Bedrock assumes the service role on your behalf. See the [
 For identity-federated access with a 12-hour maximum session:
 
 <Steps>
-<Step title="Admin: configure the IAM role">
-Create an IAM role scoped to your Claude models. The trust policy names your identity provider (SAML, OIDC, or AWS Identity Center). The permissions policy grants `bedrock-mantle:CreateInference` only on the allowed model ARNs.
-</Step>
-<Step title="Developer: authenticate and assume">
-Authenticate through your corporate identity provider, then assume the IAM role. AWS STS issues temporary credentials that the SDK or CLI uses to sign requests.
-</Step>
+  <Step title="Admin: configure the IAM role">
+    Create an IAM role scoped to your Claude models. The trust policy names your identity provider (SAML, OIDC, or AWS Identity Center). The permissions policy grants `bedrock-mantle:CreateInference` only on the allowed model ARNs.
+  </Step>
+
+  <Step title="Developer: authenticate and assume">
+    Authenticate through your corporate identity provider, then assume the IAM role. AWS STS issues temporary credentials that the SDK or CLI uses to sign requests.
+  </Step>
 </Steps>
 
 ### Bearer tokens
@@ -57,75 +60,77 @@ Authenticate through your corporate identity provider, then assume the IAM role.
 For short-term access without IAM roles (12-hour maximum, least preferred):
 
 <Steps>
-<Step title="Admin: restrict token types">
-Block long-term keys by attaching a policy that denies `bedrock:CallWithBearerToken` unless the `bedrock:BearerTokenType` condition matches a short-term token.
-</Step>
-<Step title="Developer: mint a token">
-Use the `aws-bedrock-token-generator` CLI to mint a bearer token. Pass it in the `x-api-key` header on each request.
-</Step>
+  <Step title="Admin: restrict token types">
+    Block long-term keys by attaching a policy that denies `bedrock:CallWithBearerToken` unless the `bedrock:BearerTokenType` condition matches a short-term token.
+  </Step>
+
+  <Step title="Developer: mint a token">
+    Use the `aws-bedrock-token-generator` CLI to mint a bearer token. Pass it in the `x-api-key` header on each request.
+  </Step>
 </Steps>
 
 ## Install an SDK
 
-Anthropic's [client SDKs](/docs/en/api/client-sdks) support Claude in Amazon Bedrock through a Bedrock-specific package or module.
+Anthropic's [client SDKs](https://platform.claude.com/docs/en/cli-sdks-libraries/overview) support Claude in Amazon Bedrock through a Bedrock-specific package or module.
 
 <Tabs>
-<Tab title="Python">
-```bash
-pip install -U "anthropic[bedrock]"
-```
-</Tab>
+  <Tab title="Python">
+    ```bash
+    pip install -U "anthropic[bedrock]"
+    ```
+  </Tab>
 
-<Tab title="TypeScript">
-```bash
-npm install @anthropic-ai/bedrock-sdk
-```
-</Tab>
+  <Tab title="TypeScript">
+    ```bash
+    npm install @anthropic-ai/bedrock-sdk
+    ```
+  </Tab>
 
-<Tab title="C#">
-```bash
-dotnet add package Anthropic.Bedrock
-```
-</Tab>
+  <Tab title="C#">
+    ```bash
+    dotnet add package Anthropic.Bedrock
+    ```
+  </Tab>
 
-<Tab title="Go">
-```bash
-go get github.com/anthropics/anthropic-sdk-go/bedrock
-```
-</Tab>
+  <Tab title="Go">
+    ```bash
+    go get github.com/anthropics/anthropic-sdk-go/bedrock
+    ```
+  </Tab>
 
-<Tab title="Java">
-<Tabs>
-<Tab title="Gradle">
-```kotlin
-implementation("com.anthropic:anthropic-java-bedrock:2.20.0")
-```
-</Tab>
-<Tab title="Maven">
-```xml
-<dependency>
-    <groupId>com.anthropic</groupId>
-    <artifactId>anthropic-java-bedrock</artifactId>
-    <version>2.20.0</version>
-</dependency>
-```
-</Tab>
-</Tabs>
-</Tab>
+  <Tab title="Java">
+    <Tabs>
+      <Tab title="Gradle">
+        ```kotlin
+        implementation("com.anthropic:anthropic-java-bedrock:2.57.0")
+        ```
+      </Tab>
 
-<Tab title="PHP">
-```bash
-composer require anthropic-ai/sdk aws/aws-sdk-php
-```
-</Tab>
+      <Tab title="Maven">
+        ```xml
+        <dependency>
+            <groupId>com.anthropic</groupId>
+            <artifactId>anthropic-java-bedrock</artifactId>
+            <version>2.57.0</version>
+        </dependency>
+        ```
+      </Tab>
+    </Tabs>
+  </Tab>
 
-<Tab title="Ruby">
-```bash
-# Gemfile
-gem "anthropic"
-gem "aws-sdk-core"
-```
-</Tab>
+  <Tab title="PHP">
+    ```bash
+    composer require anthropic-ai/sdk aws/aws-sdk-php
+    ```
+  </Tab>
+
+  <Tab title="Ruby">
+    ```bash
+    # Gemfile
+    gem "anthropic"
+    gem "aws-sdk-core"
+    ```
+  </Tab>
 </Tabs>
 
 ## Making your first request
@@ -135,229 +140,267 @@ The endpoint follows the pattern `https://bedrock-mantle.{region}.api.aws/anthro
 The SDK resolves credentials and region using the standard AWS precedence: constructor arguments, then environment variables (`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`, `AWS_REGION`), then the AWS config file and credential chain (SSO, assumed roles, ECS task role, IMDS).
 
 <Tabs>
-<Tab title="cURL">
+  <Tab title="cURL">
+    ```bash
+    curl https://bedrock-mantle.us-east-1.api.aws/anthropic/v1/messages \
+      --aws-sigv4 "aws:amz:us-east-1:bedrock-mantle" \
+      --user "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" \
+      -H "x-amz-security-token: $AWS_SESSION_TOKEN" \
+      -H "content-type: application/json" \
+      -H "anthropic-version: 2023-06-01" \
+      -d '{
+        "model": "anthropic.claude-opus-5",
+        "max_tokens": 1024,
+        "messages": [
+          {"role": "user", "content": "Hello, Claude"}
+        ]
+      }'
+    ```
+  </Tab>
 
-```bash nocheck
-curl https://bedrock-mantle.us-east-1.api.aws/anthropic/v1/messages \
-  --aws-sigv4 "aws:amz:us-east-1:bedrock-mantle" \
-  --user "$AWS_ACCESS_KEY_ID:$AWS_SECRET_ACCESS_KEY" \
-  -H "x-amz-security-token: $AWS_SESSION_TOKEN" \
-  -H "content-type: application/json" \
-  -H "anthropic-version: 2023-06-01" \
-  -d '{
-    "model": "anthropic.claude-mythos-preview",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Hello, Claude"}
-    ]
-  }'
-```
-</Tab>
+  <Tab title="CLI">
+    The `ant` CLI does not support Amazon Bedrock. Use either cURL or an SDK.
+  </Tab>
 
-<Tab title="CLI">
-The `ant` CLI does not support Amazon Bedrock. Use either cURL or an SDK.
-</Tab>
+  <Tab title="Python">
+    ```python
+    from anthropic import AnthropicBedrockMantle
 
-<Tab title="Python">
+    client = AnthropicBedrockMantle(aws_region="us-east-1")
 
-```python nocheck
-from anthropic import AnthropicBedrockMantle
+    message = client.messages.create(
+        model="anthropic.claude-opus-5",
+        max_tokens=1024,
+        messages=[{"role": "user", "content": "Hello, Claude"}],
+    )
 
-client = AnthropicBedrockMantle(aws_region="us-east-1")
+    print(next(block.text for block in message.content if block.type == "text"))
+    ```
+  </Tab>
 
-message = client.messages.create(
-    model="anthropic.claude-mythos-preview",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": "Hello, Claude"}],
-)
+  <Tab title="TypeScript">
+    ```typescript
+    import { AnthropicBedrockMantle } from "@anthropic-ai/bedrock-sdk";
 
-print(message.content[0].text)
-```
-</Tab>
+    const client = new AnthropicBedrockMantle({
+      awsRegion: "us-east-1"
+    });
 
-<Tab title="TypeScript">
+    const message = await client.messages.create({
+      model: "anthropic.claude-opus-5",
+      max_tokens: 1024,
+      messages: [{ role: "user", content: "Hello, Claude" }]
+    });
 
-```typescript nocheck
-import { AnthropicBedrockMantle } from "@anthropic-ai/bedrock-sdk";
+    const textBlock = message.content.find((block) => block.type === "text");
+    if (textBlock) {
+      console.log(textBlock.text);
+    }
+    ```
+  </Tab>
 
-const client = new AnthropicBedrockMantle({
-  awsRegion: "us-east-1"
-});
+  <Tab title="C#">
+    ```csharp
+    using Anthropic.Bedrock;
+    using Anthropic.Models.Messages;
 
-const message = await client.messages.create({
-  model: "anthropic.claude-mythos-preview",
-  max_tokens: 1024,
-  messages: [{ role: "user", content: "Hello, Claude" }]
-});
+    var client = new AnthropicBedrockMantleClient(new() { AwsRegion = "us-east-1" });
 
-const block = message.content[0];
-if (block.type === "text") {
-  console.log(block.text);
-}
-```
-</Tab>
+    var message = await client.Messages.Create(new()
+    {
+        Model = "anthropic.claude-opus-5",
+        MaxTokens = 1024,
+        Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
+    });
 
-<Tab title="C#">
+    foreach (var item in message.Content)
+    {
+        if (item.Value is TextBlock block)
+        {
+            Console.WriteLine(block.Text);
+            break;
+        }
+    }
+    ```
+  </Tab>
 
-```csharp nocheck
-using Anthropic.Bedrock;
-using Anthropic.Models.Messages;
+  <Tab title="Go">
+    ```go
+    client, err := bedrock.NewMantleClient(context.Background(), bedrock.MantleClientConfig{
+    	AWSRegion: "us-east-1",
+    })
+    if err != nil {
+    	panic(err)
+    }
 
-var client = new AnthropicBedrockMantleClient(new() { AwsRegion = "us-east-1" });
+    message, err := client.Messages.New(context.Background(), anthropic.MessageNewParams{
+    	Model:     "anthropic.claude-opus-5",
+    	MaxTokens: 1024,
+    	Messages: []anthropic.MessageParam{
+    		anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
+    	},
+    })
+    if err != nil {
+    	panic(err)
+    }
 
-var message = await client.Messages.Create(new()
-{
-    Model = "anthropic.claude-mythos-preview",
-    MaxTokens = 1024,
-    Messages = [new() { Role = Role.User, Content = "Hello, Claude" }],
-});
+    for _, block := range message.Content {
+    	if textBlock, ok := block.AsAny().(anthropic.TextBlock); ok {
+    		fmt.Println(textBlock.Text)
+    		break
+    	}
+    }
+    ```
+  </Tab>
 
-if (message.Content[0].Value is TextBlock block)
-    Console.WriteLine(block.Text);
-```
-</Tab>
+  <Tab title="Java">
+    ```java
+    import com.anthropic.bedrock.backends.BedrockMantleBackend;
+    import com.anthropic.client.AnthropicClient;
+    import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+    import com.anthropic.models.messages.ContentBlock;
+    import com.anthropic.models.messages.Message;
+    import com.anthropic.models.messages.MessageCreateParams;
 
-<Tab title="Go">
+    void main() {
+        AnthropicClient client = AnthropicOkHttpClient.builder()
+            .backend(BedrockMantleBackend.fromEnv())
+            .build();
 
-```go nocheck hidelines={1..2}
-package main
+        Message message = client.messages().create(
+            MessageCreateParams.builder()
+                .model("anthropic.claude-opus-5")
+                .maxTokens(1024)
+                .addUserMessage("Hello, Claude")
+                .build()
+        );
 
-import (
-	"context"
-	"fmt"
+        message.content().stream()
+                .filter(ContentBlock::isText)
+                .findFirst()
+                .ifPresent(block -> IO.println(block.asText().text()));
+    }
+    ```
+  </Tab>
 
-	"github.com/anthropics/anthropic-sdk-go"
-	"github.com/anthropics/anthropic-sdk-go/bedrock"
-)
+  <Tab title="PHP">
+    ```php
+    use Anthropic\Bedrock\MantleClient;
 
-func main() {
-	client, err := bedrock.NewMantleClient(context.Background(), bedrock.MantleClientConfig{
-		AWSRegion: "us-east-1",
-	})
-	if err != nil {
-		panic(err)
-	}
+    $client = new MantleClient(awsRegion: 'us-east-1');
 
-	message, err := client.Messages.New(context.Background(), anthropic.MessageNewParams{
-		Model:     "anthropic.claude-mythos-preview",
-		MaxTokens: 1024,
-		Messages: []anthropic.MessageParam{
-			anthropic.NewUserMessage(anthropic.NewTextBlock("Hello, Claude")),
-		},
-	})
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(message.Content[0].Text)
-}
-```
-</Tab>
-
-<Tab title="Java">
-
-```java nocheck
-import com.anthropic.bedrock.backends.BedrockMantleBackend;
-import com.anthropic.client.AnthropicClient;
-import com.anthropic.client.okhttp.AnthropicOkHttpClient;
-import com.anthropic.models.messages.Message;
-import com.anthropic.models.messages.MessageCreateParams;
-
-void main() {
-    AnthropicClient client = AnthropicOkHttpClient.builder()
-        .backend(BedrockMantleBackend.fromEnv())
-        .build();
-
-    Message message = client.messages().create(
-        MessageCreateParams.builder()
-            .model("anthropic.claude-mythos-preview")
-            .maxTokens(1024)
-            .addUserMessage("Hello, Claude")
-            .build()
+    $message = $client->messages->create(
+        model: 'anthropic.claude-opus-5',
+        maxTokens: 1024,
+        messages: [
+            ['role' => 'user', 'content' => 'Hello, Claude'],
+        ],
     );
 
-    IO.println(message.content().getFirst().asText().text());
-}
-```
-</Tab>
+    echo array_find($message->content, fn ($block) => $block->type === 'text')->text;
+    ```
+  </Tab>
 
-<Tab title="PHP">
+  <Tab title="Ruby">
+    ```ruby
+    require "anthropic"
 
-```php nocheck hidelines={1..2}
-<?php
+    client = Anthropic::BedrockMantleClient.new(aws_region: "us-east-1")
 
-use Anthropic\Bedrock\MantleClient;
+    message = client.messages.create(
+      model: "anthropic.claude-opus-5",
+      max_tokens: 1024,
+      messages: [{role: "user", content: "Hello, Claude"}]
+    )
 
-$client = new MantleClient(awsRegion: 'us-east-1');
-
-$message = $client->messages->create(
-    model: 'anthropic.claude-mythos-preview',
-    maxTokens: 1024,
-    messages: [
-        ['role' => 'user', 'content' => 'Hello, Claude'],
-    ],
-);
-
-echo $message->content[0]->text;
-```
-</Tab>
-
-<Tab title="Ruby">
-
-```ruby nocheck
-require "anthropic"
-
-client = Anthropic::BedrockMantleClient.new(aws_region: "us-east-1")
-
-message = client.messages.create(
-  model: "anthropic.claude-mythos-preview",
-  max_tokens: 1024,
-  messages: [{role: "user", content: "Hello, Claude"}]
-)
-
-puts message.content[0].text
-```
-</Tab>
+    puts message.content.find { it.type == :text }.text
+    ```
+  </Tab>
 </Tabs>
 
 <Tip>
-You can also use the standard `Anthropic` client: set `base_url` to `https://bedrock-mantle.{region}.api.aws/anthropic` and pass your bearer token as `api_key`. This path supports bearer-token authentication only. SigV4 signing requires the dedicated client.
+  You can also use the standard `Anthropic` client: set `base_url` to `https://bedrock-mantle.{region}.api.aws/anthropic` and pass your bearer token as `api_key`. This path supports bearer-token authentication only. SigV4 signing requires the dedicated client.
 </Tip>
 
 ## Supported models
 
-Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Model capabilities and behaviors are documented on the [Models overview](/docs/en/about-claude/models/overview) page.
+Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Model capabilities and behaviors are documented on the [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) page.
 
-| Model                 | Model ID                          |
-| --------------------- | --------------------------------- |
-| Claude Opus 4.7       | `anthropic.claude-opus-4-7`       |
-| Claude Mythos Preview | `anthropic.claude-mythos-preview` |
-| Claude Haiku 4.5      | `anthropic.claude-haiku-4-5`      |
+| Model                 | Model ID                        | Access                                                                                              |
+| --------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Claude Fable 5        | anthropic.claude-fable-5        | Open                                                                                                |
+| Claude Opus 5         | anthropic.claude-opus-5         | See [Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
+| Claude Opus 4.8       | anthropic.claude-opus-4-8       | Open                                                                                                |
+| Claude Opus 4.7       | anthropic.claude-opus-4-7       | Open                                                                                                |
+| Claude Sonnet 5       | `anthropic.claude-sonnet-5`     | Open                                                                                                |
+| Claude Haiku 4.5      | anthropic.claude-haiku-4-5      | Open                                                                                                |
+| Claude Mythos Preview | anthropic.claude-mythos-preview | Invitation only ([Project Glasswing](https://anthropic.com/glasswing))                              |
 
-## Feature availability
+<Tip>
+  Upgrading to a newer Claude model? In Claude Code, run `/claude-api migrate` to apply model ID swaps and breaking parameter changes across your codebase. The skill detects which cloud platform your code targets and adjusts model ID formats and feature changes for that platform. See [Migrating to a newer Claude model](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model).
+</Tip>
 
-Claude in Amazon Bedrock supports features that run inside the model. Features that require Anthropic-operated infrastructure are not available.
+## Feature support
 
-**Supported:**
+For the full feature list with Amazon Bedrock availability, see [Features overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
-- Messages API (`/v1/messages`)
-- Prompt caching
-- Extended thinking
-- Tool use (client-defined tools)
-- Citations
-- Structured outputs
-- In-region inference (requests stay in a single AWS region)
+### Supported feature highlights
 
-**Not supported:**
+* [Messages API](https://platform.claude.com/docs/en/api/messages/create) (`/anthropic/v1/messages`)
+* [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
+* [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)
+* [Tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview), including the [Bash tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool), [Computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool), [Memory tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool), and [Text editor tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool)
+* [Citations](https://platform.claude.com/docs/en/build-with-claude/citations)
 
-- Anthropic-defined tools (Web Search, Web Fetch, Remote MCP, Memory, Files API, Computer Use, Skills, Code Execution)
-- Claude Managed Agents
-- Message Batches API
-- `/v1/users` endpoint
+### Features not supported
+
+* [Structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+* Input sources (URL sources for images and documents, Files API)
+* Server-side tools (code execution, web search, web fetch, advisor)
+* Agent infrastructure (Agent Skills, MCP connector, programmatic tool calling)
+* API endpoints (Message Batches, Models, Admin, Compliance, Usage and Cost)
+* Claude Managed Agents
+* Server-side fallback (the [`fallbacks` parameter](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback); use the [client-side fallback pattern](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) instead)
+* [Computer use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) and [browser use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool) toolsets (`computer_toolset_20260801` and `browser_toolset_20260801` are not currently available on Amazon Bedrock; the beta computer use tool versions remain available)
 
 ## Regions
 
-The research preview is available in `us-east-1` (IAD) only.
+Claude in Amazon Bedrock is available in the following AWS regions. Amazon Bedrock offers two endpoint types:
+
+* **Global:** dynamic routing across all available regions for maximum availability. No pricing premium.
+* **Regional:** the endpoint resolves to the single AWS region you specify, for data-residency requirements. Regional endpoints carry a 10% pricing premium over global endpoints. To route across multiple regions within a geography, use an [inference profile](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) (US, EU, JP, or AU). Regions marked **In-region only** in the table support direct single-region routing without an inference profile.
+
+The global endpoint is available for Claude Fable 5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5, and Claude Haiku 4.5. Claude Mythos Preview is regional only and is available in `us-east-1`.
+
+| AWS region       | Location                  | Endpoint types             |
+| ---------------- | ------------------------- | -------------------------- |
+| `af-south-1`     | Africa (Cape Town)        | Global                     |
+| `ap-northeast-1` | Asia Pacific (Tokyo)      | Global, JP, In-region only |
+| `ap-northeast-2` | Asia Pacific (Seoul)      | Global                     |
+| `ap-northeast-3` | Asia Pacific (Osaka)      | Global, JP                 |
+| `ap-south-1`     | Asia Pacific (Mumbai)     | Global                     |
+| `ap-south-2`     | Asia Pacific (Hyderabad)  | Global                     |
+| `ap-southeast-1` | Asia Pacific (Singapore)  | Global                     |
+| `ap-southeast-2` | Asia Pacific (Sydney)     | Global, AU                 |
+| `ap-southeast-3` | Asia Pacific (Jakarta)    | Global                     |
+| `ap-southeast-4` | Asia Pacific (Melbourne)  | Global, AU, In-region only |
+| `ca-central-1`   | Canada (Central)          | Global, US                 |
+| `ca-west-1`      | Canada West (Calgary)     | Global                     |
+| `eu-central-1`   | Europe (Frankfurt)        | Global, EU                 |
+| `eu-central-2`   | Europe (Zurich)           | Global, EU                 |
+| `eu-north-1`     | Europe (Stockholm)        | Global, EU, In-region only |
+| `eu-south-1`     | Europe (Milan)            | Global, EU                 |
+| `eu-south-2`     | Europe (Spain)            | Global, EU                 |
+| `eu-west-1`      | Europe (Ireland)          | Global, EU, In-region only |
+| `eu-west-2`      | Europe (London)           | Global, EU                 |
+| `eu-west-3`      | Europe (Paris)            | Global, EU                 |
+| `il-central-1`   | Israel (Tel Aviv)         | Global                     |
+| `me-central-1`   | Middle East (UAE)         | Global                     |
+| `sa-east-1`      | South America (São Paulo) | Global                     |
+| `us-east-1`      | US East (N. Virginia)     | Global, US, In-region only |
+| `us-east-2`      | US East (Ohio)            | Global, US, In-region only |
+| `us-west-1`      | US West (N. California)   | Global, US                 |
+| `us-west-2`      | US West (Oregon)          | Global, US, In-region only |
 
 ## Quotas
 
@@ -367,16 +410,14 @@ Default quota is 2 million input tokens per minute (TPM). You can request up to 
 
 Data handling for this offering is governed by Amazon Bedrock. For details, see [Data protection in Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html).
 
-Zero data retention (ZDR) is available. To enable ZDR for your account, contact AWS support.
-
-## Observability
+## Monitoring and logging
 
 Claude in Amazon Bedrock emits logs to both CloudWatch and CloudTrail. Anthropic recommends retaining activity logs on at least a 30-day rolling basis to understand usage patterns and investigate potential issues.
 
 ## Support
 
-For research preview support, contact **bedrock-ant-eap@amazon.com**. Include your AWS account ID and the `request-id` from any failed API responses.
+For support, contact **[bedrock-ant-eap@amazon.com](mailto:bedrock-ant-eap@amazon.com)**. Include your AWS account ID and the `request-id` from any failed API responses.
 
 <Note>
-**Claude Mythos Preview** is a research preview model available to invited customers on Amazon Bedrock. For more information, see [Project Glasswing](https://anthropic.com/glasswing).
+  **Claude Mythos Preview** is a research preview model available to invited customers on Amazon Bedrock. For more information, see [Project Glasswing](https://anthropic.com/glasswing).
 </Note>

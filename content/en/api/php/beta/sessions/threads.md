@@ -1,3 +1,8 @@
+---
+title: Threads
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/threads
+---
+
 # Threads
 
 ## List Session Threads
@@ -32,9 +37,9 @@ List Session Threads
 
     Unique identifier for this thread.
 
-  - `BetaManagedAgentsSessionThreadAgent agent`
+  - `Agent agent`
 
-    Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+    A session-resolved multiagent roster entry.
 
   - `?\Datetime archivedAt`
 
@@ -83,7 +88,7 @@ $page = $client->beta->sessions->threads->list(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -107,7 +112,11 @@ var_dump($page);
           }
         ],
         "model": {
-          "id": "claude-sonnet-4-6",
+          "id": "claude-opus-5",
+          "effort": {
+            "type": "low"
+          },
+          "inference_geo": "inference_geo",
           "speed": "standard"
         },
         "name": "Researcher",
@@ -127,7 +136,8 @@ var_dump($page);
                 "name": "bash",
                 "permission_policy": {
                   "type": "always_allow"
-                }
+                },
+                "type": "bash"
               }
             ],
             "default_config": {
@@ -155,13 +165,22 @@ var_dump($page);
       "type": "session_thread",
       "updated_at": "2026-03-15T10:00:00Z",
       "usage": {
+        "active_seconds": 0,
         "cache_creation": {
           "ephemeral_1h_input_tokens": 0,
           "ephemeral_5m_input_tokens": 0
         },
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "output_tokens": 0
+        "list_cost": {
+          "amount": "2500",
+          "currency": "USD"
+        },
+        "output_tokens": 0,
+        "server_tool_use": {
+          "web_fetch_requests": 0,
+          "web_search_requests": 3
+        }
       }
     }
   ],
@@ -195,9 +214,9 @@ Get Session Thread
 
     Unique identifier for this thread.
 
-  - `BetaManagedAgentsSessionThreadAgent agent`
+  - `Agent agent`
 
-    Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+    A session-resolved multiagent roster entry.
 
   - `?\Datetime archivedAt`
 
@@ -245,7 +264,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsSessionThread = $client->beta->sessions->threads->retrieve(
   'sthr_011CZkZVWa6oIjw0rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsSessionThread);
@@ -267,7 +286,11 @@ var_dump($betaManagedAgentsSessionThread);
       }
     ],
     "model": {
-      "id": "claude-sonnet-4-6",
+      "id": "claude-opus-5",
+      "effort": {
+        "type": "low"
+      },
+      "inference_geo": "inference_geo",
       "speed": "standard"
     },
     "name": "Researcher",
@@ -287,7 +310,8 @@ var_dump($betaManagedAgentsSessionThread);
             "name": "bash",
             "permission_policy": {
               "type": "always_allow"
-            }
+            },
+            "type": "bash"
           }
         ],
         "default_config": {
@@ -315,13 +339,22 @@ var_dump($betaManagedAgentsSessionThread);
   "type": "session_thread",
   "updated_at": "2026-03-15T10:00:00Z",
   "usage": {
+    "active_seconds": 0,
     "cache_creation": {
       "ephemeral_1h_input_tokens": 0,
       "ephemeral_5m_input_tokens": 0
     },
     "cache_read_input_tokens": 0,
     "input_tokens": 0,
-    "output_tokens": 0
+    "list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "output_tokens": 0,
+    "server_tool_use": {
+      "web_fetch_requests": 0,
+      "web_search_requests": 3
+    }
   }
 }
 ```
@@ -352,9 +385,9 @@ Archive Session Thread
 
     Unique identifier for this thread.
 
-  - `BetaManagedAgentsSessionThreadAgent agent`
+  - `Agent agent`
 
-    Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+    A session-resolved multiagent roster entry.
 
   - `?\Datetime archivedAt`
 
@@ -402,7 +435,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsSessionThread = $client->beta->sessions->threads->archive(
   'sthr_011CZkZVWa6oIjw0rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsSessionThread);
@@ -424,7 +457,11 @@ var_dump($betaManagedAgentsSessionThread);
       }
     ],
     "model": {
-      "id": "claude-sonnet-4-6",
+      "id": "claude-opus-5",
+      "effort": {
+        "type": "low"
+      },
+      "inference_geo": "inference_geo",
       "speed": "standard"
     },
     "name": "Researcher",
@@ -444,7 +481,8 @@ var_dump($betaManagedAgentsSessionThread);
             "name": "bash",
             "permission_policy": {
               "type": "always_allow"
-            }
+            },
+            "type": "bash"
           }
         ],
         "default_config": {
@@ -472,13 +510,22 @@ var_dump($betaManagedAgentsSessionThread);
   "type": "session_thread",
   "updated_at": "2026-03-15T10:00:00Z",
   "usage": {
+    "active_seconds": 0,
     "cache_creation": {
       "ephemeral_1h_input_tokens": 0,
       "ephemeral_5m_input_tokens": 0
     },
     "cache_read_input_tokens": 0,
     "input_tokens": 0,
-    "output_tokens": 0
+    "list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "output_tokens": 0,
+    "server_tool_use": {
+      "web_fetch_requests": 0,
+      "web_search_requests": 3
+    }
   }
 }
 ```
@@ -493,9 +540,9 @@ var_dump($betaManagedAgentsSessionThread);
 
     Unique identifier for this thread.
 
-  - `BetaManagedAgentsSessionThreadAgent agent`
+  - `Agent agent`
 
-    Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
+    A session-resolved multiagent roster entry.
 
   - `?\Datetime archivedAt`
 
@@ -563,6 +610,10 @@ var_dump($betaManagedAgentsSessionThread);
 
 - `ManagedAgentsSessionThreadUsage`
 
+  - `?float activeSeconds`
+
+    Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
+
   - `?BetaManagedAgentsCacheCreationUsage cacheCreation`
 
     Prompt-cache creation token usage broken down by cache lifetime.
@@ -575,9 +626,17 @@ var_dump($betaManagedAgentsSessionThread);
 
     Total input tokens consumed across all turns.
 
+  - `?BetaMonetaryAmount listCost`
+
+    A monetary amount in a specific currency.
+
   - `?int outputTokens`
 
     Total output tokens generated across all turns.
+
+  - `?BetaManagedAgentsServerToolUsage serverToolUse`
+
+    Cumulative count of server-executed tool invocations, broken down by tool.
 
 ### Beta Managed Agents Stream Session Thread Events
 
@@ -701,7 +760,7 @@ var_dump($betaManagedAgentsSessionThread);
 
       Unique identifier for this event.
 
-    - `list<ManagedAgentsTextBlock> content`
+    - `list<Content> content`
 
       Array of text blocks comprising the agent response.
 
@@ -1259,6 +1318,10 @@ var_dump($betaManagedAgentsSessionThread);
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
     - `?array<string,string> metadata`
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
@@ -1302,6 +1365,26 @@ var_dump($betaManagedAgentsSessionThread);
     - `?\Datetime processedAt`
 
       A timestamp in RFC 3339 format
+
+  - `BetaManagedAgentsSessionUsageEvent`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      A timestamp in RFC 3339 format
+
+    - `Type type`
+
+    - `ManagedAgentsSessionUsageSnapshot usage`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 # Events
 
@@ -1453,7 +1536,7 @@ List Session Thread Events
 
       Unique identifier for this event.
 
-    - `list<ManagedAgentsTextBlock> content`
+    - `list<Content> content`
 
       Array of text blocks comprising the agent response.
 
@@ -2011,6 +2094,10 @@ List Session Thread Events
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
     - `?array<string,string> metadata`
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
@@ -2035,6 +2122,26 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+  - `BetaManagedAgentsSessionUsageEvent`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      A timestamp in RFC 3339 format
+
+    - `Type type`
+
+    - `ManagedAgentsSessionUsageSnapshot usage`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -2049,7 +2156,7 @@ $page = $client->beta->sessions->threads->events->list(
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -2078,7 +2185,7 @@ var_dump($page);
 
 ## Stream Session Thread Events
 
-`$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionThreadEvents`
+`$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionThreadEvents`
 
 **get** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
@@ -2089,6 +2196,10 @@ Stream Session Thread Events
 - `sessionID: string`
 
 - `threadID: string`
+
+- `eventDeltas?:optional list<BetaManagedAgentsDeltaType>`
+
+  When set, this connection also receives streaming deltas (`event_start`, `event_delta`) while an event is being produced, before the event itself arrives. Deltas are best-effort; when the final event is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no final event — its terminal `span.model_request_end` closes the preview. Accepts one or more event types to preview and may be repeated: `agent.message` streams `content_delta` fragments; `agent.thinking` is start-only — a signal that the agent has begun extended thinking, concluded by the `agent.thinking` event itself. Only previews of the requested event types are sent.
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -2216,7 +2327,7 @@ Stream Session Thread Events
 
       Unique identifier for this event.
 
-    - `list<ManagedAgentsTextBlock> content`
+    - `list<Content> content`
 
       Array of text blocks comprising the agent response.
 
@@ -2774,6 +2885,10 @@ Stream Session Thread Events
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
     - `?array<string,string> metadata`
 
       The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
@@ -2818,6 +2933,26 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+  - `BetaManagedAgentsSessionUsageEvent`
+
+    - `string id`
+
+      Unique identifier for this event.
+
+    - `\Datetime processedAt`
+
+      A timestamp in RFC 3339 format
+
+    - `Type type`
+
+    - `ManagedAgentsSessionUsageSnapshot usage`
+
+      Point-in-time snapshot of a session's cumulative usage.
+
+    - `?BetaManagedAgentsBudgetLimit budget`
+
+      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -2835,7 +2970,8 @@ $betaManagedAgentsStreamSessionThreadEvents = $client
   ->streamStream(
   'sthr_011CZkZVWa6oIjw0rgXZpnBt',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: ['message-batches-2024-09-24'],
+  eventDeltas: [BetaManagedAgentsDeltaType::AGENT_MESSAGE],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsStreamSessionThreadEvents);

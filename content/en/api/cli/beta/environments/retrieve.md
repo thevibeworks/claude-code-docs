@@ -1,3 +1,8 @@
+---
+title: Get Environment
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/retrieve
+---
+
 ## Get Environment
 
 `$ ant beta:environments retrieve`
@@ -120,7 +125,7 @@ Retrieve a specific environment by ID.
 
   - `description: string`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `metadata: map[string]`
 

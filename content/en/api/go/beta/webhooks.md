@@ -1,3 +1,8 @@
+---
+title: Webhooks
+url: https://platform.claude.com/docs/en/api/go/beta/webhooks
+---
+
 # Webhooks
 
 ## Domain Types
@@ -207,6 +212,70 @@
   - `Type DeploymentUpdated`
 
     - `const DeploymentUpdatedDeploymentUpdated DeploymentUpdated = "deployment.updated"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Archived Event Data
+
+- `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentArchived`
+
+    - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Created Event Data
+
+- `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentCreated`
+
+    - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentDeleted`
+
+    - `const EnvironmentDeletedEnvironmentDeleted EnvironmentDeleted = "environment.deleted"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Environment Updated Event Data
+
+- `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the environment that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type EnvironmentUpdated`
+
+    - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
 
   - `WorkspaceID string`
 
@@ -756,6 +825,118 @@
 
       - `WorkspaceID string`
 
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+        - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+        - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+        - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentDeleted`
+
+        - `const EnvironmentDeletedEnvironmentDeleted EnvironmentDeleted = "environment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+        - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+        - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+        - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionBudgetReached`
+
+        - `const SessionBudgetReachedSessionBudgetReached SessionBudgetReached = "session.budget_reached"`
+
+      - `WorkspaceID string`
+
   - `Type Event`
 
     Object type. Always `event` for webhook payloads.
@@ -1298,6 +1479,166 @@
 
     - `WorkspaceID string`
 
+  - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentCreated`
+
+      - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentUpdated`
+
+      - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentArchived`
+
+      - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the environment that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type EnvironmentDeleted`
+
+      - `const EnvironmentDeletedEnvironmentDeleted EnvironmentDeleted = "environment.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreCreated`
+
+      - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreArchived`
+
+      - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the memory store that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type MemoryStoreDeleted`
+
+      - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+    - `WorkspaceID string`
+
+  - `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+    - `ID string`
+
+      ID of the session that triggered the event.
+
+    - `OrganizationID string`
+
+    - `Type SessionBudgetReached`
+
+      - `const SessionBudgetReachedSessionBudgetReached SessionBudgetReached = "session.budget_reached"`
+
+    - `WorkspaceID string`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreArchived`
+
+    - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreCreated`
+
+    - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the memory store that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type MemoryStoreDeleted`
+
+    - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+  - `WorkspaceID string`
+
 ### Beta Webhook Session Archived Event Data
 
 - `type BetaWebhookSessionArchivedEventData struct{…}`
@@ -1311,6 +1652,22 @@
   - `Type SessionArchived`
 
     - `const SessionArchivedSessionArchived SessionArchived = "session.archived"`
+
+  - `WorkspaceID string`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+  - `ID string`
+
+    ID of the session that triggered the event.
+
+  - `OrganizationID string`
+
+  - `Type SessionBudgetReached`
+
+    - `const SessionBudgetReachedSessionBudgetReached SessionBudgetReached = "session.budget_reached"`
 
   - `WorkspaceID string`
 
@@ -2237,6 +2594,118 @@
       - `Type DeploymentRunSucceeded`
 
         - `const DeploymentRunSucceededDeploymentRunSucceeded DeploymentRunSucceeded = "deployment_run.succeeded"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentCreated`
+
+        - `const EnvironmentCreatedEnvironmentCreated EnvironmentCreated = "environment.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentUpdatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentUpdated`
+
+        - `const EnvironmentUpdatedEnvironmentUpdated EnvironmentUpdated = "environment.updated"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentArchived`
+
+        - `const EnvironmentArchivedEnvironmentArchived EnvironmentArchived = "environment.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookEnvironmentDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the environment that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type EnvironmentDeleted`
+
+        - `const EnvironmentDeletedEnvironmentDeleted EnvironmentDeleted = "environment.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreCreatedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreCreated`
+
+        - `const MemoryStoreCreatedMemoryStoreCreated MemoryStoreCreated = "memory_store.created"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreArchivedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreArchived`
+
+        - `const MemoryStoreArchivedMemoryStoreArchived MemoryStoreArchived = "memory_store.archived"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookMemoryStoreDeletedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the memory store that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type MemoryStoreDeleted`
+
+        - `const MemoryStoreDeletedMemoryStoreDeleted MemoryStoreDeleted = "memory_store.deleted"`
+
+      - `WorkspaceID string`
+
+    - `type BetaWebhookSessionBudgetReachedEventData struct{…}`
+
+      - `ID string`
+
+        ID of the session that triggered the event.
+
+      - `OrganizationID string`
+
+      - `Type SessionBudgetReached`
+
+        - `const SessionBudgetReachedSessionBudgetReached SessionBudgetReached = "session.budget_reached"`
 
       - `WorkspaceID string`
 

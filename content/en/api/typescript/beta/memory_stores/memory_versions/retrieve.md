@@ -1,3 +1,8 @@
+---
+title: Retrieve a memory version
+url: https://platform.claude.com/docs/en/api/typescript/beta/memory_stores/memory_versions/retrieve
+---
+
 ## Retrieve a memory version
 
 `client.beta.memoryStores.memoryVersions.retrieve(stringmemoryVersionID, MemoryVersionRetrieveParamsparams, RequestOptionsoptions?): BetaManagedAgentsMemoryVersion`
@@ -30,7 +35,7 @@ Retrieve a memory version
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -76,19 +81,29 @@ Retrieve a memory version
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -178,6 +193,18 @@ Retrieve a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `BetaManagedAgentsServiceAccountActor`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: string`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: "service_account_actor"`
+
+        - `"service_account_actor"`
+
   - `path?: string | null`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -193,15 +220,15 @@ Retrieve a memory version
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const betaManagedAgentsMemoryVersion = await client.beta.memoryStores.memoryVersions.retrieve(
-  'memory_version_id',
-  { memory_store_id: 'memory_store_id' },
+  "memory_version_id",
+  { memory_store_id: "memory_store_id" }
 );
 
 console.log(betaManagedAgentsMemoryVersion.id);

@@ -1,3 +1,8 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/go/messages/batches/delete
+---
+
 ## Delete a Message Batch
 
 `client.Messages.Batches.Delete(ctx, messageBatchID) (*DeletedMessageBatch, error)`
@@ -38,22 +43,22 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  deletedMessageBatch, err := client.Messages.Batches.Delete(context.TODO(), "message_batch_id")
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", deletedMessageBatch.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	deletedMessageBatch, err := client.Messages.Batches.Delete(context.TODO(), "message_batch_id")
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", deletedMessageBatch.ID)
 }
 ```
 

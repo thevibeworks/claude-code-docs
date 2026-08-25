@@ -1,3 +1,8 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/php/beta/messages/batches/delete
+---
+
 ## Delete a Message Batch
 
 `$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas): DeletedMessageBatch`
@@ -44,7 +49,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaDeletedMessageBatch = $client->beta->messages->batches->delete(
-  'message_batch_id', betas: ['message-batches-2024-09-24']
+  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaDeletedMessageBatch);

@@ -1,3 +1,8 @@
+---
+title: Update User Profile
+url: https://platform.claude.com/docs/en/api/java/beta/user_profiles/update
+---
+
 ## Update User Profile
 
 `BetaUserProfile beta().userProfiles().update(UserProfileUpdateParamsparams = UserProfileUpdateParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -60,19 +65,37 @@ Update User Profile
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
+
+  - `Optional<AccessType> accessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `APPLICATION("application")`
+
+    - `PASSTHROUGH("passthrough")`
 
   - `Optional<String> externalId`
 
@@ -112,16 +135,6 @@ Update User Profile
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `Relationship relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `EXTERNAL("external")`
-
-    - `RESOLD("resold")`
-
-    - `INTERNAL("internal")`
-
   - `TrustGrants trustGrants`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -146,13 +159,31 @@ Update User Profile
 
     A timestamp in RFC 3339 format
 
+  - `Optional<AccessType> accessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `APPLICATION("application")`
+
+    - `PASSTHROUGH("passthrough")`
+
   - `Optional<String> externalId`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `Optional<String> name`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `Optional<Relationship> relationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `EXTERNAL("external")`
+
+    - `RESOLD("resold")`
+
+    - `INTERNAL("internal")`
 
 ### Example
 
@@ -182,7 +213,6 @@ public final class Main {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -190,7 +220,9 @@ public final class Main {
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```

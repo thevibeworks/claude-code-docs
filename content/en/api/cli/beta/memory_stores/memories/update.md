@@ -1,3 +1,8 @@
+---
+title: Update a memory
+url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/memories/update
+---
+
 ## Update a memory
 
 `$ ant beta:memory-stores:memories update`

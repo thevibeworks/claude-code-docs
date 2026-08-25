@@ -1,3 +1,8 @@
+---
+title: Webhooks
+url: https://platform.claude.com/docs/en/api/python/beta/webhooks
+---
+
 # Webhooks
 
 ## Domain Types
@@ -207,6 +212,70 @@
   - `type: Literal["deployment.updated"]`
 
     - `"deployment.updated"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.archived"]`
+
+    - `"environment.archived"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.created"]`
+
+    - `"environment.created"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.deleted"]`
+
+    - `"environment.deleted"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+  - `id: str`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["environment.updated"]`
+
+    - `"environment.updated"`
 
   - `workspace_id: str`
 
@@ -756,6 +825,118 @@
 
       - `workspace_id: str`
 
+    - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.created"]`
+
+        - `"environment.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.updated"]`
+
+        - `"environment.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.archived"]`
+
+        - `"environment.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.deleted"]`
+
+        - `"environment.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.created"]`
+
+        - `"memory_store.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.archived"]`
+
+        - `"memory_store.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.deleted"]`
+
+        - `"memory_store.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookSessionBudgetReachedEventData: …`
+
+      - `id: str`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["session.budget_reached"]`
+
+        - `"session.budget_reached"`
+
+      - `workspace_id: str`
+
   - `type: Literal["event"]`
 
     Object type. Always `event` for webhook payloads.
@@ -1298,6 +1479,166 @@
 
     - `workspace_id: str`
 
+  - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.created"]`
+
+      - `"environment.created"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.updated"]`
+
+      - `"environment.updated"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.archived"]`
+
+      - `"environment.archived"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["environment.deleted"]`
+
+      - `"environment.deleted"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.created"]`
+
+      - `"memory_store.created"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.archived"]`
+
+      - `"memory_store.archived"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+    - `id: str`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["memory_store.deleted"]`
+
+      - `"memory_store.deleted"`
+
+    - `workspace_id: str`
+
+  - `class BetaWebhookSessionBudgetReachedEventData: …`
+
+    - `id: str`
+
+      ID of the session that triggered the event.
+
+    - `organization_id: str`
+
+    - `type: Literal["session.budget_reached"]`
+
+      - `"session.budget_reached"`
+
+    - `workspace_id: str`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.archived"]`
+
+    - `"memory_store.archived"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.created"]`
+
+    - `"memory_store.created"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+  - `id: str`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["memory_store.deleted"]`
+
+    - `"memory_store.deleted"`
+
+  - `workspace_id: str`
+
 ### Beta Webhook Session Archived Event Data
 
 - `class BetaWebhookSessionArchivedEventData: …`
@@ -1311,6 +1652,22 @@
   - `type: Literal["session.archived"]`
 
     - `"session.archived"`
+
+  - `workspace_id: str`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `class BetaWebhookSessionBudgetReachedEventData: …`
+
+  - `id: str`
+
+    ID of the session that triggered the event.
+
+  - `organization_id: str`
+
+  - `type: Literal["session.budget_reached"]`
+
+    - `"session.budget_reached"`
 
   - `workspace_id: str`
 
@@ -2237,6 +2594,118 @@
       - `type: Literal["deployment_run.succeeded"]`
 
         - `"deployment_run.succeeded"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.created"]`
+
+        - `"environment.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.updated"]`
+
+        - `"environment.updated"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.archived"]`
+
+        - `"environment.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookEnvironmentDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["environment.deleted"]`
+
+        - `"environment.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.created"]`
+
+        - `"memory_store.created"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.archived"]`
+
+        - `"memory_store.archived"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData: …`
+
+      - `id: str`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["memory_store.deleted"]`
+
+        - `"memory_store.deleted"`
+
+      - `workspace_id: str`
+
+    - `class BetaWebhookSessionBudgetReachedEventData: …`
+
+      - `id: str`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: str`
+
+      - `type: Literal["session.budget_reached"]`
+
+        - `"session.budget_reached"`
 
       - `workspace_id: str`
 

@@ -1,3 +1,8 @@
+---
+title: Delete a memory store
+url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/delete
+---
+
 ## Delete a memory store
 
 `$ ant beta:memory-stores delete`

@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/python/messages/batches/list
+---
+
 ## List Message Batches
 
 `messages.batches.list(BatchListParams**kwargs)  -> SyncPage[MessageBatch]`
@@ -121,7 +126,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 page = client.messages.batches.list()
 page = page.data[0]

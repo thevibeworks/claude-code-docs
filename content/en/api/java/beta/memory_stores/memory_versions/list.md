@@ -1,3 +1,8 @@
+---
+title: List memory versions
+url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/memory_versions/list
+---
+
 ## List memory versions
 
 `MemoryVersionListPage beta().memoryStores().memoryVersions().list(MemoryVersionListParamsparams = MemoryVersionListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
@@ -39,6 +44,10 @@ List memory versions
   - `Optional<String> page`
 
     Query parameter for page
+
+  - `Optional<String> serviceAccountId`
+
+    Query parameter for service_account_id
 
   - `Optional<String> sessionId`
 
@@ -96,19 +105,29 @@ List memory versions
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
 ### Returns
 
@@ -197,6 +216,18 @@ List memory versions
       - `String userId`
 
         ID of the user who performed the write (a `user_...` value).
+
+    - `class BetaManagedAgentsServiceAccountActor:`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `String serviceAccountId`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `JsonValue; type "service_account_actor"constant`
+
+        - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
 
   - `Optional<String> path`
 

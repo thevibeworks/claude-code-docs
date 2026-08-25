@@ -17,16 +17,16 @@ We'll build a server that exposes two tools: `get_alerts` and `get_forecast`. Th
 </Frame>
 
 <Note>
-  Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](/docs/develop/build-client).
+  Servers can connect to any client. We've chosen Claude for Desktop here for simplicity, but we also have a guide on [building your own client](/docs/2026-07-28/develop/build-client).
 </Note>
 
 ### Core MCP Concepts
 
 MCP servers can provide three main types of capabilities:
 
-1. **[Resources](/docs/learn/server-concepts#resources)**: File-like data that can be read by clients (like API responses or file contents)
-2. **[Tools](/docs/learn/server-concepts#tools)**: Functions that can be called by the LLM (with user approval)
-3. **[Prompts](/docs/learn/server-concepts#prompts)**: Pre-written templates that help users accomplish specific tasks
+1. **[Resources](/docs/2026-07-28/learn/server-concepts#resources)**: File-like data that can be read by clients (like API responses or file contents)
+2. **[Tools](/docs/2026-07-28/learn/server-concepts#tools)**: Functions that can be called by the LLM (with user approval)
+3. **[Prompts](/docs/2026-07-28/learn/server-concepts#prompts)**: Pre-written templates that help users accomplish specific tasks
 
 This tutorial will primarily focus on tools.
 
@@ -45,34 +45,33 @@ This tutorial will primarily focus on tools.
 
     When implementing MCP servers, be careful about how you handle logging:
 
-    **For STDIO-based servers:** Never write to stdout. Writing to stdout will corrupt the JSON-RPC messages and break your server. The `print()` function writes to stdout by default, but can be used safely with `file=sys.stderr`.
+    **For STDIO-based servers:** Never write to stdout. Writing to stdout will corrupt the JSON-RPC messages and break your server. The `print()` function writes to stdout by default, so keep it out of a STDIO server entirely.
 
     **For HTTP-based servers:** Standard output logging is fine since it doesn't interfere with HTTP responses.
 
     ### Best Practices
 
-    * Use a logging library that writes to stderr or files.
+    * Use the standard library `logging` module, which writes to stderr.
+    * Create one logger per module with `logging.getLogger(__name__)` and call it from your tools.
 
     ### Quick Examples
 
     ```python theme={null}
-    import sys
     import logging
+
+    logger = logging.getLogger(__name__)
 
     # ❌ Bad (STDIO)
     print("Processing request")
 
     # ✅ Good (STDIO)
-    print("Processing request", file=sys.stderr)
-
-    # ✅ Good (STDIO)
-    logging.info("Processing request")
+    logger.info("Processing request")  # writes to stderr
     ```
 
     ### System requirements
 
     * Python 3.10 or higher installed.
-    * You must use the Python MCP SDK 1.2.0 or higher.
+    * You must use the Python MCP SDK 2.0.0 or higher.
 
     ### Set up your environment
 
@@ -103,7 +102,7 @@ This tutorial will primarily focus on tools.
       source .venv/bin/activate
 
       # Install dependencies
-      uv add "mcp[cli]" httpx
+      uv add "mcp[cli]"
 
       # Create our server file
       touch weather.py
@@ -119,7 +118,7 @@ This tutorial will primarily focus on tools.
       .venv\Scripts\activate
 
       # Install dependencies
-      uv add mcp[cli] httpx
+      uv add mcp[cli]
 
       # Create our server file
       new-item weather.py
@@ -137,18 +136,20 @@ This tutorial will primarily focus on tools.
     ```python theme={null}
     from typing import Any
 
-    import httpx
-    from mcp.server.fastmcp import FastMCP
+    import httpx2
+    from mcp.server import MCPServer
 
-    # Initialize FastMCP server
-    mcp = FastMCP("weather")
+    # Initialize MCPServer
+    mcp = MCPServer("weather")
 
     # Constants
     NWS_API_BASE = "https://api.weather.gov"
     USER_AGENT = "weather-app/1.0"
     ```
 
-    The FastMCP class uses Python type hints and docstrings to automatically generate tool definitions, making it easy to create and maintain MCP tools.
+    `httpx2` is the HTTP client the SDK itself depends on, so installing `mcp` already brought it in.
+
+    The MCPServer class uses Python type hints and docstrings to automatically generate tool definitions, making it easy to create and maintain MCP tools.
 
     ### Helper functions
 
@@ -158,7 +159,7 @@ This tutorial will primarily focus on tools.
     async def make_nws_request(url: str) -> dict[str, Any] | None:
         """Make a request to the NWS API with proper error handling."""
         headers = {"User-Agent": USER_AGENT, "Accept": "application/geo+json"}
-        async with httpx.AsyncClient() as client:
+        async with httpx2.AsyncClient() as client:
             try:
                 response = await client.get(url, headers=headers, timeout=30.0)
                 response.raise_for_status()
@@ -246,13 +247,8 @@ This tutorial will primarily focus on tools.
     Finally, let's initialize and run the server:
 
     ```python theme={null}
-    def main():
-        # Initialize and run the server
-        mcp.run(transport="stdio")
-
-
     if __name__ == "__main__":
-        main()
+        mcp.run(transport="stdio")
     ```
 
     Your server is complete! Run `uv run weather.py` to start the MCP server, which will listen for messages from MCP hosts.
@@ -260,10 +256,6 @@ This tutorial will primarily focus on tools.
     Let's now test your server from an existing MCP host, Claude for Desktop.
 
     ## Testing your server with Claude for Desktop
-
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
 
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
@@ -273,7 +265,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -382,7 +378,7 @@ This tutorial will primarily focus on tools.
     npm --version
     ```
 
-    For this tutorial, you'll need Node.js version 16 or higher.
+    For this tutorial, you'll need Node.js version 20 or higher.
 
     Now, let's create and set up our project:
 
@@ -396,7 +392,7 @@ This tutorial will primarily focus on tools.
       npm init -y
 
       # Install dependencies
-      npm install @modelcontextprotocol/sdk zod@3
+      npm install @modelcontextprotocol/server zod
       npm install -D @types/node typescript
 
       # Create our files
@@ -413,7 +409,7 @@ This tutorial will primarily focus on tools.
       npm init -y
 
       # Install dependencies
-      npm install @modelcontextprotocol/sdk zod@3
+      npm install @modelcontextprotocol/server zod
       npm install -D @types/node typescript
 
       # Create our files
@@ -445,6 +441,7 @@ This tutorial will primarily focus on tools.
         "target": "ES2022",
         "module": "Node16",
         "moduleResolution": "Node16",
+        "types": ["node"],
         "outDir": "./build",
         "rootDir": "./src",
         "strict": true,
@@ -466,8 +463,8 @@ This tutorial will primarily focus on tools.
     Add these to the top of your `src/index.ts`:
 
     ```typescript theme={null}
-    import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-    import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+    import { McpServer } from "@modelcontextprotocol/server";
+    import { StdioServerTransport } from "@modelcontextprotocol/server/stdio";
     import { z } from "zod";
 
     const NWS_API_BASE = "https://api.weather.gov";
@@ -564,12 +561,12 @@ This tutorial will primarily focus on tools.
       "get_alerts",
       {
         description: "Get weather alerts for a state",
-        inputSchema: {
+        inputSchema: z.object({
           state: z
             .string()
             .length(2)
             .describe("Two-letter state code (e.g. CA, NY)"),
-        },
+        }),
       },
       async ({ state }) => {
         const stateCode = state.toUpperCase();
@@ -617,7 +614,7 @@ This tutorial will primarily focus on tools.
       "get_forecast",
       {
         description: "Get weather forecast for a location",
-        inputSchema: {
+        inputSchema: z.object({
           latitude: z
             .number()
             .min(-90)
@@ -628,7 +625,7 @@ This tutorial will primarily focus on tools.
             .min(-180)
             .max(180)
             .describe("Longitude of the location"),
-        },
+        }),
       },
       async ({ latitude, longitude }) => {
         // Get grid point data
@@ -731,10 +728,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -743,7 +736,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -954,10 +951,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux.
-    </Note>
-
     First, make sure you have Claude for Desktop installed.
     [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -968,7 +961,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -1078,7 +1075,8 @@ This tutorial will primarily focus on tools.
 
     ## More Java MCP Server examples
 
-    The [starter-webflux-server](https://github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/weather/starter-webflux-server) demonstrates how to create an MCP server using SSE transport.
+    The [starter-webflux-server](https://github.com/spring-projects/spring-ai-examples/tree/main/model-context-protocol/weather/starter-webflux-server) demonstrates how to create an HTTP-based MCP server with the WebFlux starter.
+    Set the `spring.ai.mcp.server.protocol=STREAMABLE` property to serve it over Streamable HTTP.
     It showcases how to define and register MCP Tools, Resources, and Prompts, using the Spring Boot's auto-configuration capabilities.
   </Tab>
 
@@ -1386,10 +1384,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
@@ -1400,7 +1394,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -1649,17 +1647,17 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version
     here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -1949,10 +1947,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
@@ -1960,7 +1954,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -2373,10 +2371,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
@@ -2384,7 +2378,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -2806,10 +2804,6 @@ This tutorial will primarily focus on tools.
 
     ## Testing your server with Claude for Desktop
 
-    <Note>
-      Claude for Desktop is not yet available on Linux. Linux users can proceed to the [Building a client](/docs/develop/build-client) tutorial to build an MCP client that connects to the server we just built.
-    </Note>
-
     First, make sure you have Claude for Desktop installed. [You can install the latest version here.](https://claude.ai/download) If you already have Claude for Desktop, **make sure it's updated to the latest version.**
 
     We'll need to configure Claude for Desktop for whichever MCP servers you want to use. To do this, open your Claude for Desktop App configuration at `~/Library/Application Support/Claude/claude_desktop_config.json` in a text editor. Make sure to create the file if it doesn't exist.
@@ -2817,7 +2811,11 @@ This tutorial will primarily focus on tools.
     For example, if you have [VS Code](https://code.visualstudio.com/) installed:
 
     <CodeGroup>
-      ```bash macOS/Linux theme={null}
+      ```bash Linux theme={null}
+      code ~/.config/Claude/claude_desktop_config.json
+      ```
+
+      ```bash macOS theme={null}
       code ~/Library/Application\ Support/Claude/claude_desktop_config.json
       ```
 
@@ -2915,16 +2913,21 @@ When you ask a question:
   <Accordion title="Claude for Desktop Integration Issues">
     **Getting logs from Claude for Desktop**
 
-    Claude.app logging related to MCP is written to log files in `~/Library/Logs/Claude`:
+    Claude.app logging related to MCP is written to log files in `~/Library/Logs/Claude` (macOS) or `~/.config/Claude/logs/` (Linux):
 
     * `mcp.log` will contain general logging about MCP connections and connection failures.
-    * Files named `mcp-server-SERVERNAME.log` will contain error (stderr) logging from the named server.
+    * Files named `mcp-server-SERVERNAME.log` will contain the stderr output from the named server. Stdio servers may use stderr for all their logging, so these files are not limited to errors.
 
     You can run the following command to list recent logs and follow along with any new ones:
 
-    ```bash theme={null}
+    ```bash macOS theme={null}
     # Check Claude's logs for errors
     tail -n 20 -f ~/Library/Logs/Claude/mcp*.log
+    ```
+
+    ```bash Linux theme={null}
+    # Check Claude's logs for errors
+    tail -n 20 -f ~/.config/Claude/logs/mcp*.log
     ```
 
     **Server not showing up in Claude**
@@ -2938,6 +2941,7 @@ When you ask a question:
 
       * **Windows**: Right-click the Claude icon in the system tray (which may be hidden in the "hidden icons" menu) and select "Quit" or "Exit".
       * **macOS**: Use Cmd+Q or select "Quit Claude" from the menu bar.
+      * **Linux**: Right-click the Claude icon in the system tray and select "Quit", or run `pkill -f claude-desktop` from a terminal.
 
       Simply closing the window does not fully quit the application, and your MCP server configuration changes will not take effect.
     </Warning>
@@ -2952,7 +2956,7 @@ When you ask a question:
 
     **None of this is working. What do I do?**
 
-    Please refer to our [debugging guide](/docs/tools/debugging) for better debugging tools and more detailed guidance.
+    Please refer to our [debugging guide](/docs/2026-07-28/tools/debugging) for better debugging tools and more detailed guidance.
   </Accordion>
 
   <Accordion title="Weather API Issues">
@@ -2977,13 +2981,13 @@ When you ask a question:
 </AccordionGroup>
 
 <Note>
-  For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/tools/debugging)
+  For more advanced troubleshooting, check out our guide on [Debugging MCP](/docs/2026-07-28/tools/debugging)
 </Note>
 
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Building a client" icon="outlet" href="/docs/develop/build-client">
+  <Card title="Building a client" icon="outlet" href="/docs/2026-07-28/develop/build-client">
     Learn how to build your own MCP client that can connect to your server
   </Card>
 
@@ -2991,11 +2995,11 @@ When you ask a question:
     Check out our gallery of official MCP servers and implementations
   </Card>
 
-  <Card title="Debugging Guide" icon="bug" href="/docs/tools/debugging">
+  <Card title="Debugging Guide" icon="bug" href="/docs/2026-07-28/tools/debugging">
     Learn how to effectively debug MCP servers and integrations
   </Card>
 
-  <Card title="Build with Agent Skills" icon="comments" href="/docs/develop/build-with-agent-skills">
+  <Card title="Build with Agent Skills" icon="comments" href="/docs/2026-07-28/develop/build-with-agent-skills">
     Use agent skills to guide AI coding assistants through server design
   </Card>
 </CardGroup>

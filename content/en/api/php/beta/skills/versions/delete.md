@@ -1,3 +1,8 @@
+---
+title: Delete Skill Version
+url: https://platform.claude.com/docs/en/api/php/beta/skills/versions/delete
+---
+
 ## Delete Skill Version
 
 `$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas): VersionDeleteResponse`
@@ -50,7 +55,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $version = $client->beta->skills->versions->delete(
-  'version', skillID: 'skill_id', betas: ['message-batches-2024-09-24']
+  'version',
+  skillID: 'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($version);

@@ -116,12 +116,12 @@ Now that you've connected Claude to a remote MCP server, you can explore its cap
     Browse our collection of official and community-created MCP servers
   </Card>
 
-  <Card title="Connect local servers" icon="computer" href="/docs/develop/connect-local-servers">
+  <Card title="Connect local servers" icon="computer" href="/docs/2026-07-28/develop/connect-local-servers">
     Learn how to connect Claude Desktop to local MCP servers for direct system
     access
   </Card>
 
-  <Card title="Understand the architecture" icon="book" href="/docs/learn/architecture">
+  <Card title="Understand the architecture" icon="book" href="/docs/2026-07-28/learn/architecture">
     Dive deeper into how MCP works and its architecture
   </Card>
 </CardGroup>

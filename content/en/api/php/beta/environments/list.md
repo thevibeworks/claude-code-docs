@@ -1,3 +1,8 @@
+---
+title: List Environments
+url: https://platform.claude.com/docs/en/api/php/beta/environments/list
+---
+
 ## List Environments
 
 `$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaEnvironment>`
@@ -44,9 +49,9 @@ List environments with pagination support.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -81,7 +86,7 @@ $page = $client->beta->environments->list(
   includeArchived: true,
   limit: 1,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);

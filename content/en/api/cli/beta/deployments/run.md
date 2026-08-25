@@ -1,3 +1,8 @@
+---
+title: Run Deployment Now
+url: https://platform.claude.com/docs/en/api/cli/beta/deployments/run
+---
+
 ## Run Deployment Now
 
 `$ ant beta:deployments run`

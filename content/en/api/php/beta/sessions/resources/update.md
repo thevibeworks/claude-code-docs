@@ -1,3 +1,8 @@
+---
+title: Update Session Resource
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/update
+---
+
 ## Update Session Resource
 
 `$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas): ResourceUpdateResponse`
@@ -103,7 +108,7 @@ $resource = $client->beta->sessions->resources->update(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   authorizationToken: 'ghp_exampletoken',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($resource);

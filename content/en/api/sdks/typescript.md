@@ -1,13 +1,13 @@
-# TypeScript SDK
-
-Install and configure the Anthropic TypeScript SDK for Node.js, Deno, Bun, and browser environments
-
+---
+title: TypeScript SDK
+url: https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript
+description: Install and configure the Anthropic TypeScript SDK for Node.js, Deno, Bun, and browser environments
 ---
 
-This library provides convenient access to the Anthropic REST API from TypeScript or JavaScript.
+This library provides convenient access to the Claude API from TypeScript or JavaScript.
 
 <Info>
-For API feature documentation with code examples, see the [API reference](/docs/en/api/overview). This page covers TypeScript-specific SDK features and configuration.
+  For API feature documentation with code examples, see the [API reference](https://platform.claude.com/docs/en/api/overview). This page covers TypeScript-specific SDK features and configuration.
 </Info>
 
 ## Installation
@@ -22,24 +22,22 @@ TypeScript >= 4.9 is supported.
 
 The following runtimes are supported:
 
-- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
-- Web browsers: disabled by default to avoid exposing your secret API credentials (see [API key best practices](https://support.anthropic.com/en/articles/9767949-api-key-best-practices-keeping-your-keys-safe-and-secure)). Enable browser support by explicitly setting `dangerouslyAllowBrowser` to `true`.
+* Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+* Deno v1.28.0 or higher.
+* Bun 1.0 or later.
+* Cloudflare Workers.
+* Vercel Edge Runtime.
+* Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+* Nitro v2.6 or greater.
+* Web browsers: disabled by default to avoid exposing your secret API credentials (see [API key best practices](https://support.claude.com/en/articles/9767949-api-key-best-practices-keeping-your-keys-safe-and-secure)). Enable browser support by explicitly setting `dangerouslyAllowBrowser` to `true`.
 
 Note that React Native is not supported at this time.
 
-If you are interested in other runtime environments, open or upvote an issue on [GitHub](https://github.com/anthropics/anthropic-sdk-typescript).
+If you are interested in other runtime environments, open or upvote an issue on the [GitHub repository](https://github.com/anthropics/anthropic-sdk-typescript).
 
 ## Usage
 
-```typescript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
@@ -47,21 +45,23 @@ const client = new Anthropic({
 const message = await client.messages.create({
   max_tokens: 1024,
   messages: [{ role: "user", content: "Hello, Claude" }],
-  model: "claude-opus-4-7"
+  model: "claude-opus-5"
 });
 
-console.log(message.content);
+for (const block of message.content) {
+  if (block.type === "text") {
+    console.log(block.text);
+  }
+}
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](/docs/en/api/authentication/overview).
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication).
 
 ## Request and response types
 
-This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
+This library includes TypeScript definitions for all request parameters and response fields. You may import and use them like so:
 
-```typescript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
@@ -69,16 +69,16 @@ const client = new Anthropic({
 const params: Anthropic.MessageCreateParams = {
   max_tokens: 1024,
   messages: [{ role: "user", content: "Hello, Claude" }],
-  model: "claude-opus-4-7"
+  model: "claude-opus-5"
 };
 const message: Anthropic.Message = await client.messages.create(params);
 ```
 
-Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
+Documentation for each method, request parameter, and response field is available in docstrings and appears on hover in most modern editors.
 
 ## Counting tokens
 
-You can see the exact usage for a given request through the `usage` response property, e.g.
+You can see the exact usage for a given request through the `usage` response property, for example:
 
 ```typescript
 const message = await client.messages.create(/* ... */);
@@ -90,15 +90,13 @@ console.log(message.usage);
 
 The SDK provides support for streaming responses using Server Sent Events (SSE).
 
-```typescript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const client = new Anthropic();
 
 const stream = await client.messages.create({
   max_tokens: 1024,
   messages: [{ role: "user", content: "Hello, Claude" }],
-  model: "claude-opus-4-7",
+  model: "claude-opus-5",
   stream: true
 });
 for await (const messageStreamEvent of stream) {
@@ -112,14 +110,12 @@ If you need to cancel a stream, you can `break` from the loop or call `stream.co
 
 This library provides several conveniences for streaming messages, for example:
 
-```typescript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const anthropic = new Anthropic();
 
 const stream = anthropic.messages
   .stream({
-    model: "claude-opus-4-7",
+    model: "claude-opus-5",
     max_tokens: 1024,
     messages: [
       {
@@ -142,13 +138,11 @@ Alternatively, you can use `client.messages.create({ ..., stream: true })` which
 
 ## Tool helpers
 
-This SDK provides helpers for making it easy to create and run tools in the Messages API. You can use Zod schemas or JSON Schemas to describe the input to a tool. You can then run those tools using the `client.beta.messages.toolRunner()` method. This method will handle passing the inputs generated by the chosen model into the right tool and passing the result back to the model.
+This SDK provides helpers for making it easy to create and run tools in the Messages API. You can use Zod schemas or JSON Schemas to describe the input to a tool. You can then run those tools using the `client.beta.messages.toolRunner()` method. This method handles passing the inputs generated by the chosen model into the right tool and passing the result back to the model.
 
-For more details on tool use, see [Tool use with Claude](/docs/en/agents-and-tools/tool-use/overview).
+For more details on tool use, see [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview).
 
-```typescript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 import { betaZodTool } from "@anthropic-ai/sdk/helpers/beta/zod";
 import { z } from "zod";
 
@@ -166,7 +160,7 @@ const weatherTool = betaZodTool({
 });
 
 const finalMessage = await anthropic.beta.messages.toolRunner({
-  model: "claude-opus-4-7",
+  model: "claude-opus-5",
   max_tokens: 1000,
   messages: [{ role: "user", content: "What is the weather in San Francisco?" }],
   tools: [weatherTool]
@@ -179,7 +173,7 @@ console.log(finalMessage.content);
 
 To report an error from a tool back to the model, throw a `ToolError` from the `run` function. Unlike a plain `Error`, `ToolError` accepts content blocks, allowing you to include images or other structured content in the error response:
 
-```typescript nocheck
+```typescript
 import { ToolError } from "@anthropic-ai/sdk/lib/tools/BetaRunnableTool";
 
 const screenshotTool = betaZodTool({
@@ -212,18 +206,17 @@ If a plain `Error` is thrown, the message will be converted to a text content bl
 
 ## Tool use
 
-This SDK provides support for tool use, also known as function calling. For more details, see [Tool use with Claude](/docs/en/agents-and-tools/tool-use/overview).
+This SDK provides support for tool use, also known as function calling. For more details, see [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview).
 
 ## MCP helpers
 
 This SDK provides helpers for integrating with [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) servers. These helpers convert MCP types to Claude API types, reducing boilerplate when working with MCP tools, prompts, and resources.
 
 <Tip>
-The Claude API also supports an [`mcp_servers` parameter](/docs/en/agents-and-tools/mcp-connector) that lets Claude connect directly to remote MCP servers. Use `mcp_servers` when you have remote servers accessible by URL and only need tool support. Use the MCP helpers when you need local MCP servers, prompts, resources, or more control over the MCP connection.
+  The Claude API also supports an [`mcp_servers` parameter](https://platform.claude.com/docs/en/agents-and-tools/mcp-connector) that lets Claude connect directly to remote MCP servers. Use `mcp_servers` when you have remote servers accessible by URL and only need tool support. Use the MCP helpers when you need local MCP servers, prompts, resources, or more control over the MCP connection.
 </Tip>
 
-```typescript nocheck hidelines={1}
-import Anthropic from "@anthropic-ai/sdk";
+```typescript
 import {
   mcpTools,
   mcpMessages,
@@ -243,7 +236,7 @@ await mcpClient.connect(transport);
 // Use MCP prompts
 const { messages } = await mcpClient.getPrompt({ name: "my-prompt" });
 const response = await anthropic.beta.messages.create({
-  model: "claude-opus-4-7",
+  model: "claude-opus-5",
   max_tokens: 1024,
   messages: mcpMessages(messages)
 });
@@ -252,7 +245,7 @@ console.log(response.content);
 // Use MCP tools with toolRunner
 const { tools } = await mcpClient.listTools();
 const finalMessage = await anthropic.beta.messages.toolRunner({
-  model: "claude-opus-4-7",
+  model: "claude-opus-5",
   max_tokens: 1024,
   messages: [{ role: "user", content: "Use the available tools" }],
   tools: mcpTools(tools, mcpClient)
@@ -262,7 +255,7 @@ console.log(finalMessage.content);
 // Use MCP resources as content
 const resource = await mcpClient.readResource({ uri: "file:///path/to/doc.txt" });
 await anthropic.beta.messages.create({
-  model: "claude-opus-4-7",
+  model: "claude-opus-5",
   max_tokens: 1024,
   messages: [
     {
@@ -277,7 +270,7 @@ await anthropic.beta.messages.create({
 
 // Upload MCP resources as files
 const fileResource = await mcpClient.readResource({ uri: "file:///path/to/data.json" });
-await anthropic.beta.files.upload({ file: mcpResourceToFile(fileResource) });
+await anthropic.files.upload({ file: mcpResourceToFile(fileResource) });
 ```
 
 ### MCP error handling
@@ -286,7 +279,7 @@ The conversion functions throw `UnsupportedMCPValueError` if an MCP value isn't 
 
 ## Message batches
 
-This SDK provides support for the [Message Batches API](/docs/en/build-with-claude/batch-processing) under the `client.messages.batches` namespace.
+This SDK provides support for [Batch processing](https://platform.claude.com/docs/en/build-with-claude/batch-processing) under the `client.messages.batches` namespace.
 
 ### Creating a batch
 
@@ -298,7 +291,7 @@ const batch = await client.messages.batches.create({
     {
       custom_id: "my-first-request",
       params: {
-        model: "claude-opus-4-7",
+        model: "claude-opus-5",
         max_tokens: 1024,
         messages: [{ role: "user", content: "Hello, world" }]
       }
@@ -306,7 +299,7 @@ const batch = await client.messages.batches.create({
     {
       custom_id: "my-second-request",
       params: {
-        model: "claude-opus-4-7",
+        model: "claude-opus-5",
         max_tokens: 1024,
         messages: [{ role: "user", content: "Hi again, friend" }]
       }
@@ -319,7 +312,7 @@ const batch = await client.messages.batches.create({
 
 Once a Message Batch has been processed, indicated by `.processing_status === 'ended'`, you can access the results with `.batches.results()`
 
-```typescript nocheck
+```typescript
 const results = await client.messages.batches.results(batch.id);
 for await (const entry of results) {
   if (entry.result.type === "succeeded") {
@@ -332,56 +325,54 @@ for await (const entry of results) {
 
 Request parameters that correspond to file uploads can be passed in many different forms:
 
-- `File` (or an object with the same structure)
-- a `fetch` `Response` (or an object with the same structure)
-- an `fs.ReadStream`
-- the return value of the `toFile` helper
+* `File` (or an object with the same structure)
+* a `fetch` `Response` (or an object with the same structure)
+* an `fs.ReadStream`
+* the return value of the `toFile` helper
 
 Set the content-type explicitly as the files API will not infer it for you:
 
-```typescript nocheck
-import fs from "fs";
+```typescript
+import fs from "node:fs";
 import Anthropic, { toFile } from "@anthropic-ai/sdk";
 
 const client = new Anthropic();
 
 // If you have access to Node `fs`, use `fs.createReadStream()`:
-await client.beta.files.upload({
+await client.files.upload({
   file: await toFile(fs.createReadStream("/path/to/file"), undefined, {
     type: "application/json"
   })
 });
 
 // Or if you have the web `File` API you can pass a `File` instance:
-await client.beta.files.upload({
+await client.files.upload({
   file: new File(["my bytes"], "file.txt", { type: "text/plain" })
 });
 // You can also pass a `fetch` `Response`:
-await client.beta.files.upload({
+await client.files.upload({
   file: await fetch("https://somesite/file")
 });
 
 // Or a `Buffer` / `Uint8Array`
-await client.beta.files.upload({
+await client.files.upload({
   file: await toFile(Buffer.from("my bytes"), "file", { type: "text/plain" })
 });
-await client.beta.files.upload({
+await client.files.upload({
   file: await toFile(new Uint8Array([0, 1, 2]), "file", { type: "text/plain" })
 });
 ```
 
 ## Handling errors
 
-When the library is unable to connect to the API,
-or if the API returns a non-success status code (i.e., 4xx or 5xx response),
-a subclass of `APIError` is thrown:
+When the library is unable to connect to the API, or if the API returns a non-success status code (that is, 4xx or 5xx response), a subclass of `APIError` is thrown:
 
 ```typescript
 const message = await client.messages
   .create({
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }],
-    model: "claude-opus-4-7"
+    model: "claude-opus-5"
   })
   .catch(async (err) => {
     if (err instanceof Anthropic.APIError) {
@@ -410,7 +401,7 @@ Error codes are as follows:
 
 ## Request IDs
 
-> For more information on debugging requests, see [Request ID](/docs/en/api/errors#request-id).
+> For more information on debugging requests, see [Request ID](https://platform.claude.com/docs/en/api/errors#request-id).
 
 All object responses in the SDK provide a `_request_id` property which is added from the `request-id` response header so that you can quickly log failing requests and report them back to Anthropic.
 
@@ -418,16 +409,14 @@ All object responses in the SDK provide a `_request_id` property which is added 
 const message = await client.messages.create({
   max_tokens: 1024,
   messages: [{ role: "user", content: "Hello, Claude" }],
-  model: "claude-opus-4-7"
+  model: "claude-opus-5"
 });
 console.log(message._request_id); // req_018EeWyXxfu5pfWkrYcMdjWG
 ```
 
 ## Retries
 
-Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
-Connection errors (for example, because of a network connectivity problem), 408 Request Timeout, 409 Conflict,
-429 Rate Limit, and >=500 Internal errors are all retried by default.
+Certain errors are automatically retried 2 times by default, with a short exponential backoff. Connection errors (for example, because of a network connectivity problem), 408 Request Timeout, 409 Conflict, 429 Rate Limit, and >=500 Internal errors are all retried by default.
 
 You can use the `maxRetries` option to configure or disable this:
 
@@ -442,7 +431,7 @@ await client.messages.create(
   {
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }],
-    model: "claude-opus-4-7"
+    model: "claude-opus-5"
   },
   { maxRetries: 5 }
 );
@@ -450,10 +439,9 @@ await client.messages.create(
 
 ## Timeouts
 
-By default requests time out after 10 minutes. However if you have specified a large `max_tokens` value and are
-_not_ streaming, the default timeout will be calculated dynamically using the formula:
+By default requests time out after 10 minutes. However if you have specified a large `max_tokens` value and are *not* streaming, the default timeout will be calculated dynamically using the formula:
 
-```typescript nocheck
+```typescript
 const minimum = 10 * 60;
 const calculated = (60 * 60 * maxTokens) / 128_000;
 return calculated < minimum ? minimum * 1000 : calculated * 1000;
@@ -474,7 +462,7 @@ await client.messages.create(
   {
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }],
-    model: "claude-opus-4-7"
+    model: "claude-opus-5"
   },
   { timeout: 5 * 1000 }
 );
@@ -482,32 +470,25 @@ await client.messages.create(
 
 On timeout, an `APIConnectionTimeoutError` is thrown.
 
-Note that requests which time out will be [retried twice by default](#retries).
+Note that requests that time out are [retried twice by default](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#retries).
 
 ## Long requests
 
 <Warning>
-Consider using the streaming [Messages API](#streaming-responses) for longer running requests.
+  Consider using the streaming [Messages API](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#streaming-responses) for longer running requests.
 </Warning>
 
-Avoid setting a large `max_tokens` value without using streaming.
-Some networks may drop idle connections after a certain period of time, which
-can cause the request to fail or [timeout](#timeouts) without receiving a response from Anthropic.
+Avoid setting a large `max_tokens` value without using streaming. Some networks may drop idle connections after a certain period of time, which can cause the request to fail or [timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#timeouts) without receiving a response from Anthropic.
 
-This SDK will also throw an error if a non-streaming request is expected to be above roughly 10 minutes long.
-Passing `stream: true` or [overriding](#timeouts) the `timeout` option at the client or request level disables this error.
+This SDK also throws an error if a non-streaming request is expected to be above roughly 10 minutes long. Passing `stream: true` or [overriding](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#timeouts) the `timeout` option at the client or request level disables this error.
 
-An expected request latency longer than the [timeout](#timeouts) for a non-streaming request
-will result in the client terminating the connection and retrying without receiving a response.
+An expected request latency longer than the [timeout](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#timeouts) for a non-streaming request will result in the client terminating the connection and retrying without receiving a response.
 
-When supported by the `fetch` implementation, the SDK sets a [TCP socket keep-alive](https://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html) option in order
-to reduce the impact of idle connection timeouts on some networks.
-This can be [overridden](#configuring-proxies) by configuring a custom proxy.
+When supported by the `fetch` implementation, the SDK sets a [TCP socket keep-alive](https://tldp.org/HOWTO/TCP-Keepalive-HOWTO/overview.html) option to reduce the impact of idle connection timeouts on some networks. This can be [overridden](https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/typescript#configuring-proxies) by configuring a custom proxy.
 
 ## Auto-pagination
 
-List methods in the Claude API are paginated.
-You can use the `for await ... of` syntax to iterate through items across all pages:
+List methods in the Claude API are paginated. You can use the `for await ... of` syntax to iterate through items across all pages:
 
 ```typescript
 async function fetchAllMessageBatches() {
@@ -543,16 +524,14 @@ If you need to, you can override it by setting default headers on a per-request 
 
 Be aware that doing so may result in incorrect types and other unexpected or undefined behavior in the SDK.
 
-```typescript nocheck hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const client = new Anthropic();
 
 const message = await client.messages.create(
   {
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }],
-    model: "claude-opus-4-7"
+    model: "claude-opus-5"
   },
   { headers: { "anthropic-version": "My-Custom-Value" } }
 );
@@ -560,13 +539,11 @@ const message = await client.messages.create(
 
 ## Advanced usage
 
-### Accessing raw Response data (e.g., headers)
+### Accessing raw Response data (for example, headers)
 
-The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
-This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
+The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return. This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
 
-You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
-Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
+You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data. Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
 
 ```typescript
 const client = new Anthropic();
@@ -575,7 +552,7 @@ const response = await client.messages
   .create({
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }],
-    model: "claude-opus-4-7"
+    model: "claude-opus-5"
   })
   .asResponse();
 console.log(response.headers.get("X-My-Header"));
@@ -585,7 +562,7 @@ const { data: message, response: raw } = await client.messages
   .create({
     max_tokens: 1024,
     messages: [{ role: "user", content: "Hello, Claude" }],
-    model: "claude-opus-4-7"
+    model: "claude-opus-5"
   })
   .withResponse();
 console.log(raw.headers.get("X-My-Header"));
@@ -595,20 +572,17 @@ console.log(message.content);
 ### Logging
 
 <Warning>
-All log messages are intended for debugging only. The format and content of log messages
-may change between releases.
+  All log messages are intended for debugging only. The format and content of log messages may change between releases.
 </Warning>
 
 #### Log levels
 
-The log level can be configured in two ways:
+You can configure the log level in two ways:
 
-1. Via the `ANTHROPIC_LOG` environment variable
+1. Through the `ANTHROPIC_LOG` environment variable
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
-```typescript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const client = new Anthropic({
   logLevel: "debug" // Show all log messages
 });
@@ -616,26 +590,21 @@ const client = new Anthropic({
 
 Available log levels, from most to least verbose:
 
-- `'debug'` - Show debug messages, info, warnings, and errors
-- `'info'` - Show info messages, warnings, and errors
-- `'warn'` - Show warnings and errors (default)
-- `'error'` - Show only errors
-- `'off'` - Disable all logging
+* `'debug'` - Show debug messages, info, warnings, and errors
+* `'info'` - Show info messages, warnings, and errors
+* `'warn'` - Show warnings and errors (default)
+* `'error'` - Show only errors
+* `'off'` - Disable all logging
 
-At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
-Some authentication-related headers are redacted, but sensitive data in request and response bodies
-may still be visible.
+At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies. Some authentication-related headers are redacted, but sensitive data in request and response bodies may still be visible.
 
 #### Custom logger
 
-By default, this library logs to `globalThis.console`. You can also provide a custom logger.
-Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, open an issue.
+By default, this library logs to `globalThis.console`. You can also provide a custom logger. Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, open an issue.
 
-When providing a custom logger, the `logLevel` option still controls which messages are emitted, messages
-below the configured level will not be sent to your logger.
+When providing a custom logger, the `logLevel` option still controls which messages are emitted; messages below the configured level will not be sent to your logger.
 
-```typescript nocheck hidelines={1}
-import Anthropic from "@anthropic-ai/sdk";
+```typescript
 import pino from "pino";
 
 const logger = pino();
@@ -648,26 +617,22 @@ const client = new Anthropic({
 
 ### Making custom/undocumented requests
 
-This library is typed for convenient access to the documented API. If you need to access undocumented
-endpoints, params, or response properties, the library can still be used.
+This library is typed for convenient access to the documented API. If you need to access undocumented endpoints, params, or response properties, the library can still be used.
 
 #### Undocumented endpoints
 
-To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
-Options on the client, such as retries, will be respected when making these requests.
+To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs. Options on the client, such as retries, are respected when making these requests.
 
-```typescript nocheck
+```typescript
 await client.post("/some/path", {
   body: { some_prop: "foo" },
   query: { some_query_arg: "bar" }
 });
 ```
 
-#### Undocumented request params
+#### Undocumented request parameters
 
-To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
-parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
-send will be sent as-is.
+To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you send will be sent as-is.
 
 ```typescript
 client.messages.create({
@@ -677,17 +642,13 @@ client.messages.create({
 });
 ```
 
-For requests with the `GET` verb, any extra params will be in the query, all other requests will send the
-extra param in the body.
+For requests with the `GET` verb, any extra parameters will be in the query; all other requests will send the extra parameter in the body.
 
-If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
-options.
+If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request options.
 
 #### Undocumented response properties
 
-To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
-the response object, or cast the response object to the requisite type. Like the request params, the SDK does not
-validate or strip extra properties from the response from the API.
+To access undocumented response properties, you may access the response object with `// @ts-expect-error` on the response object, or cast the response object to the requisite type. Like the request parameters, the SDK does not validate or strip extra properties from the response from the API.
 
 ### Customizing the fetch client
 
@@ -695,7 +656,7 @@ By default, this library expects a global `fetch` function is defined.
 
 If you want to use a different `fetch` function, you can either polyfill the global:
 
-```typescript nocheck
+```typescript
 import fetch from "my-fetch";
 
 globalThis.fetch = fetch;
@@ -703,8 +664,7 @@ globalThis.fetch = fetch;
 
 Or pass it to the client:
 
-```typescript nocheck hidelines={1}
-import Anthropic from "@anthropic-ai/sdk";
+```typescript
 import fetch from "my-fetch";
 
 const client = new Anthropic({ fetch });
@@ -714,9 +674,7 @@ const client = new Anthropic({ fetch });
 
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when creating the client or making a request. (Request-specific options override client options.)
 
-```typescript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const client = new Anthropic({
   fetchOptions: {
     // `RequestInit` options
@@ -726,129 +684,107 @@ const client = new Anthropic({
 
 ### Configuring proxies
 
-To modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy
-options to requests:
+To modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy options to requests:
 
 <Tabs>
-<Tab title="Node.js">
+  <Tab title="Node.js">
+    ```typescript
+    import * as undici from "undici";
 
-```typescript nocheck hidelines={1}
-import Anthropic from "@anthropic-ai/sdk";
-import * as undici from "undici";
+    const proxyAgent = new undici.ProxyAgent("http://localhost:8888");
+    const client = new Anthropic({
+      fetchOptions: {
+        dispatcher: proxyAgent
+      }
+    });
+    ```
+  </Tab>
 
-const proxyAgent = new undici.ProxyAgent("http://localhost:8888");
-const client = new Anthropic({
-  fetchOptions: {
-    dispatcher: proxyAgent
-  }
-});
-```
-</Tab>
-<Tab title="Bun">
+  <Tab title="Bun">
+    ```typescript
+    const client = new Anthropic({
+      fetchOptions: {
+        proxy: "http://localhost:8888"
+      }
+    });
+    ```
+  </Tab>
 
-```typescript nocheck hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
+  <Tab title="Deno">
+    ```typescript
+    import Anthropic from "npm:@anthropic-ai/sdk";
 
-const client = new Anthropic({
-  fetchOptions: {
-    proxy: "http://localhost:8888"
-  }
-});
-```
-</Tab>
-<Tab title="Deno">
-
-```typescript nocheck
-import Anthropic from "npm:@anthropic-ai/sdk";
-
-const httpClient = Deno.createHttpClient({ proxy: { url: "http://localhost:8888" } });
-const client = new Anthropic({
-  fetchOptions: {
-    client: httpClient
-  }
-});
-```
-</Tab>
+    const httpClient = Deno.createHttpClient({ proxy: { url: "http://localhost:8888" } });
+    const client = new Anthropic({
+      fetchOptions: {
+        client: httpClient
+      }
+    });
+    ```
+  </Tab>
 </Tabs>
 
 ## Beta features
 
-Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [build with Claude overview](/docs/en/build-with-claude/overview).
+Beta features are available before general release to get early feedback and test new functionality. You can check the availability of all of Claude's capabilities and tools in the [build with Claude overview](https://platform.claude.com/docs/en/build-with-claude/overview).
 
-You can access most beta API features through the beta property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](/docs/en/api/beta-headers) to the `betas` field when creating a message.
+You can access most beta API features through the beta property of the client. To enable a particular beta feature, you need to add the appropriate [beta header](https://platform.claude.com/docs/en/api/beta-headers) to the `betas` field when creating a message.
 
-For example, to use the [Files API](/docs/en/build-with-claude/files):
+For example, to enable [context editing](https://platform.claude.com/docs/en/build-with-claude/context-editing):
 
-```typescript nocheck hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
-
+```typescript
 const client = new Anthropic();
 const response = await client.beta.messages.create({
-  model: "claude-opus-4-7",
+  model: "claude-opus-5",
   max_tokens: 1024,
-  messages: [
-    {
-      role: "user",
-      content: [
-        { type: "text", text: "Please summarize this document for me." },
-        {
-          type: "document",
-          source: {
-            type: "file",
-            file_id: "file_abc123"
-          }
-        }
-      ]
-    }
-  ],
-  betas: ["files-api-2025-04-14"]
+  messages: [{ role: "user", content: "Hello, Claude" }],
+  betas: ["context-management-2025-06-27"]
 });
 ```
 
 ## Runtime support
 
-<section title="Browser usage">
+<Accordion title="Browser usage">
+  Enabling the `dangerouslyAllowBrowser` option can be dangerous because it exposes your secret API credentials in the client-side code. Web browsers are inherently less secure than server environments, any user with access to the browser can potentially inspect, extract, and misuse these credentials. This could lead to unauthorized access using your credentials and potentially compromise sensitive data or functionality.
 
-Enabling the `dangerouslyAllowBrowser` option can be dangerous because it exposes your secret API credentials in the client-side code. Web browsers are inherently less secure than server environments, any user with access to the browser can potentially inspect, extract, and misuse these credentials. This could lead to unauthorized access using your credentials and potentially compromise sensitive data or functionality.
+  **When might this not be dangerous?**
 
-**When might this not be dangerous?**
+  In certain scenarios where enabling browser support might not pose significant risks:
 
-In certain scenarios where enabling browser support might not pose significant risks:
-
-- **Internal Tools:** If the application is used solely within a controlled internal environment where the users are trusted, the risk of credential exposure can be mitigated.
-- **Development or debugging purpose:** Enabling this feature temporarily might be acceptable, provided the credentials are short-lived, aren't also used in production environments, or are frequently rotated.
-
-</section>
+  * **Internal tools:** If the application is used solely within a controlled internal environment where the users are trusted, the risk of credential exposure can be mitigated.
+  * **Development or debugging purpose:** Enabling this feature temporarily might be acceptable, provided the credentials are short-lived, aren't also used in production environments, or are frequently rotated.
+</Accordion>
 
 ## Platform integrations
 
 <Note>
-For detailed platform setup guides with code examples, see:
-- [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock)
-- [Amazon Bedrock (legacy)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
-- [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
-- [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry)
-- [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws)
+  For detailed platform setup guides with code examples, see:
+
+  * [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
+  * [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
+  * [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)
+  * [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)
+  * [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
 </Note>
 
 The TypeScript SDK supports the following platforms:
 
-- **Bedrock:** `npm install @anthropic-ai/bedrock-sdk`: Provides `AnthropicBedrockMantle` client, and `AnthropicBedrock` for the `bedrock-runtime` path
-- **Vertex AI:** `npm install @anthropic-ai/vertex-sdk`: Provides `AnthropicVertex` client
-- **Foundry:** `npm install @anthropic-ai/foundry-sdk`: Provides `AnthropicFoundry` client
-- **Claude Platform on AWS:** `npm install @anthropic-ai/aws-sdk`: Provides `AnthropicAws` client. Pass `workspaceId` to the constructor or set the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. Available in beta.
+* **Agent Platform:** `npm install @anthropic-ai/vertex-sdk`: Provides `AnthropicVertex` client
+* **Bedrock:** `npm install @anthropic-ai/bedrock-sdk`: Provides `AnthropicBedrockMantle` client, and `AnthropicBedrock` for the `bedrock-runtime` path
+* **Claude Platform on AWS:** `npm install @anthropic-ai/aws-sdk`: Provides `AnthropicAws` client. Pass `workspaceId` to the constructor or set the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable. Available in beta.
+* **Foundry:** `npm install @anthropic-ai/foundry-sdk`: Provides `AnthropicFoundry` client
 
 Use `AnthropicBedrockMantle` for new projects; `AnthropicBedrock` remains for existing applications using the Bedrock `InvokeModel` API.
 
 ## Semantic versioning
 
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes that only affect static types, without breaking runtime behavior.
 2. Changes to library internals which are technically public but not intended or documented for external use.
 3. Changes that aren't expected to impact the vast majority of users in practice.
 
-Backwards-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
+Backward-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 
 ## Frequently asked questions
 
@@ -856,7 +792,7 @@ See the [GitHub repository](https://github.com/anthropics/anthropic-sdk-typescri
 
 ## Additional resources
 
-- [GitHub repository](https://github.com/anthropics/anthropic-sdk-typescript)
-- [API reference](/docs/en/api/overview)
-- [Streaming Messages](/docs/en/build-with-claude/streaming)
-- [Tool use with Claude](/docs/en/agents-and-tools/tool-use/overview)
+* [GitHub repository](https://github.com/anthropics/anthropic-sdk-typescript)
+* [API reference](https://platform.claude.com/docs/en/api/overview)
+* [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/streaming)
+* [Tool use with Claude](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview)

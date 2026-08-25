@@ -1,3 +1,8 @@
+---
+title: Delete Credential
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/delete
+---
+
 ## Delete Credential
 
 `$ ant beta:vaults:credentials delete`

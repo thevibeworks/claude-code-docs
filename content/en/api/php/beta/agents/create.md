@@ -1,3 +1,8 @@
+---
+title: Create Agent
+url: https://platform.claude.com/docs/en/api/php/beta/agents/create
+---
+
 ## Create Agent
 
 `$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
@@ -10,7 +15,7 @@ Create Agent
 
 - `model: Model`
 
-  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-4-6`, or a `model_config` object for additional configuration control
+  Model identifier. Accepts the [model string](https://platform.claude.com/docs/en/about-claude/models/overview#latest-models-comparison), e.g. `claude-opus-5`, or a `model_config` object for additional configuration control
 
 - `name: string`
 
@@ -104,7 +109,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsAgent = $client->beta->agents->create(
-  model: 'claude-sonnet-4-6',
+  model: BetaManagedAgentsModel::CLAUDE_OPUS_5,
   name: 'My First Agent',
   description: 'A general-purpose starter agent.',
   mcpServers: [
@@ -129,6 +134,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
           'name' => 'bash',
           'enabled' => true,
           'permissionPolicy' => ['type' => 'always_allow'],
+          'type' => 'bash',
         ],
       ],
       'defaultConfig' => [
@@ -136,7 +142,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
       ],
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsAgent);
@@ -161,7 +167,11 @@ var_dump($betaManagedAgentsAgent);
     "foo": "bar"
   },
   "model": {
-    "id": "claude-sonnet-4-6",
+    "id": "claude-opus-5",
+    "effort": {
+      "type": "low"
+    },
+    "inference_geo": "inference_geo",
     "speed": "standard"
   },
   "multiagent": {
@@ -196,7 +206,8 @@ var_dump($betaManagedAgentsAgent);
           "name": "bash",
           "permission_policy": {
             "type": "always_allow"
-          }
+          },
+          "type": "bash"
         }
       ],
       "default_config": {

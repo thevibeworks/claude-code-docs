@@ -1,102 +1,210 @@
-# Data residency
-
-Manage where model inference runs and where data is stored with geographic controls.
-
 ---
-
-<Note>
-This feature is eligible for [Zero Data Retention (ZDR)](/docs/en/build-with-claude/api-and-data-retention). When your organization has a ZDR arrangement, data sent through this feature is not stored after the API response is returned.
-</Note>
+title: Data residency
+url: https://platform.claude.com/docs/en/manage-claude/data-residency
+description: Manage where model inference runs and where data is stored with geographic controls.
+---
 
 Data residency controls let you manage where your data is processed and stored. Two independent settings govern this:
 
-- **Inference geo:** Controls where model inference runs, on a per-request basis. Set via the `inference_geo` API parameter or as a workspace default.
-- **Workspace geo:** Controls where data is stored at rest and where endpoint processing (image transcoding, code execution, etc.) happens. Configured at the workspace level in the [Console](https://platform.claude.com).
+* **Inference geo:** Controls where model inference runs, on a per-request basis. Set through the `inference_geo` API parameter or as a workspace default.
+* **Workspace geo:** Controls where data is stored at rest and where endpoint processing (such as image transcoding and code execution) happens. Configured at the workspace level in the [Claude Console](https://platform.claude.com).
 
 <Note>
-[Claude Managed Agents](/docs/en/managed-agents/overview) does not support the `inference_geo` parameter, but respects the Workspace geo configured in Console.
+  [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview) supports geographic pinning at the agent level: `inference_geo` on an [agent's model configuration](https://platform.claude.com/docs/en/managed-agents/agent-setup#pin-the-inference-geo) pins the geography that serves model requests for sessions running that agent, with [per-session overrides](https://platform.claude.com/docs/en/managed-agents/sessions#pin-the-inference-geo-for-a-session) at session create. Agents without a pin follow the workspace's default inference geo on each request. Managed Agents also respects the Workspace geo configured in Console, and with [self-hosted sandboxes](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes), tool execution and the sandbox filesystem stay on infrastructure you control; the contents of attached [memory stores](https://platform.claude.com/docs/en/managed-agents/self-hosted-sandboxes#use-memory-stores) remain stored by Anthropic and are copied to your sandbox for the session.
 </Note>
 
 ## Inference geo
 
+<Note>
+  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+</Note>
+
 The `inference_geo` parameter controls where model inference runs for a specific API request. Add it to any `POST /v1/messages` call.
 
-| Value | Description |
-|:------|:------------|
+| Value      | Description                                                                                     |
+| ---------- | ----------------------------------------------------------------------------------------------- |
 | `"global"` | Default. Inference may run in any available geography for optimal performance and availability. |
-| `"us"` | Inference runs only in US-based infrastructure. |
+| `"us"`     | Inference runs only in US-based infrastructure.                                                 |
 
 ### API usage
 
 <CodeGroup>
-```bash cURL
-curl https://api.anthropic.com/v1/messages \
-    --header "x-api-key: $ANTHROPIC_API_KEY" \
-    --header "anthropic-version: 2023-06-01" \
-    --header "content-type: application/json" \
-    --data '{
-        "model": "claude-opus-4-7",
-        "max_tokens": 1024,
-        "inference_geo": "us",
-        "messages": [{
-            "role": "user",
-            "content": "Summarize the key points of this document."
-        }]
+  ```bash cURL
+  curl https://api.anthropic.com/v1/messages \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "model": "claude-opus-5",
+      "max_tokens": 1024,
+      "inference_geo": "us",
+      "messages": [{
+        "role": "user",
+        "content": "Summarize the key points of this document."
+      }]
     }'
-```
+  ```
 
-```bash CLI
-ant messages create \
-  --model claude-opus-4-7 \
-  --max-tokens 1024 \
-  --inference-geo us \
-  --message '{role: user, content: "Summarize the key points of this document."}' \
-  --transform '{content.0.text,usage.inference_geo}' --format yaml
-```
+  ```bash CLI
+  ant messages create \
+    --model claude-opus-5 \
+    --max-tokens 1024 \
+    --inference-geo us \
+    --message '{role: user, content: "Summarize the key points of this document."}' \
+    --transform '{content.#(type=="text").text,usage.inference_geo}' --format yaml
+  ```
 
-```python Python hidelines={1..2}
-import anthropic
+  ```python Python
+  client = anthropic.Anthropic()
 
-client = anthropic.Anthropic()
+  response = client.messages.create(
+      model="claude-opus-5",
+      max_tokens=1024,
+      inference_geo="us",
+      messages=[
+          {"role": "user", "content": "Summarize the key points of this document."}
+      ],
+  )
 
-response = client.messages.create(
-    model="claude-opus-4-7",
-    max_tokens=1024,
-    inference_geo="us",
-    messages=[
-        {"role": "user", "content": "Summarize the key points of this document."}
-    ],
-)
+  for block in response.content:
+      if block.type == "text":
+          print(block.text)
+  # Check where inference actually ran
+  print(f"Inference geo: {response.usage.inference_geo}")
+  ```
 
-print(response.content[0].text)
-# Check where inference actually ran
-print(f"Inference geo: {response.usage.inference_geo}")
-```
+  ```typescript TypeScript
+  const client = new Anthropic();
 
-```typescript TypeScript hidelines={1..2}
-import Anthropic from "@anthropic-ai/sdk";
+  const response = await client.messages.create({
+    model: "claude-opus-5",
+    max_tokens: 1024,
+    inference_geo: "us",
+    messages: [
+      {
+        role: "user",
+        content: "Summarize the key points of this document."
+      }
+    ]
+  });
 
-const client = new Anthropic();
+  const textBlock = response.content.find(
+    (block): block is Anthropic.TextBlock => block.type === "text"
+  );
+  console.log(textBlock?.text);
+  // Check where inference actually ran
+  console.log(`Inference geo: ${response.usage.inference_geo}`);
+  ```
 
-const response = await client.messages.create({
-  model: "claude-opus-4-7",
-  max_tokens: 1024,
-  inference_geo: "us",
-  messages: [
-    {
-      role: "user",
-      content: "Summarize the key points of this document."
-    }
-  ]
-});
+  ```csharp C#
+  var client = new AnthropicClient();
 
-const textBlock = response.content.find(
-  (block): block is Anthropic.TextBlock => block.type === "text"
-);
-console.log(textBlock?.text);
-// Check where inference actually ran
-console.log(`Inference geo: ${response.usage.inference_geo}`);
-```
+  var response = await client.Messages.Create(
+      new MessageCreateParams
+      {
+          Model = Model.ClaudeOpus5,
+          MaxTokens = 1024,
+          InferenceGeo = "us",
+          Messages =
+          [
+              new() { Role = Role.User, Content = "Summarize the key points of this document." },
+          ],
+      }
+  );
+
+  foreach (var block in response.Content)
+  {
+      if (block.TryPickText(out var textBlock))
+      {
+          Console.WriteLine(textBlock.Text);
+      }
+  }
+
+  // Check where inference actually ran
+  Console.WriteLine($"Inference geo: {response.Usage.InferenceGeo}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  message, err := client.Messages.New(context.Background(), anthropic.MessageNewParams{
+  	Model:        anthropic.ModelClaudeOpus5,
+  	MaxTokens:    1024,
+  	InferenceGeo: anthropic.String("us"),
+  	Messages: []anthropic.MessageParam{
+  		anthropic.NewUserMessage(anthropic.NewTextBlock("Summarize the key points of this document.")),
+  	},
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  for _, block := range message.Content {
+  	if textBlock, ok := block.AsAny().(anthropic.TextBlock); ok {
+  		fmt.Println(textBlock.Text)
+  	}
+  }
+  // Check where inference actually ran
+  fmt.Printf("Inference geo: %s\n", message.Usage.InferenceGeo)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  Message response = client.messages().create(
+          MessageCreateParams.builder()
+                  .model(Model.CLAUDE_OPUS_5)
+                  .maxTokens(1024L)
+                  .inferenceGeo("us")
+                  .addUserMessage("Summarize the key points of this document.")
+                  .build());
+
+  response.content().stream()
+          .flatMap(block -> block.text().stream())
+          .forEach(textBlock -> IO.println(textBlock.text()));
+  // Check where inference actually ran
+  IO.println("Inference geo: " + response.usage().inferenceGeo().get());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $response = $client->messages->create(
+      model: 'claude-opus-5',
+      maxTokens: 1024,
+      inferenceGeo: 'us',
+      messages: [
+          ['role' => 'user', 'content' => 'Summarize the key points of this document.'],
+      ],
+  );
+
+  foreach ($response->content as $block) {
+      if ($block->type === 'text') {
+          echo $block->text, PHP_EOL;
+      }
+  }
+  // Check where inference actually ran
+  echo "Inference geo: {$response->usage->inferenceGeo}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  response = client.messages.create(
+    model: "claude-opus-5",
+    max_tokens: 1024,
+    inference_geo: "us",
+    messages: [
+      {role: "user", content: "Summarize the key points of this document."}
+    ]
+  )
+
+  response.content.each do |block|
+    puts block.text if block.type == :text
+  end
+  # Check where inference actually ran
+  puts "Inference geo: #{response.usage.inference_geo}"
+  ```
 </CodeGroup>
 
 ### Response
@@ -115,24 +223,24 @@ The response `usage` object includes an `inference_geo` field indicating where i
 
 ### Model availability
 
-The `inference_geo` parameter is supported on Claude Opus 4.6 and all subsequent models. Older models released before Opus 4.6 do not support the parameter. Requests with `inference_geo` on legacy models return a 400 error.
+The `inference_geo` parameter is supported on Claude 4.6 and later models. Requests with `inference_geo` on Claude Opus 4.5, Claude Sonnet 4.5, Claude Haiku 4.5, or earlier models return a 400 error.
 
 <Note>
-The `inference_geo` parameter is only available on the Claude API (1P). On third-party platforms (AWS Bedrock, Google Vertex AI), the inference region is determined by the endpoint URL or inference profile, so `inference_geo` is not applicable. The `inference_geo` parameter is also not available via the [OpenAI SDK compatibility endpoint](/docs/en/api/openai-sdk).
+  The `inference_geo` parameter is available on the Claude API (first-party) and [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). On Amazon Bedrock and Google Cloud, the inference region is determined by the endpoint URL or inference profile, so `inference_geo` is not applicable. On [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), `inference_geo` is likewise not applicable: deployments hosted on Azure can instead use the US Data Zone Standard deployment type, which keeps inference within the United States. The `inference_geo` parameter is also not available through the [OpenAI SDK compatibility endpoint](https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk).
 </Note>
 
 ### Workspace-level restrictions
 
 Workspace settings also support restricting which inference geos are available:
 
-- **`allowed_inference_geos`:** Restricts which geos a workspace can use. If a request specifies an `inference_geo` not in this list, the API returns an error.
-- **`default_inference_geo`:** Sets the fallback geo when `inference_geo` is omitted from a request. Individual requests can override this by setting `inference_geo` explicitly.
+* **`allowed_inference_geos`:** Restricts which geos a workspace can use. If a request specifies an `inference_geo` not in this list, the API returns an error.
+* **`default_inference_geo`:** Sets the fallback geo when `inference_geo` is omitted from a request. Individual requests can override this by setting `inference_geo` explicitly.
 
-These settings can be configured through the Console or the [Admin API](/docs/en/build-with-claude/administration-api) under the `data_residency` field.
+These settings can be configured through the Console or the [Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api) under the `data_residency` field.
 
 ## Workspace geo
 
-Workspace geo is set when you create a workspace and can't be changed afterwards. Currently, `"us"` is the only available workspace geo.
+Workspace geo is set when you create a workspace and can't be changed afterward. Currently, `"us"` is the only available workspace geo.
 
 To set workspace geo, create a new workspace in the [Console](https://platform.claude.com):
 
@@ -140,23 +248,29 @@ To set workspace geo, create a new workspace in the [Console](https://platform.c
 2. Create a new workspace.
 3. Select the workspace geo.
 
+<Note>
+  **Claude Platform on AWS:** Workspace geo is not configurable. Claude Managed Agents sessions on this platform run with an effective Workspace geo of `"us"`, which is currently the only available workspace geo. See [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws) for data residency considerations specific to that platform.
+</Note>
+
 ## Pricing
 
 Data residency pricing varies by model generation:
 
-- **Claude Opus 4.6 and newer:** US-only inference (`inference_geo: "us"`) is priced at 1.1x the standard rate across all token pricing categories (input tokens, output tokens, cache writes, and cache reads).
-- **Global routing** (`inference_geo: "global"` or omitted): Standard pricing applies.
-- **Older models:** Existing pricing is unchanged regardless of `inference_geo` settings.
+* **Claude 4.6 and later models:** US-only inference (`inference_geo: "us"`) is priced at 1.1x the standard rate across all token pricing categories (input tokens, output tokens, cache writes, and cache reads).
+* **Global routing** (`inference_geo: "global"`): Standard pricing applies.
+* **Older models:** Don't support `inference_geo` (see [Model availability](https://platform.claude.com/docs/en/manage-claude/data-residency#model-availability)); standard pricing applies. Requests that include the parameter return a 400 error.
 
-This pricing applies to the Claude API (1P) only. Third-party platforms (AWS Bedrock, Google Vertex AI) have their own regional pricing. See the [pricing page](/docs/en/about-claude/pricing#data-residency-pricing) for details.
+This pricing applies to the Claude API (first-party) and Claude Platform on AWS. On Claude in Microsoft Foundry, the same 1.1x multiplier applies to deployments hosted on Azure that use the US Data Zone Standard deployment type. Partner-operated platforms (Bedrock and Google Cloud) have their own regional pricing. See [Data residency pricing](https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing) for details.
+
+The same multiplier applies to [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview): when an agent's [model configuration](https://platform.claude.com/docs/en/managed-agents/agent-setup) pins `inference_geo` to `"us"`, model requests in sessions running that agent are priced at 1.1x the standard rate.
 
 <Note>
-If you use [Priority Tier](/docs/en/api/service-tiers), the 1.1x multiplier for US-only inference also affects how tokens are counted against your Priority Tier capacity. Each token consumed with `inference_geo: "us"` draws down 1.1 tokens from your committed TPM, consistent with how other pricing multipliers (such as prompt caching) affect burndown rates.
+  If you have a [Priority Tier](https://platform.claude.com/docs/en/api/service-tiers) commitment, the 1.1x multiplier for US-only inference also affects how tokens are counted against your Priority Tier capacity. Each token consumed with `inference_geo: "us"` draws down 1.1 tokens from your committed TPM, consistent with how other pricing multipliers (such as prompt caching) affect burndown rates.
 </Note>
 
 ## Batch API support
 
-The `inference_geo` parameter is supported on the [Batch API](/docs/en/build-with-claude/batch-processing). Each request in a batch can specify its own `inference_geo` value.
+The `inference_geo` parameter is supported on the [Batch API](https://platform.claude.com/docs/en/build-with-claude/batch-processing). Each request in a batch can specify its own `inference_geo` value.
 
 ## Migration from legacy opt-outs
 
@@ -166,43 +280,45 @@ If your organization previously opted out of global routing to keep inference in
 
 The legacy opt-out was an organization-level setting that restricted all requests to US-based infrastructure. The new data residency controls replace this with two mechanisms:
 
-- **Per-request control:** The `inference_geo` parameter lets you specify `"us"` or `"global"` on each API call, giving you request-level flexibility.
-- **Workspace controls:** The `default_inference_geo` and `allowed_inference_geos` settings in the Console let you enforce geo policies across all keys in a workspace.
+* **Per-request control:** The `inference_geo` parameter lets you specify `"us"` or `"global"` on each API call, giving you request-level flexibility.
+* **Workspace controls:** The `default_inference_geo` and `allowed_inference_geos` settings in the Console let you enforce geo policies across all keys in a workspace.
 
 ### What happened to your workspace
 
 Your workspace was migrated automatically:
 
-| Legacy setting | New equivalent |
-|:---------------|:---------------|
+| Legacy setting                   | New equivalent                                                  |
+| -------------------------------- | --------------------------------------------------------------- |
 | Global routing opt-out (US only) | `allowed_inference_geos: ["us"]`, `default_inference_geo: "us"` |
 
 All API requests using keys from your workspace continue to run on US-based infrastructure. No action is needed to maintain your current behavior.
 
 ### If you want to use global routing
 
-If your data residency requirements have changed and you want to take advantage of global routing for better performance and availability, update your workspace's inference geo settings to include `"global"` in the allowed geos and set `default_inference_geo` to `"global"`. See [Workspace-level restrictions](#workspace-level-restrictions) for details.
+If your data residency requirements have changed and you want to take advantage of global routing for better performance and availability, update your workspace's inference geo settings to include `"global"` in the allowed geos and set `default_inference_geo` to `"global"`. See [Workspace-level restrictions](https://platform.claude.com/docs/en/manage-claude/data-residency#workspace-level-restrictions) for details.
 
 ### Pricing impact
 
-Legacy models are unaffected by this migration. For current pricing on newer models, see [Pricing](#pricing).
+Legacy models are unaffected by this migration. For current pricing on newer models, see [Pricing](https://platform.claude.com/docs/en/manage-claude/data-residency#pricing).
 
 ## Current limitations
 
-- **Shared rate limits:** Rate limits are shared across all geos.
-- **Inference geo:** Only `"us"` and `"global"` are available at launch. Additional regions will be added over time.
-- **Workspace geo:** Only `"us"` is currently available. Workspace geo can't be changed after workspace creation.
+* **Shared rate limits:** Rate limits are shared across all geos.
+* **Inference geo:** Only `"us"` and `"global"` are available.
+* **Workspace geo:** Only `"us"` is currently available. Workspace geo can't be changed after workspace creation.
 
 ## Next steps
 
 <CardGroup>
-  <Card title="Pricing" icon="dollar-sign" href="/docs/en/about-claude/pricing#data-residency-pricing">
+  <Card title="Pricing" icon="dollar-sign" href="https://platform.claude.com/docs/en/about-claude/pricing#data-residency-pricing">
     View data residency pricing details.
   </Card>
-  <Card title="Workspaces" icon="building" href="/docs/en/build-with-claude/workspaces">
+
+  <Card title="Workspaces" icon="building" href="https://platform.claude.com/docs/en/manage-claude/workspaces">
     Learn about workspace configuration.
   </Card>
-  <Card title="Usage and Cost API" icon="chart" href="/docs/en/build-with-claude/usage-cost-api">
+
+  <Card title="Usage and Cost API" icon="chart" href="https://platform.claude.com/docs/en/manage-claude/usage-cost-api">
     Track usage and costs by data residency.
   </Card>
 </CardGroup>

@@ -1,3 +1,8 @@
+---
+title: Stop Work
+url: https://platform.claude.com/docs/en/api/typescript/beta/environments/work/stop
+---
+
 ## Stop Work
 
 `client.beta.environments.work.stop(stringworkID, WorkStopParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
@@ -28,7 +33,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -74,19 +79,29 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -136,6 +151,10 @@ Stop a work item, initiating graceful or forced shutdown.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `secret: string | null`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `started_at: string | null`
 
     RFC 3339 timestamp when work execution started
@@ -171,14 +190,14 @@ Stop a work item, initiating graceful or forced shutdown.
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const betaSelfHostedWork = await client.beta.environments.work.stop('work_id', {
-  environment_id: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
+const betaSelfHostedWork = await client.beta.environments.work.stop("work_id", {
+  environment_id: "env_011CZkZ9X2dpNyB7HsEFoRfW"
 });
 
 console.log(betaSelfHostedWork.id);
@@ -200,6 +219,7 @@ console.log(betaSelfHostedWork.id);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",

@@ -1,3 +1,8 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/php/messages/batches/delete
+---
+
 ## Delete a Message Batch
 
 `$client->messages->batches->delete(string messageBatchID): DeletedMessageBatch`

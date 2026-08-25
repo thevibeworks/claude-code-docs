@@ -1,3 +1,8 @@
+---
+title: List Vaults
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/list
+---
+
 ## List Vaults
 
 `$client->beta->vaults->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsVault>`
@@ -67,7 +72,7 @@ $page = $client->beta->vaults->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);

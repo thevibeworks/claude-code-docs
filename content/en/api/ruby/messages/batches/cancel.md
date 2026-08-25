@@ -1,3 +1,8 @@
+---
+title: Cancel a Message Batch
+url: https://platform.claude.com/docs/en/api/ruby/messages/batches/cancel
+---
+
 ## Cancel a Message Batch
 
 `messages.batches.cancel(message_batch_id) -> MessageBatch`

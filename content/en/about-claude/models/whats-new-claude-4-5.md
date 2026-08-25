@@ -1,526 +1,183 @@
-# What's new in Claude 4.5
-
+---
+title: Models overview
+url: https://platform.claude.com/docs/en/about-claude/models/overview
+description: Claude is a family of state-of-the-art large language models developed by Anthropic. This guide introduces the available models and compares their performance.
 ---
 
-Claude 4.5 introduces three models designed for different use cases:
+## Choosing a model
 
-- **Claude Opus 4.5**: Our most intelligent model combining maximum capability with practical performance. Features a more accessible price point than previous Opus models. Available with a 200k token context window.
-- **Claude Sonnet 4.5**: Our best model for complex agents and coding, with the highest intelligence across most tasks. Available with a 200k and 1M (beta) token context window.
-- **Claude Haiku 4.5**: Our fastest and most intelligent Haiku model with near-frontier performance. Available with a 200k token context window.
+If you're unsure which model to use, start with **Claude Opus 5** for complex agentic coding and enterprise work. For workloads that need the highest available capability, use [Claude Fable 5](https://platform.claude.com/docs/en/about-claude/models/overview#claude-fable-5-and-claude-mythos-5).
 
-## Key improvements in Opus 4.5 over Opus 4.1
+All current Claude models support text and image input, text output, multilingual capabilities, and vision. Models are available through the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
 
-### Maximum intelligence
+Once you've picked a model, [learn how to make your first API call](https://platform.claude.com/docs/en/get-started).
 
-Claude Opus 4.5 represents our most intelligent model, combining maximum capability with practical performance. It delivers step-change improvements across reasoning, coding, and complex problem-solving tasks while maintaining the high-quality outputs expected from the Opus family.
+### Claude Fable 5 and Claude Mythos 5
 
-### Effort parameter
+Claude Fable 5 (`claude-fable-5`) is Anthropic's most capable widely released model. Claude Mythos 5 (`claude-mythos-5`) shares Claude Fable 5's specs and pricing and joins the invitation-only Claude Mythos Preview (`claude-mythos-preview`) within [Project Glasswing](https://anthropic.com/glasswing). See [Introducing Claude Fable 5 and Claude Mythos 5](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) for launch details and API changes.
 
-Claude Opus 4.5 is the only model that supports the [effort parameter](/docs/en/build-with-claude/effort), allowing you to control how many tokens Claude uses when responding. This gives you the ability to trade off between response thoroughness and token efficiency with a single model.
+Claude Fable 5 is available on the Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry beginning June 9, 2026. Claude Mythos 5 is offered only to approved customers in [Project Glasswing](https://anthropic.com/glasswing), beginning the same day. For access, contact your Anthropic, AWS, or Google Cloud account team.
 
-The effort parameter affects all tokens in the response, including text responses, tool calls, and extended thinking. You can choose between:
-- **High effort**: Maximum thoroughness for complex analysis and detailed explanations
-- **Medium effort**: Balanced approach for most production use cases
-- **Low effort**: Most token-efficient responses for high-volume automation
+### Latest models comparison
 
-### Computer use excellence
+| Feature                                                                                                                       | Claude Fable 5                                                                                                                                                                                                                                                                                 | Claude Opus 5                                                                        | Claude Sonnet 5                                                                      | Claude Haiku 4.5                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| **Description**                                                                                                               | Next-generation intelligence for long-running agents                                                                                                                                                                                                                                           | For complex agentic coding and enterprise work                                       | The best combination of speed and intelligence                                       | The fastest model with near-frontier intelligence                                      |
+| **Claude API ID**                                                                                                             | claude-fable-5                                                                                                                                                                                                                                                                                 | claude-opus-5                                                                        | claude-sonnet-5                                                                      | claude-haiku-4-5-20251001                                                              |
+| **Claude API alias**                                                                                                          | claude-fable-5                                                                                                                                                                                                                                                                                 | claude-opus-5                                                                        | claude-sonnet-5                                                                      | claude-haiku-4-5                                                                       |
+| **AWS Bedrock ID**                                                                                                            | anthropic.claude-fable-53                                                                                                                                                                                                                                                                      | anthropic.claude-opus-53                                                             | anthropic.claude-sonnet-53                                                           | anthropic.claude-haiku-4-5-20251001-v1:0                                               |
+| **Google Cloud ID**                                                                                                           | claude-fable-5                                                                                                                                                                                                                                                                                 | claude-opus-5                                                                        | claude-sonnet-5                                                                      | claude-haiku-4-5\@20251001                                                             |
+| **Pricing**1                                                                                                                  | $10 / input MTok $50 / output MTok                                                                                                                                                                                                                                                             | $5 / input MTok $25 / output MTok                                                    | $2 / input MTok $10 / output MTok                                                    | $1 / input MTok $5 / output MTok                                                       |
+| **[Extended thinking (`thinking.type: "enabled"`)](https://platform.claude.com/docs/en/build-with-claude/extended-thinking)** | No                                                                                                                                                                                                                                                                                             | No                                                                                   | No                                                                                   | Yes                                                                                    |
+| **[Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)**                                       | Yes (always on)                                                                                                                                                                                                                                                                                | Yes                                                                                  | Yes                                                                                  | No                                                                                     |
+| **Comparative latency**                                                                                                       | Slower                                                                                                                                                                                                                                                                                         | Moderate                                                                             | Fast                                                                                 | Fastest                                                                                |
+| **Context window**                                                                                                            | <Tooltip tooltipContent="~555k words \ ~2.5M unicode characters. Claude Fable 5 uses the tokenizer introduced with Claude Opus 4.7; compared to models before Claude Opus 4.7, the same text produces roughly 30% more tokens. The exact increase depends on the content.">1M tokens</Tooltip> | <Tooltip tooltipContent="~555k words \ ~2.5M unicode characters">1M tokens</Tooltip> | <Tooltip tooltipContent="~555k words \ ~2.5M unicode characters">1M tokens</Tooltip> | <Tooltip tooltipContent="~150k words \ ~680k unicode characters">200k tokens</Tooltip> |
+| **Max output**                                                                                                                | 128k tokens                                                                                                                                                                                                                                                                                    | 128k tokens                                                                          | 128k tokens                                                                          | 64k tokens                                                                             |
+| **Reliable knowledge cutoff**                                                                                                 | Jan 20262                                                                                                                                                                                                                                                                                      | May 20262                                                                            | Jan 20262                                                                            | Feb 2025                                                                               |
+| **Training data cutoff**                                                                                                      | Jan 2026                                                                                                                                                                                                                                                                                       | May 2026                                                                             | Jan 2026                                                                             | Jul 2025                                                                               |
 
-Claude Opus 4.5 introduces [enhanced computer use capabilities](/docs/en/agents-and-tools/tool-use/computer-use-tool) with a new zoom action that enables detailed inspection of specific screen regions at full resolution. This allows Claude to examine fine-grained UI elements, small text, and detailed visual information that might be unclear in standard screenshots.
+*1 See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) for complete pricing information including Batch API discounts and prompt caching rates.*
 
-The zoom capability is particularly valuable for:
-- Inspecting small UI elements and controls
-- Reading fine print or detailed text
-- Analyzing complex interfaces with dense information
-- Verifying precise visual details before taking actions
+*2 **Reliable knowledge cutoff** indicates the date through which a model's knowledge is most extensive and reliable. **Training data cutoff** is the broader date range of training data used. For more information, see [Anthropic's Transparency Hub](https://www.anthropic.com/transparency).*
 
-### Practical performance
+*3 Claude Fable 5, Claude Opus 5, and Claude Sonnet 5 are available on Bedrock through [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) (the Messages-API Bedrock endpoint).*
 
-Claude Opus 4.5 delivers flagship intelligence at a [more accessible price point](/docs/en/about-claude/pricing) than previous Opus models, making advanced AI capabilities available for a broader range of applications and use cases.
-
-### Thinking block preservation
-
-Claude Opus 4.5 [automatically preserves all previous thinking blocks](/docs/en/build-with-claude/extended-thinking#thinking-block-preservation-in-claude-opus-4-5) throughout conversations, maintaining reasoning continuity across extended multi-turn interactions and tool use sessions. This ensures Claude can effectively leverage its full reasoning history when working on complex, long-running tasks.
-
-## Key improvements in Sonnet 4.5 over Sonnet 4
-
-### Coding excellence
-
-Claude Sonnet 4.5 is our best coding model to date, with significant improvements across the entire development lifecycle:
-
-- **SWE-bench Verified performance**: Advanced state-of-the-art on coding benchmarks
-- **Enhanced planning and system design**: Better architectural decisions and code organization
-- **Improved security engineering**: More robust security practices and vulnerability detection
-- **Better instruction following**: More precise adherence to coding specifications and requirements
+<Info>
+  Claude Mythos 5 and Claude Mythos Preview are offered separately for defensive cybersecurity workflows as part of [Project Glasswing](https://anthropic.com/glasswing). Access is invitation-only and there is no self-serve sign-up.
+</Info>
 
 <Note>
-Claude Sonnet 4.5 performs significantly better on coding tasks when [extended thinking](/docs/en/build-with-claude/extended-thinking) is enabled. Extended thinking is disabled by default, but we recommend enabling it for complex coding work. Be aware that extended thinking impacts [prompt caching efficiency](/docs/en/build-with-claude/prompt-caching#caching-with-thinking-blocks). See the [migration guide](/docs/en/about-claude/models/migrating-to-claude-4#extended-thinking-recommendations) for configuration details.
+  Every Claude model ID is a pinned snapshot. Models with a date in the ID (for example, 
+
+  `20250929`
+
+  ) are fixed to that specific release. Starting with the Claude 4.6 generation, model IDs use a dateless format that is also a pinned snapshot, not an evergreen pointer. For models before the 4.6 generation, entries in the Claude API alias column are convenience pointers that resolve to a dated model ID. For details on the naming convention and how versioning works, see 
+
+  [Model IDs and versioning](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions)
+
+  .
 </Note>
-
-### Agent capabilities
-
-Claude Sonnet 4.5 introduces major advances in agent capabilities:
-
-- **Extended autonomous operation**: Sonnet 4.5 can work independently for hours while maintaining clarity and focus on incremental progress. The model makes steady advances on a few tasks at a time rather than attempting everything at once. It provides fact-based progress updates that accurately reflect what has been accomplished.
-- **Context awareness**: Claude now tracks its token usage throughout conversations, receiving updates after each tool call. This awareness helps prevent premature task abandonment and enables more effective execution on long-running tasks. See [Context awareness](/docs/en/build-with-claude/context-windows#context-awareness-in-claude-sonnet-4-5) for technical details and [prompting guidance](/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices#context-awareness-and-multi-window-workflows).
-- **Enhanced tool usage**: The model more effectively uses parallel tool calls, firing off multiple speculative searches simultaneously during research and reading several files at once to build context faster. Improved coordination across multiple tools and information sources enables the model to effectively leverage a wide range of capabilities in agentic search and coding workflows.
-- **Advanced context management**: Sonnet 4.5 maintains exceptional state tracking in external files, preserving goal-orientation across sessions. Combined with more effective context window usage and our new context management API features, the model optimally handles information across extended sessions to maintain coherence over time.
-
-<Note>Context awareness is available in Claude Sonnet 4, Sonnet 4.5, Haiku 4.5, Opus 4, Opus 4.1, and Opus 4.5.</Note>
-
-### Communication and interaction style
-
-Claude Sonnet 4.5 has a refined communication approach that is concise, direct, and natural. It provides fact-based progress updates and may skip verbose summaries after tool calls to maintain workflow momentum (though this can be adjusted with prompting).
-
-For detailed guidance on working with this communication style, see [Claude 4 best practices](/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices).
-
-### Creative content generation
-
-Claude Sonnet 4.5 excels at creative content tasks:
-
-- **Presentations and animations**: Matches or exceeds Claude Opus 4.1 and Opus 4.5 for creating slides and visual content
-- **Creative flair**: Produces polished, professional output with strong instruction following
-- **First-try quality**: Generates usable, well-designed content in initial attempts
-
-## Key improvements in Haiku 4.5 over Haiku 3.5
-
-Claude Haiku 4.5 represents a transformative leap for the Haiku model family, bringing frontier capabilities to our fastest model class:
-
-### Near-frontier intelligence with blazing speed
-
-Claude Haiku 4.5 delivers near-frontier performance matching Sonnet 4 at significantly lower cost and faster speed:
-
-- **Near-frontier intelligence**: Matches Sonnet 4 performance across reasoning, coding, and complex tasks
-- **Enhanced speed**: More than twice the speed of Sonnet 4, with optimizations for output tokens per second (OTPS)
-- **Optimal cost-performance**: Near-frontier intelligence at one-third the cost, ideal for high-volume deployments
-
-### Extended thinking capabilities
-
-Claude Haiku 4.5 is the **first Haiku model** to support extended thinking, bringing advanced reasoning capabilities to the Haiku family:
-
-- **Reasoning at speed**: Access to Claude's internal reasoning process for complex problem-solving
-- **Thinking Summarization**: Summarized thinking output for production-ready deployments
-- **Interleaved thinking**: Think between tool calls for more sophisticated multi-step workflows
-- **Budget control**: Configure thinking token budgets to balance reasoning depth with speed
-
-Extended thinking must be enabled explicitly by adding a `thinking` parameter to your API requests. See the [Extended thinking documentation](/docs/en/build-with-claude/extended-thinking) for implementation details.
 
 <Note>
-Claude Haiku 4.5 performs significantly better on coding and reasoning tasks when [extended thinking](/docs/en/build-with-claude/extended-thinking) is enabled. Extended thinking is disabled by default, but we recommend enabling it for complex problem-solving, coding work, and multi-step reasoning. Be aware that extended thinking impacts [prompt caching efficiency](/docs/en/build-with-claude/prompt-caching#caching-with-thinking-blocks). See the [migration guide](/docs/en/about-claude/models/migrating-to-claude-4#extended-thinking-recommendations) for configuration details.
+  Starting with 
+
+  **Claude Sonnet 4.5 and all subsequent models**
+
+   (including Claude Sonnet 4.6), Bedrock offers two endpoint types: 
+
+  **global endpoints**
+
+   (dynamic routing for maximum availability) and 
+
+  **regional endpoints**
+
+   (guaranteed data routing through specific geographic regions). Google Cloud offers three endpoint types: global endpoints, 
+
+  **multi-region endpoints**
+
+   (dynamic routing within a geographic area), and regional endpoints. For more information, see 
+
+  [Cloud platform pricing](https://platform.claude.com/docs/en/about-claude/pricing#cloud-platform-pricing)
+
+  .
 </Note>
-
-<Note>Available in Claude Sonnet 3.7, Sonnet 4, Sonnet 4.5, Haiku 4.5, Opus 4, Opus 4.1, and Opus 4.5.</Note>
-
-### Context awareness
-
-Claude Haiku 4.5 features **context awareness**, enabling the model to track its remaining context window throughout a conversation:
-
-- **Token budget tracking**: Claude receives real-time updates on remaining context capacity after each tool call
-- **Better task persistence**: The model can execute tasks more effectively by understanding available working space
-- **Multi-context-window workflows**: Improved handling of state transitions across extended sessions
-
-This is the first Haiku model with native context awareness capabilities. For prompting guidance, see [Claude 4 best practices](/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices#context-awareness-and-multi-window-workflows).
-
-<Note>Available in Claude Sonnet 4, Sonnet 4.5, Haiku 4.5, Opus 4, Opus 4.1, and Opus 4.5.</Note>
-
-### Strong coding and tool use
-
-Claude Haiku 4.5 delivers robust coding capabilities expected from modern Claude models:
-
-- **Coding proficiency**: Strong performance across code generation, debugging, and refactoring tasks
-- **Full tool support**: Compatible with all Claude 4 tools including bash, code execution, text editor, web search, and computer use
-- **Enhanced computer use**: Optimized for autonomous desktop interaction and browser automation workflows
-- **Parallel tool execution**: Efficient coordination across multiple tools for complex workflows
-
-Haiku 4.5 is designed for use cases that demand both intelligence and efficiency:
-
-- **Real-time applications**: Fast response times for interactive user experiences
-- **High-volume processing**: Cost-effective intelligence for large-scale deployments
-- **Free tier implementations**: Premium model quality at accessible pricing
-- **Sub-agent architectures**: Fast, intelligent agents for multi-agent systems
-- **Computer use at scale**: Cost-effective autonomous desktop and browser automation
-
-## New API features
-
-### Programmatic tool calling (Beta)
-
-[Programmatic tool calling](/docs/en/agents-and-tools/tool-use/programmatic-tool-calling) allows Claude to write code that calls your tools programmatically within a code execution container, rather than requiring round trips through the model for each tool invocation. This significantly reduces latency for multi-tool workflows and decreases token consumption by allowing Claude to filter or process data before it reaches the model's context window.
-
-```python
-tools=[
-    {
-        "type": "code_execution_20250825",
-        "name": "code_execution"
-    },
-    {
-        "name": "query_database",
-        "description": "Execute a SQL query against the sales database. Returns a list of rows as JSON objects.",
-        "input_schema": {...},
-        "allowed_callers": ["code_execution_20250825"]  # Enable programmatic calling
-    }
-]
-```
-
-Key benefits:
-- **Reduced latency**: Eliminate model round-trips between tool calls
-- **Token efficiency**: Process and filter tool results programmatically before returning to Claude
-- **Complex workflows**: Support loops, conditional logic, and batch processing
-
-<Note>Available in Claude Opus 4.5 and Claude Sonnet 4.5. Requires [beta header](/docs/en/api/beta-headers): `advanced-tool-use-2025-11-20`</Note>
-
-### Tool search tool (Beta)
-
-The [tool search tool](/docs/en/agents-and-tools/tool-use/tool-search-tool) enables Claude to work with hundreds or thousands of tools by dynamically discovering and loading them on-demand. Instead of loading all tool definitions into the context window upfront, Claude searches your tool catalog and loads only the tools it needs.
-
-Two search variants are available:
-- **Regex** (`tool_search_tool_regex_20251119`): Claude constructs regex patterns to search tool names, descriptions, and arguments
-- **BM25** (`tool_search_tool_bm25_20251119`): Claude uses natural language queries to search for tools
-
-```python
-tools=[
-    {
-        "type": "tool_search_tool_regex_20251119",
-        "name": "tool_search_tool_regex"
-    },
-    {
-        "name": "get_weather",
-        "description": "Get the weather at a specific location",
-        "input_schema": {...},
-        "defer_loading": True  # Load on-demand via search
-    }
-]
-```
-
-This approach solves two critical challenges:
-- **Context efficiency**: Save 10-20K tokens by not loading all tool definitions upfront
-- **Tool selection accuracy**: Maintain high accuracy even with 100+ available tools
-
-<Note>Available in Claude Opus 4.5 and Claude Sonnet 4.5. Requires [beta header](/docs/en/api/beta-headers): `advanced-tool-use-2025-11-20`</Note>
-
-### Effort parameter (Beta)
-
-The [effort parameter](/docs/en/build-with-claude/effort) allows you to control how many tokens Claude uses when responding, trading off between response thoroughness and token efficiency:
-
-```python
-response = client.beta.messages.create(
-    model="claude-opus-4-5-20251101",
-    betas=["effort-2025-11-24"],
-    max_tokens=4096,
-    messages=[{"role": "user", "content": "..."}],
-    output_config={
-        "effort": "medium"  # "low", "medium", or "high"
-    }
-)
-```
-
-The effort parameter affects all tokens in the response, including text responses, tool calls, and extended thinking. Lower effort levels produce more concise responses with minimal explanations, while higher effort provides detailed reasoning and comprehensive answers.
-
-<Note>Available exclusively in Claude Opus 4.5. Requires [beta header](/docs/en/api/beta-headers): `effort-2025-11-24`</Note>
-
-### Tool use examples (Beta)
-
-[Tool use examples](/docs/en/agents-and-tools/tool-use/implement-tool-use#providing-tool-use-examples) allow you to provide concrete examples of valid tool inputs to help Claude understand how to use your tools more effectively. This is particularly useful for complex tools with nested objects, optional parameters, or format-sensitive inputs.
-
-```python
-tools=[
-    {
-        "name": "get_weather",
-        "description": "Get the current weather in a given location",
-        "input_schema": {...},
-        "input_examples": [
-            {
-                "location": "San Francisco, CA",
-                "unit": "fahrenheit"
-            },
-            {
-                "location": "Tokyo, Japan",
-                "unit": "celsius"
-            },
-            {
-                "location": "New York, NY"  # Demonstrates optional 'unit' parameter
-            }
-        ]
-    }
-]
-```
-
-Examples are included in the prompt alongside your tool schema, showing Claude concrete patterns for well-formed tool calls. Each example must be valid according to the tool's `input_schema`.
-
-<Note>Available in Claude Sonnet 4.5, Haiku 4.5, Opus 4.5, Opus 4.1, and Opus 4. Requires [beta header](/docs/en/api/beta-headers): `advanced-tool-use-2025-11-20`.</Note>
-
-### Memory tool (Beta)
-
-The new [memory tool](/docs/en/agents-and-tools/tool-use/memory-tool) enables Claude to store and retrieve information outside the context window:
-
-```python
-tools=[
-    {
-        "type": "memory_20250818",
-        "name": "memory"
-    }
-]
-```
-
-This allows for:
-- Building knowledge bases over time
-- Maintaining project state across sessions
-- Preserving effectively unlimited context through file-based storage
-
-<Note>Available in Claude Sonnet 4, Sonnet 4.5, Haiku 4.5, Opus 4, Opus 4.1, and Opus 4.5. Requires [beta header](/docs/en/api/beta-headers): `context-management-2025-06-27`</Note>
-
-### Context editing
-
-Use [context editing](/docs/en/build-with-claude/context-editing) for intelligent context management through automatic tool call clearing:
-
-```python
-response = client.beta.messages.create(
-    betas=["context-management-2025-06-27"],
-    model="claude-sonnet-4-5",  # or claude-haiku-4-5
-    max_tokens=4096,
-    messages=[{"role": "user", "content": "..."}],
-    context_management={
-        "edits": [
-            {
-                "type": "clear_tool_uses_20250919",
-                "trigger": {"type": "input_tokens", "value": 500},
-                "keep": {"type": "tool_uses", "value": 2},
-                "clear_at_least": {"type": "input_tokens", "value": 100}
-            }
-        ]
-    },
-    tools=[...]
-)
-```
-
-This feature automatically removes older tool calls and results when approaching token limits, helping manage context in long-running agent sessions.
-
-<Note>Available in Claude Sonnet 4, Sonnet 4.5, Haiku 4.5, Opus 4, Opus 4.1, and Opus 4.5. Requires [beta header](/docs/en/api/beta-headers): `context-management-2025-06-27`</Note>
-
-### Enhanced stop reasons
-
-Claude 4.5 models introduce a new `model_context_window_exceeded` stop reason that explicitly indicates when generation stopped due to hitting the context window limit, rather than the requested `max_tokens` limit. This makes it easier to handle context window limits in your application logic.
-
-```json
-{
-  "stop_reason": "model_context_window_exceeded",
-  "usage": {
-    "input_tokens": 150000,
-    "output_tokens": 49950
-  }
-}
-```
-
-### Improved tool parameter handling
-
-Claude 4.5 models include a bug fix that preserves intentional formatting in tool call string parameters. Previously, trailing newlines in string parameters were sometimes incorrectly stripped. This fix ensures that tools requiring precise formatting (like text editors) receive parameters exactly as intended.
 
 <Note>
-This is a behind-the-scenes improvement with no API changes required. However, tools with string parameters may now receive values with trailing newlines that were previously stripped.
+  **Claude Platform on AWS**
+
+   uses the same model IDs as the Claude API (for example, 
+
+  `claude-opus-4-6`
+
+  ), not Bedrock-style IDs. Model lifecycle on Claude Platform on AWS follows Anthropic's first-party 
+
+  [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations)
+
+  , not Bedrock's. See 
+
+  [Available models](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#available-models)
+
+   for the model list.
 </Note>
 
-**Example:**
-
-```json
-// Before: Final newline accidentally stripped
-{
-  "type": "tool_use",
-  "id": "toolu_01A09q90qw90lq917835lq9",
-  "name": "edit_todo",
-  "input": {
-    "file": "todo.txt",
-    "contents": "1. Chop onions.\n2. ???\n3. Profit"
-  }
-}
-
-// After: Trailing newline preserved as intended
-{
-  "type": "tool_use",
-  "id": "toolu_01A09q90qw90lq917835lq9",
-  "name": "edit_todo",
-  "input": {
-    "file": "todo.txt",
-    "contents": "1. Chop onions.\n2. ???\n3. Profit\n"
-  }
-}
-```
-
-### Token count optimizations
-
-Claude 4.5 models include automatic optimizations to improve model performance. These optimizations may add small amounts of tokens to requests, but **you are not billed for these system-added tokens**.
-
-## Features introduced in Claude 4
-
-The following features were introduced in Claude 4 and are available across Claude 4 models, including Claude Sonnet 4.5 and Claude Haiku 4.5.
-
-### New refusal stop reason
-
-Claude 4 models introduce a new `refusal` stop reason for content that the model declines to generate for safety reasons:
-
-```json
-{
-  "id": "msg_014XEDjypDjFzgKVWdFUXxZP",
-  "type": "message",
-  "role": "assistant",
-  "model": "claude-sonnet-4-5",
-  "content": [{"type": "text", "text": "I would be happy to assist you. You can "}],
-  "stop_reason": "refusal",
-  "stop_sequence": null,
-  "usage": {
-    "input_tokens": 564,
-    "cache_creation_input_tokens": 0,
-    "cache_read_input_tokens": 0,
-    "output_tokens": 22
-  }
-}
-```
-
-When using Claude 4 models, you should update your application to [handle `refusal` stop reasons](/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals).
-
-### Summarized thinking
-
-With extended thinking enabled, the Messages API for Claude 4 models returns a summary of Claude's full thinking process. Summarized thinking provides the full intelligence benefits of extended thinking, while preventing misuse.
-
-While the API is consistent across Claude 3.7 and 4 models, streaming responses for extended thinking might return in a "chunky" delivery pattern, with possible delays between streaming events.
+<Tip>
+  You can query model capabilities and token limits programmatically with the [Models API](https://platform.claude.com/docs/en/api/models/list). The response includes `max_input_tokens`, `max_tokens`, and a `capabilities` object for every available model.
+</Tip>
 
 <Note>
-Summarization is processed by a different model than the one you target in your requests. The thinking model does not see the summarized output.
+  On Claude Opus 4.8, the `effort` parameter defaults to `high` on all surfaces, including the Claude API, Claude Code, and claude.ai. On Claude Opus 5 and Claude Sonnet 5, it defaults to `high` on the Claude API and Claude Code. Set `effort` explicitly to use a different level. See [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) for guidance on choosing a level.
 </Note>
-
-For more information, see the [Extended thinking documentation](/docs/en/build-with-claude/extended-thinking#summarized-thinking).
-
-### Interleaved thinking
-
-Claude 4 models support interleaving tool use with extended thinking, allowing for more natural conversations where tool uses and responses can be mixed with regular messages.
 
 <Note>
-Interleaved thinking is in beta. To enable interleaved thinking, add [the beta header](/docs/en/api/beta-headers) `interleaved-thinking-2025-05-14` to your API request.
+  The Max output values in the table apply to the synchronous Messages API. On the [Message Batches API](https://platform.claude.com/docs/en/build-with-claude/batch-processing#extended-output-beta), Claude Opus 5, Opus 4.8, Opus 4.7, Opus 4.6, Sonnet 5, and Sonnet 4.6 support up to 300k output tokens by using the `output-300k-2026-03-24` beta header.
 </Note>
 
-For more information, see the [Extended thinking documentation](/docs/en/build-with-claude/extended-thinking#interleaved-thinking).
+<AccordionGroup>
+  <Accordion title="Legacy models">
+    The following models are still available. Consider migrating to current models for improved performance:
 
-### Behavioral differences
+    | Feature                                                                                                                       | Claude Opus 4.8                                                                      | Claude Opus 4.7                                                                                                      | Claude Opus 4.6                                                                      | Claude Sonnet 4.6                                                                    | Claude Sonnet 4.5                                                                      | Claude Opus 4.5                                                                        |
+    | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+    | **Claude API ID**                                                                                                             | claude-opus-4-8                                                                      | claude-opus-4-7                                                                                                      | claude-opus-4-6                                                                      | claude-sonnet-4-6                                                                    | claude-sonnet-4-5-20250929                                                             | claude-opus-4-5-20251101                                                               |
+    | **Claude API alias**                                                                                                          | claude-opus-4-8                                                                      | claude-opus-4-7                                                                                                      | claude-opus-4-6                                                                      | claude-sonnet-4-6                                                                    | claude-sonnet-4-5                                                                      | claude-opus-4-5                                                                        |
+    | **AWS Bedrock ID**                                                                                                            | anthropic.claude-opus-4-86                                                           | anthropic.claude-opus-4-76                                                                                           | anthropic.claude-opus-4-6-v1                                                         | anthropic.claude-sonnet-4-6                                                          | anthropic.claude-sonnet-4-5-20250929-v1:0                                              | anthropic.claude-opus-4-5-20251101-v1:0                                                |
+    | **Google Cloud ID**                                                                                                           | claude-opus-4-8                                                                      | claude-opus-4-7                                                                                                      | claude-opus-4-6                                                                      | claude-sonnet-4-6                                                                    | claude-sonnet-4-5\@20250929                                                            | claude-opus-4-5\@20251101                                                              |
+    | **Pricing**                                                                                                                   | $5 / input MTok $25 / output MTok                                                    | $5 / input MTok $25 / output MTok                                                                                    | $5 / input MTok $25 / output MTok                                                    | $3 / input MTok $15 / output MTok                                                    | $3 / input MTok $15 / output MTok                                                      | $5 / input MTok $25 / output MTok                                                      |
+    | **[Extended thinking (`thinking.type: "enabled"`)](https://platform.claude.com/docs/en/build-with-claude/extended-thinking)** | No                                                                                   | No                                                                                                                   | Yes (deprecated)                                                                     | Yes (deprecated)                                                                     | Yes                                                                                    | Yes                                                                                    |
+    | **[Adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking)**                                       | Yes                                                                                  | Yes                                                                                                                  | Yes                                                                                  | Yes                                                                                  | No                                                                                     | No                                                                                     |
+    | **Comparative latency**                                                                                                       | Moderate                                                                             | Moderate                                                                                                             | Moderate                                                                             | Fast                                                                                 | Fast                                                                                   | Moderate                                                                               |
+    | **Context window**                                                                                                            | <Tooltip tooltipContent="~555k words \ ~2.5M unicode characters">1M tokens</Tooltip> | <Tooltip tooltipContent="~555k words \ ~2.5M unicode characters (Opus 4.7 uses a new tokenizer)">1M tokens</Tooltip> | <Tooltip tooltipContent="~750k words \ ~3.4M unicode characters">1M tokens</Tooltip> | <Tooltip tooltipContent="~750k words \ ~3.4M unicode characters">1M tokens</Tooltip> | <Tooltip tooltipContent="~150k words \ ~680k unicode characters">200k tokens</Tooltip> | <Tooltip tooltipContent="~150k words \ ~680k unicode characters">200k tokens</Tooltip> |
+    | **Max output**                                                                                                                | 128k tokens                                                                          | 128k tokens                                                                                                          | 128k tokens                                                                          | 128k tokens                                                                          | 64k tokens                                                                             | 64k tokens                                                                             |
+    | **Reliable knowledge cutoff**                                                                                                 | Jan 20265                                                                            | Jan 20265                                                                                                            | May 20255                                                                            | Aug 20255                                                                            | Jan 20255                                                                              | May 20255                                                                              |
+    | **Training data cutoff**                                                                                                      | Jan 2026                                                                             | Jan 2026                                                                                                             | Aug 2025                                                                             | Jan 2026                                                                             | Jul 2025                                                                               | Aug 2025                                                                               |
 
-Claude 4 models have notable behavioral changes that may affect how you structure prompts:
+    *5 **Reliable knowledge cutoff** indicates the date through which a model's knowledge is most extensive and reliable. **Training data cutoff** is the broader date range of training data used.*
 
-#### Communication style changes
+    *6 Claude Opus 4.8 and Claude Opus 4.7 are available on Bedrock through [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock) (the Messages-API Bedrock endpoint).*
+  </Accordion>
+</AccordionGroup>
 
-- **More concise and direct**: Claude 4 models communicate more efficiently, with less verbose explanations
-- **More natural tone**: Responses are slightly more conversational and less machine-like
-- **Efficiency-focused**: May skip detailed summaries after completing actions to maintain workflow momentum (you can prompt for more detail if needed)
+## Prompt and output performance
 
-#### Instruction following
+Current Claude models excel in:
 
-Claude 4 models are trained for precise instruction following and require more explicit direction:
+* **Performance:** Top-tier results in reasoning, coding, multilingual tasks, long-context handling, honesty, and image processing. See [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) for general and model-specific prompting guidance.
 
-- **Be explicit about actions**: Use direct language like "Make these changes" or "Implement this feature" rather than "Can you suggest changes" if you want Claude to take action
-- **State desired behaviors clearly**: Claude will follow instructions precisely, so being specific about what you want helps achieve better results
+* **Engaging responses:** Claude models are ideal for applications that require rich, human-like interactions.
 
-For comprehensive guidance on working with these models, see [Claude 4 prompt engineering best practices](/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices).
+  * If you prefer more concise responses, you can adjust your prompts to guide the model toward the desired output length. Refer to the [prompt engineering guides](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering) for details.
+  * For prompting best practices, see [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices).
 
-### Updated text editor tool
+* **Output quality:** When migrating from a previous model generation, you may notice larger improvements in overall performance.
 
-The text editor tool has been updated for Claude 4 models with the following changes:
+## Migrating to Claude Opus 5
 
-- **Tool type**: `text_editor_20250728`
-- **Tool name**: `str_replace_based_edit_tool`
-- The `undo_edit` command is no longer supported
+If you're currently using Claude Opus 4.8 or earlier Claude models, see [Migrating to Claude Opus 5](https://platform.claude.com/docs/en/about-claude/models/migration-guide#migrating-from-claude-opus-4-8-to-claude-opus-5).
+
+## Get started with Claude
+
+If you're ready to start exploring what Claude can do for you, dive in! Whether you're a developer looking to integrate Claude into your applications or a user wanting to experience the power of AI firsthand, the following resources can help.
 
 <Note>
-The `str_replace_editor` text editor tool remains the same for Claude Sonnet 3.7.
+  Looking to chat with Claude? Visit 
+
+  [claude.ai](https://claude.ai)
+
+  !
 </Note>
-
-If you're migrating from Claude Sonnet 3.7 and using the text editor tool:
-
-```python
-# Claude Sonnet 3.7
-tools=[
-    {
-        "type": "text_editor_20250124",
-        "name": "str_replace_editor"
-    }
-]
-
-# Claude 4 models
-tools=[
-    {
-        "type": "text_editor_20250728",
-        "name": "str_replace_based_edit_tool"
-    }
-]
-```
-
-For more information, see the [Text editor tool documentation](/docs/en/agents-and-tools/tool-use/text-editor-tool).
-
-### Updated code execution tool
-
-If you're using the code execution tool, ensure you're using the latest version `code_execution_20250825`, which adds Bash commands and file manipulation capabilities.
-
-The legacy version `code_execution_20250522` (Python only) is still available but not recommended for new implementations.
-
-For migration instructions, see the [Code execution tool documentation](/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version).
-
-## Pricing and availability
-
-### Pricing
-
-Claude 4.5 models maintain competitive pricing:
-
-| Model | Input | Output |
-|-------|-------|--------|
-| Claude Opus 4.5 | $5 per million tokens | $25 per million tokens |
-| Claude Sonnet 4.5 | $3 per million tokens | $15 per million tokens |
-| Claude Haiku 4.5 | $1 per million tokens | $5 per million tokens |
-
-For more details, see the [pricing documentation](/docs/en/about-claude/pricing).
-
-### Third-party platform pricing
-
-Starting with Claude 4.5 models (Opus 4.5, Sonnet 4.5, and Haiku 4.5), AWS Bedrock and Google Vertex AI offer two endpoint types:
-
-- **Global endpoints**: Dynamic routing for maximum availability
-- **Regional endpoints**: Guaranteed data routing through specific geographic regions with a **10% pricing premium**
-
-**This regional pricing applies to all Claude 4.5 models: Opus 4.5, Sonnet 4.5, and Haiku 4.5.**
-
-**The Claude API (1P) is global by default and unaffected by this change.** The Claude API is global-only (equivalent to the global endpoint offering and pricing from other providers).
-
-For implementation details and migration guidance:
-- [AWS Bedrock global vs regional endpoints](/docs/en/build-with-claude/claude-on-amazon-bedrock#global-vs-regional-endpoints)
-- [Google Vertex AI global vs regional endpoints](/docs/en/build-with-claude/claude-on-vertex-ai#global-vs-regional-endpoints)
-
-### Availability
-
-Claude 4.5 models are available on:
-
-| Model | Claude API | Amazon Bedrock | Google Cloud Vertex AI |
-|-------|-----------|----------------|------------------------|
-| Claude Opus 4.5 | `claude-opus-4-5-20251101` | `anthropic.claude-opus-4-5-20251101-v1:0` | `claude-opus-4-5@20251101` |
-| Claude Sonnet 4.5 | `claude-sonnet-4-5-20250929` | `anthropic.claude-sonnet-4-5-20250929-v1:0` | `claude-sonnet-4-5@20250929` |
-| Claude Haiku 4.5 | `claude-haiku-4-5-20251001` | `anthropic.claude-haiku-4-5-20251001-v1:0` | `claude-haiku-4-5@20251001` |
-
-Also available through Claude.ai and Claude Code platforms.
-
-## Migration guide
-
-Breaking changes and migration requirements vary depending on which model you're upgrading from. For detailed migration instructions, including step-by-step guides, breaking changes, and migration checklists, see [Migrating to Claude 4.5](/docs/en/about-claude/models/migrating-to-claude-4).
-
-The migration guide covers the following scenarios:
-- **Claude Sonnet 3.7 → Sonnet 4.5**: Complete migration path with breaking changes
-- **Claude Haiku 3.5 → Haiku 4.5**: Complete migration path with breaking changes
-- **Claude Sonnet 4 → Sonnet 4.5**: Quick upgrade with minimal changes
-- **Claude Opus 4.1 → Sonnet 4.5**: Seamless upgrade with no breaking changes
-- **Claude Opus 4.1 → Opus 4.5**: Seamless upgrade with no breaking changes
-- **Claude Opus 4.5 → Sonnet 4.5**: Seamless downgrade with no breaking changes
-
-## Next steps
 
 <CardGroup cols={3}>
-  <Card title="Best practices" icon="lightbulb" href="/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices">
-    Learn prompt engineering techniques for Claude 4.5 models
+  <Card title="Intro to Claude" icon="check" href="https://platform.claude.com/docs/en/intro">
+    Explore Claude's capabilities and development flow.
   </Card>
-  <Card title="Model overview" icon="table" href="/docs/en/about-claude/models/overview">
-    Compare Claude 4.5 models with other Claude models
+
+  <Card title="Quickstart" icon="lightning" href="https://platform.claude.com/docs/en/get-started">
+    Learn how to make your first API call in minutes.
   </Card>
-  <Card title="Migration guide" icon="arrow-right-arrow-left" href="/docs/en/about-claude/models/migrating-to-claude-4">
-    Upgrade from previous models
+
+  <Card title="Claude Console" icon="code" href="https://platform.claude.com/">
+    Craft and test powerful prompts directly in your browser.
   </Card>
 </CardGroup>
+
+If you have any questions or need assistance, don't hesitate to reach out to the [support team](https://support.claude.com/) or consult the [Discord community](https://www.anthropic.com/discord).

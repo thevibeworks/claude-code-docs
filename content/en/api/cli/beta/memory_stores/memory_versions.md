@@ -1,3 +1,8 @@
+---
+title: Memory Versions
+url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/memory_versions
+---
+
 # Memory Versions
 
 ## List memory versions
@@ -41,6 +46,10 @@ List memory versions
 - `--page: optional string`
 
   Query param: Query parameter for page
+
+- `--service-account-id: optional string`
+
+  Query param: Query parameter for service_account_id
 
 - `--session-id: optional string`
 
@@ -106,7 +115,7 @@ List memory versions
 
       Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-    - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+    - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
       Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -146,6 +155,16 @@ List memory versions
 
           ID of the user who performed the write (a `user_...` value).
 
+      - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+        Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+        - `service_account_id: string`
+
+          ID of the service account that performed the write (a `svac_...` value).
+
+        - `type: "service_account_actor"`
+
     - `path: optional string`
 
       The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -154,7 +173,7 @@ List memory versions
 
       A timestamp in RFC 3339 format
 
-    - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+    - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
       Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -169,6 +188,10 @@ List memory versions
       - `beta_managed_agents_user_actor: object { type, user_id }`
 
         Attribution for a write made by a human user through the Anthropic Console.
+
+      - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+        Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
   - `next_page: optional string`
 
@@ -287,7 +310,7 @@ Retrieve a memory version
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+  - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -327,6 +350,16 @@ Retrieve a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: string`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: "service_account_actor"`
+
   - `path: optional string`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -335,7 +368,7 @@ Retrieve a memory version
 
     A timestamp in RFC 3339 format
 
-  - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+  - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -350,6 +383,10 @@ Retrieve a memory version
     - `beta_managed_agents_user_actor: object { type, user_id }`
 
       Attribution for a write made by a human user through the Anthropic Console.
+
+    - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
 ### Example
 
@@ -456,7 +493,7 @@ Redact a memory version
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+  - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -496,6 +533,16 @@ Redact a memory version
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: string`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: "service_account_actor"`
+
   - `path: optional string`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -504,7 +551,7 @@ Redact a memory version
 
     A timestamp in RFC 3339 format
 
-  - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+  - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -519,6 +566,10 @@ Redact a memory version
     - `beta_managed_agents_user_actor: object { type, user_id }`
 
       Attribution for a write made by a human user through the Anthropic Console.
+
+    - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
 ### Example
 
@@ -559,7 +610,7 @@ ant beta:memory-stores:memory-versions redact \
 
 ### Beta Managed Agents Actor
 
-- `beta_managed_agents_actor: BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+- `beta_managed_agents_actor: BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
   Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -598,6 +649,16 @@ ant beta:memory-stores:memory-versions redact \
     - `user_id: string`
 
       ID of the user who performed the write (a `user_...` value).
+
+  - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+    Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+    - `service_account_id: string`
+
+      ID of the service account that performed the write (a `svac_...` value).
+
+    - `type: "service_account_actor"`
 
 ### Beta Managed Agents API Actor
 
@@ -661,7 +722,7 @@ ant beta:memory-stores:memory-versions redact \
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-  - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+  - `created_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -701,6 +762,16 @@ ant beta:memory-stores:memory-versions redact \
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `service_account_id: string`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `type: "service_account_actor"`
+
   - `path: optional string`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -709,7 +780,7 @@ ant beta:memory-stores:memory-versions redact \
 
     A timestamp in RFC 3339 format
 
-  - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor`
+  - `redacted_by: optional BetaManagedAgentsSessionActor or BetaManagedAgentsAPIActor or BetaManagedAgentsUserActor or BetaManagedAgentsServiceAccountActor`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -725,6 +796,10 @@ ant beta:memory-stores:memory-versions redact \
 
       Attribution for a write made by a human user through the Anthropic Console.
 
+    - `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
 ### Beta Managed Agents Memory Version Operation
 
 - `beta_managed_agents_memory_version_operation: "created" or "modified" or "deleted"`
@@ -736,6 +811,18 @@ ant beta:memory-stores:memory-versions redact \
   - `"modified"`
 
   - `"deleted"`
+
+### Beta Managed Agents Service Account Actor
+
+- `beta_managed_agents_service_account_actor: object { service_account_id, type }`
+
+  Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+  - `service_account_id: string`
+
+    ID of the service account that performed the write (a `svac_...` value).
+
+  - `type: "service_account_actor"`
 
 ### Beta Managed Agents Session Actor
 

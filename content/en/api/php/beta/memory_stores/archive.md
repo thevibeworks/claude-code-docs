@@ -1,3 +1,8 @@
+---
+title: Archive a memory store
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/archive
+---
+
 ## Archive a memory store
 
 `$client->beta->memoryStores->archive(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
@@ -58,7 +63,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsMemoryStore = $client->beta->memoryStores->archive(
-  'memory_store_id', betas: ['message-batches-2024-09-24']
+  'memory_store_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaManagedAgentsMemoryStore);

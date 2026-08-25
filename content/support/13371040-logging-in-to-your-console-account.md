@@ -2,7 +2,7 @@
 
 When you navigate to the **[Claude Console](https://platform.claude.com)**, you will see two different options for logging in to your Console account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1935026646/d90d1613a3dbe763fef5abb96e3c/image.png?expires=1786147200&amp;signature=8557f247367f8178eb4d03c33301c145b1154c86633265f0615b4ba99554845e&amp;req=dSkkE8l8m4dbX%2FMW3nq%2Bgcz%2BjLKQQB4vjXqxKXGdglrUCy%2FABjqFlR3DcZHe%0AZitu6OHwPizS0NUivlR0g7VrgWM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1935026646/d90d1613a3dbe763fef5abb96e3c/image.png?expires=1787588100&amp;signature=1f58cc3c11a0fc99fcef10992e229d3fee27cc21941c239104a76e5463a192a9&amp;req=dSkkE8l8m4dbX%2FMW1HO4zcrI547pqIgM8vUNcPt4%2B70OqY2wUiNJBhnJnfEP%0ASSQ0lCDBNwCT8daCdkc%3D%0A)
 
 ## Continue with Google
 
@@ -74,4 +74,4 @@ If you've previously authenticated using Google, you can follow these steps to u
 
 ### Can I have both a Claude account and a Console account?
 
-Yes, you can have both a Claude account (for using Claude at claude.ai) and a Console account (for accessing the Workbench and Claude API). These are separate accounts, though you can use the same email address for both. Learn more in **[Can I have a Claude account and a Console account?](https://support.claude.com/en/articles/8987223-can-i-have-a-claude-account-and-a-console-account)**
+Yes, you can have both a Claude account (for using Claude at claude.ai) and a Console account (for accessing the playground and Claude API). These are separate accounts, though you can use the same email address for both. Learn more in **[Can I have a Claude account and a Console account?](https://support.claude.com/en/articles/8987223-can-i-have-a-claude-account-and-a-console-account)**

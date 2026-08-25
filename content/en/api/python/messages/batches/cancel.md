@@ -1,3 +1,8 @@
+---
+title: Cancel a Message Batch
+url: https://platform.claude.com/docs/en/api/python/messages/batches/cancel
+---
+
 ## Cancel a Message Batch
 
 `messages.batches.cancel(strmessage_batch_id)  -> MessageBatch`
@@ -113,7 +118,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 message_batch = client.messages.batches.cancel(
     "message_batch_id",

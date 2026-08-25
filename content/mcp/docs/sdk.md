@@ -16,10 +16,10 @@ Build MCP servers and clients using our official SDKs. SDKs are classified into 
 | <Icon icon="python" size={24} />   [Python](https://py.sdk.modelcontextprotocol.io)        | [modelcontextprotocol/python-sdk](https://github.com/modelcontextprotocol/python-sdk)         |   <Badge color="blue" shape="pill">Tier 1</Badge> |
 | <Icon icon="square-c" size={24} />   [C#](https://csharp.sdk.modelcontextprotocol.io)      | [modelcontextprotocol/csharp-sdk](https://github.com/modelcontextprotocol/csharp-sdk)         |   <Badge color="blue" shape="pill">Tier 1</Badge> |
 | <Icon icon="golang" size={24} />   [Go](https://go.sdk.modelcontextprotocol.io)            | [modelcontextprotocol/go-sdk](https://github.com/modelcontextprotocol/go-sdk)                 |   <Badge color="blue" shape="pill">Tier 1</Badge> |
+| <Icon icon="rust" size={24} />   [Rust](https://rust.sdk.modelcontextprotocol.io)          | [modelcontextprotocol/rust-sdk](https://github.com/modelcontextprotocol/rust-sdk)             |   <Badge color="blue" shape="pill">Tier 1</Badge> |
 | <Icon icon="java" size={24} />   [Java](https://java.sdk.modelcontextprotocol.io)          | [modelcontextprotocol/java-sdk](https://github.com/modelcontextprotocol/java-sdk)             | <Badge color="purple" shape="pill">Tier 2</Badge> |
-| <Icon icon="rust" size={24} />   [Rust](https://rust.sdk.modelcontextprotocol.io)          | [modelcontextprotocol/rust-sdk](https://github.com/modelcontextprotocol/rust-sdk)             | <Badge color="purple" shape="pill">Tier 2</Badge> |
+| <Icon icon="gem" size={24} />   [Ruby](https://ruby.sdk.modelcontextprotocol.io)           | [modelcontextprotocol/ruby-sdk](https://github.com/modelcontextprotocol/ruby-sdk)             | <Badge color="purple" shape="pill">Tier 2</Badge> |
 | <Icon icon="swift" size={24} />   Swift                                                    | [modelcontextprotocol/swift-sdk](https://github.com/modelcontextprotocol/swift-sdk)           | <Badge color="orange" shape="pill">Tier 3</Badge> |
-| <Icon icon="gem" size={24} />   [Ruby](https://ruby.sdk.modelcontextprotocol.io)           | [modelcontextprotocol/ruby-sdk](https://github.com/modelcontextprotocol/ruby-sdk)             | <Badge color="orange" shape="pill">Tier 3</Badge> |
 | <Icon icon="php" size={24} />   [PHP](https://php.sdk.modelcontextprotocol.io)             | [modelcontextprotocol/php-sdk](https://github.com/modelcontextprotocol/php-sdk)               | <Badge color="orange" shape="pill">Tier 3</Badge> |
 | <Icon icon="square-k" size={24} />   [Kotlin](https://kotlin.sdk.modelcontextprotocol.io)  | [modelcontextprotocol/kotlin-sdk](https://github.com/modelcontextprotocol/kotlin-sdk)         | <Badge color="orange" shape="pill">Tier 3</Badge> |
 
@@ -41,11 +41,11 @@ Visit the SDK page for your chosen language to find installation instructions, d
 Ready to start building with MCP? Choose your path:
 
 <CardGroup cols={2}>
-  <Card title="Build a Server" icon="server" href="/docs/develop/build-server">
+  <Card title="Build a Server" icon="server" href="/docs/2026-07-28/develop/build-server">
     Learn how to create your first MCP server
   </Card>
 
-  <Card title="Build a Client" icon="computer" href="/docs/develop/build-client">
+  <Card title="Build a Client" icon="computer" href="/docs/2026-07-28/develop/build-client">
     Create applications that connect to MCP servers
   </Card>
 </CardGroup>

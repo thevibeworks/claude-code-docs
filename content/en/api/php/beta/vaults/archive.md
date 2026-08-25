@@ -1,3 +1,8 @@
+---
+title: Archive Vault
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/archive
+---
+
 ## Archive Vault
 
 `$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
@@ -54,7 +59,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsVault = $client->beta->vaults->archive(
-  'vlt_011CZkZDLs7fYzm1hXNPeRjv', betas: ['message-batches-2024-09-24']
+  'vlt_011CZkZDLs7fYzm1hXNPeRjv',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsVault);

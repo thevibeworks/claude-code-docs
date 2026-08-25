@@ -1,3 +1,8 @@
+---
+title: Get Work Item
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/retrieve
+---
+
 ## Get Work Item
 
 `$client->beta->environments->work->retrieve(string workID, string environmentID, ?list<AnthropicBeta> betas): SelfHostedWork`
@@ -50,6 +55,10 @@ Retrieve detailed information about a specific work item.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -82,7 +91,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->retrieve(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWork);
@@ -104,6 +113,7 @@ var_dump($betaSelfHostedWork);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",

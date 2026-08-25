@@ -115,18 +115,19 @@ sequenceDiagram
     Host-->>Model: Salesforce server available
 
     Model->>Host: enable_server("salesforce")
-    Host->>Server: Initialize connection
-    Server-->>Host: Server capabilities + tools
+    Host->>Server: server/discover
+    Server-->>Host: Supported versions + capabilities
+    Host->>Server: tools/list
+    Server-->>Host: Tool definitions
     Host-->>Model: Salesforce server connected
 
     Note over Model: Task complete
 
     Model->>Host: disable_server("salesforce")
-    Host->>Server: Close connection
     Host-->>Model: Server disconnected, context freed
 ```
 
-This works especially well for general-purpose agents, where the user's intent isn't known upfront. The agent starts with a minimal set of always-on servers and connects others as needed. Combined with [agent skills](/docs/develop/build-with-agent-skills), a skill file can declare which MCP servers it needs, and the host connects them only when that skill is invoked.
+This works especially well for general-purpose agents, where the user's intent isn't known upfront. The agent starts with a minimal set of always-on servers and connects others as needed. Combined with [agent skills](/docs/2026-07-28/develop/build-with-agent-skills), a skill file can declare which MCP servers it needs, and the host connects them only when that skill is invoked.
 
 ### Implementation Guidelines
 
@@ -138,6 +139,14 @@ When implementing progressive discovery:
 | **Cache tool definitions**       | Once fetched from a server, memoize the definition host-side so re-injecting it later doesn't need another `tools/list` round trip. This is separate from what's currently in the model's context. |
 | **Refresh on `list_changed`**    | Re-index the search catalog when a server sends `notifications/tools/list_changed`.                                                                                                                |
 | **Group tools by server**        | Present tools organized by their source server so the model can reason about related capabilities.                                                                                                 |
+
+### Caching
+
+Each list result (such as `tools/list`), as well as each `server/discover` and
+`resources/read` result, carries `ttlMs` and `cacheScope` hints. Follow them as defined in the
+specification's [caching utility](/specification/2026-07-28/server/utilities/caching). In particular,
+treat a cached list as stale once a `list_changed` notification arrives, even before its TTL
+expires.
 
 ### Interaction with Prompt Caching
 
@@ -193,7 +202,7 @@ function ticketing_createIssue(input: {
 }
 ```
 
-MCP Servers can provide an optional [`outputSchema`](/specification/draft/server/tools#output-schema) for each tool. When an output schema is present, the host can produce precise return types (like `LogEntry` above).
+MCP Servers can provide an optional [`outputSchema`](/specification/2026-07-28/server/tools#output-schema) for each tool. When an output schema is present, the host can produce precise return types (like `LogEntry` above).
 
 When an output schema is absent, prefer the simple path:
 
@@ -275,7 +284,7 @@ flowchart LR
 
 Programmatic tool calling introduces a code execution surface that requires careful sandboxing:
 
-* **Per-call authorization**: The broker is still the MCP host for spec purposes. Apply the same human-in-the-loop confirmation policy to sandbox-originated calls that you apply to direct calls (see [Tools: Security](/specification/draft/server/tools#security-considerations)). Approving the script does not grant blanket approval for every tool call it makes at runtime; hosts may grant categorical approval (for example, "allow `ticketing_createIssue` for this script run") rather than prompting per iteration, but the broker must still evaluate each call against that grant.
+* **Per-call authorization**: The broker is still the MCP host for spec purposes. Apply the same human-in-the-loop confirmation policy to sandbox-originated calls that you apply to direct calls (see [Tools: Security](/specification/2026-07-28/server/tools#security-considerations)). Approving the script does not grant blanket approval for every tool call it makes at runtime; hosts may grant categorical approval (for example, "allow `ticketing_createIssue` for this script run") rather than prompting per iteration, but the broker must still evaluate each call against that grant.
 * **Cross-server data flow**: Tool results from one server are untrusted input to another. The broker should apply the same input-review policy to brokered calls as to direct ones; output truncation alone does not prevent exfiltration.
 * **Network isolation**: The sandbox should have no direct network access. All external communication flows through the host broker, which enforces authorization and access control.
 * **No credential exposure**: API keys and tokens are held by the host. The generated code calls typed functions; the host adds authentication when forwarding to servers.
@@ -285,7 +294,7 @@ Programmatic tool calling introduces a code execution surface that requires care
 ### Error Handling
 
 MCP tool errors arrive as a successful response with
-[`isError: true`](/specification/draft/server/tools#error-handling) rather than a transport
+[`isError: true`](/specification/2026-07-28/server/tools#error-handling) rather than a transport
 failure. Generated wrappers should convert this into a thrown exception so model-authored code
 can use `try`/`catch`. If an uncaught error terminates the script, surface it as the script's
 result so the model can self-correct; the model is responsible for reporting any partial side

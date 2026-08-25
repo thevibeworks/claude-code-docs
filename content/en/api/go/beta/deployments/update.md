@@ -1,3 +1,8 @@
+---
+title: Update Deployment
+url: https://platform.claude.com/docs/en/api/go/beta/deployments/update
+---
+
 ## Update Deployment
 
 `client.Beta.Deployments.Update(ctx, deploymentID, params) (*BetaManagedAgentsDeployment, error)`
@@ -34,6 +39,10 @@ Update Deployment
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
 
+  - `Budget param.Field[BetaManagedAgentsBudgetLimit]`
+
+    Body param: A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
   - `Description param.Field[string]`
 
     Body param: Description. Omit to preserve; send empty string or null to clear.
@@ -46,7 +55,7 @@ Update Deployment
 
     Body param: Initial events. Full replacement. Omit to preserve. Cannot be cleared. At least 1, maximum 50.
 
-    - `type BetaManagedAgentsUserMessageEventParamsResp struct{…}`
+    - `type BetaManagedAgentsUserMessageEventParams struct{…}`
 
       Parameters for sending a user message to the session.
 
@@ -196,11 +205,19 @@ Update Deployment
 
             The title of the document.
 
+        - `type BetaManagedAgentsRedactedBlockParam struct{…}`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `Type BetaManagedAgentsRedactedBlockType`
+
+            - `const BetaManagedAgentsRedactedBlockTypeRedacted BetaManagedAgentsRedactedBlockType = "redacted"`
+
       - `Type BetaManagedAgentsUserMessageEventParamsType`
 
         - `const BetaManagedAgentsUserMessageEventParamsTypeUserMessage BetaManagedAgentsUserMessageEventParamsType = "user.message"`
 
-    - `type BetaManagedAgentsUserDefineOutcomeEventParamsResp struct{…}`
+    - `type BetaManagedAgentsUserDefineOutcomeEventParams struct{…}`
 
       Parameters for defining an outcome the agent should work toward. The agent begins work on receipt.
 
@@ -212,7 +229,7 @@ Update Deployment
 
         Rubric for grading the quality of an outcome.
 
-        - `type BetaManagedAgentsFileRubricParamsResp struct{…}`
+        - `type BetaManagedAgentsFileRubricParams struct{…}`
 
           Rubric referenced by a file uploaded via the Files API.
 
@@ -224,7 +241,7 @@ Update Deployment
 
             - `const BetaManagedAgentsFileRubricParamsTypeFile BetaManagedAgentsFileRubricParamsType = "file"`
 
-        - `type BetaManagedAgentsTextRubricParamsResp struct{…}`
+        - `type BetaManagedAgentsTextRubricParams struct{…}`
 
           Rubric content provided inline as text.
 
@@ -420,19 +437,29 @@ Update Deployment
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -625,6 +652,14 @@ Update Deployment
           - `Title string`
 
             The title of the document.
+
+        - `type BetaManagedAgentsRedactedBlockParam struct{…}`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `Type BetaManagedAgentsRedactedBlockType`
+
+            - `const BetaManagedAgentsRedactedBlockTypeRedacted BetaManagedAgentsRedactedBlockType = "redacted"`
 
       - `Type BetaManagedAgentsDeploymentUserMessageEventType`
 
@@ -966,34 +1001,54 @@ Update Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `Budget BetaManagedAgentsBudgetLimit`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+    - `MaxListCost BetaMonetaryAmount`
+
+      A monetary amount in a specific currency.
+
+      - `Amount string`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `Currency BetaCurrency`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+        - `const BetaCurrencyUsd BetaCurrency = "USD"`
+
+    - `Type BetaManagedAgentsBudgetLimitType`
+
+      - `const BetaManagedAgentsBudgetLimitTypeLimit BetaManagedAgentsBudgetLimitType = "limit"`
+
 ### Example
 
 ```go
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaManagedAgentsDeployment, err := client.Beta.Deployments.Update(
-    context.TODO(),
-    "depl_011CZkZcDH3vPqd7xnEfwTai",
-    anthropic.BetaDeploymentUpdateParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaManagedAgentsDeployment.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaManagedAgentsDeployment, err := client.Beta.Deployments.Update(
+		context.TODO(),
+		"depl_011CZkZcDH3vPqd7xnEfwTai",
+		anthropic.BetaDeploymentUpdateParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaManagedAgentsDeployment.ID)
 }
 ```
 
@@ -1053,6 +1108,13 @@ func main() {
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

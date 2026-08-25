@@ -98,6 +98,7 @@ jobs:
             - `content/blog/` - FROZEN archive (anthropic.com is HTML-only; no longer fetched)
             - `content/github/` - GitHub repos (cookbooks, skills, plugins, courses)
             - `content/support/` - Support articles (sitemap + .md)
+            - `content/claude/` - Product docs (Claude Tag, Cowork, office agents, connectors)
 
             ## YOUR WORKFLOW
 
@@ -119,9 +120,15 @@ jobs:
             - Breaking changes
             - Security-related updates
             - New MCP spec versions
+            - ANY deleted files (`git status` shows `D`). The fetcher reaps
+              pages that died upstream. A page disappearing is a real editorial
+              event and a human should see it, so deletions are never `minor`
+              no matter which directory they are in. Say what went and why it
+              looks gone (moved? renamed? product sunset?).
 
             **minor** (WHY: archive freshness, zero human value - PR is self-merged instantly):
             - Only github/ mirror or support/ content changed
+            - Additions and modifications only - never use `minor` if anything was deleted
             - Only .metadata.json / timestamps changed
             - Typo fixes, formatting tweaks, dead links, minor wording
 

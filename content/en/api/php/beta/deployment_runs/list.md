@@ -1,3 +1,8 @@
+---
+title: List Deployment Runs
+url: https://platform.claude.com/docs/en/api/php/beta/deployment_runs/list
+---
+
 ## List Deployment Runs
 
 `$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeploymentRun>`
@@ -101,7 +106,7 @@ $page = $client->beta->deploymentRuns->list(
   limit: 0,
   page: 'page',
   triggerType: BetaManagedAgentsTriggerType::SCHEDULE,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);

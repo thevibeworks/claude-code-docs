@@ -1,3 +1,8 @@
+---
+title: Count tokens in a Message
+url: https://platform.claude.com/docs/en/api/cli/messages/count_tokens
+---
+
 ## Count tokens in a Message
 
 `$ ant messages count-tokens`
@@ -63,7 +68,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   There is a limit of 100,000 messages in a single request.
 
-- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 13 more or string`
+- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
   Body param: The model that will complete your prompt.
 
@@ -177,7 +182,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 ant messages count-tokens \
   --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
-  --model claude-opus-4-6
+  --model claude-opus-5
 ```
 
 #### Response

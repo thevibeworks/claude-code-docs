@@ -1,3 +1,8 @@
+---
+title: Create a Text Completion
+url: https://platform.claude.com/docs/en/api/java/completions/create
+---
+
 ## Create a Text Completion
 
 `Completion completions().create(CompletionCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
@@ -62,19 +67,29 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `USER_PROFILES_2026_03_24("user-profiles-2026-03-24")`
 
+    - `USER_PROFILES_2026_08_18("user-profiles-2026-08-18")`
+
     - `ADVISOR_TOOL_2026_03_01("advisor-tool-2026-03-01")`
 
     - `MANAGED_AGENTS_2026_04_01("managed-agents-2026-04-01")`
 
     - `CACHE_DIAGNOSIS_2026_04_07("cache-diagnosis-2026-04-07")`
 
+    - `DREAMING_2026_04_21("dreaming-2026-04-21")`
+
     - `THINKING_TOKEN_COUNT_2026_05_13("thinking-token-count-2026-05-13")`
 
     - `SERVER_SIDE_FALLBACK_2026_06_01("server-side-fallback-2026-06-01")`
 
+    - `SERVER_SIDE_FALLBACK_2026_07_01("server-side-fallback-2026-07-01")`
+
     - `FALLBACK_CREDIT_2026_06_01("fallback-credit-2026-06-01")`
 
+    - `FALLBACK_CREDIT_2026_07_01("fallback-credit-2026-07-01")`
+
     - `AGENT_MEMORY_2026_07_22("agent-memory-2026-07-22")`
+
+    - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
   - `long maxTokensToSample`
 
@@ -176,13 +191,17 @@ Future models and features will not be compatible with Text Completions. See our
 
       Most capable model for cybersecurity and biology research
 
+    - `CLAUDE_OPUS_5("claude-opus-5")`
+
+      Powerful intelligence for long-running agents and coding
+
     - `CLAUDE_OPUS_4_8("claude-opus-4-8")`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_OPUS_4_7("claude-opus-4-7")`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_MYTHOS_PREVIEW("claude-mythos-preview")`
 
@@ -190,7 +209,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `CLAUDE_OPUS_4_6("claude-opus-4-6")`
 
-      Frontier intelligence for long-running agents and coding
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_SONNET_4_6("claude-sonnet-4-6")`
 
@@ -206,11 +225,11 @@ Future models and features will not be compatible with Text Completions. See our
 
     - `CLAUDE_OPUS_4_5("claude-opus-4-5")`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_OPUS_4_5_20251101("claude-opus-4-5-20251101")`
 
-      Premium model combining maximum intelligence with practical performance
+      Powerful intelligence for long-running agents and coding
 
     - `CLAUDE_SONNET_4_5("claude-sonnet-4-5")`
 
@@ -219,14 +238,6 @@ Future models and features will not be compatible with Text Completions. See our
     - `CLAUDE_SONNET_4_5_20250929("claude-sonnet-4-5-20250929")`
 
       High-performance model for agents and coding
-
-    - `CLAUDE_OPUS_4_1("claude-opus-4-1")`
-
-      Exceptional model for specialized complex tasks
-
-    - `CLAUDE_OPUS_4_1_20250805("claude-opus-4-1-20250805")`
-
-      Exceptional model for specialized complex tasks
 
   - `Optional<String> stopReason`
 

@@ -1,3 +1,8 @@
+---
+title: Poll for Work
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/poll
+---
+
 ## Poll for Work
 
 `$ ant beta:environments:work poll`
@@ -32,7 +37,7 @@ Long poll for work items in the queue.
 
 ### Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 9 more }`
+- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 10 more }`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -75,6 +80,10 @@ Long poll for work items in the queue.
   - `metadata: map[string]`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `secret: string`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `started_at: string`
 
@@ -130,6 +139,7 @@ ant beta:environments:work poll \
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",

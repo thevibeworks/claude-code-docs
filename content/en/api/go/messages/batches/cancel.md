@@ -1,3 +1,8 @@
+---
+title: Cancel a Message Batch
+url: https://platform.claude.com/docs/en/api/go/messages/batches/cancel
+---
+
 ## Cancel a Message Batch
 
 `client.Messages.Batches.Cancel(ctx, messageBatchID) (*MessageBatch, error)`
@@ -112,22 +117,22 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  messageBatch, err := client.Messages.Batches.Cancel(context.TODO(), "message_batch_id")
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", messageBatch.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	messageBatch, err := client.Messages.Batches.Cancel(context.TODO(), "message_batch_id")
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", messageBatch.ID)
 }
 ```
 

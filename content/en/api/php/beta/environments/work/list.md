@@ -1,3 +1,8 @@
+---
+title: List Work Items
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/list
+---
+
 ## List Work Items
 
 `$client->beta->environments->work->list(string environmentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<SelfHostedWork>`
@@ -56,6 +61,10 @@ List work items in an environment.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -89,7 +98,7 @@ $page = $client->beta->environments->work->list(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   limit: 1,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -113,6 +122,7 @@ var_dump($page);
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",

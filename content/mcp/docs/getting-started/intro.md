@@ -26,8 +26,8 @@ Think of MCP like a USB-C port for AI applications. Just as USB-C provides a sta
 Depending on where you sit in the ecosystem, MCP can have a range of benefits.
 
 * **Developers**: MCP reduces development time and complexity when building, or integrating with, an AI application or agent.
-* **AI applications or agents**: MCP provides access to an ecosystem of data sources, tools and apps which will enhance capabilities and improve the end-user experience.
-* **End-users**: MCP results in more capable AI applications or agents which can access your data and take actions on your behalf when necessary.
+* **AI applications or agents**: MCP gives them access to an ecosystem of data sources, tools and apps, which enhances their capabilities and improves the end-user experience.
+* **End-users**: MCP results in more capable AI applications or agents that can access user data and take actions on the user's behalf when necessary.
 
 ## Broad ecosystem support
 
@@ -36,11 +36,11 @@ MCP is an open protocol supported across a wide range of clients and servers. AI
 ## Start Building
 
 <CardGroup cols={2}>
-  <Card title="Build servers" icon="server" href="/docs/develop/build-server">
+  <Card title="Build servers" icon="server" href="/docs/2026-07-28/develop/build-server">
     Create MCP servers to expose your data and tools
   </Card>
 
-  <Card title="Build clients" icon="computer" href="/docs/develop/build-client">
+  <Card title="Build clients" icon="computer" href="/docs/2026-07-28/develop/build-client">
     Develop applications that connect to MCP servers
   </Card>
 
@@ -52,7 +52,7 @@ MCP is an open protocol supported across a wide range of clients and servers. AI
 ## Learn more
 
 <CardGroup cols={2}>
-  <Card title="Understand concepts" icon="book" href="/docs/learn/architecture">
+  <Card title="Understand concepts" icon="book" href="/docs/2026-07-28/learn/architecture">
     Learn the core concepts and architecture of MCP
   </Card>
 </CardGroup>

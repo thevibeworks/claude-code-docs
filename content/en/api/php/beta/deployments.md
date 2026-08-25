@@ -1,8 +1,13 @@
+---
+title: Deployments
+url: https://platform.claude.com/docs/en/api/php/beta/deployments
+---
+
 # Deployments
 
 ## Create Deployment
 
-`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
 **post** `/v1/deployments`
 
@@ -25,6 +30,10 @@ Create Deployment
 - `name: string`
 
   Human-readable name for the deployment.
+
+- `budget?:optional BetaManagedAgentsBudgetLimit`
+
+  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 - `description?:optional string`
 
@@ -116,6 +125,10 @@ Create Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -135,6 +148,10 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
     ],
   ],
   name: 'x',
+  budget: [
+    'maxListCost' => ['amount' => '2500', 'currency' => BetaCurrency::USD],
+    'type' => 'limit',
+  ],
   description: 'description',
   metadata: ['foo' => 'string'],
   resources: [
@@ -150,7 +167,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
     'type' => 'cron',
   ],
   vaultIDs: ['string'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -212,7 +229,14 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```
 
@@ -324,6 +348,10 @@ List Deployments
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -341,7 +369,7 @@ $page = $client->beta->deployments->list(
   limit: 0,
   page: 'page',
   status: BetaManagedAgentsDeploymentStatus::ACTIVE,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -405,7 +433,14 @@ var_dump($page);
       "updated_at": "2026-03-15T10:00:00Z",
       "vault_ids": [
         "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-      ]
+      ],
+      "budget": {
+        "max_list_cost": {
+          "amount": "2500",
+          "currency": "USD"
+        },
+        "type": "limit"
+      }
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -494,6 +529,10 @@ Get Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -504,7 +543,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->retrieve(
-  'depl_011CZkZcDH3vPqd7xnEfwTai', betas: ['message-batches-2024-09-24']
+  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -566,13 +606,20 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```
 
 ## Update Deployment
 
-`$client->beta->deployments->update(string deploymentID, ?Agent agent, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->update(string deploymentID, ?Agent agent, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
 **post** `/v1/deployments/{deployment_id}`
 
@@ -585,6 +632,10 @@ Update Deployment
 - `agent?:optional Agent`
 
   Agent to deploy. Accepts the `agent` ID string, which re-pins to the latest version, or an `agent` object with both id and version specified. Omit to preserve. Cannot be cleared.
+
+- `budget?:optional BetaManagedAgentsBudgetLimit`
+
+  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 - `description?:optional string`
 
@@ -688,6 +739,10 @@ Update Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -700,6 +755,10 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsDeployment = $client->beta->deployments->update(
   'depl_011CZkZcDH3vPqd7xnEfwTai',
   agent: 'string',
+  budget: [
+    'maxListCost' => ['amount' => '2500', 'currency' => BetaCurrency::USD],
+    'type' => 'limit',
+  ],
   description: 'description',
   environmentID: 'environment_id',
   initialEvents: [
@@ -723,7 +782,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->update(
     'type' => 'cron',
   ],
   vaultIDs: ['string'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -785,7 +844,14 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```
 
@@ -871,6 +937,10 @@ Archive Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -881,7 +951,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->archive(
-  'depl_011CZkZcDH3vPqd7xnEfwTai', betas: ['message-batches-2024-09-24']
+  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -943,7 +1014,14 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```
 
@@ -1007,7 +1085,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
-  'depl_011CZkZcDH3vPqd7xnEfwTai', betas: ['message-batches-2024-09-24']
+  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeploymentRun);
@@ -1120,6 +1199,10 @@ Pause Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -1130,7 +1213,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->pause(
-  'depl_011CZkZcDH3vPqd7xnEfwTai', betas: ['message-batches-2024-09-24']
+  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -1192,7 +1276,14 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```
 
@@ -1278,6 +1369,10 @@ Unpause Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -1288,7 +1383,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeployment = $client->beta->deployments->unpause(
-  'depl_011CZkZcDH3vPqd7xnEfwTai', betas: ['message-batches-2024-09-24']
+  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -1350,7 +1446,14 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```
 
@@ -1463,6 +1566,10 @@ var_dump($betaManagedAgentsDeployment);
   - `list<string> vaultIDs`
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
+
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 ### Beta Managed Agents Deployment Initial Event
 

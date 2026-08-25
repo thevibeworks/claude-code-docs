@@ -1,3 +1,8 @@
+---
+title: Update Environment
+url: https://platform.claude.com/docs/en/api/php/beta/environments/update
+---
+
 ## Update Environment
 
 `$client->beta->environments->update(string environmentID, ?Config config, ?string description, ?array<string,string> metadata, ?string name, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
@@ -16,7 +21,7 @@ Update an existing environment's configuration.
 
 - `description?:optional string`
 
-  Updated description of the environment
+  Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
 - `metadata?:optional array<string,string>`
 
@@ -54,9 +59,9 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -111,7 +116,7 @@ $betaEnvironment = $client->beta->environments->update(
   metadata: ['foo' => 'string'],
   name: 'x',
   scope: 'organization',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaEnvironment);

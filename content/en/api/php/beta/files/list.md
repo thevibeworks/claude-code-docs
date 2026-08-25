@@ -1,6 +1,11 @@
+---
+title: List Files
+url: https://platform.claude.com/docs/en/api/php/beta/files/list
+---
+
 ## List Files
 
-`$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<FileMetadata>`
+`$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<BetaFileMetadata>`
 
 **get** `/v1/files`
 
@@ -32,7 +37,7 @@ List Files
 
 ### Returns
 
-- `FileMetadata`
+- `BetaFileMetadata`
 
   - `string id`
 
@@ -84,7 +89,7 @@ $page = $client->beta->files->list(
   beforeID: 'before_id',
   limit: 1,
   scopeID: 'scope_id',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);

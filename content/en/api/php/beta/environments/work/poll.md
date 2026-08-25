@@ -1,3 +1,8 @@
+---
+title: Poll for Work
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/poll
+---
+
 ## Poll for Work
 
 `$client->beta->environments->work->poll(string environmentID, ?int blockMs, ?int reclaimOlderThanMs, ?list<AnthropicBeta> betas, ?string anthropicWorkerID): SelfHostedWork`
@@ -60,6 +65,10 @@ Long poll for work items in the queue.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -93,7 +102,7 @@ $betaSelfHostedWork = $client->beta->environments->work->poll(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   blockMs: 1,
   reclaimOlderThanMs: 1,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   anthropicWorkerID: 'Anthropic-Worker-ID',
 );
 
@@ -116,6 +125,7 @@ var_dump($betaSelfHostedWork);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",

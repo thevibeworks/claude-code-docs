@@ -1,3 +1,8 @@
+---
+title: Memory Stores
+url: https://platform.claude.com/docs/en/api/csharp/beta/memory_stores
+---
+
 # Memory Stores
 
 ## Create a memory store
@@ -72,19 +77,29 @@ Create a memory store
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -231,19 +246,29 @@ List memory stores
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -389,19 +414,29 @@ Retrieve a memory store
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -547,19 +582,29 @@ Update a memory store
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -693,19 +738,29 @@ Delete a memory store
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -807,19 +862,29 @@ Archive a memory store
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1021,19 +1086,29 @@ Create a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1197,19 +1272,29 @@ List memories
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1387,19 +1472,29 @@ Retrieve a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1562,19 +1657,29 @@ Update a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -1725,19 +1830,29 @@ Delete a memory
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -2118,6 +2233,10 @@ List memory versions
 
     Query param: Query parameter for page
 
+  - `string serviceAccountID`
+
+    Query param: Query parameter for service_account_id
+
   - `string sessionID`
 
     Query param: Query parameter for session_id
@@ -2174,19 +2293,29 @@ List memory versions
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -2279,6 +2408,16 @@ List memory versions
         - `required string UserID`
 
           ID of the user who performed the write (a `user_...` value).
+
+      - `class BetaManagedAgentsServiceAccountActor:`
+
+        Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+        - `required string ServiceAccountID`
+
+          ID of the service account that performed the write (a `svac_...` value).
+
+        - `JsonElement Type "service_account_actor"constant`
 
     - `string? Path`
 
@@ -2414,19 +2553,29 @@ Retrieve a memory version
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -2515,6 +2664,16 @@ Retrieve a memory version
       - `required string UserID`
 
         ID of the user who performed the write (a `user_...` value).
+
+    - `class BetaManagedAgentsServiceAccountActor:`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `required string ServiceAccountID`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `JsonElement Type "service_account_actor"constant`
 
   - `string? Path`
 
@@ -2636,19 +2795,29 @@ Redact a memory version
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -2737,6 +2906,16 @@ Redact a memory version
       - `required string UserID`
 
         ID of the user who performed the write (a `user_...` value).
+
+    - `class BetaManagedAgentsServiceAccountActor:`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `required string ServiceAccountID`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `JsonElement Type "service_account_actor"constant`
 
   - `string? Path`
 
@@ -2833,6 +3012,16 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
     - `required string UserID`
 
       ID of the user who performed the write (a `user_...` value).
+
+  - `class BetaManagedAgentsServiceAccountActor:`
+
+    Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+    - `required string ServiceAccountID`
+
+      ID of the service account that performed the write (a `svac_...` value).
+
+    - `JsonElement Type "service_account_actor"constant`
 
 ### Beta Managed Agents API Actor
 
@@ -2936,6 +3125,16 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
 
         ID of the user who performed the write (a `user_...` value).
 
+    - `class BetaManagedAgentsServiceAccountActor:`
+
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+      - `required string ServiceAccountID`
+
+        ID of the service account that performed the write (a `svac_...` value).
+
+      - `JsonElement Type "service_account_actor"constant`
+
   - `string? Path`
 
     The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
@@ -2959,6 +3158,18 @@ Console.WriteLine(betaManagedAgentsMemoryVersion);
   - `"modified"Modified`
 
   - `"deleted"Deleted`
+
+### Beta Managed Agents Service Account Actor
+
+- `class BetaManagedAgentsServiceAccountActor:`
+
+  Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+
+  - `required string ServiceAccountID`
+
+    ID of the service account that performed the write (a `svac_...` value).
+
+  - `JsonElement Type "service_account_actor"constant`
 
 ### Beta Managed Agents Session Actor
 

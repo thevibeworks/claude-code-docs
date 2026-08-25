@@ -1,3 +1,8 @@
+---
+title: Retrieve a memory store
+url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/retrieve
+---
+
 ## Retrieve a memory store
 
 `$ ant beta:memory-stores retrieve`

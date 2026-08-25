@@ -1,3 +1,8 @@
+---
+title: Cancel a Message Batch
+url: https://platform.claude.com/docs/en/api/cli/messages/batches/cancel
+---
+
 ## Cancel a Message Batch
 
 `$ ant messages:batches cancel`

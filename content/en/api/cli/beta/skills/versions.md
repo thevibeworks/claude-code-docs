@@ -1,3 +1,8 @@
+---
+title: Versions
+url: https://platform.claude.com/docs/en/api/cli/beta/skills/versions
+---
+
 # Versions
 
 ## Create Skill Version
@@ -245,7 +250,7 @@ Download a skill version's content as a zip archive.
 
 ### Returns
 
-- `unnamed_schema_1: file path`
+- `unnamed_schema_5: file path`
 
 ### Example
 

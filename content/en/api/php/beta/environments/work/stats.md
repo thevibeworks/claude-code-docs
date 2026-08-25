@@ -1,3 +1,8 @@
+---
+title: Get Queue Statistics
+url: https://platform.claude.com/docs/en/api/php/beta/environments/work/stats
+---
+
 ## Get Queue Statistics
 
 `$client->beta->environments->work->stats(string environmentID, ?list<AnthropicBeta> betas): SelfHostedWorkQueueStats`
@@ -48,7 +53,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW', betas: ['message-batches-2024-09-24']
+  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWorkQueueStats);

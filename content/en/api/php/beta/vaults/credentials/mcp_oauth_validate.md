@@ -1,3 +1,8 @@
+---
+title: Validate Credential
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/mcp_oauth_validate
+---
+
 ## Validate Credential
 
 `$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredentialValidation`
@@ -66,7 +71,7 @@ $betaManagedAgentsCredentialValidation = $client
   ->mcpOAuthValidate(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredentialValidation);

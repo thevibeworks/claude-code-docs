@@ -1,3 +1,8 @@
+---
+title: Send Events
+url: https://platform.claude.com/docs/en/api/cli/beta/sessions/events/send
+---
+
 ## Send Events
 
 `$ ant beta:sessions:events send`
@@ -38,7 +43,7 @@ Send Events
 
         Unique identifier for this event.
 
-      - `content: array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock`
+      - `content: array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsRedactedBlock`
 
         Array of content blocks comprising the user message.
 
@@ -183,6 +188,14 @@ Send Events
           - `title: optional string`
 
             The title of the document.
+
+        - `beta_managed_agents_redacted_block: object { type }`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+            - `"redacted"`
 
       - `type: "user.message"`
 
@@ -466,7 +479,7 @@ Send Events
 ant beta:sessions:events send \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
-  --event "{content: [{text: 'Where is my order #1234?', type: text}], type: user.message}"
+  --event '{content: [{text: '\''Where is my order #1234?'\'', type: text}], type: user.message}'
 ```
 
 #### Response

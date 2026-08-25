@@ -1,3 +1,8 @@
+---
+title: List Skills
+url: https://platform.claude.com/docs/en/api/cli/beta/skills/list
+---
+
 ## List Skills
 
 `$ ant beta:skills list`
@@ -92,7 +97,7 @@ List Skills
 
     Token for fetching the next page of results.
 
-    If `null`, there are no more results available. Pass this value to the `page_token` parameter in the next request to get the next page.
+    If `null`, there are no more results available. Pass this value to the `page` parameter in the next request to get the next page.
 
 ### Example
 

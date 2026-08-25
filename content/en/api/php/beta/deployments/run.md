@@ -1,3 +1,8 @@
+---
+title: Run Deployment Now
+url: https://platform.claude.com/docs/en/api/php/beta/deployments/run
+---
+
 ## Run Deployment Now
 
 `$client->beta->deployments->run(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
@@ -58,7 +63,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
-  'depl_011CZkZcDH3vPqd7xnEfwTai', betas: ['message-batches-2024-09-24']
+  'depl_011CZkZcDH3vPqd7xnEfwTai',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeploymentRun);

@@ -1,3 +1,8 @@
+---
+title: Delete File
+url: https://platform.claude.com/docs/en/api/cli/beta/files/delete
+---
+
 ## Delete File
 
 `$ ant beta:files delete`
@@ -18,7 +23,7 @@ Delete File
 
 ### Returns
 
-- `deleted_file: object { id, type }`
+- `beta_deleted_file: object { id, type }`
 
   - `id: string`
 

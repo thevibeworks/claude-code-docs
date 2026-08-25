@@ -1,3 +1,8 @@
+---
+title: Retrieve Message Batch results
+url: https://platform.claude.com/docs/en/api/php/messages/batches/results
+---
+
 ## Retrieve Message Batch results
 
 `$client->messages->batches->results(string messageBatchID): MessageBatchIndividualResponse`

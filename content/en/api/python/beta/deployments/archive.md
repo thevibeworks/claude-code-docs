@@ -1,3 +1,8 @@
+---
+title: Archive Deployment
+url: https://platform.claude.com/docs/en/api/python/beta/deployments/archive
+---
+
 ## Archive Deployment
 
 `beta.deployments.archive(strdeployment_id, DeploymentArchiveParams**kwargs)  -> BetaManagedAgentsDeployment`
@@ -16,7 +21,7 @@ Archive Deployment
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 26 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 31 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -62,19 +67,29 @@ Archive Deployment
 
     - `"user-profiles-2026-03-24"`
 
+    - `"user-profiles-2026-08-18"`
+
     - `"advisor-tool-2026-03-01"`
 
     - `"managed-agents-2026-04-01"`
 
     - `"cache-diagnosis-2026-04-07"`
 
+    - `"dreaming-2026-04-21"`
+
     - `"thinking-token-count-2026-05-13"`
 
     - `"server-side-fallback-2026-06-01"`
 
+    - `"server-side-fallback-2026-07-01"`
+
     - `"fallback-credit-2026-06-01"`
 
+    - `"fallback-credit-2026-07-01"`
+
     - `"agent-memory-2026-07-22"`
+
+    - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -267,6 +282,14 @@ Archive Deployment
           - `title: Optional[str]`
 
             The title of the document.
+
+        - `class BetaManagedAgentsRedactedBlock: …`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: Literal["redacted"]`
+
+            - `"redacted"`
 
       - `type: Literal["user.message"]`
 
@@ -608,6 +631,28 @@ Archive Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `budget: Optional[BetaManagedAgentsBudgetLimit]`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
+    - `max_list_cost: BetaMonetaryAmount`
+
+      A monetary amount in a specific currency.
+
+      - `amount: str`
+
+        Amount in minor units of the currency, as an integer decimal string with no leading zeros: "2500" is $25.00 and "50" is fifty cents. A string rather than a number so no float rounding is ever applied.
+
+      - `currency: BetaCurrency`
+
+        Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
+
+        - `"USD"`
+
+    - `type: Literal["limit"]`
+
+      - `"limit"`
+
 ### Example
 
 ```python
@@ -615,7 +660,9 @@ import os
 from anthropic import Anthropic
 
 client = Anthropic(
-    api_key=os.environ.get("ANTHROPIC_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
 )
 beta_managed_agents_deployment = client.beta.deployments.archive(
     deployment_id="depl_011CZkZcDH3vPqd7xnEfwTai",
@@ -679,6 +726,13 @@ print(beta_managed_agents_deployment.id)
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

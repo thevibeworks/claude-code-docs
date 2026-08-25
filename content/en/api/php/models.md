@@ -1,3 +1,8 @@
+---
+title: Models
+url: https://platform.claude.com/docs/en/api/php/models
+---
+
 # Models
 
 ## List Models
@@ -77,7 +82,7 @@ $page = $client->models->list(
   afterID: 'after_id',
   beforeID: 'before_id',
   limit: 1,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -89,7 +94,7 @@ var_dump($page);
 {
   "data": [
     {
-      "id": "claude-opus-4-6",
+      "id": "claude-opus-5",
       "capabilities": {
         "batch": {
           "supported": true
@@ -151,8 +156,8 @@ var_dump($page);
           }
         }
       },
-      "created_at": "2026-02-04T00:00:00Z",
-      "display_name": "Claude Opus 4.6",
+      "created_at": "2026-07-24T00:00:00Z",
+      "display_name": "Claude Opus 5",
       "max_input_tokens": 0,
       "max_tokens": 0,
       "type": "model"
@@ -228,7 +233,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $modelInfo = $client->models->retrieve(
-  'model_id', betas: ['message-batches-2024-09-24']
+  'model_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($modelInfo);
@@ -238,7 +243,7 @@ var_dump($modelInfo);
 
 ```json
 {
-  "id": "claude-opus-4-6",
+  "id": "claude-opus-5",
   "capabilities": {
     "batch": {
       "supported": true
@@ -300,8 +305,8 @@ var_dump($modelInfo);
       }
     }
   },
-  "created_at": "2026-02-04T00:00:00Z",
-  "display_name": "Claude Opus 4.6",
+  "created_at": "2026-07-24T00:00:00Z",
+  "display_name": "Claude Opus 5",
   "max_input_tokens": 0,
   "max_tokens": 0,
   "type": "model"

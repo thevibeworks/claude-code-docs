@@ -1,3 +1,8 @@
+---
+title: Create User Profile
+url: https://platform.claude.com/docs/en/api/csharp/beta/user_profiles/create
+---
+
 ## Create User Profile
 
 `BetaUserProfile Beta.UserProfiles.Create(UserProfileCreateParams?parameters, CancellationTokencancellationToken = default)`
@@ -10,6 +15,14 @@ Create User Profile
 
 - `UserProfileCreateParams parameters`
 
+  - `AccessType accessType`
+
+    Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `"application"Application`
+
+    - `"passthrough"Passthrough`
+
   - `string? externalID`
 
     Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
@@ -20,7 +33,7 @@ Create User Profile
 
   - `string? name`
 
-    Body param: Display name of the entity this profile represents. Required when relationship is `resold` (the resold-to company's name); optional otherwise. Maximum 255 characters.
+    Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
   - `Relationship relationship`
 
@@ -80,19 +93,29 @@ Create User Profile
 
     - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
 
+    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+
     - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
 
     - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
 
     - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
 
+    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+
     - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
 
     - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
 
+    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+
     - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
 
+    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+
     - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+
+    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -109,16 +132,6 @@ Create User Profile
   - `required IReadOnlyDictionary<string, string> Metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `required Relationship Relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"External`
-
-    - `"resold"Resold`
-
-    - `"internal"Internal`
 
   - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
@@ -144,13 +157,31 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
+  - `AccessType AccessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `"application"Application`
+
+    - `"passthrough"Passthrough`
+
   - `string? ExternalID`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `string? Name`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `Relationship Relationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `"external"External`
+
+    - `"resold"Resold`
+
+    - `"internal"Internal`
 
 ### Example
 
@@ -169,7 +200,6 @@ Console.WriteLine(betaUserProfile);
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -177,7 +207,9 @@ Console.WriteLine(betaUserProfile);
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```

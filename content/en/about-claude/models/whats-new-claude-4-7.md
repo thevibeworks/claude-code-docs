@@ -1,164 +1,351 @@
-# What's new in Claude Opus 4.7
-
-Overview of new features, breaking changes, and behavior changes in Claude Opus 4.7.
-
+---
+title: What's new in Claude Opus 5
+url: https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5
+description: Overview of new features and behavior changes in Claude Opus 5.
 ---
 
-Claude Opus 4.7 is our most capable generally available model to date. It is highly autonomous and performs exceptionally well on long-horizon agentic work, knowledge work, vision tasks, and memory tasks. This page summarizes everything new at launch.
+Claude Opus 5 is a step-change improvement over Claude Opus 4.8, with the largest gains in deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. This page summarizes everything new in Claude Opus 5, including thinking on by default, mid-conversation tool changes, and a breaking change to when thinking can be disabled.
 
 ## New model
 
-| Model | API model ID | Description |
-|:------|:-------------|:------------|
-| Claude Opus 4.7 | `claude-opus-4-7` | Our most capable generally available model for complex reasoning and agentic coding |
+| Model         | API model ID    | Description                                    |
+| ------------- | --------------- | ---------------------------------------------- |
+| Claude Opus 5 | `claude-opus-5` | For complex agentic coding and enterprise work |
 
-Claude Opus 4.7 supports the [1M token context window](/docs/en/build-with-claude/context-windows), 128k max output tokens, [adaptive thinking](/docs/en/build-with-claude/adaptive-thinking), and the same set of tools and platform features as Claude Opus 4.6.
+Claude Opus 5 has a [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) (1M tokens is both the default and the maximum; there is no smaller context variant), 128k max output tokens, and [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on by default.
 
-For complete pricing and specs, see the [models overview](/docs/en/about-claude/models/overview).
+For complete pricing and specs, see the [models overview](https://platform.claude.com/docs/en/about-claude/models/overview).
 
 ## New features
 
-### High-resolution image support
+### Mid-conversation tool changes (beta)
 
-Claude Opus 4.7 is our first Claude model with high-resolution image support. Maximum image resolution has increased to **2576px / 3.75MP** (increased from our previous limit of 1568px / 1.15MP). This change should unlock performance gains on vision-heavy workloads, and is particularly important for computer use and screenshot/artifact/document understanding workflows.
+You can add or remove tools between turns of a conversation while preserving the prompt cache, instead of resending a fixed tool list for the life of a session. Mid-conversation tool changes are in beta: include the `mid-conversation-tool-changes-2026-07-01` beta header in your requests. See [Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes) for usage.
 
-Additionally, operations like mapping coordinates to images are now simpler — the model's coordinates are 1\:1 with actual pixels, so there's no scale-factor math required.
+### Default fallbacks mode
 
-High-res images use more tokens. If the additional image fidelity is unnecessary, downsample images before sending to Claude to avoid token-usage increases.
+The `fallbacks` parameter supports a new `"default"` mode, which applies Anthropic's recommended fallback models by refusal category instead of a model list you maintain yourself. The entire `fallbacks` parameter is in beta. Use the `server-side-fallback-2026-07-01` beta header, which supports both the `"default"` mode and explicit model lists (the earlier `server-side-fallback-2026-06-01` header accepts only explicit lists). See [Refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback).
 
-Beyond resolution, Claude Opus 4.7 also improves on:
+### Lower prompt cache minimum
 
-- **Low-level perception** — pointing, measuring, counting, and similar tasks.
-- **Image localization** — natural-image bounding-box localization and detection are improved.
+The minimum cacheable prompt length on Claude Opus 5 is 512 tokens, down from 1,024 tokens on Claude Opus 4.8. Prompts that were too short to cache on Claude Opus 4.8 can now create cache entries with no code changes. See [Prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#cache-limitations) for per-model minimums.
 
-See [Images and vision](/docs/en/build-with-claude/vision) for details.
+### Fast mode
 
-### New `xhigh` effort level
-
-The [effort parameter](/docs/en/build-with-claude/effort) allows you to tune Claude's intelligence vs. token spend, trading off capability for faster speed and lower costs. Start with the new `xhigh` effort level for coding and agentic use cases, and use a minimum of `high` effort for most intelligence-sensitive use cases. See [Recommended effort levels for Claude Opus 4.7](/docs/en/build-with-claude/effort#recommended-effort-levels-for-claude-opus-4-7) for per-level guidance. (Messages API only; Claude Managed Agents handles effort automatically.)
-
-### Task budgets (beta)
-
-Claude Opus 4.7 introduces [task budgets](/docs/en/build-with-claude/task-budgets). A task budget gives Claude a rough estimate of how many tokens to target for a full agentic loop, including thinking, tool calls, tool results, and final output. The model sees a running countdown and uses it to prioritize work and finish the task gracefully as the budget is consumed. To use, set the beta header `task-budgets-2026-03-13` and add the following to your output config:
-
-```python Python
-response = client.beta.messages.create(
-    model="claude-opus-4-7",
-    max_tokens=128000,
-    output_config={
-        "effort": "high",
-        "task_budget": {"type": "tokens", "total": 128000},
-    },
-    messages=[
-        {"role": "user", "content": "Review the codebase and propose a refactor plan."}
-    ],
-    betas=["task-budgets-2026-03-13"],
-)
-```
-
-You may need to experiment with different task budgets for your use case. If the model is given a task budget that is too restrictive for a given task, it may complete the task less thoroughly or refuse to do the task entirely.
-
-For open-ended agentic tasks where quality matters more than speed, do not set a task budget; reserve task budgets for workloads where you need the model to scope its work to a token allowance. The minimum value for a task budget is 20k tokens.
-
-This is not a hard cap; it's a suggestion that the model is aware of. This is distinct from `max_tokens`, which is a hard per-request cap on generated tokens (`max_tokens` is not passed to the model, and the model is not aware of it), while `task_budget` is an advisory cap across the full agentic loop. Use `task_budget` when you want the model to self-moderate, and `max_tokens` as a hard per-request ceiling to cap usage.
-
-## Breaking changes
-
-<Note>
-These breaking changes apply to the Messages API only. If you use Claude Managed Agents, there are no breaking API changes for Claude Opus 4.7.
-</Note>
-
-### Extended thinking budgets removed
-
-Extended thinking budgets are removed in Claude Opus 4.7. Setting `thinking: {"type": "enabled", "budget_tokens": N}` will return a 400 error. [Adaptive thinking](/docs/en/build-with-claude/adaptive-thinking) is the only thinking-on mode, and in our internal evaluations it reliably outperforms extended thinking.
-
-```python Python
-# Before (Opus 4.6)
-thinking = {"type": "enabled", "budget_tokens": 32000}
-
-# After (Opus 4.7)
-thinking = {"type": "adaptive"}
-output_config = {"effort": "high"}
-```
-
-Adaptive thinking is **off by default** on Claude Opus 4.7. Requests with no `thinking` field run without thinking. Set `thinking: {type: "adaptive"}` explicitly to enable it.
-
-### Sampling parameters removed
-
-Starting with Claude Opus 4.7, setting `temperature`, `top_p`, or `top_k` to any non-default value will return a 400 error. The safest migration path is to omit these parameters entirely from requests, and to use prompting to guide the model's behavior. If you were using `temperature = 0` for determinism, note that it never guaranteed identical outputs.
-
-### Thinking content omitted by default
-
-Starting with Claude Opus 4.7, thinking content is omitted from the response by default. Thinking blocks still appear in the response stream, but their `thinking` field will be empty unless the caller explicitly opts in. This is a silent change — no error is raised — and response latency will be slightly improved. If reasoning outputs are needed, you can set `display` to `"summarized"` and opt back in with a one-line change:
-
-```python Python
-thinking = {
-    "type": "adaptive",
-    "display": "summarized",  # or "omitted" (default)
-}
-```
-
-<Note>
-If your product streams reasoning to users, the new default will appear as a long pause before output begins. Set `"display": "summarized"` to restore visible progress during thinking.
-</Note>
-
-### Updated token counting
-
-Claude Opus 4.7 uses a new tokenizer, contributing to its improved performance on a wide range of tasks. This new tokenizer may use roughly 1x to 1.35x as many tokens when processing text compared to previous models (up to ~35% more, varying by content), and [`/v1/messages/count_tokens`](/docs/en/build-with-claude/token-counting) will return a different number of tokens for Claude Opus 4.7 than it did for Claude Opus 4.6. The token efficiency of Claude Opus 4.7 can vary by workload shape. Prompting interventions, `task_budget`, and `effort` can help control costs and ensure appropriate token usage. Keep in mind that these controls may trade off model intelligence.
-
-We suggest updating your `max_tokens` parameters to give additional headroom, including compaction triggers. Claude Opus 4.7 provides a 1M context window at standard API pricing with no long-context premium.
-
-## Capability improvements
-
-### Knowledge work
-
-Claude Opus 4.7 shows meaningful gains on knowledge-worker tasks, particularly where the model needs to visually verify its own outputs:
-
-- **.docx redlining and .pptx editing** — improved at producing and self-checking tracked changes and slide layouts.
-- **Charts and figure analysis** — improved at programmatic tool-calling with image-processing libraries (e.g. PIL) to analyze charts and figures, including pixel-level data transcription.
-
-If existing prompts have mitigations in these areas (e.g. "double-check the slide layout before returning"), try removing that scaffolding and re-baselining.
-
-### Memory
-
-Claude Opus 4.7 is better at writing and using file-system-based memory. If an agent maintains a scratchpad, notes file, or structured memory store across turns, that agent should improve at jotting down notes to itself and leveraging its notes in future tasks. To give Claude a managed scratchpad without building your own, use the client-side [memory tool](/docs/en/agents-and-tools/tool-use/memory-tool).
-
-### Vision
-
-See [High-resolution image support](#high-resolution-image-support) above.
+[Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) (research preview) is available for Claude Opus 5 on the Claude API only; it is not currently available on Amazon Bedrock, Claude Platform on AWS, Google Cloud, or Microsoft Foundry. Fast mode for Claude Opus 5 is priced at $10 USD per million input tokens and $50 USD per million output tokens. See [Fast mode](https://platform.claude.com/docs/en/build-with-claude/fast-mode) for access, supported models, and pricing.
 
 ## Behavior changes
 
-These are not API breaking changes but may require prompt updates. See [Migrating to Claude Opus 4.7](/docs/en/about-claude/models/migration-guide#migrating-to-claude-opus-4-7) for full guidance.
+### Thinking on by default
 
-- **More literal instruction following**, particularly at lower effort levels. The model will not silently generalize an instruction from one item to another, and will not infer requests you didn't make.
-- **Response length calibrates to perceived task complexity** rather than defaulting to a fixed verbosity.
-- **Fewer tool calls by default,** using reasoning more. Raising effort increases tool usage.
-- **More direct, opinionated tone** with less validation-forward phrasing and fewer emoji than Claude Opus 4.6's warmer style.
-- **More regular progress updates** to the user throughout long agentic traces. If you've added scaffolding to force interim status messages, try removing it.
-- **Fewer subagents spawned by default.** Steerable through prompting.
-- **Real-time cybersecurity safeguards:** requests that involve prohibited or high-risk topics may lead to refusals. For legitimate security work, apply to the [Cyber Verification Program](https://claude.com/form/cyber-use-case).
+On Claude Opus 4.8, requests run without thinking unless you set `thinking: {"type": "adaptive"}`. On Claude Opus 5, the same requests run with [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on: the model decides when and how much to think on each turn, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) is the control for thinking depth. The wire value is unchanged; `thinking: {"type": "adaptive"}` remains valid and equivalent to the default.
+
+Because `max_tokens` is a hard limit on total output (thinking plus response text), revisit it for workloads that ran without thinking on Claude Opus 4.8.
+
+The API keeps the option to disable thinking, subject to the effort restriction below.
+
+### Effort matters more
+
+Claude Opus 5 converts additional [effort](https://platform.claude.com/docs/en/build-with-claude/effort) into better results more reliably than any earlier Opus model, so the effort level you choose carries more weight. The full ladder is available: `low`, `medium`, `high`, `xhigh`, and `max`, with `max` as the top tier for the deepest possible reasoning. Start at the default, `high`, and adjust in either direction based on your evals: step down where quality holds to save tokens and latency, or step up for the most demanding work. When running at `xhigh` or `max` effort, set a large `max_tokens` so the model has room to think and act across subagents and tool calls.
+
+This request turns effort all the way up to `max`:
+
+<CodeGroup>
+  ```bash cURL
+  curl https://api.anthropic.com/v1/messages \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "model": "claude-opus-5",
+      "max_tokens": 64000,
+      "stream": true,
+      "output_config": {
+        "effort": "max"
+      },
+      "messages": [
+        {
+          "role": "user",
+          "content": "Explain why the sum of two even numbers is always even."
+        }
+      ]
+    }'
+  ```
+
+  ```bash CLI
+  # 64k max_tokens can run past the non-streaming time limit; stream the events.
+  ant messages create --stream --format jsonl <<'YAML'
+  model: claude-opus-5
+  max_tokens: 64000
+  output_config:
+    effort: max
+  messages:
+    - role: user
+      content: Explain why the sum of two even numbers is always even.
+  YAML
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  with client.messages.stream(
+      model="claude-opus-5",
+      max_tokens=64000,
+      output_config={"effort": "max"},
+      messages=[
+          {
+              "role": "user",
+              "content": "Explain why the sum of two even numbers is always even.",
+          }
+      ],
+  ) as stream:
+      response = stream.get_final_message()
+
+  print(response)
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const stream = client.messages.stream({
+    model: "claude-opus-5",
+    max_tokens: 64000,
+    output_config: {
+      effort: "max"
+    },
+    messages: [
+      {
+        role: "user",
+        content: "Explain why the sum of two even numbers is always even."
+      }
+    ]
+  });
+
+  const response = await stream.finalMessage();
+  console.log(response);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var parameters = new MessageCreateParams
+  {
+      Model = Model.ClaudeOpus5,
+      MaxTokens = 64000,
+      OutputConfig = new OutputConfig
+      {
+          Effort = Effort.Max
+      },
+      Messages = [new() { Role = Role.User, Content = "Explain why the sum of two even numbers is always even." }]
+  };
+
+  var response = await client.Messages.CreateStreaming(parameters).Aggregate();
+  Console.WriteLine(response);
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  stream := client.Messages.NewStreaming(context.TODO(), anthropic.MessageNewParams{
+  	Model:     anthropic.ModelClaudeOpus5,
+  	MaxTokens: 64000,
+  	OutputConfig: anthropic.OutputConfigParam{
+  		Effort: anthropic.OutputConfigEffortMax,
+  	},
+  	Messages: []anthropic.MessageParam{
+  		anthropic.NewUserMessage(anthropic.NewTextBlock("Explain why the sum of two even numbers is always even.")),
+  	},
+  })
+
+  response := anthropic.Message{}
+  for stream.Next() {
+  	event := stream.Current()
+  	if err := response.Accumulate(event); err != nil {
+  		log.Fatal(err)
+  	}
+  }
+  if err := stream.Err(); err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Println(response)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  MessageCreateParams params = MessageCreateParams.builder()
+      .model(Model.CLAUDE_OPUS_5)
+      .maxTokens(64000L)
+      .outputConfig(OutputConfig.builder()
+          .effort(OutputConfig.Effort.MAX)
+          .build())
+      .addUserMessage("Explain why the sum of two even numbers is always even.")
+      .build();
+
+  MessageAccumulator accumulator = MessageAccumulator.create();
+  try (var streamResponse = client.messages().createStreaming(params)) {
+      streamResponse.stream().forEach(accumulator::accumulate);
+  }
+
+  Message response = accumulator.message();
+  IO.println(response);
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $stream = $client->messages->createStream(
+      maxTokens: 64000,
+      messages: [
+          ['role' => 'user', 'content' => 'Explain why the sum of two even numbers is always even.']
+      ],
+      model: Model::CLAUDE_OPUS_5,
+      outputConfig: ['effort' => Effort::MAX],
+  );
+
+  $accumulator = MessageAccumulator::forMessages();
+  foreach ($stream as $event) {
+      $accumulator->accumulate($event);
+  }
+
+  echo $accumulator->message();
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  response = client.messages.stream(
+    model: Anthropic::Model::CLAUDE_OPUS_5,
+    max_tokens: 64000,
+    output_config: {
+      effort: :max
+    },
+    messages: [
+      { role: "user", content: "Explain why the sum of two even numbers is always even." }
+    ]
+  ).accumulated_message
+
+  puts response
+  ```
+</CodeGroup>
+
+Thinking is [on by default](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5#thinking-on-by-default) on Claude Opus 5, so no `thinking` field is needed.
+
+### Disabling thinking requires effort `high` or below
+
+On Claude Opus 5, `thinking: {"type": "disabled"}` is accepted only when the effort level is `high` or below. Setting `thinking: {"type": "disabled"}` with effort `xhigh` or `max` returns a 400 error. This rule is enforced on every request to Claude Opus 5 and later models. It is a breaking change from Claude Opus 4.8, where disabling thinking was independent of the effort level. If you disable thinking at high effort levels today, either keep thinking disabled and set effort to `high` or below, or keep the effort level and remove the `thinking` field.
+
+With thinking disabled, Claude Opus 5 can occasionally write a tool call into its text output instead of emitting a `tool_use` block, or include internal XML tags in its visible response. Where possible, keep thinking enabled and control token cost with lower effort levels; for integrations that must keep thinking disabled, see [Running with thinking disabled](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5#running-with-thinking-disabled) for prompting mitigations.
+
+### Model behavior differences
+
+Beyond the API changes above, Claude Opus 5 behaves differently from Claude Opus 4.8 in ways you may notice without changing any code. Default user-facing responses and written deliverables run longer. In agentic sessions, the model narrates its progress to the user more often. In multi-agent frameworks, it delegates to subagents more readily. It also verifies its own work without being told to, so remove verification instructions carried over from earlier models ("include a final verification step," "use a subagent to verify"); they cause over-verification on Claude Opus 5. For prompting patterns that tune each of these behaviors, see [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5).
+
+## Capability improvements
+
+Compared with Claude Opus 4.8, Claude Opus 5 is a step-change improvement rather than an incremental one, and it delivers frontier intelligence at half the cost of Claude Fable 5. The largest gains are in:
+
+* **Deep reasoning**, sustaining multistep analysis across long problem chains.
+* **Agentic coding and long-horizon tasks**, staying on task across extended tool-use loops and completing multi-file features, larger refactors, and end-to-end feature work without leaving stubs or placeholders.
+* **Test-time compute scaling**, converting additional effort (up to the `max` level) into better results.
+* **Efficiency at lower effort levels**, with `low` and `medium` [effort](https://platform.claude.com/docs/en/build-with-claude/effort) producing strong quality at a fraction of the tokens and latency of higher settings.
+* **Code review and bug-finding**, surfacing real bugs at a high rate per pass with few false positives, and staying accurate at lower effort levels.
+* **Vision**, understanding charts, documents, and diagrams and replicating UI and frontend visuals, strongest when given tools to iteratively analyze, crop, and verify its work.
+* **Long-context work**, with a [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) as both the default and the maximum, and consistent instruction following, tool calling, and reasoning throughout the window.
+* **Office and document tasks**, generating and editing complex multi-sheet spreadsheets with non-trivial formulas, and producing well-structured slide decks.
+* **Multi-agent coordination**, running teams of subagents with effective writer-verifier patterns and few cases of agents overwriting each other's work.
+
+For the prompting patterns that get the most out of these capabilities, see [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5#capability-improvements).
+
+## Pricing
+
+Claude Opus 5 is priced at $5 USD per million input tokens and $25 USD per million output tokens, unchanged from Claude Opus 4.8.
+
+See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) for complete pricing, including batch processing, prompt caching, and fast mode rates.
+
+## Availability
+
+Claude Opus 5 is available on:
+
+* **Claude API:** available to all customers, as `claude-opus-5`.
+* **AWS:** available through [Claude in Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), as `anthropic.claude-opus-5`, and through [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws). On Amazon Bedrock, Claude Opus 5 is also reachable through the `InvokeModel` API on `bedrock-runtime`, served by the same infrastructure; the [Claude on Amazon Bedrock (legacy)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy) integration does not include it in its ARN-versioned model ID table.
+* **Google Cloud:** available through [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), as `claude-opus-5`.
+* **Microsoft Foundry:** available through [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
+
+Claude Opus 4.8 remains available on all of these platforms.
 
 ## Migration guide
 
-For step-by-step migration instructions and the full migration checklist, see [Migrating to Claude Opus 4.7](/docs/en/about-claude/models/migration-guide#migrating-to-claude-opus-4-7). If you use Claude Code or the Agent SDK, the [Claude API skill](/docs/en/agents-and-tools/agent-skills/claude-api-skill) can apply these migration steps to your codebase automatically.
+To migrate from Claude Opus 4.8, update your model ID:
+
+<CodeGroup exclude="shell">
+  ```python Python
+  model = "claude-opus-4-8"  # Before
+  model = "claude-opus-5"  # After
+  ```
+
+  ```typescript TypeScript
+  let model = "claude-opus-4-8"; // Before
+  model = "claude-opus-5"; // After
+  ```
+
+  ```csharp C#
+  var model = Model.ClaudeOpus4_8; // Before
+  model = Model.ClaudeOpus5; // After
+  ```
+
+  ```go Go
+  model := anthropic.ModelClaudeOpus4_8 // Before
+  model = anthropic.ModelClaudeOpus5    // After
+  ```
+
+  ```java Java
+  Model model = Model.CLAUDE_OPUS_4_8; // Before
+  model = Model.CLAUDE_OPUS_5; // After
+  ```
+
+  ```php PHP
+  $model = Model::CLAUDE_OPUS_4_8; // Before
+  $model = Model::CLAUDE_OPUS_5; // After
+  ```
+
+  ```ruby Ruby
+  model = Anthropic::Model::CLAUDE_OPUS_4_8 # Before
+  model = Anthropic::Model::CLAUDE_OPUS_5 # After
+  ```
+</CodeGroup>
+
+Then review the two [behavior changes](https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5#behavior-changes): thinking is on by default, and disabling thinking with effort `xhigh` or `max` returns a 400 error. See the [migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide#migrating-from-claude-opus-4-8-to-claude-opus-5) for step-by-step instructions.
 
 ## Next steps
 
-<CardGroup>
-  <Card title="Task budgets" icon="gauge" href="/docs/en/build-with-claude/task-budgets">
-    Give Claude an advisory token budget across a full agentic loop.
+<CardGroup cols={3}>
+  <Card title="Models overview" icon="arrow-right" href="https://platform.claude.com/docs/en/about-claude/models/overview">
+    Complete specs and pricing for all current Claude models.
   </Card>
-  <Card title="Adaptive thinking" icon="brain" href="/docs/en/build-with-claude/adaptive-thinking">
-    The only supported thinking-on mode on Claude Opus 4.7.
+
+  <Card title="Prompting Claude Opus 5" icon="terminal" href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5">
+    Behavioral differences and prompting patterns specific to Claude Opus 5.
   </Card>
-  <Card title="Effort" icon="sliders" href="/docs/en/build-with-claude/effort#recommended-effort-levels-for-claude-opus-4-7">
-    Per-level effort guidance for Claude Opus 4.7.
+
+  <Card title="Effort" icon="gauge" href="https://platform.claude.com/docs/en/build-with-claude/effort">
+    Control how many tokens Claude uses when responding, from low to max.
   </Card>
-  <Card title="Images and vision" icon="image" href="/docs/en/build-with-claude/vision">
-    High-resolution image support and 1\:1 coordinate mapping.
+
+  <Card title="Thinking" icon="brain" href="https://platform.claude.com/docs/en/build-with-claude/thinking">
+    How thinking works when it's on by default, and when it can be disabled.
   </Card>
-  <Card title="Migration guide" icon="arrow-right" href="/docs/en/about-claude/models/migration-guide#migrating-to-claude-opus-4-7">
-    Step-by-step upgrade instructions.
+
+  <Card title="Task budgets" icon="database" href="https://platform.claude.com/docs/en/build-with-claude/task-budgets">
+    Give Claude an advisory token budget to pace its work against.
+  </Card>
+
+  <Card title="Migration guide" icon="code" href="https://platform.claude.com/docs/en/about-claude/models/migration-guide">
+    Guide for migrating to the latest Claude models from previous Claude versions.
+  </Card>
+
+  <Card title="Fast mode" icon="bolt" href="https://platform.claude.com/docs/en/build-with-claude/fast-mode">
+    Get higher output tokens per second from Claude Opus models at premium pricing.
   </Card>
 </CardGroup>

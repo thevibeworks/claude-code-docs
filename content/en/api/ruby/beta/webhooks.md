@@ -1,3 +1,8 @@
+---
+title: Webhooks
+url: https://platform.claude.com/docs/en/api/ruby/beta/webhooks
+---
+
 # Webhooks
 
 ## Domain Types
@@ -207,6 +212,70 @@
   - `type: :"deployment.updated"`
 
     - `:"deployment.updated"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"environment.archived"`
+
+    - `:"environment.archived"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"environment.created"`
+
+    - `:"environment.created"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"environment.deleted"`
+
+    - `:"environment.deleted"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData`
+
+  - `id: String`
+
+    ID of the environment that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"environment.updated"`
+
+    - `:"environment.updated"`
 
   - `workspace_id: String`
 
@@ -756,6 +825,118 @@
 
       - `workspace_id: String`
 
+    - `class BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.created"`
+
+        - `:"environment.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.updated"`
+
+        - `:"environment.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.archived"`
+
+        - `:"environment.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.deleted"`
+
+        - `:"environment.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.created"`
+
+        - `:"memory_store.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.archived"`
+
+        - `:"memory_store.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.deleted"`
+
+        - `:"memory_store.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookSessionBudgetReachedEventData`
+
+      - `id: String`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"session.budget_reached"`
+
+        - `:"session.budget_reached"`
+
+      - `workspace_id: String`
+
   - `type: :event`
 
     Object type. Always `event` for webhook payloads.
@@ -764,7 +945,7 @@
 
 ### Beta Webhook Event Data
 
-- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 33 more`
+- `BetaWebhookEventData = BetaWebhookSessionCreatedEventData | BetaWebhookSessionPendingEventData | BetaWebhookSessionRunningEventData | 41 more`
 
   - `class BetaWebhookSessionCreatedEventData`
 
@@ -1298,6 +1479,166 @@
 
     - `workspace_id: String`
 
+  - `class BetaWebhookEnvironmentCreatedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"environment.created"`
+
+      - `:"environment.created"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"environment.updated"`
+
+      - `:"environment.updated"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookEnvironmentArchivedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"environment.archived"`
+
+      - `:"environment.archived"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookEnvironmentDeletedEventData`
+
+    - `id: String`
+
+      ID of the environment that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"environment.deleted"`
+
+      - `:"environment.deleted"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData`
+
+    - `id: String`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"memory_store.created"`
+
+      - `:"memory_store.created"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData`
+
+    - `id: String`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"memory_store.archived"`
+
+      - `:"memory_store.archived"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData`
+
+    - `id: String`
+
+      ID of the memory store that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"memory_store.deleted"`
+
+      - `:"memory_store.deleted"`
+
+    - `workspace_id: String`
+
+  - `class BetaWebhookSessionBudgetReachedEventData`
+
+    - `id: String`
+
+      ID of the session that triggered the event.
+
+    - `organization_id: String`
+
+    - `type: :"session.budget_reached"`
+
+      - `:"session.budget_reached"`
+
+    - `workspace_id: String`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData`
+
+  - `id: String`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"memory_store.archived"`
+
+    - `:"memory_store.archived"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData`
+
+  - `id: String`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"memory_store.created"`
+
+    - `:"memory_store.created"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData`
+
+  - `id: String`
+
+    ID of the memory store that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"memory_store.deleted"`
+
+    - `:"memory_store.deleted"`
+
+  - `workspace_id: String`
+
 ### Beta Webhook Session Archived Event Data
 
 - `class BetaWebhookSessionArchivedEventData`
@@ -1311,6 +1652,22 @@
   - `type: :"session.archived"`
 
     - `:"session.archived"`
+
+  - `workspace_id: String`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `class BetaWebhookSessionBudgetReachedEventData`
+
+  - `id: String`
+
+    ID of the session that triggered the event.
+
+  - `organization_id: String`
+
+  - `type: :"session.budget_reached"`
+
+    - `:"session.budget_reached"`
 
   - `workspace_id: String`
 
@@ -2237,6 +2594,118 @@
       - `type: :"deployment_run.succeeded"`
 
         - `:"deployment_run.succeeded"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentCreatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.created"`
+
+        - `:"environment.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.updated"`
+
+        - `:"environment.updated"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentArchivedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.archived"`
+
+        - `:"environment.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookEnvironmentDeletedEventData`
+
+      - `id: String`
+
+        ID of the environment that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"environment.deleted"`
+
+        - `:"environment.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.created"`
+
+        - `:"memory_store.created"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.archived"`
+
+        - `:"memory_store.archived"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData`
+
+      - `id: String`
+
+        ID of the memory store that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"memory_store.deleted"`
+
+        - `:"memory_store.deleted"`
+
+      - `workspace_id: String`
+
+    - `class BetaWebhookSessionBudgetReachedEventData`
+
+      - `id: String`
+
+        ID of the session that triggered the event.
+
+      - `organization_id: String`
+
+      - `type: :"session.budget_reached"`
+
+        - `:"session.budget_reached"`
 
       - `workspace_id: String`
 

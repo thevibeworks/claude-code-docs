@@ -1,3 +1,8 @@
+---
+title: Delete Vault
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/delete
+---
+
 ## Delete Vault
 
 `$client->beta->vaults->delete(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedVault`
@@ -34,7 +39,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeletedVault = $client->beta->vaults->delete(
-  'vlt_011CZkZDLs7fYzm1hXNPeRjv', betas: ['message-batches-2024-09-24']
+  'vlt_011CZkZDLs7fYzm1hXNPeRjv',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeletedVault);

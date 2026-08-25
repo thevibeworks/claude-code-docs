@@ -1,3 +1,8 @@
+---
+title: List Session Resources
+url: https://platform.claude.com/docs/en/api/cli/beta/sessions/resources/list
+---
+
 ## List Session Resources
 
 `$ ant beta:sessions:resources list`

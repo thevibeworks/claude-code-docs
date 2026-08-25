@@ -1,3 +1,8 @@
+---
+title: Get Agent
+url: https://platform.claude.com/docs/en/api/cli/beta/agents/retrieve
+---
+
 ## Get Agent
 
 `$ ant beta:agents retrieve`
@@ -50,11 +55,11 @@ Get Agent
 
   - `metadata: map[string]`
 
-  - `model: object { id, speed }`
+  - `model: object { id, effort, inference_geo, speed }`
 
     Model identifier and configuration.
 
-    - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-4-8" or 9 more or string`
+    - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
 
       The model that will power your agent.
 
@@ -68,17 +73,21 @@ Get Agent
 
         Next generation of intelligence for the hardest knowledge work and coding problems
 
+      - `"claude-opus-5"`
+
+        Powerful intelligence for long-running agents and coding
+
       - `"claude-opus-4-8"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-7"`
 
-        Frontier intelligence for long-running agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-6"`
 
-        Most intelligent model for building agents and coding
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-6"`
 
@@ -94,11 +103,11 @@ Get Agent
 
       - `"claude-opus-4-5"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-opus-4-5-20251101"`
 
-        Premium model combining maximum intelligence with practical performance
+        Powerful intelligence for long-running agents and coding
 
       - `"claude-sonnet-4-5"`
 
@@ -107,6 +116,54 @@ Get Agent
       - `"claude-sonnet-4-5-20250929"`
 
         High-performance model for agents and coding
+
+    - `effort: optional BetaManagedAgentsEffortLow or BetaManagedAgentsEffortMedium or BetaManagedAgentsEffortHigh or 2 more`
+
+      How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
+
+      - `beta_managed_agents_effort_low: object { type }`
+
+        Low effort. Favors latency over reasoning depth.
+
+        - `type: "low"`
+
+          - `"low"`
+
+      - `beta_managed_agents_effort_medium: object { type }`
+
+        Medium effort. Balances latency and reasoning depth.
+
+        - `type: "medium"`
+
+          - `"medium"`
+
+      - `beta_managed_agents_effort_high: object { type }`
+
+        High effort. Favors reasoning depth.
+
+        - `type: "high"`
+
+          - `"high"`
+
+      - `beta_managed_agents_effort_xhigh: object { type }`
+
+        Extra-high effort. Not all models accept this level.
+
+        - `type: "xhigh"`
+
+          - `"xhigh"`
+
+      - `beta_managed_agents_effort_max: object { type }`
+
+        Maximum effort. Favors reasoning depth over latency.
+
+        - `type: "max"`
+
+          - `"max"`
+
+    - `inference_geo: optional string`
+
+      Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
     - `speed: optional "standard" or "fast"`
 
@@ -120,17 +177,33 @@ Get Agent
 
     Resolved coordinator topology with a concrete agent roster.
 
-    - `agents: array of BetaManagedAgentsAgentReference`
+    - `agents: array of BetaManagedAgentsAgentReference or BetaManagedAgentsAdvisor`
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-      - `id: string`
+      - `beta_managed_agents_agent_reference: object { id, type, version }`
 
-      - `type: "agent"`
+        A resolved agent reference with a concrete version.
 
-        - `"agent"`
+        - `id: string`
 
-      - `version: number`
+        - `type: "agent"`
+
+          - `"agent"`
+
+        - `version: number`
+
+      - `beta_managed_agents_advisor: object { model, type }`
+
+        Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
+
+        - `model: string`
+
+          The advisor model id.
+
+        - `type: "advisor"`
+
+          - `"advisor"`
 
     - `type: "coordinator"`
 
@@ -172,47 +245,223 @@ Get Agent
 
       - `configs: array of BetaManagedAgentsAgentToolConfig`
 
-        - `enabled: boolean`
+        - `beta_managed_agents_bash_tool_config: object { enabled, name, permission_policy, type }`
 
-        - `name: "bash" or "edit" or "read" or 5 more`
+          Configuration for the bash tool.
 
-          Built-in agent tool identifier.
+          - `enabled: boolean`
 
-          - `"bash"`
+          - `name: "bash"`
 
-          - `"edit"`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
-          - `"read"`
+            Permission policy for tool execution.
 
-          - `"write"`
+            - `beta_managed_agents_always_allow_policy: object { type }`
 
-          - `"glob"`
+              Tool calls are automatically approved without user confirmation.
 
-          - `"grep"`
+              - `type: "always_allow"`
 
-          - `"web_fetch"`
+                - `"always_allow"`
 
-          - `"web_search"`
+            - `beta_managed_agents_always_ask_policy: object { type }`
 
-        - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+              Tool calls require user confirmation before execution.
 
-          Permission policy for tool execution.
+              - `type: "always_ask"`
 
-          - `beta_managed_agents_always_allow_policy: object { type }`
+                - `"always_ask"`
 
-            Tool calls are automatically approved without user confirmation.
+          - `type: "bash"`
 
-            - `type: "always_allow"`
+        - `beta_managed_agents_edit_tool_config: object { enabled, name, permission_policy, type }`
 
-              - `"always_allow"`
+          Configuration for the edit tool.
 
-          - `beta_managed_agents_always_ask_policy: object { type }`
+          - `enabled: boolean`
 
-            Tool calls require user confirmation before execution.
+          - `name: "edit"`
 
-            - `type: "always_ask"`
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
-              - `"always_ask"`
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object { type }`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object { type }`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: "edit"`
+
+        - `beta_managed_agents_read_tool_config: object { enabled, name, permission_policy, type }`
+
+          Configuration for the read tool.
+
+          - `enabled: boolean`
+
+          - `name: "read"`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object { type }`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object { type }`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: "read"`
+
+        - `beta_managed_agents_write_tool_config: object { enabled, name, permission_policy, type }`
+
+          Configuration for the write tool.
+
+          - `enabled: boolean`
+
+          - `name: "write"`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object { type }`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object { type }`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: "write"`
+
+        - `beta_managed_agents_glob_tool_config: object { enabled, name, permission_policy, type }`
+
+          Configuration for the glob tool.
+
+          - `enabled: boolean`
+
+          - `name: "glob"`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object { type }`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object { type }`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: "glob"`
+
+        - `beta_managed_agents_grep_tool_config: object { enabled, name, permission_policy, type }`
+
+          Configuration for the grep tool.
+
+          - `enabled: boolean`
+
+          - `name: "grep"`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object { type }`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object { type }`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: "grep"`
+
+        - `beta_managed_agents_web_fetch_tool_config: object { enabled, name, permission_policy, 4 more }`
+
+          Configuration for the web_fetch tool.
+
+          - `enabled: boolean`
+
+          - `name: "web_fetch"`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object { type }`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object { type }`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: "web_fetch"`
+
+          - `allowed_domains: optional array of string`
+
+          - `blocked_domains: optional array of string`
+
+          - `max_content_tokens: optional number`
+
+        - `beta_managed_agents_web_search_tool_config: object { enabled, name, permission_policy, 4 more }`
+
+          Configuration for the web_search tool.
+
+          - `enabled: boolean`
+
+          - `name: "web_search"`
+
+          - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
+
+            Permission policy for tool execution.
+
+            - `beta_managed_agents_always_allow_policy: object { type }`
+
+              Tool calls are automatically approved without user confirmation.
+
+            - `beta_managed_agents_always_ask_policy: object { type }`
+
+              Tool calls require user confirmation before execution.
+
+          - `type: "web_search"`
+
+          - `allowed_domains: optional array of string`
+
+          - `blocked_domains: optional array of string`
+
+          - `user_location: optional object { type, city, country, 2 more }`
+
+            Approximate user location for search result localization.
+
+            - `type: "approximate"`
+
+              Location precision. Only "approximate" is supported.
+
+            - `city: optional string`
+
+              City name.
+
+            - `country: optional string`
+
+              Two-letter ISO 3166-1 country code, uppercase.
+
+            - `region: optional string`
+
+              Region or state name.
+
+            - `timezone: optional string`
+
+              IANA timezone identifier, e.g. "America/Los_Angeles".
 
       - `default_config: object { enabled, permission_policy }`
 
@@ -341,7 +590,11 @@ ant beta:agents retrieve \
     "foo": "bar"
   },
   "model": {
-    "id": "claude-sonnet-4-6",
+    "id": "claude-opus-5",
+    "effort": {
+      "type": "low"
+    },
+    "inference_geo": "inference_geo",
     "speed": "standard"
   },
   "multiagent": {
@@ -376,7 +629,8 @@ ant beta:agents retrieve \
           "name": "bash",
           "permission_policy": {
             "type": "always_allow"
-          }
+          },
+          "type": "bash"
         }
       ],
       "default_config": {

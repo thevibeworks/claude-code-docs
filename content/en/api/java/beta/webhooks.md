@@ -1,3 +1,8 @@
+---
+title: Webhooks
+url: https://platform.claude.com/docs/en/api/java/beta/webhooks
+---
+
 # Webhooks
 
 ## Domain Types
@@ -207,6 +212,70 @@
   - `JsonValue; type "deployment.updated"constant`
 
     - `DEPLOYMENT_UPDATED("deployment.updated")`
+
+  - `String workspaceId`
+
+### Beta Webhook Environment Archived Event Data
+
+- `class BetaWebhookEnvironmentArchivedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "environment.archived"constant`
+
+    - `ENVIRONMENT_ARCHIVED("environment.archived")`
+
+  - `String workspaceId`
+
+### Beta Webhook Environment Created Event Data
+
+- `class BetaWebhookEnvironmentCreatedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "environment.created"constant`
+
+    - `ENVIRONMENT_CREATED("environment.created")`
+
+  - `String workspaceId`
+
+### Beta Webhook Environment Deleted Event Data
+
+- `class BetaWebhookEnvironmentDeletedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "environment.deleted"constant`
+
+    - `ENVIRONMENT_DELETED("environment.deleted")`
+
+  - `String workspaceId`
+
+### Beta Webhook Environment Updated Event Data
+
+- `class BetaWebhookEnvironmentUpdatedEventData:`
+
+  - `String id`
+
+    ID of the environment that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "environment.updated"constant`
+
+    - `ENVIRONMENT_UPDATED("environment.updated")`
 
   - `String workspaceId`
 
@@ -756,6 +825,118 @@
 
       - `String workspaceId`
 
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.created"constant`
+
+        - `ENVIRONMENT_CREATED("environment.created")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.updated"constant`
+
+        - `ENVIRONMENT_UPDATED("environment.updated")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.archived"constant`
+
+        - `ENVIRONMENT_ARCHIVED("environment.archived")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.deleted"constant`
+
+        - `ENVIRONMENT_DELETED("environment.deleted")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "memory_store.created"constant`
+
+        - `MEMORY_STORE_CREATED("memory_store.created")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "memory_store.archived"constant`
+
+        - `MEMORY_STORE_ARCHIVED("memory_store.archived")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "memory_store.deleted"constant`
+
+        - `MEMORY_STORE_DELETED("memory_store.deleted")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "session.budget_reached"constant`
+
+        - `SESSION_BUDGET_REACHED("session.budget_reached")`
+
+      - `String workspaceId`
+
   - `JsonValue; type "event"constant`
 
     Object type. Always `event` for webhook payloads.
@@ -1298,6 +1479,166 @@
 
     - `String workspaceId`
 
+  - `class BetaWebhookEnvironmentCreatedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "environment.created"constant`
+
+      - `ENVIRONMENT_CREATED("environment.created")`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "environment.updated"constant`
+
+      - `ENVIRONMENT_UPDATED("environment.updated")`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookEnvironmentArchivedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "environment.archived"constant`
+
+      - `ENVIRONMENT_ARCHIVED("environment.archived")`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookEnvironmentDeletedEventData:`
+
+    - `String id`
+
+      ID of the environment that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "environment.deleted"constant`
+
+      - `ENVIRONMENT_DELETED("environment.deleted")`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+    - `String id`
+
+      ID of the memory store that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "memory_store.created"constant`
+
+      - `MEMORY_STORE_CREATED("memory_store.created")`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+    - `String id`
+
+      ID of the memory store that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "memory_store.archived"constant`
+
+      - `MEMORY_STORE_ARCHIVED("memory_store.archived")`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+    - `String id`
+
+      ID of the memory store that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "memory_store.deleted"constant`
+
+      - `MEMORY_STORE_DELETED("memory_store.deleted")`
+
+    - `String workspaceId`
+
+  - `class BetaWebhookSessionBudgetReachedEventData:`
+
+    - `String id`
+
+      ID of the session that triggered the event.
+
+    - `String organizationId`
+
+    - `JsonValue; type "session.budget_reached"constant`
+
+      - `SESSION_BUDGET_REACHED("session.budget_reached")`
+
+    - `String workspaceId`
+
+### Beta Webhook Memory Store Archived Event Data
+
+- `class BetaWebhookMemoryStoreArchivedEventData:`
+
+  - `String id`
+
+    ID of the memory store that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "memory_store.archived"constant`
+
+    - `MEMORY_STORE_ARCHIVED("memory_store.archived")`
+
+  - `String workspaceId`
+
+### Beta Webhook Memory Store Created Event Data
+
+- `class BetaWebhookMemoryStoreCreatedEventData:`
+
+  - `String id`
+
+    ID of the memory store that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "memory_store.created"constant`
+
+    - `MEMORY_STORE_CREATED("memory_store.created")`
+
+  - `String workspaceId`
+
+### Beta Webhook Memory Store Deleted Event Data
+
+- `class BetaWebhookMemoryStoreDeletedEventData:`
+
+  - `String id`
+
+    ID of the memory store that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "memory_store.deleted"constant`
+
+    - `MEMORY_STORE_DELETED("memory_store.deleted")`
+
+  - `String workspaceId`
+
 ### Beta Webhook Session Archived Event Data
 
 - `class BetaWebhookSessionArchivedEventData:`
@@ -1311,6 +1652,22 @@
   - `JsonValue; type "session.archived"constant`
 
     - `SESSION_ARCHIVED("session.archived")`
+
+  - `String workspaceId`
+
+### Beta Webhook Session Budget Reached Event Data
+
+- `class BetaWebhookSessionBudgetReachedEventData:`
+
+  - `String id`
+
+    ID of the session that triggered the event.
+
+  - `String organizationId`
+
+  - `JsonValue; type "session.budget_reached"constant`
+
+    - `SESSION_BUDGET_REACHED("session.budget_reached")`
 
   - `String workspaceId`
 
@@ -2237,6 +2594,118 @@
       - `JsonValue; type "deployment_run.succeeded"constant`
 
         - `DEPLOYMENT_RUN_SUCCEEDED("deployment_run.succeeded")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentCreatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.created"constant`
+
+        - `ENVIRONMENT_CREATED("environment.created")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentUpdatedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.updated"constant`
+
+        - `ENVIRONMENT_UPDATED("environment.updated")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentArchivedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.archived"constant`
+
+        - `ENVIRONMENT_ARCHIVED("environment.archived")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookEnvironmentDeletedEventData:`
+
+      - `String id`
+
+        ID of the environment that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "environment.deleted"constant`
+
+        - `ENVIRONMENT_DELETED("environment.deleted")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreCreatedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "memory_store.created"constant`
+
+        - `MEMORY_STORE_CREATED("memory_store.created")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreArchivedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "memory_store.archived"constant`
+
+        - `MEMORY_STORE_ARCHIVED("memory_store.archived")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookMemoryStoreDeletedEventData:`
+
+      - `String id`
+
+        ID of the memory store that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "memory_store.deleted"constant`
+
+        - `MEMORY_STORE_DELETED("memory_store.deleted")`
+
+      - `String workspaceId`
+
+    - `class BetaWebhookSessionBudgetReachedEventData:`
+
+      - `String id`
+
+        ID of the session that triggered the event.
+
+      - `String organizationId`
+
+      - `JsonValue; type "session.budget_reached"constant`
+
+        - `SESSION_BUDGET_REACHED("session.budget_reached")`
 
       - `String workspaceId`
 

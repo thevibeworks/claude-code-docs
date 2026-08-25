@@ -1,3 +1,8 @@
+---
+title: Environments
+url: https://platform.claude.com/docs/en/api/php/beta/environments
+---
+
 # Environments
 
 ## Create Environment
@@ -54,9 +59,9 @@ Create a new environment with the specified configuration.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -110,7 +115,7 @@ $betaEnvironment = $client->beta->environments->create(
   description: 'Python environment with data-analysis packages.',
   metadata: ['foo' => 'string'],
   scope: 'organization',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaEnvironment);
@@ -211,9 +216,9 @@ List environments with pagination support.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -248,7 +253,7 @@ $page = $client->beta->environments->list(
   includeArchived: true,
   limit: 1,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -344,9 +349,9 @@ Retrieve a specific environment by ID.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -378,7 +383,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironment = $client->beta->environments->retrieve(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW', betas: ['message-batches-2024-09-24']
+  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaEnvironment);
@@ -451,7 +457,7 @@ Update an existing environment's configuration.
 
 - `description?:optional string`
 
-  Updated description of the environment
+  Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
 - `metadata?:optional array<string,string>`
 
@@ -489,9 +495,9 @@ Update an existing environment's configuration.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -546,7 +552,7 @@ $betaEnvironment = $client->beta->environments->update(
   metadata: ['foo' => 'string'],
   name: 'x',
   scope: 'organization',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaEnvironment);
@@ -625,7 +631,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     Environment identifier
 
-  - `"environment_deleted" type`
+  - `Type type`
 
     The type of response
 
@@ -639,7 +645,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironmentDeleteResponse = $client->beta->environments->delete(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW', betas: ['message-batches-2024-09-24']
+  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaEnvironmentDeleteResponse);
@@ -690,9 +697,9 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -724,7 +731,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaEnvironment = $client->beta->environments->archive(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW', betas: ['message-batches-2024-09-24']
+  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaEnvironment);
@@ -835,9 +843,9 @@ var_dump($betaEnvironment);
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -867,7 +875,7 @@ var_dump($betaEnvironment);
 
     Environment identifier
 
-  - `"environment_deleted" type`
+  - `Type type`
 
     The type of response
 
@@ -1053,6 +1061,10 @@ Retrieve detailed information about a specific work item.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -1085,7 +1097,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->retrieve(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWork);
@@ -1107,6 +1119,7 @@ var_dump($betaSelfHostedWork);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1177,6 +1190,10 @@ Long poll for work items in the queue.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -1210,7 +1227,7 @@ $betaSelfHostedWork = $client->beta->environments->work->poll(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   blockMs: 1,
   reclaimOlderThanMs: 1,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   anthropicWorkerID: 'Anthropic-Worker-ID',
 );
 
@@ -1233,6 +1250,7 @@ var_dump($betaSelfHostedWork);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1293,6 +1311,10 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -1325,7 +1347,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaSelfHostedWork = $client->beta->environments->work->ack(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWork);
@@ -1347,6 +1369,7 @@ var_dump($betaSelfHostedWork);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1425,7 +1448,7 @@ $betaSelfHostedWorkHeartbeatResponse = $client
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   desiredTTLSeconds: 0,
   expectedLastHeartbeat: 'expected_last_heartbeat',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWorkHeartbeatResponse);
@@ -1499,6 +1522,10 @@ Stop a work item, initiating graceful or forced shutdown.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -1532,7 +1559,7 @@ $betaSelfHostedWork = $client->beta->environments->work->stop(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   force: true,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWork);
@@ -1554,6 +1581,7 @@ var_dump($betaSelfHostedWork);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1620,6 +1648,10 @@ List work items in an environment.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -1653,7 +1685,7 @@ $page = $client->beta->environments->work->list(
   'env_011CZkZ9X2dpNyB7HsEFoRfW',
   limit: 1,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -1677,6 +1709,7 @@ var_dump($page);
       "metadata": {
         "foo": "string"
       },
+      "secret": "secret",
       "started_at": "started_at",
       "state": "queued",
       "stop_requested_at": "stop_requested_at",
@@ -1744,6 +1777,10 @@ Update work item metadata with merge semantics.
 
     User-provided metadata key-value pairs associated with this work item
 
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
   - `?string startedAt`
 
     RFC 3339 timestamp when work execution started
@@ -1777,7 +1814,7 @@ $betaSelfHostedWork = $client->beta->environments->work->update(
   'work_id',
   environmentID: 'env_011CZkZ9X2dpNyB7HsEFoRfW',
   metadata: ['foo' => 'string'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWork);
@@ -1799,6 +1836,7 @@ var_dump($betaSelfHostedWork);
   "metadata": {
     "foo": "string"
   },
+  "secret": "secret",
   "started_at": "started_at",
   "state": "queued",
   "stop_requested_at": "stop_requested_at",
@@ -1857,7 +1895,8 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
-  'env_011CZkZ9X2dpNyB7HsEFoRfW', betas: ['message-batches-2024-09-24']
+  'env_011CZkZ9X2dpNyB7HsEFoRfW',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaSelfHostedWorkQueueStats);
@@ -1908,6 +1947,10 @@ var_dump($betaSelfHostedWorkQueueStats);
   - `array<string,string> metadata`
 
     User-provided metadata key-value pairs associated with this work item
+
+  - `?string secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
 
   - `?string startedAt`
 

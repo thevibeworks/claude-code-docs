@@ -1,21 +1,21 @@
-# C# SDK
-
-Install and configure the Anthropic C# SDK for .NET applications with IChatClient integration
-
+---
+title: C# SDK
+url: https://platform.claude.com/docs/en/cli-sdks-libraries/sdks/csharp
+description: Install and configure the Anthropic C# SDK for .NET applications with IChatClient integration
 ---
 
-The Anthropic C# SDK provides convenient access to the Anthropic REST API from applications written in C#.
+The Anthropic C# SDK provides convenient access to the Claude API from applications written in C#.
 
 <Info>
-The C# SDK is currently in beta. APIs may change between versions.
+  The C# SDK is currently in beta. APIs may change between versions.
 </Info>
 
 <Info>
-For API feature documentation with code examples, see the [API reference](/docs/en/api/overview). This page covers C#-specific SDK features and configuration.
+  For API feature documentation with code examples, see the [API reference](https://platform.claude.com/docs/en/api/overview). This page covers C#-specific SDK features and configuration.
 </Info>
 
 <Warning>
-As of version 10+, the `Anthropic` package is now the official Anthropic SDK for C#. Package versions 3.X and below were previously used for the tryAGI community-built SDK, which has moved to [`tryAGI.Anthropic`](https://www.nuget.org/packages/tryagi.Anthropic/). If you need to continue using the former client in your project, update your package reference to `tryAGI.Anthropic`.
+  As of version 10+, the `Anthropic` package is now the official Anthropic SDK for C#. Package versions 3.X and below were previously used for the tryAGI community-built SDK, which has moved to [`tryAGI.Anthropic`](https://www.nuget.org/packages/tryagi.Anthropic/). If you need to continue using the former client in your project, update your package reference to `tryAGI.Anthropic`.
 </Warning>
 
 ## Installation
@@ -50,15 +50,21 @@ MessageCreateParams parameters = new()
             Content = "Hello, Claude",
         },
     ],
-    Model = Model.ClaudeOpus4_7,
+    Model = Model.ClaudeOpus5,
 };
 
 var message = await client.Messages.Create(parameters);
 
-Console.WriteLine(message);
+foreach (var block in message.Content)
+{
+    if (block.TryPickText(out var textBlock))
+    {
+        Console.WriteLine(textBlock.Text);
+    }
+}
 ```
 
-For authentication options including Workload Identity Federation, see [Authentication](/docs/en/api/authentication/overview).
+For authentication options including Workload Identity Federation, see [Authentication](https://platform.claude.com/docs/en/manage-claude/authentication).
 
 ## Client configuration
 
@@ -93,7 +99,7 @@ See this table for the available options:
 
 To temporarily use a modified client configuration, while reusing the same connection and thread pools, call `WithOptions` on any client or service:
 
-```csharp nocheck
+```csharp
 using System;
 
 var message = await client
@@ -121,7 +127,7 @@ A streaming method always has a `Streaming` suffix in its name, even if it doesn
 
 These streaming methods return [`IAsyncEnumerable`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1):
 
-```csharp nocheck
+```csharp
 using System;
 using Anthropic.Models.Messages;
 
@@ -136,7 +142,7 @@ MessageCreateParams parameters = new()
             Content = "Hello, Claude",
         },
     ],
-    Model = Model.ClaudeOpus4_7,
+    Model = Model.ClaudeOpus5,
 };
 
 await foreach (var message in client.Messages.CreateStreaming(parameters))
@@ -149,7 +155,7 @@ await foreach (var message in client.Messages.CreateStreaming(parameters))
 
 The SDK throws custom unchecked exception types:
 
-- `AnthropicApiException`: Base class for API errors. See this table for which exception subclass is thrown for each HTTP status code:
+* `AnthropicApiException`: Base class for API errors. See this table for which exception subclass is thrown for each HTTP status code:
 
 | Status | Exception                                |
 | ------ | ---------------------------------------- |
@@ -164,13 +170,13 @@ The SDK throws custom unchecked exception types:
 
 Additionally, all 4xx errors inherit from `Anthropic4xxException`.
 
-- `AnthropicSseException`: thrown for errors encountered during SSE streaming after a successful initial HTTP response.
+* `AnthropicSseException`: thrown for errors encountered during SSE streaming after a successful initial HTTP response.
 
-- `AnthropicIOException`: I/O networking errors.
+* `AnthropicIOException`: I/O networking errors.
 
-- `AnthropicInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+* `AnthropicInvalidDataException`: Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- `AnthropicException`: Base class for all exceptions.
+* `AnthropicException`: Base class for all exceptions.
 
 ## Retries
 
@@ -178,11 +184,11 @@ The SDK automatically retries 2 times by default, with a short exponential backo
 
 Only the following error types are retried:
 
-- Connection errors (for example, because of a network connectivity problem)
-- 408 Request Timeout
-- 409 Conflict
-- 429 Rate Limit
-- 5xx Internal
+* Connection errors (for example, because of a network connectivity problem)
+* 408 Request Timeout
+* 409 Conflict
+* 429 Rate Limit
+* 5xx Internal
 
 The API may also explicitly instruct the SDK to retry or not retry a request.
 
@@ -196,7 +202,7 @@ AnthropicClient client = new() { MaxRetries = 3 };
 
 Or configure a single method call using `WithOptions`:
 
-```csharp nocheck
+```csharp
 using System;
 
 var message = await client
@@ -223,7 +229,7 @@ AnthropicClient client = new() { Timeout = TimeSpan.FromSeconds(42) };
 
 Or configure a single method call using `WithOptions`:
 
-```csharp nocheck
+```csharp
 using System;
 
 var message = await client
@@ -243,7 +249,7 @@ The SDK defines methods that return paginated lists of results. It provides conv
 
 To iterate through all results across all pages, use the `Paginate` method, which automatically fetches more pages as needed. The method returns an [`IAsyncEnumerable`](https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.iasyncenumerable-1):
 
-```csharp nocheck
+```csharp
 using System;
 
 var page = await client.Messages.Batches.List(parameters);
@@ -257,12 +263,7 @@ await foreach (var item in page.Paginate())
 
 To access individual page items and manually request the next page, use the `Items` property, and `HasNext` and `Next` methods:
 
-```csharp hidelines={1..5}
-using Anthropic;
-using System;
-
-AnthropicClient client = new();
-
+```csharp
 var page = await client.Messages.Batches.List();
 while (true)
 {
@@ -284,7 +285,7 @@ In rare cases, the API may return a response that doesn't match the expected typ
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `Validate`:
 
-```csharp nocheck
+```csharp
 var message = await client.Messages.Create(parameters);
 message.Validate();
 ```
@@ -299,7 +300,7 @@ AnthropicClient client = new() { ResponseValidation = true };
 
 Or configure a single method call using `WithOptions`:
 
-```csharp nocheck
+```csharp
 using System;
 
 var message = await client
@@ -315,7 +316,7 @@ Console.WriteLine(message);
 
 The SDK provides an implementation of the `IChatClient` interface from the `Microsoft.Extensions.AI.Abstractions` library. This enables `AnthropicClient` (and `Anthropic.Services.IBetaService`) to be used with other libraries that integrate with these core abstractions. For example, tools in the MCP C# SDK (`ModelContextProtocol`) library can be used directly with an `AnthropicClient` exposed through `IChatClient`.
 
-```csharp nocheck
+```csharp
 using Anthropic;
 using Microsoft.Extensions.AI;
 using ModelContextProtocol.Client;
@@ -323,7 +324,7 @@ using ModelContextProtocol.Client;
 // Configured using the ANTHROPIC_API_KEY, ANTHROPIC_AUTH_TOKEN and ANTHROPIC_BASE_URL environment variables
 AnthropicClient client = new();
 
-IChatClient chatClient = client.AsIChatClient("claude-opus-4-7")
+IChatClient chatClient = client.AsIChatClient("claude-opus-5")
     .AsBuilder()
     .UseFunctionInvocation()
     .Build();
@@ -351,23 +352,23 @@ The SDK defines methods that return binary responses, which are used for API res
 
 These methods return `HttpResponse`:
 
-```csharp nocheck
+```csharp
 using System;
-using Anthropic.Models.Beta.Files;
+using Anthropic.Models.Files;
 
 FileDownloadParams parameters = new() { FileID = "file_id" };
 
-var response = await client.Beta.Files.Download(parameters);
+var response = await client.Files.Download(parameters);
 
 Console.WriteLine(response);
 ```
 
 To save the response content to a file, or any [`Stream`](https://learn.microsoft.com/en-us/dotnet/api/system.io.stream), use the [`CopyToAsync`](https://learn.microsoft.com/en-us/dotnet/api/system.io.stream.copytoasync) method:
 
-```csharp nocheck
+```csharp
 using System.IO;
 
-using var response = await client.Beta.Files.Download(parameters);
+using var response = await client.Files.Download(parameters);
 using var contentStream = await response.ReadAsStream();
 using var fileStream = File.Open(path, FileMode.OpenOrCreate);
 await contentStream.CopyToAsync(fileStream); // Or any other Stream
@@ -377,7 +378,7 @@ await contentStream.CopyToAsync(fileStream); // Or any other Stream
 
 The SDK defines methods that deserialize responses into instances of C# classes. To access response headers, status code, or the raw response body, prefix any HTTP method call on a client or service with `WithRawResponse`:
 
-```csharp nocheck
+```csharp
 var response = await client.WithRawResponse.Messages.Create(parameters);
 var statusCode = response.StatusCode;
 var headers = response.Headers;
@@ -387,7 +388,7 @@ The raw `HttpResponseMessage` can also be accessed through the `RawMessage` prop
 
 For non-streaming responses, you can deserialize the response into an instance of a C# class if needed:
 
-```csharp nocheck
+```csharp
 using System;
 using Anthropic.Models.Messages;
 
@@ -398,7 +399,7 @@ Console.WriteLine(deserialized);
 
 For streaming responses, you can deserialize the response to an `IAsyncEnumerable` if needed:
 
-```csharp nocheck
+```csharp
 using System;
 
 var response = await client.WithRawResponse.Messages.CreateStreaming(parameters);
@@ -411,7 +412,7 @@ await foreach (var item in response.Enumerate())
 ### Logging
 
 <Warning>
-All log messages are intended for debugging only. The format and content of log messages may change between releases.
+  All log messages are intended for debugging only. The format and content of log messages may change between releases.
 </Warning>
 
 Enable debug logging by setting an environment variable:
@@ -427,39 +428,40 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 ## Platform integrations
 
 <Note>
-For detailed platform setup guides with code examples, see:
-- [Amazon Bedrock](/docs/en/build-with-claude/claude-in-amazon-bedrock)
-- [Amazon Bedrock (legacy)](/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
-- [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai)
-- [Microsoft Foundry](/docs/en/build-with-claude/claude-in-microsoft-foundry)
-- [Claude Platform on AWS](/docs/en/build-with-claude/claude-platform-on-aws)
+  For detailed platform setup guides with code examples, see:
+
+  * [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock)
+  * [Amazon Bedrock (Opus 4.6 and earlier)](https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock-legacy)
+  * [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)
+  * [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)
+  * [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)
 </Note>
 
 The C# SDK supports the following platforms through separate NuGet packages:
 
-- **Bedrock:** `Anthropic.Bedrock`. Use `AnthropicBedrockMantleClient` for the Messages-API Bedrock endpoint, or `AnthropicBedrockClient` (`bedrock-runtime` path). `AnthropicBedrockMantleClient` takes an optional `MantleAwsClientOptions` config object; `AnthropicBedrockClient` accepts `AnthropicBedrockCredentialsHelper.FromEnv()` or explicit credentials.
-- **Vertex AI:** `Anthropic.Vertex`. See [Vertex AI](/docs/en/build-with-claude/claude-on-vertex-ai) for client setup.
-- **Foundry:** `Anthropic.Foundry`. Use `AnthropicFoundryClient` with `DefaultAnthropicFoundryCredentials.FromEnv()` or explicit credentials.
-- **Claude Platform on AWS:** `Anthropic.Aws`. Use `AnthropicAwsClient`; set `WorkspaceId` on the client or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable (see [Workspaces](/docs/en/build-with-claude/claude-platform-on-aws#workspaces)). Available in beta.
+* **Agent Platform:** `Anthropic.Vertex`. See [Claude on Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai) for client setup.
+* **Bedrock:** `Anthropic.Bedrock`. Use `AnthropicBedrockMantleClient` for the Messages-API Bedrock endpoint, or `AnthropicBedrockClient` (`bedrock-runtime` path). `AnthropicBedrockMantleClient` takes an optional `MantleAwsClientOptions` config object; `AnthropicBedrockClient` accepts `AnthropicBedrockCredentialsHelper.FromEnv()` or explicit credentials.
+* **Claude Platform on AWS:** `Anthropic.Aws`. Use `AnthropicAwsClient`; set `WorkspaceId` on the client or the `ANTHROPIC_AWS_WORKSPACE_ID` environment variable (see [Workspaces](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws#workspaces)). Available in beta.
+* **Foundry:** `Anthropic.Foundry`. Use `AnthropicFoundryClient` with `DefaultAnthropicFoundryCredentials.FromEnv()` or explicit credentials.
 
 Use `AnthropicBedrockMantleClient` for new projects; `AnthropicBedrockClient` remains for existing applications using the Bedrock `InvokeModel` API.
 
 ## Semantic versioning
 
 <Warning>
-Although this package is versioned as 10+, it's currently in beta. During the beta period, breaking changes may occur in minor or patch releases. Once the library reaches stable release, SemVer conventions will be followed more strictly. Share feedback by [filing an issue](https://github.com/anthropics/anthropic-sdk-csharp/issues/new).
+  Although this package is versioned as 10+, it's currently in beta. During the beta period, breaking changes may occur in minor or patch releases. Once the library reaches stable release, SemVer conventions will be followed more strictly. Share feedback by [filing an issue](https://github.com/anthropics/anthropic-sdk-csharp/issues/new).
 </Warning>
 
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
+This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backward-incompatible changes may be released as minor versions:
 
 1. Changes to library internals that are technically public but not intended or documented for external use.
 2. Changes that aren't expected to impact the vast majority of users in practice.
 
-Backwards-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
+Backward-compatibility is taken seriously to ensure you can rely on a smooth upgrade experience.
 
 ## Additional resources
 
-- [GitHub repository](https://github.com/anthropics/anthropic-sdk-csharp)
-- [NuGet package](https://www.nuget.org/packages/Anthropic)
-- [API reference](/docs/en/api/overview)
-- [Streaming Messages](/docs/en/build-with-claude/streaming)
+* [GitHub repository](https://github.com/anthropics/anthropic-sdk-csharp)
+* [NuGet package](https://www.nuget.org/packages/Anthropic)
+* [API reference](https://platform.claude.com/docs/en/api/overview)
+* [Streaming Messages](https://platform.claude.com/docs/en/build-with-claude/streaming)

@@ -1,3 +1,8 @@
+---
+title: Retrieve a Message Batch
+url: https://platform.claude.com/docs/en/api/cli/messages/batches/retrieve
+---
+
 ## Retrieve a Message Batch
 
 `$ ant messages:batches retrieve`

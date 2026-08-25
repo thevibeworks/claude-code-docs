@@ -1,3 +1,8 @@
+---
+title: Download Skill Version Content
+url: https://platform.claude.com/docs/en/api/php/beta/skills/versions/download
+---
+
 ## Download Skill Version Content
 
 `$client->beta->skills->versions->download(string version, string skillID, ?list<AnthropicBeta> betas): download`
@@ -38,7 +43,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $response = $client->beta->skills->versions->download(
-  'version', skillID: 'skill_id', betas: ['message-batches-2024-09-24']
+  'version',
+  skillID: 'skill_id',
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($response);

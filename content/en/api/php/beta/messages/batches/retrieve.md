@@ -1,3 +1,8 @@
+---
+title: Retrieve a Message Batch
+url: https://platform.claude.com/docs/en/api/php/beta/messages/batches/retrieve
+---
+
 ## Retrieve a Message Batch
 
 `$client->beta->messages->batches->retrieve(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
@@ -82,7 +87,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageBatch = $client->beta->messages->batches->retrieve(
-  'message_batch_id', betas: ['message-batches-2024-09-24']
+  'message_batch_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaMessageBatch);

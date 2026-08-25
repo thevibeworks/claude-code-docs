@@ -1,3 +1,8 @@
+---
+title: Download File
+url: https://platform.claude.com/docs/en/api/cli/beta/files/download
+---
+
 ## Download File
 
 `$ ant beta:files download`
@@ -18,7 +23,7 @@ Download File
 
 ### Returns
 
-- `unnamed_schema_0: file path`
+- `unnamed_schema_4: file path`
 
 ### Example
 

@@ -285,6 +285,25 @@ tokens from an MCP client without validating that the tokens were
 properly issued *to the MCP server* and passes them through to the
 downstream API.
 
+An attacker can gain unauthorized access or otherwise compromise an
+MCP server if the server accepts tokens issued for other resources.
+This vulnerability has two critical dimensions:
+
+1. **Audience validation failures.** When an MCP server doesn't verify
+   that tokens were specifically intended for it (for example, via the
+   audience claim, as mentioned in
+   [RFC9068](https://www.rfc-editor.org/rfc/rfc9068.html)), it may
+   accept tokens originally issued for other services. This breaks a
+   fundamental OAuth security boundary, allowing attackers to reuse
+   legitimate tokens across different services than intended.
+2. **Token passthrough.** If the MCP server not only accepts tokens
+   with incorrect audiences but also forwards these unmodified tokens
+   to downstream services, it can potentially cause the
+   ["confused deputy" problem](#confused-deputy-problem), where the
+   downstream API may incorrectly trust the token as if it came from
+   the MCP server or assume the token was validated by the upstream
+   API.
+
 #### Risks
 
 Token passthrough is explicitly forbidden in the
@@ -465,6 +484,24 @@ DNS-based validation:
 * Consider pinning DNS resolution results between check and use
 * Defense in depth: combine DNS checks with other mitigations
 
+#### SSRF Against Authorization Servers
+
+SSRF risks are not limited to MCP clients. When an authorization
+server supports
+[Client ID Metadata Documents](/specification/2026-07-28/basic/authorization/client-registration#client-id-metadata-documents),
+the authorization server takes a URL as input from an unknown client
+and fetches that URL. A malicious client could use this to trigger
+the authorization server to make requests to arbitrary URLs, such as
+requests to private administration endpoints the authorization server
+has access to.
+
+The mitigations described above, such as blocking private IP ranges
+and using egress proxies, apply equally to authorization servers
+fetching client metadata documents. See
+[Server Side Request Forgery (SSRF) Attacks](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-client-id-metadata-document-00#name-server-side-request-forgery)
+in the Client ID Metadata Document specification for further
+guidance.
+
 #### Resources and Tools
 
 The following resources can help developers implement SSRF protections
@@ -479,124 +516,48 @@ in MCP clients.
   SSRF in the context of the most critical web application security
   risks
 
-### Session Hijacking
+### State Handle Hijacking
 
-Session hijacking is an attack vector where a client is provided a
-session ID by the server, and an unauthorized party is able to obtain
-and use that same session ID to impersonate the original client and
-perform unauthorized actions on their behalf.
-
-#### Session Hijack Prompt Injection
-
-```mermaid theme={null}
-sequenceDiagram
-    participant Client
-    participant ServerA
-    participant Queue
-    participant ServerB
-    participant Attacker
-
-    Client->>ServerA: Initialize (connect to streamable HTTP server)
-    ServerA-->>Client: Respond with session ID
-
-    Attacker->>ServerB: Access/guess session ID
-    Note right of Attacker: Attacker knows/guesses session ID
-
-    Attacker->>ServerB: Trigger event (malicious payload, using session ID)
-    ServerB->>Queue: Enqueue event (keyed by session ID)
-
-    ServerA->>Queue: Poll for events (using session ID)
-    Queue-->>ServerA: Event data (malicious payload)
-
-    ServerA-->>Client: Async response (malicious payload)
-    Client->>Client: Acts based on malicious payload
-```
-
-#### Session Hijack Impersonation
-
-```mermaid theme={null}
-sequenceDiagram
-    participant Client
-    participant Server
-    participant Attacker
-
-    Client->>Server: Initialize (login/authenticate)
-    Server-->>Client: Respond with session ID (persistent session created)
-
-    Attacker->>Server: Access/guess session ID
-    Note right of Attacker: Attacker knows/guesses session ID
-
-    Attacker->>Server: Make API call (using session ID, no re-auth)
-    Server-->>Attacker: Respond as if Attacker is Client (session hijack)
-```
+MCP is [stateless](/specification/2026-07-28/basic/index#statelessness) and
+has no protocol-level sessions. Servers that need state spanning
+multiple requests mint an explicit handle, such as a shopping cart ID
+or a workflow ID, and receive it back as an ordinary tool argument on
+each request. State handle hijacking is an attack vector where an
+unauthorized party obtains or guesses such a handle and uses it to
+access or modify another user's state.
 
 #### Attack Description
 
-When you have multiple stateful HTTP servers that handle MCP requests,
-the following attack vectors are possible:
-
-**Session Hijack Prompt Injection**
-
-1. The client connects to **Server A** and receives a session ID.
-
-2. The attacker obtains an existing session ID and sends a malicious
-   event to **Server B** with said session ID.
-   * When a server supports
-     [redelivery/resumable streams](/specification/latest/basic/transports#resumability-and-redelivery),
-     deliberately terminating the request before receiving the response
-     could lead to it being resumed by the original client via the GET
-     request for server sent events.
-   * If a particular server initiates server sent events as a
-     consequence of a tool call such as a
-     `notifications/tools/list_changed`, where it is possible to affect
-     the tools that are offered by the server, a client could end up
-     with tools that they were not aware were enabled.
-
-3. **Server B** enqueues the event (associated with session ID) into a
-   shared queue.
-
-4. **Server A** polls the queue for events using the session ID and
-   retrieves the malicious payload.
-
-5. **Server A** sends the malicious payload to the client as an
-   asynchronous or resumed response.
-
-6. The client receives and acts on the malicious payload, leading to
-   potential compromise.
-
-**Session Hijack Impersonation**
-
-1. The MCP client authenticates with the MCP server, creating a
-   persistent session ID.
-2. The attacker obtains the session ID.
-3. The attacker makes calls to the MCP server using the session ID.
-4. MCP server does not check for additional authorization and treats the
-   attacker as a legitimate user, allowing unauthorized access or
-   actions.
+1. The MCP server mints a state handle for an authenticated user and
+   returns it in a tool result.
+2. The attacker obtains or guesses the handle.
+3. The attacker calls the MCP server's tools with the handle as an
+   argument.
+4. The MCP server does not check whether the handle belongs to the
+   caller and operates on the original user's state, allowing
+   unauthorized access or actions.
 
 #### Mitigation
 
-To prevent session hijacking and event injection attacks, the following
-mitigations should be implemented:
-
 MCP servers that implement authorization **MUST** verify all inbound
-requests. MCP Servers **MUST NOT** use sessions for authentication.
+requests. MCP servers **MUST NOT** treat possession of a state handle
+as authentication.
 
-MCP servers **MUST** use secure, non-deterministic session IDs.
-Generated session IDs (e.g., UUIDs) **SHOULD** use secure random number
-generators. Avoid predictable or sequential session identifiers that
-could be guessed by an attacker. Rotating or expiring session IDs can
+MCP servers **SHOULD** use secure, non-deterministic handles generated
+with secure random number generators. Avoid predictable or sequential
+identifiers that could be guessed by an attacker. Expiring handles can
 also reduce the risk.
 
-MCP servers **SHOULD** bind session IDs to user-specific information.
-When storing or transmitting session-related data (e.g., in a queue),
-combine the session ID with information unique to the authorized user,
-such as their internal user ID. Use a key format like
-`<user_id>:<session_id>`. This ensures that even if an attacker guesses
-a session ID, they cannot impersonate another user as the user ID is
-derived from the user token and not provided by the client.
+MCP servers **SHOULD** bind handles server-side to the authenticated
+user, for example by keying stored state as `<user_id>:<handle>` where
+the user ID is derived from the verified token rather than supplied by
+the client, and reject a handle presented by any other principal. This
+ensures that even if an attacker guesses a handle, they cannot
+impersonate another user.
 
-MCP servers can optionally leverage additional unique identifiers.
+For guidance on securing the server-assigned session IDs used by
+protocol version `2025-11-25` and earlier, see
+[Session Hijacking in the 2025-11-25 version of this page](/docs/2025-11-25/tutorials/security/security_best_practices#session-hijacking).
 
 ### Local MCP Server Compromise
 
@@ -836,6 +797,83 @@ MCP clients **SHOULD** implement defense-in-depth measures:
 * Implement process-level sandboxing for the proxy service itself
 * Consider running the proxy in a container or restricted environment
 
+### Mix-Up Attacks
+
+#### Attack Description
+
+An MCP client typically interacts with many authorization servers
+over its lifetime. An attacker that controls one of those
+authorization servers may attempt to have the client send it an
+authorization code or token issued by a different, honest
+authorization server (a mix-up attack, described in
+[RFC9207 Section 1](https://datatracker.ietf.org/doc/html/rfc9207#section-1)).
+
+#### Mitigation
+
+[Authorization Response Validation](/specification/2026-07-28/basic/authorization#authorization-response-validation)
+mitigates this by binding the response to the authorization server
+the client recorded before redirecting, so the authorization code
+cannot be redeemed at an unintended token endpoint. PKCE alone does
+not prevent this attack because the client transmits the
+`code_verifier` to the attacker's token endpoint. Resource indicators
+do not help when the attacker's authorization server is intercepting
+requests before they hit the honest authorization server. This
+mitigation depends on honest authorization servers emitting `iss`; it
+provides no protection against an honest server that does not.
+
+### Localhost Redirect URI Impersonation
+
+Native and locally-running MCP clients commonly use `localhost`
+redirect URIs. When clients identify themselves with
+[Client ID Metadata Documents](/specification/2026-07-28/basic/authorization/client-registration#client-id-metadata-documents),
+the metadata document proves control of a domain, but it cannot prove
+which local process is listening on a `localhost` redirect URI.
+
+#### Attack Description
+
+An attacker can claim to be any client by:
+
+1. Providing the legitimate client's metadata URL as their `client_id`
+2. Binding to any `localhost` port, and providing that address as
+   the redirect\_uri
+3. Receiving the authorization code via the redirect when the user
+   approves
+
+The server will see the legitimate client's metadata document and the
+user will see the legitimate client's name, making attack detection
+difficult.
+
+#### Mitigation
+
+See
+[Localhost Redirect URI Risks](/specification/2026-07-28/basic/authorization/security-considerations#localhost-redirect-uri-risks)
+in the authorization specification for the countermeasures expected
+of authorization servers, including displaying additional warnings for
+`localhost`-only redirect URIs and clearly displaying the redirect URI
+hostname during authorization.
+
+### CIMD Trust Policies
+
+Authorization servers that accept
+[Client ID Metadata Documents](/specification/2026-07-28/basic/authorization/client-registration#client-id-metadata-documents)
+can apply domain-based trust policies to decide which URL-based
+client IDs to accept:
+
+* Allowlists for trusted domains (for protected servers)
+* Accept any HTTPS `client_id` (for open servers)
+* Reputation checks for unknown domains
+* Restrictions based on domain age or certificate validation
+* Display the CIMD and other associated client hostnames prominently
+  to prevent phishing
+
+Servers maintain full control over their access policies. See
+[Trust Policies](/specification/2026-07-28/basic/authorization/security-considerations#trust-policies)
+in the authorization specification, along with
+[Section 6.4](https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-00.html#section-6.4)
+and
+[Section 6.8](https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-00.html#section-6.8)
+of the Client ID Metadata Document specification, for more details.
+
 ### Scope Minimization
 
 Poor scope design increases token compromise impact, elevates user
@@ -880,12 +918,60 @@ Server guidance:
 * Log elevation events (scope requested, granted subset) with
   correlation IDs
 
+Servers have flexibility in determining which scopes to include:
+
+* **Minimum approach**: Include only the scopes required for the
+  specific operation that triggered the error.
+* **Recommended approach**: Include the scopes required for the
+  current operation along with related scopes that commonly work
+  together, to reduce the number of step-up authorization rounds.
+* **Extended approach**: Include the scopes required for the
+  current operation, related scopes, and any other scopes the
+  server anticipates the client may need in the near future.
+
+The choice depends on the server's assessment of user experience impact and authorization friction.
+
 Client guidance:
 
 * Begin with only baseline scopes (or those specified by initial
   `WWW-Authenticate`)
 * Cache recent failures to avoid repeated elevation loops for denied
   scopes
+
+When the initial `WWW-Authenticate` challenge carries no `scope`
+parameter, the
+[Scope Selection Strategy](/specification/2026-07-28/basic/authorization#scope-selection-strategy)
+directs clients to fall back to requesting all scopes listed in
+`scopes_supported`. This approach accommodates the general-purpose
+nature of MCP clients, which typically lack domain-specific knowledge
+to make informed decisions about individual scope selection.
+Requesting all available scopes allows the authorization server and
+end-user to determine appropriate permissions during the consent
+process, minimizing user friction while following the principle of
+least privilege.
+
+<Note>
+  Scope accumulation across operations is a client-side responsibility. Clients
+  **SHOULD** compute the union of previously requested scopes and newly
+  challenged scopes when initiating re-authorization, as described in [Step-Up
+  Authorization
+  Flow](/specification/2026-07-28/basic/authorization#step-up-authorization-flow).
+  This allows servers to remain stateless with respect to client scope sets
+  while ensuring clients do not lose previously granted permissions.
+</Note>
+
+<Note>
+  **Hierarchical scopes**: Some authorization servers define scope hierarchies
+  where a broader scope implies narrower ones (for example, an `admin` scope
+  that subsumes `read`). When accumulating scopes, the client's union may
+  contain semantically redundant entries. For example, a token previously
+  granted a broad scope may be challenged with a narrower one it already
+  implies. Clients need not deduplicate hierarchically; authorization servers
+  typically normalize such redundancy during token issuance. Servers, for their
+  part, must account for hierarchy when deciding whether a token is sufficient
+  for an operation, but this does not affect the scopes they emit in a
+  challenge.
+</Note>
 
 #### Common Mistakes
 

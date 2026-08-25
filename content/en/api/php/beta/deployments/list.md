@@ -1,3 +1,8 @@
+---
+title: List Deployments
+url: https://platform.claude.com/docs/en/api/php/beta/deployments/list
+---
+
 ## List Deployments
 
 `$client->beta->deployments->list(?string agentID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?BetaManagedAgentsDeploymentStatus status, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeployment>`
@@ -106,6 +111,10 @@ List Deployments
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -123,7 +132,7 @@ $page = $client->beta->deployments->list(
   limit: 0,
   page: 'page',
   status: BetaManagedAgentsDeploymentStatus::ACTIVE,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -187,7 +196,14 @@ var_dump($page);
       "updated_at": "2026-03-15T10:00:00Z",
       "vault_ids": [
         "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-      ]
+      ],
+      "budget": {
+        "max_list_cost": {
+          "amount": "2500",
+          "currency": "USD"
+        },
+        "type": "limit"
+      }
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="

@@ -118,7 +118,9 @@ Resource Templates include metadata such as title, description, and expected MIM
 | `resources/list`           | List available direct resources | Array of resource descriptors          |
 | `resources/templates/list` | Discover resource templates     | Array of resource template definitions |
 | `resources/read`           | Retrieve resource contents      | Resource data with metadata            |
-| `resources/subscribe`      | Monitor resource changes        | Subscription confirmation              |
+| `subscriptions/listen`     | Monitor resource changes        | Stream of update notifications         |
+
+To watch specific resources for changes, a client sends a [`subscriptions/listen`](/specification/2026-07-28/basic/patterns/subscriptions) request with the resource URIs listed in the `resourceSubscriptions` filter. The server delivers `notifications/resources/updated` on the resulting stream whenever a watched resource changes.
 
 #### Example: Getting Travel Planning Context
 
@@ -269,7 +271,9 @@ Consider a personalized AI travel planner application, with three connected serv
 
    The AI first reads all selected resources to gather context - identifying available dates from the calendar, learning preferred airlines and hotel types from travel preferences, and discovering previously enjoyed locations from past trips.
 
-   Using this context, the AI then executes a series of Tools:
+   Using this context, the AI then executes the prompt provided by the AI application. In our example, the AI application exposes the weather tools from the connected MCP weather server to the model. Because weather can affect travel plans, the AI chooses to call `checkWeather()` when interpreting the prompt.
+
+   As a result the AI executes a series of tools:
 
    * `searchFlights()` - Queries airlines for NYC to Barcelona flights
    * `checkWeather()` - Retrieves climate forecasts for travel dates

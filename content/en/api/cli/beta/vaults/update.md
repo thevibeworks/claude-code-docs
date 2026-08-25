@@ -1,3 +1,8 @@
+---
+title: Update Vault
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/update
+---
+
 ## Update Vault
 
 `$ ant beta:vaults update`

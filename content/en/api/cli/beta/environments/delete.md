@@ -1,3 +1,8 @@
+---
+title: Delete Environment
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/delete
+---
+
 ## Delete Environment
 
 `$ ant beta:environments delete`
@@ -27,6 +32,8 @@ Delete an environment by ID. Returns a confirmation of the deletion.
   - `type: "environment_deleted"`
 
     The type of response
+
+    - `"environment_deleted"`
 
 ### Example
 

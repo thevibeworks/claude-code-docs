@@ -258,7 +258,7 @@ Decoded, it will look like this:
 
 ### MCP Server Setup
 
-We will now set up our MCP server to use the locally-running Keycloak authorization server. Depending on your programming language preference, you can use one of the supported [MCP SDKs](/docs/sdk).
+We will now set up our MCP server to use the locally-running Keycloak authorization server. Depending on your programming language preference, you can use one of the supported [MCP SDKs](/docs/2026-07-28/sdk).
 
 For our testing purposes, we will create an extremely simple MCP server that exposes two tools - one for addition and another for multiplication. The server will require authorization to access these.
 
@@ -596,7 +596,7 @@ For our testing purposes, we will create an extremely simple MCP server that exp
   <Tab title="Python">
     You can see the complete Python project in the [sample repository](https://github.com/modelcontextprotocol/python-sdk/tree/main/examples/servers/simple-auth).
 
-    To simplify our authorization interaction, in Python scenarios we rely on [FastMCP](https://gofastmcp.com/getting-started/welcome). Many of the conventions around authorization, like the endpoints and token validation logic, are consistent across languages, but some offer simpler ways of integrating them in production scenarios.
+    To simplify our authorization interaction, in Python scenarios we rely on the `MCPServer` class from the [Python SDK](https://py.sdk.modelcontextprotocol.io/v2/run/authorization/). It publishes the Protected Resource Metadata document, answers unauthenticated requests with a `401` whose `WWW-Authenticate` header points back at that document, and hands every bearer token to a verifier that we supply. Many of the conventions around authorization, like the endpoints and token validation logic, are consistent across languages, but some offer simpler ways of integrating them in production scenarios.
 
     Prior to writing the actual server, we need to set up our configuration in `config.py` - the contents are entirely based on your local server setup:
 
@@ -604,7 +604,6 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     """Configuration settings for the MCP auth server."""
 
     import os
-    from typing import Optional
 
 
     class Config:
@@ -621,12 +620,10 @@ For our testing purposes, we will create an extremely simple MCP server that exp
 
         # OAuth client settings
         OAUTH_CLIENT_ID: str = os.getenv("OAUTH_CLIENT_ID", "test-client")
-        OAUTH_CLIENT_SECRET: str = os.getenv("OAUTH_CLIENT_SECRET", "<YOUR_SERVER_CLIENT_SECRET>")
+        OAUTH_CLIENT_SECRET: str = os.getenv("OAUTH_CLIENT_SECRET", "")
 
-        # Server settings
+        # Scope required on every token
         MCP_SCOPE: str = os.getenv("MCP_SCOPE", "mcp:tools")
-        OAUTH_STRICT: bool = os.getenv("OAUTH_STRICT", "false").lower() in ("true", "1", "yes")
-        TRANSPORT: str = os.getenv("TRANSPORT", "streamable-http")
 
         @property
         def server_url(self) -> str:
@@ -638,16 +635,12 @@ For our testing purposes, we will create an extremely simple MCP server that exp
             """Build the auth server base URL."""
             return f"http://{self.AUTH_HOST}:{self.AUTH_PORT}/realms/{self.AUTH_REALM}/"
 
-        def validate(self) -> None:
-            """Validate configuration."""
-            if self.TRANSPORT not in ["sse", "streamable-http"]:
-                raise ValueError(f"Invalid transport: {self.TRANSPORT}. Must be 'sse' or 'streamable-http'")
-
 
     # Global configuration instance
     config = Config()
-
     ```
+
+    `OAUTH_CLIENT_ID` and `OAUTH_CLIENT_SECRET` are associated with the MCP server client we created earlier. Set them in your environment before starting the server.
 
     The server implementation is as follows:
 
@@ -655,11 +648,12 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     import datetime
     import logging
     from typing import Any
+    from urllib.parse import urljoin
 
     from pydantic import AnyHttpUrl
 
+    from mcp.server import MCPServer
     from mcp.server.auth.settings import AuthSettings
-    from mcp.server.fastmcp.server import FastMCP
 
     from .config import config
     from .token_verifier import IntrospectionTokenVerifier
@@ -669,8 +663,6 @@ For our testing purposes, we will create an extremely simple MCP server that exp
 
     def create_oauth_urls() -> dict[str, str]:
         """Create OAuth URLs based on configuration (Keycloak-style)."""
-        from urllib.parse import urljoin
-
         auth_base_url = config.auth_base_url
 
         return {
@@ -681,10 +673,8 @@ For our testing purposes, we will create an extremely simple MCP server that exp
         }
 
 
-    def create_server() -> FastMCP:
-        """Create and configure the FastMCP server."""
-
-        config.validate()
+    def create_server() -> MCPServer:
+        """Create and configure the MCP server."""
 
         oauth_urls = create_oauth_urls()
 
@@ -695,13 +685,10 @@ For our testing purposes, we will create an extremely simple MCP server that exp
             client_secret=config.OAUTH_CLIENT_SECRET,
         )
 
-        app = FastMCP(
+        app = MCPServer(
             name="MCP Resource Server",
             instructions="Resource Server that validates tokens via Authorization Server introspection",
-            host=config.HOST,
-            port=config.PORT,
             debug=True,
-            streamable_http_path="/",
             token_verifier=token_verifier,
             auth=AuthSettings(
                 issuer_url=AnyHttpUrl(oauth_urls["issuer"]),
@@ -726,7 +713,7 @@ For our testing purposes, we will create an extremely simple MCP server that exp
                 "operand_a": a,
                 "operand_b": b,
                 "result": result,
-                "timestamp": datetime.datetime.now().isoformat()
+                "timestamp": datetime.datetime.now().isoformat(),
             }
 
         @app.tool()
@@ -745,7 +732,7 @@ For our testing purposes, we will create an extremely simple MCP server that exp
                 "operand_x": x,
                 "operand_y": y,
                 "result": result,
-                "timestamp": datetime.datetime.now().isoformat()
+                "timestamp": datetime.datetime.now().isoformat(),
             }
 
         return app
@@ -764,22 +751,20 @@ For our testing purposes, we will create an extremely simple MCP server that exp
         """
         logging.basicConfig(level=logging.INFO)
 
-        try:
-            config.validate()
-            oauth_urls = create_oauth_urls()
-
-        except ValueError as e:
-            logger.error("Configuration error: %s", e)
-            return 1
+        oauth_urls = create_oauth_urls()
 
         try:
             mcp_server = create_server()
 
             logger.info("Starting MCP Server on %s:%s", config.HOST, config.PORT)
             logger.info("Authorization Server: %s", oauth_urls["issuer"])
-            logger.info("Transport: %s", config.TRANSPORT)
 
-            mcp_server.run(transport=config.TRANSPORT)
+            mcp_server.run(
+                transport="streamable-http",
+                host=config.HOST,
+                port=config.PORT,
+                streamable_http_path="/",
+            )
             return 0
 
         except Exception:
@@ -791,13 +776,15 @@ For our testing purposes, we will create an extremely simple MCP server that exp
         exit(main())
     ```
 
-    Lastly, the token verification logic is delegated entirely to `token_verifier.py`, ensuring that we can use the Keycloak introspection endpoint to verify the validity of any credential artifacts
+    Lastly, the token verification logic is delegated entirely to `token_verifier.py`, ensuring that we can use the Keycloak introspection endpoint to verify the validity of any credential artifacts.
 
     ```python theme={null}
     """Token verifier implementation using OAuth 2.0 Token Introspection (RFC 7662)."""
 
     import logging
     from typing import Any
+
+    import httpx2
 
     from mcp.server.auth.provider import AccessToken, TokenVerifier
     from mcp.shared.auth_utils import check_resource_allowed, resource_url_from_server_url
@@ -806,8 +793,7 @@ For our testing purposes, we will create an extremely simple MCP server that exp
 
 
     class IntrospectionTokenVerifier(TokenVerifier):
-        """Token verifier that uses OAuth 2.0 Token Introspection (RFC 7662).
-        """
+        """Token verifier that uses OAuth 2.0 Token Introspection (RFC 7662)."""
 
         def __init__(
             self,
@@ -824,15 +810,13 @@ For our testing purposes, we will create an extremely simple MCP server that exp
 
         async def verify_token(self, token: str) -> AccessToken | None:
             """Verify token via introspection endpoint."""
-            import httpx
-
             if not self.introspection_endpoint.startswith(("https://", "http://localhost", "http://127.0.0.1")):
                 return None
 
-            timeout = httpx.Timeout(10.0, connect=5.0)
-            limits = httpx.Limits(max_connections=10, max_keepalive_connections=5)
+            timeout = httpx2.Timeout(10.0, connect=5.0)
+            limits = httpx2.Limits(max_connections=10, max_keepalive_connections=5)
 
-            async with httpx.AsyncClient(
+            async with httpx2.AsyncClient(
                 timeout=timeout,
                 limits=limits,
                 verify=True,
@@ -876,9 +860,12 @@ For our testing purposes, we will create an extremely simple MCP server that exp
                         # silent 401. We already confirmed this server's resource is a
                         # valid audience in `_validate_resource`, so record that.
                         resource=self.resource_url,
+                        subject=data.get("sub"),  # RFC 7662 subject (resource owner)
+                        claims=data,
                     )
 
-                except Exception as e:
+                except Exception:
+                    logger.exception("Token introspection failed")
                     return None
 
         def _validate_resource(self, token_data: dict[str, Any]) -> bool:
@@ -901,7 +888,7 @@ For our testing purposes, we will create an extremely simple MCP server that exp
 
         def _is_valid_resource(self, resource: str) -> bool:
             """Check if the given resource matches our server."""
-            return check_resource_allowed(self.resource_url, resource)
+            return check_resource_allowed(requested_resource=self.resource_url, configured_resource=resource)
     ```
 
     For more details, see below or the [Python SDK documentation](https://github.com/modelcontextprotocol/python-sdk).
@@ -919,14 +906,9 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     authors = [{ name = "Model Context Protocol a Series of LF Projects, LLC." }]
     license = { text = "MIT" }
     dependencies = [
-      "anyio>=4.5",
-      "click>=8.2.0",
-      "httpx>=0.27",
-      "mcp",
+      "httpx2>=2.5.0",
+      "mcp>=2.0.0rc1",
       "pydantic>=2.0",
-      "pydantic-settings>=2.5.2",
-      "sse-starlette>=1.6.1",
-      "uvicorn>=0.23.1; sys_platform != 'emscripten'",
     ]
 
     [project.scripts]
@@ -947,7 +929,7 @@ For our testing purposes, we will create an extremely simple MCP server that exp
 
     ```bash theme={null}
     uv sync
-    uv run mcp-simple-auth-rs --port=3000 --auth-server=http://localhost:8080 --transport=streamable-http
+    uv run mcp-simple-auth-rs
     ```
   </Tab>
 
@@ -955,6 +937,8 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     You can see the complete C# project in the [sample repository](https://github.com/localden/min-cs-mcp-auth).
 
     To set up authorization in your MCP server using the MCP C# SDK, you can lean on the standard ASP.NET Core builder pattern. Instead of using the introspection endpoint provided by Keycloak, we will use built-in ASP.NET Core capabilities for token validation.
+
+    In the root of your server folder, create two files, `Program.cs` and `ProtectedMcpServer.csproj`, and a `Tools` folder. Fill `Program.cs` with:
 
     ```csharp theme={null}
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -1017,9 +1001,9 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     {
         options.ResourceMetadata = new()
         {
-            Resource = new Uri(serverUrl),
-            ResourceDocumentation = new Uri("https://docs.example.com/api/math"),
-            AuthorizationServers = { new Uri(authorizationServerUrl) },
+            Resource = serverUrl,
+            ResourceDocumentation = "https://docs.example.com/api/math",
+            AuthorizationServers = { authorizationServerUrl },
             ScopesSupported = ["mcp:tools"]
         };
     });
@@ -1045,6 +1029,63 @@ For our testing purposes, we will create an extremely simple MCP server that exp
     Console.WriteLine("Press Ctrl+C to stop the server");
 
     app.Run(serverUrl);
+    ```
+
+    Fill `ProtectedMcpServer.csproj` with:
+
+    ```xml theme={null}
+    <Project Sdk="Microsoft.NET.Sdk.Web">
+
+      <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <!-- Identifier for the local secret store, not a secret itself. -->
+        <UserSecretsId>local-authorization-mcp-server</UserSecretsId>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.18" />
+        <PackageReference Include="ModelContextProtocol" Version="2.0.0" />
+        <PackageReference Include="ModelContextProtocol.AspNetCore" Version="2.0.0" />
+      </ItemGroup>
+
+    </Project>
+    ```
+
+    In the `Tools` folder, create `MathTools.cs` and fill it with:
+
+    ```csharp theme={null}
+    using System.ComponentModel;
+    using ModelContextProtocol.Server;
+
+    namespace ProtectedMcpServer.Tools;
+
+    [McpServerToolType]
+    public sealed class MathTools
+    {
+        [McpServerTool, Description("Add two numbers together.")]
+        public Task<double> Add(
+            [Description("First operand")] double a,
+            [Description("Second operand")] double b)
+        {
+            return Task.FromResult(a + b);
+        }
+
+        [McpServerTool, Description("Multiply two numbers together.")]
+        public Task<double> Multiply(
+            [Description("First operand")] double a,
+            [Description("Second operand")] double b)
+        {
+            return Task.FromResult(a * b);
+        }
+    }
+    ```
+
+    Then from the server's root, run:
+
+    ```bash theme={null}
+    dotnet run
     ```
 
     For more details, see the [C# SDK documentation](https://github.com/modelcontextprotocol/csharp-sdk).
@@ -1084,7 +1125,7 @@ You will be able to invoke individual tools with the help of the `#` sign in the
 
 ## Common Pitfalls and How to Avoid Them
 
-For comprehensive security guidance, including attack vectors, mitigation strategies, and implementation best practices, make sure to read through [Security Best Practices](/specification/draft/basic/security_best_practices). A few key issues are called out below.
+For comprehensive security guidance, including attack vectors, mitigation strategies, and implementation best practices, make sure to read through [Security Best Practices](/specification/2026-07-28/basic/security_best_practices). A few key issues are called out below.
 
 * **Do not implement token validation or authorization logic by yourself**. Use off-the-shelf, well-tested, and secure libraries for things like token validation or authorization decisions. Doing everything from scratch means that you're more likely to implement things incorrectly unless you are a security expert.
 * **Use short-lived access tokens**. Depending on the authorization server used, this setting might be customizable. We recommend to not use long-lived tokens - if a malicious actor steals them, they will be able to maintain their access for longer periods.
@@ -1113,8 +1154,8 @@ MCP authorization builds on these well-established standards:
 
 For additional details, refer to:
 
-* [Authorization Specification](/specification/draft/basic/authorization)
-* [Security Best Practices](/specification/draft/basic/security_best_practices)
-* [Available MCP SDKs](/docs/sdk)
+* [Authorization Specification](/specification/2026-07-28/basic/authorization)
+* [Security Best Practices](/specification/2026-07-28/basic/security_best_practices)
+* [Available MCP SDKs](/docs/2026-07-28/sdk)
 
 Understanding these standards will help you implement authorization correctly and troubleshoot issues when they arise.

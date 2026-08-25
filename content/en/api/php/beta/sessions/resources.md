@@ -1,3 +1,8 @@
+---
+title: Resources
+url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources
+---
+
 # Resources
 
 ## Add Session Resource
@@ -60,7 +65,7 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
   fileID: 'file_011CNha8iCJcU1wXNR6q4V8w',
   type: 'file',
   mountPath: '/uploads/receipt.pdf',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsFileResource);
@@ -186,7 +191,7 @@ $page = $client->beta->sessions->resources->list(
   'sesn_011CZkZAtmR3yMPDzynEDxu7',
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -322,7 +327,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $resource = $client->beta->sessions->resources->retrieve(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($resource);
@@ -450,7 +455,7 @@ $resource = $client->beta->sessions->resources->update(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
   authorizationToken: 'ghp_exampletoken',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($resource);
@@ -515,7 +520,7 @@ $betaManagedAgentsDeleteSessionResource = $client
   ->delete(
   'sesrsc_011CZkZBJq5dWxk9fVLNcPht',
   sessionID: 'sesn_011CZkZAtmR3yMPDzynEDxu7',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeleteSessionResource);

@@ -1,3 +1,8 @@
+---
+title: Credentials
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials
+---
+
 # Credentials
 
 ## Create Credential
@@ -84,7 +89,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
   ],
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -191,7 +196,7 @@ $page = $client->beta->vaults->credentials->list(
   includeArchived: true,
   limit: 0,
   page: 'page',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($page);
@@ -291,7 +296,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -412,7 +417,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->update(
   ],
   displayName: 'Example credential',
   metadata: ['environment' => 'production'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -483,7 +488,7 @@ $betaManagedAgentsDeletedCredential = $client
   ->delete(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeletedCredential);
@@ -566,7 +571,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsCredential = $client->beta->vaults->credentials->archive(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredential);
@@ -661,7 +666,7 @@ $betaManagedAgentsCredentialValidation = $client
   ->mcpOAuthValidate(
   'vcrd_011CZkZEMt8gZan2iYOQfSkw',
   vaultID: 'vlt_011CZkZDLs7fYzm1hXNPeRjv',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsCredentialValidation);

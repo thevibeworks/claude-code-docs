@@ -1,3 +1,8 @@
+---
+title: Get Deployment Run
+url: https://platform.claude.com/docs/en/api/php/beta/deployment_runs/retrieve
+---
+
 ## Get Deployment Run
 
 `$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
@@ -58,7 +63,7 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
-  'deployment_run_id', betas: ['message-batches-2024-09-24']
+  'deployment_run_id', betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24]
 );
 
 var_dump($betaManagedAgentsDeploymentRun);

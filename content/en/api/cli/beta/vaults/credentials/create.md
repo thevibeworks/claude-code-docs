@@ -1,3 +1,8 @@
+---
+title: Create Credential
+url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/create
+---
+
 ## Create Credential
 
 `$ ant beta:vaults:credentials create`

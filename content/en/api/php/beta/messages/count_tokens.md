@@ -1,3 +1,8 @@
+---
+title: Count tokens in a Message
+url: https://platform.claude.com/docs/en/api/php/beta/messages/count_tokens
+---
+
 ## Count tokens in a Message
 
 `$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessageTokensCount`
@@ -95,7 +100,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 - `speed?:optional Speed`
 
-  The inference speed mode for this request. `"fast"` enables high output-tokens-per-second inference.
+  Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
 - `system?:optional System`
 
@@ -210,7 +215,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageTokensCount = $client->beta->messages->countTokens(
   messages: [['content' => 'Hello, world', 'role' => 'user']],
-  model: 'claude-opus-4-6',
+  model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   contextManagement: [
     'edits' => [
@@ -247,7 +252,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
       'citations' => [
         [
-          'citedText' => 'cited_text',
+          'citedText' => 'The grass is green. The sky is blue.',
           'documentIndex' => 0,
           'documentTitle' => 'x',
           'endCharIndex' => 0,
@@ -277,7 +282,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       'type' => 'custom',
     ],
   ],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
   userProfileID: 'anthropic-user-profile-id',
 );
 

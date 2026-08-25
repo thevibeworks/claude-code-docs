@@ -1,3 +1,8 @@
+---
+title: Create Environment
+url: https://platform.claude.com/docs/en/api/php/beta/environments/create
+---
+
 ## Create Environment
 
 `$client->beta->environments->create(string name, ?Config config, ?string description, ?array<string,string> metadata, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
@@ -52,9 +57,9 @@ Create a new environment with the specified configuration.
 
     RFC 3339 timestamp when environment was created
 
-  - `string description`
+  - `?string description`
 
-    User-provided description for the environment
+    User-provided description for the environment; null when unset
 
   - `array<string,string> metadata`
 
@@ -108,7 +113,7 @@ $betaEnvironment = $client->beta->environments->create(
   description: 'Python environment with data-analysis packages.',
   metadata: ['foo' => 'string'],
   scope: 'organization',
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaEnvironment);

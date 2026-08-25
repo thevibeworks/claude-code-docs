@@ -1,3 +1,8 @@
+---
+title: List Message Batches
+url: https://platform.claude.com/docs/en/api/java/messages/batches/list
+---
+
 ## List Message Batches
 
 `BatchListPage messages().batches().list(BatchListParamsparams = BatchListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`

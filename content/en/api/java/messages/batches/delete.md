@@ -1,3 +1,8 @@
+---
+title: Delete a Message Batch
+url: https://platform.claude.com/docs/en/api/java/messages/batches/delete
+---
+
 ## Delete a Message Batch
 
 `DeletedMessageBatch messages().batches().delete(BatchDeleteParamsparams = BatchDeleteParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`

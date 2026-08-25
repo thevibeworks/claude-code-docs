@@ -1,3 +1,8 @@
+---
+title: Send Events
+url: https://platform.claude.com/docs/en/api/typescript/beta/sessions/events/send
+---
+
 ## Send Events
 
 `client.beta.sessions.events.send(stringsessionID, EventSendParamsparams, RequestOptionsoptions?): BetaManagedAgentsSendSessionEvents`
@@ -20,7 +25,7 @@ Send Events
 
       Parameters for sending a user message to the session.
 
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock>`
+      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
 
         Array of content blocks for the user message.
 
@@ -165,6 +170,14 @@ Send Events
           - `title?: string | null`
 
             The title of the document.
+
+        - `BetaManagedAgentsRedactedBlock`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+            - `"redacted"`
 
       - `type: "user.message"`
 
@@ -380,7 +393,7 @@ Send Events
 
     - `(string & {})`
 
-    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 26 more`
+    - `"message-batches-2024-09-24" | "prompt-caching-2024-07-31" | "computer-use-2024-10-22" | 31 more`
 
       - `"message-batches-2024-09-24"`
 
@@ -426,19 +439,29 @@ Send Events
 
       - `"user-profiles-2026-03-24"`
 
+      - `"user-profiles-2026-08-18"`
+
       - `"advisor-tool-2026-03-01"`
 
       - `"managed-agents-2026-04-01"`
 
       - `"cache-diagnosis-2026-04-07"`
 
+      - `"dreaming-2026-04-21"`
+
       - `"thinking-token-count-2026-05-13"`
 
       - `"server-side-fallback-2026-06-01"`
 
+      - `"server-side-fallback-2026-07-01"`
+
       - `"fallback-credit-2026-06-01"`
 
+      - `"fallback-credit-2026-07-01"`
+
       - `"agent-memory-2026-07-22"`
+
+      - `"mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -458,7 +481,7 @@ Send Events
 
         Unique identifier for this event.
 
-      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock>`
+      - `content: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsRedactedBlock>`
 
         Array of content blocks comprising the user message.
 
@@ -603,6 +626,14 @@ Send Events
           - `title?: string | null`
 
             The title of the document.
+
+        - `BetaManagedAgentsRedactedBlock`
+
+          Placeholder for content withheld by Anthropic model policy.
+
+          - `type: "redacted"`
+
+            - `"redacted"`
 
       - `type: "user.message"`
 
@@ -883,19 +914,19 @@ Send Events
 ### Example
 
 ```typescript
-import Anthropic from '@anthropic-ai/sdk';
+import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env['ANTHROPIC_API_KEY'], // This is the default and can be omitted
+  apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
 const betaManagedAgentsSendSessionEvents = await client.beta.sessions.events.send(
-  'sesn_011CZkZAtmR3yMPDzynEDxu7',
+  "sesn_011CZkZAtmR3yMPDzynEDxu7",
   {
     events: [
-      { content: [{ text: 'Where is my order #1234?', type: 'text' }], type: 'user.message' },
-    ],
-  },
+      { content: [{ text: "Where is my order #1234?", type: "text" }], type: "user.message" }
+    ]
+  }
 );
 
 console.log(betaManagedAgentsSendSessionEvents.data);

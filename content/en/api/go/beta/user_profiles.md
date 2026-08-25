@@ -1,3 +1,8 @@
+---
+title: User Profiles
+url: https://platform.claude.com/docs/en/api/go/beta/user_profiles
+---
+
 # User Profiles
 
 ## Create User Profile
@@ -12,6 +17,14 @@ Create User Profile
 
 - `params BetaUserProfileNewParams`
 
+  - `AccessType param.Field[BetaUserProfileNewParamsAccessType]`
+
+    Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `const BetaUserProfileNewParamsAccessTypeApplication BetaUserProfileNewParamsAccessType = "application"`
+
+    - `const BetaUserProfileNewParamsAccessTypePassthrough BetaUserProfileNewParamsAccessType = "passthrough"`
+
   - `ExternalID param.Field[string]`
 
     Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
@@ -22,7 +35,7 @@ Create User Profile
 
   - `Name param.Field[string]`
 
-    Body param: Display name of the entity this profile represents. Required when relationship is `resold` (the resold-to company's name); optional otherwise. Maximum 255 characters.
+    Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
   - `Relationship param.Field[BetaUserProfileNewParamsRelationship]`
 
@@ -86,19 +99,29 @@ Create User Profile
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -115,16 +138,6 @@ Create User Profile
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `Relationship BetaUserProfileRelationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
-
-    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
-
-    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
   - `TrustGrants map[string, BetaUserProfileTrustGrant]`
 
@@ -150,13 +163,31 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
+  - `AccessType BetaUserProfileAccessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
+
+    - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
   - `ExternalID string`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `Name string`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `Relationship BetaUserProfileRelationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
+
+    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
+
+    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
 ### Example
 
@@ -164,24 +195,22 @@ Create User Profile
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaUserProfile, err := client.Beta.UserProfiles.New(context.TODO(), anthropic.BetaUserProfileNewParams{
-
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaUserProfile.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaUserProfile, err := client.Beta.UserProfiles.New(context.TODO(), anthropic.BetaUserProfileNewParams{})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaUserProfile.ID)
 }
 ```
 
@@ -192,7 +221,6 @@ func main() {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -200,8 +228,10 @@ func main() {
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```
 
@@ -285,19 +315,29 @@ List User Profiles
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -314,16 +354,6 @@ List User Profiles
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `Relationship BetaUserProfileRelationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
-
-    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
-
-    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
   - `TrustGrants map[string, BetaUserProfileTrustGrant]`
 
@@ -349,13 +379,31 @@ List User Profiles
 
     A timestamp in RFC 3339 format
 
+  - `AccessType BetaUserProfileAccessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
+
+    - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
   - `ExternalID string`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `Name string`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `Relationship BetaUserProfileRelationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
+
+    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
+
+    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
 ### Example
 
@@ -363,24 +411,22 @@ List User Profiles
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  page, err := client.Beta.UserProfiles.List(context.TODO(), anthropic.BetaUserProfileListParams{
-
-  })
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", page)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	page, err := client.Beta.UserProfiles.List(context.TODO(), anthropic.BetaUserProfileListParams{})
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", page)
 }
 ```
 
@@ -393,7 +439,6 @@ func main() {
       "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
       "created_at": "2026-03-15T10:00:00Z",
       "metadata": {},
-      "relationship": "external",
       "trust_grants": {
         "cyber": {
           "status": "active"
@@ -401,8 +446,10 @@ func main() {
       },
       "type": "user_profile",
       "updated_at": "2026-03-15T10:00:00Z",
+      "access_type": "application",
       "external_id": "user_12345",
-      "name": "Example User"
+      "name": "Example User",
+      "relationship": "external"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -475,19 +522,29 @@ Get User Profile
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -504,16 +561,6 @@ Get User Profile
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `Relationship BetaUserProfileRelationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
-
-    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
-
-    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
   - `TrustGrants map[string, BetaUserProfileTrustGrant]`
 
@@ -539,13 +586,31 @@ Get User Profile
 
     A timestamp in RFC 3339 format
 
+  - `AccessType BetaUserProfileAccessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
+
+    - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
   - `ExternalID string`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `Name string`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `Relationship BetaUserProfileRelationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
+
+    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
+
+    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
 ### Example
 
@@ -553,28 +618,26 @@ Get User Profile
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaUserProfile, err := client.Beta.UserProfiles.Get(
-    context.TODO(),
-    "uprof_011CZkZCu8hGbp5mYRQgUmz9",
-    anthropic.BetaUserProfileGetParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaUserProfile.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaUserProfile, err := client.Beta.UserProfiles.Get(
+		context.TODO(),
+		"uprof_011CZkZCu8hGbp5mYRQgUmz9",
+		anthropic.BetaUserProfileGetParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaUserProfile.ID)
 }
 ```
 
@@ -585,7 +648,6 @@ func main() {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -593,8 +655,10 @@ func main() {
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```
 
@@ -611,6 +675,14 @@ Update User Profile
 - `userProfileID string`
 
 - `params BetaUserProfileUpdateParams`
+
+  - `AccessType param.Field[BetaUserProfileUpdateParamsAccessType]`
+
+    Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `const BetaUserProfileUpdateParamsAccessTypeApplication BetaUserProfileUpdateParamsAccessType = "application"`
+
+    - `const BetaUserProfileUpdateParamsAccessTypePassthrough BetaUserProfileUpdateParamsAccessType = "passthrough"`
 
   - `ExternalID param.Field[string]`
 
@@ -686,19 +758,29 @@ Update User Profile
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -715,16 +797,6 @@ Update User Profile
   - `Metadata map[string, string]`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `Relationship BetaUserProfileRelationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
-
-    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
-
-    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
   - `TrustGrants map[string, BetaUserProfileTrustGrant]`
 
@@ -750,13 +822,31 @@ Update User Profile
 
     A timestamp in RFC 3339 format
 
+  - `AccessType BetaUserProfileAccessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
+
+    - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
   - `ExternalID string`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `Name string`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `Relationship BetaUserProfileRelationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
+
+    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
+
+    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
 ### Example
 
@@ -764,28 +854,26 @@ Update User Profile
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaUserProfile, err := client.Beta.UserProfiles.Update(
-    context.TODO(),
-    "uprof_011CZkZCu8hGbp5mYRQgUmz9",
-    anthropic.BetaUserProfileUpdateParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaUserProfile.ID)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaUserProfile, err := client.Beta.UserProfiles.Update(
+		context.TODO(),
+		"uprof_011CZkZCu8hGbp5mYRQgUmz9",
+		anthropic.BetaUserProfileUpdateParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaUserProfile.ID)
 }
 ```
 
@@ -796,7 +884,6 @@ func main() {
   "id": "uprof_011CZkZCu8hGbp5mYRQgUmz9",
   "created_at": "2026-03-15T10:00:00Z",
   "metadata": {},
-  "relationship": "external",
   "trust_grants": {
     "cyber": {
       "status": "active"
@@ -804,8 +891,10 @@ func main() {
   },
   "type": "user_profile",
   "updated_at": "2026-03-15T10:00:00Z",
+  "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User"
+  "name": "Example User",
+  "relationship": "external"
 }
 ```
 
@@ -875,19 +964,29 @@ Create Enrollment URL
 
       - `const AnthropicBetaUserProfiles2026_03_24 AnthropicBeta = "user-profiles-2026-03-24"`
 
+      - `const AnthropicBetaUserProfiles2026_08_18 AnthropicBeta = "user-profiles-2026-08-18"`
+
       - `const AnthropicBetaAdvisorTool2026_03_01 AnthropicBeta = "advisor-tool-2026-03-01"`
 
       - `const AnthropicBetaManagedAgents2026_04_01 AnthropicBeta = "managed-agents-2026-04-01"`
 
       - `const AnthropicBetaCacheDiagnosis2026_04_07 AnthropicBeta = "cache-diagnosis-2026-04-07"`
 
+      - `const AnthropicBetaDreaming2026_04_21 AnthropicBeta = "dreaming-2026-04-21"`
+
       - `const AnthropicBetaThinkingTokenCount2026_05_13 AnthropicBeta = "thinking-token-count-2026-05-13"`
 
       - `const AnthropicBetaServerSideFallback2026_06_01 AnthropicBeta = "server-side-fallback-2026-06-01"`
 
+      - `const AnthropicBetaServerSideFallback2026_07_01 AnthropicBeta = "server-side-fallback-2026-07-01"`
+
       - `const AnthropicBetaFallbackCredit2026_06_01 AnthropicBeta = "fallback-credit-2026-06-01"`
 
+      - `const AnthropicBetaFallbackCredit2026_07_01 AnthropicBeta = "fallback-credit-2026-07-01"`
+
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
+
+      - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
 ### Returns
 
@@ -913,28 +1012,26 @@ Create Enrollment URL
 package main
 
 import (
-  "context"
-  "fmt"
+	"context"
+	"fmt"
 
-  "github.com/anthropics/anthropic-sdk-go"
-  "github.com/anthropics/anthropic-sdk-go/option"
+	"github.com/anthropics/anthropic-sdk-go"
+	"github.com/anthropics/anthropic-sdk-go/option"
 )
 
 func main() {
-  client := anthropic.NewClient(
-    option.WithAPIKey("my-anthropic-api-key"),
-  )
-  betaUserProfileEnrollmentURL, err := client.Beta.UserProfiles.NewEnrollmentURL(
-    context.TODO(),
-    "uprof_011CZkZCu8hGbp5mYRQgUmz9",
-    anthropic.BetaUserProfileNewEnrollmentURLParams{
-
-    },
-  )
-  if err != nil {
-    panic(err.Error())
-  }
-  fmt.Printf("%+v\n", betaUserProfileEnrollmentURL.ExpiresAt)
+	client := anthropic.NewClient(
+		option.WithAPIKey("my-anthropic-api-key"),
+	)
+	betaUserProfileEnrollmentURL, err := client.Beta.UserProfiles.NewEnrollmentURL(
+		context.TODO(),
+		"uprof_011CZkZCu8hGbp5mYRQgUmz9",
+		anthropic.BetaUserProfileNewEnrollmentURLParams{},
+	)
+	if err != nil {
+		panic(err.Error())
+	}
+	fmt.Printf("%+v\n", betaUserProfileEnrollmentURL.ExpiresAt)
 }
 ```
 
@@ -966,16 +1063,6 @@ func main() {
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `Relationship BetaUserProfileRelationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
-
-    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
-
-    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
-
   - `TrustGrants map[string, BetaUserProfileTrustGrant]`
 
     Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
@@ -1000,13 +1087,31 @@ func main() {
 
     A timestamp in RFC 3339 format
 
+  - `AccessType BetaUserProfileAccessType`
+
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+
+    - `const BetaUserProfileAccessTypeApplication BetaUserProfileAccessType = "application"`
+
+    - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
+
   - `ExternalID string`
 
     Platform's own identifier for this user. Not enforced unique.
 
   - `Name string`
 
-    Display name of the entity this profile represents. For `resold` this is the resold-to company's name.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+
+  - `Relationship BetaUserProfileRelationship`
+
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+
+    - `const BetaUserProfileRelationshipExternal BetaUserProfileRelationship = "external"`
+
+    - `const BetaUserProfileRelationshipResold BetaUserProfileRelationship = "resold"`
+
+    - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
 ### Beta User Profile Enrollment URL
 

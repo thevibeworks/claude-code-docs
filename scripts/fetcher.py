@@ -7,6 +7,7 @@ Sources (see sources.json for the complete registry):
   - code.claude.com         -> Claude Code + Agent SDK (llms.txt + .md suffix)
   - modelcontextprotocol.io -> MCP spec (sitemap + .md suffix)
   - support.claude.com      -> Help articles (sitemap + .md suffix)
+  - claude.com/docs         -> Product docs (sitemap + .md suffix)
   - anthropic.com blog      -> FROZEN 2026-07 (HTML-only, no .md variant;
                                the jina.ai proxy path was removed)
   - github.com/anthropics/* -> Repos (raw.githubusercontent.com)
@@ -38,6 +39,7 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 from typing import Dict, List, Optional
 
 import aiofiles
@@ -65,8 +67,22 @@ DISCOVER_DOMAINS = [
     ("support.claude.com",      "Support articles"),
     ("modelcontextprotocol.io", "MCP protocol spec"),
     ("claude.ai",               "Claude app"),
-    ("claude.com",              "Product landing"),
+    ("claude.com",              "Product docs"),
+    ("academy.claude.com",      "Courses/tutorials (HTML-only, not fetched)"),
 ]
+
+
+def normalize_url(url: str) -> str:
+    """Drop the #fragment and any trailing slash from a sitemap URL.
+
+    A fragment addresses a heading inside a page, not a page. Kept, it became
+    part of the output filename and the fetch path: 16 files landed as
+    `.../delete#delete.md` and `.../federation_rules#admin.federation_rules.md`,
+    and every one of them held an HTML soft-404 rather than docs, because
+    platform.claude.com has no such page to serve. The clean twin was always
+    fetched alongside, so the fragment copy was pure garbage.
+    """
+    return url.split("#", 1)[0].rstrip("/").strip()
 
 
 def looks_like_html(content: bytes) -> bool:
@@ -91,18 +107,42 @@ class Fetcher:
         jobs: int = 50,
         incremental: bool = False,
         section: Optional[str] = None,
+        no_reap: bool = False,
     ):
         self.output_dir = Path(output_dir)
         self.jobs = jobs
         self.incremental = incremental
         self.section = section
+        self.no_reap = no_reap
 
         self.platform_sitemap_url = "https://platform.claude.com/sitemap.xml"
         self.claude_code_llms_url = "https://code.claude.com/docs/llms.txt"
         self.mcp_sitemap_url = "https://modelcontextprotocol.io/sitemap.xml"
         self.support_sitemap_url = "https://support.claude.com/sitemap.xml"
+        # claude.com stopped being a marketing redirect: since ~2026-08 it hosts
+        # the product docs (Claude Tag, Cowork, office agents, connectors,
+        # government, claude-science) and serves .md variants like the other
+        # docs sites. Found by following the redirects on 8 support articles
+        # that had gone soft-404 — upstream had been pointing here for weeks.
+        self.claude_com_sitemap_url = "https://claude.com/docs/sitemap.xml"
 
-        self.stats = {"total": 0, "downloaded": 0, "skipped": 0, "failed": 0}
+        self.stats = {"total": 0, "downloaded": 0, "skipped": 0, "failed": 0, "reaped": 0}
+
+        # Paths whose upstream answered 200-with-HTML (a soft 404). Refusing the
+        # write is not enough on its own: any copy fetched before the guard
+        # existed stays on disk forever, since every later run refuses again and
+        # never touches the stale file. 159 such files accumulated by 2026-08 —
+        # all 135 of content/en/api/terraform/ among them — and re-probing every
+        # one upstream found 145 hard 404s, 14 still-soft 404s, 0 recoverable.
+        # Collected here and reaped after the run, not deleted inline, so the
+        # circuit breaker below can see the whole batch at once.
+        self.soft_404_paths: List[Path] = []
+
+        # "<from-host> -> <to-host>" : the URLs we asked for that landed there.
+        # Off-site redirects are how a docs site announces it moved; this is the
+        # discovery signal --discover cannot see, because it only probes domains
+        # we already know to ask about.
+        self.redirects_offsite: Dict[str, set] = defaultdict(set)
 
     def want(self, *sections: str) -> bool:
         if not self.section or self.section == "all":
@@ -122,13 +162,17 @@ class Fetcher:
             return await r.read()
 
     def extract_sitemap_urls(self, xml: str, must_contain: str = "") -> List[str]:
+        # A sitemap is one long line as often as not, so scan the whole text
+        # rather than assuming one <loc> per line.
         urls = []
-        for line in xml.split("\n"):
-            if "<loc>" not in line:
+        seen = set()
+        for url in re.findall(r"<loc>([^<]+)</loc>", xml):
+            url = normalize_url(url)
+            if not url or url in seen:
                 continue
-            url = line.split("<loc>")[1].split("</loc>")[0]
             if must_contain and must_contain not in url:
                 continue
+            seen.add(url)
             urls.append(url)
         return urls
 
@@ -146,6 +190,54 @@ class Fetcher:
             url for url in self.extract_sitemap_urls(sitemap_xml)
             if "/en/articles/" in url
         ]
+
+    # -- Reverse mapping: what we already archived -------------------------
+
+    # Sections of content/ whose files came from a URL we can re-derive.
+    # github/ is fetched by repo tree walk, blog/ is a frozen archive.
+    _REFETCHABLE = ("en", "mcp", "support", "claude")
+
+    def existing_urls(self) -> List[str]:
+        """URLs for docs already on disk — the inverse of get_output_path.
+
+        Discovery surfaces are not a complete index of what exists. In July 2026
+        platform.claude.com dropped every per-language SDK reference page from
+        both its sitemap and its llms.txt while leaving the pages live and
+        actively edited. The fetcher followed the sitemap, so 1,560 files simply
+        stopped being refreshed — no error, no missing file, nothing for the
+        pipeline to report, just a slow drift into staleness that went unnoticed
+        for seven weeks (content/en/api/python/messages/create.md sat 35%
+        smaller than upstream).
+
+        Refetching what we already hold makes the archive self-healing: pages
+        keep updating after they are de-indexed, and any that truly died get
+        removed by reap() on a hard 404 rather than lingering.
+        """
+        urls = []
+        for section in self._REFETCHABLE:
+            base = self.output_dir / section
+            if not base.is_dir():
+                continue
+            for path in base.rglob("*.md"):
+                rel = path.relative_to(self.output_dir).with_suffix("")
+                parts = rel.parts
+                if parts[0] == "en":
+                    if parts[1:3] == ("docs", "claude-code"):
+                        tail = "/".join(parts[3:])
+                        urls.append(f"https://code.claude.com/docs/en/{tail}")
+                    else:
+                        tail = "/".join(parts)
+                        urls.append(f"https://platform.claude.com/docs/{tail}")
+                elif parts[0] == "mcp":
+                    tail = "/".join(parts[1:])
+                    urls.append(f"https://modelcontextprotocol.io/{tail}")
+                elif parts[0] == "support":
+                    tail = "/".join(parts[1:])
+                    urls.append(f"https://support.claude.com/en/articles/{tail}")
+                elif parts[0] == "claude":
+                    tail = "/".join(parts[1:])
+                    urls.append(f"https://claude.com/docs/{tail}")
+        return urls
 
     # -- Output path mapping ----------------------------------------------
 
@@ -165,6 +257,9 @@ class Fetcher:
         elif "support.claude.com" in url:
             path = url.replace("https://support.claude.com/en/articles/", "")
             return self.output_dir / "support" / f"{path}.md"
+        elif "claude.com/docs" in url:
+            path = url.replace("https://claude.com/docs/", "")
+            return self.output_dir / "claude" / f"{path}.md"
         else:
             path = url.replace("https://", "").split("/", 1)[-1]
             return self.output_dir / f"{path}.md"
@@ -178,12 +273,27 @@ class Fetcher:
                 self.stats["skipped"] += 1
                 return {"url": url, "status": "skipped"}
             try:
-                content = await self.fetch_bytes(session, f"{url}.md")
+                async with session.get(f"{url}.md") as r:
+                    r.raise_for_status()
+                    content = await r.read()
+                    # Where a dead page points is the best new-source signal we
+                    # get. claude.com/docs — 215 pages of product documentation —
+                    # was found exactly this way: 8 support articles had been
+                    # 301-ing there for weeks and nothing was reading the
+                    # Location header. Recorded here, reported by reap().
+                    if r.history:
+                        landed = r.url.host or ""
+                        asked = urlsplit(url).hostname or ""
+                        if landed and landed != asked:
+                            self.redirects_offsite[f"{asked} -> {landed}"].add(url)
                 if looks_like_html(content):
                     # Soft 404: HTTP 200 with the site's HTML shell. Writing it
                     # would replace docs with markup, and because incremental
                     # mode skips paths that already exist, a bad file is never
-                    # re-fetched — it just stays wrong.
+                    # re-fetched — it just stays wrong. Queue any existing copy
+                    # for reaping so a page deleted upstream also leaves us.
+                    if output_path.exists():
+                        self.soft_404_paths.append(output_path)
                     self.stats["failed"] += 1
                     return {
                         "url": url, "status": "failed",
@@ -199,6 +309,14 @@ class Fetcher:
                     "sha256": hashlib.sha256(content).hexdigest(),
                     "size": len(content),
                 }
+            except aiohttp.ClientResponseError as e:
+                # 404/410 is upstream stating the page is gone — reap our copy.
+                # Every other status (429, 5xx) is noise that must never delete
+                # anything, or one bad afternoon upstream empties the archive.
+                if e.status in (404, 410) and output_path.exists():
+                    self.soft_404_paths.append(output_path)
+                self.stats["failed"] += 1
+                return {"url": url, "status": "failed", "error": f"HTTP {e.status}"}
             except Exception as e:
                 self.stats["failed"] += 1
                 return {"url": url, "status": "failed", "error": str(e)}
@@ -296,6 +414,13 @@ class Fetcher:
             tasks = []
             semaphore = asyncio.Semaphore(self.jobs)
             counts = {}
+            queued = set()
+
+            def queue(url: str):
+                if url in queued:
+                    return
+                queued.add(url)
+                tasks.append(self.download_doc(session, url, semaphore))
 
             # -- Platform docs --
             if self.want("api", "platform"):
@@ -310,7 +435,7 @@ class Fetcher:
                       + (f" ({len(terraform)} terraform pages skipped, no .md)"
                          if terraform else ""))
                 for url in urls:
-                    tasks.append(self.download_doc(session, url, semaphore))
+                    queue(url)
 
             # -- Claude Code docs --
             if self.want("claude-code"):
@@ -319,7 +444,7 @@ class Fetcher:
                 counts["claude-code"] = len(urls)
                 print(f"  {len(urls)} docs")
                 for url in urls:
-                    tasks.append(self.download_doc(session, url, semaphore))
+                    queue(url)
 
             # -- MCP docs --
             if self.want("mcp"):
@@ -329,7 +454,7 @@ class Fetcher:
                 counts["mcp"] = len(urls)
                 print(f"  {len(urls)} docs")
                 for url in urls:
-                    tasks.append(self.download_doc(session, url, semaphore))
+                    queue(url)
 
             # -- Blog (anthropic.com): FROZEN 2026-07 --
             # HTML-only upstream (no llms.txt / .md variant); the jina.ai
@@ -343,7 +468,33 @@ class Fetcher:
                 counts["support"] = len(urls)
                 print(f"  {len(urls)} articles")
                 for url in urls:
-                    tasks.append(self.download_doc(session, url, semaphore))
+                    queue(url)
+
+            # -- claude.com product docs --
+            if self.want("products"):
+                print("Source: claude.com/docs/sitemap.xml")
+                xml = await self.fetch_text(session, self.claude_com_sitemap_url)
+                urls = [
+                    u for u in self.extract_sitemap_urls(xml, "/docs/")
+                    if u.startswith("https://claude.com/docs/")
+                ]
+                counts["products"] = len(urls)
+                print(f"  {len(urls)} docs")
+                for url in urls:
+                    queue(url)
+
+            # -- Refresh what we already hold --
+            # Catches pages upstream de-indexed but still serves; reap() removes
+            # the ones that really died. Full runs only: a --section run has no
+            # business refreshing sections it was not asked to fetch.
+            if self.want("all") and not self.incremental:
+                stragglers = [u for u in self.existing_urls() if u not in queued]
+                if stragglers:
+                    counts["refresh"] = len(stragglers)
+                    print("Source: on-disk archive (de-indexed upstream)")
+                    print(f"  {len(stragglers)} docs")
+                    for url in stragglers:
+                        queue(url)
 
             # -- GitHub repos --
             if self.want("github"):
@@ -367,6 +518,14 @@ class Fetcher:
                 results = await tqdm_asyncio.gather(*tasks, desc="Fetching", unit="file")
                 await self._save_metadata(results)
                 self._print_failures(results)
+
+        # Only a full run sees every URL, so only a full run may conclude that a
+        # missing page is really gone. A --section run has no opinion about the
+        # sections it did not fetch, and --incremental never re-probes what it
+        # skipped, so neither is allowed to delete.
+        if self.want("all") and not self.incremental:
+            self.reap(dry_run=self.no_reap)
+        self._report_offsite_redirects()
 
         self._print_summary()
 
@@ -439,14 +598,106 @@ class Fetcher:
         print(f"Downloaded: {self.stats['downloaded']}")
         print(f"Skipped:    {self.stats['skipped']}")
         print(f"Failed:     {self.stats['failed']}")
+        print(f"Reaped:     {self.stats['reaped']}")
         if self.stats["total"] > 0:
             rate = (self.stats["downloaded"] / self.stats["total"]) * 100
             print(f"Success:    {rate:.1f}%")
 
+    # -- Reaping -----------------------------------------------------------
+
+    # A page removed upstream used to live in the archive forever: the fetcher
+    # only ever added or overwrote, so nothing could ever shrink. Reaping closes
+    # that loop. The cap exists because this runs unattended four times a day
+    # and merges its own "minor" PRs — an upstream outage that soft-404s
+    # everything would otherwise delete the archive and self-merge the result.
+    REAP_LIMIT = 200
+
+    @staticmethod
+    def _holds_markup(path: Path) -> bool:
+        try:
+            with open(path, "rb") as f:
+                return looks_like_html(f.read(512))
+        except OSError:
+            return False
+
+    def reap(self, dry_run: bool = False) -> int:
+        """Delete archived files whose upstream is gone — but only the markup.
+
+        "Gone upstream" and "should be deleted" are different questions for an
+        archive. A file holding an HTML shell is markup we failed to recognise
+        as an error; deleting it loses nothing. A file holding real markdown
+        whose URL now 404s is the opposite: Anthropic removed the page and our
+        copy may be the only one left. content/en/resources/prompt-library/ is
+        exactly that — 19 pages, ~20KB each, redirected away to a generic
+        best-practices page in 2026-08. An unattended job that merges its own
+        PRs has no business destroying those, so they are reported for a human
+        instead.
+        """
+        candidates = sorted(set(self.soft_404_paths))
+        paths = [p for p in candidates if self._holds_markup(p)]
+        keep = [p for p in candidates if p not in set(paths)]
+
+        if keep:
+            print(f"\nGone upstream but holding real content — kept for review "
+                  f"({len(keep)}):")
+            for p in keep:
+                print(f"  kept: {p}")
+            print("  (delete by hand if the archive should not keep them)")
+
+        if not paths:
+            return 0
+
+        if len(paths) > self.REAP_LIMIT:
+            print(
+                f"\n::error::Refusing to reap {len(paths)} files "
+                f"(limit {self.REAP_LIMIT}). This many pages vanishing at once "
+                f"means an upstream outage, not {len(paths)} real deletions. "
+                f"Nothing was deleted; re-run when upstream is healthy.",
+                file=sys.stderr,
+            )
+            for p in paths[:20]:
+                print(f"  would reap: {p}", file=sys.stderr)
+            print(f"  ... +{len(paths) - 20} more", file=sys.stderr)
+            return 0
+
+        verb = "would reap" if dry_run else "reaped"
+        print(f"\nReaping {len(paths)} file(s) gone upstream (HTML markup, no loss):")
+        for p in paths:
+            print(f"  {verb}: {p}")
+            if not dry_run:
+                p.unlink(missing_ok=True)
+        if not dry_run:
+            self._prune_empty_dirs()
+        self.stats["reaped"] = len(paths)
+        return len(paths)
+
+    def _report_offsite_redirects(self):
+        known = {d for d, _ in DISCOVER_DOMAINS} | {"www.anthropic.com"}
+        news = {
+            hop: urls for hop, urls in self.redirects_offsite.items()
+            if hop.split(" -> ")[1] not in known
+        }
+        if not self.redirects_offsite:
+            return
+        print(f"\nOff-site redirects seen ({len(self.redirects_offsite)} route(s)):")
+        for hop, urls in sorted(self.redirects_offsite.items()):
+            flag = "  <-- UNKNOWN DOMAIN, consider adding a source" if hop in news else ""
+            print(f"  {hop}  ({len(urls)} page(s)){flag}")
+            for u in sorted(urls)[:3]:
+                print(f"      {u}")
+
+    def _prune_empty_dirs(self):
+        for d in sorted(self.output_dir.rglob("*"), key=lambda p: -len(p.parts)):
+            if d.is_dir() and not any(d.iterdir()):
+                d.rmdir()
+
     # -- Single-URL fetch --------------------------------------------------
 
     def validate_url(self, url: str) -> bool:
-        allowed = ["platform.claude.com", "code.claude.com", "modelcontextprotocol.io"]
+        allowed = [
+            "platform.claude.com", "code.claude.com",
+            "modelcontextprotocol.io", "claude.com/docs",
+        ]
         return any(f"https://{d}" in url for d in allowed)
 
     async def fetch_urls(self, urls: List[str]):
@@ -455,7 +706,8 @@ class Fetcher:
             print("ERROR: Invalid URLs:", file=sys.stderr)
             for u in invalid:
                 print(f"  {u}", file=sys.stderr)
-            print("Allowed: platform.claude.com, code.claude.com, modelcontextprotocol.io", file=sys.stderr)
+            print("Allowed: platform.claude.com, code.claude.com, "
+              "modelcontextprotocol.io, claude.com/docs", file=sys.stderr)
             sys.exit(1)
 
         normalized = [u[:-3] if u.endswith(".md") else u for u in urls]
@@ -635,6 +887,7 @@ Sections:
   mcp           MCP protocol spec (modelcontextprotocol.io)
   github        All configured GitHub repos
   support       Support articles (support.claude.com, sitemap + .md)
+  products      Product docs (claude.com/docs: Claude Tag, Cowork, connectors)
   all           Everything (default)
 
 Note: content/blog/ (anthropic.com engineering/research/news) is a
@@ -648,6 +901,7 @@ Examples:
   fetcher.py --tree                         Show all sources
   fetcher.py --discover                     Probe domains for new sources
   fetcher.py --incremental                  Skip existing files
+  fetcher.py --no-reap                      Report pages gone upstream, delete nothing
   fetcher.py URL [URL ...]                  Fetch specific URLs
         """,
     )
@@ -658,17 +912,22 @@ Examples:
         "--section", "-s",
         choices=[
             "claude-code", "api", "platform", "mcp",
-            "github", "support", "all",
+            "github", "support", "products", "all",
         ],
     )
     parser.add_argument("--incremental", action="store_true", help="Skip existing files")
     parser.add_argument("--tree", action="store_true", help="Show source structure")
     parser.add_argument("--discover", action="store_true", help="Probe domains for new sources")
+    parser.add_argument(
+        "--no-reap", action="store_true",
+        help="List files gone upstream without deleting them (full runs only)",
+    )
 
     args = parser.parse_args()
     fetcher = Fetcher(
         output_dir=args.out, jobs=args.jobs,
         incremental=args.incremental, section=args.section,
+        no_reap=args.no_reap,
     )
 
     if args.discover:

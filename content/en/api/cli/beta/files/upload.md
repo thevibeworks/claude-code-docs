@@ -1,3 +1,8 @@
+---
+title: Upload File
+url: https://platform.claude.com/docs/en/api/cli/beta/files/upload
+---
+
 ## Upload File
 
 `$ ant beta:files upload`
@@ -18,7 +23,7 @@ Upload File
 
 ### Returns
 
-- `file_metadata: object { id, created_at, filename, 5 more }`
+- `beta_file_metadata: object { id, created_at, filename, 5 more }`
 
   - `id: string`
 

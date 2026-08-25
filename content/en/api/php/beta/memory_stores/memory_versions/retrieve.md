@@ -1,3 +1,8 @@
+---
+title: Retrieve a memory version
+url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memory_versions/retrieve
+---
+
 ## Retrieve a memory version
 
 `$client->beta->memoryStores->memoryVersions->retrieve(string memoryVersionID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemoryVersion`
@@ -91,7 +96,7 @@ $betaManagedAgentsMemoryVersion = $client
   'memory_version_id',
   memoryStoreID: 'memory_store_id',
   view: ManagedAgentsMemoryView::BASIC,
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsMemoryVersion);

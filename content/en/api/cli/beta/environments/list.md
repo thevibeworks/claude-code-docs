@@ -1,3 +1,8 @@
+---
+title: List Environments
+url: https://platform.claude.com/docs/en/api/cli/beta/environments/list
+---
+
 ## List Environments
 
 `$ ant beta:environments list`
@@ -137,7 +142,7 @@ List environments with pagination support.
 
     - `description: string`
 
-      User-provided description for the environment
+      User-provided description for the environment; null when unset
 
     - `metadata: map[string]`
 

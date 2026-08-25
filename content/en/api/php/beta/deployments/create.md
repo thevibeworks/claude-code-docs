@@ -1,6 +1,11 @@
+---
+title: Create Deployment
+url: https://platform.claude.com/docs/en/api/php/beta/deployments/create
+---
+
 ## Create Deployment
 
-`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
+`$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
 **post** `/v1/deployments`
 
@@ -23,6 +28,10 @@ Create Deployment
 - `name: string`
 
   Human-readable name for the deployment.
+
+- `budget?:optional BetaManagedAgentsBudgetLimit`
+
+  A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
 - `description?:optional string`
 
@@ -114,6 +123,10 @@ Create Deployment
 
     Vault IDs supplying stored credentials for sessions created from this deployment.
 
+  - `?BetaManagedAgentsBudgetLimit budget`
+
+    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
+
 ### Example
 
 ```php
@@ -133,6 +146,10 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
     ],
   ],
   name: 'x',
+  budget: [
+    'maxListCost' => ['amount' => '2500', 'currency' => BetaCurrency::USD],
+    'type' => 'limit',
+  ],
   description: 'description',
   metadata: ['foo' => 'string'],
   resources: [
@@ -148,7 +165,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
     'type' => 'cron',
   ],
   vaultIDs: ['string'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsDeployment);
@@ -210,6 +227,13 @@ var_dump($betaManagedAgentsDeployment);
   "updated_at": "2026-03-15T10:00:00Z",
   "vault_ids": [
     "vlt_011CZkZDLs7fYzm1hXNPeRjv"
-  ]
+  ],
+  "budget": {
+    "max_list_cost": {
+      "amount": "2500",
+      "currency": "USD"
+    },
+    "type": "limit"
+  }
 }
 ```

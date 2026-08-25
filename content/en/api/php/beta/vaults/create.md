@@ -1,3 +1,8 @@
+---
+title: Create Vault
+url: https://platform.claude.com/docs/en/api/php/beta/vaults/create
+---
+
 ## Create Vault
 
 `$client->beta->vaults->create(string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
@@ -62,7 +67,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 $betaManagedAgentsVault = $client->beta->vaults->create(
   displayName: 'Example vault',
   metadata: ['environment' => 'production'],
-  betas: ['message-batches-2024-09-24'],
+  betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
 var_dump($betaManagedAgentsVault);
