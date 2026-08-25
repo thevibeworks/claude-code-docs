@@ -56,11 +56,11 @@ Publishing also adds the artifact to the **[Artifacts](https://claude.ai/artifac
 
 After publishing, you'll see a “Get embed code” button.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951684960/0cd917c4455b31e86b70a97f8234/image.png?expires=1787650200&amp;signature=d3966816ea3cdefa8b5045b316298f7d3a99c6afb8b67d5021425c637f30d075&amp;req=dSkiF892mYhZWfMW1HO4zdcpD1FU4AODR8xgMH3ra8gQEscW0J6yvoWnNpQX%0AmC4DTORr6yfkDL43r1s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951684960/0cd917c4455b31e86b70a97f8234/image.png?expires=1787658300&amp;signature=6a4aa0ccc6d33a99beba6bf8ab0705a44061bb24c9869f8232f05a42ac79ee60&amp;req=dSkiF892mYhZWfMW1HO4zdcpD1FU4AuCR8xgMH3ra8gXJgr8Z3gS0Xgw2jJ5%0Apo%2BeJq8xd%2FyXrVFawRA%3D%0A)
 
 Click it to open a modal with automatically generated code you can copy and paste to embed your artifact on another website.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951685860/6bf1aa2c57d6ff95804797779e9c/image.png?expires=1787650200&amp;signature=cffed3995a17e326f11ccece6b0c107fef599d1d1280b74ad02bef1b547fde06&amp;req=dSkiF892mIlZWfMW1HO4zcqH796FzIRvf3CUbx4Ru6Vp32D73iYYYCJudeyx%0A5Nza4wqre%2FNJzEIE0co%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951685860/6bf1aa2c57d6ff95804797779e9c/image.png?expires=1787658300&amp;signature=9917eda9397641188d337cbaa38afe2fe0bd2fbd510fb1a396bb00088fc75cc3&amp;req=dSkiF892mIlZWfMW1HO4zcqH796FzIxuf3CUbx4Ru6WCFLWKCICF9Mz4vSt1%0AedqB36TsyOKQwW8UNog%3D%0A)
 
 You must specify which websites can embed your artifact by entering URLs in the **Allowed domains** field, separated by commas.
 
@@ -116,7 +116,7 @@ Artifacts created on Team or Enterprise accounts can only be shared within your 
 
 4. Click “Share & copy link” to make this version shareable.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951680160/d5a38784df4c6d0cc55eda339279/Screenshot%2B2025-10-28%2Bat%2B2_00_15-E2-80-AFPM.png?expires=1787650200&amp;signature=801e9fc2e591fa32c27c125bff7d78ca09926103bba60ba2af3d887c3e8528ef&amp;req=dSkiF892nYBZWfMW1HO4zbvYOlbjKHmRK6hAzMpXfmOy3xLYxAV8eE9Th0OW%0Aj5ENnXR%2BZ7PSDxo1xNk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951680160/d5a38784df4c6d0cc55eda339279/Screenshot%2B2025-10-28%2Bat%2B2_00_15-E2-80-AFPM.png?expires=1787658300&amp;signature=2ef39e38000b18d472b568c7a1d7f0ebe7306baaccaec1c08446ac5ada4f9e1d&amp;req=dSkiF892nYBZWfMW1HO4zbvYOlbjKHGQK6hAzMpXfmMGsgIaeEkTQPtqnZ8I%0AVaTP6HtIgvBH5XcPeL0%3D%0A)
 
 ### Who can access shared artifacts
 
@@ -138,7 +138,7 @@ When you share an artifact, viewers also gain access to any attachments and file
 
 2. In the **Artifact shared** modal, click “Unshare.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951676927/c66153a2c075c6a64404306aefd0/Screenshot%2B2025-10-28%2Bat%2B1_58_24-E2-80-AFPM.png?expires=1787650200&amp;signature=5858086673f51b50f3402f7df019ac4a291ca8cf3d68e416f95ac986d7bc41b4&amp;req=dSkiF895m4hdXvMW1HO4zW9Ewg67%2FHSxgj8mTHivCKa1EwCexUV0%2FcB5TdAh%0AOXjbPTbHUUj2N%2F65sQk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1951676927/c66153a2c075c6a64404306aefd0/Screenshot%2B2025-10-28%2Bat%2B1_58_24-E2-80-AFPM.png?expires=1787658300&amp;signature=0faa8d4d2a05128406443739ea095ec75df35eba01b67985d315c7dee7c65003&amp;req=dSkiF895m4hdXvMW1HO4zW9Ewg67%2FHywgj8mTHivCKZ3V%2FUFXQciypz%2F8imd%0ASYuFCiKtVdjjdXs1jTg%3D%0A)
 
 ---
 
