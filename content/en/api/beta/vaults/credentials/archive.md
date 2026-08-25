@@ -1,21 +1,16 @@
----
-title: Archive Credential
-url: https://platform.claude.com/docs/en/api/beta/vaults/credentials/archive
----
+# Archive Credential
 
-## Archive Credential
-
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
 Archive Credential
 
-### Path Parameters
+## Path parameters
 
 - `vault_id: string`
 
 - `credential_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -93,9 +88,9 @@ Archive Credential
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsCredential object { id, archived_at, auth, 6 more }`
+- `BetaManagedAgentsCredential object`
 
   A credential stored in a vault. Sensitive fields are never returned in responses.
 
@@ -107,11 +102,13 @@ Archive Credential
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse or BetaManagedAgentsStaticBearerAuthResponse or BetaManagedAgentsEnvironmentVariableAuthResponse`
 
     Authentication details for a credential.
 
-    - `BetaManagedAgentsMCPOAuthAuthResponse object { mcp_server_url, type, expires_at, refresh }`
+    - `BetaManagedAgentsMCPOAuthAuthResponse object`
 
       OAuth credential details for an MCP server.
 
@@ -121,11 +118,11 @@ Archive Credential
 
       - `type: "mcp_oauth"`
 
-        - `"mcp_oauth"`
-
       - `expires_at: optional string or null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh: optional BetaManagedAgentsMCPOAuthRefreshResponse or null`
 
@@ -143,29 +140,23 @@ Archive Credential
 
           Token endpoint requires no client authentication.
 
-          - `BetaManagedAgentsTokenEndpointAuthNoneResponse object { type }`
+          - `BetaManagedAgentsTokenEndpointAuthNoneResponse object`
 
             Token endpoint requires no client authentication.
 
             - `type: "none"`
 
-              - `"none"`
-
-          - `BetaManagedAgentsTokenEndpointAuthBasicResponse object { type }`
+          - `BetaManagedAgentsTokenEndpointAuthBasicResponse object`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: "client_secret_basic"`
 
-              - `"client_secret_basic"`
-
-          - `BetaManagedAgentsTokenEndpointAuthPostResponse object { type }`
+          - `BetaManagedAgentsTokenEndpointAuthPostResponse object`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: "client_secret_post"`
-
-              - `"client_secret_post"`
 
         - `resource: optional string or null`
 
@@ -175,7 +166,7 @@ Archive Credential
 
           OAuth scope for the refresh request.
 
-    - `BetaManagedAgentsStaticBearerAuthResponse object { mcp_server_url, type }`
+    - `BetaManagedAgentsStaticBearerAuthResponse object`
 
       Static bearer token credential details for an MCP server.
 
@@ -185,9 +176,7 @@ Archive Credential
 
       - `type: "static_bearer"`
 
-        - `"static_bearer"`
-
-    - `BetaManagedAgentsEnvironmentVariableAuthResponse object { injection_location, networking, secret_name, type }`
+    - `BetaManagedAgentsEnvironmentVariableAuthResponse object`
 
       Environment variable credential details. The secret value is never returned.
 
@@ -207,15 +196,13 @@ Archive Credential
 
         Outbound hosts the secret value is substituted on.
 
-        - `BetaManagedAgentsUnrestrictedCredentialNetworkingResponse object { type }`
+        - `BetaManagedAgentsUnrestrictedCredentialNetworkingResponse object`
 
           The secret is substituted on any host the session's Environment network policy permits egress to.
 
           - `type: "unrestricted"`
 
-            - `"unrestricted"`
-
-        - `BetaManagedAgentsLimitedCredentialNetworkingResponse object { allowed_hosts, type }`
+        - `BetaManagedAgentsLimitedCredentialNetworkingResponse object`
 
           The secret is substituted only on requests to the listed hosts.
 
@@ -225,19 +212,17 @@ Archive Credential
 
           - `type: "limited"`
 
-            - `"limited"`
-
       - `secret_name: string`
 
         Name of the environment variable.
 
       - `type: "environment_variable"`
 
-        - `"environment_variable"`
-
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -245,11 +230,11 @@ Archive Credential
 
   - `type: "vault_credential"`
 
-    - `"vault_credential"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: string`
 
@@ -259,9 +244,9 @@ Archive Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/archive \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
@@ -269,7 +254,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID/credentials/$CREDENTIAL_ID/ar
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

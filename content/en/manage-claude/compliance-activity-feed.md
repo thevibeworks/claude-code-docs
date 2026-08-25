@@ -14,7 +14,7 @@ description: Retrieve, filter, and paginate your organization's Compliance API A
   Both Compliance Access Keys (`sk-ant-api01-...`) carrying this scope and Admin API keys (`sk-ant-admin01-...`) can call the Activity Feed. See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access) for the conditions under which each key type carries the scope.
 </Check>
 
-The Activity Feed records authentication, chat, file, project, administrative, and platform activity across your organization and returns it in reverse chronological order. Activities are queryable within 1 minute of occurring and are retained for 6 years.
+The Activity Feed records authentication, chat, file, project, administrative, and platform activity across your organization and returns it in reverse chronological order. Activities are queryable within 1 minute of occurring and are retained for 6 years. Recording is not retroactive: it begins when the Compliance API is first enabled for your organization, and activity from before enablement is not backfilled.
 
 ```bash cURL
 curl --fail-with-body -sS \

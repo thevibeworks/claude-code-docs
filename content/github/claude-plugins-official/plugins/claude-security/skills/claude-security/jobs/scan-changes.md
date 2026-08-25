@@ -6,7 +6,7 @@ Only committed changes are scanned. Uncommitted work in the tree is not part of 
 
 ## The Workflow tool is required
 
-The scan runs only as the `claude-security:scan` workflow (step 6). If the Workflow tool is missing from this session (step 4 checks, before anything is created), or the workflow fails to start, stop with the single line "The scan pipeline is unavailable in this session (it needs the Workflow tool), so no scan was run", asking nothing and creating nothing more. Never stand in for the workflow by dispatching researchers and verifiers yourself, and never write a `votes.json` other than the `votes` object it returned: the workflow's code computes the verification tally the report is stamped from, so a report assembled by hand claims a verification that never ran.
+The scan runs only as the `claude-security:scan` workflow (step 6). If the Workflow tool is missing from this session (step 4 checks, before anything is created), or the workflow fails to start, stop with the single line "The scan pipeline is unavailable in this session (it needs the Workflow tool), so no scan was run; if /config shows a 'Dynamic workflows' row, enabling that setting and restarting Claude Code lets the next session run the scan, and if it shows no such row, workflows are unavailable, or are disabled by your organization's policy", asking nothing and creating nothing more. Never stand in for the workflow by dispatching researchers and verifiers yourself, and never write a `votes.json` other than the `votes` object it returned: the workflow's code computes the verification tally the report is stamped from, so a report assembled by hand claims a verification that never ran.
 
 ## Arguments
 

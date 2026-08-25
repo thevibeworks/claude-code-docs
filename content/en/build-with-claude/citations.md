@@ -10,7 +10,7 @@ description: Ground Claude's responses in your source documents. Citations retur
 
 Claude can provide detailed citations when answering questions about documents, helping you track and verify the sources behind each response.
 
-All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support citations.
+All [active models](https://platform.claude.com/docs/en/models/overview) support citations.
 
 <Tip>
   Share your feedback and suggestions about the citations feature using the [citations feedback form](https://forms.gle/9n9hSrKnKe3rpowH9).

@@ -1,17 +1,12 @@
----
-title: Permissions
-url: https://platform.claude.com/docs/en/api/compliance/organizations/roles/permissions
----
-
 # Permissions
 
 ## List Compliance Role Permissions
 
-**get** `/v1/compliance/organizations/{org_uuid}/roles/{role_id}/permissions`
+**GET** `/v1/compliance/organizations/{org_uuid}/roles/{role_id}/permissions`
 
 List Compliance Role Permissions
 
-### Path Parameters
+### Path parameters
 
 - `org_uuid: string`
 
@@ -21,23 +16,25 @@ List Compliance Role Permissions
 
   The role ID (tagged ID, e.g., rbac_role_abc123)
 
-### Query Parameters
+### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 500, max: 1000)
 
+  default: 500, maximum: 1000, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+### Headers
 
 - `"x-api-key": optional string`
 
 ### Returns
 
-- `data: array of object { action, resource_id, resource_type }`
+- `data: array of object`
 
   List of permissions
 
@@ -63,12 +60,12 @@ List Compliance Role Permissions
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/organizations/$ORG_UUID/roles/$ROLE_ID/permissions \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -84,11 +81,11 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORG_UUID/roles/$ROLE
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Permission List Response
 
-- `PermissionListResponse object { action, resource_id, resource_type }`
+- `PermissionListResponse object`
 
   Permission granted by a role.
 

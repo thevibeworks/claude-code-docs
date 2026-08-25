@@ -1,11 +1,8 @@
----
-title: Create Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates/create
----
+# Create Tunnel Certificate
 
-## Create Tunnel Certificate
+**POST** `/v1/organizations/tunnels/{tunnel_id}/certificates`
 
-**post** `/v1/organizations/tunnels/{tunnel_id}/certificates`
+**Deprecated**
 
 **Deprecated.** This Admin API endpoint is superseded by `/v1/tunnels` on the Claude API and will be removed after a migration window. New integrations should use [`/v1/tunnels`](/docs/en/api/beta/tunnels) with the `anthropic-beta: mcp-tunnels-2026-06-22` header and a WIF token carrying the `workspace:manage_tunnels` scope. Existing integrations continue to work with the `mcp-tunnels-2026-05-19` header and `org:manage_tunnels` scope during the migration window.
 
@@ -16,28 +13,28 @@ when it terminates the inner TLS session. The PEM body must contain
 exactly one X.509 certificate and no private-key material. A tunnel
 holds at most two non-archived certificates.
 
-### Path Parameters
+## Path parameters
 
 - `tunnel_id: string`
 
   ID of the Tunnel.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": array of "mcp-tunnels-2026-05-19"`
 
   Required for all Tunnel endpoints.
 
-  - `"mcp-tunnels-2026-05-19"`
-
-### Body Parameters
+## Body parameters
 
 - `ca_certificate_pem: string`
 
   PEM-encoded X.509 CA certificate. Must contain exactly one certificate and
   no private-key material.
 
-### Returns
+  maxLength: 8192
+
+## Returns
 
 - `id: string`
 
@@ -48,14 +45,20 @@ holds at most two non-archived certificates.
   RFC 3339 datetime string indicating when the certificate was archived, or
   `null` if it is not archived.
 
+  format: date-time
+
 - `created_at: string`
 
   RFC 3339 datetime string indicating when the certificate was registered.
+
+  format: date-time
 
 - `expires_at: string or null`
 
   RFC 3339 datetime string indicating when the certificate expires, or
   `null` if it does not expire.
+
+  format: date-time
 
 - `fingerprint: string`
 
@@ -69,11 +72,11 @@ holds at most two non-archived certificates.
 
   Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-  - `"tunnel_certificate"`
+  default: tunnel_certificate
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -83,7 +86,7 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates 
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

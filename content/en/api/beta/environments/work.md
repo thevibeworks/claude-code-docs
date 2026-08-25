@@ -1,25 +1,20 @@
----
-title: Work
-url: https://platform.claude.com/docs/en/api/beta/environments/work
----
-
 # Work
 
 ## Get Work Item
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Retrieve detailed information about a specific work item.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
 - `work_id: string`
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -99,7 +94,7 @@ Retrieve detailed information about a specific work item.
 
 ### Returns
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -130,8 +125,6 @@ Retrieve detailed information about a specific work item.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -179,18 +172,18 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -217,27 +210,31 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID \
 
 ## Poll for Work
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
-### Query Parameters
+### Query parameters
 
 - `block_ms: optional number`
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `reclaim_older_than_ms: optional number`
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
 
-### Header Parameters
+  minimum: 1
+
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -321,7 +318,7 @@ Long poll for work items in the queue.
 
 ### Returns
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -352,8 +349,6 @@ Long poll for work items in the queue.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -401,18 +396,18 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/poll \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -439,19 +434,19 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/poll \
 
 ## Acknowledge Work
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting' and removing it from the queue.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
 - `work_id: string`
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -531,7 +526,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
 ### Returns
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -562,8 +557,6 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -611,11 +604,11 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/ack \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
@@ -623,7 +616,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/ack
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -650,19 +643,19 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/ack
 
 ## Record Heartbeat
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Record a heartbeat for a work item to maintain the lease.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
 - `work_id: string`
 
-### Query Parameters
+### Query parameters
 
 - `desired_ttl_seconds: optional number`
 
@@ -672,7 +665,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   Expected last_heartbeat for conditional update (optimistic concurrency). Use literal 'NO_HEARTBEAT' to claim an unclaimed lease (first heartbeat). For subsequent heartbeats, echo the server's previous last_heartbeat value exactly. Returns 412 Precondition Failed if the actual value doesn't match.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -752,7 +745,7 @@ Record a heartbeat for a work item to maintain the lease.
 
 ### Returns
 
-- `BetaSelfHostedWorkHeartbeatResponse object { last_heartbeat, lease_extended, state, 2 more }`
+- `BetaSelfHostedWorkHeartbeatResponse object`
 
   Response after recording a heartbeat for a work item.
 
@@ -786,11 +779,11 @@ Record a heartbeat for a work item to maintain the lease.
 
     The type of response
 
-    - `"work_heartbeat"`
+    default: work_heartbeat
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/heartbeat \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
@@ -798,7 +791,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/hea
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -812,19 +805,19 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/hea
 
 ## Stop Work
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Stop a work item, initiating graceful or forced shutdown.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
 - `work_id: string`
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -902,15 +895,17 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Body Parameters
+### Body parameters
 
 - `force: optional boolean`
 
   If true, immediately stop work without graceful shutdown
 
+  default: false
+
 ### Returns
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -941,8 +936,6 @@ Stop a work item, initiating graceful or forced shutdown.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -990,11 +983,11 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/stop \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -1003,7 +996,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/sto
     -d '{}'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1030,27 +1023,29 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID/sto
 
 ## List Work Items
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 List work items in an environment.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
-### Query Parameters
+### Query parameters
 
 - `limit: optional number`
 
   Maximum number of work items to return
 
+  default: 20, maximum: 1000, minimum: 1
+
 - `page: optional string`
 
   Opaque cursor from previous response for pagination
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -1130,7 +1125,7 @@ List work items in an environment.
 
 ### Returns
 
-- `BetaSelfHostedWorkListResponse object { data, next_page }`
+- `BetaSelfHostedWorkListResponse object`
 
   Response when listing work items with cursor-based pagination.
 
@@ -1161,8 +1156,6 @@ List work items in an environment.
       - `type: "session"`
 
         Type of work data
-
-        - `"session"`
 
     - `environment_id: string`
 
@@ -1210,7 +1203,7 @@ List work items in an environment.
 
       The type of object (always 'work')
 
-      - `"work"`
+      default: work
 
   - `next_page: string or null`
 
@@ -1218,14 +1211,14 @@ List work items in an environment.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1257,19 +1250,19 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work \
 
 ## Update Work Item
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
 - `work_id: string`
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -1347,7 +1340,7 @@ Update work item metadata with merge semantics.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Body Parameters
+### Body parameters
 
 - `metadata: map[string]`
 
@@ -1355,7 +1348,7 @@ Update work item metadata with merge semantics.
 
 ### Returns
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1386,8 +1379,6 @@ Update work item metadata with merge semantics.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -1435,11 +1426,11 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -1452,7 +1443,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID \
         }'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1479,15 +1470,15 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID \
 
 ## Get Queue Statistics
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
-### Path Parameters
+### Path parameters
 
 - `environment_id: string`
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -1567,7 +1558,7 @@ Get statistics about the work queue for an environment.
 
 ### Returns
 
-- `BetaSelfHostedWorkQueueStats object { depth, oldest_queued_at, pending, 2 more }`
+- `BetaSelfHostedWorkQueueStats object`
 
   Statistics about the work queue for an environment.
 
@@ -1585,11 +1576,13 @@ Get statistics about the work queue for an environment.
 
     Number of work items being processed (polled but not acknowledged)
 
+    default: 0
+
   - `type: "work_queue_stats"`
 
     The type of object
 
-    - `"work_queue_stats"`
+    default: work_queue_stats
 
   - `workers_polling: number or null`
 
@@ -1597,14 +1590,14 @@ Get statistics about the work queue for an environment.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1616,11 +1609,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Self Hosted Work
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -1651,8 +1644,6 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -1700,11 +1691,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
 ### Beta Self Hosted Work Heartbeat Response
 
-- `BetaSelfHostedWorkHeartbeatResponse object { last_heartbeat, lease_extended, state, 2 more }`
+- `BetaSelfHostedWorkHeartbeatResponse object`
 
   Response after recording a heartbeat for a work item.
 
@@ -1738,11 +1729,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     The type of response
 
-    - `"work_heartbeat"`
+    default: work_heartbeat
 
 ### Beta Self Hosted Work List Response
 
-- `BetaSelfHostedWorkListResponse object { data, next_page }`
+- `BetaSelfHostedWorkListResponse object`
 
   Response when listing work items with cursor-based pagination.
 
@@ -1773,8 +1764,6 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
       - `type: "session"`
 
         Type of work data
-
-        - `"session"`
 
     - `environment_id: string`
 
@@ -1822,7 +1811,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
       The type of object (always 'work')
 
-      - `"work"`
+      default: work
 
   - `next_page: string or null`
 
@@ -1830,7 +1819,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
 ### Beta Self Hosted Work Queue Stats
 
-- `BetaSelfHostedWorkQueueStats object { depth, oldest_queued_at, pending, 2 more }`
+- `BetaSelfHostedWorkQueueStats object`
 
   Statistics about the work queue for an environment.
 
@@ -1848,11 +1837,13 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     Number of work items being processed (polled but not acknowledged)
 
+    default: 0
+
   - `type: "work_queue_stats"`
 
     The type of object
 
-    - `"work_queue_stats"`
+    default: work_queue_stats
 
   - `workers_polling: number or null`
 
@@ -1860,7 +1851,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
 ### Beta Self Hosted Work Stop Request
 
-- `BetaSelfHostedWorkStopRequest object { force }`
+- `BetaSelfHostedWorkStopRequest object`
 
   Request to stop a work item.
 
@@ -1868,9 +1859,11 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
     If true, immediately stop work without graceful shutdown
 
+    default: false
+
 ### Beta Self Hosted Work Update Request
 
-- `BetaSelfHostedWorkUpdateRequest object { metadata }`
+- `BetaSelfHostedWorkUpdateRequest object`
 
   Request to update work item metadata.
 
@@ -1880,7 +1873,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
 
 ### Beta Session Work Data
 
-- `BetaSessionWorkData object { id, type }`
+- `BetaSessionWorkData object`
 
   Work data for session work items.
 
@@ -1894,5 +1887,3 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/stats \
   - `type: "session"`
 
     Type of work data
-
-    - `"session"`

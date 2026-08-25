@@ -1,21 +1,25 @@
----
-title: Apps
-url: https://platform.claude.com/docs/en/api/compliance/apps
----
-
 # Apps
 
-# Chats
+## Apps › Chats
 
-## List chats
+### List chats
 
-**get** `/v1/compliance/apps/chats`
+**GET** `/v1/compliance/apps/chats`
 
 Lists chat metadata with filtering capabilities for targeted
 compliance review. Results are sorted chronologically (time ascending)
 by the `order_by` key, with ties broken by id.
 
-### Query Parameters
+**Deprecation notice:** Combining `user_ids[]` with any `updated_at.*`
+filter is deprecated and will be rejected with HTTP 400 after
+2026-09-22. For incremental polling by update time, omit `user_ids[]`
+and set `order_by=updated_at` with `after_id` cursor pagination —
+this returns the same chats across the whole organization in a single
+request stream. For per-user listing, use `created_at.*` filters (or
+no time filter) with the default `order_by`. `user_ids[]` with
+`order_by=updated_at` is already rejected.
+
+#### Query parameters
 
 - `after_id: optional string`
 
@@ -25,31 +29,43 @@ by the `order_by` key, with ties broken by id.
 
   Pagination cursor for retrieving the previous page of results. To paginate, pass the `first_id` value from the most recent response. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter chats created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter chats created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter chats created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter chats created at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 1000)
 
+  default: 100, maximum: 1000, minimum: 1
+
 - `order_by: optional "created_at" or "updated_at"`
 
   Sort key for results. `created_at` (default) sorts by chat creation time. `updated_at` sorts by last update time and is only supported for org-wide queries (omit user_ids[]). For org-wide queries, any time filter must match the sort key: `created_at.*` filters require `order_by=created_at`, and `updated_at.*` filters require `order_by=updated_at`.
+
+  default: created_at
 
   - `"created_at"`
 
@@ -63,35 +79,45 @@ by the `order_by` key, with ties broken by id.
 
   Filter by project IDs (accepts `claude_proj_...`). Enumerate IDs via `GET /v1/compliance/apps/projects`. Requires user_ids[]; not supported for org-wide queries.
 
-- `updated_at: optional object { gt, gte, lt, lte }`
+- `updated_at: optional object`
 
   - `gt: optional string`
 
-    Filter chats updated after this time (RFC 3339 format)
+    Filter chats updated after this time (RFC 3339 format). Combining updated_at filters with `user_ids[]` is deprecated and will be rejected after 2026-09-22; for updated_at-windowed polling, omit `user_ids[]` and use `order_by=updated_at` with `after_id` pagination.
+
+    format: date-time
 
   - `gte: optional string`
 
-    Filter chats updated at or after this time (RFC 3339 format)
+    Filter chats updated at or after this time (RFC 3339 format). Combining updated_at filters with `user_ids[]` is deprecated and will be rejected after 2026-09-22; for updated_at-windowed polling, omit `user_ids[]` and use `order_by=updated_at` with `after_id` pagination.
+
+    format: date-time
 
   - `lt: optional string`
 
-    Filter chats updated before this time (RFC 3339 format)
+    Filter chats updated before this time (RFC 3339 format). Combining updated_at filters with `user_ids[]` is deprecated and will be rejected after 2026-09-22; for updated_at-windowed polling, omit `user_ids[]` and use `order_by=updated_at` with `after_id` pagination.
+
+    format: date-time
 
   - `lte: optional string`
 
-    Filter chats updated at or before this time (RFC 3339 format)
+    Filter chats updated at or before this time (RFC 3339 format). Combining updated_at filters with `user_ids[]` is deprecated and will be rejected after 2026-09-22; for updated_at-windowed polling, omit `user_ids[]` and use `order_by=updated_at` with `after_id` pagination.
+
+    format: date-time
 
 - `user_ids: optional array of string`
 
-  Filter to chats created by specific users (max 10 per request). Omit for an org-wide query. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
+  Filter to chats created by specific users (max 10 per request). Omit for an org-wide query. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`. Deprecated combination: passing `user_ids[]` together with any `updated_at.*` filter is deprecated and will be rejected after 2026-09-22. For `updated_at`-windowed polling, omit `user_ids[]` and use `order_by=updated_at` with `after_id` pagination.
 
-### Header Parameters
+  maxItems: 10
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, created_at, deleted_at, 8 more }`
+- `data: array of object`
 
   List of chat metadata sorted chronologically by the request's `order_by` key (default `created_at`), tie break by id
 
@@ -103,9 +129,13 @@ by the `order_by` key, with ties broken by id.
 
     Creation timestamp
 
+    format: date-time
+
   - `deleted_at: string or null`
 
     Deletion timestamp if deleted
+
+    format: date-time
 
   - `href: string`
 
@@ -113,15 +143,11 @@ by the `order_by` key, with ties broken by id.
 
   - `model: string or null`
 
-    Model selected for this chat (e.g. 'claude-opus-4-7'). May be null for legacy chats that never had a model recorded.
+    Model selected for this chat (e.g. 'claude-opus-5'). May be null for legacy chats that never had a model recorded.
 
   - `name: string`
 
     Chat name/title
-
-  - `organization_id: string`
-
-    Organization ID this chat belongs to
 
   - `organization_uuid: string`
 
@@ -135,7 +161,9 @@ by the `order_by` key, with ties broken by id.
 
     Last update timestamp
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     User information for compliance responses.
 
@@ -146,6 +174,12 @@ by the `order_by` key, with ties broken by id.
     - `email_address: string`
 
       User's email address
+
+  - `organization_id: string`
+
+    **Deprecated**
+
+    Organization ID this chat belongs to
 
 - `first_id: string or null`
 
@@ -159,14 +193,14 @@ by the `order_by` key, with ties broken by id.
 
   Opaque pagination cursor for the last chat in the current result set. Pass as `after_id` on the next request to page forwards. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -177,9 +211,9 @@ curl https://api.anthropic.com/v1/compliance/apps/chats \
       "created_at": "2025-06-07T08:09:10Z",
       "updated_at": "2025-06-07T09:10:11Z",
       "organization_id": "org_abc123",
-      "organization_uuid": "abcdef0123-4567-89ab-cdef-0123456789ab",
+      "organization_uuid": "abcdef01-2345-6789-abcd-ef0123456789",
       "project_id": "claude_proj_xyz789",
-      "model": "claude-opus-4-7",
+      "model": "claude-opus-5",
       "user": {
         "id": "user_xyz456",
         "email_address": "user@example.com"
@@ -193,24 +227,24 @@ curl https://api.anthropic.com/v1/compliance/apps/chats \
 }
 ```
 
-## Delete chat
+### Delete chat
 
-**delete** `/v1/compliance/apps/chats/{claude_chat_id}`
+**DELETE** `/v1/compliance/apps/chats/{claude_chat_id}`
 
 Permanently deletes a chat and all associated messages and
 files. This is a destructive operation that cannot be undone.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_chat_id: string`
 
   The chat ID (tagged ID, e.g., claude_chat_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -220,17 +254,17 @@ files. This is a destructive operation that cannot be undone.
 
   Constant string confirming deletion
 
-  - `"claude_chat_deleted"`
+  default: claude_chat_deleted
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID \
     -X DELETE \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -239,97 +273,21 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID \
 }
 ```
 
-## Domain Types
+## Apps › Chats › Messages
 
-### Chat List Response
+### Get chat messages
 
-- `ChatListResponse object { id, created_at, deleted_at, 8 more }`
-
-  Chat metadata for listing chats (without messages).
-
-  - `id: string`
-
-    Chat ID
-
-  - `created_at: string`
-
-    Creation timestamp
-
-  - `deleted_at: string or null`
-
-    Deletion timestamp if deleted
-
-  - `href: string`
-
-    URL to view this chat in claude.ai
-
-  - `model: string or null`
-
-    Model selected for this chat (e.g. 'claude-opus-4-7'). May be null for legacy chats that never had a model recorded.
-
-  - `name: string`
-
-    Chat name/title
-
-  - `organization_id: string`
-
-    Organization ID this chat belongs to
-
-  - `organization_uuid: string`
-
-    Organization UUID this chat belongs to
-
-  - `project_id: string or null`
-
-    Project ID this chat belongs to
-
-  - `updated_at: string`
-
-    Last update timestamp
-
-  - `user: object { id, email_address }  or null`
-
-    User information for compliance responses.
-
-    - `id: string`
-
-      User identifier
-
-    - `email_address: string`
-
-      User's email address
-
-### Chat Delete Response
-
-- `ChatDeleteResponse object { id, type }`
-
-  Response for deleting a Claude chat.
-
-  - `id: string`
-
-    The ID of the Claude chat that was deleted
-
-  - `type: optional "claude_chat_deleted"`
-
-    Constant string confirming deletion
-
-    - `"claude_chat_deleted"`
-
-# Messages
-
-## Get chat messages
-
-**get** `/v1/compliance/apps/chats/{claude_chat_id}/messages`
+**GET** `/v1/compliance/apps/chats/{claude_chat_id}/messages`
 
 Retrieves message history and file metadata for a specific chat.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_chat_id: string`
 
   The chat ID (tagged ID, e.g., claude_chat_abc123)
 
-### Query Parameters
+#### Query parameters
 
 - `after_id: optional string`
 
@@ -339,31 +297,43 @@ Retrieves message history and file metadata for a specific chat.
 
   Pagination cursor for retrieving the previous page of results. To paginate, pass the `first_id` value from the most recent response. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter messages created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter messages created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter messages created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter messages created at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `limit: optional number`
 
   Maximum results (max: 1000). When omitted, the full result set is returned in one response.
 
+  maximum: 1000, minimum: 1
+
 - `order: optional "asc" or "desc"`
 
   Sort direction for messages within the response. `asc` (the default) returns oldest-first; `desc` returns newest-first.
+
+  default: asc
 
   - `"asc"`
 
@@ -373,39 +343,51 @@ Retrieves message history and file metadata for a specific chat.
 
   Maximum characters returned per tool-result text item. Items longer than this are shortened and the block's `truncated` field is set. Pass -1 to disable the limit.
 
+  default: 10000, minimum: -1
+
 - `tool_use_input_max_chars: optional number`
 
   Maximum characters of JSON-encoded tool input returned per tool_use block. Inputs longer than this are shortened and the block's `truncated` field is set. Pass -1 to disable the limit.
 
-- `updated_at: optional object { gt, gte, lt, lte }`
+  default: 10000, minimum: -1
+
+- `updated_at: optional object`
 
   - `gt: optional string`
 
     Filter messages updated after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter messages updated at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter messages updated before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter messages updated at or before this time (RFC 3339 format)
 
-### Header Parameters
+    format: date-time
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
   Chat ID
 
-- `chat_messages: array of object { id, artifacts, content, 4 more }`
+- `chat_messages: array of object`
 
   Array of chat messages in order of created_at
 
@@ -413,7 +395,7 @@ Retrieves message history and file metadata for a specific chat.
 
     Unique identifier for the message e.g. 'claude_chat_msg_abcd1234'
 
-  - `artifacts: array of object { id, artifact_type, title, version_id }  or null`
+  - `artifacts: array of object or null`
 
     Versioned documents generated or updated by the assistant in this message. Download via `GET /v1/compliance/apps/artifacts/{artifact_version_id}/content`.
 
@@ -433,11 +415,11 @@ Retrieves message history and file metadata for a specific chat.
 
       Artifact version ID e.g. 'claude_artifact_version_abc123'
 
-  - `content: array of object { text, thinking_redacted, truncated, type }  or object { id, input, integration_name, 4 more }  or object { content, integration_name, is_error, 5 more }`
+  - `content: array of object or object or object`
 
     Content blocks within the message
 
-    - `Text object { text, thinking_redacted, truncated, type }`
+    - `Text object`
 
       Text content block.
 
@@ -449,15 +431,19 @@ Retrieves message history and file metadata for a specific chat.
 
         True when content enclosed in the assistant's internal-reasoning tags (or the tag markup itself) was removed from `text` during export. Removal never occurs with this field false. Always false on human messages, whose text is exported verbatim.
 
+        default: false
+
       - `truncated: boolean`
 
         True when `text` was shortened by the server's fixed per-string bound (1 MiB). Always false on chat text blocks.
 
+        default: false
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
-    - `ToolUse object { id, input, integration_name, 4 more }`
+    - `ToolUse object`
 
       Tool invocation requested by the assistant.
 
@@ -485,15 +471,17 @@ Retrieves message history and file metadata for a specific chat.
 
         True when `input` was shortened. Pass the endpoint's tool-use input max parameter as -1 to request full content, subject to any server-side maximum the endpoint enforces.
 
+        default: false
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
 
-    - `ToolResult object { content, integration_name, is_error, 5 more }`
+    - `ToolResult object`
 
       Result returned by a tool invocation.
 
-      - `content: array of object { text, type }`
+      - `content: array of object`
 
         Text content returned by the tool. Generated files are surfaced via the message's `generated_files` list; other non-text item types (including images and links) are omitted.
 
@@ -503,7 +491,7 @@ Retrieves message history and file metadata for a specific chat.
 
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `integration_name: string or null`
 
@@ -529,15 +517,19 @@ Retrieves message history and file metadata for a specific chat.
 
         True when one or more text items in `content` were shortened. Pass the endpoint's tool-result max parameter as -1 to request full content, subject to any server-side maximum the endpoint enforces.
 
+        default: false
+
       - `type: "tool_result"`
 
-        - `"tool_result"`
+        default: tool_result
 
   - `created_at: string`
 
     Message creation timestamp - For human: when they sent the message, For assistant: when it completed the last content block
 
-  - `files: array of object { id, created_at, filename, 3 more }  or null`
+    format: date-time
+
+  - `files: array of object or null`
 
     Binary file attachments uploaded by the user. Download via `GET /v1/compliance/apps/chats/files/{claude_file_id}/content`.
 
@@ -548,6 +540,8 @@ Retrieves message history and file metadata for a specific chat.
     - `created_at: string`
 
       File creation timestamp
+
+      format: date-time
 
     - `filename: string`
 
@@ -565,7 +559,7 @@ Retrieves message history and file metadata for a specific chat.
 
       Size in bytes of the file's preferred downloadable variant, if known. Null for older files uploaded before size was recorded.
 
-  - `generated_files: array of object { id, filename, md5, 2 more }  or null`
+  - `generated_files: array of object or null`
 
     Downloadable files the assistant created via tool use (e.g. PDF, spreadsheet, slide deck). Distinct from `files`, which are uploads attached to the message. Download via `GET /v1/compliance/apps/chats/generated-files/{claude_gen_file_id}/content`.
 
@@ -601,9 +595,13 @@ Retrieves message history and file metadata for a specific chat.
 
   Creation timestamp
 
+  format: date-time
+
 - `deleted_at: string or null`
 
   Deletion timestamp if deleted
+
+  format: date-time
 
 - `first_id: string or null`
 
@@ -612,6 +610,8 @@ Retrieves message history and file metadata for a specific chat.
 - `has_more: boolean`
 
   Whether more chat messages exist beyond the current result set. Use `last_id` as `after_id` in a follow-up request to page forward.
+
+  default: false
 
 - `href: string`
 
@@ -623,15 +623,11 @@ Retrieves message history and file metadata for a specific chat.
 
 - `model: string or null`
 
-  Model selected for this chat (e.g. 'claude-opus-4-7'). May be null for legacy chats that never had a model recorded.
+  Model selected for this chat (e.g. 'claude-opus-5'). May be null for legacy chats that never had a model recorded.
 
 - `name: string`
 
   Chat name
-
-- `organization_id: string`
-
-  Organization ID this chat belongs to
 
 - `organization_uuid: string`
 
@@ -645,7 +641,9 @@ Retrieves message history and file metadata for a specific chat.
 
   Last update timestamp
 
-- `user: object { id, email_address }  or null`
+  format: date-time
+
+- `user: object or null`
 
   User information for compliance responses.
 
@@ -657,14 +655,20 @@ Retrieves message history and file metadata for a specific chat.
 
     User's email address
 
-### Example
+- `organization_id: string`
 
-```http
+  **Deprecated**
+
+  Organization ID this chat belongs to
+
+#### Example
+
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -673,9 +677,9 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
   "created_at": "2025-06-07T08:09:10Z",
   "updated_at": "2025-06-07T08:09:11Z",
   "organization_id": "org_abc123",
-  "organization_uuid": "abcdef0123-4567-89ab-cdef-0123456789ab",
+  "organization_uuid": "abcdef01-2345-6789-abcd-ef0123456789",
   "project_id": "claude_proj_xyz789",
-  "model": "claude-opus-4-7",
+  "model": "claude-opus-5",
   "user": {
     "id": "user_xyz456",
     "email_address": "user@example.com"
@@ -729,223 +733,27 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/$CLAUDE_CHAT_ID/messages
 }
 ```
 
-## Domain Types
+## Apps › Chats › Files
 
-### Message List Response
+### Get file metadata
 
-- `MessageListResponse object { id, artifacts, content, 4 more }`
-
-  A single message in a chat conversation.
-
-  - `id: string`
-
-    Unique identifier for the message e.g. 'claude_chat_msg_abcd1234'
-
-  - `artifacts: array of object { id, artifact_type, title, version_id }  or null`
-
-    Versioned documents generated or updated by the assistant in this message. Download via `GET /v1/compliance/apps/artifacts/{artifact_version_id}/content`.
-
-    - `id: string`
-
-      Artifact ID e.g. 'claude_artifact_abc123'
-
-    - `artifact_type: string or null`
-
-      MIME-like artifact type e.g. 'application/vnd.ant.code'
-
-    - `title: string or null`
-
-      Artifact title
-
-    - `version_id: string`
-
-      Artifact version ID e.g. 'claude_artifact_version_abc123'
-
-  - `content: array of object { text, thinking_redacted, truncated, type }  or object { id, input, integration_name, 4 more }  or object { content, integration_name, is_error, 5 more }`
-
-    Content blocks within the message
-
-    - `Text object { text, thinking_redacted, truncated, type }`
-
-      Text content block.
-
-      - `text: string`
-
-        Text content from human or assistant
-
-      - `thinking_redacted: boolean`
-
-        True when content enclosed in the assistant's internal-reasoning tags (or the tag markup itself) was removed from `text` during export. Removal never occurs with this field false. Always false on human messages, whose text is exported verbatim.
-
-      - `truncated: boolean`
-
-        True when `text` was shortened by the server's fixed per-string bound (1 MiB). Always false on chat text blocks.
-
-      - `type: "text"`
-
-        - `"text"`
-
-    - `ToolUse object { id, input, integration_name, 4 more }`
-
-      Tool invocation requested by the assistant.
-
-      - `id: string or null`
-
-        Tool-use ID, e.g. 'toolu_01AbC...'
-
-      - `input: string`
-
-        Arguments passed to the tool, as a JSON-encoded string. May be shortened — see the `truncated` field
-
-      - `integration_name: string or null`
-
-        Name of the integration that provides this tool, when applicable
-
-      - `mcp_server_url: string or null`
-
-        Base URL (scheme, host, and path only) of the MCP server that provides this tool, when applicable
-
-      - `name: string`
-
-        Name of the tool invoked
-
-      - `truncated: boolean`
-
-        True when `input` was shortened. Pass the endpoint's tool-use input max parameter as -1 to request full content, subject to any server-side maximum the endpoint enforces.
-
-      - `type: "tool_use"`
-
-        - `"tool_use"`
-
-    - `ToolResult object { content, integration_name, is_error, 5 more }`
-
-      Result returned by a tool invocation.
-
-      - `content: array of object { text, type }`
-
-        Text content returned by the tool. Generated files are surfaced via the message's `generated_files` list; other non-text item types (including images and links) are omitted.
-
-        - `text: string`
-
-          Text returned by the tool
-
-        - `type: "text"`
-
-          - `"text"`
-
-      - `integration_name: string or null`
-
-        Name of the integration that provides this tool, when applicable
-
-      - `is_error: boolean`
-
-        True when the tool reported an error
-
-      - `mcp_server_url: string or null`
-
-        Base URL (scheme, host, and path only) of the MCP server that provides this tool, when applicable
-
-      - `name: string`
-
-        Name of the tool that produced this result
-
-      - `tool_use_id: string or null`
-
-        ID of the tool_use block this result responds to
-
-      - `truncated: boolean`
-
-        True when one or more text items in `content` were shortened. Pass the endpoint's tool-result max parameter as -1 to request full content, subject to any server-side maximum the endpoint enforces.
-
-      - `type: "tool_result"`
-
-        - `"tool_result"`
-
-  - `created_at: string`
-
-    Message creation timestamp - For human: when they sent the message, For assistant: when it completed the last content block
-
-  - `files: array of object { id, created_at, filename, 3 more }  or null`
-
-    Binary file attachments uploaded by the user. Download via `GET /v1/compliance/apps/chats/files/{claude_file_id}/content`.
-
-    - `id: string`
-
-      File ID
-
-    - `created_at: string`
-
-      File creation timestamp
-
-    - `filename: string`
-
-      Display name of the file
-
-    - `md5: string or null`
-
-      Lowercase hex MD5 of the file's preferred downloadable variant, as recorded at upload time. Null when no stored hash is available.
-
-    - `mime_type: string or null`
-
-      MIME type of the file's preferred downloadable variant (e.g. 'application/pdf')
-
-    - `size_bytes: number or null`
-
-      Size in bytes of the file's preferred downloadable variant, if known. Null for older files uploaded before size was recorded.
-
-  - `generated_files: array of object { id, filename, md5, 2 more }  or null`
-
-    Downloadable files the assistant created via tool use (e.g. PDF, spreadsheet, slide deck). Distinct from `files`, which are uploads attached to the message. Download via `GET /v1/compliance/apps/chats/generated-files/{claude_gen_file_id}/content`.
-
-    - `id: string`
-
-      Opaque generated-file id, e.g. 'claude_gen_file_abc123'. Treat as an opaque string; the encoding may change without notice.
-
-    - `filename: string`
-
-      Display name of the generated file
-
-    - `md5: string or null`
-
-      Lowercase hex MD5 of the generated file, when available. Null when no stored hash is available.
-
-    - `mime_type: string or null`
-
-      MIME type reported by the tool that produced the file
-
-    - `size_bytes: number or null`
-
-      Size in bytes of the generated file, when available. Null when the file has expired or size is not recorded.
-
-  - `role: "assistant" or "user"`
-
-    Message sender (user or assistant)
-
-    - `"assistant"`
-
-    - `"user"`
-
-# Files
-
-## Get file metadata
-
-**get** `/v1/compliance/apps/chats/files/{claude_file_id}`
+**GET** `/v1/compliance/apps/chats/files/{claude_file_id}`
 
 Retrieves metadata for a file referenced in chat messages, without
 downloading the file content. Use the sibling `/content` endpoint to
 download the bytes.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_file_id: string`
 
   The file ID (tagged ID, e.g., claude_file_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -958,6 +766,8 @@ download the bytes.
 - `created_at: string`
 
   File creation timestamp
+
+  format: date-time
 
 - `filename: string or null`
 
@@ -979,14 +789,14 @@ download the bytes.
 
   Size in bytes of the file's preferred downloadable variant, if known
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/files/$CLAUDE_FILE_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1005,24 +815,24 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/files/$CLAUDE_FILE_ID \
 }
 ```
 
-## Delete file
+### Delete file
 
-**delete** `/v1/compliance/apps/chats/files/{claude_file_id}`
+**DELETE** `/v1/compliance/apps/chats/files/{claude_file_id}`
 
 Permanently deletes a specific file. This is a destructive
 operation that cannot be undone.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_file_id: string`
 
   The file ID (tagged ID, e.g., claude_file_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -1032,17 +842,17 @@ operation that cannot be undone.
 
   Constant string confirming deletion
 
-  - `"claude_file_deleted"`
+  default: claude_file_deleted
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/files/$CLAUDE_FILE_ID \
     -X DELETE \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1051,109 +861,50 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/files/$CLAUDE_FILE_ID \
 }
 ```
 
-## Download file content
+### Download file content
 
-**get** `/v1/compliance/apps/chats/files/{claude_file_id}/content`
+**GET** `/v1/compliance/apps/chats/files/{claude_file_id}/content`
 
 Downloads the binary content of a file referenced in chat messages.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_file_id: string`
 
   The file ID (tagged ID, e.g., claude_file_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/files/$CLAUDE_FILE_ID/content \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-## Domain Types
+## Apps › Chats › Generated Files
 
-### File Retrieve Response
+### Get Claude-generated file metadata
 
-- `FileRetrieveResponse object { id, claude_chat_ids, created_at, 5 more }`
-
-  File metadata for GET /v1/compliance/apps/chats/files/{claude_file_id}.
-
-  Returns metadata only. Use the sibling `/content` endpoint to download
-  the file bytes.
-
-  - `id: string`
-
-    File ID
-
-  - `claude_chat_ids: array of string`
-
-    Chats this file is attached to. A file can be referenced by messages across multiple chats.
-
-  - `created_at: string`
-
-    File creation timestamp
-
-  - `filename: string or null`
-
-    Display name of the file, if set
-
-  - `md5: string or null`
-
-    Lowercase hex MD5 of the file's preferred downloadable variant, as recorded at upload time. Null when no stored hash is available. The sibling `/content` endpoint also sets a `Content-MD5` header (base64 per RFC 1864) computed over the exact served bytes; when the two disagree, the header is authoritative.
-
-  - `message_ids: array of string`
-
-    Chat message IDs this file is attached to. A file can be referenced by multiple messages.
-
-  - `mime_type: string or null`
-
-    MIME type of the file's preferred downloadable variant (e.g. 'application/pdf'). May be null for files with no downloadable content (e.g. code-interpreter outputs).
-
-  - `size_bytes: number or null`
-
-    Size in bytes of the file's preferred downloadable variant, if known
-
-### File Delete Response
-
-- `FileDeleteResponse object { id, type }`
-
-  Response for deleting a compliance file.
-
-  - `id: string`
-
-    The ID of the file that was deleted
-
-  - `type: optional "claude_file_deleted"`
-
-    Constant string confirming deletion
-
-    - `"claude_file_deleted"`
-
-# Generated Files
-
-## Get Claude-generated file metadata
-
-**get** `/v1/compliance/apps/chats/generated-files/{claude_gen_file_id}`
+**GET** `/v1/compliance/apps/chats/generated-files/{claude_gen_file_id}`
 
 Returns metadata for a file the assistant created via tool use.
 
 Use the sibling `/content` endpoint to download the bytes.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_gen_file_id: string`
 
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -1166,6 +917,8 @@ Use the sibling `/content` endpoint to download the bytes.
 - `created_at: string or null`
 
   File creation timestamp, when available
+
+  format: date-time
 
 - `filename: string`
 
@@ -1183,14 +936,14 @@ Use the sibling `/content` endpoint to download the bytes.
 
   Size in bytes of the stored file, when available
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/generated-files/$CLAUDE_GEN_FILE_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1204,103 +957,71 @@ curl https://api.anthropic.com/v1/compliance/apps/chats/generated-files/$CLAUDE_
 }
 ```
 
-## Download a Claude-generated file
+### Download a Claude-generated file
 
-**get** `/v1/compliance/apps/chats/generated-files/{claude_gen_file_id}/content`
+**GET** `/v1/compliance/apps/chats/generated-files/{claude_gen_file_id}/content`
 
 Downloads the binary content of a file the assistant created via tool use.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_gen_file_id: string`
 
   The generated-file id (e.g., 'claude_gen_file_abc123') as returned in `chat_messages[].generated_files[].id` from GET /apps/chats/{claude_chat_id}/messages.
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/generated-files/$CLAUDE_GEN_FILE_ID/content \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-## Domain Types
+## Apps › Projects
 
-### Generated File Retrieve Response
+### List projects
 
-- `GeneratedFileRetrieveResponse object { id, claude_chat_id, created_at, 4 more }`
-
-  Metadata for GET /v1/compliance/apps/chats/generated-files/{claude_gen_file_id}.
-
-  Returns metadata only. Use the sibling `/content` endpoint to download
-  the bytes. The owning chat is included since the id is opaque; to find the
-  specific message that produced the file, fetch
-  `/v1/compliance/apps/chats/{claude_chat_id}/messages` and match on
-  `generated_files[].id`.
-
-  - `id: string`
-
-    Opaque generated-file id, e.g. 'claude_gen_file_abc123'.
-
-  - `claude_chat_id: string`
-
-    The chat this generated file belongs to
-
-  - `created_at: string or null`
-
-    File creation timestamp, when available
-
-  - `filename: string`
-
-    Display name of the generated file
-
-  - `md5: string or null`
-
-    Lowercase hex MD5 of the stored file. Null when no stored hash is available. The sibling `/content` endpoint also sets a `Content-MD5` header (base64 per RFC 1864) computed over the exact served bytes.
-
-  - `mime_type: string or null`
-
-    MIME type of the stored file, when available
-
-  - `size_bytes: number or null`
-
-    Size in bytes of the stored file, when available
-
-# Projects
-
-## List projects
-
-**get** `/v1/compliance/apps/projects`
+**GET** `/v1/compliance/apps/projects`
 
 Lists project metadata with filtering capabilities. Results
 are sorted chronologically (time ascending) by created_at.
 
-### Query Parameters
+#### Query parameters
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter projects created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter projects created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter projects created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter projects created at or before this time (RFC 3339 format)
 
+    format: date-time
+
 - `limit: optional number`
 
   Maximum results (default: 20, max: 100)
+
+  default: 20, maximum: 100, minimum: 1
 
 - `organization_ids: optional array of string`
 
@@ -1310,35 +1031,43 @@ are sorted chronologically (time ascending) by created_at.
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-- `updated_at: optional object { gt, gte, lt, lte }`
+- `updated_at: optional object`
 
   - `gt: optional string`
 
     Filter projects updated after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter projects updated at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter projects updated before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter projects updated at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `user_ids: optional array of string`
 
   Filter by user IDs. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, created_at, deleted_at, 6 more }`
+- `data: array of object`
 
   List of projects sorted by creation date ascending
 
@@ -1350,9 +1079,13 @@ are sorted chronologically (time ascending) by created_at.
 
     Project creation timestamp
 
+    format: date-time
+
   - `deleted_at: string or null`
 
     Timestamp when the project was deleted by an end user, or null otherwise
+
+    format: date-time
 
   - `is_private: boolean`
 
@@ -1362,10 +1095,6 @@ are sorted chronologically (time ascending) by created_at.
 
     Project name
 
-  - `organization_id: string`
-
-    Organization identifier (tagged ID)
-
   - `organization_uuid: string`
 
     Organization UUID this project belongs to
@@ -1374,7 +1103,9 @@ are sorted chronologically (time ascending) by created_at.
 
     Project last update timestamp
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     The user who created a project or project document.
 
@@ -1390,6 +1121,12 @@ are sorted chronologically (time ascending) by created_at.
 
       User's email address
 
+  - `organization_id: string`
+
+    **Deprecated**
+
+    Organization identifier (tagged ID)
+
 - `has_more: boolean`
 
   Whether more records exist beyond the current result set
@@ -1398,14 +1135,14 @@ are sorted chronologically (time ascending) by created_at.
 
   Token to retrieve the next page. Use this as the 'page' parameter in your next request
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1429,23 +1166,23 @@ curl https://api.anthropic.com/v1/compliance/apps/projects \
 }
 ```
 
-## Get project details
+### Get project details
 
-**get** `/v1/compliance/apps/projects/{project_id}`
+**GET** `/v1/compliance/apps/projects/{project_id}`
 
 Get detailed information for a specific project.
 
-### Path Parameters
+#### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -1463,9 +1200,13 @@ Get detailed information for a specific project.
 
   Project creation timestamp
 
+  format: date-time
+
 - `deleted_at: string or null`
 
   Timestamp when the project was deleted by an end user, or null otherwise
+
+  format: date-time
 
 - `description: string`
 
@@ -1483,10 +1224,6 @@ Get detailed information for a specific project.
 
   Project name
 
-- `organization_id: string`
-
-  Organization identifier (tagged ID)
-
 - `organization_uuid: string`
 
   Organization UUID this project belongs to
@@ -1495,7 +1232,9 @@ Get detailed information for a specific project.
 
   Project last update timestamp
 
-- `user: object { id, email_address }  or null`
+  format: date-time
+
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -1511,14 +1250,20 @@ Get detailed information for a specific project.
 
     User's email address
 
-### Example
+- `organization_id: string`
 
-```http
+  **Deprecated**
+
+  Organization identifier (tagged ID)
+
+#### Example
+
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1541,9 +1286,9 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 }
 ```
 
-## Delete project
+### Delete project
 
-**delete** `/v1/compliance/apps/projects/{project_id}`
+**DELETE** `/v1/compliance/apps/projects/{project_id}`
 
 Delete a project for compliance purposes.
 
@@ -1556,17 +1301,17 @@ Hard-deletes the project and all its associated data including:
 
 Project must have no attached chats - returns 409 if chats exist.
 
-### Path Parameters
+#### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -1576,17 +1321,17 @@ Project must have no attached chats - returns 409 if chats exist.
 
   Constant string confirming deletion.
 
-  - `"claude_project_deleted"`
+  default: claude_project_deleted
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
     -X DELETE \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1595,153 +1340,11 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 }
 ```
 
-## Domain Types
+## Apps › Projects › Attachments
 
-### Project List Response
+### List project attachments
 
-- `ProjectListResponse object { id, created_at, deleted_at, 6 more }`
-
-  Project information for compliance responses.
-
-  - `id: string`
-
-    Project identifier (tagged ID)
-
-  - `created_at: string`
-
-    Project creation timestamp
-
-  - `deleted_at: string or null`
-
-    Timestamp when the project was deleted by an end user, or null otherwise
-
-  - `is_private: boolean`
-
-    If false, the project is visible to all organization members; if true the project is accessible only to the creator and specified collaborators
-
-  - `name: string`
-
-    Project name
-
-  - `organization_id: string`
-
-    Organization identifier (tagged ID)
-
-  - `organization_uuid: string`
-
-    Organization UUID this project belongs to
-
-  - `updated_at: string`
-
-    Project last update timestamp
-
-  - `user: object { id, email_address }  or null`
-
-    The user who created a project or project document.
-
-    Fields that reference this type are null when the creator's account has
-    been deleted or the creator is no longer a member of an organization the
-    key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID)
-
-    - `email_address: string`
-
-      User's email address
-
-### Project Retrieve Response
-
-- `ProjectRetrieveResponse object { id, attachments_count, chats_count, 10 more }`
-
-  Detailed project information for compliance responses.
-
-  - `id: string`
-
-    Project identifier (tagged ID)
-
-  - `attachments_count: number`
-
-    Number of attachments contained within this project
-
-  - `chats_count: number`
-
-    Number of chats contained within this project
-
-  - `created_at: string`
-
-    Project creation timestamp
-
-  - `deleted_at: string or null`
-
-    Timestamp when the project was deleted by an end user, or null otherwise
-
-  - `description: string`
-
-    Project description
-
-  - `instructions: string`
-
-    Project's custom instructions / prompt
-
-  - `is_private: boolean`
-
-    If false, the project is visible to all organization members; if true the project is accessible only to the creator and specified collaborators
-
-  - `name: string`
-
-    Project name
-
-  - `organization_id: string`
-
-    Organization identifier (tagged ID)
-
-  - `organization_uuid: string`
-
-    Organization UUID this project belongs to
-
-  - `updated_at: string`
-
-    Project last update timestamp
-
-  - `user: object { id, email_address }  or null`
-
-    The user who created a project or project document.
-
-    Fields that reference this type are null when the creator's account has
-    been deleted or the creator is no longer a member of an organization the
-    key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID)
-
-    - `email_address: string`
-
-      User's email address
-
-### Project Delete Response
-
-- `ProjectDeleteResponse object { id, type }`
-
-  Response for deleting a Claude project.
-
-  - `id: string`
-
-    The ID of the Claude project that was deleted
-
-  - `type: optional "claude_project_deleted"`
-
-    Constant string confirming deletion.
-
-    - `"claude_project_deleted"`
-
-# Attachments
-
-## List project attachments
-
-**get** `/v1/compliance/apps/projects/{project_id}/attachments`
+**GET** `/v1/compliance/apps/projects/{project_id}/attachments`
 
 List files and documents attached to a project.
 
@@ -1754,33 +1357,35 @@ GET /v1/compliance/apps/chats/files/{claude_file_id}/content endpoint.
 The text content of attached project documents can be fetched using the
 GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
-### Path Parameters
+#### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 20, max: 100)
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, created_at, filename, 4 more }  or object { id, created_at, filename, 3 more }`
+- `data: array of object or object`
 
   List of attachments sorted chronologically by created_at, tie break by id
 
-  - `ComplianceProjectFileReference object { id, created_at, filename, 4 more }`
+  - `ComplianceProjectFileReference object`
 
     File attachment reference for compliance responses.
 
@@ -1791,6 +1396,8 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
     - `created_at: string`
 
       Creation timestamp (RFC 3339 format)
+
+      format: date-time
 
     - `filename: string`
 
@@ -1812,9 +1419,9 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Discriminator marking this as a binary file
 
-      - `"project_file"`
+      default: project_file
 
-  - `ComplianceProjectDocReference object { id, created_at, filename, 3 more }`
+  - `ComplianceProjectDocReference object`
 
     Project document attachment reference for compliance responses.
 
@@ -1826,6 +1433,8 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Creation timestamp (RFC 3339 format)
 
+      format: date-time
+
     - `filename: string`
 
       Display name of the document (e.g., 'document.txt')
@@ -1834,17 +1443,19 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       MIME type of the project document, always set to plain text
 
-      - `"text/plain"`
+      default: text/plain
 
     - `type: "project_doc"`
 
       Discriminator marking this as a plain text document
 
-      - `"project_doc"`
+      default: project_doc
 
     - `updated_at: string or null`
 
       Last-modified timestamp of the document. Reserved for future use — currently always null.
+
+      format: date-time
 
 - `has_more: boolean`
 
@@ -1854,14 +1465,14 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
   To get the next page, use the 'next_page' from the current response as the 'page' in your next request
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachments \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1881,85 +1492,11 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 }
 ```
 
-## Domain Types
+## Apps › Projects › Collaborators
 
-### Attachment List Response
+### List project collaborators
 
-- `AttachmentListResponse = object { id, created_at, filename, 4 more }  or object { id, created_at, filename, 3 more }`
-
-  File attachment reference for compliance responses.
-
-  - `ComplianceProjectFileReference object { id, created_at, filename, 4 more }`
-
-    File attachment reference for compliance responses.
-
-    - `id: string`
-
-      File identifier (e.g., 'claude_file_abcd')
-
-    - `created_at: string`
-
-      Creation timestamp (RFC 3339 format)
-
-    - `filename: string`
-
-      Display name of the file (e.g., 'document.pdf')
-
-    - `md5: string or null`
-
-      Lowercase hex MD5 of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
-
-    - `mime_type: string`
-
-      MIME type of the file's preferred downloadable variant when one is recorded, else 'application/octet-stream'. Use the per-file `/metadata` endpoint for the authoritative value.
-
-    - `size_bytes: number or null`
-
-      Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
-
-    - `type: "project_file"`
-
-      Discriminator marking this as a binary file
-
-      - `"project_file"`
-
-  - `ComplianceProjectDocReference object { id, created_at, filename, 3 more }`
-
-    Project document attachment reference for compliance responses.
-
-    - `id: string`
-
-      Project document identifier (e.g., 'claude_proj_doc_abcd')
-
-    - `created_at: string`
-
-      Creation timestamp (RFC 3339 format)
-
-    - `filename: string`
-
-      Display name of the document (e.g., 'document.txt')
-
-    - `mime_type: "text/plain"`
-
-      MIME type of the project document, always set to plain text
-
-      - `"text/plain"`
-
-    - `type: "project_doc"`
-
-      Discriminator marking this as a plain text document
-
-      - `"project_doc"`
-
-    - `updated_at: string or null`
-
-      Last-modified timestamp of the document. Reserved for future use — currently always null.
-
-# Collaborators
-
-## List project collaborators
-
-**get** `/v1/compliance/apps/projects/{project_id}/collaborators`
+**GET** `/v1/compliance/apps/projects/{project_id}/collaborators`
 
 List the users, groups, and organization-wide grants on a project.
 
@@ -1968,39 +1505,43 @@ are returned as a discriminated union on `type` — an individual user, an
 RBAC group, the whole organization, or all holders of an organization-level
 role.
 
-### Path Parameters
+#### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 20, max: 100)
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { granted_at, role, type, user_id }  or object { granted_at, group_id, role, type }  or object { granted_at, organization_uuid, role, type }  or object { granted_at, organization_role, role, type }`
+- `data: array of object or object or object or object`
 
   List of collaborators sorted chronologically by granted_at, tie break by the underlying role-assignment UUID
 
-  - `ComplianceProjectUserCollaborator object { granted_at, role, type, user_id }`
+  - `ComplianceProjectUserCollaborator object`
 
     An individual user granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `role: "admin" or "editor" or "owner" or "viewer"`
 
@@ -2018,19 +1559,21 @@ role.
 
       Discriminator marking this as an individual user collaborator
 
-      - `"user"`
+      default: user
 
     - `user_id: string or null`
 
       Identifier of the user granted access (tagged ID), or null if their account has since been deleted
 
-  - `ComplianceProjectGroupCollaborator object { granted_at, group_id, role, type }`
+  - `ComplianceProjectGroupCollaborator object`
 
     An RBAC group granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `group_id: string`
 
@@ -2052,15 +1595,17 @@ role.
 
       Discriminator marking this as a group collaborator
 
-      - `"group"`
+      default: group
 
-  - `ComplianceProjectOrganizationCollaborator object { granted_at, organization_uuid, role, type }`
+  - `ComplianceProjectOrganizationCollaborator object`
 
     An entire organization granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `organization_uuid: string`
 
@@ -2082,15 +1627,17 @@ role.
 
       Discriminator marking this as an organization-wide grant
 
-      - `"organization"`
+      default: organization
 
-  - `ComplianceProjectOrganizationRoleCollaborator object { granted_at, organization_role, role, type }`
+  - `ComplianceProjectOrganizationRoleCollaborator object`
 
     All holders of an organization-level role granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `organization_role: string`
 
@@ -2112,7 +1659,7 @@ role.
 
       Discriminator marking this as a grant to all organization members holding a specific org-level role
 
-      - `"organization_role"`
+      default: organization_role
 
 - `has_more: boolean`
 
@@ -2122,14 +1669,14 @@ role.
 
   To get the next page, use the 'next_page' from the current response as the 'page' in your next request
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/collaborators \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2146,153 +1693,25 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/collabora
 }
 ```
 
-## Domain Types
+## Apps › Projects › Documents
 
-### Collaborator List Response
+### Get project document content
 
-- `CollaboratorListResponse = object { granted_at, role, type, user_id }  or object { granted_at, group_id, role, type }  or object { granted_at, organization_uuid, role, type }  or object { granted_at, organization_role, role, type }`
-
-  An individual user granted a role on a project.
-
-  - `ComplianceProjectUserCollaborator object { granted_at, role, type, user_id }`
-
-    An individual user granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "user"`
-
-      Discriminator marking this as an individual user collaborator
-
-      - `"user"`
-
-    - `user_id: string or null`
-
-      Identifier of the user granted access (tagged ID), or null if their account has since been deleted
-
-  - `ComplianceProjectGroupCollaborator object { granted_at, group_id, role, type }`
-
-    An RBAC group granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `group_id: string`
-
-      Identifier of the group granted access (tagged ID)
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "group"`
-
-      Discriminator marking this as a group collaborator
-
-      - `"group"`
-
-  - `ComplianceProjectOrganizationCollaborator object { granted_at, organization_uuid, role, type }`
-
-    An entire organization granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `organization_uuid: string`
-
-      UUID of the organization granted access
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "organization"`
-
-      Discriminator marking this as an organization-wide grant
-
-      - `"organization"`
-
-  - `ComplianceProjectOrganizationRoleCollaborator object { granted_at, organization_role, role, type }`
-
-    All holders of an organization-level role granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `organization_role: string`
-
-      The organization-level role whose holders are granted access
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "organization_role"`
-
-      Discriminator marking this as a grant to all organization members holding a specific org-level role
-
-      - `"organization_role"`
-
-# Documents
-
-## Get project document content
-
-**get** `/v1/compliance/apps/projects/documents/{document_id}`
+**GET** `/v1/compliance/apps/projects/documents/{document_id}`
 
 Get detailed information for a specific project document.
 
-### Path Parameters
+#### Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -2306,11 +1725,13 @@ Get detailed information for a specific project document.
 
   Document creation timestamp
 
+  format: date-time
+
 - `filename: string`
 
   Document filename
 
-- `user: object { id, email_address }  or null`
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -2326,14 +1747,14 @@ Get detailed information for a specific project document.
 
     User's email address
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2348,9 +1769,9 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
 }
 ```
 
-## Get project document metadata
+### Get project document metadata
 
-**get** `/v1/compliance/apps/projects/documents/{document_id}/metadata`
+**GET** `/v1/compliance/apps/projects/documents/{document_id}/metadata`
 
 Returns metadata for a project document, without the content body.
 
@@ -2359,17 +1780,17 @@ endpoint to fetch the document text. The `md5` and `size_bytes`
 fields here are computed over the UTF-8 encoding of that text, so a DLP
 consumer can dedupe or match hashes without downloading every document.
 
-### Path Parameters
+#### Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -2383,6 +1804,8 @@ consumer can dedupe or match hashes without downloading every document.
 
   Document creation timestamp
 
+  format: date-time
+
 - `filename: string`
 
   Document filename
@@ -2395,13 +1818,13 @@ consumer can dedupe or match hashes without downloading every document.
 
   MIME type of the document content, always plain text
 
-  - `"text/plain"`
+  default: text/plain
 
 - `size_bytes: number`
 
   Size in bytes of the document content (UTF-8 encoded)
 
-- `user: object { id, email_address }  or null`
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -2417,14 +1840,14 @@ consumer can dedupe or match hashes without downloading every document.
 
     User's email address
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID/metadata \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2442,25 +1865,25 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
 }
 ```
 
-## Delete project document
+### Delete project document
 
-**delete** `/v1/compliance/apps/projects/documents/{document_id}`
+**DELETE** `/v1/compliance/apps/projects/documents/{document_id}`
 
 Delete a project document for compliance purposes.
 
 Hard-deletes the project document permanently.
 
-### Path Parameters
+#### Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -2470,17 +1893,17 @@ Hard-deletes the project document permanently.
 
   Constant string confirming deletion.
 
-  - `"claude_project_document_deleted"`
+  default: claude_project_document_deleted
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID \
     -X DELETE \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2489,122 +1912,11 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
 }
 ```
 
-## Domain Types
+## Apps › Artifacts
 
-### Document Retrieve Response
+### Get artifact metadata
 
-- `DocumentRetrieveResponse object { id, content, created_at, 2 more }`
-
-  Project document information for compliance responses.
-
-  - `id: string`
-
-    Project document identifier (tagged ID)
-
-  - `content: string`
-
-    Document text content
-
-  - `created_at: string`
-
-    Document creation timestamp
-
-  - `filename: string`
-
-    Document filename
-
-  - `user: object { id, email_address }  or null`
-
-    The user who created a project or project document.
-
-    Fields that reference this type are null when the creator's account has
-    been deleted or the creator is no longer a member of an organization the
-    key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID)
-
-    - `email_address: string`
-
-      User's email address
-
-### Document Metadata Response
-
-- `DocumentMetadataResponse object { id, claude_project_id, created_at, 5 more }`
-
-  Project document metadata for GET /v1/compliance/apps/projects/documents/{document_id}/metadata.
-
-  Returns metadata only. Use the sibling endpoint (without `/metadata`)
-  to fetch the document text content.
-
-  - `id: string`
-
-    Project document identifier (tagged ID)
-
-  - `claude_project_id: string`
-
-    The project this document belongs to
-
-  - `created_at: string`
-
-    Document creation timestamp
-
-  - `filename: string`
-
-    Document filename
-
-  - `md5: string`
-
-    Lowercase hex MD5 of the document content (UTF-8 encoded). Matches the `content` field returned by the sibling content endpoint.
-
-  - `mime_type: "text/plain"`
-
-    MIME type of the document content, always plain text
-
-    - `"text/plain"`
-
-  - `size_bytes: number`
-
-    Size in bytes of the document content (UTF-8 encoded)
-
-  - `user: object { id, email_address }  or null`
-
-    The user who created a project or project document.
-
-    Fields that reference this type are null when the creator's account has
-    been deleted or the creator is no longer a member of an organization the
-    key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID)
-
-    - `email_address: string`
-
-      User's email address
-
-### Document Delete Response
-
-- `DocumentDeleteResponse object { id, type }`
-
-  Response for deleting a project document.
-
-  - `id: string`
-
-    The ID of the project document that was deleted
-
-  - `type: "claude_project_document_deleted"`
-
-    Constant string confirming deletion.
-
-    - `"claude_project_document_deleted"`
-
-# Artifacts
-
-## Get artifact metadata
-
-**get** `/v1/compliance/apps/artifacts/{artifact_version_id}`
+**GET** `/v1/compliance/apps/artifacts/{artifact_version_id}`
 
 Returns metadata for an artifact version, without the content body.
 
@@ -2613,17 +1925,17 @@ Use the sibling `/content` endpoint to fetch the artifact text. The
 encoding of that text, so a DLP consumer can dedupe or match hashes
 without downloading every artifact.
 
-### Path Parameters
+#### Path parameters
 
 - `artifact_version_id: string`
 
   The artifact version ID (tagged ID, e.g., claude_artifact_version_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -2641,6 +1953,8 @@ without downloading every artifact.
 
   Artifact version creation timestamp
 
+  format: date-time
+
 - `md5: string`
 
   Lowercase hex MD5 of the artifact content (UTF-8 encoded). Matches the `content` field returned by the sibling `/content` endpoint.
@@ -2657,14 +1971,14 @@ without downloading every artifact.
 
   Artifact version ID e.g. 'claude_artifact_version_abc123'
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/artifacts/$ARTIFACT_VERSION_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2679,116 +1993,85 @@ curl https://api.anthropic.com/v1/compliance/apps/artifacts/$ARTIFACT_VERSION_ID
 }
 ```
 
-## Download artifact content
+### Download artifact content
 
-**get** `/v1/compliance/apps/artifacts/{artifact_version_id}/content`
+**GET** `/v1/compliance/apps/artifacts/{artifact_version_id}/content`
 
 Download the content of an artifact version for compliance purposes.
 
 Returns the full text content of the artifact version.
 
-### Path Parameters
+#### Path parameters
 
 - `artifact_version_id: string`
 
   The artifact version ID (tagged ID, e.g., claude_artifact_version_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/artifacts/$ARTIFACT_VERSION_ID/content \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-## Domain Types
+## Apps › Sessions › Local
 
-### Artifact Retrieve Response
+### List local sessions
 
-- `ArtifactRetrieveResponse object { id, artifact_type, claude_chat_id, 5 more }`
-
-  Artifact version metadata for GET /v1/compliance/apps/artifacts/{artifact_version_id}.
-
-  Returns metadata only. Use the sibling `/content` endpoint to fetch the
-  artifact body.
-
-  - `id: string`
-
-    Artifact ID e.g. 'claude_artifact_abc123'
-
-  - `artifact_type: string or null`
-
-    MIME-like artifact type e.g. 'application/vnd.ant.code'
-
-  - `claude_chat_id: string`
-
-    The chat this artifact belongs to
-
-  - `created_at: string`
-
-    Artifact version creation timestamp
-
-  - `md5: string`
-
-    Lowercase hex MD5 of the artifact content (UTF-8 encoded). Matches the `content` field returned by the sibling `/content` endpoint.
-
-  - `size_bytes: number`
-
-    Size in bytes of the artifact content (UTF-8 encoded)
-
-  - `title: string or null`
-
-    Artifact title
-
-  - `version_id: string`
-
-    Artifact version ID e.g. 'claude_artifact_version_abc123'
-
-# Sessions
-
-# Local
-
-## List local sessions
-
-**get** `/v1/compliance/apps/sessions/local`
+**GET** `/v1/compliance/apps/sessions/local`
 
 List local sessions across the organizations the key may read.
 
 Results are ordered by `created_at` descending. Pagination is
 forward-only via `next_page`; there is no reverse cursor.
 
-### Query Parameters
+#### Query parameters
 
-- `created_at: optional object { gte, lt }`
+- `created_at: optional object`
 
   - `gte: optional string`
 
     Only return sessions whose first inference call is at or after this time (RFC 3339; a UTC offset is required).
 
+    format: date-time
+
   - `lt: optional string`
 
     Only return sessions whose first inference call is strictly before this time (RFC 3339; a UTC offset is required).
+
+    format: date-time
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 500)
 
+  default: 100, maximum: 500, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+- `updated_at: optional object`
+
+  - `gte: optional string`
+
+    Only return sessions whose last inference call is at or after this time (RFC 3339; a UTC offset is required). Combines with `created_at.gte` / `created_at.lt`; the ordering and pagination are unchanged. Use it to poll for sessions that have been active since a previous pass — a session that becomes active later can only enter the result, never leave it.
+
+    format: date-time
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, created_at, organization_uuid, 4 more }`
+- `data: array of object`
 
-  Page of local sessions, ordered by `created_at` descending; ties are broken by a fixed server-side order.
+  Page of local sessions, ordered by `created_at` descending; ties are broken by a fixed server-side order. `updated_at` never participates in the ordering; the `updated_at.gte` query parameter filters on it without changing the order or the pagination cursor.
 
   - `id: string`
 
@@ -2797,6 +2080,8 @@ forward-only via `next_page`; there is no reverse cursor.
   - `created_at: string`
 
     Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
+
+    format: date-time
 
   - `organization_uuid: string`
 
@@ -2808,9 +2093,15 @@ forward-only via `next_page`; there is no reverse cursor.
 
   - `type: "compliance_local_session"`
 
-    - `"compliance_local_session"`
+    default: compliance_local_session
 
-  - `user: object { id, email_address }`
+  - `updated_at: string`
+
+    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+
+    format: date-time
+
+  - `user: object`
 
     The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
 
@@ -2830,14 +2121,14 @@ forward-only via `next_page`; there is no reverse cursor.
 
   Opaque pagination cursor (prefixed `page_`) for the next page. Null when there is no further page. Treat as an opaque string; the format may change without notice.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/local \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2852,15 +2143,16 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local \
         "email_address": "engineer@example.com"
       },
       "product_surface": "cowork",
-      "created_at": "2026-07-09T14:02:11Z"
+      "created_at": "2026-07-09T14:02:11Z",
+      "updated_at": "2026-07-09T15:47:33Z"
     }
   ]
 }
 ```
 
-## Retrieve a local session
+### Retrieve a local session
 
-**get** `/v1/compliance/apps/sessions/local/{local_session_id}`
+**GET** `/v1/compliance/apps/sessions/local/{local_session_id}`
 
 Retrieve one local session.
 
@@ -2869,15 +2161,15 @@ with `user.email_address` resolved the same way. Retention is
 enforced when the response is served: a session whose every
 inference call has aged out returns 404.
 
-### Path Parameters
+#### Path parameters
 
 - `local_session_id: string`
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -2886,6 +2178,8 @@ inference call has aged out returns 404.
 - `created_at: string`
 
   Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
+
+  format: date-time
 
 - `organization_uuid: string`
 
@@ -2897,9 +2191,15 @@ inference call has aged out returns 404.
 
 - `type: "compliance_local_session"`
 
-  - `"compliance_local_session"`
+  default: compliance_local_session
 
-- `user: object { id, email_address }`
+- `updated_at: string`
+
+  Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+
+  format: date-time
+
+- `user: object`
 
   The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
 
@@ -2915,14 +2215,14 @@ inference call has aged out returns 404.
 
   Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -2935,103 +2235,16 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "email_address": "engineer@example.com"
   },
   "product_surface": "cowork",
-  "created_at": "2026-07-09T14:02:11Z"
+  "created_at": "2026-07-09T14:02:11Z",
+  "updated_at": "2026-07-09T15:47:33Z"
 }
 ```
 
-## Domain Types
+## Apps › Sessions › Local › Messages
 
-### Local List Response
+### Retrieve local session messages
 
-- `LocalListResponse object { id, created_at, organization_uuid, 4 more }`
-
-  A Cowork or Claude Code session that a user ran on their own computer
-  while signed in with their organization account.
-
-  - `id: string`
-
-    Local session identifier, prefixed `clls_`. Unique within the parent organization. Treat as an opaque string; the format may change without notice.
-
-  - `created_at: string`
-
-    Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
-
-  - `organization_uuid: string`
-
-    UUID of the child organization the session belongs to
-
-  - `product_surface: string or null`
-
-    The product the session ran in: `cowork` for Cowork sessions in Claude Desktop, or `claude_code` for Claude Code sessions. New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
-
-  - `type: "compliance_local_session"`
-
-    - `"compliance_local_session"`
-
-  - `user: object { id, email_address }`
-
-    The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID, prefixed `user_`). Always set, so attribution survives after the user's account is deleted or the user leaves the organizations the key may read.
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user's account has been deleted or the user is no longer a member of an organization the key may read. The messages endpoint does not resolve email addresses; this field is always null there.
-
-  - `workspace_id: string or null`
-
-    Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
-
-### Local Retrieve Response
-
-- `LocalRetrieveResponse object { id, created_at, organization_uuid, 4 more }`
-
-  A Cowork or Claude Code session that a user ran on their own computer
-  while signed in with their organization account.
-
-  - `id: string`
-
-    Local session identifier, prefixed `clls_`. Unique within the parent organization. Treat as an opaque string; the format may change without notice.
-
-  - `created_at: string`
-
-    Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
-
-  - `organization_uuid: string`
-
-    UUID of the child organization the session belongs to
-
-  - `product_surface: string or null`
-
-    The product the session ran in: `cowork` for Cowork sessions in Claude Desktop, or `claude_code` for Claude Code sessions. New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
-
-  - `type: "compliance_local_session"`
-
-    - `"compliance_local_session"`
-
-  - `user: object { id, email_address }`
-
-    The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID, prefixed `user_`). Always set, so attribution survives after the user's account is deleted or the user leaves the organizations the key may read.
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user's account has been deleted or the user is no longer a member of an organization the key may read. The messages endpoint does not resolve email addresses; this field is always null there.
-
-  - `workspace_id: string or null`
-
-    Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
-
-# Messages
-
-## Retrieve local session messages
-
-**get** `/v1/compliance/apps/sessions/local/{local_session_id}/messages`
+**GET** `/v1/compliance/apps/sessions/local/{local_session_id}/messages`
 
 Read one local session's transcript, oldest-first by default.
 
@@ -3043,19 +2256,23 @@ in their place. The boundary is pinned on the walk's first page and
 honored for 24 hours: a cursor older than that is rejected with an
 explicit 400; restart the walk to read under the current boundary.
 
-### Path Parameters
+#### Path parameters
 
 - `local_session_id: string`
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 1000)
 
+  default: 100, maximum: 1000, minimum: 1
+
 - `order: optional "asc" or "desc"`
 
   Sort direction. `asc` (oldest-first, default) or `desc`.
+
+  default: asc
 
   - `"asc"`
 
@@ -3069,29 +2286,33 @@ explicit 400; restart the walk to read under the current boundary.
 
   Truncate each text item inside a tool result to at most this many bytes (cut on a code-point boundary). Pass `-1` to request the server maximum (approximately 1 MiB); larger values are clamped to it. `0` is not a valid value.
 
+  default: 10000, maximum: 2147483647, minimum: -1
+
 - `tool_use_input_max_bytes: optional number`
 
   Truncate each tool-use input to at most this many bytes (cut on a code-point boundary so the result is valid UTF-8). Pass `-1` to request the server maximum (approximately 1 MiB); larger values are clamped to it. `0` is not a valid value.
 
-### Header Parameters
+  default: 10000, maximum: 2147483647, minimum: -1
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, content, created_at, 3 more }`
+- `data: array of object`
 
-  Transcript turns for this page, ordered by `created_at` in the direction selected by the `order` parameter (ascending by default). Turns sharing a `created_at` (all messages of one inference call carry the call's timestamp) are returned in transcript order.
+  Transcript turns for this page, in call order: oldest call first by default, newest call first with `order=desc`. The messages of one call carry the call's timestamp and follow each other in transcript order; a page boundary can fall between them.
 
   - `id: string`
 
     Message identifier, prefixed `clsm_`. Stable for as long as the message's turn is retained: identifiers of retained turns do not change as older turns age out of the organization's retention period. The `retention_elapsed` placeholder's identifier is distinct from every retained turn's and changes only when further turns age out.
 
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
+  - `content: array of object or object or object`
 
     Content blocks within the message, discriminated on `type` (`text` / `tool_use` / `tool_result`: the same discriminator values as the claude.ai chat-messages endpoint; the tool variants omit `integration_name` and `mcp_server_url`, and `text` carries `truncated`). Extended-thinking content is never included. The request's `system` field is never included; a presence-only marker message is emitted when it was set. The request's `tools[]` definitions are never included as transcript messages. Project-level instructions (such as CLAUDE.md files) appear in the message stream as a user-role context block and are included. Empty when `provenance.type` is `content_unavailable`.
 
-    - `Text object { text, truncated, type }`
+    - `Text object`
 
       Text content block.
 
@@ -3103,11 +2324,13 @@ explicit 400; restart the walk to read under the current boundary.
 
         True when `text` was shortened by the server's fixed per-string bound (approximately 1 MiB), or when ancillary content the block carried (such as citations) was omitted, or when this block stands in for a non-text block whose content is not shown, or when it is an explanatory marker the server inserted (its text enclosed in square brackets, e.g. prefacing client-asserted history). There is no request parameter that raises the per-string bound.
 
+        default: false
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
-    - `ToolUse object { id, input, name, 2 more }`
+    - `ToolUse object`
 
       Tool invocation requested by the assistant.
 
@@ -3127,15 +2350,17 @@ explicit 400; restart the walk to read under the current boundary.
 
         True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request the server maximum.
 
+        default: false
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
 
-    - `ToolResult object { content, is_error, name, 3 more }`
+    - `ToolResult object`
 
       Result returned by a tool invocation.
 
-      - `content: array of object { text, type }`
+      - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted and signalled via `truncated` with an in-band item-count marker.
 
@@ -3145,7 +2370,7 @@ explicit 400; restart the walk to read under the current boundary.
 
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `is_error: boolean`
 
@@ -3163,31 +2388,39 @@ explicit 400; restart the walk to read under the current boundary.
 
         True when one or more text items in `content` were shortened or non-text items were omitted. Pass `tool_result_max_bytes=-1` to request the server maximum.
 
+        default: false
+
       - `type: "tool_result"`
 
-        - `"tool_result"`
+        default: tool_result
 
   - `created_at: string`
 
     When the message was recorded (RFC 3339, UTC)
 
-  - `provenance: object { reason, type }  or object { type }  or object { type }  or null`
+    format: date-time
+
+  - `model: string or null`
+
+    The model that served this assistant turn, as reported in the `model` field of the underlying Messages API response. Null on user messages and on any assistant message whose `provenance` is set: client-asserted history and synthetic markers were not produced by a model during this session, and for unavailable content the serving model is not known.
+
+  - `provenance: object or object or object or null`
 
     Where this turn's content came from, discriminated on `type`. Null (the common case) means verified content: on an assistant message, content Claude produced during this session; on a user message, content the user sent. `content_unavailable`: the turn's content cannot be returned and `content` is empty; `reason` says why. `client_asserted`: assistant content the client supplied as conversation history; `content` shows what the model received but its authorship is not verified; never on user-role messages. `synthetic_marker`: a transcript marker the endpoint generated rather than content either party sent during the session. Both `client_asserted` and `synthetic_marker` can result from normal request or client processing, not only client modification. Callers should tolerate unrecognized `type` values.
 
-    - `ContentUnavailable object { reason, type }`
+    - `ContentUnavailable object`
 
       The turn's content cannot be returned; `content` is empty.
 
       - `reason: string`
 
-        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
+        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `client_aborted` (the client closed the connection or cancelled the request before the response completed, so the response was not captured for this turn; any partial output already streamed to the client is not included; assistant-role turns only), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
 
       - `type: "content_unavailable"`
 
-        - `"content_unavailable"`
+        default: content_unavailable
 
-    - `ClientAsserted object { type }`
+    - `ClientAsserted object`
 
       Assistant content the client supplied as conversation history
       rather than produced by Claude during this session. `content` shows
@@ -3197,9 +2430,9 @@ explicit 400; restart the walk to read under the current boundary.
 
       - `type: "client_asserted"`
 
-        - `"client_asserted"`
+        default: client_asserted
 
-    - `SyntheticMarker object { type }`
+    - `SyntheticMarker object`
 
       A transcript marker generated by the endpoint rather than sent by
       either party during the session. Marker messages indicate that the
@@ -3213,7 +2446,7 @@ explicit 400; restart the walk to read under the current boundary.
 
       - `type: "synthetic_marker"`
 
-        - `"synthetic_marker"`
+        default: synthetic_marker
 
   - `role: "assistant" or "user"`
 
@@ -3225,13 +2458,13 @@ explicit 400; restart the walk to read under the current boundary.
 
   - `type: "compliance_local_session_message"`
 
-    - `"compliance_local_session_message"`
+    default: compliance_local_session_message
 
 - `next_page: string or null`
 
   Opaque pagination cursor (prefixed `page_`) for the next page. Null when there is no further page. Treat as an opaque string; the format may change without notice.
 
-- `session: object { id, created_at, organization_uuid, 4 more }`
+- `session: object`
 
   The local session the messages belong to. `user.email_address` is always null on this endpoint; the messages endpoint does not resolve email addresses.
 
@@ -3243,6 +2476,8 @@ explicit 400; restart the walk to read under the current boundary.
 
     Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the child organization the session belongs to
@@ -3253,9 +2488,15 @@ explicit 400; restart the walk to read under the current boundary.
 
   - `type: "compliance_local_session"`
 
-    - `"compliance_local_session"`
+    default: compliance_local_session
 
-  - `user: object { id, email_address }`
+  - `updated_at: string`
+
+    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+
+    format: date-time
+
+  - `user: object`
 
     The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
 
@@ -3271,14 +2512,14 @@ explicit 400; restart the walk to read under the current boundary.
 
     Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_ID/messages \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -3293,6 +2534,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
         }
       ],
       "created_at": "2025-03-12T18:22:41.123456Z",
+      "model": "claude-opus-5",
       "provenance": {
         "reason": "not_captured",
         "type": "content_unavailable"
@@ -3308,6 +2550,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
     "product_surface": "cowork",
     "type": "compliance_local_session",
+    "updated_at": "2025-03-12T18:22:41.123456Z",
     "user": {
       "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
       "email_address": "jane.doe@example.com"
@@ -3317,163 +2560,11 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
 }
 ```
 
-## Domain Types
+## Apps › Sessions › Remote
 
-### Message List Response
+### List remote sessions
 
-- `MessageListResponse object { id, content, created_at, 3 more }`
-
-  A single user or assistant turn in a local session transcript.
-
-  - `id: string`
-
-    Message identifier, prefixed `clsm_`. Stable for as long as the message's turn is retained: identifiers of retained turns do not change as older turns age out of the organization's retention period. The `retention_elapsed` placeholder's identifier is distinct from every retained turn's and changes only when further turns age out.
-
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
-
-    Content blocks within the message, discriminated on `type` (`text` / `tool_use` / `tool_result`: the same discriminator values as the claude.ai chat-messages endpoint; the tool variants omit `integration_name` and `mcp_server_url`, and `text` carries `truncated`). Extended-thinking content is never included. The request's `system` field is never included; a presence-only marker message is emitted when it was set. The request's `tools[]` definitions are never included as transcript messages. Project-level instructions (such as CLAUDE.md files) appear in the message stream as a user-role context block and are included. Empty when `provenance.type` is `content_unavailable`.
-
-    - `Text object { text, truncated, type }`
-
-      Text content block.
-
-      - `text: string`
-
-        Text content from the user or the assistant
-
-      - `truncated: boolean`
-
-        True when `text` was shortened by the server's fixed per-string bound (approximately 1 MiB), or when ancillary content the block carried (such as citations) was omitted, or when this block stands in for a non-text block whose content is not shown, or when it is an explanatory marker the server inserted (its text enclosed in square brackets, e.g. prefacing client-asserted history). There is no request parameter that raises the per-string bound.
-
-      - `type: "text"`
-
-        - `"text"`
-
-    - `ToolUse object { id, input, name, 2 more }`
-
-      Tool invocation requested by the assistant.
-
-      - `id: string or null`
-
-        Tool-use ID, e.g. 'toolu_01AbC...'
-
-      - `input: string`
-
-        Arguments passed to the tool, as a JSON-encoded string. May be shortened (see the `truncated` field); a truncated value is cut mid-document and is not valid JSON.
-
-      - `name: string`
-
-        Name of the tool invoked
-
-      - `truncated: boolean`
-
-        True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request the server maximum.
-
-      - `type: "tool_use"`
-
-        - `"tool_use"`
-
-    - `ToolResult object { content, is_error, name, 3 more }`
-
-      Result returned by a tool invocation.
-
-      - `content: array of object { text, type }`
-
-        Text content returned by the tool. Non-text item types are omitted and signalled via `truncated` with an in-band item-count marker.
-
-        - `text: string`
-
-          Text returned by the tool
-
-        - `type: "text"`
-
-          - `"text"`
-
-      - `is_error: boolean`
-
-        True when the tool reported an error
-
-      - `name: string`
-
-        Name of the tool that produced this result
-
-      - `tool_use_id: string or null`
-
-        ID of the tool_use block this result responds to
-
-      - `truncated: boolean`
-
-        True when one or more text items in `content` were shortened or non-text items were omitted. Pass `tool_result_max_bytes=-1` to request the server maximum.
-
-      - `type: "tool_result"`
-
-        - `"tool_result"`
-
-  - `created_at: string`
-
-    When the message was recorded (RFC 3339, UTC)
-
-  - `provenance: object { reason, type }  or object { type }  or object { type }  or null`
-
-    Where this turn's content came from, discriminated on `type`. Null (the common case) means verified content: on an assistant message, content Claude produced during this session; on a user message, content the user sent. `content_unavailable`: the turn's content cannot be returned and `content` is empty; `reason` says why. `client_asserted`: assistant content the client supplied as conversation history; `content` shows what the model received but its authorship is not verified; never on user-role messages. `synthetic_marker`: a transcript marker the endpoint generated rather than content either party sent during the session. Both `client_asserted` and `synthetic_marker` can result from normal request or client processing, not only client modification. Callers should tolerate unrecognized `type` values.
-
-    - `ContentUnavailable object { reason, type }`
-
-      The turn's content cannot be returned; `content` is empty.
-
-      - `reason: string`
-
-        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
-
-      - `type: "content_unavailable"`
-
-        - `"content_unavailable"`
-
-    - `ClientAsserted object { type }`
-
-      Assistant content the client supplied as conversation history
-      rather than produced by Claude during this session. `content` shows
-      what the model received but its authorship is not verified; this can
-      result from normal request or client processing, not only client
-      modification. Never on user-role messages.
-
-      - `type: "client_asserted"`
-
-        - `"client_asserted"`
-
-    - `SyntheticMarker object { type }`
-
-      A transcript marker generated by the endpoint rather than sent by
-      either party during the session. Marker messages indicate that the
-      prompt history diverged from what was captured, that the request's
-      `system` field was present but is not shown, or that
-      prompt-carried history was suppressed because the session spans the
-      child organization's retention boundary and those turns cannot be
-      placed against it (the marker's text names the cause). Markers that
-      report a mismatch with captured history can result from normal request
-      or client processing, not only client modification.
-
-      - `type: "synthetic_marker"`
-
-        - `"synthetic_marker"`
-
-  - `role: "assistant" or "user"`
-
-    Message sender (`user` or `assistant`)
-
-    - `"assistant"`
-
-    - `"user"`
-
-  - `type: "compliance_local_session_message"`
-
-    - `"compliance_local_session_message"`
-
-# Remote
-
-## List remote sessions
-
-**get** `/v1/compliance/apps/sessions/remote`
+**GET** `/v1/compliance/apps/sessions/remote`
 
 List remote sessions (Cowork sessions that run in Anthropic-managed
 cloud environments) across the organizations the key may read.
@@ -3493,33 +2584,45 @@ sessions per page (default 100, maximum 500). Pagination is
 forward-only: pass the response's `next_page` value back as `page` to
 retrieve the next page, and stop when `next_page` is null.
 
-### Query Parameters
+#### Query parameters
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter remote sessions created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter remote sessions created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter remote sessions created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter remote sessions created at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 500)
 
+  default: 100, maximum: 500, minimum: 1
+
 - `organization_ids: optional array of string`
 
   Filter to specific child organization identifiers. Omit to enumerate every child organization the key may read.
+
+  maxItems: 500
 
 - `page: optional string`
 
@@ -3529,13 +2632,15 @@ retrieve the next page, and stop when `next_page` is null.
 
   Filter to sessions owned by specific users (max 10 per request). Agent-owned sessions are excluded when this filter is set.
 
-### Header Parameters
+  maxItems: 10
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, agent_id, claude_project_id, 7 more }`
+- `data: array of object`
 
   - `id: string`
 
@@ -3553,6 +2658,8 @@ retrieve the next page, and stop when `next_page` is null.
 
     When the session was created (RFC 3339, UTC)
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the organization the session belongs to
@@ -3561,7 +2668,7 @@ retrieve the next page, and stop when `next_page` is null.
 
     The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
 
-  - `started_by_user: object { id, email_address }  or null`
+  - `started_by_user: object or null`
 
     A user associated with a remote session.
 
@@ -3581,7 +2688,9 @@ retrieve the next page, and stop when `next_page` is null.
 
     When the session was last modified (RFC 3339, UTC)
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     A user associated with a remote session.
 
@@ -3597,14 +2706,14 @@ retrieve the next page, and stop when `next_page` is null.
 
   Opaque page token; pass as `page` to retrieve the next page. Null when no rows exist after this page. Treat this value as opaque; do not parse or store it long-term, as the format may change without notice.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -3627,79 +2736,11 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
 }
 ```
 
-## Domain Types
+## Apps › Sessions › Remote › Messages
 
-### Remote List Response
+### Retrieve remote session messages
 
-- `RemoteListResponse object { id, agent_id, claude_project_id, 7 more }`
-
-  Metadata for one remote session, as returned in the list response
-  and in the messages response's `session` field.
-
-  Carries session attributes only, not transcript content. Use the
-  messages endpoint to retrieve a session's transcript.
-
-  - `id: string`
-
-    Remote session identifier
-
-  - `agent_id: string or null`
-
-    Identifier of the automated agent that owns the session. Null for user-owned sessions. At most one of `user` and `agent_id` is set.
-
-  - `claude_project_id: string or null`
-
-    ID of the project the session is bound to. Null when the session has no project binding.
-
-  - `created_at: string`
-
-    When the session was created (RFC 3339, UTC)
-
-  - `organization_uuid: string`
-
-    UUID of the organization the session belongs to
-
-  - `product_surface: string or null`
-
-    The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
-
-  - `started_by_user: object { id, email_address }  or null`
-
-    A user associated with a remote session.
-
-    - `id: string`
-
-      User identifier
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
-
-  - `status: string`
-
-    Session lifecycle state. One of `active`, `paused`, `archived`, or `failed` — the lifecycle states the owning product surface exposes — plus `pending`, a brief transient state that resolves before any transcript content exists. The list endpoint includes `pending`; the messages endpoint returns 404 for it. Deleted sessions are not returned on either endpoint. Treat unrecognized values as an unknown state rather than an error.
-
-  - `updated_at: string`
-
-    When the session was last modified (RFC 3339, UTC)
-
-  - `user: object { id, email_address }  or null`
-
-    A user associated with a remote session.
-
-    - `id: string`
-
-      User identifier
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
-
-# Messages
-
-## Retrieve remote session messages
-
-**get** `/v1/compliance/apps/sessions/remote/{claude_remote_session_id}/messages`
+**GET** `/v1/compliance/apps/sessions/remote/{claude_remote_session_id}/messages`
 
 Retrieve one remote session's transcript: user prompts, assistant
 responses, and tool calls and results. Thinking blocks and images are
@@ -3722,21 +2763,25 @@ Returns 404 while the session is still `pending`, for deleted sessions,
 and for sessions outside the organizations the key may read. A
 malformed session identifier returns 400.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_remote_session_id: string`
 
   The remote session identifier (`cse_...`) to retrieve
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 1000)
 
+  default: 100, maximum: 1000, minimum: 1
+
 - `order: optional "asc" or "desc"`
 
   Sort direction. `asc` (oldest-first) or `desc`.
+
+  default: asc
 
   - `"asc"`
 
@@ -3750,17 +2795,21 @@ malformed session identifier returns 400.
 
   Truncate each text item inside a tool result to at most this many bytes (cut on a code-point boundary). Pass `-1` to request the server maximum. `0` is not a valid value.
 
+  default: 10000, maximum: 2147483647, minimum: -1
+
 - `tool_use_input_max_bytes: optional number`
 
   Truncate each tool-use input to at most this many bytes (cut on a code-point boundary so the result is valid UTF-8). Pass `-1` to request the server maximum. `0` is not a valid value.
 
-### Header Parameters
+  default: 10000, maximum: 2147483647, minimum: -1
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, content, content_unavailable, 3 more }`
+- `data: array of object`
 
   Transcript turns for this page, ordered by transcript position. `created_at` is a commit timestamp and may tie or invert under concurrent writes; do not re-sort by it.
 
@@ -3768,11 +2817,11 @@ malformed session identifier returns 400.
 
     Unique identifier for the message, e.g. `csev_abc123`
 
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
+  - `content: array of object or object or object`
 
     Content blocks within the message
 
-    - `Text object { text, truncated, type }`
+    - `Text object`
 
       Text content block.
 
@@ -3784,11 +2833,13 @@ malformed session identifier returns 400.
 
         True when `text` exceeded the server-defined maximum (approximately 1 MiB) and was shortened.
 
+        default: false
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
-    - `ToolUse object { id, input, name, 2 more }`
+    - `ToolUse object`
 
       Tool invocation requested by the assistant.
 
@@ -3808,15 +2859,17 @@ malformed session identifier returns 400.
 
         True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request full content, subject to the server-side maximum.
 
+        default: false
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
 
-    - `ToolResult object { content, is_error, name, 3 more }`
+    - `ToolResult object`
 
       Result returned by a tool invocation.
 
-      - `content: array of object { text, type }`
+      - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted.
 
@@ -3826,7 +2879,7 @@ malformed session identifier returns 400.
 
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `is_error: boolean`
 
@@ -3844,17 +2897,23 @@ malformed session identifier returns 400.
 
         True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
 
+        default: false
+
       - `type: "tool_result"`
 
-        - `"tool_result"`
+        default: tool_result
 
   - `content_unavailable: boolean`
 
     True when the stored content could not be returned — it could not be decrypted, or it exceeded the server's per-event size bound. `content` is empty in that case; this distinguishes 'no content' from 'content withheld'.
 
+    default: false
+
   - `created_at: string`
 
     When the message was recorded (RFC 3339, UTC)
+
+    format: date-time
 
   - `role: "assistant" or "user"`
 
@@ -3872,7 +2931,7 @@ malformed session identifier returns 400.
 
   Opaque page token; pass as `page` to retrieve the next page. Null when no rows exist after this page. Treat this value as opaque; do not parse or store it long-term, as the format may change without notice.
 
-- `session: object { id, agent_id, claude_project_id, 7 more }`
+- `session: object`
 
   Session metadata. `started_by_user`, `user.email_address`, and `claude_project_id` are always null on this endpoint; the messages endpoint resolves neither email addresses nor project bindings.
 
@@ -3892,6 +2951,8 @@ malformed session identifier returns 400.
 
     When the session was created (RFC 3339, UTC)
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the organization the session belongs to
@@ -3900,7 +2961,7 @@ malformed session identifier returns 400.
 
     The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
 
-  - `started_by_user: object { id, email_address }  or null`
+  - `started_by_user: object or null`
 
     A user associated with a remote session.
 
@@ -3920,7 +2981,9 @@ malformed session identifier returns 400.
 
     When the session was last modified (RFC 3339, UTC)
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     A user associated with a remote session.
 
@@ -3932,14 +2995,14 @@ malformed session identifier returns 400.
 
       User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/remote/$CLAUDE_REMOTE_SESSION_ID/messages \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -3980,118 +3043,3 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote/$CLAUDE_REMOTE
   }
 }
 ```
-
-## Domain Types
-
-### Message List Response
-
-- `MessageListResponse object { id, content, content_unavailable, 3 more }`
-
-  A single user or assistant turn in a remote session transcript.
-
-  `content` is a discriminated union of `text`, `tool_use`, and
-  `tool_result` blocks.
-
-  - `id: string`
-
-    Unique identifier for the message, e.g. `csev_abc123`
-
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
-
-    Content blocks within the message
-
-    - `Text object { text, truncated, type }`
-
-      Text content block.
-
-      - `text: string`
-
-        Text content from the user or the assistant
-
-      - `truncated: boolean`
-
-        True when `text` exceeded the server-defined maximum (approximately 1 MiB) and was shortened.
-
-      - `type: "text"`
-
-        - `"text"`
-
-    - `ToolUse object { id, input, name, 2 more }`
-
-      Tool invocation requested by the assistant.
-
-      - `id: string or null`
-
-        Tool-use ID, e.g. 'toolu_01AbC...'
-
-      - `input: string`
-
-        Arguments passed to the tool, as a JSON-encoded string. May be shortened — see the `truncated` field
-
-      - `name: string`
-
-        Name of the tool invoked
-
-      - `truncated: boolean`
-
-        True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request full content, subject to the server-side maximum.
-
-      - `type: "tool_use"`
-
-        - `"tool_use"`
-
-    - `ToolResult object { content, is_error, name, 3 more }`
-
-      Result returned by a tool invocation.
-
-      - `content: array of object { text, type }`
-
-        Text content returned by the tool. Non-text item types are omitted.
-
-        - `text: string`
-
-          Text returned by the tool
-
-        - `type: "text"`
-
-          - `"text"`
-
-      - `is_error: boolean`
-
-        True when the tool reported an error
-
-      - `name: string`
-
-        Name of the tool that produced this result
-
-      - `tool_use_id: string or null`
-
-        ID of the tool_use block this result responds to
-
-      - `truncated: boolean`
-
-        True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
-
-      - `type: "tool_result"`
-
-        - `"tool_result"`
-
-  - `content_unavailable: boolean`
-
-    True when the stored content could not be returned — it could not be decrypted, or it exceeded the server's per-event size bound. `content` is empty in that case; this distinguishes 'no content' from 'content withheld'.
-
-  - `created_at: string`
-
-    When the message was recorded (RFC 3339, UTC)
-
-  - `role: "assistant" or "user"`
-
-    Message sender (`user` or `assistant`)
-
-    - `"assistant"`
-
-    - `"user"`
-
-  - `sent_by_user_id: string or null`
-
-    Identifier of the human account that sent this turn on an agent-owned session. Null on user-owned sessions, where every user-role turn was sent by the session's `user`.

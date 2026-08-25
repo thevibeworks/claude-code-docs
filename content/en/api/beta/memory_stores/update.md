@@ -1,19 +1,14 @@
----
-title: Update a memory store
-url: https://platform.claude.com/docs/en/api/beta/memory_stores/update
----
+# Update a memory store
 
-## Update a memory store
-
-**post** `/v1/memory_stores/{memory_store_id}`
+**POST** `/v1/memory_stores/{memory_store_id}`
 
 Update a memory store
 
-### Path Parameters
+## Path parameters
 
 - `memory_store_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -91,11 +86,13 @@ Update a memory store
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Body Parameters
+## Body parameters
 
 - `description: optional string or null`
 
   New description for the store, up to 1024 characters. Pass an empty string to clear it.
+
+  maxLength: 1024
 
 - `metadata: optional map[string] or null`
 
@@ -105,9 +102,11 @@ Update a memory store
 
   New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
 
-### Returns
+  minLength: 1, maxLength: 255
 
-- `BetaManagedAgentsMemoryStore object { id, created_at, name, 5 more }`
+## Returns
+
+- `BetaManagedAgentsMemoryStore object`
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
@@ -119,21 +118,25 @@ Update a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: string`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: "memory_store"`
 
-    - `"memory_store"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: optional string`
 
@@ -143,9 +146,9 @@ Update a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -154,7 +157,7 @@ curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID \
     -d '{}'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

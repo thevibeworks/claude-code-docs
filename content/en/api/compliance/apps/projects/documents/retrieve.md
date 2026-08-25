@@ -1,25 +1,20 @@
----
-title: Get project document content
-url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/retrieve
----
+# Get project document content
 
-## Get project document content
-
-**get** `/v1/compliance/apps/projects/documents/{document_id}`
+**GET** `/v1/compliance/apps/projects/documents/{document_id}`
 
 Get detailed information for a specific project document.
 
-### Path Parameters
+## Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
 - `id: string`
 
@@ -33,11 +28,13 @@ Get detailed information for a specific project document.
 
   Document creation timestamp
 
+  format: date-time
+
 - `filename: string`
 
   Document filename
 
-- `user: object { id, email_address }  or null`
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -53,14 +50,14 @@ Get detailed information for a specific project document.
 
     User's email address
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

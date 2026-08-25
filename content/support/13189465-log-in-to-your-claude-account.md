@@ -2,7 +2,7 @@
 
 When you open Claude on a web browser ([claude.ai](http://claude.ai)), the desktop app, or a mobile app, you will see two different options for logging in to your Claude account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893216804/f2209c3ec6cf4fc2e803d13bbc9d/40520c9e-ff82-4a7c-adca-5a064fe18d8c?expires=1787589900&amp;signature=a78a6e75b5904fcddb510ceb59f306e0a636f250707fa0ba9fb87dfc667c01a9&amp;req=dSguFct%2Fm4lfXfMW1HO4zXg5BoWJ6xu9zWhrqpWiTMk0bSqExn1QnSgV4%2F2h%0AKOqF0dsv%2FWRq2rMHpKg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893216804/f2209c3ec6cf4fc2e803d13bbc9d/40520c9e-ff82-4a7c-adca-5a064fe18d8c?expires=1787625900&amp;signature=f930424c12c437bafed7621c6e799d9ac11dc54a1b9904a9e1e99e1285846965&amp;req=dSguFct%2Fm4lfXfMW1HO4zXg5BoWK4Re9zWhrqpWiTMlT3fFiS3eYG%2F2KQ7Y4%0AtD0q7t9bSQVMBZuq2Kk%3D%0A)
 
 ## Continue with Google
 

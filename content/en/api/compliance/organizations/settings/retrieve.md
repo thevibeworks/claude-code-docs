@@ -1,11 +1,6 @@
----
-title: Get effective organization settings
-url: https://platform.claude.com/docs/en/api/compliance/organizations/settings/retrieve
----
+# Get effective organization settings
 
-## Get effective organization settings
-
-**get** `/v1/compliance/organizations/{organization_id}/settings`
+**GET** `/v1/compliance/organizations/{organization_id}/settings`
 
 Retrieve the effective settings for an organization.
 
@@ -18,19 +13,19 @@ policy or not available to the organization) are omitted from the list.
 The organization must belong to the API key's organization hierarchy;
 unknown organizations and organizations outside the hierarchy return 404.
 
-### Path Parameters
+## Path parameters
 
 - `organization_id: string`
 
   The organization's UUID
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
-- `api_keys: array of object { id, created_at, created_by_id, 5 more }`
+- `api_keys: array of object`
 
   Compliance API keys configured for the organization hierarchy, ordered by creation time ascending. Key secret values are never included.
 
@@ -41,6 +36,8 @@ unknown organizations and organizations outside the hierarchy return 404.
   - `created_at: string`
 
     When the key was created.
+
+    format: date-time
 
   - `created_by_id: string or null`
 
@@ -62,19 +59,21 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     When the key will stop authenticating, or null when the key does not expire.
 
+    format: date-time
+
   - `type: optional "compliance_api_key"`
 
-    - `"compliance_api_key"`
+    default: compliance_api_key
 
 - `organization_id: string`
 
-- `settings: array of object { name, value, type }  or object { name, value, type }  or object { name, value, type }  or 3 more`
+- `settings: array of object or object or object or 3 more`
 
-  - `Boolean object { name, value, type }`
+  - `Boolean object`
 
     A setting whose enforced value is a single true/false flag.
 
-    - `name: "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or "artifact_connectors_enabled" or 43 more`
+    - `name: "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or "artifact_connectors_enabled" or 44 more`
 
       - `"ai_powered_artifacts_enabled"`
 
@@ -134,6 +133,8 @@ unknown organizations and organizations outside the hierarchy return 404.
 
       - `"frontier_data_use_enabled"`
 
+      - `"group_skill_sharing_enabled"`
+
       - `"hipaa_compliance_enabled"`
 
       - `"inline_visualizations_enabled"`
@@ -172,24 +173,22 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     - `type: optional "boolean"`
 
-      - `"boolean"`
+      default: boolean
 
-  - `Integer object { name, value, type }`
+  - `Integer object`
 
     A setting whose enforced value is a whole number; null means no limit
     is in force.
 
     - `name: "account_session_duration_seconds"`
 
-      - `"account_session_duration_seconds"`
-
     - `value: number or null`
 
     - `type: optional "integer"`
 
-      - `"integer"`
+      default: integer
 
-  - `String object { name, value, type }`
+  - `String object`
 
     A setting whose enforced value is a single string; null means no value
     is configured.
@@ -204,9 +203,9 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     - `type: optional "string"`
 
-      - `"string"`
+      default: string
 
-  - `StringList object { name, value, type }`
+  - `StringList object`
 
     A setting whose enforced value is a list of strings.
 
@@ -222,9 +221,9 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     - `type: optional "string_list"`
 
-      - `"string_list"`
+      default: string_list
 
-  - `ProvisioningMode object { value, name, type }`
+  - `ProvisioningMode object`
 
     How organization members are provisioned, resolved to the enforced mode.
 
@@ -249,13 +248,13 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     - `name: optional "sso_provisioning_mode"`
 
-      - `"sso_provisioning_mode"`
+      default: sso_provisioning_mode
 
     - `type: optional "provisioning_mode"`
 
-      - `"provisioning_mode"`
+      default: provisioning_mode
 
-  - `DataRetention object { value, name, type }`
+  - `DataRetention object`
 
     The data retention periods in force, keyed by the type of data they
     apply to.
@@ -265,9 +264,9 @@ unknown organizations and organizations outside the hierarchy return 404.
     administrator-configured retention period is in force for that data type;
     Anthropic's service defaults may still apply.
 
-    - `value: map[object { duration, timescale, type }  or object { type } ]`
+    - `value: map[object or object]`
 
-      - `Fixed object { duration, timescale, type }`
+      - `Fixed object`
 
         A fixed retention window measured from each item's last activity.
 
@@ -281,36 +280,36 @@ unknown organizations and organizations outside the hierarchy return 404.
 
         - `type: optional "fixed"`
 
-          - `"fixed"`
+          default: fixed
 
-      - `Indefinite object { type }`
+      - `Indefinite object`
 
         An indefinite retention period: data is kept with no time limit.
 
         - `type: optional "indefinite"`
 
-          - `"indefinite"`
+          default: indefinite
 
     - `name: optional "data_retention_periods"`
 
-      - `"data_retention_periods"`
+      default: data_retention_periods
 
     - `type: optional "data_retention"`
 
-      - `"data_retention"`
+      default: data_retention
 
 - `type: optional "effective_organization_settings"`
 
-  - `"effective_organization_settings"`
+  default: effective_organization_settings
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/settings \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

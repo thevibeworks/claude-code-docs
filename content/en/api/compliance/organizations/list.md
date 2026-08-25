@@ -1,11 +1,6 @@
----
-title: List organizations
-url: https://platform.claude.com/docs/en/api/compliance/organizations/list
----
+# List organizations
 
-## List organizations
-
-**get** `/v1/compliance/organizations`
+**GET** `/v1/compliance/organizations`
 
 List organizations under the parent organization.
 
@@ -13,23 +8,25 @@ Returns organizations sorted by creation date in ascending order. Use
 `limit` and `page` to paginate: each response includes `has_more` and a
 `next_page` token to pass on the next request.
 
-### Query Parameters
+## Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 1000, max: 1000)
 
+  default: 1000, maximum: 1000, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
-- `data: array of object { created_at, name, uuid }`
+- `data: array of object`
 
   List of organizations sorted by creation date, ascending
 
@@ -53,14 +50,14 @@ Returns organizations sorted by creation date in ascending order. Use
 
   Token to retrieve the next page. Use this as the 'page' parameter in your next request
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/organizations \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

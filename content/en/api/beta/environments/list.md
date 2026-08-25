@@ -1,29 +1,28 @@
----
-title: List Environments
-url: https://platform.claude.com/docs/en/api/beta/environments/list
----
+# List Environments
 
-## List Environments
-
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
-### Query Parameters
+## Query parameters
 
 - `include_archived: optional boolean`
 
   Include archived environments in the response
 
+  default: false
+
 - `limit: optional number`
 
   Maximum number of environments to return
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `page: optional string`
 
   Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -101,7 +100,7 @@ List environments with pagination support.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `data: array of BetaEnvironment`
 
@@ -119,7 +118,7 @@ List environments with pagination support.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `BetaCloudConfig object { networking, packages, type }`
+    - `BetaCloudConfig object`
 
       `cloud` environment configuration.
 
@@ -127,7 +126,7 @@ List environments with pagination support.
 
         Network configuration policy.
 
-        - `BetaUnrestrictedNetwork object { type }`
+        - `BetaUnrestrictedNetwork object`
 
           Unrestricted network access.
 
@@ -135,9 +134,7 @@ List environments with pagination support.
 
             Network policy type
 
-            - `"unrestricted"`
-
-        - `BetaLimitedNetwork object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+        - `BetaLimitedNetwork object`
 
           Limited network access.
 
@@ -156,8 +153,6 @@ List environments with pagination support.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -191,23 +186,19 @@ List environments with pagination support.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: "cloud"`
 
         Environment type
 
-        - `"cloud"`
-
-    - `BetaSelfHostedConfig object { type }`
+    - `BetaSelfHostedConfig object`
 
       Configuration for self-hosted environments.
 
       - `type: "self_hosted"`
 
         Environment type
-
-        - `"self_hosted"`
 
   - `created_at: string`
 
@@ -229,7 +220,7 @@ List environments with pagination support.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: string`
 
@@ -247,16 +238,16 @@ List environments with pagination support.
 
   Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

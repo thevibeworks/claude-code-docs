@@ -60,7 +60,7 @@ This approach is best for:
 
 **Claude Opus 5** (`claude-opus-5`) is a step-change improvement over Claude Opus 4.8, strong on deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. Claude Opus 5 supports a 1M token context window by default and up to 128k output tokens, and is priced at $5 USD per million input tokens and $25 USD per million output tokens.
 
-**Claude Fable 5** (`claude-fable-5`) is Anthropic's most capable widely released model, delivering next-generation intelligence for long-running agents. **Claude Mythos 5** (`claude-mythos-5`) is available through [Project Glasswing](https://anthropic.com/glasswing). Both models support a 1M token context window by default, up to 128k output tokens, and always-on [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking). See [Introducing Claude Fable 5 and Claude Mythos 5](https://platform.claude.com/docs/en/about-claude/models/introducing-claude-fable-5-and-claude-mythos-5) for launch details.
+**Claude Fable 5** (`claude-fable-5`) is Anthropic's most capable widely released model, delivering next-generation intelligence for long-running agents. **Claude Mythos 5** (`claude-mythos-5`) is available through [Project Glasswing](https://anthropic.com/glasswing). Both models support a 1M token context window by default, up to 128k output tokens, and always-on [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking). See [Introducing Claude Fable 5 and Claude Mythos 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5) for launch details.
 
 Claude Fable 5 and Claude Mythos 5 are priced at $10 USD per million input tokens and $50 USD per million output tokens.
 
@@ -98,15 +98,15 @@ Multi-model strategies pair a lower-cost model with a frontier model so that mos
 ## Next steps
 
 <CardGroup cols={2}>
-  <Card title="Model comparison chart" icon="settings" href="https://platform.claude.com/docs/en/about-claude/models/overview">
+  <Card title="Model comparison chart" icon="settings" href="https://platform.claude.com/docs/en/models/overview">
     See detailed specifications and pricing for the latest Claude models
   </Card>
 
-  <Card title="What's new in Claude Opus 5" icon="sparkle" href="https://platform.claude.com/docs/en/about-claude/models/whats-new-opus-5">
+  <Card title="What's new in Claude Opus 5" icon="sparkle" href="https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5">
     Explore the latest improvements in Claude Opus 5
   </Card>
 
-  <Card title="What's new in Claude Sonnet 5" icon="sparkle" href="https://platform.claude.com/docs/en/about-claude/models/whats-new-sonnet-5">
+  <Card title="What's new in Claude Sonnet 5" icon="sparkle" href="https://platform.claude.com/docs/en/models/sonnet-5/whats-new-sonnet-5">
     The best combination of speed and intelligence
   </Card>
 

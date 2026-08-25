@@ -1,19 +1,14 @@
----
-title: Update User Profile
-url: https://platform.claude.com/docs/en/api/beta/user_profiles/update
----
+# Update User Profile
 
-## Update User Profile
-
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
-### Path Parameters
+## Path parameters
 
 - `user_profile_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -91,7 +86,7 @@ Update User Profile
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Body Parameters
+## Body parameters
 
 - `access_type: optional "application" or "passthrough" or null`
 
@@ -105,6 +100,8 @@ Update User Profile
 
   If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `metadata: optional map[string]`
 
   Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -112,6 +109,8 @@ Update User Profile
 - `name: optional string or null`
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `relationship: optional "external" or "resold" or "internal" or null`
 
@@ -123,9 +122,9 @@ Update User Profile
 
   - `"internal"`
 
-### Returns
+## Returns
 
-- `BetaUserProfile object { id, created_at, metadata, 7 more }`
+- `BetaUserProfile object`
 
   - `id: string`
 
@@ -134,6 +133,8 @@ Update User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -157,11 +158,11 @@ Update User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -189,9 +190,9 @@ Update User Profile
 
     - `"internal"`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -202,7 +203,7 @@ curl https://api.anthropic.com/v1/user_profiles/$USER_PROFILE_ID \
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

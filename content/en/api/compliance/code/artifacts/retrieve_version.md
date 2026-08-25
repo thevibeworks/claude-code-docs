@@ -1,11 +1,6 @@
----
-title: Download Code Artifact Version Content
-url: https://platform.claude.com/docs/en/api/compliance/code/artifacts/retrieve_version
----
+# Download Code Artifact Version Content
 
-## Download Code Artifact Version Content
-
-**get** `/v1/compliance/apps/code/artifacts/{artifact_id}/versions/{version_id}`
+**GET** `/v1/compliance/apps/code/artifacts/{artifact_id}/versions/{version_id}`
 
 Streams the content of one version of a Claude Code Artifact as the
 response body.
@@ -20,7 +15,7 @@ but the body terminates early — an aborted chunked transfer is the
 only truncation signal for encoded content. `Content-MD5` is emitted
 only for identity-stored content; validate against it when present.
 
-### Path Parameters
+## Path parameters
 
 - `artifact_id: string`
 
@@ -30,13 +25,13 @@ only for identity-stored content; validate against it when present.
 
   Opaque version identifier from the Artifact's `versions` list
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/code/artifacts/$ARTIFACT_ID/versions/$VERSION_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```

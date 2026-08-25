@@ -1,21 +1,16 @@
----
-title: Get Session Resource
-url: https://platform.claude.com/docs/en/api/beta/sessions/resources/retrieve
----
+# Get Session Resource
 
-## Get Session Resource
-
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
-### Path Parameters
+## Path parameters
 
 - `session_id: string`
 
 - `resource_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -93,57 +88,61 @@ Get Session Resource
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsGitHubRepositoryResource object { id, created_at, mount_path, 4 more }`
+- `BetaManagedAgentsGitHubRepositoryResource object`
 
   - `id: string`
 
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `mount_path: string`
 
   - `type: "github_repository"`
 
-    - `"github_repository"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `url: string`
 
   - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
-    - `BetaManagedAgentsBranchCheckout object { name, type }`
+    - `BetaManagedAgentsBranchCheckout object`
 
       - `name: string`
 
         Branch name to check out.
 
+        minLength: 1, maxLength: 255
+
       - `type: "branch"`
 
-        - `"branch"`
-
-    - `BetaManagedAgentsCommitCheckout object { sha, type }`
+    - `BetaManagedAgentsCommitCheckout object`
 
       - `sha: string`
 
         Full commit SHA to check out.
 
+        minLength: 7, maxLength: 64
+
       - `type: "commit"`
 
-        - `"commit"`
-
-- `BetaManagedAgentsFileResource object { id, created_at, file_id, 3 more }`
+- `BetaManagedAgentsFileResource object`
 
   - `id: string`
 
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `file_id: string`
 
@@ -151,13 +150,13 @@ Get Session Resource
 
   - `type: "file"`
 
-    - `"file"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-- `BetaManagedAgentsMemoryStoreResource object { memory_store_id, type, access, 4 more }`
+    format: date-time
+
+- `BetaManagedAgentsMemoryStoreResource object`
 
   A memory store attached to an agent session.
 
@@ -166,8 +165,6 @@ Get Session Resource
     The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
   - `type: "memory_store"`
-
-    - `"memory_store"`
 
   - `access: optional "read_write" or "read_only" or null`
 
@@ -185,6 +182,8 @@ Get Session Resource
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+    maxLength: 4096
+
   - `mount_path: optional string or null`
 
     Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -193,16 +192,16 @@ Get Session Resource
 
     Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

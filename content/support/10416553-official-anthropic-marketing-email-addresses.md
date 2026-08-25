@@ -8,8 +8,6 @@ To help you identify legitimate marketing communications from Anthropic, all our
 
 - <notice@email.anthropic.com>
 
-- <support@mail.anthropic.com>
-
 - <anthropic-team@mail.anthropic.com>
 
 - <sales@mail.anthropic.com>
@@ -20,4 +18,4 @@ To help you identify legitimate marketing communications from Anthropic, all our
 
 Please note that these addresses are outbound only with unmonitored inboxes.
 
-Concerned about an email you received? Visit our [How to Get Support](https://support.claude.com/en/articles/9015913-how-to-get-support) guide to understand your options for further assistance.
+Concerned about an email you received? Visit our **[How to get support](https://support.claude.com/en/articles/9015913-how-to-get-support)** guide to understand your options for further assistance.

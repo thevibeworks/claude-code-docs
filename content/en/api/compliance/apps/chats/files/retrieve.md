@@ -1,27 +1,22 @@
----
-title: Get file metadata
-url: https://platform.claude.com/docs/en/api/compliance/apps/chats/files/retrieve
----
+# Get file metadata
 
-## Get file metadata
-
-**get** `/v1/compliance/apps/chats/files/{claude_file_id}`
+**GET** `/v1/compliance/apps/chats/files/{claude_file_id}`
 
 Retrieves metadata for a file referenced in chat messages, without
 downloading the file content. Use the sibling `/content` endpoint to
 download the bytes.
 
-### Path Parameters
+## Path parameters
 
 - `claude_file_id: string`
 
   The file ID (tagged ID, e.g., claude_file_abc123)
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
 - `id: string`
 
@@ -34,6 +29,8 @@ download the bytes.
 - `created_at: string`
 
   File creation timestamp
+
+  format: date-time
 
 - `filename: string or null`
 
@@ -55,14 +52,14 @@ download the bytes.
 
   Size in bytes of the file's preferred downloadable variant, if known
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/chats/files/$CLAUDE_FILE_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

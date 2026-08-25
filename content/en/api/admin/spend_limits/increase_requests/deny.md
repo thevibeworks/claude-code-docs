@@ -1,34 +1,29 @@
----
-title: Deny Spend Limit Increase Request
-url: https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests/deny
----
+# Deny Spend Limit Increase Request
 
-## Deny Spend Limit Increase Request
-
-**post** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}/deny`
+**POST** `/v1/organizations/spend_limit_increase_requests/{spend_limit_increase_request_id}/deny`
 
 Deny a pending spend limit increase request.
 
 Idempotent on `denied`; denying an already-`approved` request returns
 400. Anthropic emails the requester unless `suppress_notification` is set.
 
-### Path Parameters
+## Path parameters
 
 - `spend_limit_increase_request_id: string`
 
   ID of the spend limit increase request.
 
-### Body Parameters
+## Body parameters
 
 - `suppress_notification: optional boolean`
 
-### Returns
+## Returns
 
-- `SpendLimitIncreaseRequest object { id, actor, created_at, 6 more }`
+- `SpendLimitIncreaseRequest object`
 
   - `id: string`
 
-  - `actor: object { deleted, email_address, name, 2 more }`
+  - `actor: object`
 
     A user within the organization. `name` and `email_address` are
     null when the underlying account is unavailable or has been deleted;
@@ -36,17 +31,21 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
     - `deleted: boolean`
 
+      default: false
+
     - `email_address: string or null`
 
     - `name: string or null`
 
     - `type: "user_actor"`
 
-      - `"user_actor"`
+      default: user_actor
 
     - `user_id: string`
 
   - `created_at: string`
+
+    format: date-time
 
   - `period: "daily" or "monthly" or "weekly"`
 
@@ -58,13 +57,15 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
   - `resolved_at: string or null`
 
-  - `resolved_by: object { deleted, email_address, name, 2 more }  or object { scoped_api_key_id, type }  or null`
+    format: date-time
+
+  - `resolved_by: object or object or null`
 
     A user within the organization. `name` and `email_address` are
     null when the underlying account is unavailable or has been deleted;
     `deleted` is true only for deleted accounts.
 
-    - `UserActor object { deleted, email_address, name, 2 more }`
+    - `UserActor object`
 
       A user within the organization. `name` and `email_address` are
       null when the underlying account is unavailable or has been deleted;
@@ -72,17 +73,19 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
       - `deleted: boolean`
 
+        default: false
+
       - `email_address: string or null`
 
       - `name: string or null`
 
       - `type: "user_actor"`
 
-        - `"user_actor"`
+        default: user_actor
 
       - `user_id: string`
 
-    - `ScopedAPIKeyActor object { scoped_api_key_id, type }`
+    - `ScopedAPIKeyActor object`
 
       A scoped Admin API key acting on behalf of the organization.
 
@@ -90,13 +93,13 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
       - `type: "scoped_api_key_actor"`
 
-        - `"scoped_api_key_actor"`
+        default: scoped_api_key_actor
 
   - `spend_summary: SpendSummary or null`
 
     Per-member effective-limit report row (GET /spend_limits/effective).
 
-    - `actor: object { deleted, email_address, name, 2 more }`
+    - `actor: object`
 
       A user within the organization. `name` and `email_address` are
       null when the underlying account is unavailable or has been deleted;
@@ -104,13 +107,15 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
       - `deleted: boolean`
 
+        default: false
+
       - `email_address: string or null`
 
       - `name: string or null`
 
       - `type: "user_actor"`
 
-        - `"user_actor"`
+        default: user_actor
 
       - `user_id: string`
 
@@ -134,53 +139,53 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
       The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-    - `scope: object { type, user_id }`
+    - `scope: object`
 
       - `type: "user"`
 
-        - `"user"`
+        default: user
 
       - `user_id: string`
 
-    - `source: object { type, user_id }  or object { seat_tier, type }  or object { rbac_group_id, type }  or 2 more`
+    - `source: object or object or object or 2 more`
 
-      - `User object { type, user_id }`
+      - `User object`
 
         - `type: "user"`
 
-          - `"user"`
+          default: user
 
         - `user_id: string`
 
-      - `SeatTier object { seat_tier, type }`
+      - `SeatTier object`
 
         - `seat_tier: string`
 
         - `type: "seat_tier"`
 
-          - `"seat_tier"`
+          default: seat_tier
 
-      - `RbacGroup object { rbac_group_id, type }`
+      - `RbacGroup object`
 
         - `rbac_group_id: string`
 
         - `type: "rbac_group"`
 
-          - `"rbac_group"`
+          default: rbac_group
 
-      - `OrganizationService object { service, type }`
+      - `OrganizationService object`
 
         - `service: string`
 
         - `type: "organization_service"`
 
-          - `"organization_service"`
+          default: organization_service
 
-      - `Organization object { type }`
+      - `Organization object`
 
         - `type: "organization"`
 
-          - `"organization"`
+          default: organization
 
     - `spend_limit_id: string`
 
@@ -194,11 +199,11 @@ Idempotent on `denied`; denying an already-`approved` request returns
 
   - `type: "spend_limit_increase_request"`
 
-    - `"spend_limit_increase_request"`
+    default: spend_limit_increase_request
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/spend_limit_increase_requests/$SPEND_LIMIT_INCREASE_REQUEST_ID/deny \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -206,7 +211,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limit_increase_requests/$S
     -d '{}'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

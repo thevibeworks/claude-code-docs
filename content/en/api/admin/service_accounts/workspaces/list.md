@@ -1,11 +1,6 @@
----
-title: List Workspaces For Service Account
-url: https://platform.claude.com/docs/en/api/admin/service_accounts/workspaces/list
----
+# List Workspaces For Service Account
 
-## List Workspaces For Service Account
-
-**get** `/v1/organizations/service_accounts/{service_account_id}/workspaces`
+**GET** `/v1/organizations/service_accounts/{service_account_id}/workspaces`
 
 List the workspaces a service account is a member of.
 
@@ -19,23 +14,25 @@ can be derived. Memberships are returned only while
 the service account is active; an archived service account returns an
 empty list.
 
-### Path Parameters
+## Path parameters
 
 - `service_account_id: string`
 
   ID of the service account.
 
-### Query Parameters
+## Query parameters
 
 - `limit: optional number`
 
   Number of results per page.
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque cursor from a previous response's `next_page`.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -43,9 +40,9 @@ empty list.
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
-- `data: array of object { created_by_actor_id, implicit, service_account_id, 3 more }`
+- `data: array of object`
 
   - `created_by_actor_id: string or null`
 
@@ -61,7 +58,7 @@ empty list.
 
   - `type: "service_account_workspace_member"`
 
-    - `"service_account_workspace_member"`
+    default: service_account_workspace_member
 
   - `workspace_id: string`
 
@@ -85,15 +82,15 @@ empty list.
 
   Opaque cursor for the next page, or null if no more results.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUNT_ID/workspaces \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

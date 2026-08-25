@@ -1,15 +1,10 @@
----
-title: Create Skill Version
-url: https://platform.claude.com/docs/en/api/skills/versions/create
----
+# Create Skill Version
 
-## Create Skill Version
-
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Path Parameters
+## Path parameters
 
 - `skill_id: string`
 
@@ -17,9 +12,17 @@ Create Skill Version
 
   The format and length of IDs may change over time.
 
-### Returns
+## Body parameters (form-data)
 
-- `SkillVersion object { id, created_at, description, 3 more }`
+- `files: array of string`
+
+  Files to upload for the skill.
+
+  All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
+
+## Returns
+
+- `SkillVersion object`
 
   - `id: string`
 
@@ -29,6 +32,8 @@ Create Skill Version
   - `created_at: string`
 
     ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `description: string`
 
@@ -55,11 +60,11 @@ Create Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
-    - `"skill_version"`
+    default: skill_version
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
     -H 'Content-Type: multipart/form-data' \
     -H 'anthropic-version: 2023-06-01' \
@@ -67,7 +72,7 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
     -F files='["Example data"]'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

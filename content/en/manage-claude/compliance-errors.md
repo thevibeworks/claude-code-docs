@@ -122,7 +122,7 @@ The API key provided is invalid or has been revoked.
 
 ## 403 Forbidden
 
-The key in `x-api-key` is valid but does not carry the scope the endpoint requires. The verbatim message lists the scopes the key carries (`Got:`) and the scopes the endpoint requires (`Needed:`), so you can confirm what the key carries without rechecking Claude Console or claude.ai. Compliance Access Key scopes are immutable after creation, so each insufficient-scope fix directs you to create a new key rather than edit the existing one.
+The key in `x-api-key` is valid but does not carry the scope the endpoint requires. The verbatim message lists the scopes the key carries (`Got:`) and the scopes the endpoint requires (`Needed:`), so you can confirm what the key carries without rechecking Claude Console or claude.ai. Compliance Access Key scopes are immutable after creation, so each insufficient-scope fix directs you to create a new key rather than edit the existing one. A standalone Claude Console organization (one with no parent organization) cannot create a Compliance Access Key, so fixes that require one do not apply to it; it can query the Activity Feed only.
 
 ### Insufficient scope: Activity Feed
 

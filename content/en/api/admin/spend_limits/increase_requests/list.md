@@ -1,24 +1,21 @@
----
-title: List Spend Limit Increase Requests
-url: https://platform.claude.com/docs/en/api/admin/spend_limits/increase_requests/list
----
+# List Spend Limit Increase Requests
 
-## List Spend Limit Increase Requests
-
-**get** `/v1/organizations/spend_limit_increase_requests`
+**GET** `/v1/organizations/spend_limit_increase_requests`
 
 List spend limit increase requests, most recent first.
 
 Pending requests include a live `spend_summary` for the requester.
 Requests whose requester is no longer a member are excluded.
 
-### Query Parameters
+## Query parameters
 
 - `actor_ids: optional array of string`
 
   Filter by requester, as `user_...` tagged IDs.
 
 - `limit: optional number`
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `page: optional string`
 
@@ -34,13 +31,13 @@ Requests whose requester is no longer a member are excluded.
 
   - `"pending"`
 
-### Returns
+## Returns
 
 - `data: array of SpendLimitIncreaseRequest`
 
   - `id: string`
 
-  - `actor: object { deleted, email_address, name, 2 more }`
+  - `actor: object`
 
     A user within the organization. `name` and `email_address` are
     null when the underlying account is unavailable or has been deleted;
@@ -48,17 +45,21 @@ Requests whose requester is no longer a member are excluded.
 
     - `deleted: boolean`
 
+      default: false
+
     - `email_address: string or null`
 
     - `name: string or null`
 
     - `type: "user_actor"`
 
-      - `"user_actor"`
+      default: user_actor
 
     - `user_id: string`
 
   - `created_at: string`
+
+    format: date-time
 
   - `period: "daily" or "monthly" or "weekly"`
 
@@ -70,13 +71,15 @@ Requests whose requester is no longer a member are excluded.
 
   - `resolved_at: string or null`
 
-  - `resolved_by: object { deleted, email_address, name, 2 more }  or object { scoped_api_key_id, type }  or null`
+    format: date-time
+
+  - `resolved_by: object or object or null`
 
     A user within the organization. `name` and `email_address` are
     null when the underlying account is unavailable or has been deleted;
     `deleted` is true only for deleted accounts.
 
-    - `UserActor object { deleted, email_address, name, 2 more }`
+    - `UserActor object`
 
       A user within the organization. `name` and `email_address` are
       null when the underlying account is unavailable or has been deleted;
@@ -84,17 +87,19 @@ Requests whose requester is no longer a member are excluded.
 
       - `deleted: boolean`
 
+        default: false
+
       - `email_address: string or null`
 
       - `name: string or null`
 
       - `type: "user_actor"`
 
-        - `"user_actor"`
+        default: user_actor
 
       - `user_id: string`
 
-    - `ScopedAPIKeyActor object { scoped_api_key_id, type }`
+    - `ScopedAPIKeyActor object`
 
       A scoped Admin API key acting on behalf of the organization.
 
@@ -102,13 +107,13 @@ Requests whose requester is no longer a member are excluded.
 
       - `type: "scoped_api_key_actor"`
 
-        - `"scoped_api_key_actor"`
+        default: scoped_api_key_actor
 
   - `spend_summary: SpendSummary or null`
 
     Per-member effective-limit report row (GET /spend_limits/effective).
 
-    - `actor: object { deleted, email_address, name, 2 more }`
+    - `actor: object`
 
       A user within the organization. `name` and `email_address` are
       null when the underlying account is unavailable or has been deleted;
@@ -116,13 +121,15 @@ Requests whose requester is no longer a member are excluded.
 
       - `deleted: boolean`
 
+        default: false
+
       - `email_address: string or null`
 
       - `name: string or null`
 
       - `type: "user_actor"`
 
-        - `"user_actor"`
+        default: user_actor
 
       - `user_id: string`
 
@@ -146,53 +153,53 @@ Requests whose requester is no longer a member are excluded.
 
       The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-    - `scope: object { type, user_id }`
+    - `scope: object`
 
       - `type: "user"`
 
-        - `"user"`
+        default: user
 
       - `user_id: string`
 
-    - `source: object { type, user_id }  or object { seat_tier, type }  or object { rbac_group_id, type }  or 2 more`
+    - `source: object or object or object or 2 more`
 
-      - `User object { type, user_id }`
+      - `User object`
 
         - `type: "user"`
 
-          - `"user"`
+          default: user
 
         - `user_id: string`
 
-      - `SeatTier object { seat_tier, type }`
+      - `SeatTier object`
 
         - `seat_tier: string`
 
         - `type: "seat_tier"`
 
-          - `"seat_tier"`
+          default: seat_tier
 
-      - `RbacGroup object { rbac_group_id, type }`
+      - `RbacGroup object`
 
         - `rbac_group_id: string`
 
         - `type: "rbac_group"`
 
-          - `"rbac_group"`
+          default: rbac_group
 
-      - `OrganizationService object { service, type }`
+      - `OrganizationService object`
 
         - `service: string`
 
         - `type: "organization_service"`
 
-          - `"organization_service"`
+          default: organization_service
 
-      - `Organization object { type }`
+      - `Organization object`
 
         - `type: "organization"`
 
-          - `"organization"`
+          default: organization
 
     - `spend_limit_id: string`
 
@@ -206,19 +213,19 @@ Requests whose requester is no longer a member are excluded.
 
   - `type: "spend_limit_increase_request"`
 
-    - `"spend_limit_increase_request"`
+    default: spend_limit_increase_request
 
 - `next_page: string or null`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/spend_limit_increase_requests \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

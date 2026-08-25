@@ -1,19 +1,14 @@
----
-title: Delete Vault
-url: https://platform.claude.com/docs/en/api/beta/vaults/delete
----
+# Delete Vault
 
-## Delete Vault
-
-**delete** `/v1/vaults/{vault_id}`
+**DELETE** `/v1/vaults/{vault_id}`
 
 Delete Vault
 
-### Path Parameters
+## Path parameters
 
 - `vault_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -91,9 +86,9 @@ Delete Vault
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsDeletedVault object { id, type }`
+- `BetaManagedAgentsDeletedVault object`
 
   Confirmation of a deleted vault.
 
@@ -103,11 +98,9 @@ Delete Vault
 
   - `type: "vault_deleted"`
 
-    - `"vault_deleted"`
+## Example
 
-### Example
-
-```http
+```bash
 curl https://api.anthropic.com/v1/vaults/$VAULT_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
@@ -115,7 +108,7 @@ curl https://api.anthropic.com/v1/vaults/$VAULT_ID \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

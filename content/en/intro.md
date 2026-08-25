@@ -57,7 +57,7 @@ Follow these steps to go from zero to a working Claude integration.
   <Step title="Choose the right model">
     Compare Claude models by capability and cost to pick the best fit for your use case.
 
-    [See the models overview](https://platform.claude.com/docs/en/about-claude/models/overview)
+    [See the models overview](https://platform.claude.com/docs/en/models/overview)
   </Step>
 
   <Step title="Explore features and tools">

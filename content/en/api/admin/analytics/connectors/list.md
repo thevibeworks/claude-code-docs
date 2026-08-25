@@ -1,11 +1,6 @@
----
-title: Get Connector Usage
-url: https://platform.claude.com/docs/en/api/admin/analytics/connectors/list
----
+# Get Connector Usage
 
-## Get Connector Usage
-
-**get** `/v1/organizations/analytics/connectors`
+**GET** `/v1/organizations/analytics/connectors`
 
 Get per-connector usage for a given day, with cursor-based pagination.
 
@@ -18,23 +13,31 @@ parameter descriptions list the supported dimensions. Available to
 organizations on a Claude Enterprise plan. Requires an API key with the
 `read:analytics` scope.
 
-### Query Parameters
+## Query parameters
 
 - `date: optional string`
 
   UTC date in YYYY-MM-DD format. The day to get connector usage for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
 
+  format: date
+
 - `ending_date: optional string`
 
   UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with starting_date. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after starting_date.
+
+  format: date
 
 - `filter: optional array of string`
 
   Filters as 'dimension:value', e.g. filter[]=rbac_group_id:<id>. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: connector_name, product, rbac_group_id, user_id. Value forms: connector_name matches case-insensitively, a display name such as 'GitHub MCP' also matches its normalized stored form ('github'), and for rows whose connector_name is an opaque connector id the connector's display name (connector_display_name) also matches; product is one of chat, claude_code, cowork, or office_agent; rbac_group_id takes the tagged id (rbac_group_..., as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); user_id takes a tagged user id (user_...), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
 
+  maxItems: 100
+
 - `group_by: optional array of "product" or "rbac_group_id" or "user_id"`
 
   Dimensions to break results out by (e.g. group_by[]=user_id). Supported on this endpoint: product, rbac_group_id, user_id. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via next_page; an unsupported dimension returns 400. rbac_group_id attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+  maxItems: 100
 
   - `"product"`
 
@@ -45,6 +48,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 - `limit: optional number`
 
   Number of results per page (1-1000, default 100).
+
+  minimum: 1, maximum: 1000
 
 - `order: optional "asc" or "desc"`
 
@@ -66,15 +71,17 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either date or starting_date, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
 
-### Returns
+  format: date
 
-- `ConnectorUsage object { data, next_page }`
+## Returns
+
+- `ConnectorUsage object`
 
   Response for GET /v1/organizations/analytics/connectors.
 
-  - `data: array of object { chat_metrics, claude_code_metrics, connector_name, 13 more }`
+  - `data: array of object`
 
-    - `chat_metrics: object { distinct_conversation_connector_used_count }`
+    - `chat_metrics: object`
 
       Claude.ai activity metrics for a single connector on a given day.
 
@@ -82,7 +89,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
         Number of distinct conversations in which the connector was used. Approximate (HLL, typical error <2%) in date-range mode. Null on aggregated rows where a distinct count cannot be computed.
 
-    - `claude_code_metrics: object { distinct_session_connector_used_count }`
+    - `claude_code_metrics: object`
 
       Claude Code activity metrics for a single connector on a given day.
 
@@ -94,7 +101,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       Name of the connector. Some rows carry an opaque connector id here instead of a readable name; connector_display_name holds the resolved name for those rows.
 
-    - `cowork_metrics: object { distinct_session_connector_used_count }`
+    - `cowork_metrics: object`
 
       Cowork activity metrics for a single connector on a given day.
 
@@ -106,7 +113,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       Number of distinct users who used the connector on the requested day, or, in date-range mode, over the requested window — recomputed as an exact distinct count over the window's per-member daily rows, never a sum of per-day values.
 
-    - `office_metrics: object { excel, outlook, powerpoint, word }`
+    - `office_metrics: object`
 
       Office Agent activity metrics for a single connector on a given day, broken out by Office product.
 
@@ -174,15 +181,15 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
     Opaque cursor for the next page, or null if no more results
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/analytics/connectors \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

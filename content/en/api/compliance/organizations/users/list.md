@@ -1,37 +1,34 @@
----
-title: List organization users
-url: https://platform.claude.com/docs/en/api/compliance/organizations/users/list
----
+# List organization users
 
-## List organization users
-
-**get** `/v1/compliance/organizations/{org_uuid}/users`
+**GET** `/v1/compliance/organizations/{org_uuid}/users`
 
 List current user members of an organization.
 
-### Path Parameters
+## Path parameters
 
 - `org_uuid: string`
 
   The organization UUID
 
-### Query Parameters
+## Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 500, max: 1000)
 
+  default: 500, maximum: 1000, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
-- `data: array of object { id, created_at, email, 2 more }`
+- `data: array of object`
 
   List of current organization members sorted by organization join date ascending
 
@@ -42,6 +39,8 @@ List current user members of an organization.
   - `created_at: string`
 
     User account creation timestamp
+
+    format: date-time
 
   - `email: string`
 
@@ -81,14 +80,14 @@ List current user members of an organization.
 
   Token to retrieve the next page. Use this as the 'page' parameter in your next request
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/organizations/$ORG_UUID/users \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

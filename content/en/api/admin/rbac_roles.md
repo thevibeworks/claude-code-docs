@@ -1,19 +1,14 @@
----
-title: RBAC Roles
-url: https://platform.claude.com/docs/en/api/admin/rbac_roles
----
-
 # RBAC Roles
 
 ## List RBAC Roles
 
-**get** `/v1/organizations/rbac_roles`
+**GET** `/v1/organizations/rbac_roles`
 
 List RBAC Roles in the organization.
 
 The RBAC Roles API is in beta and available to Claude Enterprise organizations only. Requests must send the `ce-user-management-2026-07-13` value in the `anthropic-beta` header.
 
-### Query Parameters
+### Query parameters
 
 - `limit: optional number`
 
@@ -21,11 +16,13 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20, maximum: 1000, minimum: 1
+
 - `page: optional string`
 
   Optionally set to the `next_page` token from the previous response.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -45,6 +42,8 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
     RFC 3339 datetime string indicating when the RBAC Role was created.
 
+    format: date-time
+
   - `name: string`
 
     Name of the RBAC Role.
@@ -55,11 +54,13 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
     For RBAC Roles, this is always `"rbac_role"`.
 
-    - `"rbac_role"`
+    default: rbac_role
 
   - `updated_at: string`
 
     RFC 3339 datetime string indicating when the RBAC Role was last updated.
+
+    format: date-time
 
 - `has_more: boolean`
 
@@ -72,13 +73,13 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -98,19 +99,19 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles \
 
 ## Get RBAC Role
 
-**get** `/v1/organizations/rbac_roles/{role_id}`
+**GET** `/v1/organizations/rbac_roles/{role_id}`
 
 Retrieve an RBAC Role by ID.
 
 The RBAC Roles API is in beta and available to Claude Enterprise organizations only. Requests must send the `ce-user-management-2026-07-13` value in the `anthropic-beta` header.
 
-### Path Parameters
+### Path parameters
 
 - `role_id: string`
 
   ID of the RBAC Role.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -120,7 +121,7 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
 ### Returns
 
-- `RbacRole object { id, created_at, name, 2 more }`
+- `RbacRole object`
 
   - `id: string`
 
@@ -129,6 +130,8 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
   - `created_at: string`
 
     RFC 3339 datetime string indicating when the RBAC Role was created.
+
+    format: date-time
 
   - `name: string`
 
@@ -140,21 +143,23 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
     For RBAC Roles, this is always `"rbac_role"`.
 
-    - `"rbac_role"`
+    default: rbac_role
 
   - `updated_at: string`
 
     RFC 3339 datetime string indicating when the RBAC Role was last updated.
 
+    format: date-time
+
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -166,11 +171,11 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Rbac Role
 
-- `RbacRole object { id, created_at, name, 2 more }`
+- `RbacRole object`
 
   - `id: string`
 
@@ -179,6 +184,8 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID \
   - `created_at: string`
 
     RFC 3339 datetime string indicating when the RBAC Role was created.
+
+    format: date-time
 
   - `name: string`
 
@@ -190,29 +197,31 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID \
 
     For RBAC Roles, this is always `"rbac_role"`.
 
-    - `"rbac_role"`
+    default: rbac_role
 
   - `updated_at: string`
 
     RFC 3339 datetime string indicating when the RBAC Role was last updated.
 
-# Permissions
+    format: date-time
 
-## List RBAC Role Permissions
+## RBAC Roles › Permissions
 
-**get** `/v1/organizations/rbac_roles/{role_id}/permissions`
+### List RBAC Role Permissions
+
+**GET** `/v1/organizations/rbac_roles/{role_id}/permissions`
 
 List the permissions an RBAC Role grants.
 
 The RBAC Roles API is in beta and available to Claude Enterprise organizations only. Requests must send the `ce-user-management-2026-07-13` value in the `anthropic-beta` header.
 
-### Path Parameters
+#### Path parameters
 
 - `role_id: string`
 
   ID of the RBAC Role.
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
@@ -220,11 +229,13 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20, maximum: 1000, minimum: 1
+
 - `page: optional string`
 
   Optionally set to the `next_page` token from the previous response.
 
-### Header Parameters
+#### Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -232,7 +243,7 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+#### Returns
 
 - `data: array of RbacRolePermission`
 
@@ -255,14 +266,14 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
     `all_connectors` grants carry a tool-access action, the scope action, or
     an authentication-method action (`interactive` or `managed`).
 
-  - `resource: object { organization_id, type }  or object { connector_id, tool_name, type }  or object { connector_id, scope, type }  or 2 more`
+  - `resource: object or object or object or 2 more`
 
     What the permission applies to.
 
     A tagged union: `type` names the kind of resource and determines which
     identifier fields are present.
 
-    - `Organization object { organization_id, type }`
+    - `Organization object`
 
       - `organization_id: string`
 
@@ -272,9 +283,9 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"organization"`
+        default: organization
 
-    - `ConnectorTool object { connector_id, tool_name, type }`
+    - `ConnectorTool object`
 
       - `connector_id: string`
 
@@ -293,9 +304,9 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"connector_tool"`
+        default: connector_tool
 
-    - `ConnectorScope object { connector_id, scope, type }`
+    - `ConnectorScope object`
 
       - `connector_id: string`
 
@@ -315,9 +326,9 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"connector_scope"`
+        default: connector_scope
 
-    - `Connector object { connector_id, type }`
+    - `Connector object`
 
       - `connector_id: string`
 
@@ -327,15 +338,15 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"connector"`
+        default: connector
 
-    - `AllConnectors object { type }`
+    - `AllConnectors object`
 
       - `type: "all_connectors"`
 
         Kind of resource the permission applies to.
 
-        - `"all_connectors"`
+        default: all_connectors
 
   - `type: "rbac_role_permission"`
 
@@ -343,7 +354,7 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
     For RBAC Role Permissions, this is always `"rbac_role_permission"`.
 
-    - `"rbac_role_permission"`
+    default: rbac_role_permission
 
 - `has_more: boolean`
 
@@ -354,15 +365,15 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
   Opaque cursor for the next page. Pass as the `page` parameter on the next
   request.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID/permissions \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -380,118 +391,3 @@ curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID/permissions 
   "next_page": "eyJjdXJzb3IiOiAicmJhY19yb2xlXzAxIn0"
 }
 ```
-
-## Domain Types
-
-### Rbac Role Permission
-
-- `RbacRolePermission object { action, resource, type }`
-
-  - `action: string`
-
-    Action the permission grants on the resource.
-
-    The vocabulary follows the resource: an `organization` grant carries a
-    product-feature entitlement (for example `chat`), an admin-panel
-    permission entitlement (`permission_*`), or a blanket capability-access
-    mode — `capability_access_all` grants every product-feature entitlement,
-    and `capability_access_all_ga` grants the generally-available subset as
-    it stands at permission-check time; neither mode grants model-access
-    entitlements. A consumer enumerating a role's per-feature grants should
-    treat a blanket row as granting every product-feature entitlement it
-    covers, or it will under-report the role's effective access. A `connector_tool` grant carries
-    a tool-access action (`use` or `always_allow`); a `connector_scope` grant
-    carries the scope action `grant` (the role may receive the named OAuth
-    scope when tokens are minted for the connector); `connector` and
-    `all_connectors` grants carry a tool-access action, the scope action, or
-    an authentication-method action (`interactive` or `managed`).
-
-  - `resource: object { organization_id, type }  or object { connector_id, tool_name, type }  or object { connector_id, scope, type }  or 2 more`
-
-    What the permission applies to.
-
-    A tagged union: `type` names the kind of resource and determines which
-    identifier fields are present.
-
-    - `Organization object { organization_id, type }`
-
-      - `organization_id: string`
-
-        UUID of the organization the permission applies to.
-
-      - `type: "organization"`
-
-        Kind of resource the permission applies to.
-
-        - `"organization"`
-
-    - `ConnectorTool object { connector_id, tool_name, type }`
-
-      - `connector_id: string`
-
-        ID of the connector the permission applies to.
-
-      - `tool_name: string`
-
-        Published name of the connector tool the permission applies to.
-
-        When the published name contains characters outside `[a-zA-Z0-9_-]` (or
-        collides with a reserved form), it is server-encoded into a stable
-        `{prefix}_{32-hex}` form — a shortened readable prefix of the name plus
-        a hash — from which the published name is not recoverable.
-
-      - `type: "connector_tool"`
-
-        Kind of resource the permission applies to.
-
-        - `"connector_tool"`
-
-    - `ConnectorScope object { connector_id, scope, type }`
-
-      - `connector_id: string`
-
-        ID of the connector the permission applies to.
-
-      - `scope: string`
-
-        OAuth scope the permission names — the role may receive this scope when
-        tokens are minted for the connector.
-
-        Subject to the same encoding rule as `tool_name`: a scope containing
-        characters outside `[a-zA-Z0-9_-]` (or colliding with a reserved form)
-        appears server-encoded in a stable `{prefix}_{32-hex}` form. OAuth
-        scopes routinely contain `:` and `/`, so most appear encoded.
-
-      - `type: "connector_scope"`
-
-        Kind of resource the permission applies to.
-
-        - `"connector_scope"`
-
-    - `Connector object { connector_id, type }`
-
-      - `connector_id: string`
-
-        ID of the connector the permission applies to.
-
-      - `type: "connector"`
-
-        Kind of resource the permission applies to.
-
-        - `"connector"`
-
-    - `AllConnectors object { type }`
-
-      - `type: "all_connectors"`
-
-        Kind of resource the permission applies to.
-
-        - `"all_connectors"`
-
-  - `type: "rbac_role_permission"`
-
-    Object type.
-
-    For RBAC Role Permissions, this is always `"rbac_role_permission"`.
-
-    - `"rbac_role_permission"`

@@ -1,19 +1,14 @@
----
-title: Archive a memory store
-url: https://platform.claude.com/docs/en/api/beta/memory_stores/archive
----
+# Archive a memory store
 
-## Archive a memory store
-
-**post** `/v1/memory_stores/{memory_store_id}/archive`
+**POST** `/v1/memory_stores/{memory_store_id}/archive`
 
 Archive a memory store
 
-### Path Parameters
+## Path parameters
 
 - `memory_store_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -91,9 +86,9 @@ Archive a memory store
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsMemoryStore object { id, created_at, name, 5 more }`
+- `BetaManagedAgentsMemoryStore object`
 
   A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
@@ -105,21 +100,25 @@ Archive a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: string`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: "memory_store"`
 
-    - `"memory_store"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at: optional string or null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: optional string`
 
@@ -129,9 +128,9 @@ Archive a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/archive \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
@@ -139,7 +138,7 @@ curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/archive \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

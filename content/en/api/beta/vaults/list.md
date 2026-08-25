@@ -1,15 +1,10 @@
----
-title: List Vaults
-url: https://platform.claude.com/docs/en/api/beta/vaults/list
----
+# List Vaults
 
-## List Vaults
-
-**get** `/v1/vaults`
+**GET** `/v1/vaults`
 
 List Vaults
 
-### Query Parameters
+## Query parameters
 
 - `include_archived: optional boolean`
 
@@ -19,11 +14,13 @@ List Vaults
 
   Maximum number of vaults to return per page. Defaults to 20, maximum 100.
 
+  format: int32
+
 - `page: optional string`
 
   Opaque pagination token from a previous `list_vaults` response.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -101,7 +98,7 @@ List Vaults
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `data: optional array of BetaManagedAgentsVault`
 
@@ -115,9 +112,13 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -129,26 +130,26 @@ List Vaults
 
   - `type: "vault"`
 
-    - `"vault"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
 - `next_page: optional string or null`
 
   Pagination token for the next page, or null if no more results.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/vaults \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
