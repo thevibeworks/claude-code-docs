@@ -1,17 +1,12 @@
----
-title: Get Session
-url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/retrieve
----
-
-## Get Session
+# Get Session
 
 `beta.sessions.retrieve(session_id, **kwargs) -> BetaManagedAgentsSession`
 
-**get** `/v1/sessions/{session_id}`
+**GET** `/v1/sessions/{session_id}`
 
 Get Session
 
-### Parameters
+## Parameters
 
 - `session_id: String`
 
@@ -91,7 +86,7 @@ Get Session
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsSession`
 
@@ -112,8 +107,6 @@ Get Session
       - `name: String`
 
       - `type: :url`
-
-        - `:url`
 
       - `url: String`
 
@@ -197,15 +190,11 @@ Get Session
 
           - `type: :low`
 
-            - `:low`
-
         - `class BetaManagedAgentsEffortMedium`
 
           Medium effort. Balances latency and reasoning depth.
 
           - `type: :medium`
-
-            - `:medium`
 
         - `class BetaManagedAgentsEffortHigh`
 
@@ -213,23 +202,17 @@ Get Session
 
           - `type: :high`
 
-            - `:high`
-
         - `class BetaManagedAgentsEffortXhigh`
 
           Extra-high effort. Not all models accept this level.
 
           - `type: :xhigh`
 
-            - `:xhigh`
-
         - `class BetaManagedAgentsEffortMax`
 
           Maximum effort. Favors reasoning depth over latency.
 
           - `type: :max`
-
-            - `:max`
 
       - `inference_geo: String`
 
@@ -283,8 +266,6 @@ Get Session
 
               - `type: :anthropic`
 
-                - `:anthropic`
-
               - `version: String`
 
             - `class BetaManagedAgentsCustomSkill`
@@ -294,8 +275,6 @@ Get Session
               - `skill_id: String`
 
               - `type: :custom`
-
-                - `:custom`
 
               - `version: String`
 
@@ -315,8 +294,6 @@ Get Session
 
                   - `name: :bash`
 
-                    - `:bash`
-
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                     Permission policy for tool execution.
@@ -327,19 +304,13 @@ Get Session
 
                       - `type: :always_allow`
 
-                        - `:always_allow`
-
                     - `class BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
                       - `type: :always_ask`
 
-                        - `:always_ask`
-
                   - `type: :bash`
-
-                    - `:bash`
 
                 - `class BetaManagedAgentsEditToolConfig`
 
@@ -348,8 +319,6 @@ Get Session
                   - `enabled: bool`
 
                   - `name: :edit`
-
-                    - `:edit`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -365,8 +334,6 @@ Get Session
 
                   - `type: :edit`
 
-                    - `:edit`
-
                 - `class BetaManagedAgentsReadToolConfig`
 
                   Configuration for the read tool.
@@ -374,8 +341,6 @@ Get Session
                   - `enabled: bool`
 
                   - `name: :read`
-
-                    - `:read`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -391,8 +356,6 @@ Get Session
 
                   - `type: :read`
 
-                    - `:read`
-
                 - `class BetaManagedAgentsWriteToolConfig`
 
                   Configuration for the write tool.
@@ -400,8 +363,6 @@ Get Session
                   - `enabled: bool`
 
                   - `name: :write`
-
-                    - `:write`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -417,8 +378,6 @@ Get Session
 
                   - `type: :write`
 
-                    - `:write`
-
                 - `class BetaManagedAgentsGlobToolConfig`
 
                   Configuration for the glob tool.
@@ -426,8 +385,6 @@ Get Session
                   - `enabled: bool`
 
                   - `name: :glob`
-
-                    - `:glob`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -443,8 +400,6 @@ Get Session
 
                   - `type: :glob`
 
-                    - `:glob`
-
                 - `class BetaManagedAgentsGrepToolConfig`
 
                   Configuration for the grep tool.
@@ -452,8 +407,6 @@ Get Session
                   - `enabled: bool`
 
                   - `name: :grep`
-
-                    - `:grep`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -469,8 +422,6 @@ Get Session
 
                   - `type: :grep`
 
-                    - `:grep`
-
                 - `class BetaManagedAgentsWebFetchToolConfig`
 
                   Configuration for the web_fetch tool.
@@ -478,8 +429,6 @@ Get Session
                   - `enabled: bool`
 
                   - `name: :web_fetch`
-
-                    - `:web_fetch`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -495,13 +444,13 @@ Get Session
 
                   - `type: :web_fetch`
 
-                    - `:web_fetch`
-
                   - `allowed_domains: Array[String]`
 
                   - `blocked_domains: Array[String]`
 
                   - `max_content_tokens: Integer`
+
+                    format: int32
 
                 - `class BetaManagedAgentsWebSearchToolConfig`
 
@@ -510,8 +459,6 @@ Get Session
                   - `enabled: bool`
 
                   - `name: :web_search`
-
-                    - `:web_search`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -527,8 +474,6 @@ Get Session
 
                   - `type: :web_search`
 
-                    - `:web_search`
-
                   - `allowed_domains: Array[String]`
 
                   - `blocked_domains: Array[String]`
@@ -541,11 +486,11 @@ Get Session
 
                       Location precision. Only "approximate" is supported.
 
-                      - `:approximate`
-
                     - `city: String`
 
                       City name.
+
+                      minLength: 1, maxLength: 255
 
                     - `country: String`
 
@@ -555,9 +500,13 @@ Get Session
 
                       Region or state name.
 
+                      minLength: 1, maxLength: 255
+
                     - `timezone: String`
 
                       IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                      minLength: 1, maxLength: 255
 
               - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -578,8 +527,6 @@ Get Session
                     Tool calls require user confirmation before execution.
 
               - `type: :agent_toolset_20260401`
-
-                - `:agent_toolset_20260401`
 
             - `class BetaManagedAgentsMCPToolset`
 
@@ -623,8 +570,6 @@ Get Session
 
               - `type: :mcp_toolset`
 
-                - `:mcp_toolset`
-
             - `class BetaManagedAgentsCustomTool`
 
               A custom tool as returned in API responses.
@@ -637,8 +582,6 @@ Get Session
 
                 - `type: :object`
 
-                  - `:object`
-
                 - `properties: Hash[Symbol, untyped]`
 
                 - `required: Array[String]`
@@ -647,13 +590,11 @@ Get Session
 
               - `type: :custom`
 
-                - `:custom`
-
           - `type: :agent`
 
-            - `:agent`
-
           - `version: Integer`
+
+            format: int32
 
         - `class BetaManagedAgentsAdvisor`
 
@@ -665,11 +606,7 @@ Get Session
 
           - `type: :advisor`
 
-            - `:advisor`
-
       - `type: :coordinator`
-
-        - `:coordinator`
 
     - `name: String`
 
@@ -697,13 +634,15 @@ Get Session
 
     - `type: :agent`
 
-      - `:agent`
-
     - `version: Integer`
+
+      format: int32
 
   - `archived_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `budget: BetaManagedAgentsBudgetLimit`
 
@@ -721,15 +660,13 @@ Get Session
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `:USD`
-
     - `type: :limit`
-
-      - `:limit`
 
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `environment_id: String`
 
@@ -743,6 +680,8 @@ Get Session
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `description: String`
 
       What the agent should produce.
@@ -755,6 +694,8 @@ Get Session
 
       0-indexed revision cycle the outcome is currently on.
 
+      format: int32
+
     - `outcome_id: String`
 
       Server-generated outc_ ID for this outcome.
@@ -764,8 +705,6 @@ Get Session
       Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
 
     - `type: :outcome_evaluation`
-
-      - `:outcome_evaluation`
 
   - `resources: Array[BetaManagedAgentsSessionResource]`
 
@@ -777,15 +716,17 @@ Get Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `mount_path: String`
 
       - `type: :github_repository`
 
-        - `:github_repository`
-
       - `updated_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `url: String`
 
@@ -797,9 +738,9 @@ Get Session
 
             Branch name to check out.
 
-          - `type: :branch`
+            minLength: 1, maxLength: 255
 
-            - `:branch`
+          - `type: :branch`
 
         - `class BetaManagedAgentsCommitCheckout`
 
@@ -807,9 +748,9 @@ Get Session
 
             Full commit SHA to check out.
 
-          - `type: :commit`
+            minLength: 7, maxLength: 64
 
-            - `:commit`
+          - `type: :commit`
 
     - `class BetaManagedAgentsFileResource`
 
@@ -819,17 +760,19 @@ Get Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `file_id: String`
 
       - `mount_path: String`
 
       - `type: :file`
 
-        - `:file`
-
       - `updated_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `class BetaManagedAgentsMemoryStoreResource`
 
@@ -840,8 +783,6 @@ Get Session
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
       - `type: :memory_store`
-
-        - `:memory_store`
 
       - `access: :read_write | :read_only`
 
@@ -859,6 +800,8 @@ Get Session
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+        maxLength: 4096
+
       - `mount_path: String`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -875,9 +818,13 @@ Get Session
 
       Cumulative time in seconds the session spent in running status. Excludes idle time.
 
+      format: double
+
     - `duration_seconds: Float`
 
       Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
+
+      format: double
 
   - `status: :rescheduling | :running | :idle | :terminated`
 
@@ -895,11 +842,11 @@ Get Session
 
   - `type: :session`
 
-    - `:session`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `usage: BetaManagedAgentsSessionUsage`
 
@@ -909,6 +856,8 @@ Get Session
 
       Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
 
+      format: double
+
     - `cache_creation: BetaManagedAgentsCacheCreationUsage`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -917,17 +866,25 @@ Get Session
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens: Integer`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens: Integer`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens: Integer`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `list_cost: BetaMonetaryAmount`
 
@@ -937,6 +894,8 @@ Get Session
 
       Total output tokens generated across all turns.
 
+      format: int32
+
     - `server_tool_use: BetaManagedAgentsServerToolUsage`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
@@ -945,9 +904,13 @@ Get Session
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests: Integer`
 
         Number of server-executed web search requests.
+
+        format: int32
 
   - `vault_ids: Array[String]`
 
@@ -957,7 +920,7 @@ Get Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -969,7 +932,7 @@ beta_managed_agents_session = anthropic.beta.sessions.retrieve("sesn_011CZkZAtmR
 puts(beta_managed_agents_session)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

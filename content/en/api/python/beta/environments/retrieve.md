@@ -1,17 +1,12 @@
----
-title: Get Environment
-url: https://platform.claude.com/docs/en/api/python/beta/environments/retrieve
----
+# Get Environment
 
-## Get Environment
+`beta.environments.retrieve(environment_id, **kwargs)  -> BetaEnvironment`
 
-`beta.environments.retrieve(strenvironment_id, EnvironmentRetrieveParams**kwargs)  -> BetaEnvironment`
-
-**get** `/v1/environments/{environment_id}`
+**GET** `/v1/environments/{environment_id}`
 
 Retrieve a specific environment by ID.
 
-### Parameters
+## Parameters
 
 - `environment_id: str`
 
@@ -91,7 +86,7 @@ Retrieve a specific environment by ID.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaEnvironment: …`
 
@@ -125,8 +120,6 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `class BetaLimitedNetwork: …`
 
           Limited network access.
@@ -146,8 +139,6 @@ Retrieve a specific environment by ID.
           - `type: Literal["limited"]`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -181,13 +172,11 @@ Retrieve a specific environment by ID.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: Literal["cloud"]`
 
         Environment type
-
-        - `"cloud"`
 
     - `class BetaSelfHostedConfig: …`
 
@@ -196,8 +185,6 @@ Retrieve a specific environment by ID.
       - `type: Literal["self_hosted"]`
 
         Environment type
-
-        - `"self_hosted"`
 
   - `created_at: str`
 
@@ -219,7 +206,7 @@ Retrieve a specific environment by ID.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: str`
 
@@ -233,7 +220,7 @@ Retrieve a specific environment by ID.
 
     - `"account"`
 
-### Example
+## Example
 
 ```python
 import os
@@ -250,7 +237,7 @@ beta_environment = client.beta.environments.retrieve(
 print(beta_environment.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

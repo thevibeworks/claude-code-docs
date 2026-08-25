@@ -1,17 +1,12 @@
----
-title: Delete File
-url: https://platform.claude.com/docs/en/api/ruby/beta/files/delete
----
-
-## Delete File
+# Delete File
 
 `beta.files.delete(file_id, **kwargs) -> BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
-### Parameters
+## Parameters
 
 - `file_id: String`
 
@@ -93,7 +88,7 @@ Delete File
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaDeletedFile`
 
@@ -107,9 +102,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `:file_deleted`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -121,7 +114,7 @@ beta_deleted_file = anthropic.beta.files.delete("file_id")
 puts(beta_deleted_file)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

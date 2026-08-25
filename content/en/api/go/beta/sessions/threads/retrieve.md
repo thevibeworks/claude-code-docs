@@ -1,17 +1,12 @@
----
-title: Get Session Thread
-url: https://platform.claude.com/docs/en/api/go/beta/sessions/threads/retrieve
----
-
-## Get Session Thread
+# Get Session Thread
 
 `client.Beta.Sessions.Threads.Get(ctx, threadID, params) (*BetaManagedAgentsSessionThread, error)`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
 Get Session Thread
 
-### Parameters
+## Parameters
 
 - `threadID string`
 
@@ -21,7 +16,7 @@ Get Session Thread
 
     Path param: Path parameter session_id
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -97,7 +92,7 @@ Get Session Thread
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsSessionThread struct{…}`
 
@@ -124,8 +119,6 @@ Get Session Thread
         - `Name string`
 
         - `Type BetaManagedAgentsMCPServerURLDefinitionType`
-
-          - `const BetaManagedAgentsMCPServerURLDefinitionTypeURL BetaManagedAgentsMCPServerURLDefinitionType = "url"`
 
         - `URL string`
 
@@ -199,7 +192,7 @@ Get Session Thread
 
           - `string`
 
-        - `Effort BetaManagedAgentsModelConfigEffortUnion`
+        - `Effort BetaManagedAgentsModelConfigEffortUnion Optional`
 
           How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
 
@@ -209,15 +202,11 @@ Get Session Thread
 
             - `Type BetaManagedAgentsEffortLowType`
 
-              - `const BetaManagedAgentsEffortLowTypeLow BetaManagedAgentsEffortLowType = "low"`
-
           - `type BetaManagedAgentsEffortMedium struct{…}`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `Type BetaManagedAgentsEffortMediumType`
-
-              - `const BetaManagedAgentsEffortMediumTypeMedium BetaManagedAgentsEffortMediumType = "medium"`
 
           - `type BetaManagedAgentsEffortHigh struct{…}`
 
@@ -225,15 +214,11 @@ Get Session Thread
 
             - `Type BetaManagedAgentsEffortHighType`
 
-              - `const BetaManagedAgentsEffortHighTypeHigh BetaManagedAgentsEffortHighType = "high"`
-
           - `type BetaManagedAgentsEffortXhigh struct{…}`
 
             Extra-high effort. Not all models accept this level.
 
             - `Type BetaManagedAgentsEffortXhighType`
-
-              - `const BetaManagedAgentsEffortXhighTypeXhigh BetaManagedAgentsEffortXhighType = "xhigh"`
 
           - `type BetaManagedAgentsEffortMax struct{…}`
 
@@ -241,13 +226,11 @@ Get Session Thread
 
             - `Type BetaManagedAgentsEffortMaxType`
 
-              - `const BetaManagedAgentsEffortMaxTypeMax BetaManagedAgentsEffortMaxType = "max"`
-
-        - `InferenceGeo string`
+        - `InferenceGeo string Optional`
 
           Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
 
-        - `Speed BetaManagedAgentsModelConfigSpeed`
+        - `Speed BetaManagedAgentsModelConfigSpeed Optional`
 
           Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
@@ -267,8 +250,6 @@ Get Session Thread
 
           - `Type BetaManagedAgentsAnthropicSkillType`
 
-            - `const BetaManagedAgentsAnthropicSkillTypeAnthropic BetaManagedAgentsAnthropicSkillType = "anthropic"`
-
           - `Version string`
 
         - `type BetaManagedAgentsCustomSkill struct{…}`
@@ -278,8 +259,6 @@ Get Session Thread
           - `SkillID string`
 
           - `Type BetaManagedAgentsCustomSkillType`
-
-            - `const BetaManagedAgentsCustomSkillTypeCustom BetaManagedAgentsCustomSkillType = "custom"`
 
           - `Version string`
 
@@ -299,8 +278,6 @@ Get Session Thread
 
               - `Name Bash`
 
-                - `const BashBash Bash = "bash"`
-
               - `PermissionPolicy BetaManagedAgentsBashToolConfigPermissionPolicyUnion`
 
                 Permission policy for tool execution.
@@ -311,19 +288,13 @@ Get Session Thread
 
                   - `Type BetaManagedAgentsAlwaysAllowPolicyType`
 
-                    - `const BetaManagedAgentsAlwaysAllowPolicyTypeAlwaysAllow BetaManagedAgentsAlwaysAllowPolicyType = "always_allow"`
-
                 - `type BetaManagedAgentsAlwaysAskPolicy struct{…}`
 
                   Tool calls require user confirmation before execution.
 
                   - `Type BetaManagedAgentsAlwaysAskPolicyType`
 
-                    - `const BetaManagedAgentsAlwaysAskPolicyTypeAlwaysAsk BetaManagedAgentsAlwaysAskPolicyType = "always_ask"`
-
               - `Type Bash`
-
-                - `const BashBash Bash = "bash"`
 
             - `type BetaManagedAgentsEditToolConfig struct{…}`
 
@@ -332,8 +303,6 @@ Get Session Thread
               - `Enabled bool`
 
               - `Name Edit`
-
-                - `const EditEdit Edit = "edit"`
 
               - `PermissionPolicy BetaManagedAgentsEditToolConfigPermissionPolicyUnion`
 
@@ -349,8 +318,6 @@ Get Session Thread
 
               - `Type Edit`
 
-                - `const EditEdit Edit = "edit"`
-
             - `type BetaManagedAgentsReadToolConfig struct{…}`
 
               Configuration for the read tool.
@@ -358,8 +325,6 @@ Get Session Thread
               - `Enabled bool`
 
               - `Name Read`
-
-                - `const ReadRead Read = "read"`
 
               - `PermissionPolicy BetaManagedAgentsReadToolConfigPermissionPolicyUnion`
 
@@ -375,8 +340,6 @@ Get Session Thread
 
               - `Type Read`
 
-                - `const ReadRead Read = "read"`
-
             - `type BetaManagedAgentsWriteToolConfig struct{…}`
 
               Configuration for the write tool.
@@ -384,8 +347,6 @@ Get Session Thread
               - `Enabled bool`
 
               - `Name Write`
-
-                - `const WriteWrite Write = "write"`
 
               - `PermissionPolicy BetaManagedAgentsWriteToolConfigPermissionPolicyUnion`
 
@@ -401,8 +362,6 @@ Get Session Thread
 
               - `Type Write`
 
-                - `const WriteWrite Write = "write"`
-
             - `type BetaManagedAgentsGlobToolConfig struct{…}`
 
               Configuration for the glob tool.
@@ -410,8 +369,6 @@ Get Session Thread
               - `Enabled bool`
 
               - `Name Glob`
-
-                - `const GlobGlob Glob = "glob"`
 
               - `PermissionPolicy BetaManagedAgentsGlobToolConfigPermissionPolicyUnion`
 
@@ -427,8 +384,6 @@ Get Session Thread
 
               - `Type Glob`
 
-                - `const GlobGlob Glob = "glob"`
-
             - `type BetaManagedAgentsGrepToolConfig struct{…}`
 
               Configuration for the grep tool.
@@ -436,8 +391,6 @@ Get Session Thread
               - `Enabled bool`
 
               - `Name Grep`
-
-                - `const GrepGrep Grep = "grep"`
 
               - `PermissionPolicy BetaManagedAgentsGrepToolConfigPermissionPolicyUnion`
 
@@ -453,8 +406,6 @@ Get Session Thread
 
               - `Type Grep`
 
-                - `const GrepGrep Grep = "grep"`
-
             - `type BetaManagedAgentsWebFetchToolConfig struct{…}`
 
               Configuration for the web_fetch tool.
@@ -462,8 +413,6 @@ Get Session Thread
               - `Enabled bool`
 
               - `Name WebFetch`
-
-                - `const WebFetchWebFetch WebFetch = "web_fetch"`
 
               - `PermissionPolicy BetaManagedAgentsWebFetchToolConfigPermissionPolicyUnion`
 
@@ -479,13 +428,13 @@ Get Session Thread
 
               - `Type WebFetch`
 
-                - `const WebFetchWebFetch WebFetch = "web_fetch"`
+              - `AllowedDomains []string Optional`
 
-              - `AllowedDomains []string`
+              - `BlockedDomains []string Optional`
 
-              - `BlockedDomains []string`
+              - `MaxContentTokens int64 Optional`
 
-              - `MaxContentTokens int64`
+                format: int32
 
             - `type BetaManagedAgentsWebSearchToolConfig struct{…}`
 
@@ -494,8 +443,6 @@ Get Session Thread
               - `Enabled bool`
 
               - `Name WebSearch`
-
-                - `const WebSearchWebSearch WebSearch = "web_search"`
 
               - `PermissionPolicy BetaManagedAgentsWebSearchToolConfigPermissionPolicyUnion`
 
@@ -511,13 +458,11 @@ Get Session Thread
 
               - `Type WebSearch`
 
-                - `const WebSearchWebSearch WebSearch = "web_search"`
+              - `AllowedDomains []string Optional`
 
-              - `AllowedDomains []string`
+              - `BlockedDomains []string Optional`
 
-              - `BlockedDomains []string`
-
-              - `UserLocation BetaManagedAgentsUserLocation`
+              - `UserLocation BetaManagedAgentsUserLocation Optional`
 
                 Approximate user location for search result localization.
 
@@ -525,23 +470,27 @@ Get Session Thread
 
                   Location precision. Only "approximate" is supported.
 
-                  - `const ApproximateApproximate Approximate = "approximate"`
-
-                - `City string`
+                - `City string Optional`
 
                   City name.
 
-                - `Country string`
+                  minLength: 1, maxLength: 255
+
+                - `Country string Optional`
 
                   Two-letter ISO 3166-1 country code, uppercase.
 
-                - `Region string`
+                - `Region string Optional`
 
                   Region or state name.
 
-                - `Timezone string`
+                  minLength: 1, maxLength: 255
+
+                - `Timezone string Optional`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
 
           - `DefaultConfig BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -562,8 +511,6 @@ Get Session Thread
                 Tool calls require user confirmation before execution.
 
           - `Type BetaManagedAgentsAgentToolset20260401Type`
-
-            - `const BetaManagedAgentsAgentToolset20260401TypeAgentToolset20260401 BetaManagedAgentsAgentToolset20260401Type = "agent_toolset_20260401"`
 
         - `type BetaManagedAgentsMCPToolset struct{…}`
 
@@ -607,8 +554,6 @@ Get Session Thread
 
           - `Type BetaManagedAgentsMCPToolsetType`
 
-            - `const BetaManagedAgentsMCPToolsetTypeMCPToolset BetaManagedAgentsMCPToolsetType = "mcp_toolset"`
-
         - `type BetaManagedAgentsCustomTool struct{…}`
 
           A custom tool as returned in API responses.
@@ -621,23 +566,19 @@ Get Session Thread
 
             - `Type Object`
 
-              - `const ObjectObject Object = "object"`
+            - `Properties map[string, any] Optional`
 
-            - `Properties map[string, any]`
-
-            - `Required []string`
+            - `Required []string Optional`
 
           - `Name string`
 
           - `Type BetaManagedAgentsCustomToolType`
 
-            - `const BetaManagedAgentsCustomToolTypeCustom BetaManagedAgentsCustomToolType = "custom"`
-
       - `Type BetaManagedAgentsSessionThreadAgentType`
 
-        - `const BetaManagedAgentsSessionThreadAgentTypeAgent BetaManagedAgentsSessionThreadAgentType = "agent"`
-
       - `Version int64`
+
+        format: int32
 
     - `type BetaManagedAgentsAdvisor struct{…}`
 
@@ -649,15 +590,17 @@ Get Session Thread
 
       - `Type BetaManagedAgentsAdvisorType`
 
-        - `const BetaManagedAgentsAdvisorTypeAdvisor BetaManagedAgentsAdvisorType = "advisor"`
-
   - `ArchivedAt Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `ParentThreadID string`
 
@@ -671,17 +614,23 @@ Get Session Thread
 
     Timing statistics for a session thread.
 
-    - `ActiveSeconds float64`
+    - `ActiveSeconds float64 Optional`
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
-    - `DurationSeconds float64`
+      format: double
+
+    - `DurationSeconds float64 Optional`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
-    - `StartupSeconds float64`
+      format: double
+
+    - `StartupSeconds float64 Optional`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+      format: double
 
   - `Status BetaManagedAgentsSessionThreadStatus`
 
@@ -697,41 +646,51 @@ Get Session Thread
 
   - `Type BetaManagedAgentsSessionThreadType`
 
-    - `const BetaManagedAgentsSessionThreadTypeSessionThread BetaManagedAgentsSessionThreadType = "session_thread"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Usage BetaManagedAgentsSessionThreadUsage`
 
     Cumulative token usage for a session thread across all turns.
 
-    - `ActiveSeconds float64`
+    - `ActiveSeconds float64 Optional`
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
-    - `CacheCreation BetaManagedAgentsCacheCreationUsage`
+      format: double
+
+    - `CacheCreation BetaManagedAgentsCacheCreationUsage Optional`
 
       Prompt-cache creation token usage broken down by cache lifetime.
 
-      - `Ephemeral1hInputTokens int64`
+      - `Ephemeral1hInputTokens int64 Optional`
 
         Tokens used to create 1-hour ephemeral cache entries.
 
-      - `Ephemeral5mInputTokens int64`
+        format: int32
+
+      - `Ephemeral5mInputTokens int64 Optional`
 
         Tokens used to create 5-minute ephemeral cache entries.
 
-    - `CacheReadInputTokens int64`
+        format: int32
+
+    - `CacheReadInputTokens int64 Optional`
 
       Total tokens read from prompt cache.
 
-    - `InputTokens int64`
+      format: int32
+
+    - `InputTokens int64 Optional`
 
       Total input tokens consumed across all turns.
 
-    - `ListCost BetaMonetaryAmount`
+      format: int32
+
+    - `ListCost BetaMonetaryAmount Optional`
 
       A monetary amount in a specific currency.
 
@@ -743,25 +702,29 @@ Get Session Thread
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `const BetaCurrencyUsd BetaCurrency = "USD"`
-
-    - `OutputTokens int64`
+    - `OutputTokens int64 Optional`
 
       Total output tokens generated across all turns.
 
-    - `ServerToolUse BetaManagedAgentsServerToolUsage`
+      format: int32
+
+    - `ServerToolUse BetaManagedAgentsServerToolUsage Optional`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
-      - `WebFetchRequests int64`
+      - `WebFetchRequests int64 Optional`
 
         Number of server-executed web fetch requests.
 
-      - `WebSearchRequests int64`
+        format: int32
+
+      - `WebSearchRequests int64 Optional`
 
         Number of server-executed web search requests.
 
-### Example
+        format: int32
+
+## Example
 
 ```go
 package main
@@ -792,7 +755,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

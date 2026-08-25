@@ -1,17 +1,12 @@
----
-title: Download Skill Version Content
-url: https://platform.claude.com/docs/en/api/java/beta/skills/versions/download
----
+# Download Skill Version Content
 
-## Download Skill Version Content
+`HttpResponse beta().skills().versions().download(params, requestOptions = RequestOptions.none())`
 
-`HttpResponse beta().skills().versions().download(VersionDownloadParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-### Parameters
+## Parameters
 
 - `VersionDownloadParams params`
 
@@ -99,7 +94,7 @@ Download a skill version's content as a zip archive.
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;

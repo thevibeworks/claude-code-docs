@@ -1,17 +1,12 @@
----
-title: Delete Environment
-url: https://platform.claude.com/docs/en/api/cli/beta/environments/delete
----
-
-## Delete Environment
+# Delete Environment
 
 `$ ant beta:environments delete`
 
-**delete** `/v1/environments/{environment_id}`
+**DELETE** `/v1/environments/{environment_id}`
 
 Delete an environment by ID. Returns a confirmation of the deletion.
 
-### Parameters
+## Parameters
 
 - `--environment-id: string`
 
@@ -19,9 +14,9 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_environment_delete_response: object { id, type }`
+- `beta_environment_delete_response: object`
 
   Response after deleting an environment.
 
@@ -33,17 +28,15 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     The type of response
 
-    - `"environment_deleted"`
+## Example
 
-### Example
-
-```cli
+```bash
 ant beta:environments delete \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

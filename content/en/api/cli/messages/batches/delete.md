@@ -1,13 +1,8 @@
----
-title: Delete a Message Batch
-url: https://platform.claude.com/docs/en/api/cli/messages/batches/delete
----
-
-## Delete a Message Batch
+# Delete a Message Batch
 
 `$ ant messages:batches delete`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -15,15 +10,15 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `--message-batch-id: string`
 
   ID of the Message Batch.
 
-### Returns
+## Returns
 
-- `deleted_message_batch: object { id, type }`
+- `deleted_message_batch: object`
 
   - `id: string`
 
@@ -35,15 +30,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-### Example
+## Example
 
-```cli
+```bash
 ant messages:batches delete \
   --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

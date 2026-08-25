@@ -1,23 +1,20 @@
----
-title: Update a memory store
-url: https://platform.claude.com/docs/en/api/ruby/beta/memory_stores/update
----
-
-## Update a memory store
+# Update a memory store
 
 `beta.memory_stores.update(memory_store_id, **kwargs) -> BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores/{memory_store_id}`
+**POST** `/v1/memory_stores/{memory_store_id}`
 
 Update a memory store
 
-### Parameters
+## Parameters
 
 - `memory_store_id: String`
 
 - `description: String`
 
   New description for the store, up to 1024 characters. Pass an empty string to clear it.
+
+  maxLength: 1024
 
 - `metadata: Hash[Symbol, String]`
 
@@ -26,6 +23,8 @@ Update a memory store
 - `name: String`
 
   New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
+
+  minLength: 1, maxLength: 255
 
 - `betas: Array[AnthropicBeta]`
 
@@ -103,7 +102,7 @@ Update a memory store
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemoryStore`
 
@@ -117,21 +116,25 @@ Update a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: String`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: :memory_store`
 
-    - `:memory_store`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: String`
 
@@ -141,7 +144,7 @@ Update a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -153,7 +156,7 @@ beta_managed_agents_memory_store = anthropic.beta.memory_stores.update("memory_s
 puts(beta_managed_agents_memory_store)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

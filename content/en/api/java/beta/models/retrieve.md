@@ -1,19 +1,14 @@
----
-title: Get a Model
-url: https://platform.claude.com/docs/en/api/java/beta/models/retrieve
----
+# Get a Model
 
-## Get a Model
+`BetaModelInfo beta().models().retrieve(params = ModelRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaModelInfo beta().models().retrieve(ModelRetrieveParamsparams = ModelRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
 The Models API response can be used to determine information about a specific model or resolve a model alias to a model ID.
 
-### Parameters
+## Parameters
 
 - `ModelRetrieveParams params`
 
@@ -93,7 +88,7 @@ The Models API response can be used to determine information about a specific mo
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaModelInfo:`
 
@@ -209,6 +204,8 @@ The Models API response can be used to determine information about a specific mo
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `String displayName`
 
     A human-readable name for the model.
@@ -221,15 +218,13 @@ The Models API response can be used to determine information about a specific mo
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `JsonValue; type "model"constant`
+  - `JsonValue type constant`
 
     Object type.
 
     For Models, this is always `"model"`.
 
-    - `MODEL("model")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -250,7 +245,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

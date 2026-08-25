@@ -1,19 +1,14 @@
----
-title: List Tunnels
-url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels/list
----
+# List Tunnels
 
-## List Tunnels
+`client.beta.tunnels.list(params?, options?): PageCursor<BetaTunnel>`
 
-`client.beta.tunnels.list(TunnelListParamsparams?, RequestOptionsoptions?): PageCursor<BetaTunnel>`
-
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists tunnels. Results are ordered by creation time, newest first; archived tunnels are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `params: TunnelListParams`
 
@@ -24,6 +19,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `limit?: number`
 
     Query param: Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `page?: string`
 
@@ -105,7 +102,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaTunnel`
 
@@ -119,9 +116,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string | null`
 
@@ -133,9 +134,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `type: "tunnel"`
 
-    - `"tunnel"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -150,7 +149,7 @@ for await (const betaTunnel of client.beta.tunnels.list()) {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

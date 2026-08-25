@@ -1,17 +1,12 @@
----
-title: Download File
-url: https://platform.claude.com/docs/en/api/ruby/beta/files/download
----
-
-## Download File
+# Download File
 
 `beta.files.download(file_id, **kwargs) -> StringIO`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
-### Parameters
+## Parameters
 
 - `file_id: String`
 
@@ -93,11 +88,11 @@ Download File
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `StringIO`
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"

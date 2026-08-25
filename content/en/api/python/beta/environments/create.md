@@ -1,21 +1,18 @@
----
-title: Create Environment
-url: https://platform.claude.com/docs/en/api/python/beta/environments/create
----
+# Create Environment
 
-## Create Environment
+`beta.environments.create(**kwargs)  -> BetaEnvironment`
 
-`beta.environments.create(EnvironmentCreateParams**kwargs)  -> BetaEnvironment`
-
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+## Parameters
 
 - `name: str`
 
   Human-readable name for the environment
+
+  maxLength: 256, minLength: 1
 
 - `config: Optional[Config]`
 
@@ -32,8 +29,6 @@ Create a new environment with the specified configuration.
 
       Environment type
 
-      - `"cloud"`
-
     - `networking: Optional[Networking]`
 
       Network configuration policy. Omit on update to preserve the existing value.
@@ -46,8 +41,6 @@ Create a new environment with the specified configuration.
 
           Network policy type
 
-          - `"unrestricted"`
-
       - `class BetaLimitedNetworkParams: …`
 
         Limited network request params.
@@ -58,8 +51,6 @@ Create a new environment with the specified configuration.
         - `type: Literal["limited"]`
 
           Network policy type
-
-          - `"limited"`
 
         - `allow_mcp_servers: Optional[bool]`
 
@@ -107,7 +98,7 @@ Create a new environment with the specified configuration.
 
         Package configuration type
 
-        - `"packages"`
+        default: packages
 
   - `class BetaSelfHostedConfigParams: …`
 
@@ -117,11 +108,11 @@ Create a new environment with the specified configuration.
 
       Environment type
 
-      - `"self_hosted"`
-
 - `description: Optional[str]`
 
   Optional description of the environment
+
+  maxLength: 1024
 
 - `metadata: Optional[Dict[str, str]]`
 
@@ -211,7 +202,7 @@ Create a new environment with the specified configuration.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaEnvironment: …`
 
@@ -245,8 +236,6 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `class BetaLimitedNetwork: …`
 
           Limited network access.
@@ -266,8 +255,6 @@ Create a new environment with the specified configuration.
           - `type: Literal["limited"]`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -301,13 +288,11 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: Literal["cloud"]`
 
         Environment type
-
-        - `"cloud"`
 
     - `class BetaSelfHostedConfig: …`
 
@@ -316,8 +301,6 @@ Create a new environment with the specified configuration.
       - `type: Literal["self_hosted"]`
 
         Environment type
-
-        - `"self_hosted"`
 
   - `created_at: str`
 
@@ -339,7 +322,7 @@ Create a new environment with the specified configuration.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: str`
 
@@ -353,7 +336,7 @@ Create a new environment with the specified configuration.
 
     - `"account"`
 
-### Example
+## Example
 
 ```python
 import os
@@ -370,7 +353,7 @@ beta_environment = client.beta.environments.create(
 print(beta_environment.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

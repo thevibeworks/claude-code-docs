@@ -12,10 +12,12 @@ You get the full Claude Desktop experience (Chat, Cowork, and Code, including fi
 
 ## Who it's for
 
-Claude Desktop on 3P is designed for organizations whose security, regulatory, or contractual requirements prevent them from sending data to Anthropic's first-party infrastructure. Typical deployments include:
+Claude Desktop on 3P is designed for organizations whose security, regulatory, or contractual requirements prevent them from sending data through Anthropic's first-party products (claude.ai or the Claude API). Typical deployments include:
 
 * **Highly regulated enterprises on 3P only:** organizations that use third-party inference for regulatory or security reasons
 * **International enterprises with data residency requirements:** organizations that require in-region data residency and cannot send conversation data to the United States
+
+How far a deployment is separated from Anthropic depends on the provider you choose. On Google Cloud's Agent Platform and Amazon Bedrock, the cloud provider processes conversation data in the region you select. On Microsoft Foundry, Anthropic operates the Claude models, and residency follows the Foundry deployment type. Review [Data handling by provider](#data-handling-by-provider) and [Data residency and international deployment](#data-residency-and-international-deployment) before choosing a provider.
 
 If your organization can use Anthropic's first-party products directly, standard Claude Desktop with [Cowork](/docs/cowork/overview) on a Team or Enterprise plan is simpler to deploy, offers an in-app UI for user management, analytics, and RBAC, and releases new features more quickly than Claude Desktop on 3P. Choose Claude Desktop on 3P when routing inference through Anthropic's API is not an option.
 
@@ -36,12 +38,24 @@ The desktop app detects 3P mode at launch from the configured inference provider
 
 ### Security posture
 
-* **Conversation content goes only to your configured endpoint.** Prompts, responses, files, and tool outputs are sent only to your configured inference endpoint and stored only on the local machine; data handling at the provider is governed by your inference provider. For Microsoft Foundry deployments hosted on Azure, prompts and completions remain within Azure; only usage metadata and content flagged by Anthropic's safety systems egress to Anthropic.
+* **Conversation content goes only to your configured endpoint.** The app sends prompts, responses, files, and tool outputs only to your configured inference endpoint and stores them only on the local machine. What happens to that content at the endpoint depends on the provider, as described under [Data handling by provider](#data-handling-by-provider).
 * **Sandboxed tool execution.** Shell commands run in the hardened Cowork VM; file access is scoped to your allowed folders and web fetches to your egress allowlist.
 * **Auditable telemetry.** Crash reports and product analytics are scrubbed of conversation and user data before being sent to Anthropic, and can be fully disabled via configuration keys. Independently, you can export session activity to your own OpenTelemetry collector. The export is metadata only by default, with prompt and tool content available as an explicit opt-in.
 * **Centrally managed.** All configuration is delivered via your existing MDM (Jamf, Intune, Workspace ONE, Group Policy) and cannot be overridden by end users when an admin profile is present.
 
 For a detailed treatment of the threat model, sandbox boundaries, and data flows, request access to the [Claude Cowork Desktop Security Architecture Overview](https://trust.anthropic.com/resources?s=2a7bbzo1lyymvdt551q7kl\&name=claude-cowork-desktop-security-architecture-overview) on Anthropic's Trust Center. For architecture, telemetry, and controls information specific to Claude Desktop on 3P, see the [Claude Desktop Security Overview (Third-party platforms)](https://trust.anthropic.com/resources?s=0c8rx4s7mm5ierz8ppetfs\&name=claude-cowork-security-overview-\(third-party-platforms\)) on the Trust Center.
+
+## Data handling by provider
+
+Once conversation content reaches your inference endpoint, how it is handled depends on the provider you configured.
+
+For Google Cloud's Agent Platform and Amazon Bedrock, data handling is governed by [Google Cloud](https://cloud.google.com/vertex-ai/generative-ai/docs/data-governance) and [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html) respectively.
+
+Microsoft Foundry offers Claude models in two hosting options, Hosted on Azure and Hosted on Anthropic, and you choose one when you configure the model deployment in Microsoft Foundry. Under both options, Anthropic operates the Claude models and handles conversation data as an independent processor for Microsoft. Your use of Claude through Microsoft Foundry is subject to Anthropic's data use terms.
+
+Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant, and prompts and completions remain within Azure. The only data the service sends out of Azure to Anthropic is usage metadata and any content that Anthropic's safety systems flag. Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
+
+For the Anthropic API, Anthropic processes conversation data under your Anthropic agreement, as described on the [Claude API](/docs/third-party/claude-desktop/claude-api) page. For an [LLM gateway](/docs/third-party/claude-desktop/gateway) you operate, data handling depends on the upstream provider your gateway routes each request to.
 
 ## Data residency and international deployment
 
@@ -51,6 +65,8 @@ For a detailed treatment of the threat model, sandbox boundaries, and data flows
 2. The physical location of the user's device, where conversations are persisted
 
 For multi-region organizations, deploy distinct MDM configuration profiles per geography so each user population points at an in-region endpoint. Google Cloud's Agent Platform and Amazon Bedrock each offer Claude models in the EU, UK, and Asia/Pacific regions; consult your provider's model-availability documentation for the current list.
+
+**Microsoft Foundry:** Residency is set by the [hosting option and deployment type](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) you select when you deploy the model in Microsoft Foundry. Deployments hosted on Azure offer two deployment types: Global Standard, which may run inference in any available region, and US Data Zone Standard, which keeps inference within the United States. Deployments hosted on Anthropic offer Global Standard only. As with the other providers, conversation history is stored on the user's device. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 
 ## Public sector and highly regulated environments
 
@@ -62,11 +78,9 @@ With Anthropic-bound telemetry, non-essential services, and updates all disabled
 
 ## HIPAA
 
-This section applies when using Google Cloud's Agent Platform or Amazon Bedrock.
+For Google Cloud's Agent Platform and Amazon Bedrock, Claude Desktop on 3P does not send user data, prompts, or completions to Anthropic, so Anthropic does not interact with PHI a user may upload to Claude Desktop on 3P. Claude Desktop on 3P transmits that data only to your cloud service provider and to any remote MCP servers you choose to configure. For a HIPAA-compliant solution, ensure you have a BAA in place with your cloud service provider and review any MCP servers for HIPAA compliance before connecting them to Claude Desktop on 3P. You don't need to disable telemetry to meet HIPAA requirements, because Anthropic's telemetry carries only redacted crash reports and aggregated usage metrics, never user data, prompts, or completions.
 
-Claude Desktop on 3P does not process user data, prompts, or completions. As such, Anthropic does not interact with PHI the user may upload to Claude Desktop on 3P; that data is transmitted only to the customer's cloud service provider or any remote MCP servers they optionally choose to configure. For a HIPAA-compliant solution, customers should ensure they have a BAA in place with their CSP and review any MCP servers for HIPAA compliance before connecting them to Claude Desktop on 3P.
-
-Disabling telemetry is not required to run Claude Desktop on 3P in a HIPAA-compliant way, since Anthropic's telemetry does not collect user data, prompts, or completions, only redacted crash reporting and aggregated usage metrics that do not reveal sensitive data.
+For Microsoft Foundry, HIPAA readiness is not available. Anthropic operates the Claude models in Microsoft Foundry and processes conversation data, as described under [Data handling by provider](#data-handling-by-provider), and Anthropic's HIPAA readiness arrangement (a signed BAA plus safeguards for processing PHI through the Claude API) does not cover Microsoft Foundry. See [What HIPAA readiness does not cover](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#what-hipaa-readiness-does-not-cover) in the Claude API documentation. If your deployment must handle PHI, configure Google Cloud's Agent Platform or Amazon Bedrock as the inference provider and put a BAA in place with that provider.
 
 ## Next steps
 

@@ -1,17 +1,12 @@
----
-title: Stream Session Thread Events
-url: https://platform.claude.com/docs/en/api/cli/beta/sessions/threads/events/stream
----
-
-## Stream Session Thread Events
+# Stream Session Thread Events
 
 `$ ant beta:sessions:threads:events stream`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
 Stream Session Thread Events
 
-### Parameters
+## Parameters
 
 - `--session-id: string`
 
@@ -29,13 +24,13 @@ Stream Session Thread Events
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `beta_managed_agents_stream_session_thread_events: BetaManagedAgentsUserMessageEvent or BetaManagedAgentsUserInterruptEvent or BetaManagedAgentsUserToolConfirmationEvent or 34 more`
 
   Server-sent event in a single thread's stream.
 
-  - `beta_managed_agents_user_message_event: object { id, content, type, processed_at }`
+  - `beta_managed_agents_user_message_event: object`
 
     A user message event in the session conversation.
 
@@ -47,7 +42,7 @@ Stream Session Thread Events
 
       Array of content blocks comprising the user message.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
@@ -55,11 +50,11 @@ Stream Session Thread Events
 
           The text content.
 
+          minLength: 1
+
         - `type: "text"`
 
-          - `"text"`
-
-      - `beta_managed_agents_image_block: object { source, type }`
+      - `beta_managed_agents_image_block: object`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
@@ -67,7 +62,7 @@ Stream Session Thread Events
 
           Union type for image source variants.
 
-          - `beta_managed_agents_base64_image_source: object { data, media_type, type }`
+          - `beta_managed_agents_base64_image_source: object`
 
             Base64-encoded image data.
 
@@ -75,27 +70,29 @@ Stream Session Thread Events
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
+              minLength: 1
+
             - `type: "base64"`
 
-              - `"base64"`
-
-          - `beta_managed_agents_url_image_source: object { type, url }`
+          - `beta_managed_agents_url_image_source: object`
 
             Image referenced by URL.
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the image to fetch.
 
-          - `beta_managed_agents_file_image_source: object { file_id, type }`
+              minLength: 1
+
+          - `beta_managed_agents_file_image_source: object`
 
             Image referenced by file ID.
 
@@ -103,15 +100,13 @@ Stream Session Thread Events
 
               ID of a previously uploaded file.
 
-            - `type: "file"`
+              minLength: 1
 
-              - `"file"`
+            - `type: "file"`
 
         - `type: "image"`
 
-          - `"image"`
-
-      - `beta_managed_agents_document_block: object { source, type, context, title }`
+      - `beta_managed_agents_document_block: object`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
@@ -119,7 +114,7 @@ Stream Session Thread Events
 
           Union type for document source variants.
 
-          - `beta_managed_agents_base64_document_source: object { data, media_type, type }`
+          - `beta_managed_agents_base64_document_source: object`
 
             Base64-encoded document data.
 
@@ -127,15 +122,17 @@ Stream Session Thread Events
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the document (e.g., "application/pdf").
 
+              minLength: 1
+
             - `type: "base64"`
 
-              - `"base64"`
-
-          - `beta_managed_agents_plain_text_document_source: object { data, media_type, type }`
+          - `beta_managed_agents_plain_text_document_source: object`
 
             Plain text document content.
 
@@ -143,29 +140,27 @@ Stream Session Thread Events
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: "text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `"text/plain"`
-
             - `type: "text"`
 
-              - `"text"`
-
-          - `beta_managed_agents_url_document_source: object { type, url }`
+          - `beta_managed_agents_url_document_source: object`
 
             Document referenced by URL.
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the document to fetch.
 
-          - `beta_managed_agents_file_document_source: object { file_id, type }`
+              minLength: 1
+
+          - `beta_managed_agents_file_document_source: object`
 
             Document referenced by file ID.
 
@@ -173,13 +168,11 @@ Stream Session Thread Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: "file"`
 
-              - `"file"`
-
         - `type: "document"`
-
-          - `"document"`
 
         - `context: optional string`
 
@@ -189,23 +182,21 @@ Stream Session Thread Events
 
           The title of the document.
 
-      - `beta_managed_agents_redacted_block: object { type }`
+      - `beta_managed_agents_redacted_block: object`
 
         Placeholder for content withheld by Anthropic model policy.
 
         - `type: "redacted"`
 
-          - `"redacted"`
-
     - `type: "user.message"`
-
-      - `"user.message"`
 
     - `processed_at: optional string`
 
       A timestamp in RFC 3339 format
 
-  - `beta_managed_agents_user_interrupt_event: object { id, type, processed_at, session_thread_id }`
+      format: date-time
+
+  - `beta_managed_agents_user_interrupt_event: object`
 
     An interrupt event that pauses agent execution and returns control to the user.
 
@@ -215,17 +206,17 @@ Stream Session Thread Events
 
     - `type: "user.interrupt"`
 
-      - `"user.interrupt"`
-
     - `processed_at: optional string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: optional string`
 
       If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
 
-  - `beta_managed_agents_user_tool_confirmation_event: object { id, result, tool_use_id, 4 more }`
+  - `beta_managed_agents_user_tool_confirmation_event: object`
 
     A tool confirmation event that approves or denies a pending tool execution.
 
@@ -247,21 +238,23 @@ Stream Session Thread Events
 
     - `type: "user.tool_confirmation"`
 
-      - `"user.tool_confirmation"`
-
     - `deny_message: optional string`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
+
+      maxLength: 10000
 
     - `processed_at: optional string`
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: optional string`
 
       When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
 
-  - `beta_managed_agents_user_custom_tool_result_event: object { id, custom_tool_use_id, type, 4 more }`
+  - `beta_managed_agents_user_custom_tool_result_event: object`
 
     Event sent by the client providing the result of a custom tool execution.
 
@@ -275,29 +268,27 @@ Stream Session Thread Events
 
     - `type: "user.custom_tool_result"`
 
-      - `"user.custom_tool_result"`
-
     - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
       The result content returned by the tool.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
-      - `beta_managed_agents_image_block: object { source, type }`
+      - `beta_managed_agents_image_block: object`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `beta_managed_agents_document_block: object { source, type, context, title }`
+      - `beta_managed_agents_document_block: object`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `beta_managed_agents_search_result_block: object { citations, content, source, 2 more }`
+      - `beta_managed_agents_search_result_block: object`
 
         A block containing a web search result.
 
-        - `citations: object { enabled }`
+        - `citations: object`
 
           Citation settings for a search result.
 
@@ -313,21 +304,23 @@ Stream Session Thread Events
 
             The text content.
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
         - `source: string`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: string`
 
           The title of the search result.
 
-        - `type: "search_result"`
+          minLength: 1
 
-          - `"search_result"`
+        - `type: "search_result"`
 
     - `is_error: optional boolean`
 
@@ -337,11 +330,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: optional string`
 
       Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
 
-  - `beta_managed_agents_agent_custom_tool_use_event: object { id, input, name, 3 more }`
+  - `beta_managed_agents_agent_custom_tool_use_event: object`
 
     Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
 
@@ -361,15 +356,15 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.custom_tool_use"`
+      format: date-time
 
-      - `"agent.custom_tool_use"`
+    - `type: "agent.custom_tool_use"`
 
     - `session_thread_id: optional string`
 
       When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
 
-  - `beta_managed_agents_agent_message_event: object { id, content, processed_at, type }`
+  - `beta_managed_agents_agent_message_event: object`
 
     An agent response event in the session conversation.
 
@@ -381,11 +376,11 @@ Stream Session Thread Events
 
       Array of text blocks comprising the agent response.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
-      - `beta_managed_agents_redacted_block: object { type }`
+      - `beta_managed_agents_redacted_block: object`
 
         Placeholder for content withheld by Anthropic model policy.
 
@@ -393,11 +388,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "agent.message"`
 
-      - `"agent.message"`
-
-  - `beta_managed_agents_agent_thinking_event: object { id, processed_at, type }`
+  - `beta_managed_agents_agent_thinking_event: object`
 
     Indicates the agent is making forward progress via extended thinking. A progress signal, not a content carrier.
 
@@ -409,11 +404,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "agent.thinking"`
 
-      - `"agent.thinking"`
-
-  - `beta_managed_agents_agent_mcp_tool_use_event: object { id, input, mcp_server_name, 5 more }`
+  - `beta_managed_agents_agent_mcp_tool_use_event: object`
 
     Event emitted when the agent invokes a tool provided by an MCP server.
 
@@ -437,9 +432,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_use"`
+      format: date-time
 
-      - `"agent.mcp_tool_use"`
+    - `type: "agent.mcp_tool_use"`
 
     - `evaluated_permission: optional "allow" or "ask" or "deny"`
 
@@ -455,7 +450,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
-  - `beta_managed_agents_agent_mcp_tool_result_event: object { id, mcp_tool_use_id, processed_at, 3 more }`
+  - `beta_managed_agents_agent_mcp_tool_result_event: object`
 
     Event representing the result of an MCP tool execution.
 
@@ -471,27 +466,27 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_result"`
+      format: date-time
 
-      - `"agent.mcp_tool_result"`
+    - `type: "agent.mcp_tool_result"`
 
     - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
       The result content returned by the tool.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
-      - `beta_managed_agents_image_block: object { source, type }`
+      - `beta_managed_agents_image_block: object`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `beta_managed_agents_document_block: object { source, type, context, title }`
+      - `beta_managed_agents_document_block: object`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `beta_managed_agents_search_result_block: object { citations, content, source, 2 more }`
+      - `beta_managed_agents_search_result_block: object`
 
         A block containing a web search result.
 
@@ -499,7 +494,7 @@ Stream Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `beta_managed_agents_agent_tool_use_event: object { id, input, name, 4 more }`
+  - `beta_managed_agents_agent_tool_use_event: object`
 
     Event emitted when the agent invokes a built-in agent tool.
 
@@ -519,9 +514,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.tool_use"`
+      format: date-time
 
-      - `"agent.tool_use"`
+    - `type: "agent.tool_use"`
 
     - `evaluated_permission: optional "allow" or "ask" or "deny"`
 
@@ -537,7 +532,7 @@ Stream Session Thread Events
 
       When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
 
-  - `beta_managed_agents_agent_tool_result_event: object { id, processed_at, tool_use_id, 3 more }`
+  - `beta_managed_agents_agent_tool_result_event: object`
 
     Event representing the result of an agent tool execution.
 
@@ -549,31 +544,31 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: string`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: "agent.tool_result"`
 
-      - `"agent.tool_result"`
-
     - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
       The result content returned by the tool.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
-      - `beta_managed_agents_image_block: object { source, type }`
+      - `beta_managed_agents_image_block: object`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `beta_managed_agents_document_block: object { source, type, context, title }`
+      - `beta_managed_agents_document_block: object`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `beta_managed_agents_search_result_block: object { citations, content, source, 2 more }`
+      - `beta_managed_agents_search_result_block: object`
 
         A block containing a web search result.
 
@@ -581,7 +576,7 @@ Stream Session Thread Events
 
       Whether the tool execution resulted in an error.
 
-  - `beta_managed_agents_agent_thread_message_received_event: object { id, content, from_session_thread_id, 3 more }`
+  - `beta_managed_agents_agent_thread_message_received_event: object`
 
     Delivery event written to the target thread's input stream when an agent-to-agent message arrives.
 
@@ -593,19 +588,19 @@ Stream Session Thread Events
 
       Message content blocks.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
-      - `beta_managed_agents_image_block: object { source, type }`
+      - `beta_managed_agents_image_block: object`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `beta_managed_agents_document_block: object { source, type, context, title }`
+      - `beta_managed_agents_document_block: object`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `beta_managed_agents_redacted_block: object { type }`
+      - `beta_managed_agents_redacted_block: object`
 
         Placeholder for content withheld by Anthropic model policy.
 
@@ -617,15 +612,15 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thread_message_received"`
+      format: date-time
 
-      - `"agent.thread_message_received"`
+    - `type: "agent.thread_message_received"`
 
     - `from_agent_name: optional string`
 
       Name of the callable agent this message came from. Absent when received from the primary agent.
 
-  - `beta_managed_agents_agent_thread_message_sent_event: object { id, content, processed_at, 3 more }`
+  - `beta_managed_agents_agent_thread_message_sent_event: object`
 
     Observability event emitted to the sender's output stream when an agent-to-agent message is sent.
 
@@ -637,19 +632,19 @@ Stream Session Thread Events
 
       Message content blocks.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
-      - `beta_managed_agents_image_block: object { source, type }`
+      - `beta_managed_agents_image_block: object`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `beta_managed_agents_document_block: object { source, type, context, title }`
+      - `beta_managed_agents_document_block: object`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `beta_managed_agents_redacted_block: object { type }`
+      - `beta_managed_agents_redacted_block: object`
 
         Placeholder for content withheld by Anthropic model policy.
 
@@ -657,19 +652,19 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `to_session_thread_id: string`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: "agent.thread_message_sent"`
 
-      - `"agent.thread_message_sent"`
-
     - `to_agent_name: optional string`
 
       Name of the callable agent this message was sent to. Absent when sent to the primary agent.
 
-  - `beta_managed_agents_agent_thread_context_compacted_event: object { id, processed_at, type }`
+  - `beta_managed_agents_agent_thread_context_compacted_event: object`
 
     Indicates that context compaction (summarization) occurred during the session.
 
@@ -681,11 +676,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "agent.thread_context_compacted"`
 
-      - `"agent.thread_context_compacted"`
-
-  - `beta_managed_agents_session_error_event: object { id, error, processed_at, type }`
+  - `beta_managed_agents_session_error_event: object`
 
     An error event indicating a problem occurred during session execution.
 
@@ -697,7 +692,7 @@ Stream Session Thread Events
 
       An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
 
-      - `beta_managed_agents_unknown_error: object { message, retry_status, type }`
+      - `beta_managed_agents_unknown_error: object`
 
         An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
 
@@ -709,35 +704,27 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
             - `type: "retrying"`
 
-              - `"retrying"`
-
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: "exhausted"`
 
-              - `"exhausted"`
-
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
             - `type: "terminal"`
 
-              - `"terminal"`
-
         - `type: "unknown_error"`
 
-          - `"unknown_error"`
-
-      - `beta_managed_agents_model_overloaded_error: object { message, retry_status, type }`
+      - `beta_managed_agents_model_overloaded_error: object`
 
         The model is currently overloaded. Emitted after automatic retries are exhausted.
 
@@ -749,23 +736,21 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "model_overloaded_error"`
 
-          - `"model_overloaded_error"`
-
-      - `beta_managed_agents_model_rate_limited_error: object { message, retry_status, type }`
+      - `beta_managed_agents_model_rate_limited_error: object`
 
         The model request was rate-limited.
 
@@ -777,23 +762,21 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "model_rate_limited_error"`
 
-          - `"model_rate_limited_error"`
-
-      - `beta_managed_agents_model_request_failed_error: object { message, retry_status, type }`
+      - `beta_managed_agents_model_request_failed_error: object`
 
         A model request failed for a reason other than overload or rate-limiting.
 
@@ -805,23 +788,21 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "model_request_failed_error"`
 
-          - `"model_request_failed_error"`
-
-      - `beta_managed_agents_mcp_connection_failed_error: object { mcp_server_name, message, retry_status, type }`
+      - `beta_managed_agents_mcp_connection_failed_error: object`
 
         Failed to connect to an MCP server.
 
@@ -837,23 +818,21 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "mcp_connection_failed_error"`
 
-          - `"mcp_connection_failed_error"`
-
-      - `beta_managed_agents_mcp_authentication_failed_error: object { mcp_server_name, message, retry_status, type }`
+      - `beta_managed_agents_mcp_authentication_failed_error: object`
 
         Authentication to an MCP server failed.
 
@@ -869,23 +848,21 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "mcp_authentication_failed_error"`
 
-          - `"mcp_authentication_failed_error"`
-
-      - `beta_managed_agents_billing_error: object { message, retry_status, type }`
+      - `beta_managed_agents_billing_error: object`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
 
@@ -897,23 +874,21 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "billing_error"`
 
-          - `"billing_error"`
-
-      - `beta_managed_agents_credential_host_unreachable_error: object { credential_id, message, retry_status, 2 more }`
+      - `beta_managed_agents_credential_host_unreachable_error: object`
 
         An `environment_variable` credential's `auth.networking.allowed_hosts` includes a host the environment's network policy does not permit.
 
@@ -929,21 +904,19 @@ Stream Session Thread Events
 
           What the client should do next in response to this error.
 
-          - `beta_managed_agents_retry_status_retrying: object { type }`
+          - `beta_managed_agents_retry_status_retrying: object`
 
             The server is retrying automatically. Client should wait; the same error type may fire again as retrying, then once as exhausted when the retry budget runs out.
 
-          - `beta_managed_agents_retry_status_exhausted: object { type }`
+          - `beta_managed_agents_retry_status_exhausted: object`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
-          - `beta_managed_agents_retry_status_terminal: object { type }`
+          - `beta_managed_agents_retry_status_terminal: object`
 
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "credential_host_unreachable_error"`
-
-          - `"credential_host_unreachable_error"`
 
         - `vault_id: string`
 
@@ -953,11 +926,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "session.error"`
 
-      - `"session.error"`
-
-  - `beta_managed_agents_session_status_rescheduled_event: object { id, processed_at, type }`
+  - `beta_managed_agents_session_status_rescheduled_event: object`
 
     Indicates the session is recovering from an error state and is rescheduled for execution.
 
@@ -969,11 +942,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "session.status_rescheduled"`
 
-      - `"session.status_rescheduled"`
-
-  - `beta_managed_agents_session_status_running_event: object { id, processed_at, type }`
+  - `beta_managed_agents_session_status_running_event: object`
 
     Indicates the session is actively running and the agent is working.
 
@@ -985,11 +958,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "session.status_running"`
 
-      - `"session.status_running"`
-
-  - `beta_managed_agents_session_status_idle_event: object { id, processed_at, stop_reason, type }`
+  - `beta_managed_agents_session_status_idle_event: object`
 
     Indicates the agent has paused and is awaiting user input.
 
@@ -1001,19 +974,19 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `stop_reason: BetaManagedAgentsSessionEndTurn or BetaManagedAgentsSessionRequiresAction or BetaManagedAgentsSessionRetriesExhausted or BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
 
-      - `beta_managed_agents_session_end_turn: object { type }`
+      - `beta_managed_agents_session_end_turn: object`
 
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: "end_turn"`
 
-          - `"end_turn"`
-
-      - `beta_managed_agents_session_requires_action: object { event_ids, type }`
+      - `beta_managed_agents_session_requires_action: object`
 
         The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running.
 
@@ -1023,29 +996,21 @@ Stream Session Thread Events
 
         - `type: "requires_action"`
 
-          - `"requires_action"`
-
-      - `beta_managed_agents_session_retries_exhausted: object { type }`
+      - `beta_managed_agents_session_retries_exhausted: object`
 
         The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: "retries_exhausted"`
 
-          - `"retries_exhausted"`
-
-      - `beta_managed_agents_session_budget_reached: object { type }`
+      - `beta_managed_agents_session_budget_reached: object`
 
         The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
         - `type: "budget_reached"`
 
-          - `"budget_reached"`
-
     - `type: "session.status_idle"`
 
-      - `"session.status_idle"`
-
-  - `beta_managed_agents_session_status_terminated_event: object { id, processed_at, type }`
+  - `beta_managed_agents_session_status_terminated_event: object`
 
     Indicates the session has terminated, either due to an error or completion.
 
@@ -1057,11 +1022,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "session.status_terminated"`
 
-      - `"session.status_terminated"`
-
-  - `beta_managed_agents_session_thread_created_event: object { id, agent_name, processed_at, 2 more }`
+  - `beta_managed_agents_session_thread_created_event: object`
 
     Emitted when a subagent is spawned as a new thread. Written to the parent thread's output stream so clients observing the session see child creation.
 
@@ -1077,15 +1042,15 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: "session.thread_created"`
 
-      - `"session.thread_created"`
-
-  - `beta_managed_agents_span_outcome_evaluation_start_event: object { id, iteration, outcome_id, 2 more }`
+  - `beta_managed_agents_span_outcome_evaluation_start_event: object`
 
     Emitted when an outcome evaluation cycle begins.
 
@@ -1097,6 +1062,8 @@ Stream Session Thread Events
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -1105,11 +1072,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "span.outcome_evaluation_start"`
 
-      - `"span.outcome_evaluation_start"`
-
-  - `beta_managed_agents_span_outcome_evaluation_end_event: object { id, explanation, iteration, 6 more }`
+  - `beta_managed_agents_span_outcome_evaluation_end_event: object`
 
     Emitted when an outcome evaluation cycle completes. Carries the verdict and aggregate token usage. A verdict of `needs_revision` means another evaluation cycle follows; `satisfied`, `max_iterations_reached`, `failed`, or `interrupted` are terminal — no further evaluation cycles follow.
 
@@ -1125,6 +1092,8 @@ Stream Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: string`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -1137,15 +1106,15 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: string`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: "span.outcome_evaluation_end"`
 
-      - `"span.outcome_evaluation_end"`
-
-    - `usage: object { cache_creation_input_tokens, cache_read_input_tokens, input_tokens, 2 more }`
+    - `usage: object`
 
       Token usage for a single model request.
 
@@ -1153,17 +1122,25 @@ Stream Session Thread Events
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: number`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: number`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: number`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed: optional "standard" or "fast"`
 
@@ -1173,7 +1150,7 @@ Stream Session Thread Events
 
         - `"fast"`
 
-  - `beta_managed_agents_span_model_request_start_event: object { id, processed_at, type }`
+  - `beta_managed_agents_span_model_request_start_event: object`
 
     Emitted when a model request is initiated by the agent.
 
@@ -1185,11 +1162,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "span.model_request_start"`
 
-      - `"span.model_request_start"`
-
-  - `beta_managed_agents_span_model_request_end_event: object { id, is_error, model_request_start_id, 3 more }`
+  - `beta_managed_agents_span_model_request_end_event: object`
 
     Emitted when a model request completes.
 
@@ -1205,7 +1182,7 @@ Stream Session Thread Events
 
       The id of the corresponding `span.model_request_start` event.
 
-    - `model_usage: object { cache_creation_input_tokens, cache_read_input_tokens, input_tokens, 2 more }`
+    - `model_usage: object`
 
       Token usage for a single model request.
 
@@ -1213,17 +1190,25 @@ Stream Session Thread Events
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: number`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: number`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: number`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed: optional "standard" or "fast"`
 
@@ -1233,11 +1218,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "span.model_request_end"`
 
-      - `"span.model_request_end"`
-
-  - `beta_managed_agents_span_outcome_evaluation_ongoing_event: object { id, iteration, outcome_id, 2 more }`
+  - `beta_managed_agents_span_outcome_evaluation_ongoing_event: object`
 
     Periodic heartbeat emitted while an outcome evaluation cycle is in progress. Distinguishes 'evaluation is actively running' from 'evaluation is stuck' between the corresponding `span.outcome_evaluation_start` and `span.outcome_evaluation_end` events.
 
@@ -1249,6 +1234,8 @@ Stream Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -1257,11 +1244,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "span.outcome_evaluation_ongoing"`
 
-      - `"span.outcome_evaluation_ongoing"`
-
-  - `beta_managed_agents_user_define_outcome_event: object { id, description, max_iterations, 4 more }`
+  - `beta_managed_agents_user_define_outcome_event: object`
 
     Echo of a `user.define_outcome` input event. Carries the server-generated `outcome_id` that subsequent `span.outcome_evaluation_*` events reference.
 
@@ -1277,6 +1264,8 @@ Stream Session Thread Events
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: string`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -1285,11 +1274,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `rubric: BetaManagedAgentsFileRubric or BetaManagedAgentsTextRubric`
 
       Rubric for grading the quality of an outcome.
 
-      - `beta_managed_agents_file_rubric: object { file_id, type }`
+      - `beta_managed_agents_file_rubric: object`
 
         Rubric referenced by a file uploaded via the Files API.
 
@@ -1299,9 +1290,7 @@ Stream Session Thread Events
 
         - `type: "file"`
 
-          - `"file"`
-
-      - `beta_managed_agents_text_rubric: object { content, type }`
+      - `beta_managed_agents_text_rubric: object`
 
         Rubric content provided inline as text.
 
@@ -1311,13 +1300,9 @@ Stream Session Thread Events
 
         - `type: "text"`
 
-          - `"text"`
-
     - `type: "user.define_outcome"`
 
-      - `"user.define_outcome"`
-
-  - `beta_managed_agents_session_deleted_event: object { id, processed_at, type }`
+  - `beta_managed_agents_session_deleted_event: object`
 
     Emitted when a session has been deleted. Terminates any active event stream — no further events will be emitted for this session.
 
@@ -1329,11 +1314,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "session.deleted"`
 
-      - `"session.deleted"`
-
-  - `beta_managed_agents_session_thread_status_running_event: object { id, agent_name, processed_at, 2 more }`
+  - `beta_managed_agents_session_thread_status_running_event: object`
 
     A session thread has begun executing. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1349,15 +1334,15 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: "session.thread_status_running"`
 
-      - `"session.thread_status_running"`
-
-  - `beta_managed_agents_session_thread_status_idle_event: object { id, agent_name, processed_at, 3 more }`
+  - `beta_managed_agents_session_thread_status_idle_event: object`
 
     A session thread has yielded and is awaiting input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1373,6 +1358,8 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that went idle.
@@ -1381,27 +1368,25 @@ Stream Session Thread Events
 
       The agent completed its turn naturally and is ready for the next user message.
 
-      - `beta_managed_agents_session_end_turn: object { type }`
+      - `beta_managed_agents_session_end_turn: object`
 
         The agent completed its turn naturally and is ready for the next user message.
 
-      - `beta_managed_agents_session_requires_action: object { event_ids, type }`
+      - `beta_managed_agents_session_requires_action: object`
 
         The agent is idle waiting on one or more blocking user-input events (tool confirmation, custom tool result, etc.). Resolving all of them transitions the session back to running.
 
-      - `beta_managed_agents_session_retries_exhausted: object { type }`
+      - `beta_managed_agents_session_retries_exhausted: object`
 
         The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
-      - `beta_managed_agents_session_budget_reached: object { type }`
+      - `beta_managed_agents_session_budget_reached: object`
 
         The agent stopped because the session's tracked list cost reached its budget, or because its usage includes a model with no list price (which the budget cannot measure). Raise the budget to continue — or, if raising is rejected because a model has no list price, remove the budget.
 
     - `type: "session.thread_status_idle"`
 
-      - `"session.thread_status_idle"`
-
-  - `beta_managed_agents_session_thread_status_terminated_event: object { id, agent_name, processed_at, 2 more }`
+  - `beta_managed_agents_session_thread_status_terminated_event: object`
 
     A session thread has terminated and will accept no further input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1417,15 +1402,15 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: "session.thread_status_terminated"`
 
-      - `"session.thread_status_terminated"`
-
-  - `beta_managed_agents_user_tool_result_event: object { id, tool_use_id, type, 4 more }`
+  - `beta_managed_agents_user_tool_result_event: object`
 
     Event sent by the client providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
 
@@ -1439,25 +1424,23 @@ Stream Session Thread Events
 
     - `type: "user.tool_result"`
 
-      - `"user.tool_result"`
-
     - `content: optional array of BetaManagedAgentsTextBlock or BetaManagedAgentsImageBlock or BetaManagedAgentsDocumentBlock or BetaManagedAgentsSearchResultBlock`
 
       The result content returned by the tool.
 
-      - `beta_managed_agents_text_block: object { text, type }`
+      - `beta_managed_agents_text_block: object`
 
         Regular text content.
 
-      - `beta_managed_agents_image_block: object { source, type }`
+      - `beta_managed_agents_image_block: object`
 
         Image content specified directly as base64 data or as a reference via a URL.
 
-      - `beta_managed_agents_document_block: object { source, type, context, title }`
+      - `beta_managed_agents_document_block: object`
 
         Document content, either specified directly as base64 data, as text, or as a reference via a URL.
 
-      - `beta_managed_agents_search_result_block: object { citations, content, source, 2 more }`
+      - `beta_managed_agents_search_result_block: object`
 
         A block containing a web search result.
 
@@ -1469,11 +1452,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: optional string`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
 
-  - `beta_managed_agents_session_thread_status_rescheduled_event: object { id, agent_name, processed_at, 2 more }`
+  - `beta_managed_agents_session_thread_status_rescheduled_event: object`
 
     A session thread hit a transient error and is retrying automatically. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
 
@@ -1489,15 +1474,15 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: "session.thread_status_rescheduled"`
 
-      - `"session.thread_status_rescheduled"`
-
-  - `beta_managed_agents_session_updated_event: object { id, processed_at, type, 4 more }`
+  - `beta_managed_agents_session_updated_event: object`
 
     Emitted when an UpdateSession request changed at least one field. Carries only the fields that changed; absent fields were not part of the update. The new configuration applies from the next turn.
 
@@ -1509,11 +1494,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "session.updated"`
 
-      - `"session.updated"`
-
-    - `agent: optional object { id, description, mcp_servers, 8 more }`
+    - `agent: optional object`
 
       Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
 
@@ -1527,11 +1512,9 @@ Stream Session Thread Events
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
-      - `model: object { id, effort, inference_geo, speed }`
+      - `model: object`
 
         Model identifier and configuration.
 
@@ -1597,45 +1580,35 @@ Stream Session Thread Events
 
           How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
 
-          - `beta_managed_agents_effort_low: object { type }`
+          - `beta_managed_agents_effort_low: object`
 
             Low effort. Favors latency over reasoning depth.
 
             - `type: "low"`
 
-              - `"low"`
-
-          - `beta_managed_agents_effort_medium: object { type }`
+          - `beta_managed_agents_effort_medium: object`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
 
-              - `"medium"`
-
-          - `beta_managed_agents_effort_high: object { type }`
+          - `beta_managed_agents_effort_high: object`
 
             High effort. Favors reasoning depth.
 
             - `type: "high"`
 
-              - `"high"`
-
-          - `beta_managed_agents_effort_xhigh: object { type }`
+          - `beta_managed_agents_effort_xhigh: object`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
-          - `beta_managed_agents_effort_max: object { type }`
+          - `beta_managed_agents_effort_max: object`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo: optional string`
 
@@ -1649,7 +1622,7 @@ Stream Session Thread Events
 
           - `"fast"`
 
-      - `multiagent: object { agents, type }`
+      - `multiagent: object`
 
         Resolved coordinator topology with full agent definitions for each roster member.
 
@@ -1657,7 +1630,7 @@ Stream Session Thread Events
 
           Full `agent` definitions the coordinator may spawn as session threads.
 
-          - `beta_managed_agents_session_thread_agent: object { id, description, mcp_servers, 7 more }`
+          - `beta_managed_agents_session_thread_agent: object`
 
             Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
@@ -1673,7 +1646,7 @@ Stream Session Thread Events
 
               - `url: string`
 
-            - `model: object { id, effort, inference_geo, speed }`
+            - `model: object`
 
               Model identifier and configuration.
 
@@ -1699,7 +1672,7 @@ Stream Session Thread Events
 
             - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
 
-              - `beta_managed_agents_anthropic_skill: object { skill_id, type, version }`
+              - `beta_managed_agents_anthropic_skill: object`
 
                 A resolved Anthropic-managed skill.
 
@@ -1707,11 +1680,9 @@ Stream Session Thread Events
 
                 - `type: "anthropic"`
 
-                  - `"anthropic"`
-
                 - `version: string`
 
-              - `beta_managed_agents_custom_skill: object { skill_id, type, version }`
+              - `beta_managed_agents_custom_skill: object`
 
                 A resolved user-created custom skill.
 
@@ -1719,19 +1690,17 @@ Stream Session Thread Events
 
                 - `type: "custom"`
 
-                  - `"custom"`
-
                 - `version: string`
 
             - `system: string`
 
             - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
-              - `beta_managed_agents_agent_toolset20260401: object { configs, default_config, type }`
+              - `beta_managed_agents_agent_toolset20260401: object`
 
                 - `configs: array of BetaManagedAgentsAgentToolConfig`
 
-                  - `beta_managed_agents_bash_tool_config: object { enabled, name, permission_policy, type }`
+                  - `beta_managed_agents_bash_tool_config: object`
 
                     Configuration for the bash tool.
 
@@ -1743,25 +1712,21 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
                         - `type: "always_allow"`
 
-                          - `"always_allow"`
-
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
                         - `type: "always_ask"`
 
-                          - `"always_ask"`
-
                     - `type: "bash"`
 
-                  - `beta_managed_agents_edit_tool_config: object { enabled, name, permission_policy, type }`
+                  - `beta_managed_agents_edit_tool_config: object`
 
                     Configuration for the edit tool.
 
@@ -1773,17 +1738,17 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
                     - `type: "edit"`
 
-                  - `beta_managed_agents_read_tool_config: object { enabled, name, permission_policy, type }`
+                  - `beta_managed_agents_read_tool_config: object`
 
                     Configuration for the read tool.
 
@@ -1795,17 +1760,17 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
                     - `type: "read"`
 
-                  - `beta_managed_agents_write_tool_config: object { enabled, name, permission_policy, type }`
+                  - `beta_managed_agents_write_tool_config: object`
 
                     Configuration for the write tool.
 
@@ -1817,17 +1782,17 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
                     - `type: "write"`
 
-                  - `beta_managed_agents_glob_tool_config: object { enabled, name, permission_policy, type }`
+                  - `beta_managed_agents_glob_tool_config: object`
 
                     Configuration for the glob tool.
 
@@ -1839,17 +1804,17 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
                     - `type: "glob"`
 
-                  - `beta_managed_agents_grep_tool_config: object { enabled, name, permission_policy, type }`
+                  - `beta_managed_agents_grep_tool_config: object`
 
                     Configuration for the grep tool.
 
@@ -1861,17 +1826,17 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
                     - `type: "grep"`
 
-                  - `beta_managed_agents_web_fetch_tool_config: object { enabled, name, permission_policy, 4 more }`
+                  - `beta_managed_agents_web_fetch_tool_config: object`
 
                     Configuration for the web_fetch tool.
 
@@ -1883,11 +1848,11 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
@@ -1899,7 +1864,9 @@ Stream Session Thread Events
 
                     - `max_content_tokens: optional number`
 
-                  - `beta_managed_agents_web_search_tool_config: object { enabled, name, permission_policy, 4 more }`
+                      format: int32
+
+                  - `beta_managed_agents_web_search_tool_config: object`
 
                     Configuration for the web_search tool.
 
@@ -1911,11 +1878,11 @@ Stream Session Thread Events
 
                       Permission policy for tool execution.
 
-                      - `beta_managed_agents_always_allow_policy: object { type }`
+                      - `beta_managed_agents_always_allow_policy: object`
 
                         Tool calls are automatically approved without user confirmation.
 
-                      - `beta_managed_agents_always_ask_policy: object { type }`
+                      - `beta_managed_agents_always_ask_policy: object`
 
                         Tool calls require user confirmation before execution.
 
@@ -1925,7 +1892,7 @@ Stream Session Thread Events
 
                     - `blocked_domains: optional array of string`
 
-                    - `user_location: optional object { type, city, country, 2 more }`
+                    - `user_location: optional object`
 
                       Approximate user location for search result localization.
 
@@ -1937,6 +1904,8 @@ Stream Session Thread Events
 
                         City name.
 
+                        minLength: 1, maxLength: 255
+
                       - `country: optional string`
 
                         Two-letter ISO 3166-1 country code, uppercase.
@@ -1945,11 +1914,15 @@ Stream Session Thread Events
 
                         Region or state name.
 
+                        minLength: 1, maxLength: 255
+
                       - `timezone: optional string`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
 
-                - `default_config: object { enabled, permission_policy }`
+                        minLength: 1, maxLength: 255
+
+                - `default_config: object`
 
                   Resolved default configuration for agent tools.
 
@@ -1959,19 +1932,17 @@ Stream Session Thread Events
 
                     Permission policy for tool execution.
 
-                    - `beta_managed_agents_always_allow_policy: object { type }`
+                    - `beta_managed_agents_always_allow_policy: object`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `beta_managed_agents_always_ask_policy: object { type }`
+                    - `beta_managed_agents_always_ask_policy: object`
 
                       Tool calls require user confirmation before execution.
 
                 - `type: "agent_toolset_20260401"`
 
-                  - `"agent_toolset_20260401"`
-
-              - `beta_managed_agents_mcp_toolset: object { configs, default_config, mcp_server_name, type }`
+              - `beta_managed_agents_mcp_toolset: object`
 
                 - `configs: array of BetaManagedAgentsMCPToolConfig`
 
@@ -1983,15 +1954,15 @@ Stream Session Thread Events
 
                     Permission policy for tool execution.
 
-                    - `beta_managed_agents_always_allow_policy: object { type }`
+                    - `beta_managed_agents_always_allow_policy: object`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `beta_managed_agents_always_ask_policy: object { type }`
+                    - `beta_managed_agents_always_ask_policy: object`
 
                       Tool calls require user confirmation before execution.
 
-                - `default_config: object { enabled, permission_policy }`
+                - `default_config: object`
 
                   Resolved default configuration for all tools from an MCP server.
 
@@ -2001,11 +1972,11 @@ Stream Session Thread Events
 
                     Permission policy for tool execution.
 
-                    - `beta_managed_agents_always_allow_policy: object { type }`
+                    - `beta_managed_agents_always_allow_policy: object`
 
                       Tool calls are automatically approved without user confirmation.
 
-                    - `beta_managed_agents_always_ask_policy: object { type }`
+                    - `beta_managed_agents_always_ask_policy: object`
 
                       Tool calls require user confirmation before execution.
 
@@ -2013,15 +1984,13 @@ Stream Session Thread Events
 
                 - `type: "mcp_toolset"`
 
-                  - `"mcp_toolset"`
-
-              - `beta_managed_agents_custom_tool: object { description, input_schema, name, type }`
+              - `beta_managed_agents_custom_tool: object`
 
                 A custom tool as returned in API responses.
 
                 - `description: string`
 
-                - `input_schema: object { type, properties, required }`
+                - `input_schema: object`
 
                   JSON Schema for custom tool input parameters.
 
@@ -2035,15 +2004,13 @@ Stream Session Thread Events
 
                 - `type: "custom"`
 
-                  - `"custom"`
-
             - `type: "agent"`
-
-              - `"agent"`
 
             - `version: number`
 
-          - `beta_managed_agents_advisor: object { model, type }`
+              format: int32
+
+          - `beta_managed_agents_advisor: object`
 
             Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
@@ -2053,21 +2020,17 @@ Stream Session Thread Events
 
             - `type: "advisor"`
 
-              - `"advisor"`
-
         - `type: "coordinator"`
-
-          - `"coordinator"`
 
       - `name: string`
 
       - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
 
-        - `beta_managed_agents_anthropic_skill: object { skill_id, type, version }`
+        - `beta_managed_agents_anthropic_skill: object`
 
           A resolved Anthropic-managed skill.
 
-        - `beta_managed_agents_custom_skill: object { skill_id, type, version }`
+        - `beta_managed_agents_custom_skill: object`
 
           A resolved user-created custom skill.
 
@@ -2075,25 +2038,25 @@ Stream Session Thread Events
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
-        - `beta_managed_agents_agent_toolset20260401: object { configs, default_config, type }`
+        - `beta_managed_agents_agent_toolset20260401: object`
 
-        - `beta_managed_agents_mcp_toolset: object { configs, default_config, mcp_server_name, type }`
+        - `beta_managed_agents_mcp_toolset: object`
 
-        - `beta_managed_agents_custom_tool: object { description, input_schema, name, type }`
+        - `beta_managed_agents_custom_tool: object`
 
           A custom tool as returned in API responses.
 
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
 
-    - `budget: optional object { max_list_cost, type }`
+        format: int32
+
+    - `budget: optional object`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-      - `max_list_cost: object { amount, currency }`
+      - `max_list_cost: object`
 
         A monetary amount in a specific currency.
 
@@ -2105,11 +2068,7 @@ Stream Session Thread Events
 
           Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-          - `"USD"`
-
       - `type: "limit"`
-
-        - `"limit"`
 
     - `metadata: optional map[string]`
 
@@ -2119,7 +2078,7 @@ Stream Session Thread Events
 
       The session's new title. Present only when the update changed it.
 
-  - `beta_managed_agents_start_event: object { event, type }`
+  - `beta_managed_agents_start_event: object`
 
     Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
 
@@ -2127,7 +2086,7 @@ Stream Session Thread Events
 
       The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
 
-      - `beta_managed_agents_agent_message_preview: object { id, type }`
+      - `beta_managed_agents_agent_message_preview: object`
 
         - `id: string`
 
@@ -2135,9 +2094,7 @@ Stream Session Thread Events
 
         - `type: "agent.message"`
 
-          - `"agent.message"`
-
-      - `beta_managed_agents_agent_thinking_preview: object { id, type }`
+      - `beta_managed_agents_agent_thinking_preview: object`
 
         - `id: string`
 
@@ -2145,21 +2102,17 @@ Stream Session Thread Events
 
         - `type: "agent.thinking"`
 
-          - `"agent.thinking"`
-
     - `type: "event_start"`
 
-      - `"event_start"`
-
-  - `beta_managed_agents_delta_event: object { delta, event_id, type }`
+  - `beta_managed_agents_delta_event: object`
 
     An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
 
-    - `delta: object { content, type, index }`
+    - `delta: object`
 
       One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
 
-      - `content: object { text, type }`
+      - `content: object`
 
         Regular text content.
 
@@ -2167,15 +2120,17 @@ Stream Session Thread Events
 
           The text content.
 
+          minLength: 1
+
         - `type: "text"`
 
       - `type: "content_delta"`
 
-        - `"content_delta"`
-
       - `index: optional number`
 
         Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+        format: uint32
 
     - `event_id: string`
 
@@ -2183,9 +2138,7 @@ Stream Session Thread Events
 
     - `type: "event_delta"`
 
-      - `"event_delta"`
-
-  - `beta_managed_agents_system_message_event: object { id, content, type, processed_at }`
+  - `beta_managed_agents_system_message_event: object`
 
     A mid-conversation system message event. Carries system-role content that is appended to the session as a `role: "system"` turn.
 
@@ -2201,19 +2154,19 @@ Stream Session Thread Events
 
         The text content.
 
+        minLength: 1
+
       - `type: "text"`
 
-        - `"text"`
-
     - `type: "system.message"`
-
-      - `"system.message"`
 
     - `processed_at: optional string`
 
       A timestamp in RFC 3339 format
 
-  - `beta_managed_agents_session_usage_event: object { id, processed_at, type, 2 more }`
+      format: date-time
+
+  - `beta_managed_agents_session_usage_event: object`
 
     Periodic snapshot of the session's cumulative usage and tracked list cost.
 
@@ -2225,11 +2178,11 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `type: "session.usage"`
 
-      - `"session.usage"`
-
-    - `usage: object { active_seconds, cache_creation, cache_read_input_tokens, 4 more }`
+    - `usage: object`
 
       Point-in-time snapshot of a session's cumulative usage.
 
@@ -2237,7 +2190,9 @@ Stream Session Thread Events
 
         Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
 
-      - `cache_creation: optional object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        format: double
+
+      - `cache_creation: optional object`
 
         Prompt-cache creation token usage broken down by cache lifetime.
 
@@ -2245,19 +2200,27 @@ Stream Session Thread Events
 
           Tokens used to create 1-hour ephemeral cache entries.
 
+          format: int32
+
         - `ephemeral_5m_input_tokens: optional number`
 
           Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
 
       - `cache_read_input_tokens: optional number`
 
         Total tokens read from prompt cache.
 
+        format: int32
+
       - `input_tokens: optional number`
 
         Total input tokens consumed across all turns.
 
-      - `list_cost: optional object { amount, currency }`
+        format: int32
+
+      - `list_cost: optional object`
 
         A monetary amount in a specific currency.
 
@@ -2273,7 +2236,9 @@ Stream Session Thread Events
 
         Total output tokens generated across all turns.
 
-      - `server_tool_use: optional object { web_fetch_requests, web_search_requests }`
+        format: int32
+
+      - `server_tool_use: optional object`
 
         Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -2281,30 +2246,186 @@ Stream Session Thread Events
 
           Number of server-executed web fetch requests.
 
+          format: int32
+
         - `web_search_requests: optional number`
 
           Number of server-executed web search requests.
 
-    - `budget: optional object { max_list_cost, type }`
+          format: int32
+
+    - `budget: optional object`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-      - `max_list_cost: object { amount, currency }`
+      - `max_list_cost: object`
 
         A monetary amount in a specific currency.
 
       - `type: "limit"`
 
-### Example
+- `beta_managed_agents_stream_session_thread_events: BetaManagedAgentsUserMessageEvent or BetaManagedAgentsUserInterruptEvent or BetaManagedAgentsUserToolConfirmationEvent or 34 more`
 
-```cli
+  Server-sent event in a single thread's stream.
+
+  - `beta_managed_agents_user_message_event: object`
+
+    A user message event in the session conversation.
+
+  - `beta_managed_agents_user_interrupt_event: object`
+
+    An interrupt event that pauses agent execution and returns control to the user.
+
+  - `beta_managed_agents_user_tool_confirmation_event: object`
+
+    A tool confirmation event that approves or denies a pending tool execution.
+
+  - `beta_managed_agents_user_custom_tool_result_event: object`
+
+    Event sent by the client providing the result of a custom tool execution.
+
+  - `beta_managed_agents_agent_custom_tool_use_event: object`
+
+    Event emitted when the agent calls a custom tool. The session goes idle until the client sends a `user.custom_tool_result` event with the result.
+
+  - `beta_managed_agents_agent_message_event: object`
+
+    An agent response event in the session conversation.
+
+  - `beta_managed_agents_agent_thinking_event: object`
+
+    Indicates the agent is making forward progress via extended thinking. A progress signal, not a content carrier.
+
+  - `beta_managed_agents_agent_mcp_tool_use_event: object`
+
+    Event emitted when the agent invokes a tool provided by an MCP server.
+
+  - `beta_managed_agents_agent_mcp_tool_result_event: object`
+
+    Event representing the result of an MCP tool execution.
+
+  - `beta_managed_agents_agent_tool_use_event: object`
+
+    Event emitted when the agent invokes a built-in agent tool.
+
+  - `beta_managed_agents_agent_tool_result_event: object`
+
+    Event representing the result of an agent tool execution.
+
+  - `beta_managed_agents_agent_thread_message_received_event: object`
+
+    Delivery event written to the target thread's input stream when an agent-to-agent message arrives.
+
+  - `beta_managed_agents_agent_thread_message_sent_event: object`
+
+    Observability event emitted to the sender's output stream when an agent-to-agent message is sent.
+
+  - `beta_managed_agents_agent_thread_context_compacted_event: object`
+
+    Indicates that context compaction (summarization) occurred during the session.
+
+  - `beta_managed_agents_session_error_event: object`
+
+    An error event indicating a problem occurred during session execution.
+
+  - `beta_managed_agents_session_status_rescheduled_event: object`
+
+    Indicates the session is recovering from an error state and is rescheduled for execution.
+
+  - `beta_managed_agents_session_status_running_event: object`
+
+    Indicates the session is actively running and the agent is working.
+
+  - `beta_managed_agents_session_status_idle_event: object`
+
+    Indicates the agent has paused and is awaiting user input.
+
+  - `beta_managed_agents_session_status_terminated_event: object`
+
+    Indicates the session has terminated, either due to an error or completion.
+
+  - `beta_managed_agents_session_thread_created_event: object`
+
+    Emitted when a subagent is spawned as a new thread. Written to the parent thread's output stream so clients observing the session see child creation.
+
+  - `beta_managed_agents_span_outcome_evaluation_start_event: object`
+
+    Emitted when an outcome evaluation cycle begins.
+
+  - `beta_managed_agents_span_outcome_evaluation_end_event: object`
+
+    Emitted when an outcome evaluation cycle completes. Carries the verdict and aggregate token usage. A verdict of `needs_revision` means another evaluation cycle follows; `satisfied`, `max_iterations_reached`, `failed`, or `interrupted` are terminal — no further evaluation cycles follow.
+
+  - `beta_managed_agents_span_model_request_start_event: object`
+
+    Emitted when a model request is initiated by the agent.
+
+  - `beta_managed_agents_span_model_request_end_event: object`
+
+    Emitted when a model request completes.
+
+  - `beta_managed_agents_span_outcome_evaluation_ongoing_event: object`
+
+    Periodic heartbeat emitted while an outcome evaluation cycle is in progress. Distinguishes 'evaluation is actively running' from 'evaluation is stuck' between the corresponding `span.outcome_evaluation_start` and `span.outcome_evaluation_end` events.
+
+  - `beta_managed_agents_user_define_outcome_event: object`
+
+    Echo of a `user.define_outcome` input event. Carries the server-generated `outcome_id` that subsequent `span.outcome_evaluation_*` events reference.
+
+  - `beta_managed_agents_session_deleted_event: object`
+
+    Emitted when a session has been deleted. Terminates any active event stream — no further events will be emitted for this session.
+
+  - `beta_managed_agents_session_thread_status_running_event: object`
+
+    A session thread has begun executing. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
+
+  - `beta_managed_agents_session_thread_status_idle_event: object`
+
+    A session thread has yielded and is awaiting input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
+
+  - `beta_managed_agents_session_thread_status_terminated_event: object`
+
+    A session thread has terminated and will accept no further input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
+
+  - `beta_managed_agents_user_tool_result_event: object`
+
+    Event sent by the client providing the result of an agent-toolset tool execution. Only valid on `self_hosted` environments, where sandbox-routed tools are executed by the client rather than the server.
+
+  - `beta_managed_agents_session_thread_status_rescheduled_event: object`
+
+    A session thread hit a transient error and is retrying automatically. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
+
+  - `beta_managed_agents_session_updated_event: object`
+
+    Emitted when an UpdateSession request changed at least one field. Carries only the fields that changed; absent fields were not part of the update. The new configuration applies from the next turn.
+
+  - `beta_managed_agents_start_event: object`
+
+    Opens a preview of a buffered event. Carries the previewed event's type and id only. Followed by zero or more event_delta events with the same event id, normally concluded by the buffered event carrying that id. If the producing model request ends without that event (an error or interrupt mid-stream), its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+  - `beta_managed_agents_delta_event: object`
+
+    An incremental update to an event that is still being streamed. Deltas are best-effort and may stop early; when the buffered event with id == event_id is produced it carries the complete content. A model request that ends early (an error or interrupt) produces no buffered event — its terminal span.model_request_end closes the preview. Only sent on stream connections that opt in via event_deltas; never appears in event history.
+
+  - `beta_managed_agents_system_message_event: object`
+
+    A mid-conversation system message event. Carries system-role content that is appended to the session as a `role: "system"` turn.
+
+  - `beta_managed_agents_session_usage_event: object`
+
+    Periodic snapshot of the session's cumulative usage and tracked list cost.
+
+## Example
+
+```bash
 ant beta:sessions:threads:events stream \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oIjw0rgXZpnBt
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

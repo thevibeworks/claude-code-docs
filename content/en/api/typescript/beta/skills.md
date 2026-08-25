@@ -1,15 +1,10 @@
----
-title: Skills
-url: https://platform.claude.com/docs/en/api/typescript/beta/skills
----
-
 # Skills
 
 ## Create Skill
 
-`client.beta.skills.create(SkillCreateParamsparams, RequestOptionsoptions?): SkillCreateResponse`
+`client.beta.skills.create(params, options?): SkillCreateResponse`
 
-**post** `/v1/skills`
+**POST** `/v1/skills`
 
 Create Skill
 
@@ -146,6 +141,8 @@ Create Skill
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: string`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -166,7 +163,7 @@ const skill = await client.beta.skills.create({
 console.log(skill.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -182,9 +179,9 @@ console.log(skill.id);
 
 ## List Skills
 
-`client.beta.skills.list(SkillListParamsparams?, RequestOptionsoptions?): PageCursor<SkillListResponse>`
+`client.beta.skills.list(params?, options?): PageCursor<SkillListResponse>`
 
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
@@ -330,6 +327,8 @@ List Skills
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: string`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -349,7 +348,7 @@ for await (const skillListResponse of client.beta.skills.list()) {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -371,9 +370,9 @@ for await (const skillListResponse of client.beta.skills.list()) {
 
 ## Get Skill
 
-`client.beta.skills.retrieve(stringskillID, SkillRetrieveParamsparams?, RequestOptionsoptions?): SkillRetrieveResponse`
+`client.beta.skills.retrieve(skillID, params?, options?): SkillRetrieveResponse`
 
-**get** `/v1/skills/{skill_id}`
+**GET** `/v1/skills/{skill_id}`
 
 Get Skill
 
@@ -504,6 +503,8 @@ Get Skill
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: string`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -522,7 +523,7 @@ const skill = await client.beta.skills.retrieve("skill_id");
 console.log(skill.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -538,9 +539,9 @@ console.log(skill.id);
 
 ## Delete Skill
 
-`client.beta.skills.delete(stringskillID, SkillDeleteParamsparams?, RequestOptionsoptions?): SkillDeleteResponse`
+`client.beta.skills.delete(skillID, params?, options?): SkillDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}`
+**DELETE** `/v1/skills/{skill_id}`
 
 Delete Skill
 
@@ -646,6 +647,8 @@ Delete Skill
 
     For Skills, this is always `"skill_deleted"`.
 
+    default: skill_deleted
+
 ### Example
 
 ```typescript
@@ -660,7 +663,7 @@ const skill = await client.beta.skills.delete("skill_id");
 console.log(skill.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -669,7 +672,7 @@ console.log(skill.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Skill Create Response
 
@@ -711,6 +714,8 @@ console.log(skill.id);
     Object type.
 
     For Skills, this is always `"skill"`.
+
+    default: skill
 
   - `updated_at: string`
 
@@ -757,6 +762,8 @@ console.log(skill.id);
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: string`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -802,6 +809,8 @@ console.log(skill.id);
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: string`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -822,17 +831,19 @@ console.log(skill.id);
 
     For Skills, this is always `"skill_deleted"`.
 
-# Versions
+    default: skill_deleted
 
-## Create Skill Version
+## Skills › Versions
 
-`client.beta.skills.versions.create(stringskillID, VersionCreateParamsparams, RequestOptionsoptions?): VersionCreateResponse`
+### Create Skill Version
 
-**post** `/v1/skills/{skill_id}/versions`
+`client.beta.skills.versions.create(skillID, params, options?): VersionCreateResponse`
+
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -924,7 +935,7 @@ Create Skill Version
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `VersionCreateResponse`
 
@@ -966,13 +977,15 @@ Create Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: string`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -988,7 +1001,7 @@ const version = await client.beta.skills.versions.create("skill_id", {
 console.log(version.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1003,15 +1016,15 @@ console.log(version.id);
 }
 ```
 
-## List Skill Versions
+### List Skill Versions
 
-`client.beta.skills.versions.list(stringskillID, VersionListParamsparams?, RequestOptionsoptions?): PageCursor<VersionListResponse>`
+`client.beta.skills.versions.list(skillID, params?, options?): PageCursor<VersionListResponse>`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -1107,7 +1120,7 @@ List Skill Versions
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `VersionListResponse`
 
@@ -1149,13 +1162,15 @@ List Skill Versions
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: string`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1170,7 +1185,7 @@ for await (const versionListResponse of client.beta.skills.versions.list("skill_
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1191,15 +1206,15 @@ for await (const versionListResponse of client.beta.skills.versions.list("skill_
 }
 ```
 
-## Download Skill Version Content
+### Download Skill Version Content
 
-`client.beta.skills.versions.download(stringversion, VersionDownloadParamsparams, RequestOptionsoptions?): Response`
+`client.beta.skills.versions.download(version, params, options?): Response`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-### Parameters
+#### Parameters
 
 - `version: string`
 
@@ -1291,11 +1306,11 @@ Download a skill version's content as a zip archive.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `unnamed_schema_2 = Response`
 
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1314,15 +1329,15 @@ const content = await response.blob();
 console.log(content);
 ```
 
-## Get Skill Version
+### Get Skill Version
 
-`client.beta.skills.versions.retrieve(stringversion, VersionRetrieveParamsparams, RequestOptionsoptions?): VersionRetrieveResponse`
+`client.beta.skills.versions.retrieve(version, params, options?): VersionRetrieveResponse`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+#### Parameters
 
 - `version: string`
 
@@ -1414,7 +1429,7 @@ Get Skill Version
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `VersionRetrieveResponse`
 
@@ -1456,13 +1471,15 @@ Get Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: string`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1478,7 +1495,7 @@ const version = await client.beta.skills.versions.retrieve("version", {
 console.log(version.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1493,15 +1510,15 @@ console.log(version.id);
 }
 ```
 
-## Delete Skill Version
+### Delete Skill Version
 
-`client.beta.skills.versions.delete(stringversion, VersionDeleteParamsparams, RequestOptionsoptions?): VersionDeleteResponse`
+`client.beta.skills.versions.delete(version, params, options?): VersionDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+#### Parameters
 
 - `version: string`
 
@@ -1593,7 +1610,7 @@ Delete Skill Version
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `VersionDeleteResponse`
 
@@ -1609,7 +1626,9 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+    default: skill_version_deleted
+
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1623,7 +1642,7 @@ const version = await client.beta.skills.versions.delete("version", { skill_id: 
 console.log(version.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1631,165 +1650,3 @@ console.log(version.id);
   "type": "type"
 }
 ```
-
-## Domain Types
-
-### Version Create Response
-
-- `VersionCreateResponse`
-
-  - `id: string`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: string`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: string`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: string`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: string`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: string`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version List Response
-
-- `VersionListResponse`
-
-  - `id: string`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: string`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: string`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: string`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: string`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: string`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version Retrieve Response
-
-- `VersionRetrieveResponse`
-
-  - `id: string`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: string`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: string`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: string`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: string`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: string`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version Delete Response
-
-- `VersionDeleteResponse`
-
-  - `id: string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `type: string`
-
-    Deleted object type.
-
-    For Skill Versions, this is always `"skill_version_deleted"`.

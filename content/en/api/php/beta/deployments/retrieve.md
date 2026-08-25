@@ -1,17 +1,12 @@
----
-title: Get Deployment
-url: https://platform.claude.com/docs/en/api/php/beta/deployments/retrieve
----
-
-## Get Deployment
+# Get Deployment
 
 `$client->beta->deployments->retrieve(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**get** `/v1/deployments/{deployment_id}`
+**GET** `/v1/deployments/{deployment_id}`
 
 Get Deployment
 
-### Parameters
+## Parameters
 
 - `deploymentID: string`
 
@@ -19,7 +14,7 @@ Get Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -89,7 +84,7 @@ Get Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -106,7 +101,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->retrieve(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

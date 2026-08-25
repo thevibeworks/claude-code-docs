@@ -1,17 +1,12 @@
----
-title: Create Enrollment URL
-url: https://platform.claude.com/docs/en/api/java/beta/user_profiles/create_enrollment_url
----
+# Create Enrollment URL
 
-## Create Enrollment URL
+`BetaUserProfileEnrollmentUrl beta().userProfiles().createEnrollmentUrl(params = UserProfileCreateEnrollmentUrlParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaUserProfileEnrollmentUrl beta().userProfiles().createEnrollmentUrl(UserProfileCreateEnrollmentUrlParamsparams = UserProfileCreateEnrollmentUrlParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
-### Parameters
+## Parameters
 
 - `UserProfileCreateEnrollmentUrlParams params`
 
@@ -89,7 +84,7 @@ Create Enrollment URL
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaUserProfileEnrollmentUrl:`
 
@@ -97,17 +92,17 @@ Create Enrollment URL
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Type type`
 
     Object type. Always `enrollment_url`.
-
-    - `ENROLLMENT_URL("enrollment_url")`
 
   - `String url`
 
     Enrollment URL to send to the end user. Valid until `expires_at`.
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -128,7 +123,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

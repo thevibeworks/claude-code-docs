@@ -1,13 +1,8 @@
----
-title: Count tokens in a Message
-url: https://platform.claude.com/docs/en/api/php/beta/messages/count_tokens
----
-
-## Count tokens in a Message
+# Count tokens in a Message
 
 `$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -15,7 +10,7 @@ The Token Count API can be used to count the number of tokens in a Message, incl
 
 Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-### Parameters
+## Parameters
 
 - `messages: list<BetaMessageParam>`
 
@@ -91,12 +86,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 - `outputConfig?:optional BetaOutputConfig`
 
   Configuration options for the model's output, such as the output format.
-
-- `outputFormat?:optional BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
 - `speed?:optional Speed`
 
@@ -192,7 +181,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-### Returns
+- `outputFormat?:optional BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+## Returns
 
 - `BetaMessageTokensCount`
 
@@ -204,7 +201,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -289,7 +286,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
 var_dump($betaMessageTokensCount);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

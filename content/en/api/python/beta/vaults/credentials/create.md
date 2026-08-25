@@ -1,17 +1,12 @@
----
-title: Create Credential
-url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials/create
----
+# Create Credential
 
-## Create Credential
+`beta.vaults.credentials.create(vault_id, **kwargs)  -> BetaManagedAgentsCredential`
 
-`beta.vaults.credentials.create(strvault_id, CredentialCreateParams**kwargs)  -> BetaManagedAgentsCredential`
-
-**post** `/v1/vaults/{vault_id}/credentials`
+**POST** `/v1/vaults/{vault_id}/credentials`
 
 Create Credential
 
-### Parameters
+## Parameters
 
 - `vault_id: str`
 
@@ -27,17 +22,21 @@ Create Credential
 
       OAuth access token.
 
+      minLength: 1, maxLength: 8192
+
     - `mcp_server_url: str`
 
       URL of the MCP server this credential authenticates against.
 
-    - `type: Literal["mcp_oauth"]`
+      minLength: 1, maxLength: 2047
 
-      - `"mcp_oauth"`
+    - `type: Literal["mcp_oauth"]`
 
     - `expires_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `refresh: Optional[BetaManagedAgentsMCPOAuthRefreshParams]`
 
@@ -47,13 +46,19 @@ Create Credential
 
         OAuth client ID.
 
+        minLength: 1, maxLength: 1024
+
       - `refresh_token: str`
 
         OAuth refresh token.
 
+        minLength: 1, maxLength: 4096
+
       - `token_endpoint: str`
 
         Token endpoint URL used to refresh the access token.
+
+        minLength: 1, maxLength: 2047
 
       - `token_endpoint_auth: TokenEndpointAuth`
 
@@ -65,8 +70,6 @@ Create Credential
 
           - `type: Literal["none"]`
 
-            - `"none"`
-
         - `class BetaManagedAgentsTokenEndpointAuthBasicParam: …`
 
           Token endpoint uses HTTP Basic authentication with client credentials.
@@ -75,9 +78,9 @@ Create Credential
 
             OAuth client secret.
 
-          - `type: Literal["client_secret_basic"]`
+            minLength: 1, maxLength: 512
 
-            - `"client_secret_basic"`
+          - `type: Literal["client_secret_basic"]`
 
         - `class BetaManagedAgentsTokenEndpointAuthPostParam: …`
 
@@ -87,17 +90,21 @@ Create Credential
 
             OAuth client secret.
 
-          - `type: Literal["client_secret_post"]`
+            minLength: 1, maxLength: 512
 
-            - `"client_secret_post"`
+          - `type: Literal["client_secret_post"]`
 
       - `resource: Optional[str]`
 
         OAuth resource indicator.
 
+        minLength: 1, maxLength: 2047
+
       - `scope: Optional[str]`
 
         OAuth scope for the refresh request.
+
+        minLength: 1, maxLength: 8192
 
   - `class BetaManagedAgentsStaticBearerCreateParams: …`
 
@@ -107,13 +114,15 @@ Create Credential
 
       Static bearer token value.
 
+      minLength: 1, maxLength: 8192
+
     - `mcp_server_url: str`
 
       URL of the MCP server this credential authenticates against.
 
-    - `type: Literal["static_bearer"]`
+      minLength: 1, maxLength: 2047
 
-      - `"static_bearer"`
+    - `type: Literal["static_bearer"]`
 
   - `class BetaManagedAgentsEnvironmentVariableCreateParams: …`
 
@@ -129,8 +138,6 @@ Create Credential
 
         - `type: Literal["unrestricted"]`
 
-          - `"unrestricted"`
-
       - `class BetaManagedAgentsLimitedCredentialNetworkingParams: …`
 
         Substitute the secret only on requests to the listed hosts.
@@ -141,19 +148,19 @@ Create Credential
 
         - `type: Literal["limited"]`
 
-          - `"limited"`
-
     - `secret_name: str`
 
       Name of the environment variable. Immutable after create.
+
+      minLength: 1, maxLength: 255
 
     - `secret_value: str`
 
       Secret value. Write-only; never returned in responses.
 
-    - `type: Literal["environment_variable"]`
+      minLength: 1, maxLength: 4096
 
-      - `"environment_variable"`
+    - `type: Literal["environment_variable"]`
 
     - `injection_location: Optional[BetaManagedAgentsInjectionLocationParams]`
 
@@ -170,6 +177,8 @@ Create Credential
 - `display_name: Optional[str]`
 
   Human-readable name for the credential. Up to 255 characters.
+
+  maxLength: 255
 
 - `metadata: Optional[Dict[str, str]]`
 
@@ -251,7 +260,7 @@ Create Credential
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsCredential: …`
 
@@ -264,6 +273,8 @@ Create Credential
   - `archived_at: Optional[datetime]`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `auth: Auth`
 
@@ -279,11 +290,11 @@ Create Credential
 
       - `type: Literal["mcp_oauth"]`
 
-        - `"mcp_oauth"`
-
       - `expires_at: Optional[datetime]`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh: Optional[BetaManagedAgentsMCPOAuthRefreshResponse]`
 
@@ -307,23 +318,17 @@ Create Credential
 
             - `type: Literal["none"]`
 
-              - `"none"`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse: …`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: Literal["client_secret_basic"]`
 
-              - `"client_secret_basic"`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse: …`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: Literal["client_secret_post"]`
-
-              - `"client_secret_post"`
 
         - `resource: Optional[str]`
 
@@ -342,8 +347,6 @@ Create Credential
         URL of the MCP server this credential authenticates against.
 
       - `type: Literal["static_bearer"]`
-
-        - `"static_bearer"`
 
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse: …`
 
@@ -371,8 +374,6 @@ Create Credential
 
           - `type: Literal["unrestricted"]`
 
-            - `"unrestricted"`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse: …`
 
           The secret is substituted only on requests to the listed hosts.
@@ -383,19 +384,17 @@ Create Credential
 
           - `type: Literal["limited"]`
 
-            - `"limited"`
-
       - `secret_name: str`
 
         Name of the environment variable.
 
       - `type: Literal["environment_variable"]`
 
-        - `"environment_variable"`
-
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Dict[str, str]`
 
@@ -403,11 +402,11 @@ Create Credential
 
   - `type: Literal["vault_credential"]`
 
-    - `"vault_credential"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: str`
 
@@ -417,7 +416,7 @@ Create Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```python
 import os
@@ -439,7 +438,7 @@ beta_managed_agents_credential = client.beta.vaults.credentials.create(
 print(beta_managed_agents_credential.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

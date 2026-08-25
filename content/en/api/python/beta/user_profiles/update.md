@@ -1,17 +1,12 @@
----
-title: Update User Profile
-url: https://platform.claude.com/docs/en/api/python/beta/user_profiles/update
----
+# Update User Profile
 
-## Update User Profile
+`beta.user_profiles.update(user_profile_id, **kwargs)  -> BetaUserProfile`
 
-`beta.user_profiles.update(struser_profile_id, UserProfileUpdateParams**kwargs)  -> BetaUserProfile`
-
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
-### Parameters
+## Parameters
 
 - `user_profile_id: str`
 
@@ -27,6 +22,8 @@ Update User Profile
 
   If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `metadata: Optional[Dict[str, str]]`
 
   Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -34,6 +31,8 @@ Update User Profile
 - `name: Optional[str]`
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `relationship: Optional[Literal["external", "resold", "internal"]]`
 
@@ -121,7 +120,7 @@ Update User Profile
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaUserProfile: …`
 
@@ -132,6 +131,8 @@ Update User Profile
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Dict[str, str]`
 
@@ -155,11 +156,11 @@ Update User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: Optional[Literal["application", "passthrough"]]`
 
@@ -187,7 +188,7 @@ Update User Profile
 
     - `"internal"`
 
-### Example
+## Example
 
 ```python
 import os
@@ -204,7 +205,7 @@ beta_user_profile = client.beta.user_profiles.update(
 print(beta_user_profile.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

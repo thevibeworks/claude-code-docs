@@ -49,6 +49,16 @@ Add Claude to the channel with `/invite @Claude` if it isn't there, then two mes
 
 Answers draw on what the channel has already settled, meaning its [memory](/docs/claude-tag/users/memory) and its own past threads, and routing gets more accurate as corrections land in channel memory.
 
+## Hand a request to the team that owns it
+
+When a request belongs to another team, fork its thread into that team's channel from inside the thread. Claude starts a new thread there with the request as background and leaves a link in the original thread, so the requester can follow the work without being re-asked for details.
+
+```text wrap theme={null}
+@Claude !fork #payments-eng take this request: the reporter needs refunds on partial orders, and their screenshots and the duplicate check are in the linked thread.
+```
+
+The channel you name must be public, with both you and Claude in it. See [Fork a thread](/docs/claude-tag/users/commands#fork-a-thread) for the other rules.
+
 ## Related resources
 
 <CardGroup cols={2}>

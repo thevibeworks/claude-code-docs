@@ -1,19 +1,14 @@
----
-title: Reveal Tunnel Token
-url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels/reveal_token
----
-
-## Reveal Tunnel Token
+# Reveal Tunnel Token
 
 `beta.tunnels.reveal_token(tunnel_id, **kwargs) -> BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Reveals a tunnel's connector token. The value is fetched live on each call; Anthropic does not store it. Repeated calls return the same value until the token is rotated. Exposed as POST so the token does not appear in intermediary access logs.
 
-### Parameters
+## Parameters
 
 - `tunnel_id: String`
 
@@ -93,7 +88,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaTunnelToken`
 
@@ -109,9 +104,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `type: :tunnel_token`
 
-    - `:tunnel_token`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -123,7 +116,7 @@ beta_tunnel_token = anthropic.beta.tunnels.reveal_token("tunnel_id")
 puts(beta_tunnel_token)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Resources
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources
----
-
 # Resources
 
 ## Add Session Resource
 
 `$client->beta->sessions->resources->add(string sessionID, string fileID, Type type, ?string mountPath, ?list<AnthropicBeta> betas): ManagedAgentsFileResource`
 
-**post** `/v1/sessions/{session_id}/resources`
+**POST** `/v1/sessions/{session_id}/resources`
 
 Add Session Resource
 
@@ -71,7 +66,7 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
 var_dump($betaManagedAgentsFileResource);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -88,7 +83,7 @@ var_dump($betaManagedAgentsFileResource);
 
 `$client->beta->sessions->resources->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionResource>`
 
-**get** `/v1/sessions/{session_id}/resources`
+**GET** `/v1/sessions/{session_id}/resources`
 
 List Session Resources
 
@@ -197,7 +192,7 @@ $page = $client->beta->sessions->resources->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -231,7 +226,7 @@ var_dump($page);
 
 `$client->beta->sessions->resources->retrieve(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ResourceGetResponse`
 
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
@@ -333,7 +328,7 @@ $resource = $client->beta->sessions->resources->retrieve(
 var_dump($resource);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -354,7 +349,7 @@ var_dump($resource);
 
 `$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas): ResourceUpdateResponse`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
@@ -461,7 +456,7 @@ $resource = $client->beta->sessions->resources->update(
 var_dump($resource);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -482,7 +477,7 @@ var_dump($resource);
 
 `$client->beta->sessions->resources->delete(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsDeleteSessionResource`
 
-**delete** `/v1/sessions/{session_id}/resources/{resource_id}`
+**DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Delete Session Resource
 
@@ -526,7 +521,7 @@ $betaManagedAgentsDeleteSessionResource = $client
 var_dump($betaManagedAgentsDeleteSessionResource);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -535,7 +530,7 @@ var_dump($betaManagedAgentsDeleteSessionResource);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Delete Session Resource
 

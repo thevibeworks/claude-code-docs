@@ -1,15 +1,10 @@
----
-title: User Profiles
-url: https://platform.claude.com/docs/en/api/php/beta/user_profiles
----
-
 # User Profiles
 
 ## Create User Profile
 
 `$client->beta->userProfiles->create(?AccessType accessType, ?string externalID, ?array<string,string> metadata, ?string name, ?Relationship relationship, ?list<AnthropicBeta> betas): BetaUserProfile`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
@@ -104,7 +99,7 @@ $betaUserProfile = $client->beta->userProfiles->create(
 var_dump($betaUserProfile);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -129,7 +124,7 @@ var_dump($betaUserProfile);
 
 `$client->beta->userProfiles->list(?int limit, ?Order order, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaUserProfile>`
 
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
@@ -214,7 +209,7 @@ $page = $client->beta->userProfiles->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -244,7 +239,7 @@ var_dump($page);
 
 `$client->beta->userProfiles->retrieve(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfile`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
@@ -317,7 +312,7 @@ $betaUserProfile = $client->beta->userProfiles->retrieve(
 var_dump($betaUserProfile);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -342,7 +337,7 @@ var_dump($betaUserProfile);
 
 `$client->beta->userProfiles->update(string userProfileID, ?AccessType accessType, ?string externalID, ?array<string,string> metadata, ?string name, ?Relationship relationship, ?list<AnthropicBeta> betas): BetaUserProfile`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
@@ -440,7 +435,7 @@ $betaUserProfile = $client->beta->userProfiles->update(
 var_dump($betaUserProfile);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -465,7 +460,7 @@ var_dump($betaUserProfile);
 
 `$client->beta->userProfiles->createEnrollmentURL(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfileEnrollmentURL`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
@@ -513,7 +508,7 @@ $betaUserProfileEnrollmentURL = $client
 var_dump($betaUserProfileEnrollmentURL);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -523,7 +518,7 @@ var_dump($betaUserProfileEnrollmentURL);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta User Profile
 

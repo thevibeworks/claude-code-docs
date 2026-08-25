@@ -1,17 +1,12 @@
----
-title: List Vaults
-url: https://platform.claude.com/docs/en/api/java/beta/vaults/list
----
+# List Vaults
 
-## List Vaults
+`VaultListPage beta().vaults().list(params = VaultListParams.none(), requestOptions = RequestOptions.none())`
 
-`VaultListPage beta().vaults().list(VaultListParamsparams = VaultListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/vaults`
+**GET** `/v1/vaults`
 
 List Vaults
 
-### Parameters
+## Parameters
 
 - `VaultListParams params`
 
@@ -22,6 +17,8 @@ List Vaults
   - `Optional<Long> limit`
 
     Maximum number of vaults to return per page. Defaults to 20, maximum 100.
+
+    format: int32
 
   - `Optional<String> page`
 
@@ -99,7 +96,7 @@ List Vaults
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsVault:`
 
@@ -113,9 +110,13 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String displayName`
 
@@ -127,13 +128,13 @@ List Vaults
 
   - `Type type`
 
-    - `VAULT("vault")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```java
 package com.anthropic.example;
@@ -154,7 +155,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

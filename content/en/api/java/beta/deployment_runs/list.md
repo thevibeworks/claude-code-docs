@@ -1,17 +1,12 @@
----
-title: List Deployment Runs
-url: https://platform.claude.com/docs/en/api/java/beta/deployment_runs/list
----
+# List Deployment Runs
 
-## List Deployment Runs
+`DeploymentRunListPage beta().deploymentRuns().list(params = DeploymentRunListParams.none(), requestOptions = RequestOptions.none())`
 
-`DeploymentRunListPage beta().deploymentRuns().list(DeploymentRunListParamsparams = DeploymentRunListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/deployment_runs`
+**GET** `/v1/deployment_runs`
 
 List Deployment Runs
 
-### Parameters
+## Parameters
 
 - `DeploymentRunListParams params`
 
@@ -19,17 +14,25 @@ List Deployment Runs
 
     Return runs created strictly after this time (exclusive).
 
+    format: date-time
+
   - `Optional<LocalDateTime> createdAtGte`
 
     Return runs created at or after this time (inclusive).
+
+    format: date-time
 
   - `Optional<LocalDateTime> createdAtLt`
 
     Return runs created strictly before this time (exclusive).
 
+    format: date-time
+
   - `Optional<LocalDateTime> createdAtLte`
 
     Return runs created at or before this time (inclusive).
+
+    format: date-time
 
   - `Optional<String> deploymentId`
 
@@ -42,6 +45,8 @@ List Deployment Runs
   - `Optional<Long> limit`
 
     Maximum results per page. Default 20, maximum 1000.
+
+    format: int32
 
   - `Optional<String> page`
 
@@ -123,7 +128,7 @@ List Deployment Runs
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeploymentRun:`
 
@@ -141,13 +146,15 @@ List Deployment Runs
 
     - `Type type`
 
-      - `AGENT("agent")`
-
     - `long version`
+
+      format: int32
 
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String deploymentId`
 
@@ -167,8 +174,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `ENVIRONMENT_ARCHIVED_ERROR("environment_archived_error")`
-
     - `class BetaManagedAgentsAgentArchivedRunError:`
 
       The deployment's agent was archived.
@@ -178,8 +183,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `AGENT_ARCHIVED_ERROR("agent_archived_error")`
 
     - `class BetaManagedAgentsEnvironmentNotFoundRunError:`
 
@@ -191,8 +194,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `ENVIRONMENT_NOT_FOUND_ERROR("environment_not_found_error")`
-
     - `class BetaManagedAgentsVaultNotFoundRunError:`
 
       A vault referenced by the deployment no longer exists.
@@ -202,8 +203,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `VAULT_NOT_FOUND_ERROR("vault_not_found_error")`
 
     - `class BetaManagedAgentsVaultArchivedRunError:`
 
@@ -215,8 +214,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `VAULT_ARCHIVED_ERROR("vault_archived_error")`
-
     - `class BetaManagedAgentsFileNotFoundRunError:`
 
       A file resource referenced by the deployment no longer exists.
@@ -226,8 +223,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `FILE_NOT_FOUND_ERROR("file_not_found_error")`
 
     - `class BetaManagedAgentsMemoryStoreArchivedRunError:`
 
@@ -239,8 +234,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `MEMORY_STORE_ARCHIVED_ERROR("memory_store_archived_error")`
-
     - `class BetaManagedAgentsSkillNotFoundRunError:`
 
       A skill referenced by the deployment's agent no longer exists.
@@ -250,8 +243,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `SKILL_NOT_FOUND_ERROR("skill_not_found_error")`
 
     - `class BetaManagedAgentsSessionResourceNotFoundRunError:`
 
@@ -263,8 +254,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `SESSION_RESOURCE_NOT_FOUND_ERROR("session_resource_not_found_error")`
-
     - `class BetaManagedAgentsWorkspaceArchivedRunError:`
 
       The deployment's workspace was archived.
@@ -274,8 +263,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `WORKSPACE_ARCHIVED_ERROR("workspace_archived_error")`
 
     - `class BetaManagedAgentsOrganizationDisabledRunError:`
 
@@ -287,8 +274,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `ORGANIZATION_DISABLED_ERROR("organization_disabled_error")`
-
     - `class BetaManagedAgentsSessionRateLimitedRunError:`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
@@ -298,8 +283,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `SESSION_RATE_LIMITED_ERROR("session_rate_limited_error")`
 
     - `class BetaManagedAgentsSessionCreationRejectedRunError:`
 
@@ -311,8 +294,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `SESSION_CREATION_REJECTED_ERROR("session_creation_rejected_error")`
-
     - `class BetaManagedAgentsUnknownRunError:`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
@@ -322,8 +303,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `UNKNOWN_ERROR("unknown_error")`
 
     - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError:`
 
@@ -335,8 +314,6 @@ List Deployment Runs
 
       - `Type type`
 
-        - `SELF_HOSTED_RESOURCES_UNSUPPORTED_ERROR("self_hosted_resources_unsupported_error")`
-
     - `class BetaManagedAgentsMcpEgressBlockedRunError:`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
@@ -346,8 +323,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `Type type`
-
-        - `MCP_EGRESS_BLOCKED_ERROR("mcp_egress_blocked_error")`
 
   - `Optional<String> sessionId`
 
@@ -365,9 +340,9 @@ List Deployment Runs
 
         A timestamp in RFC 3339 format
 
-      - `Type type`
+        format: date-time
 
-        - `SCHEDULE("schedule")`
+      - `Type type`
 
     - `class BetaManagedAgentsManualTriggerContext:`
 
@@ -375,13 +350,9 @@ List Deployment Runs
 
       - `Type type`
 
-        - `MANUAL("manual")`
-
   - `Type type`
 
-    - `DEPLOYMENT_RUN("deployment_run")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -402,7 +373,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

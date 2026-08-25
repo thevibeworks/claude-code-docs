@@ -1,25 +1,20 @@
----
-title: Archive Tunnel
-url: https://platform.claude.com/docs/en/api/go/beta/tunnels/archive
----
-
-## Archive Tunnel
+# Archive Tunnel
 
 `client.Beta.Tunnels.Archive(ctx, tunnelID, body) (*BetaTunnel, error)`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel. Archival is irreversible: every non-archived certificate on the tunnel is archived in the same operation, the hostname is retired and never re-allocated, and the tunnel token is invalidated. Retrying against an already-archived tunnel returns the existing record unchanged.
 
-### Parameters
+## Parameters
 
 - `tunnelID string`
 
 - `body BetaTunnelArchiveParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -95,7 +90,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaTunnel struct{…}`
 
@@ -109,9 +104,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -123,9 +122,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `Type Tunnel`
 
-    - `const TunnelTunnel Tunnel = "tunnel"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -154,7 +151,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

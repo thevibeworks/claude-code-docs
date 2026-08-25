@@ -1,23 +1,20 @@
----
-title: Create Environment
-url: https://platform.claude.com/docs/en/api/typescript/beta/environments/create
----
+# Create Environment
 
-## Create Environment
+`client.beta.environments.create(params, options?): BetaEnvironment`
 
-`client.beta.environments.create(EnvironmentCreateParamsparams, RequestOptionsoptions?): BetaEnvironment`
-
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+## Parameters
 
 - `params: EnvironmentCreateParams`
 
   - `name: string`
 
     Body param: Human-readable name for the environment
+
+    maxLength: 256, minLength: 1
 
   - `config?: BetaCloudConfigParams | BetaSelfHostedConfigParams | null`
 
@@ -34,8 +31,6 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `"cloud"`
-
       - `networking?: BetaUnrestrictedNetwork | BetaLimitedNetworkParams | null`
 
         Network configuration policy. Omit on update to preserve the existing value.
@@ -48,8 +43,6 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetworkParams`
 
           Limited network request params.
@@ -60,8 +53,6 @@ Create a new environment with the specified configuration.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
           - `allow_mcp_servers?: boolean | null`
 
@@ -109,7 +100,7 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
     - `BetaSelfHostedConfigParams`
 
@@ -119,11 +110,11 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `"self_hosted"`
-
   - `description?: string | null`
 
     Body param: Optional description of the environment
+
+    maxLength: 1024
 
   - `metadata?: Record<string, string>`
 
@@ -213,7 +204,7 @@ Create a new environment with the specified configuration.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaEnvironment`
 
@@ -247,8 +238,6 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetwork`
 
           Limited network access.
@@ -268,8 +257,6 @@ Create a new environment with the specified configuration.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -303,13 +290,11 @@ Create a new environment with the specified configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: "cloud"`
 
         Environment type
-
-        - `"cloud"`
 
     - `BetaSelfHostedConfig`
 
@@ -318,8 +303,6 @@ Create a new environment with the specified configuration.
       - `type: "self_hosted"`
 
         Environment type
-
-        - `"self_hosted"`
 
   - `created_at: string`
 
@@ -341,7 +324,7 @@ Create a new environment with the specified configuration.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: string`
 
@@ -355,7 +338,7 @@ Create a new environment with the specified configuration.
 
     - `"account"`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -371,7 +354,7 @@ const betaEnvironment = await client.beta.environments.create({
 console.log(betaEnvironment.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

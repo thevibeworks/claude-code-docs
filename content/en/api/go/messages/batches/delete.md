@@ -1,13 +1,8 @@
----
-title: Delete a Message Batch
-url: https://platform.claude.com/docs/en/api/go/messages/batches/delete
----
-
-## Delete a Message Batch
+# Delete a Message Batch
 
 `client.Messages.Batches.Delete(ctx, messageBatchID) (*DeletedMessageBatch, error)`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -15,13 +10,13 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `messageBatchID string`
 
   ID of the Message Batch.
 
-### Returns
+## Returns
 
 - `type DeletedMessageBatch struct{…}`
 
@@ -35,9 +30,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `const MessageBatchDeletedMessageBatchDeleted MessageBatchDeleted = "message_batch_deleted"`
+    default: message_batch_deleted
 
-### Example
+## Example
 
 ```go
 package main
@@ -62,7 +57,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,27 +1,24 @@
----
-title: Create Tunnel
-url: https://platform.claude.com/docs/en/api/go/beta/tunnels/create
----
-
-## Create Tunnel
+# Create Tunnel
 
 `client.Beta.Tunnels.New(ctx, params) (*BetaTunnel, error)`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel; it is not idempotent. The new tunnel rejects MCP traffic until at least one CA certificate is added.
 
-### Parameters
+## Parameters
 
 - `params BetaTunnelNewParams`
 
-  - `DisplayName param.Field[string]`
+  - `DisplayName param.Field[string] Optional`
 
     Body param: Optional human-readable name for the tunnel (1-255 characters).
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    minLength: 1, maxLength: 255
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -97,7 +94,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaTunnel struct{…}`
 
@@ -111,9 +108,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -125,9 +126,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `Type Tunnel`
 
-    - `const TunnelTunnel Tunnel = "tunnel"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -152,7 +151,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

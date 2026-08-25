@@ -1,23 +1,18 @@
----
-title: Get User
-url: https://platform.claude.com/docs/en/api/admin/users/retrieve
----
+# Get User
 
-## Get User
-
-**get** `/v1/organizations/users/{user_id}`
+**GET** `/v1/organizations/users/{user_id}`
 
 For Claude Enterprise organizations, this endpoint's availability is in beta.
 
-### Path Parameters
+## Path parameters
 
 - `user_id: string`
 
   ID of the User.
 
-### Returns
+## Returns
 
-- `User object { id, added_at, email, 3 more }`
+- `User object`
 
   - `id: string`
 
@@ -26,6 +21,8 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
   - `added_at: string`
 
     RFC 3339 datetime string indicating when the User joined the Organization.
+
+    format: date-time
 
   - `email: string`
 
@@ -63,17 +60,17 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     For Users, this is always `"user"`.
 
-    - `"user"`
+    default: user
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/users/$USER_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

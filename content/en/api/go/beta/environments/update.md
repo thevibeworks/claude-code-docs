@@ -1,23 +1,18 @@
----
-title: Update Environment
-url: https://platform.claude.com/docs/en/api/go/beta/environments/update
----
-
-## Update Environment
+# Update Environment
 
 `client.Beta.Environments.Update(ctx, environmentID, params) (*BetaEnvironment, error)`
 
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Parameters
+## Parameters
 
 - `environmentID string`
 
 - `params BetaEnvironmentUpdateParams`
 
-  - `Config param.Field[BetaEnvironmentUpdateParamsConfigUnion]`
+  - `Config param.Field[BetaEnvironmentUpdateParamsConfigUnion] Optional`
 
     Body param: Updated environment configuration
 
@@ -32,9 +27,7 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `const CloudCloud Cloud = "cloud"`
-
-      - `Networking BetaCloudConfigParamsNetworkingUnionResp`
+      - `Networking BetaCloudConfigParamsNetworkingUnionResp Optional`
 
         Network configuration policy. Omit on update to preserve the existing value.
 
@@ -45,8 +38,6 @@ Update an existing environment's configuration.
           - `Type Unrestricted`
 
             Network policy type
-
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
 
         - `type BetaLimitedNetworkParamsResp struct{…}`
 
@@ -59,55 +50,53 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `const LimitedLimited Limited = "limited"`
-
-          - `AllowMCPServers bool`
+          - `AllowMCPServers bool Optional`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-          - `AllowPackageManagers bool`
+          - `AllowPackageManagers bool Optional`
 
             Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-          - `AllowedHosts []string`
+          - `AllowedHosts []string Optional`
 
             Specifies domains the container can reach.
 
-      - `Packages BetaPackagesParamsResp`
+      - `Packages BetaPackagesParamsResp Optional`
 
         Specify packages (and optionally their versions) available in this environment.
 
         When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-        - `Apt []string`
+        - `Apt []string Optional`
 
           Ubuntu/Debian packages to install
 
-        - `Cargo []string`
+        - `Cargo []string Optional`
 
           Rust packages to install
 
-        - `Gem []string`
+        - `Gem []string Optional`
 
           Ruby packages to install
 
-        - `Go []string`
+        - `Go []string Optional`
 
           Go packages to install
 
-        - `Npm []string`
+        - `Npm []string Optional`
 
           Node.js packages to install
 
-        - `Pip []string`
+        - `Pip []string Optional`
 
           Python packages to install
 
-        - `Type BetaPackagesParamsType`
+        - `Type BetaPackagesParamsType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesParamsTypePackages BetaPackagesParamsType = "packages"`
+          default: packages
 
     - `type BetaSelfHostedConfigParamsResp struct{…}`
 
@@ -117,21 +106,23 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
-
-  - `Description param.Field[string]`
+  - `Description param.Field[string] Optional`
 
     Body param: Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
 
-  - `Metadata param.Field[map[string, string]]`
+    maxLength: 1024
+
+  - `Metadata param.Field[map[string, string]] Optional`
 
     Body param: User-provided metadata key-value pairs. Set a value to null or empty string to delete the key.
 
-  - `Name param.Field[string]`
+  - `Name param.Field[string] Optional`
 
     Body param: Updated name for the environment
 
-  - `Scope param.Field[BetaEnvironmentUpdateParamsScope]`
+    maxLength: 256, minLength: 1
+
+  - `Scope param.Field[BetaEnvironmentUpdateParamsScope] Optional`
 
     Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
 
@@ -139,7 +130,7 @@ Update an existing environment's configuration.
 
     - `const BetaEnvironmentUpdateParamsScopeAccount BetaEnvironmentUpdateParamsScope = "account"`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -215,7 +206,7 @@ Update an existing environment's configuration.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaEnvironment struct{…}`
 
@@ -249,8 +240,6 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
-
         - `type BetaLimitedNetwork struct{…}`
 
           Limited network access.
@@ -270,8 +259,6 @@ Update an existing environment's configuration.
           - `Type Limited`
 
             Network policy type
-
-            - `const LimitedLimited Limited = "limited"`
 
       - `Packages BetaPackages`
 
@@ -301,17 +288,15 @@ Update an existing environment's configuration.
 
           Python packages to install
 
-        - `Type BetaPackagesType`
+        - `Type BetaPackagesType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesTypePackages BetaPackagesType = "packages"`
+          default: packages
 
       - `Type Cloud`
 
         Environment type
-
-        - `const CloudCloud Cloud = "cloud"`
 
     - `type BetaSelfHostedConfig struct{…}`
 
@@ -320,8 +305,6 @@ Update an existing environment's configuration.
       - `Type SelfHosted`
 
         Environment type
-
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
 
   - `CreatedAt string`
 
@@ -343,13 +326,13 @@ Update an existing environment's configuration.
 
     The type of object (always 'environment')
 
-    - `const EnvironmentEnvironment Environment = "environment"`
+    default: environment
 
   - `UpdatedAt string`
 
     RFC 3339 timestamp when environment was last updated
 
-  - `Scope BetaEnvironmentScope`
+  - `Scope BetaEnvironmentScope Optional`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -357,7 +340,7 @@ Update an existing environment's configuration.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
-### Example
+## Example
 
 ```go
 package main
@@ -386,7 +369,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

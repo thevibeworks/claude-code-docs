@@ -1,17 +1,12 @@
----
-title: Create User Profile
-url: https://platform.claude.com/docs/en/api/typescript/beta/user_profiles/create
----
+# Create User Profile
 
-## Create User Profile
+`client.beta.userProfiles.create(params, options?): BetaUserProfile`
 
-`client.beta.userProfiles.create(UserProfileCreateParamsparams, RequestOptionsoptions?): BetaUserProfile`
-
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
-### Parameters
+## Parameters
 
 - `params: UserProfileCreateParams`
 
@@ -27,6 +22,8 @@ Create User Profile
 
     Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
+    minLength: 1, maxLength: 255
+
   - `metadata?: Record<string, string>`
 
     Body param: Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
@@ -34,6 +31,8 @@ Create User Profile
   - `name?: string | null`
 
     Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `relationship?: "external" | "resold" | "internal"`
 
@@ -121,7 +120,7 @@ Create User Profile
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaUserProfile`
 
@@ -132,6 +131,8 @@ Create User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Record<string, string>`
 
@@ -155,11 +156,11 @@ Create User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type?: "application" | "passthrough"`
 
@@ -187,7 +188,7 @@ Create User Profile
 
     - `"internal"`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -201,7 +202,7 @@ const betaUserProfile = await client.beta.userProfiles.create();
 console.log(betaUserProfile.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

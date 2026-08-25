@@ -1,17 +1,12 @@
----
-title: Get User Profile
-url: https://platform.claude.com/docs/en/api/php/beta/user_profiles/retrieve
----
-
-## Get User Profile
+# Get User Profile
 
 `$client->beta->userProfiles->retrieve(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfile`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
-### Parameters
+## Parameters
 
 - `userProfileID: string`
 
@@ -19,7 +14,7 @@ Get User Profile
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaUserProfile`
 
@@ -63,7 +58,7 @@ Get User Profile
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -80,7 +75,7 @@ $betaUserProfile = $client->beta->userProfiles->retrieve(
 var_dump($betaUserProfile);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

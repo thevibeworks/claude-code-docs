@@ -1,15 +1,10 @@
----
-title: Files
-url: https://platform.claude.com/docs/en/api/ruby/beta/files
----
-
 # Files
 
 ## Upload File
 
 `beta.files.upload(**kwargs) -> BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
@@ -18,6 +13,8 @@ Upload File
 - `file: String`
 
   The file to upload
+
+  format: binary
 
 - `betas: Array[AnthropicBeta]`
 
@@ -109,25 +106,31 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: String`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: String`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: Integer`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: :file`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `:file`
 
   - `downloadable: bool`
 
@@ -145,8 +148,6 @@ Upload File
 
       The type of scope (e.g., `"session"`).
 
-      - `:session`
-
 ### Example
 
 ```ruby
@@ -159,7 +160,7 @@ beta_file_metadata = anthropic.beta.files.upload(file: StringIO.new("Example dat
 puts(beta_file_metadata)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -181,7 +182,7 @@ puts(beta_file_metadata)
 
 `beta.files.list(**kwargs) -> Page<BetaFileMetadata>`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
@@ -200,6 +201,8 @@ List Files
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  maximum: 1000, minimum: 1
 
 - `scope_id: String`
 
@@ -295,25 +298,31 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: String`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: String`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: Integer`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: :file`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `:file`
 
   - `downloadable: bool`
 
@@ -331,8 +340,6 @@ List Files
 
       The type of scope (e.g., `"session"`).
 
-      - `:session`
-
 ### Example
 
 ```ruby
@@ -345,7 +352,7 @@ page = anthropic.beta.files.list
 puts(page)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -374,7 +381,7 @@ puts(page)
 
 `beta.files.download(file_id, **kwargs) -> StringIO`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
@@ -480,7 +487,7 @@ puts(response)
 
 `beta.files.retrieve_metadata(file_id, **kwargs) -> BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
@@ -580,25 +587,31 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: String`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: String`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: Integer`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: :file`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `:file`
 
   - `downloadable: bool`
 
@@ -616,8 +629,6 @@ Get File Metadata
 
       The type of scope (e.g., `"session"`).
 
-      - `:session`
-
 ### Example
 
 ```ruby
@@ -630,7 +641,7 @@ beta_file_metadata = anthropic.beta.files.retrieve_metadata("file_id")
 puts(beta_file_metadata)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -652,7 +663,7 @@ puts(beta_file_metadata)
 
 `beta.files.delete(file_id, **kwargs) -> BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
@@ -752,8 +763,6 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `:file_deleted`
-
 ### Example
 
 ```ruby
@@ -766,7 +775,7 @@ beta_deleted_file = anthropic.beta.files.delete("file_id")
 puts(beta_deleted_file)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -775,7 +784,7 @@ puts(beta_deleted_file)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Deleted File
 
@@ -791,8 +800,6 @@ puts(beta_deleted_file)
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `:file_deleted`
-
 ### Beta File Metadata
 
 - `class BetaFileMetadata`
@@ -807,25 +814,31 @@ puts(beta_deleted_file)
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: String`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: String`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: Integer`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: :file`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `:file`
 
   - `downloadable: bool`
 
@@ -843,8 +856,6 @@ puts(beta_deleted_file)
 
       The type of scope (e.g., `"session"`).
 
-      - `:session`
-
 ### Beta File Scope
 
 - `class BetaFileScope`
@@ -856,5 +867,3 @@ puts(beta_deleted_file)
   - `type: :session`
 
     The type of scope (e.g., `"session"`).
-
-    - `:session`

@@ -1,17 +1,12 @@
----
-title: Create Enrollment URL
-url: https://platform.claude.com/docs/en/api/cli/beta/user_profiles/create_enrollment_url
----
-
-## Create Enrollment URL
+# Create Enrollment URL
 
 `$ ant beta:user-profiles create-enrollment-url`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
-### Parameters
+## Parameters
 
 - `--user-profile-id: string`
 
@@ -21,33 +16,33 @@ Create Enrollment URL
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_user_profile_enrollment_url: object { expires_at, type, url }`
+- `beta_user_profile_enrollment_url: object`
 
   - `expires_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `type: "enrollment_url"`
 
     Object type. Always `enrollment_url`.
-
-    - `"enrollment_url"`
 
   - `url: string`
 
     Enrollment URL to send to the end user. Valid until `expires_at`.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:user-profiles create-enrollment-url \
   --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Get Queue Statistics
-url: https://platform.claude.com/docs/en/api/ruby/beta/environments/work/stats
----
-
-## Get Queue Statistics
+# Get Queue Statistics
 
 `beta.environments.work.stats(environment_id, **kwargs) -> BetaSelfHostedWorkQueueStats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
-### Parameters
+## Parameters
 
 - `environment_id: String`
 
@@ -91,7 +86,7 @@ Get statistics about the work queue for an environment.
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaSelfHostedWorkQueueStats`
 
@@ -115,13 +110,11 @@ Get statistics about the work queue for an environment.
 
     The type of object
 
-    - `:work_queue_stats`
-
   - `workers_polling: Integer`
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -133,7 +126,7 @@ beta_self_hosted_work_queue_stats = anthropic.beta.environments.work.stats("env_
 puts(beta_self_hosted_work_queue_stats)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

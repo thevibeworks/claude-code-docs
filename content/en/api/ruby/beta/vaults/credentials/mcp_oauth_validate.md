@@ -1,17 +1,12 @@
----
-title: Validate Credential
-url: https://platform.claude.com/docs/en/api/ruby/beta/vaults/credentials/mcp_oauth_validate
----
-
-## Validate Credential
+# Validate Credential
 
 `beta.vaults.credentials.mcp_oauth_validate(credential_id, **kwargs) -> BetaManagedAgentsCredentialValidation`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
 Validate Credential
 
-### Parameters
+## Parameters
 
 - `vault_id: String`
 
@@ -93,7 +88,7 @@ Validate Credential
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsCredentialValidation`
 
@@ -131,6 +126,8 @@ Validate Credential
 
         HTTP status code.
 
+        format: int32
+
     - `method_: String`
 
       The MCP method that failed (for example `initialize` or `tools/list`).
@@ -167,17 +164,17 @@ Validate Credential
 
   - `type: :vault_credential_validation`
 
-    - `:vault_credential_validation`
-
   - `validated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: String`
 
     Identifier of the vault containing the credential.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -192,7 +189,7 @@ beta_managed_agents_credential_validation = anthropic.beta.vaults.credentials.mc
 puts(beta_managed_agents_credential_validation)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

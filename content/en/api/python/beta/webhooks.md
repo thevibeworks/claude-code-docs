@@ -1,11 +1,24 @@
----
-title: Webhooks
-url: https://platform.claude.com/docs/en/api/python/beta/webhooks
----
-
 # Webhooks
 
-## Domain Types
+## Unwrap
+
+`beta.webhooks.unwrap()`
+
+### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+client.beta.webhooks.unwrap()
+```
+
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 
@@ -18,8 +31,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["agent.archived"]`
-
-    - `"agent.archived"`
 
   - `workspace_id: str`
 
@@ -35,8 +46,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["agent.created"]`
 
-    - `"agent.created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Agent Deleted Event Data
@@ -50,8 +59,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["agent.deleted"]`
-
-    - `"agent.deleted"`
 
   - `workspace_id: str`
 
@@ -67,8 +74,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["agent.updated"]`
 
-    - `"agent.updated"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Archived Event Data
@@ -82,8 +87,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["deployment.archived"]`
-
-    - `"deployment.archived"`
 
   - `workspace_id: str`
 
@@ -99,8 +102,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["deployment.created"]`
 
-    - `"deployment.created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Deleted Event Data
@@ -114,8 +115,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["deployment.deleted"]`
-
-    - `"deployment.deleted"`
 
   - `workspace_id: str`
 
@@ -131,8 +130,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["deployment.paused"]`
 
-    - `"deployment.paused"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Run Failed Event Data
@@ -146,8 +143,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["deployment_run.failed"]`
-
-    - `"deployment_run.failed"`
 
   - `workspace_id: str`
 
@@ -163,8 +158,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["deployment_run.started"]`
 
-    - `"deployment_run.started"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Run Succeeded Event Data
@@ -178,8 +171,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["deployment_run.succeeded"]`
-
-    - `"deployment_run.succeeded"`
 
   - `workspace_id: str`
 
@@ -195,8 +186,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["deployment.unpaused"]`
 
-    - `"deployment.unpaused"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Deployment Updated Event Data
@@ -210,8 +199,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["deployment.updated"]`
-
-    - `"deployment.updated"`
 
   - `workspace_id: str`
 
@@ -227,8 +214,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["environment.archived"]`
 
-    - `"environment.archived"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Environment Created Event Data
@@ -242,8 +227,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["environment.created"]`
-
-    - `"environment.created"`
 
   - `workspace_id: str`
 
@@ -259,8 +242,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["environment.deleted"]`
 
-    - `"environment.deleted"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Environment Updated Event Data
@@ -274,8 +255,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["environment.updated"]`
-
-    - `"environment.updated"`
 
   - `workspace_id: str`
 
@@ -291,6 +270,8 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookEventData`
 
     - `class BetaWebhookSessionCreatedEventData: …`
@@ -302,8 +283,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.created"]`
-
-        - `"session.created"`
 
       - `workspace_id: str`
 
@@ -317,8 +296,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.pending"]`
 
-        - `"session.pending"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRunningEventData: …`
@@ -330,8 +307,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.running"]`
-
-        - `"session.running"`
 
       - `workspace_id: str`
 
@@ -345,8 +320,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.idled"]`
 
-        - `"session.idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRequiresActionEventData: …`
@@ -358,8 +331,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.requires_action"]`
-
-        - `"session.requires_action"`
 
       - `workspace_id: str`
 
@@ -373,8 +344,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.archived"]`
 
-        - `"session.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionDeletedEventData: …`
@@ -386,8 +355,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.deleted"]`
-
-        - `"session.deleted"`
 
       - `workspace_id: str`
 
@@ -401,8 +368,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.status_rescheduled"]`
 
-        - `"session.status_rescheduled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusRunStartedEventData: …`
@@ -414,8 +379,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.status_run_started"]`
-
-        - `"session.status_run_started"`
 
       - `workspace_id: str`
 
@@ -429,8 +392,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.status_idled"]`
 
-        - `"session.status_idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusTerminatedEventData: …`
@@ -442,8 +403,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.status_terminated"]`
-
-        - `"session.status_terminated"`
 
       - `workspace_id: str`
 
@@ -461,8 +420,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.thread_created"]`
 
-        - `"session.thread_created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionThreadIdledEventData: …`
@@ -478,8 +435,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
         ID of the session thread this event refers to.
 
       - `type: Literal["session.thread_idled"]`
-
-        - `"session.thread_idled"`
 
       - `workspace_id: str`
 
@@ -497,8 +452,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.thread_terminated"]`
 
-        - `"session.thread_terminated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionOutcomeEvaluationEndedEventData: …`
@@ -510,8 +463,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.outcome_evaluation_ended"]`
-
-        - `"session.outcome_evaluation_ended"`
 
       - `workspace_id: str`
 
@@ -525,8 +476,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault.created"]`
 
-        - `"vault.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultArchivedEventData: …`
@@ -538,8 +487,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["vault.archived"]`
-
-        - `"vault.archived"`
 
       - `workspace_id: str`
 
@@ -553,8 +500,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault.deleted"]`
 
-        - `"vault.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultCredentialCreatedEventData: …`
@@ -566,8 +511,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["vault_credential.created"]`
-
-        - `"vault_credential.created"`
 
       - `vault_id: str`
 
@@ -585,8 +528,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault_credential.archived"]`
 
-        - `"vault_credential.archived"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -602,8 +543,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["vault_credential.deleted"]`
-
-        - `"vault_credential.deleted"`
 
       - `vault_id: str`
 
@@ -621,8 +560,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault_credential.refresh_failed"]`
 
-        - `"vault_credential.refresh_failed"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -639,8 +576,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.updated"]`
 
-        - `"session.updated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentCreatedEventData: …`
@@ -652,8 +587,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["agent.created"]`
-
-        - `"agent.created"`
 
       - `workspace_id: str`
 
@@ -667,8 +600,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["agent.archived"]`
 
-        - `"agent.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentDeletedEventData: …`
@@ -680,8 +611,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["agent.deleted"]`
-
-        - `"agent.deleted"`
 
       - `workspace_id: str`
 
@@ -695,8 +624,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.paused"]`
 
-        - `"deployment.paused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunFailedEventData: …`
@@ -708,8 +635,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment_run.failed"]`
-
-        - `"deployment_run.failed"`
 
       - `workspace_id: str`
 
@@ -723,8 +648,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.created"]`
 
-        - `"deployment.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentUpdatedEventData: …`
@@ -736,8 +659,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment.updated"]`
-
-        - `"deployment.updated"`
 
       - `workspace_id: str`
 
@@ -751,8 +672,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.unpaused"]`
 
-        - `"deployment.unpaused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentUpdatedEventData: …`
@@ -764,8 +683,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["agent.updated"]`
-
-        - `"agent.updated"`
 
       - `workspace_id: str`
 
@@ -779,8 +696,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.archived"]`
 
-        - `"deployment.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunStartedEventData: …`
@@ -792,8 +707,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment_run.started"]`
-
-        - `"deployment_run.started"`
 
       - `workspace_id: str`
 
@@ -807,8 +720,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.deleted"]`
 
-        - `"deployment.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunSucceededEventData: …`
@@ -820,8 +731,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment_run.succeeded"]`
-
-        - `"deployment_run.succeeded"`
 
       - `workspace_id: str`
 
@@ -835,8 +744,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["environment.created"]`
 
-        - `"environment.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookEnvironmentUpdatedEventData: …`
@@ -848,8 +755,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["environment.updated"]`
-
-        - `"environment.updated"`
 
       - `workspace_id: str`
 
@@ -863,8 +768,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["environment.archived"]`
 
-        - `"environment.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookEnvironmentDeletedEventData: …`
@@ -876,8 +779,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["environment.deleted"]`
-
-        - `"environment.deleted"`
 
       - `workspace_id: str`
 
@@ -891,8 +792,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["memory_store.created"]`
 
-        - `"memory_store.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookMemoryStoreArchivedEventData: …`
@@ -904,8 +803,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["memory_store.archived"]`
-
-        - `"memory_store.archived"`
 
       - `workspace_id: str`
 
@@ -919,8 +816,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["memory_store.deleted"]`
 
-        - `"memory_store.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionBudgetReachedEventData: …`
@@ -933,15 +828,11 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.budget_reached"]`
 
-        - `"session.budget_reached"`
-
       - `workspace_id: str`
 
   - `type: Literal["event"]`
 
     Object type. Always `event` for webhook payloads.
-
-    - `"event"`
 
 ### Beta Webhook Event Data
 
@@ -957,8 +848,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.created"]`
 
-      - `"session.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionPendingEventData: …`
@@ -970,8 +859,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["session.pending"]`
-
-      - `"session.pending"`
 
     - `workspace_id: str`
 
@@ -985,8 +872,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.running"]`
 
-      - `"session.running"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionIdledEventData: …`
@@ -998,8 +883,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["session.idled"]`
-
-      - `"session.idled"`
 
     - `workspace_id: str`
 
@@ -1013,8 +896,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.requires_action"]`
 
-      - `"session.requires_action"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionArchivedEventData: …`
@@ -1026,8 +907,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["session.archived"]`
-
-      - `"session.archived"`
 
     - `workspace_id: str`
 
@@ -1041,8 +920,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.deleted"]`
 
-      - `"session.deleted"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionStatusRescheduledEventData: …`
@@ -1054,8 +931,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["session.status_rescheduled"]`
-
-      - `"session.status_rescheduled"`
 
     - `workspace_id: str`
 
@@ -1069,8 +944,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.status_run_started"]`
 
-      - `"session.status_run_started"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionStatusIdledEventData: …`
@@ -1083,8 +956,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.status_idled"]`
 
-      - `"session.status_idled"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionStatusTerminatedEventData: …`
@@ -1096,8 +967,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["session.status_terminated"]`
-
-      - `"session.status_terminated"`
 
     - `workspace_id: str`
 
@@ -1115,8 +984,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.thread_created"]`
 
-      - `"session.thread_created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionThreadIdledEventData: …`
@@ -1132,8 +999,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       ID of the session thread this event refers to.
 
     - `type: Literal["session.thread_idled"]`
-
-      - `"session.thread_idled"`
 
     - `workspace_id: str`
 
@@ -1151,8 +1016,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.thread_terminated"]`
 
-      - `"session.thread_terminated"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionOutcomeEvaluationEndedEventData: …`
@@ -1164,8 +1027,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["session.outcome_evaluation_ended"]`
-
-      - `"session.outcome_evaluation_ended"`
 
     - `workspace_id: str`
 
@@ -1179,8 +1040,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["vault.created"]`
 
-      - `"vault.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookVaultArchivedEventData: …`
@@ -1192,8 +1051,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["vault.archived"]`
-
-      - `"vault.archived"`
 
     - `workspace_id: str`
 
@@ -1207,8 +1064,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["vault.deleted"]`
 
-      - `"vault.deleted"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookVaultCredentialCreatedEventData: …`
@@ -1220,8 +1075,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["vault_credential.created"]`
-
-      - `"vault_credential.created"`
 
     - `vault_id: str`
 
@@ -1239,8 +1092,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["vault_credential.archived"]`
 
-      - `"vault_credential.archived"`
-
     - `vault_id: str`
 
       ID of the vault that owns this credential.
@@ -1256,8 +1107,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["vault_credential.deleted"]`
-
-      - `"vault_credential.deleted"`
 
     - `vault_id: str`
 
@@ -1275,8 +1124,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["vault_credential.refresh_failed"]`
 
-      - `"vault_credential.refresh_failed"`
-
     - `vault_id: str`
 
       ID of the vault that owns this credential.
@@ -1293,8 +1140,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["session.updated"]`
 
-      - `"session.updated"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookAgentCreatedEventData: …`
@@ -1306,8 +1151,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["agent.created"]`
-
-      - `"agent.created"`
 
     - `workspace_id: str`
 
@@ -1321,8 +1164,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["agent.archived"]`
 
-      - `"agent.archived"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookAgentDeletedEventData: …`
@@ -1334,8 +1175,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["agent.deleted"]`
-
-      - `"agent.deleted"`
 
     - `workspace_id: str`
 
@@ -1349,8 +1188,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["deployment.paused"]`
 
-      - `"deployment.paused"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentRunFailedEventData: …`
@@ -1362,8 +1199,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["deployment_run.failed"]`
-
-      - `"deployment_run.failed"`
 
     - `workspace_id: str`
 
@@ -1377,8 +1212,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["deployment.created"]`
 
-      - `"deployment.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentUpdatedEventData: …`
@@ -1390,8 +1223,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["deployment.updated"]`
-
-      - `"deployment.updated"`
 
     - `workspace_id: str`
 
@@ -1405,8 +1236,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["deployment.unpaused"]`
 
-      - `"deployment.unpaused"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookAgentUpdatedEventData: …`
@@ -1418,8 +1247,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["agent.updated"]`
-
-      - `"agent.updated"`
 
     - `workspace_id: str`
 
@@ -1433,8 +1260,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["deployment.archived"]`
 
-      - `"deployment.archived"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentRunStartedEventData: …`
@@ -1446,8 +1271,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["deployment_run.started"]`
-
-      - `"deployment_run.started"`
 
     - `workspace_id: str`
 
@@ -1461,8 +1284,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["deployment.deleted"]`
 
-      - `"deployment.deleted"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookDeploymentRunSucceededEventData: …`
@@ -1474,8 +1295,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["deployment_run.succeeded"]`
-
-      - `"deployment_run.succeeded"`
 
     - `workspace_id: str`
 
@@ -1489,8 +1308,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["environment.created"]`
 
-      - `"environment.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookEnvironmentUpdatedEventData: …`
@@ -1502,8 +1319,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["environment.updated"]`
-
-      - `"environment.updated"`
 
     - `workspace_id: str`
 
@@ -1517,8 +1332,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["environment.archived"]`
 
-      - `"environment.archived"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookEnvironmentDeletedEventData: …`
@@ -1530,8 +1343,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["environment.deleted"]`
-
-      - `"environment.deleted"`
 
     - `workspace_id: str`
 
@@ -1545,8 +1356,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["memory_store.created"]`
 
-      - `"memory_store.created"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookMemoryStoreArchivedEventData: …`
@@ -1558,8 +1367,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["memory_store.archived"]`
-
-      - `"memory_store.archived"`
 
     - `workspace_id: str`
 
@@ -1573,8 +1380,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     - `type: Literal["memory_store.deleted"]`
 
-      - `"memory_store.deleted"`
-
     - `workspace_id: str`
 
   - `class BetaWebhookSessionBudgetReachedEventData: …`
@@ -1586,8 +1391,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     - `organization_id: str`
 
     - `type: Literal["session.budget_reached"]`
-
-      - `"session.budget_reached"`
 
     - `workspace_id: str`
 
@@ -1603,8 +1406,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["memory_store.archived"]`
 
-    - `"memory_store.archived"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Memory Store Created Event Data
@@ -1618,8 +1419,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["memory_store.created"]`
-
-    - `"memory_store.created"`
 
   - `workspace_id: str`
 
@@ -1635,8 +1434,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["memory_store.deleted"]`
 
-    - `"memory_store.deleted"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Archived Event Data
@@ -1650,8 +1447,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.archived"]`
-
-    - `"session.archived"`
 
   - `workspace_id: str`
 
@@ -1667,8 +1462,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.budget_reached"]`
 
-    - `"session.budget_reached"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Created Event Data
@@ -1682,8 +1475,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.created"]`
-
-    - `"session.created"`
 
   - `workspace_id: str`
 
@@ -1699,8 +1490,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.deleted"]`
 
-    - `"session.deleted"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Idled Event Data
@@ -1714,8 +1503,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.idled"]`
-
-    - `"session.idled"`
 
   - `workspace_id: str`
 
@@ -1731,8 +1518,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.outcome_evaluation_ended"]`
 
-    - `"session.outcome_evaluation_ended"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Pending Event Data
@@ -1746,8 +1531,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.pending"]`
-
-    - `"session.pending"`
 
   - `workspace_id: str`
 
@@ -1763,8 +1546,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.requires_action"]`
 
-    - `"session.requires_action"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Running Event Data
@@ -1778,8 +1559,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.running"]`
-
-    - `"session.running"`
 
   - `workspace_id: str`
 
@@ -1795,8 +1574,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.status_idled"]`
 
-    - `"session.status_idled"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Status Rescheduled Event Data
@@ -1810,8 +1587,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.status_rescheduled"]`
-
-    - `"session.status_rescheduled"`
 
   - `workspace_id: str`
 
@@ -1827,8 +1602,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.status_run_started"]`
 
-    - `"session.status_run_started"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Status Terminated Event Data
@@ -1842,8 +1615,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.status_terminated"]`
-
-    - `"session.status_terminated"`
 
   - `workspace_id: str`
 
@@ -1863,8 +1634,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.thread_created"]`
 
-    - `"session.thread_created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Thread Idled Event Data
@@ -1882,8 +1651,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
     ID of the session thread this event refers to.
 
   - `type: Literal["session.thread_idled"]`
-
-    - `"session.thread_idled"`
 
   - `workspace_id: str`
 
@@ -1903,8 +1670,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["session.thread_terminated"]`
 
-    - `"session.thread_terminated"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Session Updated Event Data
@@ -1918,8 +1683,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["session.updated"]`
-
-    - `"session.updated"`
 
   - `workspace_id: str`
 
@@ -1935,8 +1698,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["vault.archived"]`
 
-    - `"vault.archived"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Vault Created Event Data
@@ -1951,8 +1712,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["vault.created"]`
 
-    - `"vault.created"`
-
   - `workspace_id: str`
 
 ### Beta Webhook Vault Credential Archived Event Data
@@ -1966,8 +1725,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["vault_credential.archived"]`
-
-    - `"vault_credential.archived"`
 
   - `vault_id: str`
 
@@ -1987,8 +1744,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["vault_credential.created"]`
 
-    - `"vault_credential.created"`
-
   - `vault_id: str`
 
     ID of the vault that owns this credential.
@@ -2006,8 +1761,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
   - `organization_id: str`
 
   - `type: Literal["vault_credential.deleted"]`
-
-    - `"vault_credential.deleted"`
 
   - `vault_id: str`
 
@@ -2027,8 +1780,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["vault_credential.refresh_failed"]`
 
-    - `"vault_credential.refresh_failed"`
-
   - `vault_id: str`
 
     ID of the vault that owns this credential.
@@ -2047,8 +1798,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
   - `type: Literal["vault.deleted"]`
 
-    - `"vault.deleted"`
-
   - `workspace_id: str`
 
 ### Unwrap Webhook Event
@@ -2063,6 +1812,8 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookEventData`
 
     - `class BetaWebhookSessionCreatedEventData: …`
@@ -2074,8 +1825,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.created"]`
-
-        - `"session.created"`
 
       - `workspace_id: str`
 
@@ -2089,8 +1838,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.pending"]`
 
-        - `"session.pending"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRunningEventData: …`
@@ -2102,8 +1849,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.running"]`
-
-        - `"session.running"`
 
       - `workspace_id: str`
 
@@ -2117,8 +1862,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.idled"]`
 
-        - `"session.idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionRequiresActionEventData: …`
@@ -2130,8 +1873,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.requires_action"]`
-
-        - `"session.requires_action"`
 
       - `workspace_id: str`
 
@@ -2145,8 +1886,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.archived"]`
 
-        - `"session.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionDeletedEventData: …`
@@ -2158,8 +1897,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.deleted"]`
-
-        - `"session.deleted"`
 
       - `workspace_id: str`
 
@@ -2173,8 +1910,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.status_rescheduled"]`
 
-        - `"session.status_rescheduled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusRunStartedEventData: …`
@@ -2186,8 +1921,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.status_run_started"]`
-
-        - `"session.status_run_started"`
 
       - `workspace_id: str`
 
@@ -2201,8 +1934,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.status_idled"]`
 
-        - `"session.status_idled"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionStatusTerminatedEventData: …`
@@ -2214,8 +1945,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.status_terminated"]`
-
-        - `"session.status_terminated"`
 
       - `workspace_id: str`
 
@@ -2233,8 +1962,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.thread_created"]`
 
-        - `"session.thread_created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionThreadIdledEventData: …`
@@ -2250,8 +1977,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
         ID of the session thread this event refers to.
 
       - `type: Literal["session.thread_idled"]`
-
-        - `"session.thread_idled"`
 
       - `workspace_id: str`
 
@@ -2269,8 +1994,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.thread_terminated"]`
 
-        - `"session.thread_terminated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionOutcomeEvaluationEndedEventData: …`
@@ -2282,8 +2005,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["session.outcome_evaluation_ended"]`
-
-        - `"session.outcome_evaluation_ended"`
 
       - `workspace_id: str`
 
@@ -2297,8 +2018,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault.created"]`
 
-        - `"vault.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultArchivedEventData: …`
@@ -2310,8 +2029,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["vault.archived"]`
-
-        - `"vault.archived"`
 
       - `workspace_id: str`
 
@@ -2325,8 +2042,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault.deleted"]`
 
-        - `"vault.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookVaultCredentialCreatedEventData: …`
@@ -2338,8 +2053,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["vault_credential.created"]`
-
-        - `"vault_credential.created"`
 
       - `vault_id: str`
 
@@ -2357,8 +2070,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault_credential.archived"]`
 
-        - `"vault_credential.archived"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -2374,8 +2085,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["vault_credential.deleted"]`
-
-        - `"vault_credential.deleted"`
 
       - `vault_id: str`
 
@@ -2393,8 +2102,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["vault_credential.refresh_failed"]`
 
-        - `"vault_credential.refresh_failed"`
-
       - `vault_id: str`
 
         ID of the vault that owns this credential.
@@ -2411,8 +2118,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.updated"]`
 
-        - `"session.updated"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentCreatedEventData: …`
@@ -2424,8 +2129,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["agent.created"]`
-
-        - `"agent.created"`
 
       - `workspace_id: str`
 
@@ -2439,8 +2142,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["agent.archived"]`
 
-        - `"agent.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentDeletedEventData: …`
@@ -2452,8 +2153,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["agent.deleted"]`
-
-        - `"agent.deleted"`
 
       - `workspace_id: str`
 
@@ -2467,8 +2166,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.paused"]`
 
-        - `"deployment.paused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunFailedEventData: …`
@@ -2480,8 +2177,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment_run.failed"]`
-
-        - `"deployment_run.failed"`
 
       - `workspace_id: str`
 
@@ -2495,8 +2190,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.created"]`
 
-        - `"deployment.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentUpdatedEventData: …`
@@ -2508,8 +2201,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment.updated"]`
-
-        - `"deployment.updated"`
 
       - `workspace_id: str`
 
@@ -2523,8 +2214,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.unpaused"]`
 
-        - `"deployment.unpaused"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookAgentUpdatedEventData: …`
@@ -2536,8 +2225,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["agent.updated"]`
-
-        - `"agent.updated"`
 
       - `workspace_id: str`
 
@@ -2551,8 +2238,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.archived"]`
 
-        - `"deployment.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunStartedEventData: …`
@@ -2564,8 +2249,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment_run.started"]`
-
-        - `"deployment_run.started"`
 
       - `workspace_id: str`
 
@@ -2579,8 +2262,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["deployment.deleted"]`
 
-        - `"deployment.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookDeploymentRunSucceededEventData: …`
@@ -2592,8 +2273,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["deployment_run.succeeded"]`
-
-        - `"deployment_run.succeeded"`
 
       - `workspace_id: str`
 
@@ -2607,8 +2286,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["environment.created"]`
 
-        - `"environment.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookEnvironmentUpdatedEventData: …`
@@ -2620,8 +2297,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["environment.updated"]`
-
-        - `"environment.updated"`
 
       - `workspace_id: str`
 
@@ -2635,8 +2310,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["environment.archived"]`
 
-        - `"environment.archived"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookEnvironmentDeletedEventData: …`
@@ -2648,8 +2321,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["environment.deleted"]`
-
-        - `"environment.deleted"`
 
       - `workspace_id: str`
 
@@ -2663,8 +2334,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["memory_store.created"]`
 
-        - `"memory_store.created"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookMemoryStoreArchivedEventData: …`
@@ -2676,8 +2345,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
       - `organization_id: str`
 
       - `type: Literal["memory_store.archived"]`
-
-        - `"memory_store.archived"`
 
       - `workspace_id: str`
 
@@ -2691,8 +2358,6 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["memory_store.deleted"]`
 
-        - `"memory_store.deleted"`
-
       - `workspace_id: str`
 
     - `class BetaWebhookSessionBudgetReachedEventData: …`
@@ -2705,12 +2370,8 @@ url: https://platform.claude.com/docs/en/api/python/beta/webhooks
 
       - `type: Literal["session.budget_reached"]`
 
-        - `"session.budget_reached"`
-
       - `workspace_id: str`
 
   - `type: Literal["event"]`
 
     Object type. Always `event` for webhook payloads.
-
-    - `"event"`

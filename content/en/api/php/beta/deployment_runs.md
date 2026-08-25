@@ -1,15 +1,10 @@
----
-title: Deployment Runs
-url: https://platform.claude.com/docs/en/api/php/beta/deployment_runs
----
-
 # Deployment Runs
 
 ## List Deployment Runs
 
 `$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeploymentRun>`
 
-**get** `/v1/deployment_runs`
+**GET** `/v1/deployment_runs`
 
 List Deployment Runs
 
@@ -114,7 +109,7 @@ $page = $client->beta->deploymentRuns->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -148,7 +143,7 @@ var_dump($page);
 
 `$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
 
-**get** `/v1/deployment_runs/{deployment_run_id}`
+**GET** `/v1/deployment_runs/{deployment_run_id}`
 
 Get Deployment Run
 
@@ -210,7 +205,7 @@ $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
 var_dump($betaManagedAgentsDeploymentRun);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -235,7 +230,7 @@ var_dump($betaManagedAgentsDeploymentRun);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Agent Archived Run Error
 

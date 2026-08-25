@@ -1,17 +1,12 @@
----
-title: Update Vault
-url: https://platform.claude.com/docs/en/api/cli/beta/vaults/update
----
-
-## Update Vault
+# Update Vault
 
 `$ ant beta:vaults update`
 
-**post** `/v1/vaults/{vault_id}`
+**POST** `/v1/vaults/{vault_id}`
 
 Update Vault
 
-### Parameters
+## Parameters
 
 - `--vault-id: string`
 
@@ -21,6 +16,8 @@ Update Vault
 
   Body param: Updated human-readable name for the vault. 1-255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `--metadata: optional map[string]`
 
   Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
@@ -29,9 +26,9 @@ Update Vault
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_vault: object { id, archived_at, created_at, 4 more }`
+- `beta_managed_agents_vault: object`
 
   A vault that stores credentials for use by agents during sessions.
 
@@ -43,9 +40,13 @@ Update Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -57,21 +58,21 @@ Update Vault
 
   - `type: "vault"`
 
-    - `"vault"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
 
-```cli
+## Example
+
+```bash
 ant beta:vaults update \
   --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

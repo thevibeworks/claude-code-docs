@@ -14,7 +14,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 
 **Telemetry.** Claude Desktop on 3P sends usage and debugging metrics only, and these can be fully disabled via managed configuration. Claude Enterprise does not offer telemetry toggles. See [Telemetry and egress](/docs/third-party/claude-desktop/telemetry).
 
-**Inference.** Claude Desktop on 3P routes all inference through the provider you configure. For Google Cloud's Agent Platform and Amazon Bedrock, data handling is governed by Google Cloud and Amazon Bedrock respectively. For Microsoft Foundry deployments hosted on Azure, prompts and completions remain within Azure; only usage metadata and content flagged by Anthropic's safety systems egress to Anthropic. Deployments hosted on Anthropic run on Anthropic's infrastructure. See the [Microsoft Foundry page](/docs/third-party/claude-desktop/foundry) for details.
+**Inference.** Claude Desktop on 3P routes all inference through the provider you configure, and data handling at the inference endpoint depends on that provider. For Google Cloud's Agent Platform and Amazon Bedrock, data handling is governed by Google Cloud and Amazon Bedrock respectively. For Microsoft Foundry, Anthropic operates the Claude models and handles conversation data as an independent processor for Microsoft. See [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider) on the Overview page for each provider's data path.
 
 **Pricing.** Claude Desktop on 3P is token-based consumption billed by your cloud provider, with no seat licensing.
 
@@ -51,7 +51,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 | Claude Tag                                          |         ✓         |           —          |
 | Computer use                                        |         —         |           —          |
 
-§ Amazon Bedrock deployments (and gateways that do not forward Anthropic server tools) need a web search provider configured first; see [Web search options](/docs/third-party/claude-desktop/web-tools#web-search-options).
+§ Amazon Bedrock deployments, Microsoft Foundry deployments [hosted on Azure](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options), and gateways that do not forward Anthropic server tools need a web search provider configured first; see [Web search options](/docs/third-party/claude-desktop/web-tools#web-search-options).
 
 † Memory in Claude Desktop on 3P is stored on the device, not on Anthropic infrastructure. Users can review, delete, or pause it under **Settings → Cowork → Memory**; see [Memory](/docs/third-party/claude-desktop/data-storage#memory). Chat-history search and nightly summary generation are not available in Chat on 3P.
 

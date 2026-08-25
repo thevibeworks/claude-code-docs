@@ -1,17 +1,12 @@
----
-title: Send Events
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/events/send
----
-
-## Send Events
+# Send Events
 
 `$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas): ManagedAgentsSendSessionEvents`
 
-**post** `/v1/sessions/{session_id}/events`
+**POST** `/v1/sessions/{session_id}/events`
 
 Send Events
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -23,7 +18,7 @@ Send Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsSendSessionEvents`
 
@@ -31,7 +26,7 @@ Send Events
 
     Sent events
 
-### Example
+## Example
 
 ```php
 <?php
@@ -54,7 +49,7 @@ $betaManagedAgentsSendSessionEvents = $client->beta->sessions->events->send(
 var_dump($betaManagedAgentsSendSessionEvents);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

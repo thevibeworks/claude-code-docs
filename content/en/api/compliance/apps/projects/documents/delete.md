@@ -1,27 +1,22 @@
----
-title: Delete project document
-url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/delete
----
+# Delete project document
 
-## Delete project document
-
-**delete** `/v1/compliance/apps/projects/documents/{document_id}`
+**DELETE** `/v1/compliance/apps/projects/documents/{document_id}`
 
 Delete a project document for compliance purposes.
 
 Hard-deletes the project document permanently.
 
-### Path Parameters
+## Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
 - `id: string`
 
@@ -31,17 +26,17 @@ Hard-deletes the project document permanently.
 
   Constant string confirming deletion.
 
-  - `"claude_project_document_deleted"`
+  default: claude_project_document_deleted
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID \
     -X DELETE \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

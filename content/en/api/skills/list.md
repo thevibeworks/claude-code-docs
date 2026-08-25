@@ -1,21 +1,18 @@
----
-title: List Skills
-url: https://platform.claude.com/docs/en/api/skills/list
----
+# List Skills
 
-## List Skills
-
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
-### Query Parameters
+## Query parameters
 
 - `limit: optional number`
 
   Number of results to return per page.
 
   Ranges from `1` to `1000`. Defaults to `20`.
+
+  default: 20, minimum: 1, maximum: 1000
 
 - `page: optional string`
 
@@ -32,7 +29,7 @@ List Skills
   * `"custom"`: only return user-created skills
   * `"anthropic"`: only return Anthropic-created skills
 
-### Returns
+## Returns
 
 - `data: array of Skill`
 
@@ -47,6 +44,8 @@ List Skills
   - `created_at: string`
 
     ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `display_name: string`
 
@@ -94,11 +93,13 @@ List Skills
 
     For Skills, this is always `"skill"`.
 
-    - `"skill"`
+    default: skill
 
   - `updated_at: string`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 - `next_page: string or null`
 
@@ -106,15 +107,15 @@ List Skills
 
   If `null`, there are no more results available. Pass this value to the `page` parameter in the next request to get the next page.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/skills \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

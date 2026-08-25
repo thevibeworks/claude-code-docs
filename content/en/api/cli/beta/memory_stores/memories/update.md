@@ -1,17 +1,12 @@
----
-title: Update a memory
-url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/memories/update
----
-
-## Update a memory
+# Update a memory
 
 `$ ant beta:memory-stores:memories update`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Update a memory
 
-### Parameters
+## Parameters
 
 - `--memory-store-id: string`
 
@@ -33,7 +28,9 @@ Update a memory
 
   Body param: New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
-- `--precondition: optional object { type, content_sha256 }`
+  minLength: 2, maxLength: 1024
+
+- `--precondition: optional object`
 
   Body param: Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
 
@@ -41,9 +38,9 @@ Update a memory
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_memory: object { id, content_sha256, content_size_bytes, 7 more }`
+- `beta_managed_agents_memory: object`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -59,9 +56,13 @@ Update a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -77,26 +78,26 @@ Update a memory
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content: optional string`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:memory-stores:memories update \
   --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
   --memory-id memory_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

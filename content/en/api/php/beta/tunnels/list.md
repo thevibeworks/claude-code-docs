@@ -1,19 +1,14 @@
----
-title: List Tunnels
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/list
----
-
-## List Tunnels
+# List Tunnels
 
 `$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaTunnel>`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists tunnels. Results are ordered by creation time, newest first; archived tunnels are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `includeArchived?:optional bool`
 
@@ -31,7 +26,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaTunnel`
 
@@ -57,7 +52,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `"tunnel" type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -76,7 +71,7 @@ $page = $client->beta->tunnels->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

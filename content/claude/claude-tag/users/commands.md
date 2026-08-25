@@ -4,7 +4,7 @@
 
 # Commands Claude Tag understands
 
-> A few exact, bang-prefixed words after an @-mention run a fixed action instead of starting a normal turn: see the command list, get the link to a channel's settings page, restart a stuck or wrong-context session, mute or unmute a thread, send feedback, list a channel's routines, and continue a thread's conversation in another channel.
+> A few exact, bang-prefixed words after an @-mention run a fixed action instead of starting a normal turn: see the command list, get the link to a channel's settings page, restart a stuck or wrong-context session, mute or unmute a thread, send feedback, list a channel's routines, and fork a thread's conversation into a new thread, here or in another channel.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -98,22 +98,23 @@ Claude replies in the thread with the [routines](/docs/claude-tag/users/proactiv
 
 If the single word after `!routines` isn't a channel mention or ID, Claude replies with how to use the command. Adding two or more words makes the message an ordinary prompt that starts a normal turn instead.
 
-## Continue a thread in another channel
+## Fork a thread
 
 ```text wrap theme={null}
+@Claude !fork <prompt>
 @Claude !fork #channel <prompt>
 ```
 
-Run `!fork` from inside a thread Claude is part of, and Claude continues that conversation in a new thread in the channel you name. Use it when a discussion outgrows its home channel: a bug thread that turns out to belong in the owning team's channel, or a side question that deserves its own audience.
+Run `!fork` from inside a thread Claude is part of, and Claude continues that conversation in a new thread. Leave the channel out to start the new thread in the same channel, or name a channel to continue the conversation there. Use it when a discussion outgrows its thread: a bug report that turns out to belong in the owning team's channel, a request that another team should pick up, or a side question that deserves its own thread.
 
 The fork starts a new thread in Slack and links the two threads together:
 
-* **In the channel you name**, Claude posts a new top-level message that links back to the original thread and carries your prompt, then continues in the replies under it. The new conversation starts with the original thread as background, so nobody has to re-explain.
+* **In the new thread's channel**, Claude posts a new top-level message that links back to the original thread and carries your prompt, then continues in the replies under it. The new conversation starts with the original thread as background, so nobody has to re-explain.
 * **Back in the original thread**, Claude replies with a link to the new thread, so anyone following along can see where the conversation continued.
 
 The prompt is required, and it kicks off the new thread: Claude starts working on it there right away.
 
-Pick the channel from Slack's `#` autocomplete so it arrives as a channel mention. The channel must be public, and both you and Claude must be members of it; invite Claude with `/invite @Claude` first if it isn't there yet. On Enterprise Grid, a public channel in another workspace of your grid also works when that workspace is paired to the same Claude organization, but a channel shared across workspaces doesn't.
+To fork into another channel, pick it from Slack's `#` autocomplete so it arrives as a channel mention. The channel must be public, and both you and Claude must be members of it; invite Claude with `/invite @Claude` first if it isn't there yet. On Enterprise Grid, a public channel in another workspace of your grid also works when that workspace is paired to the same Claude organization, but a channel shared across workspaces doesn't.
 
 `!fork` works from threads in public channels only. Threads in private channels, DMs, and group DMs can't be forked, since forking would carry the conversation to a different audience.
 

@@ -1,15 +1,10 @@
----
-title: Batches
-url: https://platform.claude.com/docs/en/api/php/beta/messages/batches
----
-
 # Batches
 
 ## Create a Message Batch
 
 `$client->beta->messages->batches->create(list<Request> requests, ?list<AnthropicBeta> betas, ?string userProfileID): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -201,7 +196,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -228,7 +223,7 @@ var_dump($betaMessageBatch);
 
 `$client->beta->messages->batches->retrieve(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
@@ -314,7 +309,7 @@ $betaMessageBatch = $client->beta->messages->batches->retrieve(
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -341,7 +336,7 @@ var_dump($betaMessageBatch);
 
 `$client->beta->messages->batches->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas): Page<MessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
@@ -362,6 +357,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -440,7 +437,7 @@ $page = $client->beta->messages->batches->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -474,7 +471,7 @@ var_dump($page);
 
 `$client->beta->messages->batches->cancel(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -562,7 +559,7 @@ $betaMessageBatch = $client->beta->messages->batches->cancel(
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -589,7 +586,7 @@ var_dump($betaMessageBatch);
 
 `$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas): DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -637,7 +634,7 @@ $betaDeletedMessageBatch = $client->beta->messages->batches->delete(
 var_dump($betaDeletedMessageBatch);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -650,7 +647,7 @@ var_dump($betaDeletedMessageBatch);
 
 `$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -704,7 +701,7 @@ $betaMessageBatchIndividualResponse = $client
 var_dump($betaMessageBatchIndividualResponse);
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Deleted Message Batch
 

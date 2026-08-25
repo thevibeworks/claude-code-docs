@@ -1,17 +1,12 @@
----
-title: Get Queue Statistics
-url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/stats
----
-
-## Get Queue Statistics
+# Get Queue Statistics
 
 `$ ant beta:environments:work stats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
-### Parameters
+## Parameters
 
 - `--environment-id: string`
 
@@ -19,9 +14,9 @@ Get statistics about the work queue for an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_self_hosted_work_queue_stats: object { depth, oldest_queued_at, pending, 2 more }`
+- `beta_self_hosted_work_queue_stats: object`
 
   Statistics about the work queue for an environment.
 
@@ -47,15 +42,15 @@ Get statistics about the work queue for an environment.
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:environments:work stats \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

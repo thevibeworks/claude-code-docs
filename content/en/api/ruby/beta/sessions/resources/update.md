@@ -1,17 +1,12 @@
----
-title: Update Session Resource
-url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/resources/update
----
-
-## Update Session Resource
+# Update Session Resource
 
 `beta.sessions.resources.update(resource_id, **kwargs) -> ResourceUpdateResponse`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Parameters
+## Parameters
 
 - `session_id: String`
 
@@ -20,6 +15,8 @@ Update Session Resource
 - `authorization_token: String`
 
   New authorization token for the resource. Currently only `github_repository` resources support token rotation.
+
+  minLength: 1, maxLength: 4096
 
 - `betas: Array[AnthropicBeta]`
 
@@ -97,7 +94,7 @@ Update Session Resource
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `ResourceUpdateResponse = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
 
@@ -111,15 +108,17 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: String`
 
     - `type: :github_repository`
 
-      - `:github_repository`
-
     - `updated_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: String`
 
@@ -131,9 +130,9 @@ Update Session Resource
 
           Branch name to check out.
 
-        - `type: :branch`
+          minLength: 1, maxLength: 255
 
-          - `:branch`
+        - `type: :branch`
 
       - `class BetaManagedAgentsCommitCheckout`
 
@@ -141,9 +140,9 @@ Update Session Resource
 
           Full commit SHA to check out.
 
-        - `type: :commit`
+          minLength: 7, maxLength: 64
 
-          - `:commit`
+        - `type: :commit`
 
   - `class BetaManagedAgentsFileResource`
 
@@ -153,17 +152,19 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: String`
 
     - `mount_path: String`
 
     - `type: :file`
 
-      - `:file`
-
     - `updated_at: Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `class BetaManagedAgentsMemoryStoreResource`
 
@@ -174,8 +175,6 @@ Update Session Resource
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: :memory_store`
-
-      - `:memory_store`
 
     - `access: :read_write | :read_only`
 
@@ -193,6 +192,8 @@ Update Session Resource
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `mount_path: String`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -201,7 +202,7 @@ Update Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -217,7 +218,7 @@ resource = anthropic.beta.sessions.resources.update(
 puts(resource)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

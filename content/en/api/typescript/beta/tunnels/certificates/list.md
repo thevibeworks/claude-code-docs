@@ -1,19 +1,14 @@
----
-title: List Tunnel Certificates
-url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels/certificates/list
----
+# List Tunnel Certificates
 
-## List Tunnel Certificates
+`client.beta.tunnels.certificates.list(tunnelID, params?, options?): PageCursor<BetaTunnelCertificate>`
 
-`client.beta.tunnels.certificates.list(stringtunnelID, CertificateListParamsparams?, RequestOptionsoptions?): PageCursor<BetaTunnelCertificate>`
-
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -26,6 +21,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `limit?: number`
 
     Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `page?: string`
 
@@ -107,7 +104,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaTunnelCertificate`
 
@@ -121,13 +118,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -139,9 +142,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `type: "tunnel_certificate"`
 
-    - `"tunnel_certificate"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -156,7 +157,7 @@ for await (const betaTunnelCertificate of client.beta.tunnels.certificates.list(
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

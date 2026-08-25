@@ -1,17 +1,12 @@
----
-title: Retrieve a memory store
-url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/retrieve
----
+# Retrieve a memory store
 
-## Retrieve a memory store
+`beta.memory_stores.retrieve(memory_store_id, **kwargs)  -> BetaManagedAgentsMemoryStore`
 
-`beta.memory_stores.retrieve(strmemory_store_id, MemoryStoreRetrieveParams**kwargs)  -> BetaManagedAgentsMemoryStore`
-
-**get** `/v1/memory_stores/{memory_store_id}`
+**GET** `/v1/memory_stores/{memory_store_id}`
 
 Retrieve a memory store
 
-### Parameters
+## Parameters
 
 - `memory_store_id: str`
 
@@ -91,7 +86,7 @@ Retrieve a memory store
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemoryStore: …`
 
@@ -105,21 +100,25 @@ Retrieve a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: str`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: Literal["memory_store"]`
 
-    - `"memory_store"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at: Optional[datetime]`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: Optional[str]`
 
@@ -129,7 +128,7 @@ Retrieve a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```python
 import os
@@ -146,7 +145,7 @@ beta_managed_agents_memory_store = client.beta.memory_stores.retrieve(
 print(beta_managed_agents_memory_store.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

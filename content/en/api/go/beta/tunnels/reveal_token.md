@@ -1,25 +1,20 @@
----
-title: Reveal Tunnel Token
-url: https://platform.claude.com/docs/en/api/go/beta/tunnels/reveal_token
----
-
-## Reveal Tunnel Token
+# Reveal Tunnel Token
 
 `client.Beta.Tunnels.RevealToken(ctx, tunnelID, body) (*BetaTunnelToken, error)`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Reveals a tunnel's connector token. The value is fetched live on each call; Anthropic does not store it. Repeated calls return the same value until the token is rotated. Exposed as POST so the token does not appear in intermediary access logs.
 
-### Parameters
+## Parameters
 
 - `tunnelID string`
 
 - `body BetaTunnelRevealTokenParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -95,7 +90,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaTunnelToken struct{…}`
 
@@ -111,9 +106,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `Type TunnelToken`
 
-    - `const TunnelTokenTunnelToken TunnelToken = "tunnel_token"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -142,7 +135,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,43 +1,42 @@
----
-title: List memories
-url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/memories/list
----
-
-## List memories
+# List memories
 
 `client.Beta.MemoryStores.Memories.List(ctx, memoryStoreID, params) (*PageCursor[BetaManagedAgentsMemoryListItemUnion], error)`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
-### Parameters
+## Parameters
 
 - `memoryStoreID string`
 
 - `params BetaMemoryStoreMemoryListParams`
 
-  - `Depth param.Field[int64]`
+  - `Depth param.Field[int64] Optional`
 
     Query param: `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
-  - `Limit param.Field[int64]`
+    format: int32
+
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
 
-  - `Page param.Field[string]`
+    format: int32
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-  - `PathPrefix param.Field[string]`
+  - `PathPrefix param.Field[string] Optional`
 
     Query param: Optional path prefix filter. Must end with `/` (segment-aligned), e.g., `/notes/`. This value appears in request URLs. Do not include secrets or personally identifiable information.
 
-  - `View param.Field[BetaManagedAgentsMemoryView]`
+  - `View param.Field[BetaManagedAgentsMemoryView] Optional`
 
     Query param: Which projection of each `memory` to return. Defaults to `basic` (content omitted). `full` populates `content` on each item and caps `limit` at 20; use this as the bulk-read path for export and sync.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -113,7 +112,7 @@ List memories
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsMemoryListItemUnion interface{…}`
 
@@ -135,9 +134,13 @@ List memories
 
       Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+      format: int32
+
     - `CreatedAt Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `MemoryStoreID string`
 
@@ -153,13 +156,13 @@ List memories
 
     - `Type BetaManagedAgentsMemoryType`
 
-      - `const BetaManagedAgentsMemoryTypeMemory BetaManagedAgentsMemoryType = "memory"`
-
     - `UpdatedAt Time`
 
       A timestamp in RFC 3339 format
 
-    - `Content string`
+      format: date-time
+
+    - `Content string Optional`
 
       The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
@@ -173,9 +176,7 @@ List memories
 
     - `Type BetaManagedAgentsMemoryPrefixType`
 
-      - `const BetaManagedAgentsMemoryPrefixTypeMemoryPrefix BetaManagedAgentsMemoryPrefixType = "memory_prefix"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -204,7 +205,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

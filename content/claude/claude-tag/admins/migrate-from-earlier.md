@@ -38,7 +38,7 @@ If your organization already used the earlier Claude in Slack, including [Claude
 
 ### If `@Claude` doesn't respond at all
 
-On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. Don't uninstall the app. Have a Slack Org Owner or Org Admin, while signed in to one of the workspaces (not the org-level admin page), open [claude.com/claude-for-slack](https://claude.com/claude-for-slack), select **Add to Slack**, and choose **Install to entire organization**. This refreshes the connection in place. Then send `@Claude connect` again in a channel of that workspace and continue with step 1 above.
+On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. See [Claude is silent everywhere on Enterprise Grid](/docs/claude-tag/admins/troubleshooting#claude-is-silent-everywhere-on-enterprise-grid) for the reinstall that refreshes it without uninstalling, then send `@Claude connect` again in a channel of that workspace and continue with step 1 above.
 
 <Warning>The earlier Claude in Slack app, shown as **Legacy** in admin settings, is being deprecated; check with your account team for the cutover date. After that date, channels still set to Legacy stop responding until the scope's Claude Tag version is set to New.</Warning>
 
@@ -60,7 +60,7 @@ The earlier app linked each user's own claude.ai account, so it answered as that
 | Standing work  | None                                        | Routines and channel watching                              |
 | Who sets it up | Each user, individually                     | An Owner, once                                             |
 
-The **Claude Tag version** setting on each scope lets you pin a channel or workspace to **Off**, **Legacy**, or **New**, or **Inherit** the organization default. Use it to hold specific channels on the Legacy behavior while you finish provisioning, then switch them when ready. Access bundles only apply where the New version answers. See [the version setting](/docs/claude-tag/admins/restrict-access#migrate-from-the-earlier-claude-in-slack) for the control.
+The **Claude Tag version** setting on each scope chooses whether the New or Legacy version answers there, or neither. Access bundles only apply where the New version answers. See [Set the version for a scope](/docs/claude-tag/admins/workspaces#set-the-version-for-a-scope) for the four values and where to set them.
 
 ## Two versions of the same Slack app
 

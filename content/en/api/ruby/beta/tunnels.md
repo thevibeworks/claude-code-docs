@@ -1,15 +1,10 @@
----
-title: Tunnels
-url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels
----
-
 # Tunnels
 
 ## Create Tunnel
 
 `beta.tunnels.create(**kwargs) -> BetaTunnel`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -20,6 +15,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 - `display_name: String`
 
   Optional human-readable name for the tunnel (1-255 characters).
+
+  minLength: 1, maxLength: 255
 
 - `betas: Array[AnthropicBeta]`
 
@@ -111,9 +108,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: String`
 
@@ -124,8 +125,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: :tunnel`
-
-    - `:tunnel`
 
 ### Example
 
@@ -139,7 +138,7 @@ beta_tunnel = anthropic.beta.tunnels.create
 puts(beta_tunnel)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -156,7 +155,7 @@ puts(beta_tunnel)
 
 `beta.tunnels.retrieve(tunnel_id, **kwargs) -> BetaTunnel`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -256,9 +255,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: String`
 
@@ -269,8 +272,6 @@ Fetches a tunnel by ID.
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: :tunnel`
-
-    - `:tunnel`
 
 ### Example
 
@@ -284,7 +285,7 @@ beta_tunnel = anthropic.beta.tunnels.retrieve("tunnel_id")
 puts(beta_tunnel)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -301,7 +302,7 @@ puts(beta_tunnel)
 
 `beta.tunnels.list(**kwargs) -> PageCursor<BetaTunnel>`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -316,6 +317,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 - `limit: Integer`
 
   Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
+
+  format: int32
 
 - `page: String`
 
@@ -411,9 +414,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: String`
 
@@ -424,8 +431,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: :tunnel`
-
-    - `:tunnel`
 
 ### Example
 
@@ -439,7 +444,7 @@ page = anthropic.beta.tunnels.list
 puts(page)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -461,7 +466,7 @@ puts(page)
 
 `beta.tunnels.archive(tunnel_id, **kwargs) -> BetaTunnel`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -561,9 +566,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: String`
 
@@ -574,8 +583,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: :tunnel`
-
-    - `:tunnel`
 
 ### Example
 
@@ -589,7 +596,7 @@ beta_tunnel = anthropic.beta.tunnels.archive("tunnel_id")
 puts(beta_tunnel)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -606,7 +613,7 @@ puts(beta_tunnel)
 
 `beta.tunnels.reveal_token(tunnel_id, **kwargs) -> BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -708,8 +715,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `type: :tunnel_token`
 
-    - `:tunnel_token`
-
 ### Example
 
 ```ruby
@@ -722,7 +727,7 @@ beta_tunnel_token = anthropic.beta.tunnels.reveal_token("tunnel_id")
 puts(beta_tunnel_token)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -736,7 +741,7 @@ puts(beta_tunnel_token)
 
 `beta.tunnels.rotate_token(tunnel_id, **kwargs) -> BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -749,6 +754,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 - `reason: String`
 
   Optional free-text reason for the rotation, recorded for audit.
+
+  maxLength: 1024
 
 - `betas: Array[AnthropicBeta]`
 
@@ -842,8 +849,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `type: :tunnel_token`
 
-    - `:tunnel_token`
-
 ### Example
 
 ```ruby
@@ -856,7 +861,7 @@ beta_tunnel_token = anthropic.beta.tunnels.rotate_token("tunnel_id")
 puts(beta_tunnel_token)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -866,7 +871,7 @@ puts(beta_tunnel_token)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Tunnel
 
@@ -882,9 +887,13 @@ puts(beta_tunnel_token)
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: String`
 
@@ -895,8 +904,6 @@ puts(beta_tunnel_token)
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: :tunnel`
-
-    - `:tunnel`
 
 ### Beta Tunnel Token
 
@@ -914,27 +921,27 @@ puts(beta_tunnel_token)
 
   - `type: :tunnel_token`
 
-    - `:tunnel_token`
+## Tunnels › Certificates
 
-# Certificates
-
-## Create Tunnel Certificate
+### Create Tunnel Certificate
 
 `beta.tunnels.certificates.create(tunnel_id, **kwargs) -> BetaTunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+#### Parameters
 
 - `tunnel_id: String`
 
 - `ca_certificate_pem: String`
 
   PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
+
+  maxLength: 8192
 
 - `betas: Array[AnthropicBeta]`
 
@@ -1012,7 +1019,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaTunnelCertificate`
 
@@ -1026,13 +1033,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: String`
 
@@ -1044,9 +1057,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `type: :tunnel_certificate`
 
-    - `:tunnel_certificate`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -1058,7 +1069,7 @@ beta_tunnel_certificate = anthropic.beta.tunnels.certificates.create("tunnel_id"
 puts(beta_tunnel_certificate)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1072,17 +1083,17 @@ puts(beta_tunnel_certificate)
 }
 ```
 
-## Get Tunnel Certificate
+### Get Tunnel Certificate
 
 `beta.tunnels.certificates.retrieve(certificate_id, **kwargs) -> BetaTunnelCertificate`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel certificate by ID.
 
-### Parameters
+#### Parameters
 
 - `tunnel_id: String`
 
@@ -1164,7 +1175,7 @@ Fetches a tunnel certificate by ID.
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaTunnelCertificate`
 
@@ -1178,13 +1189,19 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: String`
 
@@ -1196,9 +1213,7 @@ Fetches a tunnel certificate by ID.
 
   - `type: :tunnel_certificate`
 
-    - `:tunnel_certificate`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -1210,7 +1225,7 @@ beta_tunnel_certificate = anthropic.beta.tunnels.certificates.retrieve("certific
 puts(beta_tunnel_certificate)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1224,17 +1239,17 @@ puts(beta_tunnel_certificate)
 }
 ```
 
-## List Tunnel Certificates
+### List Tunnel Certificates
 
 `beta.tunnels.certificates.list(tunnel_id, **kwargs) -> PageCursor<BetaTunnelCertificate>`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+#### Parameters
 
 - `tunnel_id: String`
 
@@ -1245,6 +1260,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 - `limit: Integer`
 
   Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+
+  format: int32
 
 - `page: String`
 
@@ -1326,7 +1343,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaTunnelCertificate`
 
@@ -1340,13 +1357,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: String`
 
@@ -1358,9 +1381,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `type: :tunnel_certificate`
 
-    - `:tunnel_certificate`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -1372,7 +1393,7 @@ page = anthropic.beta.tunnels.certificates.list("tunnel_id")
 puts(page)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1391,17 +1412,17 @@ puts(page)
 }
 ```
 
-## Archive Tunnel Certificate
+### Archive Tunnel Certificate
 
 `beta.tunnels.certificates.archive(certificate_id, **kwargs) -> BetaTunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+#### Parameters
 
 - `tunnel_id: String`
 
@@ -1483,7 +1504,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaTunnelCertificate`
 
@@ -1497,13 +1518,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: String`
 
@@ -1515,9 +1542,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `type: :tunnel_certificate`
 
-    - `:tunnel_certificate`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -1529,7 +1554,7 @@ beta_tunnel_certificate = anthropic.beta.tunnels.certificates.archive("certifica
 puts(beta_tunnel_certificate)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1542,39 +1567,3 @@ puts(beta_tunnel_certificate)
   "type": "tunnel_certificate"
 }
 ```
-
-## Domain Types
-
-### Beta Tunnel Certificate
-
-- `class BetaTunnelCertificate`
-
-  A CA certificate attached to a tunnel.
-
-  - `id: String`
-
-    Unique identifier for the certificate, prefixed with `tcrt_`.
-
-  - `archived_at: Time`
-
-    A timestamp in RFC 3339 format
-
-  - `created_at: Time`
-
-    A timestamp in RFC 3339 format
-
-  - `expires_at: Time`
-
-    A timestamp in RFC 3339 format
-
-  - `fingerprint: String`
-
-    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
-
-  - `tunnel_id: String`
-
-    ID of the tunnel the certificate is registered against.
-
-  - `type: :tunnel_certificate`
-
-    - `:tunnel_certificate`

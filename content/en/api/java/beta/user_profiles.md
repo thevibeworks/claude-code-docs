@@ -1,15 +1,10 @@
----
-title: User Profiles
-url: https://platform.claude.com/docs/en/api/java/beta/user_profiles
----
-
 # User Profiles
 
 ## Create User Profile
 
-`BetaUserProfile beta().userProfiles().create(UserProfileCreateParamsparams = UserProfileCreateParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaUserProfile beta().userProfiles().create(params = UserProfileCreateParams.none(), requestOptions = RequestOptions.none())`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
@@ -101,6 +96,8 @@ Create User Profile
 
     Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
+    minLength: 1, maxLength: 255
+
   - `Optional<Metadata> metadata`
 
     Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
@@ -108,6 +105,8 @@ Create User Profile
   - `Optional<String> name`
 
     Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `Optional<Relationship> relationship`
 
@@ -131,6 +130,8 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Metadata metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -153,11 +154,11 @@ Create User Profile
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -206,7 +207,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -229,9 +230,9 @@ public final class Main {
 
 ## List User Profiles
 
-`UserProfileListPage beta().userProfiles().list(UserProfileListParamsparams = UserProfileListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`UserProfileListPage beta().userProfiles().list(params = UserProfileListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
@@ -242,6 +243,8 @@ List User Profiles
   - `Optional<Long> limit`
 
     Query parameter for limit
+
+    format: int32
 
   - `Optional<Order> order`
 
@@ -339,6 +342,8 @@ List User Profiles
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Metadata metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -361,11 +366,11 @@ List User Profiles
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -414,7 +419,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -442,9 +447,9 @@ public final class Main {
 
 ## Get User Profile
 
-`BetaUserProfile beta().userProfiles().retrieve(UserProfileRetrieveParamsparams = UserProfileRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaUserProfile beta().userProfiles().retrieve(params = UserProfileRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
@@ -538,6 +543,8 @@ Get User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Metadata metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -560,11 +567,11 @@ Get User Profile
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -613,7 +620,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -636,9 +643,9 @@ public final class Main {
 
 ## Update User Profile
 
-`BetaUserProfile beta().userProfiles().update(UserProfileUpdateParamsparams = UserProfileUpdateParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaUserProfile beta().userProfiles().update(params = UserProfileUpdateParams.none(), requestOptions = RequestOptions.none())`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
@@ -732,6 +739,8 @@ Update User Profile
 
     If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
+    minLength: 1, maxLength: 255
+
   - `Optional<Metadata> metadata`
 
     Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -739,6 +748,8 @@ Update User Profile
   - `Optional<String> name`
 
     If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `Optional<Relationship> relationship`
 
@@ -762,6 +773,8 @@ Update User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Metadata metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -784,11 +797,11 @@ Update User Profile
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -837,7 +850,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -860,9 +873,9 @@ public final class Main {
 
 ## Create Enrollment URL
 
-`BetaUserProfileEnrollmentUrl beta().userProfiles().createEnrollmentUrl(UserProfileCreateEnrollmentUrlParamsparams = UserProfileCreateEnrollmentUrlParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaUserProfileEnrollmentUrl beta().userProfiles().createEnrollmentUrl(params = UserProfileCreateEnrollmentUrlParams.none(), requestOptions = RequestOptions.none())`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
@@ -952,11 +965,11 @@ Create Enrollment URL
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Type type`
 
     Object type. Always `enrollment_url`.
-
-    - `ENROLLMENT_URL("enrollment_url")`
 
   - `String url`
 
@@ -983,7 +996,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -993,7 +1006,7 @@ public final class Main {
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta User Profile
 
@@ -1006,6 +1019,8 @@ public final class Main {
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Metadata metadata`
 
@@ -1029,11 +1044,11 @@ public final class Main {
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -1069,11 +1084,11 @@ public final class Main {
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Type type`
 
     Object type. Always `enrollment_url`.
-
-    - `ENROLLMENT_URL("enrollment_url")`
 
   - `String url`
 

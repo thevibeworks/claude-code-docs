@@ -1,33 +1,36 @@
----
-title: List Deployment Runs
-url: https://platform.claude.com/docs/en/api/python/beta/deployment_runs/list
----
+# List Deployment Runs
 
-## List Deployment Runs
+`beta.deployment_runs.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsDeploymentRun]`
 
-`beta.deployment_runs.list(DeploymentRunListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsDeploymentRun]`
-
-**get** `/v1/deployment_runs`
+**GET** `/v1/deployment_runs`
 
 List Deployment Runs
 
-### Parameters
+## Parameters
 
 - `created_at_gt: Optional[Union[str, datetime]]`
 
   Return runs created strictly after this time (exclusive).
 
+  format: date-time
+
 - `created_at_gte: Optional[Union[str, datetime]]`
 
   Return runs created at or after this time (inclusive).
+
+  format: date-time
 
 - `created_at_lt: Optional[Union[str, datetime]]`
 
   Return runs created strictly before this time (exclusive).
 
+  format: date-time
+
 - `created_at_lte: Optional[Union[str, datetime]]`
 
   Return runs created at or before this time (inclusive).
+
+  format: date-time
 
 - `deployment_id: Optional[str]`
 
@@ -40,6 +43,8 @@ List Deployment Runs
 - `limit: Optional[int]`
 
   Maximum results per page. Default 20, maximum 1000.
+
+  format: int32
 
 - `page: Optional[str]`
 
@@ -129,7 +134,7 @@ List Deployment Runs
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeploymentRun: …`
 
@@ -147,13 +152,15 @@ List Deployment Runs
 
     - `type: Literal["agent"]`
 
-      - `"agent"`
-
     - `version: int`
+
+      format: int32
 
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `deployment_id: str`
 
@@ -173,8 +180,6 @@ List Deployment Runs
 
       - `type: Literal["environment_archived_error"]`
 
-        - `"environment_archived_error"`
-
     - `class BetaManagedAgentsAgentArchivedRunError: …`
 
       The deployment's agent was archived.
@@ -184,8 +189,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["agent_archived_error"]`
-
-        - `"agent_archived_error"`
 
     - `class BetaManagedAgentsEnvironmentNotFoundRunError: …`
 
@@ -197,8 +200,6 @@ List Deployment Runs
 
       - `type: Literal["environment_not_found_error"]`
 
-        - `"environment_not_found_error"`
-
     - `class BetaManagedAgentsVaultNotFoundRunError: …`
 
       A vault referenced by the deployment no longer exists.
@@ -208,8 +209,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["vault_not_found_error"]`
-
-        - `"vault_not_found_error"`
 
     - `class BetaManagedAgentsVaultArchivedRunError: …`
 
@@ -221,8 +220,6 @@ List Deployment Runs
 
       - `type: Literal["vault_archived_error"]`
 
-        - `"vault_archived_error"`
-
     - `class BetaManagedAgentsFileNotFoundRunError: …`
 
       A file resource referenced by the deployment no longer exists.
@@ -232,8 +229,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["file_not_found_error"]`
-
-        - `"file_not_found_error"`
 
     - `class BetaManagedAgentsMemoryStoreArchivedRunError: …`
 
@@ -245,8 +240,6 @@ List Deployment Runs
 
       - `type: Literal["memory_store_archived_error"]`
 
-        - `"memory_store_archived_error"`
-
     - `class BetaManagedAgentsSkillNotFoundRunError: …`
 
       A skill referenced by the deployment's agent no longer exists.
@@ -256,8 +249,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["skill_not_found_error"]`
-
-        - `"skill_not_found_error"`
 
     - `class BetaManagedAgentsSessionResourceNotFoundRunError: …`
 
@@ -269,8 +260,6 @@ List Deployment Runs
 
       - `type: Literal["session_resource_not_found_error"]`
 
-        - `"session_resource_not_found_error"`
-
     - `class BetaManagedAgentsWorkspaceArchivedRunError: …`
 
       The deployment's workspace was archived.
@@ -280,8 +269,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["workspace_archived_error"]`
-
-        - `"workspace_archived_error"`
 
     - `class BetaManagedAgentsOrganizationDisabledRunError: …`
 
@@ -293,8 +280,6 @@ List Deployment Runs
 
       - `type: Literal["organization_disabled_error"]`
 
-        - `"organization_disabled_error"`
-
     - `class BetaManagedAgentsSessionRateLimitedRunError: …`
 
       Session creation was rejected due to rate limiting. The schedule keeps firing; subsequent runs may succeed.
@@ -304,8 +289,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["session_rate_limited_error"]`
-
-        - `"session_rate_limited_error"`
 
     - `class BetaManagedAgentsSessionCreationRejectedRunError: …`
 
@@ -317,8 +300,6 @@ List Deployment Runs
 
       - `type: Literal["session_creation_rejected_error"]`
 
-        - `"session_creation_rejected_error"`
-
     - `class BetaManagedAgentsUnknownRunError: …`
 
       An unknown or unexpected error caused the run to fail. A fallback variant; clients that do not recognize a new error type can match on message alone.
@@ -328,8 +309,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["unknown_error"]`
-
-        - `"unknown_error"`
 
     - `class BetaManagedAgentsSelfHostedResourcesUnsupportedRunError: …`
 
@@ -341,8 +320,6 @@ List Deployment Runs
 
       - `type: Literal["self_hosted_resources_unsupported_error"]`
 
-        - `"self_hosted_resources_unsupported_error"`
-
     - `class BetaManagedAgentsMCPEgressBlockedRunError: …`
 
       An MCP server host used by the deployment's agent is blocked by the environment's network policy.
@@ -352,8 +329,6 @@ List Deployment Runs
         Human-readable error description.
 
       - `type: Literal["mcp_egress_blocked_error"]`
-
-        - `"mcp_egress_blocked_error"`
 
   - `session_id: Optional[str]`
 
@@ -371,9 +346,9 @@ List Deployment Runs
 
         A timestamp in RFC 3339 format
 
-      - `type: Literal["schedule"]`
+        format: date-time
 
-        - `"schedule"`
+      - `type: Literal["schedule"]`
 
     - `class BetaManagedAgentsManualTriggerContext: …`
 
@@ -381,13 +356,9 @@ List Deployment Runs
 
       - `type: Literal["manual"]`
 
-        - `"manual"`
-
   - `type: Literal["deployment_run"]`
 
-    - `"deployment_run"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -403,7 +374,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

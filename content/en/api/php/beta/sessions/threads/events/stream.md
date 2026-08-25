@@ -1,17 +1,12 @@
----
-title: Stream Session Thread Events
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/threads/events/stream
----
-
-## Stream Session Thread Events
+# Stream Session Thread Events
 
 `$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionThreadEvents`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
 Stream Session Thread Events
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -25,7 +20,7 @@ Stream Session Thread Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsStreamSessionThreadEvents`
 
@@ -773,7 +768,9 @@ Stream Session Thread Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+- `ManagedAgentsStreamSessionThreadEvents`
+
+## Example
 
 ```php
 <?php
@@ -797,7 +794,7 @@ $betaManagedAgentsStreamSessionThreadEvents = $client
 var_dump($betaManagedAgentsStreamSessionThreadEvents);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

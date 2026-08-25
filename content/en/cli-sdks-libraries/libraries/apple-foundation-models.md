@@ -71,7 +71,7 @@ Model identifiers are values of `ClaudeModel`. Use a compiled-in constant, or co
 ClaudeLanguageModel(name: .opus5, auth: auth)
 ```
 
-Constants mirror API model IDs (`.opus5` is `claude-opus-5`) and carry each model's capabilities. New models ship as new constants in package releases; check `ClaudeModel` in Xcode for the current list, and the [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) to compare models.
+Constants mirror API model IDs (`.opus5` is `claude-opus-5`) and carry each model's capabilities. New models ship as new constants in package releases; check `ClaudeModel` in Xcode for the current list, and the [Models overview](https://platform.claude.com/docs/en/models/overview) to compare models.
 
 ### Capabilities
 

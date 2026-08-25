@@ -1,13 +1,8 @@
----
-title: Delete a Message Batch
-url: https://platform.claude.com/docs/en/api/java/messages/batches/delete
----
+# Delete a Message Batch
 
-## Delete a Message Batch
+`DeletedMessageBatch messages().batches().delete(params = BatchDeleteParams.none(), requestOptions = RequestOptions.none())`
 
-`DeletedMessageBatch messages().batches().delete(BatchDeleteParamsparams = BatchDeleteParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -15,7 +10,7 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `BatchDeleteParams params`
 
@@ -23,7 +18,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     ID of the Message Batch.
 
-### Returns
+## Returns
 
 - `class DeletedMessageBatch:`
 
@@ -31,15 +26,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     ID of the Message Batch.
 
-  - `JsonValue; type "message_batch_deleted"constant`
+  - `JsonValue type constant`
 
     Deleted object type.
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `MESSAGE_BATCH_DELETED("message_batch_deleted")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -60,7 +53,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

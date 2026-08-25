@@ -1,17 +1,12 @@
----
-title: Update Session
-url: https://platform.claude.com/docs/en/api/csharp/beta/sessions/update
----
+# Update Session
 
-## Update Session
+`BetaManagedAgentsSession Beta.Sessions.Update(parameters, cancellationToken = default)`
 
-`BetaManagedAgentsSession Beta.Sessions.Update(SessionUpdateParamsparameters, CancellationTokencancellationToken = default)`
-
-**post** `/v1/sessions/{session_id}`
+**POST** `/v1/sessions/{session_id}`
 
 Update Session
 
-### Parameters
+## Parameters
 
 - `SessionUpdateParams parameters`
 
@@ -35,6 +30,8 @@ Update Session
 
     Body param: Human-readable session title.
 
+    minLength: 1, maxLength: 500
+
   - `IReadOnlyList<string> vaultIds`
 
     Body param: Vault IDs (`vlt_*`) to attach to the session. Not yet supported; requests setting this field are rejected. Reserved for future use.
@@ -43,75 +40,75 @@ Update Session
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsSession:`
 
@@ -133,8 +130,6 @@ Update Session
 
       - `required Type Type`
 
-        - `"url"Url`
-
       - `required string Url`
 
     - `required BetaManagedAgentsModelConfig Model`
@@ -147,55 +142,55 @@ Update Session
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `"claude-sonnet-5"ClaudeSonnet5`
+        - `ClaudeSonnet5`
 
           High-performance model for coding and agents
 
-        - `"claude-fable-5"ClaudeFable5`
+        - `ClaudeFable5`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
 
-        - `"claude-opus-5"ClaudeOpus5`
+        - `ClaudeOpus5`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-8"ClaudeOpus4_8`
+        - `ClaudeOpus4_8`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-7"ClaudeOpus4_7`
+        - `ClaudeOpus4_7`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-6"ClaudeOpus4_6`
+        - `ClaudeOpus4_6`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-sonnet-4-6"ClaudeSonnet4_6`
+        - `ClaudeSonnet4_6`
 
           Best combination of speed and intelligence
 
-        - `"claude-haiku-4-5"ClaudeHaiku4_5`
+        - `ClaudeHaiku4_5`
 
           Fastest model with near-frontier intelligence
 
-        - `"claude-haiku-4-5-20251001"ClaudeHaiku4_5_20251001`
+        - `ClaudeHaiku4_5_20251001`
 
           Fastest model with near-frontier intelligence
 
-        - `"claude-opus-4-5"ClaudeOpus4_5`
+        - `ClaudeOpus4_5`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-5-20251101"ClaudeOpus4_5_20251101`
+        - `ClaudeOpus4_5_20251101`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-sonnet-4-5"ClaudeSonnet4_5`
+        - `ClaudeSonnet4_5`
 
           High-performance model for agents and coding
 
-        - `"claude-sonnet-4-5-20250929"ClaudeSonnet4_5_20250929`
+        - `ClaudeSonnet4_5_20250929`
 
           High-performance model for agents and coding
 
@@ -209,15 +204,11 @@ Update Session
 
           - `required Type Type`
 
-            - `"low"Low`
-
         - `class BetaManagedAgentsEffortMedium:`
 
           Medium effort. Balances latency and reasoning depth.
 
           - `required Type Type`
-
-            - `"medium"Medium`
 
         - `class BetaManagedAgentsEffortHigh:`
 
@@ -225,23 +216,17 @@ Update Session
 
           - `required Type Type`
 
-            - `"high"High`
-
         - `class BetaManagedAgentsEffortXhigh:`
 
           Extra-high effort. Not all models accept this level.
 
           - `required Type Type`
 
-            - `"xhigh"Xhigh`
-
         - `class BetaManagedAgentsEffortMax:`
 
           Maximum effort. Favors reasoning depth over latency.
 
           - `required Type Type`
-
-            - `"max"Max`
 
       - `string InferenceGeo`
 
@@ -251,9 +236,9 @@ Update Session
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-        - `"standard"Standard`
+        - `Standard`
 
-        - `"fast"Fast`
+        - `Fast`
 
     - `required BetaManagedAgentsSessionMultiagentCoordinator? Multiagent`
 
@@ -295,8 +280,6 @@ Update Session
 
               - `required Type Type`
 
-                - `"anthropic"Anthropic`
-
               - `required string Version`
 
             - `class BetaManagedAgentsCustomSkill:`
@@ -306,8 +289,6 @@ Update Session
               - `required string SkillID`
 
               - `required Type Type`
-
-                - `"custom"Custom`
 
               - `required string Version`
 
@@ -323,9 +304,9 @@ Update Session
 
                   Configuration for the bash tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "bash"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -337,25 +318,21 @@ Update Session
 
                       - `required Type Type`
 
-                        - `"always_allow"AlwaysAllow`
-
                     - `class BetaManagedAgentsAlwaysAskPolicy:`
 
                       Tool calls require user confirmation before execution.
 
                       - `required Type Type`
 
-                        - `"always_ask"AlwaysAsk`
-
-                  - `JsonElement Type "bash"constant`
+                  - `JsonElement Type constant`
 
                 - `class BetaManagedAgentsEditToolConfig:`
 
                   Configuration for the edit tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "edit"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -369,15 +346,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type "edit"constant`
+                  - `JsonElement Type constant`
 
                 - `class BetaManagedAgentsReadToolConfig:`
 
                   Configuration for the read tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "read"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -391,15 +368,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type "read"constant`
+                  - `JsonElement Type constant`
 
                 - `class BetaManagedAgentsWriteToolConfig:`
 
                   Configuration for the write tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "write"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -413,15 +390,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type "write"constant`
+                  - `JsonElement Type constant`
 
                 - `class BetaManagedAgentsGlobToolConfig:`
 
                   Configuration for the glob tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "glob"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -435,15 +412,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type "glob"constant`
+                  - `JsonElement Type constant`
 
                 - `class BetaManagedAgentsGrepToolConfig:`
 
                   Configuration for the grep tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "grep"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -457,15 +434,15 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type "grep"constant`
+                  - `JsonElement Type constant`
 
                 - `class BetaManagedAgentsWebFetchToolConfig:`
 
                   Configuration for the web_fetch tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "web_fetch"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -479,21 +456,23 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type "web_fetch"constant`
+                  - `JsonElement Type constant`
 
                   - `IReadOnlyList<string> AllowedDomains`
 
                   - `IReadOnlyList<string> BlockedDomains`
 
-                  - `Int? MaxContentTokens`
+                  - `int? MaxContentTokens`
+
+                    format: int32
 
                 - `class BetaManagedAgentsWebSearchToolConfig:`
 
                   Configuration for the web_search tool.
 
-                  - `required Boolean Enabled`
+                  - `required bool Enabled`
 
-                  - `JsonElement Name "web_search"constant`
+                  - `JsonElement Name constant`
 
                   - `required PermissionPolicy PermissionPolicy`
 
@@ -507,7 +486,7 @@ Update Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonElement Type "web_search"constant`
+                  - `JsonElement Type constant`
 
                   - `IReadOnlyList<string> AllowedDomains`
 
@@ -517,13 +496,15 @@ Update Session
 
                     Approximate user location for search result localization.
 
-                    - `JsonElement Type "approximate"constant`
+                    - `JsonElement Type constant`
 
                       Location precision. Only "approximate" is supported.
 
                     - `string? City`
 
                       City name.
+
+                      minLength: 1, maxLength: 255
 
                     - `string? Country`
 
@@ -533,15 +514,19 @@ Update Session
 
                       Region or state name.
 
+                      minLength: 1, maxLength: 255
+
                     - `string? Timezone`
 
                       IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                      minLength: 1, maxLength: 255
 
               - `required BetaManagedAgentsAgentToolsetDefaultConfig DefaultConfig`
 
                 Resolved default configuration for agent tools.
 
-                - `required Boolean Enabled`
+                - `required bool Enabled`
 
                 - `required PermissionPolicy PermissionPolicy`
 
@@ -557,13 +542,11 @@ Update Session
 
               - `required Type Type`
 
-                - `"agent_toolset_20260401"AgentToolset20260401`
-
             - `class BetaManagedAgentsMcpToolset:`
 
               - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
-                - `required Boolean Enabled`
+                - `required bool Enabled`
 
                 - `required string Name`
 
@@ -583,7 +566,7 @@ Update Session
 
                 Resolved default configuration for all tools from an MCP server.
 
-                - `required Boolean Enabled`
+                - `required bool Enabled`
 
                 - `required PermissionPolicy PermissionPolicy`
 
@@ -601,8 +584,6 @@ Update Session
 
               - `required Type Type`
 
-                - `"mcp_toolset"McpToolset`
-
             - `class BetaManagedAgentsCustomTool:`
 
               A custom tool as returned in API responses.
@@ -613,7 +594,7 @@ Update Session
 
                 JSON Schema for custom tool input parameters.
 
-                - `JsonElement Type "object"constant`
+                - `JsonElement Type constant`
 
                 - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -623,13 +604,11 @@ Update Session
 
               - `required Type Type`
 
-                - `"custom"Custom`
-
           - `required Type Type`
 
-            - `"agent"Agent`
+          - `required int Version`
 
-          - `required Int Version`
+            format: int32
 
         - `class BetaManagedAgentsAdvisor:`
 
@@ -641,11 +620,7 @@ Update Session
 
           - `required Type Type`
 
-            - `"advisor"Advisor`
-
       - `required Type Type`
-
-        - `"coordinator"Coordinator`
 
     - `required string Name`
 
@@ -673,13 +648,15 @@ Update Session
 
     - `required Type Type`
 
-      - `"agent"Agent`
+    - `required int Version`
 
-    - `required Int Version`
+      format: int32
 
   - `required DateTimeOffset? ArchivedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required BetaManagedAgentsBudgetLimit? Budget`
 
@@ -697,15 +674,13 @@ Update Session
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"Usd`
-
     - `required Type Type`
-
-      - `"limit"Limit`
 
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string EnvironmentID`
 
@@ -719,6 +694,8 @@ Update Session
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `required string Description`
 
       What the agent should produce.
@@ -727,9 +704,11 @@ Update Session
 
       Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
 
-    - `required Int Iteration`
+    - `required int Iteration`
 
       0-indexed revision cycle the outcome is currently on.
+
+      format: int32
 
     - `required string OutcomeID`
 
@@ -741,8 +720,6 @@ Update Session
 
     - `required Type Type`
 
-      - `"outcome_evaluation"OutcomeEvaluation`
-
   - `required IReadOnlyList<BetaManagedAgentsSessionResource> Resources`
 
     - `class BetaManagedAgentsGitHubRepositoryResource:`
@@ -753,15 +730,17 @@ Update Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string MountPath`
 
       - `required Type Type`
 
-        - `"github_repository"GitHubRepository`
-
       - `required DateTimeOffset UpdatedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `required string Url`
 
@@ -773,9 +752,9 @@ Update Session
 
             Branch name to check out.
 
-          - `required Type Type`
+            minLength: 1, maxLength: 255
 
-            - `"branch"Branch`
+          - `required Type Type`
 
         - `class BetaManagedAgentsCommitCheckout:`
 
@@ -783,9 +762,9 @@ Update Session
 
             Full commit SHA to check out.
 
-          - `required Type Type`
+            minLength: 7, maxLength: 64
 
-            - `"commit"Commit`
+          - `required Type Type`
 
     - `class BetaManagedAgentsFileResource:`
 
@@ -795,17 +774,19 @@ Update Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `required string FileID`
 
       - `required string MountPath`
 
       - `required Type Type`
 
-        - `"file"File`
-
       - `required DateTimeOffset UpdatedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `class BetaManagedAgentsMemoryStoreResource:`
 
@@ -817,15 +798,13 @@ Update Session
 
       - `required Type Type`
 
-        - `"memory_store"MemoryStore`
-
       - `Access? Access`
 
         Access mode for an attached memory store.
 
-        - `"read_write"ReadWrite`
+        - `ReadWrite`
 
-        - `"read_only"ReadOnly`
+        - `ReadOnly`
 
       - `string Description`
 
@@ -834,6 +813,8 @@ Update Session
       - `string? Instructions`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+
+        maxLength: 4096
 
       - `string? MountPath`
 
@@ -847,83 +828,103 @@ Update Session
 
     Timing statistics for a session.
 
-    - `Double ActiveSeconds`
+    - `double ActiveSeconds`
 
       Cumulative time in seconds the session spent in running status. Excludes idle time.
 
-    - `Double DurationSeconds`
+      format: double
+
+    - `double DurationSeconds`
 
       Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
+
+      format: double
 
   - `required Status Status`
 
     SessionStatus enum
 
-    - `"rescheduling"Rescheduling`
+    - `Rescheduling`
 
-    - `"running"Running`
+    - `Running`
 
-    - `"idle"Idle`
+    - `Idle`
 
-    - `"terminated"Terminated`
+    - `Terminated`
 
   - `required string? Title`
 
   - `required Type Type`
 
-    - `"session"Session`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required BetaManagedAgentsSessionUsage Usage`
 
     Cumulative token usage for a session across all turns.
 
-    - `Double ActiveSeconds`
+    - `double ActiveSeconds`
 
       Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
+
+      format: double
 
     - `BetaManagedAgentsCacheCreationUsage CacheCreation`
 
       Prompt-cache creation token usage broken down by cache lifetime.
 
-      - `Int Ephemeral1hInputTokens`
+      - `int Ephemeral1hInputTokens`
 
         Tokens used to create 1-hour ephemeral cache entries.
 
-      - `Int Ephemeral5mInputTokens`
+        format: int32
+
+      - `int Ephemeral5mInputTokens`
 
         Tokens used to create 5-minute ephemeral cache entries.
 
-    - `Int CacheReadInputTokens`
+        format: int32
+
+    - `int CacheReadInputTokens`
 
       Total tokens read from prompt cache.
 
-    - `Int InputTokens`
+      format: int32
+
+    - `int InputTokens`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `BetaMonetaryAmount? ListCost`
 
       A monetary amount in a specific currency.
 
-    - `Int OutputTokens`
+    - `int OutputTokens`
 
       Total output tokens generated across all turns.
+
+      format: int32
 
     - `BetaManagedAgentsServerToolUsage? ServerToolUse`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
-      - `Int WebFetchRequests`
+      - `int WebFetchRequests`
 
         Number of server-executed web fetch requests.
 
-      - `Int WebSearchRequests`
+        format: int32
+
+      - `int WebSearchRequests`
 
         Number of server-executed web search requests.
+
+        format: int32
 
   - `required IReadOnlyList<string> VaultIds`
 
@@ -933,7 +934,7 @@ Update Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+## Example
 
 ```csharp
 SessionUpdateParams parameters = new()
@@ -946,7 +947,7 @@ var betaManagedAgentsSession = await client.Beta.Sessions.Update(parameters);
 Console.WriteLine(betaManagedAgentsSession);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

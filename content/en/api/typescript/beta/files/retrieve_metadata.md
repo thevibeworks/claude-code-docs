@@ -1,17 +1,12 @@
----
-title: Get File Metadata
-url: https://platform.claude.com/docs/en/api/typescript/beta/files/retrieve_metadata
----
+# Get File Metadata
 
-## Get File Metadata
+`client.beta.files.retrieveMetadata(fileID, params?, options?): BetaFileMetadata`
 
-`client.beta.files.retrieveMetadata(stringfileID, FileRetrieveMetadataParamsparams?, RequestOptionsoptions?): BetaFileMetadata`
-
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
-### Parameters
+## Parameters
 
 - `fileID: string`
 
@@ -95,7 +90,7 @@ Get File Metadata
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaFileMetadata`
 
@@ -109,17 +104,25 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: number`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: "file"`
 
@@ -127,11 +130,11 @@ Get File Metadata
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope?: BetaFileScope | null`
 
@@ -145,9 +148,7 @@ Get File Metadata
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -161,7 +162,7 @@ const betaFileMetadata = await client.beta.files.retrieveMetadata("file_id");
 console.log(betaFileMetadata.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

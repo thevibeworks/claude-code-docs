@@ -1,17 +1,12 @@
----
-title: Create Skill Version
-url: https://platform.claude.com/docs/en/api/cli/beta/skills/versions/create
----
-
-## Create Skill Version
+# Create Skill Version
 
 `$ ant beta:skills:versions create`
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Parameters
+## Parameters
 
 - `--skill-id: string`
 
@@ -29,9 +24,9 @@ Create Skill Version
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaSkillVersionNewResponse: object { id, created_at, description, 5 more }`
+- `BetaSkillVersionNewResponse: object`
 
   - `id: string`
 
@@ -77,16 +72,16 @@ Create Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:skills:versions create \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --file 'Example data'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

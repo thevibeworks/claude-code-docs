@@ -1,19 +1,14 @@
----
-title: Update Work Item
-url: https://platform.claude.com/docs/en/api/php/beta/environments/work/update
----
-
-## Update Work Item
+# Update Work Item
 
 `$client->beta->environments->work->update(string workID, string environmentID, array<string,string> metadata, ?list<AnthropicBeta> betas): SelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -27,7 +22,7 @@ Update work item metadata with merge semantics.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `SelfHostedWork`
 
@@ -83,7 +78,7 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-### Example
+## Example
 
 ```php
 <?php
@@ -102,7 +97,7 @@ $betaSelfHostedWork = $client->beta->environments->work->update(
 var_dump($betaSelfHostedWork);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

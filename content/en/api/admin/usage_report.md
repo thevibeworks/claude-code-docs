@@ -1,22 +1,19 @@
----
-title: Usage Report
-url: https://platform.claude.com/docs/en/api/admin/usage_report
----
-
 # Usage Report
 
 ## Get Messages Usage Report
 
-**get** `/v1/organizations/usage_report/messages`
+**GET** `/v1/organizations/usage_report/messages`
 
 Get Messages Usage Report
 
-### Query Parameters
+### Query parameters
 
 - `starting_at: string`
 
   Time buckets that start on or after this RFC 3339 timestamp will be returned.
   Each time bucket will be snapped to the start of the minute/hour/day in UTC.
+
+  format: date-time
 
 - `account_ids: optional array of string`
 
@@ -29,6 +26,8 @@ Get Messages Usage Report
 - `bucket_width: optional "1d" or "1h" or "1m"`
 
   Time granularity of the response data.
+
+  default: 1d
 
   - `"1d"`
 
@@ -47,6 +46,8 @@ Get Messages Usage Report
 - `ending_at: optional string`
 
   Time buckets that end before this RFC 3339 timestamp will be returned.
+
+  format: date-time
 
 - `group_by: optional array of "account_id" or "api_key_id" or "context_window" or 6 more`
 
@@ -130,7 +131,7 @@ Get Messages Usage Report
 
   Restrict usage returned to the specified workspace ID(s).
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -140,9 +141,9 @@ Get Messages Usage Report
 
 ### Returns
 
-- `MessagesUsageReport object { data, has_more, next_page }`
+- `MessagesUsageReport object`
 
-  - `data: array of object { ending_at, results, starting_at }`
+  - `data: array of object`
 
     List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no usage (their `results` list is empty). A page holds at most `limit` buckets.
 
@@ -150,7 +151,9 @@ Get Messages Usage Report
 
       End of the time bucket (exclusive) in RFC 3339 format.
 
-    - `results: array of object { account_id, api_key_id, cache_creation, 10 more }`
+      format: date-time
+
+    - `results: array of object`
 
       List of usage items for this time bucket.  There may be multiple items if one or more `group_by[]` parameters are specified.
 
@@ -162,7 +165,7 @@ Get Messages Usage Report
 
         ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         The number of input tokens for cache creation.
 
@@ -205,7 +208,7 @@ Get Messages Usage Report
 
         The number of output tokens generated.
 
-      - `server_tool_use: object { web_search_requests }`
+      - `server_tool_use: object`
 
         Server-side tool usage metrics.
 
@@ -245,6 +248,8 @@ Get Messages Usage Report
 
       Start of the time bucket (inclusive) in RFC 3339 format.
 
+      format: date-time
+
   - `has_more: boolean`
 
     Indicates if there are more results.
@@ -255,13 +260,13 @@ Get Messages Usage Report
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/usage_report/messages \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -300,20 +305,24 @@ curl https://api.anthropic.com/v1/organizations/usage_report/messages \
 
 ## Get Claude Code Usage Report
 
-**get** `/v1/organizations/usage_report/claude_code`
+**GET** `/v1/organizations/usage_report/claude_code`
 
 Retrieve daily aggregated usage metrics for Claude Code users.
 Enables organizations to analyze developer productivity and build custom dashboards.
 
-### Query Parameters
+### Query parameters
 
 - `starting_at: string`
 
   UTC date in YYYY-MM-DD format. Returns metrics for this single day only.
 
+  pattern: ^\d{4}-\d{2}-\d{2}$
+
 - `limit: optional number`
 
   Number of records per page (default: 20, max: 1000).
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `page: optional string`
 
@@ -321,17 +330,17 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
 ### Returns
 
-- `ClaudeCodeUsageReport object { data, has_more, next_page }`
+- `ClaudeCodeUsageReport object`
 
-  - `data: array of object { actor, core_metrics, customer_type, 7 more }`
+  - `data: array of object`
 
     List of Claude Code usage records for the requested date.
 
-    - `actor: object { email_address, type }  or object { api_key_name, type }`
+    - `actor: object or object`
 
       The user or API key that performed the Claude Code actions.
 
-      - `UserActor object { email_address, type }`
+      - `UserActor object`
 
         - `email_address: string`
 
@@ -341,9 +350,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
           Actor type. Always `"user_actor"` for a user.
 
-          - `"user_actor"`
-
-      - `APIActor object { api_key_name, type }`
+      - `APIActor object`
 
         - `api_key_name: string`
 
@@ -353,9 +360,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
           Actor type. Always `"api_actor"` for an API key.
 
-          - `"api_actor"`
-
-    - `core_metrics: object { commits_by_claude_code, lines_of_code, num_sessions, pull_requests_by_claude_code }`
+    - `core_metrics: object`
 
       Core productivity metrics measuring Claude Code usage and impact.
 
@@ -363,7 +368,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
         Number of git commits created through Claude Code's commit functionality.
 
-      - `lines_of_code: object { added, removed }`
+      - `lines_of_code: object`
 
         Statistics on code changes made through Claude Code.
 
@@ -396,16 +401,18 @@ Enables organizations to analyze developer productivity and build custom dashboa
       UTC day the usage metrics cover, as an RFC 3339 timestamp at midnight UTC
       (for example `2025-08-08T00:00:00Z`).
 
+      format: date-time
+
     - `is_remote: boolean`
 
       Whether the usage came from remote Claude Code sessions, such as Claude Code
       on the web. Remote and local usage are reported as separate rows.
 
-    - `model_breakdown: array of object { estimated_cost, model, tokens }`
+    - `model_breakdown: array of object`
 
       Token usage and cost breakdown by AI model used.
 
-      - `estimated_cost: object { amount, currency }`
+      - `estimated_cost: object`
 
         Estimated cost for using this model
 
@@ -421,7 +428,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
         Name of the AI model used for Claude Code interactions.
 
-      - `tokens: object { cache_creation, cache_read, input, output }`
+      - `tokens: object`
 
         Token usage breakdown for this model
 
@@ -449,7 +456,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
       Type of terminal or environment where Claude Code was used.
 
-    - `tool_actions: map[object { accepted, rejected } ]`
+    - `tool_actions: map[object]`
 
       Breakdown of tool action acceptance and rejection rates by tool type.
 
@@ -479,13 +486,13 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -563,21 +570,21 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Claude Code Usage Report
 
-- `ClaudeCodeUsageReport object { data, has_more, next_page }`
+- `ClaudeCodeUsageReport object`
 
-  - `data: array of object { actor, core_metrics, customer_type, 7 more }`
+  - `data: array of object`
 
     List of Claude Code usage records for the requested date.
 
-    - `actor: object { email_address, type }  or object { api_key_name, type }`
+    - `actor: object or object`
 
       The user or API key that performed the Claude Code actions.
 
-      - `UserActor object { email_address, type }`
+      - `UserActor object`
 
         - `email_address: string`
 
@@ -587,9 +594,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
           Actor type. Always `"user_actor"` for a user.
 
-          - `"user_actor"`
-
-      - `APIActor object { api_key_name, type }`
+      - `APIActor object`
 
         - `api_key_name: string`
 
@@ -599,9 +604,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
           Actor type. Always `"api_actor"` for an API key.
 
-          - `"api_actor"`
-
-    - `core_metrics: object { commits_by_claude_code, lines_of_code, num_sessions, pull_requests_by_claude_code }`
+    - `core_metrics: object`
 
       Core productivity metrics measuring Claude Code usage and impact.
 
@@ -609,7 +612,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         Number of git commits created through Claude Code's commit functionality.
 
-      - `lines_of_code: object { added, removed }`
+      - `lines_of_code: object`
 
         Statistics on code changes made through Claude Code.
 
@@ -642,16 +645,18 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
       UTC day the usage metrics cover, as an RFC 3339 timestamp at midnight UTC
       (for example `2025-08-08T00:00:00Z`).
 
+      format: date-time
+
     - `is_remote: boolean`
 
       Whether the usage came from remote Claude Code sessions, such as Claude Code
       on the web. Remote and local usage are reported as separate rows.
 
-    - `model_breakdown: array of object { estimated_cost, model, tokens }`
+    - `model_breakdown: array of object`
 
       Token usage and cost breakdown by AI model used.
 
-      - `estimated_cost: object { amount, currency }`
+      - `estimated_cost: object`
 
         Estimated cost for using this model
 
@@ -667,7 +672,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         Name of the AI model used for Claude Code interactions.
 
-      - `tokens: object { cache_creation, cache_read, input, output }`
+      - `tokens: object`
 
         Token usage breakdown for this model
 
@@ -695,7 +700,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
       Type of terminal or environment where Claude Code was used.
 
-    - `tool_actions: map[object { accepted, rejected } ]`
+    - `tool_actions: map[object]`
 
       Breakdown of tool action acceptance and rejection rates by tool type.
 
@@ -725,9 +730,9 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
 ### Messages Usage Report
 
-- `MessagesUsageReport object { data, has_more, next_page }`
+- `MessagesUsageReport object`
 
-  - `data: array of object { ending_at, results, starting_at }`
+  - `data: array of object`
 
     List of time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no usage (their `results` list is empty). A page holds at most `limit` buckets.
 
@@ -735,7 +740,9 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
       End of the time bucket (exclusive) in RFC 3339 format.
 
-    - `results: array of object { account_id, api_key_id, cache_creation, 10 more }`
+      format: date-time
+
+    - `results: array of object`
 
       List of usage items for this time bucket.  There may be multiple items if one or more `group_by[]` parameters are specified.
 
@@ -747,7 +754,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         ID of the API key used. `null` if not grouping by API key or for usage in the Anthropic Console.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         The number of input tokens for cache creation.
 
@@ -790,7 +797,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
 
         The number of output tokens generated.
 
-      - `server_tool_use: object { web_search_requests }`
+      - `server_tool_use: object`
 
         Server-side tool usage metrics.
 
@@ -829,6 +836,8 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
     - `starting_at: string`
 
       Start of the time bucket (inclusive) in RFC 3339 format.
+
+      format: date-time
 
   - `has_more: boolean`
 

@@ -1,15 +1,10 @@
----
-title: User Profiles
-url: https://platform.claude.com/docs/en/api/cli/beta/user_profiles
----
-
 # User Profiles
 
 ## Create User Profile
 
 `$ ant beta:user-profiles create`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
@@ -23,6 +18,8 @@ Create User Profile
 
   Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `--metadata: optional map[string]`
 
   Body param: Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
@@ -30,6 +27,8 @@ Create User Profile
 - `--name: optional string`
 
   Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `--relationship: optional "external" or "resold" or "internal"`
 
@@ -41,7 +40,7 @@ Create User Profile
 
 ### Returns
 
-- `beta_user_profile: object { id, created_at, metadata, 7 more }`
+- `beta_user_profile: object`
 
   - `id: string`
 
@@ -50,6 +49,8 @@ Create User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -73,11 +74,11 @@ Create User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -107,12 +108,12 @@ Create User Profile
 
 ### Example
 
-```cli
+```bash
 ant beta:user-profiles create \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -137,7 +138,7 @@ ant beta:user-profiles create \
 
 `$ ant beta:user-profiles list`
 
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
@@ -146,6 +147,8 @@ List User Profiles
 - `--limit: optional number`
 
   Query param: Query parameter for limit
+
+  format: int32
 
 - `--order: optional "asc" or "desc"`
 
@@ -161,7 +164,7 @@ List User Profiles
 
 ### Returns
 
-- `BetaListUserProfilesResponse: object { data, next_page }`
+- `BetaListUserProfilesResponse: object`
 
   - `data: array of BetaUserProfile`
 
@@ -174,6 +177,8 @@ List User Profiles
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `metadata: map[string]`
 
@@ -197,11 +202,11 @@ List User Profiles
 
       Object type. Always `user_profile`.
 
-      - `"user_profile"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `access_type: optional "application" or "passthrough"`
 
@@ -235,12 +240,12 @@ List User Profiles
 
 ### Example
 
-```cli
+```bash
 ant beta:user-profiles list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -270,7 +275,7 @@ ant beta:user-profiles list \
 
 `$ ant beta:user-profiles retrieve`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
@@ -286,7 +291,7 @@ Get User Profile
 
 ### Returns
 
-- `beta_user_profile: object { id, created_at, metadata, 7 more }`
+- `beta_user_profile: object`
 
   - `id: string`
 
@@ -295,6 +300,8 @@ Get User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -318,11 +325,11 @@ Get User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -352,13 +359,13 @@ Get User Profile
 
 ### Example
 
-```cli
+```bash
 ant beta:user-profiles retrieve \
   --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -383,7 +390,7 @@ ant beta:user-profiles retrieve \
 
 `$ ant beta:user-profiles update`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
@@ -401,6 +408,8 @@ Update User Profile
 
   Body param: If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `--metadata: optional map[string]`
 
   Body param: Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -408,6 +417,8 @@ Update User Profile
 - `--name: optional string`
 
   Body param: If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `--relationship: optional "external" or "resold" or "internal"`
 
@@ -419,7 +430,7 @@ Update User Profile
 
 ### Returns
 
-- `beta_user_profile: object { id, created_at, metadata, 7 more }`
+- `beta_user_profile: object`
 
   - `id: string`
 
@@ -428,6 +439,8 @@ Update User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -451,11 +464,11 @@ Update User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -485,13 +498,13 @@ Update User Profile
 
 ### Example
 
-```cli
+```bash
 ant beta:user-profiles update \
   --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -516,7 +529,7 @@ ant beta:user-profiles update \
 
 `$ ant beta:user-profiles create-enrollment-url`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
@@ -532,17 +545,17 @@ Create Enrollment URL
 
 ### Returns
 
-- `beta_user_profile_enrollment_url: object { expires_at, type, url }`
+- `beta_user_profile_enrollment_url: object`
 
   - `expires_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `type: "enrollment_url"`
 
     Object type. Always `enrollment_url`.
-
-    - `"enrollment_url"`
 
   - `url: string`
 
@@ -550,13 +563,13 @@ Create Enrollment URL
 
 ### Example
 
-```cli
+```bash
 ant beta:user-profiles create-enrollment-url \
   --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -566,11 +579,11 @@ ant beta:user-profiles create-enrollment-url \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta User Profile
 
-- `beta_user_profile: object { id, created_at, metadata, 7 more }`
+- `beta_user_profile: object`
 
   - `id: string`
 
@@ -579,6 +592,8 @@ ant beta:user-profiles create-enrollment-url \
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -602,11 +617,11 @@ ant beta:user-profiles create-enrollment-url \
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -636,17 +651,17 @@ ant beta:user-profiles create-enrollment-url \
 
 ### Beta User Profile Enrollment URL
 
-- `beta_user_profile_enrollment_url: object { expires_at, type, url }`
+- `beta_user_profile_enrollment_url: object`
 
   - `expires_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `type: "enrollment_url"`
 
     Object type. Always `enrollment_url`.
-
-    - `"enrollment_url"`
 
   - `url: string`
 
@@ -654,7 +669,7 @@ ant beta:user-profiles create-enrollment-url \
 
 ### Beta User Profile Trust Grant
 
-- `beta_user_profile_trust_grant: object { status }`
+- `beta_user_profile_trust_grant: object`
 
   - `status: "active" or "pending" or "rejected"`
 

@@ -1,17 +1,12 @@
----
-title: List Files
-url: https://platform.claude.com/docs/en/api/typescript/beta/files/list
----
+# List Files
 
-## List Files
+`client.beta.files.list(params?, options?): Page<BetaFileMetadata>`
 
-`client.beta.files.list(FileListParamsparams?, RequestOptionsoptions?): Page<BetaFileMetadata>`
-
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
-### Parameters
+## Parameters
 
 - `params: FileListParams`
 
@@ -28,6 +23,8 @@ List Files
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
 
   - `scope_id?: string`
 
@@ -109,7 +106,7 @@ List Files
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaFileMetadata`
 
@@ -123,17 +120,25 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: number`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: "file"`
 
@@ -141,11 +146,11 @@ List Files
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope?: BetaFileScope | null`
 
@@ -159,9 +164,7 @@ List Files
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -176,7 +179,7 @@ for await (const betaFileMetadata of client.beta.files.list()) {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

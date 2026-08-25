@@ -1,15 +1,10 @@
----
-title: Threads
-url: https://platform.claude.com/docs/en/api/typescript/beta/sessions/threads
----
-
 # Threads
 
 ## List Session Threads
 
-`client.beta.sessions.threads.list(stringsessionID, ThreadListParamsparams?, RequestOptionsoptions?): PageCursor<BetaManagedAgentsSessionThread>`
+`client.beta.sessions.threads.list(sessionID, params?, options?): PageCursor<BetaManagedAgentsSessionThread>`
 
-**get** `/v1/sessions/{session_id}/threads`
+**GET** `/v1/sessions/{session_id}/threads`
 
 List Session Threads
 
@@ -22,6 +17,8 @@ List Session Threads
   - `limit?: number`
 
     Query param: Maximum results per page. Defaults to 1000.
+
+    format: int32
 
   - `page?: string`
 
@@ -131,8 +128,6 @@ List Session Threads
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -211,15 +206,11 @@ List Session Threads
 
             - `type: "low"`
 
-              - `"low"`
-
           - `BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
-
-              - `"medium"`
 
           - `BetaManagedAgentsEffortHigh`
 
@@ -227,23 +218,17 @@ List Session Threads
 
             - `type: "high"`
 
-              - `"high"`
-
           - `BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
           - `BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo?: string`
 
@@ -269,8 +254,6 @@ List Session Threads
 
           - `type: "anthropic"`
 
-            - `"anthropic"`
-
           - `version: string`
 
         - `BetaManagedAgentsCustomSkill`
@@ -280,8 +263,6 @@ List Session Threads
           - `skill_id: string`
 
           - `type: "custom"`
-
-            - `"custom"`
 
           - `version: string`
 
@@ -301,8 +282,6 @@ List Session Threads
 
               - `name: "bash"`
 
-                - `"bash"`
-
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                 Permission policy for tool execution.
@@ -313,19 +292,13 @@ List Session Threads
 
                   - `type: "always_allow"`
 
-                    - `"always_allow"`
-
                 - `BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
                   - `type: "always_ask"`
 
-                    - `"always_ask"`
-
               - `type: "bash"`
-
-                - `"bash"`
 
             - `BetaManagedAgentsEditToolConfig`
 
@@ -334,8 +307,6 @@ List Session Threads
               - `enabled: boolean`
 
               - `name: "edit"`
-
-                - `"edit"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -351,8 +322,6 @@ List Session Threads
 
               - `type: "edit"`
 
-                - `"edit"`
-
             - `BetaManagedAgentsReadToolConfig`
 
               Configuration for the read tool.
@@ -360,8 +329,6 @@ List Session Threads
               - `enabled: boolean`
 
               - `name: "read"`
-
-                - `"read"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -377,8 +344,6 @@ List Session Threads
 
               - `type: "read"`
 
-                - `"read"`
-
             - `BetaManagedAgentsWriteToolConfig`
 
               Configuration for the write tool.
@@ -386,8 +351,6 @@ List Session Threads
               - `enabled: boolean`
 
               - `name: "write"`
-
-                - `"write"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -403,8 +366,6 @@ List Session Threads
 
               - `type: "write"`
 
-                - `"write"`
-
             - `BetaManagedAgentsGlobToolConfig`
 
               Configuration for the glob tool.
@@ -412,8 +373,6 @@ List Session Threads
               - `enabled: boolean`
 
               - `name: "glob"`
-
-                - `"glob"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -429,8 +388,6 @@ List Session Threads
 
               - `type: "glob"`
 
-                - `"glob"`
-
             - `BetaManagedAgentsGrepToolConfig`
 
               Configuration for the grep tool.
@@ -438,8 +395,6 @@ List Session Threads
               - `enabled: boolean`
 
               - `name: "grep"`
-
-                - `"grep"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -455,8 +410,6 @@ List Session Threads
 
               - `type: "grep"`
 
-                - `"grep"`
-
             - `BetaManagedAgentsWebFetchToolConfig`
 
               Configuration for the web_fetch tool.
@@ -464,8 +417,6 @@ List Session Threads
               - `enabled: boolean`
 
               - `name: "web_fetch"`
-
-                - `"web_fetch"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -481,13 +432,13 @@ List Session Threads
 
               - `type: "web_fetch"`
 
-                - `"web_fetch"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
 
               - `max_content_tokens?: number | null`
+
+                format: int32
 
             - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -496,8 +447,6 @@ List Session Threads
               - `enabled: boolean`
 
               - `name: "web_search"`
-
-                - `"web_search"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -513,8 +462,6 @@ List Session Threads
 
               - `type: "web_search"`
 
-                - `"web_search"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
@@ -527,11 +474,11 @@ List Session Threads
 
                   Location precision. Only "approximate" is supported.
 
-                  - `"approximate"`
-
                 - `city?: string | null`
 
                   City name.
+
+                  minLength: 1, maxLength: 255
 
                 - `country?: string | null`
 
@@ -541,9 +488,13 @@ List Session Threads
 
                   Region or state name.
 
+                  minLength: 1, maxLength: 255
+
                 - `timezone?: string | null`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
 
           - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -564,8 +515,6 @@ List Session Threads
                 Tool calls require user confirmation before execution.
 
           - `type: "agent_toolset_20260401"`
-
-            - `"agent_toolset_20260401"`
 
         - `BetaManagedAgentsMCPToolset`
 
@@ -609,8 +558,6 @@ List Session Threads
 
           - `type: "mcp_toolset"`
 
-            - `"mcp_toolset"`
-
         - `BetaManagedAgentsCustomTool`
 
           A custom tool as returned in API responses.
@@ -623,8 +570,6 @@ List Session Threads
 
             - `type: "object"`
 
-              - `"object"`
-
             - `properties?: Record<string, unknown> | null`
 
             - `required?: Array<string> | null`
@@ -633,13 +578,11 @@ List Session Threads
 
           - `type: "custom"`
 
-            - `"custom"`
-
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
+
+        format: int32
 
     - `BetaManagedAgentsAdvisor`
 
@@ -651,15 +594,17 @@ List Session Threads
 
       - `type: "advisor"`
 
-        - `"advisor"`
-
   - `archived_at: string | null`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `parent_thread_id: string | null`
 
@@ -677,13 +622,19 @@ List Session Threads
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
+      format: double
+
     - `duration_seconds?: number`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
+      format: double
+
     - `startup_seconds?: number`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+      format: double
 
   - `status: BetaManagedAgentsSessionThreadStatus`
 
@@ -699,11 +650,11 @@ List Session Threads
 
   - `type: "session_thread"`
 
-    - `"session_thread"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `usage: BetaManagedAgentsSessionThreadUsage | null`
 
@@ -713,6 +664,8 @@ List Session Threads
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
+      format: double
+
     - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -721,17 +674,25 @@ List Session Threads
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens?: number`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens?: number`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens?: number`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `list_cost?: BetaMonetaryAmount | null`
 
@@ -745,11 +706,11 @@ List Session Threads
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"`
-
     - `output_tokens?: number`
 
       Total output tokens generated across all turns.
+
+      format: int32
 
     - `server_tool_use?: BetaManagedAgentsServerToolUsage | null`
 
@@ -759,9 +720,13 @@ List Session Threads
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests?: number`
 
         Number of server-executed web search requests.
+
+        format: int32
 
 ### Example
 
@@ -780,7 +745,7 @@ for await (const betaManagedAgentsSessionThread of client.beta.sessions.threads.
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -876,9 +841,9 @@ for await (const betaManagedAgentsSessionThread of client.beta.sessions.threads.
 
 ## Get Session Thread
 
-`client.beta.sessions.threads.retrieve(stringthreadID, ThreadRetrieveParamsparams, RequestOptionsoptions?): BetaManagedAgentsSessionThread`
+`client.beta.sessions.threads.retrieve(threadID, params, options?): BetaManagedAgentsSessionThread`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
 Get Session Thread
 
@@ -996,8 +961,6 @@ Get Session Thread
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -1076,15 +1039,11 @@ Get Session Thread
 
             - `type: "low"`
 
-              - `"low"`
-
           - `BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
-
-              - `"medium"`
 
           - `BetaManagedAgentsEffortHigh`
 
@@ -1092,23 +1051,17 @@ Get Session Thread
 
             - `type: "high"`
 
-              - `"high"`
-
           - `BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
           - `BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo?: string`
 
@@ -1134,8 +1087,6 @@ Get Session Thread
 
           - `type: "anthropic"`
 
-            - `"anthropic"`
-
           - `version: string`
 
         - `BetaManagedAgentsCustomSkill`
@@ -1145,8 +1096,6 @@ Get Session Thread
           - `skill_id: string`
 
           - `type: "custom"`
-
-            - `"custom"`
 
           - `version: string`
 
@@ -1166,8 +1115,6 @@ Get Session Thread
 
               - `name: "bash"`
 
-                - `"bash"`
-
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                 Permission policy for tool execution.
@@ -1178,19 +1125,13 @@ Get Session Thread
 
                   - `type: "always_allow"`
 
-                    - `"always_allow"`
-
                 - `BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
                   - `type: "always_ask"`
 
-                    - `"always_ask"`
-
               - `type: "bash"`
-
-                - `"bash"`
 
             - `BetaManagedAgentsEditToolConfig`
 
@@ -1199,8 +1140,6 @@ Get Session Thread
               - `enabled: boolean`
 
               - `name: "edit"`
-
-                - `"edit"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1216,8 +1155,6 @@ Get Session Thread
 
               - `type: "edit"`
 
-                - `"edit"`
-
             - `BetaManagedAgentsReadToolConfig`
 
               Configuration for the read tool.
@@ -1225,8 +1162,6 @@ Get Session Thread
               - `enabled: boolean`
 
               - `name: "read"`
-
-                - `"read"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1242,8 +1177,6 @@ Get Session Thread
 
               - `type: "read"`
 
-                - `"read"`
-
             - `BetaManagedAgentsWriteToolConfig`
 
               Configuration for the write tool.
@@ -1251,8 +1184,6 @@ Get Session Thread
               - `enabled: boolean`
 
               - `name: "write"`
-
-                - `"write"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1268,8 +1199,6 @@ Get Session Thread
 
               - `type: "write"`
 
-                - `"write"`
-
             - `BetaManagedAgentsGlobToolConfig`
 
               Configuration for the glob tool.
@@ -1277,8 +1206,6 @@ Get Session Thread
               - `enabled: boolean`
 
               - `name: "glob"`
-
-                - `"glob"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1294,8 +1221,6 @@ Get Session Thread
 
               - `type: "glob"`
 
-                - `"glob"`
-
             - `BetaManagedAgentsGrepToolConfig`
 
               Configuration for the grep tool.
@@ -1303,8 +1228,6 @@ Get Session Thread
               - `enabled: boolean`
 
               - `name: "grep"`
-
-                - `"grep"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1320,8 +1243,6 @@ Get Session Thread
 
               - `type: "grep"`
 
-                - `"grep"`
-
             - `BetaManagedAgentsWebFetchToolConfig`
 
               Configuration for the web_fetch tool.
@@ -1329,8 +1250,6 @@ Get Session Thread
               - `enabled: boolean`
 
               - `name: "web_fetch"`
-
-                - `"web_fetch"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1346,13 +1265,13 @@ Get Session Thread
 
               - `type: "web_fetch"`
 
-                - `"web_fetch"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
 
               - `max_content_tokens?: number | null`
+
+                format: int32
 
             - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -1361,8 +1280,6 @@ Get Session Thread
               - `enabled: boolean`
 
               - `name: "web_search"`
-
-                - `"web_search"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1378,8 +1295,6 @@ Get Session Thread
 
               - `type: "web_search"`
 
-                - `"web_search"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
@@ -1392,11 +1307,11 @@ Get Session Thread
 
                   Location precision. Only "approximate" is supported.
 
-                  - `"approximate"`
-
                 - `city?: string | null`
 
                   City name.
+
+                  minLength: 1, maxLength: 255
 
                 - `country?: string | null`
 
@@ -1406,9 +1321,13 @@ Get Session Thread
 
                   Region or state name.
 
+                  minLength: 1, maxLength: 255
+
                 - `timezone?: string | null`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
 
           - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -1429,8 +1348,6 @@ Get Session Thread
                 Tool calls require user confirmation before execution.
 
           - `type: "agent_toolset_20260401"`
-
-            - `"agent_toolset_20260401"`
 
         - `BetaManagedAgentsMCPToolset`
 
@@ -1474,8 +1391,6 @@ Get Session Thread
 
           - `type: "mcp_toolset"`
 
-            - `"mcp_toolset"`
-
         - `BetaManagedAgentsCustomTool`
 
           A custom tool as returned in API responses.
@@ -1488,8 +1403,6 @@ Get Session Thread
 
             - `type: "object"`
 
-              - `"object"`
-
             - `properties?: Record<string, unknown> | null`
 
             - `required?: Array<string> | null`
@@ -1498,13 +1411,11 @@ Get Session Thread
 
           - `type: "custom"`
 
-            - `"custom"`
-
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
+
+        format: int32
 
     - `BetaManagedAgentsAdvisor`
 
@@ -1516,15 +1427,17 @@ Get Session Thread
 
       - `type: "advisor"`
 
-        - `"advisor"`
-
   - `archived_at: string | null`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `parent_thread_id: string | null`
 
@@ -1542,13 +1455,19 @@ Get Session Thread
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
+      format: double
+
     - `duration_seconds?: number`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
+      format: double
+
     - `startup_seconds?: number`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+      format: double
 
   - `status: BetaManagedAgentsSessionThreadStatus`
 
@@ -1564,11 +1483,11 @@ Get Session Thread
 
   - `type: "session_thread"`
 
-    - `"session_thread"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `usage: BetaManagedAgentsSessionThreadUsage | null`
 
@@ -1578,6 +1497,8 @@ Get Session Thread
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
+      format: double
+
     - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -1586,17 +1507,25 @@ Get Session Thread
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens?: number`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens?: number`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens?: number`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `list_cost?: BetaMonetaryAmount | null`
 
@@ -1610,11 +1539,11 @@ Get Session Thread
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"`
-
     - `output_tokens?: number`
 
       Total output tokens generated across all turns.
+
+      format: int32
 
     - `server_tool_use?: BetaManagedAgentsServerToolUsage | null`
 
@@ -1624,9 +1553,13 @@ Get Session Thread
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests?: number`
 
         Number of server-executed web search requests.
+
+        format: int32
 
 ### Example
 
@@ -1645,7 +1578,7 @@ const betaManagedAgentsSessionThread = await client.beta.sessions.threads.retrie
 console.log(betaManagedAgentsSessionThread.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1736,9 +1669,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
 ## Archive Session Thread
 
-`client.beta.sessions.threads.archive(stringthreadID, ThreadArchiveParamsparams, RequestOptionsoptions?): BetaManagedAgentsSessionThread`
+`client.beta.sessions.threads.archive(threadID, params, options?): BetaManagedAgentsSessionThread`
 
-**post** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
+**POST** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
 
 Archive Session Thread
 
@@ -1856,8 +1789,6 @@ Archive Session Thread
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
       - `model: BetaManagedAgentsModelConfig`
@@ -1936,15 +1867,11 @@ Archive Session Thread
 
             - `type: "low"`
 
-              - `"low"`
-
           - `BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
-
-              - `"medium"`
 
           - `BetaManagedAgentsEffortHigh`
 
@@ -1952,23 +1879,17 @@ Archive Session Thread
 
             - `type: "high"`
 
-              - `"high"`
-
           - `BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
           - `BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo?: string`
 
@@ -1994,8 +1915,6 @@ Archive Session Thread
 
           - `type: "anthropic"`
 
-            - `"anthropic"`
-
           - `version: string`
 
         - `BetaManagedAgentsCustomSkill`
@@ -2005,8 +1924,6 @@ Archive Session Thread
           - `skill_id: string`
 
           - `type: "custom"`
-
-            - `"custom"`
 
           - `version: string`
 
@@ -2026,8 +1943,6 @@ Archive Session Thread
 
               - `name: "bash"`
 
-                - `"bash"`
-
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                 Permission policy for tool execution.
@@ -2038,19 +1953,13 @@ Archive Session Thread
 
                   - `type: "always_allow"`
 
-                    - `"always_allow"`
-
                 - `BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
                   - `type: "always_ask"`
 
-                    - `"always_ask"`
-
               - `type: "bash"`
-
-                - `"bash"`
 
             - `BetaManagedAgentsEditToolConfig`
 
@@ -2059,8 +1968,6 @@ Archive Session Thread
               - `enabled: boolean`
 
               - `name: "edit"`
-
-                - `"edit"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2076,8 +1983,6 @@ Archive Session Thread
 
               - `type: "edit"`
 
-                - `"edit"`
-
             - `BetaManagedAgentsReadToolConfig`
 
               Configuration for the read tool.
@@ -2085,8 +1990,6 @@ Archive Session Thread
               - `enabled: boolean`
 
               - `name: "read"`
-
-                - `"read"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2102,8 +2005,6 @@ Archive Session Thread
 
               - `type: "read"`
 
-                - `"read"`
-
             - `BetaManagedAgentsWriteToolConfig`
 
               Configuration for the write tool.
@@ -2111,8 +2012,6 @@ Archive Session Thread
               - `enabled: boolean`
 
               - `name: "write"`
-
-                - `"write"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2128,8 +2027,6 @@ Archive Session Thread
 
               - `type: "write"`
 
-                - `"write"`
-
             - `BetaManagedAgentsGlobToolConfig`
 
               Configuration for the glob tool.
@@ -2137,8 +2034,6 @@ Archive Session Thread
               - `enabled: boolean`
 
               - `name: "glob"`
-
-                - `"glob"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2154,8 +2049,6 @@ Archive Session Thread
 
               - `type: "glob"`
 
-                - `"glob"`
-
             - `BetaManagedAgentsGrepToolConfig`
 
               Configuration for the grep tool.
@@ -2163,8 +2056,6 @@ Archive Session Thread
               - `enabled: boolean`
 
               - `name: "grep"`
-
-                - `"grep"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2180,8 +2071,6 @@ Archive Session Thread
 
               - `type: "grep"`
 
-                - `"grep"`
-
             - `BetaManagedAgentsWebFetchToolConfig`
 
               Configuration for the web_fetch tool.
@@ -2189,8 +2078,6 @@ Archive Session Thread
               - `enabled: boolean`
 
               - `name: "web_fetch"`
-
-                - `"web_fetch"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2206,13 +2093,13 @@ Archive Session Thread
 
               - `type: "web_fetch"`
 
-                - `"web_fetch"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
 
               - `max_content_tokens?: number | null`
+
+                format: int32
 
             - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -2221,8 +2108,6 @@ Archive Session Thread
               - `enabled: boolean`
 
               - `name: "web_search"`
-
-                - `"web_search"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2238,8 +2123,6 @@ Archive Session Thread
 
               - `type: "web_search"`
 
-                - `"web_search"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
@@ -2252,11 +2135,11 @@ Archive Session Thread
 
                   Location precision. Only "approximate" is supported.
 
-                  - `"approximate"`
-
                 - `city?: string | null`
 
                   City name.
+
+                  minLength: 1, maxLength: 255
 
                 - `country?: string | null`
 
@@ -2266,9 +2149,13 @@ Archive Session Thread
 
                   Region or state name.
 
+                  minLength: 1, maxLength: 255
+
                 - `timezone?: string | null`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
 
           - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -2289,8 +2176,6 @@ Archive Session Thread
                 Tool calls require user confirmation before execution.
 
           - `type: "agent_toolset_20260401"`
-
-            - `"agent_toolset_20260401"`
 
         - `BetaManagedAgentsMCPToolset`
 
@@ -2334,8 +2219,6 @@ Archive Session Thread
 
           - `type: "mcp_toolset"`
 
-            - `"mcp_toolset"`
-
         - `BetaManagedAgentsCustomTool`
 
           A custom tool as returned in API responses.
@@ -2348,8 +2231,6 @@ Archive Session Thread
 
             - `type: "object"`
 
-              - `"object"`
-
             - `properties?: Record<string, unknown> | null`
 
             - `required?: Array<string> | null`
@@ -2358,13 +2239,11 @@ Archive Session Thread
 
           - `type: "custom"`
 
-            - `"custom"`
-
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
+
+        format: int32
 
     - `BetaManagedAgentsAdvisor`
 
@@ -2376,15 +2255,17 @@ Archive Session Thread
 
       - `type: "advisor"`
 
-        - `"advisor"`
-
   - `archived_at: string | null`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `parent_thread_id: string | null`
 
@@ -2402,13 +2283,19 @@ Archive Session Thread
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
+      format: double
+
     - `duration_seconds?: number`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
+      format: double
+
     - `startup_seconds?: number`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+      format: double
 
   - `status: BetaManagedAgentsSessionThreadStatus`
 
@@ -2424,11 +2311,11 @@ Archive Session Thread
 
   - `type: "session_thread"`
 
-    - `"session_thread"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `usage: BetaManagedAgentsSessionThreadUsage | null`
 
@@ -2438,6 +2325,8 @@ Archive Session Thread
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
+      format: double
+
     - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -2446,17 +2335,25 @@ Archive Session Thread
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens?: number`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens?: number`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens?: number`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `list_cost?: BetaMonetaryAmount | null`
 
@@ -2470,11 +2367,11 @@ Archive Session Thread
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"`
-
     - `output_tokens?: number`
 
       Total output tokens generated across all turns.
+
+      format: int32
 
     - `server_tool_use?: BetaManagedAgentsServerToolUsage | null`
 
@@ -2484,9 +2381,13 @@ Archive Session Thread
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests?: number`
 
         Number of server-executed web search requests.
+
+        format: int32
 
 ### Example
 
@@ -2505,7 +2406,7 @@ const betaManagedAgentsSessionThread = await client.beta.sessions.threads.archiv
 console.log(betaManagedAgentsSessionThread.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2594,7 +2495,7 @@ console.log(betaManagedAgentsSessionThread.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Session Thread
 
@@ -2623,8 +2524,6 @@ console.log(betaManagedAgentsSessionThread.id);
         - `name: string`
 
         - `type: "url"`
-
-          - `"url"`
 
         - `url: string`
 
@@ -2704,15 +2603,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "low"`
 
-              - `"low"`
-
           - `BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
-
-              - `"medium"`
 
           - `BetaManagedAgentsEffortHigh`
 
@@ -2720,23 +2615,17 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "high"`
 
-              - `"high"`
-
           - `BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
           - `BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo?: string`
 
@@ -2762,8 +2651,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
           - `type: "anthropic"`
 
-            - `"anthropic"`
-
           - `version: string`
 
         - `BetaManagedAgentsCustomSkill`
@@ -2773,8 +2660,6 @@ console.log(betaManagedAgentsSessionThread.id);
           - `skill_id: string`
 
           - `type: "custom"`
-
-            - `"custom"`
 
           - `version: string`
 
@@ -2794,8 +2679,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `name: "bash"`
 
-                - `"bash"`
-
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                 Permission policy for tool execution.
@@ -2806,19 +2689,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
                   - `type: "always_allow"`
 
-                    - `"always_allow"`
-
                 - `BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
                   - `type: "always_ask"`
 
-                    - `"always_ask"`
-
               - `type: "bash"`
-
-                - `"bash"`
 
             - `BetaManagedAgentsEditToolConfig`
 
@@ -2827,8 +2704,6 @@ console.log(betaManagedAgentsSessionThread.id);
               - `enabled: boolean`
 
               - `name: "edit"`
-
-                - `"edit"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2844,8 +2719,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `type: "edit"`
 
-                - `"edit"`
-
             - `BetaManagedAgentsReadToolConfig`
 
               Configuration for the read tool.
@@ -2853,8 +2726,6 @@ console.log(betaManagedAgentsSessionThread.id);
               - `enabled: boolean`
 
               - `name: "read"`
-
-                - `"read"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2870,8 +2741,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `type: "read"`
 
-                - `"read"`
-
             - `BetaManagedAgentsWriteToolConfig`
 
               Configuration for the write tool.
@@ -2879,8 +2748,6 @@ console.log(betaManagedAgentsSessionThread.id);
               - `enabled: boolean`
 
               - `name: "write"`
-
-                - `"write"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2896,8 +2763,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `type: "write"`
 
-                - `"write"`
-
             - `BetaManagedAgentsGlobToolConfig`
 
               Configuration for the glob tool.
@@ -2905,8 +2770,6 @@ console.log(betaManagedAgentsSessionThread.id);
               - `enabled: boolean`
 
               - `name: "glob"`
-
-                - `"glob"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2922,8 +2785,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `type: "glob"`
 
-                - `"glob"`
-
             - `BetaManagedAgentsGrepToolConfig`
 
               Configuration for the grep tool.
@@ -2931,8 +2792,6 @@ console.log(betaManagedAgentsSessionThread.id);
               - `enabled: boolean`
 
               - `name: "grep"`
-
-                - `"grep"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2948,8 +2807,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `type: "grep"`
 
-                - `"grep"`
-
             - `BetaManagedAgentsWebFetchToolConfig`
 
               Configuration for the web_fetch tool.
@@ -2957,8 +2814,6 @@ console.log(betaManagedAgentsSessionThread.id);
               - `enabled: boolean`
 
               - `name: "web_fetch"`
-
-                - `"web_fetch"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -2974,13 +2829,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `type: "web_fetch"`
 
-                - `"web_fetch"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
 
               - `max_content_tokens?: number | null`
+
+                format: int32
 
             - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -2989,8 +2844,6 @@ console.log(betaManagedAgentsSessionThread.id);
               - `enabled: boolean`
 
               - `name: "web_search"`
-
-                - `"web_search"`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -3006,8 +2859,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
               - `type: "web_search"`
 
-                - `"web_search"`
-
               - `allowed_domains?: Array<string>`
 
               - `blocked_domains?: Array<string>`
@@ -3020,11 +2871,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
                   Location precision. Only "approximate" is supported.
 
-                  - `"approximate"`
-
                 - `city?: string | null`
 
                   City name.
+
+                  minLength: 1, maxLength: 255
 
                 - `country?: string | null`
 
@@ -3034,9 +2885,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
                   Region or state name.
 
+                  minLength: 1, maxLength: 255
+
                 - `timezone?: string | null`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
 
           - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -3057,8 +2912,6 @@ console.log(betaManagedAgentsSessionThread.id);
                 Tool calls require user confirmation before execution.
 
           - `type: "agent_toolset_20260401"`
-
-            - `"agent_toolset_20260401"`
 
         - `BetaManagedAgentsMCPToolset`
 
@@ -3102,8 +2955,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
           - `type: "mcp_toolset"`
 
-            - `"mcp_toolset"`
-
         - `BetaManagedAgentsCustomTool`
 
           A custom tool as returned in API responses.
@@ -3116,8 +2967,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "object"`
 
-              - `"object"`
-
             - `properties?: Record<string, unknown> | null`
 
             - `required?: Array<string> | null`
@@ -3126,13 +2975,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
           - `type: "custom"`
 
-            - `"custom"`
-
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
+
+        format: int32
 
     - `BetaManagedAgentsAdvisor`
 
@@ -3144,15 +2991,17 @@ console.log(betaManagedAgentsSessionThread.id);
 
       - `type: "advisor"`
 
-        - `"advisor"`
-
   - `archived_at: string | null`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `parent_thread_id: string | null`
 
@@ -3170,13 +3019,19 @@ console.log(betaManagedAgentsSessionThread.id);
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
+      format: double
+
     - `duration_seconds?: number`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
+      format: double
+
     - `startup_seconds?: number`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+      format: double
 
   - `status: BetaManagedAgentsSessionThreadStatus`
 
@@ -3192,11 +3047,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
   - `type: "session_thread"`
 
-    - `"session_thread"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `usage: BetaManagedAgentsSessionThreadUsage | null`
 
@@ -3206,6 +3061,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
+      format: double
+
     - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -3214,17 +3071,25 @@ console.log(betaManagedAgentsSessionThread.id);
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens?: number`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens?: number`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens?: number`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `list_cost?: BetaMonetaryAmount | null`
 
@@ -3238,11 +3103,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"`
-
     - `output_tokens?: number`
 
       Total output tokens generated across all turns.
+
+      format: int32
 
     - `server_tool_use?: BetaManagedAgentsServerToolUsage | null`
 
@@ -3252,9 +3117,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests?: number`
 
         Number of server-executed web search requests.
+
+        format: int32
 
 ### Beta Managed Agents Session Thread Stats
 
@@ -3266,13 +3135,19 @@ console.log(betaManagedAgentsSessionThread.id);
 
     Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
+    format: double
+
   - `duration_seconds?: number`
 
     Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
+    format: double
+
   - `startup_seconds?: number`
 
     Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+    format: double
 
 ### Beta Managed Agents Session Thread Status
 
@@ -3298,6 +3173,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
     Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
+    format: double
+
   - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
     Prompt-cache creation token usage broken down by cache lifetime.
@@ -3306,17 +3183,25 @@ console.log(betaManagedAgentsSessionThread.id);
 
       Tokens used to create 1-hour ephemeral cache entries.
 
+      format: int32
+
     - `ephemeral_5m_input_tokens?: number`
 
       Tokens used to create 5-minute ephemeral cache entries.
+
+      format: int32
 
   - `cache_read_input_tokens?: number`
 
     Total tokens read from prompt cache.
 
+    format: int32
+
   - `input_tokens?: number`
 
     Total input tokens consumed across all turns.
+
+    format: int32
 
   - `list_cost?: BetaMonetaryAmount | null`
 
@@ -3330,11 +3215,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
       Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-      - `"USD"`
-
   - `output_tokens?: number`
 
     Total output tokens generated across all turns.
+
+    format: int32
 
   - `server_tool_use?: BetaManagedAgentsServerToolUsage | null`
 
@@ -3344,9 +3229,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       Number of server-executed web fetch requests.
 
+      format: int32
+
     - `web_search_requests?: number`
 
       Number of server-executed web search requests.
+
+      format: int32
 
 ### Beta Managed Agents Stream Session Thread Events
 
@@ -3374,9 +3263,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
           The text content.
 
-        - `type: "text"`
+          minLength: 1
 
-          - `"text"`
+        - `type: "text"`
 
       - `BetaManagedAgentsImageBlock`
 
@@ -3394,13 +3283,15 @@ console.log(betaManagedAgentsSessionThread.id);
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: "base64"`
+              minLength: 1
 
-              - `"base64"`
+            - `type: "base64"`
 
           - `BetaManagedAgentsURLImageSource`
 
@@ -3408,11 +3299,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `BetaManagedAgentsFileImageSource`
 
@@ -3422,13 +3313,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: "file"`
 
-              - `"file"`
-
         - `type: "image"`
-
-          - `"image"`
 
       - `BetaManagedAgentsDocumentBlock`
 
@@ -3446,13 +3335,15 @@ console.log(betaManagedAgentsSessionThread.id);
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: "base64"`
+              minLength: 1
 
-              - `"base64"`
+            - `type: "base64"`
 
           - `BetaManagedAgentsPlainTextDocumentSource`
 
@@ -3462,15 +3353,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: "text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `"text/plain"`
-
             - `type: "text"`
-
-              - `"text"`
 
           - `BetaManagedAgentsURLDocumentSource`
 
@@ -3478,11 +3367,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `BetaManagedAgentsFileDocumentSource`
 
@@ -3492,13 +3381,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: "file"`
 
-              - `"file"`
-
         - `type: "document"`
-
-          - `"document"`
 
         - `context?: string | null`
 
@@ -3514,15 +3401,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "redacted"`
 
-          - `"redacted"`
-
     - `type: "user.message"`
-
-      - `"user.message"`
 
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `BetaManagedAgentsUserInterruptEvent`
 
@@ -3534,11 +3419,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
     - `type: "user.interrupt"`
 
-      - `"user.interrupt"`
-
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -3566,15 +3451,17 @@ console.log(betaManagedAgentsSessionThread.id);
 
     - `type: "user.tool_confirmation"`
 
-      - `"user.tool_confirmation"`
-
     - `deny_message?: string | null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -3593,8 +3480,6 @@ console.log(betaManagedAgentsSessionThread.id);
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: "user.custom_tool_result"`
-
-      - `"user.custom_tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -3632,21 +3517,23 @@ console.log(betaManagedAgentsSessionThread.id);
 
             The text content.
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
         - `source: string`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: string`
 
           The title of the search result.
 
-        - `type: "search_result"`
+          minLength: 1
 
-          - `"search_result"`
+        - `type: "search_result"`
 
     - `is_error?: boolean | null`
 
@@ -3655,6 +3542,8 @@ console.log(betaManagedAgentsSessionThread.id);
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -3680,9 +3569,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.custom_tool_use"`
+      format: date-time
 
-      - `"agent.custom_tool_use"`
+    - `type: "agent.custom_tool_use"`
 
     - `session_thread_id?: string | null`
 
@@ -3712,9 +3601,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.message"`
+      format: date-time
 
-      - `"agent.message"`
+    - `type: "agent.message"`
 
   - `BetaManagedAgentsAgentThinkingEvent`
 
@@ -3728,9 +3617,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thinking"`
+      format: date-time
 
-      - `"agent.thinking"`
+    - `type: "agent.thinking"`
 
   - `BetaManagedAgentsAgentMCPToolUseEvent`
 
@@ -3756,9 +3645,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_use"`
+      format: date-time
 
-      - `"agent.mcp_tool_use"`
+    - `type: "agent.mcp_tool_use"`
 
     - `evaluated_permission?: "allow" | "ask" | "deny"`
 
@@ -3790,9 +3679,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_result"`
+      format: date-time
 
-      - `"agent.mcp_tool_result"`
+    - `type: "agent.mcp_tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -3838,9 +3727,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.tool_use"`
+      format: date-time
 
-      - `"agent.tool_use"`
+    - `type: "agent.tool_use"`
 
     - `evaluated_permission?: "allow" | "ask" | "deny"`
 
@@ -3868,13 +3757,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: string`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: "agent.tool_result"`
-
-      - `"agent.tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -3936,9 +3825,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thread_message_received"`
+      format: date-time
 
-      - `"agent.thread_message_received"`
+    - `type: "agent.thread_message_received"`
 
     - `from_agent_name?: string | null`
 
@@ -3976,13 +3865,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `to_session_thread_id: string`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: "agent.thread_message_sent"`
-
-      - `"agent.thread_message_sent"`
 
     - `to_agent_name?: string | null`
 
@@ -4000,9 +3889,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thread_context_compacted"`
+      format: date-time
 
-      - `"agent.thread_context_compacted"`
+    - `type: "agent.thread_context_compacted"`
 
   - `BetaManagedAgentsSessionErrorEvent`
 
@@ -4034,15 +3923,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "retrying"`
 
-              - `"retrying"`
-
           - `BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: "exhausted"`
-
-              - `"exhausted"`
 
           - `BetaManagedAgentsRetryStatusTerminal`
 
@@ -4050,11 +3935,7 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "terminal"`
 
-              - `"terminal"`
-
         - `type: "unknown_error"`
-
-          - `"unknown_error"`
 
       - `BetaManagedAgentsModelOverloadedError`
 
@@ -4082,8 +3963,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "model_overloaded_error"`
 
-          - `"model_overloaded_error"`
-
       - `BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
@@ -4110,8 +3989,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "model_rate_limited_error"`
 
-          - `"model_rate_limited_error"`
-
       - `BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -4137,8 +4014,6 @@ console.log(betaManagedAgentsSessionThread.id);
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "model_request_failed_error"`
-
-          - `"model_request_failed_error"`
 
       - `BetaManagedAgentsMCPConnectionFailedError`
 
@@ -4170,8 +4045,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "mcp_connection_failed_error"`
 
-          - `"mcp_connection_failed_error"`
-
       - `BetaManagedAgentsMCPAuthenticationFailedError`
 
         Authentication to an MCP server failed.
@@ -4202,8 +4075,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "mcp_authentication_failed_error"`
 
-          - `"mcp_authentication_failed_error"`
-
       - `BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -4229,8 +4100,6 @@ console.log(betaManagedAgentsSessionThread.id);
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "billing_error"`
-
-          - `"billing_error"`
 
       - `BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -4262,8 +4131,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "credential_host_unreachable_error"`
 
-          - `"credential_host_unreachable_error"`
-
         - `vault_id: string`
 
           ID of the vault containing the affected credential.
@@ -4272,9 +4139,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.error"`
+      format: date-time
 
-      - `"session.error"`
+    - `type: "session.error"`
 
   - `BetaManagedAgentsSessionStatusRescheduledEvent`
 
@@ -4288,9 +4155,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_rescheduled"`
+      format: date-time
 
-      - `"session.status_rescheduled"`
+    - `type: "session.status_rescheduled"`
 
   - `BetaManagedAgentsSessionStatusRunningEvent`
 
@@ -4304,9 +4171,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_running"`
+      format: date-time
 
-      - `"session.status_running"`
+    - `type: "session.status_running"`
 
   - `BetaManagedAgentsSessionStatusIdleEvent`
 
@@ -4320,6 +4187,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
@@ -4329,8 +4198,6 @@ console.log(betaManagedAgentsSessionThread.id);
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: "end_turn"`
-
-          - `"end_turn"`
 
       - `BetaManagedAgentsSessionRequiresAction`
 
@@ -4342,15 +4209,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "requires_action"`
 
-          - `"requires_action"`
-
       - `BetaManagedAgentsSessionRetriesExhausted`
 
         The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: "retries_exhausted"`
-
-          - `"retries_exhausted"`
 
       - `BetaManagedAgentsSessionBudgetReached`
 
@@ -4358,11 +4221,7 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "budget_reached"`
 
-          - `"budget_reached"`
-
     - `type: "session.status_idle"`
-
-      - `"session.status_idle"`
 
   - `BetaManagedAgentsSessionStatusTerminatedEvent`
 
@@ -4376,9 +4235,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_terminated"`
+      format: date-time
 
-      - `"session.status_terminated"`
+    - `type: "session.status_terminated"`
 
   - `BetaManagedAgentsSessionThreadCreatedEvent`
 
@@ -4396,13 +4255,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: "session.thread_created"`
-
-      - `"session.thread_created"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -4416,6 +4275,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -4424,9 +4285,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.outcome_evaluation_start"`
+      format: date-time
 
-      - `"span.outcome_evaluation_start"`
+    - `type: "span.outcome_evaluation_start"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -4444,6 +4305,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: string`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -4456,13 +4319,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: string`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: "span.outcome_evaluation_end"`
-
-      - `"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -4472,17 +4335,25 @@ console.log(betaManagedAgentsSessionThread.id);
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: number`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: number`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: number`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed?: "standard" | "fast" | null`
 
@@ -4504,9 +4375,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.model_request_start"`
+      format: date-time
 
-      - `"span.model_request_start"`
+    - `type: "span.model_request_start"`
 
   - `BetaManagedAgentsSpanModelRequestEndEvent`
 
@@ -4532,9 +4403,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.model_request_end"`
+      format: date-time
 
-      - `"span.model_request_end"`
+    - `type: "span.model_request_end"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -4548,6 +4419,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -4556,9 +4429,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.outcome_evaluation_ongoing"`
+      format: date-time
 
-      - `"span.outcome_evaluation_ongoing"`
+    - `type: "span.outcome_evaluation_ongoing"`
 
   - `BetaManagedAgentsUserDefineOutcomeEvent`
 
@@ -4576,6 +4449,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: string`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -4583,6 +4458,8 @@ console.log(betaManagedAgentsSessionThread.id);
     - `processed_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -4598,8 +4475,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "file"`
 
-          - `"file"`
-
       - `BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
@@ -4610,11 +4485,7 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "text"`
 
-          - `"text"`
-
     - `type: "user.define_outcome"`
-
-      - `"user.define_outcome"`
 
   - `BetaManagedAgentsSessionDeletedEvent`
 
@@ -4628,9 +4499,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.deleted"`
+      format: date-time
 
-      - `"session.deleted"`
+    - `type: "session.deleted"`
 
   - `BetaManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -4648,13 +4519,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: "session.thread_status_running"`
-
-      - `"session.thread_status_running"`
 
   - `BetaManagedAgentsSessionThreadStatusIdleEvent`
 
@@ -4671,6 +4542,8 @@ console.log(betaManagedAgentsSessionThread.id);
     - `processed_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: string`
 
@@ -4698,8 +4571,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
     - `type: "session.thread_status_idle"`
 
-      - `"session.thread_status_idle"`
-
   - `BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
     A session thread has terminated and will accept no further input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
@@ -4716,13 +4587,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: "session.thread_status_terminated"`
-
-      - `"session.thread_status_terminated"`
 
   - `BetaManagedAgentsUserToolResultEvent`
 
@@ -4737,8 +4608,6 @@ console.log(betaManagedAgentsSessionThread.id);
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: "user.tool_result"`
-
-      - `"user.tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -4768,6 +4637,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id?: string | null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -4788,13 +4659,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: "session.thread_status_rescheduled"`
-
-      - `"session.thread_status_rescheduled"`
 
   - `BetaManagedAgentsSessionUpdatedEvent`
 
@@ -4808,9 +4679,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.updated"`
+      format: date-time
 
-      - `"session.updated"`
+    - `type: "session.updated"`
 
     - `agent?: BetaManagedAgentsSessionAgent | null`
 
@@ -4825,8 +4696,6 @@ console.log(betaManagedAgentsSessionThread.id);
         - `name: string`
 
         - `type: "url"`
-
-          - `"url"`
 
         - `url: string`
 
@@ -4906,15 +4775,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "low"`
 
-              - `"low"`
-
           - `BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
-
-              - `"medium"`
 
           - `BetaManagedAgentsEffortHigh`
 
@@ -4922,23 +4787,17 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "high"`
 
-              - `"high"`
-
           - `BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
           - `BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo?: string`
 
@@ -4992,8 +4851,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                 - `type: "anthropic"`
 
-                  - `"anthropic"`
-
                 - `version: string`
 
               - `BetaManagedAgentsCustomSkill`
@@ -5003,8 +4860,6 @@ console.log(betaManagedAgentsSessionThread.id);
                 - `skill_id: string`
 
                 - `type: "custom"`
-
-                  - `"custom"`
 
                 - `version: string`
 
@@ -5024,8 +4879,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `name: "bash"`
 
-                      - `"bash"`
-
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                       Permission policy for tool execution.
@@ -5036,19 +4889,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
                         - `type: "always_allow"`
 
-                          - `"always_allow"`
-
                       - `BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
                         - `type: "always_ask"`
 
-                          - `"always_ask"`
-
                     - `type: "bash"`
-
-                      - `"bash"`
 
                   - `BetaManagedAgentsEditToolConfig`
 
@@ -5057,8 +4904,6 @@ console.log(betaManagedAgentsSessionThread.id);
                     - `enabled: boolean`
 
                     - `name: "edit"`
-
-                      - `"edit"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -5074,8 +4919,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `type: "edit"`
 
-                      - `"edit"`
-
                   - `BetaManagedAgentsReadToolConfig`
 
                     Configuration for the read tool.
@@ -5083,8 +4926,6 @@ console.log(betaManagedAgentsSessionThread.id);
                     - `enabled: boolean`
 
                     - `name: "read"`
-
-                      - `"read"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -5100,8 +4941,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `type: "read"`
 
-                      - `"read"`
-
                   - `BetaManagedAgentsWriteToolConfig`
 
                     Configuration for the write tool.
@@ -5109,8 +4948,6 @@ console.log(betaManagedAgentsSessionThread.id);
                     - `enabled: boolean`
 
                     - `name: "write"`
-
-                      - `"write"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -5126,8 +4963,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `type: "write"`
 
-                      - `"write"`
-
                   - `BetaManagedAgentsGlobToolConfig`
 
                     Configuration for the glob tool.
@@ -5135,8 +4970,6 @@ console.log(betaManagedAgentsSessionThread.id);
                     - `enabled: boolean`
 
                     - `name: "glob"`
-
-                      - `"glob"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -5152,8 +4985,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `type: "glob"`
 
-                      - `"glob"`
-
                   - `BetaManagedAgentsGrepToolConfig`
 
                     Configuration for the grep tool.
@@ -5161,8 +4992,6 @@ console.log(betaManagedAgentsSessionThread.id);
                     - `enabled: boolean`
 
                     - `name: "grep"`
-
-                      - `"grep"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -5178,8 +5007,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `type: "grep"`
 
-                      - `"grep"`
-
                   - `BetaManagedAgentsWebFetchToolConfig`
 
                     Configuration for the web_fetch tool.
@@ -5187,8 +5014,6 @@ console.log(betaManagedAgentsSessionThread.id);
                     - `enabled: boolean`
 
                     - `name: "web_fetch"`
-
-                      - `"web_fetch"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -5204,13 +5029,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `type: "web_fetch"`
 
-                      - `"web_fetch"`
-
                     - `allowed_domains?: Array<string>`
 
                     - `blocked_domains?: Array<string>`
 
                     - `max_content_tokens?: number | null`
+
+                      format: int32
 
                   - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -5219,8 +5044,6 @@ console.log(betaManagedAgentsSessionThread.id);
                     - `enabled: boolean`
 
                     - `name: "web_search"`
-
-                      - `"web_search"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -5236,8 +5059,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                     - `type: "web_search"`
 
-                      - `"web_search"`
-
                     - `allowed_domains?: Array<string>`
 
                     - `blocked_domains?: Array<string>`
@@ -5250,11 +5071,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
                         Location precision. Only "approximate" is supported.
 
-                        - `"approximate"`
-
                       - `city?: string | null`
 
                         City name.
+
+                        minLength: 1, maxLength: 255
 
                       - `country?: string | null`
 
@@ -5264,9 +5085,13 @@ console.log(betaManagedAgentsSessionThread.id);
 
                         Region or state name.
 
+                        minLength: 1, maxLength: 255
+
                       - `timezone?: string | null`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
 
                 - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -5287,8 +5112,6 @@ console.log(betaManagedAgentsSessionThread.id);
                       Tool calls require user confirmation before execution.
 
                 - `type: "agent_toolset_20260401"`
-
-                  - `"agent_toolset_20260401"`
 
               - `BetaManagedAgentsMCPToolset`
 
@@ -5332,8 +5155,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                 - `type: "mcp_toolset"`
 
-                  - `"mcp_toolset"`
-
               - `BetaManagedAgentsCustomTool`
 
                 A custom tool as returned in API responses.
@@ -5346,8 +5167,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
                   - `type: "object"`
 
-                    - `"object"`
-
                   - `properties?: Record<string, unknown> | null`
 
                   - `required?: Array<string> | null`
@@ -5356,13 +5175,11 @@ console.log(betaManagedAgentsSessionThread.id);
 
                 - `type: "custom"`
 
-                  - `"custom"`
-
             - `type: "agent"`
 
-              - `"agent"`
-
             - `version: number`
+
+              format: int32
 
           - `BetaManagedAgentsAdvisor`
 
@@ -5374,11 +5191,7 @@ console.log(betaManagedAgentsSessionThread.id);
 
             - `type: "advisor"`
 
-              - `"advisor"`
-
         - `type: "coordinator"`
-
-          - `"coordinator"`
 
       - `name: string`
 
@@ -5406,9 +5219,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
+
+        format: int32
 
     - `budget?: BetaManagedAgentsBudgetLimit | null`
 
@@ -5426,11 +5239,7 @@ console.log(betaManagedAgentsSessionThread.id);
 
           Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-          - `"USD"`
-
       - `type: "limit"`
-
-        - `"limit"`
 
     - `metadata?: Record<string, string>`
 
@@ -5456,8 +5265,6 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "agent.message"`
 
-          - `"agent.message"`
-
       - `BetaManagedAgentsAgentThinkingPreview`
 
         - `id: string`
@@ -5466,11 +5273,7 @@ console.log(betaManagedAgentsSessionThread.id);
 
         - `type: "agent.thinking"`
 
-          - `"agent.thinking"`
-
     - `type: "event_start"`
-
-      - `"event_start"`
 
   - `BetaManagedAgentsDeltaEvent`
 
@@ -5486,19 +5289,17 @@ console.log(betaManagedAgentsSessionThread.id);
 
       - `type: "content_delta"`
 
-        - `"content_delta"`
-
       - `index?: number`
 
         Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+        format: uint32
 
     - `event_id: string`
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
     - `type: "event_delta"`
-
-      - `"event_delta"`
 
   - `BetaManagedAgentsSystemMessageEvent`
 
@@ -5516,17 +5317,17 @@ console.log(betaManagedAgentsSessionThread.id);
 
         The text content.
 
+        minLength: 1
+
       - `type: "text"`
 
-        - `"text"`
-
     - `type: "system.message"`
-
-      - `"system.message"`
 
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `BetaManagedAgentsSessionUsageEvent`
 
@@ -5540,9 +5341,9 @@ console.log(betaManagedAgentsSessionThread.id);
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.usage"`
+      format: date-time
 
-      - `"session.usage"`
+    - `type: "session.usage"`
 
     - `usage: BetaManagedAgentsSessionUsageSnapshot`
 
@@ -5552,6 +5353,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
         Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
 
+        format: double
+
       - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
         Prompt-cache creation token usage broken down by cache lifetime.
@@ -5560,17 +5363,25 @@ console.log(betaManagedAgentsSessionThread.id);
 
           Tokens used to create 1-hour ephemeral cache entries.
 
+          format: int32
+
         - `ephemeral_5m_input_tokens?: number`
 
           Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
 
       - `cache_read_input_tokens?: number`
 
         Total tokens read from prompt cache.
 
+        format: int32
+
       - `input_tokens?: number`
 
         Total input tokens consumed across all turns.
+
+        format: int32
 
       - `list_cost?: BetaMonetaryAmount`
 
@@ -5580,6 +5391,8 @@ console.log(betaManagedAgentsSessionThread.id);
 
         Total output tokens generated across all turns.
 
+        format: int32
+
       - `server_tool_use?: BetaManagedAgentsServerToolUsage`
 
         Cumulative count of server-executed tool invocations, broken down by tool.
@@ -5588,25 +5401,29 @@ console.log(betaManagedAgentsSessionThread.id);
 
           Number of server-executed web fetch requests.
 
+          format: int32
+
         - `web_search_requests?: number`
 
           Number of server-executed web search requests.
+
+          format: int32
 
     - `budget?: BetaManagedAgentsBudgetLimit | null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-# Events
+## Threads › Events
 
-## List Session Thread Events
+### List Session Thread Events
 
-`client.beta.sessions.threads.events.list(stringthreadID, EventListParamsparams, RequestOptionsoptions?): PageCursor<BetaManagedAgentsSessionEvent>`
+`client.beta.sessions.threads.events.list(threadID, params, options?): PageCursor<BetaManagedAgentsSessionEvent>`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/events`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
 List Session Thread Events
 
-### Parameters
+#### Parameters
 
 - `threadID: string`
 
@@ -5619,6 +5436,8 @@ List Session Thread Events
   - `limit?: number`
 
     Query param: Query parameter for limit
+
+    format: int32
 
   - `page?: string`
 
@@ -5700,7 +5519,7 @@ List Session Thread Events
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsSessionEvent = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 32 more`
 
@@ -5726,9 +5545,9 @@ List Session Thread Events
 
           The text content.
 
-        - `type: "text"`
+          minLength: 1
 
-          - `"text"`
+        - `type: "text"`
 
       - `BetaManagedAgentsImageBlock`
 
@@ -5746,13 +5565,15 @@ List Session Thread Events
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: "base64"`
+              minLength: 1
 
-              - `"base64"`
+            - `type: "base64"`
 
           - `BetaManagedAgentsURLImageSource`
 
@@ -5760,11 +5581,11 @@ List Session Thread Events
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `BetaManagedAgentsFileImageSource`
 
@@ -5774,13 +5595,11 @@ List Session Thread Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: "file"`
 
-              - `"file"`
-
         - `type: "image"`
-
-          - `"image"`
 
       - `BetaManagedAgentsDocumentBlock`
 
@@ -5798,13 +5617,15 @@ List Session Thread Events
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: "base64"`
+              minLength: 1
 
-              - `"base64"`
+            - `type: "base64"`
 
           - `BetaManagedAgentsPlainTextDocumentSource`
 
@@ -5814,15 +5635,13 @@ List Session Thread Events
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: "text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `"text/plain"`
-
             - `type: "text"`
-
-              - `"text"`
 
           - `BetaManagedAgentsURLDocumentSource`
 
@@ -5830,11 +5649,11 @@ List Session Thread Events
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `BetaManagedAgentsFileDocumentSource`
 
@@ -5844,13 +5663,11 @@ List Session Thread Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: "file"`
 
-              - `"file"`
-
         - `type: "document"`
-
-          - `"document"`
 
         - `context?: string | null`
 
@@ -5866,15 +5683,13 @@ List Session Thread Events
 
         - `type: "redacted"`
 
-          - `"redacted"`
-
     - `type: "user.message"`
-
-      - `"user.message"`
 
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `BetaManagedAgentsUserInterruptEvent`
 
@@ -5886,11 +5701,11 @@ List Session Thread Events
 
     - `type: "user.interrupt"`
 
-      - `"user.interrupt"`
-
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -5918,15 +5733,17 @@ List Session Thread Events
 
     - `type: "user.tool_confirmation"`
 
-      - `"user.tool_confirmation"`
-
     - `deny_message?: string | null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -5945,8 +5762,6 @@ List Session Thread Events
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: "user.custom_tool_result"`
-
-      - `"user.custom_tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -5984,21 +5799,23 @@ List Session Thread Events
 
             The text content.
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
         - `source: string`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: string`
 
           The title of the search result.
 
-        - `type: "search_result"`
+          minLength: 1
 
-          - `"search_result"`
+        - `type: "search_result"`
 
     - `is_error?: boolean | null`
 
@@ -6007,6 +5824,8 @@ List Session Thread Events
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -6032,9 +5851,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.custom_tool_use"`
+      format: date-time
 
-      - `"agent.custom_tool_use"`
+    - `type: "agent.custom_tool_use"`
 
     - `session_thread_id?: string | null`
 
@@ -6064,9 +5883,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.message"`
+      format: date-time
 
-      - `"agent.message"`
+    - `type: "agent.message"`
 
   - `BetaManagedAgentsAgentThinkingEvent`
 
@@ -6080,9 +5899,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thinking"`
+      format: date-time
 
-      - `"agent.thinking"`
+    - `type: "agent.thinking"`
 
   - `BetaManagedAgentsAgentMCPToolUseEvent`
 
@@ -6108,9 +5927,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_use"`
+      format: date-time
 
-      - `"agent.mcp_tool_use"`
+    - `type: "agent.mcp_tool_use"`
 
     - `evaluated_permission?: "allow" | "ask" | "deny"`
 
@@ -6142,9 +5961,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_result"`
+      format: date-time
 
-      - `"agent.mcp_tool_result"`
+    - `type: "agent.mcp_tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -6190,9 +6009,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.tool_use"`
+      format: date-time
 
-      - `"agent.tool_use"`
+    - `type: "agent.tool_use"`
 
     - `evaluated_permission?: "allow" | "ask" | "deny"`
 
@@ -6220,13 +6039,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: string`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: "agent.tool_result"`
-
-      - `"agent.tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -6288,9 +6107,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thread_message_received"`
+      format: date-time
 
-      - `"agent.thread_message_received"`
+    - `type: "agent.thread_message_received"`
 
     - `from_agent_name?: string | null`
 
@@ -6328,13 +6147,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `to_session_thread_id: string`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: "agent.thread_message_sent"`
-
-      - `"agent.thread_message_sent"`
 
     - `to_agent_name?: string | null`
 
@@ -6352,9 +6171,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thread_context_compacted"`
+      format: date-time
 
-      - `"agent.thread_context_compacted"`
+    - `type: "agent.thread_context_compacted"`
 
   - `BetaManagedAgentsSessionErrorEvent`
 
@@ -6386,15 +6205,11 @@ List Session Thread Events
 
             - `type: "retrying"`
 
-              - `"retrying"`
-
           - `BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: "exhausted"`
-
-              - `"exhausted"`
 
           - `BetaManagedAgentsRetryStatusTerminal`
 
@@ -6402,11 +6217,7 @@ List Session Thread Events
 
             - `type: "terminal"`
 
-              - `"terminal"`
-
         - `type: "unknown_error"`
-
-          - `"unknown_error"`
 
       - `BetaManagedAgentsModelOverloadedError`
 
@@ -6434,8 +6245,6 @@ List Session Thread Events
 
         - `type: "model_overloaded_error"`
 
-          - `"model_overloaded_error"`
-
       - `BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
@@ -6462,8 +6271,6 @@ List Session Thread Events
 
         - `type: "model_rate_limited_error"`
 
-          - `"model_rate_limited_error"`
-
       - `BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -6489,8 +6296,6 @@ List Session Thread Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "model_request_failed_error"`
-
-          - `"model_request_failed_error"`
 
       - `BetaManagedAgentsMCPConnectionFailedError`
 
@@ -6522,8 +6327,6 @@ List Session Thread Events
 
         - `type: "mcp_connection_failed_error"`
 
-          - `"mcp_connection_failed_error"`
-
       - `BetaManagedAgentsMCPAuthenticationFailedError`
 
         Authentication to an MCP server failed.
@@ -6554,8 +6357,6 @@ List Session Thread Events
 
         - `type: "mcp_authentication_failed_error"`
 
-          - `"mcp_authentication_failed_error"`
-
       - `BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -6581,8 +6382,6 @@ List Session Thread Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "billing_error"`
-
-          - `"billing_error"`
 
       - `BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -6614,8 +6413,6 @@ List Session Thread Events
 
         - `type: "credential_host_unreachable_error"`
 
-          - `"credential_host_unreachable_error"`
-
         - `vault_id: string`
 
           ID of the vault containing the affected credential.
@@ -6624,9 +6421,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.error"`
+      format: date-time
 
-      - `"session.error"`
+    - `type: "session.error"`
 
   - `BetaManagedAgentsSessionStatusRescheduledEvent`
 
@@ -6640,9 +6437,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_rescheduled"`
+      format: date-time
 
-      - `"session.status_rescheduled"`
+    - `type: "session.status_rescheduled"`
 
   - `BetaManagedAgentsSessionStatusRunningEvent`
 
@@ -6656,9 +6453,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_running"`
+      format: date-time
 
-      - `"session.status_running"`
+    - `type: "session.status_running"`
 
   - `BetaManagedAgentsSessionStatusIdleEvent`
 
@@ -6672,6 +6469,8 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
@@ -6681,8 +6480,6 @@ List Session Thread Events
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: "end_turn"`
-
-          - `"end_turn"`
 
       - `BetaManagedAgentsSessionRequiresAction`
 
@@ -6694,15 +6491,11 @@ List Session Thread Events
 
         - `type: "requires_action"`
 
-          - `"requires_action"`
-
       - `BetaManagedAgentsSessionRetriesExhausted`
 
         The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: "retries_exhausted"`
-
-          - `"retries_exhausted"`
 
       - `BetaManagedAgentsSessionBudgetReached`
 
@@ -6710,11 +6503,7 @@ List Session Thread Events
 
         - `type: "budget_reached"`
 
-          - `"budget_reached"`
-
     - `type: "session.status_idle"`
-
-      - `"session.status_idle"`
 
   - `BetaManagedAgentsSessionStatusTerminatedEvent`
 
@@ -6728,9 +6517,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_terminated"`
+      format: date-time
 
-      - `"session.status_terminated"`
+    - `type: "session.status_terminated"`
 
   - `BetaManagedAgentsSessionThreadCreatedEvent`
 
@@ -6748,13 +6537,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: "session.thread_created"`
-
-      - `"session.thread_created"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -6768,6 +6557,8 @@ List Session Thread Events
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -6776,9 +6567,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.outcome_evaluation_start"`
+      format: date-time
 
-      - `"span.outcome_evaluation_start"`
+    - `type: "span.outcome_evaluation_start"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -6796,6 +6587,8 @@ List Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: string`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -6808,13 +6601,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: string`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: "span.outcome_evaluation_end"`
-
-      - `"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -6824,17 +6617,25 @@ List Session Thread Events
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: number`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: number`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: number`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed?: "standard" | "fast" | null`
 
@@ -6856,9 +6657,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.model_request_start"`
+      format: date-time
 
-      - `"span.model_request_start"`
+    - `type: "span.model_request_start"`
 
   - `BetaManagedAgentsSpanModelRequestEndEvent`
 
@@ -6884,9 +6685,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.model_request_end"`
+      format: date-time
 
-      - `"span.model_request_end"`
+    - `type: "span.model_request_end"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -6900,6 +6701,8 @@ List Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -6908,9 +6711,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.outcome_evaluation_ongoing"`
+      format: date-time
 
-      - `"span.outcome_evaluation_ongoing"`
+    - `type: "span.outcome_evaluation_ongoing"`
 
   - `BetaManagedAgentsUserDefineOutcomeEvent`
 
@@ -6928,6 +6731,8 @@ List Session Thread Events
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: string`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -6935,6 +6740,8 @@ List Session Thread Events
     - `processed_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -6950,8 +6757,6 @@ List Session Thread Events
 
         - `type: "file"`
 
-          - `"file"`
-
       - `BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
@@ -6962,11 +6767,7 @@ List Session Thread Events
 
         - `type: "text"`
 
-          - `"text"`
-
     - `type: "user.define_outcome"`
-
-      - `"user.define_outcome"`
 
   - `BetaManagedAgentsSessionDeletedEvent`
 
@@ -6980,9 +6781,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.deleted"`
+      format: date-time
 
-      - `"session.deleted"`
+    - `type: "session.deleted"`
 
   - `BetaManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -7000,13 +6801,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: "session.thread_status_running"`
-
-      - `"session.thread_status_running"`
 
   - `BetaManagedAgentsSessionThreadStatusIdleEvent`
 
@@ -7023,6 +6824,8 @@ List Session Thread Events
     - `processed_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: string`
 
@@ -7050,8 +6853,6 @@ List Session Thread Events
 
     - `type: "session.thread_status_idle"`
 
-      - `"session.thread_status_idle"`
-
   - `BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
     A session thread has terminated and will accept no further input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
@@ -7068,13 +6869,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: "session.thread_status_terminated"`
-
-      - `"session.thread_status_terminated"`
 
   - `BetaManagedAgentsUserToolResultEvent`
 
@@ -7089,8 +6890,6 @@ List Session Thread Events
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: "user.tool_result"`
-
-      - `"user.tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -7120,6 +6919,8 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id?: string | null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -7140,13 +6941,13 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: "session.thread_status_rescheduled"`
-
-      - `"session.thread_status_rescheduled"`
 
   - `BetaManagedAgentsSessionUpdatedEvent`
 
@@ -7160,9 +6961,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.updated"`
+      format: date-time
 
-      - `"session.updated"`
+    - `type: "session.updated"`
 
     - `agent?: BetaManagedAgentsSessionAgent | null`
 
@@ -7177,8 +6978,6 @@ List Session Thread Events
         - `name: string`
 
         - `type: "url"`
-
-          - `"url"`
 
         - `url: string`
 
@@ -7258,15 +7057,11 @@ List Session Thread Events
 
             - `type: "low"`
 
-              - `"low"`
-
           - `BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
-
-              - `"medium"`
 
           - `BetaManagedAgentsEffortHigh`
 
@@ -7274,23 +7069,17 @@ List Session Thread Events
 
             - `type: "high"`
 
-              - `"high"`
-
           - `BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
           - `BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo?: string`
 
@@ -7344,8 +7133,6 @@ List Session Thread Events
 
                 - `type: "anthropic"`
 
-                  - `"anthropic"`
-
                 - `version: string`
 
               - `BetaManagedAgentsCustomSkill`
@@ -7355,8 +7142,6 @@ List Session Thread Events
                 - `skill_id: string`
 
                 - `type: "custom"`
-
-                  - `"custom"`
 
                 - `version: string`
 
@@ -7376,8 +7161,6 @@ List Session Thread Events
 
                     - `name: "bash"`
 
-                      - `"bash"`
-
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                       Permission policy for tool execution.
@@ -7388,19 +7171,13 @@ List Session Thread Events
 
                         - `type: "always_allow"`
 
-                          - `"always_allow"`
-
                       - `BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
                         - `type: "always_ask"`
 
-                          - `"always_ask"`
-
                     - `type: "bash"`
-
-                      - `"bash"`
 
                   - `BetaManagedAgentsEditToolConfig`
 
@@ -7409,8 +7186,6 @@ List Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "edit"`
-
-                      - `"edit"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -7426,8 +7201,6 @@ List Session Thread Events
 
                     - `type: "edit"`
 
-                      - `"edit"`
-
                   - `BetaManagedAgentsReadToolConfig`
 
                     Configuration for the read tool.
@@ -7435,8 +7208,6 @@ List Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "read"`
-
-                      - `"read"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -7452,8 +7223,6 @@ List Session Thread Events
 
                     - `type: "read"`
 
-                      - `"read"`
-
                   - `BetaManagedAgentsWriteToolConfig`
 
                     Configuration for the write tool.
@@ -7461,8 +7230,6 @@ List Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "write"`
-
-                      - `"write"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -7478,8 +7245,6 @@ List Session Thread Events
 
                     - `type: "write"`
 
-                      - `"write"`
-
                   - `BetaManagedAgentsGlobToolConfig`
 
                     Configuration for the glob tool.
@@ -7487,8 +7252,6 @@ List Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "glob"`
-
-                      - `"glob"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -7504,8 +7267,6 @@ List Session Thread Events
 
                     - `type: "glob"`
 
-                      - `"glob"`
-
                   - `BetaManagedAgentsGrepToolConfig`
 
                     Configuration for the grep tool.
@@ -7513,8 +7274,6 @@ List Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "grep"`
-
-                      - `"grep"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -7530,8 +7289,6 @@ List Session Thread Events
 
                     - `type: "grep"`
 
-                      - `"grep"`
-
                   - `BetaManagedAgentsWebFetchToolConfig`
 
                     Configuration for the web_fetch tool.
@@ -7539,8 +7296,6 @@ List Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "web_fetch"`
-
-                      - `"web_fetch"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -7556,13 +7311,13 @@ List Session Thread Events
 
                     - `type: "web_fetch"`
 
-                      - `"web_fetch"`
-
                     - `allowed_domains?: Array<string>`
 
                     - `blocked_domains?: Array<string>`
 
                     - `max_content_tokens?: number | null`
+
+                      format: int32
 
                   - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -7571,8 +7326,6 @@ List Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "web_search"`
-
-                      - `"web_search"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -7588,8 +7341,6 @@ List Session Thread Events
 
                     - `type: "web_search"`
 
-                      - `"web_search"`
-
                     - `allowed_domains?: Array<string>`
 
                     - `blocked_domains?: Array<string>`
@@ -7602,11 +7353,11 @@ List Session Thread Events
 
                         Location precision. Only "approximate" is supported.
 
-                        - `"approximate"`
-
                       - `city?: string | null`
 
                         City name.
+
+                        minLength: 1, maxLength: 255
 
                       - `country?: string | null`
 
@@ -7616,9 +7367,13 @@ List Session Thread Events
 
                         Region or state name.
 
+                        minLength: 1, maxLength: 255
+
                       - `timezone?: string | null`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
 
                 - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -7639,8 +7394,6 @@ List Session Thread Events
                       Tool calls require user confirmation before execution.
 
                 - `type: "agent_toolset_20260401"`
-
-                  - `"agent_toolset_20260401"`
 
               - `BetaManagedAgentsMCPToolset`
 
@@ -7684,8 +7437,6 @@ List Session Thread Events
 
                 - `type: "mcp_toolset"`
 
-                  - `"mcp_toolset"`
-
               - `BetaManagedAgentsCustomTool`
 
                 A custom tool as returned in API responses.
@@ -7698,8 +7449,6 @@ List Session Thread Events
 
                   - `type: "object"`
 
-                    - `"object"`
-
                   - `properties?: Record<string, unknown> | null`
 
                   - `required?: Array<string> | null`
@@ -7708,13 +7457,11 @@ List Session Thread Events
 
                 - `type: "custom"`
 
-                  - `"custom"`
-
             - `type: "agent"`
 
-              - `"agent"`
-
             - `version: number`
+
+              format: int32
 
           - `BetaManagedAgentsAdvisor`
 
@@ -7726,11 +7473,7 @@ List Session Thread Events
 
             - `type: "advisor"`
 
-              - `"advisor"`
-
         - `type: "coordinator"`
-
-          - `"coordinator"`
 
       - `name: string`
 
@@ -7758,9 +7501,9 @@ List Session Thread Events
 
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
+
+        format: int32
 
     - `budget?: BetaManagedAgentsBudgetLimit | null`
 
@@ -7778,11 +7521,7 @@ List Session Thread Events
 
           Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-          - `"USD"`
-
       - `type: "limit"`
-
-        - `"limit"`
 
     - `metadata?: Record<string, string>`
 
@@ -7808,17 +7547,17 @@ List Session Thread Events
 
         The text content.
 
+        minLength: 1
+
       - `type: "text"`
 
-        - `"text"`
-
     - `type: "system.message"`
-
-      - `"system.message"`
 
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `BetaManagedAgentsSessionUsageEvent`
 
@@ -7832,9 +7571,9 @@ List Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.usage"`
+      format: date-time
 
-      - `"session.usage"`
+    - `type: "session.usage"`
 
     - `usage: BetaManagedAgentsSessionUsageSnapshot`
 
@@ -7844,6 +7583,8 @@ List Session Thread Events
 
         Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
 
+        format: double
+
       - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
         Prompt-cache creation token usage broken down by cache lifetime.
@@ -7852,17 +7593,25 @@ List Session Thread Events
 
           Tokens used to create 1-hour ephemeral cache entries.
 
+          format: int32
+
         - `ephemeral_5m_input_tokens?: number`
 
           Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
 
       - `cache_read_input_tokens?: number`
 
         Total tokens read from prompt cache.
 
+        format: int32
+
       - `input_tokens?: number`
 
         Total input tokens consumed across all turns.
+
+        format: int32
 
       - `list_cost?: BetaMonetaryAmount`
 
@@ -7872,6 +7621,8 @@ List Session Thread Events
 
         Total output tokens generated across all turns.
 
+        format: int32
+
       - `server_tool_use?: BetaManagedAgentsServerToolUsage`
 
         Cumulative count of server-executed tool invocations, broken down by tool.
@@ -7880,15 +7631,19 @@ List Session Thread Events
 
           Number of server-executed web fetch requests.
 
+          format: int32
+
         - `web_search_requests?: number`
 
           Number of server-executed web search requests.
+
+          format: int32
 
     - `budget?: BetaManagedAgentsBudgetLimit | null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -7906,7 +7661,7 @@ for await (const betaManagedAgentsSessionEvent of client.beta.sessions.threads.e
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -7927,15 +7682,15 @@ for await (const betaManagedAgentsSessionEvent of client.beta.sessions.threads.e
 }
 ```
 
-## Stream Session Thread Events
+### Stream Session Thread Events
 
-`client.beta.sessions.threads.events.stream(stringthreadID, EventStreamParamsparams, RequestOptionsoptions?): BetaManagedAgentsStreamSessionThreadEvents | Stream<BetaManagedAgentsStreamSessionThreadEvents>`
+`client.beta.sessions.threads.events.stream(threadID, params, options?): BetaManagedAgentsStreamSessionThreadEvents | Stream<BetaManagedAgentsStreamSessionThreadEvents>`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
 Stream Session Thread Events
 
-### Parameters
+#### Parameters
 
 - `threadID: string`
 
@@ -8029,7 +7784,7 @@ Stream Session Thread Events
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsStreamSessionThreadEvents = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 34 more`
 
@@ -8055,9 +7810,9 @@ Stream Session Thread Events
 
           The text content.
 
-        - `type: "text"`
+          minLength: 1
 
-          - `"text"`
+        - `type: "text"`
 
       - `BetaManagedAgentsImageBlock`
 
@@ -8075,13 +7830,15 @@ Stream Session Thread Events
 
               Base64-encoded image data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-            - `type: "base64"`
+              minLength: 1
 
-              - `"base64"`
+            - `type: "base64"`
 
           - `BetaManagedAgentsURLImageSource`
 
@@ -8089,11 +7846,11 @@ Stream Session Thread Events
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the image to fetch.
+
+              minLength: 1
 
           - `BetaManagedAgentsFileImageSource`
 
@@ -8103,13 +7860,11 @@ Stream Session Thread Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: "file"`
 
-              - `"file"`
-
         - `type: "image"`
-
-          - `"image"`
 
       - `BetaManagedAgentsDocumentBlock`
 
@@ -8127,13 +7882,15 @@ Stream Session Thread Events
 
               Base64-encoded document data.
 
+              minLength: 1
+
             - `media_type: string`
 
               MIME type of the document (e.g., "application/pdf").
 
-            - `type: "base64"`
+              minLength: 1
 
-              - `"base64"`
+            - `type: "base64"`
 
           - `BetaManagedAgentsPlainTextDocumentSource`
 
@@ -8143,15 +7900,13 @@ Stream Session Thread Events
 
               The plain text content.
 
+              minLength: 1
+
             - `media_type: "text/plain"`
 
               MIME type of the text content. Must be "text/plain".
 
-              - `"text/plain"`
-
             - `type: "text"`
-
-              - `"text"`
 
           - `BetaManagedAgentsURLDocumentSource`
 
@@ -8159,11 +7914,11 @@ Stream Session Thread Events
 
             - `type: "url"`
 
-              - `"url"`
-
             - `url: string`
 
               URL of the document to fetch.
+
+              minLength: 1
 
           - `BetaManagedAgentsFileDocumentSource`
 
@@ -8173,13 +7928,11 @@ Stream Session Thread Events
 
               ID of a previously uploaded file.
 
+              minLength: 1
+
             - `type: "file"`
 
-              - `"file"`
-
         - `type: "document"`
-
-          - `"document"`
 
         - `context?: string | null`
 
@@ -8195,15 +7948,13 @@ Stream Session Thread Events
 
         - `type: "redacted"`
 
-          - `"redacted"`
-
     - `type: "user.message"`
-
-      - `"user.message"`
 
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `BetaManagedAgentsUserInterruptEvent`
 
@@ -8215,11 +7966,11 @@ Stream Session Thread Events
 
     - `type: "user.interrupt"`
 
-      - `"user.interrupt"`
-
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -8247,15 +7998,17 @@ Stream Session Thread Events
 
     - `type: "user.tool_confirmation"`
 
-      - `"user.tool_confirmation"`
-
     - `deny_message?: string | null`
 
       Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
 
+      maxLength: 10000
+
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -8274,8 +8027,6 @@ Stream Session Thread Events
       The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: "user.custom_tool_result"`
-
-      - `"user.custom_tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -8313,21 +8064,23 @@ Stream Session Thread Events
 
             The text content.
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
         - `source: string`
 
           The URL source of the search result.
 
+          minLength: 1
+
         - `title: string`
 
           The title of the search result.
 
-        - `type: "search_result"`
+          minLength: 1
 
-          - `"search_result"`
+        - `type: "search_result"`
 
     - `is_error?: boolean | null`
 
@@ -8336,6 +8089,8 @@ Stream Session Thread Events
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id?: string | null`
 
@@ -8361,9 +8116,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.custom_tool_use"`
+      format: date-time
 
-      - `"agent.custom_tool_use"`
+    - `type: "agent.custom_tool_use"`
 
     - `session_thread_id?: string | null`
 
@@ -8393,9 +8148,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.message"`
+      format: date-time
 
-      - `"agent.message"`
+    - `type: "agent.message"`
 
   - `BetaManagedAgentsAgentThinkingEvent`
 
@@ -8409,9 +8164,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thinking"`
+      format: date-time
 
-      - `"agent.thinking"`
+    - `type: "agent.thinking"`
 
   - `BetaManagedAgentsAgentMCPToolUseEvent`
 
@@ -8437,9 +8192,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_use"`
+      format: date-time
 
-      - `"agent.mcp_tool_use"`
+    - `type: "agent.mcp_tool_use"`
 
     - `evaluated_permission?: "allow" | "ask" | "deny"`
 
@@ -8471,9 +8226,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.mcp_tool_result"`
+      format: date-time
 
-      - `"agent.mcp_tool_result"`
+    - `type: "agent.mcp_tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -8519,9 +8274,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.tool_use"`
+      format: date-time
 
-      - `"agent.tool_use"`
+    - `type: "agent.tool_use"`
 
     - `evaluated_permission?: "allow" | "ask" | "deny"`
 
@@ -8549,13 +8304,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `tool_use_id: string`
 
       The id of the `agent.tool_use` event this result corresponds to.
 
     - `type: "agent.tool_result"`
-
-      - `"agent.tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -8617,9 +8372,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thread_message_received"`
+      format: date-time
 
-      - `"agent.thread_message_received"`
+    - `type: "agent.thread_message_received"`
 
     - `from_agent_name?: string | null`
 
@@ -8657,13 +8412,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `to_session_thread_id: string`
 
       Public `sthr_` ID of the thread the message was sent to.
 
     - `type: "agent.thread_message_sent"`
-
-      - `"agent.thread_message_sent"`
 
     - `to_agent_name?: string | null`
 
@@ -8681,9 +8436,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "agent.thread_context_compacted"`
+      format: date-time
 
-      - `"agent.thread_context_compacted"`
+    - `type: "agent.thread_context_compacted"`
 
   - `BetaManagedAgentsSessionErrorEvent`
 
@@ -8715,15 +8470,11 @@ Stream Session Thread Events
 
             - `type: "retrying"`
 
-              - `"retrying"`
-
           - `BetaManagedAgentsRetryStatusExhausted`
 
             This turn is dead; queued inputs are flushed and the session returns to idle. Client may send a new prompt.
 
             - `type: "exhausted"`
-
-              - `"exhausted"`
 
           - `BetaManagedAgentsRetryStatusTerminal`
 
@@ -8731,11 +8482,7 @@ Stream Session Thread Events
 
             - `type: "terminal"`
 
-              - `"terminal"`
-
         - `type: "unknown_error"`
-
-          - `"unknown_error"`
 
       - `BetaManagedAgentsModelOverloadedError`
 
@@ -8763,8 +8510,6 @@ Stream Session Thread Events
 
         - `type: "model_overloaded_error"`
 
-          - `"model_overloaded_error"`
-
       - `BetaManagedAgentsModelRateLimitedError`
 
         The model request was rate-limited.
@@ -8791,8 +8536,6 @@ Stream Session Thread Events
 
         - `type: "model_rate_limited_error"`
 
-          - `"model_rate_limited_error"`
-
       - `BetaManagedAgentsModelRequestFailedError`
 
         A model request failed for a reason other than overload or rate-limiting.
@@ -8818,8 +8561,6 @@ Stream Session Thread Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "model_request_failed_error"`
-
-          - `"model_request_failed_error"`
 
       - `BetaManagedAgentsMCPConnectionFailedError`
 
@@ -8851,8 +8592,6 @@ Stream Session Thread Events
 
         - `type: "mcp_connection_failed_error"`
 
-          - `"mcp_connection_failed_error"`
-
       - `BetaManagedAgentsMCPAuthenticationFailedError`
 
         Authentication to an MCP server failed.
@@ -8883,8 +8622,6 @@ Stream Session Thread Events
 
         - `type: "mcp_authentication_failed_error"`
 
-          - `"mcp_authentication_failed_error"`
-
       - `BetaManagedAgentsBillingError`
 
         The caller's organization or workspace cannot make model requests — out of credits or spend limit reached. Retrying with the same credentials will not succeed; the caller must resolve the billing state.
@@ -8910,8 +8647,6 @@ Stream Session Thread Events
             The session encountered a terminal error and will transition to `terminated` state.
 
         - `type: "billing_error"`
-
-          - `"billing_error"`
 
       - `BetaManagedAgentsCredentialHostUnreachableError`
 
@@ -8943,8 +8678,6 @@ Stream Session Thread Events
 
         - `type: "credential_host_unreachable_error"`
 
-          - `"credential_host_unreachable_error"`
-
         - `vault_id: string`
 
           ID of the vault containing the affected credential.
@@ -8953,9 +8686,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.error"`
+      format: date-time
 
-      - `"session.error"`
+    - `type: "session.error"`
 
   - `BetaManagedAgentsSessionStatusRescheduledEvent`
 
@@ -8969,9 +8702,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_rescheduled"`
+      format: date-time
 
-      - `"session.status_rescheduled"`
+    - `type: "session.status_rescheduled"`
 
   - `BetaManagedAgentsSessionStatusRunningEvent`
 
@@ -8985,9 +8718,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_running"`
+      format: date-time
 
-      - `"session.status_running"`
+    - `type: "session.status_running"`
 
   - `BetaManagedAgentsSessionStatusIdleEvent`
 
@@ -9001,6 +8734,8 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `stop_reason: BetaManagedAgentsSessionEndTurn | BetaManagedAgentsSessionRequiresAction | BetaManagedAgentsSessionRetriesExhausted | BetaManagedAgentsSessionBudgetReached`
 
       The agent completed its turn naturally and is ready for the next user message.
@@ -9010,8 +8745,6 @@ Stream Session Thread Events
         The agent completed its turn naturally and is ready for the next user message.
 
         - `type: "end_turn"`
-
-          - `"end_turn"`
 
       - `BetaManagedAgentsSessionRequiresAction`
 
@@ -9023,15 +8756,11 @@ Stream Session Thread Events
 
         - `type: "requires_action"`
 
-          - `"requires_action"`
-
       - `BetaManagedAgentsSessionRetriesExhausted`
 
         The turn ended because repeated errors exhausted the retry budget or an error escalated to `retry_status: 'exhausted'`.
 
         - `type: "retries_exhausted"`
-
-          - `"retries_exhausted"`
 
       - `BetaManagedAgentsSessionBudgetReached`
 
@@ -9039,11 +8768,7 @@ Stream Session Thread Events
 
         - `type: "budget_reached"`
 
-          - `"budget_reached"`
-
     - `type: "session.status_idle"`
-
-      - `"session.status_idle"`
 
   - `BetaManagedAgentsSessionStatusTerminatedEvent`
 
@@ -9057,9 +8782,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.status_terminated"`
+      format: date-time
 
-      - `"session.status_terminated"`
+    - `type: "session.status_terminated"`
 
   - `BetaManagedAgentsSessionThreadCreatedEvent`
 
@@ -9077,13 +8802,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public `sthr_` ID of the newly created thread.
 
     - `type: "session.thread_created"`
-
-      - `"session.thread_created"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationStartEvent`
 
@@ -9097,6 +8822,8 @@ Stream Session Thread Events
 
       0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -9105,9 +8832,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.outcome_evaluation_start"`
+      format: date-time
 
-      - `"span.outcome_evaluation_start"`
+    - `type: "span.outcome_evaluation_start"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationEndEvent`
 
@@ -9125,6 +8852,8 @@ Stream Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_evaluation_start_id: string`
 
       The id of the corresponding `span.outcome_evaluation_start` event.
@@ -9137,13 +8866,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `result: string`
 
       Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
 
     - `type: "span.outcome_evaluation_end"`
-
-      - `"span.outcome_evaluation_end"`
 
     - `usage: BetaManagedAgentsSpanModelUsage`
 
@@ -9153,17 +8882,25 @@ Stream Session Thread Events
 
         Tokens used to create prompt cache in this request.
 
+        format: int32
+
       - `cache_read_input_tokens: number`
 
         Tokens read from prompt cache in this request.
+
+        format: int32
 
       - `input_tokens: number`
 
         Input tokens consumed by this request.
 
+        format: int32
+
       - `output_tokens: number`
 
         Output tokens generated by this request.
+
+        format: int32
 
       - `speed?: "standard" | "fast" | null`
 
@@ -9185,9 +8922,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.model_request_start"`
+      format: date-time
 
-      - `"span.model_request_start"`
+    - `type: "span.model_request_start"`
 
   - `BetaManagedAgentsSpanModelRequestEndEvent`
 
@@ -9213,9 +8950,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.model_request_end"`
+      format: date-time
 
-      - `"span.model_request_end"`
+    - `type: "span.model_request_end"`
 
   - `BetaManagedAgentsSpanOutcomeEvaluationOngoingEvent`
 
@@ -9229,6 +8966,8 @@ Stream Session Thread Events
 
       0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
 
+      format: int32
+
     - `outcome_id: string`
 
       The `outc_` ID of the outcome being evaluated.
@@ -9237,9 +8976,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "span.outcome_evaluation_ongoing"`
+      format: date-time
 
-      - `"span.outcome_evaluation_ongoing"`
+    - `type: "span.outcome_evaluation_ongoing"`
 
   - `BetaManagedAgentsUserDefineOutcomeEvent`
 
@@ -9257,6 +8996,8 @@ Stream Session Thread Events
 
       Evaluate-then-revise cycles before giving up. Default 3, max 20.
 
+      format: int32
+
     - `outcome_id: string`
 
       Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
@@ -9264,6 +9005,8 @@ Stream Session Thread Events
     - `processed_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `rubric: BetaManagedAgentsFileRubric | BetaManagedAgentsTextRubric`
 
@@ -9279,8 +9022,6 @@ Stream Session Thread Events
 
         - `type: "file"`
 
-          - `"file"`
-
       - `BetaManagedAgentsTextRubric`
 
         Rubric content provided inline as text.
@@ -9291,11 +9032,7 @@ Stream Session Thread Events
 
         - `type: "text"`
 
-          - `"text"`
-
     - `type: "user.define_outcome"`
-
-      - `"user.define_outcome"`
 
   - `BetaManagedAgentsSessionDeletedEvent`
 
@@ -9309,9 +9046,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.deleted"`
+      format: date-time
 
-      - `"session.deleted"`
+    - `type: "session.deleted"`
 
   - `BetaManagedAgentsSessionThreadStatusRunningEvent`
 
@@ -9329,13 +9066,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that started running.
 
     - `type: "session.thread_status_running"`
-
-      - `"session.thread_status_running"`
 
   - `BetaManagedAgentsSessionThreadStatusIdleEvent`
 
@@ -9352,6 +9089,8 @@ Stream Session Thread Events
     - `processed_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `session_thread_id: string`
 
@@ -9379,8 +9118,6 @@ Stream Session Thread Events
 
     - `type: "session.thread_status_idle"`
 
-      - `"session.thread_status_idle"`
-
   - `BetaManagedAgentsSessionThreadStatusTerminatedEvent`
 
     A session thread has terminated and will accept no further input. Emitted on the thread's own stream and cross-posted to the primary stream for child threads.
@@ -9397,13 +9134,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that terminated.
 
     - `type: "session.thread_status_terminated"`
-
-      - `"session.thread_status_terminated"`
 
   - `BetaManagedAgentsUserToolResultEvent`
 
@@ -9418,8 +9155,6 @@ Stream Session Thread Events
       The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
 
     - `type: "user.tool_result"`
-
-      - `"user.tool_result"`
 
     - `content?: Array<BetaManagedAgentsTextBlock | BetaManagedAgentsImageBlock | BetaManagedAgentsDocumentBlock | BetaManagedAgentsSearchResultBlock>`
 
@@ -9449,6 +9184,8 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id?: string | null`
 
       Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
@@ -9469,13 +9206,13 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `session_thread_id: string`
 
       Public sthr_ ID of the thread that is retrying.
 
     - `type: "session.thread_status_rescheduled"`
-
-      - `"session.thread_status_rescheduled"`
 
   - `BetaManagedAgentsSessionUpdatedEvent`
 
@@ -9489,9 +9226,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.updated"`
+      format: date-time
 
-      - `"session.updated"`
+    - `type: "session.updated"`
 
     - `agent?: BetaManagedAgentsSessionAgent | null`
 
@@ -9506,8 +9243,6 @@ Stream Session Thread Events
         - `name: string`
 
         - `type: "url"`
-
-          - `"url"`
 
         - `url: string`
 
@@ -9587,15 +9322,11 @@ Stream Session Thread Events
 
             - `type: "low"`
 
-              - `"low"`
-
           - `BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
-
-              - `"medium"`
 
           - `BetaManagedAgentsEffortHigh`
 
@@ -9603,23 +9334,17 @@ Stream Session Thread Events
 
             - `type: "high"`
 
-              - `"high"`
-
           - `BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
           - `BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo?: string`
 
@@ -9673,8 +9398,6 @@ Stream Session Thread Events
 
                 - `type: "anthropic"`
 
-                  - `"anthropic"`
-
                 - `version: string`
 
               - `BetaManagedAgentsCustomSkill`
@@ -9684,8 +9407,6 @@ Stream Session Thread Events
                 - `skill_id: string`
 
                 - `type: "custom"`
-
-                  - `"custom"`
 
                 - `version: string`
 
@@ -9705,8 +9426,6 @@ Stream Session Thread Events
 
                     - `name: "bash"`
 
-                      - `"bash"`
-
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                       Permission policy for tool execution.
@@ -9717,19 +9436,13 @@ Stream Session Thread Events
 
                         - `type: "always_allow"`
 
-                          - `"always_allow"`
-
                       - `BetaManagedAgentsAlwaysAskPolicy`
 
                         Tool calls require user confirmation before execution.
 
                         - `type: "always_ask"`
 
-                          - `"always_ask"`
-
                     - `type: "bash"`
-
-                      - `"bash"`
 
                   - `BetaManagedAgentsEditToolConfig`
 
@@ -9738,8 +9451,6 @@ Stream Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "edit"`
-
-                      - `"edit"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -9755,8 +9466,6 @@ Stream Session Thread Events
 
                     - `type: "edit"`
 
-                      - `"edit"`
-
                   - `BetaManagedAgentsReadToolConfig`
 
                     Configuration for the read tool.
@@ -9764,8 +9473,6 @@ Stream Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "read"`
-
-                      - `"read"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -9781,8 +9488,6 @@ Stream Session Thread Events
 
                     - `type: "read"`
 
-                      - `"read"`
-
                   - `BetaManagedAgentsWriteToolConfig`
 
                     Configuration for the write tool.
@@ -9790,8 +9495,6 @@ Stream Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "write"`
-
-                      - `"write"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -9807,8 +9510,6 @@ Stream Session Thread Events
 
                     - `type: "write"`
 
-                      - `"write"`
-
                   - `BetaManagedAgentsGlobToolConfig`
 
                     Configuration for the glob tool.
@@ -9816,8 +9517,6 @@ Stream Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "glob"`
-
-                      - `"glob"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -9833,8 +9532,6 @@ Stream Session Thread Events
 
                     - `type: "glob"`
 
-                      - `"glob"`
-
                   - `BetaManagedAgentsGrepToolConfig`
 
                     Configuration for the grep tool.
@@ -9842,8 +9539,6 @@ Stream Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "grep"`
-
-                      - `"grep"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -9859,8 +9554,6 @@ Stream Session Thread Events
 
                     - `type: "grep"`
 
-                      - `"grep"`
-
                   - `BetaManagedAgentsWebFetchToolConfig`
 
                     Configuration for the web_fetch tool.
@@ -9868,8 +9561,6 @@ Stream Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "web_fetch"`
-
-                      - `"web_fetch"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -9885,13 +9576,13 @@ Stream Session Thread Events
 
                     - `type: "web_fetch"`
 
-                      - `"web_fetch"`
-
                     - `allowed_domains?: Array<string>`
 
                     - `blocked_domains?: Array<string>`
 
                     - `max_content_tokens?: number | null`
+
+                      format: int32
 
                   - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -9900,8 +9591,6 @@ Stream Session Thread Events
                     - `enabled: boolean`
 
                     - `name: "web_search"`
-
-                      - `"web_search"`
 
                     - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -9917,8 +9606,6 @@ Stream Session Thread Events
 
                     - `type: "web_search"`
 
-                      - `"web_search"`
-
                     - `allowed_domains?: Array<string>`
 
                     - `blocked_domains?: Array<string>`
@@ -9931,11 +9618,11 @@ Stream Session Thread Events
 
                         Location precision. Only "approximate" is supported.
 
-                        - `"approximate"`
-
                       - `city?: string | null`
 
                         City name.
+
+                        minLength: 1, maxLength: 255
 
                       - `country?: string | null`
 
@@ -9945,9 +9632,13 @@ Stream Session Thread Events
 
                         Region or state name.
 
+                        minLength: 1, maxLength: 255
+
                       - `timezone?: string | null`
 
                         IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                        minLength: 1, maxLength: 255
 
                 - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -9968,8 +9659,6 @@ Stream Session Thread Events
                       Tool calls require user confirmation before execution.
 
                 - `type: "agent_toolset_20260401"`
-
-                  - `"agent_toolset_20260401"`
 
               - `BetaManagedAgentsMCPToolset`
 
@@ -10013,8 +9702,6 @@ Stream Session Thread Events
 
                 - `type: "mcp_toolset"`
 
-                  - `"mcp_toolset"`
-
               - `BetaManagedAgentsCustomTool`
 
                 A custom tool as returned in API responses.
@@ -10027,8 +9714,6 @@ Stream Session Thread Events
 
                   - `type: "object"`
 
-                    - `"object"`
-
                   - `properties?: Record<string, unknown> | null`
 
                   - `required?: Array<string> | null`
@@ -10037,13 +9722,11 @@ Stream Session Thread Events
 
                 - `type: "custom"`
 
-                  - `"custom"`
-
             - `type: "agent"`
 
-              - `"agent"`
-
             - `version: number`
+
+              format: int32
 
           - `BetaManagedAgentsAdvisor`
 
@@ -10055,11 +9738,7 @@ Stream Session Thread Events
 
             - `type: "advisor"`
 
-              - `"advisor"`
-
         - `type: "coordinator"`
-
-          - `"coordinator"`
 
       - `name: string`
 
@@ -10087,9 +9766,9 @@ Stream Session Thread Events
 
       - `type: "agent"`
 
-        - `"agent"`
-
       - `version: number`
+
+        format: int32
 
     - `budget?: BetaManagedAgentsBudgetLimit | null`
 
@@ -10107,11 +9786,7 @@ Stream Session Thread Events
 
           Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-          - `"USD"`
-
       - `type: "limit"`
-
-        - `"limit"`
 
     - `metadata?: Record<string, string>`
 
@@ -10137,8 +9812,6 @@ Stream Session Thread Events
 
         - `type: "agent.message"`
 
-          - `"agent.message"`
-
       - `BetaManagedAgentsAgentThinkingPreview`
 
         - `id: string`
@@ -10147,11 +9820,7 @@ Stream Session Thread Events
 
         - `type: "agent.thinking"`
 
-          - `"agent.thinking"`
-
     - `type: "event_start"`
-
-      - `"event_start"`
 
   - `BetaManagedAgentsDeltaEvent`
 
@@ -10167,19 +9836,17 @@ Stream Session Thread Events
 
       - `type: "content_delta"`
 
-        - `"content_delta"`
-
       - `index?: number`
 
         Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
+
+        format: uint32
 
     - `event_id: string`
 
       The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
 
     - `type: "event_delta"`
-
-      - `"event_delta"`
 
   - `BetaManagedAgentsSystemMessageEvent`
 
@@ -10197,17 +9864,17 @@ Stream Session Thread Events
 
         The text content.
 
+        minLength: 1
+
       - `type: "text"`
 
-        - `"text"`
-
     - `type: "system.message"`
-
-      - `"system.message"`
 
     - `processed_at?: string | null`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `BetaManagedAgentsSessionUsageEvent`
 
@@ -10221,9 +9888,9 @@ Stream Session Thread Events
 
       A timestamp in RFC 3339 format
 
-    - `type: "session.usage"`
+      format: date-time
 
-      - `"session.usage"`
+    - `type: "session.usage"`
 
     - `usage: BetaManagedAgentsSessionUsageSnapshot`
 
@@ -10233,6 +9900,8 @@ Stream Session Thread Events
 
         Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
 
+        format: double
+
       - `cache_creation?: BetaManagedAgentsCacheCreationUsage`
 
         Prompt-cache creation token usage broken down by cache lifetime.
@@ -10241,17 +9910,25 @@ Stream Session Thread Events
 
           Tokens used to create 1-hour ephemeral cache entries.
 
+          format: int32
+
         - `ephemeral_5m_input_tokens?: number`
 
           Tokens used to create 5-minute ephemeral cache entries.
+
+          format: int32
 
       - `cache_read_input_tokens?: number`
 
         Total tokens read from prompt cache.
 
+        format: int32
+
       - `input_tokens?: number`
 
         Total input tokens consumed across all turns.
+
+        format: int32
 
       - `list_cost?: BetaMonetaryAmount`
 
@@ -10261,6 +9938,8 @@ Stream Session Thread Events
 
         Total output tokens generated across all turns.
 
+        format: int32
+
       - `server_tool_use?: BetaManagedAgentsServerToolUsage`
 
         Cumulative count of server-executed tool invocations, broken down by tool.
@@ -10269,15 +9948,23 @@ Stream Session Thread Events
 
           Number of server-executed web fetch requests.
 
+          format: int32
+
         - `web_search_requests?: number`
 
           Number of server-executed web search requests.
+
+          format: int32
 
     - `budget?: BetaManagedAgentsBudgetLimit | null`
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+- `BetaManagedAgentsStreamSessionThreadEvents = BetaManagedAgentsUserMessageEvent | BetaManagedAgentsUserInterruptEvent | BetaManagedAgentsUserToolConfirmationEvent | 34 more`
+
+  Server-sent event in a single thread's stream.
+
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -10294,7 +9981,7 @@ const betaManagedAgentsStreamSessionThreadEvents =
 console.log(betaManagedAgentsStreamSessionThreadEvents);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {

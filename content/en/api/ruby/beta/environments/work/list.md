@@ -1,25 +1,22 @@
----
-title: List Work Items
-url: https://platform.claude.com/docs/en/api/ruby/beta/environments/work/list
----
-
-## List Work Items
+# List Work Items
 
 `beta.environments.work.list(environment_id, **kwargs) -> PageCursor<BetaSelfHostedWork>`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 List work items in an environment.
 
-### Parameters
+## Parameters
 
 - `environment_id: String`
 
 - `limit: Integer`
 
   Maximum number of work items to return
+
+  maximum: 1000, minimum: 1
 
 - `page: String`
 
@@ -101,7 +98,7 @@ List work items in an environment.
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaSelfHostedWork`
 
@@ -134,8 +131,6 @@ List work items in an environment.
     - `type: :session`
 
       Type of work data
-
-      - `:session`
 
   - `environment_id: String`
 
@@ -183,9 +178,7 @@ List work items in an environment.
 
     The type of object (always 'work')
 
-    - `:work`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -197,7 +190,7 @@ page = anthropic.beta.environments.work.list("env_011CZkZ9X2dpNyB7HsEFoRfW")
 puts(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

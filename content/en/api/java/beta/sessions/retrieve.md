@@ -1,17 +1,12 @@
----
-title: Get Session
-url: https://platform.claude.com/docs/en/api/java/beta/sessions/retrieve
----
+# Get Session
 
-## Get Session
+`BetaManagedAgentsSession beta().sessions().retrieve(params = SessionRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsSession beta().sessions().retrieve(SessionRetrieveParamsparams = SessionRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/sessions/{session_id}`
+**GET** `/v1/sessions/{session_id}`
 
 Get Session
 
-### Parameters
+## Parameters
 
 - `SessionRetrieveParams params`
 
@@ -89,7 +84,7 @@ Get Session
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsSession:`
 
@@ -110,8 +105,6 @@ Get Session
       - `String name`
 
       - `Type type`
-
-        - `URL("url")`
 
       - `String url`
 
@@ -187,15 +180,11 @@ Get Session
 
           - `Type type`
 
-            - `LOW("low")`
-
         - `class BetaManagedAgentsEffortMedium:`
 
           Medium effort. Balances latency and reasoning depth.
 
           - `Type type`
-
-            - `MEDIUM("medium")`
 
         - `class BetaManagedAgentsEffortHigh:`
 
@@ -203,23 +192,17 @@ Get Session
 
           - `Type type`
 
-            - `HIGH("high")`
-
         - `class BetaManagedAgentsEffortXhigh:`
 
           Extra-high effort. Not all models accept this level.
 
           - `Type type`
 
-            - `XHIGH("xhigh")`
-
         - `class BetaManagedAgentsEffortMax:`
 
           Maximum effort. Favors reasoning depth over latency.
 
           - `Type type`
-
-            - `MAX("max")`
 
       - `Optional<String> inferenceGeo`
 
@@ -273,8 +256,6 @@ Get Session
 
               - `Type type`
 
-                - `ANTHROPIC("anthropic")`
-
               - `String version`
 
             - `class BetaManagedAgentsCustomSkill:`
@@ -284,8 +265,6 @@ Get Session
               - `String skillId`
 
               - `Type type`
-
-                - `CUSTOM("custom")`
 
               - `String version`
 
@@ -303,9 +282,7 @@ Get Session
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "bash"constant`
-
-                    - `BASH("bash")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -317,19 +294,13 @@ Get Session
 
                       - `Type type`
 
-                        - `ALWAYS_ALLOW("always_allow")`
-
                     - `class BetaManagedAgentsAlwaysAskPolicy:`
 
                       Tool calls require user confirmation before execution.
 
                       - `Type type`
 
-                        - `ALWAYS_ASK("always_ask")`
-
-                  - `JsonValue; type "bash"constant`
-
-                    - `BASH("bash")`
+                  - `JsonValue type constant`
 
                 - `class BetaManagedAgentsEditToolConfig:`
 
@@ -337,9 +308,7 @@ Get Session
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "edit"constant`
-
-                    - `EDIT("edit")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -353,9 +322,7 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonValue; type "edit"constant`
-
-                    - `EDIT("edit")`
+                  - `JsonValue type constant`
 
                 - `class BetaManagedAgentsReadToolConfig:`
 
@@ -363,9 +330,7 @@ Get Session
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "read"constant`
-
-                    - `READ("read")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -379,9 +344,7 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonValue; type "read"constant`
-
-                    - `READ("read")`
+                  - `JsonValue type constant`
 
                 - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -389,9 +352,7 @@ Get Session
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "write"constant`
-
-                    - `WRITE("write")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -405,9 +366,7 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonValue; type "write"constant`
-
-                    - `WRITE("write")`
+                  - `JsonValue type constant`
 
                 - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -415,9 +374,7 @@ Get Session
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "glob"constant`
-
-                    - `GLOB("glob")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -431,9 +388,7 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonValue; type "glob"constant`
-
-                    - `GLOB("glob")`
+                  - `JsonValue type constant`
 
                 - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -441,9 +396,7 @@ Get Session
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "grep"constant`
-
-                    - `GREP("grep")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -457,9 +410,7 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonValue; type "grep"constant`
-
-                    - `GREP("grep")`
+                  - `JsonValue type constant`
 
                 - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -467,9 +418,7 @@ Get Session
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "web_fetch"constant`
-
-                    - `WEB_FETCH("web_fetch")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -483,9 +432,7 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonValue; type "web_fetch"constant`
-
-                    - `WEB_FETCH("web_fetch")`
+                  - `JsonValue type constant`
 
                   - `Optional<List<String>> allowedDomains`
 
@@ -493,15 +440,15 @@ Get Session
 
                   - `Optional<Long> maxContentTokens`
 
+                    format: int32
+
                 - `class BetaManagedAgentsWebSearchToolConfig:`
 
                   Configuration for the web_search tool.
 
                   - `boolean enabled`
 
-                  - `JsonValue; name "web_search"constant`
-
-                    - `WEB_SEARCH("web_search")`
+                  - `JsonValue name constant`
 
                   - `PermissionPolicy permissionPolicy`
 
@@ -515,9 +462,7 @@ Get Session
 
                       Tool calls require user confirmation before execution.
 
-                  - `JsonValue; type "web_search"constant`
-
-                    - `WEB_SEARCH("web_search")`
+                  - `JsonValue type constant`
 
                   - `Optional<List<String>> allowedDomains`
 
@@ -527,15 +472,15 @@ Get Session
 
                     Approximate user location for search result localization.
 
-                    - `JsonValue; type "approximate"constant`
+                    - `JsonValue type constant`
 
                       Location precision. Only "approximate" is supported.
-
-                      - `APPROXIMATE("approximate")`
 
                     - `Optional<String> city`
 
                       City name.
+
+                      minLength: 1, maxLength: 255
 
                     - `Optional<String> country`
 
@@ -545,9 +490,13 @@ Get Session
 
                       Region or state name.
 
+                      minLength: 1, maxLength: 255
+
                     - `Optional<String> timezone`
 
                       IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                      minLength: 1, maxLength: 255
 
               - `BetaManagedAgentsAgentToolsetDefaultConfig defaultConfig`
 
@@ -568,8 +517,6 @@ Get Session
                     Tool calls require user confirmation before execution.
 
               - `Type type`
-
-                - `AGENT_TOOLSET_20260401("agent_toolset_20260401")`
 
             - `class BetaManagedAgentsMcpToolset:`
 
@@ -613,8 +560,6 @@ Get Session
 
               - `Type type`
 
-                - `MCP_TOOLSET("mcp_toolset")`
-
             - `class BetaManagedAgentsCustomTool:`
 
               A custom tool as returned in API responses.
@@ -625,9 +570,7 @@ Get Session
 
                 JSON Schema for custom tool input parameters.
 
-                - `JsonValue; type "object"constant`
-
-                  - `OBJECT("object")`
+                - `JsonValue type constant`
 
                 - `Optional<Properties> properties`
 
@@ -637,13 +580,11 @@ Get Session
 
               - `Type type`
 
-                - `CUSTOM("custom")`
-
           - `Type type`
 
-            - `AGENT("agent")`
-
           - `long version`
+
+            format: int32
 
         - `class BetaManagedAgentsAdvisor:`
 
@@ -655,11 +596,7 @@ Get Session
 
           - `Type type`
 
-            - `ADVISOR("advisor")`
-
       - `Type type`
-
-        - `COORDINATOR("coordinator")`
 
     - `String name`
 
@@ -687,13 +624,15 @@ Get Session
 
     - `Type type`
 
-      - `AGENT("agent")`
-
     - `long version`
+
+      format: int32
 
   - `Optional<LocalDateTime> archivedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<BetaManagedAgentsBudgetLimit> budget`
 
@@ -711,15 +650,13 @@ Get Session
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `USD("USD")`
-
     - `Type type`
-
-      - `LIMIT("limit")`
 
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String environmentId`
 
@@ -733,6 +670,8 @@ Get Session
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `String description`
 
       What the agent should produce.
@@ -745,6 +684,8 @@ Get Session
 
       0-indexed revision cycle the outcome is currently on.
 
+      format: int32
+
     - `String outcomeId`
 
       Server-generated outc_ ID for this outcome.
@@ -754,8 +695,6 @@ Get Session
       Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
 
     - `Type type`
-
-      - `OUTCOME_EVALUATION("outcome_evaluation")`
 
   - `List<BetaManagedAgentsSessionResource> resources`
 
@@ -767,15 +706,17 @@ Get Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `String mountPath`
 
       - `Type type`
 
-        - `GITHUB_REPOSITORY("github_repository")`
-
       - `LocalDateTime updatedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `String url`
 
@@ -787,9 +728,9 @@ Get Session
 
             Branch name to check out.
 
-          - `Type type`
+            minLength: 1, maxLength: 255
 
-            - `BRANCH("branch")`
+          - `Type type`
 
         - `class BetaManagedAgentsCommitCheckout:`
 
@@ -797,9 +738,9 @@ Get Session
 
             Full commit SHA to check out.
 
-          - `Type type`
+            minLength: 7, maxLength: 64
 
-            - `COMMIT("commit")`
+          - `Type type`
 
     - `class BetaManagedAgentsFileResource:`
 
@@ -809,17 +750,19 @@ Get Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `String fileId`
 
       - `String mountPath`
 
       - `Type type`
 
-        - `FILE("file")`
-
       - `LocalDateTime updatedAt`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `class BetaManagedAgentsMemoryStoreResource:`
 
@@ -830,8 +773,6 @@ Get Session
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
       - `Type type`
-
-        - `MEMORY_STORE("memory_store")`
 
       - `Optional<Access> access`
 
@@ -849,6 +790,8 @@ Get Session
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+        maxLength: 4096
+
       - `Optional<String> mountPath`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -865,9 +808,13 @@ Get Session
 
       Cumulative time in seconds the session spent in running status. Excludes idle time.
 
+      format: double
+
     - `Optional<Double> durationSeconds`
 
       Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
+
+      format: double
 
   - `Status status`
 
@@ -885,11 +832,11 @@ Get Session
 
   - `Type type`
 
-    - `SESSION("session")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `BetaManagedAgentsSessionUsage usage`
 
@@ -899,6 +846,8 @@ Get Session
 
       Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
 
+      format: double
+
     - `Optional<BetaManagedAgentsCacheCreationUsage> cacheCreation`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -907,17 +856,25 @@ Get Session
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `Optional<Long> ephemeral5mInputTokens`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `Optional<Long> cacheReadInputTokens`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `Optional<Long> inputTokens`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `Optional<BetaMonetaryAmount> listCost`
 
@@ -927,6 +884,8 @@ Get Session
 
       Total output tokens generated across all turns.
 
+      format: int32
+
     - `Optional<BetaManagedAgentsServerToolUsage> serverToolUse`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
@@ -935,9 +894,13 @@ Get Session
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `Optional<Long> webSearchRequests`
 
         Number of server-executed web search requests.
+
+        format: int32
 
   - `List<String> vaultIds`
 
@@ -947,7 +910,7 @@ Get Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -968,7 +931,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

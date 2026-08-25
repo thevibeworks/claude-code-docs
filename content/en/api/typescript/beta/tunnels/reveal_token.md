@@ -1,19 +1,14 @@
----
-title: Reveal Tunnel Token
-url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels/reveal_token
----
+# Reveal Tunnel Token
 
-## Reveal Tunnel Token
+`client.beta.tunnels.revealToken(tunnelID, params?, options?): BetaTunnelToken`
 
-`client.beta.tunnels.revealToken(stringtunnelID, TunnelRevealTokenParamsparams?, RequestOptionsoptions?): BetaTunnelToken`
-
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Reveals a tunnel's connector token. The value is fetched live on each call; Anthropic does not store it. Repeated calls return the same value until the token is rotated. Exposed as POST so the token does not appear in intermediary access logs.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -95,7 +90,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaTunnelToken`
 
@@ -111,9 +106,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `type: "tunnel_token"`
 
-    - `"tunnel_token"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -127,7 +120,7 @@ const betaTunnelToken = await client.beta.tunnels.revealToken("tunnel_id");
 console.log(betaTunnelToken.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

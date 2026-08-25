@@ -125,6 +125,10 @@ jobs:
               event and a human should see it, so deletions are never `minor`
               no matter which directory they are in. Say what went and why it
               looks gone (moved? renamed? product sunset?).
+            - New entries in `tombstones.json` (pages newly gone upstream), or
+              entries removed from it (pages that came BACK). Both are
+              editorial news. `git diff tombstones.json` shows exactly what
+              changed - read it, do not just note that the file changed.
 
             **minor** (WHY: archive freshness, zero human value - PR is self-merged instantly):
             - Only github/ mirror or support/ content changed

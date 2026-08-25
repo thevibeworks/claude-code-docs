@@ -1,17 +1,12 @@
----
-title: Delete Session
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/delete
----
-
-## Delete Session
+# Delete Session
 
 `$client->beta->sessions->delete(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedSession`
 
-**delete** `/v1/sessions/{session_id}`
+**DELETE** `/v1/sessions/{session_id}`
 
 Delete Session
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -19,7 +14,7 @@ Delete Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeletedSession`
 
@@ -27,7 +22,7 @@ Delete Session
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -44,7 +39,7 @@ $betaManagedAgentsDeletedSession = $client->beta->sessions->delete(
 var_dump($betaManagedAgentsDeletedSession);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

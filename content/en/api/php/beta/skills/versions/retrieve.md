@@ -1,17 +1,12 @@
----
-title: Get Skill Version
-url: https://platform.claude.com/docs/en/api/php/beta/skills/versions/retrieve
----
-
-## Get Skill Version
+# Get Skill Version
 
 `$client->beta->skills->versions->retrieve(string version, string skillID, ?list<AnthropicBeta> betas): VersionGetResponse`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+## Parameters
 
 - `skillID: string`
 
@@ -29,7 +24,7 @@ Get Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `VersionGetResponse`
 
@@ -77,7 +72,7 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```php
 <?php
@@ -95,7 +90,7 @@ $version = $client->beta->skills->versions->retrieve(
 var_dump($version);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,10 +1,8 @@
-## Unwrap
+# Unwrap
 
 `beta.webhooks.unwrap() -> void`
 
-**** ``
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"

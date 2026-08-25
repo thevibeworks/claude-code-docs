@@ -33,17 +33,22 @@ Capture of local sessions is tied to the Compliance API being enabled for your o
 * Local sessions in organizations with [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled. No local session data is captured, so the local session endpoints return no sessions for those organizations.
 * Local sessions for which [zero data retention (ZDR)](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect. These sessions are excluded from list results, and the retrieve and messages endpoints return 404 for them.
 
-The following table summarizes how [local sessions](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) and [remote sessions](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-remote-sessions) differ.
+Anthropic recommends the Compliance API for retrieving the content of Cowork and Claude Code sessions. The following table compares [local sessions](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) and [remote sessions](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-remote-sessions) with the OpenTelemetry-based alternatives, [Cowork's OpenTelemetry logging](https://support.claude.com/en/articles/14477985-monitor-claude-cowork-activity-with-opentelemetry) and [Claude Code monitoring](https://code.claude.com/docs/en/monitoring-usage).
 
-|                          | Local sessions (on users' machines)                                                                      | Remote sessions (in the cloud)                                          |
-| ------------------------ | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Endpoints                | List, retrieve, and messages endpoints under `/v1/compliance/apps/sessions/local`                        | List and messages endpoints under `/v1/compliance/apps/sessions/remote` |
-| ID prefix                | `clls_`                                                                                                  | `cse_`                                                                  |
-| List filters             | `created_at` range only                                                                                  | Organization, user, and `created_at` range                              |
-| Lifecycle fields         | None: no `status` or `updated_at`                                                                        | `status`, `updated_at`                                                  |
-| Retention                | 6 years by default, or your organization's custom conversation retention period when a finite one is set | 6 years                                                                 |
-| Rate limits              | Shared Compliance API limit only                                                                         | Shared Compliance API limit plus a second request budget                |
-| Deletion through the API | No                                                                                                       | No                                                                      |
+|                                                           | Local sessions (on users' machines)                                                                                                                                            | Remote sessions (in the cloud)                                                                                                                                                 | OpenTelemetry logging                                                                                         |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Delivery                                                  | Pull: query and export over HTTPS                                                                                                                                              | Pull: query and export over HTTPS                                                                                                                                              | Push: streamed to your OTLP collector                                                                         |
+| Setup                                                     | Works with your existing Compliance Access Key                                                                                                                                 | Works with your existing Compliance Access Key                                                                                                                                 | Admin configures an OTLP endpoint and content-capture settings                                                |
+| Infrastructure                                            | Anthropic-hosted                                                                                                                                                               | Anthropic-hosted                                                                                                                                                               | You run the collector and storage                                                                             |
+| ID prefix                                                 | `clls_`                                                                                                                                                                        | `cse_`                                                                                                                                                                         | N/A                                                                                                           |
+| `product_surface` values                                  | `cowork`, `claude_code`                                                                                                                                                        | `cowork_remote`                                                                                                                                                                | N/A                                                                                                           |
+| Retention                                                 | 6 years by default, or your organization's custom conversation retention period when a finite one is set; held by Anthropic                                                    | 6 years, held by Anthropic                                                                                                                                                     | Your infrastructure, your policies                                                                            |
+| User prompts and assistant responses                      | Yes                                                                                                                                                                            | Yes                                                                                                                                                                            | Yes, subject to content-capture settings                                                                      |
+| Tool inputs                                               | Truncated to 10,000 bytes per input by default; up to about 1 MiB on request                                                                                                   | Truncated to 10,000 bytes per input by default; up to about 1 MiB on request                                                                                                   | Truncated summaries                                                                                           |
+| Tool result content                                       | Each text entry truncated to 10,000 bytes by default; up to about 1 MiB on request                                                                                             | Each text entry truncated to 10,000 bytes by default; up to about 1 MiB on request                                                                                             | Metadata such as size and success; Claude Code can also capture content with an optional, size-capped setting |
+| File contents                                             | Yes, through transcript tool calls (text only; other content appears as a placeholder)                                                                                         | Yes, through transcript tool calls (text only; other content is omitted)                                                                                                       | File paths; Claude Code can also capture contents with an optional, size-capped setting                       |
+| Host and device metadata (terminal type, workspace paths) | No                                                                                                                                                                             | No                                                                                                                                                                             | Yes                                                                                                           |
+| Token usage and cost                                      | No; available through the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api#get-access-to-the-claude-enterprise-analytics-api) | No; available through the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api#get-access-to-the-claude-enterprise-analytics-api) | Yes                                                                                                           |
 
 ## Sessions on users' machines (local sessions)
 
@@ -55,7 +60,7 @@ For local sessions, Anthropic records each conversation server-side as its reque
 
 In organizations that use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek), local sessions are listed and retrievable as usual, but transcript content is not currently returned; each message comes back with its content marked unavailable (see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript) for how such messages are marked).
 
-The list endpoint returns session metadata, with no transcript content, for every linked organization your key can read. Unlike the remote session list, it has no organization or user filters: bound the results in time with the `created_at.gte` and `created_at.lt` parameters. Both take RFC 3339 timestamps with a required UTC offset, and when both are supplied, `created_at.lt` must be strictly after `created_at.gte` or the request returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request). New sessions and messages appear in results after a short processing delay, typically within minutes; a session that is missing immediately after it starts is not necessarily uncaptured. The following request lists sessions created since a given date.
+The list endpoint returns session metadata, with no transcript content, for every linked organization your key can read. Unlike the remote session list, it has no organization or user filters: bound the results in time with the `created_at.gte` and `created_at.lt` parameters. Both take RFC 3339 timestamps with a required UTC offset, and when both are supplied, `created_at.lt` must be strictly after `created_at.gte` or the request returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request). A third time filter, `updated_at.gte`, bounds by last activity instead of first: it returns sessions whose last inference call is at or after the given time and combines with the `created_at` filters without changing the ordering or pagination. Use it to poll for sessions active since a previous pass, as described later in this section. New sessions and messages appear in results after a short processing delay, typically within minutes; a session that is missing immediately after it starts is not necessarily uncaptured. The following request lists sessions created since a given date.
 
 ```bash cURL
 curl --fail-with-body -sS -G \
@@ -78,7 +83,8 @@ curl --fail-with-body -sS -G \
         "email_address": "engineer@example.com"
       },
       "product_surface": "cowork",
-      "created_at": "2026-07-09T14:02:11Z"
+      "created_at": "2026-07-09T14:02:11Z",
+      "updated_at": "2026-07-09T14:02:38Z"
     },
     {
       "type": "compliance_local_session",
@@ -90,7 +96,8 @@ curl --fail-with-body -sS -G \
         "email_address": null
       },
       "product_surface": "claude_code",
-      "created_at": "2026-07-08T09:15:43Z"
+      "created_at": "2026-07-08T09:15:43Z",
+      "updated_at": "2026-07-08T09:52:10Z"
     }
   ],
   "next_page": "page_AAEfQx7mPdLkq9Rt2VwHbZk"
@@ -101,7 +108,7 @@ Results are sorted in reverse chronological order (newest first) by `created_at`
 
 In each session object, `user.id` is always set and survives account deletion; `user.email_address` is `null` when the user's account has been deleted or the user is no longer a member of an organization your key can read. `workspace_id` is `null` when the session was not associated with a workspace. A local session corresponds to one client session ID: starting a new conversation in the client, or clearing its context, begins a new session record. Treat `id` values as opaque strings; the format may change without notice.
 
-Local sessions carry no `status` and no `updated_at`: a local session has no server-side lifecycle, and its visibility is governed by retention instead. A local session is captured as the series of Claude API calls (inference calls) that the client makes during the session, and retention applies to each captured call individually. `created_at` is the timestamp of the session's earliest retained call (UTC). As older calls age past the retention period, `created_at` advances accordingly, and once every call in a session has aged out, the session is no longer returned. Because `created_at` can shift between runs, deduplicate on `id` when you re-walk the list over time. A session's `created_at` does not move later as the session continues, and there is no `updated_at`, so a session that gains messages after you first export it does not reappear in a later `created_at` window. To keep transcripts current, re-list a trailing window at least as long as your longest-running sessions on each run and re-fetch the transcripts of the sessions it returns, deduplicating messages on `id`.
+Local sessions carry an `updated_at` but no `status`: a local session has no server-side lifecycle status, and its visibility is governed by retention instead. A local session is captured as the series of Claude API calls (inference calls) that the client makes during the session, and retention applies to each captured call individually. `created_at` is the timestamp of the session's earliest retained call and `updated_at` the timestamp of its last, both UTC. As older calls age past the retention period, `created_at` advances accordingly, and once every call in a session has aged out, the session is no longer returned; `updated_at` tracks the most recent call and is unaffected until then. Because `created_at` can shift between runs, deduplicate on `id` when you re-walk the list over time. To keep transcripts current as sessions gain messages, poll with the `updated_at.gte` filter, overlapping consecutive windows. On the list endpoint `updated_at` is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity, and a new call only becomes queryable after the short processing delay noted earlier. Because of that lag, set each run's `updated_at.gte` a few minutes before your previous run's start time, not to the previous run's time exactly. A bound set to the exact previous time silently and permanently drops a session whose final call was still indexing at that moment, because once the bound advances past that call no later run returns it. Deduplicate the returned sessions on `id`, re-fetch their transcripts, and deduplicate messages on `id`. Retrieving a session, or its messages, always reflects the exact latest retained call, so a periodic reconciliation pass over an older window is the belt-and-braces alternative to widening the overlap.
 
 The list is built from session activity metadata, so it can include sessions whose transcript content was not captured, for example sessions that ran before capture began for your organization (as far back as your retention period allows); the transcript of such a session returns each message with its content marked unavailable (see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript)).
 
@@ -125,7 +132,7 @@ The messages endpoint returns the session's transcript, reconstructed from the c
 * Images, PDFs, and other binary or structured blocks are not returned. Each appears as a `text` block reading `[<block type> content not shown]` (for example, `[image content not shown]`) with `truncated` set to `true`. Non-text items inside a tool result are replaced by one `[N non-text item(s) not shown]` entry, and the tool result block's `truncated` is `true`.
 * Citation metadata on `text` blocks is omitted, and the affected block carries `truncated` set to `true`.
 
-Project instruction files such as `CLAUDE.md` appear as ordinary user-role content. Skill content appears when the client sends it as message content and is not distinguished from other user text. For a coverage summary and a comparison with OpenTelemetry logging for Cowork and Claude Code, see the [Compliance API FAQ](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention).
+Project instruction files such as `CLAUDE.md` appear as ordinary user-role content. Skill content appears when the client sends it as message content and is not distinguished from other user text. For a coverage summary, see the [Compliance API FAQ](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention); for a table comparing local sessions with remote sessions and OpenTelemetry logging, see this page's introduction.
 
 ```bash cURL
 session_id="clls_01HxKpLmNoPqRsTuVwXyZaBc"
@@ -147,13 +154,15 @@ curl --fail-with-body -sS \
       "email_address": null
     },
     "product_surface": "cowork",
-    "created_at": "2026-07-09T14:02:11Z"
+    "created_at": "2026-07-09T14:02:11Z",
+    "updated_at": "2026-07-09T14:02:38Z"
   },
   "data": [
     {
       "type": "compliance_local_session_message",
       "id": "clsm_01J4KpLmNoPqRsTuVwXyZaBa",
       "role": "user",
+      "model": null,
       "created_at": "2026-07-09T14:02:11Z",
       "provenance": {
         "type": "synthetic_marker"
@@ -170,6 +179,7 @@ curl --fail-with-body -sS \
       "type": "compliance_local_session_message",
       "id": "clsm_01J4KpLmNoPqRsTuVwXyZaBc",
       "role": "user",
+      "model": null,
       "created_at": "2026-07-09T14:02:11Z",
       "provenance": null,
       "content": [
@@ -184,6 +194,7 @@ curl --fail-with-body -sS \
       "type": "compliance_local_session_message",
       "id": "clsm_01J4KpLmNoPqRsTuVwXyZaBd",
       "role": "assistant",
+      "model": "claude-opus-5",
       "created_at": "2026-07-09T14:02:11Z",
       "provenance": null,
       "content": [
@@ -205,6 +216,7 @@ curl --fail-with-body -sS \
       "type": "compliance_local_session_message",
       "id": "clsm_01J4KpLmNoPqRsTuVwXyZaBe",
       "role": "user",
+      "model": null,
       "created_at": "2026-07-09T14:02:38Z",
       "provenance": null,
       "content": [
@@ -227,6 +239,7 @@ curl --fail-with-body -sS \
       "type": "compliance_local_session_message",
       "id": "clsm_01J4KpLmNoPqRsTuVwXyZaBf",
       "role": "assistant",
+      "model": "claude-opus-5",
       "created_at": "2026-07-09T14:02:38Z",
       "provenance": null,
       "content": [
@@ -246,11 +259,11 @@ The response embeds a `session` envelope alongside the paginated `data` array. T
 
 Messages are returned oldest first by default; pass `order=desc` to reverse. Pagination uses the same `page`/`next_page` scheme as the list endpoint, with a `limit` default of 100 and a max of 1,000. A page can end early when the response reaches its size limit, so a page with fewer than `limit` messages does not mean you have reached the end; keep paginating until `next_page` is `null`. Page cursors are bound to the session and sort order they were issued under, and a walk's cursors expire 24 hours after its first page: an expired cursor returns [400 Bad Request](https://platform.claude.com/docs/en/manage-claude/compliance-errors#400-bad-request) telling you to restart without the `page` parameter, and the restarted walk reflects the current retention boundary. A cursor issued for a different session or `order` also returns 400, as an invalid cursor.
 
-Each message carries a `role` (`user` or `assistant`) and a `content` array of `text`, `tool_use`, and `tool_result` blocks. A `text` block carries `text` and `truncated`. A `tool_use` block carries `id`, `name`, `input`, and `truncated`, where `input` is a JSON-encoded string rather than an object. A `tool_result` block carries `tool_use_id`, `name`, `is_error`, a `content` array of `text` entries, and `truncated`. MCP tool calls and results, and most server tool calls and results, are normalized into these same `tool_use` and `tool_result` shapes; any other block type appears as a `[<block type> content not shown]` placeholder. A message `id` is stable while the turn is retained. Every message reconstructed from the same inference call carries that call's timestamp, so consecutive messages often share a `created_at` value; preserve the returned order rather than re-sorting by timestamp.
+Each message carries a `role` (`user` or `assistant`) and a `content` array of `text`, `tool_use`, and `tool_result` blocks. It also carries a `model`: on an assistant turn captured from the Claude API this is the model that served the turn, and it is `null` on user messages and on any assistant message whose `provenance` is set, since client-asserted history and synthetic markers were not produced by a model and the serving model is unknown for unavailable content. A `text` block carries `text` and `truncated`. A `tool_use` block carries `id`, `name`, `input`, and `truncated`, where `input` is a JSON-encoded string rather than an object. A `tool_result` block carries `tool_use_id`, `name`, `is_error`, a `content` array of `text` entries, and `truncated`. MCP tool calls and results, and most server tool calls and results, are normalized into these same `tool_use` and `tool_result` shapes; any other block type appears as a `[<block type> content not shown]` placeholder. A message `id` is stable while the turn is retained. Every message reconstructed from the same inference call carries that call's timestamp, so consecutive messages often share a `created_at` value; preserve the returned order rather than re-sorting by timestamp.
 
 Each message also carries a `provenance` field describing how its content was captured. `provenance` is `null` for verified content captured by the Claude API, which is the common case. Otherwise it is an object whose `type` marks the exception:
 
-* `content_unavailable` means the content cannot be returned. The `content` array is empty, and `provenance.reason` states why. `not_captured` means no content is available for the turn; it does not prove that no record was stored, because content withheld by a storage-side access policy is reported with the same reason (for example, in organizations that use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek#disabled-or-modified)), and individual turns within an otherwise captured session can be unavailable for other data-handling reasons and carry the same reason. `cmek_key_revoked` is reserved for content encrypted under your organization's customer-managed key when that key is unavailable (for example, revoked); it is not currently returned, so handle it for forward compatibility. `retention_elapsed` means the content aged past retention. `oversize` means a single message exceeded the per-message size bound; the message is still returned, with an empty `content` array.
+* `content_unavailable` means the content cannot be returned. The `content` array is empty, and `provenance.reason` states why. `not_captured` means no content is available for the turn; it does not prove that no record was stored, because content withheld by a storage-side access policy is reported with the same reason (for example, in organizations that use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek#disabled-or-modified)), and individual turns within an otherwise captured session can be unavailable for other data-handling reasons and carry the same reason. `client_aborted` means the client closed the connection or cancelled the request before the response completed, so the turn's response was not captured; any partial output already streamed to the client is not included, and this reason applies to assistant-role turns only. `cmek_key_revoked` is reserved for content encrypted under your organization's customer-managed key when that key is unavailable (for example, revoked); it is not currently returned, so handle it for forward compatibility. `retention_elapsed` means the content aged past retention. `oversize` means a single message exceeded the per-message size bound; the message is still returned, with an empty `content` array.
 * `client_asserted` marks assistant messages that the client supplied as conversation history and that could not be matched to a captured response; their authorship is not verified.
 * `synthetic_marker` marks records generated by the endpoint itself, such as the marker that stands in for the system prompt. When the client rewrites or compacts its conversation history mid-session (for example, after context compaction), the transcript inserts a marker message at that point and continues with the new content the client sent; when your organization has a finite retention period, the rewritten history itself is withheld (a second marker notes this) and only the latest user turn and what follows are shown.
 
@@ -328,7 +341,7 @@ A session is owned by either a user or an agent, never both. For user-owned sess
 
 ### Retrieve a remote session transcript
 
-The messages endpoint returns the session's transcript: user prompts, assistant responses, and tool calls and results. Thinking blocks and images are not included. For a coverage summary and a comparison with Cowork's OpenTelemetry logging, see the [Compliance API FAQ](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention).
+The messages endpoint returns the session's transcript: user prompts, assistant responses, and tool calls and results. Thinking blocks and images are not included. For a coverage summary, see the [Compliance API FAQ](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention); for a table comparing remote sessions with local sessions and Cowork's OpenTelemetry logging, see this page's introduction.
 
 ```bash cURL
 session_id="cse_01WpQrStUvXyZaBcDeFgHjK6"
@@ -411,7 +424,7 @@ The session endpoints are read-only; local and remote sessions cannot be deleted
   </Card>
 
   <Card title="Compliance API FAQ" href="https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention">
-    A coverage summary for session transcripts and a comparison with OpenTelemetry logging.
+    A field-by-field summary of what session transcripts include, and other common questions.
   </Card>
 
   <Card title="Handle Compliance API errors" href="https://platform.claude.com/docs/en/manage-claude/compliance-errors">

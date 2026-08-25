@@ -1,23 +1,18 @@
----
-title: Get Invite
-url: https://platform.claude.com/docs/en/api/admin/invites/retrieve
----
+# Get Invite
 
-## Get Invite
-
-**get** `/v1/organizations/invites/{invite_id}`
+**GET** `/v1/organizations/invites/{invite_id}`
 
 For Claude Enterprise organizations, this endpoint's availability is in beta.
 
-### Path Parameters
+## Path parameters
 
 - `invite_id: string`
 
   ID of the Invite.
 
-### Returns
+## Returns
 
-- `Invite object { id, accepted_at, email, 6 more }`
+- `Invite object`
 
   - `id: string`
 
@@ -27,6 +22,8 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     RFC 3339 datetime string indicating when the Invite was accepted, or null.
 
+    format: date-time
+
   - `email: string`
 
     Email of the User being invited.
@@ -35,9 +32,13 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     RFC 3339 datetime string indicating when the Invite expires.
 
+    format: date-time
+
   - `invited_at: string`
 
     RFC 3339 datetime string indicating when the Invite was created.
+
+    format: date-time
 
   - `rbac_group_ids: array of string`
 
@@ -83,17 +84,17 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     For Invites, this is always `"invite"`.
 
-    - `"invite"`
+    default: invite
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

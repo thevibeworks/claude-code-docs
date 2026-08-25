@@ -1,17 +1,12 @@
----
-title: Update Credential
-url: https://platform.claude.com/docs/en/api/python/beta/vaults/credentials/update
----
+# Update Credential
 
-## Update Credential
+`beta.vaults.credentials.update(credential_id, **kwargs)  -> BetaManagedAgentsCredential`
 
-`beta.vaults.credentials.update(strcredential_id, CredentialUpdateParams**kwargs)  -> BetaManagedAgentsCredential`
-
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Update Credential
 
-### Parameters
+## Parameters
 
 - `vault_id: str`
 
@@ -27,15 +22,17 @@ Update Credential
 
     - `type: Literal["mcp_oauth"]`
 
-      - `"mcp_oauth"`
-
     - `access_token: Optional[str]`
 
       Updated OAuth access token.
 
+      minLength: 1, maxLength: 8192
+
     - `expires_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `refresh: Optional[BetaManagedAgentsMCPOAuthRefreshUpdateParams]`
 
@@ -45,9 +42,13 @@ Update Credential
 
         Updated OAuth refresh token.
 
+        minLength: 1, maxLength: 4096
+
       - `scope: Optional[str]`
 
         Updated OAuth scope for the refresh request.
+
+        maxLength: 8192
 
       - `token_endpoint_auth: Optional[TokenEndpointAuth]`
 
@@ -59,11 +60,11 @@ Update Credential
 
           - `type: Literal["client_secret_basic"]`
 
-            - `"client_secret_basic"`
-
           - `client_secret: Optional[str]`
 
             Updated OAuth client secret.
+
+            minLength: 1, maxLength: 512
 
         - `class BetaManagedAgentsTokenEndpointAuthPostUpdateParam: …`
 
@@ -71,11 +72,11 @@ Update Credential
 
           - `type: Literal["client_secret_post"]`
 
-            - `"client_secret_post"`
-
           - `client_secret: Optional[str]`
 
             Updated OAuth client secret.
+
+            minLength: 1, maxLength: 512
 
   - `class BetaManagedAgentsStaticBearerUpdateParams: …`
 
@@ -83,19 +84,17 @@ Update Credential
 
     - `type: Literal["static_bearer"]`
 
-      - `"static_bearer"`
-
     - `token: Optional[str]`
 
       Updated static bearer token value.
+
+      minLength: 1, maxLength: 8192
 
   - `class BetaManagedAgentsEnvironmentVariableUpdateParams: …`
 
     Parameters for updating an environment variable credential. `secret_name` is immutable.
 
     - `type: Literal["environment_variable"]`
-
-      - `"environment_variable"`
 
     - `injection_location: Optional[BetaManagedAgentsInjectionLocationUpdateParams]`
 
@@ -119,8 +118,6 @@ Update Credential
 
         - `type: Literal["unrestricted"]`
 
-          - `"unrestricted"`
-
       - `class BetaManagedAgentsLimitedCredentialNetworkingParams: …`
 
         Substitute the secret only on requests to the listed hosts.
@@ -131,15 +128,17 @@ Update Credential
 
         - `type: Literal["limited"]`
 
-          - `"limited"`
-
     - `secret_value: Optional[str]`
 
       Updated secret value.
 
+      minLength: 1, maxLength: 4096
+
 - `display_name: Optional[str]`
 
   Updated human-readable name for the credential. 1-255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `metadata: Optional[Dict[str, Optional[str]]]`
 
@@ -221,7 +220,7 @@ Update Credential
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsCredential: …`
 
@@ -234,6 +233,8 @@ Update Credential
   - `archived_at: Optional[datetime]`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `auth: Auth`
 
@@ -249,11 +250,11 @@ Update Credential
 
       - `type: Literal["mcp_oauth"]`
 
-        - `"mcp_oauth"`
-
       - `expires_at: Optional[datetime]`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh: Optional[BetaManagedAgentsMCPOAuthRefreshResponse]`
 
@@ -277,23 +278,17 @@ Update Credential
 
             - `type: Literal["none"]`
 
-              - `"none"`
-
           - `class BetaManagedAgentsTokenEndpointAuthBasicResponse: …`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: Literal["client_secret_basic"]`
 
-              - `"client_secret_basic"`
-
           - `class BetaManagedAgentsTokenEndpointAuthPostResponse: …`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: Literal["client_secret_post"]`
-
-              - `"client_secret_post"`
 
         - `resource: Optional[str]`
 
@@ -312,8 +307,6 @@ Update Credential
         URL of the MCP server this credential authenticates against.
 
       - `type: Literal["static_bearer"]`
-
-        - `"static_bearer"`
 
     - `class BetaManagedAgentsEnvironmentVariableAuthResponse: …`
 
@@ -341,8 +334,6 @@ Update Credential
 
           - `type: Literal["unrestricted"]`
 
-            - `"unrestricted"`
-
         - `class BetaManagedAgentsLimitedCredentialNetworkingResponse: …`
 
           The secret is substituted only on requests to the listed hosts.
@@ -353,19 +344,17 @@ Update Credential
 
           - `type: Literal["limited"]`
 
-            - `"limited"`
-
       - `secret_name: str`
 
         Name of the environment variable.
 
       - `type: Literal["environment_variable"]`
 
-        - `"environment_variable"`
-
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Dict[str, str]`
 
@@ -373,11 +362,11 @@ Update Credential
 
   - `type: Literal["vault_credential"]`
 
-    - `"vault_credential"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: str`
 
@@ -387,7 +376,7 @@ Update Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```python
 import os
@@ -405,7 +394,7 @@ beta_managed_agents_credential = client.beta.vaults.credentials.update(
 print(beta_managed_agents_credential.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

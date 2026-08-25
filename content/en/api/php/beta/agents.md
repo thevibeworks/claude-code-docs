@@ -1,15 +1,10 @@
----
-title: Agents
-url: https://platform.claude.com/docs/en/api/php/beta/agents
----
-
 # Agents
 
 ## Create Agent
 
 `$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents`
+**POST** `/v1/agents`
 
 Create Agent
 
@@ -150,7 +145,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -231,7 +226,7 @@ var_dump($betaManagedAgentsAgent);
 
 `$client->beta->agents->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents`
+**GET** `/v1/agents`
 
 List Agents
 
@@ -328,7 +323,7 @@ $page = $client->beta->agents->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -414,7 +409,7 @@ var_dump($page);
 
 `$client->beta->agents->retrieve(string agentID, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**get** `/v1/agents/{agent_id}`
+**GET** `/v1/agents/{agent_id}`
 
 Get Agent
 
@@ -494,7 +489,7 @@ $betaManagedAgentsAgent = $client->beta->agents->retrieve(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -575,7 +570,7 @@ var_dump($betaManagedAgentsAgent);
 
 `$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents/{agent_id}`
+**POST** `/v1/agents/{agent_id}`
 
 Update Agent
 
@@ -729,7 +724,7 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -810,7 +805,7 @@ var_dump($betaManagedAgentsAgent);
 
 `$client->beta->agents->archive(string agentID, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents/{agent_id}/archive`
+**POST** `/v1/agents/{agent_id}/archive`
 
 Archive Agent
 
@@ -885,7 +880,7 @@ $betaManagedAgentsAgent = $client->beta->agents->archive(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -962,7 +957,7 @@ var_dump($betaManagedAgentsAgent);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Advisor
 
@@ -2178,17 +2173,17 @@ var_dump($betaManagedAgentsAgent);
 
   - `?Type type`
 
-# Versions
+## Agents › Versions
 
-## List Agent Versions
+### List Agent Versions
 
 `$client->beta->agents->versions->list(string agentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
-### Parameters
+#### Parameters
 
 - `agentID: string`
 
@@ -2204,7 +2199,7 @@ List Agent Versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -2250,7 +2245,7 @@ List Agent Versions
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -2269,7 +2264,7 @@ $page = $client->beta->agents->versions->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {

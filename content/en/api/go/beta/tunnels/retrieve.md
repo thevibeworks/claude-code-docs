@@ -1,25 +1,20 @@
----
-title: Get Tunnel
-url: https://platform.claude.com/docs/en/api/go/beta/tunnels/retrieve
----
-
-## Get Tunnel
+# Get Tunnel
 
 `client.Beta.Tunnels.Get(ctx, tunnelID, query) (*BetaTunnel, error)`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel by ID.
 
-### Parameters
+## Parameters
 
 - `tunnelID string`
 
 - `query BetaTunnelGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -95,7 +90,7 @@ Fetches a tunnel by ID.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaTunnel struct{…}`
 
@@ -109,9 +104,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -123,9 +122,7 @@ Fetches a tunnel by ID.
 
   - `Type Tunnel`
 
-    - `const TunnelTunnel Tunnel = "tunnel"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -154,7 +151,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

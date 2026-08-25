@@ -1,17 +1,12 @@
----
-title: Get Agent
-url: https://platform.claude.com/docs/en/api/java/beta/agents/retrieve
----
+# Get Agent
 
-## Get Agent
+`BetaManagedAgentsAgent beta().agents().retrieve(params = AgentRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsAgent beta().agents().retrieve(AgentRetrieveParamsparams = AgentRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/agents/{agent_id}`
+**GET** `/v1/agents/{agent_id}`
 
 Get Agent
 
-### Parameters
+## Parameters
 
 - `AgentRetrieveParams params`
 
@@ -20,6 +15,8 @@ Get Agent
   - `Optional<Long> version`
 
     Agent version. Omit for the most recent version. Must be at least 1 if specified.
+
+    format: int32
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -93,7 +90,7 @@ Get Agent
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsAgent:`
 
@@ -105,9 +102,13 @@ Get Agent
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> description`
 
@@ -116,8 +117,6 @@ Get Agent
     - `String name`
 
     - `Type type`
-
-      - `URL("url")`
 
     - `String url`
 
@@ -195,15 +194,11 @@ Get Agent
 
         - `Type type`
 
-          - `LOW("low")`
-
       - `class BetaManagedAgentsEffortMedium:`
 
         Medium effort. Balances latency and reasoning depth.
 
         - `Type type`
-
-          - `MEDIUM("medium")`
 
       - `class BetaManagedAgentsEffortHigh:`
 
@@ -211,23 +206,17 @@ Get Agent
 
         - `Type type`
 
-          - `HIGH("high")`
-
       - `class BetaManagedAgentsEffortXhigh:`
 
         Extra-high effort. Not all models accept this level.
 
         - `Type type`
 
-          - `XHIGH("xhigh")`
-
       - `class BetaManagedAgentsEffortMax:`
 
         Maximum effort. Favors reasoning depth over latency.
 
         - `Type type`
-
-          - `MAX("max")`
 
     - `Optional<String> inferenceGeo`
 
@@ -257,9 +246,9 @@ Get Agent
 
         - `Type type`
 
-          - `AGENT("agent")`
-
         - `long version`
+
+          format: int32
 
       - `class BetaManagedAgentsAdvisor:`
 
@@ -271,11 +260,7 @@ Get Agent
 
         - `Type type`
 
-          - `ADVISOR("advisor")`
-
     - `Type type`
-
-      - `COORDINATOR("coordinator")`
 
   - `String name`
 
@@ -289,8 +274,6 @@ Get Agent
 
       - `Type type`
 
-        - `ANTHROPIC("anthropic")`
-
       - `String version`
 
     - `class BetaManagedAgentsCustomSkill:`
@@ -300,8 +283,6 @@ Get Agent
       - `String skillId`
 
       - `Type type`
-
-        - `CUSTOM("custom")`
 
       - `String version`
 
@@ -319,9 +300,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "bash"constant`
-
-            - `BASH("bash")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -333,19 +312,13 @@ Get Agent
 
               - `Type type`
 
-                - `ALWAYS_ALLOW("always_allow")`
-
             - `class BetaManagedAgentsAlwaysAskPolicy:`
 
               Tool calls require user confirmation before execution.
 
               - `Type type`
 
-                - `ALWAYS_ASK("always_ask")`
-
-          - `JsonValue; type "bash"constant`
-
-            - `BASH("bash")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -353,9 +326,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "edit"constant`
-
-            - `EDIT("edit")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -369,9 +340,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "edit"constant`
-
-            - `EDIT("edit")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -379,9 +348,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "read"constant`
-
-            - `READ("read")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -395,9 +362,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "read"constant`
-
-            - `READ("read")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -405,9 +370,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "write"constant`
-
-            - `WRITE("write")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -421,9 +384,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "write"constant`
-
-            - `WRITE("write")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -431,9 +392,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "glob"constant`
-
-            - `GLOB("glob")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -447,9 +406,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "glob"constant`
-
-            - `GLOB("glob")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -457,9 +414,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "grep"constant`
-
-            - `GREP("grep")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -473,9 +428,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "grep"constant`
-
-            - `GREP("grep")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -483,9 +436,7 @@ Get Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "web_fetch"constant`
-
-            - `WEB_FETCH("web_fetch")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -499,9 +450,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "web_fetch"constant`
-
-            - `WEB_FETCH("web_fetch")`
+          - `JsonValue type constant`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -509,15 +458,15 @@ Get Agent
 
           - `Optional<Long> maxContentTokens`
 
+            format: int32
+
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
 
           - `boolean enabled`
 
-          - `JsonValue; name "web_search"constant`
-
-            - `WEB_SEARCH("web_search")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -531,9 +480,7 @@ Get Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "web_search"constant`
-
-            - `WEB_SEARCH("web_search")`
+          - `JsonValue type constant`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -543,15 +490,15 @@ Get Agent
 
             Approximate user location for search result localization.
 
-            - `JsonValue; type "approximate"constant`
+            - `JsonValue type constant`
 
               Location precision. Only "approximate" is supported.
-
-              - `APPROXIMATE("approximate")`
 
             - `Optional<String> city`
 
               City name.
+
+              minLength: 1, maxLength: 255
 
             - `Optional<String> country`
 
@@ -561,9 +508,13 @@ Get Agent
 
               Region or state name.
 
+              minLength: 1, maxLength: 255
+
             - `Optional<String> timezone`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `BetaManagedAgentsAgentToolsetDefaultConfig defaultConfig`
 
@@ -584,8 +535,6 @@ Get Agent
             Tool calls require user confirmation before execution.
 
       - `Type type`
-
-        - `AGENT_TOOLSET_20260401("agent_toolset_20260401")`
 
     - `class BetaManagedAgentsMcpToolset:`
 
@@ -629,8 +578,6 @@ Get Agent
 
       - `Type type`
 
-        - `MCP_TOOLSET("mcp_toolset")`
-
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
@@ -641,9 +588,7 @@ Get Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue; type "object"constant`
-
-          - `OBJECT("object")`
+        - `JsonValue type constant`
 
         - `Optional<Properties> properties`
 
@@ -653,21 +598,21 @@ Get Agent
 
       - `Type type`
 
-        - `CUSTOM("custom")`
-
   - `Type type`
-
-    - `AGENT("agent")`
 
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `long version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+    format: int32
+
+## Example
 
 ```java
 package com.anthropic.example;
@@ -688,7 +633,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

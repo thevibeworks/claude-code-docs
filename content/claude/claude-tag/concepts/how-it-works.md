@@ -247,6 +247,8 @@ A thread is durable, but the sandbox behind it is not. Durable means the thread,
 
 For long tasks, ask it to push branches and post drafts as it goes, so deliverables are saved somewhere durable while the work is still running. See [Good habits](/docs/claude-tag/users/good-habits#give-every-task-a-definition-of-done).
 
+A running thread isn't told about configuration changes an admin makes after it started, such as a new connection, plugin, skill, repository grant, or custom instruction. A new thread starts from the scope's current configuration, so after changing a scope, start a fresh thread to see the change.
+
 The channel's own session, the one that handles top-level messages outside any thread, lives longer than a thread's. Claude replaces it with a fresh one when a top-level message arrives after about an hour with no top-level activity, when the session is about a day old, or when the channel's configuration has changed since the session started. Channel memory and the channel's history are unaffected, so the only visible effect is that Claude no longer carries what the previous session had been working on.
 
 Claude also stops reading a channel's top-level messages once about 100 of them have arrived since it last posted or replied there. An `@Claude` mention in the channel starts it reading again; see [When Claude stops reading a channel](/docs/claude-tag/users/when-claude-responds#when-claude-stops-reading-a-channel). These thresholds are defaults and can change, so treat the numbers as approximate.

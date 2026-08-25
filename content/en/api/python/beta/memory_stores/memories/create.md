@@ -1,17 +1,12 @@
----
-title: Create a memory
-url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/memories/create
----
+# Create a memory
 
-## Create a memory
+`beta.memory_stores.memories.create(memory_store_id, **kwargs)  -> BetaManagedAgentsMemory`
 
-`beta.memory_stores.memories.create(strmemory_store_id, MemoryCreateParams**kwargs)  -> BetaManagedAgentsMemory`
-
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
-### Parameters
+## Parameters
 
 - `memory_store_id: str`
 
@@ -22,6 +17,8 @@ Create a memory
 - `path: str`
 
   Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
+
+  minLength: 2, maxLength: 1024
 
 - `view: Optional[BetaManagedAgentsMemoryView]`
 
@@ -107,7 +104,7 @@ Create a memory
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemory: …`
 
@@ -125,9 +122,13 @@ Create a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: str`
 
@@ -143,17 +144,17 @@ Create a memory
 
   - `type: Literal["memory"]`
 
-    - `"memory"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content: Optional[str]`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
 ```python
 import os
@@ -172,7 +173,7 @@ beta_managed_agents_memory = client.beta.memory_stores.memories.create(
 print(beta_managed_agents_memory.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

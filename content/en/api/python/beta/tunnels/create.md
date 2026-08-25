@@ -1,23 +1,20 @@
----
-title: Create Tunnel
-url: https://platform.claude.com/docs/en/api/python/beta/tunnels/create
----
+# Create Tunnel
 
-## Create Tunnel
+`beta.tunnels.create(**kwargs)  -> BetaTunnel`
 
-`beta.tunnels.create(TunnelCreateParams**kwargs)  -> BetaTunnel`
-
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel; it is not idempotent. The new tunnel rejects MCP traffic until at least one CA certificate is added.
 
-### Parameters
+## Parameters
 
 - `display_name: Optional[str]`
 
   Optional human-readable name for the tunnel (1-255 characters).
+
+  minLength: 1, maxLength: 255
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -95,7 +92,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaTunnel: …`
 
@@ -109,9 +106,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: Optional[str]`
 
@@ -123,9 +124,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `type: Literal["tunnel"]`
 
-    - `"tunnel"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -140,7 +139,7 @@ beta_tunnel = client.beta.tunnels.create()
 print(beta_tunnel.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

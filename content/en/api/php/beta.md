@@ -1,11 +1,6 @@
----
-title: Beta
-url: https://platform.claude.com/docs/en/api/php/beta
----
-
 # Beta
 
-## Domain Types
+## Domain types
 
 ### Anthropic Beta
 
@@ -106,8 +101,6 @@ url: https://platform.claude.com/docs/en/api/php/beta
 ### Beta Currency
 
 - `BetaCurrency`
-
-  - `"USD"`
 
 ### Beta Error
 
@@ -237,19 +230,19 @@ url: https://platform.claude.com/docs/en/api/php/beta
 
   - `"rate_limit_error" type`
 
-# Models
+## Beta › Models
 
-## List Models
+### List Models
 
 `$client->beta->models->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas): Page<BetaModelInfo>`
 
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
 The Models API response can be used to determine which models are available for use in the API. More recently released models are listed first.
 
-### Parameters
+#### Parameters
 
 - `afterID?:optional string`
 
@@ -265,11 +258,13 @@ The Models API response can be used to determine which models are available for 
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20
+
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaModelInfo`
 
@@ -307,7 +302,7 @@ The Models API response can be used to determine which models are available for 
 
     For Models, this is always `"model"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -326,7 +321,7 @@ $page = $client->beta->models->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -410,17 +405,17 @@ var_dump($page);
 }
 ```
 
-## Get a Model
+### Get a Model
 
 `$client->beta->models->retrieve(string modelID, ?list<AnthropicBeta> betas): BetaModelInfo`
 
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
 The Models API response can be used to determine information about a specific model or resolve a model alias to a model ID.
 
-### Parameters
+#### Parameters
 
 - `modelID: string`
 
@@ -430,7 +425,7 @@ The Models API response can be used to determine information about a specific mo
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaModelInfo`
 
@@ -468,7 +463,7 @@ The Models API response can be used to determine information about a specific mo
 
     For Models, this is always `"model"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -484,7 +479,7 @@ $betaModelInfo = $client->beta->models->retrieve(
 var_dump($betaModelInfo);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -561,173 +556,13 @@ var_dump($betaModelInfo);
 }
 ```
 
-## Domain Types
+## Beta › Messages
 
-### Beta Capability Support
-
-- `BetaCapabilitySupport`
-
-  - `bool supported`
-
-    Whether this capability is supported by the model.
-
-### Beta Context Management Capability
-
-- `BetaContextManagementCapability`
-
-  - `?BetaCapabilitySupport clearThinking20251015`
-
-    Indicates whether a capability is supported.
-
-  - `?BetaCapabilitySupport clearToolUses20250919`
-
-    Indicates whether a capability is supported.
-
-  - `?BetaCapabilitySupport compact20260112`
-
-    Indicates whether a capability is supported.
-
-  - `bool supported`
-
-    Whether this capability is supported by the model.
-
-### Beta Effort Capability
-
-- `BetaEffortCapability`
-
-  - `BetaCapabilitySupport high`
-
-    Whether the model supports high effort level.
-
-  - `BetaCapabilitySupport low`
-
-    Whether the model supports low effort level.
-
-  - `BetaCapabilitySupport max`
-
-    Whether the model supports max effort level.
-
-  - `BetaCapabilitySupport medium`
-
-    Whether the model supports medium effort level.
-
-  - `bool supported`
-
-    Whether this capability is supported by the model.
-
-  - `?BetaCapabilitySupport xhigh`
-
-    Indicates whether a capability is supported.
-
-### Beta Model Capabilities
-
-- `BetaModelCapabilities`
-
-  - `BetaCapabilitySupport batch`
-
-    Whether the model supports the Batch API.
-
-  - `BetaCapabilitySupport citations`
-
-    Whether the model supports citation generation.
-
-  - `BetaCapabilitySupport codeExecution`
-
-    Whether the model supports code execution tools.
-
-  - `BetaContextManagementCapability contextManagement`
-
-    Context management support and available strategies.
-
-  - `BetaEffortCapability effort`
-
-    Effort (reasoning_effort) support and available levels.
-
-  - `BetaCapabilitySupport imageInput`
-
-    Whether the model accepts image content blocks.
-
-  - `BetaCapabilitySupport pdfInput`
-
-    Whether the model accepts PDF content blocks.
-
-  - `BetaCapabilitySupport structuredOutputs`
-
-    Whether the model supports structured output / JSON mode / strict tool schemas.
-
-  - `BetaThinkingCapability thinking`
-
-    Thinking capability and supported type configurations.
-
-### Beta Model Info
-
-- `BetaModelInfo`
-
-  - `string id`
-
-    Unique model identifier.
-
-  - `?list<string> allowedFallbackModels`
-
-    Model IDs this model accepts as `fallbacks[i].model` on the Messages API. An empty list means the `fallbacks` parameter is not supported for this model as primary.
-
-  - `?BetaModelCapabilities capabilities`
-
-    Model capability information.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
-
-  - `string displayName`
-
-    A human-readable name for the model.
-
-  - `?int maxInputTokens`
-
-    Maximum input context window size in tokens for this model.
-
-  - `?int maxTokens`
-
-    Maximum value for the `max_tokens` parameter when using this model.
-
-  - `"model" type`
-
-    Object type.
-
-    For Models, this is always `"model"`.
-
-### Beta Thinking Capability
-
-- `BetaThinkingCapability`
-
-  - `bool supported`
-
-    Whether this capability is supported by the model.
-
-  - `BetaThinkingTypes types`
-
-    Supported thinking type configurations.
-
-### Beta Thinking Types
-
-- `BetaThinkingTypes`
-
-  - `BetaCapabilitySupport adaptive`
-
-    Whether the model supports thinking with type 'adaptive' (auto).
-
-  - `BetaCapabilitySupport enabled`
-
-    Whether the model supports thinking with type 'enabled'.
-
-# Messages
-
-## Create a Message
+### Create a Message
 
 `$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessage`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -735,7 +570,7 @@ The Messages API can be used for either single queries or stateless multi-turn c
 
 Learn more about the Messages API in our [user guide](https://platform.claude.com/docs/en/get-started)
 
-### Parameters
+#### Parameters
 
 - `maxTokens: int`
 
@@ -866,12 +701,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Configuration options for the model's output, such as the output format.
 
-- `outputFormat?:optional BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-
 - `serviceTier?:optional ServiceTier`
 
   Determines whether to use priority capacity (if available) or standard capacity for this request.
@@ -901,14 +730,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   System prompt.
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
-
-- `temperature?:optional float`
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
 - `thinking?:optional BetaThinkingConfigParam`
 
@@ -986,7 +807,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
+- `betas?:optional list<AnthropicBeta>`
+
+  Optional header to specify the beta version(s) you want to use.
+
+- `userProfileID?:optional string`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `outputFormat?:optional BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+- `temperature?:optional float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
 - `topK?:optional int`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
   Only sample from the top K options for each subsequent token.
 
@@ -996,21 +845,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `topP?:optional float`
 
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
   Use nucleus sampling.
 
   In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
   Recommended for advanced use cases only.
 
-- `betas?:optional list<AnthropicBeta>`
-
-  Optional header to specify the beta version(s) you want to use.
-
-- `userProfileID?:optional string`
-
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
-
-### Returns
+#### Returns
 
 - `BetaMessage`
 
@@ -1120,7 +963,65 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-### Example
+- `BetaRawMessageStreamEvent`
+
+  - `BetaRawMessageStartEvent`
+
+    - `BetaMessage message`
+
+    - `"message_start" type`
+
+  - `BetaRawMessageDeltaEvent`
+
+    - `?BetaContextManagementResponse contextManagement`
+
+      Information about context management strategies applied during the request
+
+    - `Delta delta`
+
+    - `"message_delta" type`
+
+    - `BetaMessageDeltaUsage usage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+  - `BetaRawMessageStopEvent`
+
+    - `"message_stop" type`
+
+  - `BetaRawContentBlockStartEvent`
+
+    - `ContentBlock contentBlock`
+
+      Response model for a file uploaded to the container.
+
+    - `int index`
+
+    - `"content_block_start" type`
+
+  - `BetaRawContentBlockDeltaEvent`
+
+    - `BetaRawContentBlockDelta delta`
+
+    - `int index`
+
+    - `"content_block_delta" type`
+
+  - `BetaRawContentBlockStopEvent`
+
+    - `int index`
+
+    - `"content_block_stop" type`
+
+#### Example
 
 ```php
 <?php
@@ -1222,7 +1123,7 @@ $betaMessage = $client->beta->messages->create(
 var_dump($betaMessage);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1325,11 +1226,11 @@ var_dump($betaMessage);
 }
 ```
 
-## Count tokens in a Message
+### Count tokens in a Message
 
 `$client->beta->messages->countTokens(list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?BetaContextManagementConfig contextManagement, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?Speed speed, ?System system, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<Tool> tools, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -1337,7 +1238,7 @@ The Token Count API can be used to count the number of tokens in a Message, incl
 
 Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-### Parameters
+#### Parameters
 
 - `messages: list<BetaMessageParam>`
 
@@ -1413,12 +1314,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 - `outputConfig?:optional BetaOutputConfig`
 
   Configuration options for the model's output, such as the output format.
-
-- `outputFormat?:optional BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
 - `speed?:optional Speed`
 
@@ -1514,7 +1409,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-### Returns
+- `outputFormat?:optional BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+#### Returns
 
 - `BetaMessageTokensCount`
 
@@ -1526,7 +1429,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -1611,7 +1514,7 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
 var_dump($betaMessageTokensCount);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1622,6945 +1525,13 @@ var_dump($betaMessageTokensCount);
 }
 ```
 
-## Domain Types
+## Beta › Messages › Batches
 
-### Beta Advisor Message Iteration Usage
-
-- `BetaAdvisorMessageIterationUsage`
-
-  - `?BetaCacheCreation cacheCreation`
-
-    Breakdown of cached tokens by TTL
-
-  - `int cacheCreationInputTokens`
-
-    The number of input tokens used to create the cache entry.
-
-  - `int cacheReadInputTokens`
-
-    The number of input tokens read from the cache.
-
-  - `int inputTokens`
-
-    The number of input tokens which were used.
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `int outputTokens`
-
-    The number of output tokens which were used.
-
-  - `"advisor_message" type`
-
-    Usage for an advisor sub-inference iteration
-
-### Beta Advisor Redacted Result Block
-
-- `BetaAdvisorRedactedResultBlock`
-
-  - `string encryptedContent`
-
-    Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
-
-  - `?string stopReason`
-
-    The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
-
-  - `"advisor_redacted_result" type`
-
-### Beta Advisor Redacted Result Block Param
-
-- `BetaAdvisorRedactedResultBlockParam`
-
-  - `string encryptedContent`
-
-    Opaque blob produced by a prior response; must be round-tripped verbatim.
-
-  - `"advisor_redacted_result" type`
-
-  - `?string stopReason`
-
-### Beta Advisor Result Block
-
-- `BetaAdvisorResultBlock`
-
-  - `?string stopReason`
-
-    The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
-
-  - `string text`
-
-  - `"advisor_result" type`
-
-### Beta Advisor Result Block Param
-
-- `BetaAdvisorResultBlockParam`
-
-  - `string text`
-
-  - `"advisor_result" type`
-
-  - `?string stopReason`
-
-### Beta Advisor Tool 20260301
-
-- `BetaAdvisorTool20260301`
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `"advisor" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"advisor_20260301" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaCacheControlEphemeral caching`
-
-    Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxTokens`
-
-    Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Advisor Tool Result Block
-
-- `BetaAdvisorToolResultBlock`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"advisor_tool_result" type`
-
-### Beta Advisor Tool Result Block Param
-
-- `BetaAdvisorToolResultBlockParam`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"advisor_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Advisor Tool Result Error
-
-- `BetaAdvisorToolResultError`
-
-  - `ErrorCode errorCode`
-
-  - `"advisor_tool_result_error" type`
-
-### Beta Advisor Tool Result Error Param
-
-- `BetaAdvisorToolResultErrorParam`
-
-  - `ErrorCode errorCode`
-
-  - `"advisor_tool_result_error" type`
-
-### Beta All Thinking Turns
-
-- `BetaAllThinkingTurns`
-
-  - `"all" type`
-
-### Beta Base64 Image Source
-
-- `BetaBase64ImageSource`
-
-  - `string data`
-
-  - `MediaType mediaType`
-
-  - `"base64" type`
-
-### Beta Base64 PDF Source
-
-- `BetaBase64PDFSource`
-
-  - `string data`
-
-  - `"application/pdf" mediaType`
-
-  - `"base64" type`
-
-### Beta Bash Code Execution Output Block
-
-- `BetaBashCodeExecutionOutputBlock`
-
-  - `string fileID`
-
-  - `"bash_code_execution_output" type`
-
-### Beta Bash Code Execution Output Block Param
-
-- `BetaBashCodeExecutionOutputBlockParam`
-
-  - `string fileID`
-
-  - `"bash_code_execution_output" type`
-
-### Beta Bash Code Execution Result Block
-
-- `BetaBashCodeExecutionResultBlock`
-
-  - `list<BetaBashCodeExecutionOutputBlock> content`
-
-  - `int returnCode`
-
-  - `string stderr`
-
-  - `string stdout`
-
-  - `"bash_code_execution_result" type`
-
-### Beta Bash Code Execution Result Block Param
-
-- `BetaBashCodeExecutionResultBlockParam`
-
-  - `list<BetaBashCodeExecutionOutputBlockParam> content`
-
-  - `int returnCode`
-
-  - `string stderr`
-
-  - `string stdout`
-
-  - `"bash_code_execution_result" type`
-
-### Beta Bash Code Execution Tool Result Block
-
-- `BetaBashCodeExecutionToolResultBlock`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"bash_code_execution_tool_result" type`
-
-### Beta Bash Code Execution Tool Result Block Param
-
-- `BetaBashCodeExecutionToolResultBlockParam`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"bash_code_execution_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Bash Code Execution Tool Result Error
-
-- `BetaBashCodeExecutionToolResultError`
-
-  - `ErrorCode errorCode`
-
-  - `"bash_code_execution_tool_result_error" type`
-
-### Beta Bash Code Execution Tool Result Error Param
-
-- `BetaBashCodeExecutionToolResultErrorParam`
-
-  - `ErrorCode errorCode`
-
-  - `"bash_code_execution_tool_result_error" type`
-
-### Beta Browser Close Tab Config
-
-- `BetaBrowserCloseTabConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Double Click Config
-
-- `BetaBrowserDoubleClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser File Upload Config
-
-- `BetaBrowserFileUploadConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Find Config
-
-- `BetaBrowserFindConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Form Input Config
-
-- `BetaBrowserFormInputConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Get Page Text Config
-
-- `BetaBrowserGetPageTextConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Hold Key Config
-
-- `BetaBrowserHoldKeyConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Hover Config
-
-- `BetaBrowserHoverConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Javascript Exec Config
-
-- `BetaBrowserJavascriptExecConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Key Config
-
-- `BetaBrowserKeyConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Left Click Config
-
-- `BetaBrowserLeftClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Left Click Drag Config
-
-- `BetaBrowserLeftClickDragConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Left Mouse Down Config
-
-- `BetaBrowserLeftMouseDownConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Left Mouse Up Config
-
-- `BetaBrowserLeftMouseUpConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser List Tabs Config
-
-- `BetaBrowserListTabsConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Middle Click Config
-
-- `BetaBrowserMiddleClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Mouse Move Config
-
-- `BetaBrowserMouseMoveConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Navigate Config
-
-- `BetaBrowserNavigateConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser New Tab Config
-
-- `BetaBrowserNewTabConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Read Console Config
-
-- `BetaBrowserReadConsoleConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Read Network Config
-
-- `BetaBrowserReadNetworkConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Read Page Config
-
-- `BetaBrowserReadPageConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Right Click Config
-
-- `BetaBrowserRightClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Screenshot Config
-
-- `BetaBrowserScreenshotConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Scroll Config
-
-- `BetaBrowserScrollConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Scroll To Config
-
-- `BetaBrowserScrollToConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser State Block Param
-
-- `BetaBrowserStateBlockParam`
-
-  - `list<BetaBrowserStateTabEntry> tabs`
-
-    All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
-
-  - `"browser_state" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?list<BetaBrowserStateChange> stateChanges`
-
-    Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
-
-### Beta Browser State Change
-
-- `BetaBrowserStateChange`
-
-  - `BetaBrowserStateChangeTabOpened`
-
-    - `string tabID`
-
-      The `tab_id` of the opened tab, present in `tabs`.
-
-    - `"tab_opened" type`
-
-  - `BetaBrowserStateChangeDownloadStarted`
-
-    - `string downloadID`
-
-      The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-    - `"download_started" type`
-
-    - `string url`
-
-      The final post-redirect URL the download was served from.
-
-  - `BetaBrowserStateChangeDownloadCompleted`
-
-    - `string downloadID`
-
-      The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-    - `"download_completed" type`
-
-    - `string url`
-
-      The final post-redirect URL the download was served from.
-
-    - `?string path`
-
-      Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
-
-    - `?int sizeBytes`
-
-      The completed download's size.
-
-  - `BetaBrowserStateChangeDownloadFailed`
-
-    - `string downloadID`
-
-      The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-    - `"download_failed" type`
-
-    - `string url`
-
-      The final post-redirect URL the download was served from.
-
-    - `?string error`
-
-      The failure or cancellation detail, when known.
-
-### Beta Browser State Change Download Completed
-
-- `BetaBrowserStateChangeDownloadCompleted`
-
-  - `string downloadID`
-
-    The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-  - `"download_completed" type`
-
-  - `string url`
-
-    The final post-redirect URL the download was served from.
-
-  - `?string path`
-
-    Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
-
-  - `?int sizeBytes`
-
-    The completed download's size.
-
-### Beta Browser State Change Download Failed
-
-- `BetaBrowserStateChangeDownloadFailed`
-
-  - `string downloadID`
-
-    The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-  - `"download_failed" type`
-
-  - `string url`
-
-    The final post-redirect URL the download was served from.
-
-  - `?string error`
-
-    The failure or cancellation detail, when known.
-
-### Beta Browser State Change Download Started
-
-- `BetaBrowserStateChangeDownloadStarted`
-
-  - `string downloadID`
-
-    The caller-assigned identifier for this download, stable across the state changes reporting it.
-
-  - `"download_started" type`
-
-  - `string url`
-
-    The final post-redirect URL the download was served from.
-
-### Beta Browser State Change Tab Opened
-
-- `BetaBrowserStateChangeTabOpened`
-
-  - `string tabID`
-
-    The `tab_id` of the opened tab, present in `tabs`.
-
-  - `"tab_opened" type`
-
-### Beta Browser State Tab Entry
-
-- `BetaBrowserStateTabEntry`
-
-  - `string tabID`
-
-    The caller-assigned identifier for this tab, unique within the inventory.
-
-  - `string title`
-
-    The title of the page the tab is showing. May be empty.
-
-  - `string url`
-
-    The URL of the page the tab is showing. May be empty.
-
-  - `?bool active`
-
-    Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
-
-### Beta Browser Switch Tab Config
-
-- `BetaBrowserSwitchTabConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Toolset 20260801
-
-- `BetaBrowserToolset20260801`
-
-  - `"browser_toolset_20260801" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaBrowserToolsetConfigs configs`
-
-    Per-member configuration for `browser_toolset_20260801`: one
-    optional field per member tool, keyed by the member name — the same
-    name the member's `tool_use` blocks carry. Every member is an
-    accepted key, and a member's defaults apply wherever its key is
-    absent. Unknown keys are rejected: the field set is this toolset
-    version's complete member set.
-
-### Beta Browser Toolset Configs
-
-- `BetaBrowserToolsetConfigs`
-
-  - `?BetaBrowserCloseTabConfig closeTab`
-
-    `close_tab`'s config overrides.
-
-  - `?BetaBrowserDoubleClickConfig doubleClick`
-
-    `double_click`'s config overrides.
-
-  - `?BetaBrowserFileUploadConfig fileUpload`
-
-    `file_upload`'s config overrides.
-
-  - `?BetaBrowserFindConfig find`
-
-    `find`'s config overrides.
-
-  - `?BetaBrowserFormInputConfig formInput`
-
-    `form_input`'s config overrides.
-
-  - `?BetaBrowserGetPageTextConfig getPageText`
-
-    `get_page_text`'s config overrides.
-
-  - `?BetaBrowserHoldKeyConfig holdKey`
-
-    `hold_key`'s config overrides.
-
-  - `?BetaBrowserHoverConfig hover`
-
-    `hover`'s config overrides.
-
-  - `?BetaBrowserJavascriptExecConfig javascriptExec`
-
-    `javascript_exec`'s config overrides.
-
-  - `?BetaBrowserKeyConfig key`
-
-    `key`'s config overrides.
-
-  - `?BetaBrowserLeftClickConfig leftClick`
-
-    `left_click`'s config overrides.
-
-  - `?BetaBrowserLeftClickDragConfig leftClickDrag`
-
-    `left_click_drag`'s config overrides.
-
-  - `?BetaBrowserLeftMouseDownConfig leftMouseDown`
-
-    `left_mouse_down`'s config overrides.
-
-  - `?BetaBrowserLeftMouseUpConfig leftMouseUp`
-
-    `left_mouse_up`'s config overrides.
-
-  - `?BetaBrowserListTabsConfig listTabs`
-
-    `list_tabs`'s config overrides.
-
-  - `?BetaBrowserMiddleClickConfig middleClick`
-
-    `middle_click`'s config overrides.
-
-  - `?BetaBrowserMouseMoveConfig mouseMove`
-
-    `mouse_move`'s config overrides.
-
-  - `?BetaBrowserNavigateConfig navigate`
-
-    `navigate`'s config overrides.
-
-  - `?BetaBrowserNewTabConfig newTab`
-
-    `new_tab`'s config overrides.
-
-  - `?BetaBrowserReadConsoleConfig readConsole`
-
-    `read_console`'s config overrides.
-
-  - `?BetaBrowserReadNetworkConfig readNetwork`
-
-    `read_network`'s config overrides.
-
-  - `?BetaBrowserReadPageConfig readPage`
-
-    `read_page`'s config overrides.
-
-  - `?BetaBrowserRightClickConfig rightClick`
-
-    `right_click`'s config overrides.
-
-  - `?BetaBrowserScreenshotConfig screenshot`
-
-    `screenshot`'s config overrides.
-
-  - `?BetaBrowserScrollConfig scroll`
-
-    `scroll`'s config overrides.
-
-  - `?BetaBrowserScrollToConfig scrollTo`
-
-    `scroll_to`'s config overrides.
-
-  - `?BetaBrowserSwitchTabConfig switchTab`
-
-    `switch_tab`'s config overrides.
-
-  - `?BetaBrowserTripleClickConfig tripleClick`
-
-    `triple_click`'s config overrides.
-
-  - `?BetaBrowserTypeConfig type`
-
-    `type`'s config overrides.
-
-  - `?BetaBrowserWaitConfig wait`
-
-    `wait`'s config overrides.
-
-  - `?BetaBrowserZoomConfig zoom`
-
-    `zoom`'s config overrides.
-
-### Beta Browser Triple Click Config
-
-- `BetaBrowserTripleClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Type Config
-
-- `BetaBrowserTypeConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Wait Config
-
-- `BetaBrowserWaitConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Browser Zoom Config
-
-- `BetaBrowserZoomConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Cache Control Ephemeral
-
-- `BetaCacheControlEphemeral`
-
-  - `"ephemeral" type`
-
-  - `?TTL ttl`
-
-    The time-to-live for the cache control breakpoint.
-
-    This may be one the following values:
-
-    - `5m`: 5 minutes
-    - `1h`: 1 hour
-
-    Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
-
-### Beta Cache Creation
-
-- `BetaCacheCreation`
-
-  - `int ephemeral1hInputTokens`
-
-    The number of input tokens used to create the 1 hour cache entry.
-
-  - `int ephemeral5mInputTokens`
-
-    The number of input tokens used to create the 5 minute cache entry.
-
-### Beta Cache Miss Messages Changed
-
-- `BetaCacheMissMessagesChanged`
-
-  - `int cacheMissedInputTokens`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-  - `"messages_changed" type`
-
-### Beta Cache Miss Model Changed
-
-- `BetaCacheMissModelChanged`
-
-  - `int cacheMissedInputTokens`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-  - `"model_changed" type`
-
-### Beta Cache Miss Previous Message Not Found
-
-- `BetaCacheMissPreviousMessageNotFound`
-
-  - `"previous_message_not_found" type`
-
-### Beta Cache Miss System Changed
-
-- `BetaCacheMissSystemChanged`
-
-  - `int cacheMissedInputTokens`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-  - `"system_changed" type`
-
-### Beta Cache Miss Tools Changed
-
-- `BetaCacheMissToolsChanged`
-
-  - `int cacheMissedInputTokens`
-
-    Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-  - `"tools_changed" type`
-
-### Beta Cache Miss Unavailable
-
-- `BetaCacheMissUnavailable`
-
-  - `"unavailable" type`
-
-### Beta Citation Char Location
-
-- `BetaCitationCharLocation`
-
-  - `string citedText`
-
-  - `int documentIndex`
-
-  - `?string documentTitle`
-
-  - `int endCharIndex`
-
-  - `?string fileID`
-
-  - `int startCharIndex`
-
-  - `"char_location" type`
-
-### Beta Citation Char Location Param
-
-- `BetaCitationCharLocationParam`
-
-  - `string citedText`
-
-  - `int documentIndex`
-
-  - `?string documentTitle`
-
-  - `int endCharIndex`
-
-  - `int startCharIndex`
-
-  - `"char_location" type`
-
-### Beta Citation Config
-
-- `BetaCitationConfig`
-
-  - `bool enabled`
-
-### Beta Citation Content Block Location
-
-- `BetaCitationContentBlockLocation`
-
-  - `string citedText`
-
-    The full text of the cited block range, concatenated.
-
-    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-  - `int documentIndex`
-
-  - `?string documentTitle`
-
-  - `int endBlockIndex`
-
-    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-  - `?string fileID`
-
-  - `int startBlockIndex`
-
-    0-based index of the first cited block in the source's `content` array.
-
-  - `"content_block_location" type`
-
-### Beta Citation Content Block Location Param
-
-- `BetaCitationContentBlockLocationParam`
-
-  - `string citedText`
-
-    The full text of the cited block range, concatenated.
-
-    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-  - `int documentIndex`
-
-  - `?string documentTitle`
-
-  - `int endBlockIndex`
-
-    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-  - `int startBlockIndex`
-
-    0-based index of the first cited block in the source's `content` array.
-
-  - `"content_block_location" type`
-
-### Beta Citation Page Location
-
-- `BetaCitationPageLocation`
-
-  - `string citedText`
-
-  - `int documentIndex`
-
-  - `?string documentTitle`
-
-  - `int endPageNumber`
-
-  - `?string fileID`
-
-  - `int startPageNumber`
-
-  - `"page_location" type`
-
-### Beta Citation Page Location Param
-
-- `BetaCitationPageLocationParam`
-
-  - `string citedText`
-
-  - `int documentIndex`
-
-  - `?string documentTitle`
-
-  - `int endPageNumber`
-
-  - `int startPageNumber`
-
-  - `"page_location" type`
-
-### Beta Citation Search Result Location
-
-- `BetaCitationSearchResultLocation`
-
-  - `string citedText`
-
-    The full text of the cited block range, concatenated.
-
-    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-  - `int endBlockIndex`
-
-    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-  - `int searchResultIndex`
-
-    0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-    Counted separately from `document_index`; server-side web search results are not included in this count.
-
-  - `string source`
-
-  - `int startBlockIndex`
-
-    0-based index of the first cited block in the source's `content` array.
-
-  - `?string title`
-
-  - `"search_result_location" type`
-
-### Beta Citation Search Result Location Param
-
-- `BetaCitationSearchResultLocationParam`
-
-  - `string citedText`
-
-    The full text of the cited block range, concatenated.
-
-    Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-  - `int endBlockIndex`
-
-    Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-    Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-  - `int searchResultIndex`
-
-    0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-    Counted separately from `document_index`; server-side web search results are not included in this count.
-
-  - `string source`
-
-  - `int startBlockIndex`
-
-    0-based index of the first cited block in the source's `content` array.
-
-  - `?string title`
-
-  - `"search_result_location" type`
-
-### Beta Citation Web Search Result Location Param
-
-- `BetaCitationWebSearchResultLocationParam`
-
-  - `string citedText`
-
-  - `string encryptedIndex`
-
-  - `?string title`
-
-  - `"web_search_result_location" type`
-
-  - `string url`
-
-### Beta Citations Config Param
-
-- `BetaCitationsConfigParam`
-
-  - `?bool enabled`
-
-### Beta Citations Delta
-
-- `BetaCitationsDelta`
-
-  - `Citation citation`
-
-  - `"citations_delta" type`
-
-### Beta Citations Web Search Result Location
-
-- `BetaCitationsWebSearchResultLocation`
-
-  - `string citedText`
-
-  - `string encryptedIndex`
-
-  - `?string title`
-
-  - `"web_search_result_location" type`
-
-  - `string url`
-
-### Beta Clear Thinking 20251015 Edit
-
-- `BetaClearThinking20251015Edit`
-
-  - `"clear_thinking_20251015" type`
-
-  - `?Keep keep`
-
-    Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
-
-### Beta Clear Thinking 20251015 Edit Response
-
-- `BetaClearThinking20251015EditResponse`
-
-  - `int clearedInputTokens`
-
-    Number of input tokens cleared by this edit.
-
-  - `int clearedThinkingTurns`
-
-    Number of thinking turns that were cleared.
-
-  - `"clear_thinking_20251015" type`
-
-    The type of context management edit applied.
-
-### Beta Clear Tool Uses 20250919 Edit
-
-- `BetaClearToolUses20250919Edit`
-
-  - `"clear_tool_uses_20250919" type`
-
-  - `?BetaInputTokensClearAtLeast clearAtLeast`
-
-    Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
-
-  - `?ClearToolInputs clearToolInputs`
-
-    Whether to clear all tool inputs (bool) or specific tool inputs to clear (list)
-
-  - `?list<string> excludeTools`
-
-    Tool names whose uses are preserved from clearing
-
-  - `?BetaToolUsesKeep keep`
-
-    Number of tool uses to retain in the conversation
-
-  - `?Trigger trigger`
-
-    Condition that triggers the context management strategy
-
-### Beta Clear Tool Uses 20250919 Edit Response
-
-- `BetaClearToolUses20250919EditResponse`
-
-  - `int clearedInputTokens`
-
-    Number of input tokens cleared by this edit.
-
-  - `int clearedToolUses`
-
-    Number of tool uses that were cleared.
-
-  - `"clear_tool_uses_20250919" type`
-
-    The type of context management edit applied.
-
-### Beta Code Execution Output Block
-
-- `BetaCodeExecutionOutputBlock`
-
-  - `string fileID`
-
-  - `"code_execution_output" type`
-
-### Beta Code Execution Output Block Param
-
-- `BetaCodeExecutionOutputBlockParam`
-
-  - `string fileID`
-
-  - `"code_execution_output" type`
-
-### Beta Code Execution Result Block
-
-- `BetaCodeExecutionResultBlock`
-
-  - `list<BetaCodeExecutionOutputBlock> content`
-
-  - `int returnCode`
-
-  - `string stderr`
-
-  - `string stdout`
-
-  - `"code_execution_result" type`
-
-### Beta Code Execution Result Block Param
-
-- `BetaCodeExecutionResultBlockParam`
-
-  - `list<BetaCodeExecutionOutputBlockParam> content`
-
-  - `int returnCode`
-
-  - `string stderr`
-
-  - `string stdout`
-
-  - `"code_execution_result" type`
-
-### Beta Code Execution Tool 20250522
-
-- `BetaCodeExecutionTool20250522`
-
-  - `"code_execution" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"code_execution_20250522" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Code Execution Tool 20250825
-
-- `BetaCodeExecutionTool20250825`
-
-  - `"code_execution" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"code_execution_20250825" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Code Execution Tool 20260120
-
-- `BetaCodeExecutionTool20260120`
-
-  - `"code_execution" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"code_execution_20260120" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Code Execution Tool 20260521
-
-- `BetaCodeExecutionTool20260521`
-
-  - `"code_execution" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"code_execution_20260521" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Code Execution Tool Result Block
-
-- `BetaCodeExecutionToolResultBlock`
-
-  - `BetaCodeExecutionToolResultBlockContent content`
-
-    Code execution result with encrypted stdout for PFC + web_search results.
-
-  - `string toolUseID`
-
-  - `"code_execution_tool_result" type`
-
-### Beta Code Execution Tool Result Block Content
-
-- `BetaCodeExecutionToolResultBlockContent`
-
-  - `BetaCodeExecutionToolResultError`
-
-    - `BetaCodeExecutionToolResultErrorCode errorCode`
-
-    - `"code_execution_tool_result_error" type`
-
-  - `BetaCodeExecutionResultBlock`
-
-    - `list<BetaCodeExecutionOutputBlock> content`
-
-    - `int returnCode`
-
-    - `string stderr`
-
-    - `string stdout`
-
-    - `"code_execution_result" type`
-
-  - `BetaEncryptedCodeExecutionResultBlock`
-
-    - `list<BetaCodeExecutionOutputBlock> content`
-
-    - `string encryptedStdout`
-
-    - `int returnCode`
-
-    - `string stderr`
-
-    - `"encrypted_code_execution_result" type`
-
-### Beta Code Execution Tool Result Block Param
-
-- `BetaCodeExecutionToolResultBlockParam`
-
-  - `BetaCodeExecutionToolResultBlockParamContent content`
-
-    Code execution result with encrypted stdout for PFC + web_search results.
-
-  - `string toolUseID`
-
-  - `"code_execution_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Code Execution Tool Result Block Param Content
-
-- `BetaCodeExecutionToolResultBlockParamContent`
-
-  - `BetaCodeExecutionToolResultErrorParam`
-
-    - `BetaCodeExecutionToolResultErrorCode errorCode`
-
-    - `"code_execution_tool_result_error" type`
-
-  - `BetaCodeExecutionResultBlockParam`
-
-    - `list<BetaCodeExecutionOutputBlockParam> content`
-
-    - `int returnCode`
-
-    - `string stderr`
-
-    - `string stdout`
-
-    - `"code_execution_result" type`
-
-  - `BetaEncryptedCodeExecutionResultBlockParam`
-
-    - `list<BetaCodeExecutionOutputBlockParam> content`
-
-    - `string encryptedStdout`
-
-    - `int returnCode`
-
-    - `string stderr`
-
-    - `"encrypted_code_execution_result" type`
-
-### Beta Code Execution Tool Result Error
-
-- `BetaCodeExecutionToolResultError`
-
-  - `BetaCodeExecutionToolResultErrorCode errorCode`
-
-  - `"code_execution_tool_result_error" type`
-
-### Beta Code Execution Tool Result Error Code
-
-- `BetaCodeExecutionToolResultErrorCode`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"too_many_requests"`
-
-  - `"execution_time_exceeded"`
-
-### Beta Code Execution Tool Result Error Param
-
-- `BetaCodeExecutionToolResultErrorParam`
-
-  - `BetaCodeExecutionToolResultErrorCode errorCode`
-
-  - `"code_execution_tool_result_error" type`
-
-### Beta Compact 20260112 Edit
-
-- `BetaCompact20260112Edit`
-
-  - `"compact_20260112" type`
-
-  - `?string instructions`
-
-    Additional instructions for summarization.
-
-  - `?bool pauseAfterCompaction`
-
-    Whether to pause after compaction and return the compaction block to the user.
-
-  - `?BetaInputTokensTrigger trigger`
-
-    When to trigger compaction. Defaults to 150000 input tokens.
-
-### Beta Compaction Block
-
-- `BetaCompactionBlock`
-
-  - `?string content`
-
-    Summary of compacted content, or null if compaction failed
-
-  - `?string encryptedContent`
-
-    Opaque metadata from prior compaction, to be round-tripped verbatim
-
-  - `"compaction" type`
-
-### Beta Compaction Block Param
-
-- `BetaCompactionBlockParam`
-
-  - `"compaction" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?string content`
-
-    Summary of previously compacted content, or null if compaction failed
-
-  - `?string encryptedContent`
-
-    Opaque metadata from prior compaction, to be round-tripped verbatim
-
-### Beta Compaction Content Block Delta
-
-- `BetaCompactionContentBlockDelta`
-
-  - `?string content`
-
-  - `?string encryptedContent`
-
-    Opaque metadata from prior compaction, to be round-tripped verbatim
-
-  - `"compaction_delta" type`
-
-### Beta Compaction Iteration Usage
-
-- `BetaCompactionIterationUsage`
-
-  - `?BetaCacheCreation cacheCreation`
-
-    Breakdown of cached tokens by TTL
-
-  - `int cacheCreationInputTokens`
-
-    The number of input tokens used to create the cache entry.
-
-  - `int cacheReadInputTokens`
-
-    The number of input tokens read from the cache.
-
-  - `int inputTokens`
-
-    The number of input tokens which were used.
-
-  - `int outputTokens`
-
-    The number of output tokens which were used.
-
-  - `"compaction" type`
-
-    Usage for a compaction iteration
-
-### Beta Computer Cursor Position Config
-
-- `BetaComputerCursorPositionConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Double Click Config
-
-- `BetaComputerDoubleClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Hold Key Config
-
-- `BetaComputerHoldKeyConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Key Config
-
-- `BetaComputerKeyConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Left Click Config
-
-- `BetaComputerLeftClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Left Click Drag Config
-
-- `BetaComputerLeftClickDragConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Left Mouse Down Config
-
-- `BetaComputerLeftMouseDownConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Left Mouse Up Config
-
-- `BetaComputerLeftMouseUpConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Middle Click Config
-
-- `BetaComputerMiddleClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Mouse Move Config
-
-- `BetaComputerMouseMoveConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Right Click Config
-
-- `BetaComputerRightClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Screenshot Config
-
-- `BetaComputerScreenshotConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Scroll Config
-
-- `BetaComputerScrollConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Toolset 20260801
-
-- `BetaComputerToolset20260801`
-
-  - `"computer_toolset_20260801" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaComputerToolsetConfigs configs`
-
-    Per-member configuration for `computer_toolset_20260801`: one
-    optional field per member tool, keyed by the member name — the same
-    name the member's `tool_use` blocks carry. Every member is an
-    accepted key, and a member's defaults apply wherever its key is
-    absent. Unknown keys are rejected: the field set is this toolset
-    version's complete member set.
-
-### Beta Computer Toolset Configs
-
-- `BetaComputerToolsetConfigs`
-
-  - `?BetaComputerCursorPositionConfig cursorPosition`
-
-    `cursor_position`'s config overrides.
-
-  - `?BetaComputerDoubleClickConfig doubleClick`
-
-    `double_click`'s config overrides.
-
-  - `?BetaComputerHoldKeyConfig holdKey`
-
-    `hold_key`'s config overrides.
-
-  - `?BetaComputerKeyConfig key`
-
-    `key`'s config overrides.
-
-  - `?BetaComputerLeftClickConfig leftClick`
-
-    `left_click`'s config overrides.
-
-  - `?BetaComputerLeftClickDragConfig leftClickDrag`
-
-    `left_click_drag`'s config overrides.
-
-  - `?BetaComputerLeftMouseDownConfig leftMouseDown`
-
-    `left_mouse_down`'s config overrides.
-
-  - `?BetaComputerLeftMouseUpConfig leftMouseUp`
-
-    `left_mouse_up`'s config overrides.
-
-  - `?BetaComputerMiddleClickConfig middleClick`
-
-    `middle_click`'s config overrides.
-
-  - `?BetaComputerMouseMoveConfig mouseMove`
-
-    `mouse_move`'s config overrides.
-
-  - `?BetaComputerRightClickConfig rightClick`
-
-    `right_click`'s config overrides.
-
-  - `?BetaComputerScreenshotConfig screenshot`
-
-    `screenshot`'s config overrides.
-
-  - `?BetaComputerScrollConfig scroll`
-
-    `scroll`'s config overrides.
-
-  - `?BetaComputerTripleClickConfig tripleClick`
-
-    `triple_click`'s config overrides.
-
-  - `?BetaComputerTypeConfig type`
-
-    `type`'s config overrides.
-
-  - `?BetaComputerWaitConfig wait`
-
-    `wait`'s config overrides.
-
-  - `?BetaComputerZoomConfig zoom`
-
-    `zoom`'s config overrides.
-
-### Beta Computer Triple Click Config
-
-- `BetaComputerTripleClickConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Type Config
-
-- `BetaComputerTypeConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Wait Config
-
-- `BetaComputerWaitConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Computer Zoom Config
-
-- `BetaComputerZoomConfig`
-
-  - `?bool deferLoading`
-
-    Defer loading for this member. Must resolve to the same value on every enabled member of the toolset.
-
-  - `?bool enabled`
-
-    Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
-
-### Beta Container
-
-- `BetaContainer`
-
-  - `string id`
-
-    Identifier for the container used in this request
-
-  - `\Datetime expiresAt`
-
-    The time at which the container will expire.
-
-  - `?list<BetaSkill> skills`
-
-    Skills loaded in the container
-
-### Beta Container Params
-
-- `BetaContainerParams`
-
-  - `?string id`
-
-    Container id
-
-  - `?list<BetaSkillParams> skills`
-
-    List of skills to load in the container
-
-### Beta Container Upload Block
-
-- `BetaContainerUploadBlock`
-
-  - `string fileID`
-
-  - `"container_upload" type`
-
-### Beta Container Upload Block Param
-
-- `BetaContainerUploadBlockParam`
-
-  - `string fileID`
-
-  - `"container_upload" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Content Block
-
-- `BetaContentBlock`
-
-  - `BetaTextBlock`
-
-    - `?list<BetaTextCitation> citations`
-
-      Citations supporting the text block.
-
-      The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-    - `string text`
-
-    - `"text" type`
-
-  - `BetaThinkingBlock`
-
-    - `string signature`
-
-      A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-      This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-    - `string thinking`
-
-      The text of Claude's thinking process for this block.
-
-    - `"thinking" type`
-
-  - `BetaRedactedThinkingBlock`
-
-    - `string data`
-
-      The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-      Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-    - `"redacted_thinking" type`
-
-  - `BetaToolUseBlock`
-
-    - `string id`
-
-    - `array<string,mixed> input`
-
-    - `string name`
-
-    - `"tool_use" type`
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-    - `?string toolsetName`
-
-      For a toolset member tool_use, the toolset family.
-
-  - `BetaServerToolUseBlock`
-
-    - `string id`
-
-    - `array<string,mixed> input`
-
-    - `Name name`
-
-    - `"server_tool_use" type`
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-  - `BetaWebSearchToolResultBlock`
-
-    - `BetaWebSearchToolResultBlockContent content`
-
-    - `string toolUseID`
-
-    - `"web_search_tool_result" type`
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-  - `BetaWebFetchToolResultBlock`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"web_fetch_tool_result" type`
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-  - `BetaAdvisorToolResultBlock`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"advisor_tool_result" type`
-
-  - `BetaCodeExecutionToolResultBlock`
-
-    - `BetaCodeExecutionToolResultBlockContent content`
-
-      Code execution result with encrypted stdout for PFC + web_search results.
-
-    - `string toolUseID`
-
-    - `"code_execution_tool_result" type`
-
-  - `BetaBashCodeExecutionToolResultBlock`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"bash_code_execution_tool_result" type`
-
-  - `BetaTextEditorCodeExecutionToolResultBlock`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"text_editor_code_execution_tool_result" type`
-
-  - `BetaToolSearchToolResultBlock`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"tool_search_tool_result" type`
-
-  - `BetaMCPToolUseBlock`
-
-    - `string id`
-
-    - `array<string,mixed> input`
-
-    - `string name`
-
-      The name of the MCP tool
-
-    - `string serverName`
-
-      The name of the MCP server
-
-    - `"mcp_tool_use" type`
-
-  - `BetaMCPToolResultBlock`
-
-    - `Content content`
-
-    - `bool isError`
-
-    - `string toolUseID`
-
-    - `"mcp_tool_result" type`
-
-  - `BetaContainerUploadBlock`
-
-    - `string fileID`
-
-    - `"container_upload" type`
-
-  - `BetaCompactionBlock`
-
-    - `?string content`
-
-      Summary of compacted content, or null if compaction failed
-
-    - `?string encryptedContent`
-
-      Opaque metadata from prior compaction, to be round-tripped verbatim
-
-    - `"compaction" type`
-
-  - `BetaFallbackBlock`
-
-    - `BetaFallbackInfo from`
-
-      The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-    - `BetaFallbackInfo to`
-
-      The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-    - `BetaFallbackRefusalTrigger trigger`
-
-      What caused the `from` model to hand over at this hop.
-
-    - `"fallback" type`
-
-### Beta Content Block Param
-
-- `BetaContentBlockParam`
-
-  - `BetaTextBlockParam`
-
-    - `string text`
-
-    - `"text" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?list<BetaTextCitationParam> citations`
-
-  - `BetaImageBlockParam`
-
-    - `Source source`
-
-    - `"image" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaImageTransformationsParam transformations`
-
-      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-  - `BetaRequestDocumentBlock`
-
-    - `Source source`
-
-    - `"document" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaCitationsConfigParam citations`
-
-    - `?string context`
-
-    - `?string title`
-
-  - `BetaSearchResultBlockParam`
-
-    - `list<BetaTextBlockParam> content`
-
-    - `string source`
-
-    - `string title`
-
-    - `"search_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaCitationsConfigParam citations`
-
-  - `BetaThinkingBlockParam`
-
-    - `string signature`
-
-      The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
-
-      Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
-
-    - `string thinking`
-
-      The `thinking` text of this block as returned by the API.
-
-    - `"thinking" type`
-
-  - `BetaRedactedThinkingBlockParam`
-
-    - `string data`
-
-      The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
-
-    - `"redacted_thinking" type`
-
-  - `BetaToolUseBlockParam`
-
-    - `string id`
-
-    - `array<string,mixed> input`
-
-    - `string name`
-
-    - `"tool_use" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-    - `?string toolsetName`
-
-      For a toolset member tool_use, the toolset family this member belongs to.
-
-  - `BetaToolResultBlockParam`
-
-    - `string toolUseID`
-
-    - `"tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?Content content`
-
-    - `?bool isError`
-
-    - `?string toolsetName`
-
-      For a toolset member tool_result, the toolset family of the paired tool_use.
-
-  - `BetaServerToolUseBlockParam`
-
-    - `string id`
-
-    - `array<string,mixed> input`
-
-    - `Name name`
-
-    - `"server_tool_use" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-  - `BetaWebSearchToolResultBlockParam`
-
-    - `BetaWebSearchToolResultBlockParamContent content`
-
-    - `string toolUseID`
-
-    - `"web_search_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-  - `BetaWebFetchToolResultBlockParam`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"web_fetch_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?Caller caller`
-
-      Tool invocation directly from the model.
-
-  - `BetaAdvisorToolResultBlockParam`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"advisor_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaCodeExecutionToolResultBlockParam`
-
-    - `BetaCodeExecutionToolResultBlockParamContent content`
-
-      Code execution result with encrypted stdout for PFC + web_search results.
-
-    - `string toolUseID`
-
-    - `"code_execution_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaBashCodeExecutionToolResultBlockParam`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"bash_code_execution_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaTextEditorCodeExecutionToolResultBlockParam`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"text_editor_code_execution_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaToolSearchToolResultBlockParam`
-
-    - `Content content`
-
-    - `string toolUseID`
-
-    - `"tool_search_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaMCPToolUseBlockParam`
-
-    - `string id`
-
-    - `array<string,mixed> input`
-
-    - `string name`
-
-    - `string serverName`
-
-      The name of the MCP server
-
-    - `"mcp_tool_use" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaRequestMCPToolResultBlockParam`
-
-    - `string toolUseID`
-
-    - `"mcp_tool_result" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?Content content`
-
-    - `?bool isError`
-
-  - `BetaContainerUploadBlockParam`
-
-    - `string fileID`
-
-    - `"container_upload" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaCompactionBlockParam`
-
-    - `"compaction" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?string content`
-
-      Summary of previously compacted content, or null if compaction failed
-
-    - `?string encryptedContent`
-
-      Opaque metadata from prior compaction, to be round-tripped verbatim
-
-  - `BetaRequestToolAdditionBlock`
-
-    - `Tool tool`
-
-      Reference to a single tool the caller declared directly in
-      `tools[]`. Does not accept the composed `{server}_{name}` form the
-      server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-      `mcp_toolset_reference` for those.
-
-    - `"tool_addition" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaRequestToolRemovalBlock`
-
-    - `Tool tool`
-
-      Reference to a single tool the caller declared directly in
-      `tools[]`. Does not accept the composed `{server}_{name}` form the
-      server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-      `mcp_toolset_reference` for those.
-
-    - `"tool_removal" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-  - `BetaFallbackBlockParam`
-
-    - `BetaFallbackInfoParam from`
-
-      Identifies one hop of a fallback transition.
-
-    - `BetaFallbackInfoParam to`
-
-      Identifies one hop of a fallback transition.
-
-    - `"fallback" type`
-
-    - `?mixed trigger`
-
-      The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
-
-### Beta Content Block Source
-
-- `BetaContentBlockSource`
-
-  - `Content content`
-
-  - `"content" type`
-
-### Beta Content Block Source Content
-
-- `BetaContentBlockSourceContent`
-
-  - `BetaTextBlockParam`
-
-    - `string text`
-
-    - `"text" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?list<BetaTextCitationParam> citations`
-
-  - `BetaImageBlockParam`
-
-    - `Source source`
-
-    - `"image" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaImageTransformationsParam transformations`
-
-      Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-### Beta Context Management Config
-
-- `BetaContextManagementConfig`
-
-  - `?list<Edit> edits`
-
-    List of context management edits to apply
-
-### Beta Context Management Response
-
-- `BetaContextManagementResponse`
-
-  - `list<AppliedEdit> appliedEdits`
-
-    List of context management edits that were applied.
-
-### Beta Count Tokens Context Management Response
-
-- `BetaCountTokensContextManagementResponse`
-
-  - `int originalInputTokens`
-
-    The original token count before context management was applied
-
-### Beta Diagnostics
-
-- `BetaDiagnostics`
-
-  - `?CacheMissReason cacheMissReason`
-
-    Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
-
-### Beta Diagnostics Param
-
-- `BetaDiagnosticsParam`
-
-  - `?string previousMessageID`
-
-    The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
-
-### Beta Direct Caller
-
-- `BetaDirectCaller`
-
-  - `"direct" type`
-
-### Beta Document Block
-
-- `BetaDocumentBlock`
-
-  - `?BetaCitationConfig citations`
-
-    Citation configuration for the document
-
-  - `Source source`
-
-  - `?string title`
-
-    The title of the document
-
-  - `"document" type`
-
-### Beta Encrypted Code Execution Result Block
-
-- `BetaEncryptedCodeExecutionResultBlock`
-
-  - `list<BetaCodeExecutionOutputBlock> content`
-
-  - `string encryptedStdout`
-
-  - `int returnCode`
-
-  - `string stderr`
-
-  - `"encrypted_code_execution_result" type`
-
-### Beta Encrypted Code Execution Result Block Param
-
-- `BetaEncryptedCodeExecutionResultBlockParam`
-
-  - `list<BetaCodeExecutionOutputBlockParam> content`
-
-  - `string encryptedStdout`
-
-  - `int returnCode`
-
-  - `string stderr`
-
-  - `"encrypted_code_execution_result" type`
-
-### Beta Fallback Block
-
-- `BetaFallbackBlock`
-
-  - `BetaFallbackInfo from`
-
-    The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-  - `BetaFallbackInfo to`
-
-    The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-  - `BetaFallbackRefusalTrigger trigger`
-
-    What caused the `from` model to hand over at this hop.
-
-  - `"fallback" type`
-
-### Beta Fallback Block Param
-
-- `BetaFallbackBlockParam`
-
-  - `BetaFallbackInfoParam from`
-
-    Identifies one hop of a fallback transition.
-
-  - `BetaFallbackInfoParam to`
-
-    Identifies one hop of a fallback transition.
-
-  - `"fallback" type`
-
-  - `?mixed trigger`
-
-    The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
-
-### Beta Fallback Credit Not Applied
-
-- `BetaFallbackCreditNotApplied`
-
-  - `Reason reason`
-
-    Why the reprice was not applied.
-
-    A closed enum; additions to the redemption-check vocabulary arrive as
-    deliberate schema updates.
-
-  - `"not_applied" type`
-
-  - `?list<string> removeToRedeem`
-
-    Request fields to remove before retrying, so the retry can redeem this
-    token.
-
-    Present exactly when `reason` is `variant_fields_present` — never null,
-    never an empty array; absent otherwise. Fields are named only from your own request, and only after
-    the sealed variant hash matched. A served best-effort retry has already
-    been billed at normal price; nothing redeems retroactively, but a corrected
-    re-send inside the token's five-minute window can still redeem.
-
-### Beta Fallback Credit Redeemed
-
-- `BetaFallbackCreditRedeemed`
-
-  - `"redeemed" type`
-
-### Beta Fallback Credit Token Param
-
-- `BetaFallbackCreditTokenParam`
-
-  - `string token`
-
-    The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
-
-  - `?Mode mode`
-
-    How a failing token affects the retry. `strict` (the default, and the bare-string behavior): a failing redemption is a 400 and the retry is not served. `best_effort`: the retry is served either way — a token-layer failure no longer rejects the request; the retry proceeds at normal price and the outcome is reported on the response's `usage.fallback_credit`. Two failures stay hard in both modes: a malformed token, and combining `fallback_credit_token` with `fallbacks`.
-
-### Beta Fallback Credit Usage
-
-- `BetaFallbackCreditUsage`
-
-  - `Status status`
-
-    Whether the fallback-credit reprice was applied to this response's billing.
-
-    A union discriminated on `type`. `redeemed`: the retry is billed as if
-    the conversation had been on the retry model all along — including when the
-    resulting shift is zero because there was nothing to move. `not_applied`:
-    no reprice was applied; the arm's `reason` says why.
-
-### Beta Fallback Info
-
-- `BetaFallbackInfo`
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-### Beta Fallback Info Param
-
-- `BetaFallbackInfoParam`
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-### Beta Fallback Message Iteration Usage
-
-- `BetaFallbackMessageIterationUsage`
-
-  - `?BetaCacheCreation cacheCreation`
-
-    Breakdown of cached tokens by TTL
-
-  - `int cacheCreationInputTokens`
-
-    The number of input tokens used to create the cache entry.
-
-  - `int cacheReadInputTokens`
-
-    The number of input tokens read from the cache.
-
-  - `int inputTokens`
-
-    The number of input tokens which were used.
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `int outputTokens`
-
-    The number of output tokens which were used.
-
-  - `"fallback_message" type`
-
-    Usage for the fallback-model attempt that served the response
-
-### Beta Fallback Param
-
-- `BetaFallbackParam`
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `?int maxTokens`
-
-  - `?BetaOutputConfig outputConfig`
-
-  - `?Speed speed`
-
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-  - `?Thinking thinking`
-
-### Beta Fallback Refusal Trigger
-
-- `BetaFallbackRefusalTrigger`
-
-  - `?Category category`
-
-    The policy category that triggered a refusal.
-
-  - `"refusal" type`
-
-### Beta Fallbacks Param
-
-- `BetaFallbacksParam`
-
-  - `list<BetaFallbackParam>`
-
-    - `Model model`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-    - `?int maxTokens`
-
-    - `?BetaOutputConfig outputConfig`
-
-    - `?Speed speed`
-
-      Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-    - `?Thinking thinking`
-
-  - `"default"`
-
-    - `"default"`
-
-### Beta File Document Source
-
-- `BetaFileDocumentSource`
-
-  - `string fileID`
-
-  - `"file" type`
-
-### Beta File Image Source
-
-- `BetaFileImageSource`
-
-  - `string fileID`
-
-  - `"file" type`
-
-### Beta Image Block Param
-
-- `BetaImageBlockParam`
-
-  - `Source source`
-
-  - `"image" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaImageTransformationsParam transformations`
-
-    Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
-
-### Beta Image Transformations Param
-
-- `BetaImageTransformationsParam`
-
-  - `?OversizedImage oversizedImage`
-
-    What the server does when this image exceeds the model's maximum image size. `"downsize"` (the default) scales the image down to fit, which changes the dimensions the model observes without telling you. `"error"` instead rejects the request with a 400 error naming the image's dimensions and the largest dimensions that fit, so you can scale the image deliberately — your image is never silently scaled down.
-
-### Beta Input JSON Delta
-
-- `BetaInputJSONDelta`
-
-  - `string partialJSON`
-
-  - `"input_json_delta" type`
-
-### Beta Input Tokens Clear At Least
-
-- `BetaInputTokensClearAtLeast`
-
-  - `"input_tokens" type`
-
-  - `int value`
-
-### Beta Input Tokens Trigger
-
-- `BetaInputTokensTrigger`
-
-  - `"input_tokens" type`
-
-  - `int value`
-
-### Beta Iterations Usage
-
-- `list<BetaIterationsUsageItem>`
-
-  - `BetaMessageIterationUsage`
-
-    - `?BetaCacheCreation cacheCreation`
-
-      Breakdown of cached tokens by TTL
-
-    - `int cacheCreationInputTokens`
-
-      The number of input tokens used to create the cache entry.
-
-    - `int cacheReadInputTokens`
-
-      The number of input tokens read from the cache.
-
-    - `int inputTokens`
-
-      The number of input tokens which were used.
-
-    - `Model model`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-    - `int outputTokens`
-
-      The number of output tokens which were used.
-
-    - `"message" type`
-
-      Usage for a sampling iteration
-
-  - `BetaCompactionIterationUsage`
-
-    - `?BetaCacheCreation cacheCreation`
-
-      Breakdown of cached tokens by TTL
-
-    - `int cacheCreationInputTokens`
-
-      The number of input tokens used to create the cache entry.
-
-    - `int cacheReadInputTokens`
-
-      The number of input tokens read from the cache.
-
-    - `int inputTokens`
-
-      The number of input tokens which were used.
-
-    - `int outputTokens`
-
-      The number of output tokens which were used.
-
-    - `"compaction" type`
-
-      Usage for a compaction iteration
-
-  - `BetaAdvisorMessageIterationUsage`
-
-    - `?BetaCacheCreation cacheCreation`
-
-      Breakdown of cached tokens by TTL
-
-    - `int cacheCreationInputTokens`
-
-      The number of input tokens used to create the cache entry.
-
-    - `int cacheReadInputTokens`
-
-      The number of input tokens read from the cache.
-
-    - `int inputTokens`
-
-      The number of input tokens which were used.
-
-    - `Model model`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-    - `int outputTokens`
-
-      The number of output tokens which were used.
-
-    - `"advisor_message" type`
-
-      Usage for an advisor sub-inference iteration
-
-  - `BetaFallbackMessageIterationUsage`
-
-    - `?BetaCacheCreation cacheCreation`
-
-      Breakdown of cached tokens by TTL
-
-    - `int cacheCreationInputTokens`
-
-      The number of input tokens used to create the cache entry.
-
-    - `int cacheReadInputTokens`
-
-      The number of input tokens read from the cache.
-
-    - `int inputTokens`
-
-      The number of input tokens which were used.
-
-    - `Model model`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-    - `int outputTokens`
-
-      The number of output tokens which were used.
-
-    - `"fallback_message" type`
-
-      Usage for the fallback-model attempt that served the response
-
-### Beta JSON Output Format
-
-- `BetaJSONOutputFormat`
-
-  - `array<string,mixed> schema`
-
-    The JSON schema of the format
-
-  - `"json_schema" type`
-
-### Beta MCP Tool Config
-
-- `BetaMCPToolConfig`
-
-  - `?bool deferLoading`
-
-  - `?bool enabled`
-
-### Beta MCP Tool Default Config
-
-- `BetaMCPToolDefaultConfig`
-
-  - `?bool deferLoading`
-
-  - `?bool enabled`
-
-### Beta MCP Tool Result Block
-
-- `BetaMCPToolResultBlock`
-
-  - `Content content`
-
-  - `bool isError`
-
-  - `string toolUseID`
-
-  - `"mcp_tool_result" type`
-
-### Beta MCP Tool Use Block
-
-- `BetaMCPToolUseBlock`
-
-  - `string id`
-
-  - `array<string,mixed> input`
-
-  - `string name`
-
-    The name of the MCP tool
-
-  - `string serverName`
-
-    The name of the MCP server
-
-  - `"mcp_tool_use" type`
-
-### Beta MCP Tool Use Block Param
-
-- `BetaMCPToolUseBlockParam`
-
-  - `string id`
-
-  - `array<string,mixed> input`
-
-  - `string name`
-
-  - `string serverName`
-
-    The name of the MCP server
-
-  - `"mcp_tool_use" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta MCP Toolset
-
-- `BetaMCPToolset`
-
-  - `string mcpServerName`
-
-    Name of the MCP server to configure tools for
-
-  - `"mcp_toolset" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?array<string,BetaMCPToolConfig> configs`
-
-    Configuration overrides for specific tools, keyed by tool name
-
-  - `?BetaMCPToolDefaultConfig defaultConfig`
-
-    Default configuration applied to all tools from this server
-
-### Beta Memory Tool 20250818
-
-- `BetaMemoryTool20250818`
-
-  - `"memory" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"memory_20250818" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Memory Tool 20250818 Command
-
-- `BetaMemoryTool20250818Command`
-
-  - `BetaMemoryTool20250818ViewCommand`
-
-    - `"view" command`
-
-      Command type identifier
-
-    - `string path`
-
-      Path to directory or file to view
-
-    - `?list<int> viewRange`
-
-      Optional line range for viewing specific lines
-
-  - `BetaMemoryTool20250818CreateCommand`
-
-    - `"create" command`
-
-      Command type identifier
-
-    - `string fileText`
-
-      Content to write to the file
-
-    - `string path`
-
-      Path where the file should be created
-
-  - `BetaMemoryTool20250818StrReplaceCommand`
-
-    - `"str_replace" command`
-
-      Command type identifier
-
-    - `string newStr`
-
-      Text to replace with
-
-    - `string oldStr`
-
-      Text to search for and replace
-
-    - `string path`
-
-      Path to the file where text should be replaced
-
-  - `BetaMemoryTool20250818InsertCommand`
-
-    - `"insert" command`
-
-      Command type identifier
-
-    - `int insertLine`
-
-      Line number where text should be inserted
-
-    - `string insertText`
-
-      Text to insert at the specified line
-
-    - `string path`
-
-      Path to the file where text should be inserted
-
-  - `BetaMemoryTool20250818DeleteCommand`
-
-    - `"delete" command`
-
-      Command type identifier
-
-    - `string path`
-
-      Path to the file or directory to delete
-
-  - `BetaMemoryTool20250818RenameCommand`
-
-    - `"rename" command`
-
-      Command type identifier
-
-    - `string newPath`
-
-      New path for the file or directory
-
-    - `string oldPath`
-
-      Current path of the file or directory
-
-### Beta Memory Tool 20250818 Create Command
-
-- `BetaMemoryTool20250818CreateCommand`
-
-  - `"create" command`
-
-    Command type identifier
-
-  - `string fileText`
-
-    Content to write to the file
-
-  - `string path`
-
-    Path where the file should be created
-
-### Beta Memory Tool 20250818 Delete Command
-
-- `BetaMemoryTool20250818DeleteCommand`
-
-  - `"delete" command`
-
-    Command type identifier
-
-  - `string path`
-
-    Path to the file or directory to delete
-
-### Beta Memory Tool 20250818 Insert Command
-
-- `BetaMemoryTool20250818InsertCommand`
-
-  - `"insert" command`
-
-    Command type identifier
-
-  - `int insertLine`
-
-    Line number where text should be inserted
-
-  - `string insertText`
-
-    Text to insert at the specified line
-
-  - `string path`
-
-    Path to the file where text should be inserted
-
-### Beta Memory Tool 20250818 Rename Command
-
-- `BetaMemoryTool20250818RenameCommand`
-
-  - `"rename" command`
-
-    Command type identifier
-
-  - `string newPath`
-
-    New path for the file or directory
-
-  - `string oldPath`
-
-    Current path of the file or directory
-
-### Beta Memory Tool 20250818 Str Replace Command
-
-- `BetaMemoryTool20250818StrReplaceCommand`
-
-  - `"str_replace" command`
-
-    Command type identifier
-
-  - `string newStr`
-
-    Text to replace with
-
-  - `string oldStr`
-
-    Text to search for and replace
-
-  - `string path`
-
-    Path to the file where text should be replaced
-
-### Beta Memory Tool 20250818 View Command
-
-- `BetaMemoryTool20250818ViewCommand`
-
-  - `"view" command`
-
-    Command type identifier
-
-  - `string path`
-
-    Path to directory or file to view
-
-  - `?list<int> viewRange`
-
-    Optional line range for viewing specific lines
-
-### Beta Message
-
-- `BetaMessage`
-
-  - `string id`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `?BetaContainer container`
-
-    Information about the container used in the request (for the code execution tool)
-
-  - `list<BetaContentBlock> content`
-
-    Content generated by the model.
-
-    This is an array of content blocks, each of which has a `type` that determines its shape.
-
-    Example:
-
-    ```json
-    [{"type": "text", "text": "Hi, I'm Claude."}]
-    ```
-
-    If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-    For example, if the input `messages` were:
-
-    ```json
-    [
-      {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-      {"role": "assistant", "content": "The best answer is ("}
-    ]
-    ```
-
-    Then the response `content` might be:
-
-    ```json
-    [{"type": "text", "text": "B)"}]
-    ```
-
-  - `?BetaContextManagementResponse contextManagement`
-
-    Context management response.
-
-    Information about context management strategies applied during the request.
-
-  - `?BetaDiagnostics diagnostics`
-
-    Response envelope for request-level diagnostics. Present (possibly
-    null) whenever the caller supplied `diagnostics` on the request.
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `"assistant" role`
-
-    Conversational role of the generated message.
-
-    This will always be `"assistant"`.
-
-  - `?BetaRefusalStopDetails stopDetails`
-
-    Structured information about a refusal.
-
-  - `?BetaStopReason stopReason`
-
-    The reason that we stopped.
-
-    This may be one the following values:
-
-    * `"end_turn"`: the model reached a natural stopping point
-    * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-    * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-    * `"tool_use"`: the model invoked one or more tools
-    * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-    * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-    * `"model_context_window_exceeded"`: we exceeded the model's context window
-
-    In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-  - `?string stopSequence`
-
-    Which custom stop sequence was generated, if any.
-
-    This value will be a non-null string if one of your custom stop sequences was generated.
-
-  - `"message" type`
-
-    Object type.
-
-    For Messages, this is always `"message"`.
-
-  - `BetaUsage usage`
-
-    Billing and rate-limit usage.
-
-    Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-    Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-    For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-    Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-### Beta Message Delta Usage
-
-- `BetaMessageDeltaUsage`
-
-  - `?int cacheCreationInputTokens`
-
-    The cumulative number of input tokens used to create the cache entry.
-
-  - `?int cacheReadInputTokens`
-
-    The cumulative number of input tokens read from the cache.
-
-  - `?BetaFallbackCreditUsage fallbackCredit`
-
-    Outcome of the `fallback_credit_token` presented on this request.
-
-  - `?int inputTokens`
-
-    The cumulative number of input tokens which were used.
-
-  - `?list<BetaIterationsUsageItem> iterations`
-
-    Per-iteration token usage breakdown.
-
-    Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-    - Determine which iterations exceeded long context thresholds (>=200k tokens)
-    - Calculate the true context window size from the last iteration
-    - Understand token accumulation across server-side tool use loops
-
-  - `int outputTokens`
-
-    The cumulative number of output tokens which were used.
-
-  - `?BetaOutputTokensDetails outputTokensDetails`
-
-    Breakdown of output tokens by category.
-
-    `output_tokens` remains the inclusive, authoritative total used for billing.
-    This object provides a read-only decomposition for observability — for example,
-    how many of the billed output tokens were spent on internal reasoning that may
-    have been summarized before being returned to you.
-
-  - `?BetaServerToolUsage serverToolUse`
-
-    The number of server tool requests.
-
-### Beta Message Iteration Usage
-
-- `BetaMessageIterationUsage`
-
-  - `?BetaCacheCreation cacheCreation`
-
-    Breakdown of cached tokens by TTL
-
-  - `int cacheCreationInputTokens`
-
-    The number of input tokens used to create the cache entry.
-
-  - `int cacheReadInputTokens`
-
-    The number of input tokens read from the cache.
-
-  - `int inputTokens`
-
-    The number of input tokens which were used.
-
-  - `Model model`
-
-    The model that will complete your prompt.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `int outputTokens`
-
-    The number of output tokens which were used.
-
-  - `"message" type`
-
-    Usage for a sampling iteration
-
-### Beta Message Param
-
-- `BetaMessageParam`
-
-  - `Content content`
-
-  - `Role role`
-
-### Beta Message Tokens Count
-
-- `BetaMessageTokensCount`
-
-  - `?BetaCountTokensContextManagementResponse contextManagement`
-
-    Information about context management applied to the message.
-
-  - `int inputTokens`
-
-    The total number of tokens across the provided list of messages, system prompt, and tools.
-
-### Beta Metadata
-
-- `BetaMetadata`
-
-  - `?string userID`
-
-    An external identifier for the user who is associated with the request.
-
-    This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
-
-### Beta Output Config
-
-- `BetaOutputConfig`
-
-  - `?Effort effort`
-
-    All possible effort levels.
-
-  - `?BetaJSONOutputFormat format`
-
-    A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  - `?BetaTokenTaskBudget taskBudget`
-
-    User-configurable total token budget across contexts.
-
-### Beta Output Tokens Details
-
-- `BetaOutputTokensDetails`
-
-  - `int thinkingTokens`
-
-    Number of output tokens the model generated as internal reasoning, including
-    the thinking-block delimiter tokens.
-
-    Reflects the raw reasoning the model produced, not the (possibly shorter)
-    summarized thinking text returned in the response body. Computed by
-    re-tokenizing the raw reasoning text, so it may differ from the model's exact
-    generation count by a small number of tokens. Always ≤ `output_tokens`;
-    `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-### Beta Plain Text Source
-
-- `BetaPlainTextSource`
-
-  - `string data`
-
-  - `"text/plain" mediaType`
-
-  - `"text" type`
-
-### Beta Raw Content Block Delta
-
-- `BetaRawContentBlockDelta`
-
-  - `BetaTextDelta`
-
-    - `string text`
-
-    - `"text_delta" type`
-
-  - `BetaInputJSONDelta`
-
-    - `string partialJSON`
-
-    - `"input_json_delta" type`
-
-  - `BetaCitationsDelta`
-
-    - `Citation citation`
-
-    - `"citations_delta" type`
-
-  - `BetaThinkingDelta`
-
-    - `?int estimatedTokens`
-
-      Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
-
-    - `string thinking`
-
-      The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
-
-    - `"thinking_delta" type`
-
-  - `BetaSignatureDelta`
-
-    - `string signature`
-
-      The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
-
-    - `"signature_delta" type`
-
-  - `BetaCompactionContentBlockDelta`
-
-    - `?string content`
-
-    - `?string encryptedContent`
-
-      Opaque metadata from prior compaction, to be round-tripped verbatim
-
-    - `"compaction_delta" type`
-
-### Beta Raw Content Block Delta Event
-
-- `BetaRawContentBlockDeltaEvent`
-
-  - `BetaRawContentBlockDelta delta`
-
-  - `int index`
-
-  - `"content_block_delta" type`
-
-### Beta Raw Content Block Start Event
-
-- `BetaRawContentBlockStartEvent`
-
-  - `ContentBlock contentBlock`
-
-    Response model for a file uploaded to the container.
-
-  - `int index`
-
-  - `"content_block_start" type`
-
-### Beta Raw Content Block Stop Event
-
-- `BetaRawContentBlockStopEvent`
-
-  - `int index`
-
-  - `"content_block_stop" type`
-
-### Beta Raw Message Delta Event
-
-- `BetaRawMessageDeltaEvent`
-
-  - `?BetaContextManagementResponse contextManagement`
-
-    Information about context management strategies applied during the request
-
-  - `Delta delta`
-
-  - `"message_delta" type`
-
-  - `BetaMessageDeltaUsage usage`
-
-    Billing and rate-limit usage.
-
-    Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-    Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-    For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-    Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-### Beta Raw Message Start Event
-
-- `BetaRawMessageStartEvent`
-
-  - `BetaMessage message`
-
-  - `"message_start" type`
-
-### Beta Raw Message Stop Event
-
-- `BetaRawMessageStopEvent`
-
-  - `"message_stop" type`
-
-### Beta Raw Message Stream Event
-
-- `BetaRawMessageStreamEvent`
-
-  - `BetaRawMessageStartEvent`
-
-    - `BetaMessage message`
-
-    - `"message_start" type`
-
-  - `BetaRawMessageDeltaEvent`
-
-    - `?BetaContextManagementResponse contextManagement`
-
-      Information about context management strategies applied during the request
-
-    - `Delta delta`
-
-    - `"message_delta" type`
-
-    - `BetaMessageDeltaUsage usage`
-
-      Billing and rate-limit usage.
-
-      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-  - `BetaRawMessageStopEvent`
-
-    - `"message_stop" type`
-
-  - `BetaRawContentBlockStartEvent`
-
-    - `ContentBlock contentBlock`
-
-      Response model for a file uploaded to the container.
-
-    - `int index`
-
-    - `"content_block_start" type`
-
-  - `BetaRawContentBlockDeltaEvent`
-
-    - `BetaRawContentBlockDelta delta`
-
-    - `int index`
-
-    - `"content_block_delta" type`
-
-  - `BetaRawContentBlockStopEvent`
-
-    - `int index`
-
-    - `"content_block_stop" type`
-
-### Beta Redacted Thinking Block
-
-- `BetaRedactedThinkingBlock`
-
-  - `string data`
-
-    The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-    Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-  - `"redacted_thinking" type`
-
-### Beta Redacted Thinking Block Param
-
-- `BetaRedactedThinkingBlockParam`
-
-  - `string data`
-
-    The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
-
-  - `"redacted_thinking" type`
-
-### Beta Refusal Stop Details
-
-- `BetaRefusalStopDetails`
-
-  - `?Category category`
-
-    The policy category that triggered a refusal.
-
-  - `?string explanation`
-
-    Human-readable explanation of the refusal.
-
-    This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-  - `?string fallbackCreditToken`
-
-    Opaque code that refunds the cache-miss cost when retrying this refused
-    request on the fallback model. Pass it as `fallback_credit_token` on the
-    retry request. Expires 5 minutes after the refusal.
-
-    The retry is sent either with the same request body (`system`, `messages`,
-    `tools`, and other render-shaping fields), or with the same body plus one
-    appended `assistant` message whose content is the partial text (with any
-    trailing whitespace stripped from the final text block) and paired
-    server-tool blocks from this refusal — which also authorizes that
-    appended turn as an assistant-prefill continuation on models that otherwise
-    disallow prefill. A token minted mid-server-tool-loop whose partial content
-    was continuable may only be redeemed the second way — if a same-body retry
-    is rejected with a 400 saying the token must be redeemed by continuing the
-    partial response, retry the second way instead. Either way: same workspace,
-    same platform; a mismatch is a 400. Resending a token for an already-warm
-    prefix is permitted but yields no additional credit.
-
-    `null` when the refused model isn't eligible for a fallback credit.
-
-  - `?bool fallbackHasPrefillClaim`
-
-    Whether the accompanying `fallback_credit_token` may be redeemed with the
-    appended-assistant retry form. Only set when `fallback_credit_token` is
-    present.
-
-    `true`: retry by resending the same request body plus one appended
-    `assistant` message whose content is this response's `content` with any
-    trailing whitespace stripped from the final text block and unpaired
-    `tool_use` blocks omitted (the same appended-turn shape described on
-    `fallback_credit_token`), with the token attached. `false`: retry by
-    resending the original request body unchanged, with the token attached —
-    the appended-assistant form is not available for this refusal (no
-    continuable partial content, or the request uses `output_format` or a
-    `tool_choice` that forces tool use). One exception: when the request used
-    `output_format` or a forced `tool_choice` and the refusal arrived after
-    server tools (including MCP connector tools) had already executed, the
-    token may not be redeemable by either retry form; if the exact-body retry
-    is then rejected with a 400 saying the token must be redeemed by
-    continuing the partial response, discard the token and retry without it.
-
-    Advisory: if an appended-assistant retry is rejected with a 400 despite
-    `true`, fall back to resending the original request body with the token.
-
-  - `?string recommendedModel`
-
-    The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
-
-  - `"refusal" type`
-
-### Beta Request Document Block
-
-- `BetaRequestDocumentBlock`
-
-  - `Source source`
-
-  - `"document" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaCitationsConfigParam citations`
-
-  - `?string context`
-
-  - `?string title`
-
-### Beta Request MCP Server Tool Configuration
-
-- `BetaRequestMCPServerToolConfiguration`
-
-  - `?list<string> allowedTools`
-
-  - `?bool enabled`
-
-### Beta Request MCP Server URL Definition
-
-- `BetaRequestMCPServerURLDefinition`
-
-  - `string name`
-
-  - `"url" type`
-
-  - `string url`
-
-  - `?string authorizationToken`
-
-  - `?BetaRequestMCPServerToolConfiguration toolConfiguration`
-
-### Beta Request MCP Tool Result Block Param
-
-- `BetaRequestMCPToolResultBlockParam`
-
-  - `string toolUseID`
-
-  - `"mcp_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?Content content`
-
-  - `?bool isError`
-
-### Beta Request Tool Addition Block
-
-- `BetaRequestToolAdditionBlock`
-
-  - `Tool tool`
-
-    Reference to a single tool the caller declared directly in
-    `tools[]`. Does not accept the composed `{server}_{name}` form the
-    server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-    `mcp_toolset_reference` for those.
-
-  - `"tool_addition" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Request Tool Removal Block
-
-- `BetaRequestToolRemovalBlock`
-
-  - `Tool tool`
-
-    Reference to a single tool the caller declared directly in
-    `tools[]`. Does not accept the composed `{server}_{name}` form the
-    server assigns to MCP-resolved tools — use `mcp_tool_reference` or
-    `mcp_toolset_reference` for those.
-
-  - `"tool_removal" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Search Result Block Param
-
-- `BetaSearchResultBlockParam`
-
-  - `list<BetaTextBlockParam> content`
-
-  - `string source`
-
-  - `string title`
-
-  - `"search_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaCitationsConfigParam citations`
-
-### Beta Server Tool Caller
-
-- `BetaServerToolCaller`
-
-  - `string toolID`
-
-  - `"code_execution_20250825" type`
-
-### Beta Server Tool Caller 20260120
-
-- `BetaServerToolCaller20260120`
-
-  - `string toolID`
-
-  - `"code_execution_20260120" type`
-
-### Beta Server Tool Usage
-
-- `BetaServerToolUsage`
-
-  - `int webFetchRequests`
-
-    The number of web fetch tool requests.
-
-  - `int webSearchRequests`
-
-    The number of web search tool requests.
-
-### Beta Server Tool Use Block
-
-- `BetaServerToolUseBlock`
-
-  - `string id`
-
-  - `array<string,mixed> input`
-
-  - `Name name`
-
-  - `"server_tool_use" type`
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-### Beta Server Tool Use Block Param
-
-- `BetaServerToolUseBlockParam`
-
-  - `string id`
-
-  - `array<string,mixed> input`
-
-  - `Name name`
-
-  - `"server_tool_use" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-### Beta Signature Delta
-
-- `BetaSignatureDelta`
-
-  - `string signature`
-
-    The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
-
-  - `"signature_delta" type`
-
-### Beta Skill
-
-- `BetaSkill`
-
-  - `string skillID`
-
-    Skill ID
-
-  - `Type type`
-
-    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-  - `string version`
-
-    The resolved version: a skill version ID for custom skills.
-
-### Beta Skill Params
-
-- `BetaSkillParams`
-
-  - `string skillID`
-
-    Skill ID
-
-  - `Type type`
-
-    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-  - `?string version`
-
-    Skill version or 'latest' for most recent version
-
-### Beta Stop Reason
-
-- `BetaStopReason`
-
-  - `"end_turn"`
-
-  - `"max_tokens"`
-
-  - `"stop_sequence"`
-
-  - `"tool_use"`
-
-  - `"pause_turn"`
-
-  - `"compaction"`
-
-  - `"refusal"`
-
-  - `"model_context_window_exceeded"`
-
-### Beta Text Block
-
-- `BetaTextBlock`
-
-  - `?list<BetaTextCitation> citations`
-
-    Citations supporting the text block.
-
-    The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-  - `string text`
-
-  - `"text" type`
-
-### Beta Text Block Param
-
-- `BetaTextBlockParam`
-
-  - `string text`
-
-  - `"text" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?list<BetaTextCitationParam> citations`
-
-### Beta Text Citation
-
-- `BetaTextCitation`
-
-  - `BetaCitationCharLocation`
-
-    - `string citedText`
-
-    - `int documentIndex`
-
-    - `?string documentTitle`
-
-    - `int endCharIndex`
-
-    - `?string fileID`
-
-    - `int startCharIndex`
-
-    - `"char_location" type`
-
-  - `BetaCitationPageLocation`
-
-    - `string citedText`
-
-    - `int documentIndex`
-
-    - `?string documentTitle`
-
-    - `int endPageNumber`
-
-    - `?string fileID`
-
-    - `int startPageNumber`
-
-    - `"page_location" type`
-
-  - `BetaCitationContentBlockLocation`
-
-    - `string citedText`
-
-      The full text of the cited block range, concatenated.
-
-      Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-    - `int documentIndex`
-
-    - `?string documentTitle`
-
-    - `int endBlockIndex`
-
-      Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-      Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-    - `?string fileID`
-
-    - `int startBlockIndex`
-
-      0-based index of the first cited block in the source's `content` array.
-
-    - `"content_block_location" type`
-
-  - `BetaCitationsWebSearchResultLocation`
-
-    - `string citedText`
-
-    - `string encryptedIndex`
-
-    - `?string title`
-
-    - `"web_search_result_location" type`
-
-    - `string url`
-
-  - `BetaCitationSearchResultLocation`
-
-    - `string citedText`
-
-      The full text of the cited block range, concatenated.
-
-      Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-    - `int endBlockIndex`
-
-      Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-      Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-    - `int searchResultIndex`
-
-      0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-      Counted separately from `document_index`; server-side web search results are not included in this count.
-
-    - `string source`
-
-    - `int startBlockIndex`
-
-      0-based index of the first cited block in the source's `content` array.
-
-    - `?string title`
-
-    - `"search_result_location" type`
-
-### Beta Text Citation Param
-
-- `BetaTextCitationParam`
-
-  - `BetaCitationCharLocationParam`
-
-    - `string citedText`
-
-    - `int documentIndex`
-
-    - `?string documentTitle`
-
-    - `int endCharIndex`
-
-    - `int startCharIndex`
-
-    - `"char_location" type`
-
-  - `BetaCitationPageLocationParam`
-
-    - `string citedText`
-
-    - `int documentIndex`
-
-    - `?string documentTitle`
-
-    - `int endPageNumber`
-
-    - `int startPageNumber`
-
-    - `"page_location" type`
-
-  - `BetaCitationContentBlockLocationParam`
-
-    - `string citedText`
-
-      The full text of the cited block range, concatenated.
-
-      Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-    - `int documentIndex`
-
-    - `?string documentTitle`
-
-    - `int endBlockIndex`
-
-      Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-      Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-    - `int startBlockIndex`
-
-      0-based index of the first cited block in the source's `content` array.
-
-    - `"content_block_location" type`
-
-  - `BetaCitationWebSearchResultLocationParam`
-
-    - `string citedText`
-
-    - `string encryptedIndex`
-
-    - `?string title`
-
-    - `"web_search_result_location" type`
-
-    - `string url`
-
-  - `BetaCitationSearchResultLocationParam`
-
-    - `string citedText`
-
-      The full text of the cited block range, concatenated.
-
-      Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-    - `int endBlockIndex`
-
-      Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-      Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-    - `int searchResultIndex`
-
-      0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-      Counted separately from `document_index`; server-side web search results are not included in this count.
-
-    - `string source`
-
-    - `int startBlockIndex`
-
-      0-based index of the first cited block in the source's `content` array.
-
-    - `?string title`
-
-    - `"search_result_location" type`
-
-### Beta Text Delta
-
-- `BetaTextDelta`
-
-  - `string text`
-
-  - `"text_delta" type`
-
-### Beta Text Editor Code Execution Create Result Block
-
-- `BetaTextEditorCodeExecutionCreateResultBlock`
-
-  - `bool isFileUpdate`
-
-  - `"text_editor_code_execution_create_result" type`
-
-### Beta Text Editor Code Execution Create Result Block Param
-
-- `BetaTextEditorCodeExecutionCreateResultBlockParam`
-
-  - `bool isFileUpdate`
-
-  - `"text_editor_code_execution_create_result" type`
-
-### Beta Text Editor Code Execution Str Replace Result Block
-
-- `BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-  - `?list<string> lines`
-
-  - `?int newLines`
-
-  - `?int newStart`
-
-  - `?int oldLines`
-
-  - `?int oldStart`
-
-  - `"text_editor_code_execution_str_replace_result" type`
-
-### Beta Text Editor Code Execution Str Replace Result Block Param
-
-- `BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
-
-  - `"text_editor_code_execution_str_replace_result" type`
-
-  - `?list<string> lines`
-
-  - `?int newLines`
-
-  - `?int newStart`
-
-  - `?int oldLines`
-
-  - `?int oldStart`
-
-### Beta Text Editor Code Execution Tool Result Block
-
-- `BetaTextEditorCodeExecutionToolResultBlock`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"text_editor_code_execution_tool_result" type`
-
-### Beta Text Editor Code Execution Tool Result Block Param
-
-- `BetaTextEditorCodeExecutionToolResultBlockParam`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"text_editor_code_execution_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Text Editor Code Execution Tool Result Error
-
-- `BetaTextEditorCodeExecutionToolResultError`
-
-  - `ErrorCode errorCode`
-
-  - `?string errorMessage`
-
-  - `"text_editor_code_execution_tool_result_error" type`
-
-### Beta Text Editor Code Execution Tool Result Error Param
-
-- `BetaTextEditorCodeExecutionToolResultErrorParam`
-
-  - `ErrorCode errorCode`
-
-  - `"text_editor_code_execution_tool_result_error" type`
-
-  - `?string errorMessage`
-
-### Beta Text Editor Code Execution View Result Block
-
-- `BetaTextEditorCodeExecutionViewResultBlock`
-
-  - `string content`
-
-  - `FileType fileType`
-
-  - `?int numLines`
-
-  - `?int startLine`
-
-  - `?int totalLines`
-
-  - `"text_editor_code_execution_view_result" type`
-
-### Beta Text Editor Code Execution View Result Block Param
-
-- `BetaTextEditorCodeExecutionViewResultBlockParam`
-
-  - `string content`
-
-  - `FileType fileType`
-
-  - `"text_editor_code_execution_view_result" type`
-
-  - `?int numLines`
-
-  - `?int startLine`
-
-  - `?int totalLines`
-
-### Beta Thinking Block
-
-- `BetaThinkingBlock`
-
-  - `string signature`
-
-    A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-    This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-  - `string thinking`
-
-    The text of Claude's thinking process for this block.
-
-  - `"thinking" type`
-
-### Beta Thinking Block Param
-
-- `BetaThinkingBlockParam`
-
-  - `string signature`
-
-    The `signature` value of this thinking block, exactly as returned by the API in a previous response. Used to verify that the block was generated by Claude.
-
-    Thinking blocks must be passed back unmodified and in their original order; a modified block results in a 400 `invalid_request_error`.
-
-  - `string thinking`
-
-    The `thinking` text of this block as returned by the API.
-
-  - `"thinking" type`
-
-### Beta Thinking Config Adaptive
-
-- `BetaThinkingConfigAdaptive`
-
-  - `"adaptive" type`
-
-  - `?Display display`
-
-    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
-
-### Beta Thinking Config Disabled
-
-- `BetaThinkingConfigDisabled`
-
-  - `"disabled" type`
-
-### Beta Thinking Config Enabled
-
-- `BetaThinkingConfigEnabled`
-
-  - `int budgetTokens`
-
-    Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
-
-    Must be ≥1024 and less than `max_tokens`.
-
-    See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-  - `"enabled" type`
-
-  - `?Display display`
-
-    Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
-
-### Beta Thinking Config Param
-
-- `BetaThinkingConfigParam`
-
-  - `BetaThinkingConfigEnabled`
-
-    - `int budgetTokens`
-
-      Determines how many tokens Claude can use for its internal reasoning process. Larger budgets can enable more thorough analysis for complex problems, improving response quality.
-
-      Must be ≥1024 and less than `max_tokens`.
-
-      See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-    - `"enabled" type`
-
-    - `?Display display`
-
-      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
-
-  - `BetaThinkingConfigDisabled`
-
-    - `"disabled" type`
-
-  - `BetaThinkingConfigAdaptive`
-
-    - `"adaptive" type`
-
-    - `?Display display`
-
-      Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
-
-### Beta Thinking Delta
-
-- `BetaThinkingDelta`
-
-  - `?int estimatedTokens`
-
-    Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
-
-  - `string thinking`
-
-    The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
-
-  - `"thinking_delta" type`
-
-### Beta Thinking Turns
-
-- `BetaThinkingTurns`
-
-  - `"thinking_turns" type`
-
-  - `int value`
-
-### Beta Token Task Budget
-
-- `BetaTokenTaskBudget`
-
-  - `int total`
-
-    Total token budget across all contexts in the session.
-
-  - `"tokens" type`
-
-    The budget type. Currently only 'tokens' is supported.
-
-  - `?int remaining`
-
-    Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
-
-### Beta Tool
-
-- `BetaTool`
-
-  - `InputSchema inputSchema`
-
-    [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
-
-    This defines the shape of the `input` that your tool accepts and that the model will produce.
-
-  - `string name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?string description`
-
-    Description of what this tool does.
-
-    Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
-
-  - `?bool eagerInputStreaming`
-
-    Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-  - `?Type type`
-
-### Beta Tool Bash 20241022
-
-- `BetaToolBash20241022`
-
-  - `"bash" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"bash_20241022" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Bash 20250124
-
-- `BetaToolBash20250124`
-
-  - `"bash" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"bash_20250124" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Change MCP Tool Reference
-
-- `BetaToolChangeMCPToolReference`
-
-  - `string name`
-
-  - `string serverName`
-
-  - `"mcp_tool_reference" type`
-
-### Beta Tool Change MCP Toolset Reference
-
-- `BetaToolChangeMCPToolsetReference`
-
-  - `string serverName`
-
-  - `"mcp_toolset_reference" type`
-
-### Beta Tool Change Tool Reference
-
-- `BetaToolChangeToolReference`
-
-  - `string name`
-
-  - `"tool_reference" type`
-
-### Beta Tool Choice
-
-- `BetaToolChoice`
-
-  - `BetaToolChoiceAuto`
-
-    - `"auto" type`
-
-    - `?bool disableParallelToolUse`
-
-      Whether to disable parallel tool use.
-
-      Defaults to `false`. If set to `true`, the model will output at most one tool use.
-
-  - `BetaToolChoiceAny`
-
-    - `"any" type`
-
-    - `?bool disableParallelToolUse`
-
-      Whether to disable parallel tool use.
-
-      Defaults to `false`. If set to `true`, the model will output exactly one tool use.
-
-  - `BetaToolChoiceTool`
-
-    - `string name`
-
-      The name of the tool to use.
-
-    - `"tool" type`
-
-    - `?bool disableParallelToolUse`
-
-      Whether to disable parallel tool use.
-
-      Defaults to `false`. If set to `true`, the model will output exactly one tool use.
-
-  - `BetaToolChoiceNone`
-
-    - `"none" type`
-
-### Beta Tool Choice Any
-
-- `BetaToolChoiceAny`
-
-  - `"any" type`
-
-  - `?bool disableParallelToolUse`
-
-    Whether to disable parallel tool use.
-
-    Defaults to `false`. If set to `true`, the model will output exactly one tool use.
-
-### Beta Tool Choice Auto
-
-- `BetaToolChoiceAuto`
-
-  - `"auto" type`
-
-  - `?bool disableParallelToolUse`
-
-    Whether to disable parallel tool use.
-
-    Defaults to `false`. If set to `true`, the model will output at most one tool use.
-
-### Beta Tool Choice None
-
-- `BetaToolChoiceNone`
-
-  - `"none" type`
-
-### Beta Tool Choice Tool
-
-- `BetaToolChoiceTool`
-
-  - `string name`
-
-    The name of the tool to use.
-
-  - `"tool" type`
-
-  - `?bool disableParallelToolUse`
-
-    Whether to disable parallel tool use.
-
-    Defaults to `false`. If set to `true`, the model will output exactly one tool use.
-
-### Beta Tool Computer Use 20241022
-
-- `BetaToolComputerUse20241022`
-
-  - `int displayHeightPx`
-
-    The height of the display in pixels.
-
-  - `int displayWidthPx`
-
-    The width of the display in pixels.
-
-  - `"computer" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"computer_20241022" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int displayNumber`
-
-    The X11 display number (e.g. 0, 1) for the display.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Computer Use 20250124
-
-- `BetaToolComputerUse20250124`
-
-  - `int displayHeightPx`
-
-    The height of the display in pixels.
-
-  - `int displayWidthPx`
-
-    The width of the display in pixels.
-
-  - `"computer" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"computer_20250124" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int displayNumber`
-
-    The X11 display number (e.g. 0, 1) for the display.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Computer Use 20251124
-
-- `BetaToolComputerUse20251124`
-
-  - `int displayHeightPx`
-
-    The height of the display in pixels.
-
-  - `int displayWidthPx`
-
-    The width of the display in pixels.
-
-  - `"computer" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"computer_20251124" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int displayNumber`
-
-    The X11 display number (e.g. 0, 1) for the display.
-
-  - `?bool enableZoom`
-
-    Whether to enable an action to take a zoomed-in screenshot of the screen.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Reference Block
-
-- `BetaToolReferenceBlock`
-
-  - `string toolName`
-
-  - `"tool_reference" type`
-
-### Beta Tool Reference Block Param
-
-- `BetaToolReferenceBlockParam`
-
-  - `string toolName`
-
-  - `"tool_reference" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Tool Result Block Param
-
-- `BetaToolResultBlockParam`
-
-  - `string toolUseID`
-
-  - `"tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?Content content`
-
-  - `?bool isError`
-
-  - `?string toolsetName`
-
-    For a toolset member tool_result, the toolset family of the paired tool_use.
-
-### Beta Tool Search Tool Bm25 20251119
-
-- `BetaToolSearchToolBm25_20251119`
-
-  - `"tool_search_tool_bm25" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `Type type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Search Tool Regex 20251119
-
-- `BetaToolSearchToolRegex20251119`
-
-  - `"tool_search_tool_regex" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `Type type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Search Tool Result Block
-
-- `BetaToolSearchToolResultBlock`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"tool_search_tool_result" type`
-
-### Beta Tool Search Tool Result Block Param
-
-- `BetaToolSearchToolResultBlockParam`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"tool_search_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-### Beta Tool Search Tool Result Error
-
-- `BetaToolSearchToolResultError`
-
-  - `ErrorCode errorCode`
-
-  - `?string errorMessage`
-
-  - `"tool_search_tool_result_error" type`
-
-### Beta Tool Search Tool Result Error Param
-
-- `BetaToolSearchToolResultErrorParam`
-
-  - `ErrorCode errorCode`
-
-  - `"tool_search_tool_result_error" type`
-
-  - `?string errorMessage`
-
-### Beta Tool Search Tool Search Result Block
-
-- `BetaToolSearchToolSearchResultBlock`
-
-  - `list<BetaToolReferenceBlock> toolReferences`
-
-  - `"tool_search_tool_search_result" type`
-
-### Beta Tool Search Tool Search Result Block Param
-
-- `BetaToolSearchToolSearchResultBlockParam`
-
-  - `list<BetaToolReferenceBlockParam> toolReferences`
-
-  - `"tool_search_tool_search_result" type`
-
-### Beta Tool Text Editor 20241022
-
-- `BetaToolTextEditor20241022`
-
-  - `"str_replace_editor" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"text_editor_20241022" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Text Editor 20250124
-
-- `BetaToolTextEditor20250124`
-
-  - `"str_replace_editor" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"text_editor_20250124" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Text Editor 20250429
-
-- `BetaToolTextEditor20250429`
-
-  - `"str_replace_based_edit_tool" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"text_editor_20250429" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Text Editor 20250728
-
-- `BetaToolTextEditor20250728`
-
-  - `"str_replace_based_edit_tool" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"text_editor_20250728" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?list<array<string,mixed>> inputExamples`
-
-  - `?int maxCharacters`
-
-    Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Tool Union
-
-- `BetaToolUnion`
-
-  - `BetaTool`
-
-    - `InputSchema inputSchema`
-
-      [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
-
-      This defines the shape of the `input` that your tool accepts and that the model will produce.
-
-    - `string name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?string description`
-
-      Description of what this tool does.
-
-      Tool descriptions should be as detailed as possible. The more information that the model has about what the tool is and how to use it, the better it will perform. You can use natural language descriptions to reinforce important aspects of the tool input JSON schema.
-
-    - `?bool eagerInputStreaming`
-
-      Enable eager input streaming for this tool. When true, tool input parameters will be streamed incrementally as they are generated, and types will be inferred on-the-fly rather than buffering the full JSON output. When false, streaming is disabled for this tool even if the fine-grained-tool-streaming beta is active. When null (default), uses the default behavior based on beta headers.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-    - `?Type type`
-
-  - `BetaToolBash20241022`
-
-    - `"bash" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"bash_20241022" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolBash20250124`
-
-    - `"bash" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"bash_20250124" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaCodeExecutionTool20250522`
-
-    - `"code_execution" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"code_execution_20250522" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaCodeExecutionTool20250825`
-
-    - `"code_execution" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"code_execution_20250825" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaCodeExecutionTool20260120`
-
-    - `"code_execution" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"code_execution_20260120" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaCodeExecutionTool20260521`
-
-    - `"code_execution" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"code_execution_20260521" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaBrowserToolset20260801`
-
-    - `"browser_toolset_20260801" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaBrowserToolsetConfigs configs`
-
-      Per-member configuration for `browser_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
-
-  - `BetaToolComputerUse20241022`
-
-    - `int displayHeightPx`
-
-      The height of the display in pixels.
-
-    - `int displayWidthPx`
-
-      The width of the display in pixels.
-
-    - `"computer" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"computer_20241022" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int displayNumber`
-
-      The X11 display number (e.g. 0, 1) for the display.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaMemoryTool20250818`
-
-    - `"memory" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"memory_20250818" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolComputerUse20250124`
-
-    - `int displayHeightPx`
-
-      The height of the display in pixels.
-
-    - `int displayWidthPx`
-
-      The width of the display in pixels.
-
-    - `"computer" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"computer_20250124" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int displayNumber`
-
-      The X11 display number (e.g. 0, 1) for the display.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolTextEditor20241022`
-
-    - `"str_replace_editor" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"text_editor_20241022" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolComputerUse20251124`
-
-    - `int displayHeightPx`
-
-      The height of the display in pixels.
-
-    - `int displayWidthPx`
-
-      The width of the display in pixels.
-
-    - `"computer" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"computer_20251124" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int displayNumber`
-
-      The X11 display number (e.g. 0, 1) for the display.
-
-    - `?bool enableZoom`
-
-      Whether to enable an action to take a zoomed-in screenshot of the screen.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaComputerToolset20260801`
-
-    - `"computer_toolset_20260801" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaComputerToolsetConfigs configs`
-
-      Per-member configuration for `computer_toolset_20260801`: one
-      optional field per member tool, keyed by the member name — the same
-      name the member's `tool_use` blocks carry. Every member is an
-      accepted key, and a member's defaults apply wherever its key is
-      absent. Unknown keys are rejected: the field set is this toolset
-      version's complete member set.
-
-  - `BetaToolTextEditor20250124`
-
-    - `"str_replace_editor" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"text_editor_20250124" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolTextEditor20250429`
-
-    - `"str_replace_based_edit_tool" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"text_editor_20250429" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolTextEditor20250728`
-
-    - `"str_replace_based_edit_tool" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"text_editor_20250728" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?list<array<string,mixed>> inputExamples`
-
-    - `?int maxCharacters`
-
-      Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaWebSearchTool20250305`
-
-    - `"web_search" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"web_search_20250305" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?list<string> allowedDomains`
-
-      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-
-    - `?list<string> blockedDomains`
-
-      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-    - `?BetaUserLocation userLocation`
-
-      Parameters for the user's location. Used to provide more relevant search results.
-
-  - `BetaWebFetchTool20250910`
-
-    - `"web_fetch" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"web_fetch_20250910" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?list<string> allowedDomains`
-
-      List of domains to allow fetching from
-
-    - `?list<string> blockedDomains`
-
-      List of domains to block fetching from
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaCitationsConfigParam citations`
-
-      Citations configuration for fetched documents. Citations are disabled by default.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxContentTokens`
-
-      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaWebSearchTool20260209`
-
-    - `"web_search" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"web_search_20260209" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?list<string> allowedDomains`
-
-      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-
-    - `?list<string> blockedDomains`
-
-      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-    - `?BetaUserLocation userLocation`
-
-      Parameters for the user's location. Used to provide more relevant search results.
-
-  - `BetaWebFetchTool20260209`
-
-    - `"web_fetch" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"web_fetch_20260209" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?list<string> allowedDomains`
-
-      List of domains to allow fetching from
-
-    - `?list<string> blockedDomains`
-
-      List of domains to block fetching from
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaCitationsConfigParam citations`
-
-      Citations configuration for fetched documents. Citations are disabled by default.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxContentTokens`
-
-      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaWebFetchTool20260309`
-
-    - `"web_fetch" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"web_fetch_20260309" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?list<string> allowedDomains`
-
-      List of domains to allow fetching from
-
-    - `?list<string> blockedDomains`
-
-      List of domains to block fetching from
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaCitationsConfigParam citations`
-
-      Citations configuration for fetched documents. Citations are disabled by default.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxContentTokens`
-
-      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-    - `?bool useCache`
-
-      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
-
-  - `BetaWebSearchTool20260318`
-
-    - `"web_search" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"web_search_20260318" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?list<string> allowedDomains`
-
-      If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-
-    - `?list<string> blockedDomains`
-
-      If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?ResponseInclusion responseInclusion`
-
-      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-    - `?BetaUserLocation userLocation`
-
-      Parameters for the user's location. Used to provide more relevant search results.
-
-  - `BetaWebFetchTool20260318`
-
-    - `"web_fetch" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"web_fetch_20260318" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?list<string> allowedDomains`
-
-      List of domains to allow fetching from
-
-    - `?list<string> blockedDomains`
-
-      List of domains to block fetching from
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaCitationsConfigParam citations`
-
-      Citations configuration for fetched documents. Citations are disabled by default.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxContentTokens`
-
-      Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?ResponseInclusion responseInclusion`
-
-      How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-    - `?bool useCache`
-
-      Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
-
-  - `BetaAdvisorTool20260301`
-
-    - `Model model`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-    - `"advisor" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `"advisor_20260301" type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?BetaCacheControlEphemeral caching`
-
-      Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?int maxTokens`
-
-      Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
-
-    - `?int maxUses`
-
-      Maximum number of times the tool can be used in the API request.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolSearchToolBm25_20251119`
-
-    - `"tool_search_tool_bm25" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `Type type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaToolSearchToolRegex20251119`
-
-    - `"tool_search_tool_regex" name`
-
-      Name of the tool.
-
-      This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `Type type`
-
-    - `?list<AllowedCaller> allowedCallers`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?bool deferLoading`
-
-      If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-    - `?bool strict`
-
-      When true, guarantees schema validation on tool names and inputs
-
-  - `BetaMCPToolset`
-
-    - `string mcpServerName`
-
-      Name of the MCP server to configure tools for
-
-    - `"mcp_toolset" type`
-
-    - `?BetaCacheControlEphemeral cacheControl`
-
-      Create a cache control breakpoint at this content block.
-
-    - `?array<string,BetaMCPToolConfig> configs`
-
-      Configuration overrides for specific tools, keyed by tool name
-
-    - `?BetaMCPToolDefaultConfig defaultConfig`
-
-      Default configuration applied to all tools from this server
-
-### Beta Tool Use Block
-
-- `BetaToolUseBlock`
-
-  - `string id`
-
-  - `array<string,mixed> input`
-
-  - `string name`
-
-  - `"tool_use" type`
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-  - `?string toolsetName`
-
-    For a toolset member tool_use, the toolset family.
-
-### Beta Tool Use Block Param
-
-- `BetaToolUseBlockParam`
-
-  - `string id`
-
-  - `array<string,mixed> input`
-
-  - `string name`
-
-  - `"tool_use" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-  - `?string toolsetName`
-
-    For a toolset member tool_use, the toolset family this member belongs to.
-
-### Beta Tool Uses Keep
-
-- `BetaToolUsesKeep`
-
-  - `"tool_uses" type`
-
-  - `int value`
-
-### Beta Tool Uses Trigger
-
-- `BetaToolUsesTrigger`
-
-  - `"tool_uses" type`
-
-  - `int value`
-
-### Beta URL Image Source
-
-- `BetaURLImageSource`
-
-  - `"url" type`
-
-  - `string url`
-
-### Beta URL PDF Source
-
-- `BetaURLPDFSource`
-
-  - `"url" type`
-
-  - `string url`
-
-### Beta Usage
-
-- `BetaUsage`
-
-  - `?BetaCacheCreation cacheCreation`
-
-    Breakdown of cached tokens by TTL
-
-  - `?int cacheCreationInputTokens`
-
-    The number of input tokens used to create the cache entry.
-
-  - `?int cacheReadInputTokens`
-
-    The number of input tokens read from the cache.
-
-  - `?BetaFallbackCreditUsage fallbackCredit`
-
-    Outcome of the `fallback_credit_token` presented on this request.
-
-  - `?string inferenceGeo`
-
-    The geographic region where inference was performed for this request.
-
-  - `int inputTokens`
-
-    The number of input tokens which were used.
-
-  - `?list<BetaIterationsUsageItem> iterations`
-
-    Per-iteration token usage breakdown.
-
-    Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-    - Determine which iterations exceeded long context thresholds (>=200k tokens)
-    - Calculate the true context window size from the last iteration
-    - Understand token accumulation across server-side tool use loops
-
-  - `int outputTokens`
-
-    The number of output tokens which were used.
-
-  - `?BetaOutputTokensDetails outputTokensDetails`
-
-    Breakdown of output tokens by category.
-
-    `output_tokens` remains the inclusive, authoritative total used for billing.
-    This object provides a read-only decomposition for observability — for example,
-    how many of the billed output tokens were spent on internal reasoning that may
-    have been summarized before being returned to you.
-
-  - `?BetaServerToolUsage serverToolUse`
-
-    The number of server tool requests.
-
-  - `?ServiceTier serviceTier`
-
-    If the request used the priority, standard, or batch tier.
-
-  - `?Speed speed`
-
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-### Beta User Location
-
-- `BetaUserLocation`
-
-  - `"approximate" type`
-
-  - `?string city`
-
-    The city of the user.
-
-  - `?string country`
-
-    The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
-
-  - `?string region`
-
-    The region of the user.
-
-  - `?string timezone`
-
-    The [IANA timezone](https://nodatime.org/TimeZones) of the user.
-
-### Beta Web Fetch Block
-
-- `BetaWebFetchBlock`
-
-  - `BetaDocumentBlock content`
-
-  - `?string retrievedAt`
-
-    ISO 8601 timestamp when the content was retrieved
-
-  - `"web_fetch_result" type`
-
-  - `string url`
-
-    Fetched content URL
-
-### Beta Web Fetch Block Param
-
-- `BetaWebFetchBlockParam`
-
-  - `BetaRequestDocumentBlock content`
-
-  - `"web_fetch_result" type`
-
-  - `string url`
-
-    Fetched content URL
-
-  - `?string retrievedAt`
-
-    ISO 8601 timestamp when the content was retrieved
-
-### Beta Web Fetch Tool 20250910
-
-- `BetaWebFetchTool20250910`
-
-  - `"web_fetch" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"web_fetch_20250910" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?list<string> allowedDomains`
-
-    List of domains to allow fetching from
-
-  - `?list<string> blockedDomains`
-
-    List of domains to block fetching from
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaCitationsConfigParam citations`
-
-    Citations configuration for fetched documents. Citations are disabled by default.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxContentTokens`
-
-    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Web Fetch Tool 20260209
-
-- `BetaWebFetchTool20260209`
-
-  - `"web_fetch" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"web_fetch_20260209" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?list<string> allowedDomains`
-
-    List of domains to allow fetching from
-
-  - `?list<string> blockedDomains`
-
-    List of domains to block fetching from
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaCitationsConfigParam citations`
-
-    Citations configuration for fetched documents. Citations are disabled by default.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxContentTokens`
-
-    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-### Beta Web Fetch Tool 20260309
-
-- `BetaWebFetchTool20260309`
-
-  - `"web_fetch" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"web_fetch_20260309" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?list<string> allowedDomains`
-
-    List of domains to allow fetching from
-
-  - `?list<string> blockedDomains`
-
-    List of domains to block fetching from
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaCitationsConfigParam citations`
-
-    Citations configuration for fetched documents. Citations are disabled by default.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxContentTokens`
-
-    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-  - `?bool useCache`
-
-    Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
-
-### Beta Web Fetch Tool 20260318
-
-- `BetaWebFetchTool20260318`
-
-  - `"web_fetch" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"web_fetch_20260318" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?list<string> allowedDomains`
-
-    List of domains to allow fetching from
-
-  - `?list<string> blockedDomains`
-
-    List of domains to block fetching from
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?BetaCitationsConfigParam citations`
-
-    Citations configuration for fetched documents. Citations are disabled by default.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxContentTokens`
-
-    Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?ResponseInclusion responseInclusion`
-
-    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-  - `?bool useCache`
-
-    Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
-
-### Beta Web Fetch Tool Result Block
-
-- `BetaWebFetchToolResultBlock`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"web_fetch_tool_result" type`
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-### Beta Web Fetch Tool Result Block Param
-
-- `BetaWebFetchToolResultBlockParam`
-
-  - `Content content`
-
-  - `string toolUseID`
-
-  - `"web_fetch_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-### Beta Web Fetch Tool Result Error Block
-
-- `BetaWebFetchToolResultErrorBlock`
-
-  - `BetaWebFetchToolResultErrorCode errorCode`
-
-  - `"web_fetch_tool_result_error" type`
-
-### Beta Web Fetch Tool Result Error Block Param
-
-- `BetaWebFetchToolResultErrorBlockParam`
-
-  - `BetaWebFetchToolResultErrorCode errorCode`
-
-  - `"web_fetch_tool_result_error" type`
-
-### Beta Web Fetch Tool Result Error Code
-
-- `BetaWebFetchToolResultErrorCode`
-
-  - `"invalid_tool_input"`
-
-  - `"url_too_long"`
-
-  - `"url_not_allowed"`
-
-  - `"url_not_in_prior_context"`
-
-  - `"url_not_accessible"`
-
-  - `"unsupported_content_type"`
-
-  - `"too_many_requests"`
-
-  - `"max_uses_exceeded"`
-
-  - `"unavailable"`
-
-### Beta Web Search Result Block
-
-- `BetaWebSearchResultBlock`
-
-  - `string encryptedContent`
-
-  - `?string pageAge`
-
-  - `string title`
-
-  - `"web_search_result" type`
-
-  - `string url`
-
-### Beta Web Search Result Block Param
-
-- `BetaWebSearchResultBlockParam`
-
-  - `string encryptedContent`
-
-  - `string title`
-
-  - `"web_search_result" type`
-
-  - `string url`
-
-  - `?string pageAge`
-
-### Beta Web Search Tool 20250305
-
-- `BetaWebSearchTool20250305`
-
-  - `"web_search" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"web_search_20250305" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?list<string> allowedDomains`
-
-    If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-
-  - `?list<string> blockedDomains`
-
-    If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-  - `?BetaUserLocation userLocation`
-
-    Parameters for the user's location. Used to provide more relevant search results.
-
-### Beta Web Search Tool 20260209
-
-- `BetaWebSearchTool20260209`
-
-  - `"web_search" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"web_search_20260209" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?list<string> allowedDomains`
-
-    If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-
-  - `?list<string> blockedDomains`
-
-    If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-  - `?BetaUserLocation userLocation`
-
-    Parameters for the user's location. Used to provide more relevant search results.
-
-### Beta Web Search Tool 20260318
-
-- `BetaWebSearchTool20260318`
-
-  - `"web_search" name`
-
-    Name of the tool.
-
-    This is how the tool will be called by the model and in `tool_use` blocks.
-
-  - `"web_search_20260318" type`
-
-  - `?list<AllowedCaller> allowedCallers`
-
-  - `?list<string> allowedDomains`
-
-    If provided, only these domains will be included in results. Cannot be used alongside `blocked_domains`.
-
-  - `?list<string> blockedDomains`
-
-    If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?bool deferLoading`
-
-    If true, tool will not be included in initial system prompt. Only loaded when returned via tool_reference from tool search.
-
-  - `?int maxUses`
-
-    Maximum number of times the tool can be used in the API request.
-
-  - `?ResponseInclusion responseInclusion`
-
-    How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
-
-  - `?bool strict`
-
-    When true, guarantees schema validation on tool names and inputs
-
-  - `?BetaUserLocation userLocation`
-
-    Parameters for the user's location. Used to provide more relevant search results.
-
-### Beta Web Search Tool Request Error
-
-- `BetaWebSearchToolRequestError`
-
-  - `BetaWebSearchToolResultErrorCode errorCode`
-
-  - `"web_search_tool_result_error" type`
-
-### Beta Web Search Tool Result Block
-
-- `BetaWebSearchToolResultBlock`
-
-  - `BetaWebSearchToolResultBlockContent content`
-
-  - `string toolUseID`
-
-  - `"web_search_tool_result" type`
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-### Beta Web Search Tool Result Block Content
-
-- `BetaWebSearchToolResultBlockContent`
-
-  - `BetaWebSearchToolResultError`
-
-    - `BetaWebSearchToolResultErrorCode errorCode`
-
-    - `"web_search_tool_result_error" type`
-
-  - `list<BetaWebSearchResultBlock>`
-
-    - `string encryptedContent`
-
-    - `?string pageAge`
-
-    - `string title`
-
-    - `"web_search_result" type`
-
-    - `string url`
-
-### Beta Web Search Tool Result Block Param
-
-- `BetaWebSearchToolResultBlockParam`
-
-  - `BetaWebSearchToolResultBlockParamContent content`
-
-  - `string toolUseID`
-
-  - `"web_search_tool_result" type`
-
-  - `?BetaCacheControlEphemeral cacheControl`
-
-    Create a cache control breakpoint at this content block.
-
-  - `?Caller caller`
-
-    Tool invocation directly from the model.
-
-### Beta Web Search Tool Result Block Param Content
-
-- `BetaWebSearchToolResultBlockParamContent`
-
-  - `list<BetaWebSearchResultBlockParam>`
-
-    - `string encryptedContent`
-
-    - `string title`
-
-    - `"web_search_result" type`
-
-    - `string url`
-
-    - `?string pageAge`
-
-  - `BetaWebSearchToolRequestError`
-
-    - `BetaWebSearchToolResultErrorCode errorCode`
-
-    - `"web_search_tool_result_error" type`
-
-### Beta Web Search Tool Result Error
-
-- `BetaWebSearchToolResultError`
-
-  - `BetaWebSearchToolResultErrorCode errorCode`
-
-  - `"web_search_tool_result_error" type`
-
-### Beta Web Search Tool Result Error Code
-
-- `BetaWebSearchToolResultErrorCode`
-
-  - `"invalid_tool_input"`
-
-  - `"unavailable"`
-
-  - `"max_uses_exceeded"`
-
-  - `"too_many_requests"`
-
-  - `"query_too_long"`
-
-  - `"request_too_large"`
-
-# Batches
-
-## Create a Message Batch
+### Create a Message Batch
 
 `$client->beta->messages->batches->create(list<Request> requests, ?list<AnthropicBeta> betas, ?string userProfileID): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -8568,7 +1539,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `requests: list<Request>`
 
@@ -8582,7 +1553,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -8636,7 +1607,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -8752,7 +1723,7 @@ $betaMessageBatch = $client->beta->messages->batches->create(
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -8775,17 +1746,17 @@ var_dump($betaMessageBatch);
 }
 ```
 
-## Retrieve a Message Batch
+### Retrieve a Message Batch
 
 `$client->beta->messages->batches->retrieve(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -8795,7 +1766,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -8849,7 +1820,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -8865,7 +1836,7 @@ $betaMessageBatch = $client->beta->messages->batches->retrieve(
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -8888,17 +1859,17 @@ var_dump($betaMessageBatch);
 }
 ```
 
-## List Message Batches
+### List Message Batches
 
 `$client->beta->messages->batches->list(?string afterID, ?string beforeID, ?int limit, ?list<AnthropicBeta> betas): Page<MessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `afterID?:optional string`
 
@@ -8914,11 +1885,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20
+
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -8972,7 +1945,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -8991,7 +1964,7 @@ $page = $client->beta->messages->batches->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -9021,11 +1994,11 @@ var_dump($page);
 }
 ```
 
-## Cancel a Message Batch
+### Cancel a Message Batch
 
 `$client->beta->messages->batches->cancel(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -9033,7 +2006,7 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -9043,7 +2016,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -9097,7 +2070,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -9113,7 +2086,7 @@ $betaMessageBatch = $client->beta->messages->batches->cancel(
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -9136,11 +2109,11 @@ var_dump($betaMessageBatch);
 }
 ```
 
-## Delete a Message Batch
+### Delete a Message Batch
 
 `$client->beta->messages->batches->delete(string messageBatchID, ?list<AnthropicBeta> betas): DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -9148,7 +2121,7 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -9158,7 +2131,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `DeletedMessageBatch`
 
@@ -9172,7 +2145,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -9188,7 +2161,7 @@ $betaDeletedMessageBatch = $client->beta->messages->batches->delete(
 var_dump($betaDeletedMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -9197,11 +2170,11 @@ var_dump($betaDeletedMessageBatch);
 }
 ```
 
-## Retrieve Message Batch results
+### Retrieve Message Batch results
 
 `$client->beta->messages->batches->results(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -9209,7 +2182,7 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
@@ -9219,7 +2192,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `MessageBatchIndividualResponse`
 
@@ -9235,7 +2208,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -9255,187 +2228,17 @@ $betaMessageBatchIndividualResponse = $client
 var_dump($betaMessageBatchIndividualResponse);
 ```
 
-## Domain Types
+## Beta › Agents
 
-### Beta Deleted Message Batch
-
-- `DeletedMessageBatch`
-
-  - `string id`
-
-    ID of the Message Batch.
-
-  - `"message_batch_deleted" type`
-
-    Deleted object type.
-
-    For Message Batches, this is always `"message_batch_deleted"`.
-
-### Beta Message Batch
-
-- `MessageBatch`
-
-  - `string id`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `?\Datetime archivedAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
-
-  - `?\Datetime cancelInitiatedAt`
-
-    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was created.
-
-  - `?\Datetime endedAt`
-
-    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
-
-    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
-
-  - `\Datetime expiresAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
-
-  - `ProcessingStatus processingStatus`
-
-    Processing status of the Message Batch.
-
-  - `MessageBatchRequestCounts requestCounts`
-
-    Tallies requests within the Message Batch, categorized by their status.
-
-    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
-
-  - `?string resultsURL`
-
-    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
-
-    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-### Beta Message Batch Canceled Result
-
-- `MessageBatchCanceledResult`
-
-  - `"canceled" type`
-
-### Beta Message Batch Errored Result
-
-- `MessageBatchErroredResult`
-
-  - `BetaErrorResponse error`
-
-  - `"errored" type`
-
-### Beta Message Batch Expired Result
-
-- `MessageBatchExpiredResult`
-
-  - `"expired" type`
-
-### Beta Message Batch Individual Response
-
-- `MessageBatchIndividualResponse`
-
-  - `string customID`
-
-    Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
-
-    Must be unique for each request within the Message Batch.
-
-  - `MessageBatchResult result`
-
-    Processing result for this request.
-
-    Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-### Beta Message Batch Request Counts
-
-- `MessageBatchRequestCounts`
-
-  - `int canceled`
-
-    Number of requests in the Message Batch that have been canceled.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int errored`
-
-    Number of requests in the Message Batch that encountered an error.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int expired`
-
-    Number of requests in the Message Batch that have expired.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int processing`
-
-    Number of requests in the Message Batch that are processing.
-
-  - `int succeeded`
-
-    Number of requests in the Message Batch that have completed successfully.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-### Beta Message Batch Result
-
-- `MessageBatchResult`
-
-  - `MessageBatchSucceededResult`
-
-    - `BetaMessage message`
-
-    - `"succeeded" type`
-
-  - `MessageBatchErroredResult`
-
-    - `BetaErrorResponse error`
-
-    - `"errored" type`
-
-  - `MessageBatchCanceledResult`
-
-    - `"canceled" type`
-
-  - `MessageBatchExpiredResult`
-
-    - `"expired" type`
-
-### Beta Message Batch Succeeded Result
-
-- `MessageBatchSucceededResult`
-
-  - `BetaMessage message`
-
-  - `"succeeded" type`
-
-# Agents
-
-## Create Agent
+### Create Agent
 
 `$client->beta->agents->create(Model model, string name, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?BetaManagedAgentsMultiagentParams multiagent, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents`
+**POST** `/v1/agents`
 
 Create Agent
 
-### Parameters
+#### Parameters
 
 - `model: Model`
 
@@ -9477,7 +2280,7 @@ Create Agent
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -9523,7 +2326,7 @@ Create Agent
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -9572,7 +2375,7 @@ $betaManagedAgentsAgent = $client->beta->agents->create(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -9649,15 +2452,15 @@ var_dump($betaManagedAgentsAgent);
 }
 ```
 
-## List Agents
+### List Agents
 
 `$client->beta->agents->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents`
+**GET** `/v1/agents`
 
 List Agents
 
-### Parameters
+#### Parameters
 
 - `createdAtGte?:optional \Datetime`
 
@@ -9683,7 +2486,7 @@ List Agents
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -9729,7 +2532,7 @@ List Agents
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -9750,7 +2553,7 @@ $page = $client->beta->agents->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -9832,15 +2635,15 @@ var_dump($page);
 }
 ```
 
-## Get Agent
+### Get Agent
 
 `$client->beta->agents->retrieve(string agentID, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**get** `/v1/agents/{agent_id}`
+**GET** `/v1/agents/{agent_id}`
 
 Get Agent
 
-### Parameters
+#### Parameters
 
 - `agentID: string`
 
@@ -9852,7 +2655,7 @@ Get Agent
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -9898,7 +2701,7 @@ Get Agent
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -9916,7 +2719,7 @@ $betaManagedAgentsAgent = $client->beta->agents->retrieve(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -9993,15 +2796,15 @@ var_dump($betaManagedAgentsAgent);
 }
 ```
 
-## Update Agent
+### Update Agent
 
 `$client->beta->agents->update(string agentID, ?string description, ?list<BetaManagedAgentsURLMCPServerParams> mcpServers, ?array<string,string> metadata, ?Model model, ?BetaManagedAgentsMultiagentParams multiagent, ?string name, ?list<BetaManagedAgentsSkillParams> skills, ?string system, ?list<Tool> tools, ?int version, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents/{agent_id}`
+**POST** `/v1/agents/{agent_id}`
 
 Update Agent
 
-### Parameters
+#### Parameters
 
 - `agentID: string`
 
@@ -10049,7 +2852,7 @@ Update Agent
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -10095,7 +2898,7 @@ Update Agent
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -10151,7 +2954,7 @@ $betaManagedAgentsAgent = $client->beta->agents->update(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -10228,15 +3031,15 @@ var_dump($betaManagedAgentsAgent);
 }
 ```
 
-## Archive Agent
+### Archive Agent
 
 `$client->beta->agents->archive(string agentID, ?list<AnthropicBeta> betas): BetaManagedAgentsAgent`
 
-**post** `/v1/agents/{agent_id}/archive`
+**POST** `/v1/agents/{agent_id}/archive`
 
 Archive Agent
 
-### Parameters
+#### Parameters
 
 - `agentID: string`
 
@@ -10244,7 +3047,7 @@ Archive Agent
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -10290,7 +3093,7 @@ Archive Agent
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -10307,7 +3110,7 @@ $betaManagedAgentsAgent = $client->beta->agents->archive(
 var_dump($betaManagedAgentsAgent);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -10384,1233 +3187,17 @@ var_dump($betaManagedAgentsAgent);
 }
 ```
 
-## Domain Types
+## Beta › Agents › Versions
 
-### Beta Managed Agents Advisor
-
-- `BetaManagedAgentsAdvisor`
-
-  - `string model`
-
-    The advisor model id.
-
-  - `Type type`
-
-### Beta Managed Agents Agent
-
-- `BetaManagedAgentsAgent`
-
-  - `string id`
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string description`
-
-  - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
-
-  - `array<string,string> metadata`
-
-  - `BetaManagedAgentsModelConfig model`
-
-    Model identifier and configuration.
-
-  - `?BetaManagedAgentsMultiagent multiagent`
-
-    Resolved coordinator topology with a concrete agent roster.
-
-  - `string name`
-
-  - `list<Skill> skills`
-
-  - `?string system`
-
-  - `list<Tool> tools`
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `int version`
-
-    The agent's current version. Starts at 1 and increments when the agent is modified.
-
-### Beta Managed Agents Agent Reference
-
-- `BetaManagedAgentsAgentReference`
-
-  - `string id`
-
-  - `Type type`
-
-  - `int version`
-
-### Beta Managed Agents Agent Tool Config
-
-- `BetaManagedAgentsAgentToolConfig`
-
-  - `BetaManagedAgentsBashToolConfig`
-
-    - `bool enabled`
-
-    - `"bash" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"bash" type`
-
-  - `BetaManagedAgentsEditToolConfig`
-
-    - `bool enabled`
-
-    - `"edit" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"edit" type`
-
-  - `BetaManagedAgentsReadToolConfig`
-
-    - `bool enabled`
-
-    - `"read" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"read" type`
-
-  - `BetaManagedAgentsWriteToolConfig`
-
-    - `bool enabled`
-
-    - `"write" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"write" type`
-
-  - `BetaManagedAgentsGlobToolConfig`
-
-    - `bool enabled`
-
-    - `"glob" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"glob" type`
-
-  - `BetaManagedAgentsGrepToolConfig`
-
-    - `bool enabled`
-
-    - `"grep" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"grep" type`
-
-  - `BetaManagedAgentsWebFetchToolConfig`
-
-    - `bool enabled`
-
-    - `"web_fetch" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"web_fetch" type`
-
-    - `?list<string> allowedDomains`
-
-    - `?list<string> blockedDomains`
-
-    - `?int maxContentTokens`
-
-  - `BetaManagedAgentsWebSearchToolConfig`
-
-    - `bool enabled`
-
-    - `"web_search" name`
-
-    - `PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `"web_search" type`
-
-    - `?list<string> allowedDomains`
-
-    - `?list<string> blockedDomains`
-
-    - `?BetaManagedAgentsUserLocation userLocation`
-
-      Approximate user location for search result localization.
-
-### Beta Managed Agents Agent Tool Config Params
-
-- `BetaManagedAgentsAgentToolConfigParams`
-
-  - `BetaManagedAgentsBashToolConfigParams`
-
-    - `"bash" name`
-
-      Must be "bash".
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-  - `BetaManagedAgentsEditToolConfigParams`
-
-    - `"edit" name`
-
-      Must be "edit".
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-  - `BetaManagedAgentsReadToolConfigParams`
-
-    - `"read" name`
-
-      Must be "read".
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-  - `BetaManagedAgentsWriteToolConfigParams`
-
-    - `"write" name`
-
-      Must be "write".
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-  - `BetaManagedAgentsGlobToolConfigParams`
-
-    - `"glob" name`
-
-      Must be "glob".
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-  - `BetaManagedAgentsGrepToolConfigParams`
-
-    - `"grep" name`
-
-      Must be "grep".
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-  - `BetaManagedAgentsWebFetchToolConfigParams`
-
-    - `"web_fetch" name`
-
-      Must be "web_fetch".
-
-    - `?list<string> allowedDomains`
-
-      Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
-
-    - `?list<string> blockedDomains`
-
-      Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?int maxContentTokens`
-
-      Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-  - `BetaManagedAgentsWebSearchToolConfigParams`
-
-    - `"web_search" name`
-
-      Must be "web_search".
-
-    - `?list<string> allowedDomains`
-
-      Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
-
-    - `?list<string> blockedDomains`
-
-      Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
-
-    - `?bool enabled`
-
-      Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-    - `?PermissionPolicy permissionPolicy`
-
-      Permission policy for tool execution.
-
-    - `?Type type`
-
-    - `?BetaManagedAgentsUserLocation userLocation`
-
-      Approximate user location for search result localization.
-
-### Beta Managed Agents Agent Toolset Default Config
-
-- `BetaManagedAgentsAgentToolsetDefaultConfig`
-
-  - `bool enabled`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-### Beta Managed Agents Agent Toolset Default Config Params
-
-- `BetaManagedAgentsAgentToolsetDefaultConfigParams`
-
-  - `?bool enabled`
-
-    Whether tools are enabled and available to Claude by default. Defaults to true if not specified.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-### Beta Managed Agents Agent Toolset20260401
-
-- `BetaManagedAgentsAgentToolset20260401`
-
-  - `list<BetaManagedAgentsAgentToolConfig> configs`
-
-  - `BetaManagedAgentsAgentToolsetDefaultConfig defaultConfig`
-
-    Resolved default configuration for agent tools.
-
-  - `Type type`
-
-### Beta Managed Agents Agent Toolset20260401 Bash Input
-
-- `BetaManagedAgentsAgentToolset20260401BashInput`
-
-  - `?string command`
-
-    Shell command to execute. Omit only when `restart` is true.
-
-  - `?bool restart`
-
-    When true, restart the persistent bash session instead of
-    running a command. Subsequent calls without `restart` will
-    run against the fresh session.
-
-  - `?int timeoutMs`
-
-    Per-call timeout in milliseconds. Defaults to the
-    runner-wide tool timeout when omitted or zero.
-
-### Beta Managed Agents Agent Toolset20260401 Edit Input
-
-- `BetaManagedAgentsAgentToolset20260401EditInput`
-
-  - `string filePath`
-
-    Path of the file to edit.
-
-  - `string newString`
-
-    Replacement text.
-
-  - `string oldString`
-
-    Substring to find and replace.
-
-  - `?bool replaceAll`
-
-    When true, replace every occurrence of `old_string`
-    instead of requiring a unique match.
-
-### Beta Managed Agents Agent Toolset20260401 Glob Input
-
-- `BetaManagedAgentsAgentToolset20260401GlobInput`
-
-  - `string pattern`
-
-    Doublestar glob pattern (e.g. `**/*.go`). Absolute patterns
-    are only permitted when the runner is configured to allow
-    them.
-
-  - `?string path`
-
-    Optional directory root to search under. Defaults to the
-    runner's working directory.
-
-### Beta Managed Agents Agent Toolset20260401 Grep Input
-
-- `BetaManagedAgentsAgentToolset20260401GrepInput`
-
-  - `string pattern`
-
-    Regular expression to search for.
-
-  - `?string path`
-
-    Optional directory root to search under. Defaults to the
-    runner's working directory.
-
-### Beta Managed Agents Agent Toolset20260401 Params
-
-- `BetaManagedAgentsAgentToolset20260401Params`
-
-  - `Type type`
-
-  - `?list<BetaManagedAgentsAgentToolConfigParams> configs`
-
-    Per-tool configuration overrides.
-
-  - `?BetaManagedAgentsAgentToolsetDefaultConfigParams defaultConfig`
-
-    Default configuration for all tools in a toolset.
-
-### Beta Managed Agents Agent Toolset20260401 Read Input
-
-- `BetaManagedAgentsAgentToolset20260401ReadInput`
-
-  - `string filePath`
-
-    Path of the file to read.
-
-  - `?list<int> viewRange`
-
-    Optional `[start_line, end_line]` 1-indexed inclusive
-    range. When omitted the entire file is returned.
-    `end_line` of 0 or negative means "to end of file".
-
-### Beta Managed Agents Agent Toolset20260401 Write Input
-
-- `BetaManagedAgentsAgentToolset20260401WriteInput`
-
-  - `string content`
-
-    Full file contents to write.
-
-  - `string filePath`
-
-    Path of the file to write.
-
-### Beta Managed Agents Always Allow Policy
-
-- `BetaManagedAgentsAlwaysAllowPolicy`
-
-  - `Type type`
-
-### Beta Managed Agents Always Ask Policy
-
-- `BetaManagedAgentsAlwaysAskPolicy`
-
-  - `Type type`
-
-### Beta Managed Agents Anthropic Skill
-
-- `BetaManagedAgentsAnthropicSkill`
-
-  - `string skillID`
-
-  - `Type type`
-
-  - `string version`
-
-### Beta Managed Agents Anthropic Skill Params
-
-- `BetaManagedAgentsAnthropicSkillParams`
-
-  - `string skillID`
-
-    Identifier of the Anthropic skill (e.g., "xlsx").
-
-  - `Type type`
-
-  - `?string version`
-
-    Version to pin. Defaults to latest if omitted.
-
-### Beta Managed Agents Bash Tool Config
-
-- `BetaManagedAgentsBashToolConfig`
-
-  - `bool enabled`
-
-  - `"bash" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"bash" type`
-
-### Beta Managed Agents Bash Tool Config Params
-
-- `BetaManagedAgentsBashToolConfigParams`
-
-  - `"bash" name`
-
-    Must be "bash".
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-### Beta Managed Agents Custom Skill
-
-- `BetaManagedAgentsCustomSkill`
-
-  - `string skillID`
-
-  - `Type type`
-
-  - `string version`
-
-### Beta Managed Agents Custom Skill Params
-
-- `BetaManagedAgentsCustomSkillParams`
-
-  - `string skillID`
-
-    Tagged ID of the custom skill (e.g., "skill_01XJ5...").
-
-  - `Type type`
-
-  - `?string version`
-
-    Version to pin. Defaults to latest if omitted.
-
-### Beta Managed Agents Custom Tool
-
-- `BetaManagedAgentsCustomTool`
-
-  - `string description`
-
-  - `BetaManagedAgentsCustomToolInputSchema inputSchema`
-
-    JSON Schema for custom tool input parameters.
-
-  - `string name`
-
-  - `Type type`
-
-### Beta Managed Agents Custom Tool Input Schema
-
-- `BetaManagedAgentsCustomToolInputSchema`
-
-  - `"object" type`
-
-  - `?array<string,mixed> properties`
-
-  - `?list<string> required`
-
-### Beta Managed Agents Custom Tool Params
-
-- `BetaManagedAgentsCustomToolParams`
-
-  - `string description`
-
-    Description of what the tool does, shown to the agent to help it decide when to use the tool.
-
-  - `BetaManagedAgentsCustomToolInputSchema inputSchema`
-
-    JSON Schema for custom tool input parameters.
-
-  - `string name`
-
-    Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
-
-  - `Type type`
-
-### Beta Managed Agents Edit Tool Config
-
-- `BetaManagedAgentsEditToolConfig`
-
-  - `bool enabled`
-
-  - `"edit" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"edit" type`
-
-### Beta Managed Agents Edit Tool Config Params
-
-- `BetaManagedAgentsEditToolConfigParams`
-
-  - `"edit" name`
-
-    Must be "edit".
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-### Beta Managed Agents Effort High
-
-- `BetaManagedAgentsEffortHigh`
-
-  - `Type type`
-
-### Beta Managed Agents Effort Low
-
-- `BetaManagedAgentsEffortLow`
-
-  - `Type type`
-
-### Beta Managed Agents Effort Max
-
-- `BetaManagedAgentsEffortMax`
-
-  - `Type type`
-
-### Beta Managed Agents Effort Medium
-
-- `BetaManagedAgentsEffortMedium`
-
-  - `Type type`
-
-### Beta Managed Agents Effort Xhigh
-
-- `BetaManagedAgentsEffortXhigh`
-
-  - `Type type`
-
-### Beta Managed Agents Glob Tool Config
-
-- `BetaManagedAgentsGlobToolConfig`
-
-  - `bool enabled`
-
-  - `"glob" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"glob" type`
-
-### Beta Managed Agents Glob Tool Config Params
-
-- `BetaManagedAgentsGlobToolConfigParams`
-
-  - `"glob" name`
-
-    Must be "glob".
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-### Beta Managed Agents Grep Tool Config
-
-- `BetaManagedAgentsGrepToolConfig`
-
-  - `bool enabled`
-
-  - `"grep" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"grep" type`
-
-### Beta Managed Agents Grep Tool Config Params
-
-- `BetaManagedAgentsGrepToolConfigParams`
-
-  - `"grep" name`
-
-    Must be "grep".
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-### Beta Managed Agents MCP Server URL Definition
-
-- `BetaManagedAgentsMCPServerURLDefinition`
-
-  - `string name`
-
-  - `Type type`
-
-  - `string url`
-
-### Beta Managed Agents MCP Tool Config
-
-- `BetaManagedAgentsMCPToolConfig`
-
-  - `bool enabled`
-
-  - `string name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-### Beta Managed Agents MCP Tool Config Params
-
-- `BetaManagedAgentsMCPToolConfigParams`
-
-  - `string name`
-
-    Name of the MCP tool to configure. 1-128 characters.
-
-  - `?bool enabled`
-
-    Whether this tool is enabled. Overrides the `default_config` setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-### Beta Managed Agents MCP Toolset
-
-- `BetaManagedAgentsMCPToolset`
-
-  - `list<BetaManagedAgentsMCPToolConfig> configs`
-
-  - `BetaManagedAgentsMCPToolsetDefaultConfig defaultConfig`
-
-    Resolved default configuration for all tools from an MCP server.
-
-  - `string mcpServerName`
-
-  - `Type type`
-
-### Beta Managed Agents MCP Toolset Default Config
-
-- `BetaManagedAgentsMCPToolsetDefaultConfig`
-
-  - `bool enabled`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-### Beta Managed Agents MCP Toolset Default Config Params
-
-- `BetaManagedAgentsMCPToolsetDefaultConfigParams`
-
-  - `?bool enabled`
-
-    Whether tools are enabled by default. Defaults to true if not specified.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-### Beta Managed Agents MCP Toolset Params
-
-- `BetaManagedAgentsMCPToolsetParams`
-
-  - `string mcpServerName`
-
-    Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
-
-  - `Type type`
-
-  - `?list<BetaManagedAgentsMCPToolConfigParams> configs`
-
-    Per-tool configuration overrides.
-
-  - `?BetaManagedAgentsMCPToolsetDefaultConfigParams defaultConfig`
-
-    Default configuration for all tools from an MCP server.
-
-### Beta Managed Agents Model
-
-- `BetaManagedAgentsModel`
-
-  - `"claude-sonnet-5"`
-
-    High-performance model for coding and agents
-
-  - `"claude-fable-5"`
-
-    Next generation of intelligence for the hardest knowledge work and coding problems
-
-  - `"claude-opus-5"`
-
-    Powerful intelligence for long-running agents and coding
-
-  - `"claude-opus-4-8"`
-
-    Powerful intelligence for long-running agents and coding
-
-  - `"claude-opus-4-7"`
-
-    Powerful intelligence for long-running agents and coding
-
-  - `"claude-opus-4-6"`
-
-    Powerful intelligence for long-running agents and coding
-
-  - `"claude-sonnet-4-6"`
-
-    Best combination of speed and intelligence
-
-  - `"claude-haiku-4-5"`
-
-    Fastest model with near-frontier intelligence
-
-  - `"claude-haiku-4-5-20251001"`
-
-    Fastest model with near-frontier intelligence
-
-  - `"claude-opus-4-5"`
-
-    Powerful intelligence for long-running agents and coding
-
-  - `"claude-opus-4-5-20251101"`
-
-    Powerful intelligence for long-running agents and coding
-
-  - `"claude-sonnet-4-5"`
-
-    High-performance model for agents and coding
-
-  - `"claude-sonnet-4-5-20250929"`
-
-    High-performance model for agents and coding
-
-### Beta Managed Agents Model Config
-
-- `BetaManagedAgentsModelConfig`
-
-  - `BetaManagedAgentsModel id`
-
-    The model that will power your agent.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `?Effort effort`
-
-    How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
-
-  - `?string inferenceGeo`
-
-    Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo.
-
-  - `?Speed speed`
-
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-### Beta Managed Agents Model Config Params
-
-- `BetaManagedAgentsModelConfigParams`
-
-  - `BetaManagedAgentsModel id`
-
-    The model that will power your agent.
-
-    See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-  - `?Effort effort`
-
-    How hard Claude works on each inference call. Accepts a bare level string (`"high"`) or `{"type": "high"}`. On create, omitting it resolves the per-model default; on update, omitting it leaves the stored value unchanged.
-
-  - `?string inferenceGeo`
-
-    Geographic region for model inference. When unset, requests fall through to the workspace's default_inference_geo. On update, `model` is whole-object replacement — omitting inference_geo clears it.
-
-  - `?Speed speed`
-
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-### Beta Managed Agents Multiagent Coordinator
-
-- `BetaManagedAgentsMultiagentCoordinator`
-
-  - `list<Agent> agents`
-
-    Agents the coordinator may spawn as session threads, each resolved to a specific version.
-
-  - `Type type`
-
-### Beta Managed Agents Multiagent Coordinator Params
-
-- `BetaManagedAgentsMultiagentCoordinatorParams`
-
-  - `list<BetaManagedAgentsMultiagentRosterEntryParams> agents`
-
-    Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
-
-  - `Type type`
-
-### Beta Managed Agents Multiagent Self Params
-
-- `BetaManagedAgentsMultiagentSelfParams`
-
-  - `Type type`
-
-### Beta Managed Agents Read Tool Config
-
-- `BetaManagedAgentsReadToolConfig`
-
-  - `bool enabled`
-
-  - `"read" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"read" type`
-
-### Beta Managed Agents Read Tool Config Params
-
-- `BetaManagedAgentsReadToolConfigParams`
-
-  - `"read" name`
-
-    Must be "read".
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-### Beta Managed Agents Session Thread Agent
-
-- `BetaManagedAgentsSessionThreadAgent`
-
-  - `string id`
-
-  - `?string description`
-
-  - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
-
-  - `BetaManagedAgentsModelConfig model`
-
-    Model identifier and configuration.
-
-  - `string name`
-
-  - `list<Skill> skills`
-
-  - `?string system`
-
-  - `list<Tool> tools`
-
-  - `Type type`
-
-  - `int version`
-
-### Beta Managed Agents Skill Params
-
-- `BetaManagedAgentsSkillParams`
-
-  - `BetaManagedAgentsAnthropicSkillParams`
-
-    - `string skillID`
-
-      Identifier of the Anthropic skill (e.g., "xlsx").
-
-    - `Type type`
-
-    - `?string version`
-
-      Version to pin. Defaults to latest if omitted.
-
-  - `BetaManagedAgentsCustomSkillParams`
-
-    - `string skillID`
-
-      Tagged ID of the custom skill (e.g., "skill_01XJ5...").
-
-    - `Type type`
-
-    - `?string version`
-
-      Version to pin. Defaults to latest if omitted.
-
-### Beta Managed Agents URL MCP Server Params
-
-- `BetaManagedAgentsURLMCPServerParams`
-
-  - `string name`
-
-    Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
-
-  - `Type type`
-
-  - `string url`
-
-    Endpoint URL for the MCP server.
-
-### Beta Managed Agents User Location
-
-- `BetaManagedAgentsUserLocation`
-
-  - `"approximate" type`
-
-    Location precision. Only "approximate" is supported.
-
-  - `?string city`
-
-    City name.
-
-  - `?string country`
-
-    Two-letter ISO 3166-1 country code, uppercase.
-
-  - `?string region`
-
-    Region or state name.
-
-  - `?string timezone`
-
-    IANA timezone identifier, e.g. "America/Los_Angeles".
-
-### Beta Managed Agents Web Fetch Tool Config
-
-- `BetaManagedAgentsWebFetchToolConfig`
-
-  - `bool enabled`
-
-  - `"web_fetch" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"web_fetch" type`
-
-  - `?list<string> allowedDomains`
-
-  - `?list<string> blockedDomains`
-
-  - `?int maxContentTokens`
-
-### Beta Managed Agents Web Fetch Tool Config Params
-
-- `BetaManagedAgentsWebFetchToolConfigParams`
-
-  - `"web_fetch" name`
-
-    Must be "web_fetch".
-
-  - `?list<string> allowedDomains`
-
-    Only fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
-
-  - `?list<string> blockedDomains`
-
-    Never fetch URLs whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme, port, or path). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?int maxContentTokens`
-
-    Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-### Beta Managed Agents Web Search Tool Config
-
-- `BetaManagedAgentsWebSearchToolConfig`
-
-  - `bool enabled`
-
-  - `"web_search" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"web_search" type`
-
-  - `?list<string> allowedDomains`
-
-  - `?list<string> blockedDomains`
-
-  - `?BetaManagedAgentsUserLocation userLocation`
-
-    Approximate user location for search result localization.
-
-### Beta Managed Agents Web Search Tool Config Params
-
-- `BetaManagedAgentsWebSearchToolConfigParams`
-
-  - `"web_search" name`
-
-    Must be "web_search".
-
-  - `?list<string> allowedDomains`
-
-    Only return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "docs.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with blocked_domains.
-
-  - `?list<string> blockedDomains`
-
-    Never return search results whose host is one of these domains or a subdomain of one. Each entry is a plain hostname like "ads.example.com" (no scheme or port; an optional path suffix is accepted). At most 64 entries; an empty list is rejected (omit the field instead). Cannot be combined with allowed_domains.
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-  - `?BetaManagedAgentsUserLocation userLocation`
-
-    Approximate user location for search result localization.
-
-### Beta Managed Agents Write Tool Config
-
-- `BetaManagedAgentsWriteToolConfig`
-
-  - `bool enabled`
-
-  - `"write" name`
-
-  - `PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `"write" type`
-
-### Beta Managed Agents Write Tool Config Params
-
-- `BetaManagedAgentsWriteToolConfigParams`
-
-  - `"write" name`
-
-    Must be "write".
-
-  - `?bool enabled`
-
-    Whether this tool is enabled and available to Claude. Overrides the default_config setting.
-
-  - `?PermissionPolicy permissionPolicy`
-
-    Permission policy for tool execution.
-
-  - `?Type type`
-
-# Versions
-
-## List Agent Versions
+### List Agent Versions
 
 `$client->beta->agents->versions->list(string agentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
-### Parameters
+#### Parameters
 
 - `agentID: string`
 
@@ -11626,7 +3213,7 @@ List Agent Versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -11672,7 +3259,7 @@ List Agent Versions
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -11691,7 +3278,7 @@ $page = $client->beta->agents->versions->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -11773,17 +3360,17 @@ var_dump($page);
 }
 ```
 
-# Environments
+## Beta › Environments
 
-## Create Environment
+### Create Environment
 
 `$client->beta->environments->create(string name, ?Config config, ?string description, ?array<string,string> metadata, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
 
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+#### Parameters
 
 - `name: string`
 
@@ -11809,7 +3396,7 @@ Create a new environment with the specified configuration.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaEnvironment`
 
@@ -11853,7 +3440,7 @@ Create a new environment with the specified configuration.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -11891,7 +3478,7 @@ $betaEnvironment = $client->beta->environments->create(
 var_dump($betaEnvironment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -11940,23 +3527,27 @@ var_dump($betaEnvironment);
 }
 ```
 
-## List Environments
+### List Environments
 
 `$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaEnvironment>`
 
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
-### Parameters
+#### Parameters
 
 - `includeArchived?:optional bool`
 
   Include archived environments in the response
 
+  default: false
+
 - `limit?:optional int`
 
   Maximum number of environments to return
+
+  default: 20
 
 - `page?:optional string`
 
@@ -11966,7 +3557,7 @@ List environments with pagination support.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaEnvironment`
 
@@ -12010,7 +3601,7 @@ List environments with pagination support.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -12029,7 +3620,7 @@ $page = $client->beta->environments->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -12083,15 +3674,15 @@ var_dump($page);
 }
 ```
 
-## Get Environment
+### Get Environment
 
 `$client->beta->environments->retrieve(string environmentID, ?list<AnthropicBeta> betas): BetaEnvironment`
 
-**get** `/v1/environments/{environment_id}`
+**GET** `/v1/environments/{environment_id}`
 
 Retrieve a specific environment by ID.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -12099,7 +3690,7 @@ Retrieve a specific environment by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaEnvironment`
 
@@ -12143,7 +3734,7 @@ Retrieve a specific environment by ID.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -12160,7 +3751,7 @@ $betaEnvironment = $client->beta->environments->retrieve(
 var_dump($betaEnvironment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -12209,15 +3800,15 @@ var_dump($betaEnvironment);
 }
 ```
 
-## Update Environment
+### Update Environment
 
 `$client->beta->environments->update(string environmentID, ?Config config, ?string description, ?array<string,string> metadata, ?string name, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
 
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -12245,7 +3836,7 @@ Update an existing environment's configuration.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaEnvironment`
 
@@ -12289,7 +3880,7 @@ Update an existing environment's configuration.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -12328,7 +3919,7 @@ $betaEnvironment = $client->beta->environments->update(
 var_dump($betaEnvironment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -12377,15 +3968,15 @@ var_dump($betaEnvironment);
 }
 ```
 
-## Delete Environment
+### Delete Environment
 
 `$client->beta->environments->delete(string environmentID, ?list<AnthropicBeta> betas): BetaEnvironmentDeleteResponse`
 
-**delete** `/v1/environments/{environment_id}`
+**DELETE** `/v1/environments/{environment_id}`
 
 Delete an environment by ID. Returns a confirmation of the deletion.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -12393,7 +3984,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaEnvironmentDeleteResponse`
 
@@ -12405,7 +3996,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     The type of response
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -12422,7 +4013,7 @@ $betaEnvironmentDeleteResponse = $client->beta->environments->delete(
 var_dump($betaEnvironmentDeleteResponse);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -12431,15 +4022,15 @@ var_dump($betaEnvironmentDeleteResponse);
 }
 ```
 
-## Archive Environment
+### Archive Environment
 
 `$client->beta->environments->archive(string environmentID, ?list<AnthropicBeta> betas): BetaEnvironment`
 
-**post** `/v1/environments/{environment_id}/archive`
+**POST** `/v1/environments/{environment_id}/archive`
 
 Archive an environment by ID. Archived environments cannot be used to create new sessions.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -12447,7 +4038,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaEnvironment`
 
@@ -12491,7 +4082,7 @@ Archive an environment by ID. Archived environments cannot be used to create new
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -12508,7 +4099,7 @@ $betaEnvironment = $client->beta->environments->archive(
 var_dump($betaEnvironment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -12557,239 +4148,19 @@ var_dump($betaEnvironment);
 }
 ```
 
-## Domain Types
+## Beta › Environments › Work
 
-### Beta Cloud Config
-
-- `BetaCloudConfig`
-
-  - `Networking networking`
-
-    Network configuration policy.
-
-  - `BetaPackages packages`
-
-    Package manager configuration.
-
-  - `"cloud" type`
-
-    Environment type
-
-### Beta Cloud Config Params
-
-- `BetaCloudConfigParams`
-
-  - `"cloud" type`
-
-    Environment type
-
-  - `?Networking networking`
-
-    Network configuration policy. Omit on update to preserve the existing value.
-
-  - `?BetaPackagesParams packages`
-
-    Specify packages (and optionally their versions) available in this environment.
-
-    When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
-
-### Beta Environment
-
-- `BetaEnvironment`
-
-  - `string id`
-
-    Environment identifier (e.g., 'env_...')
-
-  - `?string archivedAt`
-
-    RFC 3339 timestamp when environment was archived, or null if not archived
-
-  - `Config config`
-
-    Environment configuration (either Anthropic Cloud or self-hosted)
-
-  - `string createdAt`
-
-    RFC 3339 timestamp when environment was created
-
-  - `?string description`
-
-    User-provided description for the environment; null when unset
-
-  - `array<string,string> metadata`
-
-    User-provided metadata key-value pairs
-
-  - `string name`
-
-    Human-readable name for the environment
-
-  - `"environment" type`
-
-    The type of object (always 'environment')
-
-  - `string updatedAt`
-
-    RFC 3339 timestamp when environment was last updated
-
-  - `?Scope scope`
-
-    The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
-
-### Beta Environment Delete Response
-
-- `BetaEnvironmentDeleteResponse`
-
-  - `string id`
-
-    Environment identifier
-
-  - `Type type`
-
-    The type of response
-
-### Beta Limited Network
-
-- `BetaLimitedNetwork`
-
-  - `bool allowMCPServers`
-
-    Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
-
-  - `bool allowPackageManagers`
-
-    Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array.
-
-  - `list<string> allowedHosts`
-
-    Specifies domains the container can reach.
-
-  - `"limited" type`
-
-    Network policy type
-
-### Beta Limited Network Params
-
-- `BetaLimitedNetworkParams`
-
-  - `"limited" type`
-
-    Network policy type
-
-  - `?bool allowMCPServers`
-
-    Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
-
-  - `?bool allowPackageManagers`
-
-    Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
-
-  - `?list<string> allowedHosts`
-
-    Specifies domains the container can reach.
-
-### Beta Packages
-
-- `BetaPackages`
-
-  - `list<string> apt`
-
-    Ubuntu/Debian packages to install
-
-  - `list<string> cargo`
-
-    Rust packages to install
-
-  - `list<string> gem`
-
-    Ruby packages to install
-
-  - `list<string> go`
-
-    Go packages to install
-
-  - `list<string> npm`
-
-    Node.js packages to install
-
-  - `list<string> pip`
-
-    Python packages to install
-
-  - `?Type type`
-
-    Package configuration type
-
-### Beta Packages Params
-
-- `BetaPackagesParams`
-
-  - `?list<string> apt`
-
-    Ubuntu/Debian packages to install
-
-  - `?list<string> cargo`
-
-    Rust packages to install
-
-  - `?list<string> gem`
-
-    Ruby packages to install
-
-  - `?list<string> go`
-
-    Go packages to install
-
-  - `?list<string> npm`
-
-    Node.js packages to install
-
-  - `?list<string> pip`
-
-    Python packages to install
-
-  - `?Type type`
-
-    Package configuration type
-
-### Beta Self Hosted Config
-
-- `BetaSelfHostedConfig`
-
-  - `"self_hosted" type`
-
-    Environment type
-
-### Beta Self Hosted Config Params
-
-- `BetaSelfHostedConfigParams`
-
-  - `"self_hosted" type`
-
-    Environment type
-
-### Beta Unrestricted Network
-
-- `BetaUnrestrictedNetwork`
-
-  - `"unrestricted" type`
-
-    Network policy type
-
-# Work
-
-## Get Work Item
+### Get Work Item
 
 `$client->beta->environments->work->retrieve(string workID, string environmentID, ?list<AnthropicBeta> betas): SelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Retrieve detailed information about a specific work item.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -12799,7 +4170,7 @@ Retrieve detailed information about a specific work item.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SelfHostedWork`
 
@@ -12855,7 +4226,7 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -12873,7 +4244,7 @@ $betaSelfHostedWork = $client->beta->environments->work->retrieve(
 var_dump($betaSelfHostedWork);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -12898,17 +4269,17 @@ var_dump($betaSelfHostedWork);
 }
 ```
 
-## Poll for Work
+### Poll for Work
 
 `$client->beta->environments->work->poll(string environmentID, ?int blockMs, ?int reclaimOlderThanMs, ?list<AnthropicBeta> betas, ?string anthropicWorkerID): SelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -12928,7 +4299,7 @@ Long poll for work items in the queue.
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+#### Returns
 
 - `SelfHostedWork`
 
@@ -12984,7 +4355,7 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13004,7 +4375,7 @@ $betaSelfHostedWork = $client->beta->environments->work->poll(
 var_dump($betaSelfHostedWork);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -13029,17 +4400,17 @@ var_dump($betaSelfHostedWork);
 }
 ```
 
-## Acknowledge Work
+### Acknowledge Work
 
 `$client->beta->environments->work->ack(string workID, string environmentID, ?list<AnthropicBeta> betas): SelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting' and removing it from the queue.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -13049,7 +4420,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SelfHostedWork`
 
@@ -13105,7 +4476,7 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13123,7 +4494,7 @@ $betaSelfHostedWork = $client->beta->environments->work->ack(
 var_dump($betaSelfHostedWork);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -13148,17 +4519,17 @@ var_dump($betaSelfHostedWork);
 }
 ```
 
-## Record Heartbeat
+### Record Heartbeat
 
 `$client->beta->environments->work->heartbeat(string workID, string environmentID, ?int desiredTTLSeconds, ?string expectedLastHeartbeat, ?list<AnthropicBeta> betas): SelfHostedWorkHeartbeatResponse`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Record a heartbeat for a work item to maintain the lease.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -13176,7 +4547,7 @@ Record a heartbeat for a work item to maintain the lease.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SelfHostedWorkHeartbeatResponse`
 
@@ -13200,7 +4571,7 @@ Record a heartbeat for a work item to maintain the lease.
 
     The type of response
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13224,7 +4595,7 @@ $betaSelfHostedWorkHeartbeatResponse = $client
 var_dump($betaSelfHostedWorkHeartbeatResponse);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -13236,17 +4607,17 @@ var_dump($betaSelfHostedWorkHeartbeatResponse);
 }
 ```
 
-## Stop Work
+### Stop Work
 
 `$client->beta->environments->work->stop(string workID, string environmentID, ?bool force, ?list<AnthropicBeta> betas): SelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Stop a work item, initiating graceful or forced shutdown.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -13256,11 +4627,13 @@ Stop a work item, initiating graceful or forced shutdown.
 
   If true, immediately stop work without graceful shutdown
 
+  default: false
+
 - `betas?:optional list<AnthropicBeta>`
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SelfHostedWork`
 
@@ -13316,7 +4689,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13335,7 +4708,7 @@ $betaSelfHostedWork = $client->beta->environments->work->stop(
 var_dump($betaSelfHostedWork);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -13360,23 +4733,25 @@ var_dump($betaSelfHostedWork);
 }
 ```
 
-## List Work Items
+### List Work Items
 
 `$client->beta->environments->work->list(string environmentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<SelfHostedWork>`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 List work items in an environment.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
 - `limit?:optional int`
 
   Maximum number of work items to return
+
+  default: 20
 
 - `page?:optional string`
 
@@ -13386,7 +4761,7 @@ List work items in an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SelfHostedWork`
 
@@ -13442,7 +4817,7 @@ List work items in an environment.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13461,7 +4836,7 @@ $page = $client->beta->environments->work->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -13491,17 +4866,17 @@ var_dump($page);
 }
 ```
 
-## Update Work Item
+### Update Work Item
 
 `$client->beta->environments->work->update(string workID, string environmentID, array<string,string> metadata, ?list<AnthropicBeta> betas): SelfHostedWork`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -13515,7 +4890,7 @@ Update work item metadata with merge semantics.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SelfHostedWork`
 
@@ -13571,7 +4946,7 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13590,7 +4965,7 @@ $betaSelfHostedWork = $client->beta->environments->work->update(
 var_dump($betaSelfHostedWork);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -13615,15 +4990,15 @@ var_dump($betaSelfHostedWork);
 }
 ```
 
-## Get Queue Statistics
+### Get Queue Statistics
 
 `$client->beta->environments->work->stats(string environmentID, ?list<AnthropicBeta> betas): SelfHostedWorkQueueStats`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
-### Parameters
+#### Parameters
 
 - `environmentID: string`
 
@@ -13631,7 +5006,7 @@ Get statistics about the work queue for an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SelfHostedWorkQueueStats`
 
@@ -13655,7 +5030,7 @@ Get statistics about the work queue for an environment.
 
     Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13672,7 +5047,7 @@ $betaSelfHostedWorkQueueStats = $client->beta->environments->work->stats(
 var_dump($betaSelfHostedWorkQueueStats);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -13684,163 +5059,17 @@ var_dump($betaSelfHostedWorkQueueStats);
 }
 ```
 
-## Domain Types
+## Beta › Sessions
 
-### Beta Self Hosted Work
-
-- `SelfHostedWork`
-
-  - `string id`
-
-    Work identifier (e.g., 'work_...')
-
-  - `?string acknowledgedAt`
-
-    RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
-
-  - `string createdAt`
-
-    RFC 3339 timestamp when work was created
-
-  - `SessionWorkData data`
-
-    The actual work to be performed
-
-  - `string environmentID`
-
-    Environment identifier this work belongs to (e.g., `env_...`)
-
-  - `?string latestHeartbeatAt`
-
-    RFC 3339 timestamp of the most recent heartbeat
-
-  - `array<string,string> metadata`
-
-    User-provided metadata key-value pairs associated with this work item
-
-  - `?string secret`
-
-    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
-
-  - `?string startedAt`
-
-    RFC 3339 timestamp when work execution started
-
-  - `State state`
-
-    Current state of the work item
-
-  - `?string stopRequestedAt`
-
-    RFC 3339 timestamp when stop was requested
-
-  - `?string stoppedAt`
-
-    RFC 3339 timestamp when work execution stopped
-
-  - `"work" type`
-
-    The type of object (always 'work')
-
-### Beta Self Hosted Work Heartbeat Response
-
-- `SelfHostedWorkHeartbeatResponse`
-
-  - `string lastHeartbeat`
-
-    RFC 3339 timestamp of the actual heartbeat from DB
-
-  - `bool leaseExtended`
-
-    Whether the heartbeat succeeded in extending the lease
-
-  - `State state`
-
-    Current state of the work item (active/stopping/stopped)
-
-  - `int ttlSeconds`
-
-    Effective TTL applied to the lease
-
-  - `"work_heartbeat" type`
-
-    The type of response
-
-### Beta Self Hosted Work List Response
-
-- `SelfHostedWorkListResponse`
-
-  - `list<SelfHostedWork> data`
-
-    List of work items
-
-  - `?string nextPage`
-
-    Opaque cursor for fetching the next page of results
-
-### Beta Self Hosted Work Queue Stats
-
-- `SelfHostedWorkQueueStats`
-
-  - `int depth`
-
-    Number of work items waiting to be picked up (lag from consumer group)
-
-  - `?string oldestQueuedAt`
-
-    RFC 3339 timestamp of oldest item in the work stream (includes both queued and pending items), null if stream empty
-
-  - `int pending`
-
-    Number of work items being processed (polled but not acknowledged)
-
-  - `"work_queue_stats" type`
-
-    The type of object
-
-  - `?int workersPolling`
-
-    Number of workers that have polled for work in the last 30 seconds. Requires worker_id to be sent with poll requests.
-
-### Beta Self Hosted Work Stop Request
-
-- `SelfHostedWorkStopRequest`
-
-  - `?bool force`
-
-    If true, immediately stop work without graceful shutdown
-
-### Beta Self Hosted Work Update Request
-
-- `SelfHostedWorkUpdateRequest`
-
-  - `array<string,string> metadata`
-
-    Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve existing metadata.
-
-### Beta Session Work Data
-
-- `SessionWorkData`
-
-  - `string id`
-
-    Session identifier (e.g., 'session_...')
-
-  - `"session" type`
-
-    Type of work data
-
-# Sessions
-
-## Create Session
+### Create Session
 
 `$client->beta->sessions->create(Agent agent, string environmentID, ?BetaManagedAgentsBudgetLimit budget, ?list<InitialEvent> initialEvents, ?array<string,string> metadata, ?list<Resource> resources, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
 
-**post** `/v1/sessions`
+**POST** `/v1/sessions`
 
 Create Session
 
-### Parameters
+#### Parameters
 
 - `agent: Agent`
 
@@ -13878,7 +5107,7 @@ Create Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsSession`
 
@@ -13938,7 +5167,7 @@ Create Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -13976,7 +5205,7 @@ $betaManagedAgentsSession = $client->beta->sessions->create(
 var_dump($betaManagedAgentsSession);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -14170,15 +5399,15 @@ var_dump($betaManagedAgentsSession);
 }
 ```
 
-## List Sessions
+### List Sessions
 
 `$client->beta->sessions->list(?string agentID, ?int agentVersion, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool includeArchived, ?int limit, ?string memoryStoreID, ?Order order, ?string page, ?list<Status> statuses, ?list<AnthropicBeta> betas): BidirectionalPageCursor<BetaManagedAgentsSession>`
 
-**get** `/v1/sessions`
+**GET** `/v1/sessions`
 
 List Sessions
 
-### Parameters
+#### Parameters
 
 - `agentID?:optional string`
 
@@ -14236,7 +5465,7 @@ List Sessions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsSession`
 
@@ -14296,7 +5525,7 @@ List Sessions
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -14325,7 +5554,7 @@ $page = $client->beta->sessions->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -14525,15 +5754,15 @@ var_dump($page);
 }
 ```
 
-## Get Session
+### Get Session
 
 `$client->beta->sessions->retrieve(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
 
-**get** `/v1/sessions/{session_id}`
+**GET** `/v1/sessions/{session_id}`
 
 Get Session
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -14541,7 +5770,7 @@ Get Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsSession`
 
@@ -14601,7 +5830,7 @@ Get Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -14618,7 +5847,7 @@ $betaManagedAgentsSession = $client->beta->sessions->retrieve(
 var_dump($betaManagedAgentsSession);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -14812,15 +6041,15 @@ var_dump($betaManagedAgentsSession);
 }
 ```
 
-## Update Session
+### Update Session
 
 `$client->beta->sessions->update(string sessionID, ?BetaManagedAgentsSessionAgentUpdate agent, ?BetaManagedAgentsBudgetLimit budget, ?array<string,string> metadata, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
 
-**post** `/v1/sessions/{session_id}`
+**POST** `/v1/sessions/{session_id}`
 
 Update Session
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -14848,7 +6077,7 @@ Update Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsSession`
 
@@ -14908,7 +6137,7 @@ Update Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -14957,7 +6186,7 @@ $betaManagedAgentsSession = $client->beta->sessions->update(
 var_dump($betaManagedAgentsSession);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -15151,15 +6380,15 @@ var_dump($betaManagedAgentsSession);
 }
 ```
 
-## Delete Session
+### Delete Session
 
 `$client->beta->sessions->delete(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedSession`
 
-**delete** `/v1/sessions/{session_id}`
+**DELETE** `/v1/sessions/{session_id}`
 
 Delete Session
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -15167,7 +6396,7 @@ Delete Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeletedSession`
 
@@ -15175,7 +6404,7 @@ Delete Session
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -15192,7 +6421,7 @@ $betaManagedAgentsDeletedSession = $client->beta->sessions->delete(
 var_dump($betaManagedAgentsDeletedSession);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -15201,15 +6430,15 @@ var_dump($betaManagedAgentsDeletedSession);
 }
 ```
 
-## Archive Session
+### Archive Session
 
 `$client->beta->sessions->archive(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
 
-**post** `/v1/sessions/{session_id}/archive`
+**POST** `/v1/sessions/{session_id}/archive`
 
 Archive Session
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -15217,7 +6446,7 @@ Archive Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsSession`
 
@@ -15277,7 +6506,7 @@ Archive Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -15294,7 +6523,7 @@ $betaManagedAgentsSession = $client->beta->sessions->archive(
 var_dump($betaManagedAgentsSession);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -15488,625 +6717,17 @@ var_dump($betaManagedAgentsSession);
 }
 ```
 
-## Domain Types
+## Beta › Sessions › Events
 
-### Beta Managed Agents Advisor Params
-
-- `BetaManagedAgentsAdvisorParams`
-
-  - `string model`
-
-    A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
-
-  - `Type type`
-
-### Beta Managed Agents Agent Message Preview
-
-- `BetaManagedAgentsAgentMessagePreview`
-
-  - `string id`
-
-    The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
-
-  - `Type type`
-
-### Beta Managed Agents Agent Params
-
-- `BetaManagedAgentsAgentParams`
-
-  - `string id`
-
-    The `agent` ID.
-
-  - `Type type`
-
-  - `?int version`
-
-    The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
-
-### Beta Managed Agents Agent Thinking Preview
-
-- `BetaManagedAgentsAgentThinkingPreview`
-
-  - `string id`
-
-    The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
-
-  - `Type type`
-
-### Beta Managed Agents Agent With Overrides Params
-
-- `BetaManagedAgentsAgentWithOverridesParams`
-
-  - `string id`
-
-    The `agent` ID.
-
-  - `Type type`
-
-  - `?list<BetaManagedAgentsURLMCPServerParams> mcpServers`
-
-    Replacement MCP server list. Full replacement: the provided array becomes the MCP servers. Send an empty array to clear; omit to preserve the agent's servers.
-
-  - `?Model model`
-
-    Replacement model. Accepts the model string, e.g. `claude-opus-5`, or a `model_config` object. Omit to use the agent's model.
-
-  - `?list<BetaManagedAgentsSkillParams> skills`
-
-    Replacement skill list. Full replacement: the provided array becomes the skills. Send an empty array to clear; omit to preserve the agent's skills.
-
-  - `?string system`
-
-    Replacement system prompt. Up to 100,000 characters. Set to null to clear the agent's system prompt; omit to preserve it.
-
-  - `?list<Tool> tools`
-
-    Replacement tool list. Full replacement: the provided array becomes the tool configuration. Send an empty array to clear; omit to preserve the agent's tools.
-
-  - `?int version`
-
-    The specific `agent` version to use. Omit to use the latest version.
-
-### Beta Managed Agents Branch Checkout
-
-- `BetaManagedAgentsBranchCheckout`
-
-  - `string name`
-
-    Branch name to check out.
-
-  - `Type type`
-
-### Beta Managed Agents Budget Limit
-
-- `BetaManagedAgentsBudgetLimit`
-
-  - `BetaMonetaryAmount maxListCost`
-
-    A monetary amount in a specific currency.
-
-  - `Type type`
-
-### Beta Managed Agents Cache Creation Usage
-
-- `BetaManagedAgentsCacheCreationUsage`
-
-  - `?int ephemeral1hInputTokens`
-
-    Tokens used to create 1-hour ephemeral cache entries.
-
-  - `?int ephemeral5mInputTokens`
-
-    Tokens used to create 5-minute ephemeral cache entries.
-
-### Beta Managed Agents Commit Checkout
-
-- `BetaManagedAgentsCommitCheckout`
-
-  - `string sha`
-
-    Full commit SHA to check out.
-
-  - `Type type`
-
-### Beta Managed Agents Deleted Session
-
-- `BetaManagedAgentsDeletedSession`
-
-  - `string id`
-
-  - `Type type`
-
-### Beta Managed Agents Delta Content
-
-- `BetaManagedAgentsDeltaContent`
-
-  - `ManagedAgentsTextBlock content`
-
-    Regular text content.
-
-  - `Type type`
-
-  - `?int index`
-
-    Which entry in the previewed event's content array this fragment lands in. Insert content as that entry when the index is new; append to the existing entry otherwise.
-
-### Beta Managed Agents Delta Event
-
-- `BetaManagedAgentsDeltaEvent`
-
-  - `BetaManagedAgentsDeltaContent delta`
-
-    One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
-
-  - `string eventID`
-
-    The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
-
-  - `Type type`
-
-### Beta Managed Agents Delta Type
-
-- `BetaManagedAgentsDeltaType`
-
-  - `"agent.message"`
-
-  - `"agent.thinking"`
-
-### Beta Managed Agents File Resource Params
-
-- `BetaManagedAgentsFileResourceParams`
-
-  - `string fileID`
-
-    ID of a previously uploaded file.
-
-  - `Type type`
-
-  - `?string mountPath`
-
-    Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
-
-### Beta Managed Agents GitHub Repository Resource Params
-
-- `BetaManagedAgentsGitHubRepositoryResourceParams`
-
-  - `string authorizationToken`
-
-    GitHub authorization token used to clone the repository.
-
-  - `Type type`
-
-  - `string url`
-
-    Github URL of the repository
-
-  - `?Checkout checkout`
-
-    Branch or commit to check out. Defaults to the repository's default branch.
-
-  - `?string mountPath`
-
-    Mount path in the container. Defaults to `/workspace/<repo-name>`.
-
-### Beta Managed Agents Memory Store Resource Param
-
-- `BetaManagedAgentsMemoryStoreResourceParam`
-
-  - `string memoryStoreID`
-
-    The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-  - `Type type`
-
-  - `?Access access`
-
-    Access mode for an attached memory store.
-
-  - `?string instructions`
-
-    Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-
-### Beta Managed Agents Multiagent
-
-- `BetaManagedAgentsMultiagent`
-
-  - `list<Agent> agents`
-
-    Agents the coordinator may spawn as session threads, each resolved to a specific version.
-
-  - `Type type`
-
-### Beta Managed Agents Multiagent Params
-
-- `BetaManagedAgentsMultiagentParams`
-
-  - `list<BetaManagedAgentsMultiagentRosterEntryParams> agents`
-
-    Agents the coordinator may spawn as session threads. 1–20 entries. Each entry is an agent ID string, a versioned `{"type":"agent","id","version"}` reference, or `{"type":"self"}` to allow recursive self-invocation. Entries must reference distinct agents (after resolving `self` and string forms); at most one `self`. Referenced agents must exist, must not be archived, and must not themselves have `multiagent` set (depth limit 1).
-
-  - `Type type`
-
-### Beta Managed Agents Multiagent Roster Entry Params
-
-- `BetaManagedAgentsMultiagentRosterEntryParams`
-
-  - `string`
-
-  - `BetaManagedAgentsAgentParams`
-
-    - `string id`
-
-      The `agent` ID.
-
-    - `Type type`
-
-    - `?int version`
-
-      The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
-
-  - `BetaManagedAgentsMultiagentSelfParams`
-
-    - `Type type`
-
-  - `BetaManagedAgentsAdvisorParams`
-
-    - `string model`
-
-      A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
-
-    - `Type type`
-
-### Beta Managed Agents Outcome Evaluation Resource
-
-- `BetaManagedAgentsOutcomeEvaluationResource`
-
-  - `?\Datetime completedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string description`
-
-    What the agent should produce.
-
-  - `?string explanation`
-
-    Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
-
-  - `int iteration`
-
-    0-indexed revision cycle the outcome is currently on.
-
-  - `string outcomeID`
-
-    Server-generated outc_ ID for this outcome.
-
-  - `string result`
-
-    Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
-
-  - `Type type`
-
-### Beta Managed Agents Server Tool Usage
-
-- `BetaManagedAgentsServerToolUsage`
-
-  - `?int webFetchRequests`
-
-    Number of server-executed web fetch requests.
-
-  - `?int webSearchRequests`
-
-    Number of server-executed web search requests.
-
-### Beta Managed Agents Session
-
-- `BetaManagedAgentsSession`
-
-  - `string id`
-
-  - `BetaManagedAgentsSessionAgent agent`
-
-    Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?BetaManagedAgentsBudgetLimit budget`
-
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string environmentID`
-
-  - `array<string,string> metadata`
-
-  - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
-
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
-
-  - `list<ManagedAgentsSessionResource> resources`
-
-  - `BetaManagedAgentsSessionStats stats`
-
-    Timing statistics for a session.
-
-  - `Status status`
-
-    SessionStatus enum
-
-  - `?string title`
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `BetaManagedAgentsSessionUsage usage`
-
-    Cumulative token usage for a session across all turns.
-
-  - `list<string> vaultIDs`
-
-    Vault IDs attached to the session at creation. Empty when no vaults were supplied.
-
-  - `?string deploymentID`
-
-    Deployment ID when the session was created from a deployment reference. Null otherwise.
-
-### Beta Managed Agents Session Agent
-
-- `BetaManagedAgentsSessionAgent`
-
-  - `string id`
-
-  - `?string description`
-
-  - `list<BetaManagedAgentsMCPServerURLDefinition> mcpServers`
-
-  - `BetaManagedAgentsModelConfig model`
-
-    Model identifier and configuration.
-
-  - `?BetaManagedAgentsSessionMultiagentCoordinator multiagent`
-
-    Resolved coordinator topology with full agent definitions for each roster member.
-
-  - `string name`
-
-  - `list<Skill> skills`
-
-  - `?string system`
-
-  - `list<Tool> tools`
-
-  - `Type type`
-
-  - `int version`
-
-### Beta Managed Agents Session Agent Update
-
-- `BetaManagedAgentsSessionAgentUpdate`
-
-  - `?list<BetaManagedAgentsURLMCPServerParams> mcpServers`
-
-    Replacement MCP server list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
-
-  - `?list<Tool> tools`
-
-    Replacement tool list. Full replacement: the provided array becomes the new value. Send an empty array to clear; omit to preserve.
-
-### Beta Managed Agents Session Multiagent Coordinator
-
-- `BetaManagedAgentsSessionMultiagentCoordinator`
-
-  - `list<Agent> agents`
-
-    Full `agent` definitions the coordinator may spawn as session threads.
-
-  - `Type type`
-
-### Beta Managed Agents Session Stats
-
-- `BetaManagedAgentsSessionStats`
-
-  - `?float activeSeconds`
-
-    Cumulative time in seconds the session spent in running status. Excludes idle time.
-
-  - `?float durationSeconds`
-
-    Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
-
-### Beta Managed Agents Session Updated Event
-
-- `BetaManagedAgentsSessionUpdatedEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-  - `?BetaManagedAgentsSessionAgent agent`
-
-    Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
-
-  - `?BetaManagedAgentsBudgetLimit budget`
-
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-  - `?array<string,string> metadata`
-
-    The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
-
-  - `?string title`
-
-    The session's new title. Present only when the update changed it.
-
-### Beta Managed Agents Session Usage
-
-- `BetaManagedAgentsSessionUsage`
-
-  - `?float activeSeconds`
-
-    Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
-
-  - `?BetaManagedAgentsCacheCreationUsage cacheCreation`
-
-    Prompt-cache creation token usage broken down by cache lifetime.
-
-  - `?int cacheReadInputTokens`
-
-    Total tokens read from prompt cache.
-
-  - `?int inputTokens`
-
-    Total input tokens consumed across all turns.
-
-  - `?BetaMonetaryAmount listCost`
-
-    A monetary amount in a specific currency.
-
-  - `?int outputTokens`
-
-    Total output tokens generated across all turns.
-
-  - `?BetaManagedAgentsServerToolUsage serverToolUse`
-
-    Cumulative count of server-executed tool invocations, broken down by tool.
-
-### Beta Managed Agents Session Usage Event
-
-- `BetaManagedAgentsSessionUsageEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-  - `ManagedAgentsSessionUsageSnapshot usage`
-
-    Point-in-time snapshot of a session's cumulative usage.
-
-  - `?BetaManagedAgentsBudgetLimit budget`
-
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-### Beta Managed Agents Start Event
-
-- `BetaManagedAgentsStartEvent`
-
-  - `BetaManagedAgentsStartEventPreview event`
-
-    The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
-
-  - `Type type`
-
-### Beta Managed Agents Start Event Preview
-
-- `BetaManagedAgentsStartEventPreview`
-
-  - `BetaManagedAgentsAgentMessagePreview`
-
-    - `string id`
-
-      The id the buffered agent.message will carry if it is emitted. Matches the event_id on this preview's event_delta events.
-
-    - `Type type`
-
-  - `BetaManagedAgentsAgentThinkingPreview`
-
-    - `string id`
-
-      The id the buffered agent.thinking will carry if it is emitted. Start-only — no event_delta events follow.
-
-    - `Type type`
-
-### Beta Managed Agents System Content Block
-
-- `BetaManagedAgentsSystemContentBlock`
-
-  - `string text`
-
-    The text content.
-
-  - `Type type`
-
-### Beta Managed Agents System Message Event
-
-- `BetaManagedAgentsSystemMessageEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `list<BetaManagedAgentsSystemContentBlock> content`
-
-    System content blocks. Text-only.
-
-  - `Type type`
-
-  - `?\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-### Beta Managed Agents User Tool Result Event
-
-- `BetaManagedAgentsUserToolResultEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string toolUseID`
-
-    The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-  - `Type type`
-
-  - `?list<Content> content`
-
-    The result content returned by the tool.
-
-  - `?bool isError`
-
-    Whether the tool execution resulted in an error.
-
-  - `?\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string sessionThreadID`
-
-    Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
-
-# Events
-
-## List Events
+### List Events
 
 `$client->beta->sessions->events->list(string sessionID, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?int limit, ?Order order, ?string page, ?list<string> types, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionEvent>`
 
-**get** `/v1/sessions/{session_id}/events`
+**GET** `/v1/sessions/{session_id}/events`
 
 List Events
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -16146,7 +6767,7 @@ List Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsSessionEvent`
 
@@ -16874,7 +7495,7 @@ List Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -16899,7 +7520,7 @@ $page = $client->beta->sessions->events->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -16931,15 +7552,15 @@ var_dump($page);
 }
 ```
 
-## Send Events
+### Send Events
 
 `$client->beta->sessions->events->send(string sessionID, list<ManagedAgentsEventParams> events, ?list<AnthropicBeta> betas): ManagedAgentsSendSessionEvents`
 
-**post** `/v1/sessions/{session_id}/events`
+**POST** `/v1/sessions/{session_id}/events`
 
 Send Events
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -16951,7 +7572,7 @@ Send Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsSendSessionEvents`
 
@@ -16959,7 +7580,7 @@ Send Events
 
     Sent events
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -16982,7 +7603,7 @@ $betaManagedAgentsSendSessionEvents = $client->beta->sessions->events->send(
 var_dump($betaManagedAgentsSendSessionEvents);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -17002,15 +7623,15 @@ var_dump($betaManagedAgentsSendSessionEvents);
 }
 ```
 
-## Stream Events
+### Stream Events
 
 `$client->beta->sessions->events->stream(string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionEvents`
 
-**get** `/v1/sessions/{session_id}/events/stream`
+**GET** `/v1/sessions/{session_id}/events/stream`
 
 Stream Events
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -17022,7 +7643,7 @@ Stream Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsStreamSessionEvents`
 
@@ -17770,7 +8391,9 @@ Stream Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+- `ManagedAgentsStreamSessionEvents`
+
+#### Example
 
 ```php
 <?php
@@ -17792,7 +8415,7 @@ $betaManagedAgentsStreamSessionEvents = $client
 var_dump($betaManagedAgentsStreamSessionEvents);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -17808,2827 +8431,17 @@ var_dump($betaManagedAgentsStreamSessionEvents);
 }
 ```
 
-## Domain Types
+## Beta › Sessions › Resources
 
-### Beta Managed Agents Agent Custom Tool Use Event
-
-- `ManagedAgentsAgentCustomToolUseEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `array<string,mixed> input`
-
-    Input parameters for the tool call.
-
-  - `string name`
-
-    Name of the custom tool being called.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-  - `?string sessionThreadID`
-
-    When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
-
-### Beta Managed Agents Agent MCP Tool Result Event
-
-- `ManagedAgentsAgentMCPToolResultEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string mcpToolUseID`
-
-    The id of the `agent.mcp_tool_use` event this result corresponds to.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-  - `?list<Content> content`
-
-    The result content returned by the tool.
-
-  - `?bool isError`
-
-    Whether the tool execution resulted in an error.
-
-### Beta Managed Agents Agent MCP Tool Use Event
-
-- `ManagedAgentsAgentMCPToolUseEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `array<string,mixed> input`
-
-    Input parameters for the tool call.
-
-  - `string mcpServerName`
-
-    Name of the MCP server providing the tool.
-
-  - `string name`
-
-    Name of the MCP tool being used.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-  - `?EvaluatedPermission evaluatedPermission`
-
-    AgentEvaluatedPermission enum
-
-  - `?string sessionThreadID`
-
-    When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-### Beta Managed Agents Agent Message Event
-
-- `ManagedAgentsAgentMessageEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `list<Content> content`
-
-    Array of text blocks comprising the agent response.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Agent Thinking Event
-
-- `ManagedAgentsAgentThinkingEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Agent Thread Context Compacted Event
-
-- `ManagedAgentsAgentThreadContextCompactedEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Agent Thread Message Received Event
-
-- `ManagedAgentsAgentThreadMessageReceivedEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `list<Content> content`
-
-    Message content blocks.
-
-  - `string fromSessionThreadID`
-
-    Public `sthr_` ID of the thread that sent the message.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-  - `?string fromAgentName`
-
-    Name of the callable agent this message came from. Absent when received from the primary agent.
-
-### Beta Managed Agents Agent Thread Message Sent Event
-
-- `ManagedAgentsAgentThreadMessageSentEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `list<Content> content`
-
-    Message content blocks.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string toSessionThreadID`
-
-    Public `sthr_` ID of the thread the message was sent to.
-
-  - `Type type`
-
-  - `?string toAgentName`
-
-    Name of the callable agent this message was sent to. Absent when sent to the primary agent.
-
-### Beta Managed Agents Agent Tool Result Event
-
-- `ManagedAgentsAgentToolResultEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string toolUseID`
-
-    The id of the `agent.tool_use` event this result corresponds to.
-
-  - `Type type`
-
-  - `?list<Content> content`
-
-    The result content returned by the tool.
-
-  - `?bool isError`
-
-    Whether the tool execution resulted in an error.
-
-### Beta Managed Agents Agent Tool Use Event
-
-- `ManagedAgentsAgentToolUseEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `array<string,mixed> input`
-
-    Input parameters for the tool call.
-
-  - `string name`
-
-    Name of the agent tool being used.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-  - `?EvaluatedPermission evaluatedPermission`
-
-    AgentEvaluatedPermission enum
-
-  - `?string sessionThreadID`
-
-    When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-### Beta Managed Agents Base64 Document Source
-
-- `ManagedAgentsBase64DocumentSource`
-
-  - `string data`
-
-    Base64-encoded document data.
-
-  - `string mediaType`
-
-    MIME type of the document (e.g., "application/pdf").
-
-  - `Type type`
-
-### Beta Managed Agents Base64 Image Source
-
-- `ManagedAgentsBase64ImageSource`
-
-  - `string data`
-
-    Base64-encoded image data.
-
-  - `string mediaType`
-
-    MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
-
-  - `Type type`
-
-### Beta Managed Agents Billing Error
-
-- `ManagedAgentsBillingError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-### Beta Managed Agents Credential Host Unreachable Error
-
-- `ManagedAgentsCredentialHostUnreachableError`
-
-  - `string credentialID`
-
-    ID of the affected credential.
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-  - `string vaultID`
-
-    ID of the vault containing the affected credential.
-
-### Beta Managed Agents Document Block
-
-- `ManagedAgentsDocumentBlock`
-
-  - `Source source`
-
-    Union type for document source variants.
-
-  - `Type type`
-
-  - `?string context`
-
-    Additional context about the document for the model.
-
-  - `?string title`
-
-    The title of the document.
-
-### Beta Managed Agents Event Params
-
-- `ManagedAgentsEventParams`
-
-  - `ManagedAgentsUserMessageEventParams`
-
-    - `list<Content> content`
-
-      Array of content blocks for the user message.
-
-    - `Type type`
-
-  - `ManagedAgentsUserInterruptEventParams`
-
-    - `Type type`
-
-    - `?string sessionThreadID`
-
-      If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
-
-  - `ManagedAgentsUserToolConfirmationEventParams`
-
-    - `Result result`
-
-      UserToolConfirmationResult enum
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?string denyMessage`
-
-      Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-
-  - `ManagedAgentsUserCustomToolResultEventParams`
-
-    - `string customToolUseID`
-
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsUserDefineOutcomeEventParams`
-
-    - `string description`
-
-      What the agent should produce. This is the task specification.
-
-    - `Rubric rubric`
-
-      Rubric for grading the quality of an outcome.
-
-    - `Type type`
-
-    - `?int maxIterations`
-
-      Eval→revision cycles before giving up. Default 3, max 20.
-
-  - `ManagedAgentsUserToolResultEventParams`
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsSystemMessageEventParams`
-
-    - `list<BetaManagedAgentsSystemContentBlock> content`
-
-      System content blocks to append. Text-only.
-
-    - `Type type`
-
-### Beta Managed Agents File Document Source
-
-- `ManagedAgentsFileDocumentSource`
-
-  - `string fileID`
-
-    ID of a previously uploaded file.
-
-  - `Type type`
-
-### Beta Managed Agents File Image Source
-
-- `ManagedAgentsFileImageSource`
-
-  - `string fileID`
-
-    ID of a previously uploaded file.
-
-  - `Type type`
-
-### Beta Managed Agents File Rubric
-
-- `ManagedAgentsFileRubric`
-
-  - `string fileID`
-
-    ID of the rubric file.
-
-  - `Type type`
-
-### Beta Managed Agents File Rubric Params
-
-- `ManagedAgentsFileRubricParams`
-
-  - `string fileID`
-
-    ID of the rubric file.
-
-  - `Type type`
-
-### Beta Managed Agents Image Block
-
-- `ManagedAgentsImageBlock`
-
-  - `Source source`
-
-    Union type for image source variants.
-
-  - `Type type`
-
-### Beta Managed Agents MCP Authentication Failed Error
-
-- `ManagedAgentsMCPAuthenticationFailedError`
-
-  - `string mcpServerName`
-
-    Name of the MCP server that failed authentication.
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-### Beta Managed Agents MCP Connection Failed Error
-
-- `ManagedAgentsMCPConnectionFailedError`
-
-  - `string mcpServerName`
-
-    Name of the MCP server that failed to connect.
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-### Beta Managed Agents Model Overloaded Error
-
-- `ManagedAgentsModelOverloadedError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-### Beta Managed Agents Model Rate Limited Error
-
-- `ManagedAgentsModelRateLimitedError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-### Beta Managed Agents Model Request Failed Error
-
-- `ManagedAgentsModelRequestFailedError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-### Beta Managed Agents Plain Text Document Source
-
-- `ManagedAgentsPlainTextDocumentSource`
-
-  - `string data`
-
-    The plain text content.
-
-  - `MediaType mediaType`
-
-    MIME type of the text content. Must be "text/plain".
-
-  - `Type type`
-
-### Beta Managed Agents Redacted Block
-
-- `ManagedAgentsRedactedBlock`
-
-  - `Type type`
-
-### Beta Managed Agents Retry Status Exhausted
-
-- `ManagedAgentsRetryStatusExhausted`
-
-  - `Type type`
-
-### Beta Managed Agents Retry Status Retrying
-
-- `ManagedAgentsRetryStatusRetrying`
-
-  - `Type type`
-
-### Beta Managed Agents Retry Status Terminal
-
-- `ManagedAgentsRetryStatusTerminal`
-
-  - `Type type`
-
-### Beta Managed Agents Search Result Block
-
-- `ManagedAgentsSearchResultBlock`
-
-  - `ManagedAgentsSearchResultCitations citations`
-
-    Citation settings for a search result.
-
-  - `list<ManagedAgentsSearchResultContent> content`
-
-    Array of text content blocks from the search result.
-
-  - `string source`
-
-    The URL source of the search result.
-
-  - `string title`
-
-    The title of the search result.
-
-  - `Type type`
-
-### Beta Managed Agents Search Result Citations
-
-- `ManagedAgentsSearchResultCitations`
-
-  - `bool enabled`
-
-    Whether citations are enabled for this search result.
-
-### Beta Managed Agents Search Result Content
-
-- `ManagedAgentsSearchResultContent`
-
-  - `string text`
-
-    The text content.
-
-  - `Type type`
-
-### Beta Managed Agents Send Session Events
-
-- `ManagedAgentsSendSessionEvents`
-
-  - `?list<Data> data`
-
-    Sent events
-
-### Beta Managed Agents Session Budget Reached
-
-- `ManagedAgentsSessionBudgetReached`
-
-  - `Type type`
-
-### Beta Managed Agents Session Deleted Event
-
-- `ManagedAgentsSessionDeletedEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Session End Turn
-
-- `ManagedAgentsSessionEndTurn`
-
-  - `Type type`
-
-### Beta Managed Agents Session Error Event
-
-- `ManagedAgentsSessionErrorEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `Error error`
-
-    An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Session Event
-
-- `ManagedAgentsSessionEvent`
-
-  - `ManagedAgentsUserMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Array of content blocks comprising the user message.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-  - `ManagedAgentsUserInterruptEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
-
-  - `ManagedAgentsUserToolConfirmationEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Result result`
-
-      UserToolConfirmationResult enum
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?string denyMessage`
-
-      Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
-
-  - `ManagedAgentsUserCustomToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string customToolUseID`
-
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
-
-  - `ManagedAgentsAgentCustomToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string name`
-
-      Name of the custom tool being called.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
-
-  - `ManagedAgentsAgentMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Array of text blocks comprising the agent response.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsAgentThinkingEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsAgentMCPToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string mcpServerName`
-
-      Name of the MCP server providing the tool.
-
-    - `string name`
-
-      Name of the MCP tool being used.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?EvaluatedPermission evaluatedPermission`
-
-      AgentEvaluatedPermission enum
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-  - `ManagedAgentsAgentMCPToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string mcpToolUseID`
-
-      The id of the `agent.mcp_tool_use` event this result corresponds to.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsAgentToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string name`
-
-      Name of the agent tool being used.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?EvaluatedPermission evaluatedPermission`
-
-      AgentEvaluatedPermission enum
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-  - `ManagedAgentsAgentToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` event this result corresponds to.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsAgentThreadMessageReceivedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Message content blocks.
-
-    - `string fromSessionThreadID`
-
-      Public `sthr_` ID of the thread that sent the message.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?string fromAgentName`
-
-      Name of the callable agent this message came from. Absent when received from the primary agent.
-
-  - `ManagedAgentsAgentThreadMessageSentEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Message content blocks.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string toSessionThreadID`
-
-      Public `sthr_` ID of the thread the message was sent to.
-
-    - `Type type`
-
-    - `?string toAgentName`
-
-      Name of the callable agent this message was sent to. Absent when sent to the primary agent.
-
-  - `ManagedAgentsAgentThreadContextCompactedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionErrorEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Error error`
-
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusRescheduledEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusRunningEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusIdleEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusTerminatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadCreatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the callable agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public `sthr_` ID of the newly created thread.
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `int iteration`
-
-      0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string explanation`
-
-      Human-readable explanation of the verdict. For `needs_revision`, describes which criteria failed and why.
-
-    - `int iteration`
-
-      0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-    - `string outcomeEvaluationStartID`
-
-      The id of the corresponding `span.outcome_evaluation_start` event.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string result`
-
-      Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
-
-    - `Type type`
-
-    - `ManagedAgentsSpanModelUsage usage`
-
-      Token usage for a single model request.
-
-  - `ManagedAgentsSpanModelRequestStartEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanModelRequestEndEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `?bool isError`
-
-      Whether the model request resulted in an error.
-
-    - `string modelRequestStartID`
-
-      The id of the corresponding `span.model_request_start` event.
-
-    - `ManagedAgentsSpanModelUsage modelUsage`
-
-      Token usage for a single model request.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `int iteration`
-
-      0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsUserDefineOutcomeEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string description`
-
-      What the agent should produce. Copied from the input event.
-
-    - `?int maxIterations`
-
-      Evaluate-then-revise cycles before giving up. Default 3, max 20.
-
-    - `string outcomeID`
-
-      Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Rubric rubric`
-
-      Rubric for grading the quality of an outcome.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionDeletedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusRunningEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that started running.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusIdleEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that went idle.
-
-    - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusTerminatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that terminated.
-
-    - `Type type`
-
-  - `BetaManagedAgentsUserToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
-
-  - `ManagedAgentsSessionThreadStatusRescheduledEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that is retrying.
-
-    - `Type type`
-
-  - `BetaManagedAgentsSessionUpdatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?BetaManagedAgentsSessionAgent agent`
-
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
-
-    - `?BetaManagedAgentsBudgetLimit budget`
-
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-    - `?array<string,string> metadata`
-
-      The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
-
-    - `?string title`
-
-      The session's new title. Present only when the update changed it.
-
-  - `BetaManagedAgentsSystemMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<BetaManagedAgentsSystemContentBlock> content`
-
-      System content blocks. Text-only.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-  - `BetaManagedAgentsSessionUsageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `ManagedAgentsSessionUsageSnapshot usage`
-
-      Point-in-time snapshot of a session's cumulative usage.
-
-    - `?BetaManagedAgentsBudgetLimit budget`
-
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-### Beta Managed Agents Session Requires Action
-
-- `ManagedAgentsSessionRequiresAction`
-
-  - `list<string> eventIDs`
-
-    The ids of events the agent is blocked on. Resolving fewer than all re-emits `session.status_idle` with the remainder.
-
-  - `Type type`
-
-### Beta Managed Agents Session Retries Exhausted
-
-- `ManagedAgentsSessionRetriesExhausted`
-
-  - `Type type`
-
-### Beta Managed Agents Session Status Idle Event
-
-- `ManagedAgentsSessionStatusIdleEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `StopReason stopReason`
-
-    The agent completed its turn naturally and is ready for the next user message.
-
-  - `Type type`
-
-### Beta Managed Agents Session Status Rescheduled Event
-
-- `ManagedAgentsSessionStatusRescheduledEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Session Status Running Event
-
-- `ManagedAgentsSessionStatusRunningEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Session Status Terminated Event
-
-- `ManagedAgentsSessionStatusTerminatedEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Session Thread Created Event
-
-- `ManagedAgentsSessionThreadCreatedEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string agentName`
-
-    Name of the callable agent the thread runs.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string sessionThreadID`
-
-    Public `sthr_` ID of the newly created thread.
-
-  - `Type type`
-
-### Beta Managed Agents Session Thread Status Idle Event
-
-- `ManagedAgentsSessionThreadStatusIdleEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string agentName`
-
-    Name of the agent the thread runs.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string sessionThreadID`
-
-    Public sthr_ ID of the thread that went idle.
-
-  - `StopReason stopReason`
-
-    The agent completed its turn naturally and is ready for the next user message.
-
-  - `Type type`
-
-### Beta Managed Agents Session Thread Status Rescheduled Event
-
-- `ManagedAgentsSessionThreadStatusRescheduledEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string agentName`
-
-    Name of the agent the thread runs.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string sessionThreadID`
-
-    Public sthr_ ID of the thread that is retrying.
-
-  - `Type type`
-
-### Beta Managed Agents Session Thread Status Running Event
-
-- `ManagedAgentsSessionThreadStatusRunningEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string agentName`
-
-    Name of the agent the thread runs.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string sessionThreadID`
-
-    Public sthr_ ID of the thread that started running.
-
-  - `Type type`
-
-### Beta Managed Agents Session Thread Status Terminated Event
-
-- `ManagedAgentsSessionThreadStatusTerminatedEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string agentName`
-
-    Name of the agent the thread runs.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string sessionThreadID`
-
-    Public sthr_ ID of the thread that terminated.
-
-  - `Type type`
-
-### Beta Managed Agents Session Usage Snapshot
-
-- `ManagedAgentsSessionUsageSnapshot`
-
-  - `?float activeSeconds`
-
-    Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once. This is the duration the session's runtime cost is priced on.
-
-  - `?BetaManagedAgentsCacheCreationUsage cacheCreation`
-
-    Prompt-cache creation token usage broken down by cache lifetime.
-
-  - `?int cacheReadInputTokens`
-
-    Total tokens read from prompt cache.
-
-  - `?int inputTokens`
-
-    Total input tokens consumed across all turns.
-
-  - `?BetaMonetaryAmount listCost`
-
-    A monetary amount in a specific currency.
-
-  - `?int outputTokens`
-
-    Total output tokens generated across all turns.
-
-  - `?BetaManagedAgentsServerToolUsage serverToolUse`
-
-    Cumulative count of server-executed tool invocations, broken down by tool.
-
-### Beta Managed Agents Span Model Request End Event
-
-- `ManagedAgentsSpanModelRequestEndEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `?bool isError`
-
-    Whether the model request resulted in an error.
-
-  - `string modelRequestStartID`
-
-    The id of the corresponding `span.model_request_start` event.
-
-  - `ManagedAgentsSpanModelUsage modelUsage`
-
-    Token usage for a single model request.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Span Model Request Start Event
-
-- `ManagedAgentsSpanModelRequestStartEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Span Model Usage
-
-- `ManagedAgentsSpanModelUsage`
-
-  - `int cacheCreationInputTokens`
-
-    Tokens used to create prompt cache in this request.
-
-  - `int cacheReadInputTokens`
-
-    Tokens read from prompt cache in this request.
-
-  - `int inputTokens`
-
-    Input tokens consumed by this request.
-
-  - `int outputTokens`
-
-    Output tokens generated by this request.
-
-  - `?Speed speed`
-
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-### Beta Managed Agents Span Outcome Evaluation End Event
-
-- `ManagedAgentsSpanOutcomeEvaluationEndEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string explanation`
-
-    Human-readable explanation of the verdict. For `needs_revision`, describes which criteria failed and why.
-
-  - `int iteration`
-
-    0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-  - `string outcomeEvaluationStartID`
-
-    The id of the corresponding `span.outcome_evaluation_start` event.
-
-  - `string outcomeID`
-
-    The `outc_` ID of the outcome being evaluated.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string result`
-
-    Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
-
-  - `Type type`
-
-  - `ManagedAgentsSpanModelUsage usage`
-
-    Token usage for a single model request.
-
-### Beta Managed Agents Span Outcome Evaluation Ongoing Event
-
-- `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `int iteration`
-
-    0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-  - `string outcomeID`
-
-    The `outc_` ID of the outcome being evaluated.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Span Outcome Evaluation Start Event
-
-- `ManagedAgentsSpanOutcomeEvaluationStartEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `int iteration`
-
-    0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
-
-  - `string outcomeID`
-
-    The `outc_` ID of the outcome being evaluated.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Stream Session Events
-
-- `ManagedAgentsStreamSessionEvents`
-
-  - `ManagedAgentsUserMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Array of content blocks comprising the user message.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-  - `ManagedAgentsUserInterruptEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
-
-  - `ManagedAgentsUserToolConfirmationEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Result result`
-
-      UserToolConfirmationResult enum
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?string denyMessage`
-
-      Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
-
-  - `ManagedAgentsUserCustomToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string customToolUseID`
-
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
-
-  - `ManagedAgentsAgentCustomToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string name`
-
-      Name of the custom tool being called.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
-
-  - `ManagedAgentsAgentMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Array of text blocks comprising the agent response.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsAgentThinkingEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsAgentMCPToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string mcpServerName`
-
-      Name of the MCP server providing the tool.
-
-    - `string name`
-
-      Name of the MCP tool being used.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?EvaluatedPermission evaluatedPermission`
-
-      AgentEvaluatedPermission enum
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-  - `ManagedAgentsAgentMCPToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string mcpToolUseID`
-
-      The id of the `agent.mcp_tool_use` event this result corresponds to.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsAgentToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string name`
-
-      Name of the agent tool being used.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?EvaluatedPermission evaluatedPermission`
-
-      AgentEvaluatedPermission enum
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-  - `ManagedAgentsAgentToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` event this result corresponds to.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsAgentThreadMessageReceivedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Message content blocks.
-
-    - `string fromSessionThreadID`
-
-      Public `sthr_` ID of the thread that sent the message.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?string fromAgentName`
-
-      Name of the callable agent this message came from. Absent when received from the primary agent.
-
-  - `ManagedAgentsAgentThreadMessageSentEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Message content blocks.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string toSessionThreadID`
-
-      Public `sthr_` ID of the thread the message was sent to.
-
-    - `Type type`
-
-    - `?string toAgentName`
-
-      Name of the callable agent this message was sent to. Absent when sent to the primary agent.
-
-  - `ManagedAgentsAgentThreadContextCompactedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionErrorEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Error error`
-
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusRescheduledEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusRunningEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusIdleEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusTerminatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadCreatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the callable agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public `sthr_` ID of the newly created thread.
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `int iteration`
-
-      0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string explanation`
-
-      Human-readable explanation of the verdict. For `needs_revision`, describes which criteria failed and why.
-
-    - `int iteration`
-
-      0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-    - `string outcomeEvaluationStartID`
-
-      The id of the corresponding `span.outcome_evaluation_start` event.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string result`
-
-      Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
-
-    - `Type type`
-
-    - `ManagedAgentsSpanModelUsage usage`
-
-      Token usage for a single model request.
-
-  - `ManagedAgentsSpanModelRequestStartEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanModelRequestEndEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `?bool isError`
-
-      Whether the model request resulted in an error.
-
-    - `string modelRequestStartID`
-
-      The id of the corresponding `span.model_request_start` event.
-
-    - `ManagedAgentsSpanModelUsage modelUsage`
-
-      Token usage for a single model request.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `int iteration`
-
-      0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsUserDefineOutcomeEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string description`
-
-      What the agent should produce. Copied from the input event.
-
-    - `?int maxIterations`
-
-      Evaluate-then-revise cycles before giving up. Default 3, max 20.
-
-    - `string outcomeID`
-
-      Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Rubric rubric`
-
-      Rubric for grading the quality of an outcome.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionDeletedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusRunningEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that started running.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusIdleEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that went idle.
-
-    - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusTerminatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that terminated.
-
-    - `Type type`
-
-  - `BetaManagedAgentsUserToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
-
-  - `ManagedAgentsSessionThreadStatusRescheduledEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that is retrying.
-
-    - `Type type`
-
-  - `BetaManagedAgentsSessionUpdatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?BetaManagedAgentsSessionAgent agent`
-
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
-
-    - `?BetaManagedAgentsBudgetLimit budget`
-
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-    - `?array<string,string> metadata`
-
-      The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
-
-    - `?string title`
-
-      The session's new title. Present only when the update changed it.
-
-  - `BetaManagedAgentsStartEvent`
-
-    - `BetaManagedAgentsStartEventPreview event`
-
-      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
-
-    - `Type type`
-
-  - `BetaManagedAgentsDeltaEvent`
-
-    - `BetaManagedAgentsDeltaContent delta`
-
-      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
-
-    - `string eventID`
-
-      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
-
-    - `Type type`
-
-  - `BetaManagedAgentsSystemMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<BetaManagedAgentsSystemContentBlock> content`
-
-      System content blocks. Text-only.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-  - `BetaManagedAgentsSessionUsageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `ManagedAgentsSessionUsageSnapshot usage`
-
-      Point-in-time snapshot of a session's cumulative usage.
-
-    - `?BetaManagedAgentsBudgetLimit budget`
-
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-### Beta Managed Agents System Message Event Params
-
-- `ManagedAgentsSystemMessageEventParams`
-
-  - `list<BetaManagedAgentsSystemContentBlock> content`
-
-    System content blocks to append. Text-only.
-
-  - `Type type`
-
-### Beta Managed Agents Text Block
-
-- `ManagedAgentsTextBlock`
-
-  - `string text`
-
-    The text content.
-
-  - `Type type`
-
-### Beta Managed Agents Text Rubric
-
-- `ManagedAgentsTextRubric`
-
-  - `string content`
-
-    Rubric content. Plain text or markdown — the grader treats it as freeform text.
-
-  - `Type type`
-
-### Beta Managed Agents Text Rubric Params
-
-- `ManagedAgentsTextRubricParams`
-
-  - `string content`
-
-    Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
-
-  - `Type type`
-
-### Beta Managed Agents Unknown Error
-
-- `ManagedAgentsUnknownError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `RetryStatus retryStatus`
-
-    What the client should do next in response to this error.
-
-  - `Type type`
-
-### Beta Managed Agents URL Document Source
-
-- `ManagedAgentsURLDocumentSource`
-
-  - `Type type`
-
-  - `string url`
-
-    URL of the document to fetch.
-
-### Beta Managed Agents URL Image Source
-
-- `ManagedAgentsURLImageSource`
-
-  - `Type type`
-
-  - `string url`
-
-    URL of the image to fetch.
-
-### Beta Managed Agents User Custom Tool Result Event
-
-- `ManagedAgentsUserCustomToolResultEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string customToolUseID`
-
-    The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-  - `Type type`
-
-  - `?list<Content> content`
-
-    The result content returned by the tool.
-
-  - `?bool isError`
-
-    Whether the tool execution resulted in an error.
-
-  - `?\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string sessionThreadID`
-
-    Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
-
-### Beta Managed Agents User Custom Tool Result Event Params
-
-- `ManagedAgentsUserCustomToolResultEventParams`
-
-  - `string customToolUseID`
-
-    The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-  - `Type type`
-
-  - `?list<Content> content`
-
-    The result content returned by the tool.
-
-  - `?bool isError`
-
-    Whether the tool execution resulted in an error.
-
-### Beta Managed Agents User Define Outcome Event
-
-- `ManagedAgentsUserDefineOutcomeEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `string description`
-
-    What the agent should produce. Copied from the input event.
-
-  - `?int maxIterations`
-
-    Evaluate-then-revise cycles before giving up. Default 3, max 20.
-
-  - `string outcomeID`
-
-    Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
-
-  - `\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Rubric rubric`
-
-    Rubric for grading the quality of an outcome.
-
-  - `Type type`
-
-### Beta Managed Agents User Define Outcome Event Params
-
-- `ManagedAgentsUserDefineOutcomeEventParams`
-
-  - `string description`
-
-    What the agent should produce. This is the task specification.
-
-  - `Rubric rubric`
-
-    Rubric for grading the quality of an outcome.
-
-  - `Type type`
-
-  - `?int maxIterations`
-
-    Eval→revision cycles before giving up. Default 3, max 20.
-
-### Beta Managed Agents User Interrupt Event
-
-- `ManagedAgentsUserInterruptEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `Type type`
-
-  - `?\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string sessionThreadID`
-
-    If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
-
-### Beta Managed Agents User Interrupt Event Params
-
-- `ManagedAgentsUserInterruptEventParams`
-
-  - `Type type`
-
-  - `?string sessionThreadID`
-
-    If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
-
-### Beta Managed Agents User Message Event
-
-- `ManagedAgentsUserMessageEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `list<Content> content`
-
-    Array of content blocks comprising the user message.
-
-  - `Type type`
-
-  - `?\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-### Beta Managed Agents User Message Event Params
-
-- `ManagedAgentsUserMessageEventParams`
-
-  - `list<Content> content`
-
-    Array of content blocks for the user message.
-
-  - `Type type`
-
-### Beta Managed Agents User Tool Confirmation Event
-
-- `ManagedAgentsUserToolConfirmationEvent`
-
-  - `string id`
-
-    Unique identifier for this event.
-
-  - `Result result`
-
-    UserToolConfirmationResult enum
-
-  - `string toolUseID`
-
-    The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-  - `Type type`
-
-  - `?string denyMessage`
-
-    Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-
-  - `?\Datetime processedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string sessionThreadID`
-
-    When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
-
-### Beta Managed Agents User Tool Confirmation Event Params
-
-- `ManagedAgentsUserToolConfirmationEventParams`
-
-  - `Result result`
-
-    UserToolConfirmationResult enum
-
-  - `string toolUseID`
-
-    The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-  - `Type type`
-
-  - `?string denyMessage`
-
-    Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-
-### Beta Managed Agents User Tool Result Event Params
-
-- `ManagedAgentsUserToolResultEventParams`
-
-  - `string toolUseID`
-
-    The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-  - `Type type`
-
-  - `?list<Content> content`
-
-    The result content returned by the tool.
-
-  - `?bool isError`
-
-    Whether the tool execution resulted in an error.
-
-# Resources
-
-## Add Session Resource
+### Add Session Resource
 
 `$client->beta->sessions->resources->add(string sessionID, string fileID, Type type, ?string mountPath, ?list<AnthropicBeta> betas): ManagedAgentsFileResource`
 
-**post** `/v1/sessions/{session_id}/resources`
+**POST** `/v1/sessions/{session_id}/resources`
 
 Add Session Resource
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -20646,7 +8459,7 @@ Add Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsFileResource`
 
@@ -20666,7 +8479,7 @@ Add Session Resource
 
     A timestamp in RFC 3339 format
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -20686,7 +8499,7 @@ $betaManagedAgentsFileResource = $client->beta->sessions->resources->add(
 var_dump($betaManagedAgentsFileResource);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -20699,15 +8512,15 @@ var_dump($betaManagedAgentsFileResource);
 }
 ```
 
-## List Session Resources
+### List Session Resources
 
 `$client->beta->sessions->resources->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionResource>`
 
-**get** `/v1/sessions/{session_id}/resources`
+**GET** `/v1/sessions/{session_id}/resources`
 
 List Session Resources
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -20723,7 +8536,7 @@ List Session Resources
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsSessionResource`
 
@@ -20793,7 +8606,7 @@ List Session Resources
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -20812,7 +8625,7 @@ $page = $client->beta->sessions->resources->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -20842,15 +8655,15 @@ var_dump($page);
 }
 ```
 
-## Get Session Resource
+### Get Session Resource
 
 `$client->beta->sessions->resources->retrieve(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ResourceGetResponse`
 
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -20860,7 +8673,7 @@ Get Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ResourceGetResponse`
 
@@ -20930,7 +8743,7 @@ Get Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -20948,7 +8761,7 @@ $resource = $client->beta->sessions->resources->retrieve(
 var_dump($resource);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -20965,15 +8778,15 @@ var_dump($resource);
 }
 ```
 
-## Update Session Resource
+### Update Session Resource
 
 `$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas): ResourceUpdateResponse`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -20987,7 +8800,7 @@ Update Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ResourceUpdateResponse`
 
@@ -21057,7 +8870,7 @@ Update Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -21076,7 +8889,7 @@ $resource = $client->beta->sessions->resources->update(
 var_dump($resource);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -21093,15 +8906,15 @@ var_dump($resource);
 }
 ```
 
-## Delete Session Resource
+### Delete Session Resource
 
 `$client->beta->sessions->resources->delete(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsDeleteSessionResource`
 
-**delete** `/v1/sessions/{session_id}/resources/{resource_id}`
+**DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Delete Session Resource
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -21111,7 +8924,7 @@ Delete Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsDeleteSessionResource`
 
@@ -21119,7 +8932,7 @@ Delete Session Resource
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -21141,7 +8954,7 @@ $betaManagedAgentsDeleteSessionResource = $client
 var_dump($betaManagedAgentsDeleteSessionResource);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -21150,169 +8963,17 @@ var_dump($betaManagedAgentsDeleteSessionResource);
 }
 ```
 
-## Domain Types
+## Beta › Sessions › Threads
 
-### Beta Managed Agents Delete Session Resource
-
-- `ManagedAgentsDeleteSessionResource`
-
-  - `string id`
-
-  - `Type type`
-
-### Beta Managed Agents File Resource
-
-- `ManagedAgentsFileResource`
-
-  - `string id`
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string fileID`
-
-  - `string mountPath`
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-### Beta Managed Agents GitHub Repository Resource
-
-- `ManagedAgentsGitHubRepositoryResource`
-
-  - `string id`
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string mountPath`
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string url`
-
-  - `?Checkout checkout`
-
-### Beta Managed Agents Memory Store Resource
-
-- `ManagedAgentsMemoryStoreResource`
-
-  - `string memoryStoreID`
-
-    The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-  - `Type type`
-
-  - `?Access access`
-
-    Access mode for an attached memory store.
-
-  - `?string description`
-
-    Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
-
-  - `?string instructions`
-
-    Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-
-  - `?string mountPath`
-
-    Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
-
-  - `?string name`
-
-    Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
-
-### Beta Managed Agents Session Resource
-
-- `ManagedAgentsSessionResource`
-
-  - `ManagedAgentsGitHubRepositoryResource`
-
-    - `string id`
-
-    - `\Datetime createdAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string mountPath`
-
-    - `Type type`
-
-    - `\Datetime updatedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string url`
-
-    - `?Checkout checkout`
-
-  - `ManagedAgentsFileResource`
-
-    - `string id`
-
-    - `\Datetime createdAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string fileID`
-
-    - `string mountPath`
-
-    - `Type type`
-
-    - `\Datetime updatedAt`
-
-      A timestamp in RFC 3339 format
-
-  - `ManagedAgentsMemoryStoreResource`
-
-    - `string memoryStoreID`
-
-      The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
-
-    - `?Access access`
-
-      Access mode for an attached memory store.
-
-    - `?string description`
-
-      Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
-
-    - `?string instructions`
-
-      Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-
-    - `?string mountPath`
-
-      Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
-
-    - `?string name`
-
-      Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
-
-# Threads
-
-## List Session Threads
+### List Session Threads
 
 `$client->beta->sessions->threads->list(string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionThread>`
 
-**get** `/v1/sessions/{session_id}/threads`
+**GET** `/v1/sessions/{session_id}/threads`
 
 List Session Threads
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -21328,7 +8989,7 @@ List Session Threads
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsSessionThread`
 
@@ -21374,7 +9035,7 @@ List Session Threads
 
     Cumulative token usage for a session thread across all turns.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -21393,7 +9054,7 @@ $page = $client->beta->sessions->threads->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -21487,15 +9148,15 @@ var_dump($page);
 }
 ```
 
-## Get Session Thread
+### Get Session Thread
 
 `$client->beta->sessions->threads->retrieve(string threadID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsSessionThread`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
 Get Session Thread
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -21505,7 +9166,7 @@ Get Session Thread
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsSessionThread`
 
@@ -21551,7 +9212,7 @@ Get Session Thread
 
     Cumulative token usage for a session thread across all turns.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -21569,7 +9230,7 @@ $betaManagedAgentsSessionThread = $client->beta->sessions->threads->retrieve(
 var_dump($betaManagedAgentsSessionThread);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -21658,15 +9319,15 @@ var_dump($betaManagedAgentsSessionThread);
 }
 ```
 
-## Archive Session Thread
+### Archive Session Thread
 
 `$client->beta->sessions->threads->archive(string threadID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsSessionThread`
 
-**post** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
+**POST** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
 
 Archive Session Thread
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -21676,7 +9337,7 @@ Archive Session Thread
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsSessionThread`
 
@@ -21722,7 +9383,7 @@ Archive Session Thread
 
     Cumulative token usage for a session thread across all turns.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -21740,7 +9401,7 @@ $betaManagedAgentsSessionThread = $client->beta->sessions->threads->archive(
 var_dump($betaManagedAgentsSessionThread);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -21829,873 +9490,17 @@ var_dump($betaManagedAgentsSessionThread);
 }
 ```
 
-## Domain Types
+## Beta › Sessions › Threads › Events
 
-### Beta Managed Agents Session Thread
-
-- `ManagedAgentsSessionThread`
-
-  - `string id`
-
-    Unique identifier for this thread.
-
-  - `Agent agent`
-
-    A session-resolved multiagent roster entry.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string parentThreadID`
-
-    Parent thread that spawned this thread. Null for the primary thread.
-
-  - `string sessionID`
-
-    The session this thread belongs to.
-
-  - `?ManagedAgentsSessionThreadStats stats`
-
-    Timing statistics for a session thread.
-
-  - `ManagedAgentsSessionThreadStatus status`
-
-    SessionThreadStatus enum
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?ManagedAgentsSessionThreadUsage usage`
-
-    Cumulative token usage for a session thread across all turns.
-
-### Beta Managed Agents Session Thread Stats
-
-- `ManagedAgentsSessionThreadStats`
-
-  - `?float activeSeconds`
-
-    Cumulative time in seconds the thread spent actively running. Excludes idle time.
-
-  - `?float durationSeconds`
-
-    Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
-
-  - `?float startupSeconds`
-
-    Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
-
-### Beta Managed Agents Session Thread Status
-
-- `ManagedAgentsSessionThreadStatus`
-
-  - `"running"`
-
-  - `"idle"`
-
-  - `"rescheduling"`
-
-  - `"terminated"`
-
-### Beta Managed Agents Session Thread Usage
-
-- `ManagedAgentsSessionThreadUsage`
-
-  - `?float activeSeconds`
-
-    Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
-
-  - `?BetaManagedAgentsCacheCreationUsage cacheCreation`
-
-    Prompt-cache creation token usage broken down by cache lifetime.
-
-  - `?int cacheReadInputTokens`
-
-    Total tokens read from prompt cache.
-
-  - `?int inputTokens`
-
-    Total input tokens consumed across all turns.
-
-  - `?BetaMonetaryAmount listCost`
-
-    A monetary amount in a specific currency.
-
-  - `?int outputTokens`
-
-    Total output tokens generated across all turns.
-
-  - `?BetaManagedAgentsServerToolUsage serverToolUse`
-
-    Cumulative count of server-executed tool invocations, broken down by tool.
-
-### Beta Managed Agents Stream Session Thread Events
-
-- `ManagedAgentsStreamSessionThreadEvents`
-
-  - `ManagedAgentsUserMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Array of content blocks comprising the user message.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-  - `ManagedAgentsUserInterruptEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      If absent, interrupts every non-archived thread in a multiagent session (or the primary alone in a single-agent session). If present, interrupts only the named thread.
-
-  - `ManagedAgentsUserToolConfirmationEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Result result`
-
-      UserToolConfirmationResult enum
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` or `agent.mcp_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?string denyMessage`
-
-      Optional message providing context for a 'deny' decision. Only allowed when result is 'deny'.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      When set, the confirmation routes to this subagent's thread rather than the primary. Echo this from the `session_thread_id` on the `agent.tool_use` or `agent.mcp_tool_use` event that prompted the approval.
-
-  - `ManagedAgentsUserCustomToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string customToolUseID`
-
-      The id of the `agent.custom_tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      Routes this result to a subagent thread. Copy from the `agent.custom_tool_use` event's `session_thread_id`.
-
-  - `ManagedAgentsAgentCustomToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string name`
-
-      Name of the custom tool being called.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its custom tool use on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.custom_tool_result` event to route the result back.
-
-  - `ManagedAgentsAgentMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Array of text blocks comprising the agent response.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsAgentThinkingEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsAgentMCPToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string mcpServerName`
-
-      Name of the MCP server providing the tool.
-
-    - `string name`
-
-      Name of the MCP tool being used.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?EvaluatedPermission evaluatedPermission`
-
-      AgentEvaluatedPermission enum
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-  - `ManagedAgentsAgentMCPToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string mcpToolUseID`
-
-      The id of the `agent.mcp_tool_use` event this result corresponds to.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsAgentToolUseEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `array<string,mixed> input`
-
-      Input parameters for the tool call.
-
-    - `string name`
-
-      Name of the agent tool being used.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?EvaluatedPermission evaluatedPermission`
-
-      AgentEvaluatedPermission enum
-
-    - `?string sessionThreadID`
-
-      When set, this event was cross-posted from a subagent's thread to surface its permission request on the primary thread's stream. Empty on the thread's own events. Echo this on a `user.tool_confirmation` event to route the approval back.
-
-  - `ManagedAgentsAgentToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` event this result corresponds to.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-  - `ManagedAgentsAgentThreadMessageReceivedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Message content blocks.
-
-    - `string fromSessionThreadID`
-
-      Public `sthr_` ID of the thread that sent the message.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?string fromAgentName`
-
-      Name of the callable agent this message came from. Absent when received from the primary agent.
-
-  - `ManagedAgentsAgentThreadMessageSentEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<Content> content`
-
-      Message content blocks.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string toSessionThreadID`
-
-      Public `sthr_` ID of the thread the message was sent to.
-
-    - `Type type`
-
-    - `?string toAgentName`
-
-      Name of the callable agent this message was sent to. Absent when sent to the primary agent.
-
-  - `ManagedAgentsAgentThreadContextCompactedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionErrorEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `Error error`
-
-      An unknown or unexpected error occurred during session execution. A fallback variant; clients that don't recognize a new error code can match on `retry_status` and `message` alone.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusRescheduledEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusRunningEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusIdleEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionStatusTerminatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadCreatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the callable agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public `sthr_` ID of the newly created thread.
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationStartEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `int iteration`
-
-      0-indexed revision cycle. 0 is the first evaluation; 1 is the re-evaluation after the first revision; etc.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationEndEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string explanation`
-
-      Human-readable explanation of the verdict. For `needs_revision`, describes which criteria failed and why.
-
-    - `int iteration`
-
-      0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-    - `string outcomeEvaluationStartID`
-
-      The id of the corresponding `span.outcome_evaluation_start` event.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string result`
-
-      Evaluation verdict. 'satisfied': criteria met, session goes idle. 'needs_revision': criteria not met, another revision cycle follows. 'max_iterations_reached': evaluation budget exhausted with criteria still unmet — one final acknowledgment turn follows before the session goes idle, but no further evaluation runs. 'failed': grader determined the rubric does not apply to the deliverables. 'interrupted': user sent an interrupt while evaluation was in progress.
-
-    - `Type type`
-
-    - `ManagedAgentsSpanModelUsage usage`
-
-      Token usage for a single model request.
-
-  - `ManagedAgentsSpanModelRequestStartEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanModelRequestEndEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `?bool isError`
-
-      Whether the model request resulted in an error.
-
-    - `string modelRequestStartID`
-
-      The id of the corresponding `span.model_request_start` event.
-
-    - `ManagedAgentsSpanModelUsage modelUsage`
-
-      Token usage for a single model request.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSpanOutcomeEvaluationOngoingEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `int iteration`
-
-      0-indexed revision cycle, matching the corresponding `span.outcome_evaluation_start`.
-
-    - `string outcomeID`
-
-      The `outc_` ID of the outcome being evaluated.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsUserDefineOutcomeEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string description`
-
-      What the agent should produce. Copied from the input event.
-
-    - `?int maxIterations`
-
-      Evaluate-then-revise cycles before giving up. Default 3, max 20.
-
-    - `string outcomeID`
-
-      Server-generated `outc_` ID for this outcome. Referenced by `span.outcome_evaluation_*` events and the session's `outcome_evaluations` list.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Rubric rubric`
-
-      Rubric for grading the quality of an outcome.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionDeletedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusRunningEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that started running.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusIdleEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that went idle.
-
-    - `StopReason stopReason`
-
-      The agent completed its turn naturally and is ready for the next user message.
-
-    - `Type type`
-
-  - `ManagedAgentsSessionThreadStatusTerminatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that terminated.
-
-    - `Type type`
-
-  - `BetaManagedAgentsUserToolResultEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string toolUseID`
-
-      The id of the `agent.tool_use` event this result corresponds to, which can be found in the last `session.status_idle` [event's](https://platform.claude.com/docs/en/api/beta/sessions/events/list#beta_managed_agents_session_requires_action.event_ids) `stop_reason.event_ids` field.
-
-    - `Type type`
-
-    - `?list<Content> content`
-
-      The result content returned by the tool.
-
-    - `?bool isError`
-
-      Whether the tool execution resulted in an error.
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string sessionThreadID`
-
-      Routes this result to a subagent thread. Copy from the `agent.tool_use` event's `session_thread_id`.
-
-  - `ManagedAgentsSessionThreadStatusRescheduledEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `string agentName`
-
-      Name of the agent the thread runs.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string sessionThreadID`
-
-      Public sthr_ ID of the thread that is retrying.
-
-    - `Type type`
-
-  - `BetaManagedAgentsSessionUpdatedEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `?BetaManagedAgentsSessionAgent agent`
-
-      Resolved `agent` definition for a `session`. Snapshot of the `agent` at `session` creation time.
-
-    - `?BetaManagedAgentsBudgetLimit budget`
-
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-    - `?array<string,string> metadata`
-
-      The session's full metadata bag after the update. Present when the update set non-empty metadata; absent when metadata was unchanged or cleared to empty.
-
-    - `?string title`
-
-      The session's new title. Present only when the update changed it.
-
-  - `BetaManagedAgentsStartEvent`
-
-    - `BetaManagedAgentsStartEventPreview event`
-
-      The previewed event's type and id. The event type determines which delta types the preview's event_delta events carry: agent.message events stream content_delta fragments; agent.thinking previews are start-only — no deltas follow, and the buffered agent.thinking with the same id concludes them.
-
-    - `Type type`
-
-  - `BetaManagedAgentsDeltaEvent`
-
-    - `BetaManagedAgentsDeltaContent delta`
-
-      One fragment of the previewed event. The delta type is named for the previewed event's field it streams into: agent.message events stream content_delta fragments, each a partial element of the content array.
-
-    - `string eventID`
-
-      The id of the event being previewed. Matches event.id on the corresponding event_start and the buffered event that reconciles the preview.
-
-    - `Type type`
-
-  - `BetaManagedAgentsSystemMessageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `list<BetaManagedAgentsSystemContentBlock> content`
-
-      System content blocks. Text-only.
-
-    - `Type type`
-
-    - `?\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-  - `BetaManagedAgentsSessionUsageEvent`
-
-    - `string id`
-
-      Unique identifier for this event.
-
-    - `\Datetime processedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-    - `ManagedAgentsSessionUsageSnapshot usage`
-
-      Point-in-time snapshot of a session's cumulative usage.
-
-    - `?BetaManagedAgentsBudgetLimit budget`
-
-      A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-# Events
-
-## List Session Thread Events
+### List Session Thread Events
 
 `$client->beta->sessions->threads->events->list(string threadID, string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionEvent>`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/events`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
 List Session Thread Events
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -22713,7 +9518,7 @@ List Session Thread Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsSessionEvent`
 
@@ -23441,7 +10246,7 @@ List Session Thread Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -23461,7 +10266,7 @@ $page = $client->beta->sessions->threads->events->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -23482,15 +10287,15 @@ var_dump($page);
 }
 ```
 
-## Stream Session Thread Events
+### Stream Session Thread Events
 
 `$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionThreadEvents`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
 Stream Session Thread Events
 
-### Parameters
+#### Parameters
 
 - `sessionID: string`
 
@@ -23504,7 +10309,7 @@ Stream Session Thread Events
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsStreamSessionThreadEvents`
 
@@ -24252,7 +11057,9 @@ Stream Session Thread Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+- `ManagedAgentsStreamSessionThreadEvents`
+
+#### Example
 
 ```php
 <?php
@@ -24276,7 +11083,7 @@ $betaManagedAgentsStreamSessionThreadEvents = $client
 var_dump($betaManagedAgentsStreamSessionThreadEvents);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -24292,17 +11099,17 @@ var_dump($betaManagedAgentsStreamSessionThreadEvents);
 }
 ```
 
-# Deployments
+## Beta › Deployments
 
-## Create Deployment
+### Create Deployment
 
 `$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments`
+**POST** `/v1/deployments`
 
 Create Deployment
 
-### Parameters
+#### Parameters
 
 - `agent: Agent`
 
@@ -24348,7 +11155,7 @@ Create Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -24418,7 +11225,7 @@ Create Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -24462,7 +11269,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -24529,15 +11336,15 @@ var_dump($betaManagedAgentsDeployment);
 }
 ```
 
-## List Deployments
+### List Deployments
 
 `$client->beta->deployments->list(?string agentID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?BetaManagedAgentsDeploymentStatus status, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeployment>`
 
-**get** `/v1/deployments`
+**GET** `/v1/deployments`
 
 List Deployments
 
-### Parameters
+#### Parameters
 
 - `agentID?:optional string`
 
@@ -24571,7 +11378,7 @@ List Deployments
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -24641,7 +11448,7 @@ List Deployments
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -24664,7 +11471,7 @@ $page = $client->beta->deployments->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -24736,15 +11543,15 @@ var_dump($page);
 }
 ```
 
-## Get Deployment
+### Get Deployment
 
 `$client->beta->deployments->retrieve(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**get** `/v1/deployments/{deployment_id}`
+**GET** `/v1/deployments/{deployment_id}`
 
 Get Deployment
 
-### Parameters
+#### Parameters
 
 - `deploymentID: string`
 
@@ -24752,7 +11559,7 @@ Get Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -24822,7 +11629,7 @@ Get Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -24839,7 +11646,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->retrieve(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -24906,15 +11713,15 @@ var_dump($betaManagedAgentsDeployment);
 }
 ```
 
-## Update Deployment
+### Update Deployment
 
 `$client->beta->deployments->update(string deploymentID, ?Agent agent, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}`
+**POST** `/v1/deployments/{deployment_id}`
 
 Update Deployment
 
-### Parameters
+#### Parameters
 
 - `deploymentID: string`
 
@@ -24962,7 +11769,7 @@ Update Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -25032,7 +11839,7 @@ Update Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -25077,7 +11884,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->update(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -25144,15 +11951,15 @@ var_dump($betaManagedAgentsDeployment);
 }
 ```
 
-## Archive Deployment
+### Archive Deployment
 
 `$client->beta->deployments->archive(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/archive`
+**POST** `/v1/deployments/{deployment_id}/archive`
 
 Archive Deployment
 
-### Parameters
+#### Parameters
 
 - `deploymentID: string`
 
@@ -25160,7 +11967,7 @@ Archive Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -25230,7 +12037,7 @@ Archive Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -25247,7 +12054,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->archive(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -25314,15 +12121,15 @@ var_dump($betaManagedAgentsDeployment);
 }
 ```
 
-## Run Deployment Now
+### Run Deployment Now
 
 `$client->beta->deployments->run(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
 
-**post** `/v1/deployments/{deployment_id}/run`
+**POST** `/v1/deployments/{deployment_id}/run`
 
 Run Deployment Now
 
-### Parameters
+#### Parameters
 
 - `deploymentID: string`
 
@@ -25330,7 +12137,7 @@ Run Deployment Now
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeploymentRun`
 
@@ -25364,7 +12171,7 @@ Run Deployment Now
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -25381,7 +12188,7 @@ $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
 var_dump($betaManagedAgentsDeploymentRun);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -25406,15 +12213,15 @@ var_dump($betaManagedAgentsDeploymentRun);
 }
 ```
 
-## Pause Deployment
+### Pause Deployment
 
 `$client->beta->deployments->pause(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/pause`
+**POST** `/v1/deployments/{deployment_id}/pause`
 
 Pause Deployment
 
-### Parameters
+#### Parameters
 
 - `deploymentID: string`
 
@@ -25422,7 +12229,7 @@ Pause Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -25492,7 +12299,7 @@ Pause Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -25509,7 +12316,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->pause(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -25576,15 +12383,15 @@ var_dump($betaManagedAgentsDeployment);
 }
 ```
 
-## Unpause Deployment
+### Unpause Deployment
 
 `$client->beta->deployments->unpause(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/unpause`
+**POST** `/v1/deployments/{deployment_id}/unpause`
 
 Unpause Deployment
 
-### Parameters
+#### Parameters
 
 - `deploymentID: string`
 
@@ -25592,7 +12399,7 @@ Unpause Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -25662,7 +12469,7 @@ Unpause Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -25679,7 +12486,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->unpause(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -25746,553 +12553,17 @@ var_dump($betaManagedAgentsDeployment);
 }
 ```
 
-## Domain Types
+## Beta › Deployment Runs
 
-### Beta Managed Agents Agent Archived Deployment Paused Reason Error
-
-- `BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Cron Schedule
-
-- `BetaManagedAgentsCronSchedule`
-
-  - `string expression`
-
-    5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
-
-  - `string timezone`
-
-    IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
-
-  - `Type type`
-
-  - `?\Datetime lastRunAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?list<\Datetime> upcomingRunsAt`
-
-    Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time.
-
-### Beta Managed Agents Cron Schedule Params
-
-- `BetaManagedAgentsCronScheduleParams`
-
-  - `string expression`
-
-    5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
-
-  - `string timezone`
-
-    Required. IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). Validated against the IANA timezone database.
-
-  - `Type type`
-
-### Beta Managed Agents Deployment
-
-- `BetaManagedAgentsDeployment`
-
-  - `string id`
-
-    Unique identifier for this deployment.
-
-  - `BetaManagedAgentsAgentReference agent`
-
-    A resolved agent reference with a concrete version.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string description`
-
-    Description of what the deployment does.
-
-  - `string environmentID`
-
-    ID of the `environment` where sessions run.
-
-  - `list<BetaManagedAgentsDeploymentInitialEvent> initialEvents`
-
-    Events sent to each session immediately after creation.
-
-  - `array<string,string> metadata`
-
-    Arbitrary key-value metadata. Maximum 16 pairs.
-
-  - `string name`
-
-    Human-readable name.
-
-  - `?BetaManagedAgentsDeploymentPausedReason pausedReason`
-
-    Why a deployment is paused. Non-null exactly when `status` is `paused`.
-
-  - `list<BetaManagedAgentsSessionResourceConfig> resources`
-
-    Resources attached to sessions created from this deployment. Echoes the input minus write-only credentials.
-
-  - `?BetaManagedAgentsSchedule schedule`
-
-    5-field POSIX cron schedule with computed runtime timestamps.
-
-  - `BetaManagedAgentsDeploymentStatus status`
-
-    Lifecycle status of a deployment.
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `list<string> vaultIDs`
-
-    Vault IDs supplying stored credentials for sessions created from this deployment.
-
-  - `?BetaManagedAgentsBudgetLimit budget`
-
-    A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
-
-### Beta Managed Agents Deployment Initial Event
-
-- `BetaManagedAgentsDeploymentInitialEvent`
-
-  - `BetaManagedAgentsDeploymentUserMessageEvent`
-
-    - `list<Content> content`
-
-      Array of content blocks for the user message.
-
-    - `Type type`
-
-  - `BetaManagedAgentsDeploymentUserDefineOutcomeEvent`
-
-    - `string description`
-
-      What the agent should produce. This is the task specification.
-
-    - `Rubric rubric`
-
-      Rubric for grading the quality of an outcome.
-
-    - `Type type`
-
-    - `?int maxIterations`
-
-      Eval→revision cycles before giving up. Default 3, max 20.
-
-  - `BetaManagedAgentsDeploymentSystemMessageEvent`
-
-    - `list<BetaManagedAgentsSystemContentBlock> content`
-
-      System content blocks to append. Text-only.
-
-    - `Type type`
-
-### Beta Managed Agents Deployment Initial Event Params
-
-- `BetaManagedAgentsDeploymentInitialEventParams`
-
-  - `ManagedAgentsUserMessageEventParams`
-
-    - `list<Content> content`
-
-      Array of content blocks for the user message.
-
-    - `Type type`
-
-  - `ManagedAgentsUserDefineOutcomeEventParams`
-
-    - `string description`
-
-      What the agent should produce. This is the task specification.
-
-    - `Rubric rubric`
-
-      Rubric for grading the quality of an outcome.
-
-    - `Type type`
-
-    - `?int maxIterations`
-
-      Eval→revision cycles before giving up. Default 3, max 20.
-
-  - `ManagedAgentsSystemMessageEventParams`
-
-    - `list<BetaManagedAgentsSystemContentBlock> content`
-
-      System content blocks to append. Text-only.
-
-    - `Type type`
-
-### Beta Managed Agents Deployment Paused Reason
-
-- `BetaManagedAgentsDeploymentPausedReason`
-
-  - `BetaManagedAgentsManualDeploymentPausedReason`
-
-    - `Type type`
-
-  - `BetaManagedAgentsErrorDeploymentPausedReason`
-
-    - `BetaManagedAgentsDeploymentPausedReasonError error`
-
-      The error that triggered an auto-pause. Matches the failed run's `error.type`.
-
-    - `Type type`
-
-### Beta Managed Agents Deployment Paused Reason Error
-
-- `BetaManagedAgentsDeploymentPausedReasonError`
-
-  - `BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsAgentArchivedDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsUnknownDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
-
-    - `Type type`
-
-  - `BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
-
-    - `Type type`
-
-### Beta Managed Agents Deployment Status
-
-- `BetaManagedAgentsDeploymentStatus`
-
-  - `"active"`
-
-  - `"paused"`
-
-### Beta Managed Agents Deployment System Message Event
-
-- `BetaManagedAgentsDeploymentSystemMessageEvent`
-
-  - `list<BetaManagedAgentsSystemContentBlock> content`
-
-    System content blocks to append. Text-only.
-
-  - `Type type`
-
-### Beta Managed Agents Deployment User Define Outcome Event
-
-- `BetaManagedAgentsDeploymentUserDefineOutcomeEvent`
-
-  - `string description`
-
-    What the agent should produce. This is the task specification.
-
-  - `Rubric rubric`
-
-    Rubric for grading the quality of an outcome.
-
-  - `Type type`
-
-  - `?int maxIterations`
-
-    Eval→revision cycles before giving up. Default 3, max 20.
-
-### Beta Managed Agents Deployment User Message Event
-
-- `BetaManagedAgentsDeploymentUserMessageEvent`
-
-  - `list<Content> content`
-
-    Array of content blocks for the user message.
-
-  - `Type type`
-
-### Beta Managed Agents Environment Archived Deployment Paused Reason Error
-
-- `BetaManagedAgentsEnvironmentArchivedDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Environment Not Found Deployment Paused Reason Error
-
-- `BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Error Deployment Paused Reason
-
-- `BetaManagedAgentsErrorDeploymentPausedReason`
-
-  - `BetaManagedAgentsDeploymentPausedReasonError error`
-
-    The error that triggered an auto-pause. Matches the failed run's `error.type`.
-
-  - `Type type`
-
-### Beta Managed Agents File Not Found Deployment Paused Reason Error
-
-- `BetaManagedAgentsFileNotFoundDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents File Resource Config
-
-- `BetaManagedAgentsFileResourceConfig`
-
-  - `string fileID`
-
-    ID of a previously uploaded file.
-
-  - `Type type`
-
-  - `?string mountPath`
-
-    Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
-
-### Beta Managed Agents GitHub Repository Resource Config
-
-- `BetaManagedAgentsGitHubRepositoryResourceConfig`
-
-  - `Type type`
-
-  - `string url`
-
-    Github URL of the repository
-
-  - `?Checkout checkout`
-
-    Branch or commit to check out. Defaults to the repository's default branch.
-
-  - `?string mountPath`
-
-    Mount path in the container. Defaults to `/workspace/<repo-name>`.
-
-### Beta Managed Agents Manual Deployment Paused Reason
-
-- `BetaManagedAgentsManualDeploymentPausedReason`
-
-  - `Type type`
-
-### Beta Managed Agents MCP Egress Blocked Deployment Paused Reason Error
-
-- `BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Memory Store Archived Deployment Paused Reason Error
-
-- `BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Memory Store Resource Config
-
-- `BetaManagedAgentsMemoryStoreResourceConfig`
-
-  - `string memoryStoreID`
-
-    The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-  - `Type type`
-
-  - `?Access access`
-
-    Access mode for an attached memory store.
-
-  - `?string instructions`
-
-    Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-
-### Beta Managed Agents Organization Disabled Deployment Paused Reason Error
-
-- `BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Schedule
-
-- `BetaManagedAgentsSchedule`
-
-  - `string expression`
-
-    5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
-
-  - `string timezone`
-
-    IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
-
-  - `Type type`
-
-  - `?\Datetime lastRunAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?list<\Datetime> upcomingRunsAt`
-
-    Up to 5 timestamps of upcoming cron occurrences. Non-empty for active and paused deployments (reflects what the schedule would do if unpaused); empty once the deployment is archived (`archived_at` set). Each fire is offset by a small per-schedule jitter, so a run will actually start at or shortly after its listed time.
-
-### Beta Managed Agents Schedule Params
-
-- `BetaManagedAgentsScheduleParams`
-
-  - `string expression`
-
-    5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
-
-  - `string timezone`
-
-    Required. IANA timezone identifier (e.g., "America/Los_Angeles", "UTC"). Validated against the IANA timezone database.
-
-  - `Type type`
-
-### Beta Managed Agents Self Hosted Resources Unsupported Deployment Paused Reason Error
-
-- `BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Session Resource Config
-
-- `BetaManagedAgentsSessionResourceConfig`
-
-  - `BetaManagedAgentsGitHubRepositoryResourceConfig`
-
-    - `Type type`
-
-    - `string url`
-
-      Github URL of the repository
-
-    - `?Checkout checkout`
-
-      Branch or commit to check out. Defaults to the repository's default branch.
-
-    - `?string mountPath`
-
-      Mount path in the container. Defaults to `/workspace/<repo-name>`.
-
-  - `BetaManagedAgentsFileResourceConfig`
-
-    - `string fileID`
-
-      ID of a previously uploaded file.
-
-    - `Type type`
-
-    - `?string mountPath`
-
-      Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
-
-  - `BetaManagedAgentsMemoryStoreResourceConfig`
-
-    - `string memoryStoreID`
-
-      The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
-
-    - `Type type`
-
-    - `?Access access`
-
-      Access mode for an attached memory store.
-
-    - `?string instructions`
-
-      Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
-
-### Beta Managed Agents Session Resource Not Found Deployment Paused Reason Error
-
-- `BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Skill Not Found Deployment Paused Reason Error
-
-- `BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Unknown Deployment Paused Reason Error
-
-- `BetaManagedAgentsUnknownDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Vault Archived Deployment Paused Reason Error
-
-- `BetaManagedAgentsVaultArchivedDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Vault Not Found Deployment Paused Reason Error
-
-- `BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError`
-
-  - `Type type`
-
-### Beta Managed Agents Workspace Archived Deployment Paused Reason Error
-
-- `BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError`
-
-  - `Type type`
-
-# Deployment Runs
-
-## List Deployment Runs
+### List Deployment Runs
 
 `$client->beta->deploymentRuns->list(?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool hasError, ?int limit, ?string page, ?BetaManagedAgentsTriggerType triggerType, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeploymentRun>`
 
-**get** `/v1/deployment_runs`
+**GET** `/v1/deployment_runs`
 
 List Deployment Runs
 
-### Parameters
+#### Parameters
 
 - `createdAtGt?:optional \Datetime`
 
@@ -26334,7 +12605,7 @@ List Deployment Runs
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeploymentRun`
 
@@ -26368,7 +12639,7 @@ List Deployment Runs
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -26393,7 +12664,7 @@ $page = $client->beta->deploymentRuns->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -26423,15 +12694,15 @@ var_dump($page);
 }
 ```
 
-## Get Deployment Run
+### Get Deployment Run
 
 `$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
 
-**get** `/v1/deployment_runs/{deployment_run_id}`
+**GET** `/v1/deployment_runs/{deployment_run_id}`
 
 Get Deployment Run
 
-### Parameters
+#### Parameters
 
 - `deploymentRunID: string`
 
@@ -26439,7 +12710,7 @@ Get Deployment Run
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeploymentRun`
 
@@ -26473,7 +12744,7 @@ Get Deployment Run
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -26489,7 +12760,7 @@ $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
 var_dump($betaManagedAgentsDeploymentRun);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -26514,253 +12785,17 @@ var_dump($betaManagedAgentsDeploymentRun);
 }
 ```
 
-## Domain Types
+## Beta › Vaults
 
-### Beta Managed Agents Agent Archived Run Error
-
-- `BetaManagedAgentsAgentArchivedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Deployment Run
-
-- `BetaManagedAgentsDeploymentRun`
-
-  - `string id`
-
-    Unique identifier for this run (`drun_...`).
-
-  - `BetaManagedAgentsAgentReference agent`
-
-    A resolved agent reference with a concrete version.
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string deploymentID`
-
-    ID of the deployment that produced this run.
-
-  - `?Error error`
-
-    Why the run failed to create a session. The type identifies the failure; message is human-readable detail.
-
-  - `?string sessionID`
-
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
-
-  - `BetaManagedAgentsTriggerContext triggerContext`
-
-    Describes what triggered a deployment run, with trigger-specific metadata.
-
-  - `Type type`
-
-### Beta Managed Agents Environment Archived Run Error
-
-- `BetaManagedAgentsEnvironmentArchivedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Environment Not Found Run Error
-
-- `BetaManagedAgentsEnvironmentNotFoundRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents File Not Found Run Error
-
-- `BetaManagedAgentsFileNotFoundRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Manual Trigger Context
-
-- `BetaManagedAgentsManualTriggerContext`
-
-  - `Type type`
-
-### Beta Managed Agents MCP Egress Blocked Run Error
-
-- `BetaManagedAgentsMCPEgressBlockedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Memory Store Archived Run Error
-
-- `BetaManagedAgentsMemoryStoreArchivedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Organization Disabled Run Error
-
-- `BetaManagedAgentsOrganizationDisabledRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Schedule Trigger Context
-
-- `BetaManagedAgentsScheduleTriggerContext`
-
-  - `\Datetime scheduledAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-### Beta Managed Agents Self Hosted Resources Unsupported Run Error
-
-- `BetaManagedAgentsSelfHostedResourcesUnsupportedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Session Creation Rejected Run Error
-
-- `BetaManagedAgentsSessionCreationRejectedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Session Rate Limited Run Error
-
-- `BetaManagedAgentsSessionRateLimitedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Session Resource Not Found Run Error
-
-- `BetaManagedAgentsSessionResourceNotFoundRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Skill Not Found Run Error
-
-- `BetaManagedAgentsSkillNotFoundRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Trigger Context
-
-- `BetaManagedAgentsTriggerContext`
-
-  - `BetaManagedAgentsScheduleTriggerContext`
-
-    - `\Datetime scheduledAt`
-
-      A timestamp in RFC 3339 format
-
-    - `Type type`
-
-  - `BetaManagedAgentsManualTriggerContext`
-
-    - `Type type`
-
-### Beta Managed Agents Trigger Type
-
-- `BetaManagedAgentsTriggerType`
-
-  - `"schedule"`
-
-  - `"manual"`
-
-### Beta Managed Agents Unknown Run Error
-
-- `BetaManagedAgentsUnknownRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Vault Archived Run Error
-
-- `BetaManagedAgentsVaultArchivedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Vault Not Found Run Error
-
-- `BetaManagedAgentsVaultNotFoundRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-### Beta Managed Agents Workspace Archived Run Error
-
-- `BetaManagedAgentsWorkspaceArchivedRunError`
-
-  - `string message`
-
-    Human-readable error description.
-
-  - `Type type`
-
-# Vaults
-
-## Create Vault
+### Create Vault
 
 `$client->beta->vaults->create(string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
 
-**post** `/v1/vaults`
+**POST** `/v1/vaults`
 
 Create Vault
 
-### Parameters
+#### Parameters
 
 - `displayName: string`
 
@@ -26774,7 +12809,7 @@ Create Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsVault`
 
@@ -26804,7 +12839,7 @@ Create Vault
 
     A timestamp in RFC 3339 format
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -26822,7 +12857,7 @@ $betaManagedAgentsVault = $client->beta->vaults->create(
 var_dump($betaManagedAgentsVault);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -26838,15 +12873,15 @@ var_dump($betaManagedAgentsVault);
 }
 ```
 
-## List Vaults
+### List Vaults
 
 `$client->beta->vaults->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsVault>`
 
-**get** `/v1/vaults`
+**GET** `/v1/vaults`
 
 List Vaults
 
-### Parameters
+#### Parameters
 
 - `includeArchived?:optional bool`
 
@@ -26864,7 +12899,7 @@ List Vaults
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsVault`
 
@@ -26894,7 +12929,7 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -26913,7 +12948,7 @@ $page = $client->beta->vaults->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -26934,15 +12969,15 @@ var_dump($page);
 }
 ```
 
-## Get Vault
+### Get Vault
 
 `$client->beta->vaults->retrieve(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
 
-**get** `/v1/vaults/{vault_id}`
+**GET** `/v1/vaults/{vault_id}`
 
 Get Vault
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -26950,7 +12985,7 @@ Get Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsVault`
 
@@ -26980,7 +13015,7 @@ Get Vault
 
     A timestamp in RFC 3339 format
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -26997,7 +13032,7 @@ $betaManagedAgentsVault = $client->beta->vaults->retrieve(
 var_dump($betaManagedAgentsVault);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27013,15 +13048,15 @@ var_dump($betaManagedAgentsVault);
 }
 ```
 
-## Update Vault
+### Update Vault
 
 `$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
 
-**post** `/v1/vaults/{vault_id}`
+**POST** `/v1/vaults/{vault_id}`
 
 Update Vault
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27037,7 +13072,7 @@ Update Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsVault`
 
@@ -27067,7 +13102,7 @@ Update Vault
 
     A timestamp in RFC 3339 format
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27086,7 +13121,7 @@ $betaManagedAgentsVault = $client->beta->vaults->update(
 var_dump($betaManagedAgentsVault);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27102,15 +13137,15 @@ var_dump($betaManagedAgentsVault);
 }
 ```
 
-## Delete Vault
+### Delete Vault
 
 `$client->beta->vaults->delete(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedVault`
 
-**delete** `/v1/vaults/{vault_id}`
+**DELETE** `/v1/vaults/{vault_id}`
 
 Delete Vault
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27118,7 +13153,7 @@ Delete Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeletedVault`
 
@@ -27128,7 +13163,7 @@ Delete Vault
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27145,7 +13180,7 @@ $betaManagedAgentsDeletedVault = $client->beta->vaults->delete(
 var_dump($betaManagedAgentsDeletedVault);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27154,15 +13189,15 @@ var_dump($betaManagedAgentsDeletedVault);
 }
 ```
 
-## Archive Vault
+### Archive Vault
 
 `$client->beta->vaults->archive(string vaultID, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
 
-**post** `/v1/vaults/{vault_id}/archive`
+**POST** `/v1/vaults/{vault_id}/archive`
 
 Archive Vault
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27170,7 +13205,7 @@ Archive Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsVault`
 
@@ -27200,7 +13235,7 @@ Archive Vault
 
     A timestamp in RFC 3339 format
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27217,7 +13252,7 @@ $betaManagedAgentsVault = $client->beta->vaults->archive(
 var_dump($betaManagedAgentsVault);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27233,59 +13268,17 @@ var_dump($betaManagedAgentsVault);
 }
 ```
 
-## Domain Types
+## Beta › Vaults › Credentials
 
-### Beta Managed Agents Deleted Vault
-
-- `BetaManagedAgentsDeletedVault`
-
-  - `string id`
-
-    Unique identifier of the deleted vault.
-
-  - `Type type`
-
-### Beta Managed Agents Vault
-
-- `BetaManagedAgentsVault`
-
-  - `string id`
-
-    Unique identifier for the vault.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string displayName`
-
-    Human-readable name for the vault.
-
-  - `array<string,string> metadata`
-
-    Arbitrary key-value metadata attached to the vault.
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-# Credentials
-
-## Create Credential
+### Create Credential
 
 `$client->beta->vaults->credentials->create(string vaultID, Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
 
-**post** `/v1/vaults/{vault_id}/credentials`
+**POST** `/v1/vaults/{vault_id}/credentials`
 
 Create Credential
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27305,7 +13298,7 @@ Create Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsCredential`
 
@@ -27343,7 +13336,7 @@ Create Credential
 
     Human-readable name for the credential.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27367,7 +13360,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->create(
 var_dump($betaManagedAgentsCredential);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27388,15 +13381,15 @@ var_dump($betaManagedAgentsCredential);
 }
 ```
 
-## List Credentials
+### List Credentials
 
 `$client->beta->vaults->credentials->list(string vaultID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsCredential>`
 
-**get** `/v1/vaults/{vault_id}/credentials`
+**GET** `/v1/vaults/{vault_id}/credentials`
 
 List Credentials
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27416,7 +13409,7 @@ List Credentials
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsCredential`
 
@@ -27454,7 +13447,7 @@ List Credentials
 
     Human-readable name for the credential.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27474,7 +13467,7 @@ $page = $client->beta->vaults->credentials->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27500,15 +13493,15 @@ var_dump($page);
 }
 ```
 
-## Get Credential
+### Get Credential
 
 `$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
 
-**get** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Get Credential
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27518,7 +13511,7 @@ Get Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsCredential`
 
@@ -27556,7 +13549,7 @@ Get Credential
 
     Human-readable name for the credential.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27574,7 +13567,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
 var_dump($betaManagedAgentsCredential);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27595,15 +13588,15 @@ var_dump($betaManagedAgentsCredential);
 }
 ```
 
-## Update Credential
+### Update Credential
 
 `$client->beta->vaults->credentials->update(string credentialID, string vaultID, ?Auth auth, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Update Credential
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27625,7 +13618,7 @@ Update Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsCredential`
 
@@ -27663,7 +13656,7 @@ Update Credential
 
     Human-readable name for the credential.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27695,7 +13688,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->update(
 var_dump($betaManagedAgentsCredential);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27716,15 +13709,15 @@ var_dump($betaManagedAgentsCredential);
 }
 ```
 
-## Delete Credential
+### Delete Credential
 
 `$client->beta->vaults->credentials->delete(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsDeletedCredential`
 
-**delete** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Delete Credential
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27734,7 +13727,7 @@ Delete Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsDeletedCredential`
 
@@ -27744,7 +13737,7 @@ Delete Credential
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27766,7 +13759,7 @@ $betaManagedAgentsDeletedCredential = $client
 var_dump($betaManagedAgentsDeletedCredential);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27775,15 +13768,15 @@ var_dump($betaManagedAgentsDeletedCredential);
 }
 ```
 
-## Archive Credential
+### Archive Credential
 
 `$client->beta->vaults->credentials->archive(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
 Archive Credential
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27793,7 +13786,7 @@ Archive Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsCredential`
 
@@ -27831,7 +13824,7 @@ Archive Credential
 
     Human-readable name for the credential.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27849,7 +13842,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->archive(
 var_dump($betaManagedAgentsCredential);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27870,15 +13863,15 @@ var_dump($betaManagedAgentsCredential);
 }
 ```
 
-## Validate Credential
+### Validate Credential
 
 `$client->beta->vaults->credentials->mcpOAuthValidate(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredentialValidation`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
 Validate Credential
 
-### Parameters
+#### Parameters
 
 - `vaultID: string`
 
@@ -27888,7 +13881,7 @@ Validate Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsCredentialValidation`
 
@@ -27922,7 +13915,7 @@ Validate Credential
 
     Identifier of the vault containing the credential.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -27944,7 +13937,7 @@ $betaManagedAgentsCredentialValidation = $client
 var_dump($betaManagedAgentsCredentialValidation);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -27975,521 +13968,17 @@ var_dump($betaManagedAgentsCredentialValidation);
 }
 ```
 
-## Domain Types
+## Beta › Memory Stores
 
-### Beta Managed Agents Credential
-
-- `ManagedAgentsCredential`
-
-  - `string id`
-
-    Unique identifier for the credential.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Auth auth`
-
-    Authentication details for a credential.
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `array<string,string> metadata`
-
-    Arbitrary key-value metadata attached to the credential.
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string vaultID`
-
-    Identifier of the vault this credential belongs to.
-
-  - `?string displayName`
-
-    Human-readable name for the credential.
-
-### Beta Managed Agents Credential Networking Params
-
-- `ManagedAgentsCredentialNetworkingParams`
-
-  - `ManagedAgentsUnrestrictedCredentialNetworkingParams`
-
-    - `Type type`
-
-  - `ManagedAgentsLimitedCredentialNetworkingParams`
-
-    - `list<string> allowedHosts`
-
-      Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-    - `Type type`
-
-### Beta Managed Agents Credential Validation
-
-- `ManagedAgentsCredentialValidation`
-
-  - `string credentialID`
-
-    Unique identifier of the credential that was validated.
-
-  - `bool hasRefreshToken`
-
-    Whether the credential has a refresh token configured.
-
-  - `?ManagedAgentsMCPProbe mcpProbe`
-
-    The failing step of an MCP validation probe.
-
-  - `?ManagedAgentsRefreshObject refresh`
-
-    Outcome of a refresh-token exchange attempted during credential validation.
-
-  - `ManagedAgentsCredentialValidationStatus status`
-
-    Overall verdict of a credential validation probe.
-
-  - `Type type`
-
-  - `\Datetime validatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string vaultID`
-
-    Identifier of the vault containing the credential.
-
-### Beta Managed Agents Credential Validation Status
-
-- `ManagedAgentsCredentialValidationStatus`
-
-  - `"valid"`
-
-  - `"invalid"`
-
-  - `"unknown"`
-
-### Beta Managed Agents Deleted Credential
-
-- `ManagedAgentsDeletedCredential`
-
-  - `string id`
-
-    Unique identifier of the deleted credential.
-
-  - `Type type`
-
-### Beta Managed Agents Environment Variable Auth Response
-
-- `ManagedAgentsEnvironmentVariableAuthResponse`
-
-  - `ManagedAgentsInjectionLocationResponse injectionLocation`
-
-    Where in the outbound request the secret value is substituted.
-
-  - `Networking networking`
-
-    Outbound hosts the secret value is substituted on.
-
-  - `string secretName`
-
-    Name of the environment variable.
-
-  - `Type type`
-
-### Beta Managed Agents Environment Variable Create Params
-
-- `ManagedAgentsEnvironmentVariableCreateParams`
-
-  - `ManagedAgentsCredentialNetworkingParams networking`
-
-    Outbound hosts the secret value is substituted on.
-
-  - `string secretName`
-
-    Name of the environment variable. Immutable after create.
-
-  - `string secretValue`
-
-    Secret value. Write-only; never returned in responses.
-
-  - `Type type`
-
-  - `?ManagedAgentsInjectionLocationParams injectionLocation`
-
-    Where in the outbound request the secret value may be substituted.
-
-### Beta Managed Agents Environment Variable Update Params
-
-- `ManagedAgentsEnvironmentVariableUpdateParams`
-
-  - `Type type`
-
-  - `?ManagedAgentsInjectionLocationUpdateParams injectionLocation`
-
-    Updated injection location.
-
-  - `?ManagedAgentsCredentialNetworkingParams networking`
-
-    Updated networking scope. Full replacement.
-
-  - `?string secretValue`
-
-    Updated secret value.
-
-### Beta Managed Agents Injection Location Params
-
-- `ManagedAgentsInjectionLocationParams`
-
-  - `?bool body`
-
-    Substitute when the placeholder appears in the request body.
-
-  - `?bool header`
-
-    Substitute when the placeholder appears in a request header value.
-
-### Beta Managed Agents Injection Location Response
-
-- `ManagedAgentsInjectionLocationResponse`
-
-  - `bool body`
-
-    Whether the placeholder is substituted in the request body.
-
-  - `bool header`
-
-    Whether the placeholder is substituted in request header values.
-
-### Beta Managed Agents Injection Location Update Params
-
-- `ManagedAgentsInjectionLocationUpdateParams`
-
-  - `?bool body`
-
-    Substitute when the placeholder appears in the request body.
-
-  - `?bool header`
-
-    Substitute when the placeholder appears in a request header value.
-
-### Beta Managed Agents Limited Credential Networking Params
-
-- `ManagedAgentsLimitedCredentialNetworkingParams`
-
-  - `list<string> allowedHosts`
-
-    Hostnames on which the secret will be substituted. Each entry is a bare hostname (`api.example.com`), an IPv4 address (`192.0.2.1`), or a `*.`-prefixed wildcard (`*.example.com`). URLs, ports, paths, and IPv6 addresses are not accepted. At most 16 entries.
-
-  - `Type type`
-
-### Beta Managed Agents Limited Credential Networking Response
-
-- `ManagedAgentsLimitedCredentialNetworkingResponse`
-
-  - `list<string> allowedHosts`
-
-    Hostnames on which the secret will be substituted. An entry matches the request host exactly; a `*.`-prefixed entry matches any subdomain of the named domain but not the domain itself.
-
-  - `Type type`
-
-### Beta Managed Agents MCP OAuth Auth Response
-
-- `ManagedAgentsMCPOAuthAuthResponse`
-
-  - `string mcpServerURL`
-
-    URL of the MCP server this credential authenticates against.
-
-  - `Type type`
-
-  - `?\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?ManagedAgentsMCPOAuthRefreshResponse refresh`
-
-    OAuth refresh token configuration returned in credential responses.
-
-### Beta Managed Agents MCP OAuth Create Params
-
-- `ManagedAgentsMCPOAuthCreateParams`
-
-  - `string accessToken`
-
-    OAuth access token.
-
-  - `string mcpServerURL`
-
-    URL of the MCP server this credential authenticates against.
-
-  - `Type type`
-
-  - `?\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?ManagedAgentsMCPOAuthRefreshParams refresh`
-
-    OAuth refresh token parameters for creating a credential with refresh support.
-
-### Beta Managed Agents MCP OAuth Refresh Params
-
-- `ManagedAgentsMCPOAuthRefreshParams`
-
-  - `string clientID`
-
-    OAuth client ID.
-
-  - `string refreshToken`
-
-    OAuth refresh token.
-
-  - `string tokenEndpoint`
-
-    Token endpoint URL used to refresh the access token.
-
-  - `TokenEndpointAuth tokenEndpointAuth`
-
-    Token endpoint requires no client authentication.
-
-  - `?string resource`
-
-    OAuth resource indicator.
-
-  - `?string scope`
-
-    OAuth scope for the refresh request.
-
-### Beta Managed Agents MCP OAuth Refresh Response
-
-- `ManagedAgentsMCPOAuthRefreshResponse`
-
-  - `string clientID`
-
-    OAuth client ID.
-
-  - `string tokenEndpoint`
-
-    Token endpoint URL used to refresh the access token.
-
-  - `TokenEndpointAuth tokenEndpointAuth`
-
-    Token endpoint requires no client authentication.
-
-  - `?string resource`
-
-    OAuth resource indicator.
-
-  - `?string scope`
-
-    OAuth scope for the refresh request.
-
-### Beta Managed Agents MCP OAuth Refresh Update Params
-
-- `ManagedAgentsMCPOAuthRefreshUpdateParams`
-
-  - `?string refreshToken`
-
-    Updated OAuth refresh token.
-
-  - `?string scope`
-
-    Updated OAuth scope for the refresh request.
-
-  - `?TokenEndpointAuth tokenEndpointAuth`
-
-    Updated HTTP Basic authentication parameters for the token endpoint.
-
-### Beta Managed Agents MCP OAuth Update Params
-
-- `ManagedAgentsMCPOAuthUpdateParams`
-
-  - `Type type`
-
-  - `?string accessToken`
-
-    Updated OAuth access token.
-
-  - `?\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?ManagedAgentsMCPOAuthRefreshUpdateParams refresh`
-
-    Parameters for updating OAuth refresh token configuration.
-
-### Beta Managed Agents MCP Probe
-
-- `ManagedAgentsMCPProbe`
-
-  - `?ManagedAgentsRefreshHTTPResponse httpResponse`
-
-    An HTTP response captured during a credential validation probe.
-
-  - `string method`
-
-    The MCP method that failed (for example `initialize` or `tools/list`).
-
-### Beta Managed Agents Refresh HTTP Response
-
-- `ManagedAgentsRefreshHTTPResponse`
-
-  - `string body`
-
-    Response body. May be truncated and has sensitive values scrubbed.
-
-  - `bool bodyTruncated`
-
-    Whether `body` was truncated.
-
-  - `string contentType`
-
-    Value of the `Content-Type` response header.
-
-  - `int statusCode`
-
-    HTTP status code.
-
-### Beta Managed Agents Refresh Object
-
-- `ManagedAgentsRefreshObject`
-
-  - `?ManagedAgentsRefreshHTTPResponse httpResponse`
-
-    An HTTP response captured during a credential validation probe.
-
-  - `Status status`
-
-    Outcome of a refresh-token exchange attempted during credential validation.
-
-### Beta Managed Agents Static Bearer Auth Response
-
-- `ManagedAgentsStaticBearerAuthResponse`
-
-  - `string mcpServerURL`
-
-    URL of the MCP server this credential authenticates against.
-
-  - `Type type`
-
-### Beta Managed Agents Static Bearer Create Params
-
-- `ManagedAgentsStaticBearerCreateParams`
-
-  - `string token`
-
-    Static bearer token value.
-
-  - `string mcpServerURL`
-
-    URL of the MCP server this credential authenticates against.
-
-  - `Type type`
-
-### Beta Managed Agents Static Bearer Update Params
-
-- `ManagedAgentsStaticBearerUpdateParams`
-
-  - `Type type`
-
-  - `?string token`
-
-    Updated static bearer token value.
-
-### Beta Managed Agents Token Endpoint Auth Basic Param
-
-- `ManagedAgentsTokenEndpointAuthBasicParam`
-
-  - `string clientSecret`
-
-    OAuth client secret.
-
-  - `Type type`
-
-### Beta Managed Agents Token Endpoint Auth Basic Response
-
-- `ManagedAgentsTokenEndpointAuthBasicResponse`
-
-  - `Type type`
-
-### Beta Managed Agents Token Endpoint Auth Basic Update Param
-
-- `ManagedAgentsTokenEndpointAuthBasicUpdateParam`
-
-  - `Type type`
-
-  - `?string clientSecret`
-
-    Updated OAuth client secret.
-
-### Beta Managed Agents Token Endpoint Auth None Param
-
-- `ManagedAgentsTokenEndpointAuthNoneParam`
-
-  - `Type type`
-
-### Beta Managed Agents Token Endpoint Auth None Response
-
-- `ManagedAgentsTokenEndpointAuthNoneResponse`
-
-  - `Type type`
-
-### Beta Managed Agents Token Endpoint Auth Post Param
-
-- `ManagedAgentsTokenEndpointAuthPostParam`
-
-  - `string clientSecret`
-
-    OAuth client secret.
-
-  - `Type type`
-
-### Beta Managed Agents Token Endpoint Auth Post Response
-
-- `ManagedAgentsTokenEndpointAuthPostResponse`
-
-  - `Type type`
-
-### Beta Managed Agents Token Endpoint Auth Post Update Param
-
-- `ManagedAgentsTokenEndpointAuthPostUpdateParam`
-
-  - `Type type`
-
-  - `?string clientSecret`
-
-    Updated OAuth client secret.
-
-### Beta Managed Agents Unrestricted Credential Networking Params
-
-- `ManagedAgentsUnrestrictedCredentialNetworkingParams`
-
-  - `Type type`
-
-### Beta Managed Agents Unrestricted Credential Networking Response
-
-- `ManagedAgentsUnrestrictedCredentialNetworkingResponse`
-
-  - `Type type`
-
-# Memory Stores
-
-## Create a memory store
+### Create a memory store
 
 `$client->beta->memoryStores->create(string name, ?string description, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores`
+**POST** `/v1/memory_stores`
 
 Create a memory store
 
-### Parameters
+#### Parameters
 
 - `name: string`
 
@@ -28507,7 +13996,7 @@ Create a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -28541,7 +14030,7 @@ Create a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -28560,7 +14049,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->create(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -28577,15 +14066,15 @@ var_dump($betaManagedAgentsMemoryStore);
 }
 ```
 
-## List memory stores
+### List memory stores
 
 `$client->beta->memoryStores->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsMemoryStore>`
 
-**get** `/v1/memory_stores`
+**GET** `/v1/memory_stores`
 
 List memory stores
 
-### Parameters
+#### Parameters
 
 - `createdAtGte?:optional \Datetime`
 
@@ -28611,7 +14100,7 @@ List memory stores
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -28645,7 +14134,7 @@ List memory stores
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -28666,7 +14155,7 @@ $page = $client->beta->memoryStores->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -28688,15 +14177,15 @@ var_dump($page);
 }
 ```
 
-## Retrieve a memory store
+### Retrieve a memory store
 
 `$client->beta->memoryStores->retrieve(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**get** `/v1/memory_stores/{memory_store_id}`
+**GET** `/v1/memory_stores/{memory_store_id}`
 
 Retrieve a memory store
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -28704,7 +14193,7 @@ Retrieve a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -28738,7 +14227,7 @@ Retrieve a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -28754,7 +14243,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->retrieve(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -28771,15 +14260,15 @@ var_dump($betaManagedAgentsMemoryStore);
 }
 ```
 
-## Update a memory store
+### Update a memory store
 
 `$client->beta->memoryStores->update(string memoryStoreID, ?string description, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores/{memory_store_id}`
+**POST** `/v1/memory_stores/{memory_store_id}`
 
 Update a memory store
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -28799,7 +14288,7 @@ Update a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -28833,7 +14322,7 @@ Update a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -28853,7 +14342,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->update(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -28870,15 +14359,15 @@ var_dump($betaManagedAgentsMemoryStore);
 }
 ```
 
-## Delete a memory store
+### Delete a memory store
 
 `$client->beta->memoryStores->delete(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedMemoryStore`
 
-**delete** `/v1/memory_stores/{memory_store_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}`
 
 Delete a memory store
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -28886,7 +14375,7 @@ Delete a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsDeletedMemoryStore`
 
@@ -28896,7 +14385,7 @@ Delete a memory store
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -28912,7 +14401,7 @@ $betaManagedAgentsDeletedMemoryStore = $client->beta->memoryStores->delete(
 var_dump($betaManagedAgentsDeletedMemoryStore);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -28921,15 +14410,15 @@ var_dump($betaManagedAgentsDeletedMemoryStore);
 }
 ```
 
-## Archive a memory store
+### Archive a memory store
 
 `$client->beta->memoryStores->archive(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores/{memory_store_id}/archive`
+**POST** `/v1/memory_stores/{memory_store_id}/archive`
 
 Archive a memory store
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -28937,7 +14426,7 @@ Archive a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -28971,7 +14460,7 @@ Archive a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -28987,7 +14476,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->archive(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29004,63 +14493,17 @@ var_dump($betaManagedAgentsMemoryStore);
 }
 ```
 
-## Domain Types
+## Beta › Memory Stores › Memories
 
-### Beta Managed Agents Deleted Memory Store
-
-- `BetaManagedAgentsDeletedMemoryStore`
-
-  - `string id`
-
-    ID of the deleted memory store (a `memstore_...` identifier). The store and all its memories and versions are no longer retrievable.
-
-  - `Type type`
-
-### Beta Managed Agents Memory Store
-
-- `BetaManagedAgentsMemoryStore`
-
-  - `string id`
-
-    Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string name`
-
-    Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string description`
-
-    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-  - `?array<string,string> metadata`
-
-    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
-
-# Memories
-
-## Create a memory
+### Create a memory
 
 `$client->beta->memoryStores->memories->create(string memoryStoreID, ?string content, string path, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -29080,7 +14523,7 @@ Create a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemory`
 
@@ -29122,7 +14565,7 @@ Create a memory
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -29142,7 +14585,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29159,15 +14602,15 @@ var_dump($betaManagedAgentsMemory);
 }
 ```
 
-## List memories
+### List memories
 
 `$client->beta->memoryStores->memories->list(string memoryStoreID, ?int depth, ?int limit, ?string page, ?string pathPrefix, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryListItem>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -29195,7 +14638,7 @@ List memories
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryListItem`
 
@@ -29247,7 +14690,7 @@ List memories
 
     - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -29269,7 +14712,7 @@ $page = $client->beta->memoryStores->memories->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29291,15 +14734,15 @@ var_dump($page);
 }
 ```
 
-## Retrieve a memory
+### Retrieve a memory
 
 `$client->beta->memoryStores->memories->retrieve(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Retrieve a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -29313,7 +14756,7 @@ Retrieve a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemory`
 
@@ -29355,7 +14798,7 @@ Retrieve a memory
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -29374,7 +14817,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->retrieve(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29391,15 +14834,15 @@ var_dump($betaManagedAgentsMemory);
 }
 ```
 
-## Update a memory
+### Update a memory
 
 `$client->beta->memoryStores->memories->update(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?string content, ?string path, ?ManagedAgentsPrecondition precondition, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Update a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -29425,7 +14868,7 @@ Update a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemory`
 
@@ -29467,7 +14910,7 @@ Update a memory
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -29491,7 +14934,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29508,15 +14951,15 @@ var_dump($betaManagedAgentsMemory);
 }
 ```
 
-## Delete a memory
+### Delete a memory
 
 `$client->beta->memoryStores->memories->delete(string memoryID, string memoryStoreID, ?string expectedContentSha256, ?list<AnthropicBeta> betas): ManagedAgentsDeletedMemory`
 
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -29530,7 +14973,7 @@ Delete a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsDeletedMemory`
 
@@ -29540,7 +14983,7 @@ Delete a memory
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -29559,7 +15002,7 @@ $betaManagedAgentsDeletedMemory = $client->beta->memoryStores->memories->delete(
 var_dump($betaManagedAgentsDeletedMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29568,269 +15011,17 @@ var_dump($betaManagedAgentsDeletedMemory);
 }
 ```
 
-## Domain Types
+## Beta › Memory Stores › Memory Versions
 
-### Beta Managed Agents Conflict Error
-
-- `ManagedAgentsConflictError`
-
-  - `Type type`
-
-  - `?string message`
-
-### Beta Managed Agents Content Sha256 Precondition
-
-- `ManagedAgentsContentSha256Precondition`
-
-  - `Type type`
-
-  - `?string contentSha256`
-
-    Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
-
-### Beta Managed Agents Deleted Memory
-
-- `ManagedAgentsDeletedMemory`
-
-  - `string id`
-
-    ID of the deleted memory (a `mem_...` value).
-
-  - `Type type`
-
-### Beta Managed Agents Error
-
-- `ManagedAgentsError`
-
-  - `BetaInvalidRequestError`
-
-    - `string message`
-
-    - `"invalid_request_error" type`
-
-  - `BetaAuthenticationError`
-
-    - `string message`
-
-    - `"authentication_error" type`
-
-  - `BetaBillingError`
-
-    - `string message`
-
-    - `"billing_error" type`
-
-  - `BetaPermissionError`
-
-    - `string message`
-
-    - `"permission_error" type`
-
-  - `BetaNotFoundError`
-
-    - `string message`
-
-    - `"not_found_error" type`
-
-  - `BetaRateLimitError`
-
-    - `string message`
-
-    - `"rate_limit_error" type`
-
-  - `BetaGatewayTimeoutError`
-
-    - `string message`
-
-    - `"timeout_error" type`
-
-  - `BetaAPIError`
-
-    - `string message`
-
-    - `"api_error" type`
-
-  - `BetaOverloadedError`
-
-    - `string message`
-
-    - `"overloaded_error" type`
-
-  - `ManagedAgentsMemoryPreconditionFailedError`
-
-    - `Type type`
-
-    - `?string message`
-
-  - `ManagedAgentsMemoryPathConflictError`
-
-    - `Type type`
-
-    - `?string conflictingMemoryID`
-
-    - `?string conflictingPath`
-
-    - `?string message`
-
-  - `ManagedAgentsConflictError`
-
-    - `Type type`
-
-    - `?string message`
-
-### Beta Managed Agents Memory
-
-- `ManagedAgentsMemory`
-
-  - `string id`
-
-    Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
-
-  - `string contentSha256`
-
-    Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
-
-  - `int contentSizeBytes`
-
-    Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string memoryStoreID`
-
-    ID of the memory store this memory belongs to (a `memstore_...` value).
-
-  - `string memoryVersionID`
-
-    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
-
-  - `string path`
-
-    Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string content`
-
-    The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
-
-### Beta Managed Agents Memory List Item
-
-- `ManagedAgentsMemoryListItem`
-
-  - `ManagedAgentsMemory`
-
-    - `string id`
-
-      Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
-
-    - `string contentSha256`
-
-      Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
-
-    - `int contentSizeBytes`
-
-      Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
-
-    - `\Datetime createdAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string memoryStoreID`
-
-      ID of the memory store this memory belongs to (a `memstore_...` value).
-
-    - `string memoryVersionID`
-
-      ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
-
-    - `string path`
-
-      Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
-
-    - `Type type`
-
-    - `\Datetime updatedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string content`
-
-      The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
-
-  - `ManagedAgentsMemoryPrefix`
-
-    - `string path`
-
-      The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-    - `Type type`
-
-### Beta Managed Agents Memory Path Conflict Error
-
-- `ManagedAgentsMemoryPathConflictError`
-
-  - `Type type`
-
-  - `?string conflictingMemoryID`
-
-  - `?string conflictingPath`
-
-  - `?string message`
-
-### Beta Managed Agents Memory Precondition Failed Error
-
-- `ManagedAgentsMemoryPreconditionFailedError`
-
-  - `Type type`
-
-  - `?string message`
-
-### Beta Managed Agents Memory Prefix
-
-- `ManagedAgentsMemoryPrefix`
-
-  - `string path`
-
-    The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-  - `Type type`
-
-### Beta Managed Agents Memory View
-
-- `ManagedAgentsMemoryView`
-
-  - `"basic"`
-
-  - `"full"`
-
-### Beta Managed Agents Precondition
-
-- `ManagedAgentsPrecondition`
-
-  - `Type type`
-
-  - `?string contentSha256`
-
-    Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
-
-# Memory Versions
-
-## List memory versions
+### List memory versions
 
 `$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string serviceAccountID, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryVersion>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
 List memory versions
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -29878,7 +15069,7 @@ List memory versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryVersion`
 
@@ -29932,7 +15123,7 @@ List memory versions
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -29959,7 +15150,7 @@ $page = $client->beta->memoryStores->memoryVersions->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29990,15 +15181,15 @@ var_dump($page);
 }
 ```
 
-## Retrieve a memory version
+### Retrieve a memory version
 
 `$client->beta->memoryStores->memoryVersions->retrieve(string memoryVersionID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemoryVersion`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
 
 Retrieve a memory version
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -30012,7 +15203,7 @@ Retrieve a memory version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryVersion`
 
@@ -30066,7 +15257,7 @@ Retrieve a memory version
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30089,7 +15280,7 @@ $betaManagedAgentsMemoryVersion = $client
 var_dump($betaManagedAgentsMemoryVersion);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30115,15 +15306,15 @@ var_dump($betaManagedAgentsMemoryVersion);
 }
 ```
 
-## Redact a memory version
+### Redact a memory version
 
 `$client->beta->memoryStores->memoryVersions->redact(string memoryVersionID, string memoryStoreID, ?list<AnthropicBeta> betas): ManagedAgentsMemoryVersion`
 
-**post** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
+**POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 
 Redact a memory version
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -30133,7 +15324,7 @@ Redact a memory version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryVersion`
 
@@ -30187,7 +15378,7 @@ Redact a memory version
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30209,7 +15400,7 @@ $betaManagedAgentsMemoryVersion = $client
 var_dump($betaManagedAgentsMemoryVersion);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30235,159 +15426,17 @@ var_dump($betaManagedAgentsMemoryVersion);
 }
 ```
 
-## Domain Types
+## Beta › Files
 
-### Beta Managed Agents Actor
-
-- `ManagedAgentsActor`
-
-  - `ManagedAgentsSessionActor`
-
-    - `string sessionID`
-
-      ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
-
-    - `Type type`
-
-  - `ManagedAgentsAPIActor`
-
-    - `string apiKeyID`
-
-      ID of the API key that performed the write. This identifies the key, not the secret.
-
-    - `Type type`
-
-  - `ManagedAgentsUserActor`
-
-    - `Type type`
-
-    - `string userID`
-
-      ID of the user who performed the write (a `user_...` value).
-
-  - `ManagedAgentsServiceAccountActor`
-
-    - `string serviceAccountID`
-
-      ID of the service account that performed the write (a `svac_...` value).
-
-    - `"service_account_actor" type`
-
-### Beta Managed Agents API Actor
-
-- `ManagedAgentsAPIActor`
-
-  - `string apiKeyID`
-
-    ID of the API key that performed the write. This identifies the key, not the secret.
-
-  - `Type type`
-
-### Beta Managed Agents Memory Version
-
-- `ManagedAgentsMemoryVersion`
-
-  - `string id`
-
-    Unique identifier for this version (a `memver_...` value).
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string memoryID`
-
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
-
-  - `string memoryStoreID`
-
-    ID of the memory store this version belongs to (a `memstore_...` value).
-
-  - `ManagedAgentsMemoryVersionOperation operation`
-
-    The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
-
-  - `Type type`
-
-  - `?string content`
-
-    The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
-
-  - `?string contentSha256`
-
-    Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
-
-  - `?int contentSizeBytes`
-
-    Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
-
-  - `?ManagedAgentsActor createdBy`
-
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
-
-  - `?string path`
-
-    The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
-
-  - `?\Datetime redactedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?ManagedAgentsActor redactedBy`
-
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
-
-### Beta Managed Agents Memory Version Operation
-
-- `ManagedAgentsMemoryVersionOperation`
-
-  - `"created"`
-
-  - `"modified"`
-
-  - `"deleted"`
-
-### Beta Managed Agents Service Account Actor
-
-- `ManagedAgentsServiceAccountActor`
-
-  - `string serviceAccountID`
-
-    ID of the service account that performed the write (a `svac_...` value).
-
-  - `"service_account_actor" type`
-
-### Beta Managed Agents Session Actor
-
-- `ManagedAgentsSessionActor`
-
-  - `string sessionID`
-
-    ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
-
-  - `Type type`
-
-### Beta Managed Agents User Actor
-
-- `ManagedAgentsUserActor`
-
-  - `Type type`
-
-  - `string userID`
-
-    ID of the user who performed the write (a `user_...` value).
-
-# Files
-
-## Upload File
+### Upload File
 
 `$client->beta->files->upload(string file, ?list<AnthropicBeta> betas): BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
-### Parameters
+#### Parameters
 
 - `file: string`
 
@@ -30397,7 +15446,7 @@ Upload File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaFileMetadata`
 
@@ -30437,7 +15486,7 @@ Upload File
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30454,7 +15503,7 @@ $betaFileMetadata = $client->beta->files->upload(
 var_dump($betaFileMetadata);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30472,15 +15521,15 @@ var_dump($betaFileMetadata);
 }
 ```
 
-## List Files
+### List Files
 
 `$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<BetaFileMetadata>`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
-### Parameters
+#### Parameters
 
 - `afterID?:optional string`
 
@@ -30496,6 +15545,8 @@ List Files
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20
+
 - `scopeID?:optional string`
 
   Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
@@ -30504,7 +15555,7 @@ List Files
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaFileMetadata`
 
@@ -30544,7 +15595,7 @@ List Files
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30564,7 +15615,7 @@ $page = $client->beta->files->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30589,15 +15640,15 @@ var_dump($page);
 }
 ```
 
-## Download File
+### Download File
 
 `$client->beta->files->download(string fileID, ?list<AnthropicBeta> betas): download`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
-### Parameters
+#### Parameters
 
 - `fileID: string`
 
@@ -30607,11 +15658,11 @@ Download File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `mixed`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30627,15 +15678,15 @@ $response = $client->beta->files->download(
 var_dump($response);
 ```
 
-## Get File Metadata
+### Get File Metadata
 
 `$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas): BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
-### Parameters
+#### Parameters
 
 - `fileID: string`
 
@@ -30645,7 +15696,7 @@ Get File Metadata
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaFileMetadata`
 
@@ -30685,7 +15736,7 @@ Get File Metadata
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30701,7 +15752,7 @@ $betaFileMetadata = $client->beta->files->retrieveMetadata(
 var_dump($betaFileMetadata);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30719,15 +15770,15 @@ var_dump($betaFileMetadata);
 }
 ```
 
-## Delete File
+### Delete File
 
 `$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
-### Parameters
+#### Parameters
 
 - `fileID: string`
 
@@ -30737,7 +15788,7 @@ Delete File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaDeletedFile`
 
@@ -30751,7 +15802,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30767,7 +15818,7 @@ $betaDeletedFile = $client->beta->files->delete(
 var_dump($betaDeletedFile);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30776,85 +15827,17 @@ var_dump($betaDeletedFile);
 }
 ```
 
-## Domain Types
+## Beta › Skills
 
-### Beta Deleted File
-
-- `BetaDeletedFile`
-
-  - `string id`
-
-    ID of the deleted file.
-
-  - `?Type type`
-
-    Deleted object type.
-
-    For file deletion, this is always `"file_deleted"`.
-
-### Beta File Metadata
-
-- `BetaFileMetadata`
-
-  - `string id`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 datetime string representing when the file was created.
-
-  - `string filename`
-
-    Original filename of the uploaded file.
-
-  - `string mimeType`
-
-    MIME type of the file.
-
-  - `int sizeBytes`
-
-    Size of the file in bytes.
-
-  - `"file" type`
-
-    Object type.
-
-    For files, this is always `"file"`.
-
-  - `?bool downloadable`
-
-    Whether the file can be downloaded.
-
-  - `?BetaFileScope scope`
-
-    The scope of this file, indicating the context in which it was created (e.g., a session).
-
-### Beta File Scope
-
-- `BetaFileScope`
-
-  - `string id`
-
-    The ID of the scoping resource (e.g., the session ID).
-
-  - `"session" type`
-
-    The type of scope (e.g., `"session"`).
-
-# Skills
-
-## Create Skill
+### Create Skill
 
 `$client->beta->skills->create(list<string> files, ?string displayTitle, ?list<AnthropicBeta> betas): SkillNewResponse`
 
-**post** `/v1/skills`
+**POST** `/v1/skills`
 
 Create Skill
 
-### Parameters
+#### Parameters
 
 - `files: list<string>`
 
@@ -30872,7 +15855,7 @@ Create Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SkillNewResponse`
 
@@ -30917,7 +15900,7 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -30937,7 +15920,7 @@ $skill = $client->beta->skills->create(
 var_dump($skill);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30951,21 +15934,23 @@ var_dump($skill);
 }
 ```
 
-## List Skills
+### List Skills
 
 `$client->beta->skills->list(?int limit, ?string page, ?string source, ?list<AnthropicBeta> betas): PageCursor<SkillListResponse>`
 
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
-### Parameters
+#### Parameters
 
 - `limit?:optional int`
 
   Number of results to return per page.
 
   Maximum value is 100. Defaults to 20.
+
+  default: 20
 
 - `page?:optional string`
 
@@ -30986,7 +15971,7 @@ List Skills
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SkillListResponse`
 
@@ -31031,7 +16016,7 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31050,7 +16035,7 @@ $page = $client->beta->skills->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31070,15 +16055,15 @@ var_dump($page);
 }
 ```
 
-## Get Skill
+### Get Skill
 
 `$client->beta->skills->retrieve(string skillID, ?list<AnthropicBeta> betas): SkillGetResponse`
 
-**get** `/v1/skills/{skill_id}`
+**GET** `/v1/skills/{skill_id}`
 
 Get Skill
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -31090,7 +16075,7 @@ Get Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SkillGetResponse`
 
@@ -31135,7 +16120,7 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31151,7 +16136,7 @@ $skill = $client->beta->skills->retrieve(
 var_dump($skill);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31165,15 +16150,15 @@ var_dump($skill);
 }
 ```
 
-## Delete Skill
+### Delete Skill
 
 `$client->beta->skills->delete(string skillID, ?list<AnthropicBeta> betas): SkillDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}`
+**DELETE** `/v1/skills/{skill_id}`
 
 Delete Skill
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -31185,7 +16170,7 @@ Delete Skill
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `SkillDeleteResponse`
 
@@ -31201,7 +16186,7 @@ Delete Skill
 
     For Skills, this is always `"skill_deleted"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31217,7 +16202,7 @@ $skill = $client->beta->skills->delete(
 var_dump($skill);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31226,17 +16211,17 @@ var_dump($skill);
 }
 ```
 
-# Versions
+## Beta › Skills › Versions
 
-## Create Skill Version
+### Create Skill Version
 
 `$client->beta->skills->versions->create(string skillID, list<string> files, ?list<AnthropicBeta> betas): VersionNewResponse`
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -31254,7 +16239,7 @@ Create Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `VersionNewResponse`
 
@@ -31302,7 +16287,7 @@ Create Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31322,7 +16307,7 @@ $version = $client->beta->skills->versions->create(
 var_dump($version);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31337,15 +16322,15 @@ var_dump($version);
 }
 ```
 
-## List Skill Versions
+### List Skill Versions
 
 `$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<VersionListResponse>`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -31367,7 +16352,7 @@ List Skill Versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `VersionListResponse`
 
@@ -31415,7 +16400,7 @@ List Skill Versions
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31434,7 +16419,7 @@ $page = $client->beta->skills->versions->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31455,15 +16440,15 @@ var_dump($page);
 }
 ```
 
-## Download Skill Version Content
+### Download Skill Version Content
 
 `$client->beta->skills->versions->download(string version, string skillID, ?list<AnthropicBeta> betas): download`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -31481,11 +16466,11 @@ Download a skill version's content as a zip archive.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `mixed`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31503,15 +16488,15 @@ $response = $client->beta->skills->versions->download(
 var_dump($response);
 ```
 
-## Get Skill Version
+### Get Skill Version
 
 `$client->beta->skills->versions->retrieve(string version, string skillID, ?list<AnthropicBeta> betas): VersionGetResponse`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -31529,7 +16514,7 @@ Get Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `VersionGetResponse`
 
@@ -31577,7 +16562,7 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31595,7 +16580,7 @@ $version = $client->beta->skills->versions->retrieve(
 var_dump($version);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31610,15 +16595,15 @@ var_dump($version);
 }
 ```
 
-## Delete Skill Version
+### Delete Skill Version
 
 `$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas): VersionDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+#### Parameters
 
 - `skillID: string`
 
@@ -31636,7 +16621,7 @@ Delete Skill Version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `VersionDeleteResponse`
 
@@ -31652,7 +16637,7 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31670,7 +16655,7 @@ $version = $client->beta->skills->versions->delete(
 var_dump($version);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31679,17 +16664,37 @@ var_dump($version);
 }
 ```
 
-# User Profiles
+## Beta › Webhooks
 
-## Create User Profile
+### Unwrap
+
+`$client->beta->webhooks->unwrap(): void`
+
+#### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$result = $client->beta->webhooks->unwrap();
+
+var_dump($result);
+```
+
+## Beta › User Profiles
+
+### Create User Profile
 
 `$client->beta->userProfiles->create(?AccessType accessType, ?string externalID, ?array<string,string> metadata, ?string name, ?Relationship relationship, ?list<AnthropicBeta> betas): BetaUserProfile`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
-### Parameters
+#### Parameters
 
 - `accessType?:optional AccessType`
 
@@ -31715,7 +16720,7 @@ Create User Profile
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaUserProfile`
 
@@ -31759,7 +16764,7 @@ Create User Profile
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31780,7 +16785,7 @@ $betaUserProfile = $client->beta->userProfiles->create(
 var_dump($betaUserProfile);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31801,15 +16806,15 @@ var_dump($betaUserProfile);
 }
 ```
 
-## List User Profiles
+### List User Profiles
 
 `$client->beta->userProfiles->list(?int limit, ?Order order, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaUserProfile>`
 
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
-### Parameters
+#### Parameters
 
 - `limit?:optional int`
 
@@ -31827,7 +16832,7 @@ List User Profiles
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaUserProfile`
 
@@ -31871,7 +16876,7 @@ List User Profiles
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31890,7 +16895,7 @@ $page = $client->beta->userProfiles->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -31916,15 +16921,15 @@ var_dump($page);
 }
 ```
 
-## Get User Profile
+### Get User Profile
 
 `$client->beta->userProfiles->retrieve(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfile`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
-### Parameters
+#### Parameters
 
 - `userProfileID: string`
 
@@ -31932,7 +16937,7 @@ Get User Profile
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaUserProfile`
 
@@ -31976,7 +16981,7 @@ Get User Profile
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -31993,7 +16998,7 @@ $betaUserProfile = $client->beta->userProfiles->retrieve(
 var_dump($betaUserProfile);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32014,15 +17019,15 @@ var_dump($betaUserProfile);
 }
 ```
 
-## Update User Profile
+### Update User Profile
 
 `$client->beta->userProfiles->update(string userProfileID, ?AccessType accessType, ?string externalID, ?array<string,string> metadata, ?string name, ?Relationship relationship, ?list<AnthropicBeta> betas): BetaUserProfile`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
-### Parameters
+#### Parameters
 
 - `userProfileID: string`
 
@@ -32050,7 +17055,7 @@ Update User Profile
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaUserProfile`
 
@@ -32094,7 +17099,7 @@ Update User Profile
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -32116,7 +17121,7 @@ $betaUserProfile = $client->beta->userProfiles->update(
 var_dump($betaUserProfile);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32137,15 +17142,15 @@ var_dump($betaUserProfile);
 }
 ```
 
-## Create Enrollment URL
+### Create Enrollment URL
 
 `$client->beta->userProfiles->createEnrollmentURL(string userProfileID, ?list<AnthropicBeta> betas): BetaUserProfileEnrollmentURL`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
-### Parameters
+#### Parameters
 
 - `userProfileID: string`
 
@@ -32153,7 +17158,7 @@ Create Enrollment URL
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaUserProfileEnrollmentURL`
 
@@ -32169,7 +17174,7 @@ Create Enrollment URL
 
     Enrollment URL to send to the end user. Valid until `expires_at`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -32189,7 +17194,7 @@ $betaUserProfileEnrollmentURL = $client
 var_dump($betaUserProfileEnrollmentURL);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32199,87 +17204,17 @@ var_dump($betaUserProfileEnrollmentURL);
 }
 ```
 
-## Domain Types
+## Beta › Dreams
 
-### Beta User Profile
-
-- `BetaUserProfile`
-
-  - `string id`
-
-    Unique identifier for this user profile, prefixed `uprof_`.
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `array<string,string> metadata`
-
-    Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
-
-  - `array<string,BetaUserProfileTrustGrant> trustGrants`
-
-    Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
-
-  - `Type type`
-
-    Object type. Always `user_profile`.
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?AccessType accessType`
-
-    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
-
-  - `?string externalID`
-
-    Platform's own identifier for this user. Not enforced unique.
-
-  - `?string name`
-
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `?Relationship relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-### Beta User Profile Enrollment URL
-
-- `BetaUserProfileEnrollmentURL`
-
-  - `\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Type type`
-
-    Object type. Always `enrollment_url`.
-
-  - `string url`
-
-    Enrollment URL to send to the end user. Valid until `expires_at`.
-
-### Beta User Profile Trust Grant
-
-- `BetaUserProfileTrustGrant`
-
-  - `Status status`
-
-    Status of the trust grant.
-
-# Dreams
-
-## Create a Dream
+### Create a Dream
 
 `$client->beta->dreams->create(list<BetaDreamInput> inputs, Model model, ?string instructions, ?BetaOutputBehavior outputBehavior, ?list<AnthropicBeta> betas): BetaDream`
 
-**post** `/v1/dreams`
+**POST** `/v1/dreams`
 
 Create a Dream
 
-### Parameters
+#### Parameters
 
 - `inputs: list<BetaDreamInput>`
 
@@ -32297,7 +17232,7 @@ Create a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaDream`
 
@@ -32345,7 +17280,7 @@ Create a Dream
 
     Cumulative token usage for the dream across every pipeline stage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -32365,7 +17300,7 @@ $betaDream = $client->beta->dreams->create(
 var_dump($betaDream);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32409,15 +17344,15 @@ var_dump($betaDream);
 }
 ```
 
-## List Dreams
+### List Dreams
 
 `$client->beta->dreams->list(?\Datetime createdAtGt, ?\Datetime createdAtLt, ?bool includeArchived, ?int limit, ?string page, ?list<BetaDreamStatus> statuses, ?list<AnthropicBeta> betas): PageCursor<BetaDream>`
 
-**get** `/v1/dreams`
+**GET** `/v1/dreams`
 
 List Dreams
 
-### Parameters
+#### Parameters
 
 - `createdAtGt?:optional \Datetime`
 
@@ -32447,7 +17382,7 @@ List Dreams
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaDream`
 
@@ -32495,7 +17430,7 @@ List Dreams
 
     Cumulative token usage for the dream across every pipeline stage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -32517,7 +17452,7 @@ $page = $client->beta->dreams->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32566,15 +17501,15 @@ var_dump($page);
 }
 ```
 
-## Get a Dream
+### Get a Dream
 
 `$client->beta->dreams->retrieve(string dreamID, ?list<AnthropicBeta> betas): BetaDream`
 
-**get** `/v1/dreams/{dream_id}`
+**GET** `/v1/dreams/{dream_id}`
 
 Get a Dream
 
-### Parameters
+#### Parameters
 
 - `dreamID: string`
 
@@ -32582,7 +17517,7 @@ Get a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaDream`
 
@@ -32630,7 +17565,7 @@ Get a Dream
 
     Cumulative token usage for the dream across every pipeline stage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -32646,7 +17581,7 @@ $betaDream = $client->beta->dreams->retrieve(
 var_dump($betaDream);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32690,15 +17625,15 @@ var_dump($betaDream);
 }
 ```
 
-## Cancel a Dream
+### Cancel a Dream
 
 `$client->beta->dreams->cancel(string dreamID, ?list<AnthropicBeta> betas): BetaDream`
 
-**post** `/v1/dreams/{dream_id}/cancel`
+**POST** `/v1/dreams/{dream_id}/cancel`
 
 Cancel a Dream
 
-### Parameters
+#### Parameters
 
 - `dreamID: string`
 
@@ -32706,7 +17641,7 @@ Cancel a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaDream`
 
@@ -32754,7 +17689,7 @@ Cancel a Dream
 
     Cumulative token usage for the dream across every pipeline stage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -32770,7 +17705,7 @@ $betaDream = $client->beta->dreams->cancel(
 var_dump($betaDream);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32814,15 +17749,15 @@ var_dump($betaDream);
 }
 ```
 
-## Archive a Dream
+### Archive a Dream
 
 `$client->beta->dreams->archive(string dreamID, ?list<AnthropicBeta> betas): BetaDream`
 
-**post** `/v1/dreams/{dream_id}/archive`
+**POST** `/v1/dreams/{dream_id}/archive`
 
 Archive a Dream
 
-### Parameters
+#### Parameters
 
 - `dreamID: string`
 
@@ -32830,7 +17765,7 @@ Archive a Dream
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaDream`
 
@@ -32878,7 +17813,7 @@ Archive a Dream
 
     Cumulative token usage for the dream across every pipeline stage.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -32894,7 +17829,7 @@ $betaDream = $client->beta->dreams->archive(
 var_dump($betaDream);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -32938,211 +17873,19 @@ var_dump($betaDream);
 }
 ```
 
-## Domain Types
+## Beta › Tunnels
 
-### Beta Dream
-
-- `BetaDream`
-
-  - `string id`
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?\Datetime endedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?BetaDreamError error`
-
-    Failure detail for a Dream whose `status` is `failed`.
-
-  - `list<BetaDreamInput> inputs`
-
-  - `?string instructions`
-
-  - `BetaDreamModelConfig model`
-
-    Model identifier and configuration applied to every pipeline stage. Same wire shape as the Agents API ModelConfig.
-
-  - `BetaOutputBehavior outputBehavior`
-
-    The default destination: the job creates a new output memory store as a clone of the memory_store input and writes the consolidated memories into it. The input store is never mutated.
-
-  - `list<BetaDreamOutput> outputs`
-
-  - `?string sessionID`
-
-  - `BetaDreamStatus status`
-
-    Lifecycle status of a Dream.
-
-  - `Type type`
-
-  - `BetaDreamUsage usage`
-
-    Cumulative token usage for the dream across every pipeline stage.
-
-### Beta Dream Error
-
-- `BetaDreamError`
-
-  - `string message`
-
-  - `string type`
-
-### Beta Dream Input
-
-- `BetaDreamInput`
-
-  - `BetaDreamMemoryStoreInput`
-
-    - `string memoryStoreID`
-
-    - `Type type`
-
-  - `BetaDreamSessionsInput`
-
-    - `list<string> sessionIDs`
-
-    - `Type type`
-
-### Beta Dream Memory Store Input
-
-- `BetaDreamMemoryStoreInput`
-
-  - `string memoryStoreID`
-
-  - `Type type`
-
-### Beta Dream Memory Store Output
-
-- `BetaDreamMemoryStoreOutput`
-
-  - `string memoryStoreID`
-
-  - `Type type`
-
-### Beta Dream Model Config
-
-- `BetaDreamModelConfig`
-
-  - `string id`
-
-    Model identifier, e.g. "claude-opus-5". 1-256 characters.
-
-  - `?Speed speed`
-
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-### Beta Dream Model Config Param
-
-- `BetaDreamModelConfigParam`
-
-  - `string id`
-
-    Model identifier, e.g. "claude-opus-5". 1-256 characters.
-
-  - `?Speed speed`
-
-    Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-### Beta Dream Output
-
-- `BetaDreamOutput`
-
-  - `string memoryStoreID`
-
-  - `Type type`
-
-### Beta Dream Sessions Input
-
-- `BetaDreamSessionsInput`
-
-  - `list<string> sessionIDs`
-
-  - `Type type`
-
-### Beta Dream Status
-
-- `BetaDreamStatus`
-
-  - `"pending"`
-
-  - `"running"`
-
-  - `"completed"`
-
-  - `"failed"`
-
-  - `"canceled"`
-
-### Beta Dream Usage
-
-- `BetaDreamUsage`
-
-  - `int cacheCreationInputTokens`
-
-    Total tokens used to create prompt-cache entries (sum of all TTL tiers).
-
-  - `int cacheReadInputTokens`
-
-    Total tokens read from prompt cache.
-
-  - `int inputTokens`
-
-    Total uncached input tokens consumed across every pipeline stage.
-
-  - `int outputTokens`
-
-    Total output tokens generated across every pipeline stage.
-
-### Beta Output Behavior
-
-- `BetaOutputBehavior`
-
-  - `BetaOutputBehaviorCreateNew`
-
-    - `Type type`
-
-  - `BetaOutputBehaviorUpdateExisting`
-
-    - `string memoryStoreID`
-
-    - `Type type`
-
-### Beta Output Behavior Create New
-
-- `BetaOutputBehaviorCreateNew`
-
-  - `Type type`
-
-### Beta Output Behavior Update Existing
-
-- `BetaOutputBehaviorUpdateExisting`
-
-  - `string memoryStoreID`
-
-  - `Type type`
-
-# Tunnels
-
-## Create Tunnel
+### Create Tunnel
 
 `$client->beta->tunnels->create(?string displayName, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel; it is not idempotent. The new tunnel rejects MCP traffic until at least one CA certificate is added.
 
-### Parameters
+#### Parameters
 
 - `displayName?:optional string`
 
@@ -33152,7 +17895,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaTunnel`
 
@@ -33178,7 +17921,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `"tunnel" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33194,7 +17937,7 @@ $betaTunnel = $client->beta->tunnels->create(
 var_dump($betaTunnel);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33207,17 +17950,17 @@ var_dump($betaTunnel);
 }
 ```
 
-## Get Tunnel
+### Get Tunnel
 
 `$client->beta->tunnels->retrieve(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel by ID.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33225,7 +17968,7 @@ Fetches a tunnel by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaTunnel`
 
@@ -33251,7 +17994,7 @@ Fetches a tunnel by ID.
 
   - `"tunnel" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33267,7 +18010,7 @@ $betaTunnel = $client->beta->tunnels->retrieve(
 var_dump($betaTunnel);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33280,17 +18023,17 @@ var_dump($betaTunnel);
 }
 ```
 
-## List Tunnels
+### List Tunnels
 
 `$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaTunnel>`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists tunnels. Results are ordered by creation time, newest first; archived tunnels are excluded unless include_archived is set.
 
-### Parameters
+#### Parameters
 
 - `includeArchived?:optional bool`
 
@@ -33308,7 +18051,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaTunnel`
 
@@ -33334,7 +18077,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `"tunnel" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33353,7 +18096,7 @@ $page = $client->beta->tunnels->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33371,17 +18114,17 @@ var_dump($page);
 }
 ```
 
-## Archive Tunnel
+### Archive Tunnel
 
 `$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel. Archival is irreversible: every non-archived certificate on the tunnel is archived in the same operation, the hostname is retired and never re-allocated, and the tunnel token is invalidated. Retrying against an already-archived tunnel returns the existing record unchanged.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33389,7 +18132,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaTunnel`
 
@@ -33415,7 +18158,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `"tunnel" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33431,7 +18174,7 @@ $betaTunnel = $client->beta->tunnels->archive(
 var_dump($betaTunnel);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33444,17 +18187,17 @@ var_dump($betaTunnel);
 }
 ```
 
-## Reveal Tunnel Token
+### Reveal Tunnel Token
 
 `$client->beta->tunnels->revealToken(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Reveals a tunnel's connector token. The value is fetched live on each call; Anthropic does not store it. Repeated calls return the same value until the token is rotated. Exposed as POST so the token does not appear in intermediary access logs.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33462,7 +18205,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaTunnelToken`
 
@@ -33476,7 +18219,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `"tunnel_token" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33492,7 +18235,7 @@ $betaTunnelToken = $client->beta->tunnels->revealToken(
 var_dump($betaTunnelToken);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33502,17 +18245,17 @@ var_dump($betaTunnelToken);
 }
 ```
 
-## Rotate Tunnel Token
+### Rotate Tunnel Token
 
 `$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Rotates a tunnel's connector token. Rotation invalidates the current token for new connections and returns a fresh value; established connections are not severed. A connector restarted after rotation must use the new value.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33524,7 +18267,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `BetaTunnelToken`
 
@@ -33538,7 +18281,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `"tunnel_token" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33556,7 +18299,7 @@ $betaTunnelToken = $client->beta->tunnels->rotateToken(
 var_dump($betaTunnelToken);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33566,61 +18309,19 @@ var_dump($betaTunnelToken);
 }
 ```
 
-## Domain Types
+## Beta › Tunnels › Certificates
 
-### Beta Tunnel
-
-- `BetaTunnel`
-
-  - `string id`
-
-    Unique identifier for the tunnel, prefixed with `tnl_`.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string displayName`
-
-    Human-readable name for the tunnel (1-255 characters). Null if unset.
-
-  - `string domain`
-
-    Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-  - `"tunnel" type`
-
-### Beta Tunnel Token
-
-- `BetaTunnelToken`
-
-  - `string id`
-
-    Stable identifier for the current token value. Changes when the token is rotated.
-
-  - `string tunnelToken`
-
-    The connector token used to run the tunnel. Treat as a credential.
-
-  - `"tunnel_token" type`
-
-# Certificates
-
-## Create Tunnel Certificate
+### Create Tunnel Certificate
 
 `$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePem, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33632,7 +18333,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -33662,7 +18363,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33680,7 +18381,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33694,17 +18395,17 @@ var_dump($betaTunnelCertificate);
 }
 ```
 
-## Get Tunnel Certificate
+### Get Tunnel Certificate
 
 `$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel certificate by ID.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33714,7 +18415,7 @@ Fetches a tunnel certificate by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -33744,7 +18445,7 @@ Fetches a tunnel certificate by ID.
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33762,7 +18463,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->retrieve(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33776,17 +18477,17 @@ var_dump($betaTunnelCertificate);
 }
 ```
 
-## List Tunnel Certificates
+### List Tunnel Certificates
 
 `$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33806,7 +18507,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -33836,7 +18537,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33856,7 +18557,7 @@ $page = $client->beta->tunnels->certificates->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33875,17 +18576,17 @@ var_dump($page);
 }
 ```
 
-## Archive Tunnel Certificate
+### Archive Tunnel Certificate
 
 `$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -33895,7 +18596,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -33925,7 +18626,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -33943,7 +18644,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -33956,1279 +18657,3 @@ var_dump($betaTunnelCertificate);
   "type": "tunnel_certificate"
 }
 ```
-
-## Domain Types
-
-### Beta Tunnel Certificate
-
-- `TunnelCertificate`
-
-  - `string id`
-
-    Unique identifier for the certificate, prefixed with `tcrt_`.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string fingerprint`
-
-    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
-
-  - `string tunnelID`
-
-    ID of the tunnel the certificate is registered against.
-
-  - `"tunnel_certificate" type`
-
-# Webhooks
-
-## Domain Types
-
-### Beta Webhook Agent Archived Event Data
-
-- `BetaWebhookAgentArchivedEventData`
-
-  - `string id`
-
-    ID of the agent that triggered the event.
-
-  - `string organizationID`
-
-  - `"agent.archived" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Agent Created Event Data
-
-- `BetaWebhookAgentCreatedEventData`
-
-  - `string id`
-
-    ID of the agent that triggered the event.
-
-  - `string organizationID`
-
-  - `"agent.created" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Agent Deleted Event Data
-
-- `BetaWebhookAgentDeletedEventData`
-
-  - `string id`
-
-    ID of the agent that triggered the event.
-
-  - `string organizationID`
-
-  - `"agent.deleted" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Agent Updated Event Data
-
-- `BetaWebhookAgentUpdatedEventData`
-
-  - `string id`
-
-    ID of the agent that triggered the event.
-
-  - `string organizationID`
-
-  - `"agent.updated" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Archived Event Data
-
-- `BetaWebhookDeploymentArchivedEventData`
-
-  - `string id`
-
-    ID of the deployment that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment.archived" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Created Event Data
-
-- `BetaWebhookDeploymentCreatedEventData`
-
-  - `string id`
-
-    ID of the deployment that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment.created" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Deleted Event Data
-
-- `BetaWebhookDeploymentDeletedEventData`
-
-  - `string id`
-
-    ID of the deployment that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment.deleted" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Paused Event Data
-
-- `BetaWebhookDeploymentPausedEventData`
-
-  - `string id`
-
-    ID of the deployment that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment.paused" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Run Failed Event Data
-
-- `BetaWebhookDeploymentRunFailedEventData`
-
-  - `string id`
-
-    ID of the deployment run that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment_run.failed" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Run Started Event Data
-
-- `BetaWebhookDeploymentRunStartedEventData`
-
-  - `string id`
-
-    ID of the deployment run that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment_run.started" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Run Succeeded Event Data
-
-- `BetaWebhookDeploymentRunSucceededEventData`
-
-  - `string id`
-
-    ID of the deployment run that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment_run.succeeded" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Unpaused Event Data
-
-- `BetaWebhookDeploymentUnpausedEventData`
-
-  - `string id`
-
-    ID of the deployment that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment.unpaused" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Deployment Updated Event Data
-
-- `BetaWebhookDeploymentUpdatedEventData`
-
-  - `string id`
-
-    ID of the deployment that triggered the event.
-
-  - `string organizationID`
-
-  - `"deployment.updated" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Environment Archived Event Data
-
-- `BetaWebhookEnvironmentArchivedEventData`
-
-  - `string id`
-
-    ID of the environment that triggered the event.
-
-  - `string organizationID`
-
-  - `"environment.archived" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Environment Created Event Data
-
-- `BetaWebhookEnvironmentCreatedEventData`
-
-  - `string id`
-
-    ID of the environment that triggered the event.
-
-  - `string organizationID`
-
-  - `"environment.created" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Environment Deleted Event Data
-
-- `BetaWebhookEnvironmentDeletedEventData`
-
-  - `string id`
-
-    ID of the environment that triggered the event.
-
-  - `string organizationID`
-
-  - `"environment.deleted" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Environment Updated Event Data
-
-- `BetaWebhookEnvironmentUpdatedEventData`
-
-  - `string id`
-
-    ID of the environment that triggered the event.
-
-  - `string organizationID`
-
-  - `"environment.updated" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Event
-
-- `BetaWebhookEvent`
-
-  - `string id`
-
-    Unique event identifier for idempotency.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 timestamp when the event occurred.
-
-  - `BetaWebhookEventData data`
-
-  - `"event" type`
-
-    Object type. Always `event` for webhook payloads.
-
-### Beta Webhook Event Data
-
-- `BetaWebhookEventData`
-
-  - `BetaWebhookSessionCreatedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.created" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionPendingEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.pending" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionRunningEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.running" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionIdledEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.idled" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionRequiresActionEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.requires_action" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionArchivedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.archived" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionDeletedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.deleted" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionStatusRescheduledEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.status_rescheduled" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionStatusRunStartedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.status_run_started" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionStatusIdledEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.status_idled" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionStatusTerminatedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.status_terminated" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionThreadCreatedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `string sessionThreadID`
-
-      ID of the session thread this event refers to.
-
-    - `"session.thread_created" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionThreadIdledEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `string sessionThreadID`
-
-      ID of the session thread this event refers to.
-
-    - `"session.thread_idled" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionThreadTerminatedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `string sessionThreadID`
-
-      ID of the session thread this event refers to.
-
-    - `"session.thread_terminated" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionOutcomeEvaluationEndedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.outcome_evaluation_ended" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookVaultCreatedEventData`
-
-    - `string id`
-
-      ID of the vault that triggered the event.
-
-    - `string organizationID`
-
-    - `"vault.created" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookVaultArchivedEventData`
-
-    - `string id`
-
-      ID of the vault that triggered the event.
-
-    - `string organizationID`
-
-    - `"vault.archived" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookVaultDeletedEventData`
-
-    - `string id`
-
-      ID of the vault that triggered the event.
-
-    - `string organizationID`
-
-    - `"vault.deleted" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookVaultCredentialCreatedEventData`
-
-    - `string id`
-
-      ID of the vault credential that triggered the event.
-
-    - `string organizationID`
-
-    - `"vault_credential.created" type`
-
-    - `string vaultID`
-
-      ID of the vault that owns this credential.
-
-    - `string workspaceID`
-
-  - `BetaWebhookVaultCredentialArchivedEventData`
-
-    - `string id`
-
-      ID of the vault credential that triggered the event.
-
-    - `string organizationID`
-
-    - `"vault_credential.archived" type`
-
-    - `string vaultID`
-
-      ID of the vault that owns this credential.
-
-    - `string workspaceID`
-
-  - `BetaWebhookVaultCredentialDeletedEventData`
-
-    - `string id`
-
-      ID of the vault credential that triggered the event.
-
-    - `string organizationID`
-
-    - `"vault_credential.deleted" type`
-
-    - `string vaultID`
-
-      ID of the vault that owns this credential.
-
-    - `string workspaceID`
-
-  - `BetaWebhookVaultCredentialRefreshFailedEventData`
-
-    - `string id`
-
-      ID of the vault credential that triggered the event.
-
-    - `string organizationID`
-
-    - `"vault_credential.refresh_failed" type`
-
-    - `string vaultID`
-
-      ID of the vault that owns this credential.
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionUpdatedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.updated" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookAgentCreatedEventData`
-
-    - `string id`
-
-      ID of the agent that triggered the event.
-
-    - `string organizationID`
-
-    - `"agent.created" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookAgentArchivedEventData`
-
-    - `string id`
-
-      ID of the agent that triggered the event.
-
-    - `string organizationID`
-
-    - `"agent.archived" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookAgentDeletedEventData`
-
-    - `string id`
-
-      ID of the agent that triggered the event.
-
-    - `string organizationID`
-
-    - `"agent.deleted" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentPausedEventData`
-
-    - `string id`
-
-      ID of the deployment that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment.paused" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentRunFailedEventData`
-
-    - `string id`
-
-      ID of the deployment run that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment_run.failed" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentCreatedEventData`
-
-    - `string id`
-
-      ID of the deployment that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment.created" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentUpdatedEventData`
-
-    - `string id`
-
-      ID of the deployment that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment.updated" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentUnpausedEventData`
-
-    - `string id`
-
-      ID of the deployment that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment.unpaused" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookAgentUpdatedEventData`
-
-    - `string id`
-
-      ID of the agent that triggered the event.
-
-    - `string organizationID`
-
-    - `"agent.updated" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentArchivedEventData`
-
-    - `string id`
-
-      ID of the deployment that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment.archived" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentRunStartedEventData`
-
-    - `string id`
-
-      ID of the deployment run that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment_run.started" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentDeletedEventData`
-
-    - `string id`
-
-      ID of the deployment that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment.deleted" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookDeploymentRunSucceededEventData`
-
-    - `string id`
-
-      ID of the deployment run that triggered the event.
-
-    - `string organizationID`
-
-    - `"deployment_run.succeeded" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookEnvironmentCreatedEventData`
-
-    - `string id`
-
-      ID of the environment that triggered the event.
-
-    - `string organizationID`
-
-    - `"environment.created" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookEnvironmentUpdatedEventData`
-
-    - `string id`
-
-      ID of the environment that triggered the event.
-
-    - `string organizationID`
-
-    - `"environment.updated" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookEnvironmentArchivedEventData`
-
-    - `string id`
-
-      ID of the environment that triggered the event.
-
-    - `string organizationID`
-
-    - `"environment.archived" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookEnvironmentDeletedEventData`
-
-    - `string id`
-
-      ID of the environment that triggered the event.
-
-    - `string organizationID`
-
-    - `"environment.deleted" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookMemoryStoreCreatedEventData`
-
-    - `string id`
-
-      ID of the memory store that triggered the event.
-
-    - `string organizationID`
-
-    - `"memory_store.created" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookMemoryStoreArchivedEventData`
-
-    - `string id`
-
-      ID of the memory store that triggered the event.
-
-    - `string organizationID`
-
-    - `"memory_store.archived" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookMemoryStoreDeletedEventData`
-
-    - `string id`
-
-      ID of the memory store that triggered the event.
-
-    - `string organizationID`
-
-    - `"memory_store.deleted" type`
-
-    - `string workspaceID`
-
-  - `BetaWebhookSessionBudgetReachedEventData`
-
-    - `string id`
-
-      ID of the session that triggered the event.
-
-    - `string organizationID`
-
-    - `"session.budget_reached" type`
-
-    - `string workspaceID`
-
-### Beta Webhook Memory Store Archived Event Data
-
-- `BetaWebhookMemoryStoreArchivedEventData`
-
-  - `string id`
-
-    ID of the memory store that triggered the event.
-
-  - `string organizationID`
-
-  - `"memory_store.archived" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Memory Store Created Event Data
-
-- `BetaWebhookMemoryStoreCreatedEventData`
-
-  - `string id`
-
-    ID of the memory store that triggered the event.
-
-  - `string organizationID`
-
-  - `"memory_store.created" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Memory Store Deleted Event Data
-
-- `BetaWebhookMemoryStoreDeletedEventData`
-
-  - `string id`
-
-    ID of the memory store that triggered the event.
-
-  - `string organizationID`
-
-  - `"memory_store.deleted" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Archived Event Data
-
-- `BetaWebhookSessionArchivedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.archived" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Budget Reached Event Data
-
-- `BetaWebhookSessionBudgetReachedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.budget_reached" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Created Event Data
-
-- `BetaWebhookSessionCreatedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.created" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Deleted Event Data
-
-- `BetaWebhookSessionDeletedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.deleted" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Idled Event Data
-
-- `BetaWebhookSessionIdledEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.idled" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Outcome Evaluation Ended Event Data
-
-- `BetaWebhookSessionOutcomeEvaluationEndedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.outcome_evaluation_ended" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Pending Event Data
-
-- `BetaWebhookSessionPendingEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.pending" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Requires Action Event Data
-
-- `BetaWebhookSessionRequiresActionEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.requires_action" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Running Event Data
-
-- `BetaWebhookSessionRunningEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.running" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Status Idled Event Data
-
-- `BetaWebhookSessionStatusIdledEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.status_idled" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Status Rescheduled Event Data
-
-- `BetaWebhookSessionStatusRescheduledEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.status_rescheduled" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Status Run Started Event Data
-
-- `BetaWebhookSessionStatusRunStartedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.status_run_started" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Status Terminated Event Data
-
-- `BetaWebhookSessionStatusTerminatedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.status_terminated" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Thread Created Event Data
-
-- `BetaWebhookSessionThreadCreatedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `string sessionThreadID`
-
-    ID of the session thread this event refers to.
-
-  - `"session.thread_created" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Thread Idled Event Data
-
-- `BetaWebhookSessionThreadIdledEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `string sessionThreadID`
-
-    ID of the session thread this event refers to.
-
-  - `"session.thread_idled" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Thread Terminated Event Data
-
-- `BetaWebhookSessionThreadTerminatedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `string sessionThreadID`
-
-    ID of the session thread this event refers to.
-
-  - `"session.thread_terminated" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Session Updated Event Data
-
-- `BetaWebhookSessionUpdatedEventData`
-
-  - `string id`
-
-    ID of the session that triggered the event.
-
-  - `string organizationID`
-
-  - `"session.updated" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Vault Archived Event Data
-
-- `BetaWebhookVaultArchivedEventData`
-
-  - `string id`
-
-    ID of the vault that triggered the event.
-
-  - `string organizationID`
-
-  - `"vault.archived" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Vault Created Event Data
-
-- `BetaWebhookVaultCreatedEventData`
-
-  - `string id`
-
-    ID of the vault that triggered the event.
-
-  - `string organizationID`
-
-  - `"vault.created" type`
-
-  - `string workspaceID`
-
-### Beta Webhook Vault Credential Archived Event Data
-
-- `BetaWebhookVaultCredentialArchivedEventData`
-
-  - `string id`
-
-    ID of the vault credential that triggered the event.
-
-  - `string organizationID`
-
-  - `"vault_credential.archived" type`
-
-  - `string vaultID`
-
-    ID of the vault that owns this credential.
-
-  - `string workspaceID`
-
-### Beta Webhook Vault Credential Created Event Data
-
-- `BetaWebhookVaultCredentialCreatedEventData`
-
-  - `string id`
-
-    ID of the vault credential that triggered the event.
-
-  - `string organizationID`
-
-  - `"vault_credential.created" type`
-
-  - `string vaultID`
-
-    ID of the vault that owns this credential.
-
-  - `string workspaceID`
-
-### Beta Webhook Vault Credential Deleted Event Data
-
-- `BetaWebhookVaultCredentialDeletedEventData`
-
-  - `string id`
-
-    ID of the vault credential that triggered the event.
-
-  - `string organizationID`
-
-  - `"vault_credential.deleted" type`
-
-  - `string vaultID`
-
-    ID of the vault that owns this credential.
-
-  - `string workspaceID`
-
-### Beta Webhook Vault Credential Refresh Failed Event Data
-
-- `BetaWebhookVaultCredentialRefreshFailedEventData`
-
-  - `string id`
-
-    ID of the vault credential that triggered the event.
-
-  - `string organizationID`
-
-  - `"vault_credential.refresh_failed" type`
-
-  - `string vaultID`
-
-    ID of the vault that owns this credential.
-
-  - `string workspaceID`
-
-### Beta Webhook Vault Deleted Event Data
-
-- `BetaWebhookVaultDeletedEventData`
-
-  - `string id`
-
-    ID of the vault that triggered the event.
-
-  - `string organizationID`
-
-  - `"vault.deleted" type`
-
-  - `string workspaceID`
-
-### Unwrap Webhook Event
-
-- `UnwrapWebhookEvent`
-
-  - `string id`
-
-    Unique event identifier for idempotency.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 timestamp when the event occurred.
-
-  - `BetaWebhookEventData data`
-
-  - `"event" type`
-
-    Object type. Always `event` for webhook payloads.

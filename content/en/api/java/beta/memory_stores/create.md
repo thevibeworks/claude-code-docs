@@ -1,17 +1,12 @@
----
-title: Create a memory store
-url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/create
----
+# Create a memory store
 
-## Create a memory store
+`BetaManagedAgentsMemoryStore beta().memoryStores().create(params, requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsMemoryStore beta().memoryStores().create(MemoryStoreCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/memory_stores`
+**POST** `/v1/memory_stores`
 
 Create a memory store
 
-### Parameters
+## Parameters
 
 - `MemoryStoreCreateParams params`
 
@@ -91,15 +86,19 @@ Create a memory store
 
     Human-readable name for the store. Required; 1–255 characters; no control characters. The mount-path slug under `/mnt/memory/` is derived from this name (lowercased, non-alphanumeric runs collapsed to a hyphen). Names need not be unique within a workspace.
 
+    minLength: 1, maxLength: 255
+
   - `Optional<String> description`
 
     Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
+
+    maxLength: 1024
 
   - `Optional<Metadata> metadata`
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Not visible to the agent.
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemoryStore:`
 
@@ -113,21 +112,25 @@ Create a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `String name`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `Type type`
 
-    - `MEMORY_STORE("memory_store")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<LocalDateTime> archivedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> description`
 
@@ -137,7 +140,7 @@ Create a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -161,7 +164,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

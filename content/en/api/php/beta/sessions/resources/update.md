@@ -1,17 +1,12 @@
----
-title: Update Session Resource
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/update
----
-
-## Update Session Resource
+# Update Session Resource
 
 `$client->beta->sessions->resources->update(string resourceID, string sessionID, string authorizationToken, ?list<AnthropicBeta> betas): ResourceUpdateResponse`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -25,7 +20,7 @@ Update Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ResourceUpdateResponse`
 
@@ -95,7 +90,7 @@ Update Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -114,7 +109,7 @@ $resource = $client->beta->sessions->resources->update(
 var_dump($resource);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

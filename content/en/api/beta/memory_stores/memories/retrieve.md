@@ -1,21 +1,16 @@
----
-title: Retrieve a memory
-url: https://platform.claude.com/docs/en/api/beta/memory_stores/memories/retrieve
----
+# Retrieve a memory
 
-## Retrieve a memory
-
-**get** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Retrieve a memory
 
-### Path Parameters
+## Path parameters
 
 - `memory_store_id: string`
 
 - `memory_id: string`
 
-### Query Parameters
+## Query parameters
 
 - `view: optional BetaManagedAgentsMemoryView`
 
@@ -25,7 +20,7 @@ Retrieve a memory
 
   - `"full"`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -103,9 +98,9 @@ Retrieve a memory
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsMemory object { id, content_sha256, content_size_bytes, 7 more }`
+- `BetaManagedAgentsMemory object`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -121,9 +116,13 @@ Retrieve a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -139,26 +138,26 @@ Retrieve a memory
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content: optional string or null`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/memory_stores/$MEMORY_STORE_ID/memories/$MEMORY_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: agent-memory-2026-07-22' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

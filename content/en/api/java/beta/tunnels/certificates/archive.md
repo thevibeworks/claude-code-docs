@@ -1,19 +1,14 @@
----
-title: Archive Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/java/beta/tunnels/certificates/archive
----
+# Archive Tunnel Certificate
 
-## Archive Tunnel Certificate
+`BetaTunnelCertificate beta().tunnels().certificates().archive(params, requestOptions = RequestOptions.none())`
 
-`BetaTunnelCertificate beta().tunnels().certificates().archive(CertificateArchiveParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+## Parameters
 
 - `CertificateArchiveParams params`
 
@@ -93,7 +88,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaTunnelCertificate:`
 
@@ -107,13 +102,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<LocalDateTime> expiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String fingerprint`
 
@@ -123,11 +124,9 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue; type "tunnel_certificate"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_CERTIFICATE("tunnel_certificate")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -152,7 +151,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

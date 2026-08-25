@@ -1,11 +1,6 @@
----
-title: List Service Account Workspace Members
-url: https://platform.claude.com/docs/en/api/admin/workspaces/service_accounts/list
----
+# List Service Account Workspace Members
 
-## List Service Account Workspace Members
-
-**get** `/v1/organizations/workspaces/{workspace_id}/service_accounts`
+**GET** `/v1/organizations/workspaces/{workspace_id}/service_accounts`
 
 List the service accounts that are members of a workspace.
 
@@ -16,23 +11,25 @@ archived workspace. The implicit default-workspace membership is not
 included in this list. Memberships of archived service accounts are
 omitted from the results.
 
-### Path Parameters
+## Path parameters
 
 - `workspace_id: string`
 
   ID of the workspace.
 
-### Query Parameters
+## Query parameters
 
 - `limit: optional number`
 
   Number of results per page.
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque cursor from a previous response's `next_page`.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -40,9 +37,9 @@ omitted from the results.
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
-- `data: array of object { created_by_actor_id, implicit, service_account_id, 3 more }`
+- `data: array of object`
 
   - `created_by_actor_id: string or null`
 
@@ -58,7 +55,7 @@ omitted from the results.
 
   - `type: "service_account_workspace_member"`
 
-    - `"service_account_workspace_member"`
+    default: service_account_workspace_member
 
   - `workspace_id: string`
 
@@ -82,15 +79,15 @@ omitted from the results.
 
   Opaque cursor for the next page, or null if no more results.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/service_accounts \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

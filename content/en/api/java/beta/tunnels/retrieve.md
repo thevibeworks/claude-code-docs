@@ -1,19 +1,14 @@
----
-title: Get Tunnel
-url: https://platform.claude.com/docs/en/api/java/beta/tunnels/retrieve
----
+# Get Tunnel
 
-## Get Tunnel
+`BetaTunnel beta().tunnels().retrieve(params = TunnelRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaTunnel beta().tunnels().retrieve(TunnelRetrieveParamsparams = TunnelRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel by ID.
 
-### Parameters
+## Parameters
 
 - `TunnelRetrieveParams params`
 
@@ -91,7 +86,7 @@ Fetches a tunnel by ID.
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaTunnel:`
 
@@ -105,9 +100,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> displayName`
 
@@ -117,11 +116,9 @@ Fetches a tunnel by ID.
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue; type "tunnel"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL("tunnel")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -142,7 +139,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

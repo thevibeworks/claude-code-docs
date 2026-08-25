@@ -1,23 +1,18 @@
----
-title: Get Environment
-url: https://platform.claude.com/docs/en/api/go/beta/environments/retrieve
----
-
-## Get Environment
+# Get Environment
 
 `client.Beta.Environments.Get(ctx, environmentID, query) (*BetaEnvironment, error)`
 
-**get** `/v1/environments/{environment_id}`
+**GET** `/v1/environments/{environment_id}`
 
 Retrieve a specific environment by ID.
 
-### Parameters
+## Parameters
 
 - `environmentID string`
 
 - `query BetaEnvironmentGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -93,7 +88,7 @@ Retrieve a specific environment by ID.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaEnvironment struct{…}`
 
@@ -127,8 +122,6 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
-
         - `type BetaLimitedNetwork struct{…}`
 
           Limited network access.
@@ -148,8 +141,6 @@ Retrieve a specific environment by ID.
           - `Type Limited`
 
             Network policy type
-
-            - `const LimitedLimited Limited = "limited"`
 
       - `Packages BetaPackages`
 
@@ -179,17 +170,15 @@ Retrieve a specific environment by ID.
 
           Python packages to install
 
-        - `Type BetaPackagesType`
+        - `Type BetaPackagesType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesTypePackages BetaPackagesType = "packages"`
+          default: packages
 
       - `Type Cloud`
 
         Environment type
-
-        - `const CloudCloud Cloud = "cloud"`
 
     - `type BetaSelfHostedConfig struct{…}`
 
@@ -198,8 +187,6 @@ Retrieve a specific environment by ID.
       - `Type SelfHosted`
 
         Environment type
-
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
 
   - `CreatedAt string`
 
@@ -221,13 +208,13 @@ Retrieve a specific environment by ID.
 
     The type of object (always 'environment')
 
-    - `const EnvironmentEnvironment Environment = "environment"`
+    default: environment
 
   - `UpdatedAt string`
 
     RFC 3339 timestamp when environment was last updated
 
-  - `Scope BetaEnvironmentScope`
+  - `Scope BetaEnvironmentScope Optional`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -235,7 +222,7 @@ Retrieve a specific environment by ID.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
-### Example
+## Example
 
 ```go
 package main
@@ -264,7 +251,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

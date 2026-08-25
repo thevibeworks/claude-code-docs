@@ -1,15 +1,10 @@
----
-title: Deployments
-url: https://platform.claude.com/docs/en/api/php/beta/deployments
----
-
 # Deployments
 
 ## Create Deployment
 
 `$client->beta->deployments->create(Agent agent, string environmentID, list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, string name, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?array<string,string> metadata, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments`
+**POST** `/v1/deployments`
 
 Create Deployment
 
@@ -173,7 +168,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->create(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -244,7 +239,7 @@ var_dump($betaManagedAgentsDeployment);
 
 `$client->beta->deployments->list(?string agentID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?BetaManagedAgentsDeploymentStatus status, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsDeployment>`
 
-**get** `/v1/deployments`
+**GET** `/v1/deployments`
 
 List Deployments
 
@@ -375,7 +370,7 @@ $page = $client->beta->deployments->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -451,7 +446,7 @@ var_dump($page);
 
 `$client->beta->deployments->retrieve(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**get** `/v1/deployments/{deployment_id}`
+**GET** `/v1/deployments/{deployment_id}`
 
 Get Deployment
 
@@ -550,7 +545,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->retrieve(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -621,7 +616,7 @@ var_dump($betaManagedAgentsDeployment);
 
 `$client->beta->deployments->update(string deploymentID, ?Agent agent, ?BetaManagedAgentsBudgetLimit budget, ?string description, ?string environmentID, ?list<BetaManagedAgentsDeploymentInitialEventParams> initialEvents, ?array<string,string> metadata, ?string name, ?list<Resource> resources, ?BetaManagedAgentsScheduleParams schedule, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}`
+**POST** `/v1/deployments/{deployment_id}`
 
 Update Deployment
 
@@ -788,7 +783,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->update(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -859,7 +854,7 @@ var_dump($betaManagedAgentsDeployment);
 
 `$client->beta->deployments->archive(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/archive`
+**POST** `/v1/deployments/{deployment_id}/archive`
 
 Archive Deployment
 
@@ -958,7 +953,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->archive(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1029,7 +1024,7 @@ var_dump($betaManagedAgentsDeployment);
 
 `$client->beta->deployments->run(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
 
-**post** `/v1/deployments/{deployment_id}/run`
+**POST** `/v1/deployments/{deployment_id}/run`
 
 Run Deployment Now
 
@@ -1092,7 +1087,7 @@ $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
 var_dump($betaManagedAgentsDeploymentRun);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1121,7 +1116,7 @@ var_dump($betaManagedAgentsDeploymentRun);
 
 `$client->beta->deployments->pause(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/pause`
+**POST** `/v1/deployments/{deployment_id}/pause`
 
 Pause Deployment
 
@@ -1220,7 +1215,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->pause(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1291,7 +1286,7 @@ var_dump($betaManagedAgentsDeployment);
 
 `$client->beta->deployments->unpause(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/unpause`
+**POST** `/v1/deployments/{deployment_id}/unpause`
 
 Unpause Deployment
 
@@ -1390,7 +1385,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->unpause(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1457,7 +1452,7 @@ var_dump($betaManagedAgentsDeployment);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Agent Archived Deployment Paused Reason Error
 

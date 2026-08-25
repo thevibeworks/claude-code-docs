@@ -1,17 +1,12 @@
----
-title: Download Skill Version Content
-url: https://platform.claude.com/docs/en/api/typescript/beta/skills/versions/download
----
+# Download Skill Version Content
 
-## Download Skill Version Content
+`client.beta.skills.versions.download(version, params, options?): Response`
 
-`client.beta.skills.versions.download(stringversion, VersionDownloadParamsparams, RequestOptionsoptions?): Response`
-
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-### Parameters
+## Parameters
 
 - `version: string`
 
@@ -103,11 +98,11 @@ Download a skill version's content as a zip archive.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `unnamed_schema_2 = Response`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";

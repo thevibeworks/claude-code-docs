@@ -1,19 +1,14 @@
----
-title: List Tunnels
-url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/list
----
-
-## List Tunnels
+# List Tunnels
 
 `$ ant beta:tunnels list`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists tunnels. Results are ordered by creation time, newest first; archived tunnels are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `--include-archived: optional boolean`
 
@@ -23,6 +18,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   Query param: Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
+  format: int32
+
 - `--page: optional string`
 
   Query param: Opaque pagination cursor from a previous `list_tunnels` response.
@@ -31,9 +28,9 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaListTunnelsResponse: object { data, next_page }`
+- `BetaListTunnelsResponse: object`
 
   A paginated list of tunnels.
 
@@ -49,9 +46,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `display_name: string`
 
@@ -67,14 +68,14 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Pagination cursor for the next page, or null if no more results.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:tunnels list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

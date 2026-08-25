@@ -1,19 +1,14 @@
----
-title: Stop Work
-url: https://platform.claude.com/docs/en/api/python/beta/environments/work/stop
----
+# Stop Work
 
-## Stop Work
+`beta.environments.work.stop(work_id, **kwargs)  -> BetaSelfHostedWork`
 
-`beta.environments.work.stop(strwork_id, WorkStopParams**kwargs)  -> BetaSelfHostedWork`
-
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Stop a work item, initiating graceful or forced shutdown.
 
-### Parameters
+## Parameters
 
 - `environment_id: str`
 
@@ -22,6 +17,8 @@ Stop a work item, initiating graceful or forced shutdown.
 - `force: Optional[bool]`
 
   If true, immediately stop work without graceful shutdown
+
+  default: false
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -99,7 +96,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaSelfHostedWork: …`
 
@@ -132,8 +129,6 @@ Stop a work item, initiating graceful or forced shutdown.
     - `type: Literal["session"]`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: str`
 
@@ -181,9 +176,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
 ```python
 import os
@@ -201,7 +196,7 @@ beta_self_hosted_work = client.beta.environments.work.stop(
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

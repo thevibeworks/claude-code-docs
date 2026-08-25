@@ -1,17 +1,12 @@
----
-title: Get Session Resource
-url: https://platform.claude.com/docs/en/api/typescript/beta/sessions/resources/retrieve
----
+# Get Session Resource
 
-## Get Session Resource
+`client.beta.sessions.resources.retrieve(resourceID, params, options?): ResourceRetrieveResponse`
 
-`client.beta.sessions.resources.retrieve(stringresourceID, ResourceRetrieveParamsparams, RequestOptionsoptions?): ResourceRetrieveResponse`
-
-**get** `/v1/sessions/{session_id}/resources/{resource_id}`
+**GET** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Get Session Resource
 
-### Parameters
+## Parameters
 
 - `resourceID: string`
 
@@ -97,7 +92,7 @@ Get Session Resource
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `ResourceRetrieveResponse = BetaManagedAgentsGitHubRepositoryResource | BetaManagedAgentsFileResource | BetaManagedAgentsMemoryStoreResource`
 
@@ -111,15 +106,17 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `mount_path: string`
 
     - `type: "github_repository"`
 
-      - `"github_repository"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: string`
 
@@ -131,9 +128,9 @@ Get Session Resource
 
           Branch name to check out.
 
-        - `type: "branch"`
+          minLength: 1, maxLength: 255
 
-          - `"branch"`
+        - `type: "branch"`
 
       - `BetaManagedAgentsCommitCheckout`
 
@@ -141,9 +138,9 @@ Get Session Resource
 
           Full commit SHA to check out.
 
-        - `type: "commit"`
+          minLength: 7, maxLength: 64
 
-          - `"commit"`
+        - `type: "commit"`
 
   - `BetaManagedAgentsFileResource`
 
@@ -153,17 +150,19 @@ Get Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `file_id: string`
 
     - `mount_path: string`
 
     - `type: "file"`
 
-      - `"file"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `BetaManagedAgentsMemoryStoreResource`
 
@@ -174,8 +173,6 @@ Get Session Resource
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: "memory_store"`
-
-      - `"memory_store"`
 
     - `access?: "read_write" | "read_only" | null`
 
@@ -193,6 +190,8 @@ Get Session Resource
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `mount_path?: string | null`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -201,7 +200,7 @@ Get Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -218,7 +217,7 @@ const resource = await client.beta.sessions.resources.retrieve(
 console.log(resource);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

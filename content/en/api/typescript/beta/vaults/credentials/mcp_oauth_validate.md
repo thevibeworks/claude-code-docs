@@ -1,17 +1,12 @@
----
-title: Validate Credential
-url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/credentials/mcp_oauth_validate
----
+# Validate Credential
 
-## Validate Credential
+`client.beta.vaults.credentials.mcpOAuthValidate(credentialID, params, options?): BetaManagedAgentsCredentialValidation`
 
-`client.beta.vaults.credentials.mcpOAuthValidate(stringcredentialID, CredentialMCPOAuthValidateParamsparams, RequestOptionsoptions?): BetaManagedAgentsCredentialValidation`
-
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
 Validate Credential
 
-### Parameters
+## Parameters
 
 - `credentialID: string`
 
@@ -97,7 +92,7 @@ Validate Credential
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsCredentialValidation`
 
@@ -135,6 +130,8 @@ Validate Credential
 
         HTTP status code.
 
+        format: int32
+
     - `method: string`
 
       The MCP method that failed (for example `initialize` or `tools/list`).
@@ -171,17 +168,17 @@ Validate Credential
 
   - `type: "vault_credential_validation"`
 
-    - `"vault_credential_validation"`
-
   - `validated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: string`
 
     Identifier of the vault containing the credential.
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -198,7 +195,7 @@ const betaManagedAgentsCredentialValidation =
 console.log(betaManagedAgentsCredentialValidation.credential_id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

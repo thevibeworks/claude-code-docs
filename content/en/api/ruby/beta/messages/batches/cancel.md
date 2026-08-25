@@ -1,13 +1,8 @@
----
-title: Cancel a Message Batch
-url: https://platform.claude.com/docs/en/api/ruby/beta/messages/batches/cancel
----
-
-## Cancel a Message Batch
+# Cancel a Message Batch
 
 `beta.messages.batches.cancel(message_batch_id, **kwargs) -> BetaMessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -15,7 +10,7 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `message_batch_id: String`
 
@@ -97,7 +92,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaMessageBatch`
 
@@ -111,13 +106,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Time`
 
@@ -125,9 +126,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: :in_progress | :canceling | :ended`
 
@@ -185,9 +190,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `:message_batch`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -199,7 +202,7 @@ beta_message_batch = anthropic.beta.messages.batches.cancel("message_batch_id")
 puts(beta_message_batch)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

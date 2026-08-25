@@ -1,19 +1,14 @@
----
-title: Get Tunnel
-url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels/retrieve
----
+# Get Tunnel
 
-## Get Tunnel
+`client.beta.tunnels.retrieve(tunnelID, params?, options?): BetaTunnel`
 
-`client.beta.tunnels.retrieve(stringtunnelID, TunnelRetrieveParamsparams?, RequestOptionsoptions?): BetaTunnel`
-
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel by ID.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -95,7 +90,7 @@ Fetches a tunnel by ID.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaTunnel`
 
@@ -109,9 +104,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string | null`
 
@@ -123,9 +122,7 @@ Fetches a tunnel by ID.
 
   - `type: "tunnel"`
 
-    - `"tunnel"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -139,7 +136,7 @@ const betaTunnel = await client.beta.tunnels.retrieve("tunnel_id");
 console.log(betaTunnel.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

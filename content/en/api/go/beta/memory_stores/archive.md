@@ -1,23 +1,18 @@
----
-title: Archive a memory store
-url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/archive
----
-
-## Archive a memory store
+# Archive a memory store
 
 `client.Beta.MemoryStores.Archive(ctx, memoryStoreID, body) (*BetaManagedAgentsMemoryStore, error)`
 
-**post** `/v1/memory_stores/{memory_store_id}/archive`
+**POST** `/v1/memory_stores/{memory_store_id}/archive`
 
 Archive a memory store
 
-### Parameters
+## Parameters
 
 - `memoryStoreID string`
 
 - `body BetaMemoryStoreArchiveParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -93,7 +88,7 @@ Archive a memory store
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsMemoryStore struct{…}`
 
@@ -107,31 +102,35 @@ Archive a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Name string`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `Type BetaManagedAgentsMemoryStoreType`
 
-    - `const BetaManagedAgentsMemoryStoreTypeMemoryStore BetaManagedAgentsMemoryStoreType = "memory_store"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-  - `ArchivedAt Time`
+    format: date-time
+
+  - `ArchivedAt Time Optional`
 
     A timestamp in RFC 3339 format
 
-  - `Description string`
+    format: date-time
+
+  - `Description string Optional`
 
     Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string, string] Optional`
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```go
 package main
@@ -160,7 +159,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Add Session Resource
-url: https://platform.claude.com/docs/en/api/python/beta/sessions/resources/add
----
+# Add Session Resource
 
-## Add Session Resource
+`beta.sessions.resources.add(session_id, **kwargs)  -> BetaManagedAgentsFileResource`
 
-`beta.sessions.resources.add(strsession_id, ResourceAddParams**kwargs)  -> BetaManagedAgentsFileResource`
-
-**post** `/v1/sessions/{session_id}/resources`
+**POST** `/v1/sessions/{session_id}/resources`
 
 Add Session Resource
 
-### Parameters
+## Parameters
 
 - `session_id: str`
 
@@ -19,13 +14,15 @@ Add Session Resource
 
   ID of a previously uploaded file.
 
-- `type: Literal["file"]`
+  minLength: 1, maxLength: 128
 
-  - `"file"`
+- `type: Literal["file"]`
 
 - `mount_path: Optional[str]`
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+
+  minLength: 1, maxLength: 4096
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -103,7 +100,7 @@ Add Session Resource
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsFileResource: …`
 
@@ -113,19 +110,21 @@ Add Session Resource
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `file_id: str`
 
   - `mount_path: str`
 
   - `type: Literal["file"]`
 
-    - `"file"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```python
 import os
@@ -144,7 +143,7 @@ beta_managed_agents_file_resource = client.beta.sessions.resources.add(
 print(beta_managed_agents_file_resource.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/csharp/beta/agents/versions
----
-
 # Versions
 
 ## List Agent Versions
 
-`VersionListPageResponse Beta.Agents.Versions.List(VersionListParamsparameters, CancellationTokencancellationToken = default)`
+`VersionListPageResponse Beta.Agents.Versions.List(parameters, cancellationToken = default)`
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
@@ -21,9 +16,11 @@ List Agent Versions
 
     Path param: Path parameter agent_id
 
-  - `Int limit`
+  - `int limit`
 
     Query param: Maximum results per page. Default 20, maximum 100.
+
+    format: int32
 
   - `string page`
 
@@ -33,73 +30,73 @@ List Agent Versions
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -117,9 +114,13 @@ List Agent Versions
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `required DateTimeOffset CreatedAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `required string? Description`
 
@@ -128,8 +129,6 @@ List Agent Versions
       - `required string Name`
 
       - `required Type Type`
-
-        - `"url"Url`
 
       - `required string Url`
 
@@ -145,55 +144,55 @@ List Agent Versions
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `"claude-sonnet-5"ClaudeSonnet5`
+        - `ClaudeSonnet5`
 
           High-performance model for coding and agents
 
-        - `"claude-fable-5"ClaudeFable5`
+        - `ClaudeFable5`
 
           Next generation of intelligence for the hardest knowledge work and coding problems
 
-        - `"claude-opus-5"ClaudeOpus5`
+        - `ClaudeOpus5`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-8"ClaudeOpus4_8`
+        - `ClaudeOpus4_8`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-7"ClaudeOpus4_7`
+        - `ClaudeOpus4_7`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-6"ClaudeOpus4_6`
+        - `ClaudeOpus4_6`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-sonnet-4-6"ClaudeSonnet4_6`
+        - `ClaudeSonnet4_6`
 
           Best combination of speed and intelligence
 
-        - `"claude-haiku-4-5"ClaudeHaiku4_5`
+        - `ClaudeHaiku4_5`
 
           Fastest model with near-frontier intelligence
 
-        - `"claude-haiku-4-5-20251001"ClaudeHaiku4_5_20251001`
+        - `ClaudeHaiku4_5_20251001`
 
           Fastest model with near-frontier intelligence
 
-        - `"claude-opus-4-5"ClaudeOpus4_5`
+        - `ClaudeOpus4_5`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-opus-4-5-20251101"ClaudeOpus4_5_20251101`
+        - `ClaudeOpus4_5_20251101`
 
           Powerful intelligence for long-running agents and coding
 
-        - `"claude-sonnet-4-5"ClaudeSonnet4_5`
+        - `ClaudeSonnet4_5`
 
           High-performance model for agents and coding
 
-        - `"claude-sonnet-4-5-20250929"ClaudeSonnet4_5_20250929`
+        - `ClaudeSonnet4_5_20250929`
 
           High-performance model for agents and coding
 
@@ -207,15 +206,11 @@ List Agent Versions
 
           - `required Type Type`
 
-            - `"low"Low`
-
         - `class BetaManagedAgentsEffortMedium:`
 
           Medium effort. Balances latency and reasoning depth.
 
           - `required Type Type`
-
-            - `"medium"Medium`
 
         - `class BetaManagedAgentsEffortHigh:`
 
@@ -223,23 +218,17 @@ List Agent Versions
 
           - `required Type Type`
 
-            - `"high"High`
-
         - `class BetaManagedAgentsEffortXhigh:`
 
           Extra-high effort. Not all models accept this level.
 
           - `required Type Type`
 
-            - `"xhigh"Xhigh`
-
         - `class BetaManagedAgentsEffortMax:`
 
           Maximum effort. Favors reasoning depth over latency.
 
           - `required Type Type`
-
-            - `"max"Max`
 
       - `string InferenceGeo`
 
@@ -249,9 +238,9 @@ List Agent Versions
 
         Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
 
-        - `"standard"Standard`
+        - `Standard`
 
-        - `"fast"Fast`
+        - `Fast`
 
     - `required BetaManagedAgentsMultiagent? Multiagent`
 
@@ -269,9 +258,9 @@ List Agent Versions
 
           - `required Type Type`
 
-            - `"agent"Agent`
+          - `required int Version`
 
-          - `required Int Version`
+            format: int32
 
         - `class BetaManagedAgentsAdvisor:`
 
@@ -283,11 +272,7 @@ List Agent Versions
 
           - `required Type Type`
 
-            - `"advisor"Advisor`
-
       - `required Type Type`
-
-        - `"coordinator"Coordinator`
 
     - `required string Name`
 
@@ -301,8 +286,6 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"anthropic"Anthropic`
-
         - `required string Version`
 
       - `class BetaManagedAgentsCustomSkill:`
@@ -312,8 +295,6 @@ List Agent Versions
         - `required string SkillID`
 
         - `required Type Type`
-
-          - `"custom"Custom`
 
         - `required string Version`
 
@@ -329,9 +310,9 @@ List Agent Versions
 
             Configuration for the bash tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "bash"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -343,25 +324,21 @@ List Agent Versions
 
                 - `required Type Type`
 
-                  - `"always_allow"AlwaysAllow`
-
               - `class BetaManagedAgentsAlwaysAskPolicy:`
 
                 Tool calls require user confirmation before execution.
 
                 - `required Type Type`
 
-                  - `"always_ask"AlwaysAsk`
-
-            - `JsonElement Type "bash"constant`
+            - `JsonElement Type constant`
 
           - `class BetaManagedAgentsEditToolConfig:`
 
             Configuration for the edit tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "edit"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -375,15 +352,15 @@ List Agent Versions
 
                 Tool calls require user confirmation before execution.
 
-            - `JsonElement Type "edit"constant`
+            - `JsonElement Type constant`
 
           - `class BetaManagedAgentsReadToolConfig:`
 
             Configuration for the read tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "read"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -397,15 +374,15 @@ List Agent Versions
 
                 Tool calls require user confirmation before execution.
 
-            - `JsonElement Type "read"constant`
+            - `JsonElement Type constant`
 
           - `class BetaManagedAgentsWriteToolConfig:`
 
             Configuration for the write tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "write"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -419,15 +396,15 @@ List Agent Versions
 
                 Tool calls require user confirmation before execution.
 
-            - `JsonElement Type "write"constant`
+            - `JsonElement Type constant`
 
           - `class BetaManagedAgentsGlobToolConfig:`
 
             Configuration for the glob tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "glob"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -441,15 +418,15 @@ List Agent Versions
 
                 Tool calls require user confirmation before execution.
 
-            - `JsonElement Type "glob"constant`
+            - `JsonElement Type constant`
 
           - `class BetaManagedAgentsGrepToolConfig:`
 
             Configuration for the grep tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "grep"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -463,15 +440,15 @@ List Agent Versions
 
                 Tool calls require user confirmation before execution.
 
-            - `JsonElement Type "grep"constant`
+            - `JsonElement Type constant`
 
           - `class BetaManagedAgentsWebFetchToolConfig:`
 
             Configuration for the web_fetch tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "web_fetch"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -485,21 +462,23 @@ List Agent Versions
 
                 Tool calls require user confirmation before execution.
 
-            - `JsonElement Type "web_fetch"constant`
+            - `JsonElement Type constant`
 
             - `IReadOnlyList<string> AllowedDomains`
 
             - `IReadOnlyList<string> BlockedDomains`
 
-            - `Int? MaxContentTokens`
+            - `int? MaxContentTokens`
+
+              format: int32
 
           - `class BetaManagedAgentsWebSearchToolConfig:`
 
             Configuration for the web_search tool.
 
-            - `required Boolean Enabled`
+            - `required bool Enabled`
 
-            - `JsonElement Name "web_search"constant`
+            - `JsonElement Name constant`
 
             - `required PermissionPolicy PermissionPolicy`
 
@@ -513,7 +492,7 @@ List Agent Versions
 
                 Tool calls require user confirmation before execution.
 
-            - `JsonElement Type "web_search"constant`
+            - `JsonElement Type constant`
 
             - `IReadOnlyList<string> AllowedDomains`
 
@@ -523,13 +502,15 @@ List Agent Versions
 
               Approximate user location for search result localization.
 
-              - `JsonElement Type "approximate"constant`
+              - `JsonElement Type constant`
 
                 Location precision. Only "approximate" is supported.
 
               - `string? City`
 
                 City name.
+
+                minLength: 1, maxLength: 255
 
               - `string? Country`
 
@@ -539,15 +520,19 @@ List Agent Versions
 
                 Region or state name.
 
+                minLength: 1, maxLength: 255
+
               - `string? Timezone`
 
                 IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                minLength: 1, maxLength: 255
 
         - `required BetaManagedAgentsAgentToolsetDefaultConfig DefaultConfig`
 
           Resolved default configuration for agent tools.
 
-          - `required Boolean Enabled`
+          - `required bool Enabled`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -563,13 +548,11 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"agent_toolset_20260401"AgentToolset20260401`
-
       - `class BetaManagedAgentsMcpToolset:`
 
         - `required IReadOnlyList<BetaManagedAgentsMcpToolConfig> Configs`
 
-          - `required Boolean Enabled`
+          - `required bool Enabled`
 
           - `required string Name`
 
@@ -589,7 +572,7 @@ List Agent Versions
 
           Resolved default configuration for all tools from an MCP server.
 
-          - `required Boolean Enabled`
+          - `required bool Enabled`
 
           - `required PermissionPolicy PermissionPolicy`
 
@@ -607,8 +590,6 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"mcp_toolset"McpToolset`
-
       - `class BetaManagedAgentsCustomTool:`
 
         A custom tool as returned in API responses.
@@ -619,7 +600,7 @@ List Agent Versions
 
           JSON Schema for custom tool input parameters.
 
-          - `JsonElement Type "object"constant`
+          - `JsonElement Type constant`
 
           - `IReadOnlyDictionary<string, JsonElement>? Properties`
 
@@ -629,19 +610,19 @@ List Agent Versions
 
         - `required Type Type`
 
-          - `"custom"Custom`
-
     - `required Type Type`
-
-      - `"agent"Agent`
 
     - `required DateTimeOffset UpdatedAt`
 
       A timestamp in RFC 3339 format
 
-    - `required Int Version`
+      format: date-time
+
+    - `required int Version`
 
       The agent's current version. Starts at 1 and increments when the agent is modified.
+
+      format: int32
 
   - `string? NextPage`
 
@@ -662,7 +643,7 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {

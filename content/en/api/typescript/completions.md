@@ -1,15 +1,10 @@
----
-title: Completions
-url: https://platform.claude.com/docs/en/api/typescript/completions
----
-
 # Completions
 
 ## Create a Text Completion
 
-`client.completions.create(CompletionCreateParamsparams, RequestOptionsoptions?): Completion | Stream<Completion>`
+`client.completions.create(params, options?): Completion | Stream<Completion>`
 
-**post** `/v1/complete`
+**POST** `/v1/complete`
 
 [Legacy] Create a Text Completion.
 
@@ -28,6 +23,8 @@ Future models and features will not be compatible with Text Completions. See our
       Body param: The maximum number of tokens to generate before stopping.
 
       Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
+
+      minimum: 1
 
     - `model: Model`
 
@@ -119,6 +116,8 @@ Future models and features will not be compatible with Text Completions. See our
 
       See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) for more details.
 
+      minLength: 1
+
     - `metadata?: Metadata`
 
       Body param: An object describing metadata about the request.
@@ -128,6 +127,8 @@ Future models and features will not be compatible with Text Completions. See our
         An external identifier for the user who is associated with the request.
 
         This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+        maxLength: 512
 
     - `stop_sequences?: Array<string>`
 
@@ -142,32 +143,6 @@ Future models and features will not be compatible with Text Completions. See our
       Body param: Whether to incrementally stream the response using server-sent events.
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
-
-      - `false`
-
-    - `temperature?: number`
-
-      Body param: Amount of randomness injected into the response.
-
-      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-    - `top_k?: number`
-
-      Body param: Only sample from the top K options for each subsequent token.
-
-      Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-      Recommended for advanced use cases only.
-
-    - `top_p?: number`
-
-      Body param: Use nucleus sampling.
-
-      In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-      Recommended for advanced use cases only.
 
     - `betas?: Array<AnthropicBeta>`
 
@@ -245,7 +220,43 @@ Future models and features will not be compatible with Text Completions. See our
 
         - `"mid-conversation-tool-changes-2026-07-01"`
 
-  - `CompletionCreateParamsNonStreaming extends CompletionCreateParamsBase`
+    - `temperature?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+      Body param: Amount of randomness injected into the response.
+
+      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+      maximum: 1, minimum: 0
+
+    - `top_k?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+      Body param: Only sample from the top K options for each subsequent token.
+
+      Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+      Recommended for advanced use cases only.
+
+      minimum: 0
+
+    - `top_p?: number`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+      Body param: Use nucleus sampling.
+
+      In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+      Recommended for advanced use cases only.
+
+      maximum: 1, minimum: 0
+
+  - `CompletionCreateParamsNonStreaming extends  CompletionCreateParamsBase`
 
     - `stream?: false`
 
@@ -253,15 +264,13 @@ Future models and features will not be compatible with Text Completions. See our
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
 
-  - `CompletionCreateParamsStreaming extends CompletionCreateParamsBase`
+  - `CompletionCreateParamsStreaming extends  CompletionCreateParamsBase`
 
     - `stream: true`
 
       Body param: Whether to incrementally stream the response using server-sent events.
 
       See [streaming](https://platform.claude.com/docs/en/build-with-claude/streaming) for details.
-
-      - `true`
 
 ### Returns
 
@@ -362,7 +371,9 @@ Future models and features will not be compatible with Text Completions. See our
 
     For Text Completions, this is always `"completion"`.
 
-    - `"completion"`
+    default: completion
+
+- `Completion`
 
 ### Example
 
@@ -382,7 +393,7 @@ const completion = await client.completions.create({
 console.log(completion.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -394,7 +405,7 @@ console.log(completion.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Completion
 
@@ -495,4 +506,4 @@ console.log(completion.id);
 
     For Text Completions, this is always `"completion"`.
 
-    - `"completion"`
+    default: completion

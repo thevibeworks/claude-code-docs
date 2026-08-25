@@ -1,17 +1,12 @@
----
-title: List Agents
-url: https://platform.claude.com/docs/en/api/php/beta/agents/list
----
-
-## List Agents
+# List Agents
 
 `$client->beta->agents->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents`
+**GET** `/v1/agents`
 
 List Agents
 
-### Parameters
+## Parameters
 
 - `createdAtGte?:optional \Datetime`
 
@@ -37,7 +32,7 @@ List Agents
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -83,7 +78,7 @@ List Agents
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -104,7 +99,7 @@ $page = $client->beta->agents->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Unpause Deployment
-url: https://platform.claude.com/docs/en/api/php/beta/deployments/unpause
----
-
-## Unpause Deployment
+# Unpause Deployment
 
 `$client->beta->deployments->unpause(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeployment`
 
-**post** `/v1/deployments/{deployment_id}/unpause`
+**POST** `/v1/deployments/{deployment_id}/unpause`
 
 Unpause Deployment
 
-### Parameters
+## Parameters
 
 - `deploymentID: string`
 
@@ -19,7 +14,7 @@ Unpause Deployment
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeployment`
 
@@ -89,7 +84,7 @@ Unpause Deployment
 
     A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -106,7 +101,7 @@ $betaManagedAgentsDeployment = $client->beta->deployments->unpause(
 var_dump($betaManagedAgentsDeployment);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

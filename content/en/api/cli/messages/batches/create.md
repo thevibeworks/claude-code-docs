@@ -1,13 +1,8 @@
----
-title: Create a Message Batch
-url: https://platform.claude.com/docs/en/api/cli/messages/batches/create
----
-
-## Create a Message Batch
+# Create a Message Batch
 
 `$ ant messages:batches create`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -15,19 +10,21 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
-- `--request: array of object { custom_id, params }`
+- `--request: array of object`
 
   Body param: List of requests for prompt completion. Each is an individual request to create a Message.
+
+  maxItems: 100000, minItems: 1
 
 - `--user-profile-id: optional string`
 
   Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+## Returns
 
-- `message_batch: object { id, archived_at, cancel_initiated_at, 7 more }`
+- `message_batch: object`
 
   - `id: string`
 
@@ -39,13 +36,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string`
 
@@ -53,9 +56,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" or "canceling" or "ended"`
 
@@ -67,7 +74,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ended"`
 
-  - `request_counts: object { canceled, errored, expired, 2 more }`
+  - `request_counts: object`
 
     Tallies requests within the Message Batch, categorized by their status.
 
@@ -113,15 +120,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+## Example
 
-```cli
+```bash
 ant messages:batches create \
   --api-key my-anthropic-api-key \
   --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-5}}'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: List memory versions
-url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memory_versions/list
----
-
-## List memory versions
+# List memory versions
 
 `$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string serviceAccountID, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryVersion>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
 List memory versions
 
-### Parameters
+## Parameters
 
 - `memoryStoreID: string`
 
@@ -59,7 +54,7 @@ List memory versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsMemoryVersion`
 
@@ -113,7 +108,7 @@ List memory versions
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+## Example
 
 ```php
 <?php
@@ -140,7 +135,7 @@ $page = $client->beta->memoryStores->memoryVersions->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

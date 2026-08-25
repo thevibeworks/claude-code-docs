@@ -1,17 +1,12 @@
----
-title: List Agents
-url: https://platform.claude.com/docs/en/api/typescript/beta/agents/list
----
+# List Agents
 
-## List Agents
+`client.beta.agents.list(params?, options?): PageCursor<BetaManagedAgentsAgent>`
 
-`client.beta.agents.list(AgentListParamsparams?, RequestOptionsoptions?): PageCursor<BetaManagedAgentsAgent>`
-
-**get** `/v1/agents`
+**GET** `/v1/agents`
 
 List Agents
 
-### Parameters
+## Parameters
 
 - `params: AgentListParams`
 
@@ -19,9 +14,13 @@ List Agents
 
     Query param: Return agents created at or after this time (inclusive).
 
+    format: date-time
+
   - `"created_at[lte]"?: string`
 
     Query param: Return agents created at or before this time (inclusive).
+
+    format: date-time
 
   - `include_archived?: boolean`
 
@@ -30,6 +29,8 @@ List Agents
   - `limit?: number`
 
     Query param: Maximum results per page. Default 20, maximum 100.
+
+    format: int32
 
   - `page?: string`
 
@@ -111,7 +112,7 @@ List Agents
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsAgent`
 
@@ -123,9 +124,13 @@ List Agents
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: string | null`
 
@@ -134,8 +139,6 @@ List Agents
     - `name: string`
 
     - `type: "url"`
-
-      - `"url"`
 
     - `url: string`
 
@@ -217,15 +220,11 @@ List Agents
 
         - `type: "low"`
 
-          - `"low"`
-
       - `BetaManagedAgentsEffortMedium`
 
         Medium effort. Balances latency and reasoning depth.
 
         - `type: "medium"`
-
-          - `"medium"`
 
       - `BetaManagedAgentsEffortHigh`
 
@@ -233,23 +232,17 @@ List Agents
 
         - `type: "high"`
 
-          - `"high"`
-
       - `BetaManagedAgentsEffortXhigh`
 
         Extra-high effort. Not all models accept this level.
 
         - `type: "xhigh"`
 
-          - `"xhigh"`
-
       - `BetaManagedAgentsEffortMax`
 
         Maximum effort. Favors reasoning depth over latency.
 
         - `type: "max"`
-
-          - `"max"`
 
     - `inference_geo?: string`
 
@@ -279,9 +272,9 @@ List Agents
 
         - `type: "agent"`
 
-          - `"agent"`
-
         - `version: number`
+
+          format: int32
 
       - `BetaManagedAgentsAdvisor`
 
@@ -293,11 +286,7 @@ List Agents
 
         - `type: "advisor"`
 
-          - `"advisor"`
-
     - `type: "coordinator"`
-
-      - `"coordinator"`
 
   - `name: string`
 
@@ -311,8 +300,6 @@ List Agents
 
       - `type: "anthropic"`
 
-        - `"anthropic"`
-
       - `version: string`
 
     - `BetaManagedAgentsCustomSkill`
@@ -322,8 +309,6 @@ List Agents
       - `skill_id: string`
 
       - `type: "custom"`
-
-        - `"custom"`
 
       - `version: string`
 
@@ -343,8 +328,6 @@ List Agents
 
           - `name: "bash"`
 
-            - `"bash"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
@@ -355,19 +338,13 @@ List Agents
 
               - `type: "always_allow"`
 
-                - `"always_allow"`
-
             - `BetaManagedAgentsAlwaysAskPolicy`
 
               Tool calls require user confirmation before execution.
 
               - `type: "always_ask"`
 
-                - `"always_ask"`
-
           - `type: "bash"`
-
-            - `"bash"`
 
         - `BetaManagedAgentsEditToolConfig`
 
@@ -376,8 +353,6 @@ List Agents
           - `enabled: boolean`
 
           - `name: "edit"`
-
-            - `"edit"`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -393,8 +368,6 @@ List Agents
 
           - `type: "edit"`
 
-            - `"edit"`
-
         - `BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
@@ -402,8 +375,6 @@ List Agents
           - `enabled: boolean`
 
           - `name: "read"`
-
-            - `"read"`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -419,8 +390,6 @@ List Agents
 
           - `type: "read"`
 
-            - `"read"`
-
         - `BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
@@ -428,8 +397,6 @@ List Agents
           - `enabled: boolean`
 
           - `name: "write"`
-
-            - `"write"`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -445,8 +412,6 @@ List Agents
 
           - `type: "write"`
 
-            - `"write"`
-
         - `BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
@@ -454,8 +419,6 @@ List Agents
           - `enabled: boolean`
 
           - `name: "glob"`
-
-            - `"glob"`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -471,8 +434,6 @@ List Agents
 
           - `type: "glob"`
 
-            - `"glob"`
-
         - `BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
@@ -480,8 +441,6 @@ List Agents
           - `enabled: boolean`
 
           - `name: "grep"`
-
-            - `"grep"`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -497,8 +456,6 @@ List Agents
 
           - `type: "grep"`
 
-            - `"grep"`
-
         - `BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
@@ -506,8 +463,6 @@ List Agents
           - `enabled: boolean`
 
           - `name: "web_fetch"`
-
-            - `"web_fetch"`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -523,13 +478,13 @@ List Agents
 
           - `type: "web_fetch"`
 
-            - `"web_fetch"`
-
           - `allowed_domains?: Array<string>`
 
           - `blocked_domains?: Array<string>`
 
           - `max_content_tokens?: number | null`
+
+            format: int32
 
         - `BetaManagedAgentsWebSearchToolConfig`
 
@@ -538,8 +493,6 @@ List Agents
           - `enabled: boolean`
 
           - `name: "web_search"`
-
-            - `"web_search"`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -555,8 +508,6 @@ List Agents
 
           - `type: "web_search"`
 
-            - `"web_search"`
-
           - `allowed_domains?: Array<string>`
 
           - `blocked_domains?: Array<string>`
@@ -569,11 +520,11 @@ List Agents
 
               Location precision. Only "approximate" is supported.
 
-              - `"approximate"`
-
             - `city?: string | null`
 
               City name.
+
+              minLength: 1, maxLength: 255
 
             - `country?: string | null`
 
@@ -583,9 +534,13 @@ List Agents
 
               Region or state name.
 
+              minLength: 1, maxLength: 255
+
             - `timezone?: string | null`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -606,8 +561,6 @@ List Agents
             Tool calls require user confirmation before execution.
 
       - `type: "agent_toolset_20260401"`
-
-        - `"agent_toolset_20260401"`
 
     - `BetaManagedAgentsMCPToolset`
 
@@ -651,8 +604,6 @@ List Agents
 
       - `type: "mcp_toolset"`
 
-        - `"mcp_toolset"`
-
     - `BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
@@ -665,8 +616,6 @@ List Agents
 
         - `type: "object"`
 
-          - `"object"`
-
         - `properties?: Record<string, unknown> | null`
 
         - `required?: Array<string> | null`
@@ -675,21 +624,21 @@ List Agents
 
       - `type: "custom"`
 
-        - `"custom"`
-
   - `type: "agent"`
-
-    - `"agent"`
 
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `version: number`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+    format: int32
+
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -704,7 +653,7 @@ for await (const betaManagedAgentsAgent of client.beta.agents.list()) {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

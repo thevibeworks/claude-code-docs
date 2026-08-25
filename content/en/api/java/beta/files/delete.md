@@ -1,17 +1,12 @@
----
-title: Delete File
-url: https://platform.claude.com/docs/en/api/java/beta/files/delete
----
+# Delete File
 
-## Delete File
+`BetaDeletedFile beta().files().delete(params = FileDeleteParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaDeletedFile beta().files().delete(FileDeleteParamsparams = FileDeleteParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
-### Parameters
+## Parameters
 
 - `FileDeleteParams params`
 
@@ -91,7 +86,7 @@ Delete File
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaDeletedFile:`
 
@@ -105,9 +100,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `FILE_DELETED("file_deleted")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -128,7 +121,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,13 +1,8 @@
----
-title: Usage
-url: https://platform.claude.com/docs/en/api/admin/analytics/usage
----
-
 # Usage
 
 ## Get Token Usage Over Time
 
-**get** `/v1/organizations/analytics/usage_report`
+**GET** `/v1/organizations/analytics/usage_report`
 
 Get token usage over time across a date range.
 
@@ -16,15 +11,19 @@ down by product, model, context window, inference region, or speed.
 Available to organizations on a Claude Enterprise plan. Requires an API
 key with the `read:analytics` scope.
 
-### Query Parameters
+### Query parameters
 
 - `starting_at: string`
 
   Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
 
+  format: date-time
+
 - `bucket_width: optional "1d" or "1h" or "1m"`
 
   Time bucket granularity.
+
+  default: 1d
 
   - `"1d"`
 
@@ -36,6 +35,8 @@ key with the `read:analytics` scope.
 
   Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
 
+  maxItems: 100
+
   - `"0-200k"`
 
   - `"200k-1M"`
@@ -44,9 +45,13 @@ key with the `read:analytics` scope.
 
   End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
 
+  format: date-time
+
 - `group_by: optional array of "context_window" or "inference_geo" or "model" or 4 more`
 
   Dimensions to break each time bucket out by. Defaults to no grouping (one total per bucket). Each bucket reports at most its top 100 groups; a group beyond that cap has no row in that bucket (there is no remainder row), so grouped buckets are not exhaustive when a dimension has more than 100 distinct values.
+
+  maxItems: 100
 
   - `"context_window"`
 
@@ -66,6 +71,8 @@ key with the `read:analytics` scope.
 
   Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
 
+  maxItems: 100
+
   - `"global"`
 
   - `"not_available"`
@@ -76,9 +83,13 @@ key with the `read:analytics` scope.
 
   Maximum number of time buckets per page. Defaults and caps vary by bucket_width (1d: default 7, max 31; 1h: default 24, max 168; 1m: default 60, max 256).
 
+  minimum: 1
+
 - `models: optional array of string`
 
   Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
+
+  maxItems: 100
 
 - `page: optional string`
 
@@ -88,17 +99,25 @@ key with the `read:analytics` scope.
 
   Product surfaces to include. Defaults to all products. Use `group_by[]=product` to break out per-product values. Values include "chat", "claude_code", "cowork", "office_agent", "claude_in_chrome", "claude_design", and "claude-in-slack". "claude-in-slack" (with hyphens) is Claude Tag, the Claude product in Slack. A similarly spelled legacy value (underscores instead of hyphens) identifies the retiring v1 Slack chat bot and appears only for organizations that used it.
 
+  maxItems: 100
+
 - `rbac_group_ids: optional array of string`
 
   Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+  maxItems: 100
 
 - `slack_channel_ids: optional array of string`
 
   Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
 
+  maxItems: 100
+
 - `speeds: optional array of "fast" or "standard"`
 
   Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+  maxItems: 100
 
   - `"fast"`
 
@@ -108,11 +127,13 @@ key with the `read:analytics` scope.
 
   Filter to specific users by tagged user ID.
 
+  maxItems: 100
+
 ### Returns
 
-- `UsageBucket object { data, data_refreshed_at, has_more, 2 more }`
+- `UsageBucket object`
 
-  - `data: array of object { ending_at, results, starting_at }`
+  - `data: array of object`
 
     Time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no data (their `results` list is empty). A page holds at most `limit` buckets.
 
@@ -120,11 +141,13 @@ key with the `read:analytics` scope.
 
       End of the time bucket (exclusive) in RFC 3339 format.
 
-    - `results: array of object { cache_creation, cache_read_input_tokens, context_window, 10 more }`
+      format: date-time
+
+    - `results: array of object`
 
       Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         The number of input tokens for cache creation.
 
@@ -176,7 +199,7 @@ key with the `read:analytics` scope.
 
         Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
 
-      - `server_tool_use: object { web_search_requests }`
+      - `server_tool_use: object`
 
         Server-side tool usage metrics.
 
@@ -204,9 +227,13 @@ key with the `read:analytics` scope.
 
       Start of the time bucket (inclusive) in RFC 3339 format.
 
+      format: date-time
+
   - `data_refreshed_at: string or null`
 
     RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case every bucket's `results` list is empty. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
+
+    format: date-time
 
   - `has_more: boolean`
 
@@ -222,13 +249,13 @@ key with the `read:analytics` scope.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/analytics/usage_report \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -269,7 +296,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/usage_report \
 
 ## Get Per-User Token Usage
 
-**get** `/v1/organizations/analytics/user_usage_report`
+**GET** `/v1/organizations/analytics/user_usage_report`
 
 Get per-user token usage across a date range.
 
@@ -281,11 +308,13 @@ API-key and automation traffic, use the bucketed
 organizations on a Claude Enterprise plan. Requires an API key with the
 `read:analytics` scope.
 
-### Query Parameters
+### Query parameters
 
 - `starting_at: string`
 
   Start of range, inclusive. RFC 3339 tz-aware. Must be within the last 365 days and no earlier than 2026-01-01T00:00:00Z.
+
+  format: date-time
 
 - `bucket_width: optional "1d" or "1h" or "1m"`
 
@@ -301,6 +330,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Filter to specific context-window pricing tiers. Use `group_by[]=context_window` to break out per-tier values.
 
+  maxItems: 100
+
   - `"0-200k"`
 
   - `"200k-1M"`
@@ -309,13 +340,19 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   End of range, exclusive. When omitted, defaults to the earlier of now and `starting_at` + 31 days. The range may span at most 31 days.
 
+  format: date-time
+
 - `exclude_deleted_users: optional boolean`
 
   If true, omit rows for users who are deleted (`deleted: true`). A page may contain fewer than `limit` rows; use `has_more` and `next_page` to paginate as usual.
 
+  default: false
+
 - `group_by: optional array of "context_window" or "inference_geo" or "model" or 4 more`
 
   Break each actor's row out by the given dimensions. Accepts the same values as the bucketed `/usage_report` endpoint. `limit` bounds (actor × time bucket × dimension) rows — with dimensions or `bucket_width` present, one actor may span several rows.
+
+  maxItems: 100
 
   - `"context_window"`
 
@@ -335,6 +372,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Filter to specific inference regions. `not_available` matches rows where the region is unset. Use `group_by[]=inference_geo` to break out per-region values.
 
+  maxItems: 100
+
   - `"global"`
 
   - `"not_available"`
@@ -345,13 +384,19 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Number of rows per page (1-1000, default 20). One row per actor unless `group_by[]` or `bucket_width` splits an actor across rows; `cost_type`/`token_type` fan-out rows (cost endpoint only) are the exception — they do not count toward this limit, so `data` can exceed it.
 
+  default: 20, maximum: 1000, minimum: 1
+
 - `models: optional array of string`
 
   Models to include. Defaults to all models. Use `group_by[]=model` to break out per-model values.
 
+  maxItems: 100
+
 - `order: optional "asc" or "desc"`
 
   Sort direction. Defaults to `desc`.
+
+  default: desc
 
   - `"asc"`
 
@@ -360,6 +405,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 - `order_by: optional "output_tokens" or "requests" or "total_tokens" or "uncached_input_tokens"`
 
   Metric to rank actors by. Defaults to `total_tokens`.
+
+  default: total_tokens
 
   - `"output_tokens"`
 
@@ -377,17 +424,25 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Product surfaces to include. Defaults to all products. Values include "chat", "claude_code", "cowork", "office_agent", "claude_in_chrome", "claude_design", and "claude-in-slack". "claude-in-slack" (with hyphens) is Claude Tag, the Claude product in Slack. A similarly spelled legacy value (underscores instead of hyphens) identifies the retiring v1 Slack chat bot and appears only for organizations that used it.
 
+  maxItems: 100
+
 - `rbac_group_ids: optional array of string`
 
   Filter to usage attributed to specific RBAC groups. Accepts tagged RBAC group IDs (`rbac_group_...`) or bare group UUIDs. A row matches when the user belonged to any of the listed groups on the (UTC) day the usage occurred; usage with no group attribution never matches.
+
+  maxItems: 100
 
 - `slack_channel_ids: optional array of string`
 
   Filter to usage originating from specific Slack channels. Use `group_by[]=slack_channel_id` to break out per-channel values.
 
+  maxItems: 100
+
 - `speeds: optional array of "fast" or "standard"`
 
   Filter to fast or standard inference mode. Use `group_by[]=speed` to break out per-mode values.
+
+  maxItems: 100
 
   - `"fast"`
 
@@ -397,11 +452,13 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
   Filter to specific users by tagged user ID.
 
+  maxItems: 100
+
 ### Returns
 
-- `UserUsage object { data, data_refreshed_at, has_more, 2 more }`
+- `UserUsage object`
 
-  - `data: array of object { actor, cache_creation, cache_read_input_tokens, 14 more }`
+  - `data: array of object`
 
     Rows for this page, ranked by `order_by` in the `order` direction. One row per user, or several per user when `group_by[]` or `bucket_width` breaks that user's usage or cost out across rows. Rows split out by `cost_type` or `token_type` (cost endpoint only) stay adjacent and are ranked as one unit.
 
@@ -425,13 +482,11 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
         Actor type. Always `"user_actor"`.
 
-        - `"user_actor"`
-
       - `user_id: string`
 
         Tagged user ID.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       The number of input tokens for cache creation.
 
@@ -458,6 +513,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
     - `ending_at: string or null`
 
       End of the row's UTC time bucket (exclusive), as an RFC 3339 timestamp; equal to `starting_at` plus one `bucket_width`. Null unless `bucket_width` is set.
+
+      format: date-time
 
     - `inference_geo: "global" or "us" or null`
 
@@ -487,7 +544,7 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
 
-    - `server_tool_use: object { web_search_requests }`
+    - `server_tool_use: object`
 
       Server-side tool usage metrics.
 
@@ -511,6 +568,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
       Start of the row's UTC time bucket (inclusive), as an RFC 3339 timestamp. Null unless `bucket_width` is set; without `bucket_width`, each row aggregates the full requested range.
 
+      format: date-time
+
     - `total_tokens: number`
 
       Total token count across all token types. This is the value the default order_by='total_tokens' sorts on.
@@ -522,6 +581,8 @@ organizations on a Claude Enterprise plan. Requires an API key with the
   - `data_refreshed_at: string or null`
 
     RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case `data` is empty. Data beyond this watermark is incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
+
+    format: date-time
 
   - `has_more: boolean`
 
@@ -537,13 +598,13 @@ organizations on a Claude Enterprise plan. Requires an API key with the
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -586,13 +647,13 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Usage Bucket
 
-- `UsageBucket object { data, data_refreshed_at, has_more, 2 more }`
+- `UsageBucket object`
 
-  - `data: array of object { ending_at, results, starting_at }`
+  - `data: array of object`
 
     Time buckets for this page, oldest first: one per `bucket_width` interval, including intervals with no data (their `results` list is empty). A page holds at most `limit` buckets.
 
@@ -600,11 +661,13 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
       End of the time bucket (exclusive) in RFC 3339 format.
 
-    - `results: array of object { cache_creation, cache_read_input_tokens, context_window, 10 more }`
+      format: date-time
+
+    - `results: array of object`
 
       Rows for this time bucket. Empty when the bucket has no data; otherwise a single combined row when `group_by[]` is omitted, or one row per group (subject to the per-bucket group cap described on the `group_by[]` parameter).
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         The number of input tokens for cache creation.
 
@@ -656,7 +719,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
         Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
 
-      - `server_tool_use: object { web_search_requests }`
+      - `server_tool_use: object`
 
         Server-side tool usage metrics.
 
@@ -684,9 +747,13 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
       Start of the time bucket (inclusive) in RFC 3339 format.
 
+      format: date-time
+
   - `data_refreshed_at: string or null`
 
     RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case every bucket's `results` list is empty. Buckets beyond this watermark are incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
+
+    format: date-time
 
   - `has_more: boolean`
 
@@ -702,9 +769,9 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
 ### User Usage
 
-- `UserUsage object { data, data_refreshed_at, has_more, 2 more }`
+- `UserUsage object`
 
-  - `data: array of object { actor, cache_creation, cache_read_input_tokens, 14 more }`
+  - `data: array of object`
 
     Rows for this page, ranked by `order_by` in the `order` direction. One row per user, or several per user when `group_by[]` or `bucket_width` breaks that user's usage or cost out across rows. Rows split out by `cost_type` or `token_type` (cost endpoint only) stay adjacent and are ranked as one unit.
 
@@ -728,13 +795,11 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
         Actor type. Always `"user_actor"`.
 
-        - `"user_actor"`
-
       - `user_id: string`
 
         Tagged user ID.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       The number of input tokens for cache creation.
 
@@ -761,6 +826,8 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
     - `ending_at: string or null`
 
       End of the row's UTC time bucket (exclusive), as an RFC 3339 timestamp; equal to `starting_at` plus one `bucket_width`. Null unless `bucket_width` is set.
+
+      format: date-time
 
     - `inference_geo: "global" or "us" or null`
 
@@ -790,7 +857,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
       Number of API requests in this row's scope. For sandbox / code-execution events, this counts execution spans rather than HTTP requests (these rows surface with `product: null`).
 
-    - `server_tool_use: object { web_search_requests }`
+    - `server_tool_use: object`
 
       Server-side tool usage metrics.
 
@@ -814,6 +881,8 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
 
       Start of the row's UTC time bucket (inclusive), as an RFC 3339 timestamp. Null unless `bucket_width` is set; without `bucket_width`, each row aggregates the full requested range.
 
+      format: date-time
+
     - `total_tokens: number`
 
       Total token count across all token types. This is the value the default order_by='total_tokens' sorts on.
@@ -825,6 +894,8 @@ curl https://api.anthropic.com/v1/organizations/analytics/user_usage_report \
   - `data_refreshed_at: string or null`
 
     RFC 3339 timestamp of the export this response was served from. Null when no export yet covers any part of the requested range, in which case `data` is empty. Data beyond this watermark is incomplete; for stable results, set `ending_at` to this value or earlier. Data is typically refreshed every 4 hours but not final until about 30 days after the usage date (late-arriving events, reconciliation adjustments).
+
+    format: date-time
 
   - `has_more: boolean`
 

@@ -1,17 +1,12 @@
----
-title: Delete Session
-url: https://platform.claude.com/docs/en/api/cli/beta/sessions/delete
----
-
-## Delete Session
+# Delete Session
 
 `$ ant beta:sessions delete`
 
-**delete** `/v1/sessions/{session_id}`
+**DELETE** `/v1/sessions/{session_id}`
 
 Delete Session
 
-### Parameters
+## Parameters
 
 - `--session-id: string`
 
@@ -21,9 +16,9 @@ Delete Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_deleted_session: object { id, type }`
+- `beta_managed_agents_deleted_session: object`
 
   Confirmation that a `session` has been permanently deleted.
 
@@ -31,17 +26,15 @@ Delete Session
 
   - `type: "session_deleted"`
 
-    - `"session_deleted"`
+## Example
 
-### Example
-
-```cli
+```bash
 ant beta:sessions delete \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

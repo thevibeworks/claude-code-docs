@@ -1,17 +1,12 @@
----
-title: Delete a memory
-url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memories/delete
----
-
-## Delete a memory
+# Delete a memory
 
 `$client->beta->memoryStores->memories->delete(string memoryID, string memoryStoreID, ?string expectedContentSha256, ?list<AnthropicBeta> betas): ManagedAgentsDeletedMemory`
 
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
-### Parameters
+## Parameters
 
 - `memoryStoreID: string`
 
@@ -25,7 +20,7 @@ Delete a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsDeletedMemory`
 
@@ -35,7 +30,7 @@ Delete a memory
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -54,7 +49,7 @@ $betaManagedAgentsDeletedMemory = $client->beta->memoryStores->memories->delete(
 var_dump($betaManagedAgentsDeletedMemory);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

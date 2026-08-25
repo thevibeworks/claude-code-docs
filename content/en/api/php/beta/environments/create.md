@@ -1,17 +1,12 @@
----
-title: Create Environment
-url: https://platform.claude.com/docs/en/api/php/beta/environments/create
----
-
-## Create Environment
+# Create Environment
 
 `$client->beta->environments->create(string name, ?Config config, ?string description, ?array<string,string> metadata, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
 
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+## Parameters
 
 - `name: string`
 
@@ -37,7 +32,7 @@ Create a new environment with the specified configuration.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaEnvironment`
 
@@ -81,7 +76,7 @@ Create a new environment with the specified configuration.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -119,7 +114,7 @@ $betaEnvironment = $client->beta->environments->create(
 var_dump($betaEnvironment);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

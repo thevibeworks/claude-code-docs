@@ -1,31 +1,30 @@
----
-title: Poll for Work
-url: https://platform.claude.com/docs/en/api/beta/environments/work/poll
----
+# Poll for Work
 
-## Poll for Work
-
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Path Parameters
+## Path parameters
 
 - `environment_id: string`
 
-### Query Parameters
+## Query parameters
 
 - `block_ms: optional number`
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `reclaim_older_than_ms: optional number`
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
 
-### Header Parameters
+  minimum: 1
+
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -107,9 +106,9 @@ Long poll for work items in the queue.
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+## Returns
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -140,8 +139,6 @@ Long poll for work items in the queue.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -189,18 +186,18 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/poll \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

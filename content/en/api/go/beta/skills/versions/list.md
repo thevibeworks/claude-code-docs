@@ -1,17 +1,12 @@
----
-title: List Skill Versions
-url: https://platform.claude.com/docs/en/api/go/beta/skills/versions/list
----
-
-## List Skill Versions
+# List Skill Versions
 
 `client.Beta.Skills.Versions.List(ctx, skillID, params) (*PageCursor[BetaSkillVersionListResponse], error)`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Parameters
+## Parameters
 
 - `skillID string`
 
@@ -21,17 +16,17 @@ List Skill Versions
 
 - `params BetaSkillVersionListParams`
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-  - `Page param.Field[string]`
+  - `Page param.Field[string] Optional`
 
     Query param: Optionally set to the `next_page` token from the previous response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -107,7 +102,7 @@ List Skill Versions
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaSkillVersionListResponse struct{…}`
 
@@ -149,13 +144,15 @@ List Skill Versions
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `Version string`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```go
 package main
@@ -184,7 +181,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

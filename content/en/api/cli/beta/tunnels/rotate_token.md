@@ -1,19 +1,14 @@
----
-title: Rotate Tunnel Token
-url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/rotate_token
----
-
-## Rotate Tunnel Token
+# Rotate Tunnel Token
 
 `$ ant beta:tunnels rotate-token`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Rotates a tunnel's connector token. Rotation invalidates the current token for new connections and returns a fresh value; established connections are not severed. A connector restarted after rotation must use the new value.
 
-### Parameters
+## Parameters
 
 - `--tunnel-id: string`
 
@@ -23,13 +18,15 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Body param: Optional free-text reason for the rotation, recorded for audit.
 
+  maxLength: 1024
+
 - `--beta: optional array of AnthropicBeta`
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_tunnel_token: object { id, tunnel_token, type }`
+- `beta_tunnel_token: object`
 
   A tunnel's connector token.
 
@@ -43,15 +40,15 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `type: "tunnel_token"`
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:tunnels rotate-token \
   --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

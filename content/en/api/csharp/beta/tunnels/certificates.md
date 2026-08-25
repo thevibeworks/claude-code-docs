@@ -1,15 +1,10 @@
----
-title: Certificates
-url: https://platform.claude.com/docs/en/api/csharp/beta/tunnels/certificates
----
-
 # Certificates
 
 ## Create Tunnel Certificate
 
-`BetaTunnelCertificate Beta.Tunnels.Certificates.Create(CertificateCreateParamsparameters, CancellationTokencancellationToken = default)`
+`BetaTunnelCertificate Beta.Tunnels.Certificates.Create(parameters, cancellationToken = default)`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -27,77 +22,79 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     Body param: PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
 
+    maxLength: 8192
+
   - `IReadOnlyList<AnthropicBeta> betas`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -113,13 +110,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset? ExpiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string Fingerprint`
 
@@ -129,7 +132,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonElement Type "tunnel_certificate"constant`
+  - `JsonElement Type constant`
 
 ### Example
 
@@ -145,7 +148,7 @@ var betaTunnelCertificate = await client.Beta.Tunnels.Certificates.Create(parame
 Console.WriteLine(betaTunnelCertificate);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -161,9 +164,9 @@ Console.WriteLine(betaTunnelCertificate);
 
 ## Get Tunnel Certificate
 
-`BetaTunnelCertificate Beta.Tunnels.Certificates.Retrieve(CertificateRetrieveParamsparameters, CancellationTokencancellationToken = default)`
+`BetaTunnelCertificate Beta.Tunnels.Certificates.Retrieve(parameters, cancellationToken = default)`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -185,73 +188,73 @@ Fetches a tunnel certificate by ID.
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -267,13 +270,19 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset? ExpiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string Fingerprint`
 
@@ -283,7 +292,7 @@ Fetches a tunnel certificate by ID.
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonElement Type "tunnel_certificate"constant`
+  - `JsonElement Type constant`
 
 ### Example
 
@@ -299,7 +308,7 @@ var betaTunnelCertificate = await client.Beta.Tunnels.Certificates.Retrieve(para
 Console.WriteLine(betaTunnelCertificate);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -315,9 +324,9 @@ Console.WriteLine(betaTunnelCertificate);
 
 ## List Tunnel Certificates
 
-`CertificateListPageResponse Beta.Tunnels.Certificates.List(CertificateListParamsparameters, CancellationTokencancellationToken = default)`
+`CertificateListPageResponse Beta.Tunnels.Certificates.List(parameters, cancellationToken = default)`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -331,13 +340,15 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Path param: Path parameter tunnel_id
 
-  - `Boolean includeArchived`
+  - `bool includeArchived`
 
     Query param: Whether to include archived certificates in the results. Defaults to false.
 
-  - `Int limit`
+  - `int limit`
 
     Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `string page`
 
@@ -347,73 +358,73 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -433,13 +444,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `required DateTimeOffset CreatedAt`
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `required DateTimeOffset? ExpiresAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `required string Fingerprint`
 
@@ -449,7 +466,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
       ID of the tunnel the certificate is registered against.
 
-    - `JsonElement Type "tunnel_certificate"constant`
+    - `JsonElement Type constant`
 
   - `required string? NextPage`
 
@@ -467,7 +484,7 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -488,9 +505,9 @@ await foreach (var item in page.Paginate())
 
 ## Archive Tunnel Certificate
 
-`BetaTunnelCertificate Beta.Tunnels.Certificates.Archive(CertificateArchiveParamsparameters, CancellationTokencancellationToken = default)`
+`BetaTunnelCertificate Beta.Tunnels.Certificates.Archive(parameters, cancellationToken = default)`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -512,73 +529,73 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -594,13 +611,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset? ExpiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string Fingerprint`
 
@@ -610,7 +633,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonElement Type "tunnel_certificate"constant`
+  - `JsonElement Type constant`
 
 ### Example
 
@@ -626,7 +649,7 @@ var betaTunnelCertificate = await client.Beta.Tunnels.Certificates.Archive(param
 Console.WriteLine(betaTunnelCertificate);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -640,7 +663,7 @@ Console.WriteLine(betaTunnelCertificate);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Tunnel Certificate
 
@@ -656,13 +679,19 @@ Console.WriteLine(betaTunnelCertificate);
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset? ExpiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string Fingerprint`
 
@@ -672,4 +701,4 @@ Console.WriteLine(betaTunnelCertificate);
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonElement Type "tunnel_certificate"constant`
+  - `JsonElement Type constant`

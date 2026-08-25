@@ -1,17 +1,12 @@
----
-title: List Files
-url: https://platform.claude.com/docs/en/api/python/beta/files/list
----
+# List Files
 
-## List Files
+`beta.files.list(**kwargs)  -> SyncPage[BetaFileMetadata]`
 
-`beta.files.list(FileListParams**kwargs)  -> SyncPage[BetaFileMetadata]`
-
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
-### Parameters
+## Parameters
 
 - `after_id: Optional[str]`
 
@@ -26,6 +21,8 @@ List Files
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `scope_id: Optional[str]`
 
@@ -107,7 +104,7 @@ List Files
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaFileMetadata: …`
 
@@ -121,17 +118,25 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -139,11 +144,11 @@ List Files
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -157,9 +162,7 @@ List Files
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -175,7 +178,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

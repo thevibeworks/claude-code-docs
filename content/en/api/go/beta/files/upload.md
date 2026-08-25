@@ -1,17 +1,12 @@
----
-title: Upload File
-url: https://platform.claude.com/docs/en/api/go/beta/files/upload
----
-
-## Upload File
+# Upload File
 
 `client.Beta.Files.Upload(ctx, params) (*BetaFileMetadata, error)`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
-### Parameters
+## Parameters
 
 - `params BetaFileUploadParams`
 
@@ -19,7 +14,9 @@ Upload File
 
     Body param: The file to upload
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    format: binary
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -95,7 +92,7 @@ Upload File
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaFileMetadata struct{…}`
 
@@ -109,17 +106,25 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `Filename string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `MimeType string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `SizeBytes int64`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `Type File`
 
@@ -127,13 +132,13 @@ Upload File
 
     For files, this is always `"file"`.
 
-    - `const FileFile File = "file"`
-
-  - `Downloadable bool`
+  - `Downloadable bool Optional`
 
     Whether the file can be downloaded.
 
-  - `Scope BetaFileScope`
+    default: false
+
+  - `Scope BetaFileScope Optional`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -145,9 +150,7 @@ Upload File
 
       The type of scope (e.g., `"session"`).
 
-      - `const SessionSession Session = "session"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -176,7 +179,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

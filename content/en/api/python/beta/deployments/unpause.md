@@ -1,17 +1,12 @@
----
-title: Unpause Deployment
-url: https://platform.claude.com/docs/en/api/python/beta/deployments/unpause
----
+# Unpause Deployment
 
-## Unpause Deployment
+`beta.deployments.unpause(deployment_id, **kwargs)  -> BetaManagedAgentsDeployment`
 
-`beta.deployments.unpause(strdeployment_id, DeploymentUnpauseParams**kwargs)  -> BetaManagedAgentsDeployment`
-
-**post** `/v1/deployments/{deployment_id}/unpause`
+**POST** `/v1/deployments/{deployment_id}/unpause`
 
 Unpause Deployment
 
-### Parameters
+## Parameters
 
 - `deployment_id: str`
 
@@ -91,7 +86,7 @@ Unpause Deployment
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeployment: …`
 
@@ -109,17 +104,21 @@ Unpause Deployment
 
     - `type: Literal["agent"]`
 
-      - `"agent"`
-
     - `version: int`
+
+      format: int32
 
   - `archived_at: Optional[datetime]`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: Optional[str]`
 
@@ -149,9 +148,9 @@ Unpause Deployment
 
             The text content.
 
-          - `type: Literal["text"]`
+            minLength: 1
 
-            - `"text"`
+          - `type: Literal["text"]`
 
         - `class BetaManagedAgentsImageBlock: …`
 
@@ -169,13 +168,15 @@ Unpause Deployment
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: str`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `type: Literal["base64"]`
+                minLength: 1
 
-                - `"base64"`
+              - `type: Literal["base64"]`
 
             - `class BetaManagedAgentsURLImageSource: …`
 
@@ -183,11 +184,11 @@ Unpause Deployment
 
               - `type: Literal["url"]`
 
-                - `"url"`
-
               - `url: str`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource: …`
 
@@ -197,13 +198,11 @@ Unpause Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: Literal["file"]`
 
-                - `"file"`
-
           - `type: Literal["image"]`
-
-            - `"image"`
 
         - `class BetaManagedAgentsDocumentBlock: …`
 
@@ -221,13 +220,15 @@ Unpause Deployment
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: str`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `type: Literal["base64"]`
+                minLength: 1
 
-                - `"base64"`
+              - `type: Literal["base64"]`
 
             - `class BetaManagedAgentsPlainTextDocumentSource: …`
 
@@ -237,15 +238,13 @@ Unpause Deployment
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: Literal["text/plain"]`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"`
-
               - `type: Literal["text"]`
-
-                - `"text"`
 
             - `class BetaManagedAgentsURLDocumentSource: …`
 
@@ -253,11 +252,11 @@ Unpause Deployment
 
               - `type: Literal["url"]`
 
-                - `"url"`
-
               - `url: str`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource: …`
 
@@ -267,13 +266,11 @@ Unpause Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: Literal["file"]`
 
-                - `"file"`
-
           - `type: Literal["document"]`
-
-            - `"document"`
 
           - `context: Optional[str]`
 
@@ -289,11 +286,7 @@ Unpause Deployment
 
           - `type: Literal["redacted"]`
 
-            - `"redacted"`
-
       - `type: Literal["user.message"]`
-
-        - `"user.message"`
 
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent: …`
 
@@ -317,8 +310,6 @@ Unpause Deployment
 
           - `type: Literal["file"]`
 
-            - `"file"`
-
         - `class BetaManagedAgentsTextRubric: …`
 
           Rubric content provided inline as text.
@@ -329,15 +320,13 @@ Unpause Deployment
 
           - `type: Literal["text"]`
 
-            - `"text"`
-
       - `type: Literal["user.define_outcome"]`
-
-        - `"user.define_outcome"`
 
       - `max_iterations: Optional[int]`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `class BetaManagedAgentsDeploymentSystemMessageEvent: …`
 
@@ -351,13 +340,11 @@ Unpause Deployment
 
           The text content.
 
+          minLength: 1
+
         - `type: Literal["text"]`
 
-          - `"text"`
-
       - `type: Literal["system.message"]`
-
-        - `"system.message"`
 
   - `metadata: Dict[str, str]`
 
@@ -377,8 +364,6 @@ Unpause Deployment
 
       - `type: Literal["manual"]`
 
-        - `"manual"`
-
     - `class BetaManagedAgentsErrorDeploymentPausedReason: …`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
@@ -393,15 +378,11 @@ Unpause Deployment
 
           - `type: Literal["environment_archived_error"]`
 
-            - `"environment_archived_error"`
-
         - `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonError: …`
 
           The deployment's agent was archived.
 
           - `type: Literal["agent_archived_error"]`
-
-            - `"agent_archived_error"`
 
         - `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError: …`
 
@@ -409,15 +390,11 @@ Unpause Deployment
 
           - `type: Literal["environment_not_found_error"]`
 
-            - `"environment_not_found_error"`
-
         - `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError: …`
 
           A vault referenced by the deployment no longer exists.
 
           - `type: Literal["vault_not_found_error"]`
-
-            - `"vault_not_found_error"`
 
         - `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError: …`
 
@@ -425,15 +402,11 @@ Unpause Deployment
 
           - `type: Literal["file_not_found_error"]`
 
-            - `"file_not_found_error"`
-
         - `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError: …`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `type: Literal["session_resource_not_found_error"]`
-
-            - `"session_resource_not_found_error"`
 
         - `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError: …`
 
@@ -441,15 +414,11 @@ Unpause Deployment
 
           - `type: Literal["workspace_archived_error"]`
 
-            - `"workspace_archived_error"`
-
         - `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError: …`
 
           The deployment's organization is disabled.
 
           - `type: Literal["organization_disabled_error"]`
-
-            - `"organization_disabled_error"`
 
         - `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError: …`
 
@@ -457,15 +426,11 @@ Unpause Deployment
 
           - `type: Literal["memory_store_archived_error"]`
 
-            - `"memory_store_archived_error"`
-
         - `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError: …`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `type: Literal["skill_not_found_error"]`
-
-            - `"skill_not_found_error"`
 
         - `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError: …`
 
@@ -473,15 +438,11 @@ Unpause Deployment
 
           - `type: Literal["vault_archived_error"]`
 
-            - `"vault_archived_error"`
-
         - `class BetaManagedAgentsUnknownDeploymentPausedReasonError: …`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `type: Literal["unknown_error"]`
-
-            - `"unknown_error"`
 
         - `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError: …`
 
@@ -489,19 +450,13 @@ Unpause Deployment
 
           - `type: Literal["self_hosted_resources_unsupported_error"]`
 
-            - `"self_hosted_resources_unsupported_error"`
-
         - `class BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError: …`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
           - `type: Literal["mcp_egress_blocked_error"]`
 
-            - `"mcp_egress_blocked_error"`
-
       - `type: Literal["error"]`
-
-        - `"error"`
 
   - `resources: List[BetaManagedAgentsSessionResourceConfig]`
 
@@ -512,8 +467,6 @@ Unpause Deployment
       A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
 
       - `type: Literal["github_repository"]`
-
-        - `"github_repository"`
 
       - `url: str`
 
@@ -529,9 +482,9 @@ Unpause Deployment
 
             Branch name to check out.
 
-          - `type: Literal["branch"]`
+            minLength: 1, maxLength: 255
 
-            - `"branch"`
+          - `type: Literal["branch"]`
 
         - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -539,9 +492,9 @@ Unpause Deployment
 
             Full commit SHA to check out.
 
-          - `type: Literal["commit"]`
+            minLength: 7, maxLength: 64
 
-            - `"commit"`
+          - `type: Literal["commit"]`
 
       - `mount_path: Optional[str]`
 
@@ -557,8 +510,6 @@ Unpause Deployment
 
       - `type: Literal["file"]`
 
-        - `"file"`
-
       - `mount_path: Optional[str]`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
@@ -572,8 +523,6 @@ Unpause Deployment
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
       - `type: Literal["memory_store"]`
-
-        - `"memory_store"`
 
       - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -595,17 +544,21 @@ Unpause Deployment
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
 
+      minLength: 1, maxLength: 256
+
     - `timezone: str`
 
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
-    - `type: Literal["cron"]`
+      minLength: 1
 
-      - `"cron"`
+    - `type: Literal["cron"]`
 
     - `last_run_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `upcoming_runs_at: Optional[List[datetime]]`
 
@@ -621,11 +574,11 @@ Unpause Deployment
 
   - `type: Literal["deployment"]`
 
-    - `"deployment"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_ids: List[str]`
 
@@ -647,13 +600,9 @@ Unpause Deployment
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"`
-
     - `type: Literal["limit"]`
 
-      - `"limit"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -670,7 +619,7 @@ beta_managed_agents_deployment = client.beta.deployments.unpause(
 print(beta_managed_agents_deployment.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

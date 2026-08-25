@@ -1,33 +1,30 @@
----
-title: List Vaults
-url: https://platform.claude.com/docs/en/api/go/beta/vaults/list
----
-
-## List Vaults
+# List Vaults
 
 `client.Beta.Vaults.List(ctx, params) (*PageCursor[BetaManagedAgentsVault], error)`
 
-**get** `/v1/vaults`
+**GET** `/v1/vaults`
 
 List Vaults
 
-### Parameters
+## Parameters
 
 - `params BetaVaultListParams`
 
-  - `IncludeArchived param.Field[bool]`
+  - `IncludeArchived param.Field[bool] Optional`
 
     Query param: Whether to include archived vaults in the results.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of vaults to return per page. Defaults to 20, maximum 100.
 
-  - `Page param.Field[string]`
+    format: int32
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque pagination token from a previous `list_vaults` response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -103,7 +100,7 @@ List Vaults
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsVault struct{…}`
 
@@ -117,9 +114,13 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -131,13 +132,13 @@ List Vaults
 
   - `Type BetaManagedAgentsVaultType`
 
-    - `const BetaManagedAgentsVaultTypeVault BetaManagedAgentsVaultType = "vault"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```go
 package main
@@ -162,7 +163,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

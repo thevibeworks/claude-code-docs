@@ -1,23 +1,18 @@
----
-title: Delete a memory store
-url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/delete
----
-
-## Delete a memory store
+# Delete a memory store
 
 `client.Beta.MemoryStores.Delete(ctx, memoryStoreID, body) (*BetaManagedAgentsDeletedMemoryStore, error)`
 
-**delete** `/v1/memory_stores/{memory_store_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}`
 
 Delete a memory store
 
-### Parameters
+## Parameters
 
 - `memoryStoreID string`
 
 - `body BetaMemoryStoreDeleteParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -93,7 +88,7 @@ Delete a memory store
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsDeletedMemoryStore struct{…}`
 
@@ -105,9 +100,7 @@ Delete a memory store
 
   - `Type BetaManagedAgentsDeletedMemoryStoreType`
 
-    - `const BetaManagedAgentsDeletedMemoryStoreTypeMemoryStoreDeleted BetaManagedAgentsDeletedMemoryStoreType = "memory_store_deleted"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -136,7 +129,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

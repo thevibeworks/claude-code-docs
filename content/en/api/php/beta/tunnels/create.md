@@ -1,19 +1,14 @@
----
-title: Create Tunnel
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/create
----
-
-## Create Tunnel
+# Create Tunnel
 
 `$client->beta->tunnels->create(?string displayName, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel; it is not idempotent. The new tunnel rejects MCP traffic until at least one CA certificate is added.
 
-### Parameters
+## Parameters
 
 - `displayName?:optional string`
 
@@ -23,7 +18,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaTunnel`
 
@@ -49,7 +44,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
   - `"tunnel" type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -65,7 +60,7 @@ $betaTunnel = $client->beta->tunnels->create(
 var_dump($betaTunnel);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

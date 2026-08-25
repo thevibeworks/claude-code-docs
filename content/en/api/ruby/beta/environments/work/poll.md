@@ -1,19 +1,14 @@
----
-title: Poll for Work
-url: https://platform.claude.com/docs/en/api/ruby/beta/environments/work/poll
----
-
-## Poll for Work
+# Poll for Work
 
 `beta.environments.work.poll(environment_id, **kwargs) -> BetaSelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Parameters
+## Parameters
 
 - `environment_id: String`
 
@@ -21,9 +16,13 @@ Long poll for work items in the queue.
 
   How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `reclaim_older_than_ms: Integer`
 
   Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+  minimum: 1
 
 - `betas: Array[AnthropicBeta]`
 
@@ -105,7 +104,7 @@ Long poll for work items in the queue.
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+## Returns
 
 - `class BetaSelfHostedWork`
 
@@ -138,8 +137,6 @@ Long poll for work items in the queue.
     - `type: :session`
 
       Type of work data
-
-      - `:session`
 
   - `environment_id: String`
 
@@ -187,9 +184,7 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-    - `:work`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -201,7 +196,7 @@ beta_self_hosted_work = anthropic.beta.environments.work.poll("env_011CZkZ9X2dpN
 puts(beta_self_hosted_work)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

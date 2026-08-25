@@ -1,19 +1,14 @@
----
-title: Get Work Item
-url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/retrieve
----
-
-## Get Work Item
+# Get Work Item
 
 `$ ant beta:environments:work retrieve`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Retrieve detailed information about a specific work item.
 
-### Parameters
+## Parameters
 
 - `--environment-id: string`
 
@@ -27,9 +22,9 @@ Retrieve detailed information about a specific work item.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 10 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -49,7 +44,7 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -107,16 +102,16 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:environments:work retrieve \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW \
   --work-id work_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

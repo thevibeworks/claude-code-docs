@@ -1,17 +1,12 @@
----
-title: Delete Skill Version
-url: https://platform.claude.com/docs/en/api/python/beta/skills/versions/delete
----
+# Delete Skill Version
 
-## Delete Skill Version
+`beta.skills.versions.delete(version, **kwargs)  -> VersionDeleteResponse`
 
-`beta.skills.versions.delete(strversion, VersionDeleteParams**kwargs)  -> VersionDeleteResponse`
-
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+## Parameters
 
 - `skill_id: str`
 
@@ -101,7 +96,7 @@ Delete Skill Version
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class VersionDeleteResponse: …`
 
@@ -117,7 +112,9 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+    default: skill_version_deleted
+
+## Example
 
 ```python
 import os
@@ -135,7 +132,7 @@ version = client.beta.skills.versions.delete(
 print(version.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,19 +1,14 @@
----
-title: List Tunnel Certificates
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/certificates/list
----
-
-## List Tunnel Certificates
+# List Tunnel Certificates
 
 `$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -33,7 +28,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `TunnelCertificate`
 
@@ -63,7 +58,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `"tunnel_certificate" type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -83,7 +78,7 @@ $page = $client->beta->tunnels->certificates->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Update Environment
-url: https://platform.claude.com/docs/en/api/php/beta/environments/update
----
-
-## Update Environment
+# Update Environment
 
 `$client->beta->environments->update(string environmentID, ?Config config, ?string description, ?array<string,string> metadata, ?string name, ?Scope scope, ?list<AnthropicBeta> betas): BetaEnvironment`
 
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -39,7 +34,7 @@ Update an existing environment's configuration.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaEnvironment`
 
@@ -83,7 +78,7 @@ Update an existing environment's configuration.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -122,7 +117,7 @@ $betaEnvironment = $client->beta->environments->update(
 var_dump($betaEnvironment);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

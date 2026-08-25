@@ -27,7 +27,7 @@ For a more in-depth understanding of these terms, check out the [glossary](https
 
 ### 1. Choose the right model
 
-One of the most direct ways to reduce latency is to select the appropriate model for your use case. Anthropic offers a [range of models](https://platform.claude.com/docs/en/about-claude/models/overview) with different capabilities and performance characteristics. Consider your specific requirements and choose the model that best fits your needs in terms of speed and output quality.
+One of the most direct ways to reduce latency is to select the appropriate model for your use case. Anthropic offers a [range of models](https://platform.claude.com/docs/en/models/overview) with different capabilities and performance characteristics. Consider your specific requirements and choose the model that best fits your needs in terms of speed and output quality.
 
 For speed-critical applications, **Claude Haiku 4.5** offers the fastest response times while maintaining high intelligence:
 
@@ -164,7 +164,7 @@ For speed-critical applications, **Claude Haiku 4.5** offers the fastest respons
   ```
 </CodeGroup>
 
-For more details about model metrics, see the [models overview](https://platform.claude.com/docs/en/about-claude/models/overview) page.
+For more details about model metrics, see the [models overview](https://platform.claude.com/docs/en/models/overview) page.
 
 ### 2. Optimize prompt and output length
 

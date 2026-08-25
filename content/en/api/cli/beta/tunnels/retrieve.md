@@ -1,19 +1,14 @@
----
-title: Get Tunnel
-url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/retrieve
----
-
-## Get Tunnel
+# Get Tunnel
 
 `$ ant beta:tunnels retrieve`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel by ID.
 
-### Parameters
+## Parameters
 
 - `--tunnel-id: string`
 
@@ -23,9 +18,9 @@ Fetches a tunnel by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_tunnel: object { id, archived_at, created_at, 3 more }`
+- `beta_tunnel: object`
 
   An MCP tunnel.
 
@@ -37,9 +32,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -51,15 +50,15 @@ Fetches a tunnel by ID.
 
   - `type: "tunnel"`
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:tunnels retrieve \
   --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

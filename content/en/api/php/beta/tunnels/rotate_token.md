@@ -1,19 +1,14 @@
----
-title: Rotate Tunnel Token
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/rotate_token
----
-
-## Rotate Tunnel Token
+# Rotate Tunnel Token
 
 `$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Rotates a tunnel's connector token. Rotation invalidates the current token for new connections and returns a fresh value; established connections are not severed. A connector restarted after rotation must use the new value.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -25,7 +20,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaTunnelToken`
 
@@ -39,7 +34,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `"tunnel_token" type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -57,7 +52,7 @@ $betaTunnelToken = $client->beta->tunnels->rotateToken(
 var_dump($betaTunnelToken);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

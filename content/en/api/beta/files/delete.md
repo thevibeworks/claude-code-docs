@@ -1,21 +1,16 @@
----
-title: Delete File
-url: https://platform.claude.com/docs/en/api/beta/files/delete
----
+# Delete File
 
-## Delete File
-
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
-### Path Parameters
+## Path parameters
 
 - `file_id: string`
 
   ID of the File.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -93,9 +88,9 @@ Delete File
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaDeletedFile object { id, type }`
+- `BetaDeletedFile object`
 
   - `id: string`
 
@@ -107,11 +102,11 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+    default: file_deleted
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/files/$FILE_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
@@ -119,7 +114,7 @@ curl https://api.anthropic.com/v1/files/$FILE_ID \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

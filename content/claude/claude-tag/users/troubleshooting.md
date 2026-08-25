@@ -110,11 +110,18 @@ Send a new message with the mention included.
 
 **What you see**
 
-Mentions in a channel shared with another company get no answer. A direct mention gets a short notice that Claude doesn't respond there; anything else gets nothing.
+Mentions in a Slack Connect channel, one shared with another company, get no answer, and usually no notice.
 
 **What it means**
 
-Claude doesn't operate in Slack Connect channels, the ones shared with another company. This holds regardless of admin settings. A direct mention gets the reply "This channel is shared with another organization through Slack Connect, and Claude doesn't respond in Slack Connect channels yet." Other messages there are dropped without a reply. See [externally shared channels](/docs/claude-tag/admins/restrict-access#externally-shared-channels).
+By default, Claude is off in Slack Connect channels, and it posts no notice there. A Claude organization Owner turns it on with the [guest setting](/docs/claude-tag/admins/restrict-access#restrict-guest-channels), after which Claude replies with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works). If the setting is already **Allow** or **Channel only** and Claude still doesn't answer, one of two things is likely:
+
+* The organization that runs Claude restricts it to its own members, and you're on the other side of the channel.
+* That organization installed Claude at the Enterprise Grid organization level, and the other company's workspace created the channel.
+
+See [Slack Connect channels](/docs/claude-tag/admins/restrict-access#externally-shared-channels).
+
+If the mention gets the notice "This channel is now shared with another organization through Slack Connect, so this thread's earlier session can't continue here," the thread started before the channel was shared. Mention `@Claude` in a new thread.
 
 A channel shared across workspaces inside your Enterprise Grid isn't silent; what happens there depends on how those workspaces connect to Claude. When every workspace in the channel belongs to your one Claude organization, Claude answers, but with only your organization's default access and settings, so a repository or an instruction set up for that channel doesn't apply. A notice in the thread points this out from time to time. When the workspaces are connected to different Claude organizations, you see "This channel is shared among several Claude workspaces, so Claude cannot respond here" instead of an answer.
 

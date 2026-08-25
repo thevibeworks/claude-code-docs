@@ -1,21 +1,16 @@
----
-title: Remove User
-url: https://platform.claude.com/docs/en/api/admin/users/delete
----
+# Remove User
 
-## Remove User
-
-**delete** `/v1/organizations/users/{user_id}`
+**DELETE** `/v1/organizations/users/{user_id}`
 
 For Claude Enterprise organizations, this endpoint's availability is in beta.
 
-### Path Parameters
+## Path parameters
 
 - `user_id: string`
 
   ID of the User.
 
-### Returns
+## Returns
 
 - `id: string`
 
@@ -27,18 +22,18 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
   For Users, this is always `"user_deleted"`.
 
-  - `"user_deleted"`
+  default: user_deleted
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/users/$USER_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

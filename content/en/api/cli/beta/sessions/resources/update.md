@@ -1,17 +1,12 @@
----
-title: Update Session Resource
-url: https://platform.claude.com/docs/en/api/cli/beta/sessions/resources/update
----
-
-## Update Session Resource
+# Update Session Resource
 
 `$ ant beta:sessions:resources update`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Parameters
+## Parameters
 
 - `--session-id: string`
 
@@ -25,65 +20,71 @@ Update Session Resource
 
   Body param: New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
+  minLength: 1, maxLength: 4096
+
 - `--beta: optional array of AnthropicBeta`
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaSessionResourceUpdateResponse: BetaManagedAgentsGitHubRepositoryResource or BetaManagedAgentsFileResource or BetaManagedAgentsMemoryStoreResource`
 
   The updated session resource.
 
-  - `beta_managed_agents_github_repository_resource: object { id, created_at, mount_path, 4 more }`
+  - `beta_managed_agents_github_repository_resource: object`
 
     - `id: string`
 
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `mount_path: string`
 
     - `type: "github_repository"`
 
-      - `"github_repository"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `url: string`
 
     - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout`
 
-      - `beta_managed_agents_branch_checkout: object { name, type }`
+      - `beta_managed_agents_branch_checkout: object`
 
         - `name: string`
 
           Branch name to check out.
 
+          minLength: 1, maxLength: 255
+
         - `type: "branch"`
 
-          - `"branch"`
-
-      - `beta_managed_agents_commit_checkout: object { sha, type }`
+      - `beta_managed_agents_commit_checkout: object`
 
         - `sha: string`
 
           Full commit SHA to check out.
 
+          minLength: 7, maxLength: 64
+
         - `type: "commit"`
 
-          - `"commit"`
-
-  - `beta_managed_agents_file_resource: object { id, created_at, file_id, 3 more }`
+  - `beta_managed_agents_file_resource: object`
 
     - `id: string`
 
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `file_id: string`
 
@@ -91,13 +92,13 @@ Update Session Resource
 
     - `type: "file"`
 
-      - `"file"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
 
-  - `beta_managed_agents_memory_store_resource: object { memory_store_id, type, access, 4 more }`
+      format: date-time
+
+  - `beta_managed_agents_memory_store_resource: object`
 
     A memory store attached to an agent session.
 
@@ -106,8 +107,6 @@ Update Session Resource
       The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
     - `type: "memory_store"`
-
-      - `"memory_store"`
 
     - `access: optional "read_write" or "read_only"`
 
@@ -125,6 +124,8 @@ Update Session Resource
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+      maxLength: 4096
+
     - `mount_path: optional string`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -133,9 +134,9 @@ Update Session Resource
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:sessions:resources update \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
@@ -143,7 +144,7 @@ ant beta:sessions:resources update \
   --authorization-token ghp_exampletoken
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

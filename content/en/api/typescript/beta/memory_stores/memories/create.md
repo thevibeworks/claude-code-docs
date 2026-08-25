@@ -1,17 +1,12 @@
----
-title: Create a memory
-url: https://platform.claude.com/docs/en/api/typescript/beta/memory_stores/memories/create
----
+# Create a memory
 
-## Create a memory
+`client.beta.memoryStores.memories.create(memoryStoreID, params, options?): BetaManagedAgentsMemory`
 
-`client.beta.memoryStores.memories.create(stringmemoryStoreID, MemoryCreateParamsparams, RequestOptionsoptions?): BetaManagedAgentsMemory`
-
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
-### Parameters
+## Parameters
 
 - `memoryStoreID: string`
 
@@ -24,6 +19,8 @@ Create a memory
   - `path: string`
 
     Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
+
+    minLength: 2, maxLength: 1024
 
   - `view?: BetaManagedAgentsMemoryView`
 
@@ -109,7 +106,7 @@ Create a memory
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsMemory`
 
@@ -127,9 +124,13 @@ Create a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -145,17 +146,17 @@ Create a memory
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content?: string | null`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -172,7 +173,7 @@ const betaManagedAgentsMemory = await client.beta.memoryStores.memories.create(
 console.log(betaManagedAgentsMemory.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

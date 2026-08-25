@@ -1,17 +1,12 @@
----
-title: Update Vault
-url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/update
----
+# Update Vault
 
-## Update Vault
+`client.beta.vaults.update(vaultID, params, options?): BetaManagedAgentsVault`
 
-`client.beta.vaults.update(stringvaultID, VaultUpdateParamsparams, RequestOptionsoptions?): BetaManagedAgentsVault`
-
-**post** `/v1/vaults/{vault_id}`
+**POST** `/v1/vaults/{vault_id}`
 
 Update Vault
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -20,6 +15,8 @@ Update Vault
   - `display_name?: string | null`
 
     Body param: Updated human-readable name for the vault. 1-255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `metadata?: Record<string, string | null> | null`
 
@@ -101,7 +98,7 @@ Update Vault
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsVault`
 
@@ -115,9 +112,13 @@ Update Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -129,13 +130,13 @@ Update Vault
 
   - `type: "vault"`
 
-    - `"vault"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -149,7 +150,7 @@ const betaManagedAgentsVault = await client.beta.vaults.update("vlt_011CZkZDLs7f
 console.log(betaManagedAgentsVault.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

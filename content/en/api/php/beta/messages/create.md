@@ -1,13 +1,8 @@
----
-title: Create a Message
-url: https://platform.claude.com/docs/en/api/php/beta/messages/create
----
-
-## Create a Message
+# Create a Message
 
 `$client->beta->messages->create(int maxTokens, list<BetaMessageParam> messages, Model model, ?BetaCacheControlEphemeral cacheControl, ?Container container, ?BetaContextManagementConfig contextManagement, ?BetaDiagnosticsParam diagnostics, ?FallbackCreditToken fallbackCreditToken, ?BetaFallbacksParam fallbacks, ?string inferenceGeo, ?list<BetaRequestMCPServerURLDefinition> mcpServers, ?BetaMetadata metadata, ?BetaOutputConfig outputConfig, ?BetaJSONOutputFormat outputFormat, ?ServiceTier serviceTier, ?Speed speed, ?list<string> stopSequences, ?System system, ?float temperature, ?BetaThinkingConfigParam thinking, ?BetaToolChoice toolChoice, ?list<BetaToolUnion> tools, ?int topK, ?float topP, ?list<AnthropicBeta> betas, ?string userProfileID): BetaMessage`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -15,7 +10,7 @@ The Messages API can be used for either single queries or stateless multi-turn c
 
 Learn more about the Messages API in our [user guide](https://platform.claude.com/docs/en/get-started)
 
-### Parameters
+## Parameters
 
 - `maxTokens: int`
 
@@ -146,12 +141,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Configuration options for the model's output, such as the output format.
 
-- `outputFormat?:optional BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-
 - `serviceTier?:optional ServiceTier`
 
   Determines whether to use priority capacity (if available) or standard capacity for this request.
@@ -181,14 +170,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   System prompt.
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
-
-- `temperature?:optional float`
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
 - `thinking?:optional BetaThinkingConfigParam`
 
@@ -266,7 +247,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
+- `betas?:optional list<AnthropicBeta>`
+
+  Optional header to specify the beta version(s) you want to use.
+
+- `userProfileID?:optional string`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `outputFormat?:optional BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+- `temperature?:optional float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
 - `topK?:optional int`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
   Only sample from the top K options for each subsequent token.
 
@@ -276,21 +285,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `topP?:optional float`
 
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
   Use nucleus sampling.
 
   In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
   Recommended for advanced use cases only.
 
-- `betas?:optional list<AnthropicBeta>`
-
-  Optional header to specify the beta version(s) you want to use.
-
-- `userProfileID?:optional string`
-
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
-
-### Returns
+## Returns
 
 - `BetaMessage`
 
@@ -400,7 +403,65 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-### Example
+- `BetaRawMessageStreamEvent`
+
+  - `BetaRawMessageStartEvent`
+
+    - `BetaMessage message`
+
+    - `"message_start" type`
+
+  - `BetaRawMessageDeltaEvent`
+
+    - `?BetaContextManagementResponse contextManagement`
+
+      Information about context management strategies applied during the request
+
+    - `Delta delta`
+
+    - `"message_delta" type`
+
+    - `BetaMessageDeltaUsage usage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+  - `BetaRawMessageStopEvent`
+
+    - `"message_stop" type`
+
+  - `BetaRawContentBlockStartEvent`
+
+    - `ContentBlock contentBlock`
+
+      Response model for a file uploaded to the container.
+
+    - `int index`
+
+    - `"content_block_start" type`
+
+  - `BetaRawContentBlockDeltaEvent`
+
+    - `BetaRawContentBlockDelta delta`
+
+    - `int index`
+
+    - `"content_block_delta" type`
+
+  - `BetaRawContentBlockStopEvent`
+
+    - `int index`
+
+    - `"content_block_stop" type`
+
+## Example
 
 ```php
 <?php
@@ -502,7 +563,7 @@ $betaMessage = $client->beta->messages->create(
 var_dump($betaMessage);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

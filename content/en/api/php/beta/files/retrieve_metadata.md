@@ -1,17 +1,12 @@
----
-title: Get File Metadata
-url: https://platform.claude.com/docs/en/api/php/beta/files/retrieve_metadata
----
-
-## Get File Metadata
+# Get File Metadata
 
 `$client->beta->files->retrieveMetadata(string fileID, ?list<AnthropicBeta> betas): BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
-### Parameters
+## Parameters
 
 - `fileID: string`
 
@@ -21,7 +16,7 @@ Get File Metadata
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaFileMetadata`
 
@@ -61,7 +56,7 @@ Get File Metadata
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
 
-### Example
+## Example
 
 ```php
 <?php
@@ -77,7 +72,7 @@ $betaFileMetadata = $client->beta->files->retrieveMetadata(
 var_dump($betaFileMetadata);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

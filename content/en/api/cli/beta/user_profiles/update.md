@@ -1,17 +1,12 @@
----
-title: Update User Profile
-url: https://platform.claude.com/docs/en/api/cli/beta/user_profiles/update
----
-
-## Update User Profile
+# Update User Profile
 
 `$ ant beta:user-profiles update`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
-### Parameters
+## Parameters
 
 - `--user-profile-id: string`
 
@@ -25,6 +20,8 @@ Update User Profile
 
   Body param: If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `--metadata: optional map[string]`
 
   Body param: Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -32,6 +29,8 @@ Update User Profile
 - `--name: optional string`
 
   Body param: If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `--relationship: optional "external" or "resold" or "internal"`
 
@@ -41,9 +40,9 @@ Update User Profile
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_user_profile: object { id, created_at, metadata, 7 more }`
+- `beta_user_profile: object`
 
   - `id: string`
 
@@ -52,6 +51,8 @@ Update User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -75,11 +76,11 @@ Update User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -107,15 +108,15 @@ Update User Profile
 
     - `"internal"`
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:user-profiles update \
   --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

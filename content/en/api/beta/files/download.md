@@ -1,21 +1,16 @@
----
-title: Download File
-url: https://platform.claude.com/docs/en/api/beta/files/download
----
+# Download File
 
-## Download File
-
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
-### Path Parameters
+## Path parameters
 
 - `file_id: string`
 
   ID of the File.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -93,9 +88,9 @@ Download File
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/files/$FILE_ID/content \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: files-api-2025-04-14' \

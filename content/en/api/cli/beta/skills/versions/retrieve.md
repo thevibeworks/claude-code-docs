@@ -1,17 +1,12 @@
----
-title: Get Skill Version
-url: https://platform.claude.com/docs/en/api/cli/beta/skills/versions/retrieve
----
-
-## Get Skill Version
+# Get Skill Version
 
 `$ ant beta:skills:versions retrieve`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+## Parameters
 
 - `--skill-id: string`
 
@@ -29,9 +24,9 @@ Get Skill Version
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaSkillVersionGetResponse: object { id, created_at, description, 5 more }`
+- `BetaSkillVersionGetResponse: object`
 
   - `id: string`
 
@@ -77,16 +72,16 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:skills:versions retrieve \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

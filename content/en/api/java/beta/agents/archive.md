@@ -1,17 +1,12 @@
----
-title: Archive Agent
-url: https://platform.claude.com/docs/en/api/java/beta/agents/archive
----
+# Archive Agent
 
-## Archive Agent
+`BetaManagedAgentsAgent beta().agents().archive(params = AgentArchiveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsAgent beta().agents().archive(AgentArchiveParamsparams = AgentArchiveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/agents/{agent_id}/archive`
+**POST** `/v1/agents/{agent_id}/archive`
 
 Archive Agent
 
-### Parameters
+## Parameters
 
 - `AgentArchiveParams params`
 
@@ -89,7 +84,7 @@ Archive Agent
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsAgent:`
 
@@ -101,9 +96,13 @@ Archive Agent
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> description`
 
@@ -112,8 +111,6 @@ Archive Agent
     - `String name`
 
     - `Type type`
-
-      - `URL("url")`
 
     - `String url`
 
@@ -191,15 +188,11 @@ Archive Agent
 
         - `Type type`
 
-          - `LOW("low")`
-
       - `class BetaManagedAgentsEffortMedium:`
 
         Medium effort. Balances latency and reasoning depth.
 
         - `Type type`
-
-          - `MEDIUM("medium")`
 
       - `class BetaManagedAgentsEffortHigh:`
 
@@ -207,23 +200,17 @@ Archive Agent
 
         - `Type type`
 
-          - `HIGH("high")`
-
       - `class BetaManagedAgentsEffortXhigh:`
 
         Extra-high effort. Not all models accept this level.
 
         - `Type type`
 
-          - `XHIGH("xhigh")`
-
       - `class BetaManagedAgentsEffortMax:`
 
         Maximum effort. Favors reasoning depth over latency.
 
         - `Type type`
-
-          - `MAX("max")`
 
     - `Optional<String> inferenceGeo`
 
@@ -253,9 +240,9 @@ Archive Agent
 
         - `Type type`
 
-          - `AGENT("agent")`
-
         - `long version`
+
+          format: int32
 
       - `class BetaManagedAgentsAdvisor:`
 
@@ -267,11 +254,7 @@ Archive Agent
 
         - `Type type`
 
-          - `ADVISOR("advisor")`
-
     - `Type type`
-
-      - `COORDINATOR("coordinator")`
 
   - `String name`
 
@@ -285,8 +268,6 @@ Archive Agent
 
       - `Type type`
 
-        - `ANTHROPIC("anthropic")`
-
       - `String version`
 
     - `class BetaManagedAgentsCustomSkill:`
@@ -296,8 +277,6 @@ Archive Agent
       - `String skillId`
 
       - `Type type`
-
-        - `CUSTOM("custom")`
 
       - `String version`
 
@@ -315,9 +294,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "bash"constant`
-
-            - `BASH("bash")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -329,19 +306,13 @@ Archive Agent
 
               - `Type type`
 
-                - `ALWAYS_ALLOW("always_allow")`
-
             - `class BetaManagedAgentsAlwaysAskPolicy:`
 
               Tool calls require user confirmation before execution.
 
               - `Type type`
 
-                - `ALWAYS_ASK("always_ask")`
-
-          - `JsonValue; type "bash"constant`
-
-            - `BASH("bash")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -349,9 +320,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "edit"constant`
-
-            - `EDIT("edit")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -365,9 +334,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "edit"constant`
-
-            - `EDIT("edit")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -375,9 +342,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "read"constant`
-
-            - `READ("read")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -391,9 +356,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "read"constant`
-
-            - `READ("read")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -401,9 +364,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "write"constant`
-
-            - `WRITE("write")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -417,9 +378,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "write"constant`
-
-            - `WRITE("write")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -427,9 +386,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "glob"constant`
-
-            - `GLOB("glob")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -443,9 +400,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "glob"constant`
-
-            - `GLOB("glob")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -453,9 +408,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "grep"constant`
-
-            - `GREP("grep")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -469,9 +422,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "grep"constant`
-
-            - `GREP("grep")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -479,9 +430,7 @@ Archive Agent
 
           - `boolean enabled`
 
-          - `JsonValue; name "web_fetch"constant`
-
-            - `WEB_FETCH("web_fetch")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -495,9 +444,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "web_fetch"constant`
-
-            - `WEB_FETCH("web_fetch")`
+          - `JsonValue type constant`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -505,15 +452,15 @@ Archive Agent
 
           - `Optional<Long> maxContentTokens`
 
+            format: int32
+
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
 
           - `boolean enabled`
 
-          - `JsonValue; name "web_search"constant`
-
-            - `WEB_SEARCH("web_search")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -527,9 +474,7 @@ Archive Agent
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "web_search"constant`
-
-            - `WEB_SEARCH("web_search")`
+          - `JsonValue type constant`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -539,15 +484,15 @@ Archive Agent
 
             Approximate user location for search result localization.
 
-            - `JsonValue; type "approximate"constant`
+            - `JsonValue type constant`
 
               Location precision. Only "approximate" is supported.
-
-              - `APPROXIMATE("approximate")`
 
             - `Optional<String> city`
 
               City name.
+
+              minLength: 1, maxLength: 255
 
             - `Optional<String> country`
 
@@ -557,9 +502,13 @@ Archive Agent
 
               Region or state name.
 
+              minLength: 1, maxLength: 255
+
             - `Optional<String> timezone`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `BetaManagedAgentsAgentToolsetDefaultConfig defaultConfig`
 
@@ -580,8 +529,6 @@ Archive Agent
             Tool calls require user confirmation before execution.
 
       - `Type type`
-
-        - `AGENT_TOOLSET_20260401("agent_toolset_20260401")`
 
     - `class BetaManagedAgentsMcpToolset:`
 
@@ -625,8 +572,6 @@ Archive Agent
 
       - `Type type`
 
-        - `MCP_TOOLSET("mcp_toolset")`
-
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
@@ -637,9 +582,7 @@ Archive Agent
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue; type "object"constant`
-
-          - `OBJECT("object")`
+        - `JsonValue type constant`
 
         - `Optional<Properties> properties`
 
@@ -649,21 +592,21 @@ Archive Agent
 
       - `Type type`
 
-        - `CUSTOM("custom")`
-
   - `Type type`
-
-    - `AGENT("agent")`
 
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `long version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+    format: int32
+
+## Example
 
 ```java
 package com.anthropic.example;
@@ -684,7 +627,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

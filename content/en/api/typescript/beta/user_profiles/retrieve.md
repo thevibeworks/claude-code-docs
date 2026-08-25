@@ -1,17 +1,12 @@
----
-title: Get User Profile
-url: https://platform.claude.com/docs/en/api/typescript/beta/user_profiles/retrieve
----
+# Get User Profile
 
-## Get User Profile
+`client.beta.userProfiles.retrieve(userProfileID, params?, options?): BetaUserProfile`
 
-`client.beta.userProfiles.retrieve(stringuserProfileID, UserProfileRetrieveParamsparams?, RequestOptionsoptions?): BetaUserProfile`
-
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
-### Parameters
+## Parameters
 
 - `userProfileID: string`
 
@@ -93,7 +88,7 @@ Get User Profile
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaUserProfile`
 
@@ -104,6 +99,8 @@ Get User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Record<string, string>`
 
@@ -127,11 +124,11 @@ Get User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type?: "application" | "passthrough"`
 
@@ -159,7 +156,7 @@ Get User Profile
 
     - `"internal"`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -175,7 +172,7 @@ const betaUserProfile = await client.beta.userProfiles.retrieve(
 console.log(betaUserProfile.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

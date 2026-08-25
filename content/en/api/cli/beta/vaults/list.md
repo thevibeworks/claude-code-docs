@@ -1,17 +1,12 @@
----
-title: List Vaults
-url: https://platform.claude.com/docs/en/api/cli/beta/vaults/list
----
-
-## List Vaults
+# List Vaults
 
 `$ ant beta:vaults list`
 
-**get** `/v1/vaults`
+**GET** `/v1/vaults`
 
 List Vaults
 
-### Parameters
+## Parameters
 
 - `--include-archived: optional boolean`
 
@@ -21,6 +16,8 @@ List Vaults
 
   Query param: Maximum number of vaults to return per page. Defaults to 20, maximum 100.
 
+  format: int32
+
 - `--page: optional string`
 
   Query param: Opaque pagination token from a previous `list_vaults` response.
@@ -29,9 +26,9 @@ List Vaults
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsListVaultsResponse: object { data, next_page }`
+- `BetaManagedAgentsListVaultsResponse: object`
 
   Response containing a paginated list of vaults.
 
@@ -47,9 +44,13 @@ List Vaults
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `display_name: string`
 
@@ -61,24 +62,24 @@ List Vaults
 
     - `type: "vault"`
 
-      - `"vault"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `next_page: optional string`
 
     Pagination token for the next page, or null if no more results.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:vaults list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Delete Skill Version
-url: https://platform.claude.com/docs/en/api/go/beta/skills/versions/delete
----
-
-## Delete Skill Version
+# Delete Skill Version
 
 `client.Beta.Skills.Versions.Delete(ctx, version, params) (*BetaSkillVersionDeleteResponse, error)`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+## Parameters
 
 - `version string`
 
@@ -27,7 +22,7 @@ Delete Skill Version
 
     The format and length of IDs may change over time.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -103,7 +98,7 @@ Delete Skill Version
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaSkillVersionDeleteResponse struct{…}`
 
@@ -119,7 +114,9 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+    default: skill_version_deleted
+
+## Example
 
 ```go
 package main
@@ -150,7 +147,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

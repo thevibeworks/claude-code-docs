@@ -1,17 +1,12 @@
----
-title: Delete Environment
-url: https://platform.claude.com/docs/en/api/python/beta/environments/delete
----
+# Delete Environment
 
-## Delete Environment
+`beta.environments.delete(environment_id, **kwargs)  -> BetaEnvironmentDeleteResponse`
 
-`beta.environments.delete(strenvironment_id, EnvironmentDeleteParams**kwargs)  -> BetaEnvironmentDeleteResponse`
-
-**delete** `/v1/environments/{environment_id}`
+**DELETE** `/v1/environments/{environment_id}`
 
 Delete an environment by ID. Returns a confirmation of the deletion.
 
-### Parameters
+## Parameters
 
 - `environment_id: str`
 
@@ -91,7 +86,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaEnvironmentDeleteResponse: …`
 
@@ -105,9 +100,9 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     The type of response
 
-    - `"environment_deleted"`
+    default: environment_deleted
 
-### Example
+## Example
 
 ```python
 import os
@@ -124,7 +119,7 @@ beta_environment_delete_response = client.beta.environments.delete(
 print(beta_environment_delete_response.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

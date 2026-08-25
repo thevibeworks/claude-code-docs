@@ -1,23 +1,20 @@
----
-title: List User Profiles
-url: https://platform.claude.com/docs/en/api/typescript/beta/user_profiles/list
----
+# List User Profiles
 
-## List User Profiles
+`client.beta.userProfiles.list(params?, options?): PageCursor<BetaUserProfile>`
 
-`client.beta.userProfiles.list(UserProfileListParamsparams?, RequestOptionsoptions?): PageCursor<BetaUserProfile>`
-
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
-### Parameters
+## Parameters
 
 - `params: UserProfileListParams`
 
   - `limit?: number`
 
     Query param: Query parameter for limit
+
+    format: int32
 
   - `order?: "asc" | "desc"`
 
@@ -107,7 +104,7 @@ List User Profiles
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaUserProfile`
 
@@ -118,6 +115,8 @@ List User Profiles
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Record<string, string>`
 
@@ -141,11 +140,11 @@ List User Profiles
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type?: "application" | "passthrough"`
 
@@ -173,7 +172,7 @@ List User Profiles
 
     - `"internal"`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -188,7 +187,7 @@ for await (const betaUserProfile of client.beta.userProfiles.list()) {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Tunnels
-url: https://platform.claude.com/docs/en/api/java/beta/tunnels
----
-
 # Tunnels
 
 ## Create Tunnel
 
-`BetaTunnel beta().tunnels().create(TunnelCreateParamsparams = TunnelCreateParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaTunnel beta().tunnels().create(params = TunnelCreateParams.none(), requestOptions = RequestOptions.none())`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -95,6 +90,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Optional human-readable name for the tunnel (1-255 characters).
 
+    minLength: 1, maxLength: 255
+
 ### Returns
 
 - `class BetaTunnel:`
@@ -109,9 +106,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> displayName`
 
@@ -121,9 +122,7 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue; type "tunnel"constant`
-
-    - `TUNNEL("tunnel")`
+  - `JsonValue type constant`
 
 ### Example
 
@@ -146,7 +145,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -161,9 +160,9 @@ public final class Main {
 
 ## Get Tunnel
 
-`BetaTunnel beta().tunnels().retrieve(TunnelRetrieveParamsparams = TunnelRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaTunnel beta().tunnels().retrieve(params = TunnelRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -261,9 +260,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> displayName`
 
@@ -273,9 +276,7 @@ Fetches a tunnel by ID.
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue; type "tunnel"constant`
-
-    - `TUNNEL("tunnel")`
+  - `JsonValue type constant`
 
 ### Example
 
@@ -298,7 +299,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -313,9 +314,9 @@ public final class Main {
 
 ## List Tunnels
 
-`TunnelListPage beta().tunnels().list(TunnelListParamsparams = TunnelListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`TunnelListPage beta().tunnels().list(params = TunnelListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -332,6 +333,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `Optional<Long> limit`
 
     Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `Optional<String> page`
 
@@ -423,9 +426,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> displayName`
 
@@ -435,9 +442,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue; type "tunnel"constant`
-
-    - `TUNNEL("tunnel")`
+  - `JsonValue type constant`
 
 ### Example
 
@@ -460,7 +465,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -480,9 +485,9 @@ public final class Main {
 
 ## Archive Tunnel
 
-`BetaTunnel beta().tunnels().archive(TunnelArchiveParamsparams = TunnelArchiveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaTunnel beta().tunnels().archive(params = TunnelArchiveParams.none(), requestOptions = RequestOptions.none())`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -580,9 +585,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> displayName`
 
@@ -592,9 +601,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue; type "tunnel"constant`
-
-    - `TUNNEL("tunnel")`
+  - `JsonValue type constant`
 
 ### Example
 
@@ -617,7 +624,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -632,9 +639,9 @@ public final class Main {
 
 ## Reveal Tunnel Token
 
-`BetaTunnelToken beta().tunnels().revealToken(TunnelRevealTokenParamsparams = TunnelRevealTokenParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaTunnelToken beta().tunnels().revealToken(params = TunnelRevealTokenParams.none(), requestOptions = RequestOptions.none())`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -732,9 +739,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `JsonValue; type "tunnel_token"constant`
-
-    - `TUNNEL_TOKEN("tunnel_token")`
+  - `JsonValue type constant`
 
 ### Example
 
@@ -757,7 +762,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -769,9 +774,9 @@ public final class Main {
 
 ## Rotate Tunnel Token
 
-`BetaTunnelToken beta().tunnels().rotateToken(TunnelRotateTokenParamsparams = TunnelRotateTokenParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaTunnelToken beta().tunnels().rotateToken(params = TunnelRotateTokenParams.none(), requestOptions = RequestOptions.none())`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -859,6 +864,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     Optional free-text reason for the rotation, recorded for audit.
 
+    maxLength: 1024
+
 ### Returns
 
 - `class BetaTunnelToken:`
@@ -873,9 +880,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `JsonValue; type "tunnel_token"constant`
-
-    - `TUNNEL_TOKEN("tunnel_token")`
+  - `JsonValue type constant`
 
 ### Example
 
@@ -898,7 +903,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -908,7 +913,7 @@ public final class Main {
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Tunnel
 
@@ -924,9 +929,13 @@ public final class Main {
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> displayName`
 
@@ -936,9 +945,7 @@ public final class Main {
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue; type "tunnel"constant`
-
-    - `TUNNEL("tunnel")`
+  - `JsonValue type constant`
 
 ### Beta Tunnel Token
 
@@ -954,23 +961,21 @@ public final class Main {
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `JsonValue; type "tunnel_token"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_TOKEN("tunnel_token")`
+## Tunnels › Certificates
 
-# Certificates
+### Create Tunnel Certificate
 
-## Create Tunnel Certificate
+`BetaTunnelCertificate beta().tunnels().certificates().create(params, requestOptions = RequestOptions.none())`
 
-`BetaTunnelCertificate beta().tunnels().certificates().create(CertificateCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+#### Parameters
 
 - `CertificateCreateParams params`
 
@@ -1052,7 +1057,9 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
 
-### Returns
+    maxLength: 8192
+
+#### Returns
 
 - `class BetaTunnelCertificate:`
 
@@ -1066,13 +1073,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<LocalDateTime> expiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String fingerprint`
 
@@ -1082,11 +1095,9 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue; type "tunnel_certificate"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_CERTIFICATE("tunnel_certificate")`
-
-### Example
+#### Example
 
 ```java
 package com.anthropic.example;
@@ -1111,7 +1122,7 @@ public final class Main {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1125,17 +1136,17 @@ public final class Main {
 }
 ```
 
-## Get Tunnel Certificate
+### Get Tunnel Certificate
 
-`BetaTunnelCertificate beta().tunnels().certificates().retrieve(CertificateRetrieveParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaTunnelCertificate beta().tunnels().certificates().retrieve(params, requestOptions = RequestOptions.none())`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel certificate by ID.
 
-### Parameters
+#### Parameters
 
 - `CertificateRetrieveParams params`
 
@@ -1215,7 +1226,7 @@ Fetches a tunnel certificate by ID.
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+#### Returns
 
 - `class BetaTunnelCertificate:`
 
@@ -1229,13 +1240,19 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<LocalDateTime> expiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String fingerprint`
 
@@ -1245,11 +1262,9 @@ Fetches a tunnel certificate by ID.
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue; type "tunnel_certificate"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_CERTIFICATE("tunnel_certificate")`
-
-### Example
+#### Example
 
 ```java
 package com.anthropic.example;
@@ -1274,7 +1289,7 @@ public final class Main {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1288,17 +1303,17 @@ public final class Main {
 }
 ```
 
-## List Tunnel Certificates
+### List Tunnel Certificates
 
-`CertificateListPage beta().tunnels().certificates().list(CertificateListParamsparams = CertificateListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`CertificateListPage beta().tunnels().certificates().list(params = CertificateListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+#### Parameters
 
 - `CertificateListParams params`
 
@@ -1311,6 +1326,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `Optional<Long> limit`
 
     Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `Optional<String> page`
 
@@ -1388,7 +1405,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+#### Returns
 
 - `class BetaTunnelCertificate:`
 
@@ -1402,13 +1419,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<LocalDateTime> expiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String fingerprint`
 
@@ -1418,11 +1441,9 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue; type "tunnel_certificate"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_CERTIFICATE("tunnel_certificate")`
-
-### Example
+#### Example
 
 ```java
 package com.anthropic.example;
@@ -1443,7 +1464,7 @@ public final class Main {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1462,17 +1483,17 @@ public final class Main {
 }
 ```
 
-## Archive Tunnel Certificate
+### Archive Tunnel Certificate
 
-`BetaTunnelCertificate beta().tunnels().certificates().archive(CertificateArchiveParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaTunnelCertificate beta().tunnels().certificates().archive(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+#### Parameters
 
 - `CertificateArchiveParams params`
 
@@ -1552,7 +1573,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+#### Returns
 
 - `class BetaTunnelCertificate:`
 
@@ -1566,13 +1587,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<LocalDateTime> expiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String fingerprint`
 
@@ -1582,11 +1609,9 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue; type "tunnel_certificate"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_CERTIFICATE("tunnel_certificate")`
-
-### Example
+#### Example
 
 ```java
 package com.anthropic.example;
@@ -1611,7 +1636,7 @@ public final class Main {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1624,39 +1649,3 @@ public final class Main {
   "type": "tunnel_certificate"
 }
 ```
-
-## Domain Types
-
-### Beta Tunnel Certificate
-
-- `class BetaTunnelCertificate:`
-
-  A CA certificate attached to a tunnel.
-
-  - `String id`
-
-    Unique identifier for the certificate, prefixed with `tcrt_`.
-
-  - `Optional<LocalDateTime> archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `LocalDateTime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `Optional<LocalDateTime> expiresAt`
-
-    A timestamp in RFC 3339 format
-
-  - `String fingerprint`
-
-    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
-
-  - `String tunnelId`
-
-    ID of the tunnel the certificate is registered against.
-
-  - `JsonValue; type "tunnel_certificate"constant`
-
-    - `TUNNEL_CERTIFICATE("tunnel_certificate")`

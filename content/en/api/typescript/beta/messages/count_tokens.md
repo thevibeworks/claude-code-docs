@@ -1,13 +1,8 @@
----
-title: Count tokens in a Message
-url: https://platform.claude.com/docs/en/api/typescript/beta/messages/count_tokens
----
+# Count tokens in a Message
 
-## Count tokens in a Message
+`client.beta.messages.countTokens(params, options?): BetaMessageTokensCount`
 
-`client.beta.messages.countTokens(MessageCountTokensParamsparams, RequestOptionsoptions?): BetaMessageTokensCount`
-
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -15,7 +10,7 @@ The Token Count API can be used to count the number of tokens in a Message, incl
 
 Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-### Parameters
+## Parameters
 
 - `params: MessageCountTokensParams`
 
@@ -80,17 +75,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `text: string`
 
-          - `type: "text"`
+            minLength: 1
 
-            - `"text"`
+          - `type: "text"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
 
             - `type: "ephemeral"`
-
-              - `"ephemeral"`
 
             - `ttl?: "5m" | "1h"`
 
@@ -115,15 +108,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
 
               - `end_char_index: number`
 
               - `start_char_index: number`
 
-              - `type: "char_location"`
+                minimum: 0
 
-                - `"char_location"`
+              - `type: "char_location"`
 
             - `BetaCitationPageLocationParam`
 
@@ -131,15 +128,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
 
               - `end_page_number: number`
 
               - `start_page_number: number`
 
-              - `type: "page_location"`
+                minimum: 1
 
-                - `"page_location"`
+              - `type: "page_location"`
 
             - `BetaCitationContentBlockLocationParam`
 
@@ -151,7 +152,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
+
+                maxLength: 500, minLength: 1
 
               - `end_block_index: number`
 
@@ -163,9 +168,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 0-based index of the first cited block in the source's `content` array.
 
-              - `type: "content_block_location"`
+                minimum: 0
 
-                - `"content_block_location"`
+              - `type: "content_block_location"`
 
             - `BetaCitationWebSearchResultLocationParam`
 
@@ -175,11 +180,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `title: string | null`
 
+                maxLength: 512, minLength: 1
+
               - `type: "web_search_result_location"`
 
-                - `"web_search_result_location"`
-
               - `url: string`
+
+                minLength: 1
 
             - `BetaCitationSearchResultLocationParam`
 
@@ -201,17 +208,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                minimum: 0
+
               - `source: string`
 
               - `start_block_index: number`
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `title: string | null`
 
               - `type: "search_result_location"`
-
-                - `"search_result_location"`
 
         - `BetaImageBlockParam`
 
@@ -220,6 +229,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `BetaBase64ImageSource`
 
               - `data: string`
+
+                format: byte
 
               - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -233,13 +244,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "base64"`
 
-                - `"base64"`
-
             - `BetaURLImageSource`
 
               - `type: "url"`
-
-                - `"url"`
 
               - `url: string`
 
@@ -249,11 +256,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "image"`
-
-            - `"image"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -279,13 +282,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `data: string`
 
+                format: byte
+
               - `media_type: "application/pdf"`
 
-                - `"application/pdf"`
-
               - `type: "base64"`
-
-                - `"base64"`
 
             - `BetaPlainTextSource`
 
@@ -293,11 +294,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `media_type: "text/plain"`
 
-                - `"text/plain"`
-
               - `type: "text"`
-
-                - `"text"`
 
             - `BetaContentBlockSource`
 
@@ -313,13 +310,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "content"`
 
-                - `"content"`
-
             - `BetaURLPDFSource`
 
               - `type: "url"`
-
-                - `"url"`
 
               - `url: string`
 
@@ -329,11 +322,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "file"`
 
-                - `"file"`
-
           - `type: "document"`
-
-            - `"document"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -345,13 +334,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `context?: string | null`
 
+            minLength: 1
+
           - `title?: string | null`
+
+            maxLength: 500, minLength: 1
 
         - `BetaSearchResultBlockParam`
 
           - `content: Array<BetaTextBlockParam>`
 
             - `text: string`
+
+              minLength: 1
 
             - `type: "text"`
 
@@ -366,8 +361,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `title: string`
 
           - `type: "search_result"`
-
-            - `"search_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -389,8 +382,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "thinking"`
 
-            - `"thinking"`
-
         - `BetaRedactedThinkingBlockParam`
 
           - `data: string`
@@ -399,19 +390,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "redacted_thinking"`
 
-            - `"redacted_thinking"`
-
         - `BetaToolUseBlockParam`
 
           - `id: string`
+
+            pattern: ^[a-zA-Z0-9_-]+$
 
           - `input: Record<string, unknown>`
 
           - `name: string`
 
-          - `type: "tool_use"`
+            maxLength: 200, minLength: 1
 
-            - `"tool_use"`
+          - `type: "tool_use"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -427,37 +418,37 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "direct"`
 
-                - `"direct"`
-
             - `BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
               - `tool_id: string`
 
-              - `type: "code_execution_20250825"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20250825"`
+              - `type: "code_execution_20250825"`
 
             - `BetaServerToolCaller20260120`
 
               - `tool_id: string`
 
-              - `type: "code_execution_20260120"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20260120"`
+              - `type: "code_execution_20260120"`
 
           - `toolset_name?: string | null`
 
             For a toolset member tool_use, the toolset family this member belongs to.
 
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
         - `BetaToolResultBlockParam`
 
           - `tool_use_id: string`
 
-          - `type: "tool_result"`
+            pattern: ^[a-zA-Z0-9_-]+$
 
-            - `"tool_result"`
+          - `type: "tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -483,9 +474,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `tool_name: string`
 
-                - `type: "tool_reference"`
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `"tool_reference"`
+                - `type: "tool_reference"`
 
                 - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -505,25 +496,31 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                   All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+                  maxItems: 100
+
                   - `tab_id: string`
 
                     The caller-assigned identifier for this tab, unique within the inventory.
+
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `title: string`
 
                     The title of the page the tab is showing. May be empty.
 
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                   - `url: string`
 
                     The URL of the page the tab is showing. May be empty.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `active?: boolean`
 
                     Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
                 - `type: "browser_state"`
-
-                  - `"browser_state"`
 
                 - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -532,6 +529,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                 - `state_changes?: Array<BetaBrowserStateChange> | null`
 
                   Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                  maxItems: 200, minItems: 1
 
                   - `BetaBrowserStateChangeTabOpened`
 
@@ -547,9 +546,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       The `tab_id` of the opened tab, present in `tabs`.
 
-                    - `type: "tab_opened"`
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `"tab_opened"`
+                    - `type: "tab_opened"`
 
                   - `BetaBrowserStateChangeDownloadStarted`
 
@@ -559,13 +558,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    - `type: "download_started"`
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `"download_started"`
+                    - `type: "download_started"`
 
                     - `url: string`
 
                       The final post-redirect URL the download was served from.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                   - `BetaBrowserStateChangeDownloadCompleted`
 
@@ -578,21 +579,27 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    - `type: "download_completed"`
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `"download_completed"`
+                    - `type: "download_completed"`
 
                     - `url: string`
 
                       The final post-redirect URL the download was served from.
 
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                     - `path?: string | null`
 
                       Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
                     - `size_bytes?: number | null`
 
                       The completed download's size.
+
+                      minimum: 0
 
                   - `BetaBrowserStateChangeDownloadFailed`
 
@@ -602,17 +609,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                    - `type: "download_failed"`
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                      - `"download_failed"`
+                    - `type: "download_failed"`
 
                     - `url: string`
 
                       The final post-redirect URL the download was served from.
 
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                     - `error?: string | null`
 
                       The failure or cancellation detail, when known.
+
+                      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
           - `is_error?: boolean`
 
@@ -620,9 +631,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             For a toolset member tool_result, the toolset family of the paired tool_use.
 
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
         - `BetaServerToolUseBlockParam`
 
           - `id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `input: Record<string, unknown>`
 
@@ -645,8 +660,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `"tool_search_tool_bm25"`
 
           - `type: "server_tool_use"`
-
-            - `"server_tool_use"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -678,8 +691,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "web_search_result"`
 
-                - `"web_search_result"`
-
               - `url: string`
 
               - `page_age?: string | null`
@@ -702,13 +713,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "web_search_tool_result_error"`
 
-                - `"web_search_tool_result_error"`
-
           - `tool_use_id: string`
 
-          - `type: "web_search_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"web_search_tool_result"`
+          - `type: "web_search_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -756,15 +765,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "web_fetch_tool_result_error"`
 
-                - `"web_fetch_tool_result_error"`
-
             - `BetaWebFetchBlockParam`
 
               - `content: BetaRequestDocumentBlock`
 
               - `type: "web_fetch_result"`
-
-                - `"web_fetch_result"`
 
               - `url: string`
 
@@ -776,9 +781,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `tool_use_id: string`
 
-          - `type: "web_fetch_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"web_fetch_tool_result"`
+          - `type: "web_fetch_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -822,15 +827,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "advisor_tool_result_error"`
 
-                - `"advisor_tool_result_error"`
-
             - `BetaAdvisorResultBlockParam`
 
               - `text: string`
 
               - `type: "advisor_result"`
-
-                - `"advisor_result"`
 
               - `stop_reason?: string | null`
 
@@ -842,15 +843,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "advisor_redacted_result"`
 
-                - `"advisor_redacted_result"`
-
               - `stop_reason?: string | null`
 
           - `tool_use_id: string`
 
-          - `type: "advisor_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"advisor_tool_result"`
+          - `type: "advisor_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -876,8 +875,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "code_execution_tool_result_error"`
 
-                - `"code_execution_tool_result_error"`
-
             - `BetaCodeExecutionResultBlockParam`
 
               - `content: Array<BetaCodeExecutionOutputBlockParam>`
@@ -886,8 +883,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 - `type: "code_execution_output"`
 
-                  - `"code_execution_output"`
-
               - `return_code: number`
 
               - `stderr: string`
@@ -895,8 +890,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `stdout: string`
 
               - `type: "code_execution_result"`
-
-                - `"code_execution_result"`
 
             - `BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -916,13 +909,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "encrypted_code_execution_result"`
 
-                - `"encrypted_code_execution_result"`
-
           - `tool_use_id: string`
 
-          - `type: "code_execution_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"code_execution_tool_result"`
+          - `type: "code_execution_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -948,8 +939,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "bash_code_execution_tool_result_error"`
 
-                - `"bash_code_execution_tool_result_error"`
-
             - `BetaBashCodeExecutionResultBlockParam`
 
               - `content: Array<BetaBashCodeExecutionOutputBlockParam>`
@@ -957,8 +946,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
                 - `file_id: string`
 
                 - `type: "bash_code_execution_output"`
-
-                  - `"bash_code_execution_output"`
 
               - `return_code: number`
 
@@ -968,13 +955,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "bash_code_execution_result"`
 
-                - `"bash_code_execution_result"`
-
           - `tool_use_id: string`
 
-          - `type: "bash_code_execution_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"bash_code_execution_tool_result"`
+          - `type: "bash_code_execution_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -1000,8 +985,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
-                - `"text_editor_code_execution_tool_result_error"`
-
               - `error_message?: string | null`
 
             - `BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -1018,8 +1001,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "text_editor_code_execution_view_result"`
 
-                - `"text_editor_code_execution_view_result"`
-
               - `num_lines?: number | null`
 
               - `start_line?: number | null`
@@ -1032,13 +1013,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "text_editor_code_execution_create_result"`
 
-                - `"text_editor_code_execution_create_result"`
-
             - `BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
               - `type: "text_editor_code_execution_str_replace_result"`
-
-                - `"text_editor_code_execution_str_replace_result"`
 
               - `lines?: Array<string> | null`
 
@@ -1052,9 +1029,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `tool_use_id: string`
 
-          - `type: "text_editor_code_execution_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"text_editor_code_execution_tool_result"`
+          - `type: "text_editor_code_execution_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -1078,8 +1055,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "tool_search_tool_result_error"`
 
-                - `"tool_search_tool_result_error"`
-
               - `error_message?: string | null`
 
             - `BetaToolSearchToolSearchResultBlockParam`
@@ -1087,6 +1062,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `tool_references: Array<BetaToolReferenceBlockParam>`
 
                 - `tool_name: string`
+
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                 - `type: "tool_reference"`
 
@@ -1096,13 +1073,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "tool_search_tool_search_result"`
 
-                - `"tool_search_tool_search_result"`
-
           - `tool_use_id: string`
 
-          - `type: "tool_search_tool_result"`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `"tool_search_tool_result"`
+          - `type: "tool_search_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -1111,6 +1086,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `BetaMCPToolUseBlockParam`
 
           - `id: string`
+
+            pattern: ^[a-zA-Z0-9_-]+$
 
           - `input: Record<string, unknown>`
 
@@ -1122,8 +1099,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "mcp_tool_use"`
 
-            - `"mcp_tool_use"`
-
           - `cache_control?: BetaCacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
@@ -1132,9 +1107,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `tool_use_id: string`
 
-          - `type: "mcp_tool_result"`
+            pattern: ^[a-zA-Z0-9_-]+$
 
-            - `"mcp_tool_result"`
+          - `type: "mcp_tool_result"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -1147,6 +1122,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `Array<BetaTextBlockParam>`
 
               - `text: string`
+
+                minLength: 1
 
               - `type: "text"`
 
@@ -1167,8 +1144,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "container_upload"`
 
-            - `"container_upload"`
-
           - `cache_control?: BetaCacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
@@ -1184,8 +1159,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           treats these as no-ops. Empty string content is not allowed.
 
           - `type: "compaction"`
-
-            - `"compaction"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -1223,9 +1196,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `name: string`
 
-              - `type: "tool_reference"`
+                pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-                - `"tool_reference"`
+              - `type: "tool_reference"`
 
             - `BetaToolChangeMCPToolReference`
 
@@ -1238,8 +1211,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "mcp_tool_reference"`
 
-                - `"mcp_tool_reference"`
-
             - `BetaToolChangeMCPToolsetReference`
 
               Reference to every tool in the named MCP server's toolset.
@@ -1248,11 +1219,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: "mcp_toolset_reference"`
 
-                - `"mcp_toolset_reference"`
-
           - `type: "tool_addition"`
-
-            - `"tool_addition"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -1290,8 +1257,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               Reference to every tool in the named MCP server's toolset.
 
           - `type: "tool_removal"`
-
-            - `"tool_removal"`
 
           - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -1393,8 +1358,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "fallback"`
 
-            - `"fallback"`
-
           - `trigger?: unknown`
 
             The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -1427,11 +1390,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       List of context management edits to apply
 
+      minItems: 0
+
       - `BetaClearToolUses20250919Edit`
 
         - `type: "clear_tool_uses_20250919"`
-
-          - `"clear_tool_uses_20250919"`
 
         - `clear_at_least?: BetaInputTokensClearAtLeast | null`
 
@@ -1439,9 +1402,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "input_tokens"`
 
-            - `"input_tokens"`
-
           - `value: number`
+
+            minimum: 0
 
         - `clear_tool_inputs?: boolean | Array<string> | null`
 
@@ -1461,9 +1424,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: "tool_uses"`
 
-            - `"tool_uses"`
-
           - `value: number`
+
+            minimum: 0
 
         - `trigger?: BetaInputTokensTrigger | BetaToolUsesTrigger`
 
@@ -1473,23 +1436,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: "input_tokens"`
 
-              - `"input_tokens"`
-
             - `value: number`
+
+              minimum: 1
 
           - `BetaToolUsesTrigger`
 
             - `type: "tool_uses"`
 
-              - `"tool_uses"`
-
             - `value: number`
+
+              minimum: 1
 
       - `BetaClearThinking20251015Edit`
 
         - `type: "clear_thinking_20251015"`
-
-          - `"clear_thinking_20251015"`
 
         - `keep?: BetaThinkingTurns | BetaAllThinkingTurns | "all"`
 
@@ -1499,15 +1460,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: "thinking_turns"`
 
-              - `"thinking_turns"`
-
             - `value: number`
+
+              minimum: 1
 
           - `BetaAllThinkingTurns`
 
             - `type: "all"`
-
-              - `"all"`
 
           - `"all"`
 
@@ -1518,8 +1477,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         Automatically compact older context when reaching the configured trigger threshold.
 
         - `type: "compact_20260112"`
-
-          - `"compact_20260112"`
 
         - `instructions?: string | null`
 
@@ -1537,11 +1494,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Body param: MCP servers to be utilized in this request
 
+    maxItems: 20
+
     - `name: string`
 
     - `type: "url"`
-
-      - `"url"`
 
     - `url: string`
 
@@ -1581,8 +1538,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "json_schema"`
 
-        - `"json_schema"`
-
     - `task_budget?: BetaTokenTaskBudget | null`
 
       User-configurable total token budget across contexts.
@@ -1591,21 +1546,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Total token budget across all contexts in the session.
 
+        minimum: 1024
+
       - `type: "tokens"`
 
         The budget type. Currently only 'tokens' is supported.
-
-        - `"tokens"`
 
       - `remaining?: number | null`
 
         Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-  - `output_format?: BetaJSONOutputFormat | null`
-
-    Body param: Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-    A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+        minimum: 0
 
   - `speed?: "standard" | "fast" | null`
 
@@ -1626,6 +1577,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `Array<BetaTextBlockParam>`
 
       - `text: string`
+
+        minLength: 1
 
       - `type: "text"`
 
@@ -1653,9 +1606,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-      - `type: "enabled"`
+        minimum: 1024
 
-        - `"enabled"`
+      - `type: "enabled"`
 
       - `display?: "summarized" | "omitted" | null`
 
@@ -1669,13 +1622,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "disabled"`
 
-        - `"disabled"`
-
     - `BetaThinkingConfigAdaptive`
 
       - `type: "adaptive"`
-
-        - `"adaptive"`
 
       - `display?: "summarized" | "omitted" | null`
 
@@ -1695,8 +1644,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "auto"`
 
-        - `"auto"`
-
       - `disable_parallel_tool_use?: boolean`
 
         Whether to disable parallel tool use.
@@ -1708,8 +1655,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       The model will use any available tools.
 
       - `type: "any"`
-
-        - `"any"`
 
       - `disable_parallel_tool_use?: boolean`
 
@@ -1727,8 +1672,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "tool"`
 
-        - `"tool"`
-
       - `disable_parallel_tool_use?: boolean`
 
         Whether to disable parallel tool use.
@@ -1740,8 +1683,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       The model will not be allowed to use tools.
 
       - `type: "none"`
-
-        - `"none"`
 
   - `tools?: Array<BetaTool | BetaToolBash20241022 | BetaToolBash20250124 | 25 more>`
 
@@ -1817,8 +1758,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: "object"`
 
-          - `"object"`
-
         - `properties?: Record<string, unknown> | null`
 
         - `required?: Array<string> | null`
@@ -1828,6 +1767,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
+
+        maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1865,8 +1806,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type?: "custom" | null`
 
-        - `"custom"`
-
     - `BetaToolBash20241022`
 
       - `name: "bash"`
@@ -1875,11 +1814,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"bash"`
-
       - `type: "bash_20241022"`
-
-        - `"bash_20241022"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1913,11 +1848,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"bash"`
-
       - `type: "bash_20250124"`
-
-        - `"bash_20250124"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1951,11 +1882,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20250522"`
-
-        - `"code_execution_20250522"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1987,11 +1914,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20250825"`
-
-        - `"code_execution_20250825"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2025,11 +1948,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20260120"`
-
-        - `"code_execution_20260120"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2063,11 +1982,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"code_execution"`
-
       - `type: "code_execution_20260521"`
-
-        - `"code_execution_20260521"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2099,8 +2014,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       from its schema.
 
       - `type: "browser_toolset_20260801"`
-
-        - `"browser_toolset_20260801"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2503,9 +2416,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The height of the display in pixels.
 
+        minimum: 1
+
       - `display_width_px: number`
 
         The width of the display in pixels.
+
+        minimum: 1
 
       - `name: "computer"`
 
@@ -2513,11 +2430,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"computer"`
-
       - `type: "computer_20241022"`
-
-        - `"computer_20241022"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2541,6 +2454,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The X11 display number (e.g. 0, 1) for the display.
 
+        minimum: 0
+
       - `input_examples?: Array<Record<string, unknown>>`
 
       - `strict?: boolean`
@@ -2555,11 +2470,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"memory"`
-
       - `type: "memory_20250818"`
-
-        - `"memory_20250818"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2591,9 +2502,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The height of the display in pixels.
 
+        minimum: 1
+
       - `display_width_px: number`
 
         The width of the display in pixels.
+
+        minimum: 1
 
       - `name: "computer"`
 
@@ -2601,11 +2516,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"computer"`
-
       - `type: "computer_20250124"`
-
-        - `"computer_20250124"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2629,6 +2540,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The X11 display number (e.g. 0, 1) for the display.
 
+        minimum: 0
+
       - `input_examples?: Array<Record<string, unknown>>`
 
       - `strict?: boolean`
@@ -2643,11 +2556,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"str_replace_editor"`
-
       - `type: "text_editor_20241022"`
-
-        - `"text_editor_20241022"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2679,9 +2588,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The height of the display in pixels.
 
+        minimum: 1
+
       - `display_width_px: number`
 
         The width of the display in pixels.
+
+        minimum: 1
 
       - `name: "computer"`
 
@@ -2689,11 +2602,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"computer"`
-
       - `type: "computer_20251124"`
-
-        - `"computer_20251124"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2717,6 +2626,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         The X11 display number (e.g. 0, 1) for the display.
 
+        minimum: 0
+
       - `enable_zoom?: boolean`
 
         Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -2739,8 +2650,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `type: "computer_toolset_20260801"`
-
-        - `"computer_toolset_20260801"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2977,11 +2886,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"str_replace_editor"`
-
       - `type: "text_editor_20250124"`
-
-        - `"text_editor_20250124"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3015,11 +2920,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"str_replace_based_edit_tool"`
-
       - `type: "text_editor_20250429"`
-
-        - `"text_editor_20250429"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3053,11 +2954,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"str_replace_based_edit_tool"`
-
       - `type: "text_editor_20250728"`
-
-        - `"text_editor_20250728"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3083,6 +2980,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+        minimum: 1
+
       - `strict?: boolean`
 
         When true, guarantees schema validation on tool names and inputs
@@ -3095,11 +2994,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_search"`
-
       - `type: "web_search_20250305"`
-
-        - `"web_search_20250305"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3131,6 +3026,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of times the tool can be used in the API request.
 
+        exclusiveMinimum: 0
+
       - `strict?: boolean`
 
         When true, guarantees schema validation on tool names and inputs
@@ -3141,23 +3038,29 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: "approximate"`
 
-          - `"approximate"`
-
         - `city?: string | null`
 
           The city of the user.
+
+          maxLength: 255, minLength: 1
 
         - `country?: string | null`
 
           The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+          maxLength: 2, minLength: 2
+
         - `region?: string | null`
 
           The region of the user.
 
+          maxLength: 255, minLength: 1
+
         - `timezone?: string | null`
 
           The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+          maxLength: 255, minLength: 1
 
     - `BetaWebFetchTool20250910`
 
@@ -3167,11 +3070,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20250910"`
-
-        - `"web_fetch_20250910"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3207,9 +3106,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -3223,11 +3126,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_search"`
-
       - `type: "web_search_20260209"`
-
-        - `"web_search_20260209"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3258,6 +3157,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -3275,11 +3176,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20260209"`
-
-        - `"web_fetch_20260209"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3315,9 +3212,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -3333,11 +3234,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20260309"`
-
-        - `"web_fetch_20260309"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3373,9 +3270,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -3393,11 +3294,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_search"`
-
       - `type: "web_search_20260318"`
-
-        - `"web_search_20260318"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3428,6 +3325,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `response_inclusion?: "full" | "excluded"`
 
@@ -3453,11 +3352,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"web_fetch"`
-
       - `type: "web_fetch_20260318"`
-
-        - `"web_fetch_20260318"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3493,9 +3388,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+        exclusiveMinimum: 0
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `response_inclusion?: "full" | "excluded"`
 
@@ -3527,11 +3426,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         This is how the tool will be called by the model and in `tool_use` blocks.
 
-        - `"advisor"`
-
       - `type: "advisor_20260301"`
-
-        - `"advisor_20260301"`
 
       - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -3559,9 +3454,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+        minimum: 1024
+
       - `max_uses?: number | null`
 
         Maximum number of times the tool can be used in the API request.
+
+        exclusiveMinimum: 0
 
       - `strict?: boolean`
 
@@ -3574,8 +3473,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `"tool_search_tool_bm25"`
 
       - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -3612,8 +3509,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         Name of the tool.
 
         This is how the tool will be called by the model and in `tool_use` blocks.
-
-        - `"tool_search_tool_regex"`
 
       - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
@@ -3654,9 +3549,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         Name of the MCP server to configure tools for
 
-      - `type: "mcp_toolset"`
+        maxLength: 255, minLength: 1
 
-        - `"mcp_toolset"`
+      - `type: "mcp_toolset"`
 
       - `cache_control?: BetaCacheControlEphemeral | null`
 
@@ -3758,7 +3653,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-### Returns
+  - `output_format?: BetaJSONOutputFormat | null`
+
+    **Deprecated**
+
+    Body param: Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+    A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+## Returns
 
 - `BetaMessageTokensCount`
 
@@ -3774,7 +3677,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -3791,7 +3694,7 @@ const betaMessageTokensCount = await client.beta.messages.countTokens({
 console.log(betaMessageTokensCount.context_management);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

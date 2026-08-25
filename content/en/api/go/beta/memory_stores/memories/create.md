@@ -1,17 +1,12 @@
----
-title: Create a memory
-url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/memories/create
----
-
-## Create a memory
+# Create a memory
 
 `client.Beta.MemoryStores.Memories.New(ctx, memoryStoreID, params) (*BetaManagedAgentsMemory, error)`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
-### Parameters
+## Parameters
 
 - `memoryStoreID string`
 
@@ -25,11 +20,13 @@ Create a memory
 
     Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
 
-  - `View param.Field[BetaManagedAgentsMemoryView]`
+    minLength: 2, maxLength: 1024
+
+  - `View param.Field[BetaManagedAgentsMemoryView] Optional`
 
     Query param: Query parameter for view
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -105,7 +102,7 @@ Create a memory
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsMemory struct{…}`
 
@@ -123,9 +120,13 @@ Create a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `MemoryStoreID string`
 
@@ -141,17 +142,17 @@ Create a memory
 
   - `Type BetaManagedAgentsMemoryType`
 
-    - `const BetaManagedAgentsMemoryTypeMemory BetaManagedAgentsMemoryType = "memory"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-  - `Content string`
+    format: date-time
+
+  - `Content string Optional`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
 ```go
 package main
@@ -183,7 +184,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

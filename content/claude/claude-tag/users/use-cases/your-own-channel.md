@@ -70,6 +70,14 @@ Scratch work sometimes turns into a team task. Suppose a thread in this channel 
 
 The summary gives Marta the state of the work in one message, with the full history above it. From there the thread is hers to continue, without re-mentioning @Claude or starting over.
 
+If the work belongs in a team channel rather than yours, fork the thread there instead of inviting Marta in. Claude starts a new thread in the channel you name with your thread as background, and leaves a link in your channel so you can follow along.
+
+```text wrap theme={null}
+@Claude !fork #export-team summarize the export-flow bug for the team: what's been tried, what's decided, and what's still open.
+```
+
+The target must be a public channel that both you and Claude are in, and your own channel must be public for the fork to run. See [Fork a thread](/docs/claude-tag/users/commands#fork-a-thread).
+
 ### Chase your open follow-ups
 
 Claude can track the work you've committed to but might have forgotten about. When you agree to do something in another channel, forward that message to this channel, or post a short note here describing the commitment. When the work is somewhere Claude can check through this channel's connections, like a pull request review you owe, include the link.

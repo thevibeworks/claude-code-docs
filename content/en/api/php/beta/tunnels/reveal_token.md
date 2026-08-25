@@ -1,19 +1,14 @@
----
-title: Reveal Tunnel Token
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/reveal_token
----
-
-## Reveal Tunnel Token
+# Reveal Tunnel Token
 
 `$client->beta->tunnels->revealToken(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Reveals a tunnel's connector token. The value is fetched live on each call; Anthropic does not store it. Repeated calls return the same value until the token is rotated. Exposed as POST so the token does not appear in intermediary access logs.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -21,7 +16,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaTunnelToken`
 
@@ -35,7 +30,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `"tunnel_token" type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -51,7 +46,7 @@ $betaTunnelToken = $client->beta->tunnels->revealToken(
 var_dump($betaTunnelToken);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

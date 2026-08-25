@@ -1,17 +1,12 @@
----
-title: Delete Vault
-url: https://platform.claude.com/docs/en/api/java/beta/vaults/delete
----
+# Delete Vault
 
-## Delete Vault
+`BetaManagedAgentsDeletedVault beta().vaults().delete(params = VaultDeleteParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsDeletedVault beta().vaults().delete(VaultDeleteParamsparams = VaultDeleteParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**delete** `/v1/vaults/{vault_id}`
+**DELETE** `/v1/vaults/{vault_id}`
 
 Delete Vault
 
-### Parameters
+## Parameters
 
 - `VaultDeleteParams params`
 
@@ -89,7 +84,7 @@ Delete Vault
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeletedVault:`
 
@@ -101,9 +96,7 @@ Delete Vault
 
   - `Type type`
 
-    - `VAULT_DELETED("vault_deleted")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -124,7 +117,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

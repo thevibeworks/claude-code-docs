@@ -1,15 +1,10 @@
----
-title: Events
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/threads/events
----
-
 # Events
 
 ## List Session Thread Events
 
 `$client->beta->sessions->threads->events->list(string threadID, string sessionID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsSessionEvent>`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/events`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/events`
 
 List Session Thread Events
 
@@ -779,7 +774,7 @@ $page = $client->beta->sessions->threads->events->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -804,7 +799,7 @@ var_dump($page);
 
 `$client->beta->sessions->threads->events->stream(string threadID, string sessionID, ?list<BetaManagedAgentsDeltaType> eventDeltas, ?list<AnthropicBeta> betas): ManagedAgentsStreamSessionThreadEvents`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}/stream`
 
 Stream Session Thread Events
 
@@ -1570,6 +1565,8 @@ Stream Session Thread Events
 
       A hard spend ceiling. The session stops issuing new model requests once the tracked list cost reaches `max_list_cost`.
 
+- `ManagedAgentsStreamSessionThreadEvents`
+
 ### Example
 
 ```php
@@ -1594,7 +1591,7 @@ $betaManagedAgentsStreamSessionThreadEvents = $client
 var_dump($betaManagedAgentsStreamSessionThreadEvents);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {

@@ -1,19 +1,14 @@
----
-title: Poll for Work
-url: https://platform.claude.com/docs/en/api/php/beta/environments/work/poll
----
-
-## Poll for Work
+# Poll for Work
 
 `$client->beta->environments->work->poll(string environmentID, ?int blockMs, ?int reclaimOlderThanMs, ?list<AnthropicBeta> betas, ?string anthropicWorkerID): SelfHostedWork`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -33,7 +28,7 @@ Long poll for work items in the queue.
 
   Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+## Returns
 
 - `SelfHostedWork`
 
@@ -89,7 +84,7 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-### Example
+## Example
 
 ```php
 <?php
@@ -109,7 +104,7 @@ $betaSelfHostedWork = $client->beta->environments->work->poll(
 var_dump($betaSelfHostedWork);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

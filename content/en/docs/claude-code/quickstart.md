@@ -271,7 +271,7 @@ Here are the most important commands for daily use. Shell commands run from your
 | Command             | What it does                                           | Example                             |
 | ------------------- | ------------------------------------------------------ | ----------------------------------- |
 | `claude`            | Start interactive mode                                 | `claude`                            |
-| `claude "task"`     | Run a one-time task                                    | `claude "fix the build error"`      |
+| `claude "task"`     | Start interactive mode with an initial prompt          | `claude "fix the build error"`      |
 | `claude -p "query"` | Run one-off query, then exit                           | `claude -p "explain this function"` |
 | `claude -c`         | Continue most recent conversation in current directory | `claude -c`                         |
 | `claude -r`         | Resume a previous conversation                         | `claude -r`                         |

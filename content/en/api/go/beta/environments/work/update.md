@@ -1,19 +1,14 @@
----
-title: Update Work Item
-url: https://platform.claude.com/docs/en/api/go/beta/environments/work/update
----
-
-## Update Work Item
+# Update Work Item
 
 `client.Beta.Environments.Work.Update(ctx, workID, params) (*BetaSelfHostedWork, error)`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Parameters
+## Parameters
 
 - `workID string`
 
@@ -27,7 +22,7 @@ Update work item metadata with merge semantics.
 
     Body param: Request to update work item metadata.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -103,7 +98,7 @@ Update work item metadata with merge semantics.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaSelfHostedWork struct{…}`
 
@@ -136,8 +131,6 @@ Update work item metadata with merge semantics.
     - `Type Session`
 
       Type of work data
-
-      - `const SessionSession Session = "session"`
 
   - `EnvironmentID string`
 
@@ -185,9 +178,9 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `const WorkWork Work = "work"`
+    default: work
 
-### Example
+## Example
 
 ```go
 package main
@@ -223,7 +216,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/go/beta/skills/versions
----
-
 # Versions
 
 ## Create Skill Version
 
 `client.Beta.Skills.Versions.New(ctx, skillID, params) (*BetaSkillVersionNewResponse, error)`
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
@@ -29,7 +24,7 @@ Create Skill Version
 
     All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -147,6 +142,8 @@ Create Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `Version string`
 
     Version identifier for the skill.
@@ -186,7 +183,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -205,7 +202,7 @@ func main() {
 
 `client.Beta.Skills.Versions.List(ctx, skillID, params) (*PageCursor[BetaSkillVersionListResponse], error)`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
@@ -219,17 +216,17 @@ List Skill Versions
 
 - `params BetaSkillVersionListParams`
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-  - `Page param.Field[string]`
+  - `Page param.Field[string] Optional`
 
     Query param: Optionally set to the `next_page` token from the previous response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -347,6 +344,8 @@ List Skill Versions
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `Version string`
 
     Version identifier for the skill.
@@ -382,7 +381,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -407,7 +406,7 @@ func main() {
 
 `client.Beta.Skills.Versions.Download(ctx, version, params) (*Response, error)`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
@@ -427,7 +426,7 @@ Download a skill version's content as a zip archive.
 
     The format and length of IDs may change over time.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -542,7 +541,7 @@ func main() {
 
 `client.Beta.Skills.Versions.Get(ctx, version, params) (*BetaSkillVersionGetResponse, error)`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
@@ -562,7 +561,7 @@ Get Skill Version
 
     The format and length of IDs may change over time.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -680,6 +679,8 @@ Get Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `Version string`
 
     Version identifier for the skill.
@@ -717,7 +718,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -736,7 +737,7 @@ func main() {
 
 `client.Beta.Skills.Versions.Delete(ctx, version, params) (*BetaSkillVersionDeleteResponse, error)`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
@@ -756,7 +757,7 @@ Delete Skill Version
 
     The format and length of IDs may change over time.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -848,6 +849,8 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
+    default: skill_version_deleted
+
 ### Example
 
 ```go
@@ -879,7 +882,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {

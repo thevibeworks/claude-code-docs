@@ -1,23 +1,20 @@
----
-title: Create Vault
-url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/create
----
+# Create Vault
 
-## Create Vault
+`client.beta.vaults.create(params, options?): BetaManagedAgentsVault`
 
-`client.beta.vaults.create(VaultCreateParamsparams, RequestOptionsoptions?): BetaManagedAgentsVault`
-
-**post** `/v1/vaults`
+**POST** `/v1/vaults`
 
 Create Vault
 
-### Parameters
+## Parameters
 
 - `params: VaultCreateParams`
 
   - `display_name: string`
 
     Body param: Human-readable name for the vault. 1-255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `metadata?: Record<string, string>`
 
@@ -99,7 +96,7 @@ Create Vault
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsVault`
 
@@ -113,9 +110,13 @@ Create Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -127,13 +128,13 @@ Create Vault
 
   - `type: "vault"`
 
-    - `"vault"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -149,7 +150,7 @@ const betaManagedAgentsVault = await client.beta.vaults.create({
 console.log(betaManagedAgentsVault.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

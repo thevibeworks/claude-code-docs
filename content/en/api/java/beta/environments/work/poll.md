@@ -1,19 +1,14 @@
----
-title: Poll for Work
-url: https://platform.claude.com/docs/en/api/java/beta/environments/work/poll
----
+# Poll for Work
 
-## Poll for Work
+`BetaSelfHostedWork beta().environments().work().poll(params = WorkPollParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaSelfHostedWork beta().environments().work().poll(WorkPollParamsparams = WorkPollParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Parameters
+## Parameters
 
 - `WorkPollParams params`
 
@@ -23,9 +18,13 @@ Long poll for work items in the queue.
 
     How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+    minimum: 1
+
   - `Optional<Long> reclaimOlderThanMs`
 
     Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+    minimum: 1
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -103,7 +102,7 @@ Long poll for work items in the queue.
 
     Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+## Returns
 
 - `class BetaSelfHostedWork:`
 
@@ -133,11 +132,9 @@ Long poll for work items in the queue.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -181,13 +178,11 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
 
-    - `WORK("work")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -209,7 +204,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

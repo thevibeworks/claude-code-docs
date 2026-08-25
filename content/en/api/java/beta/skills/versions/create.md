@@ -1,17 +1,12 @@
----
-title: Create Skill Version
-url: https://platform.claude.com/docs/en/api/java/beta/skills/versions/create
----
+# Create Skill Version
 
-## Create Skill Version
+`VersionCreateResponse beta().skills().versions().create(params, requestOptions = RequestOptions.none())`
 
-`VersionCreateResponse beta().skills().versions().create(VersionCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Parameters
+## Parameters
 
 - `VersionCreateParams params`
 
@@ -99,7 +94,7 @@ Create Skill Version
 
     All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-### Returns
+## Returns
 
 - `class VersionCreateResponse:`
 
@@ -147,7 +142,7 @@ Create Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -173,7 +168,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

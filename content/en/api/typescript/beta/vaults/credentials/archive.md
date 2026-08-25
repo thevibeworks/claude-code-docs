@@ -1,17 +1,12 @@
----
-title: Archive Credential
-url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/credentials/archive
----
+# Archive Credential
 
-## Archive Credential
+`client.beta.vaults.credentials.archive(credentialID, params, options?): BetaManagedAgentsCredential`
 
-`client.beta.vaults.credentials.archive(stringcredentialID, CredentialArchiveParamsparams, RequestOptionsoptions?): BetaManagedAgentsCredential`
-
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/archive`
 
 Archive Credential
 
-### Parameters
+## Parameters
 
 - `credentialID: string`
 
@@ -97,7 +92,7 @@ Archive Credential
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsCredential`
 
@@ -110,6 +105,8 @@ Archive Credential
   - `archived_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse | BetaManagedAgentsStaticBearerAuthResponse | BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -125,11 +122,11 @@ Archive Credential
 
       - `type: "mcp_oauth"`
 
-        - `"mcp_oauth"`
-
       - `expires_at?: string | null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh?: BetaManagedAgentsMCPOAuthRefreshResponse | null`
 
@@ -153,23 +150,17 @@ Archive Credential
 
             - `type: "none"`
 
-              - `"none"`
-
           - `BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: "client_secret_basic"`
 
-              - `"client_secret_basic"`
-
           - `BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: "client_secret_post"`
-
-              - `"client_secret_post"`
 
         - `resource?: string | null`
 
@@ -188,8 +179,6 @@ Archive Credential
         URL of the MCP server this credential authenticates against.
 
       - `type: "static_bearer"`
-
-        - `"static_bearer"`
 
     - `BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -217,8 +206,6 @@ Archive Credential
 
           - `type: "unrestricted"`
 
-            - `"unrestricted"`
-
         - `BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
@@ -229,19 +216,17 @@ Archive Credential
 
           - `type: "limited"`
 
-            - `"limited"`
-
       - `secret_name: string`
 
         Name of the environment variable.
 
       - `type: "environment_variable"`
 
-        - `"environment_variable"`
-
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Record<string, string>`
 
@@ -249,11 +234,11 @@ Archive Credential
 
   - `type: "vault_credential"`
 
-    - `"vault_credential"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: string`
 
@@ -263,7 +248,7 @@ Archive Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -280,7 +265,7 @@ const betaManagedAgentsCredential = await client.beta.vaults.credentials.archive
 console.log(betaManagedAgentsCredential.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/java/beta/skills/versions
----
-
 # Versions
 
 ## Create Skill Version
 
-`VersionCreateResponse beta().skills().versions().create(VersionCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`VersionCreateResponse beta().skills().versions().create(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
@@ -175,7 +170,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -192,9 +187,9 @@ public final class Main {
 
 ## List Skill Versions
 
-`VersionListPage beta().skills().versions().list(VersionListParamsparams = VersionListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`VersionListPage beta().skills().versions().list(params = VersionListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
@@ -359,7 +354,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -382,9 +377,9 @@ public final class Main {
 
 ## Download Skill Version Content
 
-`HttpResponse beta().skills().versions().download(VersionDownloadParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`HttpResponse beta().skills().versions().download(params, requestOptions = RequestOptions.none())`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
@@ -503,9 +498,9 @@ public final class Main {
 
 ## Get Skill Version
 
-`VersionRetrieveResponse beta().skills().versions().retrieve(VersionRetrieveParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`VersionRetrieveResponse beta().skills().versions().retrieve(params, requestOptions = RequestOptions.none())`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
@@ -670,7 +665,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -687,9 +682,9 @@ public final class Main {
 
 ## Delete Skill Version
 
-`VersionDeleteResponse beta().skills().versions().delete(VersionDeleteParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`VersionDeleteResponse beta().skills().versions().delete(params, requestOptions = RequestOptions.none())`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
@@ -822,7 +817,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {

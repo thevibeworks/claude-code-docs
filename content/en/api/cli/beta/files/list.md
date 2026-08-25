@@ -1,17 +1,12 @@
----
-title: List Files
-url: https://platform.claude.com/docs/en/api/cli/beta/files/list
----
-
-## List Files
+# List Files
 
 `$ ant beta:files list`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
-### Parameters
+## Parameters
 
 - `--after-id: optional string`
 
@@ -27,6 +22,8 @@ List Files
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  maximum: 1000, minimum: 1
+
 - `--scope-id: optional string`
 
   Query param: Filter by scope ID. Only returns files associated with the specified scope (e.g., a session ID).
@@ -35,9 +32,9 @@ List Files
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaFileListResponse: object { data, first_id, has_more, last_id }`
+- `BetaFileListResponse: object`
 
   - `data: array of BetaFileMetadata`
 
@@ -53,17 +50,25 @@ List Files
 
       RFC 3339 datetime string representing when the file was created.
 
+      format: date-time
+
     - `filename: string`
 
       Original filename of the uploaded file.
+
+      maxLength: 500, minLength: 1
 
     - `mime_type: string`
 
       MIME type of the file.
 
+      maxLength: 255, minLength: 1
+
     - `size_bytes: number`
 
       Size of the file in bytes.
+
+      minimum: 0
 
     - `type: "file"`
 
@@ -75,7 +80,7 @@ List Files
 
       Whether the file can be downloaded.
 
-    - `scope: optional object { id, type }`
+    - `scope: optional object`
 
       The scope of this file, indicating the context in which it was created (e.g., a session).
 
@@ -99,14 +104,14 @@ List Files
 
     ID of the last file in this page of results.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:files list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

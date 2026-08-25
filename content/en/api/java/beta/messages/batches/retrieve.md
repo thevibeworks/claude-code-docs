@@ -1,19 +1,14 @@
----
-title: Retrieve a Message Batch
-url: https://platform.claude.com/docs/en/api/java/beta/messages/batches/retrieve
----
+# Retrieve a Message Batch
 
-## Retrieve a Message Batch
+`BetaMessageBatch beta().messages().batches().retrieve(params = BatchRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaMessageBatch beta().messages().batches().retrieve(BatchRetrieveParamsparams = BatchRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `BatchRetrieveParams params`
 
@@ -93,7 +88,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaMessageBatch:`
 
@@ -107,13 +102,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `Optional<LocalDateTime> cancelInitiatedAt`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `Optional<LocalDateTime> endedAt`
 
@@ -121,9 +122,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `LocalDateTime expiresAt`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `ProcessingStatus processingStatus`
 
@@ -175,15 +180,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-  - `JsonValue; type "message_batch"constant`
+  - `JsonValue type constant`
 
     Object type.
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `MESSAGE_BATCH("message_batch")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -204,7 +207,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

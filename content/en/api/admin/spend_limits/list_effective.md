@@ -1,11 +1,6 @@
----
-title: List Effective Spend Limits
-url: https://platform.claude.com/docs/en/api/admin/spend_limits/list_effective
----
+# List Effective Spend Limits
 
-## List Effective Spend Limits
-
-**get** `/v1/organizations/spend_limits/effective`
+**GET** `/v1/organizations/spend_limits/effective`
 
 List each member's effective spend limit and period-to-date spend.
 
@@ -13,21 +8,27 @@ Returns one row per (member, period) the member resolves a spend limit
 for, with the `source` scope the spend limit was inherited from.
 Paginates by member, so a member's periods never split across pages.
 
-### Query Parameters
+## Query parameters
 
 - `limit: optional number`
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `page: optional string`
 
 - `period: optional array of string`
 
+  maxItems: 3
+
 - `user_ids: optional array of string`
 
-### Returns
+  maxItems: 100
+
+## Returns
 
 - `data: array of SpendSummary`
 
-  - `actor: object { deleted, email_address, name, 2 more }`
+  - `actor: object`
 
     A user within the organization. `name` and `email_address` are
     null when the underlying account is unavailable or has been deleted;
@@ -35,13 +36,15 @@ Paginates by member, so a member's periods never split across pages.
 
     - `deleted: boolean`
 
+      default: false
+
     - `email_address: string or null`
 
     - `name: string or null`
 
     - `type: "user_actor"`
 
-      - `"user_actor"`
+      default: user_actor
 
     - `user_id: string`
 
@@ -65,67 +68,67 @@ Paginates by member, so a member's periods never split across pages.
 
     The member's spend so far in the current period, as a non-negative decimal string in the minor unit of `currency` (cents for USD). May carry fractional minor units up to three decimal places (e.g. `"12050.5"`) — metered usage is not rounded to whole cents. Reads as `"0"` when the spend reading is temporarily unavailable.
 
-  - `scope: object { type, user_id }`
+  - `scope: object`
 
     - `type: "user"`
 
-      - `"user"`
+      default: user
 
     - `user_id: string`
 
-  - `source: object { type, user_id }  or object { seat_tier, type }  or object { rbac_group_id, type }  or 2 more`
+  - `source: object or object or object or 2 more`
 
-    - `User object { type, user_id }`
+    - `User object`
 
       - `type: "user"`
 
-        - `"user"`
+        default: user
 
       - `user_id: string`
 
-    - `SeatTier object { seat_tier, type }`
+    - `SeatTier object`
 
       - `seat_tier: string`
 
       - `type: "seat_tier"`
 
-        - `"seat_tier"`
+        default: seat_tier
 
-    - `RbacGroup object { rbac_group_id, type }`
+    - `RbacGroup object`
 
       - `rbac_group_id: string`
 
       - `type: "rbac_group"`
 
-        - `"rbac_group"`
+        default: rbac_group
 
-    - `OrganizationService object { service, type }`
+    - `OrganizationService object`
 
       - `service: string`
 
       - `type: "organization_service"`
 
-        - `"organization_service"`
+        default: organization_service
 
-    - `Organization object { type }`
+    - `Organization object`
 
       - `type: "organization"`
 
-        - `"organization"`
+        default: organization
 
   - `spend_limit_id: string`
 
 - `next_page: string or null`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/spend_limits/effective \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

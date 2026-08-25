@@ -122,6 +122,16 @@ the site's HTML shell, with two guardrails:
 
 `--no-reap` reports what would go without touching anything.
 
+### Tombstones
+
+`tombstones.json` records every URL confirmed gone upstream, with the date and
+reason. It exists so that a page which died once does not report as a fresh
+failure on every subsequent run — 123 standing failures would pin the success
+rate at 96.9% and bury the one new breakage that matters. Later runs count
+known deaths quietly and print only what changed: pages newly gone, and pages
+that came *back* (whose tombstone is then removed automatically). The success
+rate is computed over live docs, so it means something.
+
 ## Automation
 
 Two GitHub Actions workflows power this repo:

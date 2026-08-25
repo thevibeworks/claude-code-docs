@@ -1,17 +1,12 @@
----
-title: Retrieve a memory
-url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/memories/retrieve
----
-
-## Retrieve a memory
+# Retrieve a memory
 
 `client.Beta.MemoryStores.Memories.Get(ctx, memoryID, params) (*BetaManagedAgentsMemory, error)`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Retrieve a memory
 
-### Parameters
+## Parameters
 
 - `memoryID string`
 
@@ -21,11 +16,11 @@ Retrieve a memory
 
     Path param: Path parameter memory_store_id
 
-  - `View param.Field[BetaManagedAgentsMemoryView]`
+  - `View param.Field[BetaManagedAgentsMemoryView] Optional`
 
     Query param: Query parameter for view
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -101,7 +96,7 @@ Retrieve a memory
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsMemory struct{…}`
 
@@ -119,9 +114,13 @@ Retrieve a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `MemoryStoreID string`
 
@@ -137,17 +136,17 @@ Retrieve a memory
 
   - `Type BetaManagedAgentsMemoryType`
 
-    - `const BetaManagedAgentsMemoryTypeMemory BetaManagedAgentsMemoryType = "memory"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-  - `Content string`
+    format: date-time
+
+  - `Content string Optional`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
 ```go
 package main
@@ -178,7 +177,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

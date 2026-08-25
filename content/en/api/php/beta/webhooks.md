@@ -1,11 +1,24 @@
----
-title: Webhooks
-url: https://platform.claude.com/docs/en/api/php/beta/webhooks
----
-
 # Webhooks
 
-## Domain Types
+## Unwrap
+
+`$client->beta->webhooks->unwrap(): void`
+
+### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$result = $client->beta->webhooks->unwrap();
+
+var_dump($result);
+```
+
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 

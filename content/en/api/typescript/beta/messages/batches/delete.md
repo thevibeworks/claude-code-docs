@@ -1,13 +1,8 @@
----
-title: Delete a Message Batch
-url: https://platform.claude.com/docs/en/api/typescript/beta/messages/batches/delete
----
+# Delete a Message Batch
 
-## Delete a Message Batch
+`client.beta.messages.batches.delete(messageBatchID, params?, options?): BetaDeletedMessageBatch`
 
-`client.beta.messages.batches.delete(stringmessageBatchID, BatchDeleteParamsparams?, RequestOptionsoptions?): BetaDeletedMessageBatch`
-
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -15,7 +10,7 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `messageBatchID: string`
 
@@ -99,7 +94,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaDeletedMessageBatch`
 
@@ -113,9 +108,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `"message_batch_deleted"`
+    default: message_batch_deleted
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -129,7 +124,7 @@ const betaDeletedMessageBatch = await client.beta.messages.batches.delete("messa
 console.log(betaDeletedMessageBatch.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

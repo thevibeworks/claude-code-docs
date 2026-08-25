@@ -1,17 +1,12 @@
----
-title: Delete a memory
-url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/memories/delete
----
+# Delete a memory
 
-## Delete a memory
+`BetaManagedAgentsDeletedMemory beta().memoryStores().memories().delete(params, requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsDeletedMemory beta().memoryStores().memories().delete(MemoryDeleteParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
-### Parameters
+## Parameters
 
 - `MemoryDeleteParams params`
 
@@ -95,7 +90,7 @@ Delete a memory
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeletedMemory:`
 
@@ -107,9 +102,7 @@ Delete a memory
 
   - `Type type`
 
-    - `MEMORY_DELETED("memory_deleted")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -134,7 +127,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

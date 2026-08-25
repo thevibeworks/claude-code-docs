@@ -1,15 +1,10 @@
----
-title: Tunnels
-url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels
----
-
 # Tunnels
 
 ## Create Tunnel
 
-`client.beta.tunnels.create(TunnelCreateParamsparams, RequestOptionsoptions?): BetaTunnel`
+`client.beta.tunnels.create(params, options?): BetaTunnel`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -22,6 +17,8 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
   - `display_name?: string | null`
 
     Body param: Optional human-readable name for the tunnel (1-255 characters).
+
+    minLength: 1, maxLength: 255
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -113,9 +110,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string | null`
 
@@ -126,8 +127,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: "tunnel"`
-
-    - `"tunnel"`
 
 ### Example
 
@@ -143,7 +142,7 @@ const betaTunnel = await client.beta.tunnels.create();
 console.log(betaTunnel.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -158,9 +157,9 @@ console.log(betaTunnel.id);
 
 ## Get Tunnel
 
-`client.beta.tunnels.retrieve(stringtunnelID, TunnelRetrieveParamsparams?, RequestOptionsoptions?): BetaTunnel`
+`client.beta.tunnels.retrieve(tunnelID, params?, options?): BetaTunnel`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -262,9 +261,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string | null`
 
@@ -275,8 +278,6 @@ Fetches a tunnel by ID.
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: "tunnel"`
-
-    - `"tunnel"`
 
 ### Example
 
@@ -292,7 +293,7 @@ const betaTunnel = await client.beta.tunnels.retrieve("tunnel_id");
 console.log(betaTunnel.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -307,9 +308,9 @@ console.log(betaTunnel.id);
 
 ## List Tunnels
 
-`client.beta.tunnels.list(TunnelListParamsparams?, RequestOptionsoptions?): PageCursor<BetaTunnel>`
+`client.beta.tunnels.list(params?, options?): PageCursor<BetaTunnel>`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -326,6 +327,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
   - `limit?: number`
 
     Query param: Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `page?: string`
 
@@ -421,9 +424,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string | null`
 
@@ -434,8 +441,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: "tunnel"`
-
-    - `"tunnel"`
 
 ### Example
 
@@ -452,7 +457,7 @@ for await (const betaTunnel of client.beta.tunnels.list()) {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -472,9 +477,9 @@ for await (const betaTunnel of client.beta.tunnels.list()) {
 
 ## Archive Tunnel
 
-`client.beta.tunnels.archive(stringtunnelID, TunnelArchiveParamsparams?, RequestOptionsoptions?): BetaTunnel`
+`client.beta.tunnels.archive(tunnelID, params?, options?): BetaTunnel`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -576,9 +581,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string | null`
 
@@ -589,8 +598,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: "tunnel"`
-
-    - `"tunnel"`
 
 ### Example
 
@@ -606,7 +613,7 @@ const betaTunnel = await client.beta.tunnels.archive("tunnel_id");
 console.log(betaTunnel.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -621,9 +628,9 @@ console.log(betaTunnel.id);
 
 ## Reveal Tunnel Token
 
-`client.beta.tunnels.revealToken(stringtunnelID, TunnelRevealTokenParamsparams?, RequestOptionsoptions?): BetaTunnelToken`
+`client.beta.tunnels.revealToken(tunnelID, params?, options?): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -727,8 +734,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `type: "tunnel_token"`
 
-    - `"tunnel_token"`
-
 ### Example
 
 ```typescript
@@ -743,7 +748,7 @@ const betaTunnelToken = await client.beta.tunnels.revealToken("tunnel_id");
 console.log(betaTunnelToken.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -755,9 +760,9 @@ console.log(betaTunnelToken.id);
 
 ## Rotate Tunnel Token
 
-`client.beta.tunnels.rotateToken(stringtunnelID, TunnelRotateTokenParamsparams, RequestOptionsoptions?): BetaTunnelToken`
+`client.beta.tunnels.rotateToken(tunnelID, params, options?): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -772,6 +777,8 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
   - `reason?: string | null`
 
     Body param: Optional free-text reason for the rotation, recorded for audit.
+
+    maxLength: 1024
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -865,8 +872,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `type: "tunnel_token"`
 
-    - `"tunnel_token"`
-
 ### Example
 
 ```typescript
@@ -881,7 +886,7 @@ const betaTunnelToken = await client.beta.tunnels.rotateToken("tunnel_id");
 console.log(betaTunnelToken.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -891,7 +896,7 @@ console.log(betaTunnelToken.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Tunnel
 
@@ -907,9 +912,13 @@ console.log(betaTunnelToken.id);
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string | null`
 
@@ -920,8 +929,6 @@ console.log(betaTunnelToken.id);
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `type: "tunnel"`
-
-    - `"tunnel"`
 
 ### Beta Tunnel Token
 
@@ -939,21 +946,19 @@ console.log(betaTunnelToken.id);
 
   - `type: "tunnel_token"`
 
-    - `"tunnel_token"`
+## Tunnels › Certificates
 
-# Certificates
+### Create Tunnel Certificate
 
-## Create Tunnel Certificate
+`client.beta.tunnels.certificates.create(tunnelID, params, options?): BetaTunnelCertificate`
 
-`client.beta.tunnels.certificates.create(stringtunnelID, CertificateCreateParamsparams, RequestOptionsoptions?): BetaTunnelCertificate`
-
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -962,6 +967,8 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
   - `ca_certificate_pem: string`
 
     Body param: PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
+
+    maxLength: 8192
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -1039,7 +1046,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `BetaTunnelCertificate`
 
@@ -1053,13 +1060,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -1071,9 +1084,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `type: "tunnel_certificate"`
 
-    - `"tunnel_certificate"`
-
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1089,7 +1100,7 @@ const betaTunnelCertificate = await client.beta.tunnels.certificates.create("tun
 console.log(betaTunnelCertificate.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1103,17 +1114,17 @@ console.log(betaTunnelCertificate.id);
 }
 ```
 
-## Get Tunnel Certificate
+### Get Tunnel Certificate
 
-`client.beta.tunnels.certificates.retrieve(stringcertificateID, CertificateRetrieveParamsparams, RequestOptionsoptions?): BetaTunnelCertificate`
+`client.beta.tunnels.certificates.retrieve(certificateID, params, options?): BetaTunnelCertificate`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel certificate by ID.
 
-### Parameters
+#### Parameters
 
 - `certificateID: string`
 
@@ -1199,7 +1210,7 @@ Fetches a tunnel certificate by ID.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `BetaTunnelCertificate`
 
@@ -1213,13 +1224,19 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -1231,9 +1248,7 @@ Fetches a tunnel certificate by ID.
 
   - `type: "tunnel_certificate"`
 
-    - `"tunnel_certificate"`
-
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1250,7 +1265,7 @@ const betaTunnelCertificate = await client.beta.tunnels.certificates.retrieve(
 console.log(betaTunnelCertificate.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1264,17 +1279,17 @@ console.log(betaTunnelCertificate.id);
 }
 ```
 
-## List Tunnel Certificates
+### List Tunnel Certificates
 
-`client.beta.tunnels.certificates.list(stringtunnelID, CertificateListParamsparams?, RequestOptionsoptions?): PageCursor<BetaTunnelCertificate>`
+`client.beta.tunnels.certificates.list(tunnelID, params?, options?): PageCursor<BetaTunnelCertificate>`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -1287,6 +1302,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `limit?: number`
 
     Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `page?: string`
 
@@ -1368,7 +1385,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `BetaTunnelCertificate`
 
@@ -1382,13 +1399,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -1400,9 +1423,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `type: "tunnel_certificate"`
 
-    - `"tunnel_certificate"`
-
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1417,7 +1438,7 @@ for await (const betaTunnelCertificate of client.beta.tunnels.certificates.list(
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1436,17 +1457,17 @@ for await (const betaTunnelCertificate of client.beta.tunnels.certificates.list(
 }
 ```
 
-## Archive Tunnel Certificate
+### Archive Tunnel Certificate
 
-`client.beta.tunnels.certificates.archive(stringcertificateID, CertificateArchiveParamsparams, RequestOptionsoptions?): BetaTunnelCertificate`
+`client.beta.tunnels.certificates.archive(certificateID, params, options?): BetaTunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+#### Parameters
 
 - `certificateID: string`
 
@@ -1532,7 +1553,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `BetaTunnelCertificate`
 
@@ -1546,13 +1567,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -1564,9 +1591,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `type: "tunnel_certificate"`
 
-    - `"tunnel_certificate"`
-
-### Example
+#### Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -1583,7 +1608,7 @@ const betaTunnelCertificate = await client.beta.tunnels.certificates.archive(
 console.log(betaTunnelCertificate.id);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1596,39 +1621,3 @@ console.log(betaTunnelCertificate.id);
   "type": "tunnel_certificate"
 }
 ```
-
-## Domain Types
-
-### Beta Tunnel Certificate
-
-- `BetaTunnelCertificate`
-
-  A CA certificate attached to a tunnel.
-
-  - `id: string`
-
-    Unique identifier for the certificate, prefixed with `tcrt_`.
-
-  - `archived_at: string | null`
-
-    A timestamp in RFC 3339 format
-
-  - `created_at: string`
-
-    A timestamp in RFC 3339 format
-
-  - `expires_at: string | null`
-
-    A timestamp in RFC 3339 format
-
-  - `fingerprint: string`
-
-    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
-
-  - `tunnel_id: string`
-
-    ID of the tunnel the certificate is registered against.
-
-  - `type: "tunnel_certificate"`
-
-    - `"tunnel_certificate"`

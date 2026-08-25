@@ -4,7 +4,7 @@
 
 # Restrict where Claude Tag operates
 
-> Claude Tag responds only where it has been added and addressed. See who can invoke it, guest and externally shared channel limits, the per-scope version setting, how to limit it to chosen channels, how to delegate a channel's setup, and how to quiet or remove it.
+> Claude Tag responds only where it has been added and addressed. See who can invoke it, what changes in guest and Slack Connect channels, the per-scope version setting, how to limit it to chosen channels, how to delegate a channel's setup, and how to quiet or remove it.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -59,6 +59,14 @@ A member whose roles don't grant the capability is excluded everywhere Claude wo
 
 <Warning>On a Slack Enterprise Grid whose workspaces are paired to different Claude organizations, one organization's access settings govern the entire grid, so your restrictions may not be enforced in your own workspaces.</Warning>
 
+### Restrict who can link a Claude account by email domain
+
+On Enterprise plans, if your organization belongs to a parent enterprise organization, you see one more toggle in the same **Manage** dialog, **Restrict to your verified domains**. It needs an Owner to change and is disabled while Claude Tag is off for the organization. The check uses the enterprise's verified domains, which every organization under the enterprise shares.
+
+When the toggle is on, a Slack user whose profile email isn't on one of the enterprise's verified domains can't link a Claude account to this organization; the sign-in is refused.
+
+<Warning>Turning this on in any one organization also stops Slack users on a verified domain from linking a Claude account to any organization outside the enterprise.</Warning>
+
 ## Control where Claude Tag operates
 
 The restriction toggle decides who can use Claude. The controls in this section decide where it works at all, from one channel up to a workspace, and which generation answers in each scope (a scope is a channel, a workspace, or your whole organization).
@@ -72,11 +80,11 @@ Six ways to stop Claude Tag from responding, ordered from quietest to most compl
 3. **Set the scope's Claude Tag version to Off.** Claude stops responding in that scope even if someone invites it back; an @-mention gets a disabled notice instead of a reply. The control is on the scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and only an Owner can change it.
 4. **Detach the scope.** The channel loses its elevated access and falls back to inherited baselines.
 5. **Delete the bundle.** This revokes its credentials everywhere it was attached (the credentials are removed; memory, routines, and transcripts are not). Running sessions may keep a revoked credential for a short window before the change propagates.
-6. **Uninstall the app.** This removes Claude from the workspace entirely.
+6. **Uninstall the app.** This removes Claude from the workspace and deletes the workspace's Claude data the same way [disconnecting the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing) does.
 
 To keep Claude out of channels by name ahead of time, add a [blocked channel pattern](#block-or-auto-join-channels-by-name) instead.
 
-Steps 1–4 and 6 do not delete any data. Step 5 (deleting a bundle) removes the credentials in that bundle; memory, routines, and session transcripts are unaffected by any of these steps. Removing Claude from a channel stops it responding there; the channel's memory and routines remain on record, and re-adding it restores them. Credentials are stored in Access bundles on the claude.ai side and persist independently of the Slack app installation. To delete data, use the dedicated controls at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) rather than removal alone.
+Steps 1–4 do not delete any data. Step 5 (deleting a bundle) removes the credentials in that bundle; memory, routines, and session transcripts are unaffected. Removing Claude from a channel stops it responding there; the channel's memory and routines remain on record, and re-adding it restores them. To delete data without uninstalling, use the dedicated controls at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag).
 
 ### Limit Claude Tag to specific channels
 
@@ -100,7 +108,7 @@ DMs, guest channels, and shared channels sit outside the version setting:
 
 * **DMs.** The version setting doesn't cover them. To close those off too, turn off [Allow direct messages](#allow-or-disable-direct-messages).
 * **Guest channels.** By default Claude is off in any channel that includes a Slack guest. If a chosen channel has guests, also set [Allow Claude to work in channels with guests](#restrict-guest-channels) to **Allow** or **Channel only** on its scope.
-* **Shared channels.** A [channel shared across workspaces in your Enterprise Grid](#channels-shared-across-workspaces-in-your-enterprise-grid) takes its settings from **Default Slack access** only, and Claude [doesn't operate in Slack Connect channels](#externally-shared-channels) at all; neither can serve as a chosen channel.
+* **Shared channels.** A [channel shared across workspaces in your Enterprise Grid](#channels-shared-across-workspaces-in-your-enterprise-grid) takes its settings from **Default Slack access** only and can't serve as a chosen channel. In a [Slack Connect channel](#externally-shared-channels), Claude replies only where the guest setting allows it.
 
 To control who can use Claude in the allowed channels, turn on the [restriction toggle](#restrict-who-can-use-claude); to cap what a channel spends, [set a per-channel spend limit](#set-spend-limits).
 
@@ -144,9 +152,24 @@ Treat a channel's instructions, and the instructions in any bundle attached to t
 
 **Channel only** takes effect where the **New** version answers. On a scope where **Legacy** answers, a channel that includes a guest is treated as **Restrict**.
 
-### Externally shared channels
+<a id="externally-shared-channels" />
 
-Claude doesn't operate in Slack Connect channels, the ones shared with another company. It's off in those channels regardless of scope or bundle, and this isn't configurable.
+### Slack Connect channels
+
+In a Slack Connect channel, one shared with another company, Claude treats everyone from the other company as a guest, and the [guest setting](#restrict-guest-channels), **Allow Claude to work in channels with guests**, decides whether it replies. Under **Restrict**, the default, Claude stays silent and posts no notice, unlike in a channel with a Slack guest. To let Claude answer, set the guest setting to **Channel only** on the channel's scope, or on a scope it inherits from; **Allow** behaves the same there, because in a Slack Connect channel Claude only ever runs with [channel-only access](#how-channel-only-works).
+
+When Claude replies in a Slack Connect channel:
+
+* People from the other company can ask it by mentioning `@Claude` or replying in a thread it's already in. When the [restriction toggle](#restrict-who-can-use-claude) that limits Claude to your organization's members is on, Claude doesn't answer them. Whether or not the toggle is on, they can't approve a tool or permission request.
+* Claude doesn't search your workspace, look up people or channels, read other channels, or use memory. Of the [commands](/docs/claude-tag/users/commands), your organization's members can use only `!help`, `!mute`, and `!unmute`; restarting or forking a session isn't available, and neither are routines.
+* Claude replies only to mentions and to threads it's already in, even where [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) is on. It reads the rest of the channel as context, including what the other company's people and apps post, but never answers their apps or bots.
+* You can't create a scope for a channel that's already shared; the console refuses it. A scope created before the channel was shared still applies, with its instructions and any bundle attached directly to it, so treat both as visible to the other company.
+* Everyone in the channel reads what Claude posts.
+* Claude stops replying in a thread it was in before the channel was shared, and posts a notice asking for a mention in a new thread.
+
+The guest setting controls only your organization's Claude. If the other company also uses Claude Tag, their settings decide whether their Claude answers in the channel, and you can't turn theirs off from your side. Claude never answers the other company's Claude.
+
+On Enterprise Grid, when Claude is installed at the organization level rather than per workspace, it replies only in Slack Connect channels that one of your own workspaces created. In a channel the other company created, it stays silent and posts no notice.
 
 ### Channels shared across workspaces in your Enterprise Grid
 
@@ -160,11 +183,7 @@ There is no per-channel override for either case.
 
 ### Migrate from the earlier Claude in Slack
 
-If your organization used the earlier Claude in Slack app, you choose which generation answers `@Claude` per scope. The control is the **Claude Tag version** setting on each workspace or channel scope at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), with the choices **Off**, **Legacy**, **New**, and **Inherit**, plus the **Claude Tag version** row on the **Default Slack access** scope above them.
-
-Both generations answer through the same @Claude app, so **Off** turns off both. To opt out of Claude Tag but keep the earlier app answering in a scope, choose **Legacy**.
-
-Access bundles only apply where the New version answers. The [glossary](/docs/claude-tag/concepts/glossary#the-earlier-claude-in-slack) covers how the two differ.
+If your organization used the earlier Claude in Slack app, the **Claude Tag version** setting on each scope chooses which generation answers `@Claude` there. Access bundles only apply where the New version answers. See [Set the version for a scope](/docs/claude-tag/admins/workspaces#set-the-version-for-a-scope) for the values and [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/migrate-from-earlier) for the switch.
 
 ### Allow or disable direct messages
 

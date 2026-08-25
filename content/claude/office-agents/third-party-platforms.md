@@ -17,12 +17,12 @@ trust boundary.
 Four connection paths are available. Your IT admin selects one during
 deployment. End users see the same interface regardless.
 
-| Path             | How it works                                                                                                                               |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| LLM gateway      | Requests route through your gateway (LiteLLM, Portkey, Kong, and others) to your chosen provider. Matches the pattern used by Claude Code. |
-| Bedrock direct   | The add-in authenticates via Microsoft Entra ID and calls Amazon Bedrock directly without intermediaries.                                  |
-| Vertex AI direct | The add-in authenticates through Google OAuth and calls Vertex AI directly.                                                                |
-| Foundry direct   | The add-in authenticates directly to your Azure AI Foundry resource using its API key.                                                     |
+| Path             | How it works                                                                                                                                               |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LLM gateway      | Requests route through your gateway (LiteLLM, Portkey, Kong, and others) to your chosen provider. Matches the pattern used by Claude Code.                 |
+| Bedrock direct   | The add-in authenticates via Microsoft Entra ID and calls Amazon Bedrock directly without intermediaries.                                                  |
+| Vertex AI direct | The add-in authenticates through Google OAuth and calls Vertex AI directly.                                                                                |
+| Foundry direct   | The add-in calls your Azure AI Foundry resource directly, authenticating with each user's Microsoft Entra ID token (keyless) or with the resource API key. |
 
 ## Requirements by connection path
 
@@ -35,12 +35,12 @@ All paths need:
   `Calendars.Read`, `User.Read`, and `offline_access`, granted via
   Anthropic's app or your own Entra app registration.
 
-| Path             | Additional requirements                                                                                                                                                                                                                                 |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| LLM gateway      | Gateway URL and API token from your IT team.                                                                                                                                                                                                            |
-| Bedrock direct   | AWS account with Claude model access enabled in target region. IAM OIDC identity provider and role configured to trust Microsoft Entra ID tokens.                                                                                                       |
-| Vertex AI direct | Google Cloud project with Vertex AI API enabled and Claude model access. Google OAuth client configured with the add-in's redirect URI.                                                                                                                 |
-| Foundry direct   | Azure AI Foundry resource with at least one Claude model deployed. Deployment names must use default model IDs (for example, `claude-opus-4-6`), not custom names. Resource API key from Azure Portal, your Foundry resource, Keys and Endpoint, KEY 1. |
+| Path             | Additional requirements                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LLM gateway      | Gateway URL and API token from your IT team.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Bedrock direct   | AWS account with Claude model access enabled in target region. IAM OIDC identity provider and role configured to trust Microsoft Entra ID tokens.                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Vertex AI direct | Google Cloud project with Vertex AI API enabled and Claude model access. Google OAuth client configured with the add-in's redirect URI.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Foundry direct   | Azure AI Foundry resource with at least one Claude model deployed. Deployment names must use default model IDs (for example, `claude-opus-4-6`), not custom names. Then one credential path: **keyless**, your own Entra app registration with the Azure Cognitive Services `user_impersonation` delegated permission (admin-consented) and users holding the Cognitive Services User role on the resource (see [Foundry direct without an API key](#foundry-direct-without-an-api-key)); or the resource API key from Azure Portal, your Foundry resource, Keys and Endpoint, KEY 1. |
 
 Your organization's IT team manages these resources. Anthropic cannot
 provide or reset credentials.
@@ -147,7 +147,10 @@ The wizard walks you through the path you chose:
 * **Vertex AI direct**: walks through Google OAuth client creation,
   generates the manifest, handles Azure admin consent.
 * **Foundry direct**: captures `azure_resource_name` and
-  `azure_api_key`, then generates the manifest.
+  `azure_api_key`, then generates the manifest. For keyless Entra ID
+  sign-in, add the parameters described in
+  [Foundry direct without an API key](#foundry-direct-without-an-api-key)
+  to the generated manifest.
 
 When complete, the add-in is ready for tenant-wide deployment.
 
@@ -335,8 +338,10 @@ which forwards it to the provider you configured.
     For Vertex AI, sign in with the Google account your admin authorized
     via the Google OAuth client created during setup.
     For Foundry, the add-in connects automatically if your admin
-    pre-filled the Azure resource name and API key. Otherwise, enter the
-    values your IT team provided and select Connect.
+    pre-filled the Azure resource name and API key. If your admin enabled
+    keyless sign-in, the add-in uses your Microsoft work account and no
+    key is involved. Otherwise, enter the values your IT team provided
+    and select Connect.
   </Step>
 
   <Step title="Start working">
@@ -365,6 +370,41 @@ AI.
 <Frame caption="Vertex AI direct flow: the add-in authenticates with Google OAuth, then calls Vertex AI.">
   <img src="https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/vertex-direct.png?fit=max&auto=format&n=-4jzPa4NasvobarI&q=85&s=a33063abcecbfc36e346621f735453ef" alt="The add-in authenticates through Google OAuth and calls Google Cloud Vertex AI directly." width="2540" height="1030" data-path="images/office-agents/architecture/vertex-direct.png" />
 </Frame>
+
+### Foundry direct without an API key
+
+Instead of a shared resource key, each user can authenticate to your
+Foundry resource with their own Microsoft Entra ID token. The add-in
+acquires the token through Nested App Authentication inside Office,
+sends it to `<resource>.services.ai.azure.com` as `Authorization: Bearer`,
+renews it silently before it expires, and re-authenticates once if Azure
+rejects a token early. No key is stored on the device and no key is
+embedded in the manifest.
+
+This uses the same Entra app registration that Claude Desktop's
+in-app Foundry sign-in uses (`inferenceFoundryClientId`), with the add-in's
+redirect URI added. Set up:
+
+1. In your Entra app registration, add the **Azure Cognitive Services**
+   delegated permission `user_impersonation` and grant admin consent.
+   Register the add-in's redirect URI as described in
+   [Use your own Entra app instead](/docs/office-agents/outlook#use-your-own-entra-app-instead).
+2. Grant the users or groups who will sign in the **Cognitive Services
+   User** role on the Foundry resource.
+3. Put these parameters in the manifest URL (no `azure_api_key`):
+
+| Parameter             | Value                                                       |
+| --------------------- | ----------------------------------------------------------- |
+| `azure_resource_name` | Your Foundry resource name.                                 |
+| `entra_sso`           | `1`                                                         |
+| `graph_client_id`     | The application (client) ID of your Entra app registration. |
+| `entra_scope`         | `https://cognitiveservices.azure.com/.default`              |
+| `gateway_auth_source` | `entra`                                                     |
+
+When `gateway_auth_source=entra` is set, the add-in ignores any
+`azure_api_key` it receives: the administrator chose keyless sign-in.
+Each user sees a one-time Microsoft sign-in prompt if silent sign-in is
+not available; afterwards the add-in connects automatically.
 
 ### Change or update your gateway connection
 
@@ -464,12 +504,12 @@ model is reachable, rather than calling `GET /v1/models`.
 If your team already runs Claude Code through a gateway, the table
 below summarizes how the Office add-in setup differs.
 
-| Aspect             | Claude Code                                          | Office add-ins                                                                                                                                                               |
-| ------------------ | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Credential storage | OS keychain or environment variables                 | Browser localStorage (sandboxed iframe)                                                                                                                                      |
-| Auth configuration | Environment variables, settings file, helper scripts | Manual entry in add-in UI (gateway), Entra ID (Bedrock), Google OAuth (Vertex AI), or Azure API key (Foundry)                                                                |
-| Token refresh      | Supports helper scripts for rotation                 | Automatic via a bootstrap endpoint (gateway), Entra ID (Bedrock), or Google OAuth (Vertex AI); gateway tokens entered manually in the add-in UI require re-entry in settings |
-| Custom model names | Configurable via environment variables               | Not configurable in v1                                                                                                                                                       |
+| Aspect             | Claude Code                                          | Office add-ins                                                                                                                                                                                |
+| ------------------ | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Credential storage | OS keychain or environment variables                 | Browser localStorage (sandboxed iframe)                                                                                                                                                       |
+| Auth configuration | Environment variables, settings file, helper scripts | Manual entry in add-in UI (gateway), Entra ID (Bedrock, keyless Foundry), Google OAuth (Vertex AI), or Azure API key (Foundry)                                                                |
+| Token refresh      | Supports helper scripts for rotation                 | Automatic via a bootstrap endpoint (gateway), Entra ID (Bedrock, keyless Foundry), or Google OAuth (Vertex AI); gateway tokens entered manually in the add-in UI require re-entry in settings |
+| Custom model names | Configurable via environment variables               | Not configurable in v1                                                                                                                                                                        |
 
 When gateway configuration comes from a bootstrap endpoint, the add-in
 keeps the token current without user action. It calls the bootstrap
@@ -589,18 +629,10 @@ contact your IT team.
 
 To route a full audit trail, including prompts, tool inputs, tool
 outputs, and document references, to your own infrastructure, see
-[Configure a custom OpenTelemetry collector for Claude for M365](https://support.claude.com/en/articles/14447276-configure-a-custom-opentelemetry-collector-for-office-agents).
-
-The prompt, tool-input, and tool-output span attributes in that audit
-trail are truncated in the add-in at 4,000 characters each by default,
-marked with a trailing `…[truncated]`.
-
-To change the cap, set the `otlp_attr_max_chars` configuration key, for
-example as a manifest parameter, to a positive integer. Values are
-clamped to between 256 and 32,000. Before raising the cap, confirm that
-your collector and tracing backend accept attribute values of the
-configured size: many backends truncate or drop over-limit attributes at
-ingest, and a dropped span is lost from the audit trail entirely.
+[Configure a custom OpenTelemetry collector](/docs/office-agents/opentelemetry).
+That page covers the `otlp_endpoint`, `otlp_headers`, and
+`otlp_attr_max_chars` configuration keys, the CORS requirements for the
+collector endpoint, and the full span reference.
 
 ## Why sign-in redirects through pivot.claude.ai
 
@@ -685,6 +717,31 @@ the browser's local storage, and the add-in calls `graph.microsoft.com`
 directly. The Graph token never reaches `pivot.claude.ai` or any other
 Anthropic endpoint.
 
+### Identify Anthropic's Microsoft Entra application
+
+The admin consent link and Nested App Authentication both use a single
+multi-tenant application that Anthropic publishes in Microsoft Entra ID.
+When you review the consent prompt or the resulting enterprise
+application in your tenant, confirm it matches these values.
+
+| Field                   | Value                                    |
+| ----------------------- | ---------------------------------------- |
+| Display name            | Claude for Office                        |
+| Application (client) ID | `c2995f31-11e7-4882-b7a7-ef9def0a0266`   |
+| Publisher               | Anthropic, PBC (verified publisher)      |
+| Supported account types | Accounts in any organizational directory |
+
+The add-in uses the following redirect URIs for sign-in. Each one exists
+for a specific sign-in path, and none of them receives a Microsoft
+access token in the URL.
+
+| Redirect URI                                 | Platform                | Purpose                                                                                  |
+| -------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------- |
+| `https://pivot.claude.ai/auth/callback`      | Web                     | admin consent confirmation page, receives `admin_consent` and `tenant` only              |
+| `https://pivot.claude.ai/msal-redirect.html` | Single-page application | MSAL response bridge for Office on the web, where the host cannot broker tokens natively |
+| `brk-multihub://pivot.claude.ai`             | Single-page application | Nested App Authentication broker on Office desktop and Mac                               |
+| `https://pivot.claude.ai/auth/3p`            | Web                     | legacy entry from earlier builds, not used by current builds, scheduled for removal      |
+
 ### Verify this in your own environment
 
 You can confirm every claim above with a network capture on a test
@@ -744,8 +801,11 @@ are allowed.
 The auth token is invalid or expired. For gateway connections, confirm
 the token with your IT team. For direct-cloud connections, verify the
 user's Entra ID account is in the assigned group and that the OIDC trust
-or OAuth client is configured correctly. For Foundry, regenerate the key
-in Azure Portal, Keys and Endpoint.
+or OAuth client is configured correctly. For Foundry with an API key,
+regenerate the key in Azure Portal, Keys and Endpoint. For keyless
+Foundry sign-in, confirm the Entra app has the Azure Cognitive Services
+`user_impersonation` permission with admin consent and that
+`entra_scope` is `https://cognitiveservices.azure.com/.default`.
 
 ### 403 Forbidden or "Access denied"
 
@@ -754,7 +814,8 @@ the IAM role has `bedrock:InvokeModel` permissions. For Vertex, verify
 your Google account has the Vertex AI User role on the project. For
 gateways, check the token's scope with your IT admin. For Foundry, check
 the resource's networking rules, or confirm the key belongs to the right
-resource.
+resource. For keyless Foundry sign-in, confirm the user holds the
+Cognitive Services User role on the resource.
 
 ### 404 Not found
 

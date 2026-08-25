@@ -1,17 +1,12 @@
----
-title: Get Credential
-url: https://platform.claude.com/docs/en/api/php/beta/vaults/credentials/retrieve
----
-
-## Get Credential
+# Get Credential
 
 `$client->beta->vaults->credentials->retrieve(string credentialID, string vaultID, ?list<AnthropicBeta> betas): ManagedAgentsCredential`
 
-**get** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**GET** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Get Credential
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -21,7 +16,7 @@ Get Credential
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsCredential`
 
@@ -59,7 +54,7 @@ Get Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -77,7 +72,7 @@ $betaManagedAgentsCredential = $client->beta->vaults->credentials->retrieve(
 var_dump($betaManagedAgentsCredential);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

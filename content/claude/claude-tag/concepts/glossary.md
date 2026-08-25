@@ -41,7 +41,7 @@ Claude Tag is the second generation of the Claude app in Slack:
 | Memory         | None                                        | Shared workspace memory plus private-channel memory   |
 | Proactive work | None                                        | Routines and channel watching                         |
 
-Your admin chooses which generation answers `@Claude` in a given channel, so two channels in the same workspace can work differently. See [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/restrict-access#migrate-from-the-earlier-claude-in-slack).
+Your admin chooses which generation answers `@Claude` in a given channel, so two channels in the same workspace can work differently. See [Migrate from the earlier Claude in Slack](/docs/claude-tag/admins/workspaces#set-the-version-for-a-scope).
 
 ## Connection
 

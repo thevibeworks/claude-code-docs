@@ -51,11 +51,7 @@ This means:
 
 ### Network egress
 
-Outbound traffic from a channel session's sandbox is default-deny. Requests go only to hosts an allow layer covers, and the layers are a [connection's Allowed websites](/docs/claude-tag/admins/connections/custom#fill-out-the-custom-tool-form), the [bundle's Domains tab](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential), and the network access setting of the [environment](/docs/claude-tag/concepts/glossary#environment) the scope's sessions run on. A new environment's default level, Trusted access, already covers a [documented set of package registries and developer hosts](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains). Every request gets one of three outcomes:
-
-* **Matches a credential rule.** The credential is attached at the boundary and the request proceeds.
-* **Matches only an allowlist.** The host is on the Domains tab or allowed by the environment's network access setting; the request is sent without credentials.
-* **Matches nothing.** The request is blocked outright; the host is unreachable rather than merely unauthenticated.
+Outbound traffic from a channel session's sandbox is default-deny. Requests go only to hosts an allow layer covers, and the layers are a [connection's Allowed websites](/docs/claude-tag/admins/connections/custom#fill-out-the-custom-tool-form), the [bundle's Domains tab](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential), and the network access setting of the [environment](/docs/claude-tag/concepts/glossary#environment) the scope's sessions run on. A new environment's default level, Trusted access, already covers a [documented set of package registries and developer hosts](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains). See [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy) for what happens to a request under each layer.
 
 <img className="block dark:hidden" src="https://mintcdn.com/claude-ai/Tf9m3OvmKAZp3uXC/images/claude-tag/diagrams/proxy-decision.svg?fit=max&auto=format&n=Tf9m3OvmKAZp3uXC&q=85&s=a4aecacf4e23944d5a2ecaacf6cf95a1" alt="Flow diagram across two zones. Inside Anthropic's infrastructure, a session sandbox that holds no credentials sends every outbound request to Agent Proxy, which matches it against admin rules. Three outcomes branch toward your systems: on a rule match, the credential is attached at the boundary and the request proceeds; on an allowlist-only match, from the bundle's Domains list or the environment's network access setting, the request is sent without credentials; on no match, the request is blocked entirely (the default-deny outcome) and the host is unreachable." width="1000" height="400" data-path="images/claude-tag/diagrams/proxy-decision.svg" />
 
@@ -91,7 +87,7 @@ Confine a credential to one channel in three steps:
 2. Keep the channel private. A bundle on a public channel [grants its access to anyone who joins](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel).
 3. Check the channel's **Access summary** on the [Slack tab in admin settings](/docs/claude-tag/admins/attach-to-scope). It shows the access the channel actually gets, including what it inherits from the workspace and Default Slack access.
 
-Claude [doesn't operate in externally shared channels](/docs/claude-tag/admins/restrict-access#externally-shared-channels), so a channel shared with another company never has a session to isolate.
+In a channel shared with another company, Claude replies only if the guest setting allows it, and then with channel-only access, so nothing inherited from the workspace or **Default Slack access** reaches the channel. See [Slack Connect channels](/docs/claude-tag/admins/restrict-access#externally-shared-channels).
 
 Isolating a credential doesn't isolate what Claude knows. What it learns in a public channel becomes [workspace memory](/docs/claude-tag/users/memory) that sessions in the workspace's other channels can read, and it can [search public channels by keyword](/docs/claude-tag/admins/restrict-access#controls-that-aren%E2%80%99t-available) without being added to them, the same way any workspace member can.
 

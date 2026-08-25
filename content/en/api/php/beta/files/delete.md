@@ -1,17 +1,12 @@
----
-title: Delete File
-url: https://platform.claude.com/docs/en/api/php/beta/files/delete
----
-
-## Delete File
+# Delete File
 
 `$client->beta->files->delete(string fileID, ?list<AnthropicBeta> betas): BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
-### Parameters
+## Parameters
 
 - `fileID: string`
 
@@ -21,7 +16,7 @@ Delete File
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaDeletedFile`
 
@@ -35,7 +30,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -51,7 +46,7 @@ $betaDeletedFile = $client->beta->files->delete(
 var_dump($betaDeletedFile);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

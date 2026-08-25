@@ -1,33 +1,30 @@
----
-title: List Environments
-url: https://platform.claude.com/docs/en/api/go/beta/environments/list
----
-
-## List Environments
+# List Environments
 
 `client.Beta.Environments.List(ctx, params) (*PageCursor[BetaEnvironment], error)`
 
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
-### Parameters
+## Parameters
 
 - `params BetaEnvironmentListParams`
 
-  - `IncludeArchived param.Field[bool]`
+  - `IncludeArchived param.Field[bool] Optional`
 
     Query param: Include archived environments in the response
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of environments to return
 
-  - `Page param.Field[string]`
+    maximum: 1000, minimum: 1
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque cursor from previous response for pagination. Pass the `next_page` value from the previous response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -103,7 +100,7 @@ List environments with pagination support.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaEnvironment struct{…}`
 
@@ -137,8 +134,6 @@ List environments with pagination support.
 
             Network policy type
 
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
-
         - `type BetaLimitedNetwork struct{…}`
 
           Limited network access.
@@ -158,8 +153,6 @@ List environments with pagination support.
           - `Type Limited`
 
             Network policy type
-
-            - `const LimitedLimited Limited = "limited"`
 
       - `Packages BetaPackages`
 
@@ -189,17 +182,15 @@ List environments with pagination support.
 
           Python packages to install
 
-        - `Type BetaPackagesType`
+        - `Type BetaPackagesType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesTypePackages BetaPackagesType = "packages"`
+          default: packages
 
       - `Type Cloud`
 
         Environment type
-
-        - `const CloudCloud Cloud = "cloud"`
 
     - `type BetaSelfHostedConfig struct{…}`
 
@@ -208,8 +199,6 @@ List environments with pagination support.
       - `Type SelfHosted`
 
         Environment type
-
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
 
   - `CreatedAt string`
 
@@ -231,13 +220,13 @@ List environments with pagination support.
 
     The type of object (always 'environment')
 
-    - `const EnvironmentEnvironment Environment = "environment"`
+    default: environment
 
   - `UpdatedAt string`
 
     RFC 3339 timestamp when environment was last updated
 
-  - `Scope BetaEnvironmentScope`
+  - `Scope BetaEnvironmentScope Optional`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -245,7 +234,7 @@ List environments with pagination support.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
-### Example
+## Example
 
 ```go
 package main
@@ -270,7 +259,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

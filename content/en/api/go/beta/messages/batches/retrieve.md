@@ -1,19 +1,14 @@
----
-title: Retrieve a Message Batch
-url: https://platform.claude.com/docs/en/api/go/beta/messages/batches/retrieve
----
-
-## Retrieve a Message Batch
+# Retrieve a Message Batch
 
 `client.Beta.Messages.Batches.Get(ctx, messageBatchID, query) (*BetaMessageBatch, error)`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `messageBatchID string`
 
@@ -21,7 +16,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 - `query BetaMessageBatchGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -97,7 +92,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaMessageBatch struct{…}`
 
@@ -111,13 +106,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `CancelInitiatedAt Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `CreatedAt Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `EndedAt Time`
 
@@ -125,9 +126,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `ProcessingStatus BetaMessageBatchProcessingStatus`
 
@@ -151,11 +156,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `Errored int64`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `Expired int64`
 
@@ -163,15 +172,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `Processing int64`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `Succeeded int64`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `ResultsURL string`
 
@@ -185,9 +200,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `const MessageBatchMessageBatch MessageBatch = "message_batch"`
+    default: message_batch
 
-### Example
+## Example
 
 ```go
 package main
@@ -216,7 +231,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

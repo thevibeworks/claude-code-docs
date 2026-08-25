@@ -1,25 +1,24 @@
----
-title: List Environments
-url: https://platform.claude.com/docs/en/api/php/beta/environments/list
----
-
-## List Environments
+# List Environments
 
 `$client->beta->environments->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaEnvironment>`
 
-**get** `/v1/environments`
+**GET** `/v1/environments`
 
 List environments with pagination support.
 
-### Parameters
+## Parameters
 
 - `includeArchived?:optional bool`
 
   Include archived environments in the response
 
+  default: false
+
 - `limit?:optional int`
 
   Maximum number of environments to return
+
+  default: 20
 
 - `page?:optional string`
 
@@ -29,7 +28,7 @@ List environments with pagination support.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaEnvironment`
 
@@ -73,7 +72,7 @@ List environments with pagination support.
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -92,7 +91,7 @@ $page = $client->beta->environments->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

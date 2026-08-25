@@ -1,17 +1,12 @@
----
-title: Create a memory
-url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/memories/create
----
+# Create a memory
 
-## Create a memory
+`BetaManagedAgentsMemory beta().memoryStores().memories().create(params, requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsMemory beta().memoryStores().memories().create(MemoryCreateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
-### Parameters
+## Parameters
 
 - `MemoryCreateParams params`
 
@@ -101,7 +96,9 @@ Create a memory
 
     Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
 
-### Returns
+    minLength: 2, maxLength: 1024
+
+## Returns
 
 - `class BetaManagedAgentsMemory:`
 
@@ -119,9 +116,13 @@ Create a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String memoryStoreId`
 
@@ -137,17 +138,17 @@ Create a memory
 
   - `Type type`
 
-    - `MEMORY("memory")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> content`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -173,7 +174,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

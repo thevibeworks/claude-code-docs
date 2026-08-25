@@ -1,15 +1,10 @@
----
-title: Models
-url: https://platform.claude.com/docs/en/api/go/beta/models
----
-
 # Models
 
 ## List Models
 
 `client.Beta.Models.List(ctx, params) (*Page[BetaModelInfo], error)`
 
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
@@ -19,21 +14,23 @@ The Models API response can be used to determine which models are available for 
 
 - `params BetaModelListParams`
 
-  - `AfterID param.Field[string]`
+  - `AfterID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
-  - `BeforeID param.Field[string]`
+  - `BeforeID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    maximum: 1000, minimum: 1
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -225,6 +222,8 @@ The Models API response can be used to determine which models are available for 
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
@@ -243,7 +242,7 @@ The Models API response can be used to determine which models are available for 
 
     For Models, this is always `"model"`.
 
-    - `const ModelModel Model = "model"`
+    default: model
 
 ### Example
 
@@ -270,7 +269,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -358,7 +357,7 @@ func main() {
 
 `client.Beta.Models.Get(ctx, modelID, query) (*BetaModelInfo, error)`
 
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
@@ -372,7 +371,7 @@ The Models API response can be used to determine information about a specific mo
 
 - `query BetaModelGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -564,6 +563,8 @@ The Models API response can be used to determine information about a specific mo
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
@@ -582,7 +583,7 @@ The Models API response can be used to determine information about a specific mo
 
     For Models, this is always `"model"`.
 
-    - `const ModelModel Model = "model"`
+    default: model
 
 ### Example
 
@@ -613,7 +614,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -690,7 +691,7 @@ func main() {
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Capability Support
 
@@ -980,6 +981,8 @@ func main() {
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
@@ -998,7 +1001,7 @@ func main() {
 
     For Models, this is always `"model"`.
 
-    - `const ModelModel Model = "model"`
+    default: model
 
 ### Beta Thinking Capability
 

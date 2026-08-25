@@ -29,7 +29,7 @@ The following diagram traces one example (a Cowork request where Claude also cal
 
 A verdict is a small JSON object: `{"action": "allow"}` lets the request proceed, and a deny carries the user-facing reason. For the full verdict schema, see [Return a verdict](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint#return-a-verdict).
 
-Your AI security server sees what the user sees: transcript text, tool calls and their results, and text extracted from attachments. It never receives raw file or image bytes, system prompts, or Anthropic-internal context.
+Your AI security server sees what the user sees: transcript text, tool calls and their results, and text extracted from attachments. It never receives raw file or image bytes, system prompts, or Anthropic-internal context. Anthropic doesn't store prompt or response content as part of Inference hooks; it records only metadata about hook activity, such as verdicts, timestamps, and request identifiers.
 
 If your AI security server is unreachable, returns an error, or doesn't respond within the timeout, your organization's failure handling setting decides the outcome: block the request, or allow it to proceed without inspection.
 

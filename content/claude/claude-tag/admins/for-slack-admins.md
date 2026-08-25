@@ -27,7 +27,7 @@ When a member selects **Add to channel** or an auto-join pattern matches, Claude
 
 Reading a channel's full history requires being added there. Workspace search can surface public-channel content, the same as any app with the search scope.
 
-Slack Connect channels (shared with another company) are always excluded, regardless of configuration.
+In a Slack Connect channel (shared with another company), Claude replies only if a Claude organization Owner allows it, and then without anything set up outside that channel; see [Slack Connect channels](/docs/claude-tag/admins/restrict-access#externally-shared-channels).
 
 ## Requested scopes
 

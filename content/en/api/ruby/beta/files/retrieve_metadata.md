@@ -1,17 +1,12 @@
----
-title: Get File Metadata
-url: https://platform.claude.com/docs/en/api/ruby/beta/files/retrieve_metadata
----
-
-## Get File Metadata
+# Get File Metadata
 
 `beta.files.retrieve_metadata(file_id, **kwargs) -> BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
-### Parameters
+## Parameters
 
 - `file_id: String`
 
@@ -93,7 +88,7 @@ Get File Metadata
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaFileMetadata`
 
@@ -107,25 +102,31 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: String`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: String`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: Integer`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: :file`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `:file`
 
   - `downloadable: bool`
 
@@ -143,9 +144,7 @@ Get File Metadata
 
       The type of scope (e.g., `"session"`).
 
-      - `:session`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -157,7 +156,7 @@ beta_file_metadata = anthropic.beta.files.retrieve_metadata("file_id")
 puts(beta_file_metadata)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

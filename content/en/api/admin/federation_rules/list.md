@@ -1,22 +1,19 @@
----
-title: List Federation Rules
-url: https://platform.claude.com/docs/en/api/admin/federation_rules/list
----
+# List Federation Rules
 
-## List Federation Rules
-
-**get** `/v1/organizations/federation_rules`
+**GET** `/v1/organizations/federation_rules`
 
 List federation rules in your organization.
 
 Optionally filter by issuer with `issuer_id`. Archived rules are excluded
 unless `include_archived=true`.
 
-### Query Parameters
+## Query parameters
 
 - `include_archived: optional boolean`
 
   Include archived resources. Defaults to false.
+
+  default: false
 
 - `issuer_id: optional string`
 
@@ -26,11 +23,13 @@ unless `include_archived=true`.
 
   Number of results per page.
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque cursor from a previous response's `next_page`.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -38,7 +37,7 @@ unless `include_archived=true`.
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
 - `data: array of FederationRule`
 
@@ -54,6 +53,8 @@ unless `include_archived=true`.
 
     If set, this rule is archived and rejects token exchange.
 
+    format: date-time
+
   - `archived_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
@@ -65,6 +66,8 @@ unless `include_archived=true`.
   - `created_at: string`
 
     When this rule was created.
+
+    format: date-time
 
   - `created_by_actor_id: string or null`
 
@@ -82,13 +85,15 @@ unless `include_archived=true`.
 
     Issuer's display name at read time.
 
-  - `match: object { audience, claims, condition, subject_prefix }`
+  - `match: object`
 
     Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
 
     - `audience: optional string or null`
 
       Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+      maxLength: 1024
 
     - `claims: optional map[string] or null`
 
@@ -98,9 +103,13 @@ unless `include_archived=true`.
 
       CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
 
+      maxLength: 4096
+
     - `subject_prefix: optional string or null`
 
       Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+      maxLength: 1024
 
   - `name: string`
 
@@ -110,7 +119,7 @@ unless `include_archived=true`.
 
     Space-separated OAuth scopes granted on the minted token.
 
-  - `target: object { service_account_id, type, service_account_name }`
+  - `target: object`
 
     Identity that tokens minted via this rule act as. Currently always a `service_account` target.
 
@@ -119,8 +128,6 @@ unless `include_archived=true`.
       Tagged ID of the service account to mint tokens for.
 
     - `type: "service_account"`
-
-      - `"service_account"`
 
     - `service_account_name: optional string or null`
 
@@ -132,11 +139,13 @@ unless `include_archived=true`.
 
   - `type: "federation_rule"`
 
-    - `"federation_rule"`
+    default: federation_rule
 
   - `updated_at: string`
 
     When this rule was last updated.
+
+    format: date-time
 
   - `updated_by_actor_id: string or null`
 
@@ -154,15 +163,15 @@ unless `include_archived=true`.
 
   Opaque cursor for the next page, or null if no more results.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_rules \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

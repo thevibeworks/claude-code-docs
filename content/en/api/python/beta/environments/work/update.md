@@ -1,19 +1,14 @@
----
-title: Update Work Item
-url: https://platform.claude.com/docs/en/api/python/beta/environments/work/update
----
+# Update Work Item
 
-## Update Work Item
+`beta.environments.work.update(work_id, **kwargs)  -> BetaSelfHostedWork`
 
-`beta.environments.work.update(strwork_id, WorkUpdateParams**kwargs)  -> BetaSelfHostedWork`
-
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Parameters
+## Parameters
 
 - `environment_id: str`
 
@@ -99,7 +94,7 @@ Update work item metadata with merge semantics.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaSelfHostedWork: …`
 
@@ -132,8 +127,6 @@ Update work item metadata with merge semantics.
     - `type: Literal["session"]`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: str`
 
@@ -181,9 +174,9 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
 ```python
 import os
@@ -202,7 +195,7 @@ beta_self_hosted_work = client.beta.environments.work.update(
 print(beta_self_hosted_work.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

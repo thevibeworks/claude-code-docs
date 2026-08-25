@@ -1,15 +1,10 @@
----
-title: Memories
-url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/memories
----
-
 # Memories
 
 ## Create a memory
 
 `$client->beta->memoryStores->memories->create(string memoryStoreID, ?string content, string path, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
@@ -95,7 +90,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -116,7 +111,7 @@ var_dump($betaManagedAgentsMemory);
 
 `$client->beta->memoryStores->memories->list(string memoryStoreID, ?int depth, ?int limit, ?string page, ?string pathPrefix, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryListItem>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
@@ -222,7 +217,7 @@ $page = $client->beta->memoryStores->memories->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -248,7 +243,7 @@ var_dump($page);
 
 `$client->beta->memoryStores->memories->retrieve(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Retrieve a memory
 
@@ -327,7 +322,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->retrieve(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -348,7 +343,7 @@ var_dump($betaManagedAgentsMemory);
 
 `$client->beta->memoryStores->memories->update(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?string content, ?string path, ?ManagedAgentsPrecondition precondition, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Update a memory
 
@@ -444,7 +439,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -465,7 +460,7 @@ var_dump($betaManagedAgentsMemory);
 
 `$client->beta->memoryStores->memories->delete(string memoryID, string memoryStoreID, ?string expectedContentSha256, ?list<AnthropicBeta> betas): ManagedAgentsDeletedMemory`
 
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
@@ -512,7 +507,7 @@ $betaManagedAgentsDeletedMemory = $client->beta->memoryStores->memories->delete(
 var_dump($betaManagedAgentsDeletedMemory);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -521,7 +516,7 @@ var_dump($betaManagedAgentsDeletedMemory);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Conflict Error
 

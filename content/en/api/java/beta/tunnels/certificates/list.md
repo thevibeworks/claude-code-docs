@@ -1,19 +1,14 @@
----
-title: List Tunnel Certificates
-url: https://platform.claude.com/docs/en/api/java/beta/tunnels/certificates/list
----
+# List Tunnel Certificates
 
-## List Tunnel Certificates
+`CertificateListPage beta().tunnels().certificates().list(params = CertificateListParams.none(), requestOptions = RequestOptions.none())`
 
-`CertificateListPage beta().tunnels().certificates().list(CertificateListParamsparams = CertificateListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `CertificateListParams params`
 
@@ -26,6 +21,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
   - `Optional<Long> limit`
 
     Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+
+    format: int32
 
   - `Optional<String> page`
 
@@ -103,7 +100,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaTunnelCertificate:`
 
@@ -117,13 +114,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<LocalDateTime> expiresAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String fingerprint`
 
@@ -133,11 +136,9 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     ID of the tunnel the certificate is registered against.
 
-  - `JsonValue; type "tunnel_certificate"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_CERTIFICATE("tunnel_certificate")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -158,7 +159,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

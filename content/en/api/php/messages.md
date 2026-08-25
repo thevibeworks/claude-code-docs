@@ -1,15 +1,10 @@
----
-title: Messages
-url: https://platform.claude.com/docs/en/api/php/messages
----
-
 # Messages
 
 ## Create a Message
 
 `$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID): Message`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -132,14 +127,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
-- `temperature?:optional float`
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
 - `thinking?:optional ThinkingConfigParam`
 
   Configuration for enabling Claude's extended thinking.
@@ -216,7 +203,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
+- `userProfileID?:optional string`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `temperature?:optional float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
 - `topK?:optional int`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
   Only sample from the top K options for each subsequent token.
 
@@ -226,15 +229,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `topP?:optional float`
 
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
   Use nucleus sampling.
 
   In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
   Recommended for advanced use cases only.
-
-- `userProfileID?:optional string`
-
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
 ### Returns
 
@@ -335,6 +336,60 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
+- `RawMessageStreamEvent`
+
+  - `RawMessageStartEvent`
+
+    - `Message message`
+
+    - `"message_start" type`
+
+  - `RawMessageDeltaEvent`
+
+    - `Delta delta`
+
+    - `"message_delta" type`
+
+    - `MessageDeltaUsage usage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+  - `RawMessageStopEvent`
+
+    - `"message_stop" type`
+
+  - `RawContentBlockStartEvent`
+
+    - `ContentBlock contentBlock`
+
+      Response model for a file uploaded to the container.
+
+    - `int index`
+
+    - `"content_block_start" type`
+
+  - `RawContentBlockDeltaEvent`
+
+    - `RawContentBlockDelta delta`
+
+    - `int index`
+
+    - `"content_block_delta" type`
+
+  - `RawContentBlockStopEvent`
+
+    - `int index`
+
+    - `"content_block_stop" type`
+
 ### Example
 
 ```php
@@ -409,7 +464,7 @@ $message = $client->messages->create(
 var_dump($message);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -478,7 +533,7 @@ var_dump($message);
 
 `$client->messages->countTokens(list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?OutputConfig outputConfig, ?System system, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<MessageCountTokensTool> tools, ?string userProfileID): MessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -707,7 +762,7 @@ $messageTokensCount = $client->messages->countTokens(
 var_dump($messageTokensCount);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -715,7 +770,7 @@ var_dump($messageTokensCount);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Base64 Image Source
 
@@ -6516,13 +6571,13 @@ var_dump($messageTokensCount);
 
   - `"request_too_large"`
 
-# Batches
+## Messages › Batches
 
-## Create a Message Batch
+### Create a Message Batch
 
 `$client->messages->batches->create(list<Request> requests, ?string userProfileID): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -6530,7 +6585,7 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `requests: list<Request>`
 
@@ -6540,7 +6595,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -6594,7 +6649,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -6676,7 +6731,7 @@ $messageBatch = $client->messages->batches->create(
 var_dump($messageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -6699,23 +6754,23 @@ var_dump($messageBatch);
 }
 ```
 
-## Retrieve a Message Batch
+### Retrieve a Message Batch
 
 `$client->messages->batches->retrieve(string messageBatchID): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -6769,7 +6824,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -6783,7 +6838,7 @@ $messageBatch = $client->messages->batches->retrieve('message_batch_id');
 var_dump($messageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -6806,17 +6861,17 @@ var_dump($messageBatch);
 }
 ```
 
-## List Message Batches
+### List Message Batches
 
 `$client->messages->batches->list(?string afterID, ?string beforeID, ?int limit): Page<MessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `afterID?:optional string`
 
@@ -6832,7 +6887,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
-### Returns
+  default: 20
+
+#### Returns
 
 - `MessageBatch`
 
@@ -6886,7 +6943,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -6902,7 +6959,7 @@ $page = $client->messages->batches->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -6932,11 +6989,11 @@ var_dump($page);
 }
 ```
 
-## Cancel a Message Batch
+### Cancel a Message Batch
 
 `$client->messages->batches->cancel(string messageBatchID): MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -6944,13 +7001,13 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatch`
 
@@ -7004,7 +7061,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -7018,7 +7075,7 @@ $messageBatch = $client->messages->batches->cancel('message_batch_id');
 var_dump($messageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -7041,11 +7098,11 @@ var_dump($messageBatch);
 }
 ```
 
-## Delete a Message Batch
+### Delete a Message Batch
 
 `$client->messages->batches->delete(string messageBatchID): DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -7053,13 +7110,13 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `DeletedMessageBatch`
 
@@ -7073,7 +7130,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -7087,7 +7144,7 @@ $deletedMessageBatch = $client->messages->batches->delete('message_batch_id');
 var_dump($deletedMessageBatch);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -7096,11 +7153,11 @@ var_dump($deletedMessageBatch);
 }
 ```
 
-## Retrieve Message Batch results
+### Retrieve Message Batch results
 
 `$client->messages->batches->results(string messageBatchID): MessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -7108,13 +7165,13 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+#### Returns
 
 - `MessageBatchIndividualResponse`
 
@@ -7130,7 +7187,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -7145,173 +7202,3 @@ $messageBatchIndividualResponse = $client->messages->batches->resultsStream(
 
 var_dump($messageBatchIndividualResponse);
 ```
-
-## Domain Types
-
-### Deleted Message Batch
-
-- `DeletedMessageBatch`
-
-  - `string id`
-
-    ID of the Message Batch.
-
-  - `"message_batch_deleted" type`
-
-    Deleted object type.
-
-    For Message Batches, this is always `"message_batch_deleted"`.
-
-### Message Batch
-
-- `MessageBatch`
-
-  - `string id`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `?\Datetime archivedAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
-
-  - `?\Datetime cancelInitiatedAt`
-
-    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was created.
-
-  - `?\Datetime endedAt`
-
-    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
-
-    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
-
-  - `\Datetime expiresAt`
-
-    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
-
-  - `ProcessingStatus processingStatus`
-
-    Processing status of the Message Batch.
-
-  - `MessageBatchRequestCounts requestCounts`
-
-    Tallies requests within the Message Batch, categorized by their status.
-
-    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
-
-  - `?string resultsURL`
-
-    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
-
-    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `"message_batch" type`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-### Message Batch Canceled Result
-
-- `MessageBatchCanceledResult`
-
-  - `"canceled" type`
-
-### Message Batch Errored Result
-
-- `MessageBatchErroredResult`
-
-  - `ErrorResponse error`
-
-  - `"errored" type`
-
-### Message Batch Expired Result
-
-- `MessageBatchExpiredResult`
-
-  - `"expired" type`
-
-### Message Batch Individual Response
-
-- `MessageBatchIndividualResponse`
-
-  - `string customID`
-
-    Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
-
-    Must be unique for each request within the Message Batch.
-
-  - `MessageBatchResult result`
-
-    Processing result for this request.
-
-    Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-### Message Batch Request Counts
-
-- `MessageBatchRequestCounts`
-
-  - `int canceled`
-
-    Number of requests in the Message Batch that have been canceled.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int errored`
-
-    Number of requests in the Message Batch that encountered an error.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int expired`
-
-    Number of requests in the Message Batch that have expired.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `int processing`
-
-    Number of requests in the Message Batch that are processing.
-
-  - `int succeeded`
-
-    Number of requests in the Message Batch that have completed successfully.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-### Message Batch Result
-
-- `MessageBatchResult`
-
-  - `MessageBatchSucceededResult`
-
-    - `Message message`
-
-    - `"succeeded" type`
-
-  - `MessageBatchErroredResult`
-
-    - `ErrorResponse error`
-
-    - `"errored" type`
-
-  - `MessageBatchCanceledResult`
-
-    - `"canceled" type`
-
-  - `MessageBatchExpiredResult`
-
-    - `"expired" type`
-
-### Message Batch Succeeded Result
-
-- `MessageBatchSucceededResult`
-
-  - `Message message`
-
-  - `"succeeded" type`

@@ -1,19 +1,14 @@
----
-title: Archive Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/certificates/archive
----
-
-## Archive Tunnel Certificate
+# Archive Tunnel Certificate
 
 `$ ant beta:tunnels:certificates archive`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+## Parameters
 
 - `--tunnel-id: string`
 
@@ -27,9 +22,9 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_tunnel_certificate: object { id, archived_at, created_at, 4 more }`
+- `beta_tunnel_certificate: object`
 
   A CA certificate attached to a tunnel.
 
@@ -41,13 +36,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -59,16 +60,16 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `type: "tunnel_certificate"`
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:tunnels:certificates archive \
   --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id \
   --certificate-id certificate_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Tunnels
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels
----
-
 # Tunnels
 
 ## Create Tunnel
 
 `$client->beta->tunnels->create(?string displayName, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -67,7 +62,7 @@ $betaTunnel = $client->beta->tunnels->create(
 var_dump($betaTunnel);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -84,7 +79,7 @@ var_dump($betaTunnel);
 
 `$client->beta->tunnels->retrieve(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -140,7 +135,7 @@ $betaTunnel = $client->beta->tunnels->retrieve(
 var_dump($betaTunnel);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -157,7 +152,7 @@ var_dump($betaTunnel);
 
 `$client->beta->tunnels->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaTunnel>`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -226,7 +221,7 @@ $page = $client->beta->tunnels->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -248,7 +243,7 @@ var_dump($page);
 
 `$client->beta->tunnels->archive(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -304,7 +299,7 @@ $betaTunnel = $client->beta->tunnels->archive(
 var_dump($betaTunnel);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -321,7 +316,7 @@ var_dump($betaTunnel);
 
 `$client->beta->tunnels->revealToken(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -365,7 +360,7 @@ $betaTunnelToken = $client->beta->tunnels->revealToken(
 var_dump($betaTunnelToken);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -379,7 +374,7 @@ var_dump($betaTunnelToken);
 
 `$client->beta->tunnels->rotateToken(string tunnelID, ?string reason, ?list<AnthropicBeta> betas): BetaTunnelToken`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -429,7 +424,7 @@ $betaTunnelToken = $client->beta->tunnels->rotateToken(
 var_dump($betaTunnelToken);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -439,7 +434,7 @@ var_dump($betaTunnelToken);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Tunnel
 
@@ -481,19 +476,19 @@ var_dump($betaTunnelToken);
 
   - `"tunnel_token" type`
 
-# Certificates
+## Tunnels › Certificates
 
-## Create Tunnel Certificate
+### Create Tunnel Certificate
 
 `$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePem, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -505,7 +500,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -535,7 +530,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -553,7 +548,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -567,17 +562,17 @@ var_dump($betaTunnelCertificate);
 }
 ```
 
-## Get Tunnel Certificate
+### Get Tunnel Certificate
 
 `$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel certificate by ID.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -587,7 +582,7 @@ Fetches a tunnel certificate by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -617,7 +612,7 @@ Fetches a tunnel certificate by ID.
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -635,7 +630,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->retrieve(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -649,17 +644,17 @@ var_dump($betaTunnelCertificate);
 }
 ```
 
-## List Tunnel Certificates
+### List Tunnel Certificates
 
 `$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -679,7 +674,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -709,7 +704,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -729,7 +724,7 @@ $page = $client->beta->tunnels->certificates->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -748,17 +743,17 @@ var_dump($page);
 }
 ```
 
-## Archive Tunnel Certificate
+### Archive Tunnel Certificate
 
 `$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+#### Parameters
 
 - `tunnelID: string`
 
@@ -768,7 +763,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `TunnelCertificate`
 
@@ -798,7 +793,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `"tunnel_certificate" type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -816,7 +811,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -829,35 +824,3 @@ var_dump($betaTunnelCertificate);
   "type": "tunnel_certificate"
 }
 ```
-
-## Domain Types
-
-### Beta Tunnel Certificate
-
-- `TunnelCertificate`
-
-  - `string id`
-
-    Unique identifier for the certificate, prefixed with `tcrt_`.
-
-  - `?\Datetime archivedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?\Datetime expiresAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string fingerprint`
-
-    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
-
-  - `string tunnelID`
-
-    ID of the tunnel the certificate is registered against.
-
-  - `"tunnel_certificate" type`

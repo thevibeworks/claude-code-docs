@@ -1,17 +1,12 @@
----
-title: Update Session
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/update
----
-
-## Update Session
+# Update Session
 
 `$client->beta->sessions->update(string sessionID, ?BetaManagedAgentsSessionAgentUpdate agent, ?BetaManagedAgentsBudgetLimit budget, ?array<string,string> metadata, ?string title, ?list<string> vaultIDs, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
 
-**post** `/v1/sessions/{session_id}`
+**POST** `/v1/sessions/{session_id}`
 
 Update Session
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -39,7 +34,7 @@ Update Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsSession`
 
@@ -99,7 +94,7 @@ Update Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -148,7 +143,7 @@ $betaManagedAgentsSession = $client->beta->sessions->update(
 var_dump($betaManagedAgentsSession);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

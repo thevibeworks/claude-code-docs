@@ -1,23 +1,18 @@
----
-title: Delete Session
-url: https://platform.claude.com/docs/en/api/go/beta/sessions/delete
----
-
-## Delete Session
+# Delete Session
 
 `client.Beta.Sessions.Delete(ctx, sessionID, body) (*BetaManagedAgentsDeletedSession, error)`
 
-**delete** `/v1/sessions/{session_id}`
+**DELETE** `/v1/sessions/{session_id}`
 
 Delete Session
 
-### Parameters
+## Parameters
 
 - `sessionID string`
 
 - `body BetaSessionDeleteParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -93,7 +88,7 @@ Delete Session
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsDeletedSession struct{…}`
 
@@ -103,9 +98,7 @@ Delete Session
 
   - `Type BetaManagedAgentsDeletedSessionType`
 
-    - `const BetaManagedAgentsDeletedSessionTypeSessionDeleted BetaManagedAgentsDeletedSessionType = "session_deleted"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -134,7 +127,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

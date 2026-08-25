@@ -1,17 +1,12 @@
----
-title: Create User Profile
-url: https://platform.claude.com/docs/en/api/java/beta/user_profiles/create
----
+# Create User Profile
 
-## Create User Profile
+`BetaUserProfile beta().userProfiles().create(params = UserProfileCreateParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaUserProfile beta().userProfiles().create(UserProfileCreateParamsparams = UserProfileCreateParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
-### Parameters
+## Parameters
 
 - `UserProfileCreateParams params`
 
@@ -99,6 +94,8 @@ Create User Profile
 
     Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
+    minLength: 1, maxLength: 255
+
   - `Optional<Metadata> metadata`
 
     Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
@@ -106,6 +103,8 @@ Create User Profile
   - `Optional<String> name`
 
     Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `Optional<Relationship> relationship`
 
@@ -117,7 +116,7 @@ Create User Profile
 
     - `INTERNAL("internal")`
 
-### Returns
+## Returns
 
 - `class BetaUserProfile:`
 
@@ -128,6 +127,8 @@ Create User Profile
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Metadata metadata`
 
@@ -151,11 +152,11 @@ Create User Profile
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -183,7 +184,7 @@ Create User Profile
 
     - `INTERNAL("internal")`
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -204,7 +205,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

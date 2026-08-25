@@ -1,17 +1,12 @@
----
-title: Upload File
-url: https://platform.claude.com/docs/en/api/java/beta/files/upload
----
+# Upload File
 
-## Upload File
+`BetaFileMetadata beta().files().upload(params, requestOptions = RequestOptions.none())`
 
-`BetaFileMetadata beta().files().upload(FileUploadParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
-### Parameters
+## Parameters
 
 - `FileUploadParams params`
 
@@ -91,7 +86,9 @@ Upload File
 
     The file to upload
 
-### Returns
+    format: binary
+
+## Returns
 
 - `class BetaFileMetadata:`
 
@@ -105,25 +102,31 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `String filename`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `String mimeType`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `long sizeBytes`
 
     Size of the file in bytes.
 
-  - `JsonValue; type "file"constant`
+    minimum: 0
+
+  - `JsonValue type constant`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `FILE("file")`
 
   - `Optional<Boolean> downloadable`
 
@@ -137,13 +140,11 @@ Upload File
 
       The ID of the scoping resource (e.g., the session ID).
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       The type of scope (e.g., `"session"`).
 
-      - `SESSION("session")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -168,7 +169,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

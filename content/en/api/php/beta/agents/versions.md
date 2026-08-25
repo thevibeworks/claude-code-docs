@@ -1,15 +1,10 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/php/beta/agents/versions
----
-
 # Versions
 
 ## List Agent Versions
 
 `$client->beta->agents->versions->list(string agentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsAgent>`
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
@@ -94,7 +89,7 @@ $page = $client->beta->agents->versions->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {

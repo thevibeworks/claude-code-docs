@@ -1,25 +1,22 @@
----
-title: List User Profiles
-url: https://platform.claude.com/docs/en/api/go/beta/user_profiles/list
----
-
-## List User Profiles
+# List User Profiles
 
 `client.Beta.UserProfiles.List(ctx, params) (*PageCursor[BetaUserProfile], error)`
 
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
-### Parameters
+## Parameters
 
 - `params BetaUserProfileListParams`
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Query parameter for limit
 
-  - `Order param.Field[BetaUserProfileListParamsOrder]`
+    format: int32
+
+  - `Order param.Field[BetaUserProfileListParamsOrder] Optional`
 
     Query param: Query parameter for order
 
@@ -27,11 +24,11 @@ List User Profiles
 
     - `const BetaUserProfileListParamsOrderDesc BetaUserProfileListParamsOrder = "desc"`
 
-  - `Page param.Field[string]`
+  - `Page param.Field[string] Optional`
 
     Query param: Query parameter for page
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -107,7 +104,7 @@ List User Profiles
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaUserProfile struct{…}`
 
@@ -118,6 +115,8 @@ List User Profiles
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Metadata map[string, string]`
 
@@ -141,13 +140,13 @@ List User Profiles
 
     Object type. Always `user_profile`.
 
-    - `const BetaUserProfileTypeUserProfile BetaUserProfileType = "user_profile"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-  - `AccessType BetaUserProfileAccessType`
+    format: date-time
+
+  - `AccessType BetaUserProfileAccessType Optional`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
@@ -155,15 +154,15 @@ List User Profiles
 
     - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
 
-  - `ExternalID string`
+  - `ExternalID string Optional`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `Name string`
+  - `Name string Optional`
 
     Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
 
-  - `Relationship BetaUserProfileRelationship`
+  - `Relationship BetaUserProfileRelationship Optional`
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
@@ -173,7 +172,7 @@ List User Profiles
 
     - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
-### Example
+## Example
 
 ```go
 package main
@@ -198,7 +197,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

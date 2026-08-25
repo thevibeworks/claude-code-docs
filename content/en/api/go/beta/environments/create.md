@@ -1,17 +1,12 @@
----
-title: Create Environment
-url: https://platform.claude.com/docs/en/api/go/beta/environments/create
----
-
-## Create Environment
+# Create Environment
 
 `client.Beta.Environments.New(ctx, params) (*BetaEnvironment, error)`
 
-**post** `/v1/environments`
+**POST** `/v1/environments`
 
 Create a new environment with the specified configuration.
 
-### Parameters
+## Parameters
 
 - `params BetaEnvironmentNewParams`
 
@@ -19,7 +14,9 @@ Create a new environment with the specified configuration.
 
     Body param: Human-readable name for the environment
 
-  - `Config param.Field[BetaEnvironmentNewParamsConfigUnion]`
+    maxLength: 256, minLength: 1
+
+  - `Config param.Field[BetaEnvironmentNewParamsConfigUnion] Optional`
 
     Body param: Environment configuration
 
@@ -34,9 +31,7 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `const CloudCloud Cloud = "cloud"`
-
-      - `Networking BetaCloudConfigParamsNetworkingUnionResp`
+      - `Networking BetaCloudConfigParamsNetworkingUnionResp Optional`
 
         Network configuration policy. Omit on update to preserve the existing value.
 
@@ -47,8 +42,6 @@ Create a new environment with the specified configuration.
           - `Type Unrestricted`
 
             Network policy type
-
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
 
         - `type BetaLimitedNetworkParamsResp struct{…}`
 
@@ -61,55 +54,53 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `const LimitedLimited Limited = "limited"`
-
-          - `AllowMCPServers bool`
+          - `AllowMCPServers bool Optional`
 
             Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-          - `AllowPackageManagers bool`
+          - `AllowPackageManagers bool Optional`
 
             Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
 
-          - `AllowedHosts []string`
+          - `AllowedHosts []string Optional`
 
             Specifies domains the container can reach.
 
-      - `Packages BetaPackagesParamsResp`
+      - `Packages BetaPackagesParamsResp Optional`
 
         Specify packages (and optionally their versions) available in this environment.
 
         When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
 
-        - `Apt []string`
+        - `Apt []string Optional`
 
           Ubuntu/Debian packages to install
 
-        - `Cargo []string`
+        - `Cargo []string Optional`
 
           Rust packages to install
 
-        - `Gem []string`
+        - `Gem []string Optional`
 
           Ruby packages to install
 
-        - `Go []string`
+        - `Go []string Optional`
 
           Go packages to install
 
-        - `Npm []string`
+        - `Npm []string Optional`
 
           Node.js packages to install
 
-        - `Pip []string`
+        - `Pip []string Optional`
 
           Python packages to install
 
-        - `Type BetaPackagesParamsType`
+        - `Type BetaPackagesParamsType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesParamsTypePackages BetaPackagesParamsType = "packages"`
+          default: packages
 
     - `type BetaSelfHostedConfigParamsResp struct{…}`
 
@@ -119,17 +110,17 @@ Create a new environment with the specified configuration.
 
         Environment type
 
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
-
-  - `Description param.Field[string]`
+  - `Description param.Field[string] Optional`
 
     Body param: Optional description of the environment
 
-  - `Metadata param.Field[map[string, string]]`
+    maxLength: 1024
+
+  - `Metadata param.Field[map[string, string]] Optional`
 
     Body param: User-provided metadata key-value pairs
 
-  - `Scope param.Field[BetaEnvironmentNewParamsScope]`
+  - `Scope param.Field[BetaEnvironmentNewParamsScope] Optional`
 
     Body param: The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only. Only applicable for self-hosted environments. If not specified, defaults based on organization type.
 
@@ -137,7 +128,7 @@ Create a new environment with the specified configuration.
 
     - `const BetaEnvironmentNewParamsScopeAccount BetaEnvironmentNewParamsScope = "account"`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -213,7 +204,7 @@ Create a new environment with the specified configuration.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaEnvironment struct{…}`
 
@@ -247,8 +238,6 @@ Create a new environment with the specified configuration.
 
             Network policy type
 
-            - `const UnrestrictedUnrestricted Unrestricted = "unrestricted"`
-
         - `type BetaLimitedNetwork struct{…}`
 
           Limited network access.
@@ -268,8 +257,6 @@ Create a new environment with the specified configuration.
           - `Type Limited`
 
             Network policy type
-
-            - `const LimitedLimited Limited = "limited"`
 
       - `Packages BetaPackages`
 
@@ -299,17 +286,15 @@ Create a new environment with the specified configuration.
 
           Python packages to install
 
-        - `Type BetaPackagesType`
+        - `Type BetaPackagesType Optional`
 
           Package configuration type
 
-          - `const BetaPackagesTypePackages BetaPackagesType = "packages"`
+          default: packages
 
       - `Type Cloud`
 
         Environment type
-
-        - `const CloudCloud Cloud = "cloud"`
 
     - `type BetaSelfHostedConfig struct{…}`
 
@@ -318,8 +303,6 @@ Create a new environment with the specified configuration.
       - `Type SelfHosted`
 
         Environment type
-
-        - `const SelfHostedSelfHosted SelfHosted = "self_hosted"`
 
   - `CreatedAt string`
 
@@ -341,13 +324,13 @@ Create a new environment with the specified configuration.
 
     The type of object (always 'environment')
 
-    - `const EnvironmentEnvironment Environment = "environment"`
+    default: environment
 
   - `UpdatedAt string`
 
     RFC 3339 timestamp when environment was last updated
 
-  - `Scope BetaEnvironmentScope`
+  - `Scope BetaEnvironmentScope Optional`
 
     The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
@@ -355,7 +338,7 @@ Create a new environment with the specified configuration.
 
     - `const BetaEnvironmentScopeAccount BetaEnvironmentScope = "account"`
 
-### Example
+## Example
 
 ```go
 package main
@@ -382,7 +365,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Archive Session
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/archive
----
-
-## Archive Session
+# Archive Session
 
 `$client->beta->sessions->archive(string sessionID, ?list<AnthropicBeta> betas): BetaManagedAgentsSession`
 
-**post** `/v1/sessions/{session_id}/archive`
+**POST** `/v1/sessions/{session_id}/archive`
 
 Archive Session
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -19,7 +14,7 @@ Archive Session
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsSession`
 
@@ -79,7 +74,7 @@ Archive Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -96,7 +91,7 @@ $betaManagedAgentsSession = $client->beta->sessions->archive(
 var_dump($betaManagedAgentsSession);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

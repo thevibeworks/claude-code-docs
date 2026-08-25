@@ -1,13 +1,8 @@
----
-title: Retrieve Message Batch results
-url: https://platform.claude.com/docs/en/api/cli/messages/batches/results
----
-
-## Retrieve Message Batch results
+# Retrieve Message Batch results
 
 `$ ant messages:batches results`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -15,15 +10,15 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `--message-batch-id: string`
 
   ID of the Message Batch.
 
-### Returns
+## Returns
 
-- `message_batch_individual_response: object { custom_id, result }`
+- `message_batch_individual_response: object`
 
   This is a single line in the response `.jsonl` file and does not represent the response as a whole.
 
@@ -39,9 +34,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-    - `message_batch_succeeded_result: object { message, type }`
+    - `message_batch_succeeded_result: object`
 
-      - `message: object { id, container, content, 7 more }`
+      - `message: object`
 
         - `id: string`
 
@@ -49,7 +44,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The format and length of IDs may change over time.
 
-        - `container: object { id, expires_at, skills }`
+        - `container: object`
 
           Information about the container used in the request (for the code execution tool)
 
@@ -61,6 +56,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
+            format: date-time
+
           - `skills: array of ContainerSkill`
 
             Skills loaded in the container
@@ -68,6 +65,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `skill_id: string`
 
               Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `type: "anthropic" or "custom"`
 
@@ -80,6 +79,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `version: string`
 
               The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `content: array of ContentBlock`
 
@@ -110,7 +111,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           [{"type": "text", "text": "B)"}]
           ```
 
-          - `text_block: object { citations, text, type }`
+          - `text_block: object`
 
             - `citations: array of TextCitation`
 
@@ -118,11 +119,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-              - `citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+              - `citation_char_location: object`
 
                 - `cited_text: string`
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string`
 
@@ -132,13 +135,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_char_index: number`
 
+                  minimum: 0
+
                 - `type: "char_location"`
 
-              - `citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+              - `citation_page_location: object`
 
                 - `cited_text: string`
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string`
 
@@ -148,9 +155,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_page_number: number`
 
+                  minimum: 1
+
                 - `type: "page_location"`
 
-              - `citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+              - `citation_content_block_location: object`
 
                 - `cited_text: string`
 
@@ -159,6 +168,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string`
 
@@ -174,9 +185,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: "content_block_location"`
 
-              - `citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+              - `citations_web_search_result_location: object`
 
                 - `cited_text: string`
 
@@ -184,11 +197,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string`
 
+                  maxLength: 512
+
                 - `type: "web_search_result_location"`
 
                 - `url: string`
 
-              - `citations_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+              - `citations_search_result_location: object`
 
                 - `cited_text: string`
 
@@ -208,11 +223,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
+
+                  minimum: 0
 
                 - `title: string`
 
@@ -220,9 +239,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: string`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: "text"`
 
-          - `thinking_block: object { signature, thinking, type }`
+          - `thinking_block: object`
 
             - `signature: string`
 
@@ -238,7 +259,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "thinking"`
 
-          - `redacted_thinking_block: object { data, type }`
+          - `redacted_thinking_block: object`
 
             - `data: string`
 
@@ -250,31 +271,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "redacted_thinking"`
 
-          - `tool_use_block: object { id, caller, input, 3 more }`
+          - `tool_use_block: object`
 
             - `id: string`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
               Tool invocation directly from the model.
 
-              - `direct_caller: object { type }`
+              - `direct_caller: object`
 
                 Tool invocation directly from the model.
 
                 - `type: "direct"`
 
-              - `server_tool_caller: object { tool_id, type }`
+              - `server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: string`
 
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
                 - `type: "code_execution_20250825"`
 
-              - `server_tool_caller_20260120: object { tool_id, type }`
+              - `server_tool_caller_20260120: object`
 
                 - `tool_id: string`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
                 - `type: "code_execution_20260120"`
 
@@ -282,29 +309,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `name: string`
 
+              minLength: 1
+
             - `type: "tool_use"`
 
             - `toolset_name: optional string`
 
               For a toolset member tool_use, the toolset family.
 
-          - `server_tool_use_block: object { id, caller, input, 2 more }`
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+          - `server_tool_use_block: object`
 
             - `id: string`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
               Tool invocation directly from the model.
 
-              - `direct_caller: object { type }`
+              - `direct_caller: object`
 
                 Tool invocation directly from the model.
 
-              - `server_tool_caller: object { tool_id, type }`
+              - `server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
-              - `server_tool_caller_20260120: object { tool_id, type }`
+              - `server_tool_caller_20260120: object`
 
             - `input: map[unknown]`
 
@@ -326,25 +359,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "server_tool_use"`
 
-          - `web_search_tool_result_block: object { caller, content, tool_use_id, type }`
+          - `web_search_tool_result_block: object`
 
             - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
               Tool invocation directly from the model.
 
-              - `direct_caller: object { type }`
+              - `direct_caller: object`
 
                 Tool invocation directly from the model.
 
-              - `server_tool_caller: object { tool_id, type }`
+              - `server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
-              - `server_tool_caller_20260120: object { tool_id, type }`
+              - `server_tool_caller_20260120: object`
 
             - `content: WebSearchToolResultError or array of WebSearchResultBlock`
 
-              - `web_search_tool_result_error: object { error_code, type }`
+              - `web_search_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -376,27 +409,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_search_tool_result"`
 
-          - `web_fetch_tool_result_block: object { caller, content, tool_use_id, type }`
+          - `web_fetch_tool_result_block: object`
 
             - `caller: DirectCaller or ServerToolCaller or ServerToolCaller20260120`
 
               Tool invocation directly from the model.
 
-              - `direct_caller: object { type }`
+              - `direct_caller: object`
 
                 Tool invocation directly from the model.
 
-              - `server_tool_caller: object { tool_id, type }`
+              - `server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
-              - `server_tool_caller_20260120: object { tool_id, type }`
+              - `server_tool_caller_20260120: object`
 
             - `content: WebFetchToolResultErrorBlock or WebFetchBlock`
 
-              - `web_fetch_tool_result_error_block: object { error_code, type }`
+              - `web_fetch_tool_result_error_block: object`
 
                 - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -420,11 +455,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_fetch_tool_result_error"`
 
-              - `web_fetch_block: object { content, retrieved_at, type, url }`
+              - `web_fetch_block: object`
 
-                - `content: object { citations, source, title, type }`
+                - `content: object`
 
-                  - `citations: object { enabled }`
+                  - `citations: object`
 
                     Citation configuration for the document
 
@@ -432,15 +467,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `source: Base64PDFSource or PlainTextSource`
 
-                    - `base64_pdf_source: object { data, media_type, type }`
+                    - `base64_pdf_source: object`
 
                       - `data: string`
+
+                        format: byte
 
                       - `media_type: "application/pdf"`
 
                       - `type: "base64"`
 
-                    - `plain_text_source: object { data, media_type, type }`
+                    - `plain_text_source: object`
 
                       - `data: string`
 
@@ -466,15 +503,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_fetch_tool_result"`
 
-          - `code_execution_tool_result_block: object { content, tool_use_id, type }`
+          - `code_execution_tool_result_block: object`
 
             - `content: CodeExecutionToolResultError or CodeExecutionResultBlock or EncryptedCodeExecutionResultBlock`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
-              - `code_execution_tool_result_error: object { error_code, type }`
+              - `code_execution_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -488,7 +527,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_tool_result_error"`
 
-              - `code_execution_result_block: object { content, return_code, stderr, 2 more }`
+              - `code_execution_result_block: object`
 
                 - `content: array of CodeExecutionOutputBlock`
 
@@ -504,7 +543,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_result"`
 
-              - `encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+              - `encrypted_code_execution_result_block: object`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -524,13 +563,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "code_execution_tool_result"`
 
-          - `bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+          - `bash_code_execution_tool_result_block: object`
 
             - `content: BashCodeExecutionToolResultError or BashCodeExecutionResultBlock`
 
-              - `bash_code_execution_tool_result_error: object { error_code, type }`
+              - `bash_code_execution_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -546,7 +587,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "bash_code_execution_tool_result_error"`
 
-              - `bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+              - `bash_code_execution_result_block: object`
 
                 - `content: array of BashCodeExecutionOutputBlock`
 
@@ -564,13 +605,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "bash_code_execution_tool_result"`
 
-          - `text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+          - `text_editor_code_execution_tool_result_block: object`
 
             - `content: TextEditorCodeExecutionToolResultError or TextEditorCodeExecutionViewResultBlock or TextEditorCodeExecutionCreateResultBlock or TextEditorCodeExecutionStrReplaceResultBlock`
 
-              - `text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+              - `text_editor_code_execution_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -588,7 +631,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
-              - `text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+              - `text_editor_code_execution_view_result_block: object`
 
                 - `content: string`
 
@@ -608,13 +651,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_view_result"`
 
-              - `text_editor_code_execution_create_result_block: object { is_file_update, type }`
+              - `text_editor_code_execution_create_result_block: object`
 
                 - `is_file_update: boolean`
 
                 - `type: "text_editor_code_execution_create_result"`
 
-              - `text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+              - `text_editor_code_execution_str_replace_result_block: object`
 
                 - `lines: array of string`
 
@@ -630,13 +673,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "text_editor_code_execution_tool_result"`
 
-          - `tool_search_tool_result_block: object { content, tool_use_id, type }`
+          - `tool_search_tool_result_block: object`
 
             - `content: ToolSearchToolResultError or ToolSearchToolSearchResultBlock`
 
-              - `tool_search_tool_result_error: object { error_code, error_message, type }`
+              - `tool_search_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -652,11 +697,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "tool_search_tool_result_error"`
 
-              - `tool_search_tool_search_result_block: object { tool_references, type }`
+              - `tool_search_tool_search_result_block: object`
 
                 - `tool_references: array of ToolReferenceBlock`
 
                   - `tool_name: string`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `type: "tool_reference"`
 
@@ -664,9 +711,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "tool_search_tool_result"`
 
-          - `container_upload_block: object { file_id, type }`
+          - `container_upload_block: object`
 
             Response model for a file uploaded to the container.
 
@@ -746,7 +795,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This will always be `"assistant"`.
 
-        - `stop_details: object { category, explanation, type }`
+        - `stop_details: object`
 
           Structured information about a refusal.
 
@@ -824,7 +873,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-        - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 6 more }`
+        - `usage: object`
 
           Billing and rate-limit usage.
 
@@ -836,7 +885,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+          - `cache_creation: object`
 
             Breakdown of cached tokens by TTL
 
@@ -844,17 +893,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              minimum: 0
 
           - `cache_creation_input_tokens: number`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `inference_geo: string`
 
@@ -864,11 +921,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `output_tokens: number`
 
             The number of output tokens which were used.
 
-          - `output_tokens_details: object { thinking_tokens }`
+            minimum: 0
+
+          - `output_tokens_details: object`
 
             Breakdown of output tokens by category.
 
@@ -888,7 +949,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-          - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+              minimum: 0
+
+          - `server_tool_use: object`
 
             The number of server tool requests.
 
@@ -896,9 +959,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              minimum: 0
+
             - `web_search_requests: number`
 
               The number of web search tool requests.
+
+              minimum: 0
 
           - `service_tier: "standard" or "priority" or "batch"`
 
@@ -912,61 +979,61 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: "succeeded"`
 
-    - `message_batch_errored_result: object { error, type }`
+    - `message_batch_errored_result: object`
 
-      - `error: object { error, request_id, type }`
+      - `error: object`
 
         - `error: InvalidRequestError or AuthenticationError or BillingError or 6 more`
 
-          - `invalid_request_error: object { message, type }`
+          - `invalid_request_error: object`
 
             - `message: string`
 
             - `type: "invalid_request_error"`
 
-          - `authentication_error: object { message, type }`
+          - `authentication_error: object`
 
             - `message: string`
 
             - `type: "authentication_error"`
 
-          - `billing_error: object { message, type }`
+          - `billing_error: object`
 
             - `message: string`
 
             - `type: "billing_error"`
 
-          - `permission_error: object { message, type }`
+          - `permission_error: object`
 
             - `message: string`
 
             - `type: "permission_error"`
 
-          - `not_found_error: object { message, type }`
+          - `not_found_error: object`
 
             - `message: string`
 
             - `type: "not_found_error"`
 
-          - `rate_limit_error: object { message, type }`
+          - `rate_limit_error: object`
 
             - `message: string`
 
             - `type: "rate_limit_error"`
 
-          - `gateway_timeout_error: object { message, type }`
+          - `gateway_timeout_error: object`
 
             - `message: string`
 
             - `type: "timeout_error"`
 
-          - `api_error_object: object { message, type }`
+          - `api_error_object: object`
 
             - `message: string`
 
             - `type: "api_error"`
 
-          - `overloaded_error: object { message, type }`
+          - `overloaded_error: object`
 
             - `message: string`
 
@@ -978,17 +1045,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: "errored"`
 
-    - `message_batch_canceled_result: object { type }`
+    - `message_batch_canceled_result: object`
 
       - `type: "canceled"`
 
-    - `message_batch_expired_result: object { type }`
+    - `message_batch_expired_result: object`
 
       - `type: "expired"`
 
-### Example
+## Example
 
-```cli
+```bash
 ant messages:batches results \
   --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id

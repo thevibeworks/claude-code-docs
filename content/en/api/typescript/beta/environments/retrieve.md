@@ -1,17 +1,12 @@
----
-title: Get Environment
-url: https://platform.claude.com/docs/en/api/typescript/beta/environments/retrieve
----
+# Get Environment
 
-## Get Environment
+`client.beta.environments.retrieve(environmentID, params?, options?): BetaEnvironment`
 
-`client.beta.environments.retrieve(stringenvironmentID, EnvironmentRetrieveParamsparams?, RequestOptionsoptions?): BetaEnvironment`
-
-**get** `/v1/environments/{environment_id}`
+**GET** `/v1/environments/{environment_id}`
 
 Retrieve a specific environment by ID.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -93,7 +88,7 @@ Retrieve a specific environment by ID.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaEnvironment`
 
@@ -127,8 +122,6 @@ Retrieve a specific environment by ID.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetwork`
 
           Limited network access.
@@ -148,8 +141,6 @@ Retrieve a specific environment by ID.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -183,13 +174,11 @@ Retrieve a specific environment by ID.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: "cloud"`
 
         Environment type
-
-        - `"cloud"`
 
     - `BetaSelfHostedConfig`
 
@@ -198,8 +187,6 @@ Retrieve a specific environment by ID.
       - `type: "self_hosted"`
 
         Environment type
-
-        - `"self_hosted"`
 
   - `created_at: string`
 
@@ -221,7 +208,7 @@ Retrieve a specific environment by ID.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: string`
 
@@ -235,7 +222,7 @@ Retrieve a specific environment by ID.
 
     - `"account"`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -251,7 +238,7 @@ const betaEnvironment = await client.beta.environments.retrieve(
 console.log(betaEnvironment.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

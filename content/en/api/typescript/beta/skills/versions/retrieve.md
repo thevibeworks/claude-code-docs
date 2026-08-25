@@ -1,17 +1,12 @@
----
-title: Get Skill Version
-url: https://platform.claude.com/docs/en/api/typescript/beta/skills/versions/retrieve
----
+# Get Skill Version
 
-## Get Skill Version
+`client.beta.skills.versions.retrieve(version, params, options?): VersionRetrieveResponse`
 
-`client.beta.skills.versions.retrieve(stringversion, VersionRetrieveParamsparams, RequestOptionsoptions?): VersionRetrieveResponse`
-
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+## Parameters
 
 - `version: string`
 
@@ -103,7 +98,7 @@ Get Skill Version
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `VersionRetrieveResponse`
 
@@ -145,13 +140,15 @@ Get Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: string`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -167,7 +164,7 @@ const version = await client.beta.skills.versions.retrieve("version", {
 console.log(version.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

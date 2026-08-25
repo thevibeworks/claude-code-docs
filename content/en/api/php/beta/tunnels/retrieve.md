@@ -1,19 +1,14 @@
----
-title: Get Tunnel
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/retrieve
----
-
-## Get Tunnel
+# Get Tunnel
 
 `$client->beta->tunnels->retrieve(string tunnelID, ?list<AnthropicBeta> betas): BetaTunnel`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel by ID.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -21,7 +16,7 @@ Fetches a tunnel by ID.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaTunnel`
 
@@ -47,7 +42,7 @@ Fetches a tunnel by ID.
 
   - `"tunnel" type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -63,7 +58,7 @@ $betaTunnel = $client->beta->tunnels->retrieve(
 var_dump($betaTunnel);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

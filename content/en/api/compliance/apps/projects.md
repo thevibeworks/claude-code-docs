@@ -1,40 +1,45 @@
----
-title: Projects
-url: https://platform.claude.com/docs/en/api/compliance/apps/projects
----
-
 # Projects
 
 ## List projects
 
-**get** `/v1/compliance/apps/projects`
+**GET** `/v1/compliance/apps/projects`
 
 Lists project metadata with filtering capabilities. Results
 are sorted chronologically (time ascending) by created_at.
 
-### Query Parameters
+### Query parameters
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter projects created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter projects created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter projects created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter projects created at or before this time (RFC 3339 format)
 
+    format: date-time
+
 - `limit: optional number`
 
   Maximum results (default: 20, max: 100)
+
+  default: 20, maximum: 100, minimum: 1
 
 - `organization_ids: optional array of string`
 
@@ -44,35 +49,43 @@ are sorted chronologically (time ascending) by created_at.
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-- `updated_at: optional object { gt, gte, lt, lte }`
+- `updated_at: optional object`
 
   - `gt: optional string`
 
     Filter projects updated after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter projects updated at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter projects updated before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter projects updated at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `user_ids: optional array of string`
 
   Filter by user IDs. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
 
-### Header Parameters
+### Headers
 
 - `"x-api-key": optional string`
 
 ### Returns
 
-- `data: array of object { id, created_at, deleted_at, 6 more }`
+- `data: array of object`
 
   List of projects sorted by creation date ascending
 
@@ -84,9 +97,13 @@ are sorted chronologically (time ascending) by created_at.
 
     Project creation timestamp
 
+    format: date-time
+
   - `deleted_at: string or null`
 
     Timestamp when the project was deleted by an end user, or null otherwise
+
+    format: date-time
 
   - `is_private: boolean`
 
@@ -96,10 +113,6 @@ are sorted chronologically (time ascending) by created_at.
 
     Project name
 
-  - `organization_id: string`
-
-    Organization identifier (tagged ID)
-
   - `organization_uuid: string`
 
     Organization UUID this project belongs to
@@ -108,7 +121,9 @@ are sorted chronologically (time ascending) by created_at.
 
     Project last update timestamp
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     The user who created a project or project document.
 
@@ -124,6 +139,12 @@ are sorted chronologically (time ascending) by created_at.
 
       User's email address
 
+  - `organization_id: string`
+
+    **Deprecated**
+
+    Organization identifier (tagged ID)
+
 - `has_more: boolean`
 
   Whether more records exist beyond the current result set
@@ -134,12 +155,12 @@ are sorted chronologically (time ascending) by created_at.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -165,17 +186,17 @@ curl https://api.anthropic.com/v1/compliance/apps/projects \
 
 ## Get project details
 
-**get** `/v1/compliance/apps/projects/{project_id}`
+**GET** `/v1/compliance/apps/projects/{project_id}`
 
 Get detailed information for a specific project.
 
-### Path Parameters
+### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Header Parameters
+### Headers
 
 - `"x-api-key": optional string`
 
@@ -197,9 +218,13 @@ Get detailed information for a specific project.
 
   Project creation timestamp
 
+  format: date-time
+
 - `deleted_at: string or null`
 
   Timestamp when the project was deleted by an end user, or null otherwise
+
+  format: date-time
 
 - `description: string`
 
@@ -217,10 +242,6 @@ Get detailed information for a specific project.
 
   Project name
 
-- `organization_id: string`
-
-  Organization identifier (tagged ID)
-
 - `organization_uuid: string`
 
   Organization UUID this project belongs to
@@ -229,7 +250,9 @@ Get detailed information for a specific project.
 
   Project last update timestamp
 
-- `user: object { id, email_address }  or null`
+  format: date-time
+
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -245,14 +268,20 @@ Get detailed information for a specific project.
 
     User's email address
 
+- `organization_id: string`
+
+  **Deprecated**
+
+  Organization identifier (tagged ID)
+
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -277,7 +306,7 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
 ## Delete project
 
-**delete** `/v1/compliance/apps/projects/{project_id}`
+**DELETE** `/v1/compliance/apps/projects/{project_id}`
 
 Delete a project for compliance purposes.
 
@@ -290,13 +319,13 @@ Hard-deletes the project and all its associated data including:
 
 Project must have no attached chats - returns 409 if chats exist.
 
-### Path Parameters
+### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Header Parameters
+### Headers
 
 - `"x-api-key": optional string`
 
@@ -310,17 +339,17 @@ Project must have no attached chats - returns 409 if chats exist.
 
   Constant string confirming deletion.
 
-  - `"claude_project_deleted"`
+  default: claude_project_deleted
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
     -X DELETE \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -329,11 +358,11 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Project List Response
 
-- `ProjectListResponse object { id, created_at, deleted_at, 6 more }`
+- `ProjectListResponse object`
 
   Project information for compliance responses.
 
@@ -345,9 +374,13 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Project creation timestamp
 
+    format: date-time
+
   - `deleted_at: string or null`
 
     Timestamp when the project was deleted by an end user, or null otherwise
+
+    format: date-time
 
   - `is_private: boolean`
 
@@ -357,10 +390,6 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Project name
 
-  - `organization_id: string`
-
-    Organization identifier (tagged ID)
-
   - `organization_uuid: string`
 
     Organization UUID this project belongs to
@@ -369,7 +398,9 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Project last update timestamp
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     The user who created a project or project document.
 
@@ -385,9 +416,15 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
       User's email address
 
+  - `organization_id: string`
+
+    **Deprecated**
+
+    Organization identifier (tagged ID)
+
 ### Project Retrieve Response
 
-- `ProjectRetrieveResponse object { id, attachments_count, chats_count, 10 more }`
+- `ProjectRetrieveResponse object`
 
   Detailed project information for compliance responses.
 
@@ -407,9 +444,13 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Project creation timestamp
 
+    format: date-time
+
   - `deleted_at: string or null`
 
     Timestamp when the project was deleted by an end user, or null otherwise
+
+    format: date-time
 
   - `description: string`
 
@@ -427,10 +468,6 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Project name
 
-  - `organization_id: string`
-
-    Organization identifier (tagged ID)
-
   - `organization_uuid: string`
 
     Organization UUID this project belongs to
@@ -439,7 +476,9 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Project last update timestamp
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     The user who created a project or project document.
 
@@ -455,9 +494,15 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
       User's email address
 
+  - `organization_id: string`
+
+    **Deprecated**
+
+    Organization identifier (tagged ID)
+
 ### Project Delete Response
 
-- `ProjectDeleteResponse object { id, type }`
+- `ProjectDeleteResponse object`
 
   Response for deleting a Claude project.
 
@@ -469,13 +514,13 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Constant string confirming deletion.
 
-    - `"claude_project_deleted"`
+    default: claude_project_deleted
 
-# Attachments
+## Projects › Attachments
 
-## List project attachments
+### List project attachments
 
-**get** `/v1/compliance/apps/projects/{project_id}/attachments`
+**GET** `/v1/compliance/apps/projects/{project_id}/attachments`
 
 List files and documents attached to a project.
 
@@ -488,33 +533,35 @@ GET /v1/compliance/apps/chats/files/{claude_file_id}/content endpoint.
 The text content of attached project documents can be fetched using the
 GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
-### Path Parameters
+#### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 20, max: 100)
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, created_at, filename, 4 more }  or object { id, created_at, filename, 3 more }`
+- `data: array of object or object`
 
   List of attachments sorted chronologically by created_at, tie break by id
 
-  - `ComplianceProjectFileReference object { id, created_at, filename, 4 more }`
+  - `ComplianceProjectFileReference object`
 
     File attachment reference for compliance responses.
 
@@ -525,6 +572,8 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
     - `created_at: string`
 
       Creation timestamp (RFC 3339 format)
+
+      format: date-time
 
     - `filename: string`
 
@@ -546,9 +595,9 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Discriminator marking this as a binary file
 
-      - `"project_file"`
+      default: project_file
 
-  - `ComplianceProjectDocReference object { id, created_at, filename, 3 more }`
+  - `ComplianceProjectDocReference object`
 
     Project document attachment reference for compliance responses.
 
@@ -560,6 +609,8 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       Creation timestamp (RFC 3339 format)
 
+      format: date-time
+
     - `filename: string`
 
       Display name of the document (e.g., 'document.txt')
@@ -568,17 +619,19 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
       MIME type of the project document, always set to plain text
 
-      - `"text/plain"`
+      default: text/plain
 
     - `type: "project_doc"`
 
       Discriminator marking this as a plain text document
 
-      - `"project_doc"`
+      default: project_doc
 
     - `updated_at: string or null`
 
       Last-modified timestamp of the document. Reserved for future use — currently always null.
+
+      format: date-time
 
 - `has_more: boolean`
 
@@ -588,14 +641,14 @@ GET /v1/compliance/apps/projects/documents/{claude_proj_doc_id} endpoint.
 
   To get the next page, use the 'next_page' from the current response as the 'page' in your next request
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachments \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -615,85 +668,11 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/attachmen
 }
 ```
 
-## Domain Types
+## Projects › Collaborators
 
-### Attachment List Response
+### List project collaborators
 
-- `AttachmentListResponse = object { id, created_at, filename, 4 more }  or object { id, created_at, filename, 3 more }`
-
-  File attachment reference for compliance responses.
-
-  - `ComplianceProjectFileReference object { id, created_at, filename, 4 more }`
-
-    File attachment reference for compliance responses.
-
-    - `id: string`
-
-      File identifier (e.g., 'claude_file_abcd')
-
-    - `created_at: string`
-
-      Creation timestamp (RFC 3339 format)
-
-    - `filename: string`
-
-      Display name of the file (e.g., 'document.pdf')
-
-    - `md5: string or null`
-
-      Lowercase hex MD5 of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
-
-    - `mime_type: string`
-
-      MIME type of the file's preferred downloadable variant when one is recorded, else 'application/octet-stream'. Use the per-file `/metadata` endpoint for the authoritative value.
-
-    - `size_bytes: number or null`
-
-      Size in bytes of the file's preferred downloadable variant, when recorded. Null otherwise. Use the per-file `/metadata` endpoint for the authoritative value.
-
-    - `type: "project_file"`
-
-      Discriminator marking this as a binary file
-
-      - `"project_file"`
-
-  - `ComplianceProjectDocReference object { id, created_at, filename, 3 more }`
-
-    Project document attachment reference for compliance responses.
-
-    - `id: string`
-
-      Project document identifier (e.g., 'claude_proj_doc_abcd')
-
-    - `created_at: string`
-
-      Creation timestamp (RFC 3339 format)
-
-    - `filename: string`
-
-      Display name of the document (e.g., 'document.txt')
-
-    - `mime_type: "text/plain"`
-
-      MIME type of the project document, always set to plain text
-
-      - `"text/plain"`
-
-    - `type: "project_doc"`
-
-      Discriminator marking this as a plain text document
-
-      - `"project_doc"`
-
-    - `updated_at: string or null`
-
-      Last-modified timestamp of the document. Reserved for future use — currently always null.
-
-# Collaborators
-
-## List project collaborators
-
-**get** `/v1/compliance/apps/projects/{project_id}/collaborators`
+**GET** `/v1/compliance/apps/projects/{project_id}/collaborators`
 
 List the users, groups, and organization-wide grants on a project.
 
@@ -702,39 +681,43 @@ are returned as a discriminated union on `type` — an individual user, an
 RBAC group, the whole organization, or all holders of an organization-level
 role.
 
-### Path Parameters
+#### Path parameters
 
 - `project_id: string`
 
   The project ID (tagged ID, e.g., claude_proj_abc123)
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 20, max: 100)
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { granted_at, role, type, user_id }  or object { granted_at, group_id, role, type }  or object { granted_at, organization_uuid, role, type }  or object { granted_at, organization_role, role, type }`
+- `data: array of object or object or object or object`
 
   List of collaborators sorted chronologically by granted_at, tie break by the underlying role-assignment UUID
 
-  - `ComplianceProjectUserCollaborator object { granted_at, role, type, user_id }`
+  - `ComplianceProjectUserCollaborator object`
 
     An individual user granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `role: "admin" or "editor" or "owner" or "viewer"`
 
@@ -752,19 +735,21 @@ role.
 
       Discriminator marking this as an individual user collaborator
 
-      - `"user"`
+      default: user
 
     - `user_id: string or null`
 
       Identifier of the user granted access (tagged ID), or null if their account has since been deleted
 
-  - `ComplianceProjectGroupCollaborator object { granted_at, group_id, role, type }`
+  - `ComplianceProjectGroupCollaborator object`
 
     An RBAC group granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `group_id: string`
 
@@ -786,15 +771,17 @@ role.
 
       Discriminator marking this as a group collaborator
 
-      - `"group"`
+      default: group
 
-  - `ComplianceProjectOrganizationCollaborator object { granted_at, organization_uuid, role, type }`
+  - `ComplianceProjectOrganizationCollaborator object`
 
     An entire organization granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `organization_uuid: string`
 
@@ -816,15 +803,17 @@ role.
 
       Discriminator marking this as an organization-wide grant
 
-      - `"organization"`
+      default: organization
 
-  - `ComplianceProjectOrganizationRoleCollaborator object { granted_at, organization_role, role, type }`
+  - `ComplianceProjectOrganizationRoleCollaborator object`
 
     All holders of an organization-level role granted a role on a project.
 
     - `granted_at: string`
 
       When this collaborator was granted access (RFC 3339 format)
+
+      format: date-time
 
     - `organization_role: string`
 
@@ -846,7 +835,7 @@ role.
 
       Discriminator marking this as a grant to all organization members holding a specific org-level role
 
-      - `"organization_role"`
+      default: organization_role
 
 - `has_more: boolean`
 
@@ -856,14 +845,14 @@ role.
 
   To get the next page, use the 'next_page' from the current response as the 'page' in your next request
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/collaborators \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -880,153 +869,25 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID/collabora
 }
 ```
 
-## Domain Types
+## Projects › Documents
 
-### Collaborator List Response
+### Get project document content
 
-- `CollaboratorListResponse = object { granted_at, role, type, user_id }  or object { granted_at, group_id, role, type }  or object { granted_at, organization_uuid, role, type }  or object { granted_at, organization_role, role, type }`
-
-  An individual user granted a role on a project.
-
-  - `ComplianceProjectUserCollaborator object { granted_at, role, type, user_id }`
-
-    An individual user granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "user"`
-
-      Discriminator marking this as an individual user collaborator
-
-      - `"user"`
-
-    - `user_id: string or null`
-
-      Identifier of the user granted access (tagged ID), or null if their account has since been deleted
-
-  - `ComplianceProjectGroupCollaborator object { granted_at, group_id, role, type }`
-
-    An RBAC group granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `group_id: string`
-
-      Identifier of the group granted access (tagged ID)
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "group"`
-
-      Discriminator marking this as a group collaborator
-
-      - `"group"`
-
-  - `ComplianceProjectOrganizationCollaborator object { granted_at, organization_uuid, role, type }`
-
-    An entire organization granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `organization_uuid: string`
-
-      UUID of the organization granted access
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "organization"`
-
-      Discriminator marking this as an organization-wide grant
-
-      - `"organization"`
-
-  - `ComplianceProjectOrganizationRoleCollaborator object { granted_at, organization_role, role, type }`
-
-    All holders of an organization-level role granted a role on a project.
-
-    - `granted_at: string`
-
-      When this collaborator was granted access (RFC 3339 format)
-
-    - `organization_role: string`
-
-      The organization-level role whose holders are granted access
-
-    - `role: "admin" or "editor" or "owner" or "viewer"`
-
-      Role granted on the project
-
-      - `"admin"`
-
-      - `"editor"`
-
-      - `"owner"`
-
-      - `"viewer"`
-
-    - `type: "organization_role"`
-
-      Discriminator marking this as a grant to all organization members holding a specific org-level role
-
-      - `"organization_role"`
-
-# Documents
-
-## Get project document content
-
-**get** `/v1/compliance/apps/projects/documents/{document_id}`
+**GET** `/v1/compliance/apps/projects/documents/{document_id}`
 
 Get detailed information for a specific project document.
 
-### Path Parameters
+#### Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -1040,11 +901,13 @@ Get detailed information for a specific project document.
 
   Document creation timestamp
 
+  format: date-time
+
 - `filename: string`
 
   Document filename
 
-- `user: object { id, email_address }  or null`
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -1060,14 +923,14 @@ Get detailed information for a specific project document.
 
     User's email address
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1082,9 +945,9 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
 }
 ```
 
-## Get project document metadata
+### Get project document metadata
 
-**get** `/v1/compliance/apps/projects/documents/{document_id}/metadata`
+**GET** `/v1/compliance/apps/projects/documents/{document_id}/metadata`
 
 Returns metadata for a project document, without the content body.
 
@@ -1093,17 +956,17 @@ endpoint to fetch the document text. The `md5` and `size_bytes`
 fields here are computed over the UTF-8 encoding of that text, so a DLP
 consumer can dedupe or match hashes without downloading every document.
 
-### Path Parameters
+#### Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -1117,6 +980,8 @@ consumer can dedupe or match hashes without downloading every document.
 
   Document creation timestamp
 
+  format: date-time
+
 - `filename: string`
 
   Document filename
@@ -1129,13 +994,13 @@ consumer can dedupe or match hashes without downloading every document.
 
   MIME type of the document content, always plain text
 
-  - `"text/plain"`
+  default: text/plain
 
 - `size_bytes: number`
 
   Size in bytes of the document content (UTF-8 encoded)
 
-- `user: object { id, email_address }  or null`
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -1151,14 +1016,14 @@ consumer can dedupe or match hashes without downloading every document.
 
     User's email address
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID/metadata \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1176,25 +1041,25 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
 }
 ```
 
-## Delete project document
+### Delete project document
 
-**delete** `/v1/compliance/apps/projects/documents/{document_id}`
+**DELETE** `/v1/compliance/apps/projects/documents/{document_id}`
 
 Delete a project document for compliance purposes.
 
 Hard-deletes the project document permanently.
 
-### Path Parameters
+#### Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -1204,17 +1069,17 @@ Hard-deletes the project document permanently.
 
   Constant string confirming deletion.
 
-  - `"claude_project_document_deleted"`
+  default: claude_project_document_deleted
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID \
     -X DELETE \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1222,114 +1087,3 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
   "type": "claude_project_document_deleted"
 }
 ```
-
-## Domain Types
-
-### Document Retrieve Response
-
-- `DocumentRetrieveResponse object { id, content, created_at, 2 more }`
-
-  Project document information for compliance responses.
-
-  - `id: string`
-
-    Project document identifier (tagged ID)
-
-  - `content: string`
-
-    Document text content
-
-  - `created_at: string`
-
-    Document creation timestamp
-
-  - `filename: string`
-
-    Document filename
-
-  - `user: object { id, email_address }  or null`
-
-    The user who created a project or project document.
-
-    Fields that reference this type are null when the creator's account has
-    been deleted or the creator is no longer a member of an organization the
-    key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID)
-
-    - `email_address: string`
-
-      User's email address
-
-### Document Metadata Response
-
-- `DocumentMetadataResponse object { id, claude_project_id, created_at, 5 more }`
-
-  Project document metadata for GET /v1/compliance/apps/projects/documents/{document_id}/metadata.
-
-  Returns metadata only. Use the sibling endpoint (without `/metadata`)
-  to fetch the document text content.
-
-  - `id: string`
-
-    Project document identifier (tagged ID)
-
-  - `claude_project_id: string`
-
-    The project this document belongs to
-
-  - `created_at: string`
-
-    Document creation timestamp
-
-  - `filename: string`
-
-    Document filename
-
-  - `md5: string`
-
-    Lowercase hex MD5 of the document content (UTF-8 encoded). Matches the `content` field returned by the sibling content endpoint.
-
-  - `mime_type: "text/plain"`
-
-    MIME type of the document content, always plain text
-
-    - `"text/plain"`
-
-  - `size_bytes: number`
-
-    Size in bytes of the document content (UTF-8 encoded)
-
-  - `user: object { id, email_address }  or null`
-
-    The user who created a project or project document.
-
-    Fields that reference this type are null when the creator's account has
-    been deleted or the creator is no longer a member of an organization the
-    key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID)
-
-    - `email_address: string`
-
-      User's email address
-
-### Document Delete Response
-
-- `DocumentDeleteResponse object { id, type }`
-
-  Response for deleting a project document.
-
-  - `id: string`
-
-    The ID of the project document that was deleted
-
-  - `type: "claude_project_document_deleted"`
-
-    Constant string confirming deletion.
-
-    - `"claude_project_document_deleted"`

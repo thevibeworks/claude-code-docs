@@ -1,15 +1,10 @@
----
-title: User Profiles
-url: https://platform.claude.com/docs/en/api/csharp/beta/user_profiles
----
-
 # User Profiles
 
 ## Create User Profile
 
-`BetaUserProfile Beta.UserProfiles.Create(UserProfileCreateParams?parameters, CancellationTokencancellationToken = default)`
+`BetaUserProfile Beta.UserProfiles.Create(parameters, cancellationToken = default)`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
@@ -21,13 +16,15 @@ Create User Profile
 
     Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-    - `"application"Application`
+    - `Application`
 
-    - `"passthrough"Passthrough`
+    - `Passthrough`
 
   - `string? externalID`
 
     Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string> metadata`
 
@@ -37,87 +34,89 @@ Create User Profile
 
     Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
+    minLength: 1, maxLength: 255
+
   - `Relationship relationship`
 
     Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `"external"External`
+    - `External`
 
-    - `"resold"Resold`
+    - `Resold`
 
-    - `"internal"Internal`
+    - `Internal`
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -131,6 +130,8 @@ Create User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required IReadOnlyDictionary<string, string> Metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -143,29 +144,29 @@ Create User Profile
 
       Status of the trust grant.
 
-      - `"active"Active`
+      - `Active`
 
-      - `"pending"Pending`
+      - `Pending`
 
-      - `"rejected"Rejected`
+      - `Rejected`
 
   - `required Type Type`
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"UserProfile`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `AccessType AccessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-    - `"application"Application`
+    - `Application`
 
-    - `"passthrough"Passthrough`
+    - `Passthrough`
 
   - `string? ExternalID`
 
@@ -179,11 +180,11 @@ Create User Profile
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `"external"External`
+    - `External`
 
-    - `"resold"Resold`
+    - `Resold`
 
-    - `"internal"Internal`
+    - `Internal`
 
 ### Example
 
@@ -195,7 +196,7 @@ var betaUserProfile = await client.Beta.UserProfiles.Create(parameters);
 Console.WriteLine(betaUserProfile);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -218,9 +219,9 @@ Console.WriteLine(betaUserProfile);
 
 ## List User Profiles
 
-`UserProfileListPageResponse Beta.UserProfiles.List(UserProfileListParams?parameters, CancellationTokencancellationToken = default)`
+`UserProfileListPageResponse Beta.UserProfiles.List(parameters, cancellationToken = default)`
 
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
@@ -228,17 +229,19 @@ List User Profiles
 
 - `UserProfileListParams parameters`
 
-  - `Int limit`
+  - `int limit`
 
     Query param: Query parameter for limit
+
+    format: int32
 
   - `Order order`
 
     Query param: Query parameter for order
 
-    - `"asc"Asc`
+    - `Asc`
 
-    - `"desc"Desc`
+    - `Desc`
 
   - `string page`
 
@@ -248,73 +251,73 @@ List User Profiles
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -332,6 +335,8 @@ List User Profiles
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `required IReadOnlyDictionary<string, string> Metadata`
 
       Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -344,29 +349,29 @@ List User Profiles
 
         Status of the trust grant.
 
-        - `"active"Active`
+        - `Active`
 
-        - `"pending"Pending`
+        - `Pending`
 
-        - `"rejected"Rejected`
+        - `Rejected`
 
     - `required Type Type`
 
       Object type. Always `user_profile`.
 
-      - `"user_profile"UserProfile`
-
     - `required DateTimeOffset UpdatedAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `AccessType AccessType`
 
       How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-      - `"application"Application`
+      - `Application`
 
-      - `"passthrough"Passthrough`
+      - `Passthrough`
 
     - `string? ExternalID`
 
@@ -380,11 +385,11 @@ List User Profiles
 
       How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-      - `"external"External`
+      - `External`
 
-      - `"resold"Resold`
+      - `Resold`
 
-      - `"internal"Internal`
+      - `Internal`
 
   - `required string? NextPage`
 
@@ -402,7 +407,7 @@ await foreach (var item in page.Paginate())
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -430,9 +435,9 @@ await foreach (var item in page.Paginate())
 
 ## Get User Profile
 
-`BetaUserProfile Beta.UserProfiles.Retrieve(UserProfileRetrieveParamsparameters, CancellationTokencancellationToken = default)`
+`BetaUserProfile Beta.UserProfiles.Retrieve(parameters, cancellationToken = default)`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
@@ -448,73 +453,73 @@ Get User Profile
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -528,6 +533,8 @@ Get User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required IReadOnlyDictionary<string, string> Metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -540,29 +547,29 @@ Get User Profile
 
       Status of the trust grant.
 
-      - `"active"Active`
+      - `Active`
 
-      - `"pending"Pending`
+      - `Pending`
 
-      - `"rejected"Rejected`
+      - `Rejected`
 
   - `required Type Type`
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"UserProfile`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `AccessType AccessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-    - `"application"Application`
+    - `Application`
 
-    - `"passthrough"Passthrough`
+    - `Passthrough`
 
   - `string? ExternalID`
 
@@ -576,11 +583,11 @@ Get User Profile
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `"external"External`
+    - `External`
 
-    - `"resold"Resold`
+    - `Resold`
 
-    - `"internal"Internal`
+    - `Internal`
 
 ### Example
 
@@ -595,7 +602,7 @@ var betaUserProfile = await client.Beta.UserProfiles.Retrieve(parameters);
 Console.WriteLine(betaUserProfile);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -618,9 +625,9 @@ Console.WriteLine(betaUserProfile);
 
 ## Update User Profile
 
-`BetaUserProfile Beta.UserProfiles.Update(UserProfileUpdateParamsparameters, CancellationTokencancellationToken = default)`
+`BetaUserProfile Beta.UserProfiles.Update(parameters, cancellationToken = default)`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
@@ -636,13 +643,15 @@ Update User Profile
 
     Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-    - `"application"Application`
+    - `Application`
 
-    - `"passthrough"Passthrough`
+    - `Passthrough`
 
   - `string? externalID`
 
     Body param: If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `IReadOnlyDictionary<string, string> metadata`
 
@@ -652,87 +661,89 @@ Update User Profile
 
     Body param: If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
+    minLength: 1, maxLength: 255
+
   - `Relationship? relationship`
 
     Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `"external"External`
+    - `External`
 
-    - `"resold"Resold`
+    - `Resold`
 
-    - `"internal"Internal`
+    - `Internal`
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -746,6 +757,8 @@ Update User Profile
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required IReadOnlyDictionary<string, string> Metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -758,29 +771,29 @@ Update User Profile
 
       Status of the trust grant.
 
-      - `"active"Active`
+      - `Active`
 
-      - `"pending"Pending`
+      - `Pending`
 
-      - `"rejected"Rejected`
+      - `Rejected`
 
   - `required Type Type`
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"UserProfile`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `AccessType AccessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-    - `"application"Application`
+    - `Application`
 
-    - `"passthrough"Passthrough`
+    - `Passthrough`
 
   - `string? ExternalID`
 
@@ -794,11 +807,11 @@ Update User Profile
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `"external"External`
+    - `External`
 
-    - `"resold"Resold`
+    - `Resold`
 
-    - `"internal"Internal`
+    - `Internal`
 
 ### Example
 
@@ -813,7 +826,7 @@ var betaUserProfile = await client.Beta.UserProfiles.Update(parameters);
 Console.WriteLine(betaUserProfile);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -836,9 +849,9 @@ Console.WriteLine(betaUserProfile);
 
 ## Create Enrollment URL
 
-`BetaUserProfileEnrollmentUrl Beta.UserProfiles.CreateEnrollmentUrl(UserProfileCreateEnrollmentUrlParamsparameters, CancellationTokencancellationToken = default)`
+`BetaUserProfileEnrollmentUrl Beta.UserProfiles.CreateEnrollmentUrl(parameters, cancellationToken = default)`
 
-**post** `/v1/user_profiles/{user_profile_id}/enrollment_url`
+**POST** `/v1/user_profiles/{user_profile_id}/enrollment_url`
 
 Create Enrollment URL
 
@@ -854,73 +867,73 @@ Create Enrollment URL
 
     Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
 ### Returns
 
@@ -930,11 +943,11 @@ Create Enrollment URL
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required Type Type`
 
     Object type. Always `enrollment_url`.
-
-    - `"enrollment_url"EnrollmentUrl`
 
   - `required string Url`
 
@@ -953,7 +966,7 @@ var betaUserProfileEnrollmentUrl = await client.Beta.UserProfiles.CreateEnrollme
 Console.WriteLine(betaUserProfileEnrollmentUrl);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -963,7 +976,7 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta User Profile
 
@@ -977,6 +990,8 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required IReadOnlyDictionary<string, string> Metadata`
 
     Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
@@ -989,29 +1004,29 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
       Status of the trust grant.
 
-      - `"active"Active`
+      - `Active`
 
-      - `"pending"Pending`
+      - `Pending`
 
-      - `"rejected"Rejected`
+      - `Rejected`
 
   - `required Type Type`
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"UserProfile`
-
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `AccessType AccessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-    - `"application"Application`
+    - `Application`
 
-    - `"passthrough"Passthrough`
+    - `Passthrough`
 
   - `string? ExternalID`
 
@@ -1025,11 +1040,11 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `"external"External`
+    - `External`
 
-    - `"resold"Resold`
+    - `Resold`
 
-    - `"internal"Internal`
+    - `Internal`
 
 ### Beta User Profile Enrollment URL
 
@@ -1039,11 +1054,11 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required Type Type`
 
     Object type. Always `enrollment_url`.
-
-    - `"enrollment_url"EnrollmentUrl`
 
   - `required string Url`
 
@@ -1057,8 +1072,8 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     Status of the trust grant.
 
-    - `"active"Active`
+    - `Active`
 
-    - `"pending"Pending`
+    - `Pending`
 
-    - `"rejected"Rejected`
+    - `Rejected`

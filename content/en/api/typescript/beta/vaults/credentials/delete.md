@@ -1,17 +1,12 @@
----
-title: Delete Credential
-url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/credentials/delete
----
+# Delete Credential
 
-## Delete Credential
+`client.beta.vaults.credentials.delete(credentialID, params, options?): BetaManagedAgentsDeletedCredential`
 
-`client.beta.vaults.credentials.delete(stringcredentialID, CredentialDeleteParamsparams, RequestOptionsoptions?): BetaManagedAgentsDeletedCredential`
-
-**delete** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Delete Credential
 
-### Parameters
+## Parameters
 
 - `credentialID: string`
 
@@ -97,7 +92,7 @@ Delete Credential
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeletedCredential`
 
@@ -109,9 +104,7 @@ Delete Credential
 
   - `type: "vault_credential_deleted"`
 
-    - `"vault_credential_deleted"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -128,7 +121,7 @@ const betaManagedAgentsDeletedCredential = await client.beta.vaults.credentials.
 console.log(betaManagedAgentsDeletedCredential.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

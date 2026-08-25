@@ -1,17 +1,12 @@
----
-title: Get Vault
-url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/retrieve
----
+# Get Vault
 
-## Get Vault
+`client.beta.vaults.retrieve(vaultID, params?, options?): BetaManagedAgentsVault`
 
-`client.beta.vaults.retrieve(stringvaultID, VaultRetrieveParamsparams?, RequestOptionsoptions?): BetaManagedAgentsVault`
-
-**get** `/v1/vaults/{vault_id}`
+**GET** `/v1/vaults/{vault_id}`
 
 Get Vault
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -93,7 +88,7 @@ Get Vault
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsVault`
 
@@ -107,9 +102,13 @@ Get Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -121,13 +120,13 @@ Get Vault
 
   - `type: "vault"`
 
-    - `"vault"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -143,7 +142,7 @@ const betaManagedAgentsVault = await client.beta.vaults.retrieve(
 console.log(betaManagedAgentsVault.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

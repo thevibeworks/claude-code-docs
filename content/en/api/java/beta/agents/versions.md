@@ -1,15 +1,10 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/java/beta/agents/versions
----
-
 # Versions
 
 ## List Agent Versions
 
-`VersionListPage beta().agents().versions().list(VersionListParamsparams = VersionListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`VersionListPage beta().agents().versions().list(params = VersionListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
@@ -22,6 +17,8 @@ List Agent Versions
   - `Optional<Long> limit`
 
     Maximum results per page. Default 20, maximum 100.
+
+    format: int32
 
   - `Optional<String> page`
 
@@ -111,9 +108,13 @@ List Agent Versions
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> description`
 
@@ -122,8 +123,6 @@ List Agent Versions
     - `String name`
 
     - `Type type`
-
-      - `URL("url")`
 
     - `String url`
 
@@ -201,15 +200,11 @@ List Agent Versions
 
         - `Type type`
 
-          - `LOW("low")`
-
       - `class BetaManagedAgentsEffortMedium:`
 
         Medium effort. Balances latency and reasoning depth.
 
         - `Type type`
-
-          - `MEDIUM("medium")`
 
       - `class BetaManagedAgentsEffortHigh:`
 
@@ -217,23 +212,17 @@ List Agent Versions
 
         - `Type type`
 
-          - `HIGH("high")`
-
       - `class BetaManagedAgentsEffortXhigh:`
 
         Extra-high effort. Not all models accept this level.
 
         - `Type type`
 
-          - `XHIGH("xhigh")`
-
       - `class BetaManagedAgentsEffortMax:`
 
         Maximum effort. Favors reasoning depth over latency.
 
         - `Type type`
-
-          - `MAX("max")`
 
     - `Optional<String> inferenceGeo`
 
@@ -263,9 +252,9 @@ List Agent Versions
 
         - `Type type`
 
-          - `AGENT("agent")`
-
         - `long version`
+
+          format: int32
 
       - `class BetaManagedAgentsAdvisor:`
 
@@ -277,11 +266,7 @@ List Agent Versions
 
         - `Type type`
 
-          - `ADVISOR("advisor")`
-
     - `Type type`
-
-      - `COORDINATOR("coordinator")`
 
   - `String name`
 
@@ -295,8 +280,6 @@ List Agent Versions
 
       - `Type type`
 
-        - `ANTHROPIC("anthropic")`
-
       - `String version`
 
     - `class BetaManagedAgentsCustomSkill:`
@@ -306,8 +289,6 @@ List Agent Versions
       - `String skillId`
 
       - `Type type`
-
-        - `CUSTOM("custom")`
 
       - `String version`
 
@@ -325,9 +306,7 @@ List Agent Versions
 
           - `boolean enabled`
 
-          - `JsonValue; name "bash"constant`
-
-            - `BASH("bash")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -339,19 +318,13 @@ List Agent Versions
 
               - `Type type`
 
-                - `ALWAYS_ALLOW("always_allow")`
-
             - `class BetaManagedAgentsAlwaysAskPolicy:`
 
               Tool calls require user confirmation before execution.
 
               - `Type type`
 
-                - `ALWAYS_ASK("always_ask")`
-
-          - `JsonValue; type "bash"constant`
-
-            - `BASH("bash")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsEditToolConfig:`
 
@@ -359,9 +332,7 @@ List Agent Versions
 
           - `boolean enabled`
 
-          - `JsonValue; name "edit"constant`
-
-            - `EDIT("edit")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -375,9 +346,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "edit"constant`
-
-            - `EDIT("edit")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsReadToolConfig:`
 
@@ -385,9 +354,7 @@ List Agent Versions
 
           - `boolean enabled`
 
-          - `JsonValue; name "read"constant`
-
-            - `READ("read")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -401,9 +368,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "read"constant`
-
-            - `READ("read")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsWriteToolConfig:`
 
@@ -411,9 +376,7 @@ List Agent Versions
 
           - `boolean enabled`
 
-          - `JsonValue; name "write"constant`
-
-            - `WRITE("write")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -427,9 +390,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "write"constant`
-
-            - `WRITE("write")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsGlobToolConfig:`
 
@@ -437,9 +398,7 @@ List Agent Versions
 
           - `boolean enabled`
 
-          - `JsonValue; name "glob"constant`
-
-            - `GLOB("glob")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -453,9 +412,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "glob"constant`
-
-            - `GLOB("glob")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsGrepToolConfig:`
 
@@ -463,9 +420,7 @@ List Agent Versions
 
           - `boolean enabled`
 
-          - `JsonValue; name "grep"constant`
-
-            - `GREP("grep")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -479,9 +434,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "grep"constant`
-
-            - `GREP("grep")`
+          - `JsonValue type constant`
 
         - `class BetaManagedAgentsWebFetchToolConfig:`
 
@@ -489,9 +442,7 @@ List Agent Versions
 
           - `boolean enabled`
 
-          - `JsonValue; name "web_fetch"constant`
-
-            - `WEB_FETCH("web_fetch")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -505,9 +456,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "web_fetch"constant`
-
-            - `WEB_FETCH("web_fetch")`
+          - `JsonValue type constant`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -515,15 +464,15 @@ List Agent Versions
 
           - `Optional<Long> maxContentTokens`
 
+            format: int32
+
         - `class BetaManagedAgentsWebSearchToolConfig:`
 
           Configuration for the web_search tool.
 
           - `boolean enabled`
 
-          - `JsonValue; name "web_search"constant`
-
-            - `WEB_SEARCH("web_search")`
+          - `JsonValue name constant`
 
           - `PermissionPolicy permissionPolicy`
 
@@ -537,9 +486,7 @@ List Agent Versions
 
               Tool calls require user confirmation before execution.
 
-          - `JsonValue; type "web_search"constant`
-
-            - `WEB_SEARCH("web_search")`
+          - `JsonValue type constant`
 
           - `Optional<List<String>> allowedDomains`
 
@@ -549,15 +496,15 @@ List Agent Versions
 
             Approximate user location for search result localization.
 
-            - `JsonValue; type "approximate"constant`
+            - `JsonValue type constant`
 
               Location precision. Only "approximate" is supported.
-
-              - `APPROXIMATE("approximate")`
 
             - `Optional<String> city`
 
               City name.
+
+              minLength: 1, maxLength: 255
 
             - `Optional<String> country`
 
@@ -567,9 +514,13 @@ List Agent Versions
 
               Region or state name.
 
+              minLength: 1, maxLength: 255
+
             - `Optional<String> timezone`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `BetaManagedAgentsAgentToolsetDefaultConfig defaultConfig`
 
@@ -590,8 +541,6 @@ List Agent Versions
             Tool calls require user confirmation before execution.
 
       - `Type type`
-
-        - `AGENT_TOOLSET_20260401("agent_toolset_20260401")`
 
     - `class BetaManagedAgentsMcpToolset:`
 
@@ -635,8 +584,6 @@ List Agent Versions
 
       - `Type type`
 
-        - `MCP_TOOLSET("mcp_toolset")`
-
     - `class BetaManagedAgentsCustomTool:`
 
       A custom tool as returned in API responses.
@@ -647,9 +594,7 @@ List Agent Versions
 
         JSON Schema for custom tool input parameters.
 
-        - `JsonValue; type "object"constant`
-
-          - `OBJECT("object")`
+        - `JsonValue type constant`
 
         - `Optional<Properties> properties`
 
@@ -659,19 +604,19 @@ List Agent Versions
 
       - `Type type`
 
-        - `CUSTOM("custom")`
-
   - `Type type`
-
-    - `AGENT("agent")`
 
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `long version`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
+
+    format: int32
 
 ### Example
 
@@ -694,7 +639,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {

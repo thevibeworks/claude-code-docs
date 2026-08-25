@@ -1,17 +1,12 @@
----
-title: Run Deployment Now
-url: https://platform.claude.com/docs/en/api/php/beta/deployments/run
----
-
-## Run Deployment Now
+# Run Deployment Now
 
 `$client->beta->deployments->run(string deploymentID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
 
-**post** `/v1/deployments/{deployment_id}/run`
+**POST** `/v1/deployments/{deployment_id}/run`
 
 Run Deployment Now
 
-### Parameters
+## Parameters
 
 - `deploymentID: string`
 
@@ -19,7 +14,7 @@ Run Deployment Now
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeploymentRun`
 
@@ -53,7 +48,7 @@ Run Deployment Now
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -70,7 +65,7 @@ $betaManagedAgentsDeploymentRun = $client->beta->deployments->run(
 var_dump($betaManagedAgentsDeploymentRun);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

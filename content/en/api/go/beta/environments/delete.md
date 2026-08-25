@@ -1,23 +1,18 @@
----
-title: Delete Environment
-url: https://platform.claude.com/docs/en/api/go/beta/environments/delete
----
-
-## Delete Environment
+# Delete Environment
 
 `client.Beta.Environments.Delete(ctx, environmentID, body) (*BetaEnvironmentDeleteResponse, error)`
 
-**delete** `/v1/environments/{environment_id}`
+**DELETE** `/v1/environments/{environment_id}`
 
 Delete an environment by ID. Returns a confirmation of the deletion.
 
-### Parameters
+## Parameters
 
 - `environmentID string`
 
 - `body BetaEnvironmentDeleteParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -93,7 +88,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaEnvironmentDeleteResponse struct{…}`
 
@@ -107,9 +102,9 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     The type of response
 
-    - `const BetaEnvironmentDeleteResponseTypeEnvironmentDeleted BetaEnvironmentDeleteResponseType = "environment_deleted"`
+    default: environment_deleted
 
-### Example
+## Example
 
 ```go
 package main
@@ -138,7 +133,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

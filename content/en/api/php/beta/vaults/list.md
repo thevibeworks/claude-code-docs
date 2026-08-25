@@ -1,17 +1,12 @@
----
-title: List Vaults
-url: https://platform.claude.com/docs/en/api/php/beta/vaults/list
----
-
-## List Vaults
+# List Vaults
 
 `$client->beta->vaults->list(?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsVault>`
 
-**get** `/v1/vaults`
+**GET** `/v1/vaults`
 
 List Vaults
 
-### Parameters
+## Parameters
 
 - `includeArchived?:optional bool`
 
@@ -29,7 +24,7 @@ List Vaults
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsVault`
 
@@ -59,7 +54,7 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
-### Example
+## Example
 
 ```php
 <?php
@@ -78,7 +73,7 @@ $page = $client->beta->vaults->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Get Session Thread
-url: https://platform.claude.com/docs/en/api/cli/beta/sessions/threads/retrieve
----
-
-## Get Session Thread
+# Get Session Thread
 
 `$ ant beta:sessions:threads retrieve`
 
-**get** `/v1/sessions/{session_id}/threads/{thread_id}`
+**GET** `/v1/sessions/{session_id}/threads/{thread_id}`
 
 Get Session Thread
 
-### Parameters
+## Parameters
 
 - `--session-id: string`
 
@@ -25,9 +20,9 @@ Get Session Thread
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_session_thread: object { id, agent, archived_at, 8 more }`
+- `beta_managed_agents_session_thread: object`
 
   An execution thread within a `session`. Each session has one primary thread plus zero or more child threads spawned by the coordinator.
 
@@ -39,7 +34,7 @@ Get Session Thread
 
     A session-resolved multiagent roster entry.
 
-    - `beta_managed_agents_session_thread_agent: object { id, description, mcp_servers, 7 more }`
+    - `beta_managed_agents_session_thread_agent: object`
 
       Resolved `agent` definition for a single `session_thread`. Snapshot of the agent at thread creation time. The multiagent roster is not repeated here; read it from `Session.agent`.
 
@@ -53,11 +48,9 @@ Get Session Thread
 
         - `type: "url"`
 
-          - `"url"`
-
         - `url: string`
 
-      - `model: object { id, effort, inference_geo, speed }`
+      - `model: object`
 
         Model identifier and configuration.
 
@@ -123,45 +116,35 @@ Get Session Thread
 
           How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
 
-          - `beta_managed_agents_effort_low: object { type }`
+          - `beta_managed_agents_effort_low: object`
 
             Low effort. Favors latency over reasoning depth.
 
             - `type: "low"`
 
-              - `"low"`
-
-          - `beta_managed_agents_effort_medium: object { type }`
+          - `beta_managed_agents_effort_medium: object`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: "medium"`
 
-              - `"medium"`
-
-          - `beta_managed_agents_effort_high: object { type }`
+          - `beta_managed_agents_effort_high: object`
 
             High effort. Favors reasoning depth.
 
             - `type: "high"`
 
-              - `"high"`
-
-          - `beta_managed_agents_effort_xhigh: object { type }`
+          - `beta_managed_agents_effort_xhigh: object`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: "xhigh"`
 
-              - `"xhigh"`
-
-          - `beta_managed_agents_effort_max: object { type }`
+          - `beta_managed_agents_effort_max: object`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: "max"`
-
-              - `"max"`
 
         - `inference_geo: optional string`
 
@@ -179,7 +162,7 @@ Get Session Thread
 
       - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
 
-        - `beta_managed_agents_anthropic_skill: object { skill_id, type, version }`
+        - `beta_managed_agents_anthropic_skill: object`
 
           A resolved Anthropic-managed skill.
 
@@ -187,11 +170,9 @@ Get Session Thread
 
           - `type: "anthropic"`
 
-            - `"anthropic"`
-
           - `version: string`
 
-        - `beta_managed_agents_custom_skill: object { skill_id, type, version }`
+        - `beta_managed_agents_custom_skill: object`
 
           A resolved user-created custom skill.
 
@@ -199,19 +180,17 @@ Get Session Thread
 
           - `type: "custom"`
 
-            - `"custom"`
-
           - `version: string`
 
       - `system: string`
 
       - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
-        - `beta_managed_agents_agent_toolset20260401: object { configs, default_config, type }`
+        - `beta_managed_agents_agent_toolset20260401: object`
 
           - `configs: array of BetaManagedAgentsAgentToolConfig`
 
-            - `beta_managed_agents_bash_tool_config: object { enabled, name, permission_policy, type }`
+            - `beta_managed_agents_bash_tool_config: object`
 
               Configuration for the bash tool.
 
@@ -223,25 +202,21 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
                   - `type: "always_allow"`
 
-                    - `"always_allow"`
-
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
                   - `type: "always_ask"`
 
-                    - `"always_ask"`
-
               - `type: "bash"`
 
-            - `beta_managed_agents_edit_tool_config: object { enabled, name, permission_policy, type }`
+            - `beta_managed_agents_edit_tool_config: object`
 
               Configuration for the edit tool.
 
@@ -253,17 +228,17 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
               - `type: "edit"`
 
-            - `beta_managed_agents_read_tool_config: object { enabled, name, permission_policy, type }`
+            - `beta_managed_agents_read_tool_config: object`
 
               Configuration for the read tool.
 
@@ -275,17 +250,17 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
               - `type: "read"`
 
-            - `beta_managed_agents_write_tool_config: object { enabled, name, permission_policy, type }`
+            - `beta_managed_agents_write_tool_config: object`
 
               Configuration for the write tool.
 
@@ -297,17 +272,17 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
               - `type: "write"`
 
-            - `beta_managed_agents_glob_tool_config: object { enabled, name, permission_policy, type }`
+            - `beta_managed_agents_glob_tool_config: object`
 
               Configuration for the glob tool.
 
@@ -319,17 +294,17 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
               - `type: "glob"`
 
-            - `beta_managed_agents_grep_tool_config: object { enabled, name, permission_policy, type }`
+            - `beta_managed_agents_grep_tool_config: object`
 
               Configuration for the grep tool.
 
@@ -341,17 +316,17 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
               - `type: "grep"`
 
-            - `beta_managed_agents_web_fetch_tool_config: object { enabled, name, permission_policy, 4 more }`
+            - `beta_managed_agents_web_fetch_tool_config: object`
 
               Configuration for the web_fetch tool.
 
@@ -363,11 +338,11 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
@@ -379,7 +354,9 @@ Get Session Thread
 
               - `max_content_tokens: optional number`
 
-            - `beta_managed_agents_web_search_tool_config: object { enabled, name, permission_policy, 4 more }`
+                format: int32
+
+            - `beta_managed_agents_web_search_tool_config: object`
 
               Configuration for the web_search tool.
 
@@ -391,11 +368,11 @@ Get Session Thread
 
                 Permission policy for tool execution.
 
-                - `beta_managed_agents_always_allow_policy: object { type }`
+                - `beta_managed_agents_always_allow_policy: object`
 
                   Tool calls are automatically approved without user confirmation.
 
-                - `beta_managed_agents_always_ask_policy: object { type }`
+                - `beta_managed_agents_always_ask_policy: object`
 
                   Tool calls require user confirmation before execution.
 
@@ -405,7 +382,7 @@ Get Session Thread
 
               - `blocked_domains: optional array of string`
 
-              - `user_location: optional object { type, city, country, 2 more }`
+              - `user_location: optional object`
 
                 Approximate user location for search result localization.
 
@@ -417,6 +394,8 @@ Get Session Thread
 
                   City name.
 
+                  minLength: 1, maxLength: 255
+
                 - `country: optional string`
 
                   Two-letter ISO 3166-1 country code, uppercase.
@@ -425,11 +404,15 @@ Get Session Thread
 
                   Region or state name.
 
+                  minLength: 1, maxLength: 255
+
                 - `timezone: optional string`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
 
-          - `default_config: object { enabled, permission_policy }`
+                  minLength: 1, maxLength: 255
+
+          - `default_config: object`
 
             Resolved default configuration for agent tools.
 
@@ -439,19 +422,17 @@ Get Session Thread
 
               Permission policy for tool execution.
 
-              - `beta_managed_agents_always_allow_policy: object { type }`
+              - `beta_managed_agents_always_allow_policy: object`
 
                 Tool calls are automatically approved without user confirmation.
 
-              - `beta_managed_agents_always_ask_policy: object { type }`
+              - `beta_managed_agents_always_ask_policy: object`
 
                 Tool calls require user confirmation before execution.
 
           - `type: "agent_toolset_20260401"`
 
-            - `"agent_toolset_20260401"`
-
-        - `beta_managed_agents_mcp_toolset: object { configs, default_config, mcp_server_name, type }`
+        - `beta_managed_agents_mcp_toolset: object`
 
           - `configs: array of BetaManagedAgentsMCPToolConfig`
 
@@ -463,15 +444,15 @@ Get Session Thread
 
               Permission policy for tool execution.
 
-              - `beta_managed_agents_always_allow_policy: object { type }`
+              - `beta_managed_agents_always_allow_policy: object`
 
                 Tool calls are automatically approved without user confirmation.
 
-              - `beta_managed_agents_always_ask_policy: object { type }`
+              - `beta_managed_agents_always_ask_policy: object`
 
                 Tool calls require user confirmation before execution.
 
-          - `default_config: object { enabled, permission_policy }`
+          - `default_config: object`
 
             Resolved default configuration for all tools from an MCP server.
 
@@ -481,11 +462,11 @@ Get Session Thread
 
               Permission policy for tool execution.
 
-              - `beta_managed_agents_always_allow_policy: object { type }`
+              - `beta_managed_agents_always_allow_policy: object`
 
                 Tool calls are automatically approved without user confirmation.
 
-              - `beta_managed_agents_always_ask_policy: object { type }`
+              - `beta_managed_agents_always_ask_policy: object`
 
                 Tool calls require user confirmation before execution.
 
@@ -493,15 +474,13 @@ Get Session Thread
 
           - `type: "mcp_toolset"`
 
-            - `"mcp_toolset"`
-
-        - `beta_managed_agents_custom_tool: object { description, input_schema, name, type }`
+        - `beta_managed_agents_custom_tool: object`
 
           A custom tool as returned in API responses.
 
           - `description: string`
 
-          - `input_schema: object { type, properties, required }`
+          - `input_schema: object`
 
             JSON Schema for custom tool input parameters.
 
@@ -515,15 +494,13 @@ Get Session Thread
 
           - `type: "custom"`
 
-            - `"custom"`
-
       - `type: "agent"`
-
-        - `"agent"`
 
       - `version: number`
 
-    - `beta_managed_agents_advisor: object { model, type }`
+        format: int32
+
+    - `beta_managed_agents_advisor: object`
 
       Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
@@ -533,15 +510,17 @@ Get Session Thread
 
       - `type: "advisor"`
 
-        - `"advisor"`
-
   - `archived_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `parent_thread_id: string`
 
@@ -551,7 +530,7 @@ Get Session Thread
 
     The session this thread belongs to.
 
-  - `stats: object { active_seconds, duration_seconds, startup_seconds }`
+  - `stats: object`
 
     Timing statistics for a session thread.
 
@@ -559,13 +538,19 @@ Get Session Thread
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
+      format: double
+
     - `duration_seconds: optional number`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
+      format: double
+
     - `startup_seconds: optional number`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+      format: double
 
   - `status: "running" or "idle" or "rescheduling" or "terminated"`
 
@@ -581,13 +566,13 @@ Get Session Thread
 
   - `type: "session_thread"`
 
-    - `"session_thread"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-  - `usage: object { active_seconds, cache_creation, cache_read_input_tokens, 4 more }`
+    format: date-time
+
+  - `usage: object`
 
     Cumulative token usage for a session thread across all turns.
 
@@ -595,7 +580,9 @@ Get Session Thread
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
-    - `cache_creation: optional object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      format: double
+
+    - `cache_creation: optional object`
 
       Prompt-cache creation token usage broken down by cache lifetime.
 
@@ -603,19 +590,27 @@ Get Session Thread
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens: optional number`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens: optional number`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens: optional number`
 
       Total input tokens consumed across all turns.
 
-    - `list_cost: optional object { amount, currency }`
+      format: int32
+
+    - `list_cost: optional object`
 
       A monetary amount in a specific currency.
 
@@ -627,13 +622,13 @@ Get Session Thread
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"`
-
     - `output_tokens: optional number`
 
       Total output tokens generated across all turns.
 
-    - `server_tool_use: optional object { web_fetch_requests, web_search_requests }`
+      format: int32
+
+    - `server_tool_use: optional object`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
 
@@ -641,20 +636,24 @@ Get Session Thread
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests: optional number`
 
         Number of server-executed web search requests.
 
-### Example
+        format: int32
 
-```cli
+## Example
+
+```bash
 ant beta:sessions:threads retrieve \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --thread-id sthr_011CZkZVWa6oIjw0rgXZpnBt
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

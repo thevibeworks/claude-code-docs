@@ -1,17 +1,12 @@
----
-title: List memories
-url: https://platform.claude.com/docs/en/api/typescript/beta/memory_stores/memories/list
----
+# List memories
 
-## List memories
+`client.beta.memoryStores.memories.list(memoryStoreID, params?, options?): PageCursor<BetaManagedAgentsMemoryListItem>`
 
-`client.beta.memoryStores.memories.list(stringmemoryStoreID, MemoryListParamsparams?, RequestOptionsoptions?): PageCursor<BetaManagedAgentsMemoryListItem>`
-
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
-### Parameters
+## Parameters
 
 - `memoryStoreID: string`
 
@@ -21,9 +16,13 @@ List memories
 
     Query param: `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
+    format: int32
+
   - `limit?: number`
 
     Query param: Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
+
+    format: int32
 
   - `page?: string`
 
@@ -117,7 +116,7 @@ List memories
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsMemoryListItem = BetaManagedAgentsMemory | BetaManagedAgentsMemoryPrefix`
 
@@ -139,9 +138,13 @@ List memories
 
       Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+      format: int32
+
     - `created_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `memory_store_id: string`
 
@@ -157,11 +160,11 @@ List memories
 
     - `type: "memory"`
 
-      - `"memory"`
-
     - `updated_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `content?: string | null`
 
@@ -177,9 +180,7 @@ List memories
 
     - `type: "memory_prefix"`
 
-      - `"memory_prefix"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -196,7 +197,7 @@ for await (const betaManagedAgentsMemoryListItem of client.beta.memoryStores.mem
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

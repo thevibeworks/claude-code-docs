@@ -1,17 +1,12 @@
----
-title: Create Skill
-url: https://platform.claude.com/docs/en/api/python/beta/skills/create
----
+# Create Skill
 
-## Create Skill
+`beta.skills.create(**kwargs)  -> SkillCreateResponse`
 
-`beta.skills.create(SkillCreateParams**kwargs)  -> SkillCreateResponse`
-
-**post** `/v1/skills`
+**POST** `/v1/skills`
 
 Create Skill
 
-### Parameters
+## Parameters
 
 - `files: Sequence[FileTypes]`
 
@@ -101,7 +96,7 @@ Create Skill
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class SkillCreateResponse: …`
 
@@ -142,11 +137,13 @@ Create Skill
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: str`
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+## Example
 
 ```python
 import os
@@ -163,7 +160,7 @@ skill = client.beta.skills.create(
 print(skill.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,19 +1,14 @@
----
-title: List Tunnel Certificates
-url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels/certificates/list
----
-
-## List Tunnel Certificates
+# List Tunnel Certificates
 
 `beta.tunnels.certificates.list(tunnel_id, **kwargs) -> PageCursor<BetaTunnelCertificate>`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `tunnel_id: String`
 
@@ -24,6 +19,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 - `limit: Integer`
 
   Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
+
+  format: int32
 
 - `page: String`
 
@@ -105,7 +102,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaTunnelCertificate`
 
@@ -119,13 +116,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: String`
 
@@ -137,9 +140,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `type: :tunnel_certificate`
 
-    - `:tunnel_certificate`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -151,7 +152,7 @@ page = anthropic.beta.tunnels.certificates.list("tunnel_id")
 puts(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

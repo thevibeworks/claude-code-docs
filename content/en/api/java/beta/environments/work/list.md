@@ -1,19 +1,14 @@
----
-title: List Work Items
-url: https://platform.claude.com/docs/en/api/java/beta/environments/work/list
----
+# List Work Items
 
-## List Work Items
+`WorkListPage beta().environments().work().list(params = WorkListParams.none(), requestOptions = RequestOptions.none())`
 
-`WorkListPage beta().environments().work().list(WorkListParamsparams = WorkListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 List work items in an environment.
 
-### Parameters
+## Parameters
 
 - `WorkListParams params`
 
@@ -22,6 +17,8 @@ List work items in an environment.
   - `Optional<Long> limit`
 
     Maximum number of work items to return
+
+    maximum: 1000, minimum: 1
 
   - `Optional<String> page`
 
@@ -99,7 +96,7 @@ List work items in an environment.
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaSelfHostedWork:`
 
@@ -129,11 +126,9 @@ List work items in an environment.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -177,13 +172,11 @@ List work items in an environment.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
 
-    - `WORK("work")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -204,7 +197,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

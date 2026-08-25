@@ -1,33 +1,32 @@
----
-title: Poll for Work
-url: https://platform.claude.com/docs/en/api/go/beta/environments/work/poll
----
-
-## Poll for Work
+# Poll for Work
 
 `client.Beta.Environments.Work.Poll(ctx, environmentID, params) (*BetaSelfHostedWork, error)`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Parameters
+## Parameters
 
 - `environmentID string`
 
 - `params BetaEnvironmentWorkPollParams`
 
-  - `BlockMs param.Field[int64]`
+  - `BlockMs param.Field[int64] Optional`
 
     Query param: How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
-  - `ReclaimOlderThanMs param.Field[int64]`
+    minimum: 1
+
+  - `ReclaimOlderThanMs param.Field[int64] Optional`
 
     Query param: Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    minimum: 1
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -103,11 +102,11 @@ Long poll for work items in the queue.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-  - `AnthropicWorkerID param.Field[string]`
+  - `AnthropicWorkerID param.Field[string] Optional`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+## Returns
 
 - `type BetaSelfHostedWork struct{…}`
 
@@ -140,8 +139,6 @@ Long poll for work items in the queue.
     - `Type Session`
 
       Type of work data
-
-      - `const SessionSession Session = "session"`
 
   - `EnvironmentID string`
 
@@ -189,9 +186,9 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-    - `const WorkWork Work = "work"`
+    default: work
 
-### Example
+## Example
 
 ```go
 package main
@@ -220,7 +217,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

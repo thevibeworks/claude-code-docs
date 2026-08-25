@@ -1,17 +1,12 @@
----
-title: List Files
-url: https://platform.claude.com/docs/en/api/ruby/beta/files/list
----
-
-## List Files
+# List Files
 
 `beta.files.list(**kwargs) -> Page<BetaFileMetadata>`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
-### Parameters
+## Parameters
 
 - `after_id: String`
 
@@ -26,6 +21,8 @@ List Files
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  maximum: 1000, minimum: 1
 
 - `scope_id: String`
 
@@ -107,7 +104,7 @@ List Files
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaFileMetadata`
 
@@ -121,25 +118,31 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: String`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: String`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: Integer`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: :file`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `:file`
 
   - `downloadable: bool`
 
@@ -157,9 +160,7 @@ List Files
 
       The type of scope (e.g., `"session"`).
 
-      - `:session`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -171,7 +172,7 @@ page = anthropic.beta.files.list
 puts(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

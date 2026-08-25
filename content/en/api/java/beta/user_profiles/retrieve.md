@@ -1,17 +1,12 @@
----
-title: Get User Profile
-url: https://platform.claude.com/docs/en/api/java/beta/user_profiles/retrieve
----
+# Get User Profile
 
-## Get User Profile
+`BetaUserProfile beta().userProfiles().retrieve(params = UserProfileRetrieveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaUserProfile beta().userProfiles().retrieve(UserProfileRetrieveParamsparams = UserProfileRetrieveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
-### Parameters
+## Parameters
 
 - `UserProfileRetrieveParams params`
 
@@ -89,7 +84,7 @@ Get User Profile
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaUserProfile:`
 
@@ -100,6 +95,8 @@ Get User Profile
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Metadata metadata`
 
@@ -123,11 +120,11 @@ Get User Profile
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -155,7 +152,7 @@ Get User Profile
 
     - `INTERNAL("internal")`
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -176,7 +173,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

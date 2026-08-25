@@ -1,15 +1,10 @@
----
-title: Memory Versions
-url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/memory_versions
----
-
 # Memory Versions
 
 ## List memory versions
 
-`MemoryVersionListPage beta().memoryStores().memoryVersions().list(MemoryVersionListParamsparams = MemoryVersionListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`MemoryVersionListPage beta().memoryStores().memoryVersions().list(params = MemoryVersionListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
 List memory versions
 
@@ -27,13 +22,19 @@ List memory versions
 
     Return versions created at or after this time (inclusive).
 
+    format: date-time
+
   - `Optional<LocalDateTime> createdAtLte`
 
     Return versions created at or before this time (inclusive).
 
+    format: date-time
+
   - `Optional<Long> limit`
 
     Query parameter for limit
+
+    format: int32
 
   - `Optional<String> memoryId`
 
@@ -145,6 +146,8 @@ List memory versions
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `String memoryId`
 
     ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
@@ -165,8 +168,6 @@ List memory versions
 
   - `Type type`
 
-    - `MEMORY_VERSION("memory_version")`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -178,6 +179,8 @@ List memory versions
   - `Optional<Long> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+
+    format: int32
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
@@ -191,9 +194,9 @@ List memory versions
 
         ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-      - `Type type`
+        minLength: 1
 
-        - `SESSION_ACTOR("session_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
@@ -203,9 +206,9 @@ List memory versions
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
-      - `Type type`
+        minLength: 1
 
-        - `API_ACTOR("api_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -213,11 +216,11 @@ List memory versions
 
       - `Type type`
 
-        - `USER_ACTOR("user_actor")`
-
       - `String userId`
 
         ID of the user who performed the write (a `user_...` value).
+
+        minLength: 1
 
     - `class BetaManagedAgentsServiceAccountActor:`
 
@@ -227,9 +230,9 @@ List memory versions
 
         ID of the service account that performed the write (a `svac_...` value).
 
-      - `JsonValue; type "service_account_actor"constant`
+        minLength: 1
 
-        - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
+      - `JsonValue type constant`
 
   - `Optional<String> path`
 
@@ -238,6 +241,8 @@ List memory versions
   - `Optional<LocalDateTime> redactedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
@@ -264,7 +269,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -297,9 +302,9 @@ public final class Main {
 
 ## Retrieve a memory version
 
-`BetaManagedAgentsMemoryVersion beta().memoryStores().memoryVersions().retrieve(MemoryVersionRetrieveParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaManagedAgentsMemoryVersion beta().memoryStores().memoryVersions().retrieve(params, requestOptions = RequestOptions.none())`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
 
 Retrieve a memory version
 
@@ -401,6 +406,8 @@ Retrieve a memory version
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `String memoryId`
 
     ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
@@ -421,8 +428,6 @@ Retrieve a memory version
 
   - `Type type`
 
-    - `MEMORY_VERSION("memory_version")`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -434,6 +439,8 @@ Retrieve a memory version
   - `Optional<Long> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+
+    format: int32
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
@@ -447,9 +454,9 @@ Retrieve a memory version
 
         ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-      - `Type type`
+        minLength: 1
 
-        - `SESSION_ACTOR("session_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
@@ -459,9 +466,9 @@ Retrieve a memory version
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
-      - `Type type`
+        minLength: 1
 
-        - `API_ACTOR("api_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -469,11 +476,11 @@ Retrieve a memory version
 
       - `Type type`
 
-        - `USER_ACTOR("user_actor")`
-
       - `String userId`
 
         ID of the user who performed the write (a `user_...` value).
+
+        minLength: 1
 
     - `class BetaManagedAgentsServiceAccountActor:`
 
@@ -483,9 +490,9 @@ Retrieve a memory version
 
         ID of the service account that performed the write (a `svac_...` value).
 
-      - `JsonValue; type "service_account_actor"constant`
+        minLength: 1
 
-        - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
+      - `JsonValue type constant`
 
   - `Optional<String> path`
 
@@ -494,6 +501,8 @@ Retrieve a memory version
   - `Optional<LocalDateTime> redactedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
@@ -524,7 +533,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -552,9 +561,9 @@ public final class Main {
 
 ## Redact a memory version
 
-`BetaManagedAgentsMemoryVersion beta().memoryStores().memoryVersions().redact(MemoryVersionRedactParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaManagedAgentsMemoryVersion beta().memoryStores().memoryVersions().redact(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
+**POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 
 Redact a memory version
 
@@ -652,6 +661,8 @@ Redact a memory version
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `String memoryId`
 
     ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
@@ -672,8 +683,6 @@ Redact a memory version
 
   - `Type type`
 
-    - `MEMORY_VERSION("memory_version")`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -685,6 +694,8 @@ Redact a memory version
   - `Optional<Long> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+
+    format: int32
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
@@ -698,9 +709,9 @@ Redact a memory version
 
         ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-      - `Type type`
+        minLength: 1
 
-        - `SESSION_ACTOR("session_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
@@ -710,9 +721,9 @@ Redact a memory version
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
-      - `Type type`
+        minLength: 1
 
-        - `API_ACTOR("api_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -720,11 +731,11 @@ Redact a memory version
 
       - `Type type`
 
-        - `USER_ACTOR("user_actor")`
-
       - `String userId`
 
         ID of the user who performed the write (a `user_...` value).
+
+        minLength: 1
 
     - `class BetaManagedAgentsServiceAccountActor:`
 
@@ -734,9 +745,9 @@ Redact a memory version
 
         ID of the service account that performed the write (a `svac_...` value).
 
-      - `JsonValue; type "service_account_actor"constant`
+        minLength: 1
 
-        - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
+      - `JsonValue type constant`
 
   - `Optional<String> path`
 
@@ -745,6 +756,8 @@ Redact a memory version
   - `Optional<LocalDateTime> redactedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
@@ -775,7 +788,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -801,11 +814,11 @@ public final class Main {
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Actor
 
-- `class BetaManagedAgentsActor: A class that can be one of several variants.union`
+- `class BetaManagedAgentsActor: union`
 
   Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
@@ -817,9 +830,9 @@ public final class Main {
 
       ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-    - `Type type`
+      minLength: 1
 
-      - `SESSION_ACTOR("session_actor")`
+    - `Type type`
 
   - `class BetaManagedAgentsApiActor:`
 
@@ -829,9 +842,9 @@ public final class Main {
 
       ID of the API key that performed the write. This identifies the key, not the secret.
 
-    - `Type type`
+      minLength: 1
 
-      - `API_ACTOR("api_actor")`
+    - `Type type`
 
   - `class BetaManagedAgentsUserActor:`
 
@@ -839,11 +852,11 @@ public final class Main {
 
     - `Type type`
 
-      - `USER_ACTOR("user_actor")`
-
     - `String userId`
 
       ID of the user who performed the write (a `user_...` value).
+
+      minLength: 1
 
   - `class BetaManagedAgentsServiceAccountActor:`
 
@@ -853,9 +866,9 @@ public final class Main {
 
       ID of the service account that performed the write (a `svac_...` value).
 
-    - `JsonValue; type "service_account_actor"constant`
+      minLength: 1
 
-      - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
+    - `JsonValue type constant`
 
 ### Beta Managed Agents API Actor
 
@@ -867,9 +880,9 @@ public final class Main {
 
     ID of the API key that performed the write. This identifies the key, not the secret.
 
-  - `Type type`
+    minLength: 1
 
-    - `API_ACTOR("api_actor")`
+  - `Type type`
 
 ### Beta Managed Agents Memory Version
 
@@ -884,6 +897,8 @@ public final class Main {
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String memoryId`
 
@@ -905,8 +920,6 @@ public final class Main {
 
   - `Type type`
 
-    - `MEMORY_VERSION("memory_version")`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -918,6 +931,8 @@ public final class Main {
   - `Optional<Long> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+
+    format: int32
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
@@ -931,9 +946,9 @@ public final class Main {
 
         ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-      - `Type type`
+        minLength: 1
 
-        - `SESSION_ACTOR("session_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
@@ -943,9 +958,9 @@ public final class Main {
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
-      - `Type type`
+        minLength: 1
 
-        - `API_ACTOR("api_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -953,11 +968,11 @@ public final class Main {
 
       - `Type type`
 
-        - `USER_ACTOR("user_actor")`
-
       - `String userId`
 
         ID of the user who performed the write (a `user_...` value).
+
+        minLength: 1
 
     - `class BetaManagedAgentsServiceAccountActor:`
 
@@ -967,9 +982,9 @@ public final class Main {
 
         ID of the service account that performed the write (a `svac_...` value).
 
-      - `JsonValue; type "service_account_actor"constant`
+        minLength: 1
 
-        - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
+      - `JsonValue type constant`
 
   - `Optional<String> path`
 
@@ -978,6 +993,8 @@ public final class Main {
   - `Optional<LocalDateTime> redactedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
@@ -1005,9 +1022,9 @@ public final class Main {
 
     ID of the service account that performed the write (a `svac_...` value).
 
-  - `JsonValue; type "service_account_actor"constant`
+    minLength: 1
 
-    - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
+  - `JsonValue type constant`
 
 ### Beta Managed Agents Session Actor
 
@@ -1019,9 +1036,9 @@ public final class Main {
 
     ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-  - `Type type`
+    minLength: 1
 
-    - `SESSION_ACTOR("session_actor")`
+  - `Type type`
 
 ### Beta Managed Agents User Actor
 
@@ -1031,8 +1048,8 @@ public final class Main {
 
   - `Type type`
 
-    - `USER_ACTOR("user_actor")`
-
   - `String userId`
 
     ID of the user who performed the write (a `user_...` value).
+
+    minLength: 1

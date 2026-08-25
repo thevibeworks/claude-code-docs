@@ -1,23 +1,20 @@
----
-title: List Skills
-url: https://platform.claude.com/docs/en/api/php/beta/skills/list
----
-
-## List Skills
+# List Skills
 
 `$client->beta->skills->list(?int limit, ?string page, ?string source, ?list<AnthropicBeta> betas): PageCursor<SkillListResponse>`
 
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
-### Parameters
+## Parameters
 
 - `limit?:optional int`
 
   Number of results to return per page.
 
   Maximum value is 100. Defaults to 20.
+
+  default: 20
 
 - `page?:optional string`
 
@@ -38,7 +35,7 @@ List Skills
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `SkillListResponse`
 
@@ -83,7 +80,7 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -102,7 +99,7 @@ $page = $client->beta->skills->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

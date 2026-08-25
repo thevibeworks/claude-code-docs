@@ -1,31 +1,28 @@
----
-title: Update Vault
-url: https://platform.claude.com/docs/en/api/go/beta/vaults/update
----
-
-## Update Vault
+# Update Vault
 
 `client.Beta.Vaults.Update(ctx, vaultID, params) (*BetaManagedAgentsVault, error)`
 
-**post** `/v1/vaults/{vault_id}`
+**POST** `/v1/vaults/{vault_id}`
 
 Update Vault
 
-### Parameters
+## Parameters
 
 - `vaultID string`
 
 - `params BetaVaultUpdateParams`
 
-  - `DisplayName param.Field[string]`
+  - `DisplayName param.Field[string] Optional`
 
     Body param: Updated human-readable name for the vault. 1-255 characters.
 
-  - `Metadata param.Field[map[string, string]]`
+    minLength: 1, maxLength: 255
+
+  - `Metadata param.Field[map[string, string]] Optional`
 
     Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omitted keys are preserved.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -101,7 +98,7 @@ Update Vault
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsVault struct{…}`
 
@@ -115,9 +112,13 @@ Update Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -129,13 +130,13 @@ Update Vault
 
   - `Type BetaManagedAgentsVaultType`
 
-    - `const BetaManagedAgentsVaultTypeVault BetaManagedAgentsVaultType = "vault"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```go
 package main
@@ -164,7 +165,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

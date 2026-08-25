@@ -1,19 +1,14 @@
----
-title: Get Work Item
-url: https://platform.claude.com/docs/en/api/typescript/beta/environments/work/retrieve
----
+# Get Work Item
 
-## Get Work Item
+`client.beta.environments.work.retrieve(workID, params, options?): BetaSelfHostedWork`
 
-`client.beta.environments.work.retrieve(stringworkID, WorkRetrieveParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
-
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Retrieve detailed information about a specific work item.
 
-### Parameters
+## Parameters
 
 - `workID: string`
 
@@ -99,7 +94,7 @@ Retrieve detailed information about a specific work item.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaSelfHostedWork`
 
@@ -132,8 +127,6 @@ Retrieve detailed information about a specific work item.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -181,9 +174,9 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -199,7 +192,7 @@ const betaSelfHostedWork = await client.beta.environments.work.retrieve("work_id
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,21 +1,16 @@
----
-title: Update Session Resource
-url: https://platform.claude.com/docs/en/api/beta/sessions/resources/update
----
+# Update Session Resource
 
-## Update Session Resource
-
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Path Parameters
+## Path parameters
 
 - `session_id: string`
 
 - `resource_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -93,63 +88,69 @@ Update Session Resource
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Body Parameters
+## Body parameters
 
 - `authorization_token: string`
 
   New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
-### Returns
+  minLength: 1, maxLength: 4096
 
-- `BetaManagedAgentsGitHubRepositoryResource object { id, created_at, mount_path, 4 more }`
+## Returns
+
+- `BetaManagedAgentsGitHubRepositoryResource object`
 
   - `id: string`
 
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `mount_path: string`
 
   - `type: "github_repository"`
 
-    - `"github_repository"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `url: string`
 
   - `checkout: optional BetaManagedAgentsBranchCheckout or BetaManagedAgentsCommitCheckout or null`
 
-    - `BetaManagedAgentsBranchCheckout object { name, type }`
+    - `BetaManagedAgentsBranchCheckout object`
 
       - `name: string`
 
         Branch name to check out.
 
+        minLength: 1, maxLength: 255
+
       - `type: "branch"`
 
-        - `"branch"`
-
-    - `BetaManagedAgentsCommitCheckout object { sha, type }`
+    - `BetaManagedAgentsCommitCheckout object`
 
       - `sha: string`
 
         Full commit SHA to check out.
 
+        minLength: 7, maxLength: 64
+
       - `type: "commit"`
 
-        - `"commit"`
-
-- `BetaManagedAgentsFileResource object { id, created_at, file_id, 3 more }`
+- `BetaManagedAgentsFileResource object`
 
   - `id: string`
 
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `file_id: string`
 
@@ -157,13 +158,13 @@ Update Session Resource
 
   - `type: "file"`
 
-    - `"file"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-- `BetaManagedAgentsMemoryStoreResource object { memory_store_id, type, access, 4 more }`
+    format: date-time
+
+- `BetaManagedAgentsMemoryStoreResource object`
 
   A memory store attached to an agent session.
 
@@ -172,8 +173,6 @@ Update Session Resource
     The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
   - `type: "memory_store"`
-
-    - `"memory_store"`
 
   - `access: optional "read_write" or "read_only" or null`
 
@@ -191,6 +190,8 @@ Update Session Resource
 
     Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+    maxLength: 4096
+
   - `mount_path: optional string or null`
 
     Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -199,9 +200,9 @@ Update Session Resource
 
     Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -212,7 +213,7 @@ curl https://api.anthropic.com/v1/sessions/$SESSION_ID/resources/$RESOURCE_ID \
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

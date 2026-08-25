@@ -34,6 +34,8 @@ See [Create a dedicated account per service](/docs/claude-tag/admins/add-connect
 | **Path prefixes** (optional) | Restrict the credential to specific URL paths under the host. Shown only for the OAuth 2.0 authorization code type.                                                                                                                                                                                            |
 | **Custom headers**           | Any extra headers the API requires beyond the credential. Shown only for the Bearer credential type.                                                                                                                                                                                                           |
 
+After saving, where the credential has an allow rule, you can narrow it by HTTP method and path from its **Edit connection** dialog; see [Restrict by path or method](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method).
+
 ### Credential types
 
 | Type                                            | Use for                                                                                                     |
@@ -114,6 +116,8 @@ In a channel under the bundle's scope, in a new thread, ask Claude to make a sma
 ```
 
 Check the service's own audit log to confirm the call landed under your service account. New threads pick up the connection on their own; in an existing thread, ask Claude to use the service by name.
+
+If Claude reports that it can't use the credential, check its status on the [Access bundles page](https://claude.ai/admin-settings/claude-tag/access-bundles). **Not active** means no allow rule uses the credential yet. **Approval needed** means another admin submitted it through a shared setup link; select **Review**, then **Approve**. See [Verify the connection saved](/docs/claude-tag/admins/add-connections#verify-the-connection-saved).
 
 ## Related resources
 

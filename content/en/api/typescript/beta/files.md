@@ -1,15 +1,10 @@
----
-title: Files
-url: https://platform.claude.com/docs/en/api/typescript/beta/files
----
-
 # Files
 
 ## Upload File
 
-`client.beta.files.upload(FileUploadParamsparams, RequestOptionsoptions?): BetaFileMetadata`
+`client.beta.files.upload(params, options?): BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
@@ -20,6 +15,8 @@ Upload File
   - `file: Uploadable`
 
     Body param: The file to upload
+
+    format: binary
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -111,17 +108,25 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: number`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: "file"`
 
@@ -129,11 +134,11 @@ Upload File
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope?: BetaFileScope | null`
 
@@ -146,8 +151,6 @@ Upload File
     - `type: "session"`
 
       The type of scope (e.g., `"session"`).
-
-      - `"session"`
 
 ### Example
 
@@ -166,7 +169,7 @@ const betaFileMetadata = await client.beta.files.upload({
 console.log(betaFileMetadata.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -186,9 +189,9 @@ console.log(betaFileMetadata.id);
 
 ## List Files
 
-`client.beta.files.list(FileListParamsparams?, RequestOptionsoptions?): Page<BetaFileMetadata>`
+`client.beta.files.list(params?, options?): Page<BetaFileMetadata>`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
@@ -209,6 +212,8 @@ List Files
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
 
   - `scope_id?: string`
 
@@ -304,17 +309,25 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: number`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: "file"`
 
@@ -322,11 +335,11 @@ List Files
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope?: BetaFileScope | null`
 
@@ -339,8 +352,6 @@ List Files
     - `type: "session"`
 
       The type of scope (e.g., `"session"`).
-
-      - `"session"`
 
 ### Example
 
@@ -357,7 +368,7 @@ for await (const betaFileMetadata of client.beta.files.list()) {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -384,9 +395,9 @@ for await (const betaFileMetadata of client.beta.files.list()) {
 
 ## Download File
 
-`client.beta.files.download(stringfileID, FileDownloadParamsparams?, RequestOptionsoptions?): Response`
+`client.beta.files.download(fileID, params?, options?): Response`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
@@ -497,9 +508,9 @@ console.log(content);
 
 ## Get File Metadata
 
-`client.beta.files.retrieveMetadata(stringfileID, FileRetrieveMetadataParamsparams?, RequestOptionsoptions?): BetaFileMetadata`
+`client.beta.files.retrieveMetadata(fileID, params?, options?): BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
@@ -601,17 +612,25 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: number`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: "file"`
 
@@ -619,11 +638,11 @@ Get File Metadata
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope?: BetaFileScope | null`
 
@@ -636,8 +655,6 @@ Get File Metadata
     - `type: "session"`
 
       The type of scope (e.g., `"session"`).
-
-      - `"session"`
 
 ### Example
 
@@ -653,7 +670,7 @@ const betaFileMetadata = await client.beta.files.retrieveMetadata("file_id");
 console.log(betaFileMetadata.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -673,9 +690,9 @@ console.log(betaFileMetadata.id);
 
 ## Delete File
 
-`client.beta.files.delete(stringfileID, FileDeleteParamsparams?, RequestOptionsoptions?): BetaDeletedFile`
+`client.beta.files.delete(fileID, params?, options?): BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
@@ -777,7 +794,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+    default: file_deleted
 
 ### Example
 
@@ -793,7 +810,7 @@ const betaDeletedFile = await client.beta.files.delete("file_id");
 console.log(betaDeletedFile.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -802,7 +819,7 @@ console.log(betaDeletedFile.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Deleted File
 
@@ -818,7 +835,7 @@ console.log(betaDeletedFile.id);
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+    default: file_deleted
 
 ### Beta File Metadata
 
@@ -834,17 +851,25 @@ console.log(betaDeletedFile.id);
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: string`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: string`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: number`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: "file"`
 
@@ -852,11 +877,11 @@ console.log(betaDeletedFile.id);
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable?: boolean`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope?: BetaFileScope | null`
 
@@ -870,8 +895,6 @@ console.log(betaDeletedFile.id);
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
 ### Beta File Scope
 
 - `BetaFileScope`
@@ -883,5 +906,3 @@ console.log(betaDeletedFile.id);
   - `type: "session"`
 
     The type of scope (e.g., `"session"`).
-
-    - `"session"`

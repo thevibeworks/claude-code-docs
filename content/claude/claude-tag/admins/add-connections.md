@@ -130,7 +130,14 @@ To get there, open the bundle from the scope that covers the channel, under **Cl
 * **Domain**: the hostname to allow; a wildcard is allowed as the leftmost label, like `*.example.com`, and covers subdomains at any depth but not `example.com` itself
 * **Ports**: needed only when the service listens on something other than 443
 
-You don't have to predict the full list up front. When a request is blocked, Claude says so in the thread and names the host; add that host here and retry; if it's still blocked, start a fresh thread.
+You don't have to predict the full list up front. When a request is blocked, Claude says so in the thread and names the host, with wording like "blocked by the network egress proxy" (that is, by Agent Proxy); add that host here and retry. If the host is listed and Claude still reports it blocked, check these in order:
+
+* **The bundle is attached to the channel's scope.** Claude can use a Domains entry only in channels whose scope, or an ancestor scope, has this bundle attached; see [Attach bundles to scopes](/docs/claude-tag/admins/attach-to-scope).
+* **The entry matches the exact host.** A wildcard like `*.example.com` doesn't cover `example.com` itself, and `www.example.com` and `example.com` are different hosts.
+* **The request didn't move to another host.** If the page redirects, or loads from a CDN or a sign-in host, allow that host too; Claude names the host it was blocked on.
+* **The port is listed.** Needed only when the service listens on something other than 443.
+* **A minute has passed since you saved.** Agent Proxy picks up a new entry within about a minute, in existing threads as well as new ones, so retry in the same thread after a short wait.
+* **The request came from a channel, not a DM.** A bundle attached to a channel doesn't apply in DMs.
 
 Typical entries are hosts the work calls without a key, such as a docs site or a public API. Common package registries are usually already reachable through the [environment's Trusted access default](#broad-web-access-through-the-environment), and a host that needs a credential belongs in a [connection](#add-a-connection) instead. Entries appear below the form, and each one can be edited or removed from its row.
 
@@ -209,7 +216,9 @@ Check the host against your account's region before saving. Some presets fill a 
 
 ### Restrict by path or method
 
-After saving, you can restrict a connection by URL path or HTTP method, like allowing `GET` but not `DELETE`, for control tighter than host-level.
+After saving, you can narrow a connection. Select **Edit** on the connection's row in the bundle's **Credentials** tab. The **Edit connection** dialog lets you rename the connection and, where the connection has an allow rule, restrict it by HTTP method and path, for example to allow `GET` but not `DELETE`.
+
+Agent Proxy starts applying a change within about a minute of your saving it, in existing threads as well as new ones. It evaluates connections and Domains entries from the most specific scope outward (channel, then workspace, then organization), and within a scope by priority; the first match decides. A request that matches no connection, no Domains entry, and nothing in the environment's network access is blocked. Private IP ranges and cloud metadata endpoints stay blocked regardless.
 
 ### Connections vs claude.ai connectors
 
@@ -230,13 +239,18 @@ Plugins attach in two places, and the two behave differently:
 
 Registering a plugin at the organization level makes it available, not active. It takes effect only where a bundle enables it or a scope adds it directly.
 
-Adding or removing plugins and skills applies to new threads only. A thread already running keeps the set it began with; start a fresh thread to pick up changes.
+Adding or removing plugins and skills applies to new threads only. A thread already running keeps the set it began with; start a fresh thread to pick up changes. See [What survives between replies](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies).
 
 Claude can't publish a new skill version from inside a thread; that update happens in admin settings.
 
 ## Verify the connection saved
 
 * Each connection is listed in the bundle with the host you set.
+* The [Access bundles page](https://claude.ai/admin-settings/claude-tag/access-bundles) shows a status for each connection when you expand the bundle.
+  * **Active**: Claude can send the credential to its allowed hosts
+  * **Not active**: the secret is stored but no allow rule uses it yet, so Claude can't send it.
+  * **Approval needed**: another admin submitted the credential through a shared setup link. Select **Review** on its row, then **Approve**.
+  * **Used** with a time, or **Never used**: when Claude last sent the credential; independent of the status
 * New threads pick up new connections on their own. An existing thread isn't told about a connection added after it started, but the connection works there; ask Claude to use the service by name.
 
 ## Related resources

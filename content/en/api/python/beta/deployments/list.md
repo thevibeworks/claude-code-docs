@@ -1,17 +1,12 @@
----
-title: List Deployments
-url: https://platform.claude.com/docs/en/api/python/beta/deployments/list
----
+# List Deployments
 
-## List Deployments
+`beta.deployments.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsDeployment]`
 
-`beta.deployments.list(DeploymentListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsDeployment]`
-
-**get** `/v1/deployments`
+**GET** `/v1/deployments`
 
 List Deployments
 
-### Parameters
+## Parameters
 
 - `agent_id: Optional[str]`
 
@@ -21,9 +16,13 @@ List Deployments
 
   Return deployments created at or after this time (inclusive).
 
+  format: date-time
+
 - `created_at_lte: Optional[Union[str, datetime]]`
 
   Return deployments created at or before this time (inclusive).
+
+  format: date-time
 
 - `include_archived: Optional[bool]`
 
@@ -32,6 +31,8 @@ List Deployments
 - `limit: Optional[int]`
 
   Maximum results per page. Default 20, maximum 100.
+
+  format: int32
 
 - `page: Optional[str]`
 
@@ -121,7 +122,7 @@ List Deployments
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeployment: …`
 
@@ -139,17 +140,21 @@ List Deployments
 
     - `type: Literal["agent"]`
 
-      - `"agent"`
-
     - `version: int`
+
+      format: int32
 
   - `archived_at: Optional[datetime]`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: Optional[str]`
 
@@ -179,9 +184,9 @@ List Deployments
 
             The text content.
 
-          - `type: Literal["text"]`
+            minLength: 1
 
-            - `"text"`
+          - `type: Literal["text"]`
 
         - `class BetaManagedAgentsImageBlock: …`
 
@@ -199,13 +204,15 @@ List Deployments
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `media_type: str`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `type: Literal["base64"]`
+                minLength: 1
 
-                - `"base64"`
+              - `type: Literal["base64"]`
 
             - `class BetaManagedAgentsURLImageSource: …`
 
@@ -213,11 +220,11 @@ List Deployments
 
               - `type: Literal["url"]`
 
-                - `"url"`
-
               - `url: str`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource: …`
 
@@ -227,13 +234,11 @@ List Deployments
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: Literal["file"]`
 
-                - `"file"`
-
           - `type: Literal["image"]`
-
-            - `"image"`
 
         - `class BetaManagedAgentsDocumentBlock: …`
 
@@ -251,13 +256,15 @@ List Deployments
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `media_type: str`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `type: Literal["base64"]`
+                minLength: 1
 
-                - `"base64"`
+              - `type: Literal["base64"]`
 
             - `class BetaManagedAgentsPlainTextDocumentSource: …`
 
@@ -267,15 +274,13 @@ List Deployments
 
                 The plain text content.
 
+                minLength: 1
+
               - `media_type: Literal["text/plain"]`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"`
-
               - `type: Literal["text"]`
-
-                - `"text"`
 
             - `class BetaManagedAgentsURLDocumentSource: …`
 
@@ -283,11 +288,11 @@ List Deployments
 
               - `type: Literal["url"]`
 
-                - `"url"`
-
               - `url: str`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource: …`
 
@@ -297,13 +302,11 @@ List Deployments
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `type: Literal["file"]`
 
-                - `"file"`
-
           - `type: Literal["document"]`
-
-            - `"document"`
 
           - `context: Optional[str]`
 
@@ -319,11 +322,7 @@ List Deployments
 
           - `type: Literal["redacted"]`
 
-            - `"redacted"`
-
       - `type: Literal["user.message"]`
-
-        - `"user.message"`
 
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent: …`
 
@@ -347,8 +346,6 @@ List Deployments
 
           - `type: Literal["file"]`
 
-            - `"file"`
-
         - `class BetaManagedAgentsTextRubric: …`
 
           Rubric content provided inline as text.
@@ -359,15 +356,13 @@ List Deployments
 
           - `type: Literal["text"]`
 
-            - `"text"`
-
       - `type: Literal["user.define_outcome"]`
-
-        - `"user.define_outcome"`
 
       - `max_iterations: Optional[int]`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `class BetaManagedAgentsDeploymentSystemMessageEvent: …`
 
@@ -381,13 +376,11 @@ List Deployments
 
           The text content.
 
+          minLength: 1
+
         - `type: Literal["text"]`
 
-          - `"text"`
-
       - `type: Literal["system.message"]`
-
-        - `"system.message"`
 
   - `metadata: Dict[str, str]`
 
@@ -407,8 +400,6 @@ List Deployments
 
       - `type: Literal["manual"]`
 
-        - `"manual"`
-
     - `class BetaManagedAgentsErrorDeploymentPausedReason: …`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
@@ -423,15 +414,11 @@ List Deployments
 
           - `type: Literal["environment_archived_error"]`
 
-            - `"environment_archived_error"`
-
         - `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonError: …`
 
           The deployment's agent was archived.
 
           - `type: Literal["agent_archived_error"]`
-
-            - `"agent_archived_error"`
 
         - `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError: …`
 
@@ -439,15 +426,11 @@ List Deployments
 
           - `type: Literal["environment_not_found_error"]`
 
-            - `"environment_not_found_error"`
-
         - `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError: …`
 
           A vault referenced by the deployment no longer exists.
 
           - `type: Literal["vault_not_found_error"]`
-
-            - `"vault_not_found_error"`
 
         - `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError: …`
 
@@ -455,15 +438,11 @@ List Deployments
 
           - `type: Literal["file_not_found_error"]`
 
-            - `"file_not_found_error"`
-
         - `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError: …`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `type: Literal["session_resource_not_found_error"]`
-
-            - `"session_resource_not_found_error"`
 
         - `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError: …`
 
@@ -471,15 +450,11 @@ List Deployments
 
           - `type: Literal["workspace_archived_error"]`
 
-            - `"workspace_archived_error"`
-
         - `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError: …`
 
           The deployment's organization is disabled.
 
           - `type: Literal["organization_disabled_error"]`
-
-            - `"organization_disabled_error"`
 
         - `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError: …`
 
@@ -487,15 +462,11 @@ List Deployments
 
           - `type: Literal["memory_store_archived_error"]`
 
-            - `"memory_store_archived_error"`
-
         - `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError: …`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `type: Literal["skill_not_found_error"]`
-
-            - `"skill_not_found_error"`
 
         - `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError: …`
 
@@ -503,15 +474,11 @@ List Deployments
 
           - `type: Literal["vault_archived_error"]`
 
-            - `"vault_archived_error"`
-
         - `class BetaManagedAgentsUnknownDeploymentPausedReasonError: …`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `type: Literal["unknown_error"]`
-
-            - `"unknown_error"`
 
         - `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError: …`
 
@@ -519,19 +486,13 @@ List Deployments
 
           - `type: Literal["self_hosted_resources_unsupported_error"]`
 
-            - `"self_hosted_resources_unsupported_error"`
-
         - `class BetaManagedAgentsMCPEgressBlockedDeploymentPausedReasonError: …`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
           - `type: Literal["mcp_egress_blocked_error"]`
 
-            - `"mcp_egress_blocked_error"`
-
       - `type: Literal["error"]`
-
-        - `"error"`
 
   - `resources: List[BetaManagedAgentsSessionResourceConfig]`
 
@@ -542,8 +503,6 @@ List Deployments
       A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
 
       - `type: Literal["github_repository"]`
-
-        - `"github_repository"`
 
       - `url: str`
 
@@ -559,9 +518,9 @@ List Deployments
 
             Branch name to check out.
 
-          - `type: Literal["branch"]`
+            minLength: 1, maxLength: 255
 
-            - `"branch"`
+          - `type: Literal["branch"]`
 
         - `class BetaManagedAgentsCommitCheckout: …`
 
@@ -569,9 +528,9 @@ List Deployments
 
             Full commit SHA to check out.
 
-          - `type: Literal["commit"]`
+            minLength: 7, maxLength: 64
 
-            - `"commit"`
+          - `type: Literal["commit"]`
 
       - `mount_path: Optional[str]`
 
@@ -587,8 +546,6 @@ List Deployments
 
       - `type: Literal["file"]`
 
-        - `"file"`
-
       - `mount_path: Optional[str]`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
@@ -602,8 +559,6 @@ List Deployments
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
       - `type: Literal["memory_store"]`
-
-        - `"memory_store"`
 
       - `access: Optional[Literal["read_write", "read_only"]]`
 
@@ -625,17 +580,21 @@ List Deployments
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
 
+      minLength: 1, maxLength: 256
+
     - `timezone: str`
 
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
-    - `type: Literal["cron"]`
+      minLength: 1
 
-      - `"cron"`
+    - `type: Literal["cron"]`
 
     - `last_run_at: Optional[datetime]`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `upcoming_runs_at: Optional[List[datetime]]`
 
@@ -651,11 +610,11 @@ List Deployments
 
   - `type: Literal["deployment"]`
 
-    - `"deployment"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_ids: List[str]`
 
@@ -677,13 +636,9 @@ List Deployments
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"`
-
     - `type: Literal["limit"]`
 
-      - `"limit"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -699,7 +654,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

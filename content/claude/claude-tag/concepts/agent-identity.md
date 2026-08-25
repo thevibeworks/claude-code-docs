@@ -77,7 +77,7 @@ Nothing is installed inside your network. Your systems see only requests authent
 
 ### How a host gets allowed
 
-Agent Proxy allows a host when any one of three layers allows it: a [Domains entry](/docs/claude-tag/admins/add-connections#allow-a-host-without-a-credential) on the bundle attached to the scope, a [connection's allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) (which also attaches that connection's credential), or the network access level of the [environment](/docs/claude-tag/concepts/glossary#environment) the scope's sessions run on. A host that none of them allows is blocked, and Claude names the blocked host in the thread so an admin can add it; see [Give Claude access to your tools](/docs/claude-tag/admins/add-connections).
+A host that none of the three layers above allows is blocked, and Claude names the blocked host in the thread so an admin can add it; see [Give Claude access to your tools](/docs/claude-tag/admins/add-connections).
 
 ### Web search vs. network requests
 

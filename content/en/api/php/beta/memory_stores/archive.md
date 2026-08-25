@@ -1,17 +1,12 @@
----
-title: Archive a memory store
-url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/archive
----
-
-## Archive a memory store
+# Archive a memory store
 
 `$client->beta->memoryStores->archive(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores/{memory_store_id}/archive`
+**POST** `/v1/memory_stores/{memory_store_id}/archive`
 
 Archive a memory store
 
-### Parameters
+## Parameters
 
 - `memoryStoreID: string`
 
@@ -19,7 +14,7 @@ Archive a memory store
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -53,7 +48,7 @@ Archive a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -69,7 +64,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->archive(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

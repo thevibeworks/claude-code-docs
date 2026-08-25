@@ -324,7 +324,7 @@ The SDK resolves credentials and region using the standard AWS precedence: const
 
 ## Supported models
 
-Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Model capabilities and behaviors are documented on the [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) page.
+Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Model capabilities and behaviors are documented on the [Models overview](https://platform.claude.com/docs/en/models/overview) page.
 
 | Model                 | Model ID                        | Access                                                                                              |
 | --------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------- |

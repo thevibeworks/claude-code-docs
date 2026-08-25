@@ -1,11 +1,6 @@
----
-title: Archive Service Account
-url: https://platform.claude.com/docs/en/api/admin/service_accounts/archive
----
+# Archive Service Account
 
-## Archive Service Account
-
-**post** `/v1/organizations/service_accounts/{service_account_id}/archive`
+**POST** `/v1/organizations/service_accounts/{service_account_id}/archive`
 
 Archive a service account.
 
@@ -17,13 +12,13 @@ those rules first or change their target to another service account.
 Requires an OAuth bearer or Console session; Admin API keys are not
 accepted.
 
-### Path Parameters
+## Path parameters
 
 - `service_account_id: string`
 
   ID of the service account to archive.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -31,9 +26,9 @@ accepted.
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
-- `ServiceAccount object { id, archived_at, archived_by_actor_id, 8 more }`
+- `ServiceAccount object`
 
   Named non-human identity within the caller's organization.
 
@@ -48,6 +43,8 @@ accepted.
 
     If set, this service account is archived.
 
+    format: date-time
+
   - `archived_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
@@ -55,6 +52,8 @@ accepted.
   - `created_at: string`
 
     When this service account was created.
+
+    format: date-time
 
   - `created_by_actor_id: string or null`
 
@@ -78,26 +77,28 @@ accepted.
 
   - `type: "service_account"`
 
-    - `"service_account"`
+    default: service_account
 
   - `updated_at: string`
 
     When this service account was last updated.
 
+    format: date-time
+
   - `updated_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/service_accounts/$SERVICE_ACCOUNT_ID/archive \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

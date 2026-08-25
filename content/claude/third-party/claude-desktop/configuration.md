@@ -195,7 +195,7 @@ The reference below is generated from the configuration schema and grouped to ma
 
     **The gateway MUST validate `iss` AND `aud`, not just the signature.** Signature + issuer alone accepts *any* token from the same tenant, including tokens issued to unrelated apps. In `id_token` mode the audience is the `clientId`:
 
-    ```yaml theme={null} theme={null}
+    ```yaml theme={null}
     # LiteLLM example — `audience` is REQUIRED, not optional
     general_settings:
       litellm_jwtauth:
@@ -248,25 +248,25 @@ The reference below is generated from the configuration schema and grouped to ma
 
     **Extended context** (`supports1m`) is a capability assertion you make about your deployment; only set it for models you've confirmed support the 1M-token window:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "claude-sonnet-5", "supports1m": true}, "claude-opus-4-8"]
     ```
 
     **Default to 1M context** (`prefer1m`) makes the 1M-context variant the default picker selection when this entry is the default model (the first entry); users can still switch to the standard variant, and an explicit user pick is always kept. No effect without `supports1m`. Under dynamic discovery (no explicit list), the equivalent flat key in the **Models** group applies instead:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "claude-opus-4-8", "supports1m": true, "prefer1m": true}]
     ```
 
     **Display label** (`labelOverride`) is for IDs the picker can't derive a friendly name from (Bedrock ARNs, gateway routing aliases). Display-only; `name` is still what the app sends:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "arn:aws:bedrock:us-east-1:123:application-inference-profile/abc", "labelOverride": "Claude Opus (Prod)"}]
     ```
 
     **Tier mapping** (`anthropicFamilyTier`) tells the app which Claude tier (`haiku`/`sonnet`/`opus`/`fable`/`mythos`) an entry stands in for, so bare tier aliases (e.g. in Code sessions) resolve to your model. `isFamilyDefault: true` picks the winner when several entries share a tier:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "us.anthropic.claude-opus-4-8", "anthropicFamilyTier": "opus"}]
     ```
 
@@ -708,7 +708,7 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="orgPluginSettings details">
     Applies `toolPolicy` locks to MCP servers that arrive via the org-plugins directory, keyed by server name. Either shape is accepted; when hand-authoring a profile, use the legacy record shape until your fleet floor parses the canonical array form:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     {"mcpServers": {"internal-search": {"toolPolicy": {"delete_document": "blocked"}}}}
     ```
 
@@ -811,7 +811,7 @@ The profiles below are illustrative examples rather than built-in presets, and t
   </Tab>
 
   <Tab title="Locked down">
-    For air-gapped or maximally restricted environments. **The only traffic leaving the device goes to your inference endpoint and OTLP collector.** With this profile, Anthropic has zero remote visibility, so your team owns log collection and update distribution.
+    For air-gapped or maximally restricted environments. **The only traffic leaving the device goes to your inference endpoint and OTLP collector.** With this profile, Anthropic receives no telemetry or logs from the app and does not deliver updates, so your team owns log collection and update distribution. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content still reaches Anthropic-operated infrastructure under this profile, as described under [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider).
 
     | Key                                                             | Value                             |
     | --------------------------------------------------------------- | --------------------------------- |

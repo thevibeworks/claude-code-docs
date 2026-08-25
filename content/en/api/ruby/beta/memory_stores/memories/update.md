@@ -1,17 +1,12 @@
----
-title: Update a memory
-url: https://platform.claude.com/docs/en/api/ruby/beta/memory_stores/memories/update
----
-
-## Update a memory
+# Update a memory
 
 `beta.memory_stores.memories.update(memory_id, **kwargs) -> BetaManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Update a memory
 
-### Parameters
+## Parameters
 
 - `memory_store_id: String`
 
@@ -33,13 +28,13 @@ Update a memory
 
   New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
+  minLength: 2, maxLength: 1024
+
 - `precondition: BetaManagedAgentsPrecondition`
 
   Optimistic-concurrency precondition: the update applies only if the memory's stored `content_sha256` equals the supplied value. On mismatch, the request returns `memory_precondition_failed_error` (HTTP 409); re-read the memory and retry against the fresh state. If the precondition fails but the stored state already exactly matches the requested `content` and `path`, the server returns 200 instead of 409.
 
   - `type: :content_sha256`
-
-    - `:content_sha256`
 
   - `content_sha256: String`
 
@@ -121,7 +116,7 @@ Update a memory
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemory`
 
@@ -139,9 +134,13 @@ Update a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: String`
 
@@ -157,17 +156,17 @@ Update a memory
 
   - `type: :memory`
 
-    - `:memory`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content: String`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -179,7 +178,7 @@ beta_managed_agents_memory = anthropic.beta.memory_stores.memories.update("memor
 puts(beta_managed_agents_memory)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

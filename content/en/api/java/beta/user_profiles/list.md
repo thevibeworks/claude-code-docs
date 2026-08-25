@@ -1,23 +1,20 @@
----
-title: List User Profiles
-url: https://platform.claude.com/docs/en/api/java/beta/user_profiles/list
----
+# List User Profiles
 
-## List User Profiles
+`UserProfileListPage beta().userProfiles().list(params = UserProfileListParams.none(), requestOptions = RequestOptions.none())`
 
-`UserProfileListPage beta().userProfiles().list(UserProfileListParamsparams = UserProfileListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/user_profiles`
+**GET** `/v1/user_profiles`
 
 List User Profiles
 
-### Parameters
+## Parameters
 
 - `UserProfileListParams params`
 
   - `Optional<Long> limit`
 
     Query parameter for limit
+
+    format: int32
 
   - `Optional<Order> order`
 
@@ -103,7 +100,7 @@ List User Profiles
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaUserProfile:`
 
@@ -114,6 +111,8 @@ List User Profiles
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Metadata metadata`
 
@@ -137,11 +136,11 @@ List User Profiles
 
     Object type. Always `user_profile`.
 
-    - `USER_PROFILE("user_profile")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<AccessType> accessType`
 
@@ -169,7 +168,7 @@ List User Profiles
 
     - `INTERNAL("internal")`
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -190,7 +189,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

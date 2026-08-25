@@ -1,17 +1,12 @@
----
-title: Add Session Resource
-url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/resources/add
----
-
-## Add Session Resource
+# Add Session Resource
 
 `beta.sessions.resources.add(session_id, **kwargs) -> BetaManagedAgentsFileResource`
 
-**post** `/v1/sessions/{session_id}/resources`
+**POST** `/v1/sessions/{session_id}/resources`
 
 Add Session Resource
 
-### Parameters
+## Parameters
 
 - `session_id: String`
 
@@ -19,13 +14,15 @@ Add Session Resource
 
   ID of a previously uploaded file.
 
-- `type: :file`
+  minLength: 1, maxLength: 128
 
-  - `:file`
+- `type: :file`
 
 - `mount_path: String`
 
   Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+
+  minLength: 1, maxLength: 4096
 
 - `betas: Array[AnthropicBeta]`
 
@@ -103,7 +100,7 @@ Add Session Resource
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsFileResource`
 
@@ -113,19 +110,21 @@ Add Session Resource
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `file_id: String`
 
   - `mount_path: String`
 
   - `type: :file`
 
-    - `:file`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```ruby
 require "anthropic"
@@ -141,7 +140,7 @@ beta_managed_agents_file_resource = anthropic.beta.sessions.resources.add(
 puts(beta_managed_agents_file_resource)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

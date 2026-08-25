@@ -1,25 +1,22 @@
----
-title: List Work Items
-url: https://platform.claude.com/docs/en/api/php/beta/environments/work/list
----
-
-## List Work Items
+# List Work Items
 
 `$client->beta->environments->work->list(string environmentID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<SelfHostedWork>`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 List work items in an environment.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
 - `limit?:optional int`
 
   Maximum number of work items to return
+
+  default: 20
 
 - `page?:optional string`
 
@@ -29,7 +26,7 @@ List work items in an environment.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `SelfHostedWork`
 
@@ -85,7 +82,7 @@ List work items in an environment.
 
     The type of object (always 'work')
 
-### Example
+## Example
 
 ```php
 <?php
@@ -104,7 +101,7 @@ $page = $client->beta->environments->work->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

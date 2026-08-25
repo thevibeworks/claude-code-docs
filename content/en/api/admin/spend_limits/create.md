@@ -1,11 +1,6 @@
----
-title: Set Spend Limit
-url: https://platform.claude.com/docs/en/api/admin/spend_limits/create
----
+# Set Spend Limit
 
-## Set Spend Limit
-
-**post** `/v1/organizations/spend_limits`
+**POST** `/v1/organizations/spend_limits`
 
 Set a per-user spend limit override.
 
@@ -13,17 +8,17 @@ Upsert keyed on (scope, period): setting a limit that already exists
 overwrites it in place. Only `scope.type: "user"` is accepted; seat-tier,
 group, and organization-level defaults are configured in claude.ai.
 
-### Body Parameters
+## Body parameters
 
 - `amount: string or null`
 
   Limit amount as a non-negative integer decimal string in the minor unit of the organization's billing currency (cents for USD): "50000" is $500.00. `null` sets an explicit no-limit override for this scope and `period` only — each period resolves independently, so caps for other periods still apply.
 
-- `scope: object { type, user_id }`
+- `scope: object`
 
   - `type: "user"`
 
-    - `"user"`
+    default: user
 
   - `user_id: string`
 
@@ -35,9 +30,9 @@ group, and organization-level defaults are configured in claude.ai.
 
   - `"weekly"`
 
-### Returns
+## Returns
 
-- `SpendLimit object { id, amount, created_at, 5 more }`
+- `SpendLimit object`
 
   - `id: string`
 
@@ -46,6 +41,8 @@ group, and organization-level defaults are configured in claude.ai.
     Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
 
   - `created_at: string`
+
+    format: date-time
 
   - `currency: string`
 
@@ -59,55 +56,57 @@ group, and organization-level defaults are configured in claude.ai.
 
     - `"weekly"`
 
-  - `scope: object { type, user_id }  or object { seat_tier, type }  or object { rbac_group_id, type }  or 2 more`
+  - `scope: object or object or object or 2 more`
 
-    - `User object { type, user_id }`
+    - `User object`
 
       - `type: "user"`
 
-        - `"user"`
+        default: user
 
       - `user_id: string`
 
-    - `SeatTier object { seat_tier, type }`
+    - `SeatTier object`
 
       - `seat_tier: string`
 
       - `type: "seat_tier"`
 
-        - `"seat_tier"`
+        default: seat_tier
 
-    - `RbacGroup object { rbac_group_id, type }`
+    - `RbacGroup object`
 
       - `rbac_group_id: string`
 
       - `type: "rbac_group"`
 
-        - `"rbac_group"`
+        default: rbac_group
 
-    - `OrganizationService object { service, type }`
+    - `OrganizationService object`
 
       - `service: string`
 
       - `type: "organization_service"`
 
-        - `"organization_service"`
+        default: organization_service
 
-    - `Organization object { type }`
+    - `Organization object`
 
       - `type: "organization"`
 
-        - `"organization"`
+        default: organization
 
   - `type: "spend_limit"`
 
-    - `"spend_limit"`
+    default: spend_limit
 
   - `updated_at: string`
 
-### Example
+    format: date-time
 
-```http
+## Example
+
+```bash
 curl https://api.anthropic.com/v1/organizations/spend_limits \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -122,7 +121,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits \
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

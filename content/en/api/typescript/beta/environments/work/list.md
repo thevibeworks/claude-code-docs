@@ -1,19 +1,14 @@
----
-title: List Work Items
-url: https://platform.claude.com/docs/en/api/typescript/beta/environments/work/list
----
+# List Work Items
 
-## List Work Items
+`client.beta.environments.work.list(environmentID, params?, options?): PageCursor<BetaSelfHostedWork>`
 
-`client.beta.environments.work.list(stringenvironmentID, WorkListParamsparams?, RequestOptionsoptions?): PageCursor<BetaSelfHostedWork>`
-
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 List work items in an environment.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -22,6 +17,8 @@ List work items in an environment.
   - `limit?: number`
 
     Query param: Maximum number of work items to return
+
+    maximum: 1000, minimum: 1
 
   - `page?: string | null`
 
@@ -103,7 +100,7 @@ List work items in an environment.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaSelfHostedWork`
 
@@ -136,8 +133,6 @@ List work items in an environment.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -185,9 +180,9 @@ List work items in an environment.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -204,7 +199,7 @@ for await (const betaSelfHostedWork of client.beta.environments.work.list(
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

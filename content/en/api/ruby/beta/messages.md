@@ -1,15 +1,10 @@
----
-title: Messages
-url: https://platform.claude.com/docs/en/api/ruby/beta/messages
----
-
 # Messages
 
 ## Create a Message
 
 `beta.messages.create(**kwargs) -> BetaMessage`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -28,6 +23,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
   Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+  minimum: 0
 
 - `messages: Array[BetaMessageParam]`
 
@@ -90,17 +87,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `text: String`
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
 
           - `type: :ephemeral`
-
-            - `:ephemeral`
 
           - `ttl: :"5m" | :"1h"`
 
@@ -125,15 +120,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: Integer`
 
             - `start_char_index: Integer`
 
-            - `type: :char_location`
+              minimum: 0
 
-              - `:char_location`
+            - `type: :char_location`
 
           - `class BetaCitationPageLocationParam`
 
@@ -141,15 +140,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: Integer`
 
             - `start_page_number: Integer`
 
-            - `type: :page_location`
+              minimum: 1
 
-              - `:page_location`
+            - `type: :page_location`
 
           - `class BetaCitationContentBlockLocationParam`
 
@@ -161,7 +164,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: Integer`
 
@@ -173,9 +180,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: :content_block_location`
+              minimum: 0
 
-              - `:content_block_location`
+            - `type: :content_block_location`
 
           - `class BetaCitationWebSearchResultLocationParam`
 
@@ -185,11 +192,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `title: String`
 
+              maxLength: 512, minLength: 1
+
             - `type: :web_search_result_location`
 
-              - `:web_search_result_location`
-
             - `url: String`
+
+              minLength: 1
 
           - `class BetaCitationSearchResultLocationParam`
 
@@ -211,17 +220,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: String`
 
             - `start_block_index: Integer`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: String`
 
             - `type: :search_result_location`
-
-              - `:search_result_location`
 
       - `class BetaImageBlockParam`
 
@@ -230,6 +241,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `class BetaBase64ImageSource`
 
             - `data: String`
+
+              format: byte
 
             - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -243,13 +256,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :base64`
 
-              - `:base64`
-
           - `class BetaURLImageSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -259,11 +268,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -289,13 +294,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `data: String`
 
+              format: byte
+
             - `media_type: :"application/pdf"`
 
-              - `:"application/pdf"`
-
             - `type: :base64`
-
-              - `:base64`
 
           - `class BetaPlainTextSource`
 
@@ -303,11 +306,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `media_type: :"text/plain"`
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaContentBlockSource`
 
@@ -323,13 +322,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :content`
 
-              - `:content`
-
           - `class BetaURLPDFSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -339,11 +334,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -355,13 +346,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `context: String`
 
+          minLength: 1
+
         - `title: String`
+
+          maxLength: 500, minLength: 1
 
       - `class BetaSearchResultBlockParam`
 
         - `content: Array[BetaTextBlockParam]`
 
           - `text: String`
+
+            minLength: 1
 
           - `type: :text`
 
@@ -376,8 +373,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `title: String`
 
         - `type: :search_result`
-
-          - `:search_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -399,8 +394,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :thinking`
 
-          - `:thinking`
-
       - `class BetaRedactedThinkingBlockParam`
 
         - `data: String`
@@ -409,19 +402,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :redacted_thinking`
 
-          - `:redacted_thinking`
-
       - `class BetaToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
         - `name: String`
 
-        - `type: :tool_use`
+          maxLength: 200, minLength: 1
 
-          - `:tool_use`
+        - `type: :tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -437,37 +430,37 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :direct`
 
-              - `:direct`
-
           - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: String`
 
-            - `type: :code_execution_20250825`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20250825`
+            - `type: :code_execution_20250825`
 
           - `class BetaServerToolCaller20260120`
 
             - `tool_id: String`
 
-            - `type: :code_execution_20260120`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20260120`
+            - `type: :code_execution_20260120`
 
         - `toolset_name: String`
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `class BetaToolResultBlockParam`
 
         - `tool_use_id: String`
 
-        - `type: :tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:tool_result`
+        - `type: :tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -493,9 +486,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `tool_name: String`
 
-              - `type: :tool_reference`
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `:tool_reference`
+              - `type: :tool_reference`
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -515,25 +508,31 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+                maxItems: 100
+
                 - `tab_id: String`
 
                   The caller-assigned identifier for this tab, unique within the inventory.
+
+                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: String`
 
                   The title of the page the tab is showing. May be empty.
 
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                 - `url: String`
 
                   The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `active: bool`
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
               - `type: :browser_state`
-
-                - `:browser_state`
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -542,6 +541,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
               - `state_changes: Array[BetaBrowserStateChange]`
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                maxItems: 200, minItems: 1
 
                 - `class BetaBrowserStateChangeTabOpened`
 
@@ -557,9 +558,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                  - `type: :tab_opened`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:tab_opened`
+                  - `type: :tab_opened`
 
                 - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -569,13 +570,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_started`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_started`
+                  - `type: :download_started`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -588,21 +591,27 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_completed`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_completed`
+                  - `type: :download_completed`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
 
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                   - `path: String`
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
                   - `size_bytes: Integer`
 
                     The completed download's size.
+
+                    minimum: 0
 
                 - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -612,17 +621,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_failed`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_failed`
+                  - `type: :download_failed`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
 
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                   - `error: String`
 
                     The failure or cancellation detail, when known.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
         - `is_error: bool`
 
@@ -630,9 +643,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `class BetaServerToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -655,8 +672,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `:tool_search_tool_bm25`
 
         - `type: :server_tool_use`
-
-          - `:server_tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -688,8 +703,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :web_search_result`
 
-              - `:web_search_result`
-
             - `url: String`
 
             - `page_age: String`
@@ -712,13 +725,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :web_search_tool_result_error`
 
-              - `:web_search_tool_result_error`
-
         - `tool_use_id: String`
 
-        - `type: :web_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_search_tool_result`
+        - `type: :web_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -766,15 +777,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :web_fetch_tool_result_error`
 
-              - `:web_fetch_tool_result_error`
-
           - `class BetaWebFetchBlockParam`
 
             - `content: BetaRequestDocumentBlock`
 
             - `type: :web_fetch_result`
-
-              - `:web_fetch_result`
 
             - `url: String`
 
@@ -786,9 +793,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `tool_use_id: String`
 
-        - `type: :web_fetch_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_fetch_tool_result`
+        - `type: :web_fetch_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -832,15 +839,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :advisor_tool_result_error`
 
-              - `:advisor_tool_result_error`
-
           - `class BetaAdvisorResultBlockParam`
 
             - `text: String`
 
             - `type: :advisor_result`
-
-              - `:advisor_result`
 
             - `stop_reason: String`
 
@@ -852,15 +855,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :advisor_redacted_result`
 
-              - `:advisor_redacted_result`
-
             - `stop_reason: String`
 
         - `tool_use_id: String`
 
-        - `type: :advisor_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:advisor_tool_result`
+        - `type: :advisor_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -886,8 +887,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :code_execution_tool_result_error`
 
-              - `:code_execution_tool_result_error`
-
           - `class BetaCodeExecutionResultBlockParam`
 
             - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -896,8 +895,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
               - `type: :code_execution_output`
 
-                - `:code_execution_output`
-
             - `return_code: Integer`
 
             - `stderr: String`
@@ -905,8 +902,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             - `stdout: String`
 
             - `type: :code_execution_result`
-
-              - `:code_execution_result`
 
           - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -926,13 +921,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :encrypted_code_execution_result`
 
-              - `:encrypted_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_tool_result`
+        - `type: :code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -958,8 +951,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :bash_code_execution_tool_result_error`
 
-              - `:bash_code_execution_tool_result_error`
-
           - `class BetaBashCodeExecutionResultBlockParam`
 
             - `content: Array[BetaBashCodeExecutionOutputBlockParam]`
@@ -967,8 +958,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
               - `file_id: String`
 
               - `type: :bash_code_execution_output`
-
-                - `:bash_code_execution_output`
 
             - `return_code: Integer`
 
@@ -978,13 +967,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :bash_code_execution_result`
 
-              - `:bash_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :bash_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:bash_code_execution_tool_result`
+        - `type: :bash_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1010,8 +997,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :text_editor_code_execution_tool_result_error`
 
-              - `:text_editor_code_execution_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -1028,8 +1013,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :text_editor_code_execution_view_result`
 
-              - `:text_editor_code_execution_view_result`
-
             - `num_lines: Integer`
 
             - `start_line: Integer`
@@ -1042,13 +1025,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :text_editor_code_execution_create_result`
 
-              - `:text_editor_code_execution_create_result`
-
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `type: :text_editor_code_execution_str_replace_result`
-
-              - `:text_editor_code_execution_str_replace_result`
 
             - `lines: Array[String]`
 
@@ -1062,9 +1041,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `tool_use_id: String`
 
-        - `type: :text_editor_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:text_editor_code_execution_tool_result`
+        - `type: :text_editor_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1088,8 +1067,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :tool_search_tool_result_error`
 
-              - `:tool_search_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaToolSearchToolSearchResultBlockParam`
@@ -1097,6 +1074,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             - `tool_references: Array[BetaToolReferenceBlockParam]`
 
               - `tool_name: String`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `type: :tool_reference`
 
@@ -1106,13 +1085,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :tool_search_tool_search_result`
 
-              - `:tool_search_tool_search_result`
-
         - `tool_use_id: String`
 
-        - `type: :tool_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:tool_search_tool_result`
+        - `type: :tool_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1121,6 +1098,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `class BetaMCPToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -1132,8 +1111,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :mcp_tool_use`
 
-          - `:mcp_tool_use`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -1142,9 +1119,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `tool_use_id: String`
 
-        - `type: :mcp_tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:mcp_tool_result`
+        - `type: :mcp_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1157,6 +1134,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `BetaMCPToolResultBlockParamContent = Array[BetaTextBlockParam]`
 
             - `text: String`
+
+              minLength: 1
 
             - `type: :text`
 
@@ -1177,8 +1156,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :container_upload`
 
-          - `:container_upload`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -1194,8 +1171,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         treats these as no-ops. Empty string content is not allowed.
 
         - `type: :compaction`
-
-          - `:compaction`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1233,9 +1208,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `name: String`
 
-            - `type: :tool_reference`
+              pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-              - `:tool_reference`
+            - `type: :tool_reference`
 
           - `class BetaToolChangeMCPToolReference`
 
@@ -1248,8 +1223,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :mcp_tool_reference`
 
-              - `:mcp_tool_reference`
-
           - `class BetaToolChangeMCPToolsetReference`
 
             Reference to every tool in the named MCP server's toolset.
@@ -1258,11 +1231,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :mcp_toolset_reference`
 
-              - `:mcp_toolset_reference`
-
         - `type: :tool_addition`
-
-          - `:tool_addition`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1300,8 +1269,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Reference to every tool in the named MCP server's toolset.
 
         - `type: :tool_removal`
-
-          - `:tool_removal`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -1407,8 +1374,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :fallback`
 
-          - `:fallback`
-
         - `trigger: untyped`
 
           The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -1447,9 +1412,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       List of skills to load in the container
 
+      maxItems: 20
+
       - `skill_id: String`
 
         Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `type: :anthropic | :custom`
 
@@ -1463,6 +1432,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Skill version or 'latest' for most recent version
 
+        maxLength: 64, minLength: 1
+
   - `String = String`
 
 - `context_management: BetaContextManagementConfig`
@@ -1475,11 +1446,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     List of context management edits to apply
 
+    minItems: 0
+
     - `class BetaClearToolUses20250919Edit`
 
       - `type: :clear_tool_uses_20250919`
-
-        - `:clear_tool_uses_20250919`
 
       - `clear_at_least: BetaInputTokensClearAtLeast`
 
@@ -1487,9 +1458,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :input_tokens`
 
-          - `:input_tokens`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `clear_tool_inputs: bool | Array[String]`
 
@@ -1509,9 +1480,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :tool_uses`
 
-          - `:tool_uses`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `trigger: BetaInputTokensTrigger | BetaToolUsesTrigger`
 
@@ -1521,23 +1492,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :input_tokens`
 
-            - `:input_tokens`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaToolUsesTrigger`
 
           - `type: :tool_uses`
 
-            - `:tool_uses`
-
           - `value: Integer`
+
+            minimum: 1
 
     - `class BetaClearThinking20251015Edit`
 
       - `type: :clear_thinking_20251015`
-
-        - `:clear_thinking_20251015`
 
       - `keep: BetaThinkingTurns | BetaAllThinkingTurns | :all`
 
@@ -1547,27 +1516,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :thinking_turns`
 
-            - `:thinking_turns`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaAllThinkingTurns`
 
           - `type: :all`
 
-            - `:all`
-
         - `Keep = :all`
-
-          - `:all`
 
     - `class BetaCompact20260112Edit`
 
       Automatically compact older context when reaching the configured trigger threshold.
 
       - `type: :compact_20260112`
-
-        - `:compact_20260112`
 
       - `instructions: String`
 
@@ -1589,6 +1552,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   - `previous_message_id: String`
 
     The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
+
+    maxLength: 256
 
 - `fallback_credit_token: String | BetaFallbackCreditTokenParam`
 
@@ -1628,6 +1593,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `token: String`
 
       The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
+
+      maxLength: 2048, minLength: 1
 
     - `mode: :strict | :best_effort`
 
@@ -1677,8 +1644,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :json_schema`
 
-          - `:json_schema`
-
       - `task_budget: BetaTokenTaskBudget`
 
         User-configurable total token budget across contexts.
@@ -1687,15 +1652,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Total token budget across all contexts in the session.
 
+          minimum: 1024
+
         - `type: :tokens`
 
           The budget type. Currently only 'tokens' is supported.
 
-          - `:tokens`
-
         - `remaining: Integer`
 
           Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
+
+          minimum: 0
 
     - `speed: :standard | :fast`
 
@@ -1717,9 +1684,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-        - `type: :enabled`
+          minimum: 1024
 
-          - `:enabled`
+        - `type: :enabled`
 
         - `display_: :summarized | :omitted`
 
@@ -1733,13 +1700,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :disabled`
 
-          - `:disabled`
-
       - `class BetaThinkingConfigAdaptive`
 
         - `type: :adaptive`
-
-          - `:adaptive`
 
         - `display_: :summarized | :omitted`
 
@@ -1751,8 +1714,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `BetaFallbacksParam = :default`
 
-    - `:default`
-
 - `inference_geo: String`
 
   Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
@@ -1761,11 +1722,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   MCP servers to be utilized in this request
 
+  maxItems: 20
+
   - `name: String`
 
   - `type: :url`
-
-    - `:url`
 
   - `url: String`
 
@@ -1787,15 +1748,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
+    maxLength: 512
+
 - `output_config: BetaOutputConfig`
 
   Configuration options for the model's output, such as the output format.
-
-- `output_format: BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
 - `service_tier: :auto | :standard_only`
 
@@ -1841,6 +1798,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `text: String`
 
+      minLength: 1
+
     - `type: :text`
 
     - `cache_control: BetaCacheControlEphemeral`
@@ -1848,14 +1807,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Create a cache control breakpoint at this content block.
 
     - `citations: Array[BetaTextCitationParam]`
-
-- `temperature: Float`
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
 - `thinking: BetaThinkingConfigParam`
 
@@ -1881,8 +1832,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :auto`
 
-      - `:auto`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -1894,8 +1843,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     The model will use any available tools.
 
     - `type: :any`
-
-      - `:any`
 
     - `disable_parallel_tool_use: bool`
 
@@ -1913,8 +1860,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :tool`
 
-      - `:tool`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -1926,8 +1871,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     The model will not be allowed to use tools.
 
     - `type: :none`
-
-      - `:none`
 
 - `tools: Array[BetaToolUnion]`
 
@@ -1995,15 +1938,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `class BetaTool`
 
-    - `input_schema: InputSchema{ type, properties, required}`
+    - `input_schema: InputSchema`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
       This defines the shape of the `input` that your tool accepts and that the model will produce.
 
       - `type: :object`
-
-        - `:object`
 
       - `properties: Hash[Symbol, untyped]`
 
@@ -2014,6 +1955,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
+
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2051,8 +1994,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :custom`
 
-      - `:custom`
-
   - `class BetaToolBash20241022`
 
     - `name: :bash`
@@ -2061,11 +2002,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20241022`
-
-      - `:bash_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2099,11 +2036,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20250124`
-
-      - `:bash_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2137,11 +2070,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250522`
-
-      - `:code_execution_20250522`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2173,11 +2102,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250825`
-
-      - `:code_execution_20250825`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2211,11 +2136,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260120`
-
-      - `:code_execution_20260120`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2249,11 +2170,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260521`
-
-      - `:code_execution_20260521`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2285,8 +2202,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     from its schema.
 
     - `type: :browser_toolset_20260801`
-
-      - `:browser_toolset_20260801`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2689,9 +2604,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -2699,11 +2618,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20241022`
-
-      - `:computer_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2727,6 +2642,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -2741,11 +2658,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:memory`
-
     - `type: :memory_20250818`
-
-      - `:memory_20250818`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2777,9 +2690,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -2787,11 +2704,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20250124`
-
-      - `:computer_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2815,6 +2728,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -2829,11 +2744,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20241022`
-
-      - `:text_editor_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2865,9 +2776,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -2875,11 +2790,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20251124`
-
-      - `:computer_20251124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -2903,6 +2814,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `enable_zoom: bool`
 
       Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -2925,8 +2838,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     via `configs.zoom.enabled`.
 
     - `type: :computer_toolset_20260801`
-
-      - `:computer_toolset_20260801`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3163,11 +3074,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20250124`
-
-      - `:text_editor_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3201,11 +3108,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250429`
-
-      - `:text_editor_20250429`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3239,11 +3142,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250728`
-
-      - `:text_editor_20250728`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3269,6 +3168,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -3281,11 +3182,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20250305`
-
-      - `:web_search_20250305`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3317,6 +3214,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -3327,23 +3226,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :approximate`
 
-        - `:approximate`
-
       - `city: String`
 
         The city of the user.
+
+        maxLength: 255, minLength: 1
 
       - `country: String`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+        maxLength: 2, minLength: 2
+
       - `region: String`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: String`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+        maxLength: 255, minLength: 1
 
   - `class BetaWebFetchTool20250910`
 
@@ -3353,11 +3258,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20250910`
-
-      - `:web_fetch_20250910`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3393,9 +3294,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -3409,11 +3314,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260209`
-
-      - `:web_search_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3444,6 +3345,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -3461,11 +3364,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260209`
-
-      - `:web_fetch_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3501,9 +3400,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -3519,11 +3422,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260309`
-
-      - `:web_fetch_20260309`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3559,9 +3458,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -3579,11 +3482,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260318`
-
-      - `:web_search_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3614,6 +3513,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -3639,11 +3540,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260318`
-
-      - `:web_fetch_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3679,9 +3576,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -3713,11 +3614,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:advisor`
-
     - `type: :advisor_20260301`
-
-      - `:advisor_20260301`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -3745,9 +3642,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+      minimum: 1024
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -3760,8 +3661,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_bm25`
 
     - `type: :tool_search_tool_bm25_20251119 | :tool_search_tool_bm25`
 
@@ -3798,8 +3697,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_regex`
 
     - `type: :tool_search_tool_regex_20251119 | :tool_search_tool_regex`
 
@@ -3840,9 +3737,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Name of the MCP server to configure tools for
 
-    - `type: :mcp_toolset`
+      maxLength: 255, minLength: 1
 
-      - `:mcp_toolset`
+    - `type: :mcp_toolset`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -3863,22 +3760,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `defer_loading: bool`
 
       - `enabled: bool`
-
-- `top_k: Integer`
-
-  Only sample from the top K options for each subsequent token.
-
-  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-  Recommended for advanced use cases only.
-
-- `top_p: Float`
-
-  Use nucleus sampling.
-
-  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-  Recommended for advanced use cases only.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -3960,6 +3841,50 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `output_format: BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+- `temperature: Float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+  maximum: 1, minimum: 0
+
+- `top_k: Integer`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+  Only sample from the top K options for each subsequent token.
+
+  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+  Recommended for advanced use cases only.
+
+  minimum: 0
+
+- `top_p: Float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Use nucleus sampling.
+
+  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+  Recommended for advanced use cases only.
+
+  maximum: 1, minimum: 0
+
 ### Returns
 
 - `class BetaMessage`
@@ -3982,6 +3907,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The time at which the container will expire.
 
+      format: date-time
+
     - `skills: Array[BetaSkill]`
 
       Skills loaded in the container
@@ -3989,6 +3916,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `skill_id: String`
 
         Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `type: :anthropic | :custom`
 
@@ -4001,6 +3930,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `version: String`
 
         The resolved version: a skill version ID for custom skills.
+
+        maxLength: 64, minLength: 1
 
   - `content: Array[BetaContentBlock]`
 
@@ -4045,6 +3976,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
 
           - `end_char_index: Integer`
@@ -4053,15 +3986,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `start_char_index: Integer`
 
-          - `type: :char_location`
+            minimum: 0
 
-            - `:char_location`
+          - `type: :char_location`
 
         - `class BetaCitationPageLocation`
 
           - `cited_text: String`
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -4071,9 +4006,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `start_page_number: Integer`
 
-          - `type: :page_location`
+            minimum: 1
 
-            - `:page_location`
+          - `type: :page_location`
 
         - `class BetaCitationContentBlockLocation`
 
@@ -4084,6 +4019,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -4099,9 +4036,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `type: :content_block_location`
+            minimum: 0
 
-            - `:content_block_location`
+          - `type: :content_block_location`
 
         - `class BetaCitationsWebSearchResultLocation`
 
@@ -4111,9 +4048,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `title: String`
 
-          - `type: :web_search_result_location`
+            maxLength: 512
 
-            - `:web_search_result_location`
+          - `type: :web_search_result_location`
 
           - `url: String`
 
@@ -4137,23 +4074,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: String`
 
           - `start_block_index: Integer`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: String`
 
           - `type: :search_result_location`
 
-            - `:search_result_location`
-
       - `text: String`
 
-      - `type: :text`
+        maxLength: 5000000, minLength: 0
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaThinkingBlock`
 
@@ -4171,8 +4110,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :thinking`
 
-        - `:thinking`
-
     - `class BetaRedactedThinkingBlock`
 
       - `data: String`
@@ -4185,19 +4122,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: :redacted_thinking`
 
-        - `:redacted_thinking`
-
     - `class BetaToolUseBlock`
 
       - `id: String`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: Hash[Symbol, untyped]`
 
       - `name: String`
 
-      - `type: :tool_use`
+        minLength: 1
 
-        - `:tool_use`
+      - `type: :tool_use`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -4209,33 +4146,35 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :direct`
 
-            - `:direct`
-
         - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: String`
 
-          - `type: :code_execution_20250825`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:code_execution_20250825`
+          - `type: :code_execution_20250825`
 
         - `class BetaServerToolCaller20260120`
 
           - `tool_id: String`
 
-          - `type: :code_execution_20260120`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:code_execution_20260120`
+          - `type: :code_execution_20260120`
 
       - `toolset_name: String`
 
         For a toolset member tool_use, the toolset family.
 
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
     - `class BetaServerToolUseBlock`
 
       - `id: String`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `input: Hash[Symbol, untyped]`
 
@@ -4258,8 +4197,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `:tool_search_tool_bm25`
 
       - `type: :server_tool_use`
-
-        - `:server_tool_use`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -4297,8 +4234,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :web_search_tool_result_error`
 
-            - `:web_search_tool_result_error`
-
         - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
           - `encrypted_content: String`
@@ -4309,15 +4244,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :web_search_result`
 
-            - `:web_search_result`
-
           - `url: String`
 
       - `tool_use_id: String`
 
-      - `type: :web_search_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:web_search_tool_result`
+      - `type: :web_search_tool_result`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -4361,8 +4294,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :web_fetch_tool_result_error`
 
-            - `:web_fetch_tool_result_error`
-
         - `class BetaWebFetchBlock`
 
           - `content: BetaDocumentBlock`
@@ -4379,13 +4310,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `data: String`
 
+                  format: byte
+
                 - `media_type: :"application/pdf"`
 
-                  - `:"application/pdf"`
-
                 - `type: :base64`
-
-                  - `:base64`
 
               - `class BetaPlainTextSource`
 
@@ -4393,11 +4322,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
                 - `media_type: :"text/plain"`
 
-                  - `:"text/plain"`
-
                 - `type: :text`
-
-                  - `:text`
 
             - `title: String`
 
@@ -4405,15 +4330,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :document`
 
-              - `:document`
-
           - `retrieved_at: String`
 
             ISO 8601 timestamp when the content was retrieved
 
           - `type: :web_fetch_result`
-
-            - `:web_fetch_result`
 
           - `url: String`
 
@@ -4421,9 +4342,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: String`
 
-      - `type: :web_fetch_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:web_fetch_tool_result`
+      - `type: :web_fetch_tool_result`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -4463,8 +4384,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :advisor_tool_result_error`
 
-            - `:advisor_tool_result_error`
-
         - `class BetaAdvisorResultBlock`
 
           - `stop_reason: String`
@@ -4474,8 +4393,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `text: String`
 
           - `type: :advisor_result`
-
-            - `:advisor_result`
 
         - `class BetaAdvisorRedactedResultBlock`
 
@@ -4489,13 +4406,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :advisor_redacted_result`
 
-            - `:advisor_redacted_result`
-
       - `tool_use_id: String`
 
-      - `type: :advisor_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:advisor_tool_result`
+      - `type: :advisor_tool_result`
 
     - `class BetaCodeExecutionToolResultBlock`
 
@@ -4517,8 +4432,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :code_execution_tool_result_error`
 
-            - `:code_execution_tool_result_error`
-
         - `class BetaCodeExecutionResultBlock`
 
           - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -4527,8 +4440,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `type: :code_execution_output`
 
-              - `:code_execution_output`
-
           - `return_code: Integer`
 
           - `stderr: String`
@@ -4536,8 +4447,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           - `stdout: String`
 
           - `type: :code_execution_result`
-
-            - `:code_execution_result`
 
         - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -4557,13 +4466,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :encrypted_code_execution_result`
 
-            - `:encrypted_code_execution_result`
-
       - `tool_use_id: String`
 
-      - `type: :code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_tool_result`
+      - `type: :code_execution_tool_result`
 
     - `class BetaBashCodeExecutionToolResultBlock`
 
@@ -4585,8 +4492,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :bash_code_execution_tool_result_error`
 
-            - `:bash_code_execution_tool_result_error`
-
         - `class BetaBashCodeExecutionResultBlock`
 
           - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -4594,8 +4499,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             - `file_id: String`
 
             - `type: :bash_code_execution_output`
-
-              - `:bash_code_execution_output`
 
           - `return_code: Integer`
 
@@ -4605,13 +4508,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :bash_code_execution_result`
 
-            - `:bash_code_execution_result`
-
       - `tool_use_id: String`
 
-      - `type: :bash_code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:bash_code_execution_tool_result`
+      - `type: :bash_code_execution_tool_result`
 
     - `class BetaTextEditorCodeExecutionToolResultBlock`
 
@@ -4635,8 +4536,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :text_editor_code_execution_tool_result_error`
 
-            - `:text_editor_code_execution_tool_result_error`
-
         - `class BetaTextEditorCodeExecutionViewResultBlock`
 
           - `content: String`
@@ -4657,15 +4556,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :text_editor_code_execution_view_result`
 
-            - `:text_editor_code_execution_view_result`
-
         - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
           - `is_file_update: bool`
 
           - `type: :text_editor_code_execution_create_result`
-
-            - `:text_editor_code_execution_create_result`
 
         - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -4681,13 +4576,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :text_editor_code_execution_str_replace_result`
 
-            - `:text_editor_code_execution_str_replace_result`
-
       - `tool_use_id: String`
 
-      - `type: :text_editor_code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:text_editor_code_execution_tool_result`
+      - `type: :text_editor_code_execution_tool_result`
 
     - `class BetaToolSearchToolResultBlock`
 
@@ -4709,31 +4602,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :tool_search_tool_result_error`
 
-            - `:tool_search_tool_result_error`
-
         - `class BetaToolSearchToolSearchResultBlock`
 
           - `tool_references: Array[BetaToolReferenceBlock]`
 
             - `tool_name: String`
 
-            - `type: :tool_reference`
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `:tool_reference`
+            - `type: :tool_reference`
 
           - `type: :tool_search_tool_search_result`
 
-            - `:tool_search_tool_search_result`
-
       - `tool_use_id: String`
 
-      - `type: :tool_search_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:tool_search_tool_result`
+      - `type: :tool_search_tool_result`
 
     - `class BetaMCPToolUseBlock`
 
       - `id: String`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: Hash[Symbol, untyped]`
 
@@ -4746,8 +4637,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         The name of the MCP server
 
       - `type: :mcp_tool_use`
-
-        - `:mcp_tool_use`
 
     - `class BetaMCPToolResultBlock`
 
@@ -4765,15 +4654,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `text: String`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: :text`
 
       - `is_error: bool`
 
       - `tool_use_id: String`
 
-      - `type: :mcp_tool_result`
+        pattern: ^[a-zA-Z0-9_-]+$
 
-        - `:mcp_tool_result`
+      - `type: :mcp_tool_result`
 
     - `class BetaContainerUploadBlock`
 
@@ -4782,8 +4673,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `file_id: String`
 
       - `type: :container_upload`
-
-        - `:container_upload`
 
     - `class BetaCompactionBlock`
 
@@ -4802,8 +4691,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
       - `type: :compaction`
-
-        - `:compaction`
 
     - `class BetaFallbackBlock`
 
@@ -4931,11 +4818,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :refusal`
 
-          - `:refusal`
-
       - `type: :fallback`
-
-        - `:fallback`
 
   - `context_management: BetaContextManagementResponse`
 
@@ -4953,15 +4836,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_tool_uses: Integer`
 
           Number of tool uses that were cleared.
 
+          minimum: 0
+
         - `type: :clear_tool_uses_20250919`
 
           The type of context management edit applied.
-
-          - `:clear_tool_uses_20250919`
 
       - `class BetaClearThinking20251015EditResponse`
 
@@ -4969,15 +4854,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_thinking_turns: Integer`
 
           Number of thinking turns that were cleared.
 
+          minimum: 0
+
         - `type: :clear_thinking_20251015`
 
           The type of context management edit applied.
-
-          - `:clear_thinking_20251015`
 
   - `diagnostics: BetaDiagnostics`
 
@@ -4996,8 +4883,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :model_changed`
 
-          - `:model_changed`
-
       - `class BetaCacheMissSystemChanged`
 
         - `cache_missed_input_tokens: Integer`
@@ -5005,8 +4890,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
         - `type: :system_changed`
-
-          - `:system_changed`
 
       - `class BetaCacheMissToolsChanged`
 
@@ -5016,8 +4899,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :tools_changed`
 
-          - `:tools_changed`
-
       - `class BetaCacheMissMessagesChanged`
 
         - `cache_missed_input_tokens: Integer`
@@ -5026,19 +4907,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :messages_changed`
 
-          - `:messages_changed`
-
       - `class BetaCacheMissPreviousMessageNotFound`
 
         - `type: :previous_message_not_found`
 
-          - `:previous_message_not_found`
-
       - `class BetaCacheMissUnavailable`
 
         - `type: :unavailable`
-
-          - `:unavailable`
 
   - `model: Model`
 
@@ -5051,8 +4926,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     Conversational role of the generated message.
 
     This will always be `"assistant"`.
-
-    - `:assistant`
 
   - `stop_details: BetaRefusalStopDetails`
 
@@ -5139,8 +5012,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `type: :refusal`
 
-      - `:refusal`
-
   - `stop_reason: BetaStopReason`
 
     The reason that we stopped.
@@ -5185,8 +5056,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     For Messages, this is always `"message"`.
 
-    - `:message`
-
   - `usage: BetaUsage`
 
     Billing and rate-limit usage.
@@ -5207,17 +5076,25 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: Integer`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: Integer`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: Integer`
 
       The number of input tokens read from the cache.
+
+      minimum: 0
 
     - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -5238,8 +5115,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           had been on the retry model all along.
 
           - `type: :redeemed`
-
-            - `:redeemed`
 
         - `class BetaFallbackCreditNotApplied`
 
@@ -5278,8 +5153,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: :not_applied`
 
-            - `:not_applied`
-
           - `remove_to_redeem: Array[String]`
 
             Request fields to remove before retrying, so the retry can redeem this
@@ -5298,6 +5171,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `input_tokens: Integer`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `iterations: BetaIterationsUsage`
 
@@ -5321,13 +5196,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -5339,11 +5220,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :message`
 
           Usage for a sampling iteration
-
-          - `:message`
 
       - `class BetaCompactionIterationUsage`
 
@@ -5357,23 +5238,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
+
+          minimum: 0
 
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
 
+          minimum: 0
+
         - `output_tokens: Integer`
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :compaction`
 
           Usage for a compaction iteration
-
-          - `:compaction`
 
       - `class BetaAdvisorMessageIterationUsage`
 
@@ -5387,13 +5274,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -5405,11 +5298,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :advisor_message`
 
           Usage for an advisor sub-inference iteration
-
-          - `:advisor_message`
 
       - `class BetaFallbackMessageIterationUsage`
 
@@ -5428,13 +5321,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -5446,15 +5345,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :fallback_message`
 
           Usage for the fallback-model attempt that served the response
 
-          - `:fallback_message`
-
     - `output_tokens: Integer`
 
       The number of output tokens which were used.
+
+      minimum: 0
 
     - `output_tokens_details: BetaOutputTokensDetails`
 
@@ -5476,6 +5377,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+        minimum: 0
+
     - `server_tool_use: BetaServerToolUsage`
 
       The number of server tool requests.
@@ -5484,9 +5387,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of web fetch tool requests.
 
+        minimum: 0
+
       - `web_search_requests: Integer`
 
         The number of web search tool requests.
+
+        minimum: 0
 
     - `service_tier: :standard | :priority | :batch`
 
@@ -5506,6 +5413,237 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:fast`
 
+- `BetaRawMessageStreamEvent = BetaRawMessageStartEvent | BetaRawMessageDeltaEvent | BetaRawMessageStopEvent | 3 more`
+
+  - `class BetaRawMessageStartEvent`
+
+    - `message: BetaMessage`
+
+    - `type: :message_start`
+
+  - `class BetaRawMessageDeltaEvent`
+
+    - `context_management: BetaContextManagementResponse`
+
+      Information about context management strategies applied during the request
+
+    - `delta: Delta`
+
+      - `container: BetaContainer`
+
+        Information about the container used in the request (for the code execution tool)
+
+      - `stop_details: BetaRefusalStopDetails`
+
+        Structured information about a refusal.
+
+      - `stop_reason: BetaStopReason`
+
+      - `stop_sequence: String`
+
+    - `type: :message_delta`
+
+    - `usage: BetaMessageDeltaUsage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+      - `cache_creation_input_tokens: Integer`
+
+        The cumulative number of input tokens used to create the cache entry.
+
+        minimum: 0
+
+      - `cache_read_input_tokens: Integer`
+
+        The cumulative number of input tokens read from the cache.
+
+        minimum: 0
+
+      - `fallback_credit: BetaFallbackCreditUsage`
+
+        Outcome of the `fallback_credit_token` presented on this request.
+
+      - `input_tokens: Integer`
+
+        The cumulative number of input tokens which were used.
+
+        minimum: 0
+
+      - `iterations: BetaIterationsUsage`
+
+        Per-iteration token usage breakdown.
+
+        Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+
+        - Determine which iterations exceeded long context thresholds (>=200k tokens)
+        - Calculate the true context window size from the last iteration
+        - Understand token accumulation across server-side tool use loops
+
+      - `output_tokens: Integer`
+
+        The cumulative number of output tokens which were used.
+
+      - `output_tokens_details: BetaOutputTokensDetails`
+
+        Breakdown of output tokens by category.
+
+        `output_tokens` remains the inclusive, authoritative total used for billing.
+        This object provides a read-only decomposition for observability — for example,
+        how many of the billed output tokens were spent on internal reasoning that may
+        have been summarized before being returned to you.
+
+      - `server_tool_use: BetaServerToolUsage`
+
+        The number of server tool requests.
+
+  - `class BetaRawMessageStopEvent`
+
+    - `type: :message_stop`
+
+  - `class BetaRawContentBlockStartEvent`
+
+    - `content_block: BetaTextBlock | BetaThinkingBlock | BetaRedactedThinkingBlock | 14 more`
+
+      Response model for a file uploaded to the container.
+
+      - `class BetaTextBlock`
+
+      - `class BetaThinkingBlock`
+
+      - `class BetaRedactedThinkingBlock`
+
+      - `class BetaToolUseBlock`
+
+      - `class BetaServerToolUseBlock`
+
+      - `class BetaWebSearchToolResultBlock`
+
+      - `class BetaWebFetchToolResultBlock`
+
+      - `class BetaAdvisorToolResultBlock`
+
+      - `class BetaCodeExecutionToolResultBlock`
+
+      - `class BetaBashCodeExecutionToolResultBlock`
+
+      - `class BetaTextEditorCodeExecutionToolResultBlock`
+
+      - `class BetaToolSearchToolResultBlock`
+
+      - `class BetaMCPToolUseBlock`
+
+      - `class BetaMCPToolResultBlock`
+
+      - `class BetaContainerUploadBlock`
+
+        Response model for a file uploaded to the container.
+
+      - `class BetaCompactionBlock`
+
+        A compaction block returned when autocompact is triggered.
+
+        When content is None, it indicates the compaction failed to produce a valid
+        summary (e.g., malformed output from the model). Clients may round-trip
+        compaction blocks with null content; the server treats them as no-ops.
+
+      - `class BetaFallbackBlock`
+
+        Marks the point in `content` where one model's output gives way to the next.
+
+        One block appears per hop where a preceding model actually ran this turn and
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
+        `usage.iterations`, not this block.
+
+        The block is treated like a server-tool content block for streaming: it
+        arrives via the standard `content_block_start` / `content_block_stop`
+        pair and carries no deltas.
+
+    - `index: Integer`
+
+    - `type: :content_block_start`
+
+  - `class BetaRawContentBlockDeltaEvent`
+
+    - `delta: BetaRawContentBlockDelta`
+
+      - `class BetaTextDelta`
+
+        - `text: String`
+
+        - `type: :text_delta`
+
+      - `class BetaInputJSONDelta`
+
+        - `partial_json: String`
+
+        - `type: :input_json_delta`
+
+      - `class BetaCitationsDelta`
+
+        - `citation: BetaCitationCharLocation | BetaCitationPageLocation | BetaCitationContentBlockLocation | 2 more`
+
+          - `class BetaCitationCharLocation`
+
+          - `class BetaCitationPageLocation`
+
+          - `class BetaCitationContentBlockLocation`
+
+          - `class BetaCitationsWebSearchResultLocation`
+
+          - `class BetaCitationSearchResultLocation`
+
+        - `type: :citations_delta`
+
+      - `class BetaThinkingDelta`
+
+        - `estimated_tokens: Integer`
+
+          Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
+
+        - `thinking: String`
+
+          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
+        - `type: :thinking_delta`
+
+      - `class BetaSignatureDelta`
+
+        - `signature: String`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
+        - `type: :signature_delta`
+
+      - `class BetaCompactionContentBlockDelta`
+
+        - `content: String`
+
+        - `encrypted_content: String`
+
+          Opaque metadata from prior compaction, to be round-tripped verbatim
+
+        - `type: :compaction_delta`
+
+    - `index: Integer`
+
+    - `type: :content_block_delta`
+
+  - `class BetaRawContentBlockStopEvent`
+
+    - `index: Integer`
+
+    - `type: :content_block_stop`
+
 ### Example
 
 ```ruby
@@ -5522,7 +5660,7 @@ beta_message = anthropic.beta.messages.create(
 puts(beta_message)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -5629,7 +5767,7 @@ puts(beta_message)
 
 `beta.messages.count_tokens(**kwargs) -> BetaMessageTokensCount`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -5700,17 +5838,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `text: String`
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
 
           - `type: :ephemeral`
-
-            - `:ephemeral`
 
           - `ttl: :"5m" | :"1h"`
 
@@ -5735,15 +5871,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: Integer`
 
             - `start_char_index: Integer`
 
-            - `type: :char_location`
+              minimum: 0
 
-              - `:char_location`
+            - `type: :char_location`
 
           - `class BetaCitationPageLocationParam`
 
@@ -5751,15 +5891,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: Integer`
 
             - `start_page_number: Integer`
 
-            - `type: :page_location`
+              minimum: 1
 
-              - `:page_location`
+            - `type: :page_location`
 
           - `class BetaCitationContentBlockLocationParam`
 
@@ -5771,7 +5915,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: Integer`
 
@@ -5783,9 +5931,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: :content_block_location`
+              minimum: 0
 
-              - `:content_block_location`
+            - `type: :content_block_location`
 
           - `class BetaCitationWebSearchResultLocationParam`
 
@@ -5795,11 +5943,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `title: String`
 
+              maxLength: 512, minLength: 1
+
             - `type: :web_search_result_location`
 
-              - `:web_search_result_location`
-
             - `url: String`
+
+              minLength: 1
 
           - `class BetaCitationSearchResultLocationParam`
 
@@ -5821,17 +5971,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: String`
 
             - `start_block_index: Integer`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: String`
 
             - `type: :search_result_location`
-
-              - `:search_result_location`
 
       - `class BetaImageBlockParam`
 
@@ -5840,6 +5992,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `class BetaBase64ImageSource`
 
             - `data: String`
+
+              format: byte
 
             - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -5853,13 +6007,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :base64`
 
-              - `:base64`
-
           - `class BetaURLImageSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -5869,11 +6019,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -5899,13 +6045,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `data: String`
 
+              format: byte
+
             - `media_type: :"application/pdf"`
 
-              - `:"application/pdf"`
-
             - `type: :base64`
-
-              - `:base64`
 
           - `class BetaPlainTextSource`
 
@@ -5913,11 +6057,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `media_type: :"text/plain"`
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaContentBlockSource`
 
@@ -5933,13 +6073,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :content`
 
-              - `:content`
-
           - `class BetaURLPDFSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -5949,11 +6085,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -5965,13 +6097,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `context: String`
 
+          minLength: 1
+
         - `title: String`
+
+          maxLength: 500, minLength: 1
 
       - `class BetaSearchResultBlockParam`
 
         - `content: Array[BetaTextBlockParam]`
 
           - `text: String`
+
+            minLength: 1
 
           - `type: :text`
 
@@ -5986,8 +6124,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         - `title: String`
 
         - `type: :search_result`
-
-          - `:search_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6009,8 +6145,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :thinking`
 
-          - `:thinking`
-
       - `class BetaRedactedThinkingBlockParam`
 
         - `data: String`
@@ -6019,19 +6153,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :redacted_thinking`
 
-          - `:redacted_thinking`
-
       - `class BetaToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
         - `name: String`
 
-        - `type: :tool_use`
+          maxLength: 200, minLength: 1
 
-          - `:tool_use`
+        - `type: :tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6047,37 +6181,37 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :direct`
 
-              - `:direct`
-
           - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: String`
 
-            - `type: :code_execution_20250825`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20250825`
+            - `type: :code_execution_20250825`
 
           - `class BetaServerToolCaller20260120`
 
             - `tool_id: String`
 
-            - `type: :code_execution_20260120`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20260120`
+            - `type: :code_execution_20260120`
 
         - `toolset_name: String`
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `class BetaToolResultBlockParam`
 
         - `tool_use_id: String`
 
-        - `type: :tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:tool_result`
+        - `type: :tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6103,9 +6237,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `tool_name: String`
 
-              - `type: :tool_reference`
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `:tool_reference`
+              - `type: :tool_reference`
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -6125,25 +6259,31 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                 All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+                maxItems: 100
+
                 - `tab_id: String`
 
                   The caller-assigned identifier for this tab, unique within the inventory.
+
+                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: String`
 
                   The title of the page the tab is showing. May be empty.
 
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                 - `url: String`
 
                   The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `active: bool`
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
               - `type: :browser_state`
-
-                - `:browser_state`
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -6152,6 +6292,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `state_changes: Array[BetaBrowserStateChange]`
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                maxItems: 200, minItems: 1
 
                 - `class BetaBrowserStateChangeTabOpened`
 
@@ -6167,9 +6309,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                  - `type: :tab_opened`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:tab_opened`
+                  - `type: :tab_opened`
 
                 - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -6179,13 +6321,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_started`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_started`
+                  - `type: :download_started`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -6198,21 +6342,27 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_completed`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_completed`
+                  - `type: :download_completed`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
 
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                   - `path: String`
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
                   - `size_bytes: Integer`
 
                     The completed download's size.
+
+                    minimum: 0
 
                 - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -6222,17 +6372,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_failed`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_failed`
+                  - `type: :download_failed`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
 
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                   - `error: String`
 
                     The failure or cancellation detail, when known.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
         - `is_error: bool`
 
@@ -6240,9 +6394,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `class BetaServerToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -6265,8 +6423,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `:tool_search_tool_bm25`
 
         - `type: :server_tool_use`
-
-          - `:server_tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6298,8 +6454,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :web_search_result`
 
-              - `:web_search_result`
-
             - `url: String`
 
             - `page_age: String`
@@ -6322,13 +6476,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :web_search_tool_result_error`
 
-              - `:web_search_tool_result_error`
-
         - `tool_use_id: String`
 
-        - `type: :web_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_search_tool_result`
+        - `type: :web_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6376,15 +6528,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :web_fetch_tool_result_error`
 
-              - `:web_fetch_tool_result_error`
-
           - `class BetaWebFetchBlockParam`
 
             - `content: BetaRequestDocumentBlock`
 
             - `type: :web_fetch_result`
-
-              - `:web_fetch_result`
 
             - `url: String`
 
@@ -6396,9 +6544,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: String`
 
-        - `type: :web_fetch_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_fetch_tool_result`
+        - `type: :web_fetch_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6442,15 +6590,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :advisor_tool_result_error`
 
-              - `:advisor_tool_result_error`
-
           - `class BetaAdvisorResultBlockParam`
 
             - `text: String`
 
             - `type: :advisor_result`
-
-              - `:advisor_result`
 
             - `stop_reason: String`
 
@@ -6462,15 +6606,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :advisor_redacted_result`
 
-              - `:advisor_redacted_result`
-
             - `stop_reason: String`
 
         - `tool_use_id: String`
 
-        - `type: :advisor_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:advisor_tool_result`
+        - `type: :advisor_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6496,8 +6638,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :code_execution_tool_result_error`
 
-              - `:code_execution_tool_result_error`
-
           - `class BetaCodeExecutionResultBlockParam`
 
             - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -6506,8 +6646,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               - `type: :code_execution_output`
 
-                - `:code_execution_output`
-
             - `return_code: Integer`
 
             - `stderr: String`
@@ -6515,8 +6653,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `stdout: String`
 
             - `type: :code_execution_result`
-
-              - `:code_execution_result`
 
           - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -6536,13 +6672,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :encrypted_code_execution_result`
 
-              - `:encrypted_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_tool_result`
+        - `type: :code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6568,8 +6702,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :bash_code_execution_tool_result_error`
 
-              - `:bash_code_execution_tool_result_error`
-
           - `class BetaBashCodeExecutionResultBlockParam`
 
             - `content: Array[BetaBashCodeExecutionOutputBlockParam]`
@@ -6577,8 +6709,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
               - `file_id: String`
 
               - `type: :bash_code_execution_output`
-
-                - `:bash_code_execution_output`
 
             - `return_code: Integer`
 
@@ -6588,13 +6718,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :bash_code_execution_result`
 
-              - `:bash_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :bash_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:bash_code_execution_tool_result`
+        - `type: :bash_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6620,8 +6748,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :text_editor_code_execution_tool_result_error`
 
-              - `:text_editor_code_execution_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -6638,8 +6764,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :text_editor_code_execution_view_result`
 
-              - `:text_editor_code_execution_view_result`
-
             - `num_lines: Integer`
 
             - `start_line: Integer`
@@ -6652,13 +6776,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :text_editor_code_execution_create_result`
 
-              - `:text_editor_code_execution_create_result`
-
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `type: :text_editor_code_execution_str_replace_result`
-
-              - `:text_editor_code_execution_str_replace_result`
 
             - `lines: Array[String]`
 
@@ -6672,9 +6792,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: String`
 
-        - `type: :text_editor_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:text_editor_code_execution_tool_result`
+        - `type: :text_editor_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6698,8 +6818,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :tool_search_tool_result_error`
 
-              - `:tool_search_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaToolSearchToolSearchResultBlockParam`
@@ -6707,6 +6825,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             - `tool_references: Array[BetaToolReferenceBlockParam]`
 
               - `tool_name: String`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `type: :tool_reference`
 
@@ -6716,13 +6836,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :tool_search_tool_search_result`
 
-              - `:tool_search_tool_search_result`
-
         - `tool_use_id: String`
 
-        - `type: :tool_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:tool_search_tool_result`
+        - `type: :tool_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6731,6 +6849,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `class BetaMCPToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -6742,8 +6862,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :mcp_tool_use`
 
-          - `:mcp_tool_use`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -6752,9 +6870,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `tool_use_id: String`
 
-        - `type: :mcp_tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:mcp_tool_result`
+        - `type: :mcp_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6767,6 +6885,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
           - `BetaMCPToolResultBlockParamContent = Array[BetaTextBlockParam]`
 
             - `text: String`
+
+              minLength: 1
 
             - `type: :text`
 
@@ -6787,8 +6907,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :container_upload`
 
-          - `:container_upload`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -6804,8 +6922,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
         treats these as no-ops. Empty string content is not allowed.
 
         - `type: :compaction`
-
-          - `:compaction`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6843,9 +6959,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `name: String`
 
-            - `type: :tool_reference`
+              pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-              - `:tool_reference`
+            - `type: :tool_reference`
 
           - `class BetaToolChangeMCPToolReference`
 
@@ -6858,8 +6974,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :mcp_tool_reference`
 
-              - `:mcp_tool_reference`
-
           - `class BetaToolChangeMCPToolsetReference`
 
             Reference to every tool in the named MCP server's toolset.
@@ -6868,11 +6982,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             - `type: :mcp_toolset_reference`
 
-              - `:mcp_toolset_reference`
-
         - `type: :tool_addition`
-
-          - `:tool_addition`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -6910,8 +7020,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
             Reference to every tool in the named MCP server's toolset.
 
         - `type: :tool_removal`
-
-          - `:tool_removal`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -7017,8 +7125,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :fallback`
 
-          - `:fallback`
-
         - `trigger: untyped`
 
           The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -7051,11 +7157,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     List of context management edits to apply
 
+    minItems: 0
+
     - `class BetaClearToolUses20250919Edit`
 
       - `type: :clear_tool_uses_20250919`
-
-        - `:clear_tool_uses_20250919`
 
       - `clear_at_least: BetaInputTokensClearAtLeast`
 
@@ -7063,9 +7169,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :input_tokens`
 
-          - `:input_tokens`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `clear_tool_inputs: bool | Array[String]`
 
@@ -7085,9 +7191,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
         - `type: :tool_uses`
 
-          - `:tool_uses`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `trigger: BetaInputTokensTrigger | BetaToolUsesTrigger`
 
@@ -7097,23 +7203,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: :input_tokens`
 
-            - `:input_tokens`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaToolUsesTrigger`
 
           - `type: :tool_uses`
 
-            - `:tool_uses`
-
           - `value: Integer`
+
+            minimum: 1
 
     - `class BetaClearThinking20251015Edit`
 
       - `type: :clear_thinking_20251015`
-
-        - `:clear_thinking_20251015`
 
       - `keep: BetaThinkingTurns | BetaAllThinkingTurns | :all`
 
@@ -7123,27 +7227,21 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
           - `type: :thinking_turns`
 
-            - `:thinking_turns`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaAllThinkingTurns`
 
           - `type: :all`
 
-            - `:all`
-
         - `Keep = :all`
-
-          - `:all`
 
     - `class BetaCompact20260112Edit`
 
       Automatically compact older context when reaching the configured trigger threshold.
 
       - `type: :compact_20260112`
-
-        - `:compact_20260112`
 
       - `instructions: String`
 
@@ -7161,11 +7259,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   MCP servers to be utilized in this request
 
+  maxItems: 20
+
   - `name: String`
 
   - `type: :url`
-
-    - `:url`
 
   - `url: String`
 
@@ -7205,8 +7303,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :json_schema`
 
-      - `:json_schema`
-
   - `task_budget: BetaTokenTaskBudget`
 
     User-configurable total token budget across contexts.
@@ -7215,21 +7311,17 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Total token budget across all contexts in the session.
 
+      minimum: 1024
+
     - `type: :tokens`
 
       The budget type. Currently only 'tokens' is supported.
-
-      - `:tokens`
 
     - `remaining: Integer`
 
       Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
-- `output_format: BetaJSONOutputFormat`
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+      minimum: 0
 
 - `speed: :standard | :fast`
 
@@ -7250,6 +7342,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `UnionMember1 = Array[BetaTextBlockParam]`
 
     - `text: String`
+
+      minLength: 1
 
     - `type: :text`
 
@@ -7277,9 +7371,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-    - `type: :enabled`
+      minimum: 1024
 
-      - `:enabled`
+    - `type: :enabled`
 
     - `display_: :summarized | :omitted`
 
@@ -7293,13 +7387,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :disabled`
 
-      - `:disabled`
-
   - `class BetaThinkingConfigAdaptive`
 
     - `type: :adaptive`
-
-      - `:adaptive`
 
     - `display_: :summarized | :omitted`
 
@@ -7319,8 +7409,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :auto`
 
-      - `:auto`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -7332,8 +7420,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     The model will use any available tools.
 
     - `type: :any`
-
-      - `:any`
 
     - `disable_parallel_tool_use: bool`
 
@@ -7351,8 +7437,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :tool`
 
-      - `:tool`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -7364,8 +7448,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     The model will not be allowed to use tools.
 
     - `type: :none`
-
-      - `:none`
 
 - `tools: Array[BetaTool | BetaToolBash20241022 | BetaToolBash20250124 | 25 more]`
 
@@ -7433,15 +7515,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `class BetaTool`
 
-    - `input_schema: InputSchema{ type, properties, required}`
+    - `input_schema: InputSchema`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
       This defines the shape of the `input` that your tool accepts and that the model will produce.
 
       - `type: :object`
-
-        - `:object`
 
       - `properties: Hash[Symbol, untyped]`
 
@@ -7452,6 +7532,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
+
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -7489,8 +7571,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :custom`
 
-      - `:custom`
-
   - `class BetaToolBash20241022`
 
     - `name: :bash`
@@ -7499,11 +7579,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20241022`
-
-      - `:bash_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -7537,11 +7613,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20250124`
-
-      - `:bash_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -7575,11 +7647,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250522`
-
-      - `:code_execution_20250522`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -7611,11 +7679,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250825`
-
-      - `:code_execution_20250825`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -7649,11 +7713,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260120`
-
-      - `:code_execution_20260120`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -7687,11 +7747,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260521`
-
-      - `:code_execution_20260521`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -7723,8 +7779,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     from its schema.
 
     - `type: :browser_toolset_20260801`
-
-      - `:browser_toolset_20260801`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8127,9 +8181,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -8137,11 +8195,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20241022`
-
-      - `:computer_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8165,6 +8219,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -8179,11 +8235,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:memory`
-
     - `type: :memory_20250818`
-
-      - `:memory_20250818`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8215,9 +8267,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -8225,11 +8281,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20250124`
-
-      - `:computer_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8253,6 +8305,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -8267,11 +8321,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20241022`
-
-      - `:text_editor_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8303,9 +8353,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -8313,11 +8367,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20251124`
-
-      - `:computer_20251124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8341,6 +8391,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `enable_zoom: bool`
 
       Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -8363,8 +8415,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     via `configs.zoom.enabled`.
 
     - `type: :computer_toolset_20260801`
-
-      - `:computer_toolset_20260801`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8601,11 +8651,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20250124`
-
-      - `:text_editor_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8639,11 +8685,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250429`
-
-      - `:text_editor_20250429`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8677,11 +8719,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250728`
-
-      - `:text_editor_20250728`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8707,6 +8745,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -8719,11 +8759,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20250305`
-
-      - `:web_search_20250305`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8755,6 +8791,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -8765,23 +8803,29 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: :approximate`
 
-        - `:approximate`
-
       - `city: String`
 
         The city of the user.
+
+        maxLength: 255, minLength: 1
 
       - `country: String`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+        maxLength: 2, minLength: 2
+
       - `region: String`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: String`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+        maxLength: 255, minLength: 1
 
   - `class BetaWebFetchTool20250910`
 
@@ -8791,11 +8835,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20250910`
-
-      - `:web_fetch_20250910`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8831,9 +8871,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -8847,11 +8891,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260209`
-
-      - `:web_search_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8882,6 +8922,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -8899,11 +8941,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260209`
-
-      - `:web_fetch_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8939,9 +8977,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -8957,11 +8999,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260309`
-
-      - `:web_fetch_20260309`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -8997,9 +9035,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -9017,11 +9059,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260318`
-
-      - `:web_search_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -9052,6 +9090,8 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -9077,11 +9117,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260318`
-
-      - `:web_fetch_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -9117,9 +9153,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -9151,11 +9191,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:advisor`
-
     - `type: :advisor_20260301`
-
-      - `:advisor_20260301`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -9183,9 +9219,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+      minimum: 1024
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -9198,8 +9238,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_bm25`
 
     - `type: :tool_search_tool_bm25_20251119 | :tool_search_tool_bm25`
 
@@ -9236,8 +9274,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_regex`
 
     - `type: :tool_search_tool_regex_20251119 | :tool_search_tool_regex`
 
@@ -9278,9 +9314,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       Name of the MCP server to configure tools for
 
-    - `type: :mcp_toolset`
+      maxLength: 255, minLength: 1
 
-      - `:mcp_toolset`
+    - `type: :mcp_toolset`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -9382,6 +9418,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `output_format: BetaJSONOutputFormat`
+
+  **Deprecated**
+
+  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
 ### Returns
 
 - `class BetaMessageTokensCount`
@@ -9413,7 +9457,7 @@ beta_message_tokens_count = anthropic.beta.messages.count_tokens(
 puts(beta_message_tokens_count)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -9424,7 +9468,7 @@ puts(beta_message_tokens_count)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Advisor Message Iteration Usage
 
@@ -9440,21 +9484,31 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: Integer`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: Integer`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: Integer`
 
     The number of input tokens read from the cache.
 
+    minimum: 0
+
   - `input_tokens: Integer`
 
     The number of input tokens which were used.
+
+    minimum: 0
 
   - `model: Model`
 
@@ -9534,11 +9588,11 @@ puts(beta_message_tokens_count)
 
     The number of output tokens which were used.
 
+    minimum: 0
+
   - `type: :advisor_message`
 
     Usage for an advisor sub-inference iteration
-
-    - `:advisor_message`
 
 ### Beta Advisor Redacted Result Block
 
@@ -9554,8 +9608,6 @@ puts(beta_message_tokens_count)
 
   - `type: :advisor_redacted_result`
 
-    - `:advisor_redacted_result`
-
 ### Beta Advisor Redacted Result Block Param
 
 - `class BetaAdvisorRedactedResultBlockParam`
@@ -9565,8 +9617,6 @@ puts(beta_message_tokens_count)
     Opaque blob produced by a prior response; must be round-tripped verbatim.
 
   - `type: :advisor_redacted_result`
-
-    - `:advisor_redacted_result`
 
   - `stop_reason: String`
 
@@ -9582,8 +9632,6 @@ puts(beta_message_tokens_count)
 
   - `type: :advisor_result`
 
-    - `:advisor_result`
-
 ### Beta Advisor Result Block Param
 
 - `class BetaAdvisorResultBlockParam`
@@ -9591,8 +9639,6 @@ puts(beta_message_tokens_count)
   - `text: String`
 
   - `type: :advisor_result`
-
-    - `:advisor_result`
 
   - `stop_reason: String`
 
@@ -9680,11 +9726,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:advisor`
-
   - `type: :advisor_20260301`
-
-    - `:advisor_20260301`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -9701,8 +9743,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -9731,9 +9771,13 @@ puts(beta_message_tokens_count)
 
     Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+    minimum: 1024
+
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: bool`
 
@@ -9765,8 +9809,6 @@ puts(beta_message_tokens_count)
 
       - `type: :advisor_tool_result_error`
 
-        - `:advisor_tool_result_error`
-
     - `class BetaAdvisorResultBlock`
 
       - `stop_reason: String`
@@ -9776,8 +9818,6 @@ puts(beta_message_tokens_count)
       - `text: String`
 
       - `type: :advisor_result`
-
-        - `:advisor_result`
 
     - `class BetaAdvisorRedactedResultBlock`
 
@@ -9791,13 +9831,11 @@ puts(beta_message_tokens_count)
 
       - `type: :advisor_redacted_result`
 
-        - `:advisor_redacted_result`
-
   - `tool_use_id: String`
 
-  - `type: :advisor_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:advisor_tool_result`
+  - `type: :advisor_tool_result`
 
 ### Beta Advisor Tool Result Block Param
 
@@ -9825,15 +9863,11 @@ puts(beta_message_tokens_count)
 
       - `type: :advisor_tool_result_error`
 
-        - `:advisor_tool_result_error`
-
     - `class BetaAdvisorResultBlockParam`
 
       - `text: String`
 
       - `type: :advisor_result`
-
-        - `:advisor_result`
 
       - `stop_reason: String`
 
@@ -9845,23 +9879,19 @@ puts(beta_message_tokens_count)
 
       - `type: :advisor_redacted_result`
 
-        - `:advisor_redacted_result`
-
       - `stop_reason: String`
 
   - `tool_use_id: String`
 
-  - `type: :advisor_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:advisor_tool_result`
+  - `type: :advisor_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -9900,8 +9930,6 @@ puts(beta_message_tokens_count)
 
   - `type: :advisor_tool_result_error`
 
-    - `:advisor_tool_result_error`
-
 ### Beta Advisor Tool Result Error Param
 
 - `class BetaAdvisorToolResultErrorParam`
@@ -9924,21 +9952,19 @@ puts(beta_message_tokens_count)
 
   - `type: :advisor_tool_result_error`
 
-    - `:advisor_tool_result_error`
-
 ### Beta All Thinking Turns
 
 - `class BetaAllThinkingTurns`
 
   - `type: :all`
 
-    - `:all`
-
 ### Beta Base64 Image Source
 
 - `class BetaBase64ImageSource`
 
   - `data: String`
+
+    format: byte
 
   - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -9952,21 +9978,17 @@ puts(beta_message_tokens_count)
 
   - `type: :base64`
 
-    - `:base64`
-
 ### Beta Base64 PDF Source
 
 - `class BetaBase64PDFSource`
 
   - `data: String`
 
+    format: byte
+
   - `media_type: :"application/pdf"`
 
-    - `:"application/pdf"`
-
   - `type: :base64`
-
-    - `:base64`
 
 ### Beta Bash Code Execution Output Block
 
@@ -9976,8 +9998,6 @@ puts(beta_message_tokens_count)
 
   - `type: :bash_code_execution_output`
 
-    - `:bash_code_execution_output`
-
 ### Beta Bash Code Execution Output Block Param
 
 - `class BetaBashCodeExecutionOutputBlockParam`
@@ -9985,8 +10005,6 @@ puts(beta_message_tokens_count)
   - `file_id: String`
 
   - `type: :bash_code_execution_output`
-
-    - `:bash_code_execution_output`
 
 ### Beta Bash Code Execution Result Block
 
@@ -9998,8 +10016,6 @@ puts(beta_message_tokens_count)
 
     - `type: :bash_code_execution_output`
 
-      - `:bash_code_execution_output`
-
   - `return_code: Integer`
 
   - `stderr: String`
@@ -10007,8 +10023,6 @@ puts(beta_message_tokens_count)
   - `stdout: String`
 
   - `type: :bash_code_execution_result`
-
-    - `:bash_code_execution_result`
 
 ### Beta Bash Code Execution Result Block Param
 
@@ -10020,8 +10034,6 @@ puts(beta_message_tokens_count)
 
     - `type: :bash_code_execution_output`
 
-      - `:bash_code_execution_output`
-
   - `return_code: Integer`
 
   - `stderr: String`
@@ -10029,8 +10041,6 @@ puts(beta_message_tokens_count)
   - `stdout: String`
 
   - `type: :bash_code_execution_result`
-
-    - `:bash_code_execution_result`
 
 ### Beta Bash Code Execution Tool Result Block
 
@@ -10054,8 +10064,6 @@ puts(beta_message_tokens_count)
 
       - `type: :bash_code_execution_tool_result_error`
 
-        - `:bash_code_execution_tool_result_error`
-
     - `class BetaBashCodeExecutionResultBlock`
 
       - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -10063,8 +10071,6 @@ puts(beta_message_tokens_count)
         - `file_id: String`
 
         - `type: :bash_code_execution_output`
-
-          - `:bash_code_execution_output`
 
       - `return_code: Integer`
 
@@ -10074,13 +10080,11 @@ puts(beta_message_tokens_count)
 
       - `type: :bash_code_execution_result`
 
-        - `:bash_code_execution_result`
-
   - `tool_use_id: String`
 
-  - `type: :bash_code_execution_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:bash_code_execution_tool_result`
+  - `type: :bash_code_execution_tool_result`
 
 ### Beta Bash Code Execution Tool Result Block Param
 
@@ -10104,8 +10108,6 @@ puts(beta_message_tokens_count)
 
       - `type: :bash_code_execution_tool_result_error`
 
-        - `:bash_code_execution_tool_result_error`
-
     - `class BetaBashCodeExecutionResultBlockParam`
 
       - `content: Array[BetaBashCodeExecutionOutputBlockParam]`
@@ -10113,8 +10115,6 @@ puts(beta_message_tokens_count)
         - `file_id: String`
 
         - `type: :bash_code_execution_output`
-
-          - `:bash_code_execution_output`
 
       - `return_code: Integer`
 
@@ -10124,21 +10124,17 @@ puts(beta_message_tokens_count)
 
       - `type: :bash_code_execution_result`
 
-        - `:bash_code_execution_result`
-
   - `tool_use_id: String`
 
-  - `type: :bash_code_execution_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:bash_code_execution_tool_result`
+  - `type: :bash_code_execution_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -10173,8 +10169,6 @@ puts(beta_message_tokens_count)
 
   - `type: :bash_code_execution_tool_result_error`
 
-    - `:bash_code_execution_tool_result_error`
-
 ### Beta Bash Code Execution Tool Result Error Param
 
 - `class BetaBashCodeExecutionToolResultErrorParam`
@@ -10192,8 +10186,6 @@ puts(beta_message_tokens_count)
     - `:output_file_too_large`
 
   - `type: :bash_code_execution_tool_result_error`
-
-    - `:bash_code_execution_tool_result_error`
 
 ### Beta Browser Close Tab Config
 
@@ -10575,17 +10567,25 @@ puts(beta_message_tokens_count)
 
     All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+    maxItems: 100
+
     - `tab_id: String`
 
       The caller-assigned identifier for this tab, unique within the inventory.
+
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `title: String`
 
       The title of the page the tab is showing. May be empty.
 
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `url: String`
 
       The URL of the page the tab is showing. May be empty.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `active: bool`
 
@@ -10593,15 +10593,11 @@ puts(beta_message_tokens_count)
 
   - `type: :browser_state`
 
-    - `:browser_state`
-
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -10622,6 +10618,8 @@ puts(beta_message_tokens_count)
 
     Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
+    maxItems: 200, minItems: 1
+
     - `class BetaBrowserStateChangeTabOpened`
 
       A tab this call's execution opened that remains open at its end —
@@ -10636,9 +10634,9 @@ puts(beta_message_tokens_count)
 
         The `tab_id` of the opened tab, present in `tabs`.
 
-      - `type: :tab_opened`
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-        - `:tab_opened`
+      - `type: :tab_opened`
 
     - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -10648,13 +10646,15 @@ puts(beta_message_tokens_count)
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      - `type: :download_started`
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-        - `:download_started`
+      - `type: :download_started`
 
       - `url: String`
 
         The final post-redirect URL the download was served from.
+
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -10667,21 +10667,27 @@ puts(beta_message_tokens_count)
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      - `type: :download_completed`
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-        - `:download_completed`
+      - `type: :download_completed`
 
       - `url: String`
 
         The final post-redirect URL the download was served from.
 
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `path: String`
 
         Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
       - `size_bytes: Integer`
 
         The completed download's size.
+
+        minimum: 0
 
     - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -10691,17 +10697,21 @@ puts(beta_message_tokens_count)
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-      - `type: :download_failed`
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-        - `:download_failed`
+      - `type: :download_failed`
 
       - `url: String`
 
         The final post-redirect URL the download was served from.
 
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `error: String`
 
         The failure or cancellation detail, when known.
+
+        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
 ### Beta Browser State Change
 
@@ -10729,9 +10739,9 @@ puts(beta_message_tokens_count)
 
       The `tab_id` of the opened tab, present in `tabs`.
 
-    - `type: :tab_opened`
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `:tab_opened`
+    - `type: :tab_opened`
 
   - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -10741,13 +10751,15 @@ puts(beta_message_tokens_count)
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    - `type: :download_started`
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `:download_started`
+    - `type: :download_started`
 
     - `url: String`
 
       The final post-redirect URL the download was served from.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -10760,21 +10772,27 @@ puts(beta_message_tokens_count)
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    - `type: :download_completed`
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `:download_completed`
+    - `type: :download_completed`
 
     - `url: String`
 
       The final post-redirect URL the download was served from.
 
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `path: String`
 
       Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
     - `size_bytes: Integer`
 
       The completed download's size.
+
+      minimum: 0
 
   - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -10784,17 +10802,21 @@ puts(beta_message_tokens_count)
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-    - `type: :download_failed`
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-      - `:download_failed`
+    - `type: :download_failed`
 
     - `url: String`
 
       The final post-redirect URL the download was served from.
 
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `error: String`
 
       The failure or cancellation detail, when known.
+
+      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
 ### Beta Browser State Change Download Completed
 
@@ -10809,21 +10831,27 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-  - `type: :download_completed`
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `:download_completed`
+  - `type: :download_completed`
 
   - `url: String`
 
     The final post-redirect URL the download was served from.
 
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `path: String`
 
     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
   - `size_bytes: Integer`
 
     The completed download's size.
+
+    minimum: 0
 
 ### Beta Browser State Change Download Failed
 
@@ -10835,17 +10863,21 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-  - `type: :download_failed`
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `:download_failed`
+  - `type: :download_failed`
 
   - `url: String`
 
     The final post-redirect URL the download was served from.
 
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `error: String`
 
     The failure or cancellation detail, when known.
+
+    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
 ### Beta Browser State Change Download Started
 
@@ -10857,13 +10889,15 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-  - `type: :download_started`
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `:download_started`
+  - `type: :download_started`
 
   - `url: String`
 
     The final post-redirect URL the download was served from.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
 ### Beta Browser State Change Tab Opened
 
@@ -10881,9 +10915,9 @@ puts(beta_message_tokens_count)
 
     The `tab_id` of the opened tab, present in `tabs`.
 
-  - `type: :tab_opened`
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-    - `:tab_opened`
+  - `type: :tab_opened`
 
 ### Beta Browser State Tab Entry
 
@@ -10902,13 +10936,19 @@ puts(beta_message_tokens_count)
 
     The caller-assigned identifier for this tab, unique within the inventory.
 
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `title: String`
 
     The title of the page the tab is showing. May be empty.
 
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `url: String`
 
     The URL of the page the tab is showing. May be empty.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `active: bool`
 
@@ -10939,8 +10979,6 @@ puts(beta_message_tokens_count)
 
   - `type: :browser_toolset_20260801`
 
-    - `:browser_toolset_20260801`
-
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
     - `:direct`
@@ -10956,8 +10994,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -11800,8 +11836,6 @@ puts(beta_message_tokens_count)
 
   - `type: :ephemeral`
 
-    - `:ephemeral`
-
   - `ttl: :"5m" | :"1h"`
 
     The time-to-live for the cache control breakpoint.
@@ -11825,9 +11859,13 @@ puts(beta_message_tokens_count)
 
     The number of input tokens used to create the 1 hour cache entry.
 
+    minimum: 0
+
   - `ephemeral_5m_input_tokens: Integer`
 
     The number of input tokens used to create the 5 minute cache entry.
+
+    minimum: 0
 
 ### Beta Cache Miss Messages Changed
 
@@ -11839,8 +11877,6 @@ puts(beta_message_tokens_count)
 
   - `type: :messages_changed`
 
-    - `:messages_changed`
-
 ### Beta Cache Miss Model Changed
 
 - `class BetaCacheMissModelChanged`
@@ -11851,15 +11887,11 @@ puts(beta_message_tokens_count)
 
   - `type: :model_changed`
 
-    - `:model_changed`
-
 ### Beta Cache Miss Previous Message Not Found
 
 - `class BetaCacheMissPreviousMessageNotFound`
 
   - `type: :previous_message_not_found`
-
-    - `:previous_message_not_found`
 
 ### Beta Cache Miss System Changed
 
@@ -11871,8 +11903,6 @@ puts(beta_message_tokens_count)
 
   - `type: :system_changed`
 
-    - `:system_changed`
-
 ### Beta Cache Miss Tools Changed
 
 - `class BetaCacheMissToolsChanged`
@@ -11883,15 +11913,11 @@ puts(beta_message_tokens_count)
 
   - `type: :tools_changed`
 
-    - `:tools_changed`
-
 ### Beta Cache Miss Unavailable
 
 - `class BetaCacheMissUnavailable`
 
   - `type: :unavailable`
-
-    - `:unavailable`
 
 ### Beta Citation Char Location
 
@@ -11901,6 +11927,8 @@ puts(beta_message_tokens_count)
 
   - `document_index: Integer`
 
+    minimum: 0
+
   - `document_title: String`
 
   - `end_char_index: Integer`
@@ -11909,9 +11937,9 @@ puts(beta_message_tokens_count)
 
   - `start_char_index: Integer`
 
-  - `type: :char_location`
+    minimum: 0
 
-    - `:char_location`
+  - `type: :char_location`
 
 ### Beta Citation Char Location Param
 
@@ -11921,15 +11949,19 @@ puts(beta_message_tokens_count)
 
   - `document_index: Integer`
 
+    minimum: 0
+
   - `document_title: String`
+
+    maxLength: 500, minLength: 1
 
   - `end_char_index: Integer`
 
   - `start_char_index: Integer`
 
-  - `type: :char_location`
+    minimum: 0
 
-    - `:char_location`
+  - `type: :char_location`
 
 ### Beta Citation Config
 
@@ -11949,6 +11981,8 @@ puts(beta_message_tokens_count)
 
   - `document_index: Integer`
 
+    minimum: 0
+
   - `document_title: String`
 
   - `end_block_index: Integer`
@@ -11963,9 +11997,9 @@ puts(beta_message_tokens_count)
 
     0-based index of the first cited block in the source's `content` array.
 
-  - `type: :content_block_location`
+    minimum: 0
 
-    - `:content_block_location`
+  - `type: :content_block_location`
 
 ### Beta Citation Content Block Location Param
 
@@ -11979,7 +12013,11 @@ puts(beta_message_tokens_count)
 
   - `document_index: Integer`
 
+    minimum: 0
+
   - `document_title: String`
+
+    maxLength: 500, minLength: 1
 
   - `end_block_index: Integer`
 
@@ -11991,9 +12029,9 @@ puts(beta_message_tokens_count)
 
     0-based index of the first cited block in the source's `content` array.
 
-  - `type: :content_block_location`
+    minimum: 0
 
-    - `:content_block_location`
+  - `type: :content_block_location`
 
 ### Beta Citation Page Location
 
@@ -12003,6 +12041,8 @@ puts(beta_message_tokens_count)
 
   - `document_index: Integer`
 
+    minimum: 0
+
   - `document_title: String`
 
   - `end_page_number: Integer`
@@ -12011,9 +12051,9 @@ puts(beta_message_tokens_count)
 
   - `start_page_number: Integer`
 
-  - `type: :page_location`
+    minimum: 1
 
-    - `:page_location`
+  - `type: :page_location`
 
 ### Beta Citation Page Location Param
 
@@ -12023,15 +12063,19 @@ puts(beta_message_tokens_count)
 
   - `document_index: Integer`
 
+    minimum: 0
+
   - `document_title: String`
+
+    maxLength: 500, minLength: 1
 
   - `end_page_number: Integer`
 
   - `start_page_number: Integer`
 
-  - `type: :page_location`
+    minimum: 1
 
-    - `:page_location`
+  - `type: :page_location`
 
 ### Beta Citation Search Result Location
 
@@ -12055,17 +12099,19 @@ puts(beta_message_tokens_count)
 
     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+    minimum: 0
+
   - `source: String`
 
   - `start_block_index: Integer`
 
     0-based index of the first cited block in the source's `content` array.
 
+    minimum: 0
+
   - `title: String`
 
   - `type: :search_result_location`
-
-    - `:search_result_location`
 
 ### Beta Citation Search Result Location Param
 
@@ -12089,17 +12135,19 @@ puts(beta_message_tokens_count)
 
     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+    minimum: 0
+
   - `source: String`
 
   - `start_block_index: Integer`
 
     0-based index of the first cited block in the source's `content` array.
 
+    minimum: 0
+
   - `title: String`
 
   - `type: :search_result_location`
-
-    - `:search_result_location`
 
 ### Beta Citation Web Search Result Location Param
 
@@ -12111,11 +12159,13 @@ puts(beta_message_tokens_count)
 
   - `title: String`
 
+    maxLength: 512, minLength: 1
+
   - `type: :web_search_result_location`
 
-    - `:web_search_result_location`
-
   - `url: String`
+
+    minLength: 1
 
 ### Beta Citations Config Param
 
@@ -12135,6 +12185,8 @@ puts(beta_message_tokens_count)
 
       - `document_index: Integer`
 
+        minimum: 0
+
       - `document_title: String`
 
       - `end_char_index: Integer`
@@ -12143,15 +12195,17 @@ puts(beta_message_tokens_count)
 
       - `start_char_index: Integer`
 
-      - `type: :char_location`
+        minimum: 0
 
-        - `:char_location`
+      - `type: :char_location`
 
     - `class BetaCitationPageLocation`
 
       - `cited_text: String`
 
       - `document_index: Integer`
+
+        minimum: 0
 
       - `document_title: String`
 
@@ -12161,9 +12215,9 @@ puts(beta_message_tokens_count)
 
       - `start_page_number: Integer`
 
-      - `type: :page_location`
+        minimum: 1
 
-        - `:page_location`
+      - `type: :page_location`
 
     - `class BetaCitationContentBlockLocation`
 
@@ -12174,6 +12228,8 @@ puts(beta_message_tokens_count)
         Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
       - `document_index: Integer`
+
+        minimum: 0
 
       - `document_title: String`
 
@@ -12189,9 +12245,9 @@ puts(beta_message_tokens_count)
 
         0-based index of the first cited block in the source's `content` array.
 
-      - `type: :content_block_location`
+        minimum: 0
 
-        - `:content_block_location`
+      - `type: :content_block_location`
 
     - `class BetaCitationsWebSearchResultLocation`
 
@@ -12201,9 +12257,9 @@ puts(beta_message_tokens_count)
 
       - `title: String`
 
-      - `type: :web_search_result_location`
+        maxLength: 512
 
-        - `:web_search_result_location`
+      - `type: :web_search_result_location`
 
       - `url: String`
 
@@ -12227,21 +12283,21 @@ puts(beta_message_tokens_count)
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: String`
 
       - `start_block_index: Integer`
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `title: String`
 
       - `type: :search_result_location`
 
-        - `:search_result_location`
-
   - `type: :citations_delta`
-
-    - `:citations_delta`
 
 ### Beta Citations Web Search Result Location
 
@@ -12253,9 +12309,9 @@ puts(beta_message_tokens_count)
 
   - `title: String`
 
-  - `type: :web_search_result_location`
+    maxLength: 512
 
-    - `:web_search_result_location`
+  - `type: :web_search_result_location`
 
   - `url: String`
 
@@ -12265,8 +12321,6 @@ puts(beta_message_tokens_count)
 
   - `type: :clear_thinking_20251015`
 
-    - `:clear_thinking_20251015`
-
   - `keep: BetaThinkingTurns | BetaAllThinkingTurns | :all`
 
     Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
@@ -12275,19 +12329,15 @@ puts(beta_message_tokens_count)
 
       - `type: :thinking_turns`
 
-        - `:thinking_turns`
-
       - `value: Integer`
+
+        minimum: 1
 
     - `class BetaAllThinkingTurns`
 
       - `type: :all`
 
-        - `:all`
-
     - `Keep = :all`
-
-      - `:all`
 
 ### Beta Clear Thinking 20251015 Edit Response
 
@@ -12297,15 +12347,17 @@ puts(beta_message_tokens_count)
 
     Number of input tokens cleared by this edit.
 
+    minimum: 0
+
   - `cleared_thinking_turns: Integer`
 
     Number of thinking turns that were cleared.
 
+    minimum: 0
+
   - `type: :clear_thinking_20251015`
 
     The type of context management edit applied.
-
-    - `:clear_thinking_20251015`
 
 ### Beta Clear Tool Uses 20250919 Edit
 
@@ -12313,17 +12365,15 @@ puts(beta_message_tokens_count)
 
   - `type: :clear_tool_uses_20250919`
 
-    - `:clear_tool_uses_20250919`
-
   - `clear_at_least: BetaInputTokensClearAtLeast`
 
     Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
     - `type: :input_tokens`
 
-      - `:input_tokens`
-
     - `value: Integer`
+
+      minimum: 0
 
   - `clear_tool_inputs: bool | Array[String]`
 
@@ -12343,9 +12393,9 @@ puts(beta_message_tokens_count)
 
     - `type: :tool_uses`
 
-      - `:tool_uses`
-
     - `value: Integer`
+
+      minimum: 0
 
   - `trigger: BetaInputTokensTrigger | BetaToolUsesTrigger`
 
@@ -12355,17 +12405,17 @@ puts(beta_message_tokens_count)
 
       - `type: :input_tokens`
 
-        - `:input_tokens`
-
       - `value: Integer`
+
+        minimum: 1
 
     - `class BetaToolUsesTrigger`
 
       - `type: :tool_uses`
 
-        - `:tool_uses`
-
       - `value: Integer`
+
+        minimum: 1
 
 ### Beta Clear Tool Uses 20250919 Edit Response
 
@@ -12375,15 +12425,17 @@ puts(beta_message_tokens_count)
 
     Number of input tokens cleared by this edit.
 
+    minimum: 0
+
   - `cleared_tool_uses: Integer`
 
     Number of tool uses that were cleared.
 
+    minimum: 0
+
   - `type: :clear_tool_uses_20250919`
 
     The type of context management edit applied.
-
-    - `:clear_tool_uses_20250919`
 
 ### Beta Code Execution Output Block
 
@@ -12393,8 +12445,6 @@ puts(beta_message_tokens_count)
 
   - `type: :code_execution_output`
 
-    - `:code_execution_output`
-
 ### Beta Code Execution Output Block Param
 
 - `class BetaCodeExecutionOutputBlockParam`
@@ -12402,8 +12452,6 @@ puts(beta_message_tokens_count)
   - `file_id: String`
 
   - `type: :code_execution_output`
-
-    - `:code_execution_output`
 
 ### Beta Code Execution Result Block
 
@@ -12415,8 +12463,6 @@ puts(beta_message_tokens_count)
 
     - `type: :code_execution_output`
 
-      - `:code_execution_output`
-
   - `return_code: Integer`
 
   - `stderr: String`
@@ -12424,8 +12470,6 @@ puts(beta_message_tokens_count)
   - `stdout: String`
 
   - `type: :code_execution_result`
-
-    - `:code_execution_result`
 
 ### Beta Code Execution Result Block Param
 
@@ -12437,8 +12481,6 @@ puts(beta_message_tokens_count)
 
     - `type: :code_execution_output`
 
-      - `:code_execution_output`
-
   - `return_code: Integer`
 
   - `stderr: String`
@@ -12446,8 +12488,6 @@ puts(beta_message_tokens_count)
   - `stdout: String`
 
   - `type: :code_execution_result`
-
-    - `:code_execution_result`
 
 ### Beta Code Execution Tool 20250522
 
@@ -12459,11 +12499,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:code_execution`
-
   - `type: :code_execution_20250522`
-
-    - `:code_execution_20250522`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -12480,8 +12516,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -12516,11 +12550,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:code_execution`
-
   - `type: :code_execution_20250825`
-
-    - `:code_execution_20250825`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -12537,8 +12567,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -12575,11 +12603,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:code_execution`
-
   - `type: :code_execution_20260120`
-
-    - `:code_execution_20260120`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -12596,8 +12620,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -12634,11 +12656,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:code_execution`
-
   - `type: :code_execution_20260521`
-
-    - `:code_execution_20260521`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -12655,8 +12673,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -12703,8 +12719,6 @@ puts(beta_message_tokens_count)
 
       - `type: :code_execution_tool_result_error`
 
-        - `:code_execution_tool_result_error`
-
     - `class BetaCodeExecutionResultBlock`
 
       - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -12713,8 +12727,6 @@ puts(beta_message_tokens_count)
 
         - `type: :code_execution_output`
 
-          - `:code_execution_output`
-
       - `return_code: Integer`
 
       - `stderr: String`
@@ -12722,8 +12734,6 @@ puts(beta_message_tokens_count)
       - `stdout: String`
 
       - `type: :code_execution_result`
-
-        - `:code_execution_result`
 
     - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -12743,13 +12753,11 @@ puts(beta_message_tokens_count)
 
       - `type: :encrypted_code_execution_result`
 
-        - `:encrypted_code_execution_result`
-
   - `tool_use_id: String`
 
-  - `type: :code_execution_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:code_execution_tool_result`
+  - `type: :code_execution_tool_result`
 
 ### Beta Code Execution Tool Result Block Content
 
@@ -12771,8 +12779,6 @@ puts(beta_message_tokens_count)
 
     - `type: :code_execution_tool_result_error`
 
-      - `:code_execution_tool_result_error`
-
   - `class BetaCodeExecutionResultBlock`
 
     - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -12781,8 +12787,6 @@ puts(beta_message_tokens_count)
 
       - `type: :code_execution_output`
 
-        - `:code_execution_output`
-
     - `return_code: Integer`
 
     - `stderr: String`
@@ -12790,8 +12794,6 @@ puts(beta_message_tokens_count)
     - `stdout: String`
 
     - `type: :code_execution_result`
-
-      - `:code_execution_result`
 
   - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -12810,8 +12812,6 @@ puts(beta_message_tokens_count)
     - `stderr: String`
 
     - `type: :encrypted_code_execution_result`
-
-      - `:encrypted_code_execution_result`
 
 ### Beta Code Execution Tool Result Block Param
 
@@ -12835,8 +12835,6 @@ puts(beta_message_tokens_count)
 
       - `type: :code_execution_tool_result_error`
 
-        - `:code_execution_tool_result_error`
-
     - `class BetaCodeExecutionResultBlockParam`
 
       - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -12845,8 +12843,6 @@ puts(beta_message_tokens_count)
 
         - `type: :code_execution_output`
 
-          - `:code_execution_output`
-
       - `return_code: Integer`
 
       - `stderr: String`
@@ -12854,8 +12850,6 @@ puts(beta_message_tokens_count)
       - `stdout: String`
 
       - `type: :code_execution_result`
-
-        - `:code_execution_result`
 
     - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -12875,21 +12869,17 @@ puts(beta_message_tokens_count)
 
       - `type: :encrypted_code_execution_result`
 
-        - `:encrypted_code_execution_result`
-
   - `tool_use_id: String`
 
-  - `type: :code_execution_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:code_execution_tool_result`
+  - `type: :code_execution_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -12926,8 +12916,6 @@ puts(beta_message_tokens_count)
 
     - `type: :code_execution_tool_result_error`
 
-      - `:code_execution_tool_result_error`
-
   - `class BetaCodeExecutionResultBlockParam`
 
     - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -12936,8 +12924,6 @@ puts(beta_message_tokens_count)
 
       - `type: :code_execution_output`
 
-        - `:code_execution_output`
-
     - `return_code: Integer`
 
     - `stderr: String`
@@ -12945,8 +12931,6 @@ puts(beta_message_tokens_count)
     - `stdout: String`
 
     - `type: :code_execution_result`
-
-      - `:code_execution_result`
 
   - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -12966,8 +12950,6 @@ puts(beta_message_tokens_count)
 
     - `type: :encrypted_code_execution_result`
 
-      - `:encrypted_code_execution_result`
-
 ### Beta Code Execution Tool Result Error
 
 - `class BetaCodeExecutionToolResultError`
@@ -12983,8 +12965,6 @@ puts(beta_message_tokens_count)
     - `:execution_time_exceeded`
 
   - `type: :code_execution_tool_result_error`
-
-    - `:code_execution_tool_result_error`
 
 ### Beta Code Execution Tool Result Error Code
 
@@ -13014,8 +12994,6 @@ puts(beta_message_tokens_count)
 
   - `type: :code_execution_tool_result_error`
 
-    - `:code_execution_tool_result_error`
-
 ### Beta Compact 20260112 Edit
 
 - `class BetaCompact20260112Edit`
@@ -13023,8 +13001,6 @@ puts(beta_message_tokens_count)
   Automatically compact older context when reaching the configured trigger threshold.
 
   - `type: :compact_20260112`
-
-    - `:compact_20260112`
 
   - `instructions: String`
 
@@ -13040,9 +13016,9 @@ puts(beta_message_tokens_count)
 
     - `type: :input_tokens`
 
-      - `:input_tokens`
-
     - `value: Integer`
+
+      minimum: 1
 
 ### Beta Compaction Block
 
@@ -13064,8 +13040,6 @@ puts(beta_message_tokens_count)
 
   - `type: :compaction`
 
-    - `:compaction`
-
 ### Beta Compaction Block Param
 
 - `class BetaCompactionBlockParam`
@@ -13080,15 +13054,11 @@ puts(beta_message_tokens_count)
 
   - `type: :compaction`
 
-    - `:compaction`
-
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -13125,8 +13095,6 @@ puts(beta_message_tokens_count)
 
   - `type: :compaction_delta`
 
-    - `:compaction_delta`
-
 ### Beta Compaction Iteration Usage
 
 - `class BetaCompactionIterationUsage`
@@ -13141,31 +13109,41 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: Integer`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: Integer`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: Integer`
 
     The number of input tokens read from the cache.
+
+    minimum: 0
 
   - `input_tokens: Integer`
 
     The number of input tokens which were used.
 
+    minimum: 0
+
   - `output_tokens: Integer`
 
     The number of output tokens which were used.
 
+    minimum: 0
+
   - `type: :compaction`
 
     Usage for a compaction iteration
-
-    - `:compaction`
 
 ### Beta Computer Cursor Position Config
 
@@ -13364,8 +13342,6 @@ puts(beta_message_tokens_count)
 
   - `type: :computer_toolset_20260801`
 
-    - `:computer_toolset_20260801`
-
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
     - `:direct`
@@ -13381,8 +13357,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -13897,6 +13871,8 @@ puts(beta_message_tokens_count)
 
     The time at which the container will expire.
 
+    format: date-time
+
   - `skills: Array[BetaSkill]`
 
     Skills loaded in the container
@@ -13904,6 +13880,8 @@ puts(beta_message_tokens_count)
     - `skill_id: String`
 
       Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `type: :anthropic | :custom`
 
@@ -13916,6 +13894,8 @@ puts(beta_message_tokens_count)
     - `version: String`
 
       The resolved version: a skill version ID for custom skills.
+
+      maxLength: 64, minLength: 1
 
 ### Beta Container Params
 
@@ -13931,9 +13911,13 @@ puts(beta_message_tokens_count)
 
     List of skills to load in the container
 
+    maxItems: 20
+
     - `skill_id: String`
 
       Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `type: :anthropic | :custom`
 
@@ -13947,6 +13931,8 @@ puts(beta_message_tokens_count)
 
       Skill version or 'latest' for most recent version
 
+      maxLength: 64, minLength: 1
+
 ### Beta Container Upload Block
 
 - `class BetaContainerUploadBlock`
@@ -13956,8 +13942,6 @@ puts(beta_message_tokens_count)
   - `file_id: String`
 
   - `type: :container_upload`
-
-    - `:container_upload`
 
 ### Beta Container Upload Block Param
 
@@ -13970,15 +13954,11 @@ puts(beta_message_tokens_count)
 
   - `type: :container_upload`
 
-    - `:container_upload`
-
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -14015,6 +13995,8 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
 
         - `end_char_index: Integer`
@@ -14023,15 +14005,17 @@ puts(beta_message_tokens_count)
 
         - `start_char_index: Integer`
 
-        - `type: :char_location`
+          minimum: 0
 
-          - `:char_location`
+        - `type: :char_location`
 
       - `class BetaCitationPageLocation`
 
         - `cited_text: String`
 
         - `document_index: Integer`
+
+          minimum: 0
 
         - `document_title: String`
 
@@ -14041,9 +14025,9 @@ puts(beta_message_tokens_count)
 
         - `start_page_number: Integer`
 
-        - `type: :page_location`
+          minimum: 1
 
-          - `:page_location`
+        - `type: :page_location`
 
       - `class BetaCitationContentBlockLocation`
 
@@ -14054,6 +14038,8 @@ puts(beta_message_tokens_count)
           Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
         - `document_index: Integer`
+
+          minimum: 0
 
         - `document_title: String`
 
@@ -14069,9 +14055,9 @@ puts(beta_message_tokens_count)
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: :content_block_location`
+          minimum: 0
 
-          - `:content_block_location`
+        - `type: :content_block_location`
 
       - `class BetaCitationsWebSearchResultLocation`
 
@@ -14081,9 +14067,9 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-        - `type: :web_search_result_location`
+          maxLength: 512
 
-          - `:web_search_result_location`
+        - `type: :web_search_result_location`
 
         - `url: String`
 
@@ -14107,23 +14093,25 @@ puts(beta_message_tokens_count)
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: String`
 
         - `start_block_index: Integer`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: String`
 
         - `type: :search_result_location`
 
-          - `:search_result_location`
-
     - `text: String`
 
-    - `type: :text`
+      maxLength: 5000000, minLength: 0
 
-      - `:text`
+    - `type: :text`
 
   - `class BetaThinkingBlock`
 
@@ -14141,8 +14129,6 @@ puts(beta_message_tokens_count)
 
     - `type: :thinking`
 
-      - `:thinking`
-
   - `class BetaRedactedThinkingBlock`
 
     - `data: String`
@@ -14155,19 +14141,19 @@ puts(beta_message_tokens_count)
 
     - `type: :redacted_thinking`
 
-      - `:redacted_thinking`
-
   - `class BetaToolUseBlock`
 
     - `id: String`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: Hash[Symbol, untyped]`
 
     - `name: String`
 
-    - `type: :tool_use`
+      minLength: 1
 
-      - `:tool_use`
+    - `type: :tool_use`
 
     - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -14179,33 +14165,35 @@ puts(beta_message_tokens_count)
 
         - `type: :direct`
 
-          - `:direct`
-
       - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
         - `tool_id: String`
 
-        - `type: :code_execution_20250825`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_20250825`
+        - `type: :code_execution_20250825`
 
       - `class BetaServerToolCaller20260120`
 
         - `tool_id: String`
 
-        - `type: :code_execution_20260120`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_20260120`
+        - `type: :code_execution_20260120`
 
     - `toolset_name: String`
 
       For a toolset member tool_use, the toolset family.
 
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
   - `class BetaServerToolUseBlock`
 
     - `id: String`
+
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
     - `input: Hash[Symbol, untyped]`
 
@@ -14228,8 +14216,6 @@ puts(beta_message_tokens_count)
       - `:tool_search_tool_bm25`
 
     - `type: :server_tool_use`
-
-      - `:server_tool_use`
 
     - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -14267,8 +14253,6 @@ puts(beta_message_tokens_count)
 
         - `type: :web_search_tool_result_error`
 
-          - `:web_search_tool_result_error`
-
       - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
         - `encrypted_content: String`
@@ -14279,15 +14263,13 @@ puts(beta_message_tokens_count)
 
         - `type: :web_search_result`
 
-          - `:web_search_result`
-
         - `url: String`
 
     - `tool_use_id: String`
 
-    - `type: :web_search_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:web_search_tool_result`
+    - `type: :web_search_tool_result`
 
     - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -14331,8 +14313,6 @@ puts(beta_message_tokens_count)
 
         - `type: :web_fetch_tool_result_error`
 
-          - `:web_fetch_tool_result_error`
-
       - `class BetaWebFetchBlock`
 
         - `content: BetaDocumentBlock`
@@ -14349,13 +14329,11 @@ puts(beta_message_tokens_count)
 
               - `data: String`
 
+                format: byte
+
               - `media_type: :"application/pdf"`
 
-                - `:"application/pdf"`
-
               - `type: :base64`
-
-                - `:base64`
 
             - `class BetaPlainTextSource`
 
@@ -14363,11 +14341,7 @@ puts(beta_message_tokens_count)
 
               - `media_type: :"text/plain"`
 
-                - `:"text/plain"`
-
               - `type: :text`
-
-                - `:text`
 
           - `title: String`
 
@@ -14375,15 +14349,11 @@ puts(beta_message_tokens_count)
 
           - `type: :document`
 
-            - `:document`
-
         - `retrieved_at: String`
 
           ISO 8601 timestamp when the content was retrieved
 
         - `type: :web_fetch_result`
-
-          - `:web_fetch_result`
 
         - `url: String`
 
@@ -14391,9 +14361,9 @@ puts(beta_message_tokens_count)
 
     - `tool_use_id: String`
 
-    - `type: :web_fetch_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:web_fetch_tool_result`
+    - `type: :web_fetch_tool_result`
 
     - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -14433,8 +14403,6 @@ puts(beta_message_tokens_count)
 
         - `type: :advisor_tool_result_error`
 
-          - `:advisor_tool_result_error`
-
       - `class BetaAdvisorResultBlock`
 
         - `stop_reason: String`
@@ -14444,8 +14412,6 @@ puts(beta_message_tokens_count)
         - `text: String`
 
         - `type: :advisor_result`
-
-          - `:advisor_result`
 
       - `class BetaAdvisorRedactedResultBlock`
 
@@ -14459,13 +14425,11 @@ puts(beta_message_tokens_count)
 
         - `type: :advisor_redacted_result`
 
-          - `:advisor_redacted_result`
-
     - `tool_use_id: String`
 
-    - `type: :advisor_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:advisor_tool_result`
+    - `type: :advisor_tool_result`
 
   - `class BetaCodeExecutionToolResultBlock`
 
@@ -14487,8 +14451,6 @@ puts(beta_message_tokens_count)
 
         - `type: :code_execution_tool_result_error`
 
-          - `:code_execution_tool_result_error`
-
       - `class BetaCodeExecutionResultBlock`
 
         - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -14497,8 +14459,6 @@ puts(beta_message_tokens_count)
 
           - `type: :code_execution_output`
 
-            - `:code_execution_output`
-
         - `return_code: Integer`
 
         - `stderr: String`
@@ -14506,8 +14466,6 @@ puts(beta_message_tokens_count)
         - `stdout: String`
 
         - `type: :code_execution_result`
-
-          - `:code_execution_result`
 
       - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -14527,13 +14485,11 @@ puts(beta_message_tokens_count)
 
         - `type: :encrypted_code_execution_result`
 
-          - `:encrypted_code_execution_result`
-
     - `tool_use_id: String`
 
-    - `type: :code_execution_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:code_execution_tool_result`
+    - `type: :code_execution_tool_result`
 
   - `class BetaBashCodeExecutionToolResultBlock`
 
@@ -14555,8 +14511,6 @@ puts(beta_message_tokens_count)
 
         - `type: :bash_code_execution_tool_result_error`
 
-          - `:bash_code_execution_tool_result_error`
-
       - `class BetaBashCodeExecutionResultBlock`
 
         - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -14564,8 +14518,6 @@ puts(beta_message_tokens_count)
           - `file_id: String`
 
           - `type: :bash_code_execution_output`
-
-            - `:bash_code_execution_output`
 
         - `return_code: Integer`
 
@@ -14575,13 +14527,11 @@ puts(beta_message_tokens_count)
 
         - `type: :bash_code_execution_result`
 
-          - `:bash_code_execution_result`
-
     - `tool_use_id: String`
 
-    - `type: :bash_code_execution_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:bash_code_execution_tool_result`
+    - `type: :bash_code_execution_tool_result`
 
   - `class BetaTextEditorCodeExecutionToolResultBlock`
 
@@ -14605,8 +14555,6 @@ puts(beta_message_tokens_count)
 
         - `type: :text_editor_code_execution_tool_result_error`
 
-          - `:text_editor_code_execution_tool_result_error`
-
       - `class BetaTextEditorCodeExecutionViewResultBlock`
 
         - `content: String`
@@ -14627,15 +14575,11 @@ puts(beta_message_tokens_count)
 
         - `type: :text_editor_code_execution_view_result`
 
-          - `:text_editor_code_execution_view_result`
-
       - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
         - `is_file_update: bool`
 
         - `type: :text_editor_code_execution_create_result`
-
-          - `:text_editor_code_execution_create_result`
 
       - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -14651,13 +14595,11 @@ puts(beta_message_tokens_count)
 
         - `type: :text_editor_code_execution_str_replace_result`
 
-          - `:text_editor_code_execution_str_replace_result`
-
     - `tool_use_id: String`
 
-    - `type: :text_editor_code_execution_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:text_editor_code_execution_tool_result`
+    - `type: :text_editor_code_execution_tool_result`
 
   - `class BetaToolSearchToolResultBlock`
 
@@ -14679,31 +14621,29 @@ puts(beta_message_tokens_count)
 
         - `type: :tool_search_tool_result_error`
 
-          - `:tool_search_tool_result_error`
-
       - `class BetaToolSearchToolSearchResultBlock`
 
         - `tool_references: Array[BetaToolReferenceBlock]`
 
           - `tool_name: String`
 
-          - `type: :tool_reference`
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-            - `:tool_reference`
+          - `type: :tool_reference`
 
         - `type: :tool_search_tool_search_result`
 
-          - `:tool_search_tool_search_result`
-
     - `tool_use_id: String`
 
-    - `type: :tool_search_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:tool_search_tool_result`
+    - `type: :tool_search_tool_result`
 
   - `class BetaMCPToolUseBlock`
 
     - `id: String`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: Hash[Symbol, untyped]`
 
@@ -14716,8 +14656,6 @@ puts(beta_message_tokens_count)
       The name of the MCP server
 
     - `type: :mcp_tool_use`
-
-      - `:mcp_tool_use`
 
   - `class BetaMCPToolResultBlock`
 
@@ -14735,15 +14673,17 @@ puts(beta_message_tokens_count)
 
         - `text: String`
 
+          maxLength: 5000000, minLength: 0
+
         - `type: :text`
 
     - `is_error: bool`
 
     - `tool_use_id: String`
 
-    - `type: :mcp_tool_result`
+      pattern: ^[a-zA-Z0-9_-]+$
 
-      - `:mcp_tool_result`
+    - `type: :mcp_tool_result`
 
   - `class BetaContainerUploadBlock`
 
@@ -14752,8 +14692,6 @@ puts(beta_message_tokens_count)
     - `file_id: String`
 
     - `type: :container_upload`
-
-      - `:container_upload`
 
   - `class BetaCompactionBlock`
 
@@ -14772,8 +14710,6 @@ puts(beta_message_tokens_count)
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
     - `type: :compaction`
-
-      - `:compaction`
 
   - `class BetaFallbackBlock`
 
@@ -14901,11 +14837,7 @@ puts(beta_message_tokens_count)
 
       - `type: :refusal`
 
-        - `:refusal`
-
     - `type: :fallback`
-
-      - `:fallback`
 
 ### Beta Content Block Param
 
@@ -14917,17 +14849,15 @@ puts(beta_message_tokens_count)
 
     - `text: String`
 
-    - `type: :text`
+      minLength: 1
 
-      - `:text`
+    - `type: :text`
 
     - `cache_control: BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
 
       - `type: :ephemeral`
-
-        - `:ephemeral`
 
       - `ttl: :"5m" | :"1h"`
 
@@ -14952,15 +14882,19 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: Integer`
 
         - `start_char_index: Integer`
 
-        - `type: :char_location`
+          minimum: 0
 
-          - `:char_location`
+        - `type: :char_location`
 
       - `class BetaCitationPageLocationParam`
 
@@ -14968,15 +14902,19 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: Integer`
 
         - `start_page_number: Integer`
 
-        - `type: :page_location`
+          minimum: 1
 
-          - `:page_location`
+        - `type: :page_location`
 
       - `class BetaCitationContentBlockLocationParam`
 
@@ -14988,7 +14926,11 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: Integer`
 
@@ -15000,9 +14942,9 @@ puts(beta_message_tokens_count)
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: :content_block_location`
+          minimum: 0
 
-          - `:content_block_location`
+        - `type: :content_block_location`
 
       - `class BetaCitationWebSearchResultLocationParam`
 
@@ -15012,11 +14954,13 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
+          maxLength: 512, minLength: 1
+
         - `type: :web_search_result_location`
 
-          - `:web_search_result_location`
-
         - `url: String`
+
+          minLength: 1
 
       - `class BetaCitationSearchResultLocationParam`
 
@@ -15038,17 +14982,19 @@ puts(beta_message_tokens_count)
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: String`
 
         - `start_block_index: Integer`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: String`
 
         - `type: :search_result_location`
-
-          - `:search_result_location`
 
   - `class BetaImageBlockParam`
 
@@ -15057,6 +15003,8 @@ puts(beta_message_tokens_count)
       - `class BetaBase64ImageSource`
 
         - `data: String`
+
+          format: byte
 
         - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -15070,13 +15018,9 @@ puts(beta_message_tokens_count)
 
         - `type: :base64`
 
-          - `:base64`
-
       - `class BetaURLImageSource`
 
         - `type: :url`
-
-          - `:url`
 
         - `url: String`
 
@@ -15086,11 +15030,7 @@ puts(beta_message_tokens_count)
 
         - `type: :file`
 
-          - `:file`
-
     - `type: :image`
-
-      - `:image`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15116,13 +15056,11 @@ puts(beta_message_tokens_count)
 
         - `data: String`
 
+          format: byte
+
         - `media_type: :"application/pdf"`
 
-          - `:"application/pdf"`
-
         - `type: :base64`
-
-          - `:base64`
 
       - `class BetaPlainTextSource`
 
@@ -15130,11 +15068,7 @@ puts(beta_message_tokens_count)
 
         - `media_type: :"text/plain"`
 
-          - `:"text/plain"`
-
         - `type: :text`
-
-          - `:text`
 
       - `class BetaContentBlockSource`
 
@@ -15150,13 +15084,9 @@ puts(beta_message_tokens_count)
 
         - `type: :content`
 
-          - `:content`
-
       - `class BetaURLPDFSource`
 
         - `type: :url`
-
-          - `:url`
 
         - `url: String`
 
@@ -15166,11 +15096,7 @@ puts(beta_message_tokens_count)
 
         - `type: :file`
 
-          - `:file`
-
     - `type: :document`
-
-      - `:document`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15182,13 +15108,19 @@ puts(beta_message_tokens_count)
 
     - `context: String`
 
+      minLength: 1
+
     - `title: String`
+
+      maxLength: 500, minLength: 1
 
   - `class BetaSearchResultBlockParam`
 
     - `content: Array[BetaTextBlockParam]`
 
       - `text: String`
+
+        minLength: 1
 
       - `type: :text`
 
@@ -15203,8 +15135,6 @@ puts(beta_message_tokens_count)
     - `title: String`
 
     - `type: :search_result`
-
-      - `:search_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15226,8 +15156,6 @@ puts(beta_message_tokens_count)
 
     - `type: :thinking`
 
-      - `:thinking`
-
   - `class BetaRedactedThinkingBlockParam`
 
     - `data: String`
@@ -15236,19 +15164,19 @@ puts(beta_message_tokens_count)
 
     - `type: :redacted_thinking`
 
-      - `:redacted_thinking`
-
   - `class BetaToolUseBlockParam`
 
     - `id: String`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: Hash[Symbol, untyped]`
 
     - `name: String`
 
-    - `type: :tool_use`
+      maxLength: 200, minLength: 1
 
-      - `:tool_use`
+    - `type: :tool_use`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15264,37 +15192,37 @@ puts(beta_message_tokens_count)
 
         - `type: :direct`
 
-          - `:direct`
-
       - `class BetaServerToolCaller`
 
         Tool invocation generated by a server-side tool.
 
         - `tool_id: String`
 
-        - `type: :code_execution_20250825`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_20250825`
+        - `type: :code_execution_20250825`
 
       - `class BetaServerToolCaller20260120`
 
         - `tool_id: String`
 
-        - `type: :code_execution_20260120`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_20260120`
+        - `type: :code_execution_20260120`
 
     - `toolset_name: String`
 
       For a toolset member tool_use, the toolset family this member belongs to.
 
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
   - `class BetaToolResultBlockParam`
 
     - `tool_use_id: String`
 
-    - `type: :tool_result`
+      pattern: ^[a-zA-Z0-9_-]+$
 
-      - `:tool_result`
+    - `type: :tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15320,9 +15248,9 @@ puts(beta_message_tokens_count)
 
           - `tool_name: String`
 
-          - `type: :tool_reference`
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-            - `:tool_reference`
+          - `type: :tool_reference`
 
           - `cache_control: BetaCacheControlEphemeral`
 
@@ -15342,25 +15270,31 @@ puts(beta_message_tokens_count)
 
             All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+            maxItems: 100
+
             - `tab_id: String`
 
               The caller-assigned identifier for this tab, unique within the inventory.
+
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `title: String`
 
               The title of the page the tab is showing. May be empty.
 
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `url: String`
 
               The URL of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `active: bool`
 
               Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
           - `type: :browser_state`
-
-            - `:browser_state`
 
           - `cache_control: BetaCacheControlEphemeral`
 
@@ -15369,6 +15303,8 @@ puts(beta_message_tokens_count)
           - `state_changes: Array[BetaBrowserStateChange]`
 
             Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+            maxItems: 200, minItems: 1
 
             - `class BetaBrowserStateChangeTabOpened`
 
@@ -15384,9 +15320,9 @@ puts(beta_message_tokens_count)
 
                 The `tab_id` of the opened tab, present in `tabs`.
 
-              - `type: :tab_opened`
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `:tab_opened`
+              - `type: :tab_opened`
 
             - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -15396,13 +15332,15 @@ puts(beta_message_tokens_count)
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              - `type: :download_started`
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `:download_started`
+              - `type: :download_started`
 
               - `url: String`
 
                 The final post-redirect URL the download was served from.
+
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -15415,21 +15353,27 @@ puts(beta_message_tokens_count)
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              - `type: :download_completed`
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `:download_completed`
+              - `type: :download_completed`
 
               - `url: String`
 
                 The final post-redirect URL the download was served from.
 
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `path: String`
 
                 Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
               - `size_bytes: Integer`
 
                 The completed download's size.
+
+                minimum: 0
 
             - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -15439,17 +15383,21 @@ puts(beta_message_tokens_count)
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-              - `type: :download_failed`
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                - `:download_failed`
+              - `type: :download_failed`
 
               - `url: String`
 
                 The final post-redirect URL the download was served from.
 
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `error: String`
 
                 The failure or cancellation detail, when known.
+
+                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
     - `is_error: bool`
 
@@ -15457,9 +15405,13 @@ puts(beta_message_tokens_count)
 
       For a toolset member tool_result, the toolset family of the paired tool_use.
 
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
   - `class BetaServerToolUseBlockParam`
 
     - `id: String`
+
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
     - `input: Hash[Symbol, untyped]`
 
@@ -15482,8 +15434,6 @@ puts(beta_message_tokens_count)
       - `:tool_search_tool_bm25`
 
     - `type: :server_tool_use`
-
-      - `:server_tool_use`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15515,8 +15465,6 @@ puts(beta_message_tokens_count)
 
         - `type: :web_search_result`
 
-          - `:web_search_result`
-
         - `url: String`
 
         - `page_age: String`
@@ -15539,13 +15487,11 @@ puts(beta_message_tokens_count)
 
         - `type: :web_search_tool_result_error`
 
-          - `:web_search_tool_result_error`
-
     - `tool_use_id: String`
 
-    - `type: :web_search_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:web_search_tool_result`
+    - `type: :web_search_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15593,15 +15539,11 @@ puts(beta_message_tokens_count)
 
         - `type: :web_fetch_tool_result_error`
 
-          - `:web_fetch_tool_result_error`
-
       - `class BetaWebFetchBlockParam`
 
         - `content: BetaRequestDocumentBlock`
 
         - `type: :web_fetch_result`
-
-          - `:web_fetch_result`
 
         - `url: String`
 
@@ -15613,9 +15555,9 @@ puts(beta_message_tokens_count)
 
     - `tool_use_id: String`
 
-    - `type: :web_fetch_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:web_fetch_tool_result`
+    - `type: :web_fetch_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15659,15 +15601,11 @@ puts(beta_message_tokens_count)
 
         - `type: :advisor_tool_result_error`
 
-          - `:advisor_tool_result_error`
-
       - `class BetaAdvisorResultBlockParam`
 
         - `text: String`
 
         - `type: :advisor_result`
-
-          - `:advisor_result`
 
         - `stop_reason: String`
 
@@ -15679,15 +15617,13 @@ puts(beta_message_tokens_count)
 
         - `type: :advisor_redacted_result`
 
-          - `:advisor_redacted_result`
-
         - `stop_reason: String`
 
     - `tool_use_id: String`
 
-    - `type: :advisor_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:advisor_tool_result`
+    - `type: :advisor_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15713,8 +15649,6 @@ puts(beta_message_tokens_count)
 
         - `type: :code_execution_tool_result_error`
 
-          - `:code_execution_tool_result_error`
-
       - `class BetaCodeExecutionResultBlockParam`
 
         - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -15723,8 +15657,6 @@ puts(beta_message_tokens_count)
 
           - `type: :code_execution_output`
 
-            - `:code_execution_output`
-
         - `return_code: Integer`
 
         - `stderr: String`
@@ -15732,8 +15664,6 @@ puts(beta_message_tokens_count)
         - `stdout: String`
 
         - `type: :code_execution_result`
-
-          - `:code_execution_result`
 
       - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -15753,13 +15683,11 @@ puts(beta_message_tokens_count)
 
         - `type: :encrypted_code_execution_result`
 
-          - `:encrypted_code_execution_result`
-
     - `tool_use_id: String`
 
-    - `type: :code_execution_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:code_execution_tool_result`
+    - `type: :code_execution_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15785,8 +15713,6 @@ puts(beta_message_tokens_count)
 
         - `type: :bash_code_execution_tool_result_error`
 
-          - `:bash_code_execution_tool_result_error`
-
       - `class BetaBashCodeExecutionResultBlockParam`
 
         - `content: Array[BetaBashCodeExecutionOutputBlockParam]`
@@ -15794,8 +15720,6 @@ puts(beta_message_tokens_count)
           - `file_id: String`
 
           - `type: :bash_code_execution_output`
-
-            - `:bash_code_execution_output`
 
         - `return_code: Integer`
 
@@ -15805,13 +15729,11 @@ puts(beta_message_tokens_count)
 
         - `type: :bash_code_execution_result`
 
-          - `:bash_code_execution_result`
-
     - `tool_use_id: String`
 
-    - `type: :bash_code_execution_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:bash_code_execution_tool_result`
+    - `type: :bash_code_execution_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15837,8 +15759,6 @@ puts(beta_message_tokens_count)
 
         - `type: :text_editor_code_execution_tool_result_error`
 
-          - `:text_editor_code_execution_tool_result_error`
-
         - `error_message: String`
 
       - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -15855,8 +15775,6 @@ puts(beta_message_tokens_count)
 
         - `type: :text_editor_code_execution_view_result`
 
-          - `:text_editor_code_execution_view_result`
-
         - `num_lines: Integer`
 
         - `start_line: Integer`
@@ -15869,13 +15787,9 @@ puts(beta_message_tokens_count)
 
         - `type: :text_editor_code_execution_create_result`
 
-          - `:text_editor_code_execution_create_result`
-
       - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
         - `type: :text_editor_code_execution_str_replace_result`
-
-          - `:text_editor_code_execution_str_replace_result`
 
         - `lines: Array[String]`
 
@@ -15889,9 +15803,9 @@ puts(beta_message_tokens_count)
 
     - `tool_use_id: String`
 
-    - `type: :text_editor_code_execution_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:text_editor_code_execution_tool_result`
+    - `type: :text_editor_code_execution_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15915,8 +15829,6 @@ puts(beta_message_tokens_count)
 
         - `type: :tool_search_tool_result_error`
 
-          - `:tool_search_tool_result_error`
-
         - `error_message: String`
 
       - `class BetaToolSearchToolSearchResultBlockParam`
@@ -15924,6 +15836,8 @@ puts(beta_message_tokens_count)
         - `tool_references: Array[BetaToolReferenceBlockParam]`
 
           - `tool_name: String`
+
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `type: :tool_reference`
 
@@ -15933,13 +15847,11 @@ puts(beta_message_tokens_count)
 
         - `type: :tool_search_tool_search_result`
 
-          - `:tool_search_tool_search_result`
-
     - `tool_use_id: String`
 
-    - `type: :tool_search_tool_result`
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-      - `:tool_search_tool_result`
+    - `type: :tool_search_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15948,6 +15860,8 @@ puts(beta_message_tokens_count)
   - `class BetaMCPToolUseBlockParam`
 
     - `id: String`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: Hash[Symbol, untyped]`
 
@@ -15959,8 +15873,6 @@ puts(beta_message_tokens_count)
 
     - `type: :mcp_tool_use`
 
-      - `:mcp_tool_use`
-
     - `cache_control: BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -15969,9 +15881,9 @@ puts(beta_message_tokens_count)
 
     - `tool_use_id: String`
 
-    - `type: :mcp_tool_result`
+      pattern: ^[a-zA-Z0-9_-]+$
 
-      - `:mcp_tool_result`
+    - `type: :mcp_tool_result`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -15984,6 +15896,8 @@ puts(beta_message_tokens_count)
       - `BetaMCPToolResultBlockParamContent = Array[BetaTextBlockParam]`
 
         - `text: String`
+
+          minLength: 1
 
         - `type: :text`
 
@@ -16004,8 +15918,6 @@ puts(beta_message_tokens_count)
 
     - `type: :container_upload`
 
-      - `:container_upload`
-
     - `cache_control: BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -16021,8 +15933,6 @@ puts(beta_message_tokens_count)
     treats these as no-ops. Empty string content is not allowed.
 
     - `type: :compaction`
-
-      - `:compaction`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -16060,9 +15970,9 @@ puts(beta_message_tokens_count)
 
         - `name: String`
 
-        - `type: :tool_reference`
+          pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-          - `:tool_reference`
+        - `type: :tool_reference`
 
       - `class BetaToolChangeMCPToolReference`
 
@@ -16075,8 +15985,6 @@ puts(beta_message_tokens_count)
 
         - `type: :mcp_tool_reference`
 
-          - `:mcp_tool_reference`
-
       - `class BetaToolChangeMCPToolsetReference`
 
         Reference to every tool in the named MCP server's toolset.
@@ -16085,11 +15993,7 @@ puts(beta_message_tokens_count)
 
         - `type: :mcp_toolset_reference`
 
-          - `:mcp_toolset_reference`
-
     - `type: :tool_addition`
-
-      - `:tool_addition`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -16127,8 +16031,6 @@ puts(beta_message_tokens_count)
         Reference to every tool in the named MCP server's toolset.
 
     - `type: :tool_removal`
-
-      - `:tool_removal`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -16234,8 +16136,6 @@ puts(beta_message_tokens_count)
 
     - `type: :fallback`
 
-      - `:fallback`
-
     - `trigger: untyped`
 
       The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -16254,17 +16154,15 @@ puts(beta_message_tokens_count)
 
         - `text: String`
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
 
           - `type: :ephemeral`
-
-            - `:ephemeral`
 
           - `ttl: :"5m" | :"1h"`
 
@@ -16289,15 +16187,19 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: Integer`
 
             - `start_char_index: Integer`
 
-            - `type: :char_location`
+              minimum: 0
 
-              - `:char_location`
+            - `type: :char_location`
 
           - `class BetaCitationPageLocationParam`
 
@@ -16305,15 +16207,19 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: Integer`
 
             - `start_page_number: Integer`
 
-            - `type: :page_location`
+              minimum: 1
 
-              - `:page_location`
+            - `type: :page_location`
 
           - `class BetaCitationContentBlockLocationParam`
 
@@ -16325,7 +16231,11 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: Integer`
 
@@ -16337,9 +16247,9 @@ puts(beta_message_tokens_count)
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: :content_block_location`
+              minimum: 0
 
-              - `:content_block_location`
+            - `type: :content_block_location`
 
           - `class BetaCitationWebSearchResultLocationParam`
 
@@ -16349,11 +16259,13 @@ puts(beta_message_tokens_count)
 
             - `title: String`
 
+              maxLength: 512, minLength: 1
+
             - `type: :web_search_result_location`
 
-              - `:web_search_result_location`
-
             - `url: String`
+
+              minLength: 1
 
           - `class BetaCitationSearchResultLocationParam`
 
@@ -16375,17 +16287,19 @@ puts(beta_message_tokens_count)
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: String`
 
             - `start_block_index: Integer`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: String`
 
             - `type: :search_result_location`
-
-              - `:search_result_location`
 
       - `class BetaImageBlockParam`
 
@@ -16394,6 +16308,8 @@ puts(beta_message_tokens_count)
           - `class BetaBase64ImageSource`
 
             - `data: String`
+
+              format: byte
 
             - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -16407,13 +16323,9 @@ puts(beta_message_tokens_count)
 
             - `type: :base64`
 
-              - `:base64`
-
           - `class BetaURLImageSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -16423,11 +16335,7 @@ puts(beta_message_tokens_count)
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -16447,8 +16355,6 @@ puts(beta_message_tokens_count)
 
   - `type: :content`
 
-    - `:content`
-
 ### Beta Content Block Source Content
 
 - `BetaContentBlockSourceContent = BetaTextBlockParam | BetaImageBlockParam`
@@ -16457,17 +16363,15 @@ puts(beta_message_tokens_count)
 
     - `text: String`
 
-    - `type: :text`
+      minLength: 1
 
-      - `:text`
+    - `type: :text`
 
     - `cache_control: BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
 
       - `type: :ephemeral`
-
-        - `:ephemeral`
 
       - `ttl: :"5m" | :"1h"`
 
@@ -16492,15 +16396,19 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: Integer`
 
         - `start_char_index: Integer`
 
-        - `type: :char_location`
+          minimum: 0
 
-          - `:char_location`
+        - `type: :char_location`
 
       - `class BetaCitationPageLocationParam`
 
@@ -16508,15 +16416,19 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: Integer`
 
         - `start_page_number: Integer`
 
-        - `type: :page_location`
+          minimum: 1
 
-          - `:page_location`
+        - `type: :page_location`
 
       - `class BetaCitationContentBlockLocationParam`
 
@@ -16528,7 +16440,11 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: Integer`
 
@@ -16540,9 +16456,9 @@ puts(beta_message_tokens_count)
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: :content_block_location`
+          minimum: 0
 
-          - `:content_block_location`
+        - `type: :content_block_location`
 
       - `class BetaCitationWebSearchResultLocationParam`
 
@@ -16552,11 +16468,13 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
+          maxLength: 512, minLength: 1
+
         - `type: :web_search_result_location`
 
-          - `:web_search_result_location`
-
         - `url: String`
+
+          minLength: 1
 
       - `class BetaCitationSearchResultLocationParam`
 
@@ -16578,17 +16496,19 @@ puts(beta_message_tokens_count)
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: String`
 
         - `start_block_index: Integer`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: String`
 
         - `type: :search_result_location`
-
-          - `:search_result_location`
 
   - `class BetaImageBlockParam`
 
@@ -16597,6 +16517,8 @@ puts(beta_message_tokens_count)
       - `class BetaBase64ImageSource`
 
         - `data: String`
+
+          format: byte
 
         - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -16610,13 +16532,9 @@ puts(beta_message_tokens_count)
 
         - `type: :base64`
 
-          - `:base64`
-
       - `class BetaURLImageSource`
 
         - `type: :url`
-
-          - `:url`
 
         - `url: String`
 
@@ -16626,11 +16544,7 @@ puts(beta_message_tokens_count)
 
         - `type: :file`
 
-          - `:file`
-
     - `type: :image`
-
-      - `:image`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -16656,11 +16570,11 @@ puts(beta_message_tokens_count)
 
     List of context management edits to apply
 
+    minItems: 0
+
     - `class BetaClearToolUses20250919Edit`
 
       - `type: :clear_tool_uses_20250919`
-
-        - `:clear_tool_uses_20250919`
 
       - `clear_at_least: BetaInputTokensClearAtLeast`
 
@@ -16668,9 +16582,9 @@ puts(beta_message_tokens_count)
 
         - `type: :input_tokens`
 
-          - `:input_tokens`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `clear_tool_inputs: bool | Array[String]`
 
@@ -16690,9 +16604,9 @@ puts(beta_message_tokens_count)
 
         - `type: :tool_uses`
 
-          - `:tool_uses`
-
         - `value: Integer`
+
+          minimum: 0
 
       - `trigger: BetaInputTokensTrigger | BetaToolUsesTrigger`
 
@@ -16702,23 +16616,21 @@ puts(beta_message_tokens_count)
 
           - `type: :input_tokens`
 
-            - `:input_tokens`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaToolUsesTrigger`
 
           - `type: :tool_uses`
 
-            - `:tool_uses`
-
           - `value: Integer`
+
+            minimum: 1
 
     - `class BetaClearThinking20251015Edit`
 
       - `type: :clear_thinking_20251015`
-
-        - `:clear_thinking_20251015`
 
       - `keep: BetaThinkingTurns | BetaAllThinkingTurns | :all`
 
@@ -16728,27 +16640,21 @@ puts(beta_message_tokens_count)
 
           - `type: :thinking_turns`
 
-            - `:thinking_turns`
-
           - `value: Integer`
+
+            minimum: 1
 
         - `class BetaAllThinkingTurns`
 
           - `type: :all`
 
-            - `:all`
-
         - `Keep = :all`
-
-          - `:all`
 
     - `class BetaCompact20260112Edit`
 
       Automatically compact older context when reaching the configured trigger threshold.
 
       - `type: :compact_20260112`
-
-        - `:compact_20260112`
 
       - `instructions: String`
 
@@ -16776,15 +16682,17 @@ puts(beta_message_tokens_count)
 
         Number of input tokens cleared by this edit.
 
+        minimum: 0
+
       - `cleared_tool_uses: Integer`
 
         Number of tool uses that were cleared.
 
+        minimum: 0
+
       - `type: :clear_tool_uses_20250919`
 
         The type of context management edit applied.
-
-        - `:clear_tool_uses_20250919`
 
     - `class BetaClearThinking20251015EditResponse`
 
@@ -16792,15 +16700,17 @@ puts(beta_message_tokens_count)
 
         Number of input tokens cleared by this edit.
 
+        minimum: 0
+
       - `cleared_thinking_turns: Integer`
 
         Number of thinking turns that were cleared.
 
+        minimum: 0
+
       - `type: :clear_thinking_20251015`
 
         The type of context management edit applied.
-
-        - `:clear_thinking_20251015`
 
 ### Beta Count Tokens Context Management Response
 
@@ -16829,8 +16739,6 @@ puts(beta_message_tokens_count)
 
       - `type: :model_changed`
 
-        - `:model_changed`
-
     - `class BetaCacheMissSystemChanged`
 
       - `cache_missed_input_tokens: Integer`
@@ -16838,8 +16746,6 @@ puts(beta_message_tokens_count)
         Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
       - `type: :system_changed`
-
-        - `:system_changed`
 
     - `class BetaCacheMissToolsChanged`
 
@@ -16849,8 +16755,6 @@ puts(beta_message_tokens_count)
 
       - `type: :tools_changed`
 
-        - `:tools_changed`
-
     - `class BetaCacheMissMessagesChanged`
 
       - `cache_missed_input_tokens: Integer`
@@ -16859,19 +16763,13 @@ puts(beta_message_tokens_count)
 
       - `type: :messages_changed`
 
-        - `:messages_changed`
-
     - `class BetaCacheMissPreviousMessageNotFound`
 
       - `type: :previous_message_not_found`
 
-        - `:previous_message_not_found`
-
     - `class BetaCacheMissUnavailable`
 
       - `type: :unavailable`
-
-        - `:unavailable`
 
 ### Beta Diagnostics Param
 
@@ -16884,6 +16782,8 @@ puts(beta_message_tokens_count)
 
     The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
 
+    maxLength: 256
+
 ### Beta Direct Caller
 
 - `class BetaDirectCaller`
@@ -16891,8 +16791,6 @@ puts(beta_message_tokens_count)
   Tool invocation directly from the model.
 
   - `type: :direct`
-
-    - `:direct`
 
 ### Beta Document Block
 
@@ -16910,13 +16808,11 @@ puts(beta_message_tokens_count)
 
       - `data: String`
 
+        format: byte
+
       - `media_type: :"application/pdf"`
 
-        - `:"application/pdf"`
-
       - `type: :base64`
-
-        - `:base64`
 
     - `class BetaPlainTextSource`
 
@@ -16924,19 +16820,13 @@ puts(beta_message_tokens_count)
 
       - `media_type: :"text/plain"`
 
-        - `:"text/plain"`
-
       - `type: :text`
-
-        - `:text`
 
   - `title: String`
 
     The title of the document
 
   - `type: :document`
-
-    - `:document`
 
 ### Beta Encrypted Code Execution Result Block
 
@@ -16950,8 +16840,6 @@ puts(beta_message_tokens_count)
 
     - `type: :code_execution_output`
 
-      - `:code_execution_output`
-
   - `encrypted_stdout: String`
 
   - `return_code: Integer`
@@ -16959,8 +16847,6 @@ puts(beta_message_tokens_count)
   - `stderr: String`
 
   - `type: :encrypted_code_execution_result`
-
-    - `:encrypted_code_execution_result`
 
 ### Beta Encrypted Code Execution Result Block Param
 
@@ -16974,8 +16860,6 @@ puts(beta_message_tokens_count)
 
     - `type: :code_execution_output`
 
-      - `:code_execution_output`
-
   - `encrypted_stdout: String`
 
   - `return_code: Integer`
@@ -16983,8 +16867,6 @@ puts(beta_message_tokens_count)
   - `stderr: String`
 
   - `type: :encrypted_code_execution_result`
-
-    - `:encrypted_code_execution_result`
 
 ### Beta Fallback Block
 
@@ -17114,11 +16996,7 @@ puts(beta_message_tokens_count)
 
     - `type: :refusal`
 
-      - `:refusal`
-
   - `type: :fallback`
-
-    - `:fallback`
 
 ### Beta Fallback Block Param
 
@@ -17222,8 +17100,6 @@ puts(beta_message_tokens_count)
 
   - `type: :fallback`
 
-    - `:fallback`
-
   - `trigger: untyped`
 
     The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -17267,8 +17143,6 @@ puts(beta_message_tokens_count)
 
   - `type: :not_applied`
 
-    - `:not_applied`
-
   - `remove_to_redeem: Array[String]`
 
     Request fields to remove before retrying, so the retry can redeem this
@@ -17289,8 +17163,6 @@ puts(beta_message_tokens_count)
 
   - `type: :redeemed`
 
-    - `:redeemed`
-
 ### Beta Fallback Credit Token Param
 
 - `class BetaFallbackCreditTokenParam`
@@ -17306,6 +17178,8 @@ puts(beta_message_tokens_count)
   - `token: String`
 
     The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
+
+    maxLength: 2048, minLength: 1
 
   - `mode: :strict | :best_effort`
 
@@ -17336,8 +17210,6 @@ puts(beta_message_tokens_count)
       had been on the retry model all along.
 
       - `type: :redeemed`
-
-        - `:redeemed`
 
     - `class BetaFallbackCreditNotApplied`
 
@@ -17375,8 +17247,6 @@ puts(beta_message_tokens_count)
         - `:wrong_workspace`
 
       - `type: :not_applied`
-
-        - `:not_applied`
 
       - `remove_to_redeem: Array[String]`
 
@@ -17568,21 +17438,31 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: Integer`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: Integer`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: Integer`
 
     The number of input tokens read from the cache.
 
+    minimum: 0
+
   - `input_tokens: Integer`
 
     The number of input tokens which were used.
+
+    minimum: 0
 
   - `model: Model`
 
@@ -17662,11 +17542,11 @@ puts(beta_message_tokens_count)
 
     The number of output tokens which were used.
 
+    minimum: 0
+
   - `type: :fallback_message`
 
     Usage for the fallback-model attempt that served the response
-
-    - `:fallback_message`
 
 ### Beta Fallback Param
 
@@ -17781,8 +17661,6 @@ puts(beta_message_tokens_count)
 
       - `type: :json_schema`
 
-        - `:json_schema`
-
     - `task_budget: BetaTokenTaskBudget`
 
       User-configurable total token budget across contexts.
@@ -17791,15 +17669,17 @@ puts(beta_message_tokens_count)
 
         Total token budget across all contexts in the session.
 
+        minimum: 1024
+
       - `type: :tokens`
 
         The budget type. Currently only 'tokens' is supported.
 
-        - `:tokens`
-
       - `remaining: Integer`
 
         Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
+
+        minimum: 0
 
   - `speed: :standard | :fast`
 
@@ -17821,9 +17701,9 @@ puts(beta_message_tokens_count)
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-      - `type: :enabled`
+        minimum: 1024
 
-        - `:enabled`
+      - `type: :enabled`
 
       - `display_: :summarized | :omitted`
 
@@ -17837,13 +17717,9 @@ puts(beta_message_tokens_count)
 
       - `type: :disabled`
 
-        - `:disabled`
-
     - `class BetaThinkingConfigAdaptive`
 
       - `type: :adaptive`
-
-        - `:adaptive`
 
       - `display_: :summarized | :omitted`
 
@@ -17884,8 +17760,6 @@ puts(beta_message_tokens_count)
       The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
   - `type: :refusal`
-
-    - `:refusal`
 
 ### Beta Fallbacks Param
 
@@ -17997,8 +17871,6 @@ puts(beta_message_tokens_count)
 
         - `type: :json_schema`
 
-          - `:json_schema`
-
       - `task_budget: BetaTokenTaskBudget`
 
         User-configurable total token budget across contexts.
@@ -18007,15 +17879,17 @@ puts(beta_message_tokens_count)
 
           Total token budget across all contexts in the session.
 
+          minimum: 1024
+
         - `type: :tokens`
 
           The budget type. Currently only 'tokens' is supported.
 
-          - `:tokens`
-
         - `remaining: Integer`
 
           Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
+
+          minimum: 0
 
     - `speed: :standard | :fast`
 
@@ -18037,9 +17911,9 @@ puts(beta_message_tokens_count)
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-        - `type: :enabled`
+          minimum: 1024
 
-          - `:enabled`
+        - `type: :enabled`
 
         - `display_: :summarized | :omitted`
 
@@ -18053,13 +17927,9 @@ puts(beta_message_tokens_count)
 
         - `type: :disabled`
 
-          - `:disabled`
-
       - `class BetaThinkingConfigAdaptive`
 
         - `type: :adaptive`
-
-          - `:adaptive`
 
         - `display_: :summarized | :omitted`
 
@@ -18071,8 +17941,6 @@ puts(beta_message_tokens_count)
 
   - `BetaFallbacksParam = :default`
 
-    - `:default`
-
 ### Beta File Document Source
 
 - `class BetaFileDocumentSource`
@@ -18081,8 +17949,6 @@ puts(beta_message_tokens_count)
 
   - `type: :file`
 
-    - `:file`
-
 ### Beta File Image Source
 
 - `class BetaFileImageSource`
@@ -18090,8 +17956,6 @@ puts(beta_message_tokens_count)
   - `file_id: String`
 
   - `type: :file`
-
-    - `:file`
 
 ### Beta Image Block Param
 
@@ -18102,6 +17966,8 @@ puts(beta_message_tokens_count)
     - `class BetaBase64ImageSource`
 
       - `data: String`
+
+        format: byte
 
       - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -18115,13 +17981,9 @@ puts(beta_message_tokens_count)
 
       - `type: :base64`
 
-        - `:base64`
-
     - `class BetaURLImageSource`
 
       - `type: :url`
-
-        - `:url`
 
       - `url: String`
 
@@ -18131,19 +17993,13 @@ puts(beta_message_tokens_count)
 
       - `type: :file`
 
-        - `:file`
-
   - `type: :image`
-
-    - `:image`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -18194,17 +18050,15 @@ puts(beta_message_tokens_count)
 
   - `type: :input_json_delta`
 
-    - `:input_json_delta`
-
 ### Beta Input Tokens Clear At Least
 
 - `class BetaInputTokensClearAtLeast`
 
   - `type: :input_tokens`
 
-    - `:input_tokens`
-
   - `value: Integer`
+
+    minimum: 0
 
 ### Beta Input Tokens Trigger
 
@@ -18212,9 +18066,9 @@ puts(beta_message_tokens_count)
 
   - `type: :input_tokens`
 
-    - `:input_tokens`
-
   - `value: Integer`
+
+    minimum: 1
 
 ### Beta Iterations Usage
 
@@ -18240,21 +18094,31 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: Integer`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: Integer`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: Integer`
 
       The number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: Integer`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `model: Model`
 
@@ -18334,11 +18198,11 @@ puts(beta_message_tokens_count)
 
       The number of output tokens which were used.
 
+      minimum: 0
+
     - `type: :message`
 
       Usage for a sampling iteration
-
-      - `:message`
 
   - `class BetaCompactionIterationUsage`
 
@@ -18352,23 +18216,29 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: Integer`
 
       The number of input tokens read from the cache.
+
+      minimum: 0
 
     - `input_tokens: Integer`
 
       The number of input tokens which were used.
 
+      minimum: 0
+
     - `output_tokens: Integer`
 
       The number of output tokens which were used.
 
+      minimum: 0
+
     - `type: :compaction`
 
       Usage for a compaction iteration
-
-      - `:compaction`
 
   - `class BetaAdvisorMessageIterationUsage`
 
@@ -18382,13 +18252,19 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: Integer`
 
       The number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: Integer`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `model: Model`
 
@@ -18400,11 +18276,11 @@ puts(beta_message_tokens_count)
 
       The number of output tokens which were used.
 
+      minimum: 0
+
     - `type: :advisor_message`
 
       Usage for an advisor sub-inference iteration
-
-      - `:advisor_message`
 
   - `class BetaFallbackMessageIterationUsage`
 
@@ -18423,13 +18299,19 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: Integer`
 
       The number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: Integer`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `model: Model`
 
@@ -18441,11 +18323,11 @@ puts(beta_message_tokens_count)
 
       The number of output tokens which were used.
 
+      minimum: 0
+
     - `type: :fallback_message`
 
       Usage for the fallback-model attempt that served the response
-
-      - `:fallback_message`
 
 ### Beta JSON Output Format
 
@@ -18456,8 +18338,6 @@ puts(beta_message_tokens_count)
     The JSON schema of the format
 
   - `type: :json_schema`
-
-    - `:json_schema`
 
 ### Beta MCP Tool Config
 
@@ -18501,6 +18381,8 @@ puts(beta_message_tokens_count)
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
 
           - `end_char_index: Integer`
@@ -18509,15 +18391,17 @@ puts(beta_message_tokens_count)
 
           - `start_char_index: Integer`
 
-          - `type: :char_location`
+            minimum: 0
 
-            - `:char_location`
+          - `type: :char_location`
 
         - `class BetaCitationPageLocation`
 
           - `cited_text: String`
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -18527,9 +18411,9 @@ puts(beta_message_tokens_count)
 
           - `start_page_number: Integer`
 
-          - `type: :page_location`
+            minimum: 1
 
-            - `:page_location`
+          - `type: :page_location`
 
         - `class BetaCitationContentBlockLocation`
 
@@ -18540,6 +18424,8 @@ puts(beta_message_tokens_count)
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -18555,9 +18441,9 @@ puts(beta_message_tokens_count)
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `type: :content_block_location`
+            minimum: 0
 
-            - `:content_block_location`
+          - `type: :content_block_location`
 
         - `class BetaCitationsWebSearchResultLocation`
 
@@ -18567,9 +18453,9 @@ puts(beta_message_tokens_count)
 
           - `title: String`
 
-          - `type: :web_search_result_location`
+            maxLength: 512
 
-            - `:web_search_result_location`
+          - `type: :web_search_result_location`
 
           - `url: String`
 
@@ -18593,37 +18479,41 @@ puts(beta_message_tokens_count)
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: String`
 
           - `start_block_index: Integer`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: String`
 
           - `type: :search_result_location`
 
-            - `:search_result_location`
-
       - `text: String`
 
-      - `type: :text`
+        maxLength: 5000000, minLength: 0
 
-        - `:text`
+      - `type: :text`
 
   - `is_error: bool`
 
   - `tool_use_id: String`
 
-  - `type: :mcp_tool_result`
+    pattern: ^[a-zA-Z0-9_-]+$
 
-    - `:mcp_tool_result`
+  - `type: :mcp_tool_result`
 
 ### Beta MCP Tool Use Block
 
 - `class BetaMCPToolUseBlock`
 
   - `id: String`
+
+    pattern: ^[a-zA-Z0-9_-]+$
 
   - `input: Hash[Symbol, untyped]`
 
@@ -18637,13 +18527,13 @@ puts(beta_message_tokens_count)
 
   - `type: :mcp_tool_use`
 
-    - `:mcp_tool_use`
-
 ### Beta MCP Tool Use Block Param
 
 - `class BetaMCPToolUseBlockParam`
 
   - `id: String`
+
+    pattern: ^[a-zA-Z0-9_-]+$
 
   - `input: Hash[Symbol, untyped]`
 
@@ -18655,15 +18545,11 @@ puts(beta_message_tokens_count)
 
   - `type: :mcp_tool_use`
 
-    - `:mcp_tool_use`
-
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -18693,17 +18579,15 @@ puts(beta_message_tokens_count)
 
     Name of the MCP server to configure tools for
 
-  - `type: :mcp_toolset`
+    maxLength: 255, minLength: 1
 
-    - `:mcp_toolset`
+  - `type: :mcp_toolset`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -18746,11 +18630,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:memory`
-
   - `type: :memory_20250818`
-
-    - `:memory_20250818`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -18767,8 +18647,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -18805,8 +18683,6 @@ puts(beta_message_tokens_count)
 
       Command type identifier
 
-      - `:view`
-
     - `path: String`
 
       Path to directory or file to view
@@ -18815,13 +18691,13 @@ puts(beta_message_tokens_count)
 
       Optional line range for viewing specific lines
 
+      minItems: 2, maxItems: 2
+
   - `class BetaMemoryTool20250818CreateCommand`
 
     - `command: :create`
 
       Command type identifier
-
-      - `:create`
 
     - `file_text: String`
 
@@ -18836,8 +18712,6 @@ puts(beta_message_tokens_count)
     - `command: :str_replace`
 
       Command type identifier
-
-      - `:str_replace`
 
     - `new_str: String`
 
@@ -18857,11 +18731,11 @@ puts(beta_message_tokens_count)
 
       Command type identifier
 
-      - `:insert`
-
     - `insert_line: Integer`
 
       Line number where text should be inserted
+
+      minimum: 1
 
     - `insert_text: String`
 
@@ -18877,8 +18751,6 @@ puts(beta_message_tokens_count)
 
       Command type identifier
 
-      - `:delete`
-
     - `path: String`
 
       Path to the file or directory to delete
@@ -18888,8 +18760,6 @@ puts(beta_message_tokens_count)
     - `command: :rename`
 
       Command type identifier
-
-      - `:rename`
 
     - `new_path: String`
 
@@ -18907,8 +18777,6 @@ puts(beta_message_tokens_count)
 
     Command type identifier
 
-    - `:create`
-
   - `file_text: String`
 
     Content to write to the file
@@ -18925,8 +18793,6 @@ puts(beta_message_tokens_count)
 
     Command type identifier
 
-    - `:delete`
-
   - `path: String`
 
     Path to the file or directory to delete
@@ -18939,11 +18805,11 @@ puts(beta_message_tokens_count)
 
     Command type identifier
 
-    - `:insert`
-
   - `insert_line: Integer`
 
     Line number where text should be inserted
+
+    minimum: 1
 
   - `insert_text: String`
 
@@ -18961,8 +18827,6 @@ puts(beta_message_tokens_count)
 
     Command type identifier
 
-    - `:rename`
-
   - `new_path: String`
 
     New path for the file or directory
@@ -18978,8 +18842,6 @@ puts(beta_message_tokens_count)
   - `command: :str_replace`
 
     Command type identifier
-
-    - `:str_replace`
 
   - `new_str: String`
 
@@ -19001,8 +18863,6 @@ puts(beta_message_tokens_count)
 
     Command type identifier
 
-    - `:view`
-
   - `path: String`
 
     Path to directory or file to view
@@ -19010,6 +18870,8 @@ puts(beta_message_tokens_count)
   - `view_range: Array[Integer]`
 
     Optional line range for viewing specific lines
+
+    minItems: 2, maxItems: 2
 
 ### Beta Message
 
@@ -19033,6 +18895,8 @@ puts(beta_message_tokens_count)
 
       The time at which the container will expire.
 
+      format: date-time
+
     - `skills: Array[BetaSkill]`
 
       Skills loaded in the container
@@ -19040,6 +18904,8 @@ puts(beta_message_tokens_count)
       - `skill_id: String`
 
         Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `type: :anthropic | :custom`
 
@@ -19052,6 +18918,8 @@ puts(beta_message_tokens_count)
       - `version: String`
 
         The resolved version: a skill version ID for custom skills.
+
+        maxLength: 64, minLength: 1
 
   - `content: Array[BetaContentBlock]`
 
@@ -19096,6 +18964,8 @@ puts(beta_message_tokens_count)
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
 
           - `end_char_index: Integer`
@@ -19104,15 +18974,17 @@ puts(beta_message_tokens_count)
 
           - `start_char_index: Integer`
 
-          - `type: :char_location`
+            minimum: 0
 
-            - `:char_location`
+          - `type: :char_location`
 
         - `class BetaCitationPageLocation`
 
           - `cited_text: String`
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -19122,9 +18994,9 @@ puts(beta_message_tokens_count)
 
           - `start_page_number: Integer`
 
-          - `type: :page_location`
+            minimum: 1
 
-            - `:page_location`
+          - `type: :page_location`
 
         - `class BetaCitationContentBlockLocation`
 
@@ -19135,6 +19007,8 @@ puts(beta_message_tokens_count)
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -19150,9 +19024,9 @@ puts(beta_message_tokens_count)
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `type: :content_block_location`
+            minimum: 0
 
-            - `:content_block_location`
+          - `type: :content_block_location`
 
         - `class BetaCitationsWebSearchResultLocation`
 
@@ -19162,9 +19036,9 @@ puts(beta_message_tokens_count)
 
           - `title: String`
 
-          - `type: :web_search_result_location`
+            maxLength: 512
 
-            - `:web_search_result_location`
+          - `type: :web_search_result_location`
 
           - `url: String`
 
@@ -19188,23 +19062,25 @@ puts(beta_message_tokens_count)
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: String`
 
           - `start_block_index: Integer`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: String`
 
           - `type: :search_result_location`
 
-            - `:search_result_location`
-
       - `text: String`
 
-      - `type: :text`
+        maxLength: 5000000, minLength: 0
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaThinkingBlock`
 
@@ -19222,8 +19098,6 @@ puts(beta_message_tokens_count)
 
       - `type: :thinking`
 
-        - `:thinking`
-
     - `class BetaRedactedThinkingBlock`
 
       - `data: String`
@@ -19236,19 +19110,19 @@ puts(beta_message_tokens_count)
 
       - `type: :redacted_thinking`
 
-        - `:redacted_thinking`
-
     - `class BetaToolUseBlock`
 
       - `id: String`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: Hash[Symbol, untyped]`
 
       - `name: String`
 
-      - `type: :tool_use`
+        minLength: 1
 
-        - `:tool_use`
+      - `type: :tool_use`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -19260,33 +19134,35 @@ puts(beta_message_tokens_count)
 
           - `type: :direct`
 
-            - `:direct`
-
         - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: String`
 
-          - `type: :code_execution_20250825`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:code_execution_20250825`
+          - `type: :code_execution_20250825`
 
         - `class BetaServerToolCaller20260120`
 
           - `tool_id: String`
 
-          - `type: :code_execution_20260120`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:code_execution_20260120`
+          - `type: :code_execution_20260120`
 
       - `toolset_name: String`
 
         For a toolset member tool_use, the toolset family.
 
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
     - `class BetaServerToolUseBlock`
 
       - `id: String`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `input: Hash[Symbol, untyped]`
 
@@ -19309,8 +19185,6 @@ puts(beta_message_tokens_count)
         - `:tool_search_tool_bm25`
 
       - `type: :server_tool_use`
-
-        - `:server_tool_use`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -19348,8 +19222,6 @@ puts(beta_message_tokens_count)
 
           - `type: :web_search_tool_result_error`
 
-            - `:web_search_tool_result_error`
-
         - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
           - `encrypted_content: String`
@@ -19360,15 +19232,13 @@ puts(beta_message_tokens_count)
 
           - `type: :web_search_result`
 
-            - `:web_search_result`
-
           - `url: String`
 
       - `tool_use_id: String`
 
-      - `type: :web_search_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:web_search_tool_result`
+      - `type: :web_search_tool_result`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -19412,8 +19282,6 @@ puts(beta_message_tokens_count)
 
           - `type: :web_fetch_tool_result_error`
 
-            - `:web_fetch_tool_result_error`
-
         - `class BetaWebFetchBlock`
 
           - `content: BetaDocumentBlock`
@@ -19430,13 +19298,11 @@ puts(beta_message_tokens_count)
 
                 - `data: String`
 
+                  format: byte
+
                 - `media_type: :"application/pdf"`
 
-                  - `:"application/pdf"`
-
                 - `type: :base64`
-
-                  - `:base64`
 
               - `class BetaPlainTextSource`
 
@@ -19444,11 +19310,7 @@ puts(beta_message_tokens_count)
 
                 - `media_type: :"text/plain"`
 
-                  - `:"text/plain"`
-
                 - `type: :text`
-
-                  - `:text`
 
             - `title: String`
 
@@ -19456,15 +19318,11 @@ puts(beta_message_tokens_count)
 
             - `type: :document`
 
-              - `:document`
-
           - `retrieved_at: String`
 
             ISO 8601 timestamp when the content was retrieved
 
           - `type: :web_fetch_result`
-
-            - `:web_fetch_result`
 
           - `url: String`
 
@@ -19472,9 +19330,9 @@ puts(beta_message_tokens_count)
 
       - `tool_use_id: String`
 
-      - `type: :web_fetch_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:web_fetch_tool_result`
+      - `type: :web_fetch_tool_result`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -19514,8 +19372,6 @@ puts(beta_message_tokens_count)
 
           - `type: :advisor_tool_result_error`
 
-            - `:advisor_tool_result_error`
-
         - `class BetaAdvisorResultBlock`
 
           - `stop_reason: String`
@@ -19525,8 +19381,6 @@ puts(beta_message_tokens_count)
           - `text: String`
 
           - `type: :advisor_result`
-
-            - `:advisor_result`
 
         - `class BetaAdvisorRedactedResultBlock`
 
@@ -19540,13 +19394,11 @@ puts(beta_message_tokens_count)
 
           - `type: :advisor_redacted_result`
 
-            - `:advisor_redacted_result`
-
       - `tool_use_id: String`
 
-      - `type: :advisor_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:advisor_tool_result`
+      - `type: :advisor_tool_result`
 
     - `class BetaCodeExecutionToolResultBlock`
 
@@ -19568,8 +19420,6 @@ puts(beta_message_tokens_count)
 
           - `type: :code_execution_tool_result_error`
 
-            - `:code_execution_tool_result_error`
-
         - `class BetaCodeExecutionResultBlock`
 
           - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -19578,8 +19428,6 @@ puts(beta_message_tokens_count)
 
             - `type: :code_execution_output`
 
-              - `:code_execution_output`
-
           - `return_code: Integer`
 
           - `stderr: String`
@@ -19587,8 +19435,6 @@ puts(beta_message_tokens_count)
           - `stdout: String`
 
           - `type: :code_execution_result`
-
-            - `:code_execution_result`
 
         - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -19608,13 +19454,11 @@ puts(beta_message_tokens_count)
 
           - `type: :encrypted_code_execution_result`
 
-            - `:encrypted_code_execution_result`
-
       - `tool_use_id: String`
 
-      - `type: :code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_tool_result`
+      - `type: :code_execution_tool_result`
 
     - `class BetaBashCodeExecutionToolResultBlock`
 
@@ -19636,8 +19480,6 @@ puts(beta_message_tokens_count)
 
           - `type: :bash_code_execution_tool_result_error`
 
-            - `:bash_code_execution_tool_result_error`
-
         - `class BetaBashCodeExecutionResultBlock`
 
           - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -19645,8 +19487,6 @@ puts(beta_message_tokens_count)
             - `file_id: String`
 
             - `type: :bash_code_execution_output`
-
-              - `:bash_code_execution_output`
 
           - `return_code: Integer`
 
@@ -19656,13 +19496,11 @@ puts(beta_message_tokens_count)
 
           - `type: :bash_code_execution_result`
 
-            - `:bash_code_execution_result`
-
       - `tool_use_id: String`
 
-      - `type: :bash_code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:bash_code_execution_tool_result`
+      - `type: :bash_code_execution_tool_result`
 
     - `class BetaTextEditorCodeExecutionToolResultBlock`
 
@@ -19686,8 +19524,6 @@ puts(beta_message_tokens_count)
 
           - `type: :text_editor_code_execution_tool_result_error`
 
-            - `:text_editor_code_execution_tool_result_error`
-
         - `class BetaTextEditorCodeExecutionViewResultBlock`
 
           - `content: String`
@@ -19708,15 +19544,11 @@ puts(beta_message_tokens_count)
 
           - `type: :text_editor_code_execution_view_result`
 
-            - `:text_editor_code_execution_view_result`
-
         - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
           - `is_file_update: bool`
 
           - `type: :text_editor_code_execution_create_result`
-
-            - `:text_editor_code_execution_create_result`
 
         - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -19732,13 +19564,11 @@ puts(beta_message_tokens_count)
 
           - `type: :text_editor_code_execution_str_replace_result`
 
-            - `:text_editor_code_execution_str_replace_result`
-
       - `tool_use_id: String`
 
-      - `type: :text_editor_code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:text_editor_code_execution_tool_result`
+      - `type: :text_editor_code_execution_tool_result`
 
     - `class BetaToolSearchToolResultBlock`
 
@@ -19760,31 +19590,29 @@ puts(beta_message_tokens_count)
 
           - `type: :tool_search_tool_result_error`
 
-            - `:tool_search_tool_result_error`
-
         - `class BetaToolSearchToolSearchResultBlock`
 
           - `tool_references: Array[BetaToolReferenceBlock]`
 
             - `tool_name: String`
 
-            - `type: :tool_reference`
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `:tool_reference`
+            - `type: :tool_reference`
 
           - `type: :tool_search_tool_search_result`
 
-            - `:tool_search_tool_search_result`
-
       - `tool_use_id: String`
 
-      - `type: :tool_search_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:tool_search_tool_result`
+      - `type: :tool_search_tool_result`
 
     - `class BetaMCPToolUseBlock`
 
       - `id: String`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: Hash[Symbol, untyped]`
 
@@ -19797,8 +19625,6 @@ puts(beta_message_tokens_count)
         The name of the MCP server
 
       - `type: :mcp_tool_use`
-
-        - `:mcp_tool_use`
 
     - `class BetaMCPToolResultBlock`
 
@@ -19816,15 +19642,17 @@ puts(beta_message_tokens_count)
 
           - `text: String`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: :text`
 
       - `is_error: bool`
 
       - `tool_use_id: String`
 
-      - `type: :mcp_tool_result`
+        pattern: ^[a-zA-Z0-9_-]+$
 
-        - `:mcp_tool_result`
+      - `type: :mcp_tool_result`
 
     - `class BetaContainerUploadBlock`
 
@@ -19833,8 +19661,6 @@ puts(beta_message_tokens_count)
       - `file_id: String`
 
       - `type: :container_upload`
-
-        - `:container_upload`
 
     - `class BetaCompactionBlock`
 
@@ -19853,8 +19679,6 @@ puts(beta_message_tokens_count)
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
       - `type: :compaction`
-
-        - `:compaction`
 
     - `class BetaFallbackBlock`
 
@@ -19982,11 +19806,7 @@ puts(beta_message_tokens_count)
 
         - `type: :refusal`
 
-          - `:refusal`
-
       - `type: :fallback`
-
-        - `:fallback`
 
   - `context_management: BetaContextManagementResponse`
 
@@ -20004,15 +19824,17 @@ puts(beta_message_tokens_count)
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_tool_uses: Integer`
 
           Number of tool uses that were cleared.
 
+          minimum: 0
+
         - `type: :clear_tool_uses_20250919`
 
           The type of context management edit applied.
-
-          - `:clear_tool_uses_20250919`
 
       - `class BetaClearThinking20251015EditResponse`
 
@@ -20020,15 +19842,17 @@ puts(beta_message_tokens_count)
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_thinking_turns: Integer`
 
           Number of thinking turns that were cleared.
 
+          minimum: 0
+
         - `type: :clear_thinking_20251015`
 
           The type of context management edit applied.
-
-          - `:clear_thinking_20251015`
 
   - `diagnostics: BetaDiagnostics`
 
@@ -20047,8 +19871,6 @@ puts(beta_message_tokens_count)
 
         - `type: :model_changed`
 
-          - `:model_changed`
-
       - `class BetaCacheMissSystemChanged`
 
         - `cache_missed_input_tokens: Integer`
@@ -20056,8 +19878,6 @@ puts(beta_message_tokens_count)
           Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
         - `type: :system_changed`
-
-          - `:system_changed`
 
       - `class BetaCacheMissToolsChanged`
 
@@ -20067,8 +19887,6 @@ puts(beta_message_tokens_count)
 
         - `type: :tools_changed`
 
-          - `:tools_changed`
-
       - `class BetaCacheMissMessagesChanged`
 
         - `cache_missed_input_tokens: Integer`
@@ -20077,19 +19895,13 @@ puts(beta_message_tokens_count)
 
         - `type: :messages_changed`
 
-          - `:messages_changed`
-
       - `class BetaCacheMissPreviousMessageNotFound`
 
         - `type: :previous_message_not_found`
 
-          - `:previous_message_not_found`
-
       - `class BetaCacheMissUnavailable`
 
         - `type: :unavailable`
-
-          - `:unavailable`
 
   - `model: Model`
 
@@ -20102,8 +19914,6 @@ puts(beta_message_tokens_count)
     Conversational role of the generated message.
 
     This will always be `"assistant"`.
-
-    - `:assistant`
 
   - `stop_details: BetaRefusalStopDetails`
 
@@ -20190,8 +20000,6 @@ puts(beta_message_tokens_count)
 
     - `type: :refusal`
 
-      - `:refusal`
-
   - `stop_reason: BetaStopReason`
 
     The reason that we stopped.
@@ -20236,8 +20044,6 @@ puts(beta_message_tokens_count)
 
     For Messages, this is always `"message"`.
 
-    - `:message`
-
   - `usage: BetaUsage`
 
     Billing and rate-limit usage.
@@ -20258,17 +20064,25 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: Integer`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: Integer`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: Integer`
 
       The number of input tokens read from the cache.
+
+      minimum: 0
 
     - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -20289,8 +20103,6 @@ puts(beta_message_tokens_count)
           had been on the retry model all along.
 
           - `type: :redeemed`
-
-            - `:redeemed`
 
         - `class BetaFallbackCreditNotApplied`
 
@@ -20329,8 +20141,6 @@ puts(beta_message_tokens_count)
 
           - `type: :not_applied`
 
-            - `:not_applied`
-
           - `remove_to_redeem: Array[String]`
 
             Request fields to remove before retrying, so the retry can redeem this
@@ -20349,6 +20159,8 @@ puts(beta_message_tokens_count)
     - `input_tokens: Integer`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `iterations: BetaIterationsUsage`
 
@@ -20372,13 +20184,19 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -20390,11 +20208,11 @@ puts(beta_message_tokens_count)
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :message`
 
           Usage for a sampling iteration
-
-          - `:message`
 
       - `class BetaCompactionIterationUsage`
 
@@ -20408,23 +20226,29 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
+
+          minimum: 0
 
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
 
+          minimum: 0
+
         - `output_tokens: Integer`
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :compaction`
 
           Usage for a compaction iteration
-
-          - `:compaction`
 
       - `class BetaAdvisorMessageIterationUsage`
 
@@ -20438,13 +20262,19 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -20456,11 +20286,11 @@ puts(beta_message_tokens_count)
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :advisor_message`
 
           Usage for an advisor sub-inference iteration
-
-          - `:advisor_message`
 
       - `class BetaFallbackMessageIterationUsage`
 
@@ -20479,13 +20309,19 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -20497,15 +20333,17 @@ puts(beta_message_tokens_count)
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :fallback_message`
 
           Usage for the fallback-model attempt that served the response
 
-          - `:fallback_message`
-
     - `output_tokens: Integer`
 
       The number of output tokens which were used.
+
+      minimum: 0
 
     - `output_tokens_details: BetaOutputTokensDetails`
 
@@ -20527,6 +20365,8 @@ puts(beta_message_tokens_count)
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+        minimum: 0
+
     - `server_tool_use: BetaServerToolUsage`
 
       The number of server tool requests.
@@ -20535,9 +20375,13 @@ puts(beta_message_tokens_count)
 
         The number of web fetch tool requests.
 
+        minimum: 0
+
       - `web_search_requests: Integer`
 
         The number of web search tool requests.
+
+        minimum: 0
 
     - `service_tier: :standard | :priority | :batch`
 
@@ -20565,9 +20409,13 @@ puts(beta_message_tokens_count)
 
     The cumulative number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: Integer`
 
     The cumulative number of input tokens read from the cache.
+
+    minimum: 0
 
   - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -20588,8 +20436,6 @@ puts(beta_message_tokens_count)
         had been on the retry model all along.
 
         - `type: :redeemed`
-
-          - `:redeemed`
 
       - `class BetaFallbackCreditNotApplied`
 
@@ -20628,8 +20474,6 @@ puts(beta_message_tokens_count)
 
         - `type: :not_applied`
 
-          - `:not_applied`
-
         - `remove_to_redeem: Array[String]`
 
           Request fields to remove before retrying, so the retry can redeem this
@@ -20644,6 +20488,8 @@ puts(beta_message_tokens_count)
   - `input_tokens: Integer`
 
     The cumulative number of input tokens which were used.
+
+    minimum: 0
 
   - `iterations: BetaIterationsUsage`
 
@@ -20667,21 +20513,31 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: Integer`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: Integer`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: Model`
 
@@ -20761,11 +20617,11 @@ puts(beta_message_tokens_count)
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :message`
 
         Usage for a sampling iteration
-
-        - `:message`
 
     - `class BetaCompactionIterationUsage`
 
@@ -20779,23 +20635,29 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
+
+        minimum: 0
 
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
 
+        minimum: 0
+
       - `output_tokens: Integer`
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :compaction`
 
         Usage for a compaction iteration
-
-        - `:compaction`
 
     - `class BetaAdvisorMessageIterationUsage`
 
@@ -20809,13 +20671,19 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: Model`
 
@@ -20827,11 +20695,11 @@ puts(beta_message_tokens_count)
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :advisor_message`
 
         Usage for an advisor sub-inference iteration
-
-        - `:advisor_message`
 
     - `class BetaFallbackMessageIterationUsage`
 
@@ -20850,13 +20718,19 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: Model`
 
@@ -20868,11 +20742,11 @@ puts(beta_message_tokens_count)
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :fallback_message`
 
         Usage for the fallback-model attempt that served the response
-
-        - `:fallback_message`
 
   - `output_tokens: Integer`
 
@@ -20898,6 +20772,8 @@ puts(beta_message_tokens_count)
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+      minimum: 0
+
   - `server_tool_use: BetaServerToolUsage`
 
     The number of server tool requests.
@@ -20906,9 +20782,13 @@ puts(beta_message_tokens_count)
 
       The number of web fetch tool requests.
 
+      minimum: 0
+
     - `web_search_requests: Integer`
 
       The number of web search tool requests.
+
+      minimum: 0
 
 ### Beta Message Iteration Usage
 
@@ -20924,21 +20804,31 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: Integer`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: Integer`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: Integer`
 
     The number of input tokens read from the cache.
 
+    minimum: 0
+
   - `input_tokens: Integer`
 
     The number of input tokens which were used.
+
+    minimum: 0
 
   - `model: Model`
 
@@ -21018,11 +20908,11 @@ puts(beta_message_tokens_count)
 
     The number of output tokens which were used.
 
+    minimum: 0
+
   - `type: :message`
 
     Usage for a sampling iteration
-
-    - `:message`
 
 ### Beta Message Param
 
@@ -21038,17 +20928,15 @@ puts(beta_message_tokens_count)
 
         - `text: String`
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
 
           - `type: :ephemeral`
-
-            - `:ephemeral`
 
           - `ttl: :"5m" | :"1h"`
 
@@ -21073,15 +20961,19 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: Integer`
 
             - `start_char_index: Integer`
 
-            - `type: :char_location`
+              minimum: 0
 
-              - `:char_location`
+            - `type: :char_location`
 
           - `class BetaCitationPageLocationParam`
 
@@ -21089,15 +20981,19 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: Integer`
 
             - `start_page_number: Integer`
 
-            - `type: :page_location`
+              minimum: 1
 
-              - `:page_location`
+            - `type: :page_location`
 
           - `class BetaCitationContentBlockLocationParam`
 
@@ -21109,7 +21005,11 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: Integer`
 
@@ -21121,9 +21021,9 @@ puts(beta_message_tokens_count)
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: :content_block_location`
+              minimum: 0
 
-              - `:content_block_location`
+            - `type: :content_block_location`
 
           - `class BetaCitationWebSearchResultLocationParam`
 
@@ -21133,11 +21033,13 @@ puts(beta_message_tokens_count)
 
             - `title: String`
 
+              maxLength: 512, minLength: 1
+
             - `type: :web_search_result_location`
 
-              - `:web_search_result_location`
-
             - `url: String`
+
+              minLength: 1
 
           - `class BetaCitationSearchResultLocationParam`
 
@@ -21159,17 +21061,19 @@ puts(beta_message_tokens_count)
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: String`
 
             - `start_block_index: Integer`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: String`
 
             - `type: :search_result_location`
-
-              - `:search_result_location`
 
       - `class BetaImageBlockParam`
 
@@ -21178,6 +21082,8 @@ puts(beta_message_tokens_count)
           - `class BetaBase64ImageSource`
 
             - `data: String`
+
+              format: byte
 
             - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -21191,13 +21097,9 @@ puts(beta_message_tokens_count)
 
             - `type: :base64`
 
-              - `:base64`
-
           - `class BetaURLImageSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -21207,11 +21109,7 @@ puts(beta_message_tokens_count)
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21237,13 +21135,11 @@ puts(beta_message_tokens_count)
 
             - `data: String`
 
+              format: byte
+
             - `media_type: :"application/pdf"`
 
-              - `:"application/pdf"`
-
             - `type: :base64`
-
-              - `:base64`
 
           - `class BetaPlainTextSource`
 
@@ -21251,11 +21147,7 @@ puts(beta_message_tokens_count)
 
             - `media_type: :"text/plain"`
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaContentBlockSource`
 
@@ -21271,13 +21163,9 @@ puts(beta_message_tokens_count)
 
             - `type: :content`
 
-              - `:content`
-
           - `class BetaURLPDFSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -21287,11 +21175,7 @@ puts(beta_message_tokens_count)
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21303,13 +21187,19 @@ puts(beta_message_tokens_count)
 
         - `context: String`
 
+          minLength: 1
+
         - `title: String`
+
+          maxLength: 500, minLength: 1
 
       - `class BetaSearchResultBlockParam`
 
         - `content: Array[BetaTextBlockParam]`
 
           - `text: String`
+
+            minLength: 1
 
           - `type: :text`
 
@@ -21324,8 +21214,6 @@ puts(beta_message_tokens_count)
         - `title: String`
 
         - `type: :search_result`
-
-          - `:search_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21347,8 +21235,6 @@ puts(beta_message_tokens_count)
 
         - `type: :thinking`
 
-          - `:thinking`
-
       - `class BetaRedactedThinkingBlockParam`
 
         - `data: String`
@@ -21357,19 +21243,19 @@ puts(beta_message_tokens_count)
 
         - `type: :redacted_thinking`
 
-          - `:redacted_thinking`
-
       - `class BetaToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
         - `name: String`
 
-        - `type: :tool_use`
+          maxLength: 200, minLength: 1
 
-          - `:tool_use`
+        - `type: :tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21385,37 +21271,37 @@ puts(beta_message_tokens_count)
 
             - `type: :direct`
 
-              - `:direct`
-
           - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: String`
 
-            - `type: :code_execution_20250825`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20250825`
+            - `type: :code_execution_20250825`
 
           - `class BetaServerToolCaller20260120`
 
             - `tool_id: String`
 
-            - `type: :code_execution_20260120`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20260120`
+            - `type: :code_execution_20260120`
 
         - `toolset_name: String`
 
           For a toolset member tool_use, the toolset family this member belongs to.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `class BetaToolResultBlockParam`
 
         - `tool_use_id: String`
 
-        - `type: :tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:tool_result`
+        - `type: :tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21441,9 +21327,9 @@ puts(beta_message_tokens_count)
 
               - `tool_name: String`
 
-              - `type: :tool_reference`
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `:tool_reference`
+              - `type: :tool_reference`
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -21463,25 +21349,31 @@ puts(beta_message_tokens_count)
 
                 All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+                maxItems: 100
+
                 - `tab_id: String`
 
                   The caller-assigned identifier for this tab, unique within the inventory.
+
+                  maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `title: String`
 
                   The title of the page the tab is showing. May be empty.
 
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                 - `url: String`
 
                   The URL of the page the tab is showing. May be empty.
+
+                  maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `active: bool`
 
                   Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
               - `type: :browser_state`
-
-                - `:browser_state`
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -21490,6 +21382,8 @@ puts(beta_message_tokens_count)
               - `state_changes: Array[BetaBrowserStateChange]`
 
                 Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                maxItems: 200, minItems: 1
 
                 - `class BetaBrowserStateChangeTabOpened`
 
@@ -21505,9 +21399,9 @@ puts(beta_message_tokens_count)
 
                     The `tab_id` of the opened tab, present in `tabs`.
 
-                  - `type: :tab_opened`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:tab_opened`
+                  - `type: :tab_opened`
 
                 - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -21517,13 +21411,15 @@ puts(beta_message_tokens_count)
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_started`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_started`
+                  - `type: :download_started`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
+
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                 - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -21536,21 +21432,27 @@ puts(beta_message_tokens_count)
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_completed`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_completed`
+                  - `type: :download_completed`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
 
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                   - `path: String`
 
                     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
                   - `size_bytes: Integer`
 
                     The completed download's size.
+
+                    minimum: 0
 
                 - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -21560,17 +21462,21 @@ puts(beta_message_tokens_count)
 
                     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                  - `type: :download_failed`
+                    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                    - `:download_failed`
+                  - `type: :download_failed`
 
                   - `url: String`
 
                     The final post-redirect URL the download was served from.
 
+                    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                   - `error: String`
 
                     The failure or cancellation detail, when known.
+
+                    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
         - `is_error: bool`
 
@@ -21578,9 +21484,13 @@ puts(beta_message_tokens_count)
 
           For a toolset member tool_result, the toolset family of the paired tool_use.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `class BetaServerToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -21603,8 +21513,6 @@ puts(beta_message_tokens_count)
           - `:tool_search_tool_bm25`
 
         - `type: :server_tool_use`
-
-          - `:server_tool_use`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21636,8 +21544,6 @@ puts(beta_message_tokens_count)
 
             - `type: :web_search_result`
 
-              - `:web_search_result`
-
             - `url: String`
 
             - `page_age: String`
@@ -21660,13 +21566,11 @@ puts(beta_message_tokens_count)
 
             - `type: :web_search_tool_result_error`
 
-              - `:web_search_tool_result_error`
-
         - `tool_use_id: String`
 
-        - `type: :web_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_search_tool_result`
+        - `type: :web_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21714,15 +21618,11 @@ puts(beta_message_tokens_count)
 
             - `type: :web_fetch_tool_result_error`
 
-              - `:web_fetch_tool_result_error`
-
           - `class BetaWebFetchBlockParam`
 
             - `content: BetaRequestDocumentBlock`
 
             - `type: :web_fetch_result`
-
-              - `:web_fetch_result`
 
             - `url: String`
 
@@ -21734,9 +21634,9 @@ puts(beta_message_tokens_count)
 
         - `tool_use_id: String`
 
-        - `type: :web_fetch_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_fetch_tool_result`
+        - `type: :web_fetch_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21780,15 +21680,11 @@ puts(beta_message_tokens_count)
 
             - `type: :advisor_tool_result_error`
 
-              - `:advisor_tool_result_error`
-
           - `class BetaAdvisorResultBlockParam`
 
             - `text: String`
 
             - `type: :advisor_result`
-
-              - `:advisor_result`
 
             - `stop_reason: String`
 
@@ -21800,15 +21696,13 @@ puts(beta_message_tokens_count)
 
             - `type: :advisor_redacted_result`
 
-              - `:advisor_redacted_result`
-
             - `stop_reason: String`
 
         - `tool_use_id: String`
 
-        - `type: :advisor_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:advisor_tool_result`
+        - `type: :advisor_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21834,8 +21728,6 @@ puts(beta_message_tokens_count)
 
             - `type: :code_execution_tool_result_error`
 
-              - `:code_execution_tool_result_error`
-
           - `class BetaCodeExecutionResultBlockParam`
 
             - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -21844,8 +21736,6 @@ puts(beta_message_tokens_count)
 
               - `type: :code_execution_output`
 
-                - `:code_execution_output`
-
             - `return_code: Integer`
 
             - `stderr: String`
@@ -21853,8 +21743,6 @@ puts(beta_message_tokens_count)
             - `stdout: String`
 
             - `type: :code_execution_result`
-
-              - `:code_execution_result`
 
           - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -21874,13 +21762,11 @@ puts(beta_message_tokens_count)
 
             - `type: :encrypted_code_execution_result`
 
-              - `:encrypted_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_tool_result`
+        - `type: :code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21906,8 +21792,6 @@ puts(beta_message_tokens_count)
 
             - `type: :bash_code_execution_tool_result_error`
 
-              - `:bash_code_execution_tool_result_error`
-
           - `class BetaBashCodeExecutionResultBlockParam`
 
             - `content: Array[BetaBashCodeExecutionOutputBlockParam]`
@@ -21915,8 +21799,6 @@ puts(beta_message_tokens_count)
               - `file_id: String`
 
               - `type: :bash_code_execution_output`
-
-                - `:bash_code_execution_output`
 
             - `return_code: Integer`
 
@@ -21926,13 +21808,11 @@ puts(beta_message_tokens_count)
 
             - `type: :bash_code_execution_result`
 
-              - `:bash_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :bash_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:bash_code_execution_tool_result`
+        - `type: :bash_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -21958,8 +21838,6 @@ puts(beta_message_tokens_count)
 
             - `type: :text_editor_code_execution_tool_result_error`
 
-              - `:text_editor_code_execution_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -21976,8 +21854,6 @@ puts(beta_message_tokens_count)
 
             - `type: :text_editor_code_execution_view_result`
 
-              - `:text_editor_code_execution_view_result`
-
             - `num_lines: Integer`
 
             - `start_line: Integer`
@@ -21990,13 +21866,9 @@ puts(beta_message_tokens_count)
 
             - `type: :text_editor_code_execution_create_result`
 
-              - `:text_editor_code_execution_create_result`
-
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
             - `type: :text_editor_code_execution_str_replace_result`
-
-              - `:text_editor_code_execution_str_replace_result`
 
             - `lines: Array[String]`
 
@@ -22010,9 +21882,9 @@ puts(beta_message_tokens_count)
 
         - `tool_use_id: String`
 
-        - `type: :text_editor_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:text_editor_code_execution_tool_result`
+        - `type: :text_editor_code_execution_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -22036,8 +21908,6 @@ puts(beta_message_tokens_count)
 
             - `type: :tool_search_tool_result_error`
 
-              - `:tool_search_tool_result_error`
-
             - `error_message: String`
 
           - `class BetaToolSearchToolSearchResultBlockParam`
@@ -22045,6 +21915,8 @@ puts(beta_message_tokens_count)
             - `tool_references: Array[BetaToolReferenceBlockParam]`
 
               - `tool_name: String`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `type: :tool_reference`
 
@@ -22054,13 +21926,11 @@ puts(beta_message_tokens_count)
 
             - `type: :tool_search_tool_search_result`
 
-              - `:tool_search_tool_search_result`
-
         - `tool_use_id: String`
 
-        - `type: :tool_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:tool_search_tool_result`
+        - `type: :tool_search_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -22069,6 +21939,8 @@ puts(beta_message_tokens_count)
       - `class BetaMCPToolUseBlockParam`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -22080,8 +21952,6 @@ puts(beta_message_tokens_count)
 
         - `type: :mcp_tool_use`
 
-          - `:mcp_tool_use`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -22090,9 +21960,9 @@ puts(beta_message_tokens_count)
 
         - `tool_use_id: String`
 
-        - `type: :mcp_tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:mcp_tool_result`
+        - `type: :mcp_tool_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -22105,6 +21975,8 @@ puts(beta_message_tokens_count)
           - `BetaMCPToolResultBlockParamContent = Array[BetaTextBlockParam]`
 
             - `text: String`
+
+              minLength: 1
 
             - `type: :text`
 
@@ -22125,8 +21997,6 @@ puts(beta_message_tokens_count)
 
         - `type: :container_upload`
 
-          - `:container_upload`
-
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
@@ -22142,8 +22012,6 @@ puts(beta_message_tokens_count)
         treats these as no-ops. Empty string content is not allowed.
 
         - `type: :compaction`
-
-          - `:compaction`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -22181,9 +22049,9 @@ puts(beta_message_tokens_count)
 
             - `name: String`
 
-            - `type: :tool_reference`
+              pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-              - `:tool_reference`
+            - `type: :tool_reference`
 
           - `class BetaToolChangeMCPToolReference`
 
@@ -22196,8 +22064,6 @@ puts(beta_message_tokens_count)
 
             - `type: :mcp_tool_reference`
 
-              - `:mcp_tool_reference`
-
           - `class BetaToolChangeMCPToolsetReference`
 
             Reference to every tool in the named MCP server's toolset.
@@ -22206,11 +22072,7 @@ puts(beta_message_tokens_count)
 
             - `type: :mcp_toolset_reference`
 
-              - `:mcp_toolset_reference`
-
         - `type: :tool_addition`
-
-          - `:tool_addition`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -22248,8 +22110,6 @@ puts(beta_message_tokens_count)
             Reference to every tool in the named MCP server's toolset.
 
         - `type: :tool_removal`
-
-          - `:tool_removal`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -22355,8 +22215,6 @@ puts(beta_message_tokens_count)
 
         - `type: :fallback`
 
-          - `:fallback`
-
         - `trigger: untyped`
 
           The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -22395,6 +22253,8 @@ puts(beta_message_tokens_count)
 
     This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
+    maxLength: 512
+
 ### Beta Output Config
 
 - `class BetaOutputConfig`
@@ -22423,8 +22283,6 @@ puts(beta_message_tokens_count)
 
     - `type: :json_schema`
 
-      - `:json_schema`
-
   - `task_budget: BetaTokenTaskBudget`
 
     User-configurable total token budget across contexts.
@@ -22433,15 +22291,17 @@ puts(beta_message_tokens_count)
 
       Total token budget across all contexts in the session.
 
+      minimum: 1024
+
     - `type: :tokens`
 
       The budget type. Currently only 'tokens' is supported.
 
-      - `:tokens`
-
     - `remaining: Integer`
 
       Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
+
+      minimum: 0
 
 ### Beta Output Tokens Details
 
@@ -22458,6 +22318,8 @@ puts(beta_message_tokens_count)
     generation count by a small number of tokens. Always ≤ `output_tokens`;
     `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+    minimum: 0
+
 ### Beta Plain Text Source
 
 - `class BetaPlainTextSource`
@@ -22466,11 +22328,7 @@ puts(beta_message_tokens_count)
 
   - `media_type: :"text/plain"`
 
-    - `:"text/plain"`
-
   - `type: :text`
-
-    - `:text`
 
 ### Beta Raw Content Block Delta
 
@@ -22482,15 +22340,11 @@ puts(beta_message_tokens_count)
 
     - `type: :text_delta`
 
-      - `:text_delta`
-
   - `class BetaInputJSONDelta`
 
     - `partial_json: String`
 
     - `type: :input_json_delta`
-
-      - `:input_json_delta`
 
   - `class BetaCitationsDelta`
 
@@ -22502,6 +22356,8 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
 
         - `end_char_index: Integer`
@@ -22510,15 +22366,17 @@ puts(beta_message_tokens_count)
 
         - `start_char_index: Integer`
 
-        - `type: :char_location`
+          minimum: 0
 
-          - `:char_location`
+        - `type: :char_location`
 
       - `class BetaCitationPageLocation`
 
         - `cited_text: String`
 
         - `document_index: Integer`
+
+          minimum: 0
 
         - `document_title: String`
 
@@ -22528,9 +22386,9 @@ puts(beta_message_tokens_count)
 
         - `start_page_number: Integer`
 
-        - `type: :page_location`
+          minimum: 1
 
-          - `:page_location`
+        - `type: :page_location`
 
       - `class BetaCitationContentBlockLocation`
 
@@ -22541,6 +22399,8 @@ puts(beta_message_tokens_count)
           Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
         - `document_index: Integer`
+
+          minimum: 0
 
         - `document_title: String`
 
@@ -22556,9 +22416,9 @@ puts(beta_message_tokens_count)
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: :content_block_location`
+          minimum: 0
 
-          - `:content_block_location`
+        - `type: :content_block_location`
 
       - `class BetaCitationsWebSearchResultLocation`
 
@@ -22568,9 +22428,9 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
-        - `type: :web_search_result_location`
+          maxLength: 512
 
-          - `:web_search_result_location`
+        - `type: :web_search_result_location`
 
         - `url: String`
 
@@ -22594,21 +22454,21 @@ puts(beta_message_tokens_count)
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: String`
 
         - `start_block_index: Integer`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: String`
 
         - `type: :search_result_location`
 
-          - `:search_result_location`
-
     - `type: :citations_delta`
-
-      - `:citations_delta`
 
   - `class BetaThinkingDelta`
 
@@ -22622,8 +22482,6 @@ puts(beta_message_tokens_count)
 
     - `type: :thinking_delta`
 
-      - `:thinking_delta`
-
   - `class BetaSignatureDelta`
 
     - `signature: String`
@@ -22631,8 +22489,6 @@ puts(beta_message_tokens_count)
       The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
     - `type: :signature_delta`
-
-      - `:signature_delta`
 
   - `class BetaCompactionContentBlockDelta`
 
@@ -22643,8 +22499,6 @@ puts(beta_message_tokens_count)
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
     - `type: :compaction_delta`
-
-      - `:compaction_delta`
 
 ### Beta Raw Content Block Delta Event
 
@@ -22658,15 +22512,11 @@ puts(beta_message_tokens_count)
 
       - `type: :text_delta`
 
-        - `:text_delta`
-
     - `class BetaInputJSONDelta`
 
       - `partial_json: String`
 
       - `type: :input_json_delta`
-
-        - `:input_json_delta`
 
     - `class BetaCitationsDelta`
 
@@ -22678,6 +22528,8 @@ puts(beta_message_tokens_count)
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
 
           - `end_char_index: Integer`
@@ -22686,15 +22538,17 @@ puts(beta_message_tokens_count)
 
           - `start_char_index: Integer`
 
-          - `type: :char_location`
+            minimum: 0
 
-            - `:char_location`
+          - `type: :char_location`
 
         - `class BetaCitationPageLocation`
 
           - `cited_text: String`
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -22704,9 +22558,9 @@ puts(beta_message_tokens_count)
 
           - `start_page_number: Integer`
 
-          - `type: :page_location`
+            minimum: 1
 
-            - `:page_location`
+          - `type: :page_location`
 
         - `class BetaCitationContentBlockLocation`
 
@@ -22717,6 +22571,8 @@ puts(beta_message_tokens_count)
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -22732,9 +22588,9 @@ puts(beta_message_tokens_count)
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `type: :content_block_location`
+            minimum: 0
 
-            - `:content_block_location`
+          - `type: :content_block_location`
 
         - `class BetaCitationsWebSearchResultLocation`
 
@@ -22744,9 +22600,9 @@ puts(beta_message_tokens_count)
 
           - `title: String`
 
-          - `type: :web_search_result_location`
+            maxLength: 512
 
-            - `:web_search_result_location`
+          - `type: :web_search_result_location`
 
           - `url: String`
 
@@ -22770,21 +22626,21 @@ puts(beta_message_tokens_count)
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: String`
 
           - `start_block_index: Integer`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: String`
 
           - `type: :search_result_location`
 
-            - `:search_result_location`
-
       - `type: :citations_delta`
-
-        - `:citations_delta`
 
     - `class BetaThinkingDelta`
 
@@ -22798,8 +22654,6 @@ puts(beta_message_tokens_count)
 
       - `type: :thinking_delta`
 
-        - `:thinking_delta`
-
     - `class BetaSignatureDelta`
 
       - `signature: String`
@@ -22807,8 +22661,6 @@ puts(beta_message_tokens_count)
         The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
       - `type: :signature_delta`
-
-        - `:signature_delta`
 
     - `class BetaCompactionContentBlockDelta`
 
@@ -22820,13 +22672,9 @@ puts(beta_message_tokens_count)
 
       - `type: :compaction_delta`
 
-        - `:compaction_delta`
-
   - `index: Integer`
 
   - `type: :content_block_delta`
-
-    - `:content_block_delta`
 
 ### Beta Raw Content Block Start Event
 
@@ -22850,6 +22698,8 @@ puts(beta_message_tokens_count)
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
 
           - `end_char_index: Integer`
@@ -22858,15 +22708,17 @@ puts(beta_message_tokens_count)
 
           - `start_char_index: Integer`
 
-          - `type: :char_location`
+            minimum: 0
 
-            - `:char_location`
+          - `type: :char_location`
 
         - `class BetaCitationPageLocation`
 
           - `cited_text: String`
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -22876,9 +22728,9 @@ puts(beta_message_tokens_count)
 
           - `start_page_number: Integer`
 
-          - `type: :page_location`
+            minimum: 1
 
-            - `:page_location`
+          - `type: :page_location`
 
         - `class BetaCitationContentBlockLocation`
 
@@ -22889,6 +22741,8 @@ puts(beta_message_tokens_count)
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: Integer`
+
+            minimum: 0
 
           - `document_title: String`
 
@@ -22904,9 +22758,9 @@ puts(beta_message_tokens_count)
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `type: :content_block_location`
+            minimum: 0
 
-            - `:content_block_location`
+          - `type: :content_block_location`
 
         - `class BetaCitationsWebSearchResultLocation`
 
@@ -22916,9 +22770,9 @@ puts(beta_message_tokens_count)
 
           - `title: String`
 
-          - `type: :web_search_result_location`
+            maxLength: 512
 
-            - `:web_search_result_location`
+          - `type: :web_search_result_location`
 
           - `url: String`
 
@@ -22942,23 +22796,25 @@ puts(beta_message_tokens_count)
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: String`
 
           - `start_block_index: Integer`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: String`
 
           - `type: :search_result_location`
 
-            - `:search_result_location`
-
       - `text: String`
 
-      - `type: :text`
+        maxLength: 5000000, minLength: 0
 
-        - `:text`
+      - `type: :text`
 
     - `class BetaThinkingBlock`
 
@@ -22976,8 +22832,6 @@ puts(beta_message_tokens_count)
 
       - `type: :thinking`
 
-        - `:thinking`
-
     - `class BetaRedactedThinkingBlock`
 
       - `data: String`
@@ -22990,19 +22844,19 @@ puts(beta_message_tokens_count)
 
       - `type: :redacted_thinking`
 
-        - `:redacted_thinking`
-
     - `class BetaToolUseBlock`
 
       - `id: String`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: Hash[Symbol, untyped]`
 
       - `name: String`
 
-      - `type: :tool_use`
+        minLength: 1
 
-        - `:tool_use`
+      - `type: :tool_use`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -23014,33 +22868,35 @@ puts(beta_message_tokens_count)
 
           - `type: :direct`
 
-            - `:direct`
-
         - `class BetaServerToolCaller`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: String`
 
-          - `type: :code_execution_20250825`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:code_execution_20250825`
+          - `type: :code_execution_20250825`
 
         - `class BetaServerToolCaller20260120`
 
           - `tool_id: String`
 
-          - `type: :code_execution_20260120`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:code_execution_20260120`
+          - `type: :code_execution_20260120`
 
       - `toolset_name: String`
 
         For a toolset member tool_use, the toolset family.
 
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
     - `class BetaServerToolUseBlock`
 
       - `id: String`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `input: Hash[Symbol, untyped]`
 
@@ -23063,8 +22919,6 @@ puts(beta_message_tokens_count)
         - `:tool_search_tool_bm25`
 
       - `type: :server_tool_use`
-
-        - `:server_tool_use`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -23102,8 +22956,6 @@ puts(beta_message_tokens_count)
 
           - `type: :web_search_tool_result_error`
 
-            - `:web_search_tool_result_error`
-
         - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
           - `encrypted_content: String`
@@ -23114,15 +22966,13 @@ puts(beta_message_tokens_count)
 
           - `type: :web_search_result`
 
-            - `:web_search_result`
-
           - `url: String`
 
       - `tool_use_id: String`
 
-      - `type: :web_search_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:web_search_tool_result`
+      - `type: :web_search_tool_result`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -23166,8 +23016,6 @@ puts(beta_message_tokens_count)
 
           - `type: :web_fetch_tool_result_error`
 
-            - `:web_fetch_tool_result_error`
-
         - `class BetaWebFetchBlock`
 
           - `content: BetaDocumentBlock`
@@ -23184,13 +23032,11 @@ puts(beta_message_tokens_count)
 
                 - `data: String`
 
+                  format: byte
+
                 - `media_type: :"application/pdf"`
 
-                  - `:"application/pdf"`
-
                 - `type: :base64`
-
-                  - `:base64`
 
               - `class BetaPlainTextSource`
 
@@ -23198,11 +23044,7 @@ puts(beta_message_tokens_count)
 
                 - `media_type: :"text/plain"`
 
-                  - `:"text/plain"`
-
                 - `type: :text`
-
-                  - `:text`
 
             - `title: String`
 
@@ -23210,15 +23052,11 @@ puts(beta_message_tokens_count)
 
             - `type: :document`
 
-              - `:document`
-
           - `retrieved_at: String`
 
             ISO 8601 timestamp when the content was retrieved
 
           - `type: :web_fetch_result`
-
-            - `:web_fetch_result`
 
           - `url: String`
 
@@ -23226,9 +23064,9 @@ puts(beta_message_tokens_count)
 
       - `tool_use_id: String`
 
-      - `type: :web_fetch_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:web_fetch_tool_result`
+      - `type: :web_fetch_tool_result`
 
       - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -23268,8 +23106,6 @@ puts(beta_message_tokens_count)
 
           - `type: :advisor_tool_result_error`
 
-            - `:advisor_tool_result_error`
-
         - `class BetaAdvisorResultBlock`
 
           - `stop_reason: String`
@@ -23279,8 +23115,6 @@ puts(beta_message_tokens_count)
           - `text: String`
 
           - `type: :advisor_result`
-
-            - `:advisor_result`
 
         - `class BetaAdvisorRedactedResultBlock`
 
@@ -23294,13 +23128,11 @@ puts(beta_message_tokens_count)
 
           - `type: :advisor_redacted_result`
 
-            - `:advisor_redacted_result`
-
       - `tool_use_id: String`
 
-      - `type: :advisor_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:advisor_tool_result`
+      - `type: :advisor_tool_result`
 
     - `class BetaCodeExecutionToolResultBlock`
 
@@ -23322,8 +23154,6 @@ puts(beta_message_tokens_count)
 
           - `type: :code_execution_tool_result_error`
 
-            - `:code_execution_tool_result_error`
-
         - `class BetaCodeExecutionResultBlock`
 
           - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -23332,8 +23162,6 @@ puts(beta_message_tokens_count)
 
             - `type: :code_execution_output`
 
-              - `:code_execution_output`
-
           - `return_code: Integer`
 
           - `stderr: String`
@@ -23341,8 +23169,6 @@ puts(beta_message_tokens_count)
           - `stdout: String`
 
           - `type: :code_execution_result`
-
-            - `:code_execution_result`
 
         - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -23362,13 +23188,11 @@ puts(beta_message_tokens_count)
 
           - `type: :encrypted_code_execution_result`
 
-            - `:encrypted_code_execution_result`
-
       - `tool_use_id: String`
 
-      - `type: :code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_tool_result`
+      - `type: :code_execution_tool_result`
 
     - `class BetaBashCodeExecutionToolResultBlock`
 
@@ -23390,8 +23214,6 @@ puts(beta_message_tokens_count)
 
           - `type: :bash_code_execution_tool_result_error`
 
-            - `:bash_code_execution_tool_result_error`
-
         - `class BetaBashCodeExecutionResultBlock`
 
           - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -23399,8 +23221,6 @@ puts(beta_message_tokens_count)
             - `file_id: String`
 
             - `type: :bash_code_execution_output`
-
-              - `:bash_code_execution_output`
 
           - `return_code: Integer`
 
@@ -23410,13 +23230,11 @@ puts(beta_message_tokens_count)
 
           - `type: :bash_code_execution_result`
 
-            - `:bash_code_execution_result`
-
       - `tool_use_id: String`
 
-      - `type: :bash_code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:bash_code_execution_tool_result`
+      - `type: :bash_code_execution_tool_result`
 
     - `class BetaTextEditorCodeExecutionToolResultBlock`
 
@@ -23440,8 +23258,6 @@ puts(beta_message_tokens_count)
 
           - `type: :text_editor_code_execution_tool_result_error`
 
-            - `:text_editor_code_execution_tool_result_error`
-
         - `class BetaTextEditorCodeExecutionViewResultBlock`
 
           - `content: String`
@@ -23462,15 +23278,11 @@ puts(beta_message_tokens_count)
 
           - `type: :text_editor_code_execution_view_result`
 
-            - `:text_editor_code_execution_view_result`
-
         - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
           - `is_file_update: bool`
 
           - `type: :text_editor_code_execution_create_result`
-
-            - `:text_editor_code_execution_create_result`
 
         - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -23486,13 +23298,11 @@ puts(beta_message_tokens_count)
 
           - `type: :text_editor_code_execution_str_replace_result`
 
-            - `:text_editor_code_execution_str_replace_result`
-
       - `tool_use_id: String`
 
-      - `type: :text_editor_code_execution_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:text_editor_code_execution_tool_result`
+      - `type: :text_editor_code_execution_tool_result`
 
     - `class BetaToolSearchToolResultBlock`
 
@@ -23514,31 +23324,29 @@ puts(beta_message_tokens_count)
 
           - `type: :tool_search_tool_result_error`
 
-            - `:tool_search_tool_result_error`
-
         - `class BetaToolSearchToolSearchResultBlock`
 
           - `tool_references: Array[BetaToolReferenceBlock]`
 
             - `tool_name: String`
 
-            - `type: :tool_reference`
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-              - `:tool_reference`
+            - `type: :tool_reference`
 
           - `type: :tool_search_tool_search_result`
 
-            - `:tool_search_tool_search_result`
-
       - `tool_use_id: String`
 
-      - `type: :tool_search_tool_result`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:tool_search_tool_result`
+      - `type: :tool_search_tool_result`
 
     - `class BetaMCPToolUseBlock`
 
       - `id: String`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: Hash[Symbol, untyped]`
 
@@ -23551,8 +23359,6 @@ puts(beta_message_tokens_count)
         The name of the MCP server
 
       - `type: :mcp_tool_use`
-
-        - `:mcp_tool_use`
 
     - `class BetaMCPToolResultBlock`
 
@@ -23570,15 +23376,17 @@ puts(beta_message_tokens_count)
 
           - `text: String`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: :text`
 
       - `is_error: bool`
 
       - `tool_use_id: String`
 
-      - `type: :mcp_tool_result`
+        pattern: ^[a-zA-Z0-9_-]+$
 
-        - `:mcp_tool_result`
+      - `type: :mcp_tool_result`
 
     - `class BetaContainerUploadBlock`
 
@@ -23587,8 +23395,6 @@ puts(beta_message_tokens_count)
       - `file_id: String`
 
       - `type: :container_upload`
-
-        - `:container_upload`
 
     - `class BetaCompactionBlock`
 
@@ -23607,8 +23413,6 @@ puts(beta_message_tokens_count)
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
       - `type: :compaction`
-
-        - `:compaction`
 
     - `class BetaFallbackBlock`
 
@@ -23736,17 +23540,11 @@ puts(beta_message_tokens_count)
 
         - `type: :refusal`
 
-          - `:refusal`
-
       - `type: :fallback`
-
-        - `:fallback`
 
   - `index: Integer`
 
   - `type: :content_block_start`
-
-    - `:content_block_start`
 
 ### Beta Raw Content Block Stop Event
 
@@ -23755,8 +23553,6 @@ puts(beta_message_tokens_count)
   - `index: Integer`
 
   - `type: :content_block_stop`
-
-    - `:content_block_stop`
 
 ### Beta Raw Message Delta Event
 
@@ -23776,15 +23572,17 @@ puts(beta_message_tokens_count)
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_tool_uses: Integer`
 
           Number of tool uses that were cleared.
 
+          minimum: 0
+
         - `type: :clear_tool_uses_20250919`
 
           The type of context management edit applied.
-
-          - `:clear_tool_uses_20250919`
 
       - `class BetaClearThinking20251015EditResponse`
 
@@ -23792,17 +23590,19 @@ puts(beta_message_tokens_count)
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_thinking_turns: Integer`
 
           Number of thinking turns that were cleared.
+
+          minimum: 0
 
         - `type: :clear_thinking_20251015`
 
           The type of context management edit applied.
 
-          - `:clear_thinking_20251015`
-
-  - `delta: Delta{ container, stop_details, stop_reason, stop_sequence}`
+  - `delta: Delta`
 
     - `container: BetaContainer`
 
@@ -23816,6 +23616,8 @@ puts(beta_message_tokens_count)
 
         The time at which the container will expire.
 
+        format: date-time
+
       - `skills: Array[BetaSkill]`
 
         Skills loaded in the container
@@ -23823,6 +23625,8 @@ puts(beta_message_tokens_count)
         - `skill_id: String`
 
           Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `type: :anthropic | :custom`
 
@@ -23835,6 +23639,8 @@ puts(beta_message_tokens_count)
         - `version: String`
 
           The resolved version: a skill version ID for custom skills.
+
+          maxLength: 64, minLength: 1
 
     - `stop_details: BetaRefusalStopDetails`
 
@@ -23921,8 +23727,6 @@ puts(beta_message_tokens_count)
 
       - `type: :refusal`
 
-        - `:refusal`
-
     - `stop_reason: BetaStopReason`
 
       - `:end_turn`
@@ -23945,8 +23749,6 @@ puts(beta_message_tokens_count)
 
   - `type: :message_delta`
 
-    - `:message_delta`
-
   - `usage: BetaMessageDeltaUsage`
 
     Billing and rate-limit usage.
@@ -23963,9 +23765,13 @@ puts(beta_message_tokens_count)
 
       The cumulative number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: Integer`
 
       The cumulative number of input tokens read from the cache.
+
+      minimum: 0
 
     - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -23986,8 +23792,6 @@ puts(beta_message_tokens_count)
           had been on the retry model all along.
 
           - `type: :redeemed`
-
-            - `:redeemed`
 
         - `class BetaFallbackCreditNotApplied`
 
@@ -24026,8 +23830,6 @@ puts(beta_message_tokens_count)
 
           - `type: :not_applied`
 
-            - `:not_applied`
-
           - `remove_to_redeem: Array[String]`
 
             Request fields to remove before retrying, so the retry can redeem this
@@ -24042,6 +23844,8 @@ puts(beta_message_tokens_count)
     - `input_tokens: Integer`
 
       The cumulative number of input tokens which were used.
+
+      minimum: 0
 
     - `iterations: BetaIterationsUsage`
 
@@ -24065,21 +23869,31 @@ puts(beta_message_tokens_count)
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: Integer`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: Integer`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -24159,11 +23973,11 @@ puts(beta_message_tokens_count)
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :message`
 
           Usage for a sampling iteration
-
-          - `:message`
 
       - `class BetaCompactionIterationUsage`
 
@@ -24177,23 +23991,29 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
+
+          minimum: 0
 
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
 
+          minimum: 0
+
         - `output_tokens: Integer`
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :compaction`
 
           Usage for a compaction iteration
-
-          - `:compaction`
 
       - `class BetaAdvisorMessageIterationUsage`
 
@@ -24207,13 +24027,19 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -24225,11 +24051,11 @@ puts(beta_message_tokens_count)
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :advisor_message`
 
           Usage for an advisor sub-inference iteration
-
-          - `:advisor_message`
 
       - `class BetaFallbackMessageIterationUsage`
 
@@ -24248,13 +24074,19 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: Model`
 
@@ -24266,11 +24098,11 @@ puts(beta_message_tokens_count)
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: :fallback_message`
 
           Usage for the fallback-model attempt that served the response
-
-          - `:fallback_message`
 
     - `output_tokens: Integer`
 
@@ -24296,6 +24128,8 @@ puts(beta_message_tokens_count)
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+        minimum: 0
+
     - `server_tool_use: BetaServerToolUsage`
 
       The number of server tool requests.
@@ -24304,9 +24138,13 @@ puts(beta_message_tokens_count)
 
         The number of web fetch tool requests.
 
+        minimum: 0
+
       - `web_search_requests: Integer`
 
         The number of web search tool requests.
+
+        minimum: 0
 
 ### Beta Raw Message Start Event
 
@@ -24332,6 +24170,8 @@ puts(beta_message_tokens_count)
 
         The time at which the container will expire.
 
+        format: date-time
+
       - `skills: Array[BetaSkill]`
 
         Skills loaded in the container
@@ -24339,6 +24179,8 @@ puts(beta_message_tokens_count)
         - `skill_id: String`
 
           Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `type: :anthropic | :custom`
 
@@ -24351,6 +24193,8 @@ puts(beta_message_tokens_count)
         - `version: String`
 
           The resolved version: a skill version ID for custom skills.
+
+          maxLength: 64, minLength: 1
 
     - `content: Array[BetaContentBlock]`
 
@@ -24395,6 +24239,8 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
 
             - `end_char_index: Integer`
@@ -24403,15 +24249,17 @@ puts(beta_message_tokens_count)
 
             - `start_char_index: Integer`
 
-            - `type: :char_location`
+              minimum: 0
 
-              - `:char_location`
+            - `type: :char_location`
 
           - `class BetaCitationPageLocation`
 
             - `cited_text: String`
 
             - `document_index: Integer`
+
+              minimum: 0
 
             - `document_title: String`
 
@@ -24421,9 +24269,9 @@ puts(beta_message_tokens_count)
 
             - `start_page_number: Integer`
 
-            - `type: :page_location`
+              minimum: 1
 
-              - `:page_location`
+            - `type: :page_location`
 
           - `class BetaCitationContentBlockLocation`
 
@@ -24434,6 +24282,8 @@ puts(beta_message_tokens_count)
               Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
             - `document_index: Integer`
+
+              minimum: 0
 
             - `document_title: String`
 
@@ -24449,9 +24299,9 @@ puts(beta_message_tokens_count)
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: :content_block_location`
+              minimum: 0
 
-              - `:content_block_location`
+            - `type: :content_block_location`
 
           - `class BetaCitationsWebSearchResultLocation`
 
@@ -24461,9 +24311,9 @@ puts(beta_message_tokens_count)
 
             - `title: String`
 
-            - `type: :web_search_result_location`
+              maxLength: 512
 
-              - `:web_search_result_location`
+            - `type: :web_search_result_location`
 
             - `url: String`
 
@@ -24487,23 +24337,25 @@ puts(beta_message_tokens_count)
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: String`
 
             - `start_block_index: Integer`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: String`
 
             - `type: :search_result_location`
 
-              - `:search_result_location`
-
         - `text: String`
 
-        - `type: :text`
+          maxLength: 5000000, minLength: 0
 
-          - `:text`
+        - `type: :text`
 
       - `class BetaThinkingBlock`
 
@@ -24521,8 +24373,6 @@ puts(beta_message_tokens_count)
 
         - `type: :thinking`
 
-          - `:thinking`
-
       - `class BetaRedactedThinkingBlock`
 
         - `data: String`
@@ -24535,19 +24385,19 @@ puts(beta_message_tokens_count)
 
         - `type: :redacted_thinking`
 
-          - `:redacted_thinking`
-
       - `class BetaToolUseBlock`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
         - `name: String`
 
-        - `type: :tool_use`
+          minLength: 1
 
-          - `:tool_use`
+        - `type: :tool_use`
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -24559,33 +24409,35 @@ puts(beta_message_tokens_count)
 
             - `type: :direct`
 
-              - `:direct`
-
           - `class BetaServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: String`
 
-            - `type: :code_execution_20250825`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20250825`
+            - `type: :code_execution_20250825`
 
           - `class BetaServerToolCaller20260120`
 
             - `tool_id: String`
 
-            - `type: :code_execution_20260120`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_20260120`
+            - `type: :code_execution_20260120`
 
         - `toolset_name: String`
 
           For a toolset member tool_use, the toolset family.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `class BetaServerToolUseBlock`
 
         - `id: String`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -24608,8 +24460,6 @@ puts(beta_message_tokens_count)
           - `:tool_search_tool_bm25`
 
         - `type: :server_tool_use`
-
-          - `:server_tool_use`
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -24647,8 +24497,6 @@ puts(beta_message_tokens_count)
 
             - `type: :web_search_tool_result_error`
 
-              - `:web_search_tool_result_error`
-
           - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
             - `encrypted_content: String`
@@ -24659,15 +24507,13 @@ puts(beta_message_tokens_count)
 
             - `type: :web_search_result`
 
-              - `:web_search_result`
-
             - `url: String`
 
         - `tool_use_id: String`
 
-        - `type: :web_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_search_tool_result`
+        - `type: :web_search_tool_result`
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -24711,8 +24557,6 @@ puts(beta_message_tokens_count)
 
             - `type: :web_fetch_tool_result_error`
 
-              - `:web_fetch_tool_result_error`
-
           - `class BetaWebFetchBlock`
 
             - `content: BetaDocumentBlock`
@@ -24729,13 +24573,11 @@ puts(beta_message_tokens_count)
 
                   - `data: String`
 
+                    format: byte
+
                   - `media_type: :"application/pdf"`
 
-                    - `:"application/pdf"`
-
                   - `type: :base64`
-
-                    - `:base64`
 
                 - `class BetaPlainTextSource`
 
@@ -24743,11 +24585,7 @@ puts(beta_message_tokens_count)
 
                   - `media_type: :"text/plain"`
 
-                    - `:"text/plain"`
-
                   - `type: :text`
-
-                    - `:text`
 
               - `title: String`
 
@@ -24755,15 +24593,11 @@ puts(beta_message_tokens_count)
 
               - `type: :document`
 
-                - `:document`
-
             - `retrieved_at: String`
 
               ISO 8601 timestamp when the content was retrieved
 
             - `type: :web_fetch_result`
-
-              - `:web_fetch_result`
 
             - `url: String`
 
@@ -24771,9 +24605,9 @@ puts(beta_message_tokens_count)
 
         - `tool_use_id: String`
 
-        - `type: :web_fetch_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:web_fetch_tool_result`
+        - `type: :web_fetch_tool_result`
 
         - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -24813,8 +24647,6 @@ puts(beta_message_tokens_count)
 
             - `type: :advisor_tool_result_error`
 
-              - `:advisor_tool_result_error`
-
           - `class BetaAdvisorResultBlock`
 
             - `stop_reason: String`
@@ -24824,8 +24656,6 @@ puts(beta_message_tokens_count)
             - `text: String`
 
             - `type: :advisor_result`
-
-              - `:advisor_result`
 
           - `class BetaAdvisorRedactedResultBlock`
 
@@ -24839,13 +24669,11 @@ puts(beta_message_tokens_count)
 
             - `type: :advisor_redacted_result`
 
-              - `:advisor_redacted_result`
-
         - `tool_use_id: String`
 
-        - `type: :advisor_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:advisor_tool_result`
+        - `type: :advisor_tool_result`
 
       - `class BetaCodeExecutionToolResultBlock`
 
@@ -24867,8 +24695,6 @@ puts(beta_message_tokens_count)
 
             - `type: :code_execution_tool_result_error`
 
-              - `:code_execution_tool_result_error`
-
           - `class BetaCodeExecutionResultBlock`
 
             - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -24877,8 +24703,6 @@ puts(beta_message_tokens_count)
 
               - `type: :code_execution_output`
 
-                - `:code_execution_output`
-
             - `return_code: Integer`
 
             - `stderr: String`
@@ -24886,8 +24710,6 @@ puts(beta_message_tokens_count)
             - `stdout: String`
 
             - `type: :code_execution_result`
-
-              - `:code_execution_result`
 
           - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -24907,13 +24729,11 @@ puts(beta_message_tokens_count)
 
             - `type: :encrypted_code_execution_result`
 
-              - `:encrypted_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:code_execution_tool_result`
+        - `type: :code_execution_tool_result`
 
       - `class BetaBashCodeExecutionToolResultBlock`
 
@@ -24935,8 +24755,6 @@ puts(beta_message_tokens_count)
 
             - `type: :bash_code_execution_tool_result_error`
 
-              - `:bash_code_execution_tool_result_error`
-
           - `class BetaBashCodeExecutionResultBlock`
 
             - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -24944,8 +24762,6 @@ puts(beta_message_tokens_count)
               - `file_id: String`
 
               - `type: :bash_code_execution_output`
-
-                - `:bash_code_execution_output`
 
             - `return_code: Integer`
 
@@ -24955,13 +24771,11 @@ puts(beta_message_tokens_count)
 
             - `type: :bash_code_execution_result`
 
-              - `:bash_code_execution_result`
-
         - `tool_use_id: String`
 
-        - `type: :bash_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:bash_code_execution_tool_result`
+        - `type: :bash_code_execution_tool_result`
 
       - `class BetaTextEditorCodeExecutionToolResultBlock`
 
@@ -24985,8 +24799,6 @@ puts(beta_message_tokens_count)
 
             - `type: :text_editor_code_execution_tool_result_error`
 
-              - `:text_editor_code_execution_tool_result_error`
-
           - `class BetaTextEditorCodeExecutionViewResultBlock`
 
             - `content: String`
@@ -25007,15 +24819,11 @@ puts(beta_message_tokens_count)
 
             - `type: :text_editor_code_execution_view_result`
 
-              - `:text_editor_code_execution_view_result`
-
           - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
             - `is_file_update: bool`
 
             - `type: :text_editor_code_execution_create_result`
-
-              - `:text_editor_code_execution_create_result`
 
           - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -25031,13 +24839,11 @@ puts(beta_message_tokens_count)
 
             - `type: :text_editor_code_execution_str_replace_result`
 
-              - `:text_editor_code_execution_str_replace_result`
-
         - `tool_use_id: String`
 
-        - `type: :text_editor_code_execution_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:text_editor_code_execution_tool_result`
+        - `type: :text_editor_code_execution_tool_result`
 
       - `class BetaToolSearchToolResultBlock`
 
@@ -25059,31 +24865,29 @@ puts(beta_message_tokens_count)
 
             - `type: :tool_search_tool_result_error`
 
-              - `:tool_search_tool_result_error`
-
           - `class BetaToolSearchToolSearchResultBlock`
 
             - `tool_references: Array[BetaToolReferenceBlock]`
 
               - `tool_name: String`
 
-              - `type: :tool_reference`
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `:tool_reference`
+              - `type: :tool_reference`
 
             - `type: :tool_search_tool_search_result`
 
-              - `:tool_search_tool_search_result`
-
         - `tool_use_id: String`
 
-        - `type: :tool_search_tool_result`
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-          - `:tool_search_tool_result`
+        - `type: :tool_search_tool_result`
 
       - `class BetaMCPToolUseBlock`
 
         - `id: String`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: Hash[Symbol, untyped]`
 
@@ -25096,8 +24900,6 @@ puts(beta_message_tokens_count)
           The name of the MCP server
 
         - `type: :mcp_tool_use`
-
-          - `:mcp_tool_use`
 
       - `class BetaMCPToolResultBlock`
 
@@ -25115,15 +24917,17 @@ puts(beta_message_tokens_count)
 
             - `text: String`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: :text`
 
         - `is_error: bool`
 
         - `tool_use_id: String`
 
-        - `type: :mcp_tool_result`
+          pattern: ^[a-zA-Z0-9_-]+$
 
-          - `:mcp_tool_result`
+        - `type: :mcp_tool_result`
 
       - `class BetaContainerUploadBlock`
 
@@ -25132,8 +24936,6 @@ puts(beta_message_tokens_count)
         - `file_id: String`
 
         - `type: :container_upload`
-
-          - `:container_upload`
 
       - `class BetaCompactionBlock`
 
@@ -25152,8 +24954,6 @@ puts(beta_message_tokens_count)
           Opaque metadata from prior compaction, to be round-tripped verbatim
 
         - `type: :compaction`
-
-          - `:compaction`
 
       - `class BetaFallbackBlock`
 
@@ -25281,11 +25081,7 @@ puts(beta_message_tokens_count)
 
           - `type: :refusal`
 
-            - `:refusal`
-
         - `type: :fallback`
-
-          - `:fallback`
 
     - `context_management: BetaContextManagementResponse`
 
@@ -25303,15 +25099,17 @@ puts(beta_message_tokens_count)
 
             Number of input tokens cleared by this edit.
 
+            minimum: 0
+
           - `cleared_tool_uses: Integer`
 
             Number of tool uses that were cleared.
 
+            minimum: 0
+
           - `type: :clear_tool_uses_20250919`
 
             The type of context management edit applied.
-
-            - `:clear_tool_uses_20250919`
 
         - `class BetaClearThinking20251015EditResponse`
 
@@ -25319,15 +25117,17 @@ puts(beta_message_tokens_count)
 
             Number of input tokens cleared by this edit.
 
+            minimum: 0
+
           - `cleared_thinking_turns: Integer`
 
             Number of thinking turns that were cleared.
 
+            minimum: 0
+
           - `type: :clear_thinking_20251015`
 
             The type of context management edit applied.
-
-            - `:clear_thinking_20251015`
 
     - `diagnostics: BetaDiagnostics`
 
@@ -25346,8 +25146,6 @@ puts(beta_message_tokens_count)
 
           - `type: :model_changed`
 
-            - `:model_changed`
-
         - `class BetaCacheMissSystemChanged`
 
           - `cache_missed_input_tokens: Integer`
@@ -25355,8 +25153,6 @@ puts(beta_message_tokens_count)
             Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
           - `type: :system_changed`
-
-            - `:system_changed`
 
         - `class BetaCacheMissToolsChanged`
 
@@ -25366,8 +25162,6 @@ puts(beta_message_tokens_count)
 
           - `type: :tools_changed`
 
-            - `:tools_changed`
-
         - `class BetaCacheMissMessagesChanged`
 
           - `cache_missed_input_tokens: Integer`
@@ -25376,19 +25170,13 @@ puts(beta_message_tokens_count)
 
           - `type: :messages_changed`
 
-            - `:messages_changed`
-
         - `class BetaCacheMissPreviousMessageNotFound`
 
           - `type: :previous_message_not_found`
 
-            - `:previous_message_not_found`
-
         - `class BetaCacheMissUnavailable`
 
           - `type: :unavailable`
-
-            - `:unavailable`
 
     - `model: Model`
 
@@ -25401,8 +25189,6 @@ puts(beta_message_tokens_count)
       Conversational role of the generated message.
 
       This will always be `"assistant"`.
-
-      - `:assistant`
 
     - `stop_details: BetaRefusalStopDetails`
 
@@ -25489,8 +25275,6 @@ puts(beta_message_tokens_count)
 
       - `type: :refusal`
 
-        - `:refusal`
-
     - `stop_reason: BetaStopReason`
 
       The reason that we stopped.
@@ -25535,8 +25319,6 @@ puts(beta_message_tokens_count)
 
       For Messages, this is always `"message"`.
 
-      - `:message`
-
     - `usage: BetaUsage`
 
       Billing and rate-limit usage.
@@ -25557,17 +25339,25 @@ puts(beta_message_tokens_count)
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: Integer`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: Integer`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
+
+        minimum: 0
 
       - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -25588,8 +25378,6 @@ puts(beta_message_tokens_count)
             had been on the retry model all along.
 
             - `type: :redeemed`
-
-              - `:redeemed`
 
           - `class BetaFallbackCreditNotApplied`
 
@@ -25628,8 +25416,6 @@ puts(beta_message_tokens_count)
 
             - `type: :not_applied`
 
-              - `:not_applied`
-
             - `remove_to_redeem: Array[String]`
 
               Request fields to remove before retrying, so the retry can redeem this
@@ -25648,6 +25434,8 @@ puts(beta_message_tokens_count)
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `iterations: BetaIterationsUsage`
 
@@ -25671,13 +25459,19 @@ puts(beta_message_tokens_count)
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Integer`
 
             The number of input tokens read from the cache.
 
+            minimum: 0
+
           - `input_tokens: Integer`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `model: Model`
 
@@ -25689,11 +25483,11 @@ puts(beta_message_tokens_count)
 
             The number of output tokens which were used.
 
+            minimum: 0
+
           - `type: :message`
 
             Usage for a sampling iteration
-
-            - `:message`
 
         - `class BetaCompactionIterationUsage`
 
@@ -25707,23 +25501,29 @@ puts(beta_message_tokens_count)
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Integer`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `input_tokens: Integer`
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `output_tokens: Integer`
 
             The number of output tokens which were used.
 
+            minimum: 0
+
           - `type: :compaction`
 
             Usage for a compaction iteration
-
-            - `:compaction`
 
         - `class BetaAdvisorMessageIterationUsage`
 
@@ -25737,13 +25537,19 @@ puts(beta_message_tokens_count)
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Integer`
 
             The number of input tokens read from the cache.
 
+            minimum: 0
+
           - `input_tokens: Integer`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `model: Model`
 
@@ -25755,11 +25561,11 @@ puts(beta_message_tokens_count)
 
             The number of output tokens which were used.
 
+            minimum: 0
+
           - `type: :advisor_message`
 
             Usage for an advisor sub-inference iteration
-
-            - `:advisor_message`
 
         - `class BetaFallbackMessageIterationUsage`
 
@@ -25778,13 +25584,19 @@ puts(beta_message_tokens_count)
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Integer`
 
             The number of input tokens read from the cache.
 
+            minimum: 0
+
           - `input_tokens: Integer`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `model: Model`
 
@@ -25796,15 +25608,17 @@ puts(beta_message_tokens_count)
 
             The number of output tokens which were used.
 
+            minimum: 0
+
           - `type: :fallback_message`
 
             Usage for the fallback-model attempt that served the response
 
-            - `:fallback_message`
-
       - `output_tokens: Integer`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `output_tokens_details: BetaOutputTokensDetails`
 
@@ -25826,6 +25640,8 @@ puts(beta_message_tokens_count)
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+          minimum: 0
+
       - `server_tool_use: BetaServerToolUsage`
 
         The number of server tool requests.
@@ -25834,9 +25650,13 @@ puts(beta_message_tokens_count)
 
           The number of web fetch tool requests.
 
+          minimum: 0
+
         - `web_search_requests: Integer`
 
           The number of web search tool requests.
+
+          minimum: 0
 
       - `service_tier: :standard | :priority | :batch`
 
@@ -25858,15 +25678,11 @@ puts(beta_message_tokens_count)
 
   - `type: :message_start`
 
-    - `:message_start`
-
 ### Beta Raw Message Stop Event
 
 - `class BetaRawMessageStopEvent`
 
   - `type: :message_stop`
-
-    - `:message_stop`
 
 ### Beta Raw Message Stream Event
 
@@ -25894,6 +25710,8 @@ puts(beta_message_tokens_count)
 
           The time at which the container will expire.
 
+          format: date-time
+
         - `skills: Array[BetaSkill]`
 
           Skills loaded in the container
@@ -25901,6 +25719,8 @@ puts(beta_message_tokens_count)
           - `skill_id: String`
 
             Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `type: :anthropic | :custom`
 
@@ -25913,6 +25733,8 @@ puts(beta_message_tokens_count)
           - `version: String`
 
             The resolved version: a skill version ID for custom skills.
+
+            maxLength: 64, minLength: 1
 
       - `content: Array[BetaContentBlock]`
 
@@ -25957,6 +25779,8 @@ puts(beta_message_tokens_count)
 
               - `document_index: Integer`
 
+                minimum: 0
+
               - `document_title: String`
 
               - `end_char_index: Integer`
@@ -25965,15 +25789,17 @@ puts(beta_message_tokens_count)
 
               - `start_char_index: Integer`
 
-              - `type: :char_location`
+                minimum: 0
 
-                - `:char_location`
+              - `type: :char_location`
 
             - `class BetaCitationPageLocation`
 
               - `cited_text: String`
 
               - `document_index: Integer`
+
+                minimum: 0
 
               - `document_title: String`
 
@@ -25983,9 +25809,9 @@ puts(beta_message_tokens_count)
 
               - `start_page_number: Integer`
 
-              - `type: :page_location`
+                minimum: 1
 
-                - `:page_location`
+              - `type: :page_location`
 
             - `class BetaCitationContentBlockLocation`
 
@@ -25996,6 +25822,8 @@ puts(beta_message_tokens_count)
                 Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
               - `document_index: Integer`
+
+                minimum: 0
 
               - `document_title: String`
 
@@ -26011,9 +25839,9 @@ puts(beta_message_tokens_count)
 
                 0-based index of the first cited block in the source's `content` array.
 
-              - `type: :content_block_location`
+                minimum: 0
 
-                - `:content_block_location`
+              - `type: :content_block_location`
 
             - `class BetaCitationsWebSearchResultLocation`
 
@@ -26023,9 +25851,9 @@ puts(beta_message_tokens_count)
 
               - `title: String`
 
-              - `type: :web_search_result_location`
+                maxLength: 512
 
-                - `:web_search_result_location`
+              - `type: :web_search_result_location`
 
               - `url: String`
 
@@ -26049,23 +25877,25 @@ puts(beta_message_tokens_count)
 
                 Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                minimum: 0
+
               - `source: String`
 
               - `start_block_index: Integer`
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `title: String`
 
               - `type: :search_result_location`
 
-                - `:search_result_location`
-
           - `text: String`
 
-          - `type: :text`
+            maxLength: 5000000, minLength: 0
 
-            - `:text`
+          - `type: :text`
 
         - `class BetaThinkingBlock`
 
@@ -26083,8 +25913,6 @@ puts(beta_message_tokens_count)
 
           - `type: :thinking`
 
-            - `:thinking`
-
         - `class BetaRedactedThinkingBlock`
 
           - `data: String`
@@ -26097,19 +25925,19 @@ puts(beta_message_tokens_count)
 
           - `type: :redacted_thinking`
 
-            - `:redacted_thinking`
-
         - `class BetaToolUseBlock`
 
           - `id: String`
+
+            pattern: ^[a-zA-Z0-9_-]+$
 
           - `input: Hash[Symbol, untyped]`
 
           - `name: String`
 
-          - `type: :tool_use`
+            minLength: 1
 
-            - `:tool_use`
+          - `type: :tool_use`
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -26121,33 +25949,35 @@ puts(beta_message_tokens_count)
 
               - `type: :direct`
 
-                - `:direct`
-
             - `class BetaServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
               - `tool_id: String`
 
-              - `type: :code_execution_20250825`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `:code_execution_20250825`
+              - `type: :code_execution_20250825`
 
             - `class BetaServerToolCaller20260120`
 
               - `tool_id: String`
 
-              - `type: :code_execution_20260120`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `:code_execution_20260120`
+              - `type: :code_execution_20260120`
 
           - `toolset_name: String`
 
             For a toolset member tool_use, the toolset family.
 
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
         - `class BetaServerToolUseBlock`
 
           - `id: String`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `input: Hash[Symbol, untyped]`
 
@@ -26170,8 +26000,6 @@ puts(beta_message_tokens_count)
             - `:tool_search_tool_bm25`
 
           - `type: :server_tool_use`
-
-            - `:server_tool_use`
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -26209,8 +26037,6 @@ puts(beta_message_tokens_count)
 
               - `type: :web_search_tool_result_error`
 
-                - `:web_search_tool_result_error`
-
             - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
               - `encrypted_content: String`
@@ -26221,15 +26047,13 @@ puts(beta_message_tokens_count)
 
               - `type: :web_search_result`
 
-                - `:web_search_result`
-
               - `url: String`
 
           - `tool_use_id: String`
 
-          - `type: :web_search_tool_result`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:web_search_tool_result`
+          - `type: :web_search_tool_result`
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -26273,8 +26097,6 @@ puts(beta_message_tokens_count)
 
               - `type: :web_fetch_tool_result_error`
 
-                - `:web_fetch_tool_result_error`
-
             - `class BetaWebFetchBlock`
 
               - `content: BetaDocumentBlock`
@@ -26291,13 +26113,11 @@ puts(beta_message_tokens_count)
 
                     - `data: String`
 
+                      format: byte
+
                     - `media_type: :"application/pdf"`
 
-                      - `:"application/pdf"`
-
                     - `type: :base64`
-
-                      - `:base64`
 
                   - `class BetaPlainTextSource`
 
@@ -26305,11 +26125,7 @@ puts(beta_message_tokens_count)
 
                     - `media_type: :"text/plain"`
 
-                      - `:"text/plain"`
-
                     - `type: :text`
-
-                      - `:text`
 
                 - `title: String`
 
@@ -26317,15 +26133,11 @@ puts(beta_message_tokens_count)
 
                 - `type: :document`
 
-                  - `:document`
-
               - `retrieved_at: String`
 
                 ISO 8601 timestamp when the content was retrieved
 
               - `type: :web_fetch_result`
-
-                - `:web_fetch_result`
 
               - `url: String`
 
@@ -26333,9 +26145,9 @@ puts(beta_message_tokens_count)
 
           - `tool_use_id: String`
 
-          - `type: :web_fetch_tool_result`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:web_fetch_tool_result`
+          - `type: :web_fetch_tool_result`
 
           - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -26375,8 +26187,6 @@ puts(beta_message_tokens_count)
 
               - `type: :advisor_tool_result_error`
 
-                - `:advisor_tool_result_error`
-
             - `class BetaAdvisorResultBlock`
 
               - `stop_reason: String`
@@ -26386,8 +26196,6 @@ puts(beta_message_tokens_count)
               - `text: String`
 
               - `type: :advisor_result`
-
-                - `:advisor_result`
 
             - `class BetaAdvisorRedactedResultBlock`
 
@@ -26401,13 +26209,11 @@ puts(beta_message_tokens_count)
 
               - `type: :advisor_redacted_result`
 
-                - `:advisor_redacted_result`
-
           - `tool_use_id: String`
 
-          - `type: :advisor_tool_result`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:advisor_tool_result`
+          - `type: :advisor_tool_result`
 
         - `class BetaCodeExecutionToolResultBlock`
 
@@ -26429,8 +26235,6 @@ puts(beta_message_tokens_count)
 
               - `type: :code_execution_tool_result_error`
 
-                - `:code_execution_tool_result_error`
-
             - `class BetaCodeExecutionResultBlock`
 
               - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -26439,8 +26243,6 @@ puts(beta_message_tokens_count)
 
                 - `type: :code_execution_output`
 
-                  - `:code_execution_output`
-
               - `return_code: Integer`
 
               - `stderr: String`
@@ -26448,8 +26250,6 @@ puts(beta_message_tokens_count)
               - `stdout: String`
 
               - `type: :code_execution_result`
-
-                - `:code_execution_result`
 
             - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -26469,13 +26269,11 @@ puts(beta_message_tokens_count)
 
               - `type: :encrypted_code_execution_result`
 
-                - `:encrypted_code_execution_result`
-
           - `tool_use_id: String`
 
-          - `type: :code_execution_tool_result`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:code_execution_tool_result`
+          - `type: :code_execution_tool_result`
 
         - `class BetaBashCodeExecutionToolResultBlock`
 
@@ -26497,8 +26295,6 @@ puts(beta_message_tokens_count)
 
               - `type: :bash_code_execution_tool_result_error`
 
-                - `:bash_code_execution_tool_result_error`
-
             - `class BetaBashCodeExecutionResultBlock`
 
               - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -26506,8 +26302,6 @@ puts(beta_message_tokens_count)
                 - `file_id: String`
 
                 - `type: :bash_code_execution_output`
-
-                  - `:bash_code_execution_output`
 
               - `return_code: Integer`
 
@@ -26517,13 +26311,11 @@ puts(beta_message_tokens_count)
 
               - `type: :bash_code_execution_result`
 
-                - `:bash_code_execution_result`
-
           - `tool_use_id: String`
 
-          - `type: :bash_code_execution_tool_result`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:bash_code_execution_tool_result`
+          - `type: :bash_code_execution_tool_result`
 
         - `class BetaTextEditorCodeExecutionToolResultBlock`
 
@@ -26547,8 +26339,6 @@ puts(beta_message_tokens_count)
 
               - `type: :text_editor_code_execution_tool_result_error`
 
-                - `:text_editor_code_execution_tool_result_error`
-
             - `class BetaTextEditorCodeExecutionViewResultBlock`
 
               - `content: String`
@@ -26569,15 +26359,11 @@ puts(beta_message_tokens_count)
 
               - `type: :text_editor_code_execution_view_result`
 
-                - `:text_editor_code_execution_view_result`
-
             - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
               - `is_file_update: bool`
 
               - `type: :text_editor_code_execution_create_result`
-
-                - `:text_editor_code_execution_create_result`
 
             - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -26593,13 +26379,11 @@ puts(beta_message_tokens_count)
 
               - `type: :text_editor_code_execution_str_replace_result`
 
-                - `:text_editor_code_execution_str_replace_result`
-
           - `tool_use_id: String`
 
-          - `type: :text_editor_code_execution_tool_result`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:text_editor_code_execution_tool_result`
+          - `type: :text_editor_code_execution_tool_result`
 
         - `class BetaToolSearchToolResultBlock`
 
@@ -26621,31 +26405,29 @@ puts(beta_message_tokens_count)
 
               - `type: :tool_search_tool_result_error`
 
-                - `:tool_search_tool_result_error`
-
             - `class BetaToolSearchToolSearchResultBlock`
 
               - `tool_references: Array[BetaToolReferenceBlock]`
 
                 - `tool_name: String`
 
-                - `type: :tool_reference`
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                  - `:tool_reference`
+                - `type: :tool_reference`
 
               - `type: :tool_search_tool_search_result`
 
-                - `:tool_search_tool_search_result`
-
           - `tool_use_id: String`
 
-          - `type: :tool_search_tool_result`
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-            - `:tool_search_tool_result`
+          - `type: :tool_search_tool_result`
 
         - `class BetaMCPToolUseBlock`
 
           - `id: String`
+
+            pattern: ^[a-zA-Z0-9_-]+$
 
           - `input: Hash[Symbol, untyped]`
 
@@ -26658,8 +26440,6 @@ puts(beta_message_tokens_count)
             The name of the MCP server
 
           - `type: :mcp_tool_use`
-
-            - `:mcp_tool_use`
 
         - `class BetaMCPToolResultBlock`
 
@@ -26677,15 +26457,17 @@ puts(beta_message_tokens_count)
 
               - `text: String`
 
+                maxLength: 5000000, minLength: 0
+
               - `type: :text`
 
           - `is_error: bool`
 
           - `tool_use_id: String`
 
-          - `type: :mcp_tool_result`
+            pattern: ^[a-zA-Z0-9_-]+$
 
-            - `:mcp_tool_result`
+          - `type: :mcp_tool_result`
 
         - `class BetaContainerUploadBlock`
 
@@ -26694,8 +26476,6 @@ puts(beta_message_tokens_count)
           - `file_id: String`
 
           - `type: :container_upload`
-
-            - `:container_upload`
 
         - `class BetaCompactionBlock`
 
@@ -26714,8 +26494,6 @@ puts(beta_message_tokens_count)
             Opaque metadata from prior compaction, to be round-tripped verbatim
 
           - `type: :compaction`
-
-            - `:compaction`
 
         - `class BetaFallbackBlock`
 
@@ -26843,11 +26621,7 @@ puts(beta_message_tokens_count)
 
             - `type: :refusal`
 
-              - `:refusal`
-
           - `type: :fallback`
-
-            - `:fallback`
 
       - `context_management: BetaContextManagementResponse`
 
@@ -26865,15 +26639,17 @@ puts(beta_message_tokens_count)
 
               Number of input tokens cleared by this edit.
 
+              minimum: 0
+
             - `cleared_tool_uses: Integer`
 
               Number of tool uses that were cleared.
 
+              minimum: 0
+
             - `type: :clear_tool_uses_20250919`
 
               The type of context management edit applied.
-
-              - `:clear_tool_uses_20250919`
 
           - `class BetaClearThinking20251015EditResponse`
 
@@ -26881,15 +26657,17 @@ puts(beta_message_tokens_count)
 
               Number of input tokens cleared by this edit.
 
+              minimum: 0
+
             - `cleared_thinking_turns: Integer`
 
               Number of thinking turns that were cleared.
 
+              minimum: 0
+
             - `type: :clear_thinking_20251015`
 
               The type of context management edit applied.
-
-              - `:clear_thinking_20251015`
 
       - `diagnostics: BetaDiagnostics`
 
@@ -26908,8 +26686,6 @@ puts(beta_message_tokens_count)
 
             - `type: :model_changed`
 
-              - `:model_changed`
-
           - `class BetaCacheMissSystemChanged`
 
             - `cache_missed_input_tokens: Integer`
@@ -26917,8 +26693,6 @@ puts(beta_message_tokens_count)
               Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
             - `type: :system_changed`
-
-              - `:system_changed`
 
           - `class BetaCacheMissToolsChanged`
 
@@ -26928,8 +26702,6 @@ puts(beta_message_tokens_count)
 
             - `type: :tools_changed`
 
-              - `:tools_changed`
-
           - `class BetaCacheMissMessagesChanged`
 
             - `cache_missed_input_tokens: Integer`
@@ -26938,19 +26710,13 @@ puts(beta_message_tokens_count)
 
             - `type: :messages_changed`
 
-              - `:messages_changed`
-
           - `class BetaCacheMissPreviousMessageNotFound`
 
             - `type: :previous_message_not_found`
 
-              - `:previous_message_not_found`
-
           - `class BetaCacheMissUnavailable`
 
             - `type: :unavailable`
-
-              - `:unavailable`
 
       - `model: Model`
 
@@ -26963,8 +26729,6 @@ puts(beta_message_tokens_count)
         Conversational role of the generated message.
 
         This will always be `"assistant"`.
-
-        - `:assistant`
 
       - `stop_details: BetaRefusalStopDetails`
 
@@ -27051,8 +26815,6 @@ puts(beta_message_tokens_count)
 
         - `type: :refusal`
 
-          - `:refusal`
-
       - `stop_reason: BetaStopReason`
 
         The reason that we stopped.
@@ -27097,8 +26859,6 @@ puts(beta_message_tokens_count)
 
         For Messages, this is always `"message"`.
 
-        - `:message`
-
       - `usage: BetaUsage`
 
         Billing and rate-limit usage.
@@ -27119,17 +26879,25 @@ puts(beta_message_tokens_count)
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: Integer`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: Integer`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: Integer`
 
           The number of input tokens read from the cache.
+
+          minimum: 0
 
         - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -27150,8 +26918,6 @@ puts(beta_message_tokens_count)
               had been on the retry model all along.
 
               - `type: :redeemed`
-
-                - `:redeemed`
 
             - `class BetaFallbackCreditNotApplied`
 
@@ -27190,8 +26956,6 @@ puts(beta_message_tokens_count)
 
               - `type: :not_applied`
 
-                - `:not_applied`
-
               - `remove_to_redeem: Array[String]`
 
                 Request fields to remove before retrying, so the retry can redeem this
@@ -27210,6 +26974,8 @@ puts(beta_message_tokens_count)
         - `input_tokens: Integer`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `iterations: BetaIterationsUsage`
 
@@ -27233,13 +26999,19 @@ puts(beta_message_tokens_count)
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: Integer`
 
               The number of input tokens read from the cache.
 
+              minimum: 0
+
             - `input_tokens: Integer`
 
               The number of input tokens which were used.
+
+              minimum: 0
 
             - `model: Model`
 
@@ -27251,11 +27023,11 @@ puts(beta_message_tokens_count)
 
               The number of output tokens which were used.
 
+              minimum: 0
+
             - `type: :message`
 
               Usage for a sampling iteration
-
-              - `:message`
 
           - `class BetaCompactionIterationUsage`
 
@@ -27269,23 +27041,29 @@ puts(beta_message_tokens_count)
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: Integer`
 
               The number of input tokens read from the cache.
+
+              minimum: 0
 
             - `input_tokens: Integer`
 
               The number of input tokens which were used.
 
+              minimum: 0
+
             - `output_tokens: Integer`
 
               The number of output tokens which were used.
 
+              minimum: 0
+
             - `type: :compaction`
 
               Usage for a compaction iteration
-
-              - `:compaction`
 
           - `class BetaAdvisorMessageIterationUsage`
 
@@ -27299,13 +27077,19 @@ puts(beta_message_tokens_count)
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: Integer`
 
               The number of input tokens read from the cache.
 
+              minimum: 0
+
             - `input_tokens: Integer`
 
               The number of input tokens which were used.
+
+              minimum: 0
 
             - `model: Model`
 
@@ -27317,11 +27101,11 @@ puts(beta_message_tokens_count)
 
               The number of output tokens which were used.
 
+              minimum: 0
+
             - `type: :advisor_message`
 
               Usage for an advisor sub-inference iteration
-
-              - `:advisor_message`
 
           - `class BetaFallbackMessageIterationUsage`
 
@@ -27340,13 +27124,19 @@ puts(beta_message_tokens_count)
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: Integer`
 
               The number of input tokens read from the cache.
 
+              minimum: 0
+
             - `input_tokens: Integer`
 
               The number of input tokens which were used.
+
+              minimum: 0
 
             - `model: Model`
 
@@ -27358,15 +27148,17 @@ puts(beta_message_tokens_count)
 
               The number of output tokens which were used.
 
+              minimum: 0
+
             - `type: :fallback_message`
 
               Usage for the fallback-model attempt that served the response
 
-              - `:fallback_message`
-
         - `output_tokens: Integer`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `output_tokens_details: BetaOutputTokensDetails`
 
@@ -27388,6 +27180,8 @@ puts(beta_message_tokens_count)
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+            minimum: 0
+
         - `server_tool_use: BetaServerToolUsage`
 
           The number of server tool requests.
@@ -27396,9 +27190,13 @@ puts(beta_message_tokens_count)
 
             The number of web fetch tool requests.
 
+            minimum: 0
+
           - `web_search_requests: Integer`
 
             The number of web search tool requests.
+
+            minimum: 0
 
         - `service_tier: :standard | :priority | :batch`
 
@@ -27420,15 +27218,13 @@ puts(beta_message_tokens_count)
 
     - `type: :message_start`
 
-      - `:message_start`
-
   - `class BetaRawMessageDeltaEvent`
 
     - `context_management: BetaContextManagementResponse`
 
       Information about context management strategies applied during the request
 
-    - `delta: Delta{ container, stop_details, stop_reason, stop_sequence}`
+    - `delta: Delta`
 
       - `container: BetaContainer`
 
@@ -27443,8 +27239,6 @@ puts(beta_message_tokens_count)
       - `stop_sequence: String`
 
     - `type: :message_delta`
-
-      - `:message_delta`
 
     - `usage: BetaMessageDeltaUsage`
 
@@ -27462,9 +27256,13 @@ puts(beta_message_tokens_count)
 
         The cumulative number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The cumulative number of input tokens read from the cache.
+
+        minimum: 0
 
       - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -27473,6 +27271,8 @@ puts(beta_message_tokens_count)
       - `input_tokens: Integer`
 
         The cumulative number of input tokens which were used.
+
+        minimum: 0
 
       - `iterations: BetaIterationsUsage`
 
@@ -27504,8 +27304,6 @@ puts(beta_message_tokens_count)
   - `class BetaRawMessageStopEvent`
 
     - `type: :message_stop`
-
-      - `:message_stop`
 
   - `class BetaRawContentBlockStartEvent`
 
@@ -27571,8 +27369,6 @@ puts(beta_message_tokens_count)
 
     - `type: :content_block_start`
 
-      - `:content_block_start`
-
   - `class BetaRawContentBlockDeltaEvent`
 
     - `delta: BetaRawContentBlockDelta`
@@ -27583,15 +27379,11 @@ puts(beta_message_tokens_count)
 
         - `type: :text_delta`
 
-          - `:text_delta`
-
       - `class BetaInputJSONDelta`
 
         - `partial_json: String`
 
         - `type: :input_json_delta`
-
-          - `:input_json_delta`
 
       - `class BetaCitationsDelta`
 
@@ -27609,8 +27401,6 @@ puts(beta_message_tokens_count)
 
         - `type: :citations_delta`
 
-          - `:citations_delta`
-
       - `class BetaThinkingDelta`
 
         - `estimated_tokens: Integer`
@@ -27623,8 +27413,6 @@ puts(beta_message_tokens_count)
 
         - `type: :thinking_delta`
 
-          - `:thinking_delta`
-
       - `class BetaSignatureDelta`
 
         - `signature: String`
@@ -27632,8 +27420,6 @@ puts(beta_message_tokens_count)
           The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
 
         - `type: :signature_delta`
-
-          - `:signature_delta`
 
       - `class BetaCompactionContentBlockDelta`
 
@@ -27645,21 +27431,15 @@ puts(beta_message_tokens_count)
 
         - `type: :compaction_delta`
 
-          - `:compaction_delta`
-
     - `index: Integer`
 
     - `type: :content_block_delta`
-
-      - `:content_block_delta`
 
   - `class BetaRawContentBlockStopEvent`
 
     - `index: Integer`
 
     - `type: :content_block_stop`
-
-      - `:content_block_stop`
 
 ### Beta Redacted Thinking Block
 
@@ -27675,8 +27455,6 @@ puts(beta_message_tokens_count)
 
   - `type: :redacted_thinking`
 
-    - `:redacted_thinking`
-
 ### Beta Redacted Thinking Block Param
 
 - `class BetaRedactedThinkingBlockParam`
@@ -27686,8 +27464,6 @@ puts(beta_message_tokens_count)
     The `data` value of this redacted thinking block, exactly as returned by the API in a previous response. Opaque and encrypted; pass it back unchanged.
 
   - `type: :redacted_thinking`
-
-    - `:redacted_thinking`
 
 ### Beta Refusal Stop Details
 
@@ -27776,8 +27552,6 @@ puts(beta_message_tokens_count)
 
   - `type: :refusal`
 
-    - `:refusal`
-
 ### Beta Request Document Block
 
 - `class BetaRequestDocumentBlock`
@@ -27788,13 +27562,11 @@ puts(beta_message_tokens_count)
 
       - `data: String`
 
+        format: byte
+
       - `media_type: :"application/pdf"`
 
-        - `:"application/pdf"`
-
       - `type: :base64`
-
-        - `:base64`
 
     - `class BetaPlainTextSource`
 
@@ -27802,11 +27574,7 @@ puts(beta_message_tokens_count)
 
       - `media_type: :"text/plain"`
 
-        - `:"text/plain"`
-
       - `type: :text`
-
-        - `:text`
 
     - `class BetaContentBlockSource`
 
@@ -27820,17 +27588,15 @@ puts(beta_message_tokens_count)
 
             - `text: String`
 
-            - `type: :text`
+              minLength: 1
 
-              - `:text`
+            - `type: :text`
 
             - `cache_control: BetaCacheControlEphemeral`
 
               Create a cache control breakpoint at this content block.
 
               - `type: :ephemeral`
-
-                - `:ephemeral`
 
               - `ttl: :"5m" | :"1h"`
 
@@ -27855,15 +27621,19 @@ puts(beta_message_tokens_count)
 
                 - `document_index: Integer`
 
+                  minimum: 0
+
                 - `document_title: String`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_char_index: Integer`
 
                 - `start_char_index: Integer`
 
-                - `type: :char_location`
+                  minimum: 0
 
-                  - `:char_location`
+                - `type: :char_location`
 
               - `class BetaCitationPageLocationParam`
 
@@ -27871,15 +27641,19 @@ puts(beta_message_tokens_count)
 
                 - `document_index: Integer`
 
+                  minimum: 0
+
                 - `document_title: String`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_page_number: Integer`
 
                 - `start_page_number: Integer`
 
-                - `type: :page_location`
+                  minimum: 1
 
-                  - `:page_location`
+                - `type: :page_location`
 
               - `class BetaCitationContentBlockLocationParam`
 
@@ -27891,7 +27665,11 @@ puts(beta_message_tokens_count)
 
                 - `document_index: Integer`
 
+                  minimum: 0
+
                 - `document_title: String`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_block_index: Integer`
 
@@ -27903,9 +27681,9 @@ puts(beta_message_tokens_count)
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `type: :content_block_location`
+                  minimum: 0
 
-                  - `:content_block_location`
+                - `type: :content_block_location`
 
               - `class BetaCitationWebSearchResultLocationParam`
 
@@ -27915,11 +27693,13 @@ puts(beta_message_tokens_count)
 
                 - `title: String`
 
+                  maxLength: 512, minLength: 1
+
                 - `type: :web_search_result_location`
 
-                  - `:web_search_result_location`
-
                 - `url: String`
+
+                  minLength: 1
 
               - `class BetaCitationSearchResultLocationParam`
 
@@ -27941,17 +27721,19 @@ puts(beta_message_tokens_count)
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: String`
 
                 - `start_block_index: Integer`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: String`
 
                 - `type: :search_result_location`
-
-                  - `:search_result_location`
 
           - `class BetaImageBlockParam`
 
@@ -27960,6 +27742,8 @@ puts(beta_message_tokens_count)
               - `class BetaBase64ImageSource`
 
                 - `data: String`
+
+                  format: byte
 
                 - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -27973,13 +27757,9 @@ puts(beta_message_tokens_count)
 
                 - `type: :base64`
 
-                  - `:base64`
-
               - `class BetaURLImageSource`
 
                 - `type: :url`
-
-                  - `:url`
 
                 - `url: String`
 
@@ -27989,11 +27769,7 @@ puts(beta_message_tokens_count)
 
                 - `type: :file`
 
-                  - `:file`
-
             - `type: :image`
-
-              - `:image`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -28013,13 +27789,9 @@ puts(beta_message_tokens_count)
 
       - `type: :content`
 
-        - `:content`
-
     - `class BetaURLPDFSource`
 
       - `type: :url`
-
-        - `:url`
 
       - `url: String`
 
@@ -28029,11 +27801,7 @@ puts(beta_message_tokens_count)
 
       - `type: :file`
 
-        - `:file`
-
   - `type: :document`
-
-    - `:document`
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -28045,7 +27813,11 @@ puts(beta_message_tokens_count)
 
   - `context: String`
 
+    minLength: 1
+
   - `title: String`
+
+    maxLength: 500, minLength: 1
 
 ### Beta Request MCP Server Tool Configuration
 
@@ -28063,8 +27835,6 @@ puts(beta_message_tokens_count)
 
   - `type: :url`
 
-    - `:url`
-
   - `url: String`
 
   - `authorization_token: String`
@@ -28081,17 +27851,15 @@ puts(beta_message_tokens_count)
 
   - `tool_use_id: String`
 
-  - `type: :mcp_tool_result`
+    pattern: ^[a-zA-Z0-9_-]+$
 
-    - `:mcp_tool_result`
+  - `type: :mcp_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -28116,9 +27884,9 @@ puts(beta_message_tokens_count)
 
       - `text: String`
 
-      - `type: :text`
+        minLength: 1
 
-        - `:text`
+      - `type: :text`
 
       - `cache_control: BetaCacheControlEphemeral`
 
@@ -28132,15 +27900,19 @@ puts(beta_message_tokens_count)
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
+
+            maxLength: 500, minLength: 1
 
           - `end_char_index: Integer`
 
           - `start_char_index: Integer`
 
-          - `type: :char_location`
+            minimum: 0
 
-            - `:char_location`
+          - `type: :char_location`
 
         - `class BetaCitationPageLocationParam`
 
@@ -28148,15 +27920,19 @@ puts(beta_message_tokens_count)
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
+
+            maxLength: 500, minLength: 1
 
           - `end_page_number: Integer`
 
           - `start_page_number: Integer`
 
-          - `type: :page_location`
+            minimum: 1
 
-            - `:page_location`
+          - `type: :page_location`
 
         - `class BetaCitationContentBlockLocationParam`
 
@@ -28168,7 +27944,11 @@ puts(beta_message_tokens_count)
 
           - `document_index: Integer`
 
+            minimum: 0
+
           - `document_title: String`
+
+            maxLength: 500, minLength: 1
 
           - `end_block_index: Integer`
 
@@ -28180,9 +27960,9 @@ puts(beta_message_tokens_count)
 
             0-based index of the first cited block in the source's `content` array.
 
-          - `type: :content_block_location`
+            minimum: 0
 
-            - `:content_block_location`
+          - `type: :content_block_location`
 
         - `class BetaCitationWebSearchResultLocationParam`
 
@@ -28192,11 +27972,13 @@ puts(beta_message_tokens_count)
 
           - `title: String`
 
+            maxLength: 512, minLength: 1
+
           - `type: :web_search_result_location`
 
-            - `:web_search_result_location`
-
           - `url: String`
+
+            minLength: 1
 
         - `class BetaCitationSearchResultLocationParam`
 
@@ -28218,17 +28000,19 @@ puts(beta_message_tokens_count)
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: String`
 
           - `start_block_index: Integer`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: String`
 
           - `type: :search_result_location`
-
-            - `:search_result_location`
 
   - `is_error: bool`
 
@@ -28258,9 +28042,9 @@ puts(beta_message_tokens_count)
 
       - `name: String`
 
-      - `type: :tool_reference`
+        pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-        - `:tool_reference`
+      - `type: :tool_reference`
 
     - `class BetaToolChangeMCPToolReference`
 
@@ -28273,8 +28057,6 @@ puts(beta_message_tokens_count)
 
       - `type: :mcp_tool_reference`
 
-        - `:mcp_tool_reference`
-
     - `class BetaToolChangeMCPToolsetReference`
 
       Reference to every tool in the named MCP server's toolset.
@@ -28283,19 +28065,13 @@ puts(beta_message_tokens_count)
 
       - `type: :mcp_toolset_reference`
 
-        - `:mcp_toolset_reference`
-
   - `type: :tool_addition`
-
-    - `:tool_addition`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -28338,9 +28114,9 @@ puts(beta_message_tokens_count)
 
       - `name: String`
 
-      - `type: :tool_reference`
+        pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-        - `:tool_reference`
+      - `type: :tool_reference`
 
     - `class BetaToolChangeMCPToolReference`
 
@@ -28353,8 +28129,6 @@ puts(beta_message_tokens_count)
 
       - `type: :mcp_tool_reference`
 
-        - `:mcp_tool_reference`
-
     - `class BetaToolChangeMCPToolsetReference`
 
       Reference to every tool in the named MCP server's toolset.
@@ -28363,19 +28137,13 @@ puts(beta_message_tokens_count)
 
       - `type: :mcp_toolset_reference`
 
-        - `:mcp_toolset_reference`
-
   - `type: :tool_removal`
-
-    - `:tool_removal`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -28400,17 +28168,15 @@ puts(beta_message_tokens_count)
 
     - `text: String`
 
-    - `type: :text`
+      minLength: 1
 
-      - `:text`
+    - `type: :text`
 
     - `cache_control: BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
 
       - `type: :ephemeral`
-
-        - `:ephemeral`
 
       - `ttl: :"5m" | :"1h"`
 
@@ -28435,15 +28201,19 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: Integer`
 
         - `start_char_index: Integer`
 
-        - `type: :char_location`
+          minimum: 0
 
-          - `:char_location`
+        - `type: :char_location`
 
       - `class BetaCitationPageLocationParam`
 
@@ -28451,15 +28221,19 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: Integer`
 
         - `start_page_number: Integer`
 
-        - `type: :page_location`
+          minimum: 1
 
-          - `:page_location`
+        - `type: :page_location`
 
       - `class BetaCitationContentBlockLocationParam`
 
@@ -28471,7 +28245,11 @@ puts(beta_message_tokens_count)
 
         - `document_index: Integer`
 
+          minimum: 0
+
         - `document_title: String`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: Integer`
 
@@ -28483,9 +28261,9 @@ puts(beta_message_tokens_count)
 
           0-based index of the first cited block in the source's `content` array.
 
-        - `type: :content_block_location`
+          minimum: 0
 
-          - `:content_block_location`
+        - `type: :content_block_location`
 
       - `class BetaCitationWebSearchResultLocationParam`
 
@@ -28495,11 +28273,13 @@ puts(beta_message_tokens_count)
 
         - `title: String`
 
+          maxLength: 512, minLength: 1
+
         - `type: :web_search_result_location`
 
-          - `:web_search_result_location`
-
         - `url: String`
+
+          minLength: 1
 
       - `class BetaCitationSearchResultLocationParam`
 
@@ -28521,25 +28301,25 @@ puts(beta_message_tokens_count)
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: String`
 
         - `start_block_index: Integer`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: String`
 
         - `type: :search_result_location`
-
-          - `:search_result_location`
 
   - `source: String`
 
   - `title: String`
 
   - `type: :search_result`
-
-    - `:search_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -28557,9 +28337,9 @@ puts(beta_message_tokens_count)
 
   - `tool_id: String`
 
-  - `type: :code_execution_20250825`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:code_execution_20250825`
+  - `type: :code_execution_20250825`
 
 ### Beta Server Tool Caller 20260120
 
@@ -28567,9 +28347,9 @@ puts(beta_message_tokens_count)
 
   - `tool_id: String`
 
-  - `type: :code_execution_20260120`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:code_execution_20260120`
+  - `type: :code_execution_20260120`
 
 ### Beta Server Tool Usage
 
@@ -28579,15 +28359,21 @@ puts(beta_message_tokens_count)
 
     The number of web fetch tool requests.
 
+    minimum: 0
+
   - `web_search_requests: Integer`
 
     The number of web search tool requests.
+
+    minimum: 0
 
 ### Beta Server Tool Use Block
 
 - `class BetaServerToolUseBlock`
 
   - `id: String`
+
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `input: Hash[Symbol, untyped]`
 
@@ -28610,8 +28396,6 @@ puts(beta_message_tokens_count)
     - `:tool_search_tool_bm25`
 
   - `type: :server_tool_use`
-
-    - `:server_tool_use`
 
   - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -28623,31 +28407,31 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
 ### Beta Server Tool Use Block Param
 
 - `class BetaServerToolUseBlockParam`
 
   - `id: String`
+
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `input: Hash[Symbol, untyped]`
 
@@ -28671,15 +28455,11 @@ puts(beta_message_tokens_count)
 
   - `type: :server_tool_use`
 
-    - `:server_tool_use`
-
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -28706,25 +28486,23 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
 ### Beta Signature Delta
 
@@ -28736,8 +28514,6 @@ puts(beta_message_tokens_count)
 
   - `type: :signature_delta`
 
-    - `:signature_delta`
-
 ### Beta Skill
 
 - `class BetaSkill`
@@ -28747,6 +28523,8 @@ puts(beta_message_tokens_count)
   - `skill_id: String`
 
     Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `type: :anthropic | :custom`
 
@@ -28760,6 +28538,8 @@ puts(beta_message_tokens_count)
 
     The resolved version: a skill version ID for custom skills.
 
+    maxLength: 64, minLength: 1
+
 ### Beta Skill Params
 
 - `class BetaSkillParams`
@@ -28769,6 +28549,8 @@ puts(beta_message_tokens_count)
   - `skill_id: String`
 
     Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `type: :anthropic | :custom`
 
@@ -28781,6 +28563,8 @@ puts(beta_message_tokens_count)
   - `version: String`
 
     Skill version or 'latest' for most recent version
+
+    maxLength: 64, minLength: 1
 
 ### Beta Stop Reason
 
@@ -28818,6 +28602,8 @@ puts(beta_message_tokens_count)
 
       - `document_index: Integer`
 
+        minimum: 0
+
       - `document_title: String`
 
       - `end_char_index: Integer`
@@ -28826,15 +28612,17 @@ puts(beta_message_tokens_count)
 
       - `start_char_index: Integer`
 
-      - `type: :char_location`
+        minimum: 0
 
-        - `:char_location`
+      - `type: :char_location`
 
     - `class BetaCitationPageLocation`
 
       - `cited_text: String`
 
       - `document_index: Integer`
+
+        minimum: 0
 
       - `document_title: String`
 
@@ -28844,9 +28632,9 @@ puts(beta_message_tokens_count)
 
       - `start_page_number: Integer`
 
-      - `type: :page_location`
+        minimum: 1
 
-        - `:page_location`
+      - `type: :page_location`
 
     - `class BetaCitationContentBlockLocation`
 
@@ -28857,6 +28645,8 @@ puts(beta_message_tokens_count)
         Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
       - `document_index: Integer`
+
+        minimum: 0
 
       - `document_title: String`
 
@@ -28872,9 +28662,9 @@ puts(beta_message_tokens_count)
 
         0-based index of the first cited block in the source's `content` array.
 
-      - `type: :content_block_location`
+        minimum: 0
 
-        - `:content_block_location`
+      - `type: :content_block_location`
 
     - `class BetaCitationsWebSearchResultLocation`
 
@@ -28884,9 +28674,9 @@ puts(beta_message_tokens_count)
 
       - `title: String`
 
-      - `type: :web_search_result_location`
+        maxLength: 512
 
-        - `:web_search_result_location`
+      - `type: :web_search_result_location`
 
       - `url: String`
 
@@ -28910,23 +28700,25 @@ puts(beta_message_tokens_count)
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: String`
 
       - `start_block_index: Integer`
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `title: String`
 
       - `type: :search_result_location`
 
-        - `:search_result_location`
-
   - `text: String`
 
-  - `type: :text`
+    maxLength: 5000000, minLength: 0
 
-    - `:text`
+  - `type: :text`
 
 ### Beta Text Block Param
 
@@ -28934,17 +28726,15 @@ puts(beta_message_tokens_count)
 
   - `text: String`
 
-  - `type: :text`
+    minLength: 1
 
-    - `:text`
+  - `type: :text`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -28969,15 +28759,19 @@ puts(beta_message_tokens_count)
 
       - `document_index: Integer`
 
+        minimum: 0
+
       - `document_title: String`
+
+        maxLength: 500, minLength: 1
 
       - `end_char_index: Integer`
 
       - `start_char_index: Integer`
 
-      - `type: :char_location`
+        minimum: 0
 
-        - `:char_location`
+      - `type: :char_location`
 
     - `class BetaCitationPageLocationParam`
 
@@ -28985,15 +28779,19 @@ puts(beta_message_tokens_count)
 
       - `document_index: Integer`
 
+        minimum: 0
+
       - `document_title: String`
+
+        maxLength: 500, minLength: 1
 
       - `end_page_number: Integer`
 
       - `start_page_number: Integer`
 
-      - `type: :page_location`
+        minimum: 1
 
-        - `:page_location`
+      - `type: :page_location`
 
     - `class BetaCitationContentBlockLocationParam`
 
@@ -29005,7 +28803,11 @@ puts(beta_message_tokens_count)
 
       - `document_index: Integer`
 
+        minimum: 0
+
       - `document_title: String`
+
+        maxLength: 500, minLength: 1
 
       - `end_block_index: Integer`
 
@@ -29017,9 +28819,9 @@ puts(beta_message_tokens_count)
 
         0-based index of the first cited block in the source's `content` array.
 
-      - `type: :content_block_location`
+        minimum: 0
 
-        - `:content_block_location`
+      - `type: :content_block_location`
 
     - `class BetaCitationWebSearchResultLocationParam`
 
@@ -29029,11 +28831,13 @@ puts(beta_message_tokens_count)
 
       - `title: String`
 
+        maxLength: 512, minLength: 1
+
       - `type: :web_search_result_location`
 
-        - `:web_search_result_location`
-
       - `url: String`
+
+        minLength: 1
 
     - `class BetaCitationSearchResultLocationParam`
 
@@ -29055,17 +28859,19 @@ puts(beta_message_tokens_count)
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: String`
 
       - `start_block_index: Integer`
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `title: String`
 
       - `type: :search_result_location`
-
-        - `:search_result_location`
 
 ### Beta Text Citation
 
@@ -29077,6 +28883,8 @@ puts(beta_message_tokens_count)
 
     - `document_index: Integer`
 
+      minimum: 0
+
     - `document_title: String`
 
     - `end_char_index: Integer`
@@ -29085,15 +28893,17 @@ puts(beta_message_tokens_count)
 
     - `start_char_index: Integer`
 
-    - `type: :char_location`
+      minimum: 0
 
-      - `:char_location`
+    - `type: :char_location`
 
   - `class BetaCitationPageLocation`
 
     - `cited_text: String`
 
     - `document_index: Integer`
+
+      minimum: 0
 
     - `document_title: String`
 
@@ -29103,9 +28913,9 @@ puts(beta_message_tokens_count)
 
     - `start_page_number: Integer`
 
-    - `type: :page_location`
+      minimum: 1
 
-      - `:page_location`
+    - `type: :page_location`
 
   - `class BetaCitationContentBlockLocation`
 
@@ -29116,6 +28926,8 @@ puts(beta_message_tokens_count)
       Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
     - `document_index: Integer`
+
+      minimum: 0
 
     - `document_title: String`
 
@@ -29131,9 +28943,9 @@ puts(beta_message_tokens_count)
 
       0-based index of the first cited block in the source's `content` array.
 
-    - `type: :content_block_location`
+      minimum: 0
 
-      - `:content_block_location`
+    - `type: :content_block_location`
 
   - `class BetaCitationsWebSearchResultLocation`
 
@@ -29143,9 +28955,9 @@ puts(beta_message_tokens_count)
 
     - `title: String`
 
-    - `type: :web_search_result_location`
+      maxLength: 512
 
-      - `:web_search_result_location`
+    - `type: :web_search_result_location`
 
     - `url: String`
 
@@ -29169,17 +28981,19 @@ puts(beta_message_tokens_count)
 
       Counted separately from `document_index`; server-side web search results are not included in this count.
 
+      minimum: 0
+
     - `source: String`
 
     - `start_block_index: Integer`
 
       0-based index of the first cited block in the source's `content` array.
 
+      minimum: 0
+
     - `title: String`
 
     - `type: :search_result_location`
-
-      - `:search_result_location`
 
 ### Beta Text Citation Param
 
@@ -29191,15 +29005,19 @@ puts(beta_message_tokens_count)
 
     - `document_index: Integer`
 
+      minimum: 0
+
     - `document_title: String`
+
+      maxLength: 500, minLength: 1
 
     - `end_char_index: Integer`
 
     - `start_char_index: Integer`
 
-    - `type: :char_location`
+      minimum: 0
 
-      - `:char_location`
+    - `type: :char_location`
 
   - `class BetaCitationPageLocationParam`
 
@@ -29207,15 +29025,19 @@ puts(beta_message_tokens_count)
 
     - `document_index: Integer`
 
+      minimum: 0
+
     - `document_title: String`
+
+      maxLength: 500, minLength: 1
 
     - `end_page_number: Integer`
 
     - `start_page_number: Integer`
 
-    - `type: :page_location`
+      minimum: 1
 
-      - `:page_location`
+    - `type: :page_location`
 
   - `class BetaCitationContentBlockLocationParam`
 
@@ -29227,7 +29049,11 @@ puts(beta_message_tokens_count)
 
     - `document_index: Integer`
 
+      minimum: 0
+
     - `document_title: String`
+
+      maxLength: 500, minLength: 1
 
     - `end_block_index: Integer`
 
@@ -29239,9 +29065,9 @@ puts(beta_message_tokens_count)
 
       0-based index of the first cited block in the source's `content` array.
 
-    - `type: :content_block_location`
+      minimum: 0
 
-      - `:content_block_location`
+    - `type: :content_block_location`
 
   - `class BetaCitationWebSearchResultLocationParam`
 
@@ -29251,11 +29077,13 @@ puts(beta_message_tokens_count)
 
     - `title: String`
 
+      maxLength: 512, minLength: 1
+
     - `type: :web_search_result_location`
 
-      - `:web_search_result_location`
-
     - `url: String`
+
+      minLength: 1
 
   - `class BetaCitationSearchResultLocationParam`
 
@@ -29277,17 +29105,19 @@ puts(beta_message_tokens_count)
 
       Counted separately from `document_index`; server-side web search results are not included in this count.
 
+      minimum: 0
+
     - `source: String`
 
     - `start_block_index: Integer`
 
       0-based index of the first cited block in the source's `content` array.
 
+      minimum: 0
+
     - `title: String`
 
     - `type: :search_result_location`
-
-      - `:search_result_location`
 
 ### Beta Text Delta
 
@@ -29297,8 +29127,6 @@ puts(beta_message_tokens_count)
 
   - `type: :text_delta`
 
-    - `:text_delta`
-
 ### Beta Text Editor Code Execution Create Result Block
 
 - `class BetaTextEditorCodeExecutionCreateResultBlock`
@@ -29307,8 +29135,6 @@ puts(beta_message_tokens_count)
 
   - `type: :text_editor_code_execution_create_result`
 
-    - `:text_editor_code_execution_create_result`
-
 ### Beta Text Editor Code Execution Create Result Block Param
 
 - `class BetaTextEditorCodeExecutionCreateResultBlockParam`
@@ -29316,8 +29142,6 @@ puts(beta_message_tokens_count)
   - `is_file_update: bool`
 
   - `type: :text_editor_code_execution_create_result`
-
-    - `:text_editor_code_execution_create_result`
 
 ### Beta Text Editor Code Execution Str Replace Result Block
 
@@ -29335,15 +29159,11 @@ puts(beta_message_tokens_count)
 
   - `type: :text_editor_code_execution_str_replace_result`
 
-    - `:text_editor_code_execution_str_replace_result`
-
 ### Beta Text Editor Code Execution Str Replace Result Block Param
 
 - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
   - `type: :text_editor_code_execution_str_replace_result`
-
-    - `:text_editor_code_execution_str_replace_result`
 
   - `lines: Array[String]`
 
@@ -29379,8 +29199,6 @@ puts(beta_message_tokens_count)
 
       - `type: :text_editor_code_execution_tool_result_error`
 
-        - `:text_editor_code_execution_tool_result_error`
-
     - `class BetaTextEditorCodeExecutionViewResultBlock`
 
       - `content: String`
@@ -29401,15 +29219,11 @@ puts(beta_message_tokens_count)
 
       - `type: :text_editor_code_execution_view_result`
 
-        - `:text_editor_code_execution_view_result`
-
     - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
       - `is_file_update: bool`
 
       - `type: :text_editor_code_execution_create_result`
-
-        - `:text_editor_code_execution_create_result`
 
     - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -29425,13 +29239,11 @@ puts(beta_message_tokens_count)
 
       - `type: :text_editor_code_execution_str_replace_result`
 
-        - `:text_editor_code_execution_str_replace_result`
-
   - `tool_use_id: String`
 
-  - `type: :text_editor_code_execution_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:text_editor_code_execution_tool_result`
+  - `type: :text_editor_code_execution_tool_result`
 
 ### Beta Text Editor Code Execution Tool Result Block Param
 
@@ -29455,8 +29267,6 @@ puts(beta_message_tokens_count)
 
       - `type: :text_editor_code_execution_tool_result_error`
 
-        - `:text_editor_code_execution_tool_result_error`
-
       - `error_message: String`
 
     - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -29473,8 +29283,6 @@ puts(beta_message_tokens_count)
 
       - `type: :text_editor_code_execution_view_result`
 
-        - `:text_editor_code_execution_view_result`
-
       - `num_lines: Integer`
 
       - `start_line: Integer`
@@ -29487,13 +29295,9 @@ puts(beta_message_tokens_count)
 
       - `type: :text_editor_code_execution_create_result`
 
-        - `:text_editor_code_execution_create_result`
-
     - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
       - `type: :text_editor_code_execution_str_replace_result`
-
-        - `:text_editor_code_execution_str_replace_result`
 
       - `lines: Array[String]`
 
@@ -29507,17 +29311,15 @@ puts(beta_message_tokens_count)
 
   - `tool_use_id: String`
 
-  - `type: :text_editor_code_execution_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:text_editor_code_execution_tool_result`
+  - `type: :text_editor_code_execution_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -29554,8 +29356,6 @@ puts(beta_message_tokens_count)
 
   - `type: :text_editor_code_execution_tool_result_error`
 
-    - `:text_editor_code_execution_tool_result_error`
-
 ### Beta Text Editor Code Execution Tool Result Error Param
 
 - `class BetaTextEditorCodeExecutionToolResultErrorParam`
@@ -29573,8 +29373,6 @@ puts(beta_message_tokens_count)
     - `:file_not_found`
 
   - `type: :text_editor_code_execution_tool_result_error`
-
-    - `:text_editor_code_execution_tool_result_error`
 
   - `error_message: String`
 
@@ -29600,8 +29398,6 @@ puts(beta_message_tokens_count)
 
   - `type: :text_editor_code_execution_view_result`
 
-    - `:text_editor_code_execution_view_result`
-
 ### Beta Text Editor Code Execution View Result Block Param
 
 - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -29617,8 +29413,6 @@ puts(beta_message_tokens_count)
     - `:pdf`
 
   - `type: :text_editor_code_execution_view_result`
-
-    - `:text_editor_code_execution_view_result`
 
   - `num_lines: Integer`
 
@@ -29644,8 +29438,6 @@ puts(beta_message_tokens_count)
 
   - `type: :thinking`
 
-    - `:thinking`
-
 ### Beta Thinking Block Param
 
 - `class BetaThinkingBlockParam`
@@ -29662,15 +29454,11 @@ puts(beta_message_tokens_count)
 
   - `type: :thinking`
 
-    - `:thinking`
-
 ### Beta Thinking Config Adaptive
 
 - `class BetaThinkingConfigAdaptive`
 
   - `type: :adaptive`
-
-    - `:adaptive`
 
   - `display_: :summarized | :omitted`
 
@@ -29686,8 +29474,6 @@ puts(beta_message_tokens_count)
 
   - `type: :disabled`
 
-    - `:disabled`
-
 ### Beta Thinking Config Enabled
 
 - `class BetaThinkingConfigEnabled`
@@ -29700,9 +29486,9 @@ puts(beta_message_tokens_count)
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `type: :enabled`
+    minimum: 1024
 
-    - `:enabled`
+  - `type: :enabled`
 
   - `display_: :summarized | :omitted`
 
@@ -29732,9 +29518,9 @@ puts(beta_message_tokens_count)
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-    - `type: :enabled`
+      minimum: 1024
 
-      - `:enabled`
+    - `type: :enabled`
 
     - `display_: :summarized | :omitted`
 
@@ -29748,13 +29534,9 @@ puts(beta_message_tokens_count)
 
     - `type: :disabled`
 
-      - `:disabled`
-
   - `class BetaThinkingConfigAdaptive`
 
     - `type: :adaptive`
-
-      - `:adaptive`
 
     - `display_: :summarized | :omitted`
 
@@ -29778,17 +29560,15 @@ puts(beta_message_tokens_count)
 
   - `type: :thinking_delta`
 
-    - `:thinking_delta`
-
 ### Beta Thinking Turns
 
 - `class BetaThinkingTurns`
 
   - `type: :thinking_turns`
 
-    - `:thinking_turns`
-
   - `value: Integer`
+
+    minimum: 1
 
 ### Beta Token Task Budget
 
@@ -29800,29 +29580,29 @@ puts(beta_message_tokens_count)
 
     Total token budget across all contexts in the session.
 
+    minimum: 1024
+
   - `type: :tokens`
 
     The budget type. Currently only 'tokens' is supported.
-
-    - `:tokens`
 
   - `remaining: Integer`
 
     Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
+    minimum: 0
+
 ### Beta Tool
 
 - `class BetaTool`
 
-  - `input_schema: InputSchema{ type, properties, required}`
+  - `input_schema: InputSchema`
 
     [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
     This defines the shape of the `input` that your tool accepts and that the model will produce.
 
     - `type: :object`
-
-      - `:object`
 
     - `properties: Hash[Symbol, untyped]`
 
@@ -29833,6 +29613,8 @@ puts(beta_message_tokens_count)
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
+
+    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -29849,8 +29631,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -29889,8 +29669,6 @@ puts(beta_message_tokens_count)
 
   - `type: :custom`
 
-    - `:custom`
-
 ### Beta Tool Bash 20241022
 
 - `class BetaToolBash20241022`
@@ -29901,11 +29679,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:bash`
-
   - `type: :bash_20241022`
-
-    - `:bash_20241022`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -29922,8 +29696,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -29960,11 +29732,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:bash`
-
   - `type: :bash_20250124`
-
-    - `:bash_20250124`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -29981,8 +29749,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -30022,8 +29788,6 @@ puts(beta_message_tokens_count)
 
   - `type: :mcp_tool_reference`
 
-    - `:mcp_tool_reference`
-
 ### Beta Tool Change MCP Toolset Reference
 
 - `class BetaToolChangeMCPToolsetReference`
@@ -30033,8 +29797,6 @@ puts(beta_message_tokens_count)
   - `server_name: String`
 
   - `type: :mcp_toolset_reference`
-
-    - `:mcp_toolset_reference`
 
 ### Beta Tool Change Tool Reference
 
@@ -30047,9 +29809,9 @@ puts(beta_message_tokens_count)
 
   - `name: String`
 
-  - `type: :tool_reference`
+    pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-    - `:tool_reference`
+  - `type: :tool_reference`
 
 ### Beta Tool Choice
 
@@ -30063,8 +29825,6 @@ puts(beta_message_tokens_count)
 
     - `type: :auto`
 
-      - `:auto`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -30076,8 +29836,6 @@ puts(beta_message_tokens_count)
     The model will use any available tools.
 
     - `type: :any`
-
-      - `:any`
 
     - `disable_parallel_tool_use: bool`
 
@@ -30095,8 +29853,6 @@ puts(beta_message_tokens_count)
 
     - `type: :tool`
 
-      - `:tool`
-
     - `disable_parallel_tool_use: bool`
 
       Whether to disable parallel tool use.
@@ -30109,8 +29865,6 @@ puts(beta_message_tokens_count)
 
     - `type: :none`
 
-      - `:none`
-
 ### Beta Tool Choice Any
 
 - `class BetaToolChoiceAny`
@@ -30118,8 +29872,6 @@ puts(beta_message_tokens_count)
   The model will use any available tools.
 
   - `type: :any`
-
-    - `:any`
 
   - `disable_parallel_tool_use: bool`
 
@@ -30135,8 +29887,6 @@ puts(beta_message_tokens_count)
 
   - `type: :auto`
 
-    - `:auto`
-
   - `disable_parallel_tool_use: bool`
 
     Whether to disable parallel tool use.
@@ -30151,8 +29901,6 @@ puts(beta_message_tokens_count)
 
   - `type: :none`
 
-    - `:none`
-
 ### Beta Tool Choice Tool
 
 - `class BetaToolChoiceTool`
@@ -30164,8 +29912,6 @@ puts(beta_message_tokens_count)
     The name of the tool to use.
 
   - `type: :tool`
-
-    - `:tool`
 
   - `disable_parallel_tool_use: bool`
 
@@ -30181,9 +29927,13 @@ puts(beta_message_tokens_count)
 
     The height of the display in pixels.
 
+    minimum: 1
+
   - `display_width_px: Integer`
 
     The width of the display in pixels.
+
+    minimum: 1
 
   - `name: :computer`
 
@@ -30191,11 +29941,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:computer`
-
   - `type: :computer_20241022`
-
-    - `:computer_20241022`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -30212,8 +29958,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -30237,6 +29981,8 @@ puts(beta_message_tokens_count)
   - `display_number: Integer`
 
     The X11 display number (e.g. 0, 1) for the display.
+
+    minimum: 0
 
   - `input_examples: Array[Hash[Symbol, untyped]]`
 
@@ -30252,9 +29998,13 @@ puts(beta_message_tokens_count)
 
     The height of the display in pixels.
 
+    minimum: 1
+
   - `display_width_px: Integer`
 
     The width of the display in pixels.
+
+    minimum: 1
 
   - `name: :computer`
 
@@ -30262,11 +30012,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:computer`
-
   - `type: :computer_20250124`
-
-    - `:computer_20250124`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -30283,8 +30029,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -30308,6 +30052,8 @@ puts(beta_message_tokens_count)
   - `display_number: Integer`
 
     The X11 display number (e.g. 0, 1) for the display.
+
+    minimum: 0
 
   - `input_examples: Array[Hash[Symbol, untyped]]`
 
@@ -30323,9 +30069,13 @@ puts(beta_message_tokens_count)
 
     The height of the display in pixels.
 
+    minimum: 1
+
   - `display_width_px: Integer`
 
     The width of the display in pixels.
+
+    minimum: 1
 
   - `name: :computer`
 
@@ -30333,11 +30083,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:computer`
-
   - `type: :computer_20251124`
-
-    - `:computer_20251124`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -30354,8 +30100,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -30379,6 +30123,8 @@ puts(beta_message_tokens_count)
   - `display_number: Integer`
 
     The X11 display number (e.g. 0, 1) for the display.
+
+    minimum: 0
 
   - `enable_zoom: bool`
 
@@ -30396,9 +30142,9 @@ puts(beta_message_tokens_count)
 
   - `tool_name: String`
 
-  - `type: :tool_reference`
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-    - `:tool_reference`
+  - `type: :tool_reference`
 
 ### Beta Tool Reference Block Param
 
@@ -30408,17 +30154,15 @@ puts(beta_message_tokens_count)
 
   - `tool_name: String`
 
-  - `type: :tool_reference`
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-    - `:tool_reference`
+  - `type: :tool_reference`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -30441,17 +30185,15 @@ puts(beta_message_tokens_count)
 
   - `tool_use_id: String`
 
-  - `type: :tool_result`
+    pattern: ^[a-zA-Z0-9_-]+$
 
-    - `:tool_result`
+  - `type: :tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -30478,9 +30220,9 @@ puts(beta_message_tokens_count)
 
         - `text: String`
 
-        - `type: :text`
+          minLength: 1
 
-          - `:text`
+        - `type: :text`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -30494,15 +30236,19 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: Integer`
 
             - `start_char_index: Integer`
 
-            - `type: :char_location`
+              minimum: 0
 
-              - `:char_location`
+            - `type: :char_location`
 
           - `class BetaCitationPageLocationParam`
 
@@ -30510,15 +30256,19 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: Integer`
 
             - `start_page_number: Integer`
 
-            - `type: :page_location`
+              minimum: 1
 
-              - `:page_location`
+            - `type: :page_location`
 
           - `class BetaCitationContentBlockLocationParam`
 
@@ -30530,7 +30280,11 @@ puts(beta_message_tokens_count)
 
             - `document_index: Integer`
 
+              minimum: 0
+
             - `document_title: String`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: Integer`
 
@@ -30542,9 +30296,9 @@ puts(beta_message_tokens_count)
 
               0-based index of the first cited block in the source's `content` array.
 
-            - `type: :content_block_location`
+              minimum: 0
 
-              - `:content_block_location`
+            - `type: :content_block_location`
 
           - `class BetaCitationWebSearchResultLocationParam`
 
@@ -30554,11 +30308,13 @@ puts(beta_message_tokens_count)
 
             - `title: String`
 
+              maxLength: 512, minLength: 1
+
             - `type: :web_search_result_location`
 
-              - `:web_search_result_location`
-
             - `url: String`
+
+              minLength: 1
 
           - `class BetaCitationSearchResultLocationParam`
 
@@ -30580,17 +30336,19 @@ puts(beta_message_tokens_count)
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: String`
 
             - `start_block_index: Integer`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: String`
 
             - `type: :search_result_location`
-
-              - `:search_result_location`
 
       - `class BetaImageBlockParam`
 
@@ -30599,6 +30357,8 @@ puts(beta_message_tokens_count)
           - `class BetaBase64ImageSource`
 
             - `data: String`
+
+              format: byte
 
             - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -30612,13 +30372,9 @@ puts(beta_message_tokens_count)
 
             - `type: :base64`
 
-              - `:base64`
-
           - `class BetaURLImageSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -30628,11 +30384,7 @@ puts(beta_message_tokens_count)
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :image`
-
-          - `:image`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -30656,6 +30408,8 @@ puts(beta_message_tokens_count)
 
           - `text: String`
 
+            minLength: 1
+
           - `type: :text`
 
           - `cache_control: BetaCacheControlEphemeral`
@@ -30669,8 +30423,6 @@ puts(beta_message_tokens_count)
         - `title: String`
 
         - `type: :search_result`
-
-          - `:search_result`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -30688,13 +30440,11 @@ puts(beta_message_tokens_count)
 
             - `data: String`
 
+              format: byte
+
             - `media_type: :"application/pdf"`
 
-              - `:"application/pdf"`
-
             - `type: :base64`
-
-              - `:base64`
 
           - `class BetaPlainTextSource`
 
@@ -30702,11 +30452,7 @@ puts(beta_message_tokens_count)
 
             - `media_type: :"text/plain"`
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaContentBlockSource`
 
@@ -30722,13 +30468,9 @@ puts(beta_message_tokens_count)
 
             - `type: :content`
 
-              - `:content`
-
           - `class BetaURLPDFSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -30738,11 +30480,7 @@ puts(beta_message_tokens_count)
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -30752,7 +30490,11 @@ puts(beta_message_tokens_count)
 
         - `context: String`
 
+          minLength: 1
+
         - `title: String`
+
+          maxLength: 500, minLength: 1
 
       - `class BetaToolReferenceBlockParam`
 
@@ -30760,9 +30502,9 @@ puts(beta_message_tokens_count)
 
         - `tool_name: String`
 
-        - `type: :tool_reference`
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `:tool_reference`
+        - `type: :tool_reference`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -30782,25 +30524,31 @@ puts(beta_message_tokens_count)
 
           All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+          maxItems: 100
+
           - `tab_id: String`
 
             The caller-assigned identifier for this tab, unique within the inventory.
+
+            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `title: String`
 
             The title of the page the tab is showing. May be empty.
 
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `url: String`
 
             The URL of the page the tab is showing. May be empty.
+
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `active: bool`
 
             Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
         - `type: :browser_state`
-
-          - `:browser_state`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -30809,6 +30557,8 @@ puts(beta_message_tokens_count)
         - `state_changes: Array[BetaBrowserStateChange]`
 
           Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+          maxItems: 200, minItems: 1
 
           - `class BetaBrowserStateChangeTabOpened`
 
@@ -30824,9 +30574,9 @@ puts(beta_message_tokens_count)
 
               The `tab_id` of the opened tab, present in `tabs`.
 
-            - `type: :tab_opened`
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `:tab_opened`
+            - `type: :tab_opened`
 
           - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -30836,13 +30586,15 @@ puts(beta_message_tokens_count)
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-            - `type: :download_started`
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `:download_started`
+            - `type: :download_started`
 
             - `url: String`
 
               The final post-redirect URL the download was served from.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -30855,21 +30607,27 @@ puts(beta_message_tokens_count)
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-            - `type: :download_completed`
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `:download_completed`
+            - `type: :download_completed`
 
             - `url: String`
 
               The final post-redirect URL the download was served from.
 
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `path: String`
 
               Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
             - `size_bytes: Integer`
 
               The completed download's size.
+
+              minimum: 0
 
           - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -30879,23 +30637,29 @@ puts(beta_message_tokens_count)
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-            - `type: :download_failed`
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-              - `:download_failed`
+            - `type: :download_failed`
 
             - `url: String`
 
               The final post-redirect URL the download was served from.
 
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `error: String`
 
               The failure or cancellation detail, when known.
+
+              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
   - `is_error: bool`
 
   - `toolset_name: String`
 
     For a toolset member tool_result, the toolset family of the paired tool_use.
+
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Beta Tool Search Tool Bm25 20251119
 
@@ -30906,8 +30670,6 @@ puts(beta_message_tokens_count)
     Name of the tool.
 
     This is how the tool will be called by the model and in `tool_use` blocks.
-
-    - `:tool_search_tool_bm25`
 
   - `type: :tool_search_tool_bm25_20251119 | :tool_search_tool_bm25`
 
@@ -30930,8 +30692,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -30966,8 +30726,6 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:tool_search_tool_regex`
-
   - `type: :tool_search_tool_regex_20251119 | :tool_search_tool_regex`
 
     - `:tool_search_tool_regex_20251119`
@@ -30989,8 +30747,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -31037,27 +30793,23 @@ puts(beta_message_tokens_count)
 
       - `type: :tool_search_tool_result_error`
 
-        - `:tool_search_tool_result_error`
-
     - `class BetaToolSearchToolSearchResultBlock`
 
       - `tool_references: Array[BetaToolReferenceBlock]`
 
         - `tool_name: String`
 
-        - `type: :tool_reference`
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `:tool_reference`
+        - `type: :tool_reference`
 
       - `type: :tool_search_tool_search_result`
 
-        - `:tool_search_tool_search_result`
-
   - `tool_use_id: String`
 
-  - `type: :tool_search_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:tool_search_tool_result`
+  - `type: :tool_search_tool_result`
 
 ### Beta Tool Search Tool Result Block Param
 
@@ -31079,8 +30831,6 @@ puts(beta_message_tokens_count)
 
       - `type: :tool_search_tool_result_error`
 
-        - `:tool_search_tool_result_error`
-
       - `error_message: String`
 
     - `class BetaToolSearchToolSearchResultBlockParam`
@@ -31089,17 +30839,15 @@ puts(beta_message_tokens_count)
 
         - `tool_name: String`
 
-        - `type: :tool_reference`
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-          - `:tool_reference`
+        - `type: :tool_reference`
 
         - `cache_control: BetaCacheControlEphemeral`
 
           Create a cache control breakpoint at this content block.
 
           - `type: :ephemeral`
-
-            - `:ephemeral`
 
           - `ttl: :"5m" | :"1h"`
 
@@ -31118,13 +30866,11 @@ puts(beta_message_tokens_count)
 
       - `type: :tool_search_tool_search_result`
 
-        - `:tool_search_tool_search_result`
-
   - `tool_use_id: String`
 
-  - `type: :tool_search_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:tool_search_tool_result`
+  - `type: :tool_search_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -31148,8 +30894,6 @@ puts(beta_message_tokens_count)
 
   - `type: :tool_search_tool_result_error`
 
-    - `:tool_search_tool_result_error`
-
 ### Beta Tool Search Tool Result Error Param
 
 - `class BetaToolSearchToolResultErrorParam`
@@ -31166,8 +30910,6 @@ puts(beta_message_tokens_count)
 
   - `type: :tool_search_tool_result_error`
 
-    - `:tool_search_tool_result_error`
-
   - `error_message: String`
 
 ### Beta Tool Search Tool Search Result Block
@@ -31178,13 +30920,11 @@ puts(beta_message_tokens_count)
 
     - `tool_name: String`
 
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
     - `type: :tool_reference`
 
-      - `:tool_reference`
-
   - `type: :tool_search_tool_search_result`
-
-    - `:tool_search_tool_search_result`
 
 ### Beta Tool Search Tool Search Result Block Param
 
@@ -31194,17 +30934,15 @@ puts(beta_message_tokens_count)
 
     - `tool_name: String`
 
-    - `type: :tool_reference`
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-      - `:tool_reference`
+    - `type: :tool_reference`
 
     - `cache_control: BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
 
       - `type: :ephemeral`
-
-        - `:ephemeral`
 
       - `ttl: :"5m" | :"1h"`
 
@@ -31223,8 +30961,6 @@ puts(beta_message_tokens_count)
 
   - `type: :tool_search_tool_search_result`
 
-    - `:tool_search_tool_search_result`
-
 ### Beta Tool Text Editor 20241022
 
 - `class BetaToolTextEditor20241022`
@@ -31235,11 +30971,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:str_replace_editor`
-
   - `type: :text_editor_20241022`
-
-    - `:text_editor_20241022`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31256,8 +30988,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -31294,11 +31024,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:str_replace_editor`
-
   - `type: :text_editor_20250124`
-
-    - `:text_editor_20250124`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31315,8 +31041,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -31353,11 +31077,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:str_replace_based_edit_tool`
-
   - `type: :text_editor_20250429`
-
-    - `:text_editor_20250429`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31374,8 +31094,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -31412,11 +31130,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:str_replace_based_edit_tool`
-
   - `type: :text_editor_20250728`
-
-    - `:text_editor_20250728`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31433,8 +31147,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -31461,6 +31173,8 @@ puts(beta_message_tokens_count)
 
     Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+    minimum: 1
+
   - `strict: bool`
 
     When true, guarantees schema validation on tool names and inputs
@@ -31473,15 +31187,13 @@ puts(beta_message_tokens_count)
 
   - `class BetaTool`
 
-    - `input_schema: InputSchema{ type, properties, required}`
+    - `input_schema: InputSchema`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
       This defines the shape of the `input` that your tool accepts and that the model will produce.
 
       - `type: :object`
-
-        - `:object`
 
       - `properties: Hash[Symbol, untyped]`
 
@@ -31492,6 +31204,8 @@ puts(beta_message_tokens_count)
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
+
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31508,8 +31222,6 @@ puts(beta_message_tokens_count)
       Create a cache control breakpoint at this content block.
 
       - `type: :ephemeral`
-
-        - `:ephemeral`
 
       - `ttl: :"5m" | :"1h"`
 
@@ -31548,8 +31260,6 @@ puts(beta_message_tokens_count)
 
     - `type: :custom`
 
-      - `:custom`
-
   - `class BetaToolBash20241022`
 
     - `name: :bash`
@@ -31558,11 +31268,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20241022`
-
-      - `:bash_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31596,11 +31302,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:bash`
-
     - `type: :bash_20250124`
-
-      - `:bash_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31634,11 +31336,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250522`
-
-      - `:code_execution_20250522`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31670,11 +31368,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20250825`
-
-      - `:code_execution_20250825`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31708,11 +31402,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260120`
-
-      - `:code_execution_20260120`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31746,11 +31436,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:code_execution`
-
     - `type: :code_execution_20260521`
-
-      - `:code_execution_20260521`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -31782,8 +31468,6 @@ puts(beta_message_tokens_count)
     from its schema.
 
     - `type: :browser_toolset_20260801`
-
-      - `:browser_toolset_20260801`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32186,9 +31870,13 @@ puts(beta_message_tokens_count)
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -32196,11 +31884,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20241022`
-
-      - `:computer_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32224,6 +31908,8 @@ puts(beta_message_tokens_count)
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -32238,11 +31924,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:memory`
-
     - `type: :memory_20250818`
-
-      - `:memory_20250818`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32274,9 +31956,13 @@ puts(beta_message_tokens_count)
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -32284,11 +31970,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20250124`
-
-      - `:computer_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32312,6 +31994,8 @@ puts(beta_message_tokens_count)
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: Array[Hash[Symbol, untyped]]`
 
     - `strict: bool`
@@ -32326,11 +32010,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20241022`
-
-      - `:text_editor_20241022`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32362,9 +32042,13 @@ puts(beta_message_tokens_count)
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: Integer`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: :computer`
 
@@ -32372,11 +32056,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:computer`
-
     - `type: :computer_20251124`
-
-      - `:computer_20251124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32400,6 +32080,8 @@ puts(beta_message_tokens_count)
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `enable_zoom: bool`
 
       Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -32422,8 +32104,6 @@ puts(beta_message_tokens_count)
     via `configs.zoom.enabled`.
 
     - `type: :computer_toolset_20260801`
-
-      - `:computer_toolset_20260801`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32660,11 +32340,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_editor`
-
     - `type: :text_editor_20250124`
-
-      - `:text_editor_20250124`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32698,11 +32374,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250429`
-
-      - `:text_editor_20250429`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32736,11 +32408,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:str_replace_based_edit_tool`
-
     - `type: :text_editor_20250728`
-
-      - `:text_editor_20250728`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32766,6 +32434,8 @@ puts(beta_message_tokens_count)
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -32778,11 +32448,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20250305`
-
-      - `:web_search_20250305`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32814,6 +32480,8 @@ puts(beta_message_tokens_count)
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict: bool`
 
       When true, guarantees schema validation on tool names and inputs
@@ -32824,23 +32492,29 @@ puts(beta_message_tokens_count)
 
       - `type: :approximate`
 
-        - `:approximate`
-
       - `city: String`
 
         The city of the user.
+
+        maxLength: 255, minLength: 1
 
       - `country: String`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+        maxLength: 2, minLength: 2
+
       - `region: String`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: String`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+        maxLength: 255, minLength: 1
 
   - `class BetaWebFetchTool20250910`
 
@@ -32850,11 +32524,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20250910`
-
-      - `:web_fetch_20250910`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32892,9 +32562,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -32908,11 +32582,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260209`
-
-      - `:web_search_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -32943,6 +32613,8 @@ puts(beta_message_tokens_count)
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -32960,11 +32632,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260209`
-
-      - `:web_fetch_20260209`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -33000,9 +32668,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -33018,11 +32690,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260309`
-
-      - `:web_fetch_20260309`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -33058,9 +32726,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -33078,11 +32750,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_search`
-
     - `type: :web_search_20260318`
-
-      - `:web_search_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -33113,6 +32781,8 @@ puts(beta_message_tokens_count)
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -33138,11 +32808,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:web_fetch`
-
     - `type: :web_fetch_20260318`
-
-      - `:web_fetch_20260318`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -33178,9 +32844,13 @@ puts(beta_message_tokens_count)
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: :full | :excluded`
 
@@ -33280,11 +32950,7 @@ puts(beta_message_tokens_count)
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
-      - `:advisor`
-
     - `type: :advisor_20260301`
-
-      - `:advisor_20260301`
 
     - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -33312,9 +32978,13 @@ puts(beta_message_tokens_count)
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+      minimum: 1024
+
     - `max_uses: Integer`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: bool`
 
@@ -33327,8 +32997,6 @@ puts(beta_message_tokens_count)
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_bm25`
 
     - `type: :tool_search_tool_bm25_20251119 | :tool_search_tool_bm25`
 
@@ -33365,8 +33033,6 @@ puts(beta_message_tokens_count)
       Name of the tool.
 
       This is how the tool will be called by the model and in `tool_use` blocks.
-
-      - `:tool_search_tool_regex`
 
     - `type: :tool_search_tool_regex_20251119 | :tool_search_tool_regex`
 
@@ -33407,9 +33073,9 @@ puts(beta_message_tokens_count)
 
       Name of the MCP server to configure tools for
 
-    - `type: :mcp_toolset`
+      maxLength: 255, minLength: 1
 
-      - `:mcp_toolset`
+    - `type: :mcp_toolset`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -33437,13 +33103,15 @@ puts(beta_message_tokens_count)
 
   - `id: String`
 
+    pattern: ^[a-zA-Z0-9_-]+$
+
   - `input: Hash[Symbol, untyped]`
 
   - `name: String`
 
-  - `type: :tool_use`
+    minLength: 1
 
-    - `:tool_use`
+  - `type: :tool_use`
 
   - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -33455,29 +33123,29 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
   - `toolset_name: String`
 
     For a toolset member tool_use, the toolset family.
+
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Beta Tool Use Block Param
 
@@ -33485,21 +33153,21 @@ puts(beta_message_tokens_count)
 
   - `id: String`
 
+    pattern: ^[a-zA-Z0-9_-]+$
+
   - `input: Hash[Symbol, untyped]`
 
   - `name: String`
 
-  - `type: :tool_use`
+    maxLength: 200, minLength: 1
 
-    - `:tool_use`
+  - `type: :tool_use`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -33526,29 +33194,29 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
   - `toolset_name: String`
 
     For a toolset member tool_use, the toolset family this member belongs to.
+
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
 
 ### Beta Tool Uses Keep
 
@@ -33556,9 +33224,9 @@ puts(beta_message_tokens_count)
 
   - `type: :tool_uses`
 
-    - `:tool_uses`
-
   - `value: Integer`
+
+    minimum: 0
 
 ### Beta Tool Uses Trigger
 
@@ -33566,17 +33234,15 @@ puts(beta_message_tokens_count)
 
   - `type: :tool_uses`
 
-    - `:tool_uses`
-
   - `value: Integer`
+
+    minimum: 1
 
 ### Beta URL Image Source
 
 - `class BetaURLImageSource`
 
   - `type: :url`
-
-    - `:url`
 
   - `url: String`
 
@@ -33585,8 +33251,6 @@ puts(beta_message_tokens_count)
 - `class BetaURLPDFSource`
 
   - `type: :url`
-
-    - `:url`
 
   - `url: String`
 
@@ -33602,17 +33266,25 @@ puts(beta_message_tokens_count)
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: Integer`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: Integer`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: Integer`
 
     The number of input tokens read from the cache.
+
+    minimum: 0
 
   - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -33633,8 +33305,6 @@ puts(beta_message_tokens_count)
         had been on the retry model all along.
 
         - `type: :redeemed`
-
-          - `:redeemed`
 
       - `class BetaFallbackCreditNotApplied`
 
@@ -33673,8 +33343,6 @@ puts(beta_message_tokens_count)
 
         - `type: :not_applied`
 
-          - `:not_applied`
-
         - `remove_to_redeem: Array[String]`
 
           Request fields to remove before retrying, so the retry can redeem this
@@ -33693,6 +33361,8 @@ puts(beta_message_tokens_count)
   - `input_tokens: Integer`
 
     The number of input tokens which were used.
+
+    minimum: 0
 
   - `iterations: BetaIterationsUsage`
 
@@ -33716,13 +33386,19 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: Model`
 
@@ -33802,11 +33478,11 @@ puts(beta_message_tokens_count)
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :message`
 
         Usage for a sampling iteration
-
-        - `:message`
 
     - `class BetaCompactionIterationUsage`
 
@@ -33820,23 +33496,29 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
+
+        minimum: 0
 
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
 
+        minimum: 0
+
       - `output_tokens: Integer`
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :compaction`
 
         Usage for a compaction iteration
-
-        - `:compaction`
 
     - `class BetaAdvisorMessageIterationUsage`
 
@@ -33850,13 +33532,19 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: Model`
 
@@ -33868,11 +33556,11 @@ puts(beta_message_tokens_count)
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :advisor_message`
 
         Usage for an advisor sub-inference iteration
-
-        - `:advisor_message`
 
     - `class BetaFallbackMessageIterationUsage`
 
@@ -33891,13 +33579,19 @@ puts(beta_message_tokens_count)
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: Integer`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: Integer`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: Model`
 
@@ -33909,15 +33603,17 @@ puts(beta_message_tokens_count)
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: :fallback_message`
 
         Usage for the fallback-model attempt that served the response
 
-        - `:fallback_message`
-
   - `output_tokens: Integer`
 
     The number of output tokens which were used.
+
+    minimum: 0
 
   - `output_tokens_details: BetaOutputTokensDetails`
 
@@ -33939,6 +33635,8 @@ puts(beta_message_tokens_count)
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+      minimum: 0
+
   - `server_tool_use: BetaServerToolUsage`
 
     The number of server tool requests.
@@ -33947,9 +33645,13 @@ puts(beta_message_tokens_count)
 
       The number of web fetch tool requests.
 
+      minimum: 0
+
     - `web_search_requests: Integer`
 
       The number of web search tool requests.
+
+      minimum: 0
 
   - `service_tier: :standard | :priority | :batch`
 
@@ -33975,23 +33677,29 @@ puts(beta_message_tokens_count)
 
   - `type: :approximate`
 
-    - `:approximate`
-
   - `city: String`
 
     The city of the user.
+
+    maxLength: 255, minLength: 1
 
   - `country: String`
 
     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+    maxLength: 2, minLength: 2
+
   - `region: String`
 
     The region of the user.
 
+    maxLength: 255, minLength: 1
+
   - `timezone: String`
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+    maxLength: 255, minLength: 1
 
 ### Beta Web Fetch Block
 
@@ -34011,13 +33719,11 @@ puts(beta_message_tokens_count)
 
         - `data: String`
 
+          format: byte
+
         - `media_type: :"application/pdf"`
 
-          - `:"application/pdf"`
-
         - `type: :base64`
-
-          - `:base64`
 
       - `class BetaPlainTextSource`
 
@@ -34025,11 +33731,7 @@ puts(beta_message_tokens_count)
 
         - `media_type: :"text/plain"`
 
-          - `:"text/plain"`
-
         - `type: :text`
-
-          - `:text`
 
     - `title: String`
 
@@ -34037,15 +33739,11 @@ puts(beta_message_tokens_count)
 
     - `type: :document`
 
-      - `:document`
-
   - `retrieved_at: String`
 
     ISO 8601 timestamp when the content was retrieved
 
   - `type: :web_fetch_result`
-
-    - `:web_fetch_result`
 
   - `url: String`
 
@@ -34063,13 +33761,11 @@ puts(beta_message_tokens_count)
 
         - `data: String`
 
+          format: byte
+
         - `media_type: :"application/pdf"`
 
-          - `:"application/pdf"`
-
         - `type: :base64`
-
-          - `:base64`
 
       - `class BetaPlainTextSource`
 
@@ -34077,11 +33773,7 @@ puts(beta_message_tokens_count)
 
         - `media_type: :"text/plain"`
 
-          - `:"text/plain"`
-
         - `type: :text`
-
-          - `:text`
 
       - `class BetaContentBlockSource`
 
@@ -34095,17 +33787,15 @@ puts(beta_message_tokens_count)
 
               - `text: String`
 
-              - `type: :text`
+                minLength: 1
 
-                - `:text`
+              - `type: :text`
 
               - `cache_control: BetaCacheControlEphemeral`
 
                 Create a cache control breakpoint at this content block.
 
                 - `type: :ephemeral`
-
-                  - `:ephemeral`
 
                 - `ttl: :"5m" | :"1h"`
 
@@ -34130,15 +33820,19 @@ puts(beta_message_tokens_count)
 
                   - `document_index: Integer`
 
+                    minimum: 0
+
                   - `document_title: String`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_char_index: Integer`
 
                   - `start_char_index: Integer`
 
-                  - `type: :char_location`
+                    minimum: 0
 
-                    - `:char_location`
+                  - `type: :char_location`
 
                 - `class BetaCitationPageLocationParam`
 
@@ -34146,15 +33840,19 @@ puts(beta_message_tokens_count)
 
                   - `document_index: Integer`
 
+                    minimum: 0
+
                   - `document_title: String`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_page_number: Integer`
 
                   - `start_page_number: Integer`
 
-                  - `type: :page_location`
+                    minimum: 1
 
-                    - `:page_location`
+                  - `type: :page_location`
 
                 - `class BetaCitationContentBlockLocationParam`
 
@@ -34166,7 +33864,11 @@ puts(beta_message_tokens_count)
 
                   - `document_index: Integer`
 
+                    minimum: 0
+
                   - `document_title: String`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_block_index: Integer`
 
@@ -34178,9 +33880,9 @@ puts(beta_message_tokens_count)
 
                     0-based index of the first cited block in the source's `content` array.
 
-                  - `type: :content_block_location`
+                    minimum: 0
 
-                    - `:content_block_location`
+                  - `type: :content_block_location`
 
                 - `class BetaCitationWebSearchResultLocationParam`
 
@@ -34190,11 +33892,13 @@ puts(beta_message_tokens_count)
 
                   - `title: String`
 
+                    maxLength: 512, minLength: 1
+
                   - `type: :web_search_result_location`
 
-                    - `:web_search_result_location`
-
                   - `url: String`
+
+                    minLength: 1
 
                 - `class BetaCitationSearchResultLocationParam`
 
@@ -34216,17 +33920,19 @@ puts(beta_message_tokens_count)
 
                     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                    minimum: 0
+
                   - `source: String`
 
                   - `start_block_index: Integer`
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `title: String`
 
                   - `type: :search_result_location`
-
-                    - `:search_result_location`
 
             - `class BetaImageBlockParam`
 
@@ -34235,6 +33941,8 @@ puts(beta_message_tokens_count)
                 - `class BetaBase64ImageSource`
 
                   - `data: String`
+
+                    format: byte
 
                   - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -34248,13 +33956,9 @@ puts(beta_message_tokens_count)
 
                   - `type: :base64`
 
-                    - `:base64`
-
                 - `class BetaURLImageSource`
 
                   - `type: :url`
-
-                    - `:url`
 
                   - `url: String`
 
@@ -34264,11 +33968,7 @@ puts(beta_message_tokens_count)
 
                   - `type: :file`
 
-                    - `:file`
-
               - `type: :image`
-
-                - `:image`
 
               - `cache_control: BetaCacheControlEphemeral`
 
@@ -34288,13 +33988,9 @@ puts(beta_message_tokens_count)
 
         - `type: :content`
 
-          - `:content`
-
       - `class BetaURLPDFSource`
 
         - `type: :url`
-
-          - `:url`
 
         - `url: String`
 
@@ -34304,11 +34000,7 @@ puts(beta_message_tokens_count)
 
         - `type: :file`
 
-          - `:file`
-
     - `type: :document`
-
-      - `:document`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -34320,11 +34012,13 @@ puts(beta_message_tokens_count)
 
     - `context: String`
 
+      minLength: 1
+
     - `title: String`
 
-  - `type: :web_fetch_result`
+      maxLength: 500, minLength: 1
 
-    - `:web_fetch_result`
+  - `type: :web_fetch_result`
 
   - `url: String`
 
@@ -34344,11 +34038,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:web_fetch`
-
   - `type: :web_fetch_20250910`
-
-    - `:web_fetch_20250910`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -34373,8 +34063,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -34405,9 +34093,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: bool`
 
@@ -34423,11 +34115,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:web_fetch`
-
   - `type: :web_fetch_20260209`
-
-    - `:web_fetch_20260209`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -34452,8 +34140,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -34484,9 +34170,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: bool`
 
@@ -34504,11 +34194,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:web_fetch`
-
   - `type: :web_fetch_20260309`
-
-    - `:web_fetch_20260309`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -34533,8 +34219,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -34565,9 +34249,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: bool`
 
@@ -34587,11 +34275,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:web_fetch`
-
   - `type: :web_fetch_20260318`
-
-    - `:web_fetch_20260318`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -34616,8 +34300,6 @@ puts(beta_message_tokens_count)
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -34648,9 +34330,13 @@ puts(beta_message_tokens_count)
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `response_inclusion: :full | :excluded`
 
@@ -34698,8 +34384,6 @@ puts(beta_message_tokens_count)
 
       - `type: :web_fetch_tool_result_error`
 
-        - `:web_fetch_tool_result_error`
-
     - `class BetaWebFetchBlock`
 
       - `content: BetaDocumentBlock`
@@ -34716,13 +34400,11 @@ puts(beta_message_tokens_count)
 
             - `data: String`
 
+              format: byte
+
             - `media_type: :"application/pdf"`
 
-              - `:"application/pdf"`
-
             - `type: :base64`
-
-              - `:base64`
 
           - `class BetaPlainTextSource`
 
@@ -34730,11 +34412,7 @@ puts(beta_message_tokens_count)
 
             - `media_type: :"text/plain"`
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
         - `title: String`
 
@@ -34742,15 +34420,11 @@ puts(beta_message_tokens_count)
 
         - `type: :document`
 
-          - `:document`
-
       - `retrieved_at: String`
 
         ISO 8601 timestamp when the content was retrieved
 
       - `type: :web_fetch_result`
-
-        - `:web_fetch_result`
 
       - `url: String`
 
@@ -34758,9 +34432,9 @@ puts(beta_message_tokens_count)
 
   - `tool_use_id: String`
 
-  - `type: :web_fetch_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:web_fetch_tool_result`
+  - `type: :web_fetch_tool_result`
 
   - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -34772,25 +34446,23 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
 ### Beta Web Fetch Tool Result Block Param
 
@@ -34822,8 +34494,6 @@ puts(beta_message_tokens_count)
 
       - `type: :web_fetch_tool_result_error`
 
-        - `:web_fetch_tool_result_error`
-
     - `class BetaWebFetchBlockParam`
 
       - `content: BetaRequestDocumentBlock`
@@ -34834,13 +34504,11 @@ puts(beta_message_tokens_count)
 
             - `data: String`
 
+              format: byte
+
             - `media_type: :"application/pdf"`
 
-              - `:"application/pdf"`
-
             - `type: :base64`
-
-              - `:base64`
 
           - `class BetaPlainTextSource`
 
@@ -34848,11 +34516,7 @@ puts(beta_message_tokens_count)
 
             - `media_type: :"text/plain"`
 
-              - `:"text/plain"`
-
             - `type: :text`
-
-              - `:text`
 
           - `class BetaContentBlockSource`
 
@@ -34866,17 +34530,15 @@ puts(beta_message_tokens_count)
 
                   - `text: String`
 
-                  - `type: :text`
+                    minLength: 1
 
-                    - `:text`
+                  - `type: :text`
 
                   - `cache_control: BetaCacheControlEphemeral`
 
                     Create a cache control breakpoint at this content block.
 
                     - `type: :ephemeral`
-
-                      - `:ephemeral`
 
                     - `ttl: :"5m" | :"1h"`
 
@@ -34901,15 +34563,19 @@ puts(beta_message_tokens_count)
 
                       - `document_index: Integer`
 
+                        minimum: 0
+
                       - `document_title: String`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_char_index: Integer`
 
                       - `start_char_index: Integer`
 
-                      - `type: :char_location`
+                        minimum: 0
 
-                        - `:char_location`
+                      - `type: :char_location`
 
                     - `class BetaCitationPageLocationParam`
 
@@ -34917,15 +34583,19 @@ puts(beta_message_tokens_count)
 
                       - `document_index: Integer`
 
+                        minimum: 0
+
                       - `document_title: String`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_page_number: Integer`
 
                       - `start_page_number: Integer`
 
-                      - `type: :page_location`
+                        minimum: 1
 
-                        - `:page_location`
+                      - `type: :page_location`
 
                     - `class BetaCitationContentBlockLocationParam`
 
@@ -34937,7 +34607,11 @@ puts(beta_message_tokens_count)
 
                       - `document_index: Integer`
 
+                        minimum: 0
+
                       - `document_title: String`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_block_index: Integer`
 
@@ -34949,9 +34623,9 @@ puts(beta_message_tokens_count)
 
                         0-based index of the first cited block in the source's `content` array.
 
-                      - `type: :content_block_location`
+                        minimum: 0
 
-                        - `:content_block_location`
+                      - `type: :content_block_location`
 
                     - `class BetaCitationWebSearchResultLocationParam`
 
@@ -34961,11 +34635,13 @@ puts(beta_message_tokens_count)
 
                       - `title: String`
 
+                        maxLength: 512, minLength: 1
+
                       - `type: :web_search_result_location`
 
-                        - `:web_search_result_location`
-
                       - `url: String`
+
+                        minLength: 1
 
                     - `class BetaCitationSearchResultLocationParam`
 
@@ -34987,17 +34663,19 @@ puts(beta_message_tokens_count)
 
                         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                        minimum: 0
+
                       - `source: String`
 
                       - `start_block_index: Integer`
 
                         0-based index of the first cited block in the source's `content` array.
 
+                        minimum: 0
+
                       - `title: String`
 
                       - `type: :search_result_location`
-
-                        - `:search_result_location`
 
                 - `class BetaImageBlockParam`
 
@@ -35006,6 +34684,8 @@ puts(beta_message_tokens_count)
                     - `class BetaBase64ImageSource`
 
                       - `data: String`
+
+                        format: byte
 
                       - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -35019,13 +34699,9 @@ puts(beta_message_tokens_count)
 
                       - `type: :base64`
 
-                        - `:base64`
-
                     - `class BetaURLImageSource`
 
                       - `type: :url`
-
-                        - `:url`
 
                       - `url: String`
 
@@ -35035,11 +34711,7 @@ puts(beta_message_tokens_count)
 
                       - `type: :file`
 
-                        - `:file`
-
                   - `type: :image`
-
-                    - `:image`
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -35059,13 +34731,9 @@ puts(beta_message_tokens_count)
 
             - `type: :content`
 
-              - `:content`
-
           - `class BetaURLPDFSource`
 
             - `type: :url`
-
-              - `:url`
 
             - `url: String`
 
@@ -35075,11 +34743,7 @@ puts(beta_message_tokens_count)
 
             - `type: :file`
 
-              - `:file`
-
         - `type: :document`
-
-          - `:document`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -35091,11 +34755,13 @@ puts(beta_message_tokens_count)
 
         - `context: String`
 
+          minLength: 1
+
         - `title: String`
 
-      - `type: :web_fetch_result`
+          maxLength: 500, minLength: 1
 
-        - `:web_fetch_result`
+      - `type: :web_fetch_result`
 
       - `url: String`
 
@@ -35107,9 +34773,9 @@ puts(beta_message_tokens_count)
 
   - `tool_use_id: String`
 
-  - `type: :web_fetch_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:web_fetch_tool_result`
+  - `type: :web_fetch_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -35125,25 +34791,23 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
 ### Beta Web Fetch Tool Result Error Block
 
@@ -35171,8 +34835,6 @@ puts(beta_message_tokens_count)
 
   - `type: :web_fetch_tool_result_error`
 
-    - `:web_fetch_tool_result_error`
-
 ### Beta Web Fetch Tool Result Error Block Param
 
 - `class BetaWebFetchToolResultErrorBlockParam`
@@ -35198,8 +34860,6 @@ puts(beta_message_tokens_count)
     - `:unavailable`
 
   - `type: :web_fetch_tool_result_error`
-
-    - `:web_fetch_tool_result_error`
 
 ### Beta Web Fetch Tool Result Error Code
 
@@ -35235,8 +34895,6 @@ puts(beta_message_tokens_count)
 
   - `type: :web_search_result`
 
-    - `:web_search_result`
-
   - `url: String`
 
 ### Beta Web Search Result Block Param
@@ -35248,8 +34906,6 @@ puts(beta_message_tokens_count)
   - `title: String`
 
   - `type: :web_search_result`
-
-    - `:web_search_result`
 
   - `url: String`
 
@@ -35265,11 +34921,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:web_search`
-
   - `type: :web_search_20250305`
-
-    - `:web_search_20250305`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -35295,8 +34947,6 @@ puts(beta_message_tokens_count)
 
     - `type: :ephemeral`
 
-      - `:ephemeral`
-
     - `ttl: :"5m" | :"1h"`
 
       The time-to-live for the cache control breakpoint.
@@ -35320,6 +34970,8 @@ puts(beta_message_tokens_count)
 
     Maximum number of times the tool can be used in the API request.
 
+    exclusiveMinimum: 0
+
   - `strict: bool`
 
     When true, guarantees schema validation on tool names and inputs
@@ -35330,23 +34982,29 @@ puts(beta_message_tokens_count)
 
     - `type: :approximate`
 
-      - `:approximate`
-
     - `city: String`
 
       The city of the user.
+
+      maxLength: 255, minLength: 1
 
     - `country: String`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+      maxLength: 2, minLength: 2
+
     - `region: String`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone: String`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+      maxLength: 255, minLength: 1
 
 ### Beta Web Search Tool 20260209
 
@@ -35358,11 +35016,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:web_search`
-
   - `type: :web_search_20260209`
-
-    - `:web_search_20260209`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -35388,8 +35042,6 @@ puts(beta_message_tokens_count)
 
     - `type: :ephemeral`
 
-      - `:ephemeral`
-
     - `ttl: :"5m" | :"1h"`
 
       The time-to-live for the cache control breakpoint.
@@ -35412,6 +35064,8 @@ puts(beta_message_tokens_count)
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: bool`
 
@@ -35423,23 +35077,29 @@ puts(beta_message_tokens_count)
 
     - `type: :approximate`
 
-      - `:approximate`
-
     - `city: String`
 
       The city of the user.
+
+      maxLength: 255, minLength: 1
 
     - `country: String`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+      maxLength: 2, minLength: 2
+
     - `region: String`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone: String`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+      maxLength: 255, minLength: 1
 
 ### Beta Web Search Tool 20260318
 
@@ -35451,11 +35111,7 @@ puts(beta_message_tokens_count)
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
-    - `:web_search`
-
   - `type: :web_search_20260318`
-
-    - `:web_search_20260318`
 
   - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -35481,8 +35137,6 @@ puts(beta_message_tokens_count)
 
     - `type: :ephemeral`
 
-      - `:ephemeral`
-
     - `ttl: :"5m" | :"1h"`
 
       The time-to-live for the cache control breakpoint.
@@ -35505,6 +35159,8 @@ puts(beta_message_tokens_count)
   - `max_uses: Integer`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `response_inclusion: :full | :excluded`
 
@@ -35524,23 +35180,29 @@ puts(beta_message_tokens_count)
 
     - `type: :approximate`
 
-      - `:approximate`
-
     - `city: String`
 
       The city of the user.
+
+      maxLength: 255, minLength: 1
 
     - `country: String`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+      maxLength: 2, minLength: 2
+
     - `region: String`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone: String`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+      maxLength: 255, minLength: 1
 
 ### Beta Web Search Tool Request Error
 
@@ -35561,8 +35223,6 @@ puts(beta_message_tokens_count)
     - `:request_too_large`
 
   - `type: :web_search_tool_result_error`
-
-    - `:web_search_tool_result_error`
 
 ### Beta Web Search Tool Result Block
 
@@ -35588,8 +35248,6 @@ puts(beta_message_tokens_count)
 
       - `type: :web_search_tool_result_error`
 
-        - `:web_search_tool_result_error`
-
     - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
       - `encrypted_content: String`
@@ -35600,15 +35258,13 @@ puts(beta_message_tokens_count)
 
       - `type: :web_search_result`
 
-        - `:web_search_result`
-
       - `url: String`
 
   - `tool_use_id: String`
 
-  - `type: :web_search_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:web_search_tool_result`
+  - `type: :web_search_tool_result`
 
   - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -35620,25 +35276,23 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
 ### Beta Web Search Tool Result Block Content
 
@@ -35662,8 +35316,6 @@ puts(beta_message_tokens_count)
 
     - `type: :web_search_tool_result_error`
 
-      - `:web_search_tool_result_error`
-
   - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
     - `encrypted_content: String`
@@ -35673,8 +35325,6 @@ puts(beta_message_tokens_count)
     - `title: String`
 
     - `type: :web_search_result`
-
-      - `:web_search_result`
 
     - `url: String`
 
@@ -35691,8 +35341,6 @@ puts(beta_message_tokens_count)
       - `title: String`
 
       - `type: :web_search_result`
-
-        - `:web_search_result`
 
       - `url: String`
 
@@ -35716,21 +35364,17 @@ puts(beta_message_tokens_count)
 
       - `type: :web_search_tool_result_error`
 
-        - `:web_search_tool_result_error`
-
   - `tool_use_id: String`
 
-  - `type: :web_search_tool_result`
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-    - `:web_search_tool_result`
+  - `type: :web_search_tool_result`
 
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
 
     - `type: :ephemeral`
-
-      - `:ephemeral`
 
     - `ttl: :"5m" | :"1h"`
 
@@ -35757,25 +35401,23 @@ puts(beta_message_tokens_count)
 
       - `type: :direct`
 
-        - `:direct`
-
     - `class BetaServerToolCaller`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: String`
 
-      - `type: :code_execution_20250825`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20250825`
+      - `type: :code_execution_20250825`
 
     - `class BetaServerToolCaller20260120`
 
       - `tool_id: String`
 
-      - `type: :code_execution_20260120`
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-        - `:code_execution_20260120`
+      - `type: :code_execution_20260120`
 
 ### Beta Web Search Tool Result Block Param Content
 
@@ -35788,8 +35430,6 @@ puts(beta_message_tokens_count)
     - `title: String`
 
     - `type: :web_search_result`
-
-      - `:web_search_result`
 
     - `url: String`
 
@@ -35813,8 +35453,6 @@ puts(beta_message_tokens_count)
 
     - `type: :web_search_tool_result_error`
 
-      - `:web_search_tool_result_error`
-
 ### Beta Web Search Tool Result Error
 
 - `class BetaWebSearchToolResultError`
@@ -35835,8 +35473,6 @@ puts(beta_message_tokens_count)
 
   - `type: :web_search_tool_result_error`
 
-    - `:web_search_tool_result_error`
-
 ### Beta Web Search Tool Result Error Code
 
 - `BetaWebSearchToolResultErrorCode = :invalid_tool_input | :unavailable | :max_uses_exceeded | 3 more`
@@ -35853,13 +35489,13 @@ puts(beta_message_tokens_count)
 
   - `:request_too_large`
 
-# Batches
+## Messages › Batches
 
-## Create a Message Batch
+### Create a Message Batch
 
 `beta.messages.batches.create(**kwargs) -> BetaMessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -35867,11 +35503,13 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
-- `requests: Array[Request{ custom_id, params}]`
+- `requests: Array[Request]`
 
   List of requests for prompt completion. Each is an individual request to create a Message.
+
+  maxItems: 100000, minItems: 1
 
   - `custom_id: String`
 
@@ -35879,7 +35517,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Must be unique for each request within the Message Batch.
 
-  - `params: Params{ max_tokens, messages, model, 22 more}`
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
+
+  - `params: Params`
 
     Messages API creation parameters for the individual request.
 
@@ -35894,6 +35534,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
       Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+      minimum: 0
 
     - `messages: Array[BetaMessageParam]`
 
@@ -35956,17 +35598,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: String`
 
-            - `type: :text`
+              minLength: 1
 
-              - `:text`
+            - `type: :text`
 
             - `cache_control: BetaCacheControlEphemeral`
 
               Create a cache control breakpoint at this content block.
 
               - `type: :ephemeral`
-
-                - `:ephemeral`
 
               - `ttl: :"5m" | :"1h"`
 
@@ -35991,15 +35631,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: Integer`
 
+                  minimum: 0
+
                 - `document_title: String`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_char_index: Integer`
 
                 - `start_char_index: Integer`
 
-                - `type: :char_location`
+                  minimum: 0
 
-                  - `:char_location`
+                - `type: :char_location`
 
               - `class BetaCitationPageLocationParam`
 
@@ -36007,15 +35651,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: Integer`
 
+                  minimum: 0
+
                 - `document_title: String`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_page_number: Integer`
 
                 - `start_page_number: Integer`
 
-                - `type: :page_location`
+                  minimum: 1
 
-                  - `:page_location`
+                - `type: :page_location`
 
               - `class BetaCitationContentBlockLocationParam`
 
@@ -36027,7 +35675,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: Integer`
 
+                  minimum: 0
+
                 - `document_title: String`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_block_index: Integer`
 
@@ -36039,9 +35691,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `type: :content_block_location`
+                  minimum: 0
 
-                  - `:content_block_location`
+                - `type: :content_block_location`
 
               - `class BetaCitationWebSearchResultLocationParam`
 
@@ -36051,11 +35703,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: String`
 
+                  maxLength: 512, minLength: 1
+
                 - `type: :web_search_result_location`
 
-                  - `:web_search_result_location`
-
                 - `url: String`
+
+                  minLength: 1
 
               - `class BetaCitationSearchResultLocationParam`
 
@@ -36077,17 +35731,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: String`
 
                 - `start_block_index: Integer`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: String`
 
                 - `type: :search_result_location`
-
-                  - `:search_result_location`
 
           - `class BetaImageBlockParam`
 
@@ -36096,6 +35752,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `class BetaBase64ImageSource`
 
                 - `data: String`
+
+                  format: byte
 
                 - `media_type: :"image/jpeg" | :"image/png" | :"image/gif" | :"image/webp"`
 
@@ -36109,13 +35767,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :base64`
 
-                  - `:base64`
-
               - `class BetaURLImageSource`
 
                 - `type: :url`
-
-                  - `:url`
 
                 - `url: String`
 
@@ -36125,11 +35779,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :file`
 
-                  - `:file`
-
             - `type: :image`
-
-              - `:image`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36155,13 +35805,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `data: String`
 
+                  format: byte
+
                 - `media_type: :"application/pdf"`
 
-                  - `:"application/pdf"`
-
                 - `type: :base64`
-
-                  - `:base64`
 
               - `class BetaPlainTextSource`
 
@@ -36169,11 +35817,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `media_type: :"text/plain"`
 
-                  - `:"text/plain"`
-
                 - `type: :text`
-
-                  - `:text`
 
               - `class BetaContentBlockSource`
 
@@ -36189,13 +35833,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :content`
 
-                  - `:content`
-
               - `class BetaURLPDFSource`
 
                 - `type: :url`
-
-                  - `:url`
 
                 - `url: String`
 
@@ -36205,11 +35845,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :file`
 
-                  - `:file`
-
             - `type: :document`
-
-              - `:document`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36221,13 +35857,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `context: String`
 
+              minLength: 1
+
             - `title: String`
+
+              maxLength: 500, minLength: 1
 
           - `class BetaSearchResultBlockParam`
 
             - `content: Array[BetaTextBlockParam]`
 
               - `text: String`
+
+                minLength: 1
 
               - `type: :text`
 
@@ -36242,8 +35884,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `title: String`
 
             - `type: :search_result`
-
-              - `:search_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36265,8 +35905,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :thinking`
 
-              - `:thinking`
-
           - `class BetaRedactedThinkingBlockParam`
 
             - `data: String`
@@ -36275,19 +35913,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :redacted_thinking`
 
-              - `:redacted_thinking`
-
           - `class BetaToolUseBlockParam`
 
             - `id: String`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `input: Hash[Symbol, untyped]`
 
             - `name: String`
 
-            - `type: :tool_use`
+              maxLength: 200, minLength: 1
 
-              - `:tool_use`
+            - `type: :tool_use`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36303,37 +35941,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :direct`
 
-                  - `:direct`
-
               - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: String`
 
-                - `type: :code_execution_20250825`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `:code_execution_20250825`
+                - `type: :code_execution_20250825`
 
               - `class BetaServerToolCaller20260120`
 
                 - `tool_id: String`
 
-                - `type: :code_execution_20260120`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `:code_execution_20260120`
+                - `type: :code_execution_20260120`
 
             - `toolset_name: String`
 
               For a toolset member tool_use, the toolset family this member belongs to.
 
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
           - `class BetaToolResultBlockParam`
 
             - `tool_use_id: String`
 
-            - `type: :tool_result`
+              pattern: ^[a-zA-Z0-9_-]+$
 
-              - `:tool_result`
+            - `type: :tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36359,9 +35997,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: String`
 
-                  - `type: :tool_reference`
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `:tool_reference`
+                  - `type: :tool_reference`
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -36381,25 +36019,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+                    maxItems: 100
+
                     - `tab_id: String`
 
                       The caller-assigned identifier for this tab, unique within the inventory.
+
+                      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `title: String`
 
                       The title of the page the tab is showing. May be empty.
 
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                     - `url: String`
 
                       The URL of the page the tab is showing. May be empty.
+
+                      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `active: bool`
 
                       Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
                   - `type: :browser_state`
-
-                    - `:browser_state`
 
                   - `cache_control: BetaCacheControlEphemeral`
 
@@ -36408,6 +36052,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `state_changes: Array[BetaBrowserStateChange]`
 
                     Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                    maxItems: 200, minItems: 1
 
                     - `class BetaBrowserStateChangeTabOpened`
 
@@ -36423,9 +36069,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The `tab_id` of the opened tab, present in `tabs`.
 
-                      - `type: :tab_opened`
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `:tab_opened`
+                      - `type: :tab_opened`
 
                     - `class BetaBrowserStateChangeDownloadStarted`
 
@@ -36435,13 +36081,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      - `type: :download_started`
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `:download_started`
+                      - `type: :download_started`
 
                       - `url: String`
 
                         The final post-redirect URL the download was served from.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                     - `class BetaBrowserStateChangeDownloadCompleted`
 
@@ -36454,21 +36102,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      - `type: :download_completed`
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `:download_completed`
+                      - `type: :download_completed`
 
                       - `url: String`
 
                         The final post-redirect URL the download was served from.
 
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                       - `path: String`
 
                         Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
                       - `size_bytes: Integer`
 
                         The completed download's size.
+
+                        minimum: 0
 
                     - `class BetaBrowserStateChangeDownloadFailed`
 
@@ -36478,17 +36132,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                      - `type: :download_failed`
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                        - `:download_failed`
+                      - `type: :download_failed`
 
                       - `url: String`
 
                         The final post-redirect URL the download was served from.
 
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                       - `error: String`
 
                         The failure or cancellation detail, when known.
+
+                        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
             - `is_error: bool`
 
@@ -36496,9 +36154,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_result, the toolset family of the paired tool_use.
 
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
           - `class BetaServerToolUseBlockParam`
 
             - `id: String`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `input: Hash[Symbol, untyped]`
 
@@ -36521,8 +36183,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `:tool_search_tool_bm25`
 
             - `type: :server_tool_use`
-
-              - `:server_tool_use`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36554,8 +36214,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :web_search_result`
 
-                  - `:web_search_result`
-
                 - `url: String`
 
                 - `page_age: String`
@@ -36578,13 +36236,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :web_search_tool_result_error`
 
-                  - `:web_search_tool_result_error`
-
             - `tool_use_id: String`
 
-            - `type: :web_search_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:web_search_tool_result`
+            - `type: :web_search_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36632,15 +36288,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :web_fetch_tool_result_error`
 
-                  - `:web_fetch_tool_result_error`
-
               - `class BetaWebFetchBlockParam`
 
                 - `content: BetaRequestDocumentBlock`
 
                 - `type: :web_fetch_result`
-
-                  - `:web_fetch_result`
 
                 - `url: String`
 
@@ -36652,9 +36304,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: String`
 
-            - `type: :web_fetch_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:web_fetch_tool_result`
+            - `type: :web_fetch_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36698,15 +36350,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :advisor_tool_result_error`
 
-                  - `:advisor_tool_result_error`
-
               - `class BetaAdvisorResultBlockParam`
 
                 - `text: String`
 
                 - `type: :advisor_result`
-
-                  - `:advisor_result`
 
                 - `stop_reason: String`
 
@@ -36718,15 +36366,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :advisor_redacted_result`
 
-                  - `:advisor_redacted_result`
-
                 - `stop_reason: String`
 
             - `tool_use_id: String`
 
-            - `type: :advisor_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:advisor_tool_result`
+            - `type: :advisor_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36752,8 +36398,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :code_execution_tool_result_error`
 
-                  - `:code_execution_tool_result_error`
-
               - `class BetaCodeExecutionResultBlockParam`
 
                 - `content: Array[BetaCodeExecutionOutputBlockParam]`
@@ -36762,8 +36406,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: :code_execution_output`
 
-                    - `:code_execution_output`
-
                 - `return_code: Integer`
 
                 - `stderr: String`
@@ -36771,8 +36413,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `stdout: String`
 
                 - `type: :code_execution_result`
-
-                  - `:code_execution_result`
 
               - `class BetaEncryptedCodeExecutionResultBlockParam`
 
@@ -36792,13 +36432,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :encrypted_code_execution_result`
 
-                  - `:encrypted_code_execution_result`
-
             - `tool_use_id: String`
 
-            - `type: :code_execution_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_tool_result`
+            - `type: :code_execution_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36824,8 +36462,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :bash_code_execution_tool_result_error`
 
-                  - `:bash_code_execution_tool_result_error`
-
               - `class BetaBashCodeExecutionResultBlockParam`
 
                 - `content: Array[BetaBashCodeExecutionOutputBlockParam]`
@@ -36833,8 +36469,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `file_id: String`
 
                   - `type: :bash_code_execution_output`
-
-                    - `:bash_code_execution_output`
 
                 - `return_code: Integer`
 
@@ -36844,13 +36478,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :bash_code_execution_result`
 
-                  - `:bash_code_execution_result`
-
             - `tool_use_id: String`
 
-            - `type: :bash_code_execution_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:bash_code_execution_tool_result`
+            - `type: :bash_code_execution_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36876,8 +36508,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :text_editor_code_execution_tool_result_error`
 
-                  - `:text_editor_code_execution_tool_result_error`
-
                 - `error_message: String`
 
               - `class BetaTextEditorCodeExecutionViewResultBlockParam`
@@ -36894,8 +36524,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :text_editor_code_execution_view_result`
 
-                  - `:text_editor_code_execution_view_result`
-
                 - `num_lines: Integer`
 
                 - `start_line: Integer`
@@ -36908,13 +36536,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :text_editor_code_execution_create_result`
 
-                  - `:text_editor_code_execution_create_result`
-
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
                 - `type: :text_editor_code_execution_str_replace_result`
-
-                  - `:text_editor_code_execution_str_replace_result`
 
                 - `lines: Array[String]`
 
@@ -36928,9 +36552,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: String`
 
-            - `type: :text_editor_code_execution_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:text_editor_code_execution_tool_result`
+            - `type: :text_editor_code_execution_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36954,8 +36578,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :tool_search_tool_result_error`
 
-                  - `:tool_search_tool_result_error`
-
                 - `error_message: String`
 
               - `class BetaToolSearchToolSearchResultBlockParam`
@@ -36963,6 +36585,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `tool_references: Array[BetaToolReferenceBlockParam]`
 
                   - `tool_name: String`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `type: :tool_reference`
 
@@ -36972,13 +36596,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :tool_search_tool_search_result`
 
-                  - `:tool_search_tool_search_result`
-
             - `tool_use_id: String`
 
-            - `type: :tool_search_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:tool_search_tool_result`
+            - `type: :tool_search_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -36987,6 +36609,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `class BetaMCPToolUseBlockParam`
 
             - `id: String`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `input: Hash[Symbol, untyped]`
 
@@ -36998,8 +36622,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :mcp_tool_use`
 
-              - `:mcp_tool_use`
-
             - `cache_control: BetaCacheControlEphemeral`
 
               Create a cache control breakpoint at this content block.
@@ -37008,9 +36630,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: String`
 
-            - `type: :mcp_tool_result`
+              pattern: ^[a-zA-Z0-9_-]+$
 
-              - `:mcp_tool_result`
+            - `type: :mcp_tool_result`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -37023,6 +36645,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `BetaMCPToolResultBlockParamContent = Array[BetaTextBlockParam]`
 
                 - `text: String`
+
+                  minLength: 1
 
                 - `type: :text`
 
@@ -37043,8 +36667,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :container_upload`
 
-              - `:container_upload`
-
             - `cache_control: BetaCacheControlEphemeral`
 
               Create a cache control breakpoint at this content block.
@@ -37060,8 +36682,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             treats these as no-ops. Empty string content is not allowed.
 
             - `type: :compaction`
-
-              - `:compaction`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -37099,9 +36719,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `name: String`
 
-                - `type: :tool_reference`
+                  pattern: ^[a-zA-Z0-9_-]{1,128}$
 
-                  - `:tool_reference`
+                - `type: :tool_reference`
 
               - `class BetaToolChangeMCPToolReference`
 
@@ -37114,8 +36734,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :mcp_tool_reference`
 
-                  - `:mcp_tool_reference`
-
               - `class BetaToolChangeMCPToolsetReference`
 
                 Reference to every tool in the named MCP server's toolset.
@@ -37124,11 +36742,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :mcp_toolset_reference`
 
-                  - `:mcp_toolset_reference`
-
             - `type: :tool_addition`
-
-              - `:tool_addition`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -37166,8 +36780,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Reference to every tool in the named MCP server's toolset.
 
             - `type: :tool_removal`
-
-              - `:tool_removal`
 
             - `cache_control: BetaCacheControlEphemeral`
 
@@ -37273,8 +36885,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :fallback`
 
-              - `:fallback`
-
             - `trigger: untyped`
 
               The response block's `trigger`, echoed verbatim. Accepted and ignored by the server; any object or `null` is allowed.
@@ -37313,9 +36923,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           List of skills to load in the container
 
+          maxItems: 20
+
           - `skill_id: String`
 
             Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `type: :anthropic | :custom`
 
@@ -37329,6 +36943,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Skill version or 'latest' for most recent version
 
+            maxLength: 64, minLength: 1
+
       - `String = String`
 
     - `context_management: BetaContextManagementConfig`
@@ -37341,11 +36957,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         List of context management edits to apply
 
+        minItems: 0
+
         - `class BetaClearToolUses20250919Edit`
 
           - `type: :clear_tool_uses_20250919`
-
-            - `:clear_tool_uses_20250919`
 
           - `clear_at_least: BetaInputTokensClearAtLeast`
 
@@ -37353,9 +36969,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :input_tokens`
 
-              - `:input_tokens`
-
             - `value: Integer`
+
+              minimum: 0
 
           - `clear_tool_inputs: bool | Array[String]`
 
@@ -37375,9 +36991,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :tool_uses`
 
-              - `:tool_uses`
-
             - `value: Integer`
+
+              minimum: 0
 
           - `trigger: BetaInputTokensTrigger | BetaToolUsesTrigger`
 
@@ -37387,23 +37003,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: :input_tokens`
 
-                - `:input_tokens`
-
               - `value: Integer`
+
+                minimum: 1
 
             - `class BetaToolUsesTrigger`
 
               - `type: :tool_uses`
 
-                - `:tool_uses`
-
               - `value: Integer`
+
+                minimum: 1
 
         - `class BetaClearThinking20251015Edit`
 
           - `type: :clear_thinking_20251015`
-
-            - `:clear_thinking_20251015`
 
           - `keep: BetaThinkingTurns | BetaAllThinkingTurns | :all`
 
@@ -37413,27 +37027,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: :thinking_turns`
 
-                - `:thinking_turns`
-
               - `value: Integer`
+
+                minimum: 1
 
             - `class BetaAllThinkingTurns`
 
               - `type: :all`
 
-                - `:all`
-
             - `Keep = :all`
-
-              - `:all`
 
         - `class BetaCompact20260112Edit`
 
           Automatically compact older context when reaching the configured trigger threshold.
 
           - `type: :compact_20260112`
-
-            - `:compact_20260112`
 
           - `instructions: String`
 
@@ -37455,6 +37063,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       - `previous_message_id: String`
 
         The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
+
+        maxLength: 256
 
     - `fallback_credit_token: String | BetaFallbackCreditTokenParam`
 
@@ -37494,6 +37104,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `token: String`
 
           The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
+
+          maxLength: 2048, minLength: 1
 
         - `mode: :strict | :best_effort`
 
@@ -37543,8 +37155,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :json_schema`
 
-              - `:json_schema`
-
           - `task_budget: BetaTokenTaskBudget`
 
             User-configurable total token budget across contexts.
@@ -37553,15 +37163,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Total token budget across all contexts in the session.
 
+              minimum: 1024
+
             - `type: :tokens`
 
               The budget type. Currently only 'tokens' is supported.
 
-              - `:tokens`
-
             - `remaining: Integer`
 
               Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
+
+              minimum: 0
 
         - `speed: :standard | :fast`
 
@@ -37583,9 +37195,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-            - `type: :enabled`
+              minimum: 1024
 
-              - `:enabled`
+            - `type: :enabled`
 
             - `display_: :summarized | :omitted`
 
@@ -37599,13 +37211,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :disabled`
 
-              - `:disabled`
-
           - `class BetaThinkingConfigAdaptive`
 
             - `type: :adaptive`
-
-              - `:adaptive`
 
             - `display_: :summarized | :omitted`
 
@@ -37617,8 +37225,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `BetaFallbacksParam = :default`
 
-        - `:default`
-
     - `inference_geo: String`
 
       Specifies the geographic region for inference processing. If not specified, the workspace's `default_inference_geo` is used.
@@ -37627,11 +37233,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       MCP servers to be utilized in this request
 
+      maxItems: 20
+
       - `name: String`
 
       - `type: :url`
-
-        - `:url`
 
       - `url: String`
 
@@ -37653,15 +37259,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
+        maxLength: 512
+
     - `output_config: BetaOutputConfig`
 
       Configuration options for the model's output, such as the output format.
-
-    - `output_format: BetaJSONOutputFormat`
-
-      Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-      A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
     - `service_tier: :auto | :standard_only`
 
@@ -37707,6 +37309,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `text: String`
 
+          minLength: 1
+
         - `type: :text`
 
         - `cache_control: BetaCacheControlEphemeral`
@@ -37714,14 +37318,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Create a cache control breakpoint at this content block.
 
         - `citations: Array[BetaTextCitationParam]`
-
-    - `temperature: Float`
-
-      Amount of randomness injected into the response.
-
-      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
     - `thinking: BetaThinkingConfigParam`
 
@@ -37747,8 +37343,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: :auto`
 
-          - `:auto`
-
         - `disable_parallel_tool_use: bool`
 
           Whether to disable parallel tool use.
@@ -37760,8 +37354,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         The model will use any available tools.
 
         - `type: :any`
-
-          - `:any`
 
         - `disable_parallel_tool_use: bool`
 
@@ -37779,8 +37371,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: :tool`
 
-          - `:tool`
-
         - `disable_parallel_tool_use: bool`
 
           Whether to disable parallel tool use.
@@ -37792,8 +37382,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         The model will not be allowed to use tools.
 
         - `type: :none`
-
-          - `:none`
 
     - `tools: Array[BetaToolUnion]`
 
@@ -37861,15 +37449,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `class BetaTool`
 
-        - `input_schema: InputSchema{ type, properties, required}`
+        - `input_schema: InputSchema`
 
           [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
           This defines the shape of the `input` that your tool accepts and that the model will produce.
 
           - `type: :object`
-
-            - `:object`
 
           - `properties: Hash[Symbol, untyped]`
 
@@ -37880,6 +37466,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
+
+          maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -37917,8 +37505,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         - `type: :custom`
 
-          - `:custom`
-
       - `class BetaToolBash20241022`
 
         - `name: :bash`
@@ -37927,11 +37513,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:bash`
-
         - `type: :bash_20241022`
-
-          - `:bash_20241022`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -37965,11 +37547,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:bash`
-
         - `type: :bash_20250124`
-
-          - `:bash_20250124`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38003,11 +37581,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:code_execution`
-
         - `type: :code_execution_20250522`
-
-          - `:code_execution_20250522`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38039,11 +37613,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:code_execution`
-
         - `type: :code_execution_20250825`
-
-          - `:code_execution_20250825`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38077,11 +37647,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:code_execution`
-
         - `type: :code_execution_20260120`
-
-          - `:code_execution_20260120`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38115,11 +37681,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:code_execution`
-
         - `type: :code_execution_20260521`
-
-          - `:code_execution_20260521`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38151,8 +37713,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         from its schema.
 
         - `type: :browser_toolset_20260801`
-
-          - `:browser_toolset_20260801`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38555,9 +38115,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The height of the display in pixels.
 
+          minimum: 1
+
         - `display_width_px: Integer`
 
           The width of the display in pixels.
+
+          minimum: 1
 
         - `name: :computer`
 
@@ -38565,11 +38129,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:computer`
-
         - `type: :computer_20241022`
-
-          - `:computer_20241022`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38593,6 +38153,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The X11 display number (e.g. 0, 1) for the display.
 
+          minimum: 0
+
         - `input_examples: Array[Hash[Symbol, untyped]]`
 
         - `strict: bool`
@@ -38607,11 +38169,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:memory`
-
         - `type: :memory_20250818`
-
-          - `:memory_20250818`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38643,9 +38201,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The height of the display in pixels.
 
+          minimum: 1
+
         - `display_width_px: Integer`
 
           The width of the display in pixels.
+
+          minimum: 1
 
         - `name: :computer`
 
@@ -38653,11 +38215,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:computer`
-
         - `type: :computer_20250124`
-
-          - `:computer_20250124`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38681,6 +38239,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The X11 display number (e.g. 0, 1) for the display.
 
+          minimum: 0
+
         - `input_examples: Array[Hash[Symbol, untyped]]`
 
         - `strict: bool`
@@ -38695,11 +38255,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:str_replace_editor`
-
         - `type: :text_editor_20241022`
-
-          - `:text_editor_20241022`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38731,9 +38287,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The height of the display in pixels.
 
+          minimum: 1
+
         - `display_width_px: Integer`
 
           The width of the display in pixels.
+
+          minimum: 1
 
         - `name: :computer`
 
@@ -38741,11 +38301,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:computer`
-
         - `type: :computer_20251124`
-
-          - `:computer_20251124`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -38769,6 +38325,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The X11 display number (e.g. 0, 1) for the display.
 
+          minimum: 0
+
         - `enable_zoom: bool`
 
           Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -38791,8 +38349,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         via `configs.zoom.enabled`.
 
         - `type: :computer_toolset_20260801`
-
-          - `:computer_toolset_20260801`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39029,11 +38585,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:str_replace_editor`
-
         - `type: :text_editor_20250124`
-
-          - `:text_editor_20250124`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39067,11 +38619,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:str_replace_based_edit_tool`
-
         - `type: :text_editor_20250429`
-
-          - `:text_editor_20250429`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39105,11 +38653,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:str_replace_based_edit_tool`
-
         - `type: :text_editor_20250728`
-
-          - `:text_editor_20250728`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39135,6 +38679,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+          minimum: 1
+
         - `strict: bool`
 
           When true, guarantees schema validation on tool names and inputs
@@ -39147,11 +38693,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:web_search`
-
         - `type: :web_search_20250305`
-
-          - `:web_search_20250305`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39183,6 +38725,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of times the tool can be used in the API request.
 
+          exclusiveMinimum: 0
+
         - `strict: bool`
 
           When true, guarantees schema validation on tool names and inputs
@@ -39193,23 +38737,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: :approximate`
 
-            - `:approximate`
-
           - `city: String`
 
             The city of the user.
+
+            maxLength: 255, minLength: 1
 
           - `country: String`
 
             The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+            maxLength: 2, minLength: 2
+
           - `region: String`
 
             The region of the user.
 
+            maxLength: 255, minLength: 1
+
           - `timezone: String`
 
             The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+            maxLength: 255, minLength: 1
 
       - `class BetaWebFetchTool20250910`
 
@@ -39219,11 +38769,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:web_fetch`
-
         - `type: :web_fetch_20250910`
-
-          - `:web_fetch_20250910`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39259,9 +38805,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: bool`
 
@@ -39275,11 +38825,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:web_search`
-
         - `type: :web_search_20260209`
-
-          - `:web_search_20260209`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39310,6 +38856,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: bool`
 
@@ -39327,11 +38875,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:web_fetch`
-
         - `type: :web_fetch_20260209`
-
-          - `:web_fetch_20260209`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39367,9 +38911,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: bool`
 
@@ -39385,11 +38933,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:web_fetch`
-
         - `type: :web_fetch_20260309`
-
-          - `:web_fetch_20260309`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39425,9 +38969,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: bool`
 
@@ -39445,11 +38993,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:web_search`
-
         - `type: :web_search_20260318`
-
-          - `:web_search_20260318`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39480,6 +39024,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `response_inclusion: :full | :excluded`
 
@@ -39505,11 +39051,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:web_fetch`
-
         - `type: :web_fetch_20260318`
-
-          - `:web_fetch_20260318`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39545,9 +39087,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+          exclusiveMinimum: 0
+
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `response_inclusion: :full | :excluded`
 
@@ -39579,11 +39125,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This is how the tool will be called by the model and in `tool_use` blocks.
 
-          - `:advisor`
-
         - `type: :advisor_20260301`
-
-          - `:advisor_20260301`
 
         - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
 
@@ -39611,9 +39153,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+          minimum: 1024
+
         - `max_uses: Integer`
 
           Maximum number of times the tool can be used in the API request.
+
+          exclusiveMinimum: 0
 
         - `strict: bool`
 
@@ -39626,8 +39172,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `:tool_search_tool_bm25`
 
         - `type: :tool_search_tool_bm25_20251119 | :tool_search_tool_bm25`
 
@@ -39664,8 +39208,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Name of the tool.
 
           This is how the tool will be called by the model and in `tool_use` blocks.
-
-          - `:tool_search_tool_regex`
 
         - `type: :tool_search_tool_regex_20251119 | :tool_search_tool_regex`
 
@@ -39706,9 +39248,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Name of the MCP server to configure tools for
 
-        - `type: :mcp_toolset`
+          maxLength: 255, minLength: 1
 
-          - `:mcp_toolset`
+        - `type: :mcp_toolset`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -39730,7 +39272,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `enabled: bool`
 
+    - `output_format: BetaJSONOutputFormat`
+
+      **Deprecated**
+
+      Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
+
+      A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
+
+    - `temperature: Float`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+      Amount of randomness injected into the response.
+
+      Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+      Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+      maximum: 1, minimum: 0
+
     - `top_k: Integer`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
       Only sample from the top K options for each subsequent token.
 
@@ -39738,13 +39302,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Recommended for advanced use cases only.
 
+      minimum: 0
+
     - `top_p: Float`
+
+      **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
       Use nucleus sampling.
 
       In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
       Recommended for advanced use cases only.
+
+      maximum: 1, minimum: 0
 
 - `betas: Array[AnthropicBeta]`
 
@@ -39826,7 +39396,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+#### Returns
 
 - `class BetaMessageBatch`
 
@@ -39840,13 +39410,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Time`
 
@@ -39854,9 +39430,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: :in_progress | :canceling | :ended`
 
@@ -39914,9 +39494,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `:message_batch`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -39935,7 +39513,7 @@ beta_message_batch = anthropic.beta.messages.batches.create(
 puts(beta_message_batch)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -39958,17 +39536,17 @@ puts(beta_message_batch)
 }
 ```
 
-## Retrieve a Message Batch
+### Retrieve a Message Batch
 
 `beta.messages.batches.retrieve(message_batch_id, **kwargs) -> BetaMessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `message_batch_id: String`
 
@@ -40050,7 +39628,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaMessageBatch`
 
@@ -40064,13 +39642,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Time`
 
@@ -40078,9 +39662,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: :in_progress | :canceling | :ended`
 
@@ -40138,9 +39726,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `:message_batch`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -40152,7 +39738,7 @@ beta_message_batch = anthropic.beta.messages.batches.retrieve("message_batch_id"
 puts(beta_message_batch)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -40175,17 +39761,17 @@ puts(beta_message_batch)
 }
 ```
 
-## List Message Batches
+### List Message Batches
 
 `beta.messages.batches.list(**kwargs) -> Page<BetaMessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `after_id: String`
 
@@ -40200,6 +39786,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  maximum: 1000, minimum: 1
 
 - `betas: Array[AnthropicBeta]`
 
@@ -40277,7 +39865,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaMessageBatch`
 
@@ -40291,13 +39879,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Time`
 
@@ -40305,9 +39899,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: :in_progress | :canceling | :ended`
 
@@ -40365,9 +39963,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `:message_batch`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -40379,7 +39975,7 @@ page = anthropic.beta.messages.batches.list
 puts(page)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -40409,11 +40005,11 @@ puts(page)
 }
 ```
 
-## Cancel a Message Batch
+### Cancel a Message Batch
 
 `beta.messages.batches.cancel(message_batch_id, **kwargs) -> BetaMessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -40421,7 +40017,7 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `message_batch_id: String`
 
@@ -40503,7 +40099,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaMessageBatch`
 
@@ -40517,13 +40113,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: Time`
 
@@ -40531,9 +40133,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: :in_progress | :canceling | :ended`
 
@@ -40591,9 +40197,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `:message_batch`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -40605,7 +40209,7 @@ beta_message_batch = anthropic.beta.messages.batches.cancel("message_batch_id")
 puts(beta_message_batch)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -40628,11 +40232,11 @@ puts(beta_message_batch)
 }
 ```
 
-## Delete a Message Batch
+### Delete a Message Batch
 
 `beta.messages.batches.delete(message_batch_id, **kwargs) -> BetaDeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -40640,7 +40244,7 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `message_batch_id: String`
 
@@ -40722,7 +40326,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaDeletedMessageBatch`
 
@@ -40736,9 +40340,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `:message_batch_deleted`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -40750,7 +40352,7 @@ beta_deleted_message_batch = anthropic.beta.messages.batches.delete("message_bat
 puts(beta_deleted_message_batch)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -40759,11 +40361,11 @@ puts(beta_deleted_message_batch)
 }
 ```
 
-## Retrieve Message Batch results
+### Retrieve Message Batch results
 
 `beta.messages.batches.results(message_batch_id, **kwargs) -> BetaMessageBatchIndividualResponse`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -40771,7 +40373,7 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `message_batch_id: String`
 
@@ -40853,7 +40455,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class BetaMessageBatchIndividualResponse`
 
@@ -40893,6 +40495,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
+            format: date-time
+
           - `skills: Array[BetaSkill]`
 
             Skills loaded in the container
@@ -40900,6 +40504,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `skill_id: String`
 
               Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `type: :anthropic | :custom`
 
@@ -40912,6 +40518,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `version: String`
 
               The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `content: Array[BetaContentBlock]`
 
@@ -40956,6 +40564,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: Integer`
 
+                  minimum: 0
+
                 - `document_title: String`
 
                 - `end_char_index: Integer`
@@ -40964,15 +40574,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_char_index: Integer`
 
-                - `type: :char_location`
+                  minimum: 0
 
-                  - `:char_location`
+                - `type: :char_location`
 
               - `class BetaCitationPageLocation`
 
                 - `cited_text: String`
 
                 - `document_index: Integer`
+
+                  minimum: 0
 
                 - `document_title: String`
 
@@ -40982,9 +40594,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_page_number: Integer`
 
-                - `type: :page_location`
+                  minimum: 1
 
-                  - `:page_location`
+                - `type: :page_location`
 
               - `class BetaCitationContentBlockLocation`
 
@@ -40995,6 +40607,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: Integer`
+
+                  minimum: 0
 
                 - `document_title: String`
 
@@ -41010,9 +40624,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `type: :content_block_location`
+                  minimum: 0
 
-                  - `:content_block_location`
+                - `type: :content_block_location`
 
               - `class BetaCitationsWebSearchResultLocation`
 
@@ -41022,9 +40636,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: String`
 
-                - `type: :web_search_result_location`
+                  maxLength: 512
 
-                  - `:web_search_result_location`
+                - `type: :web_search_result_location`
 
                 - `url: String`
 
@@ -41048,23 +40662,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: String`
 
                 - `start_block_index: Integer`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: String`
 
                 - `type: :search_result_location`
 
-                  - `:search_result_location`
-
             - `text: String`
 
-            - `type: :text`
+              maxLength: 5000000, minLength: 0
 
-              - `:text`
+            - `type: :text`
 
           - `class BetaThinkingBlock`
 
@@ -41082,8 +40698,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :thinking`
 
-              - `:thinking`
-
           - `class BetaRedactedThinkingBlock`
 
             - `data: String`
@@ -41096,19 +40710,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :redacted_thinking`
 
-              - `:redacted_thinking`
-
           - `class BetaToolUseBlock`
 
             - `id: String`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `input: Hash[Symbol, untyped]`
 
             - `name: String`
 
-            - `type: :tool_use`
+              minLength: 1
 
-              - `:tool_use`
+            - `type: :tool_use`
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -41120,33 +40734,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :direct`
 
-                  - `:direct`
-
               - `class BetaServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: String`
 
-                - `type: :code_execution_20250825`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `:code_execution_20250825`
+                - `type: :code_execution_20250825`
 
               - `class BetaServerToolCaller20260120`
 
                 - `tool_id: String`
 
-                - `type: :code_execution_20260120`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `:code_execution_20260120`
+                - `type: :code_execution_20260120`
 
             - `toolset_name: String`
 
               For a toolset member tool_use, the toolset family.
 
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
           - `class BetaServerToolUseBlock`
 
             - `id: String`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `input: Hash[Symbol, untyped]`
 
@@ -41169,8 +40785,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `:tool_search_tool_bm25`
 
             - `type: :server_tool_use`
-
-              - `:server_tool_use`
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -41208,8 +40822,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :web_search_tool_result_error`
 
-                  - `:web_search_tool_result_error`
-
               - `UnionMember1 = Array[BetaWebSearchResultBlock]`
 
                 - `encrypted_content: String`
@@ -41220,15 +40832,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :web_search_result`
 
-                  - `:web_search_result`
-
                 - `url: String`
 
             - `tool_use_id: String`
 
-            - `type: :web_search_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:web_search_tool_result`
+            - `type: :web_search_tool_result`
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -41272,8 +40882,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :web_fetch_tool_result_error`
 
-                  - `:web_fetch_tool_result_error`
-
               - `class BetaWebFetchBlock`
 
                 - `content: BetaDocumentBlock`
@@ -41290,13 +40898,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `data: String`
 
+                        format: byte
+
                       - `media_type: :"application/pdf"`
 
-                        - `:"application/pdf"`
-
                       - `type: :base64`
-
-                        - `:base64`
 
                     - `class BetaPlainTextSource`
 
@@ -41304,11 +40910,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `media_type: :"text/plain"`
 
-                        - `:"text/plain"`
-
                       - `type: :text`
-
-                        - `:text`
 
                   - `title: String`
 
@@ -41316,15 +40918,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: :document`
 
-                    - `:document`
-
                 - `retrieved_at: String`
 
                   ISO 8601 timestamp when the content was retrieved
 
                 - `type: :web_fetch_result`
-
-                  - `:web_fetch_result`
 
                 - `url: String`
 
@@ -41332,9 +40930,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: String`
 
-            - `type: :web_fetch_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:web_fetch_tool_result`
+            - `type: :web_fetch_tool_result`
 
             - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
 
@@ -41374,8 +40972,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :advisor_tool_result_error`
 
-                  - `:advisor_tool_result_error`
-
               - `class BetaAdvisorResultBlock`
 
                 - `stop_reason: String`
@@ -41385,8 +40981,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `text: String`
 
                 - `type: :advisor_result`
-
-                  - `:advisor_result`
 
               - `class BetaAdvisorRedactedResultBlock`
 
@@ -41400,13 +40994,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :advisor_redacted_result`
 
-                  - `:advisor_redacted_result`
-
             - `tool_use_id: String`
 
-            - `type: :advisor_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:advisor_tool_result`
+            - `type: :advisor_tool_result`
 
           - `class BetaCodeExecutionToolResultBlock`
 
@@ -41428,8 +41020,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :code_execution_tool_result_error`
 
-                  - `:code_execution_tool_result_error`
-
               - `class BetaCodeExecutionResultBlock`
 
                 - `content: Array[BetaCodeExecutionOutputBlock]`
@@ -41438,8 +41028,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: :code_execution_output`
 
-                    - `:code_execution_output`
-
                 - `return_code: Integer`
 
                 - `stderr: String`
@@ -41447,8 +41035,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `stdout: String`
 
                 - `type: :code_execution_result`
-
-                  - `:code_execution_result`
 
               - `class BetaEncryptedCodeExecutionResultBlock`
 
@@ -41468,13 +41054,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :encrypted_code_execution_result`
 
-                  - `:encrypted_code_execution_result`
-
             - `tool_use_id: String`
 
-            - `type: :code_execution_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:code_execution_tool_result`
+            - `type: :code_execution_tool_result`
 
           - `class BetaBashCodeExecutionToolResultBlock`
 
@@ -41496,8 +41080,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :bash_code_execution_tool_result_error`
 
-                  - `:bash_code_execution_tool_result_error`
-
               - `class BetaBashCodeExecutionResultBlock`
 
                 - `content: Array[BetaBashCodeExecutionOutputBlock]`
@@ -41505,8 +41087,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `file_id: String`
 
                   - `type: :bash_code_execution_output`
-
-                    - `:bash_code_execution_output`
 
                 - `return_code: Integer`
 
@@ -41516,13 +41096,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :bash_code_execution_result`
 
-                  - `:bash_code_execution_result`
-
             - `tool_use_id: String`
 
-            - `type: :bash_code_execution_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:bash_code_execution_tool_result`
+            - `type: :bash_code_execution_tool_result`
 
           - `class BetaTextEditorCodeExecutionToolResultBlock`
 
@@ -41546,8 +41124,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :text_editor_code_execution_tool_result_error`
 
-                  - `:text_editor_code_execution_tool_result_error`
-
               - `class BetaTextEditorCodeExecutionViewResultBlock`
 
                 - `content: String`
@@ -41568,15 +41144,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :text_editor_code_execution_view_result`
 
-                  - `:text_editor_code_execution_view_result`
-
               - `class BetaTextEditorCodeExecutionCreateResultBlock`
 
                 - `is_file_update: bool`
 
                 - `type: :text_editor_code_execution_create_result`
-
-                  - `:text_editor_code_execution_create_result`
 
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -41592,13 +41164,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :text_editor_code_execution_str_replace_result`
 
-                  - `:text_editor_code_execution_str_replace_result`
-
             - `tool_use_id: String`
 
-            - `type: :text_editor_code_execution_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:text_editor_code_execution_tool_result`
+            - `type: :text_editor_code_execution_tool_result`
 
           - `class BetaToolSearchToolResultBlock`
 
@@ -41620,31 +41190,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :tool_search_tool_result_error`
 
-                  - `:tool_search_tool_result_error`
-
               - `class BetaToolSearchToolSearchResultBlock`
 
                 - `tool_references: Array[BetaToolReferenceBlock]`
 
                   - `tool_name: String`
 
-                  - `type: :tool_reference`
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                    - `:tool_reference`
+                  - `type: :tool_reference`
 
                 - `type: :tool_search_tool_search_result`
 
-                  - `:tool_search_tool_search_result`
-
             - `tool_use_id: String`
 
-            - `type: :tool_search_tool_result`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `:tool_search_tool_result`
+            - `type: :tool_search_tool_result`
 
           - `class BetaMCPToolUseBlock`
 
             - `id: String`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `input: Hash[Symbol, untyped]`
 
@@ -41657,8 +41225,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               The name of the MCP server
 
             - `type: :mcp_tool_use`
-
-              - `:mcp_tool_use`
 
           - `class BetaMCPToolResultBlock`
 
@@ -41676,15 +41242,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `text: String`
 
+                  maxLength: 5000000, minLength: 0
+
                 - `type: :text`
 
             - `is_error: bool`
 
             - `tool_use_id: String`
 
-            - `type: :mcp_tool_result`
+              pattern: ^[a-zA-Z0-9_-]+$
 
-              - `:mcp_tool_result`
+            - `type: :mcp_tool_result`
 
           - `class BetaContainerUploadBlock`
 
@@ -41693,8 +41261,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `file_id: String`
 
             - `type: :container_upload`
-
-              - `:container_upload`
 
           - `class BetaCompactionBlock`
 
@@ -41713,8 +41279,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               Opaque metadata from prior compaction, to be round-tripped verbatim
 
             - `type: :compaction`
-
-              - `:compaction`
 
           - `class BetaFallbackBlock`
 
@@ -41842,11 +41406,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: :refusal`
 
-                - `:refusal`
-
             - `type: :fallback`
-
-              - `:fallback`
 
         - `context_management: BetaContextManagementResponse`
 
@@ -41864,15 +41424,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Number of input tokens cleared by this edit.
 
+                minimum: 0
+
               - `cleared_tool_uses: Integer`
 
                 Number of tool uses that were cleared.
 
+                minimum: 0
+
               - `type: :clear_tool_uses_20250919`
 
                 The type of context management edit applied.
-
-                - `:clear_tool_uses_20250919`
 
             - `class BetaClearThinking20251015EditResponse`
 
@@ -41880,15 +41442,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Number of input tokens cleared by this edit.
 
+                minimum: 0
+
               - `cleared_thinking_turns: Integer`
 
                 Number of thinking turns that were cleared.
 
+                minimum: 0
+
               - `type: :clear_thinking_20251015`
 
                 The type of context management edit applied.
-
-                - `:clear_thinking_20251015`
 
         - `diagnostics: BetaDiagnostics`
 
@@ -41907,8 +41471,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: :model_changed`
 
-                - `:model_changed`
-
             - `class BetaCacheMissSystemChanged`
 
               - `cache_missed_input_tokens: Integer`
@@ -41916,8 +41478,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
 
               - `type: :system_changed`
-
-                - `:system_changed`
 
             - `class BetaCacheMissToolsChanged`
 
@@ -41927,8 +41487,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: :tools_changed`
 
-                - `:tools_changed`
-
             - `class BetaCacheMissMessagesChanged`
 
               - `cache_missed_input_tokens: Integer`
@@ -41937,19 +41495,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: :messages_changed`
 
-                - `:messages_changed`
-
             - `class BetaCacheMissPreviousMessageNotFound`
 
               - `type: :previous_message_not_found`
 
-                - `:previous_message_not_found`
-
             - `class BetaCacheMissUnavailable`
 
               - `type: :unavailable`
-
-                - `:unavailable`
 
         - `model: Model`
 
@@ -41962,8 +41514,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           Conversational role of the generated message.
 
           This will always be `"assistant"`.
-
-          - `:assistant`
 
         - `stop_details: BetaRefusalStopDetails`
 
@@ -42050,8 +41600,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: :refusal`
 
-            - `:refusal`
-
         - `stop_reason: BetaStopReason`
 
           The reason that we stopped.
@@ -42096,8 +41644,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-          - `:message`
-
         - `usage: BetaUsage`
 
           Billing and rate-limit usage.
@@ -42118,17 +41664,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              minimum: 0
+
             - `ephemeral_5m_input_tokens: Integer`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              minimum: 0
 
           - `cache_creation_input_tokens: Integer`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Integer`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `fallback_credit: BetaFallbackCreditUsage`
 
@@ -42149,8 +41703,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 had been on the retry model all along.
 
                 - `type: :redeemed`
-
-                  - `:redeemed`
 
               - `class BetaFallbackCreditNotApplied`
 
@@ -42189,8 +41741,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: :not_applied`
 
-                  - `:not_applied`
-
                 - `remove_to_redeem: Array[String]`
 
                   Request fields to remove before retrying, so the retry can redeem this
@@ -42209,6 +41759,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `input_tokens: Integer`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `iterations: BetaIterationsUsage`
 
@@ -42232,13 +41784,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: Integer`
 
                 The number of input tokens read from the cache.
 
+                minimum: 0
+
               - `input_tokens: Integer`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: Model`
 
@@ -42250,11 +41808,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: :message`
 
                 Usage for a sampling iteration
-
-                - `:message`
 
             - `class BetaCompactionIterationUsage`
 
@@ -42268,23 +41826,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: Integer`
 
                 The number of input tokens read from the cache.
+
+                minimum: 0
 
               - `input_tokens: Integer`
 
                 The number of input tokens which were used.
 
+                minimum: 0
+
               - `output_tokens: Integer`
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: :compaction`
 
                 Usage for a compaction iteration
-
-                - `:compaction`
 
             - `class BetaAdvisorMessageIterationUsage`
 
@@ -42298,13 +41862,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: Integer`
 
                 The number of input tokens read from the cache.
 
+                minimum: 0
+
               - `input_tokens: Integer`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: Model`
 
@@ -42316,11 +41886,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: :advisor_message`
 
                 Usage for an advisor sub-inference iteration
-
-                - `:advisor_message`
 
             - `class BetaFallbackMessageIterationUsage`
 
@@ -42339,13 +41909,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: Integer`
 
                 The number of input tokens read from the cache.
 
+                minimum: 0
+
               - `input_tokens: Integer`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: Model`
 
@@ -42357,15 +41933,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: :fallback_message`
 
                 Usage for the fallback-model attempt that served the response
 
-                - `:fallback_message`
-
           - `output_tokens: Integer`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `output_tokens_details: BetaOutputTokensDetails`
 
@@ -42387,6 +41965,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              minimum: 0
+
           - `server_tool_use: BetaServerToolUsage`
 
             The number of server tool requests.
@@ -42395,9 +41975,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              minimum: 0
+
             - `web_search_requests: Integer`
 
               The number of web search tool requests.
+
+              minimum: 0
 
           - `service_tier: :standard | :priority | :batch`
 
@@ -42419,8 +42003,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: :succeeded`
 
-        - `:succeeded`
-
     - `class BetaMessageBatchErroredResult`
 
       - `error: BetaErrorResponse`
@@ -42433,15 +42015,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :invalid_request_error`
 
-              - `:invalid_request_error`
-
           - `class BetaAuthenticationError`
 
             - `message: String`
 
             - `type: :authentication_error`
-
-              - `:authentication_error`
 
           - `class BetaBillingError`
 
@@ -42449,15 +42027,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :billing_error`
 
-              - `:billing_error`
-
           - `class BetaPermissionError`
 
             - `message: String`
 
             - `type: :permission_error`
-
-              - `:permission_error`
 
           - `class BetaNotFoundError`
 
@@ -42465,15 +42039,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :not_found_error`
 
-              - `:not_found_error`
-
           - `class BetaRateLimitError`
 
             - `message: String`
 
             - `type: :rate_limit_error`
-
-              - `:rate_limit_error`
 
           - `class BetaGatewayTimeoutError`
 
@@ -42481,15 +42051,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :timeout_error`
 
-              - `:timeout_error`
-
           - `class BetaAPIError`
 
             - `message: String`
 
             - `type: :api_error`
-
-              - `:api_error`
 
           - `class BetaOverloadedError`
 
@@ -42497,31 +42063,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :overloaded_error`
 
-              - `:overloaded_error`
-
         - `request_id: String`
 
         - `type: :error`
 
-          - `:error`
-
       - `type: :errored`
-
-        - `:errored`
 
     - `class BetaMessageBatchCanceledResult`
 
       - `type: :canceled`
 
-        - `:canceled`
-
     - `class BetaMessageBatchExpiredResult`
 
       - `type: :expired`
 
-        - `:expired`
-
-### Example
+#### Example
 
 ```ruby
 require "anthropic"
@@ -42532,5127 +42088,3 @@ beta_message_batch_individual_response = anthropic.beta.messages.batches.results
 
 puts(beta_message_batch_individual_response)
 ```
-
-## Domain Types
-
-### Beta Deleted Message Batch
-
-- `class BetaDeletedMessageBatch`
-
-  - `id: String`
-
-    ID of the Message Batch.
-
-  - `type: :message_batch_deleted`
-
-    Deleted object type.
-
-    For Message Batches, this is always `"message_batch_deleted"`.
-
-    - `:message_batch_deleted`
-
-### Beta Message Batch
-
-- `class BetaMessageBatch`
-
-  - `id: String`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `archived_at: Time`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
-
-  - `cancel_initiated_at: Time`
-
-    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
-
-  - `created_at: Time`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was created.
-
-  - `ended_at: Time`
-
-    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
-
-    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
-
-  - `expires_at: Time`
-
-    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
-
-  - `processing_status: :in_progress | :canceling | :ended`
-
-    Processing status of the Message Batch.
-
-    - `:in_progress`
-
-    - `:canceling`
-
-    - `:ended`
-
-  - `request_counts: BetaMessageBatchRequestCounts`
-
-    Tallies requests within the Message Batch, categorized by their status.
-
-    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
-
-    - `canceled: Integer`
-
-      Number of requests in the Message Batch that have been canceled.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `errored: Integer`
-
-      Number of requests in the Message Batch that encountered an error.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `expired: Integer`
-
-      Number of requests in the Message Batch that have expired.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `processing: Integer`
-
-      Number of requests in the Message Batch that are processing.
-
-    - `succeeded: Integer`
-
-      Number of requests in the Message Batch that have completed successfully.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-  - `results_url: String`
-
-    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
-
-    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: :message_batch`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-    - `:message_batch`
-
-### Beta Message Batch Canceled Result
-
-- `class BetaMessageBatchCanceledResult`
-
-  - `type: :canceled`
-
-    - `:canceled`
-
-### Beta Message Batch Errored Result
-
-- `class BetaMessageBatchErroredResult`
-
-  - `error: BetaErrorResponse`
-
-    - `error: BetaError`
-
-      - `class BetaInvalidRequestError`
-
-        - `message: String`
-
-        - `type: :invalid_request_error`
-
-          - `:invalid_request_error`
-
-      - `class BetaAuthenticationError`
-
-        - `message: String`
-
-        - `type: :authentication_error`
-
-          - `:authentication_error`
-
-      - `class BetaBillingError`
-
-        - `message: String`
-
-        - `type: :billing_error`
-
-          - `:billing_error`
-
-      - `class BetaPermissionError`
-
-        - `message: String`
-
-        - `type: :permission_error`
-
-          - `:permission_error`
-
-      - `class BetaNotFoundError`
-
-        - `message: String`
-
-        - `type: :not_found_error`
-
-          - `:not_found_error`
-
-      - `class BetaRateLimitError`
-
-        - `message: String`
-
-        - `type: :rate_limit_error`
-
-          - `:rate_limit_error`
-
-      - `class BetaGatewayTimeoutError`
-
-        - `message: String`
-
-        - `type: :timeout_error`
-
-          - `:timeout_error`
-
-      - `class BetaAPIError`
-
-        - `message: String`
-
-        - `type: :api_error`
-
-          - `:api_error`
-
-      - `class BetaOverloadedError`
-
-        - `message: String`
-
-        - `type: :overloaded_error`
-
-          - `:overloaded_error`
-
-    - `request_id: String`
-
-    - `type: :error`
-
-      - `:error`
-
-  - `type: :errored`
-
-    - `:errored`
-
-### Beta Message Batch Expired Result
-
-- `class BetaMessageBatchExpiredResult`
-
-  - `type: :expired`
-
-    - `:expired`
-
-### Beta Message Batch Individual Response
-
-- `class BetaMessageBatchIndividualResponse`
-
-  This is a single line in the response `.jsonl` file and does not represent the response as a whole.
-
-  - `custom_id: String`
-
-    Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
-
-    Must be unique for each request within the Message Batch.
-
-  - `result: BetaMessageBatchResult`
-
-    Processing result for this request.
-
-    Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-    - `class BetaMessageBatchSucceededResult`
-
-      - `message: BetaMessage`
-
-        - `id: String`
-
-          Unique object identifier.
-
-          The format and length of IDs may change over time.
-
-        - `container: BetaContainer`
-
-          Information about the container used in the request (for the code execution tool)
-
-          - `id: String`
-
-            Identifier for the container used in this request
-
-          - `expires_at: Time`
-
-            The time at which the container will expire.
-
-          - `skills: Array[BetaSkill]`
-
-            Skills loaded in the container
-
-            - `skill_id: String`
-
-              Skill ID
-
-            - `type: :anthropic | :custom`
-
-              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-              - `:anthropic`
-
-              - `:custom`
-
-            - `version: String`
-
-              The resolved version: a skill version ID for custom skills.
-
-        - `content: Array[BetaContentBlock]`
-
-          Content generated by the model.
-
-          This is an array of content blocks, each of which has a `type` that determines its shape.
-
-          Example:
-
-          ```json
-          [{"type": "text", "text": "Hi, I'm Claude."}]
-          ```
-
-          If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-          For example, if the input `messages` were:
-
-          ```json
-          [
-            {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-            {"role": "assistant", "content": "The best answer is ("}
-          ]
-          ```
-
-          Then the response `content` might be:
-
-          ```json
-          [{"type": "text", "text": "B)"}]
-          ```
-
-          - `class BetaTextBlock`
-
-            - `citations: Array[BetaTextCitation]`
-
-              Citations supporting the text block.
-
-              The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-              - `class BetaCitationCharLocation`
-
-                - `cited_text: String`
-
-                - `document_index: Integer`
-
-                - `document_title: String`
-
-                - `end_char_index: Integer`
-
-                - `file_id: String`
-
-                - `start_char_index: Integer`
-
-                - `type: :char_location`
-
-                  - `:char_location`
-
-              - `class BetaCitationPageLocation`
-
-                - `cited_text: String`
-
-                - `document_index: Integer`
-
-                - `document_title: String`
-
-                - `end_page_number: Integer`
-
-                - `file_id: String`
-
-                - `start_page_number: Integer`
-
-                - `type: :page_location`
-
-                  - `:page_location`
-
-              - `class BetaCitationContentBlockLocation`
-
-                - `cited_text: String`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `document_index: Integer`
-
-                - `document_title: String`
-
-                - `end_block_index: Integer`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `file_id: String`
-
-                - `start_block_index: Integer`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                - `type: :content_block_location`
-
-                  - `:content_block_location`
-
-              - `class BetaCitationsWebSearchResultLocation`
-
-                - `cited_text: String`
-
-                - `encrypted_index: String`
-
-                - `title: String`
-
-                - `type: :web_search_result_location`
-
-                  - `:web_search_result_location`
-
-                - `url: String`
-
-              - `class BetaCitationSearchResultLocation`
-
-                - `cited_text: String`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `end_block_index: Integer`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `search_result_index: Integer`
-
-                  0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                  Counted separately from `document_index`; server-side web search results are not included in this count.
-
-                - `source: String`
-
-                - `start_block_index: Integer`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                - `title: String`
-
-                - `type: :search_result_location`
-
-                  - `:search_result_location`
-
-            - `text: String`
-
-            - `type: :text`
-
-              - `:text`
-
-          - `class BetaThinkingBlock`
-
-            - `signature: String`
-
-              A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-              This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-            - `thinking: String`
-
-              The text of Claude's thinking process for this block.
-
-            - `type: :thinking`
-
-              - `:thinking`
-
-          - `class BetaRedactedThinkingBlock`
-
-            - `data: String`
-
-              The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-              Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-            - `type: :redacted_thinking`
-
-              - `:redacted_thinking`
-
-          - `class BetaToolUseBlock`
-
-            - `id: String`
-
-            - `input: Hash[Symbol, untyped]`
-
-            - `name: String`
-
-            - `type: :tool_use`
-
-              - `:tool_use`
-
-            - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `class BetaDirectCaller`
-
-                Tool invocation directly from the model.
-
-                - `type: :direct`
-
-                  - `:direct`
-
-              - `class BetaServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-                - `tool_id: String`
-
-                - `type: :code_execution_20250825`
-
-                  - `:code_execution_20250825`
-
-              - `class BetaServerToolCaller20260120`
-
-                - `tool_id: String`
-
-                - `type: :code_execution_20260120`
-
-                  - `:code_execution_20260120`
-
-            - `toolset_name: String`
-
-              For a toolset member tool_use, the toolset family.
-
-          - `class BetaServerToolUseBlock`
-
-            - `id: String`
-
-            - `input: Hash[Symbol, untyped]`
-
-            - `name: :advisor | :web_search | :web_fetch | 5 more`
-
-              - `:advisor`
-
-              - `:web_search`
-
-              - `:web_fetch`
-
-              - `:code_execution`
-
-              - `:bash_code_execution`
-
-              - `:text_editor_code_execution`
-
-              - `:tool_search_tool_regex`
-
-              - `:tool_search_tool_bm25`
-
-            - `type: :server_tool_use`
-
-              - `:server_tool_use`
-
-            - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `class BetaDirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `class BetaServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `class BetaServerToolCaller20260120`
-
-          - `class BetaWebSearchToolResultBlock`
-
-            - `content: BetaWebSearchToolResultBlockContent`
-
-              - `class BetaWebSearchToolResultError`
-
-                - `error_code: BetaWebSearchToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:max_uses_exceeded`
-
-                  - `:too_many_requests`
-
-                  - `:query_too_long`
-
-                  - `:request_too_large`
-
-                - `type: :web_search_tool_result_error`
-
-                  - `:web_search_tool_result_error`
-
-              - `UnionMember1 = Array[BetaWebSearchResultBlock]`
-
-                - `encrypted_content: String`
-
-                - `page_age: String`
-
-                - `title: String`
-
-                - `type: :web_search_result`
-
-                  - `:web_search_result`
-
-                - `url: String`
-
-            - `tool_use_id: String`
-
-            - `type: :web_search_tool_result`
-
-              - `:web_search_tool_result`
-
-            - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `class BetaDirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `class BetaServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `class BetaServerToolCaller20260120`
-
-          - `class BetaWebFetchToolResultBlock`
-
-            - `content: BetaWebFetchToolResultErrorBlock | BetaWebFetchBlock`
-
-              - `class BetaWebFetchToolResultErrorBlock`
-
-                - `error_code: BetaWebFetchToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:url_too_long`
-
-                  - `:url_not_allowed`
-
-                  - `:url_not_in_prior_context`
-
-                  - `:url_not_accessible`
-
-                  - `:unsupported_content_type`
-
-                  - `:too_many_requests`
-
-                  - `:max_uses_exceeded`
-
-                  - `:unavailable`
-
-                - `type: :web_fetch_tool_result_error`
-
-                  - `:web_fetch_tool_result_error`
-
-              - `class BetaWebFetchBlock`
-
-                - `content: BetaDocumentBlock`
-
-                  - `citations: BetaCitationConfig`
-
-                    Citation configuration for the document
-
-                    - `enabled: bool`
-
-                  - `source: BetaBase64PDFSource | BetaPlainTextSource`
-
-                    - `class BetaBase64PDFSource`
-
-                      - `data: String`
-
-                      - `media_type: :"application/pdf"`
-
-                        - `:"application/pdf"`
-
-                      - `type: :base64`
-
-                        - `:base64`
-
-                    - `class BetaPlainTextSource`
-
-                      - `data: String`
-
-                      - `media_type: :"text/plain"`
-
-                        - `:"text/plain"`
-
-                      - `type: :text`
-
-                        - `:text`
-
-                  - `title: String`
-
-                    The title of the document
-
-                  - `type: :document`
-
-                    - `:document`
-
-                - `retrieved_at: String`
-
-                  ISO 8601 timestamp when the content was retrieved
-
-                - `type: :web_fetch_result`
-
-                  - `:web_fetch_result`
-
-                - `url: String`
-
-                  Fetched content URL
-
-            - `tool_use_id: String`
-
-            - `type: :web_fetch_tool_result`
-
-              - `:web_fetch_tool_result`
-
-            - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `class BetaDirectCaller`
-
-                Tool invocation directly from the model.
-
-              - `class BetaServerToolCaller`
-
-                Tool invocation generated by a server-side tool.
-
-              - `class BetaServerToolCaller20260120`
-
-          - `class BetaAdvisorToolResultBlock`
-
-            - `content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock`
-
-              - `class BetaAdvisorToolResultError`
-
-                - `error_code: :max_uses_exceeded | :prompt_too_long | :too_many_requests | 4 more`
-
-                  - `:max_uses_exceeded`
-
-                  - `:prompt_too_long`
-
-                  - `:too_many_requests`
-
-                  - `:overloaded`
-
-                  - `:unavailable`
-
-                  - `:execution_time_exceeded`
-
-                  - `:model_not_found`
-
-                - `type: :advisor_tool_result_error`
-
-                  - `:advisor_tool_result_error`
-
-              - `class BetaAdvisorResultBlock`
-
-                - `stop_reason: String`
-
-                  The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
-
-                - `text: String`
-
-                - `type: :advisor_result`
-
-                  - `:advisor_result`
-
-              - `class BetaAdvisorRedactedResultBlock`
-
-                - `encrypted_content: String`
-
-                  Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
-
-                - `stop_reason: String`
-
-                  The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
-
-                - `type: :advisor_redacted_result`
-
-                  - `:advisor_redacted_result`
-
-            - `tool_use_id: String`
-
-            - `type: :advisor_tool_result`
-
-              - `:advisor_tool_result`
-
-          - `class BetaCodeExecutionToolResultBlock`
-
-            - `content: BetaCodeExecutionToolResultBlockContent`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `class BetaCodeExecutionToolResultError`
-
-                - `error_code: BetaCodeExecutionToolResultErrorCode`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-                - `type: :code_execution_tool_result_error`
-
-                  - `:code_execution_tool_result_error`
-
-              - `class BetaCodeExecutionResultBlock`
-
-                - `content: Array[BetaCodeExecutionOutputBlock]`
-
-                  - `file_id: String`
-
-                  - `type: :code_execution_output`
-
-                    - `:code_execution_output`
-
-                - `return_code: Integer`
-
-                - `stderr: String`
-
-                - `stdout: String`
-
-                - `type: :code_execution_result`
-
-                  - `:code_execution_result`
-
-              - `class BetaEncryptedCodeExecutionResultBlock`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
-
-                - `content: Array[BetaCodeExecutionOutputBlock]`
-
-                  - `file_id: String`
-
-                  - `type: :code_execution_output`
-
-                - `encrypted_stdout: String`
-
-                - `return_code: Integer`
-
-                - `stderr: String`
-
-                - `type: :encrypted_code_execution_result`
-
-                  - `:encrypted_code_execution_result`
-
-            - `tool_use_id: String`
-
-            - `type: :code_execution_tool_result`
-
-              - `:code_execution_tool_result`
-
-          - `class BetaBashCodeExecutionToolResultBlock`
-
-            - `content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock`
-
-              - `class BetaBashCodeExecutionToolResultError`
-
-                - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-                  - `:output_file_too_large`
-
-                - `type: :bash_code_execution_tool_result_error`
-
-                  - `:bash_code_execution_tool_result_error`
-
-              - `class BetaBashCodeExecutionResultBlock`
-
-                - `content: Array[BetaBashCodeExecutionOutputBlock]`
-
-                  - `file_id: String`
-
-                  - `type: :bash_code_execution_output`
-
-                    - `:bash_code_execution_output`
-
-                - `return_code: Integer`
-
-                - `stderr: String`
-
-                - `stdout: String`
-
-                - `type: :bash_code_execution_result`
-
-                  - `:bash_code_execution_result`
-
-            - `tool_use_id: String`
-
-            - `type: :bash_code_execution_tool_result`
-
-              - `:bash_code_execution_tool_result`
-
-          - `class BetaTextEditorCodeExecutionToolResultBlock`
-
-            - `content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-              - `class BetaTextEditorCodeExecutionToolResultError`
-
-                - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-                  - `:file_not_found`
-
-                - `error_message: String`
-
-                - `type: :text_editor_code_execution_tool_result_error`
-
-                  - `:text_editor_code_execution_tool_result_error`
-
-              - `class BetaTextEditorCodeExecutionViewResultBlock`
-
-                - `content: String`
-
-                - `file_type: :text | :image | :pdf`
-
-                  - `:text`
-
-                  - `:image`
-
-                  - `:pdf`
-
-                - `num_lines: Integer`
-
-                - `start_line: Integer`
-
-                - `total_lines: Integer`
-
-                - `type: :text_editor_code_execution_view_result`
-
-                  - `:text_editor_code_execution_view_result`
-
-              - `class BetaTextEditorCodeExecutionCreateResultBlock`
-
-                - `is_file_update: bool`
-
-                - `type: :text_editor_code_execution_create_result`
-
-                  - `:text_editor_code_execution_create_result`
-
-              - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-                - `lines: Array[String]`
-
-                - `new_lines: Integer`
-
-                - `new_start: Integer`
-
-                - `old_lines: Integer`
-
-                - `old_start: Integer`
-
-                - `type: :text_editor_code_execution_str_replace_result`
-
-                  - `:text_editor_code_execution_str_replace_result`
-
-            - `tool_use_id: String`
-
-            - `type: :text_editor_code_execution_tool_result`
-
-              - `:text_editor_code_execution_tool_result`
-
-          - `class BetaToolSearchToolResultBlock`
-
-            - `content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock`
-
-              - `class BetaToolSearchToolResultError`
-
-                - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | :execution_time_exceeded`
-
-                  - `:invalid_tool_input`
-
-                  - `:unavailable`
-
-                  - `:too_many_requests`
-
-                  - `:execution_time_exceeded`
-
-                - `error_message: String`
-
-                - `type: :tool_search_tool_result_error`
-
-                  - `:tool_search_tool_result_error`
-
-              - `class BetaToolSearchToolSearchResultBlock`
-
-                - `tool_references: Array[BetaToolReferenceBlock]`
-
-                  - `tool_name: String`
-
-                  - `type: :tool_reference`
-
-                    - `:tool_reference`
-
-                - `type: :tool_search_tool_search_result`
-
-                  - `:tool_search_tool_search_result`
-
-            - `tool_use_id: String`
-
-            - `type: :tool_search_tool_result`
-
-              - `:tool_search_tool_result`
-
-          - `class BetaMCPToolUseBlock`
-
-            - `id: String`
-
-            - `input: Hash[Symbol, untyped]`
-
-            - `name: String`
-
-              The name of the MCP tool
-
-            - `server_name: String`
-
-              The name of the MCP server
-
-            - `type: :mcp_tool_use`
-
-              - `:mcp_tool_use`
-
-          - `class BetaMCPToolResultBlock`
-
-            - `content: String | Array[BetaTextBlock]`
-
-              - `String = String`
-
-              - `BetaMCPToolResultBlockContent = Array[BetaTextBlock]`
-
-                - `citations: Array[BetaTextCitation]`
-
-                  Citations supporting the text block.
-
-                  The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-                - `text: String`
-
-                - `type: :text`
-
-            - `is_error: bool`
-
-            - `tool_use_id: String`
-
-            - `type: :mcp_tool_result`
-
-              - `:mcp_tool_result`
-
-          - `class BetaContainerUploadBlock`
-
-            Response model for a file uploaded to the container.
-
-            - `file_id: String`
-
-            - `type: :container_upload`
-
-              - `:container_upload`
-
-          - `class BetaCompactionBlock`
-
-            A compaction block returned when autocompact is triggered.
-
-            When content is None, it indicates the compaction failed to produce a valid
-            summary (e.g., malformed output from the model). Clients may round-trip
-            compaction blocks with null content; the server treats them as no-ops.
-
-            - `content: String`
-
-              Summary of compacted content, or null if compaction failed
-
-            - `encrypted_content: String`
-
-              Opaque metadata from prior compaction, to be round-tripped verbatim
-
-            - `type: :compaction`
-
-              - `:compaction`
-
-          - `class BetaFallbackBlock`
-
-            Marks the point in `content` where one model's output gives way to the next.
-
-            One block appears per hop where a preceding model actually ran this turn and
-            declined. A turn where no preceding model ran and declined has no such
-            boundary and carries no block — the signal for whether a fallback model
-            served the response is the presence of a `fallback_message` entry in
-            `usage.iterations`, not this block.
-
-            The block is treated like a server-tool content block for streaming: it
-            arrives via the standard `content_block_start` / `content_block_stop`
-            pair and carries no deltas.
-
-            - `from: BetaFallbackInfo`
-
-              The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-              - `model: Model`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
-
-                  The model that will complete your prompt.
-
-                  See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                  - `:"claude-sonnet-5"`
-
-                    High-performance model for coding and agents
-
-                  - `:"claude-fable-5"`
-
-                    Next generation of intelligence for the hardest knowledge work and coding problems
-
-                  - `:"claude-mythos-5"`
-
-                    Most capable model for cybersecurity and biology research
-
-                  - `:"claude-opus-5"`
-
-                    Powerful intelligence for long-running agents and coding
-
-                  - `:"claude-opus-4-8"`
-
-                    Powerful intelligence for long-running agents and coding
-
-                  - `:"claude-opus-4-7"`
-
-                    Powerful intelligence for long-running agents and coding
-
-                  - `:"claude-mythos-preview"`
-
-                    New class of intelligence, strongest in coding and cybersecurity
-
-                  - `:"claude-opus-4-6"`
-
-                    Powerful intelligence for long-running agents and coding
-
-                  - `:"claude-sonnet-4-6"`
-
-                    Best combination of speed and intelligence
-
-                  - `:"claude-haiku-4-5"`
-
-                    Fastest model with near-frontier intelligence
-
-                  - `:"claude-haiku-4-5-20251001"`
-
-                    Fastest model with near-frontier intelligence
-
-                  - `:"claude-opus-4-5"`
-
-                    Powerful intelligence for long-running agents and coding
-
-                  - `:"claude-opus-4-5-20251101"`
-
-                    Powerful intelligence for long-running agents and coding
-
-                  - `:"claude-sonnet-4-5"`
-
-                    High-performance model for agents and coding
-
-                  - `:"claude-sonnet-4-5-20250929"`
-
-                    High-performance model for agents and coding
-
-                - `String = String`
-
-            - `to: BetaFallbackInfo`
-
-              The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-            - `trigger: BetaFallbackRefusalTrigger`
-
-              What caused the `from` model to hand over at this hop.
-
-              - `category: :cyber | :bio | :frontier_llm | 2 more`
-
-                The policy category that triggered a refusal.
-
-                - `:cyber`
-
-                  The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-                - `:bio`
-
-                  The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-                - `:frontier_llm`
-
-                  The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-                - `:reasoning_extraction`
-
-                  The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-                - `:general_harms`
-
-                  The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-              - `type: :refusal`
-
-                - `:refusal`
-
-            - `type: :fallback`
-
-              - `:fallback`
-
-        - `context_management: BetaContextManagementResponse`
-
-          Context management response.
-
-          Information about context management strategies applied during the request.
-
-          - `applied_edits: Array[BetaClearToolUses20250919EditResponse | BetaClearThinking20251015EditResponse]`
-
-            List of context management edits that were applied.
-
-            - `class BetaClearToolUses20250919EditResponse`
-
-              - `cleared_input_tokens: Integer`
-
-                Number of input tokens cleared by this edit.
-
-              - `cleared_tool_uses: Integer`
-
-                Number of tool uses that were cleared.
-
-              - `type: :clear_tool_uses_20250919`
-
-                The type of context management edit applied.
-
-                - `:clear_tool_uses_20250919`
-
-            - `class BetaClearThinking20251015EditResponse`
-
-              - `cleared_input_tokens: Integer`
-
-                Number of input tokens cleared by this edit.
-
-              - `cleared_thinking_turns: Integer`
-
-                Number of thinking turns that were cleared.
-
-              - `type: :clear_thinking_20251015`
-
-                The type of context management edit applied.
-
-                - `:clear_thinking_20251015`
-
-        - `diagnostics: BetaDiagnostics`
-
-          Response envelope for request-level diagnostics. Present (possibly
-          null) whenever the caller supplied `diagnostics` on the request.
-
-          - `cache_miss_reason: BetaCacheMissModelChanged | BetaCacheMissSystemChanged | BetaCacheMissToolsChanged | 3 more`
-
-            Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
-
-            - `class BetaCacheMissModelChanged`
-
-              - `cache_missed_input_tokens: Integer`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: :model_changed`
-
-                - `:model_changed`
-
-            - `class BetaCacheMissSystemChanged`
-
-              - `cache_missed_input_tokens: Integer`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: :system_changed`
-
-                - `:system_changed`
-
-            - `class BetaCacheMissToolsChanged`
-
-              - `cache_missed_input_tokens: Integer`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: :tools_changed`
-
-                - `:tools_changed`
-
-            - `class BetaCacheMissMessagesChanged`
-
-              - `cache_missed_input_tokens: Integer`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: :messages_changed`
-
-                - `:messages_changed`
-
-            - `class BetaCacheMissPreviousMessageNotFound`
-
-              - `type: :previous_message_not_found`
-
-                - `:previous_message_not_found`
-
-            - `class BetaCacheMissUnavailable`
-
-              - `type: :unavailable`
-
-                - `:unavailable`
-
-        - `model: Model`
-
-          The model that will complete your prompt.
-
-          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-        - `role: :assistant`
-
-          Conversational role of the generated message.
-
-          This will always be `"assistant"`.
-
-          - `:assistant`
-
-        - `stop_details: BetaRefusalStopDetails`
-
-          Structured information about a refusal.
-
-          - `category: :cyber | :bio | :frontier_llm | 2 more`
-
-            The policy category that triggered a refusal.
-
-            - `:cyber`
-
-              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-            - `:bio`
-
-              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-            - `:frontier_llm`
-
-              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-            - `:reasoning_extraction`
-
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-            - `:general_harms`
-
-              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-          - `explanation: String`
-
-            Human-readable explanation of the refusal.
-
-            This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-          - `fallback_credit_token: String`
-
-            Opaque code that refunds the cache-miss cost when retrying this refused
-            request on the fallback model. Pass it as `fallback_credit_token` on the
-            retry request. Expires 5 minutes after the refusal.
-
-            The retry is sent either with the same request body (`system`, `messages`,
-            `tools`, and other render-shaping fields), or with the same body plus one
-            appended `assistant` message whose content is the partial text (with any
-            trailing whitespace stripped from the final text block) and paired
-            server-tool blocks from this refusal — which also authorizes that
-            appended turn as an assistant-prefill continuation on models that otherwise
-            disallow prefill. A token minted mid-server-tool-loop whose partial content
-            was continuable may only be redeemed the second way — if a same-body retry
-            is rejected with a 400 saying the token must be redeemed by continuing the
-            partial response, retry the second way instead. Either way: same workspace,
-            same platform; a mismatch is a 400. Resending a token for an already-warm
-            prefix is permitted but yields no additional credit.
-
-            `null` when the refused model isn't eligible for a fallback credit.
-
-          - `fallback_has_prefill_claim: bool`
-
-            Whether the accompanying `fallback_credit_token` may be redeemed with the
-            appended-assistant retry form. Only set when `fallback_credit_token` is
-            present.
-
-            `true`: retry by resending the same request body plus one appended
-            `assistant` message whose content is this response's `content` with any
-            trailing whitespace stripped from the final text block and unpaired
-            `tool_use` blocks omitted (the same appended-turn shape described on
-            `fallback_credit_token`), with the token attached. `false`: retry by
-            resending the original request body unchanged, with the token attached —
-            the appended-assistant form is not available for this refusal (no
-            continuable partial content, or the request uses `output_format` or a
-            `tool_choice` that forces tool use). One exception: when the request used
-            `output_format` or a forced `tool_choice` and the refusal arrived after
-            server tools (including MCP connector tools) had already executed, the
-            token may not be redeemable by either retry form; if the exact-body retry
-            is then rejected with a 400 saying the token must be redeemed by
-            continuing the partial response, discard the token and retry without it.
-
-            Advisory: if an appended-assistant retry is rejected with a 400 despite
-            `true`, fall back to resending the original request body with the token.
-
-          - `recommended_model: String`
-
-            The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
-
-          - `type: :refusal`
-
-            - `:refusal`
-
-        - `stop_reason: BetaStopReason`
-
-          The reason that we stopped.
-
-          This may be one the following values:
-
-          * `"end_turn"`: the model reached a natural stopping point
-          * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-          * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-          * `"tool_use"`: the model invoked one or more tools
-          * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-          * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-          * `"model_context_window_exceeded"`: we exceeded the model's context window
-
-          In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-          - `:end_turn`
-
-          - `:max_tokens`
-
-          - `:stop_sequence`
-
-          - `:tool_use`
-
-          - `:pause_turn`
-
-          - `:compaction`
-
-          - `:refusal`
-
-          - `:model_context_window_exceeded`
-
-        - `stop_sequence: String`
-
-          Which custom stop sequence was generated, if any.
-
-          This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `type: :message`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-          - `:message`
-
-        - `usage: BetaUsage`
-
-          Billing and rate-limit usage.
-
-          Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-          Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-          For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-          Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-          - `cache_creation: BetaCacheCreation`
-
-            Breakdown of cached tokens by TTL
-
-            - `ephemeral_1h_input_tokens: Integer`
-
-              The number of input tokens used to create the 1 hour cache entry.
-
-            - `ephemeral_5m_input_tokens: Integer`
-
-              The number of input tokens used to create the 5 minute cache entry.
-
-          - `cache_creation_input_tokens: Integer`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: Integer`
-
-            The number of input tokens read from the cache.
-
-          - `fallback_credit: BetaFallbackCreditUsage`
-
-            Outcome of the `fallback_credit_token` presented on this request.
-
-            - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
-
-              Whether the fallback-credit reprice was applied to this response's billing.
-
-              A union discriminated on `type`. `redeemed`: the retry is billed as if
-              the conversation had been on the retry model all along — including when the
-              resulting shift is zero because there was nothing to move. `not_applied`:
-              no reprice was applied; the arm's `reason` says why.
-
-              - `class BetaFallbackCreditRedeemed`
-
-                The reprice was applied: the retry is billed as if the conversation
-                had been on the retry model all along.
-
-                - `type: :redeemed`
-
-                  - `:redeemed`
-
-              - `class BetaFallbackCreditNotApplied`
-
-                No reprice was applied; `reason` says why.
-
-                - `reason: :body_mismatch | :continuation_excluded | :continuation_only | 9 more`
-
-                  Why the reprice was not applied.
-
-                  A closed enum; additions to the redemption-check vocabulary arrive as
-                  deliberate schema updates.
-
-                  - `:body_mismatch`
-
-                  - `:continuation_excluded`
-
-                  - `:continuation_only`
-
-                  - `:expired`
-
-                  - `:invalid_target_model`
-
-                  - `:not_enabled`
-
-                  - `:reprice_unavailable`
-
-                  - `:temporarily_unavailable`
-
-                  - `:variant_fields_present`
-
-                  - `:wrong_organization`
-
-                  - `:wrong_platform`
-
-                  - `:wrong_workspace`
-
-                - `type: :not_applied`
-
-                  - `:not_applied`
-
-                - `remove_to_redeem: Array[String]`
-
-                  Request fields to remove before retrying, so the retry can redeem this
-                  token.
-
-                  Present exactly when `reason` is `variant_fields_present` — never null,
-                  never an empty array; absent otherwise. Fields are named only from your own request, and only after
-                  the sealed variant hash matched. A served best-effort retry has already
-                  been billed at normal price; nothing redeems retroactively, but a corrected
-                  re-send inside the token's five-minute window can still redeem.
-
-          - `inference_geo: String`
-
-            The geographic region where inference was performed for this request.
-
-          - `input_tokens: Integer`
-
-            The number of input tokens which were used.
-
-          - `iterations: BetaIterationsUsage`
-
-            Per-iteration token usage breakdown.
-
-            Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-            - Determine which iterations exceeded long context thresholds (>=200k tokens)
-            - Calculate the true context window size from the last iteration
-            - Understand token accumulation across server-side tool use loops
-
-            - `class BetaMessageIterationUsage`
-
-              Token usage for a sampling iteration.
-
-              - `cache_creation: BetaCacheCreation`
-
-                Breakdown of cached tokens by TTL
-
-              - `cache_creation_input_tokens: Integer`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: Integer`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: Integer`
-
-                The number of input tokens which were used.
-
-              - `model: Model`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `output_tokens: Integer`
-
-                The number of output tokens which were used.
-
-              - `type: :message`
-
-                Usage for a sampling iteration
-
-                - `:message`
-
-            - `class BetaCompactionIterationUsage`
-
-              Token usage for a compaction iteration.
-
-              - `cache_creation: BetaCacheCreation`
-
-                Breakdown of cached tokens by TTL
-
-              - `cache_creation_input_tokens: Integer`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: Integer`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: Integer`
-
-                The number of input tokens which were used.
-
-              - `output_tokens: Integer`
-
-                The number of output tokens which were used.
-
-              - `type: :compaction`
-
-                Usage for a compaction iteration
-
-                - `:compaction`
-
-            - `class BetaAdvisorMessageIterationUsage`
-
-              Token usage for an advisor sub-inference iteration.
-
-              - `cache_creation: BetaCacheCreation`
-
-                Breakdown of cached tokens by TTL
-
-              - `cache_creation_input_tokens: Integer`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: Integer`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: Integer`
-
-                The number of input tokens which were used.
-
-              - `model: Model`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `output_tokens: Integer`
-
-                The number of output tokens which were used.
-
-              - `type: :advisor_message`
-
-                Usage for an advisor sub-inference iteration
-
-                - `:advisor_message`
-
-            - `class BetaFallbackMessageIterationUsage`
-
-              Token usage for the fallback-model attempt of a server-side fallback request.
-
-              Produced in place of a `message` entry for whichever hop served the
-              response. A declined hop produces the existing `message` entry. Whether
-              a fallback model served the response is signalled by the presence of this
-              entry in `usage.iterations`.
-
-              - `cache_creation: BetaCacheCreation`
-
-                Breakdown of cached tokens by TTL
-
-              - `cache_creation_input_tokens: Integer`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: Integer`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: Integer`
-
-                The number of input tokens which were used.
-
-              - `model: Model`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `output_tokens: Integer`
-
-                The number of output tokens which were used.
-
-              - `type: :fallback_message`
-
-                Usage for the fallback-model attempt that served the response
-
-                - `:fallback_message`
-
-          - `output_tokens: Integer`
-
-            The number of output tokens which were used.
-
-          - `output_tokens_details: BetaOutputTokensDetails`
-
-            Breakdown of output tokens by category.
-
-            `output_tokens` remains the inclusive, authoritative total used for billing.
-            This object provides a read-only decomposition for observability — for example,
-            how many of the billed output tokens were spent on internal reasoning that may
-            have been summarized before being returned to you.
-
-            - `thinking_tokens: Integer`
-
-              Number of output tokens the model generated as internal reasoning, including
-              the thinking-block delimiter tokens.
-
-              Reflects the raw reasoning the model produced, not the (possibly shorter)
-              summarized thinking text returned in the response body. Computed by
-              re-tokenizing the raw reasoning text, so it may differ from the model's exact
-              generation count by a small number of tokens. Always ≤ `output_tokens`;
-              `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-          - `server_tool_use: BetaServerToolUsage`
-
-            The number of server tool requests.
-
-            - `web_fetch_requests: Integer`
-
-              The number of web fetch tool requests.
-
-            - `web_search_requests: Integer`
-
-              The number of web search tool requests.
-
-          - `service_tier: :standard | :priority | :batch`
-
-            If the request used the priority, standard, or batch tier.
-
-            - `:standard`
-
-            - `:priority`
-
-            - `:batch`
-
-          - `speed: :standard | :fast`
-
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-            - `:standard`
-
-            - `:fast`
-
-      - `type: :succeeded`
-
-        - `:succeeded`
-
-    - `class BetaMessageBatchErroredResult`
-
-      - `error: BetaErrorResponse`
-
-        - `error: BetaError`
-
-          - `class BetaInvalidRequestError`
-
-            - `message: String`
-
-            - `type: :invalid_request_error`
-
-              - `:invalid_request_error`
-
-          - `class BetaAuthenticationError`
-
-            - `message: String`
-
-            - `type: :authentication_error`
-
-              - `:authentication_error`
-
-          - `class BetaBillingError`
-
-            - `message: String`
-
-            - `type: :billing_error`
-
-              - `:billing_error`
-
-          - `class BetaPermissionError`
-
-            - `message: String`
-
-            - `type: :permission_error`
-
-              - `:permission_error`
-
-          - `class BetaNotFoundError`
-
-            - `message: String`
-
-            - `type: :not_found_error`
-
-              - `:not_found_error`
-
-          - `class BetaRateLimitError`
-
-            - `message: String`
-
-            - `type: :rate_limit_error`
-
-              - `:rate_limit_error`
-
-          - `class BetaGatewayTimeoutError`
-
-            - `message: String`
-
-            - `type: :timeout_error`
-
-              - `:timeout_error`
-
-          - `class BetaAPIError`
-
-            - `message: String`
-
-            - `type: :api_error`
-
-              - `:api_error`
-
-          - `class BetaOverloadedError`
-
-            - `message: String`
-
-            - `type: :overloaded_error`
-
-              - `:overloaded_error`
-
-        - `request_id: String`
-
-        - `type: :error`
-
-          - `:error`
-
-      - `type: :errored`
-
-        - `:errored`
-
-    - `class BetaMessageBatchCanceledResult`
-
-      - `type: :canceled`
-
-        - `:canceled`
-
-    - `class BetaMessageBatchExpiredResult`
-
-      - `type: :expired`
-
-        - `:expired`
-
-### Beta Message Batch Request Counts
-
-- `class BetaMessageBatchRequestCounts`
-
-  - `canceled: Integer`
-
-    Number of requests in the Message Batch that have been canceled.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `errored: Integer`
-
-    Number of requests in the Message Batch that encountered an error.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `expired: Integer`
-
-    Number of requests in the Message Batch that have expired.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `processing: Integer`
-
-    Number of requests in the Message Batch that are processing.
-
-  - `succeeded: Integer`
-
-    Number of requests in the Message Batch that have completed successfully.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-### Beta Message Batch Result
-
-- `BetaMessageBatchResult = BetaMessageBatchSucceededResult | BetaMessageBatchErroredResult | BetaMessageBatchCanceledResult | BetaMessageBatchExpiredResult`
-
-  Processing result for this request.
-
-  Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-  - `class BetaMessageBatchSucceededResult`
-
-    - `message: BetaMessage`
-
-      - `id: String`
-
-        Unique object identifier.
-
-        The format and length of IDs may change over time.
-
-      - `container: BetaContainer`
-
-        Information about the container used in the request (for the code execution tool)
-
-        - `id: String`
-
-          Identifier for the container used in this request
-
-        - `expires_at: Time`
-
-          The time at which the container will expire.
-
-        - `skills: Array[BetaSkill]`
-
-          Skills loaded in the container
-
-          - `skill_id: String`
-
-            Skill ID
-
-          - `type: :anthropic | :custom`
-
-            Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-            - `:anthropic`
-
-            - `:custom`
-
-          - `version: String`
-
-            The resolved version: a skill version ID for custom skills.
-
-      - `content: Array[BetaContentBlock]`
-
-        Content generated by the model.
-
-        This is an array of content blocks, each of which has a `type` that determines its shape.
-
-        Example:
-
-        ```json
-        [{"type": "text", "text": "Hi, I'm Claude."}]
-        ```
-
-        If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-        For example, if the input `messages` were:
-
-        ```json
-        [
-          {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-          {"role": "assistant", "content": "The best answer is ("}
-        ]
-        ```
-
-        Then the response `content` might be:
-
-        ```json
-        [{"type": "text", "text": "B)"}]
-        ```
-
-        - `class BetaTextBlock`
-
-          - `citations: Array[BetaTextCitation]`
-
-            Citations supporting the text block.
-
-            The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-            - `class BetaCitationCharLocation`
-
-              - `cited_text: String`
-
-              - `document_index: Integer`
-
-              - `document_title: String`
-
-              - `end_char_index: Integer`
-
-              - `file_id: String`
-
-              - `start_char_index: Integer`
-
-              - `type: :char_location`
-
-                - `:char_location`
-
-            - `class BetaCitationPageLocation`
-
-              - `cited_text: String`
-
-              - `document_index: Integer`
-
-              - `document_title: String`
-
-              - `end_page_number: Integer`
-
-              - `file_id: String`
-
-              - `start_page_number: Integer`
-
-              - `type: :page_location`
-
-                - `:page_location`
-
-            - `class BetaCitationContentBlockLocation`
-
-              - `cited_text: String`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `document_index: Integer`
-
-              - `document_title: String`
-
-              - `end_block_index: Integer`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `file_id: String`
-
-              - `start_block_index: Integer`
-
-                0-based index of the first cited block in the source's `content` array.
-
-              - `type: :content_block_location`
-
-                - `:content_block_location`
-
-            - `class BetaCitationsWebSearchResultLocation`
-
-              - `cited_text: String`
-
-              - `encrypted_index: String`
-
-              - `title: String`
-
-              - `type: :web_search_result_location`
-
-                - `:web_search_result_location`
-
-              - `url: String`
-
-            - `class BetaCitationSearchResultLocation`
-
-              - `cited_text: String`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `end_block_index: Integer`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `search_result_index: Integer`
-
-                0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                Counted separately from `document_index`; server-side web search results are not included in this count.
-
-              - `source: String`
-
-              - `start_block_index: Integer`
-
-                0-based index of the first cited block in the source's `content` array.
-
-              - `title: String`
-
-              - `type: :search_result_location`
-
-                - `:search_result_location`
-
-          - `text: String`
-
-          - `type: :text`
-
-            - `:text`
-
-        - `class BetaThinkingBlock`
-
-          - `signature: String`
-
-            A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-            This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-          - `thinking: String`
-
-            The text of Claude's thinking process for this block.
-
-          - `type: :thinking`
-
-            - `:thinking`
-
-        - `class BetaRedactedThinkingBlock`
-
-          - `data: String`
-
-            The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-            Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-          - `type: :redacted_thinking`
-
-            - `:redacted_thinking`
-
-        - `class BetaToolUseBlock`
-
-          - `id: String`
-
-          - `input: Hash[Symbol, untyped]`
-
-          - `name: String`
-
-          - `type: :tool_use`
-
-            - `:tool_use`
-
-          - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `class BetaDirectCaller`
-
-              Tool invocation directly from the model.
-
-              - `type: :direct`
-
-                - `:direct`
-
-            - `class BetaServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-              - `tool_id: String`
-
-              - `type: :code_execution_20250825`
-
-                - `:code_execution_20250825`
-
-            - `class BetaServerToolCaller20260120`
-
-              - `tool_id: String`
-
-              - `type: :code_execution_20260120`
-
-                - `:code_execution_20260120`
-
-          - `toolset_name: String`
-
-            For a toolset member tool_use, the toolset family.
-
-        - `class BetaServerToolUseBlock`
-
-          - `id: String`
-
-          - `input: Hash[Symbol, untyped]`
-
-          - `name: :advisor | :web_search | :web_fetch | 5 more`
-
-            - `:advisor`
-
-            - `:web_search`
-
-            - `:web_fetch`
-
-            - `:code_execution`
-
-            - `:bash_code_execution`
-
-            - `:text_editor_code_execution`
-
-            - `:tool_search_tool_regex`
-
-            - `:tool_search_tool_bm25`
-
-          - `type: :server_tool_use`
-
-            - `:server_tool_use`
-
-          - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `class BetaDirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class BetaServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class BetaServerToolCaller20260120`
-
-        - `class BetaWebSearchToolResultBlock`
-
-          - `content: BetaWebSearchToolResultBlockContent`
-
-            - `class BetaWebSearchToolResultError`
-
-              - `error_code: BetaWebSearchToolResultErrorCode`
-
-                - `:invalid_tool_input`
-
-                - `:unavailable`
-
-                - `:max_uses_exceeded`
-
-                - `:too_many_requests`
-
-                - `:query_too_long`
-
-                - `:request_too_large`
-
-              - `type: :web_search_tool_result_error`
-
-                - `:web_search_tool_result_error`
-
-            - `UnionMember1 = Array[BetaWebSearchResultBlock]`
-
-              - `encrypted_content: String`
-
-              - `page_age: String`
-
-              - `title: String`
-
-              - `type: :web_search_result`
-
-                - `:web_search_result`
-
-              - `url: String`
-
-          - `tool_use_id: String`
-
-          - `type: :web_search_tool_result`
-
-            - `:web_search_tool_result`
-
-          - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `class BetaDirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class BetaServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class BetaServerToolCaller20260120`
-
-        - `class BetaWebFetchToolResultBlock`
-
-          - `content: BetaWebFetchToolResultErrorBlock | BetaWebFetchBlock`
-
-            - `class BetaWebFetchToolResultErrorBlock`
-
-              - `error_code: BetaWebFetchToolResultErrorCode`
-
-                - `:invalid_tool_input`
-
-                - `:url_too_long`
-
-                - `:url_not_allowed`
-
-                - `:url_not_in_prior_context`
-
-                - `:url_not_accessible`
-
-                - `:unsupported_content_type`
-
-                - `:too_many_requests`
-
-                - `:max_uses_exceeded`
-
-                - `:unavailable`
-
-              - `type: :web_fetch_tool_result_error`
-
-                - `:web_fetch_tool_result_error`
-
-            - `class BetaWebFetchBlock`
-
-              - `content: BetaDocumentBlock`
-
-                - `citations: BetaCitationConfig`
-
-                  Citation configuration for the document
-
-                  - `enabled: bool`
-
-                - `source: BetaBase64PDFSource | BetaPlainTextSource`
-
-                  - `class BetaBase64PDFSource`
-
-                    - `data: String`
-
-                    - `media_type: :"application/pdf"`
-
-                      - `:"application/pdf"`
-
-                    - `type: :base64`
-
-                      - `:base64`
-
-                  - `class BetaPlainTextSource`
-
-                    - `data: String`
-
-                    - `media_type: :"text/plain"`
-
-                      - `:"text/plain"`
-
-                    - `type: :text`
-
-                      - `:text`
-
-                - `title: String`
-
-                  The title of the document
-
-                - `type: :document`
-
-                  - `:document`
-
-              - `retrieved_at: String`
-
-                ISO 8601 timestamp when the content was retrieved
-
-              - `type: :web_fetch_result`
-
-                - `:web_fetch_result`
-
-              - `url: String`
-
-                Fetched content URL
-
-          - `tool_use_id: String`
-
-          - `type: :web_fetch_tool_result`
-
-            - `:web_fetch_tool_result`
-
-          - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `class BetaDirectCaller`
-
-              Tool invocation directly from the model.
-
-            - `class BetaServerToolCaller`
-
-              Tool invocation generated by a server-side tool.
-
-            - `class BetaServerToolCaller20260120`
-
-        - `class BetaAdvisorToolResultBlock`
-
-          - `content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock`
-
-            - `class BetaAdvisorToolResultError`
-
-              - `error_code: :max_uses_exceeded | :prompt_too_long | :too_many_requests | 4 more`
-
-                - `:max_uses_exceeded`
-
-                - `:prompt_too_long`
-
-                - `:too_many_requests`
-
-                - `:overloaded`
-
-                - `:unavailable`
-
-                - `:execution_time_exceeded`
-
-                - `:model_not_found`
-
-              - `type: :advisor_tool_result_error`
-
-                - `:advisor_tool_result_error`
-
-            - `class BetaAdvisorResultBlock`
-
-              - `stop_reason: String`
-
-                The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
-
-              - `text: String`
-
-              - `type: :advisor_result`
-
-                - `:advisor_result`
-
-            - `class BetaAdvisorRedactedResultBlock`
-
-              - `encrypted_content: String`
-
-                Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
-
-              - `stop_reason: String`
-
-                The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
-
-              - `type: :advisor_redacted_result`
-
-                - `:advisor_redacted_result`
-
-          - `tool_use_id: String`
-
-          - `type: :advisor_tool_result`
-
-            - `:advisor_tool_result`
-
-        - `class BetaCodeExecutionToolResultBlock`
-
-          - `content: BetaCodeExecutionToolResultBlockContent`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
-
-            - `class BetaCodeExecutionToolResultError`
-
-              - `error_code: BetaCodeExecutionToolResultErrorCode`
-
-                - `:invalid_tool_input`
-
-                - `:unavailable`
-
-                - `:too_many_requests`
-
-                - `:execution_time_exceeded`
-
-              - `type: :code_execution_tool_result_error`
-
-                - `:code_execution_tool_result_error`
-
-            - `class BetaCodeExecutionResultBlock`
-
-              - `content: Array[BetaCodeExecutionOutputBlock]`
-
-                - `file_id: String`
-
-                - `type: :code_execution_output`
-
-                  - `:code_execution_output`
-
-              - `return_code: Integer`
-
-              - `stderr: String`
-
-              - `stdout: String`
-
-              - `type: :code_execution_result`
-
-                - `:code_execution_result`
-
-            - `class BetaEncryptedCodeExecutionResultBlock`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `content: Array[BetaCodeExecutionOutputBlock]`
-
-                - `file_id: String`
-
-                - `type: :code_execution_output`
-
-              - `encrypted_stdout: String`
-
-              - `return_code: Integer`
-
-              - `stderr: String`
-
-              - `type: :encrypted_code_execution_result`
-
-                - `:encrypted_code_execution_result`
-
-          - `tool_use_id: String`
-
-          - `type: :code_execution_tool_result`
-
-            - `:code_execution_tool_result`
-
-        - `class BetaBashCodeExecutionToolResultBlock`
-
-          - `content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock`
-
-            - `class BetaBashCodeExecutionToolResultError`
-
-              - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-                - `:invalid_tool_input`
-
-                - `:unavailable`
-
-                - `:too_many_requests`
-
-                - `:execution_time_exceeded`
-
-                - `:output_file_too_large`
-
-              - `type: :bash_code_execution_tool_result_error`
-
-                - `:bash_code_execution_tool_result_error`
-
-            - `class BetaBashCodeExecutionResultBlock`
-
-              - `content: Array[BetaBashCodeExecutionOutputBlock]`
-
-                - `file_id: String`
-
-                - `type: :bash_code_execution_output`
-
-                  - `:bash_code_execution_output`
-
-              - `return_code: Integer`
-
-              - `stderr: String`
-
-              - `stdout: String`
-
-              - `type: :bash_code_execution_result`
-
-                - `:bash_code_execution_result`
-
-          - `tool_use_id: String`
-
-          - `type: :bash_code_execution_tool_result`
-
-            - `:bash_code_execution_tool_result`
-
-        - `class BetaTextEditorCodeExecutionToolResultBlock`
-
-          - `content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-            - `class BetaTextEditorCodeExecutionToolResultError`
-
-              - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-                - `:invalid_tool_input`
-
-                - `:unavailable`
-
-                - `:too_many_requests`
-
-                - `:execution_time_exceeded`
-
-                - `:file_not_found`
-
-              - `error_message: String`
-
-              - `type: :text_editor_code_execution_tool_result_error`
-
-                - `:text_editor_code_execution_tool_result_error`
-
-            - `class BetaTextEditorCodeExecutionViewResultBlock`
-
-              - `content: String`
-
-              - `file_type: :text | :image | :pdf`
-
-                - `:text`
-
-                - `:image`
-
-                - `:pdf`
-
-              - `num_lines: Integer`
-
-              - `start_line: Integer`
-
-              - `total_lines: Integer`
-
-              - `type: :text_editor_code_execution_view_result`
-
-                - `:text_editor_code_execution_view_result`
-
-            - `class BetaTextEditorCodeExecutionCreateResultBlock`
-
-              - `is_file_update: bool`
-
-              - `type: :text_editor_code_execution_create_result`
-
-                - `:text_editor_code_execution_create_result`
-
-            - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-              - `lines: Array[String]`
-
-              - `new_lines: Integer`
-
-              - `new_start: Integer`
-
-              - `old_lines: Integer`
-
-              - `old_start: Integer`
-
-              - `type: :text_editor_code_execution_str_replace_result`
-
-                - `:text_editor_code_execution_str_replace_result`
-
-          - `tool_use_id: String`
-
-          - `type: :text_editor_code_execution_tool_result`
-
-            - `:text_editor_code_execution_tool_result`
-
-        - `class BetaToolSearchToolResultBlock`
-
-          - `content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock`
-
-            - `class BetaToolSearchToolResultError`
-
-              - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | :execution_time_exceeded`
-
-                - `:invalid_tool_input`
-
-                - `:unavailable`
-
-                - `:too_many_requests`
-
-                - `:execution_time_exceeded`
-
-              - `error_message: String`
-
-              - `type: :tool_search_tool_result_error`
-
-                - `:tool_search_tool_result_error`
-
-            - `class BetaToolSearchToolSearchResultBlock`
-
-              - `tool_references: Array[BetaToolReferenceBlock]`
-
-                - `tool_name: String`
-
-                - `type: :tool_reference`
-
-                  - `:tool_reference`
-
-              - `type: :tool_search_tool_search_result`
-
-                - `:tool_search_tool_search_result`
-
-          - `tool_use_id: String`
-
-          - `type: :tool_search_tool_result`
-
-            - `:tool_search_tool_result`
-
-        - `class BetaMCPToolUseBlock`
-
-          - `id: String`
-
-          - `input: Hash[Symbol, untyped]`
-
-          - `name: String`
-
-            The name of the MCP tool
-
-          - `server_name: String`
-
-            The name of the MCP server
-
-          - `type: :mcp_tool_use`
-
-            - `:mcp_tool_use`
-
-        - `class BetaMCPToolResultBlock`
-
-          - `content: String | Array[BetaTextBlock]`
-
-            - `String = String`
-
-            - `BetaMCPToolResultBlockContent = Array[BetaTextBlock]`
-
-              - `citations: Array[BetaTextCitation]`
-
-                Citations supporting the text block.
-
-                The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-              - `text: String`
-
-              - `type: :text`
-
-          - `is_error: bool`
-
-          - `tool_use_id: String`
-
-          - `type: :mcp_tool_result`
-
-            - `:mcp_tool_result`
-
-        - `class BetaContainerUploadBlock`
-
-          Response model for a file uploaded to the container.
-
-          - `file_id: String`
-
-          - `type: :container_upload`
-
-            - `:container_upload`
-
-        - `class BetaCompactionBlock`
-
-          A compaction block returned when autocompact is triggered.
-
-          When content is None, it indicates the compaction failed to produce a valid
-          summary (e.g., malformed output from the model). Clients may round-trip
-          compaction blocks with null content; the server treats them as no-ops.
-
-          - `content: String`
-
-            Summary of compacted content, or null if compaction failed
-
-          - `encrypted_content: String`
-
-            Opaque metadata from prior compaction, to be round-tripped verbatim
-
-          - `type: :compaction`
-
-            - `:compaction`
-
-        - `class BetaFallbackBlock`
-
-          Marks the point in `content` where one model's output gives way to the next.
-
-          One block appears per hop where a preceding model actually ran this turn and
-          declined. A turn where no preceding model ran and declined has no such
-          boundary and carries no block — the signal for whether a fallback model
-          served the response is the presence of a `fallback_message` entry in
-          `usage.iterations`, not this block.
-
-          The block is treated like a server-tool content block for streaming: it
-          arrives via the standard `content_block_start` / `content_block_stop`
-          pair and carries no deltas.
-
-          - `from: BetaFallbackInfo`
-
-            The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-            - `model: Model`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `:"claude-sonnet-5"`
-
-                  High-performance model for coding and agents
-
-                - `:"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `:"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `:"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `:"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `:"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `:"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `:"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `:"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `:"claude-haiku-4-5"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `:"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `:"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `:"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `:"claude-sonnet-4-5"`
-
-                  High-performance model for agents and coding
-
-                - `:"claude-sonnet-4-5-20250929"`
-
-                  High-performance model for agents and coding
-
-              - `String = String`
-
-          - `to: BetaFallbackInfo`
-
-            The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-          - `trigger: BetaFallbackRefusalTrigger`
-
-            What caused the `from` model to hand over at this hop.
-
-            - `category: :cyber | :bio | :frontier_llm | 2 more`
-
-              The policy category that triggered a refusal.
-
-              - `:cyber`
-
-                The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-              - `:bio`
-
-                The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-              - `:frontier_llm`
-
-                The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-              - `:reasoning_extraction`
-
-                The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-              - `:general_harms`
-
-                The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-            - `type: :refusal`
-
-              - `:refusal`
-
-          - `type: :fallback`
-
-            - `:fallback`
-
-      - `context_management: BetaContextManagementResponse`
-
-        Context management response.
-
-        Information about context management strategies applied during the request.
-
-        - `applied_edits: Array[BetaClearToolUses20250919EditResponse | BetaClearThinking20251015EditResponse]`
-
-          List of context management edits that were applied.
-
-          - `class BetaClearToolUses20250919EditResponse`
-
-            - `cleared_input_tokens: Integer`
-
-              Number of input tokens cleared by this edit.
-
-            - `cleared_tool_uses: Integer`
-
-              Number of tool uses that were cleared.
-
-            - `type: :clear_tool_uses_20250919`
-
-              The type of context management edit applied.
-
-              - `:clear_tool_uses_20250919`
-
-          - `class BetaClearThinking20251015EditResponse`
-
-            - `cleared_input_tokens: Integer`
-
-              Number of input tokens cleared by this edit.
-
-            - `cleared_thinking_turns: Integer`
-
-              Number of thinking turns that were cleared.
-
-            - `type: :clear_thinking_20251015`
-
-              The type of context management edit applied.
-
-              - `:clear_thinking_20251015`
-
-      - `diagnostics: BetaDiagnostics`
-
-        Response envelope for request-level diagnostics. Present (possibly
-        null) whenever the caller supplied `diagnostics` on the request.
-
-        - `cache_miss_reason: BetaCacheMissModelChanged | BetaCacheMissSystemChanged | BetaCacheMissToolsChanged | 3 more`
-
-          Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
-
-          - `class BetaCacheMissModelChanged`
-
-            - `cache_missed_input_tokens: Integer`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: :model_changed`
-
-              - `:model_changed`
-
-          - `class BetaCacheMissSystemChanged`
-
-            - `cache_missed_input_tokens: Integer`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: :system_changed`
-
-              - `:system_changed`
-
-          - `class BetaCacheMissToolsChanged`
-
-            - `cache_missed_input_tokens: Integer`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: :tools_changed`
-
-              - `:tools_changed`
-
-          - `class BetaCacheMissMessagesChanged`
-
-            - `cache_missed_input_tokens: Integer`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: :messages_changed`
-
-              - `:messages_changed`
-
-          - `class BetaCacheMissPreviousMessageNotFound`
-
-            - `type: :previous_message_not_found`
-
-              - `:previous_message_not_found`
-
-          - `class BetaCacheMissUnavailable`
-
-            - `type: :unavailable`
-
-              - `:unavailable`
-
-      - `model: Model`
-
-        The model that will complete your prompt.
-
-        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-      - `role: :assistant`
-
-        Conversational role of the generated message.
-
-        This will always be `"assistant"`.
-
-        - `:assistant`
-
-      - `stop_details: BetaRefusalStopDetails`
-
-        Structured information about a refusal.
-
-        - `category: :cyber | :bio | :frontier_llm | 2 more`
-
-          The policy category that triggered a refusal.
-
-          - `:cyber`
-
-            The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-          - `:bio`
-
-            The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-          - `:frontier_llm`
-
-            The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-          - `:reasoning_extraction`
-
-            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-          - `:general_harms`
-
-            The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-        - `explanation: String`
-
-          Human-readable explanation of the refusal.
-
-          This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-        - `fallback_credit_token: String`
-
-          Opaque code that refunds the cache-miss cost when retrying this refused
-          request on the fallback model. Pass it as `fallback_credit_token` on the
-          retry request. Expires 5 minutes after the refusal.
-
-          The retry is sent either with the same request body (`system`, `messages`,
-          `tools`, and other render-shaping fields), or with the same body plus one
-          appended `assistant` message whose content is the partial text (with any
-          trailing whitespace stripped from the final text block) and paired
-          server-tool blocks from this refusal — which also authorizes that
-          appended turn as an assistant-prefill continuation on models that otherwise
-          disallow prefill. A token minted mid-server-tool-loop whose partial content
-          was continuable may only be redeemed the second way — if a same-body retry
-          is rejected with a 400 saying the token must be redeemed by continuing the
-          partial response, retry the second way instead. Either way: same workspace,
-          same platform; a mismatch is a 400. Resending a token for an already-warm
-          prefix is permitted but yields no additional credit.
-
-          `null` when the refused model isn't eligible for a fallback credit.
-
-        - `fallback_has_prefill_claim: bool`
-
-          Whether the accompanying `fallback_credit_token` may be redeemed with the
-          appended-assistant retry form. Only set when `fallback_credit_token` is
-          present.
-
-          `true`: retry by resending the same request body plus one appended
-          `assistant` message whose content is this response's `content` with any
-          trailing whitespace stripped from the final text block and unpaired
-          `tool_use` blocks omitted (the same appended-turn shape described on
-          `fallback_credit_token`), with the token attached. `false`: retry by
-          resending the original request body unchanged, with the token attached —
-          the appended-assistant form is not available for this refusal (no
-          continuable partial content, or the request uses `output_format` or a
-          `tool_choice` that forces tool use). One exception: when the request used
-          `output_format` or a forced `tool_choice` and the refusal arrived after
-          server tools (including MCP connector tools) had already executed, the
-          token may not be redeemable by either retry form; if the exact-body retry
-          is then rejected with a 400 saying the token must be redeemed by
-          continuing the partial response, discard the token and retry without it.
-
-          Advisory: if an appended-assistant retry is rejected with a 400 despite
-          `true`, fall back to resending the original request body with the token.
-
-        - `recommended_model: String`
-
-          The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
-
-        - `type: :refusal`
-
-          - `:refusal`
-
-      - `stop_reason: BetaStopReason`
-
-        The reason that we stopped.
-
-        This may be one the following values:
-
-        * `"end_turn"`: the model reached a natural stopping point
-        * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-        * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-        * `"tool_use"`: the model invoked one or more tools
-        * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-        * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-        * `"model_context_window_exceeded"`: we exceeded the model's context window
-
-        In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-        - `:end_turn`
-
-        - `:max_tokens`
-
-        - `:stop_sequence`
-
-        - `:tool_use`
-
-        - `:pause_turn`
-
-        - `:compaction`
-
-        - `:refusal`
-
-        - `:model_context_window_exceeded`
-
-      - `stop_sequence: String`
-
-        Which custom stop sequence was generated, if any.
-
-        This value will be a non-null string if one of your custom stop sequences was generated.
-
-      - `type: :message`
-
-        Object type.
-
-        For Messages, this is always `"message"`.
-
-        - `:message`
-
-      - `usage: BetaUsage`
-
-        Billing and rate-limit usage.
-
-        Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-        Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-        For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-        Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-        - `cache_creation: BetaCacheCreation`
-
-          Breakdown of cached tokens by TTL
-
-          - `ephemeral_1h_input_tokens: Integer`
-
-            The number of input tokens used to create the 1 hour cache entry.
-
-          - `ephemeral_5m_input_tokens: Integer`
-
-            The number of input tokens used to create the 5 minute cache entry.
-
-        - `cache_creation_input_tokens: Integer`
-
-          The number of input tokens used to create the cache entry.
-
-        - `cache_read_input_tokens: Integer`
-
-          The number of input tokens read from the cache.
-
-        - `fallback_credit: BetaFallbackCreditUsage`
-
-          Outcome of the `fallback_credit_token` presented on this request.
-
-          - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
-
-            Whether the fallback-credit reprice was applied to this response's billing.
-
-            A union discriminated on `type`. `redeemed`: the retry is billed as if
-            the conversation had been on the retry model all along — including when the
-            resulting shift is zero because there was nothing to move. `not_applied`:
-            no reprice was applied; the arm's `reason` says why.
-
-            - `class BetaFallbackCreditRedeemed`
-
-              The reprice was applied: the retry is billed as if the conversation
-              had been on the retry model all along.
-
-              - `type: :redeemed`
-
-                - `:redeemed`
-
-            - `class BetaFallbackCreditNotApplied`
-
-              No reprice was applied; `reason` says why.
-
-              - `reason: :body_mismatch | :continuation_excluded | :continuation_only | 9 more`
-
-                Why the reprice was not applied.
-
-                A closed enum; additions to the redemption-check vocabulary arrive as
-                deliberate schema updates.
-
-                - `:body_mismatch`
-
-                - `:continuation_excluded`
-
-                - `:continuation_only`
-
-                - `:expired`
-
-                - `:invalid_target_model`
-
-                - `:not_enabled`
-
-                - `:reprice_unavailable`
-
-                - `:temporarily_unavailable`
-
-                - `:variant_fields_present`
-
-                - `:wrong_organization`
-
-                - `:wrong_platform`
-
-                - `:wrong_workspace`
-
-              - `type: :not_applied`
-
-                - `:not_applied`
-
-              - `remove_to_redeem: Array[String]`
-
-                Request fields to remove before retrying, so the retry can redeem this
-                token.
-
-                Present exactly when `reason` is `variant_fields_present` — never null,
-                never an empty array; absent otherwise. Fields are named only from your own request, and only after
-                the sealed variant hash matched. A served best-effort retry has already
-                been billed at normal price; nothing redeems retroactively, but a corrected
-                re-send inside the token's five-minute window can still redeem.
-
-        - `inference_geo: String`
-
-          The geographic region where inference was performed for this request.
-
-        - `input_tokens: Integer`
-
-          The number of input tokens which were used.
-
-        - `iterations: BetaIterationsUsage`
-
-          Per-iteration token usage breakdown.
-
-          Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-          - Determine which iterations exceeded long context thresholds (>=200k tokens)
-          - Calculate the true context window size from the last iteration
-          - Understand token accumulation across server-side tool use loops
-
-          - `class BetaMessageIterationUsage`
-
-            Token usage for a sampling iteration.
-
-            - `cache_creation: BetaCacheCreation`
-
-              Breakdown of cached tokens by TTL
-
-            - `cache_creation_input_tokens: Integer`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: Integer`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: Integer`
-
-              The number of input tokens which were used.
-
-            - `model: Model`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `output_tokens: Integer`
-
-              The number of output tokens which were used.
-
-            - `type: :message`
-
-              Usage for a sampling iteration
-
-              - `:message`
-
-          - `class BetaCompactionIterationUsage`
-
-            Token usage for a compaction iteration.
-
-            - `cache_creation: BetaCacheCreation`
-
-              Breakdown of cached tokens by TTL
-
-            - `cache_creation_input_tokens: Integer`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: Integer`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: Integer`
-
-              The number of input tokens which were used.
-
-            - `output_tokens: Integer`
-
-              The number of output tokens which were used.
-
-            - `type: :compaction`
-
-              Usage for a compaction iteration
-
-              - `:compaction`
-
-          - `class BetaAdvisorMessageIterationUsage`
-
-            Token usage for an advisor sub-inference iteration.
-
-            - `cache_creation: BetaCacheCreation`
-
-              Breakdown of cached tokens by TTL
-
-            - `cache_creation_input_tokens: Integer`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: Integer`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: Integer`
-
-              The number of input tokens which were used.
-
-            - `model: Model`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `output_tokens: Integer`
-
-              The number of output tokens which were used.
-
-            - `type: :advisor_message`
-
-              Usage for an advisor sub-inference iteration
-
-              - `:advisor_message`
-
-          - `class BetaFallbackMessageIterationUsage`
-
-            Token usage for the fallback-model attempt of a server-side fallback request.
-
-            Produced in place of a `message` entry for whichever hop served the
-            response. A declined hop produces the existing `message` entry. Whether
-            a fallback model served the response is signalled by the presence of this
-            entry in `usage.iterations`.
-
-            - `cache_creation: BetaCacheCreation`
-
-              Breakdown of cached tokens by TTL
-
-            - `cache_creation_input_tokens: Integer`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: Integer`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: Integer`
-
-              The number of input tokens which were used.
-
-            - `model: Model`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `output_tokens: Integer`
-
-              The number of output tokens which were used.
-
-            - `type: :fallback_message`
-
-              Usage for the fallback-model attempt that served the response
-
-              - `:fallback_message`
-
-        - `output_tokens: Integer`
-
-          The number of output tokens which were used.
-
-        - `output_tokens_details: BetaOutputTokensDetails`
-
-          Breakdown of output tokens by category.
-
-          `output_tokens` remains the inclusive, authoritative total used for billing.
-          This object provides a read-only decomposition for observability — for example,
-          how many of the billed output tokens were spent on internal reasoning that may
-          have been summarized before being returned to you.
-
-          - `thinking_tokens: Integer`
-
-            Number of output tokens the model generated as internal reasoning, including
-            the thinking-block delimiter tokens.
-
-            Reflects the raw reasoning the model produced, not the (possibly shorter)
-            summarized thinking text returned in the response body. Computed by
-            re-tokenizing the raw reasoning text, so it may differ from the model's exact
-            generation count by a small number of tokens. Always ≤ `output_tokens`;
-            `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-        - `server_tool_use: BetaServerToolUsage`
-
-          The number of server tool requests.
-
-          - `web_fetch_requests: Integer`
-
-            The number of web fetch tool requests.
-
-          - `web_search_requests: Integer`
-
-            The number of web search tool requests.
-
-        - `service_tier: :standard | :priority | :batch`
-
-          If the request used the priority, standard, or batch tier.
-
-          - `:standard`
-
-          - `:priority`
-
-          - `:batch`
-
-        - `speed: :standard | :fast`
-
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-          - `:standard`
-
-          - `:fast`
-
-    - `type: :succeeded`
-
-      - `:succeeded`
-
-  - `class BetaMessageBatchErroredResult`
-
-    - `error: BetaErrorResponse`
-
-      - `error: BetaError`
-
-        - `class BetaInvalidRequestError`
-
-          - `message: String`
-
-          - `type: :invalid_request_error`
-
-            - `:invalid_request_error`
-
-        - `class BetaAuthenticationError`
-
-          - `message: String`
-
-          - `type: :authentication_error`
-
-            - `:authentication_error`
-
-        - `class BetaBillingError`
-
-          - `message: String`
-
-          - `type: :billing_error`
-
-            - `:billing_error`
-
-        - `class BetaPermissionError`
-
-          - `message: String`
-
-          - `type: :permission_error`
-
-            - `:permission_error`
-
-        - `class BetaNotFoundError`
-
-          - `message: String`
-
-          - `type: :not_found_error`
-
-            - `:not_found_error`
-
-        - `class BetaRateLimitError`
-
-          - `message: String`
-
-          - `type: :rate_limit_error`
-
-            - `:rate_limit_error`
-
-        - `class BetaGatewayTimeoutError`
-
-          - `message: String`
-
-          - `type: :timeout_error`
-
-            - `:timeout_error`
-
-        - `class BetaAPIError`
-
-          - `message: String`
-
-          - `type: :api_error`
-
-            - `:api_error`
-
-        - `class BetaOverloadedError`
-
-          - `message: String`
-
-          - `type: :overloaded_error`
-
-            - `:overloaded_error`
-
-      - `request_id: String`
-
-      - `type: :error`
-
-        - `:error`
-
-    - `type: :errored`
-
-      - `:errored`
-
-  - `class BetaMessageBatchCanceledResult`
-
-    - `type: :canceled`
-
-      - `:canceled`
-
-  - `class BetaMessageBatchExpiredResult`
-
-    - `type: :expired`
-
-      - `:expired`
-
-### Beta Message Batch Succeeded Result
-
-- `class BetaMessageBatchSucceededResult`
-
-  - `message: BetaMessage`
-
-    - `id: String`
-
-      Unique object identifier.
-
-      The format and length of IDs may change over time.
-
-    - `container: BetaContainer`
-
-      Information about the container used in the request (for the code execution tool)
-
-      - `id: String`
-
-        Identifier for the container used in this request
-
-      - `expires_at: Time`
-
-        The time at which the container will expire.
-
-      - `skills: Array[BetaSkill]`
-
-        Skills loaded in the container
-
-        - `skill_id: String`
-
-          Skill ID
-
-        - `type: :anthropic | :custom`
-
-          Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-          - `:anthropic`
-
-          - `:custom`
-
-        - `version: String`
-
-          The resolved version: a skill version ID for custom skills.
-
-    - `content: Array[BetaContentBlock]`
-
-      Content generated by the model.
-
-      This is an array of content blocks, each of which has a `type` that determines its shape.
-
-      Example:
-
-      ```json
-      [{"type": "text", "text": "Hi, I'm Claude."}]
-      ```
-
-      If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-      For example, if the input `messages` were:
-
-      ```json
-      [
-        {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-        {"role": "assistant", "content": "The best answer is ("}
-      ]
-      ```
-
-      Then the response `content` might be:
-
-      ```json
-      [{"type": "text", "text": "B)"}]
-      ```
-
-      - `class BetaTextBlock`
-
-        - `citations: Array[BetaTextCitation]`
-
-          Citations supporting the text block.
-
-          The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-          - `class BetaCitationCharLocation`
-
-            - `cited_text: String`
-
-            - `document_index: Integer`
-
-            - `document_title: String`
-
-            - `end_char_index: Integer`
-
-            - `file_id: String`
-
-            - `start_char_index: Integer`
-
-            - `type: :char_location`
-
-              - `:char_location`
-
-          - `class BetaCitationPageLocation`
-
-            - `cited_text: String`
-
-            - `document_index: Integer`
-
-            - `document_title: String`
-
-            - `end_page_number: Integer`
-
-            - `file_id: String`
-
-            - `start_page_number: Integer`
-
-            - `type: :page_location`
-
-              - `:page_location`
-
-          - `class BetaCitationContentBlockLocation`
-
-            - `cited_text: String`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `document_index: Integer`
-
-            - `document_title: String`
-
-            - `end_block_index: Integer`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `file_id: String`
-
-            - `start_block_index: Integer`
-
-              0-based index of the first cited block in the source's `content` array.
-
-            - `type: :content_block_location`
-
-              - `:content_block_location`
-
-          - `class BetaCitationsWebSearchResultLocation`
-
-            - `cited_text: String`
-
-            - `encrypted_index: String`
-
-            - `title: String`
-
-            - `type: :web_search_result_location`
-
-              - `:web_search_result_location`
-
-            - `url: String`
-
-          - `class BetaCitationSearchResultLocation`
-
-            - `cited_text: String`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `end_block_index: Integer`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `search_result_index: Integer`
-
-              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-              Counted separately from `document_index`; server-side web search results are not included in this count.
-
-            - `source: String`
-
-            - `start_block_index: Integer`
-
-              0-based index of the first cited block in the source's `content` array.
-
-            - `title: String`
-
-            - `type: :search_result_location`
-
-              - `:search_result_location`
-
-        - `text: String`
-
-        - `type: :text`
-
-          - `:text`
-
-      - `class BetaThinkingBlock`
-
-        - `signature: String`
-
-          A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-          This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-        - `thinking: String`
-
-          The text of Claude's thinking process for this block.
-
-        - `type: :thinking`
-
-          - `:thinking`
-
-      - `class BetaRedactedThinkingBlock`
-
-        - `data: String`
-
-          The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-          Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-        - `type: :redacted_thinking`
-
-          - `:redacted_thinking`
-
-      - `class BetaToolUseBlock`
-
-        - `id: String`
-
-        - `input: Hash[Symbol, untyped]`
-
-        - `name: String`
-
-        - `type: :tool_use`
-
-          - `:tool_use`
-
-        - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `class BetaDirectCaller`
-
-            Tool invocation directly from the model.
-
-            - `type: :direct`
-
-              - `:direct`
-
-          - `class BetaServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-            - `tool_id: String`
-
-            - `type: :code_execution_20250825`
-
-              - `:code_execution_20250825`
-
-          - `class BetaServerToolCaller20260120`
-
-            - `tool_id: String`
-
-            - `type: :code_execution_20260120`
-
-              - `:code_execution_20260120`
-
-        - `toolset_name: String`
-
-          For a toolset member tool_use, the toolset family.
-
-      - `class BetaServerToolUseBlock`
-
-        - `id: String`
-
-        - `input: Hash[Symbol, untyped]`
-
-        - `name: :advisor | :web_search | :web_fetch | 5 more`
-
-          - `:advisor`
-
-          - `:web_search`
-
-          - `:web_fetch`
-
-          - `:code_execution`
-
-          - `:bash_code_execution`
-
-          - `:text_editor_code_execution`
-
-          - `:tool_search_tool_regex`
-
-          - `:tool_search_tool_bm25`
-
-        - `type: :server_tool_use`
-
-          - `:server_tool_use`
-
-        - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `class BetaDirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `class BetaServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `class BetaServerToolCaller20260120`
-
-      - `class BetaWebSearchToolResultBlock`
-
-        - `content: BetaWebSearchToolResultBlockContent`
-
-          - `class BetaWebSearchToolResultError`
-
-            - `error_code: BetaWebSearchToolResultErrorCode`
-
-              - `:invalid_tool_input`
-
-              - `:unavailable`
-
-              - `:max_uses_exceeded`
-
-              - `:too_many_requests`
-
-              - `:query_too_long`
-
-              - `:request_too_large`
-
-            - `type: :web_search_tool_result_error`
-
-              - `:web_search_tool_result_error`
-
-          - `UnionMember1 = Array[BetaWebSearchResultBlock]`
-
-            - `encrypted_content: String`
-
-            - `page_age: String`
-
-            - `title: String`
-
-            - `type: :web_search_result`
-
-              - `:web_search_result`
-
-            - `url: String`
-
-        - `tool_use_id: String`
-
-        - `type: :web_search_tool_result`
-
-          - `:web_search_tool_result`
-
-        - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `class BetaDirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `class BetaServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `class BetaServerToolCaller20260120`
-
-      - `class BetaWebFetchToolResultBlock`
-
-        - `content: BetaWebFetchToolResultErrorBlock | BetaWebFetchBlock`
-
-          - `class BetaWebFetchToolResultErrorBlock`
-
-            - `error_code: BetaWebFetchToolResultErrorCode`
-
-              - `:invalid_tool_input`
-
-              - `:url_too_long`
-
-              - `:url_not_allowed`
-
-              - `:url_not_in_prior_context`
-
-              - `:url_not_accessible`
-
-              - `:unsupported_content_type`
-
-              - `:too_many_requests`
-
-              - `:max_uses_exceeded`
-
-              - `:unavailable`
-
-            - `type: :web_fetch_tool_result_error`
-
-              - `:web_fetch_tool_result_error`
-
-          - `class BetaWebFetchBlock`
-
-            - `content: BetaDocumentBlock`
-
-              - `citations: BetaCitationConfig`
-
-                Citation configuration for the document
-
-                - `enabled: bool`
-
-              - `source: BetaBase64PDFSource | BetaPlainTextSource`
-
-                - `class BetaBase64PDFSource`
-
-                  - `data: String`
-
-                  - `media_type: :"application/pdf"`
-
-                    - `:"application/pdf"`
-
-                  - `type: :base64`
-
-                    - `:base64`
-
-                - `class BetaPlainTextSource`
-
-                  - `data: String`
-
-                  - `media_type: :"text/plain"`
-
-                    - `:"text/plain"`
-
-                  - `type: :text`
-
-                    - `:text`
-
-              - `title: String`
-
-                The title of the document
-
-              - `type: :document`
-
-                - `:document`
-
-            - `retrieved_at: String`
-
-              ISO 8601 timestamp when the content was retrieved
-
-            - `type: :web_fetch_result`
-
-              - `:web_fetch_result`
-
-            - `url: String`
-
-              Fetched content URL
-
-        - `tool_use_id: String`
-
-        - `type: :web_fetch_tool_result`
-
-          - `:web_fetch_tool_result`
-
-        - `caller_: BetaDirectCaller | BetaServerToolCaller | BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `class BetaDirectCaller`
-
-            Tool invocation directly from the model.
-
-          - `class BetaServerToolCaller`
-
-            Tool invocation generated by a server-side tool.
-
-          - `class BetaServerToolCaller20260120`
-
-      - `class BetaAdvisorToolResultBlock`
-
-        - `content: BetaAdvisorToolResultError | BetaAdvisorResultBlock | BetaAdvisorRedactedResultBlock`
-
-          - `class BetaAdvisorToolResultError`
-
-            - `error_code: :max_uses_exceeded | :prompt_too_long | :too_many_requests | 4 more`
-
-              - `:max_uses_exceeded`
-
-              - `:prompt_too_long`
-
-              - `:too_many_requests`
-
-              - `:overloaded`
-
-              - `:unavailable`
-
-              - `:execution_time_exceeded`
-
-              - `:model_not_found`
-
-            - `type: :advisor_tool_result_error`
-
-              - `:advisor_tool_result_error`
-
-          - `class BetaAdvisorResultBlock`
-
-            - `stop_reason: String`
-
-              The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
-
-            - `text: String`
-
-            - `type: :advisor_result`
-
-              - `:advisor_result`
-
-          - `class BetaAdvisorRedactedResultBlock`
-
-            - `encrypted_content: String`
-
-              Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
-
-            - `stop_reason: String`
-
-              The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
-
-            - `type: :advisor_redacted_result`
-
-              - `:advisor_redacted_result`
-
-        - `tool_use_id: String`
-
-        - `type: :advisor_tool_result`
-
-          - `:advisor_tool_result`
-
-      - `class BetaCodeExecutionToolResultBlock`
-
-        - `content: BetaCodeExecutionToolResultBlockContent`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
-
-          - `class BetaCodeExecutionToolResultError`
-
-            - `error_code: BetaCodeExecutionToolResultErrorCode`
-
-              - `:invalid_tool_input`
-
-              - `:unavailable`
-
-              - `:too_many_requests`
-
-              - `:execution_time_exceeded`
-
-            - `type: :code_execution_tool_result_error`
-
-              - `:code_execution_tool_result_error`
-
-          - `class BetaCodeExecutionResultBlock`
-
-            - `content: Array[BetaCodeExecutionOutputBlock]`
-
-              - `file_id: String`
-
-              - `type: :code_execution_output`
-
-                - `:code_execution_output`
-
-            - `return_code: Integer`
-
-            - `stderr: String`
-
-            - `stdout: String`
-
-            - `type: :code_execution_result`
-
-              - `:code_execution_result`
-
-          - `class BetaEncryptedCodeExecutionResultBlock`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
-
-            - `content: Array[BetaCodeExecutionOutputBlock]`
-
-              - `file_id: String`
-
-              - `type: :code_execution_output`
-
-            - `encrypted_stdout: String`
-
-            - `return_code: Integer`
-
-            - `stderr: String`
-
-            - `type: :encrypted_code_execution_result`
-
-              - `:encrypted_code_execution_result`
-
-        - `tool_use_id: String`
-
-        - `type: :code_execution_tool_result`
-
-          - `:code_execution_tool_result`
-
-      - `class BetaBashCodeExecutionToolResultBlock`
-
-        - `content: BetaBashCodeExecutionToolResultError | BetaBashCodeExecutionResultBlock`
-
-          - `class BetaBashCodeExecutionToolResultError`
-
-            - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-              - `:invalid_tool_input`
-
-              - `:unavailable`
-
-              - `:too_many_requests`
-
-              - `:execution_time_exceeded`
-
-              - `:output_file_too_large`
-
-            - `type: :bash_code_execution_tool_result_error`
-
-              - `:bash_code_execution_tool_result_error`
-
-          - `class BetaBashCodeExecutionResultBlock`
-
-            - `content: Array[BetaBashCodeExecutionOutputBlock]`
-
-              - `file_id: String`
-
-              - `type: :bash_code_execution_output`
-
-                - `:bash_code_execution_output`
-
-            - `return_code: Integer`
-
-            - `stderr: String`
-
-            - `stdout: String`
-
-            - `type: :bash_code_execution_result`
-
-              - `:bash_code_execution_result`
-
-        - `tool_use_id: String`
-
-        - `type: :bash_code_execution_tool_result`
-
-          - `:bash_code_execution_tool_result`
-
-      - `class BetaTextEditorCodeExecutionToolResultBlock`
-
-        - `content: BetaTextEditorCodeExecutionToolResultError | BetaTextEditorCodeExecutionViewResultBlock | BetaTextEditorCodeExecutionCreateResultBlock | BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-          - `class BetaTextEditorCodeExecutionToolResultError`
-
-            - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | 2 more`
-
-              - `:invalid_tool_input`
-
-              - `:unavailable`
-
-              - `:too_many_requests`
-
-              - `:execution_time_exceeded`
-
-              - `:file_not_found`
-
-            - `error_message: String`
-
-            - `type: :text_editor_code_execution_tool_result_error`
-
-              - `:text_editor_code_execution_tool_result_error`
-
-          - `class BetaTextEditorCodeExecutionViewResultBlock`
-
-            - `content: String`
-
-            - `file_type: :text | :image | :pdf`
-
-              - `:text`
-
-              - `:image`
-
-              - `:pdf`
-
-            - `num_lines: Integer`
-
-            - `start_line: Integer`
-
-            - `total_lines: Integer`
-
-            - `type: :text_editor_code_execution_view_result`
-
-              - `:text_editor_code_execution_view_result`
-
-          - `class BetaTextEditorCodeExecutionCreateResultBlock`
-
-            - `is_file_update: bool`
-
-            - `type: :text_editor_code_execution_create_result`
-
-              - `:text_editor_code_execution_create_result`
-
-          - `class BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-            - `lines: Array[String]`
-
-            - `new_lines: Integer`
-
-            - `new_start: Integer`
-
-            - `old_lines: Integer`
-
-            - `old_start: Integer`
-
-            - `type: :text_editor_code_execution_str_replace_result`
-
-              - `:text_editor_code_execution_str_replace_result`
-
-        - `tool_use_id: String`
-
-        - `type: :text_editor_code_execution_tool_result`
-
-          - `:text_editor_code_execution_tool_result`
-
-      - `class BetaToolSearchToolResultBlock`
-
-        - `content: BetaToolSearchToolResultError | BetaToolSearchToolSearchResultBlock`
-
-          - `class BetaToolSearchToolResultError`
-
-            - `error_code: :invalid_tool_input | :unavailable | :too_many_requests | :execution_time_exceeded`
-
-              - `:invalid_tool_input`
-
-              - `:unavailable`
-
-              - `:too_many_requests`
-
-              - `:execution_time_exceeded`
-
-            - `error_message: String`
-
-            - `type: :tool_search_tool_result_error`
-
-              - `:tool_search_tool_result_error`
-
-          - `class BetaToolSearchToolSearchResultBlock`
-
-            - `tool_references: Array[BetaToolReferenceBlock]`
-
-              - `tool_name: String`
-
-              - `type: :tool_reference`
-
-                - `:tool_reference`
-
-            - `type: :tool_search_tool_search_result`
-
-              - `:tool_search_tool_search_result`
-
-        - `tool_use_id: String`
-
-        - `type: :tool_search_tool_result`
-
-          - `:tool_search_tool_result`
-
-      - `class BetaMCPToolUseBlock`
-
-        - `id: String`
-
-        - `input: Hash[Symbol, untyped]`
-
-        - `name: String`
-
-          The name of the MCP tool
-
-        - `server_name: String`
-
-          The name of the MCP server
-
-        - `type: :mcp_tool_use`
-
-          - `:mcp_tool_use`
-
-      - `class BetaMCPToolResultBlock`
-
-        - `content: String | Array[BetaTextBlock]`
-
-          - `String = String`
-
-          - `BetaMCPToolResultBlockContent = Array[BetaTextBlock]`
-
-            - `citations: Array[BetaTextCitation]`
-
-              Citations supporting the text block.
-
-              The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-            - `text: String`
-
-            - `type: :text`
-
-        - `is_error: bool`
-
-        - `tool_use_id: String`
-
-        - `type: :mcp_tool_result`
-
-          - `:mcp_tool_result`
-
-      - `class BetaContainerUploadBlock`
-
-        Response model for a file uploaded to the container.
-
-        - `file_id: String`
-
-        - `type: :container_upload`
-
-          - `:container_upload`
-
-      - `class BetaCompactionBlock`
-
-        A compaction block returned when autocompact is triggered.
-
-        When content is None, it indicates the compaction failed to produce a valid
-        summary (e.g., malformed output from the model). Clients may round-trip
-        compaction blocks with null content; the server treats them as no-ops.
-
-        - `content: String`
-
-          Summary of compacted content, or null if compaction failed
-
-        - `encrypted_content: String`
-
-          Opaque metadata from prior compaction, to be round-tripped verbatim
-
-        - `type: :compaction`
-
-          - `:compaction`
-
-      - `class BetaFallbackBlock`
-
-        Marks the point in `content` where one model's output gives way to the next.
-
-        One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn where no preceding model ran and declined has no such
-        boundary and carries no block — the signal for whether a fallback model
-        served the response is the presence of a `fallback_message` entry in
-        `usage.iterations`, not this block.
-
-        The block is treated like a server-tool content block for streaming: it
-        arrives via the standard `content_block_start` / `content_block_stop`
-        pair and carries no deltas.
-
-        - `from: BetaFallbackInfo`
-
-          The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-          - `model: Model`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `:"claude-sonnet-5"`
-
-                High-performance model for coding and agents
-
-              - `:"claude-fable-5"`
-
-                Next generation of intelligence for the hardest knowledge work and coding problems
-
-              - `:"claude-mythos-5"`
-
-                Most capable model for cybersecurity and biology research
-
-              - `:"claude-opus-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `:"claude-opus-4-8"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `:"claude-opus-4-7"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `:"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
-              - `:"claude-opus-4-6"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `:"claude-sonnet-4-6"`
-
-                Best combination of speed and intelligence
-
-              - `:"claude-haiku-4-5"`
-
-                Fastest model with near-frontier intelligence
-
-              - `:"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
-
-              - `:"claude-opus-4-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `:"claude-opus-4-5-20251101"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `:"claude-sonnet-4-5"`
-
-                High-performance model for agents and coding
-
-              - `:"claude-sonnet-4-5-20250929"`
-
-                High-performance model for agents and coding
-
-            - `String = String`
-
-        - `to: BetaFallbackInfo`
-
-          The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-        - `trigger: BetaFallbackRefusalTrigger`
-
-          What caused the `from` model to hand over at this hop.
-
-          - `category: :cyber | :bio | :frontier_llm | 2 more`
-
-            The policy category that triggered a refusal.
-
-            - `:cyber`
-
-              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-            - `:bio`
-
-              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-            - `:frontier_llm`
-
-              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-            - `:reasoning_extraction`
-
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-            - `:general_harms`
-
-              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-          - `type: :refusal`
-
-            - `:refusal`
-
-        - `type: :fallback`
-
-          - `:fallback`
-
-    - `context_management: BetaContextManagementResponse`
-
-      Context management response.
-
-      Information about context management strategies applied during the request.
-
-      - `applied_edits: Array[BetaClearToolUses20250919EditResponse | BetaClearThinking20251015EditResponse]`
-
-        List of context management edits that were applied.
-
-        - `class BetaClearToolUses20250919EditResponse`
-
-          - `cleared_input_tokens: Integer`
-
-            Number of input tokens cleared by this edit.
-
-          - `cleared_tool_uses: Integer`
-
-            Number of tool uses that were cleared.
-
-          - `type: :clear_tool_uses_20250919`
-
-            The type of context management edit applied.
-
-            - `:clear_tool_uses_20250919`
-
-        - `class BetaClearThinking20251015EditResponse`
-
-          - `cleared_input_tokens: Integer`
-
-            Number of input tokens cleared by this edit.
-
-          - `cleared_thinking_turns: Integer`
-
-            Number of thinking turns that were cleared.
-
-          - `type: :clear_thinking_20251015`
-
-            The type of context management edit applied.
-
-            - `:clear_thinking_20251015`
-
-    - `diagnostics: BetaDiagnostics`
-
-      Response envelope for request-level diagnostics. Present (possibly
-      null) whenever the caller supplied `diagnostics` on the request.
-
-      - `cache_miss_reason: BetaCacheMissModelChanged | BetaCacheMissSystemChanged | BetaCacheMissToolsChanged | 3 more`
-
-        Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
-
-        - `class BetaCacheMissModelChanged`
-
-          - `cache_missed_input_tokens: Integer`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: :model_changed`
-
-            - `:model_changed`
-
-        - `class BetaCacheMissSystemChanged`
-
-          - `cache_missed_input_tokens: Integer`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: :system_changed`
-
-            - `:system_changed`
-
-        - `class BetaCacheMissToolsChanged`
-
-          - `cache_missed_input_tokens: Integer`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: :tools_changed`
-
-            - `:tools_changed`
-
-        - `class BetaCacheMissMessagesChanged`
-
-          - `cache_missed_input_tokens: Integer`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: :messages_changed`
-
-            - `:messages_changed`
-
-        - `class BetaCacheMissPreviousMessageNotFound`
-
-          - `type: :previous_message_not_found`
-
-            - `:previous_message_not_found`
-
-        - `class BetaCacheMissUnavailable`
-
-          - `type: :unavailable`
-
-            - `:unavailable`
-
-    - `model: Model`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-    - `role: :assistant`
-
-      Conversational role of the generated message.
-
-      This will always be `"assistant"`.
-
-      - `:assistant`
-
-    - `stop_details: BetaRefusalStopDetails`
-
-      Structured information about a refusal.
-
-      - `category: :cyber | :bio | :frontier_llm | 2 more`
-
-        The policy category that triggered a refusal.
-
-        - `:cyber`
-
-          The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-        - `:bio`
-
-          The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-        - `:frontier_llm`
-
-          The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-        - `:reasoning_extraction`
-
-          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-        - `:general_harms`
-
-          The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-      - `explanation: String`
-
-        Human-readable explanation of the refusal.
-
-        This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-      - `fallback_credit_token: String`
-
-        Opaque code that refunds the cache-miss cost when retrying this refused
-        request on the fallback model. Pass it as `fallback_credit_token` on the
-        retry request. Expires 5 minutes after the refusal.
-
-        The retry is sent either with the same request body (`system`, `messages`,
-        `tools`, and other render-shaping fields), or with the same body plus one
-        appended `assistant` message whose content is the partial text (with any
-        trailing whitespace stripped from the final text block) and paired
-        server-tool blocks from this refusal — which also authorizes that
-        appended turn as an assistant-prefill continuation on models that otherwise
-        disallow prefill. A token minted mid-server-tool-loop whose partial content
-        was continuable may only be redeemed the second way — if a same-body retry
-        is rejected with a 400 saying the token must be redeemed by continuing the
-        partial response, retry the second way instead. Either way: same workspace,
-        same platform; a mismatch is a 400. Resending a token for an already-warm
-        prefix is permitted but yields no additional credit.
-
-        `null` when the refused model isn't eligible for a fallback credit.
-
-      - `fallback_has_prefill_claim: bool`
-
-        Whether the accompanying `fallback_credit_token` may be redeemed with the
-        appended-assistant retry form. Only set when `fallback_credit_token` is
-        present.
-
-        `true`: retry by resending the same request body plus one appended
-        `assistant` message whose content is this response's `content` with any
-        trailing whitespace stripped from the final text block and unpaired
-        `tool_use` blocks omitted (the same appended-turn shape described on
-        `fallback_credit_token`), with the token attached. `false`: retry by
-        resending the original request body unchanged, with the token attached —
-        the appended-assistant form is not available for this refusal (no
-        continuable partial content, or the request uses `output_format` or a
-        `tool_choice` that forces tool use). One exception: when the request used
-        `output_format` or a forced `tool_choice` and the refusal arrived after
-        server tools (including MCP connector tools) had already executed, the
-        token may not be redeemable by either retry form; if the exact-body retry
-        is then rejected with a 400 saying the token must be redeemed by
-        continuing the partial response, discard the token and retry without it.
-
-        Advisory: if an appended-assistant retry is rejected with a 400 despite
-        `true`, fall back to resending the original request body with the token.
-
-      - `recommended_model: String`
-
-        The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
-
-      - `type: :refusal`
-
-        - `:refusal`
-
-    - `stop_reason: BetaStopReason`
-
-      The reason that we stopped.
-
-      This may be one the following values:
-
-      * `"end_turn"`: the model reached a natural stopping point
-      * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-      * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-      * `"tool_use"`: the model invoked one or more tools
-      * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-      * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-      * `"model_context_window_exceeded"`: we exceeded the model's context window
-
-      In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-      - `:end_turn`
-
-      - `:max_tokens`
-
-      - `:stop_sequence`
-
-      - `:tool_use`
-
-      - `:pause_turn`
-
-      - `:compaction`
-
-      - `:refusal`
-
-      - `:model_context_window_exceeded`
-
-    - `stop_sequence: String`
-
-      Which custom stop sequence was generated, if any.
-
-      This value will be a non-null string if one of your custom stop sequences was generated.
-
-    - `type: :message`
-
-      Object type.
-
-      For Messages, this is always `"message"`.
-
-      - `:message`
-
-    - `usage: BetaUsage`
-
-      Billing and rate-limit usage.
-
-      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-      - `cache_creation: BetaCacheCreation`
-
-        Breakdown of cached tokens by TTL
-
-        - `ephemeral_1h_input_tokens: Integer`
-
-          The number of input tokens used to create the 1 hour cache entry.
-
-        - `ephemeral_5m_input_tokens: Integer`
-
-          The number of input tokens used to create the 5 minute cache entry.
-
-      - `cache_creation_input_tokens: Integer`
-
-        The number of input tokens used to create the cache entry.
-
-      - `cache_read_input_tokens: Integer`
-
-        The number of input tokens read from the cache.
-
-      - `fallback_credit: BetaFallbackCreditUsage`
-
-        Outcome of the `fallback_credit_token` presented on this request.
-
-        - `status: BetaFallbackCreditRedeemed | BetaFallbackCreditNotApplied`
-
-          Whether the fallback-credit reprice was applied to this response's billing.
-
-          A union discriminated on `type`. `redeemed`: the retry is billed as if
-          the conversation had been on the retry model all along — including when the
-          resulting shift is zero because there was nothing to move. `not_applied`:
-          no reprice was applied; the arm's `reason` says why.
-
-          - `class BetaFallbackCreditRedeemed`
-
-            The reprice was applied: the retry is billed as if the conversation
-            had been on the retry model all along.
-
-            - `type: :redeemed`
-
-              - `:redeemed`
-
-          - `class BetaFallbackCreditNotApplied`
-
-            No reprice was applied; `reason` says why.
-
-            - `reason: :body_mismatch | :continuation_excluded | :continuation_only | 9 more`
-
-              Why the reprice was not applied.
-
-              A closed enum; additions to the redemption-check vocabulary arrive as
-              deliberate schema updates.
-
-              - `:body_mismatch`
-
-              - `:continuation_excluded`
-
-              - `:continuation_only`
-
-              - `:expired`
-
-              - `:invalid_target_model`
-
-              - `:not_enabled`
-
-              - `:reprice_unavailable`
-
-              - `:temporarily_unavailable`
-
-              - `:variant_fields_present`
-
-              - `:wrong_organization`
-
-              - `:wrong_platform`
-
-              - `:wrong_workspace`
-
-            - `type: :not_applied`
-
-              - `:not_applied`
-
-            - `remove_to_redeem: Array[String]`
-
-              Request fields to remove before retrying, so the retry can redeem this
-              token.
-
-              Present exactly when `reason` is `variant_fields_present` — never null,
-              never an empty array; absent otherwise. Fields are named only from your own request, and only after
-              the sealed variant hash matched. A served best-effort retry has already
-              been billed at normal price; nothing redeems retroactively, but a corrected
-              re-send inside the token's five-minute window can still redeem.
-
-      - `inference_geo: String`
-
-        The geographic region where inference was performed for this request.
-
-      - `input_tokens: Integer`
-
-        The number of input tokens which were used.
-
-      - `iterations: BetaIterationsUsage`
-
-        Per-iteration token usage breakdown.
-
-        Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-        - Determine which iterations exceeded long context thresholds (>=200k tokens)
-        - Calculate the true context window size from the last iteration
-        - Understand token accumulation across server-side tool use loops
-
-        - `class BetaMessageIterationUsage`
-
-          Token usage for a sampling iteration.
-
-          - `cache_creation: BetaCacheCreation`
-
-            Breakdown of cached tokens by TTL
-
-          - `cache_creation_input_tokens: Integer`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: Integer`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: Integer`
-
-            The number of input tokens which were used.
-
-          - `model: Model`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `output_tokens: Integer`
-
-            The number of output tokens which were used.
-
-          - `type: :message`
-
-            Usage for a sampling iteration
-
-            - `:message`
-
-        - `class BetaCompactionIterationUsage`
-
-          Token usage for a compaction iteration.
-
-          - `cache_creation: BetaCacheCreation`
-
-            Breakdown of cached tokens by TTL
-
-          - `cache_creation_input_tokens: Integer`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: Integer`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: Integer`
-
-            The number of input tokens which were used.
-
-          - `output_tokens: Integer`
-
-            The number of output tokens which were used.
-
-          - `type: :compaction`
-
-            Usage for a compaction iteration
-
-            - `:compaction`
-
-        - `class BetaAdvisorMessageIterationUsage`
-
-          Token usage for an advisor sub-inference iteration.
-
-          - `cache_creation: BetaCacheCreation`
-
-            Breakdown of cached tokens by TTL
-
-          - `cache_creation_input_tokens: Integer`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: Integer`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: Integer`
-
-            The number of input tokens which were used.
-
-          - `model: Model`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `output_tokens: Integer`
-
-            The number of output tokens which were used.
-
-          - `type: :advisor_message`
-
-            Usage for an advisor sub-inference iteration
-
-            - `:advisor_message`
-
-        - `class BetaFallbackMessageIterationUsage`
-
-          Token usage for the fallback-model attempt of a server-side fallback request.
-
-          Produced in place of a `message` entry for whichever hop served the
-          response. A declined hop produces the existing `message` entry. Whether
-          a fallback model served the response is signalled by the presence of this
-          entry in `usage.iterations`.
-
-          - `cache_creation: BetaCacheCreation`
-
-            Breakdown of cached tokens by TTL
-
-          - `cache_creation_input_tokens: Integer`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: Integer`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: Integer`
-
-            The number of input tokens which were used.
-
-          - `model: Model`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `output_tokens: Integer`
-
-            The number of output tokens which were used.
-
-          - `type: :fallback_message`
-
-            Usage for the fallback-model attempt that served the response
-
-            - `:fallback_message`
-
-      - `output_tokens: Integer`
-
-        The number of output tokens which were used.
-
-      - `output_tokens_details: BetaOutputTokensDetails`
-
-        Breakdown of output tokens by category.
-
-        `output_tokens` remains the inclusive, authoritative total used for billing.
-        This object provides a read-only decomposition for observability — for example,
-        how many of the billed output tokens were spent on internal reasoning that may
-        have been summarized before being returned to you.
-
-        - `thinking_tokens: Integer`
-
-          Number of output tokens the model generated as internal reasoning, including
-          the thinking-block delimiter tokens.
-
-          Reflects the raw reasoning the model produced, not the (possibly shorter)
-          summarized thinking text returned in the response body. Computed by
-          re-tokenizing the raw reasoning text, so it may differ from the model's exact
-          generation count by a small number of tokens. Always ≤ `output_tokens`;
-          `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-      - `server_tool_use: BetaServerToolUsage`
-
-        The number of server tool requests.
-
-        - `web_fetch_requests: Integer`
-
-          The number of web fetch tool requests.
-
-        - `web_search_requests: Integer`
-
-          The number of web search tool requests.
-
-      - `service_tier: :standard | :priority | :batch`
-
-        If the request used the priority, standard, or batch tier.
-
-        - `:standard`
-
-        - `:priority`
-
-        - `:batch`
-
-      - `speed: :standard | :fast`
-
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-        - `:standard`
-
-        - `:fast`
-
-  - `type: :succeeded`
-
-    - `:succeeded`

@@ -1,17 +1,12 @@
----
-title: Archive Session Thread
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/threads/archive
----
-
-## Archive Session Thread
+# Archive Session Thread
 
 `$client->beta->sessions->threads->archive(string threadID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsSessionThread`
 
-**post** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
+**POST** `/v1/sessions/{session_id}/threads/{thread_id}/archive`
 
 Archive Session Thread
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -21,7 +16,7 @@ Archive Session Thread
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsSessionThread`
 
@@ -67,7 +62,7 @@ Archive Session Thread
 
     Cumulative token usage for a session thread across all turns.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -85,7 +80,7 @@ $betaManagedAgentsSessionThread = $client->beta->sessions->threads->archive(
 var_dump($betaManagedAgentsSessionThread);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Archive Vault
-url: https://platform.claude.com/docs/en/api/cli/beta/vaults/archive
----
-
-## Archive Vault
+# Archive Vault
 
 `$ ant beta:vaults archive`
 
-**post** `/v1/vaults/{vault_id}/archive`
+**POST** `/v1/vaults/{vault_id}/archive`
 
 Archive Vault
 
-### Parameters
+## Parameters
 
 - `--vault-id: string`
 
@@ -21,9 +16,9 @@ Archive Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_vault: object { id, archived_at, created_at, 4 more }`
+- `beta_managed_agents_vault: object`
 
   A vault that stores credentials for use by agents during sessions.
 
@@ -35,9 +30,13 @@ Archive Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -49,21 +48,21 @@ Archive Vault
 
   - `type: "vault"`
 
-    - `"vault"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
 
-```cli
+## Example
+
+```bash
 ant beta:vaults archive \
   --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: List Skills
-url: https://platform.claude.com/docs/en/api/java/beta/skills/list
----
+# List Skills
 
-## List Skills
+`SkillListPage beta().skills().list(params = SkillListParams.none(), requestOptions = RequestOptions.none())`
 
-`SkillListPage beta().skills().list(SkillListParamsparams = SkillListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
-### Parameters
+## Parameters
 
 - `SkillListParams params`
 
@@ -108,7 +103,7 @@ List Skills
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class SkillListResponse:`
 
@@ -153,7 +148,7 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -174,7 +169,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

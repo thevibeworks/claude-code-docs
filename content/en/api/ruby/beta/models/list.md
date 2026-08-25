@@ -1,19 +1,14 @@
----
-title: List Models
-url: https://platform.claude.com/docs/en/api/ruby/beta/models/list
----
-
-## List Models
+# List Models
 
 `beta.models.list(**kwargs) -> Page<BetaModelInfo>`
 
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
 The Models API response can be used to determine which models are available for use in the API. More recently released models are listed first.
 
-### Parameters
+## Parameters
 
 - `after_id: String`
 
@@ -28,6 +23,8 @@ The Models API response can be used to determine which models are available for 
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  maximum: 1000, minimum: 1
 
 - `betas: Array[AnthropicBeta]`
 
@@ -105,7 +102,7 @@ The Models API response can be used to determine which models are available for 
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaModelInfo`
 
@@ -221,6 +218,8 @@ The Models API response can be used to determine which models are available for 
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `display_name: String`
 
     A human-readable name for the model.
@@ -239,9 +238,7 @@ The Models API response can be used to determine which models are available for 
 
     For Models, this is always `"model"`.
 
-    - `:model`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -253,7 +250,7 @@ page = anthropic.beta.models.list
 puts(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

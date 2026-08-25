@@ -1,37 +1,34 @@
----
-title: List Models
-url: https://platform.claude.com/docs/en/api/go/beta/models/list
----
-
-## List Models
+# List Models
 
 `client.Beta.Models.List(ctx, params) (*Page[BetaModelInfo], error)`
 
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
 The Models API response can be used to determine which models are available for use in the API. More recently released models are listed first.
 
-### Parameters
+## Parameters
 
 - `params BetaModelListParams`
 
-  - `AfterID param.Field[string]`
+  - `AfterID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
-  - `BeforeID param.Field[string]`
+  - `BeforeID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    maximum: 1000, minimum: 1
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -107,7 +104,7 @@ The Models API response can be used to determine which models are available for 
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaModelInfo struct{…}`
 
@@ -223,6 +220,8 @@ The Models API response can be used to determine which models are available for 
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
@@ -241,9 +240,9 @@ The Models API response can be used to determine which models are available for 
 
     For Models, this is always `"model"`.
 
-    - `const ModelModel Model = "model"`
+    default: model
 
-### Example
+## Example
 
 ```go
 package main
@@ -268,7 +267,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

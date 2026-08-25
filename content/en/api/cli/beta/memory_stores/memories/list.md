@@ -1,17 +1,12 @@
----
-title: List memories
-url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/memories/list
----
-
-## List memories
+# List memories
 
 `$ ant beta:memory-stores:memories list`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
-### Parameters
+## Parameters
 
 - `--memory-store-id: string`
 
@@ -21,9 +16,13 @@ List memories
 
   Query param: `0` (or omitted) returns all descendants below `path_prefix` (recursive). `1` returns immediate children only; deeper entries roll up as `memory_prefix` items. `depth=1` behaves like `ls`; omitting `depth` behaves like `find`.
 
+  format: int32
+
 - `--limit: optional number`
 
   Query param: Maximum number of items to return per page. Must be between 1 and 100. Defaults to 20 when omitted. Capped at 20 when `view=full`. Both `memory` and `memory_prefix` items count toward the limit.
+
+  format: int32
 
 - `--page: optional string`
 
@@ -41,9 +40,9 @@ List memories
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaManagedAgentsListMemoriesResult: object { data, next_page }`
+- `BetaManagedAgentsListMemoriesResult: object`
 
   Response payload for [List memories](/docs/en/api/beta/memory_stores/memories/list).
 
@@ -51,7 +50,7 @@ List memories
 
     One page of results. Each item is either a `memory` object or, when `depth` was set, a `memory_prefix` rollup marker. Items are returned in a stable, server-defined order.
 
-    - `beta_managed_agents_memory: object { id, content_sha256, content_size_bytes, 7 more }`
+    - `beta_managed_agents_memory: object`
 
       A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -67,9 +66,13 @@ List memories
 
         Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+        format: int32
+
       - `created_at: string`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `memory_store_id: string`
 
@@ -85,17 +88,17 @@ List memories
 
       - `type: "memory"`
 
-        - `"memory"`
-
       - `updated_at: string`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `content: optional string`
 
         The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-    - `beta_managed_agents_memory_prefix: object { path, type }`
+    - `beta_managed_agents_memory_prefix: object`
 
       A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
@@ -105,21 +108,19 @@ List memories
 
       - `type: "memory_prefix"`
 
-        - `"memory_prefix"`
-
   - `next_page: optional string`
 
     Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:memory-stores:memories list \
   --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

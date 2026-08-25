@@ -1,17 +1,12 @@
----
-title: Validate Credential
-url: https://platform.claude.com/docs/en/api/java/beta/vaults/credentials/mcp_oauth_validate
----
+# Validate Credential
 
-## Validate Credential
+`BetaManagedAgentsCredentialValidation beta().vaults().credentials().mcpOAuthValidate(params, requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsCredentialValidation beta().vaults().credentials().mcpOAuthValidate(CredentialMcpOAuthValidateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
 Validate Credential
 
-### Parameters
+## Parameters
 
 - `CredentialMcpOAuthValidateParams params`
 
@@ -91,7 +86,7 @@ Validate Credential
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsCredentialValidation:`
 
@@ -129,6 +124,8 @@ Validate Credential
 
         HTTP status code.
 
+        format: int32
+
     - `String method`
 
       The MCP method that failed (for example `initialize` or `tools/list`).
@@ -165,17 +162,17 @@ Validate Credential
 
   - `Type type`
 
-    - `VAULT_CREDENTIAL_VALIDATION("vault_credential_validation")`
-
   - `LocalDateTime validatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String vaultId`
 
     Identifier of the vault containing the credential.
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -200,7 +197,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

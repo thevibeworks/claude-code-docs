@@ -1,25 +1,24 @@
----
-title: List memory stores
-url: https://platform.claude.com/docs/en/api/ruby/beta/memory_stores/list
----
-
-## List memory stores
+# List memory stores
 
 `beta.memory_stores.list(**kwargs) -> PageCursor<BetaManagedAgentsMemoryStore>`
 
-**get** `/v1/memory_stores`
+**GET** `/v1/memory_stores`
 
 List memory stores
 
-### Parameters
+## Parameters
 
 - `created_at_gte: Time`
 
   Return only stores whose `created_at` is at or after this time (inclusive). Sent on the wire as `created_at[gte]`.
 
+  format: date-time
+
 - `created_at_lte: Time`
 
   Return only stores whose `created_at` is at or before this time (inclusive). Sent on the wire as `created_at[lte]`.
+
+  format: date-time
 
 - `include_archived: bool`
 
@@ -28,6 +27,8 @@ List memory stores
 - `limit: Integer`
 
   Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
+
+  format: int32
 
 - `page: String`
 
@@ -109,7 +110,7 @@ List memory stores
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemoryStore`
 
@@ -123,21 +124,25 @@ List memory stores
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: String`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: :memory_store`
 
-    - `:memory_store`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: String`
 
@@ -147,7 +152,7 @@ List memory stores
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -159,7 +164,7 @@ page = anthropic.beta.memory_stores.list
 puts(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

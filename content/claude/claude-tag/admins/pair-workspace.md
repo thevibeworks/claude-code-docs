@@ -61,7 +61,7 @@ Please install the Claude app (https://claude.com/claude-for-slack) in [workspac
 
 ### If `@Claude` doesn't respond at all
 
-On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. Don't uninstall the app. Have a Slack Org Owner or Org Admin, while signed in to one of the workspaces (not the org-level admin page), open [claude.com/claude-for-slack](https://claude.com/claude-for-slack), select **Add to Slack**, and choose **Install to entire organization**. This refreshes the connection in place. Then send `@Claude connect` again in a channel of that workspace.
+On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. See [Claude is silent everywhere on Enterprise Grid](/docs/claude-tag/admins/troubleshooting#claude-is-silent-everywhere-on-enterprise-grid) for the reinstall that refreshes it without uninstalling, then send `@Claude connect` again in a channel of that workspace.
 
 ### If `@Claude connect` says the installation is out of date
 

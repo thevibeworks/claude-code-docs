@@ -7,7 +7,7 @@
 > Accept identity assertions from enterprise SSO so users connect to your MCP server without a separate OAuth consent step.
 
 <Note>
-  Enterprise Managed Auth is in beta and is available on Claude Team and Enterprise plans. Organizations can [join the waitlist](https://claude.com/form/ema-waitlist) to request access. MCP server developers and identity provider vendors can [register interest](https://docs.google.com/forms/d/e/1FAIpQLSf1goHGNDVFK7rncYuh6wnRpWSy7eGOcgL1i8uw3oyKFO9UUA/viewform) in supporting this flow.
+  Enterprise Managed Auth is available on Claude Team and Enterprise plans. MCP server developers and identity provider vendors can [register interest](https://docs.google.com/forms/d/e/1FAIpQLSf1goHGNDVFK7rncYuh6wnRpWSy7eGOcgL1i8uw3oyKFO9UUA/viewform) in supporting this flow.
 </Note>
 
 Enterprise Managed Auth (EMA) lets a user connect to your MCP server silently, using the single sign-on session they already have with their organization. Instead of showing each user an OAuth consent screen, Claude presents your authorization server with an **identity assertion**: a signed JSON Web Token (JWT), issued by the customer's identity provider, that vouches for the user's identity.
@@ -147,13 +147,17 @@ If your identity provider is Okta, refer to Okta's [Cross App Access participati
 * Bring your own OIDC or SAML identity provider in place of the sandbox one
 * Re-run a single failed step and inspect service configurations, discovery documents, and a live event log
 
-<Note>
-  Enterprise Managed Auth is in beta. [Register interest](https://docs.google.com/forms/d/e/1FAIpQLSf1goHGNDVFK7rncYuh6wnRpWSy7eGOcgL1i8uw3oyKFO9UUA/viewform) to get onboarded for testing.
-</Note>
+## Admin settings in your product
+
+In your product's admin settings, give each customer's administrator a control that turns Enterprise Managed Auth on or off for their organization and a field for their identity provider's issuer URL. When the administrator saves, add that URL to the organization's allowlist of trusted issuers, as described in [Authorization server requirements](#authorization-server-requirements).
 
 ## Provide setup documentation
 
 You can publish documentation that walks an enterprise administrator through enabling Enterprise Managed Auth for your product and add its URL to [your directory listing](./managing-your-listing). Claude shows the link in the Claude admin console when an administrator sets up Enterprise Managed Auth for your connector.
+
+## Okta Integration Network apps
+
+If your product has an app in the Okta Integration Network, work with Okta to enable Cross App Access (XAA) for that app. Until that app supports Cross App Access, customers who use Okta need to create a custom app in Okta for your product before they can set up Enterprise Managed Auth.
 
 ## Related resources
 

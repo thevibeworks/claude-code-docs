@@ -1,11 +1,6 @@
----
-title: Remove Federation Rule Workspace
-url: https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces/delete
----
+# Remove Federation Rule Workspace
 
-## Remove Federation Rule Workspace
-
-**delete** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces/{workspace_id}`
+**DELETE** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces/{workspace_id}`
 
 Disable a federation rule for a workspace.
 
@@ -14,7 +9,7 @@ callers may only manage rules whose `oauth_scope` is
 `workspace:developer` or `workspace:inference`; other scopes require a
 Console session. Admin API keys are not accepted.
 
-### Path Parameters
+## Path parameters
 
 - `federation_rule_id: string`
 
@@ -24,7 +19,7 @@ Console session. Admin API keys are not accepted.
 
   ID of the workspace to disable for.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -32,7 +27,7 @@ Console session. Admin API keys are not accepted.
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
 - `federation_rule_id: string`
 
@@ -40,22 +35,22 @@ Console session. Admin API keys are not accepted.
 
 - `type: "federation_rule_workspace_deleted"`
 
-  - `"federation_rule_workspace_deleted"`
+  default: federation_rule_workspace_deleted
 
 - `workspace_id: string`
 
   Tagged ID of the workspace named in the delete request. Removal is idempotent.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RULE_ID/workspaces/$WORKSPACE_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

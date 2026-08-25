@@ -1,25 +1,20 @@
----
-title: Retrieve a Message Batch
-url: https://platform.claude.com/docs/en/api/typescript/messages/batches/retrieve
----
+# Retrieve a Message Batch
 
-## Retrieve a Message Batch
+`client.messages.batches.retrieve(messageBatchID, options?): MessageBatch`
 
-`client.messages.batches.retrieve(stringmessageBatchID, RequestOptionsoptions?): MessageBatch`
-
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `messageBatchID: string`
 
   ID of the Message Batch.
 
-### Returns
+## Returns
 
 - `MessageBatch`
 
@@ -33,13 +28,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -47,9 +48,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -73,11 +78,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -85,15 +94,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -107,9 +122,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -123,7 +138,7 @@ const messageBatch = await client.messages.batches.retrieve("message_batch_id");
 console.log(messageBatch.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

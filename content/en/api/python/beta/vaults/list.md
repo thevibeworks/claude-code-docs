@@ -1,17 +1,12 @@
----
-title: List Vaults
-url: https://platform.claude.com/docs/en/api/python/beta/vaults/list
----
+# List Vaults
 
-## List Vaults
+`beta.vaults.list(**kwargs)  -> SyncPageCursor[BetaManagedAgentsVault]`
 
-`beta.vaults.list(VaultListParams**kwargs)  -> SyncPageCursor[BetaManagedAgentsVault]`
-
-**get** `/v1/vaults`
+**GET** `/v1/vaults`
 
 List Vaults
 
-### Parameters
+## Parameters
 
 - `include_archived: Optional[bool]`
 
@@ -20,6 +15,8 @@ List Vaults
 - `limit: Optional[int]`
 
   Maximum number of vaults to return per page. Defaults to 20, maximum 100.
+
+  format: int32
 
 - `page: Optional[str]`
 
@@ -101,7 +98,7 @@ List Vaults
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsVault: …`
 
@@ -115,9 +112,13 @@ List Vaults
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: str`
 
@@ -129,13 +130,13 @@ List Vaults
 
   - `type: Literal["vault"]`
 
-    - `"vault"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```python
 import os
@@ -151,7 +152,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

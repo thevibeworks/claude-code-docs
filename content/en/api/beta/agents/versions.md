@@ -1,31 +1,28 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/beta/agents/versions
----
-
 # Versions
 
 ## List Agent Versions
 
-**get** `/v1/agents/{agent_id}/versions`
+**GET** `/v1/agents/{agent_id}/versions`
 
 List Agent Versions
 
-### Path Parameters
+### Path parameters
 
 - `agent_id: string`
 
-### Query Parameters
+### Query parameters
 
 - `limit: optional number`
 
   Maximum results per page. Default 20, maximum 100.
 
+  format: int32
+
 - `page: optional string`
 
   Opaque pagination cursor.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -115,9 +112,13 @@ List Agent Versions
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: string or null`
 
@@ -126,8 +127,6 @@ List Agent Versions
     - `name: string`
 
     - `type: "url"`
-
-      - `"url"`
 
     - `url: string`
 
@@ -207,45 +206,35 @@ List Agent Versions
 
       How hard Claude works on each turn. Sets `output_config.effort` on every Messages call the session makes.
 
-      - `BetaManagedAgentsEffortLow object { type }`
+      - `BetaManagedAgentsEffortLow object`
 
         Low effort. Favors latency over reasoning depth.
 
         - `type: "low"`
 
-          - `"low"`
-
-      - `BetaManagedAgentsEffortMedium object { type }`
+      - `BetaManagedAgentsEffortMedium object`
 
         Medium effort. Balances latency and reasoning depth.
 
         - `type: "medium"`
 
-          - `"medium"`
-
-      - `BetaManagedAgentsEffortHigh object { type }`
+      - `BetaManagedAgentsEffortHigh object`
 
         High effort. Favors reasoning depth.
 
         - `type: "high"`
 
-          - `"high"`
-
-      - `BetaManagedAgentsEffortXhigh object { type }`
+      - `BetaManagedAgentsEffortXhigh object`
 
         Extra-high effort. Not all models accept this level.
 
         - `type: "xhigh"`
 
-          - `"xhigh"`
-
-      - `BetaManagedAgentsEffortMax object { type }`
+      - `BetaManagedAgentsEffortMax object`
 
         Maximum effort. Favors reasoning depth over latency.
 
         - `type: "max"`
-
-          - `"max"`
 
     - `inference_geo: optional string`
 
@@ -267,7 +256,7 @@ List Agent Versions
 
       Agents the coordinator may spawn as session threads, each resolved to a specific version.
 
-      - `BetaManagedAgentsAgentReference object { id, type, version }`
+      - `BetaManagedAgentsAgentReference object`
 
         A resolved agent reference with a concrete version.
 
@@ -275,11 +264,11 @@ List Agent Versions
 
         - `type: "agent"`
 
-          - `"agent"`
-
         - `version: number`
 
-      - `BetaManagedAgentsAdvisor object { model, type }`
+          format: int32
+
+      - `BetaManagedAgentsAdvisor object`
 
         Platform advisor roster entry: a model the session's primary thread may consult mid-turn.
 
@@ -289,17 +278,13 @@ List Agent Versions
 
         - `type: "advisor"`
 
-          - `"advisor"`
-
     - `type: "coordinator"`
-
-      - `"coordinator"`
 
   - `name: string`
 
   - `skills: array of BetaManagedAgentsAnthropicSkill or BetaManagedAgentsCustomSkill`
 
-    - `BetaManagedAgentsAnthropicSkill object { skill_id, type, version }`
+    - `BetaManagedAgentsAnthropicSkill object`
 
       A resolved Anthropic-managed skill.
 
@@ -307,11 +292,9 @@ List Agent Versions
 
       - `type: "anthropic"`
 
-        - `"anthropic"`
-
       - `version: string`
 
-    - `BetaManagedAgentsCustomSkill object { skill_id, type, version }`
+    - `BetaManagedAgentsCustomSkill object`
 
       A resolved user-created custom skill.
 
@@ -319,19 +302,17 @@ List Agent Versions
 
       - `type: "custom"`
 
-        - `"custom"`
-
       - `version: string`
 
   - `system: string or null`
 
   - `tools: array of BetaManagedAgentsAgentToolset20260401 or BetaManagedAgentsMCPToolset or BetaManagedAgentsCustomTool`
 
-    - `BetaManagedAgentsAgentToolset20260401 object { configs, default_config, type }`
+    - `BetaManagedAgentsAgentToolset20260401 object`
 
       - `configs: array of BetaManagedAgentsAgentToolConfig`
 
-        - `BetaManagedAgentsBashToolConfig object { enabled, name, permission_policy, type }`
+        - `BetaManagedAgentsBashToolConfig object`
 
           Configuration for the bash tool.
 
@@ -339,33 +320,25 @@ List Agent Versions
 
           - `name: "bash"`
 
-            - `"bash"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
               - `type: "always_allow"`
 
-                - `"always_allow"`
-
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
               - `type: "always_ask"`
 
-                - `"always_ask"`
-
           - `type: "bash"`
 
-            - `"bash"`
-
-        - `BetaManagedAgentsEditToolConfig object { enabled, name, permission_policy, type }`
+        - `BetaManagedAgentsEditToolConfig object`
 
           Configuration for the edit tool.
 
@@ -373,25 +346,21 @@ List Agent Versions
 
           - `name: "edit"`
 
-            - `"edit"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
           - `type: "edit"`
 
-            - `"edit"`
-
-        - `BetaManagedAgentsReadToolConfig object { enabled, name, permission_policy, type }`
+        - `BetaManagedAgentsReadToolConfig object`
 
           Configuration for the read tool.
 
@@ -399,25 +368,21 @@ List Agent Versions
 
           - `name: "read"`
 
-            - `"read"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
           - `type: "read"`
 
-            - `"read"`
-
-        - `BetaManagedAgentsWriteToolConfig object { enabled, name, permission_policy, type }`
+        - `BetaManagedAgentsWriteToolConfig object`
 
           Configuration for the write tool.
 
@@ -425,25 +390,21 @@ List Agent Versions
 
           - `name: "write"`
 
-            - `"write"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
           - `type: "write"`
 
-            - `"write"`
-
-        - `BetaManagedAgentsGlobToolConfig object { enabled, name, permission_policy, type }`
+        - `BetaManagedAgentsGlobToolConfig object`
 
           Configuration for the glob tool.
 
@@ -451,25 +412,21 @@ List Agent Versions
 
           - `name: "glob"`
 
-            - `"glob"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
           - `type: "glob"`
 
-            - `"glob"`
-
-        - `BetaManagedAgentsGrepToolConfig object { enabled, name, permission_policy, type }`
+        - `BetaManagedAgentsGrepToolConfig object`
 
           Configuration for the grep tool.
 
@@ -477,25 +434,21 @@ List Agent Versions
 
           - `name: "grep"`
 
-            - `"grep"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
           - `type: "grep"`
 
-            - `"grep"`
-
-        - `BetaManagedAgentsWebFetchToolConfig object { enabled, name, permission_policy, 4 more }`
+        - `BetaManagedAgentsWebFetchToolConfig object`
 
           Configuration for the web_fetch tool.
 
@@ -503,23 +456,19 @@ List Agent Versions
 
           - `name: "web_fetch"`
 
-            - `"web_fetch"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
           - `type: "web_fetch"`
-
-            - `"web_fetch"`
 
           - `allowed_domains: optional array of string`
 
@@ -527,7 +476,9 @@ List Agent Versions
 
           - `max_content_tokens: optional number or null`
 
-        - `BetaManagedAgentsWebSearchToolConfig object { enabled, name, permission_policy, 4 more }`
+            format: int32
+
+        - `BetaManagedAgentsWebSearchToolConfig object`
 
           Configuration for the web_search tool.
 
@@ -535,23 +486,19 @@ List Agent Versions
 
           - `name: "web_search"`
 
-            - `"web_search"`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy or BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
 
-            - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAllowPolicy object`
 
               Tool calls are automatically approved without user confirmation.
 
-            - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+            - `BetaManagedAgentsAlwaysAskPolicy object`
 
               Tool calls require user confirmation before execution.
 
           - `type: "web_search"`
-
-            - `"web_search"`
 
           - `allowed_domains: optional array of string`
 
@@ -565,11 +512,11 @@ List Agent Versions
 
               Location precision. Only "approximate" is supported.
 
-              - `"approximate"`
-
             - `city: optional string or null`
 
               City name.
+
+              minLength: 1, maxLength: 255
 
             - `country: optional string or null`
 
@@ -579,9 +526,13 @@ List Agent Versions
 
               Region or state name.
 
+              minLength: 1, maxLength: 255
+
             - `timezone: optional string or null`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -593,19 +544,17 @@ List Agent Versions
 
           Permission policy for tool execution.
 
-          - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+          - `BetaManagedAgentsAlwaysAllowPolicy object`
 
             Tool calls are automatically approved without user confirmation.
 
-          - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+          - `BetaManagedAgentsAlwaysAskPolicy object`
 
             Tool calls require user confirmation before execution.
 
       - `type: "agent_toolset_20260401"`
 
-        - `"agent_toolset_20260401"`
-
-    - `BetaManagedAgentsMCPToolset object { configs, default_config, mcp_server_name, type }`
+    - `BetaManagedAgentsMCPToolset object`
 
       - `configs: array of BetaManagedAgentsMCPToolConfig`
 
@@ -617,11 +566,11 @@ List Agent Versions
 
           Permission policy for tool execution.
 
-          - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+          - `BetaManagedAgentsAlwaysAllowPolicy object`
 
             Tool calls are automatically approved without user confirmation.
 
-          - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+          - `BetaManagedAgentsAlwaysAskPolicy object`
 
             Tool calls require user confirmation before execution.
 
@@ -635,11 +584,11 @@ List Agent Versions
 
           Permission policy for tool execution.
 
-          - `BetaManagedAgentsAlwaysAllowPolicy object { type }`
+          - `BetaManagedAgentsAlwaysAllowPolicy object`
 
             Tool calls are automatically approved without user confirmation.
 
-          - `BetaManagedAgentsAlwaysAskPolicy object { type }`
+          - `BetaManagedAgentsAlwaysAskPolicy object`
 
             Tool calls require user confirmation before execution.
 
@@ -647,9 +596,7 @@ List Agent Versions
 
       - `type: "mcp_toolset"`
 
-        - `"mcp_toolset"`
-
-    - `BetaManagedAgentsCustomTool object { description, input_schema, name, type }`
+    - `BetaManagedAgentsCustomTool object`
 
       A custom tool as returned in API responses.
 
@@ -661,8 +608,6 @@ List Agent Versions
 
         - `type: "object"`
 
-          - `"object"`
-
         - `properties: optional map[unknown] or null`
 
         - `required: optional array of string or null`
@@ -671,19 +616,19 @@ List Agent Versions
 
       - `type: "custom"`
 
-        - `"custom"`
-
   - `type: "agent"`
-
-    - `"agent"`
 
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `version: number`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
+
+    format: int32
 
 - `next_page: optional string or null`
 
@@ -691,14 +636,14 @@ List Agent Versions
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/agents/$AGENT_ID/versions \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {

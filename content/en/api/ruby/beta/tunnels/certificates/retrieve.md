@@ -1,19 +1,14 @@
----
-title: Get Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels/certificates/retrieve
----
-
-## Get Tunnel Certificate
+# Get Tunnel Certificate
 
 `beta.tunnels.certificates.retrieve(certificate_id, **kwargs) -> BetaTunnelCertificate`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel certificate by ID.
 
-### Parameters
+## Parameters
 
 - `tunnel_id: String`
 
@@ -95,7 +90,7 @@ Fetches a tunnel certificate by ID.
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaTunnelCertificate`
 
@@ -109,13 +104,19 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: String`
 
@@ -127,9 +128,7 @@ Fetches a tunnel certificate by ID.
 
   - `type: :tunnel_certificate`
 
-    - `:tunnel_certificate`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -141,7 +140,7 @@ beta_tunnel_certificate = anthropic.beta.tunnels.certificates.retrieve("certific
 puts(beta_tunnel_certificate)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

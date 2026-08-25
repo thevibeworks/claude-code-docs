@@ -1,41 +1,42 @@
----
-title: List memory stores
-url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/list
----
-
-## List memory stores
+# List memory stores
 
 `client.Beta.MemoryStores.List(ctx, params) (*PageCursor[BetaManagedAgentsMemoryStore], error)`
 
-**get** `/v1/memory_stores`
+**GET** `/v1/memory_stores`
 
 List memory stores
 
-### Parameters
+## Parameters
 
 - `params BetaMemoryStoreListParams`
 
-  - `CreatedAtGte param.Field[Time]`
+  - `CreatedAtGte param.Field[Time] Optional`
 
     Query param: Return only stores whose `created_at` is at or after this time (inclusive). Sent on the wire as `created_at[gte]`.
 
-  - `CreatedAtLte param.Field[Time]`
+    format: date-time
+
+  - `CreatedAtLte param.Field[Time] Optional`
 
     Query param: Return only stores whose `created_at` is at or before this time (inclusive). Sent on the wire as `created_at[lte]`.
 
-  - `IncludeArchived param.Field[bool]`
+    format: date-time
+
+  - `IncludeArchived param.Field[bool] Optional`
 
     Query param: When `true`, archived stores are included in the results. Defaults to `false` (archived stores are excluded).
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of stores to return per page. Must be between 1 and 100. Defaults to 20 when omitted.
 
-  - `Page param.Field[string]`
+    format: int32
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque pagination cursor (a `page_...` value). Pass the `next_page` value from a previous response to fetch the next page; omit for the first page.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -111,7 +112,7 @@ List memory stores
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsMemoryStore struct{…}`
 
@@ -125,31 +126,35 @@ List memory stores
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Name string`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `Type BetaManagedAgentsMemoryStoreType`
 
-    - `const BetaManagedAgentsMemoryStoreTypeMemoryStore BetaManagedAgentsMemoryStoreType = "memory_store"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-  - `ArchivedAt Time`
+    format: date-time
+
+  - `ArchivedAt Time Optional`
 
     A timestamp in RFC 3339 format
 
-  - `Description string`
+    format: date-time
+
+  - `Description string Optional`
 
     Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
 
-  - `Metadata map[string, string]`
+  - `Metadata map[string, string] Optional`
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```go
 package main
@@ -174,7 +179,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

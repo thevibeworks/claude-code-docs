@@ -1,17 +1,12 @@
----
-title: Delete Session Resource
-url: https://platform.claude.com/docs/en/api/cli/beta/sessions/resources/delete
----
-
-## Delete Session Resource
+# Delete Session Resource
 
 `$ ant beta:sessions:resources delete`
 
-**delete** `/v1/sessions/{session_id}/resources/{resource_id}`
+**DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Delete Session Resource
 
-### Parameters
+## Parameters
 
 - `--session-id: string`
 
@@ -25,9 +20,9 @@ Delete Session Resource
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_delete_session_resource: object { id, type }`
+- `beta_managed_agents_delete_session_resource: object`
 
   Confirmation of resource deletion.
 
@@ -35,18 +30,16 @@ Delete Session Resource
 
   - `type: "session_resource_deleted"`
 
-    - `"session_resource_deleted"`
+## Example
 
-### Example
-
-```cli
+```bash
 ant beta:sessions:resources delete \
   --api-key my-anthropic-api-key \
   --session-id sesn_011CZkZAtmR3yMPDzynEDxu7 \
   --resource-id sesrsc_011CZkZBJq5dWxk9fVLNcPht
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

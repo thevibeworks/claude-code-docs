@@ -1,19 +1,14 @@
----
-title: Archive Tunnel
-url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/archive
----
-
-## Archive Tunnel
+# Archive Tunnel
 
 `$ ant beta:tunnels archive`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel. Archival is irreversible: every non-archived certificate on the tunnel is archived in the same operation, the hostname is retired and never re-allocated, and the tunnel token is invalidated. Retrying against an already-archived tunnel returns the existing record unchanged.
 
-### Parameters
+## Parameters
 
 - `--tunnel-id: string`
 
@@ -23,9 +18,9 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_tunnel: object { id, archived_at, created_at, 3 more }`
+- `beta_tunnel: object`
 
   An MCP tunnel.
 
@@ -37,9 +32,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: string`
 
@@ -51,15 +50,15 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
   - `type: "tunnel"`
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:tunnels archive \
   --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

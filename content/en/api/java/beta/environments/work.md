@@ -1,15 +1,10 @@
----
-title: Work
-url: https://platform.claude.com/docs/en/api/java/beta/environments/work
----
-
 # Work
 
 ## Get Work Item
 
-`BetaSelfHostedWork beta().environments().work().retrieve(WorkRetrieveParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaSelfHostedWork beta().environments().work().retrieve(params, requestOptions = RequestOptions.none())`
 
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -125,11 +120,9 @@ Retrieve detailed information about a specific work item.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -173,11 +166,9 @@ Retrieve detailed information about a specific work item.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
-
-    - `WORK("work")`
 
 ### Example
 
@@ -204,7 +195,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -231,9 +222,9 @@ public final class Main {
 
 ## Poll for Work
 
-`BetaSelfHostedWork beta().environments().work().poll(WorkPollParamsparams = WorkPollParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaSelfHostedWork beta().environments().work().poll(params = WorkPollParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -249,9 +240,13 @@ Long poll for work items in the queue.
 
     How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+    minimum: 1
+
   - `Optional<Long> reclaimOlderThanMs`
 
     Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+    minimum: 1
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -359,11 +354,9 @@ Long poll for work items in the queue.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -407,11 +400,9 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
-
-    - `WORK("work")`
 
 ### Example
 
@@ -435,7 +426,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -462,9 +453,9 @@ public final class Main {
 
 ## Acknowledge Work
 
-`BetaSelfHostedWork beta().environments().work().ack(WorkAckParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaSelfHostedWork beta().environments().work().ack(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/ack`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/ack`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -580,11 +571,9 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -628,11 +617,9 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
-
-    - `WORK("work")`
 
 ### Example
 
@@ -659,7 +646,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -686,9 +673,9 @@ public final class Main {
 
 ## Record Heartbeat
 
-`BetaSelfHostedWorkHeartbeatResponse beta().environments().work().heartbeat(WorkHeartbeatParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaSelfHostedWorkHeartbeatResponse beta().environments().work().heartbeat(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/heartbeat`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -814,11 +801,9 @@ Record a heartbeat for a work item to maintain the lease.
 
     Effective TTL applied to the lease
 
-  - `JsonValue; type "work_heartbeat"constant`
+  - `JsonValue type constant`
 
     The type of response
-
-    - `WORK_HEARTBEAT("work_heartbeat")`
 
 ### Example
 
@@ -845,7 +830,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -859,9 +844,9 @@ public final class Main {
 
 ## Stop Work
 
-`BetaSelfHostedWork beta().environments().work().stop(WorkStopParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaSelfHostedWork beta().environments().work().stop(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -981,11 +966,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -1029,11 +1012,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
-
-    - `WORK("work")`
 
 ### Example
 
@@ -1062,7 +1043,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1089,9 +1070,9 @@ public final class Main {
 
 ## List Work Items
 
-`WorkListPage beta().environments().work().list(WorkListParamsparams = WorkListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`WorkListPage beta().environments().work().list(params = WorkListParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/environments/{environment_id}/work`
+**GET** `/v1/environments/{environment_id}/work`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -1106,6 +1087,8 @@ List work items in an environment.
   - `Optional<Long> limit`
 
     Maximum number of work items to return
+
+    maximum: 1000, minimum: 1
 
   - `Optional<String> page`
 
@@ -1213,11 +1196,9 @@ List work items in an environment.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -1261,11 +1242,9 @@ List work items in an environment.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
-
-    - `WORK("work")`
 
 ### Example
 
@@ -1288,7 +1267,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1320,9 +1299,9 @@ public final class Main {
 
 ## Update Work Item
 
-`BetaSelfHostedWork beta().environments().work().update(WorkUpdateParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaSelfHostedWork beta().environments().work().update(params, requestOptions = RequestOptions.none())`
 
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
@@ -1442,11 +1421,9 @@ Update work item metadata with merge semantics.
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -1490,11 +1467,9 @@ Update work item metadata with merge semantics.
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
-
-    - `WORK("work")`
 
 ### Example
 
@@ -1528,7 +1503,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1555,9 +1530,9 @@ public final class Main {
 
 ## Get Queue Statistics
 
-`BetaSelfHostedWorkQueueStats beta().environments().work().stats(WorkStatsParamsparams = WorkStatsParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
+`BetaSelfHostedWorkQueueStats beta().environments().work().stats(params = WorkStatsParams.none(), requestOptions = RequestOptions.none())`
 
-**get** `/v1/environments/{environment_id}/work/stats`
+**GET** `/v1/environments/{environment_id}/work/stats`
 
 Get statistics about the work queue for an environment.
 
@@ -1659,11 +1634,9 @@ Get statistics about the work queue for an environment.
 
     Number of work items being processed (polled but not acknowledged)
 
-  - `JsonValue; type "work_queue_stats"constant`
+  - `JsonValue type constant`
 
     The type of object
-
-    - `WORK_QUEUE_STATS("work_queue_stats")`
 
   - `Optional<Long> workersPolling`
 
@@ -1690,7 +1663,7 @@ public final class Main {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -1702,7 +1675,7 @@ public final class Main {
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Self Hosted Work
 
@@ -1734,11 +1707,9 @@ public final class Main {
 
       Session identifier (e.g., 'session_...')
 
-    - `JsonValue; type "session"constant`
+    - `JsonValue type constant`
 
       Type of work data
-
-      - `SESSION("session")`
 
   - `String environmentId`
 
@@ -1782,11 +1753,9 @@ public final class Main {
 
     RFC 3339 timestamp when work execution stopped
 
-  - `JsonValue; type "work"constant`
+  - `JsonValue type constant`
 
     The type of object (always 'work')
-
-    - `WORK("work")`
 
 ### Beta Self Hosted Work Heartbeat Response
 
@@ -1820,11 +1789,9 @@ public final class Main {
 
     Effective TTL applied to the lease
 
-  - `JsonValue; type "work_heartbeat"constant`
+  - `JsonValue type constant`
 
     The type of response
-
-    - `WORK_HEARTBEAT("work_heartbeat")`
 
 ### Beta Self Hosted Work List Response
 
@@ -1856,11 +1823,9 @@ public final class Main {
 
         Session identifier (e.g., 'session_...')
 
-      - `JsonValue; type "session"constant`
+      - `JsonValue type constant`
 
         Type of work data
-
-        - `SESSION("session")`
 
     - `String environmentId`
 
@@ -1904,11 +1869,9 @@ public final class Main {
 
       RFC 3339 timestamp when work execution stopped
 
-    - `JsonValue; type "work"constant`
+    - `JsonValue type constant`
 
       The type of object (always 'work')
-
-      - `WORK("work")`
 
   - `Optional<String> nextPage`
 
@@ -1934,11 +1897,9 @@ public final class Main {
 
     Number of work items being processed (polled but not acknowledged)
 
-  - `JsonValue; type "work_queue_stats"constant`
+  - `JsonValue type constant`
 
     The type of object
-
-    - `WORK_QUEUE_STATS("work_queue_stats")`
 
   - `Optional<Long> workersPolling`
 
@@ -1977,8 +1938,6 @@ public final class Main {
 
     Session identifier (e.g., 'session_...')
 
-  - `JsonValue; type "session"constant`
+  - `JsonValue type constant`
 
     Type of work data
-
-    - `SESSION("session")`

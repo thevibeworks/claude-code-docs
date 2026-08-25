@@ -1,17 +1,12 @@
----
-title: Delete a memory
-url: https://platform.claude.com/docs/en/api/typescript/beta/memory_stores/memories/delete
----
+# Delete a memory
 
-## Delete a memory
+`client.beta.memoryStores.memories.delete(memoryID, params, options?): BetaManagedAgentsDeletedMemory`
 
-`client.beta.memoryStores.memories.delete(stringmemoryID, MemoryDeleteParamsparams, RequestOptionsoptions?): BetaManagedAgentsDeletedMemory`
-
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
-### Parameters
+## Parameters
 
 - `memoryID: string`
 
@@ -101,7 +96,7 @@ Delete a memory
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeletedMemory`
 
@@ -113,9 +108,7 @@ Delete a memory
 
   - `type: "memory_deleted"`
 
-    - `"memory_deleted"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -132,7 +125,7 @@ const betaManagedAgentsDeletedMemory = await client.beta.memoryStores.memories.d
 console.log(betaManagedAgentsDeletedMemory.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

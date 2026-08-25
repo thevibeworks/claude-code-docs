@@ -1,17 +1,12 @@
----
-title: Delete a memory
-url: https://platform.claude.com/docs/en/api/go/beta/memory_stores/memories/delete
----
-
-## Delete a memory
+# Delete a memory
 
 `client.Beta.MemoryStores.Memories.Delete(ctx, memoryID, params) (*BetaManagedAgentsDeletedMemory, error)`
 
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
-### Parameters
+## Parameters
 
 - `memoryID string`
 
@@ -21,11 +16,11 @@ Delete a memory
 
     Path param: Path parameter memory_store_id
 
-  - `ExpectedContentSha256 param.Field[string]`
+  - `ExpectedContentSha256 param.Field[string] Optional`
 
     Query param: Query parameter for expected_content_sha256
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -101,7 +96,7 @@ Delete a memory
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsDeletedMemory struct{…}`
 
@@ -113,9 +108,7 @@ Delete a memory
 
   - `Type BetaManagedAgentsDeletedMemoryType`
 
-    - `const BetaManagedAgentsDeletedMemoryTypeMemoryDeleted BetaManagedAgentsDeletedMemoryType = "memory_deleted"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -146,7 +139,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

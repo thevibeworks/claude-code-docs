@@ -9,7 +9,9 @@
 This page walks an IT administrator through a Microsoft Foundry deployment: creating the Microsoft Foundry resource, choosing the authentication path that fits your organization, and pushing the managed configuration. If you only need the list of configuration keys, skip to [Configure the app](#configure-the-app).
 
 <Note>
-  Claude models in Microsoft Foundry are available in two hosting options, Hosted on Azure and Hosted on Anthropic. Anthropic acts as an independent processor for Microsoft, and customers are subject to Anthropic's data use terms. For deployments hosted on Azure, prompts and completions remain within Azure; only usage metadata and content flagged by Anthropic's safety systems egress to Anthropic. Deployments hosted on Anthropic run on Anthropic's infrastructure. See [Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
+  Microsoft Foundry offers Claude models in two hosting options, Hosted on Azure and Hosted on Anthropic, and you choose one when you configure the model deployment in Microsoft Foundry. Under both options, Anthropic operates the Claude models and handles conversation data as an independent processor for Microsoft. Your use of Claude through Microsoft Foundry is subject to Anthropic's data use terms.
+
+  Deployments hosted on Azure run inference in an Anthropic-operated service on Azure infrastructure, not in your Azure tenant, and prompts and completions remain within Azure. The only data the service sends out of Azure to Anthropic is usage metadata and any content that Anthropic's safety systems flag. Deployments hosted on Anthropic send prompts and completions to Anthropic's own infrastructure for inference. See [hosting options for Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options) for details.
 </Note>
 
 ## Choose an authentication approach

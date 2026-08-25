@@ -1,19 +1,14 @@
----
-title: List Message Batches
-url: https://platform.claude.com/docs/en/api/cli/messages/batches/list
----
-
-## List Message Batches
+# List Message Batches
 
 `$ ant messages:batches list`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `--after-id: optional string`
 
@@ -29,9 +24,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
-### Returns
+  maximum: 1000, minimum: 1
 
-- `ListResponse_MessageBatch_: object { data, first_id, has_more, last_id }`
+## Returns
+
+- `ListResponse_MessageBatch_: object`
 
   - `data: array of MessageBatch`
 
@@ -45,13 +42,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+      format: date-time
+
     - `cancel_initiated_at: string`
 
       RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+      format: date-time
+
     - `created_at: string`
 
       RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+      format: date-time
 
     - `ended_at: string`
 
@@ -59,9 +62,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+      format: date-time
+
     - `expires_at: string`
 
       RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+      format: date-time
 
     - `processing_status: "in_progress" or "canceling" or "ended"`
 
@@ -73,7 +80,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `"ended"`
 
-    - `request_counts: object { canceled, errored, expired, 2 more }`
+    - `request_counts: object`
 
       Tallies requests within the Message Batch, categorized by their status.
 
@@ -131,14 +138,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
-### Example
+## Example
 
-```cli
+```bash
 ant messages:batches list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

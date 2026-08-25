@@ -1,17 +1,12 @@
----
-title: Get Skill Version
-url: https://platform.claude.com/docs/en/api/go/beta/skills/versions/retrieve
----
-
-## Get Skill Version
+# Get Skill Version
 
 `client.Beta.Skills.Versions.Get(ctx, version, params) (*BetaSkillVersionGetResponse, error)`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+## Parameters
 
 - `version string`
 
@@ -27,7 +22,7 @@ Get Skill Version
 
     The format and length of IDs may change over time.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -103,7 +98,7 @@ Get Skill Version
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaSkillVersionGetResponse struct{…}`
 
@@ -145,13 +140,15 @@ Get Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `Version string`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+## Example
 
 ```go
 package main
@@ -182,7 +179,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

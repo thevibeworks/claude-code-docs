@@ -340,8 +340,6 @@ Reinstall over the existing app. Don't uninstall first; installing over the top 
 2. Open [Claude for Slack](https://claude.com/claude-for-slack), select **Add to Slack**, and choose **Install to entire organization**.
 3. Mention `@Claude` anywhere. If the reinstall worked, the mention gets a reaction and a reply. The pairing survives the reinstall, so a normal reply means you're done. A reply that says the workspace isn't set up means the pairing needs to be redone; see [This workspace isn't set up for Claude Tag yet](#this-workspace-isn%E2%80%99t-set-up-for-claude-tag-yet).
 
-See [If `@Claude` doesn't respond at all](/docs/claude-tag/admins/pair-workspace#if-@claude-doesn%E2%80%99t-respond-at-all).
-
 ### This workspace isn't set up for Claude Tag yet
 
 **What you see**

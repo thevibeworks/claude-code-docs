@@ -1,23 +1,18 @@
----
-title: Archive Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/beta/tunnels/certificates/archive
----
+# Archive Tunnel Certificate
 
-## Archive Tunnel Certificate
-
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Path Parameters
+## Path parameters
 
 - `tunnel_id: string`
 
 - `certificate_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -95,9 +90,9 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaTunnelCertificate object { id, archived_at, created_at, 4 more }`
+- `BetaTunnelCertificate object`
 
   A CA certificate attached to a tunnel.
 
@@ -109,13 +104,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string or null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -127,11 +128,9 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `type: "tunnel_certificate"`
 
-    - `"tunnel_certificate"`
+## Example
 
-### Example
-
-```http
+```bash
 curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_ID/archive \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
@@ -139,7 +138,7 @@ curl https://api.anthropic.com/v1/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_I
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

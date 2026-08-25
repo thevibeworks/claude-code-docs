@@ -1,15 +1,10 @@
----
-title: Skills
-url: https://platform.claude.com/docs/en/api/cli/beta/skills
----
-
 # Skills
 
 ## Create Skill
 
 `$ ant beta:skills create`
 
-**post** `/v1/skills`
+**POST** `/v1/skills`
 
 Create Skill
 
@@ -33,7 +28,7 @@ Create Skill
 
 ### Returns
 
-- `BetaSkillNewResponse: object { id, created_at, display_title, 4 more }`
+- `BetaSkillNewResponse: object`
 
   - `id: string`
 
@@ -78,13 +73,13 @@ Create Skill
 
 ### Example
 
-```cli
+```bash
 ant beta:skills create \
   --api-key my-anthropic-api-key \
   --file 'Example data'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -102,7 +97,7 @@ ant beta:skills create \
 
 `$ ant beta:skills list`
 
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
@@ -135,9 +130,9 @@ List Skills
 
 ### Returns
 
-- `BetaListSkillsResponse: object { data, has_more, next_page }`
+- `BetaListSkillsResponse: object`
 
-  - `data: array of object { id, created_at, display_title, 4 more }`
+  - `data: array of object`
 
     List of skills.
 
@@ -196,12 +191,12 @@ List Skills
 
 ### Example
 
-```cli
+```bash
 ant beta:skills list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -225,7 +220,7 @@ ant beta:skills list \
 
 `$ ant beta:skills retrieve`
 
-**get** `/v1/skills/{skill_id}`
+**GET** `/v1/skills/{skill_id}`
 
 Get Skill
 
@@ -243,7 +238,7 @@ Get Skill
 
 ### Returns
 
-- `BetaSkillGetResponse: object { id, created_at, display_title, 4 more }`
+- `BetaSkillGetResponse: object`
 
   - `id: string`
 
@@ -288,13 +283,13 @@ Get Skill
 
 ### Example
 
-```cli
+```bash
 ant beta:skills retrieve \
   --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -312,7 +307,7 @@ ant beta:skills retrieve \
 
 `$ ant beta:skills delete`
 
-**delete** `/v1/skills/{skill_id}`
+**DELETE** `/v1/skills/{skill_id}`
 
 Delete Skill
 
@@ -330,7 +325,7 @@ Delete Skill
 
 ### Returns
 
-- `BetaSkillDeleteResponse: object { id, type }`
+- `BetaSkillDeleteResponse: object`
 
   - `id: string`
 
@@ -346,13 +341,13 @@ Delete Skill
 
 ### Example
 
-```cli
+```bash
 ant beta:skills delete \
   --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -361,17 +356,17 @@ ant beta:skills delete \
 }
 ```
 
-# Versions
+## Skills › Versions
 
-## Create Skill Version
+### Create Skill Version
 
 `$ ant beta:skills:versions create`
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Parameters
+#### Parameters
 
 - `--skill-id: string`
 
@@ -389,9 +384,9 @@ Create Skill Version
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `BetaSkillVersionNewResponse: object { id, created_at, description, 5 more }`
+- `BetaSkillVersionNewResponse: object`
 
   - `id: string`
 
@@ -437,16 +432,16 @@ Create Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:skills:versions create \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --file 'Example data'
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -461,15 +456,15 @@ ant beta:skills:versions create \
 }
 ```
 
-## List Skill Versions
+### List Skill Versions
 
 `$ ant beta:skills:versions list`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Parameters
+#### Parameters
 
 - `--skill-id: string`
 
@@ -491,11 +486,11 @@ List Skill Versions
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `BetaListSkillVersionsResponse: object { data, has_more, next_page }`
+- `BetaListSkillVersionsResponse: object`
 
-  - `data: array of object { id, created_at, description, 5 more }`
+  - `data: array of object`
 
     List of skill versions.
 
@@ -551,15 +546,15 @@ List Skill Versions
 
     Token to provide in as `page` in the subsequent request to retrieve the next page of data.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:skills:versions list \
   --api-key my-anthropic-api-key \
   --skill-id skill_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -580,15 +575,15 @@ ant beta:skills:versions list \
 }
 ```
 
-## Download Skill Version Content
+### Download Skill Version Content
 
 `$ ant beta:skills:versions download`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-### Parameters
+#### Parameters
 
 - `--skill-id: string`
 
@@ -606,28 +601,28 @@ Download a skill version's content as a zip archive.
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `unnamed_schema_5: file path`
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:skills:versions download \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
 
-## Get Skill Version
+### Get Skill Version
 
 `$ ant beta:skills:versions retrieve`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+#### Parameters
 
 - `--skill-id: string`
 
@@ -645,9 +640,9 @@ Get Skill Version
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `BetaSkillVersionGetResponse: object { id, created_at, description, 5 more }`
+- `BetaSkillVersionGetResponse: object`
 
   - `id: string`
 
@@ -693,16 +688,16 @@ Get Skill Version
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:skills:versions retrieve \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -717,15 +712,15 @@ ant beta:skills:versions retrieve \
 }
 ```
 
-## Delete Skill Version
+### Delete Skill Version
 
 `$ ant beta:skills:versions delete`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+#### Parameters
 
 - `--skill-id: string`
 
@@ -743,9 +738,9 @@ Delete Skill Version
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `BetaSkillVersionDeleteResponse: object { id, type }`
+- `BetaSkillVersionDeleteResponse: object`
 
   - `id: string`
 
@@ -759,16 +754,16 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:skills:versions delete \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {

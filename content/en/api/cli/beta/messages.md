@@ -1,15 +1,10 @@
----
-title: Messages
-url: https://platform.claude.com/docs/en/api/cli/beta/messages
----
-
 # Messages
 
 ## Create a Message
 
 `$ ant beta:messages create`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -28,6 +23,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
   Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+  minimum: 0
 
 - `--message: array of BetaMessageParam`
 
@@ -86,7 +83,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-- `--cache-control: optional object { type, ttl }`
+- `--cache-control: optional object`
 
   Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
@@ -94,13 +91,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Body param: Container identifier for reuse across requests.
 
-- `--context-management: optional object { edits }`
+- `--context-management: optional object`
 
   Body param: Context management configuration.
 
   This allows you to control how Claude manages context across multiple requests, such as whether to clear function results or not.
 
-- `--diagnostics: optional object { previous_message_id }`
+- `--diagnostics: optional object`
 
   Body param: Request-level diagnostics. Currently carries the previous response
   id for prompt-cache divergence reporting.
@@ -140,15 +137,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Body param: MCP servers to be utilized in this request
 
-- `--metadata: optional object { user_id }`
+  maxItems: 20
+
+- `--metadata: optional object`
 
   Body param: An object describing metadata about the request.
 
-- `--output-config: optional object { effort, format, task_budget }`
+- `--output-config: optional object`
 
   Body param: Configuration options for the model's output, such as the output format.
 
-- `--output-format: optional object { schema, type }`
+- `--output-format: optional object`
 
   Body param: Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -177,14 +176,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
   Body param: System prompt.
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
-
-- `--temperature: optional number`
-
-  Body param: Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
 - `--thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive`
 
@@ -262,22 +253,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
-- `--top-k: optional number`
-
-  Body param: Only sample from the top K options for each subsequent token.
-
-  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-  Recommended for advanced use cases only.
-
-- `--top-p: optional number`
-
-  Body param: Use nucleus sampling.
-
-  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-  Recommended for advanced use cases only.
-
 - `--beta: optional array of AnthropicBeta`
 
   Header param: Optional header to specify the beta version(s) you want to use.
@@ -286,9 +261,45 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
+- `--temperature: optional number`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Body param: Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+  maximum: 1, minimum: 0
+
+- `--top-k: optional number`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+  Body param: Only sample from the top K options for each subsequent token.
+
+  Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+  Recommended for advanced use cases only.
+
+  minimum: 0
+
+- `--top-p: optional number`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Body param: Use nucleus sampling.
+
+  In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+  Recommended for advanced use cases only.
+
+  maximum: 1, minimum: 0
+
 ### Returns
 
-- `beta_message: object { id, container, content, 9 more }`
+- `beta_message: object`
 
   - `id: string`
 
@@ -296,7 +307,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     The format and length of IDs may change over time.
 
-  - `container: object { id, expires_at, skills }`
+  - `container: object`
 
     Information about the container used in the request (for the code execution tool)
 
@@ -308,6 +319,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The time at which the container will expire.
 
+      format: date-time
+
     - `skills: array of BetaSkill`
 
       Skills loaded in the container
@@ -315,6 +328,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `skill_id: string`
 
         Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `type: "anthropic" or "custom"`
 
@@ -327,6 +342,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `version: string`
 
         The resolved version: a skill version ID for custom skills.
+
+        maxLength: 64, minLength: 1
 
   - `content: array of BetaContentBlock`
 
@@ -357,7 +374,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     [{"type": "text", "text": "B)"}]
     ```
 
-    - `beta_text_block: object { citations, text, type }`
+    - `beta_text_block: object`
 
       - `citations: array of BetaTextCitation`
 
@@ -365,11 +382,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_char_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -379,13 +398,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_page_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -395,9 +418,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_content_block_location: object`
 
           - `cited_text: string`
 
@@ -406,6 +431,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -421,9 +448,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citations_web_search_result_location: object`
 
           - `cited_text: string`
 
@@ -431,11 +460,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `title: string`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+        - `beta_citation_search_result_location: object`
 
           - `cited_text: string`
 
@@ -455,11 +486,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
 
           - `title: string`
 
@@ -467,9 +502,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `text: string`
 
+        maxLength: 5000000, minLength: 0
+
       - `type: "text"`
 
-    - `beta_thinking_block: object { signature, thinking, type }`
+    - `beta_thinking_block: object`
 
       - `signature: string`
 
@@ -485,7 +522,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "thinking"`
 
-    - `beta_redacted_thinking_block: object { data, type }`
+    - `beta_redacted_thinking_block: object`
 
       - `data: string`
 
@@ -497,13 +534,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "redacted_thinking"`
 
-    - `beta_tool_use_block: object { id, input, name, 3 more }`
+    - `beta_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
       - `name: string`
+
+        minLength: 1
 
       - `type: "tool_use"`
 
@@ -511,23 +552,27 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
           - `type: "direct"`
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "code_execution_20250825"`
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
           - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `type: "code_execution_20260120"`
 
@@ -535,9 +580,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         For a toolset member tool_use, the toolset family.
 
-    - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `beta_server_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `input: map[unknown]`
 
@@ -565,21 +614,21 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+    - `beta_web_search_tool_result_block: object`
 
       - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-        - `beta_web_search_tool_result_error: object { error_code, type }`
+        - `beta_web_search_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -611,27 +660,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_search_tool_result"`
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+    - `beta_web_fetch_tool_result_block: object`
 
       - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-        - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+        - `beta_web_fetch_tool_result_error_block: object`
 
           - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -655,11 +706,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "web_fetch_tool_result_error"`
 
-        - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+        - `beta_web_fetch_block: object`
 
-          - `content: object { citations, source, title, type }`
+          - `content: object`
 
-            - `citations: object { enabled }`
+            - `citations: object`
 
               Citation configuration for the document
 
@@ -667,15 +718,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-              - `beta_base64_pdf_source: object { data, media_type, type }`
+              - `beta_base64_pdf_source: object`
 
                 - `data: string`
+
+                  format: byte
 
                 - `media_type: "application/pdf"`
 
                 - `type: "base64"`
 
-              - `beta_plain_text_source: object { data, media_type, type }`
+              - `beta_plain_text_source: object`
 
                 - `data: string`
 
@@ -701,27 +754,29 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_fetch_tool_result"`
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_advisor_tool_result_block: object`
 
       - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-        - `beta_advisor_tool_result_error: object { error_code, type }`
+        - `beta_advisor_tool_result_error: object`
 
           - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -741,7 +796,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "advisor_tool_result_error"`
 
-        - `beta_advisor_result_block: object { stop_reason, text, type }`
+        - `beta_advisor_result_block: object`
 
           - `stop_reason: string`
 
@@ -751,7 +806,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "advisor_result"`
 
-        - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+        - `beta_advisor_redacted_result_block: object`
 
           - `encrypted_content: string`
 
@@ -765,15 +820,17 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "advisor_tool_result"`
 
-    - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_code_execution_tool_result_block: object`
 
       - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
-        - `beta_code_execution_tool_result_error: object { error_code, type }`
+        - `beta_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -787,7 +844,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "code_execution_tool_result_error"`
 
-        - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+        - `beta_code_execution_result_block: object`
 
           - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -803,7 +860,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "code_execution_result"`
 
-        - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+        - `beta_encrypted_code_execution_result_block: object`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -823,13 +880,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_tool_result"`
 
-    - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_bash_code_execution_tool_result_block: object`
 
       - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-        - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+        - `beta_bash_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -845,7 +904,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "bash_code_execution_tool_result_error"`
 
-        - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+        - `beta_bash_code_execution_result_block: object`
 
           - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -863,13 +922,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "bash_code_execution_tool_result"`
 
-    - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_text_editor_code_execution_tool_result_block: object`
 
       - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+        - `beta_text_editor_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -887,7 +948,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
-        - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+        - `beta_text_editor_code_execution_view_result_block: object`
 
           - `content: string`
 
@@ -907,13 +968,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "text_editor_code_execution_view_result"`
 
-        - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+        - `beta_text_editor_code_execution_create_result_block: object`
 
           - `is_file_update: boolean`
 
           - `type: "text_editor_code_execution_create_result"`
 
-        - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+        - `beta_text_editor_code_execution_str_replace_result_block: object`
 
           - `lines: array of string`
 
@@ -929,13 +990,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "text_editor_code_execution_tool_result"`
 
-    - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_tool_search_tool_result_block: object`
 
       - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-        - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+        - `beta_tool_search_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -951,11 +1014,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `type: "tool_search_tool_result_error"`
 
-        - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+        - `beta_tool_search_tool_search_result_block: object`
 
           - `tool_references: array of BetaToolReferenceBlock`
 
             - `tool_name: string`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `type: "tool_reference"`
 
@@ -963,11 +1028,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "tool_search_tool_result"`
 
-    - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+    - `beta_mcp_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
@@ -981,7 +1050,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "mcp_tool_use"`
 
-    - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+    - `beta_mcp_tool_result_block: object`
 
       - `content: string or array of BetaTextBlock`
 
@@ -997,15 +1066,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           - `text: string`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: "text"`
 
       - `is_error: boolean`
 
       - `tool_use_id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `type: "mcp_tool_result"`
 
-    - `beta_container_upload_block: object { file_id, type }`
+    - `beta_container_upload_block: object`
 
       Response model for a file uploaded to the container.
 
@@ -1013,7 +1086,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "container_upload"`
 
-    - `beta_compaction_block: object { content, encrypted_content, type }`
+    - `beta_compaction_block: object`
 
       A compaction block returned when autocompact is triggered.
 
@@ -1031,7 +1104,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "compaction"`
 
-    - `beta_fallback_block: object { from, to, trigger, type }`
+    - `beta_fallback_block: object`
 
       Marks the point in `content` where one model's output gives way to the next.
 
@@ -1045,7 +1118,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       arrives via the standard `content_block_start` / `content_block_stop`
       pair and carries no deltas.
 
-      - `from: object { model }`
+      - `from: object`
 
         The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -1115,7 +1188,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             High-performance model for agents and coding
 
-      - `to: object { model }`
+      - `to: object`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -1125,7 +1198,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `trigger: object { category, type }`
+      - `trigger: object`
 
         What caused the `from` model to hand over at this hop.
 
@@ -1157,7 +1230,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "fallback"`
 
-  - `context_management: object { applied_edits }`
+  - `context_management: object`
 
     Context management response.
 
@@ -1167,35 +1240,43 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       List of context management edits that were applied.
 
-      - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+      - `beta_clear_tool_uses_20250919_edit_response: object`
 
         - `cleared_input_tokens: number`
 
           Number of input tokens cleared by this edit.
+
+          minimum: 0
 
         - `cleared_tool_uses: number`
 
           Number of tool uses that were cleared.
 
+          minimum: 0
+
         - `type: "clear_tool_uses_20250919"`
 
           The type of context management edit applied.
 
-      - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+      - `beta_clear_thinking_20251015_edit_response: object`
 
         - `cleared_input_tokens: number`
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_thinking_turns: number`
 
           Number of thinking turns that were cleared.
+
+          minimum: 0
 
         - `type: "clear_thinking_20251015"`
 
           The type of context management edit applied.
 
-  - `diagnostics: object { cache_miss_reason }`
+  - `diagnostics: object`
 
     Response envelope for request-level diagnostics. Present (possibly
     null) whenever the caller supplied `diagnostics` on the request.
@@ -1204,7 +1285,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-      - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_model_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -1212,7 +1293,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "model_changed"`
 
-      - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_system_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -1220,7 +1301,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "system_changed"`
 
-      - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_tools_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -1228,7 +1309,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "tools_changed"`
 
-      - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_messages_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -1236,11 +1317,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "messages_changed"`
 
-      - `beta_cache_miss_previous_message_not_found: object { type }`
+      - `beta_cache_miss_previous_message_not_found: object`
 
         - `type: "previous_message_not_found"`
 
-      - `beta_cache_miss_unavailable: object { type }`
+      - `beta_cache_miss_unavailable: object`
 
         - `type: "unavailable"`
 
@@ -1316,7 +1397,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     This will always be `"assistant"`.
 
-  - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+  - `stop_details: object`
 
     Structured information about a refusal.
 
@@ -1445,7 +1526,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     For Messages, this is always `"message"`.
 
-  - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
+  - `usage: object`
 
     Billing and rate-limit usage.
 
@@ -1457,7 +1538,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       Breakdown of cached tokens by TTL
 
@@ -1465,19 +1546,27 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: number`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number`
 
       The number of input tokens read from the cache.
 
-    - `fallback_credit: object { status }`
+      minimum: 0
+
+    - `fallback_credit: object`
 
       Outcome of the `fallback_credit_token` presented on this request.
 
@@ -1490,14 +1579,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         resulting shift is zero because there was nothing to move. `not_applied`:
         no reprice was applied; the arm's `reason` says why.
 
-        - `beta_fallback_credit_redeemed: object { type }`
+        - `beta_fallback_credit_redeemed: object`
 
           The reprice was applied: the retry is billed as if the conversation
           had been on the retry model all along.
 
           - `type: "redeemed"`
 
-        - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+        - `beta_fallback_credit_not_applied: object`
 
           No reprice was applied; `reason` says why.
 
@@ -1553,6 +1642,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The number of input tokens which were used.
 
+      minimum: 0
+
     - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
       Per-iteration token usage breakdown.
@@ -1563,11 +1654,11 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - Calculate the true context window size from the last iteration
       - Understand token accumulation across server-side tool use loops
 
-      - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_message_iteration_usage: object`
 
         Token usage for a sampling iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -1575,21 +1666,31 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -1660,16 +1761,18 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `type: "message"`
 
           Usage for a sampling iteration
 
-      - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+      - `beta_compaction_iteration_usage: object`
 
         Token usage for a compaction iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -1677,35 +1780,47 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `output_tokens: number`
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: "compaction"`
 
           Usage for a compaction iteration
 
-      - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_advisor_message_iteration_usage: object`
 
         Token usage for an advisor sub-inference iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -1713,21 +1828,31 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -1799,11 +1924,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: "advisor_message"`
 
           Usage for an advisor sub-inference iteration
 
-      - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_fallback_message_iteration_usage: object`
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -1812,7 +1939,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -1820,21 +1947,31 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -1905,6 +2042,8 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `type: "fallback_message"`
 
@@ -1914,7 +2053,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       The number of output tokens which were used.
 
-    - `output_tokens_details: object { thinking_tokens }`
+      minimum: 0
+
+    - `output_tokens_details: object`
 
       Breakdown of output tokens by category.
 
@@ -1934,7 +2075,9 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-    - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+        minimum: 0
+
+    - `server_tool_use: object`
 
       The number of server tool requests.
 
@@ -1942,9 +2085,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The number of web fetch tool requests.
 
+        minimum: 0
+
       - `web_search_requests: number`
 
         The number of web search tool requests.
+
+        minimum: 0
 
     - `service_tier: "standard" or "priority" or "batch"`
 
@@ -1964,9 +2111,796 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"fast"`
 
+- `beta_raw_message_stream_event: BetaRawMessageStartEvent or BetaRawMessageDeltaEvent or BetaRawMessageStopEvent or 3 more`
+
+  - `beta_raw_message_start_event: object`
+
+    - `message: object`
+
+      - `id: string`
+
+        Unique object identifier.
+
+        The format and length of IDs may change over time.
+
+      - `container: object`
+
+        Information about the container used in the request (for the code execution tool)
+
+      - `content: array of BetaContentBlock`
+
+        Content generated by the model.
+
+        This is an array of content blocks, each of which has a `type` that determines its shape.
+
+        Example:
+
+        ```json
+        [{"type": "text", "text": "Hi, I'm Claude."}]
+        ```
+
+        If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
+
+        For example, if the input `messages` were:
+
+        ```json
+        [
+          {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
+          {"role": "assistant", "content": "The best answer is ("}
+        ]
+        ```
+
+        Then the response `content` might be:
+
+        ```json
+        [{"type": "text", "text": "B)"}]
+        ```
+
+      - `context_management: object`
+
+        Context management response.
+
+        Information about context management strategies applied during the request.
+
+      - `diagnostics: object`
+
+        Response envelope for request-level diagnostics. Present (possibly
+        null) whenever the caller supplied `diagnostics` on the request.
+
+      - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+
+        The model that will complete your prompt.
+
+        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `role: "assistant"`
+
+        Conversational role of the generated message.
+
+        This will always be `"assistant"`.
+
+      - `stop_details: object`
+
+        Structured information about a refusal.
+
+      - `stop_reason: "end_turn" or "max_tokens" or "stop_sequence" or 5 more`
+
+        The reason that we stopped.
+
+        This may be one the following values:
+
+        * `"end_turn"`: the model reached a natural stopping point
+        * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
+        * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
+        * `"tool_use"`: the model invoked one or more tools
+        * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
+        * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
+        * `"model_context_window_exceeded"`: we exceeded the model's context window
+
+        In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
+
+      - `stop_sequence: string`
+
+        Which custom stop sequence was generated, if any.
+
+        This value will be a non-null string if one of your custom stop sequences was generated.
+
+      - `type: "message"`
+
+        Object type.
+
+        For Messages, this is always `"message"`.
+
+      - `usage: object`
+
+        Billing and rate-limit usage.
+
+        Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+        Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+        For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+        Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+    - `type: "message_start"`
+
+  - `beta_raw_message_delta_event: object`
+
+    - `context_management: object`
+
+      Information about context management strategies applied during the request
+
+      - `applied_edits: array of BetaClearToolUses20250919EditResponse or BetaClearThinking20251015EditResponse`
+
+        List of context management edits that were applied.
+
+    - `delta: object`
+
+      - `container: object`
+
+        Information about the container used in the request (for the code execution tool)
+
+        - `id: string`
+
+          Identifier for the container used in this request
+
+        - `expires_at: string`
+
+          The time at which the container will expire.
+
+          format: date-time
+
+        - `skills: array of BetaSkill`
+
+          Skills loaded in the container
+
+      - `stop_details: object`
+
+        Structured information about a refusal.
+
+        - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
+
+          The policy category that triggered a refusal.
+
+        - `explanation: string`
+
+          Human-readable explanation of the refusal.
+
+          This text is not guaranteed to be stable. `null` when no explanation is available for the category.
+
+        - `fallback_credit_token: string`
+
+          Opaque code that refunds the cache-miss cost when retrying this refused
+          request on the fallback model. Pass it as `fallback_credit_token` on the
+          retry request. Expires 5 minutes after the refusal.
+
+          The retry is sent either with the same request body (`system`, `messages`,
+          `tools`, and other render-shaping fields), or with the same body plus one
+          appended `assistant` message whose content is the partial text (with any
+          trailing whitespace stripped from the final text block) and paired
+          server-tool blocks from this refusal — which also authorizes that
+          appended turn as an assistant-prefill continuation on models that otherwise
+          disallow prefill. A token minted mid-server-tool-loop whose partial content
+          was continuable may only be redeemed the second way — if a same-body retry
+          is rejected with a 400 saying the token must be redeemed by continuing the
+          partial response, retry the second way instead. Either way: same workspace,
+          same platform; a mismatch is a 400. Resending a token for an already-warm
+          prefix is permitted but yields no additional credit.
+
+          `null` when the refused model isn't eligible for a fallback credit.
+
+        - `fallback_has_prefill_claim: boolean`
+
+          Whether the accompanying `fallback_credit_token` may be redeemed with the
+          appended-assistant retry form. Only set when `fallback_credit_token` is
+          present.
+
+          `true`: retry by resending the same request body plus one appended
+          `assistant` message whose content is this response's `content` with any
+          trailing whitespace stripped from the final text block and unpaired
+          `tool_use` blocks omitted (the same appended-turn shape described on
+          `fallback_credit_token`), with the token attached. `false`: retry by
+          resending the original request body unchanged, with the token attached —
+          the appended-assistant form is not available for this refusal (no
+          continuable partial content, or the request uses `output_format` or a
+          `tool_choice` that forces tool use). One exception: when the request used
+          `output_format` or a forced `tool_choice` and the refusal arrived after
+          server tools (including MCP connector tools) had already executed, the
+          token may not be redeemable by either retry form; if the exact-body retry
+          is then rejected with a 400 saying the token must be redeemed by
+          continuing the partial response, discard the token and retry without it.
+
+          Advisory: if an appended-assistant retry is rejected with a 400 despite
+          `true`, fall back to resending the original request body with the token.
+
+        - `recommended_model: string`
+
+          The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
+
+        - `type: "refusal"`
+
+      - `stop_reason: "end_turn" or "max_tokens" or "stop_sequence" or 5 more`
+
+        - `"end_turn"`
+
+        - `"max_tokens"`
+
+        - `"stop_sequence"`
+
+        - `"tool_use"`
+
+        - `"pause_turn"`
+
+        - `"compaction"`
+
+        - `"refusal"`
+
+        - `"model_context_window_exceeded"`
+
+      - `stop_sequence: string`
+
+    - `type: "message_delta"`
+
+    - `usage: object`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+      - `cache_creation_input_tokens: number`
+
+        The cumulative number of input tokens used to create the cache entry.
+
+        minimum: 0
+
+      - `cache_read_input_tokens: number`
+
+        The cumulative number of input tokens read from the cache.
+
+        minimum: 0
+
+      - `fallback_credit: object`
+
+        Outcome of the `fallback_credit_token` presented on this request.
+
+        - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
+
+          Whether the fallback-credit reprice was applied to this response's billing.
+
+          A union discriminated on `type`. `redeemed`: the retry is billed as if
+          the conversation had been on the retry model all along — including when the
+          resulting shift is zero because there was nothing to move. `not_applied`:
+          no reprice was applied; the arm's `reason` says why.
+
+      - `input_tokens: number`
+
+        The cumulative number of input tokens which were used.
+
+        minimum: 0
+
+      - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
+
+        Per-iteration token usage breakdown.
+
+        Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+
+        - Determine which iterations exceeded long context thresholds (>=200k tokens)
+        - Calculate the true context window size from the last iteration
+        - Understand token accumulation across server-side tool use loops
+
+        - `beta_message_iteration_usage: object`
+
+          Token usage for a sampling iteration.
+
+        - `beta_compaction_iteration_usage: object`
+
+          Token usage for a compaction iteration.
+
+        - `beta_advisor_message_iteration_usage: object`
+
+          Token usage for an advisor sub-inference iteration.
+
+        - `beta_fallback_message_iteration_usage: object`
+
+          Token usage for the fallback-model attempt of a server-side fallback request.
+
+          Produced in place of a `message` entry for whichever hop served the
+          response. A declined hop produces the existing `message` entry. Whether
+          a fallback model served the response is signalled by the presence of this
+          entry in `usage.iterations`.
+
+      - `output_tokens: number`
+
+        The cumulative number of output tokens which were used.
+
+      - `output_tokens_details: object`
+
+        Breakdown of output tokens by category.
+
+        `output_tokens` remains the inclusive, authoritative total used for billing.
+        This object provides a read-only decomposition for observability — for example,
+        how many of the billed output tokens were spent on internal reasoning that may
+        have been summarized before being returned to you.
+
+        - `thinking_tokens: number`
+
+          Number of output tokens the model generated as internal reasoning, including
+          the thinking-block delimiter tokens.
+
+          Reflects the raw reasoning the model produced, not the (possibly shorter)
+          summarized thinking text returned in the response body. Computed by
+          re-tokenizing the raw reasoning text, so it may differ from the model's exact
+          generation count by a small number of tokens. Always ≤ `output_tokens`;
+          `output_tokens - thinking_tokens` approximates the non-reasoning output.
+
+          minimum: 0
+
+      - `server_tool_use: object`
+
+        The number of server tool requests.
+
+        - `web_fetch_requests: number`
+
+          The number of web fetch tool requests.
+
+          minimum: 0
+
+        - `web_search_requests: number`
+
+          The number of web search tool requests.
+
+          minimum: 0
+
+  - `beta_raw_message_stop_event: object`
+
+    - `type: "message_stop"`
+
+  - `beta_raw_content_block_start_event: object`
+
+    - `content_block: BetaTextBlock or BetaThinkingBlock or BetaRedactedThinkingBlock or 14 more`
+
+      Response model for a file uploaded to the container.
+
+      - `beta_text_block: object`
+
+        - `citations: array of BetaTextCitation`
+
+          Citations supporting the text block.
+
+          The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
+
+        - `text: string`
+
+          maxLength: 5000000, minLength: 0
+
+        - `type: "text"`
+
+      - `beta_thinking_block: object`
+
+        - `signature: string`
+
+          A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
+
+          This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
+
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
+        - `thinking: string`
+
+          The text of Claude's thinking process for this block.
+
+        - `type: "thinking"`
+
+      - `beta_redacted_thinking_block: object`
+
+        - `data: string`
+
+          The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
+
+          Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
+
+          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
+
+        - `type: "redacted_thinking"`
+
+      - `beta_tool_use_block: object`
+
+        - `id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `input: map[unknown]`
+
+        - `name: string`
+
+          minLength: 1
+
+        - `type: "tool_use"`
+
+        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
+
+          Tool invocation directly from the model.
+
+        - `toolset_name: optional string`
+
+          For a toolset member tool_use, the toolset family.
+
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `beta_server_tool_use_block: object`
+
+        - `id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `input: map[unknown]`
+
+        - `name: "advisor" or "web_search" or "web_fetch" or 5 more`
+
+        - `type: "server_tool_use"`
+
+        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
+
+          Tool invocation directly from the model.
+
+      - `beta_web_search_tool_result_block: object`
+
+        - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `type: "web_search_tool_result"`
+
+        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
+
+          Tool invocation directly from the model.
+
+      - `beta_web_fetch_tool_result_block: object`
+
+        - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `type: "web_fetch_tool_result"`
+
+        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
+
+          Tool invocation directly from the model.
+
+      - `beta_advisor_tool_result_block: object`
+
+        - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `type: "advisor_tool_result"`
+
+      - `beta_code_execution_tool_result_block: object`
+
+        - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
+
+          Code execution result with encrypted stdout for PFC + web_search results.
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `type: "code_execution_tool_result"`
+
+      - `beta_bash_code_execution_tool_result_block: object`
+
+        - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `type: "bash_code_execution_tool_result"`
+
+      - `beta_text_editor_code_execution_tool_result_block: object`
+
+        - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `type: "text_editor_code_execution_tool_result"`
+
+      - `beta_tool_search_tool_result_block: object`
+
+        - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
+
+        - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+        - `type: "tool_search_tool_result"`
+
+      - `beta_mcp_tool_use_block: object`
+
+        - `id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `input: map[unknown]`
+
+        - `name: string`
+
+          The name of the MCP tool
+
+        - `server_name: string`
+
+          The name of the MCP server
+
+        - `type: "mcp_tool_use"`
+
+      - `beta_mcp_tool_result_block: object`
+
+        - `content: string or array of BetaTextBlock`
+
+        - `is_error: boolean`
+
+        - `tool_use_id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
+
+        - `type: "mcp_tool_result"`
+
+      - `beta_container_upload_block: object`
+
+        Response model for a file uploaded to the container.
+
+        - `file_id: string`
+
+        - `type: "container_upload"`
+
+      - `beta_compaction_block: object`
+
+        A compaction block returned when autocompact is triggered.
+
+        When content is None, it indicates the compaction failed to produce a valid
+        summary (e.g., malformed output from the model). Clients may round-trip
+        compaction blocks with null content; the server treats them as no-ops.
+
+        - `content: string`
+
+          Summary of compacted content, or null if compaction failed
+
+        - `encrypted_content: string`
+
+          Opaque metadata from prior compaction, to be round-tripped verbatim
+
+        - `type: "compaction"`
+
+      - `beta_fallback_block: object`
+
+        Marks the point in `content` where one model's output gives way to the next.
+
+        One block appears per hop where a preceding model actually ran this turn and
+        declined. A turn where no preceding model ran and declined has no such
+        boundary and carries no block — the signal for whether a fallback model
+        served the response is the presence of a `fallback_message` entry in
+        `usage.iterations`, not this block.
+
+        The block is treated like a server-tool content block for streaming: it
+        arrives via the standard `content_block_start` / `content_block_stop`
+        pair and carries no deltas.
+
+        - `from: object`
+
+          The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
+
+        - `to: object`
+
+          The fallback model producing the content that follows this block. Its `model` is always the canonical id.
+
+        - `trigger: object`
+
+          What caused the `from` model to hand over at this hop.
+
+        - `type: "fallback"`
+
+    - `index: number`
+
+    - `type: "content_block_start"`
+
+  - `beta_raw_content_block_delta_event: object`
+
+    - `delta: BetaTextDelta or BetaInputJSONDelta or BetaCitationsDelta or 3 more`
+
+      - `beta_text_delta: object`
+
+        - `text: string`
+
+        - `type: "text_delta"`
+
+      - `beta_input_json_delta: object`
+
+        - `partial_json: string`
+
+        - `type: "input_json_delta"`
+
+      - `beta_citations_delta: object`
+
+        - `citation: BetaCitationCharLocation or BetaCitationPageLocation or BetaCitationContentBlockLocation or 2 more`
+
+          - `beta_citation_char_location: object`
+
+            - `cited_text: string`
+
+            - `document_index: number`
+
+              minimum: 0
+
+            - `document_title: string`
+
+            - `end_char_index: number`
+
+            - `file_id: string`
+
+            - `start_char_index: number`
+
+              minimum: 0
+
+            - `type: "char_location"`
+
+          - `beta_citation_page_location: object`
+
+            - `cited_text: string`
+
+            - `document_index: number`
+
+              minimum: 0
+
+            - `document_title: string`
+
+            - `end_page_number: number`
+
+            - `file_id: string`
+
+            - `start_page_number: number`
+
+              minimum: 1
+
+            - `type: "page_location"`
+
+          - `beta_citation_content_block_location: object`
+
+            - `cited_text: string`
+
+              The full text of the cited block range, concatenated.
+
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+            - `document_index: number`
+
+              minimum: 0
+
+            - `document_title: string`
+
+            - `end_block_index: number`
+
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+            - `file_id: string`
+
+            - `start_block_index: number`
+
+              0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
+
+            - `type: "content_block_location"`
+
+          - `beta_citations_web_search_result_location: object`
+
+            - `cited_text: string`
+
+            - `encrypted_index: string`
+
+            - `title: string`
+
+              maxLength: 512
+
+            - `type: "web_search_result_location"`
+
+            - `url: string`
+
+          - `beta_citation_search_result_location: object`
+
+            - `cited_text: string`
+
+              The full text of the cited block range, concatenated.
+
+              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
+
+            - `end_block_index: number`
+
+              Exclusive 0-based end index of the cited block range in the source's `content` array.
+
+              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
+
+            - `search_result_index: number`
+
+              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
+
+              Counted separately from `document_index`; server-side web search results are not included in this count.
+
+              minimum: 0
+
+            - `source: string`
+
+            - `start_block_index: number`
+
+              0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
+
+            - `title: string`
+
+            - `type: "search_result_location"`
+
+        - `type: "citations_delta"`
+
+      - `beta_thinking_delta: object`
+
+        - `estimated_tokens: number`
+
+          Per-frame increment of a coarse, running estimate of the tokens this thinking block has produced so far. Present whenever the `thinking-token-count-2026-05-13` beta is set; `null` unless `thinking.display` resolves to `"omitted"` and a count is due this frame. Sum the increments across `thinking_delta` frames on this block for a progress indicator. Each increment is a non-negative multiple of a fixed quantum and the cadence is rate-limited, so this is a deliberately lossy display hint, not a billable count; `usage.output_tokens` remains authoritative.
+
+        - `thinking: string`
+
+          The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
+
+        - `type: "thinking_delta"`
+
+      - `beta_signature_delta: object`
+
+        - `signature: string`
+
+          The `signature` for this thinking block: an opaque value used to verify that the block was generated by Claude when it is passed back to the API. Delivered in a `signature_delta` event just before the block's `content_block_stop` event.
+
+        - `type: "signature_delta"`
+
+      - `beta_compaction_content_block_delta: object`
+
+        - `content: string`
+
+        - `encrypted_content: string`
+
+          Opaque metadata from prior compaction, to be round-tripped verbatim
+
+        - `type: "compaction_delta"`
+
+    - `index: number`
+
+    - `type: "content_block_delta"`
+
+  - `beta_raw_content_block_stop_event: object`
+
+    - `index: number`
+
+    - `type: "content_block_stop"`
+
 ### Example
 
-```cli
+```bash
 ant beta:messages create \
   --api-key my-anthropic-api-key \
   --max-tokens 1024 \
@@ -1974,7 +2908,7 @@ ant beta:messages create \
   --model claude-opus-5
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2081,7 +3015,7 @@ ant beta:messages create \
 
 `$ ant beta:messages count-tokens`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -2148,11 +3082,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-- `--cache-control: optional object { type, ttl }`
+- `--cache-control: optional object`
 
   Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `--context-management: optional object { edits }`
+- `--context-management: optional object`
 
   Body param: Context management configuration.
 
@@ -2162,11 +3096,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Body param: MCP servers to be utilized in this request
 
-- `--output-config: optional object { effort, format, task_budget }`
+  maxItems: 20
+
+- `--output-config: optional object`
 
   Body param: Configuration options for the model's output, such as the output format.
 
-- `--output-format: optional object { schema, type }`
+- `--output-format: optional object`
 
   Body param: Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -2268,9 +3204,9 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ### Returns
 
-- `beta_message_tokens_count: object { context_management, input_tokens }`
+- `beta_message_tokens_count: object`
 
-  - `context_management: object { original_input_tokens }`
+  - `context_management: object`
 
     Information about context management applied to the message.
 
@@ -2284,14 +3220,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
 ### Example
 
-```cli
+```bash
 ant beta:messages count-tokens \
   --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
   --model claude-opus-5
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -2302,15 +3238,15 @@ ant beta:messages count-tokens \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Advisor Message Iteration Usage
 
-- `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+- `beta_advisor_message_iteration_usage: object`
 
   Token usage for an advisor sub-inference iteration.
 
-  - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+  - `cache_creation: object`
 
     Breakdown of cached tokens by TTL
 
@@ -2318,21 +3254,31 @@ ant beta:messages count-tokens \
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: number`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: number`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number`
 
     The number of input tokens read from the cache.
 
+    minimum: 0
+
   - `input_tokens: number`
 
     The number of input tokens which were used.
+
+    minimum: 0
 
   - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -2404,13 +3350,15 @@ ant beta:messages count-tokens \
 
     The number of output tokens which were used.
 
+    minimum: 0
+
   - `type: "advisor_message"`
 
     Usage for an advisor sub-inference iteration
 
 ### Beta Advisor Redacted Result Block
 
-- `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+- `beta_advisor_redacted_result_block: object`
 
   - `encrypted_content: string`
 
@@ -2424,7 +3372,7 @@ ant beta:messages count-tokens \
 
 ### Beta Advisor Redacted Result Block Param
 
-- `beta_advisor_redacted_result_block_param: object { encrypted_content, type, stop_reason }`
+- `beta_advisor_redacted_result_block_param: object`
 
   - `encrypted_content: string`
 
@@ -2436,7 +3384,7 @@ ant beta:messages count-tokens \
 
 ### Beta Advisor Result Block
 
-- `beta_advisor_result_block: object { stop_reason, text, type }`
+- `beta_advisor_result_block: object`
 
   - `stop_reason: string`
 
@@ -2448,7 +3396,7 @@ ant beta:messages count-tokens \
 
 ### Beta Advisor Result Block Param
 
-- `beta_advisor_result_block_param: object { text, type, stop_reason }`
+- `beta_advisor_result_block_param: object`
 
   - `text: string`
 
@@ -2458,7 +3406,7 @@ ant beta:messages count-tokens \
 
 ### Beta Advisor Tool 20260301
 
-- `beta_advisor_tool_20260301: object { model, name, type, 7 more }`
+- `beta_advisor_tool_20260301: object`
 
   - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -2544,7 +3492,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -2565,7 +3513,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `caching: optional object { type, ttl }`
+  - `caching: optional object`
 
     Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
 
@@ -2590,9 +3538,13 @@ ant beta:messages count-tokens \
 
     Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+    minimum: 1024
+
   - `max_uses: optional number`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: optional boolean`
 
@@ -2600,11 +3552,11 @@ ant beta:messages count-tokens \
 
 ### Beta Advisor Tool Result Block
 
-- `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+- `beta_advisor_tool_result_block: object`
 
   - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-    - `beta_advisor_tool_result_error: object { error_code, type }`
+    - `beta_advisor_tool_result_error: object`
 
       - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -2624,7 +3576,7 @@ ant beta:messages count-tokens \
 
       - `type: "advisor_tool_result_error"`
 
-    - `beta_advisor_result_block: object { stop_reason, text, type }`
+    - `beta_advisor_result_block: object`
 
       - `stop_reason: string`
 
@@ -2634,7 +3586,7 @@ ant beta:messages count-tokens \
 
       - `type: "advisor_result"`
 
-    - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+    - `beta_advisor_redacted_result_block: object`
 
       - `encrypted_content: string`
 
@@ -2648,15 +3600,17 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "advisor_tool_result"`
 
 ### Beta Advisor Tool Result Block Param
 
-- `beta_advisor_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+- `beta_advisor_tool_result_block_param: object`
 
   - `content: BetaAdvisorToolResultErrorParam or BetaAdvisorResultBlockParam or BetaAdvisorRedactedResultBlockParam`
 
-    - `beta_advisor_tool_result_error_param: object { error_code, type }`
+    - `beta_advisor_tool_result_error_param: object`
 
       - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -2676,7 +3630,7 @@ ant beta:messages count-tokens \
 
       - `type: "advisor_tool_result_error"`
 
-    - `beta_advisor_result_block_param: object { text, type, stop_reason }`
+    - `beta_advisor_result_block_param: object`
 
       - `text: string`
 
@@ -2684,7 +3638,7 @@ ant beta:messages count-tokens \
 
       - `stop_reason: optional string`
 
-    - `beta_advisor_redacted_result_block_param: object { encrypted_content, type, stop_reason }`
+    - `beta_advisor_redacted_result_block_param: object`
 
       - `encrypted_content: string`
 
@@ -2696,9 +3650,11 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "advisor_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -2721,7 +3677,7 @@ ant beta:messages count-tokens \
 
 ### Beta Advisor Tool Result Error
 
-- `beta_advisor_tool_result_error: object { error_code, type }`
+- `beta_advisor_tool_result_error: object`
 
   - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -2743,7 +3699,7 @@ ant beta:messages count-tokens \
 
 ### Beta Advisor Tool Result Error Param
 
-- `beta_advisor_tool_result_error_param: object { error_code, type }`
+- `beta_advisor_tool_result_error_param: object`
 
   - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -2765,15 +3721,17 @@ ant beta:messages count-tokens \
 
 ### Beta All Thinking Turns
 
-- `beta_all_thinking_turns: object { type }`
+- `beta_all_thinking_turns: object`
 
   - `type: "all"`
 
 ### Beta Base64 Image Source
 
-- `beta_base64_image_source: object { data, media_type, type }`
+- `beta_base64_image_source: object`
 
   - `data: string`
+
+    format: byte
 
   - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -2789,9 +3747,11 @@ ant beta:messages count-tokens \
 
 ### Beta Base64 PDF Source
 
-- `beta_base64_pdf_source: object { data, media_type, type }`
+- `beta_base64_pdf_source: object`
 
   - `data: string`
+
+    format: byte
 
   - `media_type: "application/pdf"`
 
@@ -2799,7 +3759,7 @@ ant beta:messages count-tokens \
 
 ### Beta Bash Code Execution Output Block
 
-- `beta_bash_code_execution_output_block: object { file_id, type }`
+- `beta_bash_code_execution_output_block: object`
 
   - `file_id: string`
 
@@ -2807,7 +3767,7 @@ ant beta:messages count-tokens \
 
 ### Beta Bash Code Execution Output Block Param
 
-- `beta_bash_code_execution_output_block_param: object { file_id, type }`
+- `beta_bash_code_execution_output_block_param: object`
 
   - `file_id: string`
 
@@ -2815,7 +3775,7 @@ ant beta:messages count-tokens \
 
 ### Beta Bash Code Execution Result Block
 
-- `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+- `beta_bash_code_execution_result_block: object`
 
   - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -2833,7 +3793,7 @@ ant beta:messages count-tokens \
 
 ### Beta Bash Code Execution Result Block Param
 
-- `beta_bash_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+- `beta_bash_code_execution_result_block_param: object`
 
   - `content: array of BetaBashCodeExecutionOutputBlockParam`
 
@@ -2851,11 +3811,11 @@ ant beta:messages count-tokens \
 
 ### Beta Bash Code Execution Tool Result Block
 
-- `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+- `beta_bash_code_execution_tool_result_block: object`
 
   - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-    - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+    - `beta_bash_code_execution_tool_result_error: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -2871,7 +3831,7 @@ ant beta:messages count-tokens \
 
       - `type: "bash_code_execution_tool_result_error"`
 
-    - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+    - `beta_bash_code_execution_result_block: object`
 
       - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -2889,15 +3849,17 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "bash_code_execution_tool_result"`
 
 ### Beta Bash Code Execution Tool Result Block Param
 
-- `beta_bash_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+- `beta_bash_code_execution_tool_result_block_param: object`
 
   - `content: BetaBashCodeExecutionToolResultErrorParam or BetaBashCodeExecutionResultBlockParam`
 
-    - `beta_bash_code_execution_tool_result_error_param: object { error_code, type }`
+    - `beta_bash_code_execution_tool_result_error_param: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -2913,7 +3875,7 @@ ant beta:messages count-tokens \
 
       - `type: "bash_code_execution_tool_result_error"`
 
-    - `beta_bash_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+    - `beta_bash_code_execution_result_block_param: object`
 
       - `content: array of BetaBashCodeExecutionOutputBlockParam`
 
@@ -2931,9 +3893,11 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "bash_code_execution_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -2956,7 +3920,7 @@ ant beta:messages count-tokens \
 
 ### Beta Bash Code Execution Tool Result Error
 
-- `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+- `beta_bash_code_execution_tool_result_error: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -2974,7 +3938,7 @@ ant beta:messages count-tokens \
 
 ### Beta Bash Code Execution Tool Result Error Param
 
-- `beta_bash_code_execution_tool_result_error_param: object { error_code, type }`
+- `beta_bash_code_execution_tool_result_error_param: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -2992,7 +3956,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Close Tab Config
 
-- `beta_browser_close_tab_config: object { defer_loading, enabled }`
+- `beta_browser_close_tab_config: object`
 
   `close_tab`'s config overrides.
 
@@ -3006,7 +3970,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Double Click Config
 
-- `beta_browser_double_click_config: object { defer_loading, enabled }`
+- `beta_browser_double_click_config: object`
 
   `double_click`'s config overrides.
 
@@ -3020,7 +3984,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser File Upload Config
 
-- `beta_browser_file_upload_config: object { defer_loading, enabled }`
+- `beta_browser_file_upload_config: object`
 
   `file_upload`'s config overrides.
 
@@ -3034,7 +3998,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Find Config
 
-- `beta_browser_find_config: object { defer_loading, enabled }`
+- `beta_browser_find_config: object`
 
   `find`'s config overrides.
 
@@ -3048,7 +4012,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Form Input Config
 
-- `beta_browser_form_input_config: object { defer_loading, enabled }`
+- `beta_browser_form_input_config: object`
 
   `form_input`'s config overrides.
 
@@ -3062,7 +4026,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Get Page Text Config
 
-- `beta_browser_get_page_text_config: object { defer_loading, enabled }`
+- `beta_browser_get_page_text_config: object`
 
   `get_page_text`'s config overrides.
 
@@ -3076,7 +4040,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Hold Key Config
 
-- `beta_browser_hold_key_config: object { defer_loading, enabled }`
+- `beta_browser_hold_key_config: object`
 
   `hold_key`'s config overrides.
 
@@ -3090,7 +4054,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Hover Config
 
-- `beta_browser_hover_config: object { defer_loading, enabled }`
+- `beta_browser_hover_config: object`
 
   `hover`'s config overrides.
 
@@ -3104,7 +4068,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Javascript Exec Config
 
-- `beta_browser_javascript_exec_config: object { defer_loading, enabled }`
+- `beta_browser_javascript_exec_config: object`
 
   `javascript_exec`'s config overrides.
 
@@ -3118,7 +4082,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Key Config
 
-- `beta_browser_key_config: object { defer_loading, enabled }`
+- `beta_browser_key_config: object`
 
   `key`'s config overrides.
 
@@ -3132,7 +4096,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Left Click Config
 
-- `beta_browser_left_click_config: object { defer_loading, enabled }`
+- `beta_browser_left_click_config: object`
 
   `left_click`'s config overrides.
 
@@ -3146,7 +4110,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Left Click Drag Config
 
-- `beta_browser_left_click_drag_config: object { defer_loading, enabled }`
+- `beta_browser_left_click_drag_config: object`
 
   `left_click_drag`'s config overrides.
 
@@ -3160,7 +4124,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Left Mouse Down Config
 
-- `beta_browser_left_mouse_down_config: object { defer_loading, enabled }`
+- `beta_browser_left_mouse_down_config: object`
 
   `left_mouse_down`'s config overrides.
 
@@ -3174,7 +4138,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Left Mouse Up Config
 
-- `beta_browser_left_mouse_up_config: object { defer_loading, enabled }`
+- `beta_browser_left_mouse_up_config: object`
 
   `left_mouse_up`'s config overrides.
 
@@ -3188,7 +4152,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser List Tabs Config
 
-- `beta_browser_list_tabs_config: object { defer_loading, enabled }`
+- `beta_browser_list_tabs_config: object`
 
   `list_tabs`'s config overrides.
 
@@ -3202,7 +4166,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Middle Click Config
 
-- `beta_browser_middle_click_config: object { defer_loading, enabled }`
+- `beta_browser_middle_click_config: object`
 
   `middle_click`'s config overrides.
 
@@ -3216,7 +4180,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Mouse Move Config
 
-- `beta_browser_mouse_move_config: object { defer_loading, enabled }`
+- `beta_browser_mouse_move_config: object`
 
   `mouse_move`'s config overrides.
 
@@ -3230,7 +4194,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Navigate Config
 
-- `beta_browser_navigate_config: object { defer_loading, enabled }`
+- `beta_browser_navigate_config: object`
 
   `navigate`'s config overrides.
 
@@ -3244,7 +4208,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser New Tab Config
 
-- `beta_browser_new_tab_config: object { defer_loading, enabled }`
+- `beta_browser_new_tab_config: object`
 
   `new_tab`'s config overrides.
 
@@ -3258,7 +4222,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Read Console Config
 
-- `beta_browser_read_console_config: object { defer_loading, enabled }`
+- `beta_browser_read_console_config: object`
 
   `read_console`'s config overrides.
 
@@ -3272,7 +4236,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Read Network Config
 
-- `beta_browser_read_network_config: object { defer_loading, enabled }`
+- `beta_browser_read_network_config: object`
 
   `read_network`'s config overrides.
 
@@ -3286,7 +4250,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Read Page Config
 
-- `beta_browser_read_page_config: object { defer_loading, enabled }`
+- `beta_browser_read_page_config: object`
 
   `read_page`'s config overrides.
 
@@ -3300,7 +4264,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Right Click Config
 
-- `beta_browser_right_click_config: object { defer_loading, enabled }`
+- `beta_browser_right_click_config: object`
 
   `right_click`'s config overrides.
 
@@ -3314,7 +4278,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Screenshot Config
 
-- `beta_browser_screenshot_config: object { defer_loading, enabled }`
+- `beta_browser_screenshot_config: object`
 
   `screenshot`'s config overrides.
 
@@ -3328,7 +4292,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Scroll Config
 
-- `beta_browser_scroll_config: object { defer_loading, enabled }`
+- `beta_browser_scroll_config: object`
 
   `scroll`'s config overrides.
 
@@ -3342,7 +4306,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Scroll To Config
 
-- `beta_browser_scroll_to_config: object { defer_loading, enabled }`
+- `beta_browser_scroll_to_config: object`
 
   `scroll_to`'s config overrides.
 
@@ -3356,7 +4320,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser State Block Param
 
-- `beta_browser_state_block_param: object { tabs, type, cache_control, state_changes }`
+- `beta_browser_state_block_param: object`
 
   The caller's browser state after a browser toolset member call —
   the full inventory of open tabs, which tab is active, and any side
@@ -3370,17 +4334,25 @@ ant beta:messages count-tokens \
 
     All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+    maxItems: 100
+
     - `tab_id: string`
 
       The caller-assigned identifier for this tab, unique within the inventory.
+
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `title: string`
 
       The title of the page the tab is showing. May be empty.
 
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `url: string`
 
       The URL of the page the tab is showing. May be empty.
+
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
     - `active: optional boolean`
 
@@ -3388,7 +4360,7 @@ ant beta:messages count-tokens \
 
   - `type: "browser_state"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -3413,7 +4385,9 @@ ant beta:messages count-tokens \
 
     Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-    - `beta_browser_state_change_tab_opened: object { tab_id, type }`
+    maxItems: 200, minItems: 1
+
+    - `beta_browser_state_change_tab_opened: object`
 
       A tab this call's execution opened that remains open at its end —
       the creation delta of the `tabs` inventory, not an event log.
@@ -3427,9 +4401,11 @@ ant beta:messages count-tokens \
 
         The `tab_id` of the opened tab, present in `tabs`.
 
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `type: "tab_opened"`
 
-    - `beta_browser_state_change_download_started: object { download_id, type, url }`
+    - `beta_browser_state_change_download_started: object`
 
       A file download that started during this call.
 
@@ -3437,13 +4413,17 @@ ant beta:messages count-tokens \
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `type: "download_started"`
 
       - `url: string`
 
         The final post-redirect URL the download was served from.
 
-    - `beta_browser_state_change_download_completed: object { download_id, type, url, 2 more }`
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+    - `beta_browser_state_change_download_completed: object`
 
       A file download that finished during this call, reported with the
       same `download_id` as its `download_started` — or without a prior
@@ -3454,21 +4434,29 @@ ant beta:messages count-tokens \
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `type: "download_completed"`
 
       - `url: string`
 
         The final post-redirect URL the download was served from.
 
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `path: optional string`
 
         Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
       - `size_bytes: optional number`
 
         The completed download's size.
 
-    - `beta_browser_state_change_download_failed: object { download_id, type, url, error }`
+        minimum: 0
+
+    - `beta_browser_state_change_download_failed: object`
 
       A file download that failed — or was cancelled — during this call.
 
@@ -3476,15 +4464,21 @@ ant beta:messages count-tokens \
 
         The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `type: "download_failed"`
 
       - `url: string`
 
         The final post-redirect URL the download was served from.
 
+        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
       - `error: optional string`
 
         The failure or cancellation detail, when known.
+
+        pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
 ### Beta Browser State Change
 
@@ -3498,7 +4492,7 @@ ant beta:messages count-tokens \
   during a failed call gets no deferred `tab_opened`; it simply appears
   in the next result's `tabs` inventory.
 
-  - `beta_browser_state_change_tab_opened: object { tab_id, type }`
+  - `beta_browser_state_change_tab_opened: object`
 
     A tab this call's execution opened that remains open at its end —
     the creation delta of the `tabs` inventory, not an event log.
@@ -3512,9 +4506,11 @@ ant beta:messages count-tokens \
 
       The `tab_id` of the opened tab, present in `tabs`.
 
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `type: "tab_opened"`
 
-  - `beta_browser_state_change_download_started: object { download_id, type, url }`
+  - `beta_browser_state_change_download_started: object`
 
     A file download that started during this call.
 
@@ -3522,13 +4518,17 @@ ant beta:messages count-tokens \
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `type: "download_started"`
 
     - `url: string`
 
       The final post-redirect URL the download was served from.
 
-  - `beta_browser_state_change_download_completed: object { download_id, type, url, 2 more }`
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+  - `beta_browser_state_change_download_completed: object`
 
     A file download that finished during this call, reported with the
     same `download_id` as its `download_started` — or without a prior
@@ -3539,21 +4539,29 @@ ant beta:messages count-tokens \
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `type: "download_completed"`
 
     - `url: string`
 
       The final post-redirect URL the download was served from.
 
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `path: optional string`
 
       Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
     - `size_bytes: optional number`
 
       The completed download's size.
 
-  - `beta_browser_state_change_download_failed: object { download_id, type, url, error }`
+      minimum: 0
+
+  - `beta_browser_state_change_download_failed: object`
 
     A file download that failed — or was cancelled — during this call.
 
@@ -3561,19 +4569,25 @@ ant beta:messages count-tokens \
 
       The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+      maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `type: "download_failed"`
 
     - `url: string`
 
       The final post-redirect URL the download was served from.
 
+      maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
     - `error: optional string`
 
       The failure or cancellation detail, when known.
 
+      pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
 ### Beta Browser State Change Download Completed
 
-- `beta_browser_state_change_download_completed: object { download_id, type, url, 2 more }`
+- `beta_browser_state_change_download_completed: object`
 
   A file download that finished during this call, reported with the
   same `download_id` as its `download_started` — or without a prior
@@ -3584,23 +4598,31 @@ ant beta:messages count-tokens \
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `type: "download_completed"`
 
   - `url: string`
 
     The final post-redirect URL the download was served from.
 
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `path: optional string`
 
     Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
   - `size_bytes: optional number`
 
     The completed download's size.
 
+    minimum: 0
+
 ### Beta Browser State Change Download Failed
 
-- `beta_browser_state_change_download_failed: object { download_id, type, url, error }`
+- `beta_browser_state_change_download_failed: object`
 
   A file download that failed — or was cancelled — during this call.
 
@@ -3608,19 +4630,25 @@ ant beta:messages count-tokens \
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `type: "download_failed"`
 
   - `url: string`
 
     The final post-redirect URL the download was served from.
 
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `error: optional string`
 
     The failure or cancellation detail, when known.
 
+    pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
 ### Beta Browser State Change Download Started
 
-- `beta_browser_state_change_download_started: object { download_id, type, url }`
+- `beta_browser_state_change_download_started: object`
 
   A file download that started during this call.
 
@@ -3628,15 +4656,19 @@ ant beta:messages count-tokens \
 
     The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `type: "download_started"`
 
   - `url: string`
 
     The final post-redirect URL the download was served from.
 
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
 ### Beta Browser State Change Tab Opened
 
-- `beta_browser_state_change_tab_opened: object { tab_id, type }`
+- `beta_browser_state_change_tab_opened: object`
 
   A tab this call's execution opened that remains open at its end —
   the creation delta of the `tabs` inventory, not an event log.
@@ -3650,11 +4682,13 @@ ant beta:messages count-tokens \
 
     The `tab_id` of the opened tab, present in `tabs`.
 
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `type: "tab_opened"`
 
 ### Beta Browser State Tab Entry
 
-- `beta_browser_state_tab_entry: object { tab_id, title, url, active }`
+- `beta_browser_state_tab_entry: object`
 
   One open browser tab reported in a `browser_state` block's `tabs`
   inventory.
@@ -3669,13 +4703,19 @@ ant beta:messages count-tokens \
 
     The caller-assigned identifier for this tab, unique within the inventory.
 
+    maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `title: string`
 
     The title of the page the tab is showing. May be empty.
 
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
   - `url: string`
 
     The URL of the page the tab is showing. May be empty.
+
+    maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
   - `active: optional boolean`
 
@@ -3683,7 +4723,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Switch Tab Config
 
-- `beta_browser_switch_tab_config: object { defer_loading, enabled }`
+- `beta_browser_switch_tab_config: object`
 
   `switch_tab`'s config overrides.
 
@@ -3697,7 +4737,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Toolset 20260801
 
-- `beta_browser_toolset_20260801: object { type, allowed_callers, cache_control, configs }`
+- `beta_browser_toolset_20260801: object`
 
   The browser toolset: a single `tools[]` entry (carrying no
   `name`) that declares the browser tool family. The model is served
@@ -3716,7 +4756,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -3737,7 +4777,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `configs: optional object { close_tab, double_click, file_upload, 28 more }`
+  - `configs: optional object`
 
     Per-member configuration for `browser_toolset_20260801`: one
     optional field per member tool, keyed by the member name — the same
@@ -3746,7 +4786,7 @@ ant beta:messages count-tokens \
     absent. Unknown keys are rejected: the field set is this toolset
     version's complete member set.
 
-    - `close_tab: optional object { defer_loading, enabled }`
+    - `close_tab: optional object`
 
       `close_tab`'s config overrides.
 
@@ -3758,7 +4798,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `double_click: optional object { defer_loading, enabled }`
+    - `double_click: optional object`
 
       `double_click`'s config overrides.
 
@@ -3770,7 +4810,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `file_upload: optional object { defer_loading, enabled }`
+    - `file_upload: optional object`
 
       `file_upload`'s config overrides.
 
@@ -3782,7 +4822,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `find: optional object { defer_loading, enabled }`
+    - `find: optional object`
 
       `find`'s config overrides.
 
@@ -3794,7 +4834,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `form_input: optional object { defer_loading, enabled }`
+    - `form_input: optional object`
 
       `form_input`'s config overrides.
 
@@ -3806,7 +4846,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `get_page_text: optional object { defer_loading, enabled }`
+    - `get_page_text: optional object`
 
       `get_page_text`'s config overrides.
 
@@ -3818,7 +4858,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `hold_key: optional object { defer_loading, enabled }`
+    - `hold_key: optional object`
 
       `hold_key`'s config overrides.
 
@@ -3830,7 +4870,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `hover: optional object { defer_loading, enabled }`
+    - `hover: optional object`
 
       `hover`'s config overrides.
 
@@ -3842,7 +4882,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `javascript_exec: optional object { defer_loading, enabled }`
+    - `javascript_exec: optional object`
 
       `javascript_exec`'s config overrides.
 
@@ -3854,7 +4894,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `key: optional object { defer_loading, enabled }`
+    - `key: optional object`
 
       `key`'s config overrides.
 
@@ -3866,7 +4906,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_click: optional object { defer_loading, enabled }`
+    - `left_click: optional object`
 
       `left_click`'s config overrides.
 
@@ -3878,7 +4918,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_click_drag: optional object { defer_loading, enabled }`
+    - `left_click_drag: optional object`
 
       `left_click_drag`'s config overrides.
 
@@ -3890,7 +4930,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_mouse_down: optional object { defer_loading, enabled }`
+    - `left_mouse_down: optional object`
 
       `left_mouse_down`'s config overrides.
 
@@ -3902,7 +4942,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_mouse_up: optional object { defer_loading, enabled }`
+    - `left_mouse_up: optional object`
 
       `left_mouse_up`'s config overrides.
 
@@ -3914,7 +4954,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `list_tabs: optional object { defer_loading, enabled }`
+    - `list_tabs: optional object`
 
       `list_tabs`'s config overrides.
 
@@ -3926,7 +4966,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `middle_click: optional object { defer_loading, enabled }`
+    - `middle_click: optional object`
 
       `middle_click`'s config overrides.
 
@@ -3938,7 +4978,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `mouse_move: optional object { defer_loading, enabled }`
+    - `mouse_move: optional object`
 
       `mouse_move`'s config overrides.
 
@@ -3950,7 +4990,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `navigate: optional object { defer_loading, enabled }`
+    - `navigate: optional object`
 
       `navigate`'s config overrides.
 
@@ -3962,7 +5002,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `new_tab: optional object { defer_loading, enabled }`
+    - `new_tab: optional object`
 
       `new_tab`'s config overrides.
 
@@ -3974,7 +5014,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `read_console: optional object { defer_loading, enabled }`
+    - `read_console: optional object`
 
       `read_console`'s config overrides.
 
@@ -3986,7 +5026,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `read_network: optional object { defer_loading, enabled }`
+    - `read_network: optional object`
 
       `read_network`'s config overrides.
 
@@ -3998,7 +5038,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `read_page: optional object { defer_loading, enabled }`
+    - `read_page: optional object`
 
       `read_page`'s config overrides.
 
@@ -4010,7 +5050,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `right_click: optional object { defer_loading, enabled }`
+    - `right_click: optional object`
 
       `right_click`'s config overrides.
 
@@ -4022,7 +5062,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `screenshot: optional object { defer_loading, enabled }`
+    - `screenshot: optional object`
 
       `screenshot`'s config overrides.
 
@@ -4034,7 +5074,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `scroll: optional object { defer_loading, enabled }`
+    - `scroll: optional object`
 
       `scroll`'s config overrides.
 
@@ -4046,7 +5086,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `scroll_to: optional object { defer_loading, enabled }`
+    - `scroll_to: optional object`
 
       `scroll_to`'s config overrides.
 
@@ -4058,7 +5098,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `switch_tab: optional object { defer_loading, enabled }`
+    - `switch_tab: optional object`
 
       `switch_tab`'s config overrides.
 
@@ -4070,7 +5110,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `triple_click: optional object { defer_loading, enabled }`
+    - `triple_click: optional object`
 
       `triple_click`'s config overrides.
 
@@ -4082,7 +5122,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type: optional object { defer_loading, enabled }`
+    - `type: optional object`
 
       `type`'s config overrides.
 
@@ -4094,7 +5134,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `wait: optional object { defer_loading, enabled }`
+    - `wait: optional object`
 
       `wait`'s config overrides.
 
@@ -4106,7 +5146,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `zoom: optional object { defer_loading, enabled }`
+    - `zoom: optional object`
 
       `zoom`'s config overrides.
 
@@ -4120,7 +5160,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Toolset Configs
 
-- `beta_browser_toolset_configs: object { close_tab, double_click, file_upload, 28 more }`
+- `beta_browser_toolset_configs: object`
 
   Per-member configuration for `browser_toolset_20260801`: one
   optional field per member tool, keyed by the member name — the same
@@ -4129,7 +5169,7 @@ ant beta:messages count-tokens \
   absent. Unknown keys are rejected: the field set is this toolset
   version's complete member set.
 
-  - `close_tab: optional object { defer_loading, enabled }`
+  - `close_tab: optional object`
 
     `close_tab`'s config overrides.
 
@@ -4141,7 +5181,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `double_click: optional object { defer_loading, enabled }`
+  - `double_click: optional object`
 
     `double_click`'s config overrides.
 
@@ -4153,7 +5193,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `file_upload: optional object { defer_loading, enabled }`
+  - `file_upload: optional object`
 
     `file_upload`'s config overrides.
 
@@ -4165,7 +5205,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `find: optional object { defer_loading, enabled }`
+  - `find: optional object`
 
     `find`'s config overrides.
 
@@ -4177,7 +5217,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `form_input: optional object { defer_loading, enabled }`
+  - `form_input: optional object`
 
     `form_input`'s config overrides.
 
@@ -4189,7 +5229,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `get_page_text: optional object { defer_loading, enabled }`
+  - `get_page_text: optional object`
 
     `get_page_text`'s config overrides.
 
@@ -4201,7 +5241,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `hold_key: optional object { defer_loading, enabled }`
+  - `hold_key: optional object`
 
     `hold_key`'s config overrides.
 
@@ -4213,7 +5253,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `hover: optional object { defer_loading, enabled }`
+  - `hover: optional object`
 
     `hover`'s config overrides.
 
@@ -4225,7 +5265,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `javascript_exec: optional object { defer_loading, enabled }`
+  - `javascript_exec: optional object`
 
     `javascript_exec`'s config overrides.
 
@@ -4237,7 +5277,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `key: optional object { defer_loading, enabled }`
+  - `key: optional object`
 
     `key`'s config overrides.
 
@@ -4249,7 +5289,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_click: optional object { defer_loading, enabled }`
+  - `left_click: optional object`
 
     `left_click`'s config overrides.
 
@@ -4261,7 +5301,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_click_drag: optional object { defer_loading, enabled }`
+  - `left_click_drag: optional object`
 
     `left_click_drag`'s config overrides.
 
@@ -4273,7 +5313,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_mouse_down: optional object { defer_loading, enabled }`
+  - `left_mouse_down: optional object`
 
     `left_mouse_down`'s config overrides.
 
@@ -4285,7 +5325,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_mouse_up: optional object { defer_loading, enabled }`
+  - `left_mouse_up: optional object`
 
     `left_mouse_up`'s config overrides.
 
@@ -4297,7 +5337,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `list_tabs: optional object { defer_loading, enabled }`
+  - `list_tabs: optional object`
 
     `list_tabs`'s config overrides.
 
@@ -4309,7 +5349,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `middle_click: optional object { defer_loading, enabled }`
+  - `middle_click: optional object`
 
     `middle_click`'s config overrides.
 
@@ -4321,7 +5361,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `mouse_move: optional object { defer_loading, enabled }`
+  - `mouse_move: optional object`
 
     `mouse_move`'s config overrides.
 
@@ -4333,7 +5373,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `navigate: optional object { defer_loading, enabled }`
+  - `navigate: optional object`
 
     `navigate`'s config overrides.
 
@@ -4345,7 +5385,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `new_tab: optional object { defer_loading, enabled }`
+  - `new_tab: optional object`
 
     `new_tab`'s config overrides.
 
@@ -4357,7 +5397,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `read_console: optional object { defer_loading, enabled }`
+  - `read_console: optional object`
 
     `read_console`'s config overrides.
 
@@ -4369,7 +5409,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `read_network: optional object { defer_loading, enabled }`
+  - `read_network: optional object`
 
     `read_network`'s config overrides.
 
@@ -4381,7 +5421,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `read_page: optional object { defer_loading, enabled }`
+  - `read_page: optional object`
 
     `read_page`'s config overrides.
 
@@ -4393,7 +5433,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `right_click: optional object { defer_loading, enabled }`
+  - `right_click: optional object`
 
     `right_click`'s config overrides.
 
@@ -4405,7 +5445,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `screenshot: optional object { defer_loading, enabled }`
+  - `screenshot: optional object`
 
     `screenshot`'s config overrides.
 
@@ -4417,7 +5457,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `scroll: optional object { defer_loading, enabled }`
+  - `scroll: optional object`
 
     `scroll`'s config overrides.
 
@@ -4429,7 +5469,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `scroll_to: optional object { defer_loading, enabled }`
+  - `scroll_to: optional object`
 
     `scroll_to`'s config overrides.
 
@@ -4441,7 +5481,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `switch_tab: optional object { defer_loading, enabled }`
+  - `switch_tab: optional object`
 
     `switch_tab`'s config overrides.
 
@@ -4453,7 +5493,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `triple_click: optional object { defer_loading, enabled }`
+  - `triple_click: optional object`
 
     `triple_click`'s config overrides.
 
@@ -4465,7 +5505,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `type: optional object { defer_loading, enabled }`
+  - `type: optional object`
 
     `type`'s config overrides.
 
@@ -4477,7 +5517,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `wait: optional object { defer_loading, enabled }`
+  - `wait: optional object`
 
     `wait`'s config overrides.
 
@@ -4489,7 +5529,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `zoom: optional object { defer_loading, enabled }`
+  - `zoom: optional object`
 
     `zoom`'s config overrides.
 
@@ -4503,7 +5543,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Triple Click Config
 
-- `beta_browser_triple_click_config: object { defer_loading, enabled }`
+- `beta_browser_triple_click_config: object`
 
   `triple_click`'s config overrides.
 
@@ -4517,7 +5557,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Type Config
 
-- `beta_browser_type_config: object { defer_loading, enabled }`
+- `beta_browser_type_config: object`
 
   `type`'s config overrides.
 
@@ -4531,7 +5571,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Wait Config
 
-- `beta_browser_wait_config: object { defer_loading, enabled }`
+- `beta_browser_wait_config: object`
 
   `wait`'s config overrides.
 
@@ -4545,7 +5585,7 @@ ant beta:messages count-tokens \
 
 ### Beta Browser Zoom Config
 
-- `beta_browser_zoom_config: object { defer_loading, enabled }`
+- `beta_browser_zoom_config: object`
 
   `zoom`'s config overrides.
 
@@ -4559,7 +5599,7 @@ ant beta:messages count-tokens \
 
 ### Beta Cache Control Ephemeral
 
-- `beta_cache_control_ephemeral: object { type, ttl }`
+- `beta_cache_control_ephemeral: object`
 
   - `type: "ephemeral"`
 
@@ -4580,19 +5620,23 @@ ant beta:messages count-tokens \
 
 ### Beta Cache Creation
 
-- `beta_cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+- `beta_cache_creation: object`
 
   - `ephemeral_1h_input_tokens: number`
 
     The number of input tokens used to create the 1 hour cache entry.
 
+    minimum: 0
+
   - `ephemeral_5m_input_tokens: number`
 
     The number of input tokens used to create the 5 minute cache entry.
 
+    minimum: 0
+
 ### Beta Cache Miss Messages Changed
 
-- `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
+- `beta_cache_miss_messages_changed: object`
 
   - `cache_missed_input_tokens: number`
 
@@ -4602,7 +5646,7 @@ ant beta:messages count-tokens \
 
 ### Beta Cache Miss Model Changed
 
-- `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
+- `beta_cache_miss_model_changed: object`
 
   - `cache_missed_input_tokens: number`
 
@@ -4612,13 +5656,13 @@ ant beta:messages count-tokens \
 
 ### Beta Cache Miss Previous Message Not Found
 
-- `beta_cache_miss_previous_message_not_found: object { type }`
+- `beta_cache_miss_previous_message_not_found: object`
 
   - `type: "previous_message_not_found"`
 
 ### Beta Cache Miss System Changed
 
-- `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
+- `beta_cache_miss_system_changed: object`
 
   - `cache_missed_input_tokens: number`
 
@@ -4628,7 +5672,7 @@ ant beta:messages count-tokens \
 
 ### Beta Cache Miss Tools Changed
 
-- `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
+- `beta_cache_miss_tools_changed: object`
 
   - `cache_missed_input_tokens: number`
 
@@ -4638,17 +5682,19 @@ ant beta:messages count-tokens \
 
 ### Beta Cache Miss Unavailable
 
-- `beta_cache_miss_unavailable: object { type }`
+- `beta_cache_miss_unavailable: object`
 
   - `type: "unavailable"`
 
 ### Beta Citation Char Location
 
-- `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+- `beta_citation_char_location: object`
 
   - `cited_text: string`
 
   - `document_index: number`
+
+    minimum: 0
 
   - `document_title: string`
 
@@ -4657,34 +5703,42 @@ ant beta:messages count-tokens \
   - `file_id: string`
 
   - `start_char_index: number`
+
+    minimum: 0
 
   - `type: "char_location"`
 
 ### Beta Citation Char Location Param
 
-- `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+- `beta_citation_char_location_param: object`
 
   - `cited_text: string`
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string`
+
+    maxLength: 500, minLength: 1
 
   - `end_char_index: number`
 
   - `start_char_index: number`
 
+    minimum: 0
+
   - `type: "char_location"`
 
 ### Beta Citation Config
 
-- `beta_citation_config: object { enabled }`
+- `beta_citation_config: object`
 
   - `enabled: boolean`
 
 ### Beta Citation Content Block Location
 
-- `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+- `beta_citation_content_block_location: object`
 
   - `cited_text: string`
 
@@ -4693,6 +5747,8 @@ ant beta:messages count-tokens \
     Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
   - `document_index: number`
+
+    minimum: 0
 
   - `document_title: string`
 
@@ -4707,12 +5763,14 @@ ant beta:messages count-tokens \
   - `start_block_index: number`
 
     0-based index of the first cited block in the source's `content` array.
+
+    minimum: 0
 
   - `type: "content_block_location"`
 
 ### Beta Citation Content Block Location Param
 
-- `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+- `beta_citation_content_block_location_param: object`
 
   - `cited_text: string`
 
@@ -4722,7 +5780,11 @@ ant beta:messages count-tokens \
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string`
+
+    maxLength: 500, minLength: 1
 
   - `end_block_index: number`
 
@@ -4734,15 +5796,19 @@ ant beta:messages count-tokens \
 
     0-based index of the first cited block in the source's `content` array.
 
+    minimum: 0
+
   - `type: "content_block_location"`
 
 ### Beta Citation Page Location
 
-- `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+- `beta_citation_page_location: object`
 
   - `cited_text: string`
 
   - `document_index: number`
+
+    minimum: 0
 
   - `document_title: string`
 
@@ -4752,27 +5818,35 @@ ant beta:messages count-tokens \
 
   - `start_page_number: number`
 
+    minimum: 1
+
   - `type: "page_location"`
 
 ### Beta Citation Page Location Param
 
-- `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+- `beta_citation_page_location_param: object`
 
   - `cited_text: string`
 
   - `document_index: number`
 
+    minimum: 0
+
   - `document_title: string`
+
+    maxLength: 500, minLength: 1
 
   - `end_page_number: number`
 
   - `start_page_number: number`
 
+    minimum: 1
+
   - `type: "page_location"`
 
 ### Beta Citation Search Result Location
 
-- `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+- `beta_citation_search_result_location: object`
 
   - `cited_text: string`
 
@@ -4792,11 +5866,15 @@ ant beta:messages count-tokens \
 
     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+    minimum: 0
+
   - `source: string`
 
   - `start_block_index: number`
 
     0-based index of the first cited block in the source's `content` array.
+
+    minimum: 0
 
   - `title: string`
 
@@ -4804,7 +5882,7 @@ ant beta:messages count-tokens \
 
 ### Beta Citation Search Result Location Param
 
-- `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+- `beta_citation_search_result_location_param: object`
 
   - `cited_text: string`
 
@@ -4824,11 +5902,15 @@ ant beta:messages count-tokens \
 
     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+    minimum: 0
+
   - `source: string`
 
   - `start_block_index: number`
 
     0-based index of the first cited block in the source's `content` array.
+
+    minimum: 0
 
   - `title: string`
 
@@ -4836,7 +5918,7 @@ ant beta:messages count-tokens \
 
 ### Beta Citation Web Search Result Location Param
 
-- `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+- `beta_citation_web_search_result_location_param: object`
 
   - `cited_text: string`
 
@@ -4844,27 +5926,33 @@ ant beta:messages count-tokens \
 
   - `title: string`
 
+    maxLength: 512, minLength: 1
+
   - `type: "web_search_result_location"`
 
   - `url: string`
 
+    minLength: 1
+
 ### Beta Citations Config Param
 
-- `beta_citations_config_param: object { enabled }`
+- `beta_citations_config_param: object`
 
   - `enabled: optional boolean`
 
 ### Beta Citations Delta
 
-- `beta_citations_delta: object { citation, type }`
+- `beta_citations_delta: object`
 
   - `citation: BetaCitationCharLocation or BetaCitationPageLocation or BetaCitationContentBlockLocation or 2 more`
 
-    - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+    - `beta_citation_char_location: object`
 
       - `cited_text: string`
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string`
 
@@ -4874,13 +5962,17 @@ ant beta:messages count-tokens \
 
       - `start_char_index: number`
 
+        minimum: 0
+
       - `type: "char_location"`
 
-    - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+    - `beta_citation_page_location: object`
 
       - `cited_text: string`
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string`
 
@@ -4890,9 +5982,11 @@ ant beta:messages count-tokens \
 
       - `start_page_number: number`
 
+        minimum: 1
+
       - `type: "page_location"`
 
-    - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+    - `beta_citation_content_block_location: object`
 
       - `cited_text: string`
 
@@ -4901,6 +5995,8 @@ ant beta:messages count-tokens \
         Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string`
 
@@ -4916,9 +6012,11 @@ ant beta:messages count-tokens \
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `type: "content_block_location"`
 
-    - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+    - `beta_citations_web_search_result_location: object`
 
       - `cited_text: string`
 
@@ -4926,11 +6024,13 @@ ant beta:messages count-tokens \
 
       - `title: string`
 
+        maxLength: 512
+
       - `type: "web_search_result_location"`
 
       - `url: string`
 
-    - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+    - `beta_citation_search_result_location: object`
 
       - `cited_text: string`
 
@@ -4950,11 +6050,15 @@ ant beta:messages count-tokens \
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: string`
 
       - `start_block_index: number`
 
         0-based index of the first cited block in the source's `content` array.
+
+        minimum: 0
 
       - `title: string`
 
@@ -4964,7 +6068,7 @@ ant beta:messages count-tokens \
 
 ### Beta Citations Web Search Result Location
 
-- `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+- `beta_citations_web_search_result_location: object`
 
   - `cited_text: string`
 
@@ -4972,13 +6076,15 @@ ant beta:messages count-tokens \
 
   - `title: string`
 
+    maxLength: 512
+
   - `type: "web_search_result_location"`
 
   - `url: string`
 
 ### Beta Clear Thinking 20251015 Edit
 
-- `beta_clear_thinking_20251015_edit: object { type, keep }`
+- `beta_clear_thinking_20251015_edit: object`
 
   - `type: "clear_thinking_20251015"`
 
@@ -4986,13 +6092,15 @@ ant beta:messages count-tokens \
 
     Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
 
-    - `beta_thinking_turns: object { type, value }`
+    - `beta_thinking_turns: object`
 
       - `type: "thinking_turns"`
 
       - `value: number`
 
-    - `beta_all_thinking_turns: object { type }`
+        minimum: 1
+
+    - `beta_all_thinking_turns: object`
 
       - `type: "all"`
 
@@ -5000,15 +6108,19 @@ ant beta:messages count-tokens \
 
 ### Beta Clear Thinking 20251015 Edit Response
 
-- `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+- `beta_clear_thinking_20251015_edit_response: object`
 
   - `cleared_input_tokens: number`
 
     Number of input tokens cleared by this edit.
 
+    minimum: 0
+
   - `cleared_thinking_turns: number`
 
     Number of thinking turns that were cleared.
+
+    minimum: 0
 
   - `type: "clear_thinking_20251015"`
 
@@ -5016,17 +6128,19 @@ ant beta:messages count-tokens \
 
 ### Beta Clear Tool Uses 20250919 Edit
 
-- `beta_clear_tool_uses_20250919_edit: object { type, clear_at_least, clear_tool_inputs, 3 more }`
+- `beta_clear_tool_uses_20250919_edit: object`
 
   - `type: "clear_tool_uses_20250919"`
 
-  - `clear_at_least: optional object { type, value }`
+  - `clear_at_least: optional object`
 
     Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
     - `type: "input_tokens"`
 
     - `value: number`
+
+      minimum: 0
 
   - `clear_tool_inputs: optional boolean or array of string`
 
@@ -5040,7 +6154,7 @@ ant beta:messages count-tokens \
 
     Tool names whose uses are preserved from clearing
 
-  - `keep: optional object { type, value }`
+  - `keep: optional object`
 
     Number of tool uses to retain in the conversation
 
@@ -5048,33 +6162,43 @@ ant beta:messages count-tokens \
 
     - `value: number`
 
+      minimum: 0
+
   - `trigger: optional BetaInputTokensTrigger or BetaToolUsesTrigger`
 
     Condition that triggers the context management strategy
 
-    - `beta_input_tokens_trigger: object { type, value }`
+    - `beta_input_tokens_trigger: object`
 
       - `type: "input_tokens"`
 
       - `value: number`
 
-    - `beta_tool_uses_trigger: object { type, value }`
+        minimum: 1
+
+    - `beta_tool_uses_trigger: object`
 
       - `type: "tool_uses"`
 
       - `value: number`
 
+        minimum: 1
+
 ### Beta Clear Tool Uses 20250919 Edit Response
 
-- `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+- `beta_clear_tool_uses_20250919_edit_response: object`
 
   - `cleared_input_tokens: number`
 
     Number of input tokens cleared by this edit.
 
+    minimum: 0
+
   - `cleared_tool_uses: number`
 
     Number of tool uses that were cleared.
+
+    minimum: 0
 
   - `type: "clear_tool_uses_20250919"`
 
@@ -5082,7 +6206,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Output Block
 
-- `beta_code_execution_output_block: object { file_id, type }`
+- `beta_code_execution_output_block: object`
 
   - `file_id: string`
 
@@ -5090,7 +6214,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Output Block Param
 
-- `beta_code_execution_output_block_param: object { file_id, type }`
+- `beta_code_execution_output_block_param: object`
 
   - `file_id: string`
 
@@ -5098,7 +6222,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Result Block
 
-- `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+- `beta_code_execution_result_block: object`
 
   - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -5116,7 +6240,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Result Block Param
 
-- `beta_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+- `beta_code_execution_result_block_param: object`
 
   - `content: array of BetaCodeExecutionOutputBlockParam`
 
@@ -5134,7 +6258,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool 20250522
 
-- `beta_code_execution_tool_20250522: object { name, type, allowed_callers, 3 more }`
+- `beta_code_execution_tool_20250522: object`
 
   - `name: "code_execution"`
 
@@ -5154,7 +6278,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -5185,7 +6309,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool 20250825
 
-- `beta_code_execution_tool_20250825: object { name, type, allowed_callers, 3 more }`
+- `beta_code_execution_tool_20250825: object`
 
   - `name: "code_execution"`
 
@@ -5205,7 +6329,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -5236,7 +6360,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool 20260120
 
-- `beta_code_execution_tool_20260120: object { name, type, allowed_callers, 3 more }`
+- `beta_code_execution_tool_20260120: object`
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -5258,7 +6382,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -5289,7 +6413,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool 20260521
 
-- `beta_code_execution_tool_20260521: object { name, type, allowed_callers, 3 more }`
+- `beta_code_execution_tool_20260521: object`
 
   Code execution tool with REPL state persistence.
 
@@ -5311,7 +6435,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -5342,13 +6466,13 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool Result Block
 
-- `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+- `beta_code_execution_tool_result_block: object`
 
   - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
-    - `beta_code_execution_tool_result_error: object { error_code, type }`
+    - `beta_code_execution_tool_result_error: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -5362,7 +6486,7 @@ ant beta:messages count-tokens \
 
       - `type: "code_execution_tool_result_error"`
 
-    - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+    - `beta_code_execution_result_block: object`
 
       - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -5378,7 +6502,7 @@ ant beta:messages count-tokens \
 
       - `type: "code_execution_result"`
 
-    - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+    - `beta_encrypted_code_execution_result_block: object`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -5398,6 +6522,8 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "code_execution_tool_result"`
 
 ### Beta Code Execution Tool Result Block Content
@@ -5406,7 +6532,7 @@ ant beta:messages count-tokens \
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
-  - `beta_code_execution_tool_result_error: object { error_code, type }`
+  - `beta_code_execution_tool_result_error: object`
 
     - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -5420,7 +6546,7 @@ ant beta:messages count-tokens \
 
     - `type: "code_execution_tool_result_error"`
 
-  - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+  - `beta_code_execution_result_block: object`
 
     - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -5436,7 +6562,7 @@ ant beta:messages count-tokens \
 
     - `type: "code_execution_result"`
 
-  - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+  - `beta_encrypted_code_execution_result_block: object`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -5456,13 +6582,13 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool Result Block Param
 
-- `beta_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+- `beta_code_execution_tool_result_block_param: object`
 
   - `content: BetaCodeExecutionToolResultErrorParam or BetaCodeExecutionResultBlockParam or BetaEncryptedCodeExecutionResultBlockParam`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
-    - `beta_code_execution_tool_result_error_param: object { error_code, type }`
+    - `beta_code_execution_tool_result_error_param: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -5476,7 +6602,7 @@ ant beta:messages count-tokens \
 
       - `type: "code_execution_tool_result_error"`
 
-    - `beta_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+    - `beta_code_execution_result_block_param: object`
 
       - `content: array of BetaCodeExecutionOutputBlockParam`
 
@@ -5492,7 +6618,7 @@ ant beta:messages count-tokens \
 
       - `type: "code_execution_result"`
 
-    - `beta_encrypted_code_execution_result_block_param: object { content, encrypted_stdout, return_code, 2 more }`
+    - `beta_encrypted_code_execution_result_block_param: object`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -5512,9 +6638,11 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "code_execution_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -5541,7 +6669,7 @@ ant beta:messages count-tokens \
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
-  - `beta_code_execution_tool_result_error_param: object { error_code, type }`
+  - `beta_code_execution_tool_result_error_param: object`
 
     - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -5555,7 +6683,7 @@ ant beta:messages count-tokens \
 
     - `type: "code_execution_tool_result_error"`
 
-  - `beta_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+  - `beta_code_execution_result_block_param: object`
 
     - `content: array of BetaCodeExecutionOutputBlockParam`
 
@@ -5571,7 +6699,7 @@ ant beta:messages count-tokens \
 
     - `type: "code_execution_result"`
 
-  - `beta_encrypted_code_execution_result_block_param: object { content, encrypted_stdout, return_code, 2 more }`
+  - `beta_encrypted_code_execution_result_block_param: object`
 
     Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -5591,7 +6719,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool Result Error
 
-- `beta_code_execution_tool_result_error: object { error_code, type }`
+- `beta_code_execution_tool_result_error: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -5619,7 +6747,7 @@ ant beta:messages count-tokens \
 
 ### Beta Code Execution Tool Result Error Param
 
-- `beta_code_execution_tool_result_error_param: object { error_code, type }`
+- `beta_code_execution_tool_result_error_param: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -5635,7 +6763,7 @@ ant beta:messages count-tokens \
 
 ### Beta Compact 20260112 Edit
 
-- `beta_compact_20260112_edit: object { type, instructions, pause_after_compaction, trigger }`
+- `beta_compact_20260112_edit: object`
 
   Automatically compact older context when reaching the configured trigger threshold.
 
@@ -5649,7 +6777,7 @@ ant beta:messages count-tokens \
 
     Whether to pause after compaction and return the compaction block to the user.
 
-  - `trigger: optional object { type, value }`
+  - `trigger: optional object`
 
     When to trigger compaction. Defaults to 150000 input tokens.
 
@@ -5657,9 +6785,11 @@ ant beta:messages count-tokens \
 
     - `value: number`
 
+      minimum: 1
+
 ### Beta Compaction Block
 
-- `beta_compaction_block: object { content, encrypted_content, type }`
+- `beta_compaction_block: object`
 
   A compaction block returned when autocompact is triggered.
 
@@ -5679,7 +6809,7 @@ ant beta:messages count-tokens \
 
 ### Beta Compaction Block Param
 
-- `beta_compaction_block_param: object { type, cache_control, content, encrypted_content }`
+- `beta_compaction_block_param: object`
 
   A compaction block containing summary of previous context.
 
@@ -5691,7 +6821,7 @@ ant beta:messages count-tokens \
 
   - `type: "compaction"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -5722,7 +6852,7 @@ ant beta:messages count-tokens \
 
 ### Beta Compaction Content Block Delta
 
-- `beta_compaction_content_block_delta: object { content, encrypted_content, type }`
+- `beta_compaction_content_block_delta: object`
 
   - `content: string`
 
@@ -5734,11 +6864,11 @@ ant beta:messages count-tokens \
 
 ### Beta Compaction Iteration Usage
 
-- `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+- `beta_compaction_iteration_usage: object`
 
   Token usage for a compaction iteration.
 
-  - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+  - `cache_creation: object`
 
     Breakdown of cached tokens by TTL
 
@@ -5746,25 +6876,37 @@ ant beta:messages count-tokens \
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: number`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: number`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number`
 
     The number of input tokens read from the cache.
+
+    minimum: 0
 
   - `input_tokens: number`
 
     The number of input tokens which were used.
 
+    minimum: 0
+
   - `output_tokens: number`
 
     The number of output tokens which were used.
+
+    minimum: 0
 
   - `type: "compaction"`
 
@@ -5772,7 +6914,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Cursor Position Config
 
-- `beta_computer_cursor_position_config: object { defer_loading, enabled }`
+- `beta_computer_cursor_position_config: object`
 
   `cursor_position`'s config overrides.
 
@@ -5786,7 +6928,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Double Click Config
 
-- `beta_computer_double_click_config: object { defer_loading, enabled }`
+- `beta_computer_double_click_config: object`
 
   `double_click`'s config overrides.
 
@@ -5800,7 +6942,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Hold Key Config
 
-- `beta_computer_hold_key_config: object { defer_loading, enabled }`
+- `beta_computer_hold_key_config: object`
 
   `hold_key`'s config overrides.
 
@@ -5814,7 +6956,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Key Config
 
-- `beta_computer_key_config: object { defer_loading, enabled }`
+- `beta_computer_key_config: object`
 
   `key`'s config overrides.
 
@@ -5828,7 +6970,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Left Click Config
 
-- `beta_computer_left_click_config: object { defer_loading, enabled }`
+- `beta_computer_left_click_config: object`
 
   `left_click`'s config overrides.
 
@@ -5842,7 +6984,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Left Click Drag Config
 
-- `beta_computer_left_click_drag_config: object { defer_loading, enabled }`
+- `beta_computer_left_click_drag_config: object`
 
   `left_click_drag`'s config overrides.
 
@@ -5856,7 +6998,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Left Mouse Down Config
 
-- `beta_computer_left_mouse_down_config: object { defer_loading, enabled }`
+- `beta_computer_left_mouse_down_config: object`
 
   `left_mouse_down`'s config overrides.
 
@@ -5870,7 +7012,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Left Mouse Up Config
 
-- `beta_computer_left_mouse_up_config: object { defer_loading, enabled }`
+- `beta_computer_left_mouse_up_config: object`
 
   `left_mouse_up`'s config overrides.
 
@@ -5884,7 +7026,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Middle Click Config
 
-- `beta_computer_middle_click_config: object { defer_loading, enabled }`
+- `beta_computer_middle_click_config: object`
 
   `middle_click`'s config overrides.
 
@@ -5898,7 +7040,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Mouse Move Config
 
-- `beta_computer_mouse_move_config: object { defer_loading, enabled }`
+- `beta_computer_mouse_move_config: object`
 
   `mouse_move`'s config overrides.
 
@@ -5912,7 +7054,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Right Click Config
 
-- `beta_computer_right_click_config: object { defer_loading, enabled }`
+- `beta_computer_right_click_config: object`
 
   `right_click`'s config overrides.
 
@@ -5926,7 +7068,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Screenshot Config
 
-- `beta_computer_screenshot_config: object { defer_loading, enabled }`
+- `beta_computer_screenshot_config: object`
 
   `screenshot`'s config overrides.
 
@@ -5940,7 +7082,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Scroll Config
 
-- `beta_computer_scroll_config: object { defer_loading, enabled }`
+- `beta_computer_scroll_config: object`
 
   `scroll`'s config overrides.
 
@@ -5954,7 +7096,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Toolset 20260801
 
-- `beta_computer_toolset_20260801: object { type, allowed_callers, cache_control, configs }`
+- `beta_computer_toolset_20260801: object`
 
   The computer toolset: a single `tools[]` entry (carrying no
   `name`) that declares the computer tool family. The model is
@@ -5977,7 +7119,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -5998,7 +7140,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `configs: optional object { cursor_position, double_click, hold_key, 14 more }`
+  - `configs: optional object`
 
     Per-member configuration for `computer_toolset_20260801`: one
     optional field per member tool, keyed by the member name — the same
@@ -6007,7 +7149,7 @@ ant beta:messages count-tokens \
     absent. Unknown keys are rejected: the field set is this toolset
     version's complete member set.
 
-    - `cursor_position: optional object { defer_loading, enabled }`
+    - `cursor_position: optional object`
 
       `cursor_position`'s config overrides.
 
@@ -6019,7 +7161,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `double_click: optional object { defer_loading, enabled }`
+    - `double_click: optional object`
 
       `double_click`'s config overrides.
 
@@ -6031,7 +7173,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `hold_key: optional object { defer_loading, enabled }`
+    - `hold_key: optional object`
 
       `hold_key`'s config overrides.
 
@@ -6043,7 +7185,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `key: optional object { defer_loading, enabled }`
+    - `key: optional object`
 
       `key`'s config overrides.
 
@@ -6055,7 +7197,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_click: optional object { defer_loading, enabled }`
+    - `left_click: optional object`
 
       `left_click`'s config overrides.
 
@@ -6067,7 +7209,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_click_drag: optional object { defer_loading, enabled }`
+    - `left_click_drag: optional object`
 
       `left_click_drag`'s config overrides.
 
@@ -6079,7 +7221,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_mouse_down: optional object { defer_loading, enabled }`
+    - `left_mouse_down: optional object`
 
       `left_mouse_down`'s config overrides.
 
@@ -6091,7 +7233,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `left_mouse_up: optional object { defer_loading, enabled }`
+    - `left_mouse_up: optional object`
 
       `left_mouse_up`'s config overrides.
 
@@ -6103,7 +7245,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `middle_click: optional object { defer_loading, enabled }`
+    - `middle_click: optional object`
 
       `middle_click`'s config overrides.
 
@@ -6115,7 +7257,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `mouse_move: optional object { defer_loading, enabled }`
+    - `mouse_move: optional object`
 
       `mouse_move`'s config overrides.
 
@@ -6127,7 +7269,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `right_click: optional object { defer_loading, enabled }`
+    - `right_click: optional object`
 
       `right_click`'s config overrides.
 
@@ -6139,7 +7281,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `screenshot: optional object { defer_loading, enabled }`
+    - `screenshot: optional object`
 
       `screenshot`'s config overrides.
 
@@ -6151,7 +7293,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `scroll: optional object { defer_loading, enabled }`
+    - `scroll: optional object`
 
       `scroll`'s config overrides.
 
@@ -6163,7 +7305,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `triple_click: optional object { defer_loading, enabled }`
+    - `triple_click: optional object`
 
       `triple_click`'s config overrides.
 
@@ -6175,7 +7317,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `type: optional object { defer_loading, enabled }`
+    - `type: optional object`
 
       `type`'s config overrides.
 
@@ -6187,7 +7329,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `wait: optional object { defer_loading, enabled }`
+    - `wait: optional object`
 
       `wait`'s config overrides.
 
@@ -6199,7 +7341,7 @@ ant beta:messages count-tokens \
 
         Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-    - `zoom: optional object { defer_loading, enabled }`
+    - `zoom: optional object`
 
       `zoom`'s config overrides.
 
@@ -6213,7 +7355,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Toolset Configs
 
-- `beta_computer_toolset_configs: object { cursor_position, double_click, hold_key, 14 more }`
+- `beta_computer_toolset_configs: object`
 
   Per-member configuration for `computer_toolset_20260801`: one
   optional field per member tool, keyed by the member name — the same
@@ -6222,7 +7364,7 @@ ant beta:messages count-tokens \
   absent. Unknown keys are rejected: the field set is this toolset
   version's complete member set.
 
-  - `cursor_position: optional object { defer_loading, enabled }`
+  - `cursor_position: optional object`
 
     `cursor_position`'s config overrides.
 
@@ -6234,7 +7376,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `double_click: optional object { defer_loading, enabled }`
+  - `double_click: optional object`
 
     `double_click`'s config overrides.
 
@@ -6246,7 +7388,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `hold_key: optional object { defer_loading, enabled }`
+  - `hold_key: optional object`
 
     `hold_key`'s config overrides.
 
@@ -6258,7 +7400,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `key: optional object { defer_loading, enabled }`
+  - `key: optional object`
 
     `key`'s config overrides.
 
@@ -6270,7 +7412,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_click: optional object { defer_loading, enabled }`
+  - `left_click: optional object`
 
     `left_click`'s config overrides.
 
@@ -6282,7 +7424,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_click_drag: optional object { defer_loading, enabled }`
+  - `left_click_drag: optional object`
 
     `left_click_drag`'s config overrides.
 
@@ -6294,7 +7436,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_mouse_down: optional object { defer_loading, enabled }`
+  - `left_mouse_down: optional object`
 
     `left_mouse_down`'s config overrides.
 
@@ -6306,7 +7448,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `left_mouse_up: optional object { defer_loading, enabled }`
+  - `left_mouse_up: optional object`
 
     `left_mouse_up`'s config overrides.
 
@@ -6318,7 +7460,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `middle_click: optional object { defer_loading, enabled }`
+  - `middle_click: optional object`
 
     `middle_click`'s config overrides.
 
@@ -6330,7 +7472,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `mouse_move: optional object { defer_loading, enabled }`
+  - `mouse_move: optional object`
 
     `mouse_move`'s config overrides.
 
@@ -6342,7 +7484,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `right_click: optional object { defer_loading, enabled }`
+  - `right_click: optional object`
 
     `right_click`'s config overrides.
 
@@ -6354,7 +7496,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `screenshot: optional object { defer_loading, enabled }`
+  - `screenshot: optional object`
 
     `screenshot`'s config overrides.
 
@@ -6366,7 +7508,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `scroll: optional object { defer_loading, enabled }`
+  - `scroll: optional object`
 
     `scroll`'s config overrides.
 
@@ -6378,7 +7520,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `triple_click: optional object { defer_loading, enabled }`
+  - `triple_click: optional object`
 
     `triple_click`'s config overrides.
 
@@ -6390,7 +7532,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `type: optional object { defer_loading, enabled }`
+  - `type: optional object`
 
     `type`'s config overrides.
 
@@ -6402,7 +7544,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `wait: optional object { defer_loading, enabled }`
+  - `wait: optional object`
 
     `wait`'s config overrides.
 
@@ -6414,7 +7556,7 @@ ant beta:messages count-tokens \
 
       Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `zoom: optional object { defer_loading, enabled }`
+  - `zoom: optional object`
 
     `zoom`'s config overrides.
 
@@ -6428,7 +7570,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Triple Click Config
 
-- `beta_computer_triple_click_config: object { defer_loading, enabled }`
+- `beta_computer_triple_click_config: object`
 
   `triple_click`'s config overrides.
 
@@ -6442,7 +7584,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Type Config
 
-- `beta_computer_type_config: object { defer_loading, enabled }`
+- `beta_computer_type_config: object`
 
   `type`'s config overrides.
 
@@ -6456,7 +7598,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Wait Config
 
-- `beta_computer_wait_config: object { defer_loading, enabled }`
+- `beta_computer_wait_config: object`
 
   `wait`'s config overrides.
 
@@ -6470,7 +7612,7 @@ ant beta:messages count-tokens \
 
 ### Beta Computer Zoom Config
 
-- `beta_computer_zoom_config: object { defer_loading, enabled }`
+- `beta_computer_zoom_config: object`
 
   `zoom`'s config overrides.
 
@@ -6484,7 +7626,7 @@ ant beta:messages count-tokens \
 
 ### Beta Container
 
-- `beta_container: object { id, expires_at, skills }`
+- `beta_container: object`
 
   Information about the container used in the request (for the code execution tool)
 
@@ -6496,6 +7638,8 @@ ant beta:messages count-tokens \
 
     The time at which the container will expire.
 
+    format: date-time
+
   - `skills: array of BetaSkill`
 
     Skills loaded in the container
@@ -6503,6 +7647,8 @@ ant beta:messages count-tokens \
     - `skill_id: string`
 
       Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `type: "anthropic" or "custom"`
 
@@ -6516,9 +7662,11 @@ ant beta:messages count-tokens \
 
       The resolved version: a skill version ID for custom skills.
 
+      maxLength: 64, minLength: 1
+
 ### Beta Container Params
 
-- `beta_container_params: object { id, skills }`
+- `beta_container_params: object`
 
   Container parameters with skills to be loaded.
 
@@ -6530,9 +7678,13 @@ ant beta:messages count-tokens \
 
     List of skills to load in the container
 
+    maxItems: 20
+
     - `skill_id: string`
 
       Skill ID
+
+      maxLength: 64, minLength: 1
 
     - `type: "anthropic" or "custom"`
 
@@ -6546,9 +7698,11 @@ ant beta:messages count-tokens \
 
       Skill version or 'latest' for most recent version
 
+      maxLength: 64, minLength: 1
+
 ### Beta Container Upload Block
 
-- `beta_container_upload_block: object { file_id, type }`
+- `beta_container_upload_block: object`
 
   Response model for a file uploaded to the container.
 
@@ -6558,7 +7712,7 @@ ant beta:messages count-tokens \
 
 ### Beta Container Upload Block Param
 
-- `beta_container_upload_block_param: object { file_id, type, cache_control }`
+- `beta_container_upload_block_param: object`
 
   A content block that represents a file to be uploaded to the container
   Files uploaded via this block will be available in the container's input directory.
@@ -6567,7 +7721,7 @@ ant beta:messages count-tokens \
 
   - `type: "container_upload"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -6594,7 +7748,7 @@ ant beta:messages count-tokens \
 
   Response model for a file uploaded to the container.
 
-  - `beta_text_block: object { citations, text, type }`
+  - `beta_text_block: object`
 
     - `citations: array of BetaTextCitation`
 
@@ -6602,11 +7756,13 @@ ant beta:messages count-tokens \
 
       The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-      - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+      - `beta_citation_char_location: object`
 
         - `cited_text: string`
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string`
 
@@ -6616,13 +7772,17 @@ ant beta:messages count-tokens \
 
         - `start_char_index: number`
 
+          minimum: 0
+
         - `type: "char_location"`
 
-      - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+      - `beta_citation_page_location: object`
 
         - `cited_text: string`
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string`
 
@@ -6632,9 +7792,11 @@ ant beta:messages count-tokens \
 
         - `start_page_number: number`
 
+          minimum: 1
+
         - `type: "page_location"`
 
-      - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+      - `beta_citation_content_block_location: object`
 
         - `cited_text: string`
 
@@ -6643,6 +7805,8 @@ ant beta:messages count-tokens \
           Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string`
 
@@ -6658,9 +7822,11 @@ ant beta:messages count-tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `type: "content_block_location"`
 
-      - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+      - `beta_citations_web_search_result_location: object`
 
         - `cited_text: string`
 
@@ -6668,11 +7834,13 @@ ant beta:messages count-tokens \
 
         - `title: string`
 
+          maxLength: 512
+
         - `type: "web_search_result_location"`
 
         - `url: string`
 
-      - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+      - `beta_citation_search_result_location: object`
 
         - `cited_text: string`
 
@@ -6692,11 +7860,15 @@ ant beta:messages count-tokens \
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
+
+          minimum: 0
 
         - `title: string`
 
@@ -6704,9 +7876,11 @@ ant beta:messages count-tokens \
 
     - `text: string`
 
+      maxLength: 5000000, minLength: 0
+
     - `type: "text"`
 
-  - `beta_thinking_block: object { signature, thinking, type }`
+  - `beta_thinking_block: object`
 
     - `signature: string`
 
@@ -6722,7 +7896,7 @@ ant beta:messages count-tokens \
 
     - `type: "thinking"`
 
-  - `beta_redacted_thinking_block: object { data, type }`
+  - `beta_redacted_thinking_block: object`
 
     - `data: string`
 
@@ -6734,13 +7908,17 @@ ant beta:messages count-tokens \
 
     - `type: "redacted_thinking"`
 
-  - `beta_tool_use_block: object { id, input, name, 3 more }`
+  - `beta_tool_use_block: object`
 
     - `id: string`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: map[unknown]`
 
     - `name: string`
+
+      minLength: 1
 
     - `type: "tool_use"`
 
@@ -6748,23 +7926,27 @@ ant beta:messages count-tokens \
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
         - `type: "direct"`
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
         - `tool_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "code_execution_20250825"`
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
         - `tool_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `type: "code_execution_20260120"`
 
@@ -6772,9 +7954,13 @@ ant beta:messages count-tokens \
 
       For a toolset member tool_use, the toolset family.
 
-  - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+  - `beta_server_tool_use_block: object`
 
     - `id: string`
+
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
     - `input: map[unknown]`
 
@@ -6802,21 +7988,21 @@ ant beta:messages count-tokens \
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
-  - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+  - `beta_web_search_tool_result_block: object`
 
     - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-      - `beta_web_search_tool_result_error: object { error_code, type }`
+      - `beta_web_search_tool_result_error: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -6848,27 +8034,29 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "web_search_tool_result"`
 
     - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
-  - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+  - `beta_web_fetch_tool_result_block: object`
 
     - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-      - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+      - `beta_web_fetch_tool_result_error_block: object`
 
         - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -6892,11 +8080,11 @@ ant beta:messages count-tokens \
 
         - `type: "web_fetch_tool_result_error"`
 
-      - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+      - `beta_web_fetch_block: object`
 
-        - `content: object { citations, source, title, type }`
+        - `content: object`
 
-          - `citations: object { enabled }`
+          - `citations: object`
 
             Citation configuration for the document
 
@@ -6904,15 +8092,17 @@ ant beta:messages count-tokens \
 
           - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-            - `beta_base64_pdf_source: object { data, media_type, type }`
+            - `beta_base64_pdf_source: object`
 
               - `data: string`
+
+                format: byte
 
               - `media_type: "application/pdf"`
 
               - `type: "base64"`
 
-            - `beta_plain_text_source: object { data, media_type, type }`
+            - `beta_plain_text_source: object`
 
               - `data: string`
 
@@ -6938,27 +8128,29 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "web_fetch_tool_result"`
 
     - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
-  - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+  - `beta_advisor_tool_result_block: object`
 
     - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-      - `beta_advisor_tool_result_error: object { error_code, type }`
+      - `beta_advisor_tool_result_error: object`
 
         - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -6978,7 +8170,7 @@ ant beta:messages count-tokens \
 
         - `type: "advisor_tool_result_error"`
 
-      - `beta_advisor_result_block: object { stop_reason, text, type }`
+      - `beta_advisor_result_block: object`
 
         - `stop_reason: string`
 
@@ -6988,7 +8180,7 @@ ant beta:messages count-tokens \
 
         - `type: "advisor_result"`
 
-      - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+      - `beta_advisor_redacted_result_block: object`
 
         - `encrypted_content: string`
 
@@ -7002,15 +8194,17 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "advisor_tool_result"`
 
-  - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+  - `beta_code_execution_tool_result_block: object`
 
     - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
-      - `beta_code_execution_tool_result_error: object { error_code, type }`
+      - `beta_code_execution_tool_result_error: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -7024,7 +8218,7 @@ ant beta:messages count-tokens \
 
         - `type: "code_execution_tool_result_error"`
 
-      - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+      - `beta_code_execution_result_block: object`
 
         - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -7040,7 +8234,7 @@ ant beta:messages count-tokens \
 
         - `type: "code_execution_result"`
 
-      - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+      - `beta_encrypted_code_execution_result_block: object`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -7060,13 +8254,15 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "code_execution_tool_result"`
 
-  - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+  - `beta_bash_code_execution_tool_result_block: object`
 
     - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-      - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+      - `beta_bash_code_execution_tool_result_error: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -7082,7 +8278,7 @@ ant beta:messages count-tokens \
 
         - `type: "bash_code_execution_tool_result_error"`
 
-      - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+      - `beta_bash_code_execution_result_block: object`
 
         - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -7100,13 +8296,15 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "bash_code_execution_tool_result"`
 
-  - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+  - `beta_text_editor_code_execution_tool_result_block: object`
 
     - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-      - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+      - `beta_text_editor_code_execution_tool_result_error: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -7124,7 +8322,7 @@ ant beta:messages count-tokens \
 
         - `type: "text_editor_code_execution_tool_result_error"`
 
-      - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+      - `beta_text_editor_code_execution_view_result_block: object`
 
         - `content: string`
 
@@ -7144,13 +8342,13 @@ ant beta:messages count-tokens \
 
         - `type: "text_editor_code_execution_view_result"`
 
-      - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+      - `beta_text_editor_code_execution_create_result_block: object`
 
         - `is_file_update: boolean`
 
         - `type: "text_editor_code_execution_create_result"`
 
-      - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+      - `beta_text_editor_code_execution_str_replace_result_block: object`
 
         - `lines: array of string`
 
@@ -7166,13 +8364,15 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "text_editor_code_execution_tool_result"`
 
-  - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+  - `beta_tool_search_tool_result_block: object`
 
     - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-      - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+      - `beta_tool_search_tool_result_error: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -7188,11 +8388,13 @@ ant beta:messages count-tokens \
 
         - `type: "tool_search_tool_result_error"`
 
-      - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+      - `beta_tool_search_tool_search_result_block: object`
 
         - `tool_references: array of BetaToolReferenceBlock`
 
           - `tool_name: string`
+
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
           - `type: "tool_reference"`
 
@@ -7200,11 +8402,15 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "tool_search_tool_result"`
 
-  - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+  - `beta_mcp_tool_use_block: object`
 
     - `id: string`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: map[unknown]`
 
@@ -7218,7 +8424,7 @@ ant beta:messages count-tokens \
 
     - `type: "mcp_tool_use"`
 
-  - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+  - `beta_mcp_tool_result_block: object`
 
     - `content: string or array of BetaTextBlock`
 
@@ -7234,15 +8440,19 @@ ant beta:messages count-tokens \
 
         - `text: string`
 
+          maxLength: 5000000, minLength: 0
+
         - `type: "text"`
 
     - `is_error: boolean`
 
     - `tool_use_id: string`
 
+      pattern: ^[a-zA-Z0-9_-]+$
+
     - `type: "mcp_tool_result"`
 
-  - `beta_container_upload_block: object { file_id, type }`
+  - `beta_container_upload_block: object`
 
     Response model for a file uploaded to the container.
 
@@ -7250,7 +8460,7 @@ ant beta:messages count-tokens \
 
     - `type: "container_upload"`
 
-  - `beta_compaction_block: object { content, encrypted_content, type }`
+  - `beta_compaction_block: object`
 
     A compaction block returned when autocompact is triggered.
 
@@ -7268,7 +8478,7 @@ ant beta:messages count-tokens \
 
     - `type: "compaction"`
 
-  - `beta_fallback_block: object { from, to, trigger, type }`
+  - `beta_fallback_block: object`
 
     Marks the point in `content` where one model's output gives way to the next.
 
@@ -7282,7 +8492,7 @@ ant beta:messages count-tokens \
     arrives via the standard `content_block_start` / `content_block_stop`
     pair and carries no deltas.
 
-    - `from: object { model }`
+    - `from: object`
 
       The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -7352,7 +8562,7 @@ ant beta:messages count-tokens \
 
           High-performance model for agents and coding
 
-    - `to: object { model }`
+    - `to: object`
 
       The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -7362,7 +8572,7 @@ ant beta:messages count-tokens \
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `trigger: object { category, type }`
+    - `trigger: object`
 
       What caused the `from` model to hand over at this hop.
 
@@ -7400,13 +8610,15 @@ ant beta:messages count-tokens \
 
   Regular text content.
 
-  - `beta_text_block_param: object { text, type, cache_control, citations }`
+  - `beta_text_block_param: object`
 
     - `text: string`
 
+      minLength: 1
+
     - `type: "text"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -7429,35 +8641,47 @@ ant beta:messages count-tokens \
 
     - `citations: optional array of BetaTextCitationParam`
 
-      - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_char_location_param: object`
 
         - `cited_text: string`
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: number`
 
         - `start_char_index: number`
 
+          minimum: 0
+
         - `type: "char_location"`
 
-      - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_page_location_param: object`
 
         - `cited_text: string`
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: number`
 
         - `start_page_number: number`
 
+          minimum: 1
+
         - `type: "page_location"`
 
-      - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_content_block_location_param: object`
 
         - `cited_text: string`
 
@@ -7467,7 +8691,11 @@ ant beta:messages count-tokens \
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: number`
 
@@ -7479,9 +8707,11 @@ ant beta:messages count-tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `type: "content_block_location"`
 
-      - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+      - `beta_citation_web_search_result_location_param: object`
 
         - `cited_text: string`
 
@@ -7489,11 +8719,15 @@ ant beta:messages count-tokens \
 
         - `title: string`
 
+          maxLength: 512, minLength: 1
+
         - `type: "web_search_result_location"`
 
         - `url: string`
 
-      - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+          minLength: 1
+
+      - `beta_citation_search_result_location_param: object`
 
         - `cited_text: string`
 
@@ -7513,23 +8747,29 @@ ant beta:messages count-tokens \
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: string`
 
         - `type: "search_result_location"`
 
-  - `beta_image_block_param: object { source, type, cache_control, transformations }`
+  - `beta_image_block_param: object`
 
     - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-      - `beta_base64_image_source: object { data, media_type, type }`
+      - `beta_base64_image_source: object`
 
         - `data: string`
+
+          format: byte
 
         - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -7543,13 +8783,13 @@ ant beta:messages count-tokens \
 
         - `type: "base64"`
 
-      - `beta_url_image_source: object { type, url }`
+      - `beta_url_image_source: object`
 
         - `type: "url"`
 
         - `url: string`
 
-      - `beta_file_image_source: object { file_id, type }`
+      - `beta_file_image_source: object`
 
         - `file_id: string`
 
@@ -7557,7 +8797,7 @@ ant beta:messages count-tokens \
 
     - `type: "image"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -7574,7 +8814,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `transformations: optional object { oversized_image }`
+    - `transformations: optional object`
 
       Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -7586,19 +8826,21 @@ ant beta:messages count-tokens \
 
         - `"error"`
 
-  - `beta_request_document_block: object { source, type, cache_control, 3 more }`
+  - `beta_request_document_block: object`
 
     - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
-      - `beta_base64_pdf_source: object { data, media_type, type }`
+      - `beta_base64_pdf_source: object`
 
         - `data: string`
+
+          format: byte
 
         - `media_type: "application/pdf"`
 
         - `type: "base64"`
 
-      - `beta_plain_text_source: object { data, media_type, type }`
+      - `beta_plain_text_source: object`
 
         - `data: string`
 
@@ -7606,7 +8848,7 @@ ant beta:messages count-tokens \
 
         - `type: "text"`
 
-      - `beta_content_block_source: object { content, type }`
+      - `beta_content_block_source: object`
 
         - `content: string or array of BetaContentBlockSourceContent`
 
@@ -7614,41 +8856,43 @@ ant beta:messages count-tokens \
 
           - `beta_content_block_source_content: array of BetaContentBlockSourceContent`
 
-            - `beta_text_block_param: object { text, type, cache_control, citations }`
+            - `beta_text_block_param: object`
 
               - `text: string`
 
+                minLength: 1
+
               - `type: "text"`
 
-              - `cache_control: optional object { type, ttl }`
+              - `cache_control: optional object`
 
                 Create a cache control breakpoint at this content block.
 
               - `citations: optional array of BetaTextCitationParam`
 
-            - `beta_image_block_param: object { source, type, cache_control, transformations }`
+            - `beta_image_block_param: object`
 
               - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
               - `type: "image"`
 
-              - `cache_control: optional object { type, ttl }`
+              - `cache_control: optional object`
 
                 Create a cache control breakpoint at this content block.
 
-              - `transformations: optional object { oversized_image }`
+              - `transformations: optional object`
 
                 Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
         - `type: "content"`
 
-      - `beta_url_pdf_source: object { type, url }`
+      - `beta_url_pdf_source: object`
 
         - `type: "url"`
 
         - `url: string`
 
-      - `beta_file_document_source: object { file_id, type }`
+      - `beta_file_document_source: object`
 
         - `file_id: string`
 
@@ -7656,7 +8900,7 @@ ant beta:messages count-tokens \
 
     - `type: "document"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -7673,23 +8917,29 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `citations: optional object { enabled }`
+    - `citations: optional object`
 
       - `enabled: optional boolean`
 
     - `context: optional string`
 
+      minLength: 1
+
     - `title: optional string`
 
-  - `beta_search_result_block_param: object { content, source, title, 3 more }`
+      maxLength: 500, minLength: 1
+
+  - `beta_search_result_block_param: object`
 
     - `content: array of BetaTextBlockParam`
 
       - `text: string`
 
+        minLength: 1
+
       - `type: "text"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -7701,7 +8951,7 @@ ant beta:messages count-tokens \
 
     - `type: "search_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -7718,11 +8968,11 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `citations: optional object { enabled }`
+    - `citations: optional object`
 
       - `enabled: optional boolean`
 
-  - `beta_thinking_block_param: object { signature, thinking, type }`
+  - `beta_thinking_block_param: object`
 
     - `signature: string`
 
@@ -7736,7 +8986,7 @@ ant beta:messages count-tokens \
 
     - `type: "thinking"`
 
-  - `beta_redacted_thinking_block_param: object { data, type }`
+  - `beta_redacted_thinking_block_param: object`
 
     - `data: string`
 
@@ -7744,17 +8994,21 @@ ant beta:messages count-tokens \
 
     - `type: "redacted_thinking"`
 
-  - `beta_tool_use_block_param: object { id, input, name, 4 more }`
+  - `beta_tool_use_block_param: object`
 
     - `id: string`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: map[unknown]`
 
     - `name: string`
 
+      maxLength: 200, minLength: 1
+
     - `type: "tool_use"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -7775,23 +9029,27 @@ ant beta:messages count-tokens \
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
         - `type: "direct"`
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
         - `tool_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "code_execution_20250825"`
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
         - `tool_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `type: "code_execution_20260120"`
 
@@ -7799,13 +9057,17 @@ ant beta:messages count-tokens \
 
       For a toolset member tool_use, the toolset family this member belongs to.
 
-  - `beta_tool_result_block_param: object { tool_use_id, type, cache_control, 3 more }`
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+  - `beta_tool_result_block_param: object`
 
     - `tool_use_id: string`
 
+      pattern: ^[a-zA-Z0-9_-]+$
+
     - `type: "tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -7824,33 +9086,35 @@ ant beta:messages count-tokens \
 
     - `content: optional array of BetaTextBlockParam or BetaImageBlockParam or BetaSearchResultBlockParam or 3 more`
 
-      - `beta_text_block_param: object { text, type, cache_control, citations }`
+      - `beta_text_block_param: object`
 
         - `text: string`
 
+          minLength: 1
+
         - `type: "text"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
         - `citations: optional array of BetaTextCitationParam`
 
-      - `beta_image_block_param: object { source, type, cache_control, transformations }`
+      - `beta_image_block_param: object`
 
         - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
         - `type: "image"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
-        - `transformations: optional object { oversized_image }`
+        - `transformations: optional object`
 
           Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
-      - `beta_search_result_block_param: object { content, source, title, 3 more }`
+      - `beta_search_result_block_param: object`
 
         - `content: array of BetaTextBlockParam`
 
@@ -7860,37 +9124,43 @@ ant beta:messages count-tokens \
 
         - `type: "search_result"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional object { enabled }`
+        - `citations: optional object`
 
-      - `beta_request_document_block: object { source, type, cache_control, 3 more }`
+      - `beta_request_document_block: object`
 
         - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
         - `type: "document"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
-        - `citations: optional object { enabled }`
+        - `citations: optional object`
 
         - `context: optional string`
 
+          minLength: 1
+
         - `title: optional string`
 
-      - `beta_tool_reference_block_param: object { tool_name, type, cache_control }`
+          maxLength: 500, minLength: 1
+
+      - `beta_tool_reference_block_param: object`
 
         Tool reference block that can be included in tool_result content.
 
         - `tool_name: string`
 
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
         - `type: "tool_reference"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -7907,7 +9177,7 @@ ant beta:messages count-tokens \
 
             Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-      - `beta_browser_state_block_param: object { tabs, type, cache_control, state_changes }`
+      - `beta_browser_state_block_param: object`
 
         The caller's browser state after a browser toolset member call —
         the full inventory of open tabs, which tab is active, and any side
@@ -7921,17 +9191,25 @@ ant beta:messages count-tokens \
 
           All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+          maxItems: 100
+
           - `tab_id: string`
 
             The caller-assigned identifier for this tab, unique within the inventory.
+
+            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `title: string`
 
             The title of the page the tab is showing. May be empty.
 
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `url: string`
 
             The URL of the page the tab is showing. May be empty.
+
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
           - `active: optional boolean`
 
@@ -7939,7 +9217,7 @@ ant beta:messages count-tokens \
 
         - `type: "browser_state"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -7960,7 +9238,9 @@ ant beta:messages count-tokens \
 
           Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-          - `beta_browser_state_change_tab_opened: object { tab_id, type }`
+          maxItems: 200, minItems: 1
+
+          - `beta_browser_state_change_tab_opened: object`
 
             A tab this call's execution opened that remains open at its end —
             the creation delta of the `tabs` inventory, not an event log.
@@ -7974,9 +9254,11 @@ ant beta:messages count-tokens \
 
               The `tab_id` of the opened tab, present in `tabs`.
 
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `type: "tab_opened"`
 
-          - `beta_browser_state_change_download_started: object { download_id, type, url }`
+          - `beta_browser_state_change_download_started: object`
 
             A file download that started during this call.
 
@@ -7984,13 +9266,17 @@ ant beta:messages count-tokens \
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `type: "download_started"`
 
             - `url: string`
 
               The final post-redirect URL the download was served from.
 
-          - `beta_browser_state_change_download_completed: object { download_id, type, url, 2 more }`
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+          - `beta_browser_state_change_download_completed: object`
 
             A file download that finished during this call, reported with the
             same `download_id` as its `download_started` — or without a prior
@@ -8001,21 +9287,29 @@ ant beta:messages count-tokens \
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `type: "download_completed"`
 
             - `url: string`
 
               The final post-redirect URL the download was served from.
 
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `path: optional string`
 
               Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
             - `size_bytes: optional number`
 
               The completed download's size.
 
-          - `beta_browser_state_change_download_failed: object { download_id, type, url, error }`
+              minimum: 0
+
+          - `beta_browser_state_change_download_failed: object`
 
             A file download that failed — or was cancelled — during this call.
 
@@ -8023,15 +9317,21 @@ ant beta:messages count-tokens \
 
               The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `type: "download_failed"`
 
             - `url: string`
 
               The final post-redirect URL the download was served from.
 
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `error: optional string`
 
               The failure or cancellation detail, when known.
+
+              pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
     - `is_error: optional boolean`
 
@@ -8039,9 +9339,13 @@ ant beta:messages count-tokens \
 
       For a toolset member tool_result, the toolset family of the paired tool_use.
 
-  - `beta_server_tool_use_block_param: object { id, input, name, 3 more }`
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+  - `beta_server_tool_use_block_param: object`
 
     - `id: string`
+
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
     - `input: map[unknown]`
 
@@ -8065,7 +9369,7 @@ ant beta:messages count-tokens \
 
     - `type: "server_tool_use"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8086,17 +9390,17 @@ ant beta:messages count-tokens \
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
-  - `beta_web_search_tool_result_block_param: object { content, tool_use_id, type, 2 more }`
+  - `beta_web_search_tool_result_block_param: object`
 
     - `content: array of BetaWebSearchResultBlockParam or BetaWebSearchToolRequestError`
 
@@ -8112,7 +9416,7 @@ ant beta:messages count-tokens \
 
         - `page_age: optional string`
 
-      - `beta_web_search_tool_request_error: object { error_code, type }`
+      - `beta_web_search_tool_request_error: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -8132,9 +9436,11 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "web_search_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8155,21 +9461,21 @@ ant beta:messages count-tokens \
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
-  - `beta_web_fetch_tool_result_block_param: object { content, tool_use_id, type, 2 more }`
+  - `beta_web_fetch_tool_result_block_param: object`
 
     - `content: BetaWebFetchToolResultErrorBlockParam or BetaWebFetchBlockParam`
 
-      - `beta_web_fetch_tool_result_error_block_param: object { error_code, type }`
+      - `beta_web_fetch_tool_result_error_block_param: object`
 
         - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -8193,23 +9499,27 @@ ant beta:messages count-tokens \
 
         - `type: "web_fetch_tool_result_error"`
 
-      - `beta_web_fetch_block_param: object { content, type, url, retrieved_at }`
+      - `beta_web_fetch_block_param: object`
 
-        - `content: object { source, type, cache_control, 3 more }`
+        - `content: object`
 
           - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
           - `type: "document"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional object { enabled }`
+          - `citations: optional object`
 
           - `context: optional string`
 
+            minLength: 1
+
           - `title: optional string`
+
+            maxLength: 500, minLength: 1
 
         - `type: "web_fetch_result"`
 
@@ -8223,9 +9533,11 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "web_fetch_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8246,21 +9558,21 @@ ant beta:messages count-tokens \
 
       Tool invocation directly from the model.
 
-      - `beta_direct_caller: object { type }`
+      - `beta_direct_caller: object`
 
         Tool invocation directly from the model.
 
-      - `beta_server_tool_caller: object { tool_id, type }`
+      - `beta_server_tool_caller: object`
 
         Tool invocation generated by a server-side tool.
 
-      - `beta_server_tool_caller_20260120: object { tool_id, type }`
+      - `beta_server_tool_caller_20260120: object`
 
-  - `beta_advisor_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+  - `beta_advisor_tool_result_block_param: object`
 
     - `content: BetaAdvisorToolResultErrorParam or BetaAdvisorResultBlockParam or BetaAdvisorRedactedResultBlockParam`
 
-      - `beta_advisor_tool_result_error_param: object { error_code, type }`
+      - `beta_advisor_tool_result_error_param: object`
 
         - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -8280,7 +9592,7 @@ ant beta:messages count-tokens \
 
         - `type: "advisor_tool_result_error"`
 
-      - `beta_advisor_result_block_param: object { text, type, stop_reason }`
+      - `beta_advisor_result_block_param: object`
 
         - `text: string`
 
@@ -8288,7 +9600,7 @@ ant beta:messages count-tokens \
 
         - `stop_reason: optional string`
 
-      - `beta_advisor_redacted_result_block_param: object { encrypted_content, type, stop_reason }`
+      - `beta_advisor_redacted_result_block_param: object`
 
         - `encrypted_content: string`
 
@@ -8300,9 +9612,11 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "advisor_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8319,13 +9633,13 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+  - `beta_code_execution_tool_result_block_param: object`
 
     - `content: BetaCodeExecutionToolResultErrorParam or BetaCodeExecutionResultBlockParam or BetaEncryptedCodeExecutionResultBlockParam`
 
       Code execution result with encrypted stdout for PFC + web_search results.
 
-      - `beta_code_execution_tool_result_error_param: object { error_code, type }`
+      - `beta_code_execution_tool_result_error_param: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -8339,7 +9653,7 @@ ant beta:messages count-tokens \
 
         - `type: "code_execution_tool_result_error"`
 
-      - `beta_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+      - `beta_code_execution_result_block_param: object`
 
         - `content: array of BetaCodeExecutionOutputBlockParam`
 
@@ -8355,7 +9669,7 @@ ant beta:messages count-tokens \
 
         - `type: "code_execution_result"`
 
-      - `beta_encrypted_code_execution_result_block_param: object { content, encrypted_stdout, return_code, 2 more }`
+      - `beta_encrypted_code_execution_result_block_param: object`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -8375,9 +9689,11 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "code_execution_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8394,11 +9710,11 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_bash_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+  - `beta_bash_code_execution_tool_result_block_param: object`
 
     - `content: BetaBashCodeExecutionToolResultErrorParam or BetaBashCodeExecutionResultBlockParam`
 
-      - `beta_bash_code_execution_tool_result_error_param: object { error_code, type }`
+      - `beta_bash_code_execution_tool_result_error_param: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -8414,7 +9730,7 @@ ant beta:messages count-tokens \
 
         - `type: "bash_code_execution_tool_result_error"`
 
-      - `beta_bash_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+      - `beta_bash_code_execution_result_block_param: object`
 
         - `content: array of BetaBashCodeExecutionOutputBlockParam`
 
@@ -8432,9 +9748,11 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "bash_code_execution_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8451,11 +9769,11 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_text_editor_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+  - `beta_text_editor_code_execution_tool_result_block_param: object`
 
     - `content: BetaTextEditorCodeExecutionToolResultErrorParam or BetaTextEditorCodeExecutionViewResultBlockParam or BetaTextEditorCodeExecutionCreateResultBlockParam or BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
-      - `beta_text_editor_code_execution_tool_result_error_param: object { error_code, type, error_message }`
+      - `beta_text_editor_code_execution_tool_result_error_param: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -8473,7 +9791,7 @@ ant beta:messages count-tokens \
 
         - `error_message: optional string`
 
-      - `beta_text_editor_code_execution_view_result_block_param: object { content, file_type, type, 3 more }`
+      - `beta_text_editor_code_execution_view_result_block_param: object`
 
         - `content: string`
 
@@ -8493,13 +9811,13 @@ ant beta:messages count-tokens \
 
         - `total_lines: optional number`
 
-      - `beta_text_editor_code_execution_create_result_block_param: object { is_file_update, type }`
+      - `beta_text_editor_code_execution_create_result_block_param: object`
 
         - `is_file_update: boolean`
 
         - `type: "text_editor_code_execution_create_result"`
 
-      - `beta_text_editor_code_execution_str_replace_result_block_param: object { type, lines, new_lines, 3 more }`
+      - `beta_text_editor_code_execution_str_replace_result_block_param: object`
 
         - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -8515,9 +9833,11 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "text_editor_code_execution_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8534,11 +9854,11 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_tool_search_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+  - `beta_tool_search_tool_result_block_param: object`
 
     - `content: BetaToolSearchToolResultErrorParam or BetaToolSearchToolSearchResultBlockParam`
 
-      - `beta_tool_search_tool_result_error_param: object { error_code, type, error_message }`
+      - `beta_tool_search_tool_result_error_param: object`
 
         - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -8554,15 +9874,17 @@ ant beta:messages count-tokens \
 
         - `error_message: optional string`
 
-      - `beta_tool_search_tool_search_result_block_param: object { tool_references, type }`
+      - `beta_tool_search_tool_search_result_block_param: object`
 
         - `tool_references: array of BetaToolReferenceBlockParam`
 
           - `tool_name: string`
 
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
           - `type: "tool_reference"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
@@ -8570,9 +9892,11 @@ ant beta:messages count-tokens \
 
     - `tool_use_id: string`
 
+      pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
     - `type: "tool_search_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8589,9 +9913,11 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_mcp_tool_use_block_param: object { id, input, name, 3 more }`
+  - `beta_mcp_tool_use_block_param: object`
 
     - `id: string`
+
+      pattern: ^[a-zA-Z0-9_-]+$
 
     - `input: map[unknown]`
 
@@ -8603,7 +9929,7 @@ ant beta:messages count-tokens \
 
     - `type: "mcp_tool_use"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8620,13 +9946,15 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_request_mcp_tool_result_block_param: object { tool_use_id, type, cache_control, 2 more }`
+  - `beta_request_mcp_tool_result_block_param: object`
 
     - `tool_use_id: string`
 
+      pattern: ^[a-zA-Z0-9_-]+$
+
     - `type: "mcp_tool_result"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8651,9 +9979,11 @@ ant beta:messages count-tokens \
 
         - `text: string`
 
+          minLength: 1
+
         - `type: "text"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -8661,7 +9991,7 @@ ant beta:messages count-tokens \
 
     - `is_error: optional boolean`
 
-  - `beta_container_upload_block_param: object { file_id, type, cache_control }`
+  - `beta_container_upload_block_param: object`
 
     A content block that represents a file to be uploaded to the container
     Files uploaded via this block will be available in the container's input directory.
@@ -8670,7 +10000,7 @@ ant beta:messages count-tokens \
 
     - `type: "container_upload"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8687,7 +10017,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_compaction_block_param: object { type, cache_control, content, encrypted_content }`
+  - `beta_compaction_block_param: object`
 
     A compaction block containing summary of previous context.
 
@@ -8699,7 +10029,7 @@ ant beta:messages count-tokens \
 
     - `type: "compaction"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8724,7 +10054,7 @@ ant beta:messages count-tokens \
 
       Opaque metadata from prior compaction, to be round-tripped verbatim
 
-  - `beta_request_tool_addition_block: object { tool, type, cache_control }`
+  - `beta_request_tool_addition_block: object`
 
     Mid-conversation directive to surface a declared tool.
 
@@ -8739,7 +10069,7 @@ ant beta:messages count-tokens \
       server assigns to MCP-resolved tools — use `mcp_tool_reference` or
       `mcp_toolset_reference` for those.
 
-      - `beta_tool_change_tool_reference: object { name, type }`
+      - `beta_tool_change_tool_reference: object`
 
         Reference to a single tool the caller declared directly in
         `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -8748,9 +10078,11 @@ ant beta:messages count-tokens \
 
         - `name: string`
 
+          pattern: ^[a-zA-Z0-9_-]{1,128}$
+
         - `type: "tool_reference"`
 
-      - `beta_tool_change_mcp_tool_reference: object { name, server_name, type }`
+      - `beta_tool_change_mcp_tool_reference: object`
 
         Reference to a single MCP tool by its server and remote name — the
         same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -8761,7 +10093,7 @@ ant beta:messages count-tokens \
 
         - `type: "mcp_tool_reference"`
 
-      - `beta_tool_change_mcp_toolset_reference: object { server_name, type }`
+      - `beta_tool_change_mcp_toolset_reference: object`
 
         Reference to every tool in the named MCP server's toolset.
 
@@ -8771,7 +10103,7 @@ ant beta:messages count-tokens \
 
     - `type: "tool_addition"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8788,7 +10120,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_request_tool_removal_block: object { tool, type, cache_control }`
+  - `beta_request_tool_removal_block: object`
 
     Mid-conversation directive to withdraw a tool.
 
@@ -8803,25 +10135,25 @@ ant beta:messages count-tokens \
       server assigns to MCP-resolved tools — use `mcp_tool_reference` or
       `mcp_toolset_reference` for those.
 
-      - `beta_tool_change_tool_reference: object { name, type }`
+      - `beta_tool_change_tool_reference: object`
 
         Reference to a single tool the caller declared directly in
         `tools[]`. Does not accept the composed `{server}_{name}` form the
         server assigns to MCP-resolved tools — use `mcp_tool_reference` or
         `mcp_toolset_reference` for those.
 
-      - `beta_tool_change_mcp_tool_reference: object { name, server_name, type }`
+      - `beta_tool_change_mcp_tool_reference: object`
 
         Reference to a single MCP tool by its server and remote name — the
         same `server_name`/`name` pair `mcp_tool_use` carries.
 
-      - `beta_tool_change_mcp_toolset_reference: object { server_name, type }`
+      - `beta_tool_change_mcp_toolset_reference: object`
 
         Reference to every tool in the named MCP server's toolset.
 
     - `type: "tool_removal"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -8838,7 +10170,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `beta_fallback_block_param: object { from, to, type, trigger }`
+  - `beta_fallback_block_param: object`
 
     A `fallback` block echoed back from a prior response.
 
@@ -8854,7 +10186,7 @@ ant beta:messages count-tokens \
     likewise rejected; between non-thinking blocks the block's placement has
     no validation effect.
 
-    - `from: object { model }`
+    - `from: object`
 
       Identifies one hop of a fallback transition.
 
@@ -8924,7 +10256,7 @@ ant beta:messages count-tokens \
 
           High-performance model for agents and coding
 
-    - `to: object { model }`
+    - `to: object`
 
       Identifies one hop of a fallback transition.
 
@@ -8942,7 +10274,7 @@ ant beta:messages count-tokens \
 
 ### Beta Content Block Source
 
-- `beta_content_block_source: object { content, type }`
+- `beta_content_block_source: object`
 
   - `content: string or array of BetaContentBlockSourceContent`
 
@@ -8950,13 +10282,15 @@ ant beta:messages count-tokens \
 
     - `beta_content_block_source_content: array of BetaContentBlockSourceContent`
 
-      - `beta_text_block_param: object { text, type, cache_control, citations }`
+      - `beta_text_block_param: object`
 
         - `text: string`
 
+          minLength: 1
+
         - `type: "text"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -8979,35 +10313,47 @@ ant beta:messages count-tokens \
 
         - `citations: optional array of BetaTextCitationParam`
 
-          - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+          - `beta_citation_char_location_param: object`
 
             - `cited_text: string`
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string`
+
+              maxLength: 500, minLength: 1
 
             - `end_char_index: number`
 
             - `start_char_index: number`
 
+              minimum: 0
+
             - `type: "char_location"`
 
-          - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+          - `beta_citation_page_location_param: object`
 
             - `cited_text: string`
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string`
+
+              maxLength: 500, minLength: 1
 
             - `end_page_number: number`
 
             - `start_page_number: number`
 
+              minimum: 1
+
             - `type: "page_location"`
 
-          - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+          - `beta_citation_content_block_location_param: object`
 
             - `cited_text: string`
 
@@ -9017,7 +10363,11 @@ ant beta:messages count-tokens \
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string`
+
+              maxLength: 500, minLength: 1
 
             - `end_block_index: number`
 
@@ -9029,9 +10379,11 @@ ant beta:messages count-tokens \
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `type: "content_block_location"`
 
-          - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+          - `beta_citation_web_search_result_location_param: object`
 
             - `cited_text: string`
 
@@ -9039,11 +10391,15 @@ ant beta:messages count-tokens \
 
             - `title: string`
 
+              maxLength: 512, minLength: 1
+
             - `type: "web_search_result_location"`
 
             - `url: string`
 
-          - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+              minLength: 1
+
+          - `beta_citation_search_result_location_param: object`
 
             - `cited_text: string`
 
@@ -9063,23 +10419,29 @@ ant beta:messages count-tokens \
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: string`
 
             - `type: "search_result_location"`
 
-      - `beta_image_block_param: object { source, type, cache_control, transformations }`
+      - `beta_image_block_param: object`
 
         - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-          - `beta_base64_image_source: object { data, media_type, type }`
+          - `beta_base64_image_source: object`
 
             - `data: string`
+
+              format: byte
 
             - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -9093,13 +10455,13 @@ ant beta:messages count-tokens \
 
             - `type: "base64"`
 
-          - `beta_url_image_source: object { type, url }`
+          - `beta_url_image_source: object`
 
             - `type: "url"`
 
             - `url: string`
 
-          - `beta_file_image_source: object { file_id, type }`
+          - `beta_file_image_source: object`
 
             - `file_id: string`
 
@@ -9107,7 +10469,7 @@ ant beta:messages count-tokens \
 
         - `type: "image"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -9124,7 +10486,7 @@ ant beta:messages count-tokens \
 
             Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-        - `transformations: optional object { oversized_image }`
+        - `transformations: optional object`
 
           Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -9142,13 +10504,15 @@ ant beta:messages count-tokens \
 
 - `beta_content_block_source_content: BetaTextBlockParam or BetaImageBlockParam`
 
-  - `beta_text_block_param: object { text, type, cache_control, citations }`
+  - `beta_text_block_param: object`
 
     - `text: string`
 
+      minLength: 1
+
     - `type: "text"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -9171,35 +10535,47 @@ ant beta:messages count-tokens \
 
     - `citations: optional array of BetaTextCitationParam`
 
-      - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_char_location_param: object`
 
         - `cited_text: string`
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: number`
 
         - `start_char_index: number`
 
+          minimum: 0
+
         - `type: "char_location"`
 
-      - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_page_location_param: object`
 
         - `cited_text: string`
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: number`
 
         - `start_page_number: number`
 
+          minimum: 1
+
         - `type: "page_location"`
 
-      - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_content_block_location_param: object`
 
         - `cited_text: string`
 
@@ -9209,7 +10585,11 @@ ant beta:messages count-tokens \
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: number`
 
@@ -9221,9 +10601,11 @@ ant beta:messages count-tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `type: "content_block_location"`
 
-      - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+      - `beta_citation_web_search_result_location_param: object`
 
         - `cited_text: string`
 
@@ -9231,11 +10613,15 @@ ant beta:messages count-tokens \
 
         - `title: string`
 
+          maxLength: 512, minLength: 1
+
         - `type: "web_search_result_location"`
 
         - `url: string`
 
-      - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+          minLength: 1
+
+      - `beta_citation_search_result_location_param: object`
 
         - `cited_text: string`
 
@@ -9255,23 +10641,29 @@ ant beta:messages count-tokens \
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `title: string`
 
         - `type: "search_result_location"`
 
-  - `beta_image_block_param: object { source, type, cache_control, transformations }`
+  - `beta_image_block_param: object`
 
     - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-      - `beta_base64_image_source: object { data, media_type, type }`
+      - `beta_base64_image_source: object`
 
         - `data: string`
+
+          format: byte
 
         - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -9285,13 +10677,13 @@ ant beta:messages count-tokens \
 
         - `type: "base64"`
 
-      - `beta_url_image_source: object { type, url }`
+      - `beta_url_image_source: object`
 
         - `type: "url"`
 
         - `url: string`
 
-      - `beta_file_image_source: object { file_id, type }`
+      - `beta_file_image_source: object`
 
         - `file_id: string`
 
@@ -9299,7 +10691,7 @@ ant beta:messages count-tokens \
 
     - `type: "image"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -9316,7 +10708,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `transformations: optional object { oversized_image }`
+    - `transformations: optional object`
 
       Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -9330,23 +10722,27 @@ ant beta:messages count-tokens \
 
 ### Beta Context Management Config
 
-- `beta_context_management_config: object { edits }`
+- `beta_context_management_config: object`
 
   - `edits: optional array of BetaClearToolUses20250919Edit or BetaClearThinking20251015Edit or BetaCompact20260112Edit`
 
     List of context management edits to apply
 
-    - `beta_clear_tool_uses_20250919_edit: object { type, clear_at_least, clear_tool_inputs, 3 more }`
+    minItems: 0
+
+    - `beta_clear_tool_uses_20250919_edit: object`
 
       - `type: "clear_tool_uses_20250919"`
 
-      - `clear_at_least: optional object { type, value }`
+      - `clear_at_least: optional object`
 
         Minimum number of tokens that must be cleared when triggered. Context will only be modified if at least this many tokens can be removed.
 
         - `type: "input_tokens"`
 
         - `value: number`
+
+          minimum: 0
 
       - `clear_tool_inputs: optional boolean or array of string`
 
@@ -9360,7 +10756,7 @@ ant beta:messages count-tokens \
 
         Tool names whose uses are preserved from clearing
 
-      - `keep: optional object { type, value }`
+      - `keep: optional object`
 
         Number of tool uses to retain in the conversation
 
@@ -9368,23 +10764,29 @@ ant beta:messages count-tokens \
 
         - `value: number`
 
+          minimum: 0
+
       - `trigger: optional BetaInputTokensTrigger or BetaToolUsesTrigger`
 
         Condition that triggers the context management strategy
 
-        - `beta_input_tokens_trigger: object { type, value }`
+        - `beta_input_tokens_trigger: object`
 
           - `type: "input_tokens"`
 
           - `value: number`
 
-        - `beta_tool_uses_trigger: object { type, value }`
+            minimum: 1
+
+        - `beta_tool_uses_trigger: object`
 
           - `type: "tool_uses"`
 
           - `value: number`
 
-    - `beta_clear_thinking_20251015_edit: object { type, keep }`
+            minimum: 1
+
+    - `beta_clear_thinking_20251015_edit: object`
 
       - `type: "clear_thinking_20251015"`
 
@@ -9392,19 +10794,21 @@ ant beta:messages count-tokens \
 
         Number of most recent assistant turns to keep thinking blocks for. Older turns will have their thinking blocks removed.
 
-        - `beta_thinking_turns: object { type, value }`
+        - `beta_thinking_turns: object`
 
           - `type: "thinking_turns"`
 
           - `value: number`
 
-        - `beta_all_thinking_turns: object { type }`
+            minimum: 1
+
+        - `beta_all_thinking_turns: object`
 
           - `type: "all"`
 
         - `union_member_2: "all"`
 
-    - `beta_compact_20260112_edit: object { type, instructions, pause_after_compaction, trigger }`
+    - `beta_compact_20260112_edit: object`
 
       Automatically compact older context when reaching the configured trigger threshold.
 
@@ -9418,7 +10822,7 @@ ant beta:messages count-tokens \
 
         Whether to pause after compaction and return the compaction block to the user.
 
-      - `trigger: optional object { type, value }`
+      - `trigger: optional object`
 
         When to trigger compaction. Defaults to 150000 input tokens.
 
@@ -9426,37 +10830,47 @@ ant beta:messages count-tokens \
 
         - `value: number`
 
+          minimum: 1
+
 ### Beta Context Management Response
 
-- `beta_context_management_response: object { applied_edits }`
+- `beta_context_management_response: object`
 
   - `applied_edits: array of BetaClearToolUses20250919EditResponse or BetaClearThinking20251015EditResponse`
 
     List of context management edits that were applied.
 
-    - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+    - `beta_clear_tool_uses_20250919_edit_response: object`
 
       - `cleared_input_tokens: number`
 
         Number of input tokens cleared by this edit.
+
+        minimum: 0
 
       - `cleared_tool_uses: number`
 
         Number of tool uses that were cleared.
 
+        minimum: 0
+
       - `type: "clear_tool_uses_20250919"`
 
         The type of context management edit applied.
 
-    - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+    - `beta_clear_thinking_20251015_edit_response: object`
 
       - `cleared_input_tokens: number`
 
         Number of input tokens cleared by this edit.
 
+        minimum: 0
+
       - `cleared_thinking_turns: number`
 
         Number of thinking turns that were cleared.
+
+        minimum: 0
 
       - `type: "clear_thinking_20251015"`
 
@@ -9464,7 +10878,7 @@ ant beta:messages count-tokens \
 
 ### Beta Count Tokens Context Management Response
 
-- `beta_count_tokens_context_management_response: object { original_input_tokens }`
+- `beta_count_tokens_context_management_response: object`
 
   - `original_input_tokens: number`
 
@@ -9472,7 +10886,7 @@ ant beta:messages count-tokens \
 
 ### Beta Diagnostics
 
-- `beta_diagnostics: object { cache_miss_reason }`
+- `beta_diagnostics: object`
 
   Response envelope for request-level diagnostics. Present (possibly
   null) whenever the caller supplied `diagnostics` on the request.
@@ -9481,7 +10895,7 @@ ant beta:messages count-tokens \
 
     Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-    - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
+    - `beta_cache_miss_model_changed: object`
 
       - `cache_missed_input_tokens: number`
 
@@ -9489,7 +10903,7 @@ ant beta:messages count-tokens \
 
       - `type: "model_changed"`
 
-    - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
+    - `beta_cache_miss_system_changed: object`
 
       - `cache_missed_input_tokens: number`
 
@@ -9497,7 +10911,7 @@ ant beta:messages count-tokens \
 
       - `type: "system_changed"`
 
-    - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
+    - `beta_cache_miss_tools_changed: object`
 
       - `cache_missed_input_tokens: number`
 
@@ -9505,7 +10919,7 @@ ant beta:messages count-tokens \
 
       - `type: "tools_changed"`
 
-    - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
+    - `beta_cache_miss_messages_changed: object`
 
       - `cache_missed_input_tokens: number`
 
@@ -9513,17 +10927,17 @@ ant beta:messages count-tokens \
 
       - `type: "messages_changed"`
 
-    - `beta_cache_miss_previous_message_not_found: object { type }`
+    - `beta_cache_miss_previous_message_not_found: object`
 
       - `type: "previous_message_not_found"`
 
-    - `beta_cache_miss_unavailable: object { type }`
+    - `beta_cache_miss_unavailable: object`
 
       - `type: "unavailable"`
 
 ### Beta Diagnostics Param
 
-- `beta_diagnostics_param: object { previous_message_id }`
+- `beta_diagnostics_param: object`
 
   Request-level diagnostics. Currently carries the previous response
   id for prompt-cache divergence reporting.
@@ -9532,9 +10946,11 @@ ant beta:messages count-tokens \
 
     The `id` (`msg_...`) from this client's previous /v1/messages response. The server compares that request's prompt fingerprint against this one and returns `diagnostics.cache_miss_reason` when the prompt-cache prefix could not be reused. Pass `null` on the first turn to opt in without a prior message to compare.
 
+    maxLength: 256
+
 ### Beta Direct Caller
 
-- `beta_direct_caller: object { type }`
+- `beta_direct_caller: object`
 
   Tool invocation directly from the model.
 
@@ -9542,9 +10958,9 @@ ant beta:messages count-tokens \
 
 ### Beta Document Block
 
-- `beta_document_block: object { citations, source, title, type }`
+- `beta_document_block: object`
 
-  - `citations: object { enabled }`
+  - `citations: object`
 
     Citation configuration for the document
 
@@ -9552,15 +10968,17 @@ ant beta:messages count-tokens \
 
   - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-    - `beta_base64_pdf_source: object { data, media_type, type }`
+    - `beta_base64_pdf_source: object`
 
       - `data: string`
+
+        format: byte
 
       - `media_type: "application/pdf"`
 
       - `type: "base64"`
 
-    - `beta_plain_text_source: object { data, media_type, type }`
+    - `beta_plain_text_source: object`
 
       - `data: string`
 
@@ -9576,7 +10994,7 @@ ant beta:messages count-tokens \
 
 ### Beta Encrypted Code Execution Result Block
 
-- `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+- `beta_encrypted_code_execution_result_block: object`
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -9596,7 +11014,7 @@ ant beta:messages count-tokens \
 
 ### Beta Encrypted Code Execution Result Block Param
 
-- `beta_encrypted_code_execution_result_block_param: object { content, encrypted_stdout, return_code, 2 more }`
+- `beta_encrypted_code_execution_result_block_param: object`
 
   Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -9616,7 +11034,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Block
 
-- `beta_fallback_block: object { from, to, trigger, type }`
+- `beta_fallback_block: object`
 
   Marks the point in `content` where one model's output gives way to the next.
 
@@ -9630,7 +11048,7 @@ ant beta:messages count-tokens \
   arrives via the standard `content_block_start` / `content_block_stop`
   pair and carries no deltas.
 
-  - `from: object { model }`
+  - `from: object`
 
     The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -9700,7 +11118,7 @@ ant beta:messages count-tokens \
 
         High-performance model for agents and coding
 
-  - `to: object { model }`
+  - `to: object`
 
     The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -9710,7 +11128,7 @@ ant beta:messages count-tokens \
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `trigger: object { category, type }`
+  - `trigger: object`
 
     What caused the `from` model to hand over at this hop.
 
@@ -9744,7 +11162,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Block Param
 
-- `beta_fallback_block_param: object { from, to, type, trigger }`
+- `beta_fallback_block_param: object`
 
   A `fallback` block echoed back from a prior response.
 
@@ -9760,7 +11178,7 @@ ant beta:messages count-tokens \
   likewise rejected; between non-thinking blocks the block's placement has
   no validation effect.
 
-  - `from: object { model }`
+  - `from: object`
 
     Identifies one hop of a fallback transition.
 
@@ -9830,7 +11248,7 @@ ant beta:messages count-tokens \
 
         High-performance model for agents and coding
 
-  - `to: object { model }`
+  - `to: object`
 
     Identifies one hop of a fallback transition.
 
@@ -9848,7 +11266,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Credit Not Applied
 
-- `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+- `beta_fallback_credit_not_applied: object`
 
   No reprice was applied; `reason` says why.
 
@@ -9898,7 +11316,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Credit Redeemed
 
-- `beta_fallback_credit_redeemed: object { type }`
+- `beta_fallback_credit_redeemed: object`
 
   The reprice was applied: the retry is billed as if the conversation
   had been on the retry model all along.
@@ -9907,7 +11325,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Credit Token Param
 
-- `beta_fallback_credit_token_param: object { token, mode }`
+- `beta_fallback_credit_token_param: object`
 
   Object form of `fallback_credit_token`: the token plus a redemption
   mode.
@@ -9921,6 +11339,8 @@ ant beta:messages count-tokens \
 
     The opaque `fallback_credit_token` from a prior refusal's `stop_details` — the same string the bare-string form carries.
 
+    maxLength: 2048, minLength: 1
+
   - `mode: optional "strict" or "best_effort"`
 
     How a failing token affects the retry. `strict` (the default, and the bare-string behavior): a failing redemption is a 400 and the retry is not served. `best_effort`: the retry is served either way — a token-layer failure no longer rejects the request; the retry proceeds at normal price and the outcome is reported on the response's `usage.fallback_credit`. Two failures stay hard in both modes: a malformed token, and combining `fallback_credit_token` with `fallbacks`.
@@ -9931,7 +11351,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Credit Usage
 
-- `beta_fallback_credit_usage: object { status }`
+- `beta_fallback_credit_usage: object`
 
   Outcome of the `fallback_credit_token` presented on this request.
 
@@ -9944,14 +11364,14 @@ ant beta:messages count-tokens \
     resulting shift is zero because there was nothing to move. `not_applied`:
     no reprice was applied; the arm's `reason` says why.
 
-    - `beta_fallback_credit_redeemed: object { type }`
+    - `beta_fallback_credit_redeemed: object`
 
       The reprice was applied: the retry is billed as if the conversation
       had been on the retry model all along.
 
       - `type: "redeemed"`
 
-    - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+    - `beta_fallback_credit_not_applied: object`
 
       No reprice was applied; `reason` says why.
 
@@ -10001,7 +11421,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Info
 
-- `beta_fallback_info: object { model }`
+- `beta_fallback_info: object`
 
   Identifies one hop of a fallback transition.
 
@@ -10073,7 +11493,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Info Param
 
-- `beta_fallback_info_param: object { model }`
+- `beta_fallback_info_param: object`
 
   Identifies one hop of a fallback transition.
 
@@ -10145,7 +11565,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Message Iteration Usage
 
-- `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+- `beta_fallback_message_iteration_usage: object`
 
   Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -10154,7 +11574,7 @@ ant beta:messages count-tokens \
   a fallback model served the response is signalled by the presence of this
   entry in `usage.iterations`.
 
-  - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+  - `cache_creation: object`
 
     Breakdown of cached tokens by TTL
 
@@ -10162,21 +11582,31 @@ ant beta:messages count-tokens \
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: number`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: number`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number`
 
     The number of input tokens read from the cache.
 
+    minimum: 0
+
   - `input_tokens: number`
 
     The number of input tokens which were used.
+
+    minimum: 0
 
   - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -10248,13 +11678,15 @@ ant beta:messages count-tokens \
 
     The number of output tokens which were used.
 
+    minimum: 0
+
   - `type: "fallback_message"`
 
     Usage for the fallback-model attempt that served the response
 
 ### Beta Fallback Param
 
-- `beta_fallback_param: object { model, max_tokens, output_config, 2 more }`
+- `beta_fallback_param: object`
 
   One entry in the `fallbacks` chain on a `/v1/messages` request.
 
@@ -10331,7 +11763,7 @@ ant beta:messages count-tokens \
 
   - `max_tokens: optional number`
 
-  - `output_config: optional object { effort, format, task_budget }`
+  - `output_config: optional object`
 
     - `effort: optional "low" or "medium" or "high" or 2 more`
 
@@ -10347,7 +11779,7 @@ ant beta:messages count-tokens \
 
       - `"max"`
 
-    - `format: optional object { schema, type }`
+    - `format: optional object`
 
       A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -10357,13 +11789,15 @@ ant beta:messages count-tokens \
 
       - `type: "json_schema"`
 
-    - `task_budget: optional object { total, type, remaining }`
+    - `task_budget: optional object`
 
       User-configurable total token budget across contexts.
 
       - `total: number`
 
         Total token budget across all contexts in the session.
+
+        minimum: 1024
 
       - `type: "tokens"`
 
@@ -10372,6 +11806,8 @@ ant beta:messages count-tokens \
       - `remaining: optional number`
 
         Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
+
+        minimum: 0
 
   - `speed: optional "standard" or "fast"`
 
@@ -10383,7 +11819,7 @@ ant beta:messages count-tokens \
 
   - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive`
 
-    - `beta_thinking_config_enabled: object { budget_tokens, type, display }`
+    - `beta_thinking_config_enabled: object`
 
       - `budget_tokens: number`
 
@@ -10392,6 +11828,8 @@ ant beta:messages count-tokens \
         Must be ≥1024 and less than `max_tokens`.
 
         See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
+        minimum: 1024
 
       - `type: "enabled"`
 
@@ -10403,11 +11841,11 @@ ant beta:messages count-tokens \
 
         - `"omitted"`
 
-    - `beta_thinking_config_disabled: object { type }`
+    - `beta_thinking_config_disabled: object`
 
       - `type: "disabled"`
 
-    - `beta_thinking_config_adaptive: object { type, display }`
+    - `beta_thinking_config_adaptive: object`
 
       - `type: "adaptive"`
 
@@ -10421,7 +11859,7 @@ ant beta:messages count-tokens \
 
 ### Beta Fallback Refusal Trigger
 
-- `beta_fallback_refusal_trigger: object { category, type }`
+- `beta_fallback_refusal_trigger: object`
 
   The `from` model declined for policy reasons.
 
@@ -10527,7 +11965,7 @@ ant beta:messages count-tokens \
 
     - `max_tokens: optional number`
 
-    - `output_config: optional object { effort, format, task_budget }`
+    - `output_config: optional object`
 
       - `effort: optional "low" or "medium" or "high" or 2 more`
 
@@ -10543,7 +11981,7 @@ ant beta:messages count-tokens \
 
         - `"max"`
 
-      - `format: optional object { schema, type }`
+      - `format: optional object`
 
         A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -10553,13 +11991,15 @@ ant beta:messages count-tokens \
 
         - `type: "json_schema"`
 
-      - `task_budget: optional object { total, type, remaining }`
+      - `task_budget: optional object`
 
         User-configurable total token budget across contexts.
 
         - `total: number`
 
           Total token budget across all contexts in the session.
+
+          minimum: 1024
 
         - `type: "tokens"`
 
@@ -10568,6 +12008,8 @@ ant beta:messages count-tokens \
         - `remaining: optional number`
 
           Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
+
+          minimum: 0
 
     - `speed: optional "standard" or "fast"`
 
@@ -10579,7 +12021,7 @@ ant beta:messages count-tokens \
 
     - `thinking: optional BetaThinkingConfigEnabled or BetaThinkingConfigDisabled or BetaThinkingConfigAdaptive`
 
-      - `beta_thinking_config_enabled: object { budget_tokens, type, display }`
+      - `beta_thinking_config_enabled: object`
 
         - `budget_tokens: number`
 
@@ -10588,6 +12030,8 @@ ant beta:messages count-tokens \
           Must be ≥1024 and less than `max_tokens`.
 
           See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
+          minimum: 1024
 
         - `type: "enabled"`
 
@@ -10599,11 +12043,11 @@ ant beta:messages count-tokens \
 
           - `"omitted"`
 
-      - `beta_thinking_config_disabled: object { type }`
+      - `beta_thinking_config_disabled: object`
 
         - `type: "disabled"`
 
-      - `beta_thinking_config_adaptive: object { type, display }`
+      - `beta_thinking_config_adaptive: object`
 
         - `type: "adaptive"`
 
@@ -10619,7 +12063,7 @@ ant beta:messages count-tokens \
 
 ### Beta File Document Source
 
-- `beta_file_document_source: object { file_id, type }`
+- `beta_file_document_source: object`
 
   - `file_id: string`
 
@@ -10627,7 +12071,7 @@ ant beta:messages count-tokens \
 
 ### Beta File Image Source
 
-- `beta_file_image_source: object { file_id, type }`
+- `beta_file_image_source: object`
 
   - `file_id: string`
 
@@ -10635,13 +12079,15 @@ ant beta:messages count-tokens \
 
 ### Beta Image Block Param
 
-- `beta_image_block_param: object { source, type, cache_control, transformations }`
+- `beta_image_block_param: object`
 
   - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-    - `beta_base64_image_source: object { data, media_type, type }`
+    - `beta_base64_image_source: object`
 
       - `data: string`
+
+        format: byte
 
       - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -10655,13 +12101,13 @@ ant beta:messages count-tokens \
 
       - `type: "base64"`
 
-    - `beta_url_image_source: object { type, url }`
+    - `beta_url_image_source: object`
 
       - `type: "url"`
 
       - `url: string`
 
-    - `beta_file_image_source: object { file_id, type }`
+    - `beta_file_image_source: object`
 
       - `file_id: string`
 
@@ -10669,7 +12115,7 @@ ant beta:messages count-tokens \
 
   - `type: "image"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -10690,7 +12136,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `transformations: optional object { oversized_image }`
+  - `transformations: optional object`
 
     Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -10704,7 +12150,7 @@ ant beta:messages count-tokens \
 
 ### Beta Image Transformations Param
 
-- `beta_image_transformations_param: object { oversized_image }`
+- `beta_image_transformations_param: object`
 
   Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -10718,7 +12164,7 @@ ant beta:messages count-tokens \
 
 ### Beta Input JSON Delta
 
-- `beta_input_json_delta: object { partial_json, type }`
+- `beta_input_json_delta: object`
 
   - `partial_json: string`
 
@@ -10726,19 +12172,23 @@ ant beta:messages count-tokens \
 
 ### Beta Input Tokens Clear At Least
 
-- `beta_input_tokens_clear_at_least: object { type, value }`
+- `beta_input_tokens_clear_at_least: object`
 
   - `type: "input_tokens"`
 
   - `value: number`
+
+    minimum: 0
 
 ### Beta Input Tokens Trigger
 
-- `beta_input_tokens_trigger: object { type, value }`
+- `beta_input_tokens_trigger: object`
 
   - `type: "input_tokens"`
 
   - `value: number`
+
+    minimum: 1
 
 ### Beta Iterations Usage
 
@@ -10752,11 +12202,11 @@ ant beta:messages count-tokens \
   - Calculate the true context window size from the last iteration
   - Understand token accumulation across server-side tool use loops
 
-  - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+  - `beta_message_iteration_usage: object`
 
     Token usage for a sampling iteration.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       Breakdown of cached tokens by TTL
 
@@ -10764,21 +12214,31 @@ ant beta:messages count-tokens \
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: number`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number`
 
       The number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: number`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -10849,16 +12309,18 @@ ant beta:messages count-tokens \
     - `output_tokens: number`
 
       The number of output tokens which were used.
+
+      minimum: 0
 
     - `type: "message"`
 
       Usage for a sampling iteration
 
-  - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+  - `beta_compaction_iteration_usage: object`
 
     Token usage for a compaction iteration.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       Breakdown of cached tokens by TTL
 
@@ -10866,35 +12328,47 @@ ant beta:messages count-tokens \
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: number`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number`
 
       The number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: number`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `output_tokens: number`
 
       The number of output tokens which were used.
 
+      minimum: 0
+
     - `type: "compaction"`
 
       Usage for a compaction iteration
 
-  - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+  - `beta_advisor_message_iteration_usage: object`
 
     Token usage for an advisor sub-inference iteration.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       Breakdown of cached tokens by TTL
 
@@ -10902,21 +12376,31 @@ ant beta:messages count-tokens \
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: number`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number`
 
       The number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: number`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -10988,11 +12472,13 @@ ant beta:messages count-tokens \
 
       The number of output tokens which were used.
 
+      minimum: 0
+
     - `type: "advisor_message"`
 
       Usage for an advisor sub-inference iteration
 
-  - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+  - `beta_fallback_message_iteration_usage: object`
 
     Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -11001,7 +12487,7 @@ ant beta:messages count-tokens \
     a fallback model served the response is signalled by the presence of this
     entry in `usage.iterations`.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       Breakdown of cached tokens by TTL
 
@@ -11009,21 +12495,31 @@ ant beta:messages count-tokens \
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: number`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number`
 
       The number of input tokens read from the cache.
 
+      minimum: 0
+
     - `input_tokens: number`
 
       The number of input tokens which were used.
+
+      minimum: 0
 
     - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -11095,13 +12591,15 @@ ant beta:messages count-tokens \
 
       The number of output tokens which were used.
 
+      minimum: 0
+
     - `type: "fallback_message"`
 
       Usage for the fallback-model attempt that served the response
 
 ### Beta JSON Output Format
 
-- `beta_json_output_format: object { schema, type }`
+- `beta_json_output_format: object`
 
   - `schema: map[unknown]`
 
@@ -11111,7 +12609,7 @@ ant beta:messages count-tokens \
 
 ### Beta MCP Tool Config
 
-- `beta_mcp_tool_config: object { defer_loading, enabled }`
+- `beta_mcp_tool_config: object`
 
   Configuration for a specific tool in an MCP toolset.
 
@@ -11121,7 +12619,7 @@ ant beta:messages count-tokens \
 
 ### Beta MCP Tool Default Config
 
-- `beta_mcp_tool_default_config: object { defer_loading, enabled }`
+- `beta_mcp_tool_default_config: object`
 
   Default configuration for tools in an MCP toolset.
 
@@ -11131,7 +12629,7 @@ ant beta:messages count-tokens \
 
 ### Beta MCP Tool Result Block
 
-- `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+- `beta_mcp_tool_result_block: object`
 
   - `content: string or array of BetaTextBlock`
 
@@ -11145,11 +12643,13 @@ ant beta:messages count-tokens \
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_char_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -11159,13 +12659,17 @@ ant beta:messages count-tokens \
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_page_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -11175,9 +12679,11 @@ ant beta:messages count-tokens \
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_content_block_location: object`
 
           - `cited_text: string`
 
@@ -11186,6 +12692,8 @@ ant beta:messages count-tokens \
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -11201,9 +12709,11 @@ ant beta:messages count-tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citations_web_search_result_location: object`
 
           - `cited_text: string`
 
@@ -11211,11 +12721,13 @@ ant beta:messages count-tokens \
 
           - `title: string`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+        - `beta_citation_search_result_location: object`
 
           - `cited_text: string`
 
@@ -11235,11 +12747,15 @@ ant beta:messages count-tokens \
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
 
           - `title: string`
 
@@ -11247,19 +12763,25 @@ ant beta:messages count-tokens \
 
       - `text: string`
 
+        maxLength: 5000000, minLength: 0
+
       - `type: "text"`
 
   - `is_error: boolean`
 
   - `tool_use_id: string`
 
+    pattern: ^[a-zA-Z0-9_-]+$
+
   - `type: "mcp_tool_result"`
 
 ### Beta MCP Tool Use Block
 
-- `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+- `beta_mcp_tool_use_block: object`
 
   - `id: string`
+
+    pattern: ^[a-zA-Z0-9_-]+$
 
   - `input: map[unknown]`
 
@@ -11275,9 +12797,11 @@ ant beta:messages count-tokens \
 
 ### Beta MCP Tool Use Block Param
 
-- `beta_mcp_tool_use_block_param: object { id, input, name, 3 more }`
+- `beta_mcp_tool_use_block_param: object`
 
   - `id: string`
+
+    pattern: ^[a-zA-Z0-9_-]+$
 
   - `input: map[unknown]`
 
@@ -11289,7 +12813,7 @@ ant beta:messages count-tokens \
 
   - `type: "mcp_tool_use"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -11312,7 +12836,7 @@ ant beta:messages count-tokens \
 
 ### Beta MCP Toolset
 
-- `beta_mcp_toolset: object { mcp_server_name, type, cache_control, 2 more }`
+- `beta_mcp_toolset: object`
 
   Configuration for a group of tools from an MCP server.
 
@@ -11323,9 +12847,11 @@ ant beta:messages count-tokens \
 
     Name of the MCP server to configure tools for
 
+    maxLength: 255, minLength: 1
+
   - `type: "mcp_toolset"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -11354,7 +12880,7 @@ ant beta:messages count-tokens \
 
     - `enabled: optional boolean`
 
-  - `default_config: optional object { defer_loading, enabled }`
+  - `default_config: optional object`
 
     Default configuration applied to all tools from this server
 
@@ -11364,7 +12890,7 @@ ant beta:messages count-tokens \
 
 ### Beta Memory Tool 20250818
 
-- `beta_memory_tool_20250818: object { name, type, allowed_callers, 4 more }`
+- `beta_memory_tool_20250818: object`
 
   - `name: "memory"`
 
@@ -11384,7 +12910,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -11419,7 +12945,7 @@ ant beta:messages count-tokens \
 
 - `beta_memory_tool_20250818_command: BetaMemoryTool20250818ViewCommand or BetaMemoryTool20250818CreateCommand or BetaMemoryTool20250818StrReplaceCommand or 3 more`
 
-  - `beta_memory_tool_20250818_view_command: object { command, path, view_range }`
+  - `beta_memory_tool_20250818_view_command: object`
 
     - `command: "view"`
 
@@ -11433,7 +12959,9 @@ ant beta:messages count-tokens \
 
       Optional line range for viewing specific lines
 
-  - `beta_memory_tool_20250818_create_command: object { command, file_text, path }`
+      minItems: 2, maxItems: 2
+
+  - `beta_memory_tool_20250818_create_command: object`
 
     - `command: "create"`
 
@@ -11447,7 +12975,7 @@ ant beta:messages count-tokens \
 
       Path where the file should be created
 
-  - `beta_memory_tool_20250818_str_replace_command: object { command, new_str, old_str, path }`
+  - `beta_memory_tool_20250818_str_replace_command: object`
 
     - `command: "str_replace"`
 
@@ -11465,7 +12993,7 @@ ant beta:messages count-tokens \
 
       Path to the file where text should be replaced
 
-  - `beta_memory_tool_20250818_insert_command: object { command, insert_line, insert_text, path }`
+  - `beta_memory_tool_20250818_insert_command: object`
 
     - `command: "insert"`
 
@@ -11475,6 +13003,8 @@ ant beta:messages count-tokens \
 
       Line number where text should be inserted
 
+      minimum: 1
+
     - `insert_text: string`
 
       Text to insert at the specified line
@@ -11483,7 +13013,7 @@ ant beta:messages count-tokens \
 
       Path to the file where text should be inserted
 
-  - `beta_memory_tool_20250818_delete_command: object { command, path }`
+  - `beta_memory_tool_20250818_delete_command: object`
 
     - `command: "delete"`
 
@@ -11493,7 +13023,7 @@ ant beta:messages count-tokens \
 
       Path to the file or directory to delete
 
-  - `beta_memory_tool_20250818_rename_command: object { command, new_path, old_path }`
+  - `beta_memory_tool_20250818_rename_command: object`
 
     - `command: "rename"`
 
@@ -11509,7 +13039,7 @@ ant beta:messages count-tokens \
 
 ### Beta Memory Tool 20250818 Create Command
 
-- `beta_memory_tool_20250818_create_command: object { command, file_text, path }`
+- `beta_memory_tool_20250818_create_command: object`
 
   - `command: "create"`
 
@@ -11525,7 +13055,7 @@ ant beta:messages count-tokens \
 
 ### Beta Memory Tool 20250818 Delete Command
 
-- `beta_memory_tool_20250818_delete_command: object { command, path }`
+- `beta_memory_tool_20250818_delete_command: object`
 
   - `command: "delete"`
 
@@ -11537,7 +13067,7 @@ ant beta:messages count-tokens \
 
 ### Beta Memory Tool 20250818 Insert Command
 
-- `beta_memory_tool_20250818_insert_command: object { command, insert_line, insert_text, path }`
+- `beta_memory_tool_20250818_insert_command: object`
 
   - `command: "insert"`
 
@@ -11546,6 +13076,8 @@ ant beta:messages count-tokens \
   - `insert_line: number`
 
     Line number where text should be inserted
+
+    minimum: 1
 
   - `insert_text: string`
 
@@ -11557,7 +13089,7 @@ ant beta:messages count-tokens \
 
 ### Beta Memory Tool 20250818 Rename Command
 
-- `beta_memory_tool_20250818_rename_command: object { command, new_path, old_path }`
+- `beta_memory_tool_20250818_rename_command: object`
 
   - `command: "rename"`
 
@@ -11573,7 +13105,7 @@ ant beta:messages count-tokens \
 
 ### Beta Memory Tool 20250818 Str Replace Command
 
-- `beta_memory_tool_20250818_str_replace_command: object { command, new_str, old_str, path }`
+- `beta_memory_tool_20250818_str_replace_command: object`
 
   - `command: "str_replace"`
 
@@ -11593,7 +13125,7 @@ ant beta:messages count-tokens \
 
 ### Beta Memory Tool 20250818 View Command
 
-- `beta_memory_tool_20250818_view_command: object { command, path, view_range }`
+- `beta_memory_tool_20250818_view_command: object`
 
   - `command: "view"`
 
@@ -11607,9 +13139,11 @@ ant beta:messages count-tokens \
 
     Optional line range for viewing specific lines
 
+    minItems: 2, maxItems: 2
+
 ### Beta Message
 
-- `beta_message: object { id, container, content, 9 more }`
+- `beta_message: object`
 
   - `id: string`
 
@@ -11617,7 +13151,7 @@ ant beta:messages count-tokens \
 
     The format and length of IDs may change over time.
 
-  - `container: object { id, expires_at, skills }`
+  - `container: object`
 
     Information about the container used in the request (for the code execution tool)
 
@@ -11629,6 +13163,8 @@ ant beta:messages count-tokens \
 
       The time at which the container will expire.
 
+      format: date-time
+
     - `skills: array of BetaSkill`
 
       Skills loaded in the container
@@ -11636,6 +13172,8 @@ ant beta:messages count-tokens \
       - `skill_id: string`
 
         Skill ID
+
+        maxLength: 64, minLength: 1
 
       - `type: "anthropic" or "custom"`
 
@@ -11648,6 +13186,8 @@ ant beta:messages count-tokens \
       - `version: string`
 
         The resolved version: a skill version ID for custom skills.
+
+        maxLength: 64, minLength: 1
 
   - `content: array of BetaContentBlock`
 
@@ -11678,7 +13218,7 @@ ant beta:messages count-tokens \
     [{"type": "text", "text": "B)"}]
     ```
 
-    - `beta_text_block: object { citations, text, type }`
+    - `beta_text_block: object`
 
       - `citations: array of BetaTextCitation`
 
@@ -11686,11 +13226,13 @@ ant beta:messages count-tokens \
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_char_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -11700,13 +13242,17 @@ ant beta:messages count-tokens \
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_page_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -11716,9 +13262,11 @@ ant beta:messages count-tokens \
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_content_block_location: object`
 
           - `cited_text: string`
 
@@ -11727,6 +13275,8 @@ ant beta:messages count-tokens \
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -11742,9 +13292,11 @@ ant beta:messages count-tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citations_web_search_result_location: object`
 
           - `cited_text: string`
 
@@ -11752,11 +13304,13 @@ ant beta:messages count-tokens \
 
           - `title: string`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+        - `beta_citation_search_result_location: object`
 
           - `cited_text: string`
 
@@ -11776,11 +13330,15 @@ ant beta:messages count-tokens \
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
 
           - `title: string`
 
@@ -11788,9 +13346,11 @@ ant beta:messages count-tokens \
 
       - `text: string`
 
+        maxLength: 5000000, minLength: 0
+
       - `type: "text"`
 
-    - `beta_thinking_block: object { signature, thinking, type }`
+    - `beta_thinking_block: object`
 
       - `signature: string`
 
@@ -11806,7 +13366,7 @@ ant beta:messages count-tokens \
 
       - `type: "thinking"`
 
-    - `beta_redacted_thinking_block: object { data, type }`
+    - `beta_redacted_thinking_block: object`
 
       - `data: string`
 
@@ -11818,13 +13378,17 @@ ant beta:messages count-tokens \
 
       - `type: "redacted_thinking"`
 
-    - `beta_tool_use_block: object { id, input, name, 3 more }`
+    - `beta_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
       - `name: string`
+
+        minLength: 1
 
       - `type: "tool_use"`
 
@@ -11832,23 +13396,27 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
           - `type: "direct"`
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "code_execution_20250825"`
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
           - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `type: "code_execution_20260120"`
 
@@ -11856,9 +13424,13 @@ ant beta:messages count-tokens \
 
         For a toolset member tool_use, the toolset family.
 
-    - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `beta_server_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `input: map[unknown]`
 
@@ -11886,21 +13458,21 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+    - `beta_web_search_tool_result_block: object`
 
       - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-        - `beta_web_search_tool_result_error: object { error_code, type }`
+        - `beta_web_search_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -11932,27 +13504,29 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_search_tool_result"`
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+    - `beta_web_fetch_tool_result_block: object`
 
       - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-        - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+        - `beta_web_fetch_tool_result_error_block: object`
 
           - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -11976,11 +13550,11 @@ ant beta:messages count-tokens \
 
           - `type: "web_fetch_tool_result_error"`
 
-        - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+        - `beta_web_fetch_block: object`
 
-          - `content: object { citations, source, title, type }`
+          - `content: object`
 
-            - `citations: object { enabled }`
+            - `citations: object`
 
               Citation configuration for the document
 
@@ -11988,15 +13562,17 @@ ant beta:messages count-tokens \
 
             - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-              - `beta_base64_pdf_source: object { data, media_type, type }`
+              - `beta_base64_pdf_source: object`
 
                 - `data: string`
+
+                  format: byte
 
                 - `media_type: "application/pdf"`
 
                 - `type: "base64"`
 
-              - `beta_plain_text_source: object { data, media_type, type }`
+              - `beta_plain_text_source: object`
 
                 - `data: string`
 
@@ -12022,27 +13598,29 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_fetch_tool_result"`
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_advisor_tool_result_block: object`
 
       - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-        - `beta_advisor_tool_result_error: object { error_code, type }`
+        - `beta_advisor_tool_result_error: object`
 
           - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -12062,7 +13640,7 @@ ant beta:messages count-tokens \
 
           - `type: "advisor_tool_result_error"`
 
-        - `beta_advisor_result_block: object { stop_reason, text, type }`
+        - `beta_advisor_result_block: object`
 
           - `stop_reason: string`
 
@@ -12072,7 +13650,7 @@ ant beta:messages count-tokens \
 
           - `type: "advisor_result"`
 
-        - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+        - `beta_advisor_redacted_result_block: object`
 
           - `encrypted_content: string`
 
@@ -12086,15 +13664,17 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "advisor_tool_result"`
 
-    - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_code_execution_tool_result_block: object`
 
       - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
-        - `beta_code_execution_tool_result_error: object { error_code, type }`
+        - `beta_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -12108,7 +13688,7 @@ ant beta:messages count-tokens \
 
           - `type: "code_execution_tool_result_error"`
 
-        - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+        - `beta_code_execution_result_block: object`
 
           - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -12124,7 +13704,7 @@ ant beta:messages count-tokens \
 
           - `type: "code_execution_result"`
 
-        - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+        - `beta_encrypted_code_execution_result_block: object`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -12144,13 +13724,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_tool_result"`
 
-    - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_bash_code_execution_tool_result_block: object`
 
       - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-        - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+        - `beta_bash_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -12166,7 +13748,7 @@ ant beta:messages count-tokens \
 
           - `type: "bash_code_execution_tool_result_error"`
 
-        - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+        - `beta_bash_code_execution_result_block: object`
 
           - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -12184,13 +13766,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "bash_code_execution_tool_result"`
 
-    - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_text_editor_code_execution_tool_result_block: object`
 
       - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+        - `beta_text_editor_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -12208,7 +13792,7 @@ ant beta:messages count-tokens \
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
-        - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+        - `beta_text_editor_code_execution_view_result_block: object`
 
           - `content: string`
 
@@ -12228,13 +13812,13 @@ ant beta:messages count-tokens \
 
           - `type: "text_editor_code_execution_view_result"`
 
-        - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+        - `beta_text_editor_code_execution_create_result_block: object`
 
           - `is_file_update: boolean`
 
           - `type: "text_editor_code_execution_create_result"`
 
-        - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+        - `beta_text_editor_code_execution_str_replace_result_block: object`
 
           - `lines: array of string`
 
@@ -12250,13 +13834,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "text_editor_code_execution_tool_result"`
 
-    - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_tool_search_tool_result_block: object`
 
       - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-        - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+        - `beta_tool_search_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -12272,11 +13858,13 @@ ant beta:messages count-tokens \
 
           - `type: "tool_search_tool_result_error"`
 
-        - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+        - `beta_tool_search_tool_search_result_block: object`
 
           - `tool_references: array of BetaToolReferenceBlock`
 
             - `tool_name: string`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `type: "tool_reference"`
 
@@ -12284,11 +13872,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "tool_search_tool_result"`
 
-    - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+    - `beta_mcp_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
@@ -12302,7 +13894,7 @@ ant beta:messages count-tokens \
 
       - `type: "mcp_tool_use"`
 
-    - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+    - `beta_mcp_tool_result_block: object`
 
       - `content: string or array of BetaTextBlock`
 
@@ -12318,15 +13910,19 @@ ant beta:messages count-tokens \
 
           - `text: string`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: "text"`
 
       - `is_error: boolean`
 
       - `tool_use_id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `type: "mcp_tool_result"`
 
-    - `beta_container_upload_block: object { file_id, type }`
+    - `beta_container_upload_block: object`
 
       Response model for a file uploaded to the container.
 
@@ -12334,7 +13930,7 @@ ant beta:messages count-tokens \
 
       - `type: "container_upload"`
 
-    - `beta_compaction_block: object { content, encrypted_content, type }`
+    - `beta_compaction_block: object`
 
       A compaction block returned when autocompact is triggered.
 
@@ -12352,7 +13948,7 @@ ant beta:messages count-tokens \
 
       - `type: "compaction"`
 
-    - `beta_fallback_block: object { from, to, trigger, type }`
+    - `beta_fallback_block: object`
 
       Marks the point in `content` where one model's output gives way to the next.
 
@@ -12366,7 +13962,7 @@ ant beta:messages count-tokens \
       arrives via the standard `content_block_start` / `content_block_stop`
       pair and carries no deltas.
 
-      - `from: object { model }`
+      - `from: object`
 
         The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -12436,7 +14032,7 @@ ant beta:messages count-tokens \
 
             High-performance model for agents and coding
 
-      - `to: object { model }`
+      - `to: object`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -12446,7 +14042,7 @@ ant beta:messages count-tokens \
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `trigger: object { category, type }`
+      - `trigger: object`
 
         What caused the `from` model to hand over at this hop.
 
@@ -12478,7 +14074,7 @@ ant beta:messages count-tokens \
 
       - `type: "fallback"`
 
-  - `context_management: object { applied_edits }`
+  - `context_management: object`
 
     Context management response.
 
@@ -12488,35 +14084,43 @@ ant beta:messages count-tokens \
 
       List of context management edits that were applied.
 
-      - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+      - `beta_clear_tool_uses_20250919_edit_response: object`
 
         - `cleared_input_tokens: number`
 
           Number of input tokens cleared by this edit.
+
+          minimum: 0
 
         - `cleared_tool_uses: number`
 
           Number of tool uses that were cleared.
 
+          minimum: 0
+
         - `type: "clear_tool_uses_20250919"`
 
           The type of context management edit applied.
 
-      - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+      - `beta_clear_thinking_20251015_edit_response: object`
 
         - `cleared_input_tokens: number`
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_thinking_turns: number`
 
           Number of thinking turns that were cleared.
+
+          minimum: 0
 
         - `type: "clear_thinking_20251015"`
 
           The type of context management edit applied.
 
-  - `diagnostics: object { cache_miss_reason }`
+  - `diagnostics: object`
 
     Response envelope for request-level diagnostics. Present (possibly
     null) whenever the caller supplied `diagnostics` on the request.
@@ -12525,7 +14129,7 @@ ant beta:messages count-tokens \
 
       Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-      - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_model_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -12533,7 +14137,7 @@ ant beta:messages count-tokens \
 
         - `type: "model_changed"`
 
-      - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_system_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -12541,7 +14145,7 @@ ant beta:messages count-tokens \
 
         - `type: "system_changed"`
 
-      - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_tools_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -12549,7 +14153,7 @@ ant beta:messages count-tokens \
 
         - `type: "tools_changed"`
 
-      - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
+      - `beta_cache_miss_messages_changed: object`
 
         - `cache_missed_input_tokens: number`
 
@@ -12557,11 +14161,11 @@ ant beta:messages count-tokens \
 
         - `type: "messages_changed"`
 
-      - `beta_cache_miss_previous_message_not_found: object { type }`
+      - `beta_cache_miss_previous_message_not_found: object`
 
         - `type: "previous_message_not_found"`
 
-      - `beta_cache_miss_unavailable: object { type }`
+      - `beta_cache_miss_unavailable: object`
 
         - `type: "unavailable"`
 
@@ -12637,7 +14241,7 @@ ant beta:messages count-tokens \
 
     This will always be `"assistant"`.
 
-  - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+  - `stop_details: object`
 
     Structured information about a refusal.
 
@@ -12766,7 +14370,7 @@ ant beta:messages count-tokens \
 
     For Messages, this is always `"message"`.
 
-  - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
+  - `usage: object`
 
     Billing and rate-limit usage.
 
@@ -12778,7 +14382,7 @@ ant beta:messages count-tokens \
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-    - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+    - `cache_creation: object`
 
       Breakdown of cached tokens by TTL
 
@@ -12786,19 +14390,27 @@ ant beta:messages count-tokens \
 
         The number of input tokens used to create the 1 hour cache entry.
 
+        minimum: 0
+
       - `ephemeral_5m_input_tokens: number`
 
         The number of input tokens used to create the 5 minute cache entry.
+
+        minimum: 0
 
     - `cache_creation_input_tokens: number`
 
       The number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number`
 
       The number of input tokens read from the cache.
 
-    - `fallback_credit: object { status }`
+      minimum: 0
+
+    - `fallback_credit: object`
 
       Outcome of the `fallback_credit_token` presented on this request.
 
@@ -12811,14 +14423,14 @@ ant beta:messages count-tokens \
         resulting shift is zero because there was nothing to move. `not_applied`:
         no reprice was applied; the arm's `reason` says why.
 
-        - `beta_fallback_credit_redeemed: object { type }`
+        - `beta_fallback_credit_redeemed: object`
 
           The reprice was applied: the retry is billed as if the conversation
           had been on the retry model all along.
 
           - `type: "redeemed"`
 
-        - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+        - `beta_fallback_credit_not_applied: object`
 
           No reprice was applied; `reason` says why.
 
@@ -12874,6 +14486,8 @@ ant beta:messages count-tokens \
 
       The number of input tokens which were used.
 
+      minimum: 0
+
     - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
       Per-iteration token usage breakdown.
@@ -12884,11 +14498,11 @@ ant beta:messages count-tokens \
       - Calculate the true context window size from the last iteration
       - Understand token accumulation across server-side tool use loops
 
-      - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_message_iteration_usage: object`
 
         Token usage for a sampling iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -12896,21 +14510,31 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -12981,16 +14605,18 @@ ant beta:messages count-tokens \
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `type: "message"`
 
           Usage for a sampling iteration
 
-      - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+      - `beta_compaction_iteration_usage: object`
 
         Token usage for a compaction iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -12998,35 +14624,47 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `output_tokens: number`
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: "compaction"`
 
           Usage for a compaction iteration
 
-      - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_advisor_message_iteration_usage: object`
 
         Token usage for an advisor sub-inference iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -13034,21 +14672,31 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -13120,11 +14768,13 @@ ant beta:messages count-tokens \
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: "advisor_message"`
 
           Usage for an advisor sub-inference iteration
 
-      - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_fallback_message_iteration_usage: object`
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -13133,7 +14783,7 @@ ant beta:messages count-tokens \
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -13141,21 +14791,31 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -13226,6 +14886,8 @@ ant beta:messages count-tokens \
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `type: "fallback_message"`
 
@@ -13235,7 +14897,9 @@ ant beta:messages count-tokens \
 
       The number of output tokens which were used.
 
-    - `output_tokens_details: object { thinking_tokens }`
+      minimum: 0
+
+    - `output_tokens_details: object`
 
       Breakdown of output tokens by category.
 
@@ -13255,7 +14919,9 @@ ant beta:messages count-tokens \
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-    - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+        minimum: 0
+
+    - `server_tool_use: object`
 
       The number of server tool requests.
 
@@ -13263,9 +14929,13 @@ ant beta:messages count-tokens \
 
         The number of web fetch tool requests.
 
+        minimum: 0
+
       - `web_search_requests: number`
 
         The number of web search tool requests.
+
+        minimum: 0
 
     - `service_tier: "standard" or "priority" or "batch"`
 
@@ -13287,17 +14957,21 @@ ant beta:messages count-tokens \
 
 ### Beta Message Delta Usage
 
-- `beta_message_delta_usage: object { cache_creation_input_tokens, cache_read_input_tokens, fallback_credit, 5 more }`
+- `beta_message_delta_usage: object`
 
   - `cache_creation_input_tokens: number`
 
     The cumulative number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number`
 
     The cumulative number of input tokens read from the cache.
 
-  - `fallback_credit: object { status }`
+    minimum: 0
+
+  - `fallback_credit: object`
 
     Outcome of the `fallback_credit_token` presented on this request.
 
@@ -13310,14 +14984,14 @@ ant beta:messages count-tokens \
       resulting shift is zero because there was nothing to move. `not_applied`:
       no reprice was applied; the arm's `reason` says why.
 
-      - `beta_fallback_credit_redeemed: object { type }`
+      - `beta_fallback_credit_redeemed: object`
 
         The reprice was applied: the retry is billed as if the conversation
         had been on the retry model all along.
 
         - `type: "redeemed"`
 
-      - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+      - `beta_fallback_credit_not_applied: object`
 
         No reprice was applied; `reason` says why.
 
@@ -13369,6 +15043,8 @@ ant beta:messages count-tokens \
 
     The cumulative number of input tokens which were used.
 
+    minimum: 0
+
   - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
     Per-iteration token usage breakdown.
@@ -13379,11 +15055,11 @@ ant beta:messages count-tokens \
     - Calculate the true context window size from the last iteration
     - Understand token accumulation across server-side tool use loops
 
-    - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+    - `beta_message_iteration_usage: object`
 
       Token usage for a sampling iteration.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -13391,21 +15067,31 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -13476,16 +15162,18 @@ ant beta:messages count-tokens \
       - `output_tokens: number`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `type: "message"`
 
         Usage for a sampling iteration
 
-    - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+    - `beta_compaction_iteration_usage: object`
 
       Token usage for a compaction iteration.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -13493,35 +15181,47 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `output_tokens: number`
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: "compaction"`
 
         Usage for a compaction iteration
 
-    - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+    - `beta_advisor_message_iteration_usage: object`
 
       Token usage for an advisor sub-inference iteration.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -13529,21 +15229,31 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -13615,11 +15325,13 @@ ant beta:messages count-tokens \
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: "advisor_message"`
 
         Usage for an advisor sub-inference iteration
 
-    - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+    - `beta_fallback_message_iteration_usage: object`
 
       Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -13628,7 +15340,7 @@ ant beta:messages count-tokens \
       a fallback model served the response is signalled by the presence of this
       entry in `usage.iterations`.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -13636,21 +15348,31 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -13721,6 +15443,8 @@ ant beta:messages count-tokens \
       - `output_tokens: number`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `type: "fallback_message"`
 
@@ -13730,7 +15454,7 @@ ant beta:messages count-tokens \
 
     The cumulative number of output tokens which were used.
 
-  - `output_tokens_details: object { thinking_tokens }`
+  - `output_tokens_details: object`
 
     Breakdown of output tokens by category.
 
@@ -13750,7 +15474,9 @@ ant beta:messages count-tokens \
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-  - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+      minimum: 0
+
+  - `server_tool_use: object`
 
     The number of server tool requests.
 
@@ -13758,17 +15484,21 @@ ant beta:messages count-tokens \
 
       The number of web fetch tool requests.
 
+      minimum: 0
+
     - `web_search_requests: number`
 
       The number of web search tool requests.
 
+      minimum: 0
+
 ### Beta Message Iteration Usage
 
-- `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+- `beta_message_iteration_usage: object`
 
   Token usage for a sampling iteration.
 
-  - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+  - `cache_creation: object`
 
     Breakdown of cached tokens by TTL
 
@@ -13776,21 +15506,31 @@ ant beta:messages count-tokens \
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: number`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: number`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number`
 
     The number of input tokens read from the cache.
 
+    minimum: 0
+
   - `input_tokens: number`
 
     The number of input tokens which were used.
+
+    minimum: 0
 
   - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -13862,23 +15602,27 @@ ant beta:messages count-tokens \
 
     The number of output tokens which were used.
 
+    minimum: 0
+
   - `type: "message"`
 
     Usage for a sampling iteration
 
 ### Beta Message Param
 
-- `beta_message_param: object { content, role }`
+- `beta_message_param: object`
 
   - `content: array of BetaContentBlockParam`
 
-    - `beta_text_block_param: object { text, type, cache_control, citations }`
+    - `beta_text_block_param: object`
 
       - `text: string`
 
+        minLength: 1
+
       - `type: "text"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -13901,35 +15645,47 @@ ant beta:messages count-tokens \
 
       - `citations: optional array of BetaTextCitationParam`
 
-        - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_char_location_param: object`
 
           - `cited_text: string`
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_char_index: number`
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_page_location_param: object`
 
           - `cited_text: string`
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_page_number: number`
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_content_block_location_param: object`
 
           - `cited_text: string`
 
@@ -13939,7 +15695,11 @@ ant beta:messages count-tokens \
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_block_index: number`
 
@@ -13951,9 +15711,11 @@ ant beta:messages count-tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citation_web_search_result_location_param: object`
 
           - `cited_text: string`
 
@@ -13961,11 +15723,15 @@ ant beta:messages count-tokens \
 
           - `title: string`
 
+            maxLength: 512, minLength: 1
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+            minLength: 1
+
+        - `beta_citation_search_result_location_param: object`
 
           - `cited_text: string`
 
@@ -13985,23 +15751,29 @@ ant beta:messages count-tokens \
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: string`
 
           - `type: "search_result_location"`
 
-    - `beta_image_block_param: object { source, type, cache_control, transformations }`
+    - `beta_image_block_param: object`
 
       - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-        - `beta_base64_image_source: object { data, media_type, type }`
+        - `beta_base64_image_source: object`
 
           - `data: string`
+
+            format: byte
 
           - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -14015,13 +15787,13 @@ ant beta:messages count-tokens \
 
           - `type: "base64"`
 
-        - `beta_url_image_source: object { type, url }`
+        - `beta_url_image_source: object`
 
           - `type: "url"`
 
           - `url: string`
 
-        - `beta_file_image_source: object { file_id, type }`
+        - `beta_file_image_source: object`
 
           - `file_id: string`
 
@@ -14029,7 +15801,7 @@ ant beta:messages count-tokens \
 
       - `type: "image"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14046,7 +15818,7 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-      - `transformations: optional object { oversized_image }`
+      - `transformations: optional object`
 
         Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -14058,19 +15830,21 @@ ant beta:messages count-tokens \
 
           - `"error"`
 
-    - `beta_request_document_block: object { source, type, cache_control, 3 more }`
+    - `beta_request_document_block: object`
 
       - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
-        - `beta_base64_pdf_source: object { data, media_type, type }`
+        - `beta_base64_pdf_source: object`
 
           - `data: string`
+
+            format: byte
 
           - `media_type: "application/pdf"`
 
           - `type: "base64"`
 
-        - `beta_plain_text_source: object { data, media_type, type }`
+        - `beta_plain_text_source: object`
 
           - `data: string`
 
@@ -14078,7 +15852,7 @@ ant beta:messages count-tokens \
 
           - `type: "text"`
 
-        - `beta_content_block_source: object { content, type }`
+        - `beta_content_block_source: object`
 
           - `content: string or array of BetaContentBlockSourceContent`
 
@@ -14086,41 +15860,43 @@ ant beta:messages count-tokens \
 
             - `beta_content_block_source_content: array of BetaContentBlockSourceContent`
 
-              - `beta_text_block_param: object { text, type, cache_control, citations }`
+              - `beta_text_block_param: object`
 
                 - `text: string`
 
+                  minLength: 1
+
                 - `type: "text"`
 
-                - `cache_control: optional object { type, ttl }`
+                - `cache_control: optional object`
 
                   Create a cache control breakpoint at this content block.
 
                 - `citations: optional array of BetaTextCitationParam`
 
-              - `beta_image_block_param: object { source, type, cache_control, transformations }`
+              - `beta_image_block_param: object`
 
                 - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
                 - `type: "image"`
 
-                - `cache_control: optional object { type, ttl }`
+                - `cache_control: optional object`
 
                   Create a cache control breakpoint at this content block.
 
-                - `transformations: optional object { oversized_image }`
+                - `transformations: optional object`
 
                   Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
           - `type: "content"`
 
-        - `beta_url_pdf_source: object { type, url }`
+        - `beta_url_pdf_source: object`
 
           - `type: "url"`
 
           - `url: string`
 
-        - `beta_file_document_source: object { file_id, type }`
+        - `beta_file_document_source: object`
 
           - `file_id: string`
 
@@ -14128,7 +15904,7 @@ ant beta:messages count-tokens \
 
       - `type: "document"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14145,23 +15921,29 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-      - `citations: optional object { enabled }`
+      - `citations: optional object`
 
         - `enabled: optional boolean`
 
       - `context: optional string`
 
+        minLength: 1
+
       - `title: optional string`
 
-    - `beta_search_result_block_param: object { content, source, title, 3 more }`
+        maxLength: 500, minLength: 1
+
+    - `beta_search_result_block_param: object`
 
       - `content: array of BetaTextBlockParam`
 
         - `text: string`
 
+          minLength: 1
+
         - `type: "text"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -14173,7 +15955,7 @@ ant beta:messages count-tokens \
 
       - `type: "search_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14190,11 +15972,11 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-      - `citations: optional object { enabled }`
+      - `citations: optional object`
 
         - `enabled: optional boolean`
 
-    - `beta_thinking_block_param: object { signature, thinking, type }`
+    - `beta_thinking_block_param: object`
 
       - `signature: string`
 
@@ -14208,7 +15990,7 @@ ant beta:messages count-tokens \
 
       - `type: "thinking"`
 
-    - `beta_redacted_thinking_block_param: object { data, type }`
+    - `beta_redacted_thinking_block_param: object`
 
       - `data: string`
 
@@ -14216,17 +15998,21 @@ ant beta:messages count-tokens \
 
       - `type: "redacted_thinking"`
 
-    - `beta_tool_use_block_param: object { id, input, name, 4 more }`
+    - `beta_tool_use_block_param: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
       - `name: string`
 
+        maxLength: 200, minLength: 1
+
       - `type: "tool_use"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14247,23 +16033,27 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
           - `type: "direct"`
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "code_execution_20250825"`
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
           - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `type: "code_execution_20260120"`
 
@@ -14271,13 +16061,17 @@ ant beta:messages count-tokens \
 
         For a toolset member tool_use, the toolset family this member belongs to.
 
-    - `beta_tool_result_block_param: object { tool_use_id, type, cache_control, 3 more }`
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `beta_tool_result_block_param: object`
 
       - `tool_use_id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `type: "tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14296,33 +16090,35 @@ ant beta:messages count-tokens \
 
       - `content: optional array of BetaTextBlockParam or BetaImageBlockParam or BetaSearchResultBlockParam or 3 more`
 
-        - `beta_text_block_param: object { text, type, cache_control, citations }`
+        - `beta_text_block_param: object`
 
           - `text: string`
 
+            minLength: 1
+
           - `type: "text"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
           - `citations: optional array of BetaTextCitationParam`
 
-        - `beta_image_block_param: object { source, type, cache_control, transformations }`
+        - `beta_image_block_param: object`
 
           - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
           - `type: "image"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
-          - `transformations: optional object { oversized_image }`
+          - `transformations: optional object`
 
             Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
-        - `beta_search_result_block_param: object { content, source, title, 3 more }`
+        - `beta_search_result_block_param: object`
 
           - `content: array of BetaTextBlockParam`
 
@@ -14332,37 +16128,43 @@ ant beta:messages count-tokens \
 
           - `type: "search_result"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional object { enabled }`
+          - `citations: optional object`
 
-        - `beta_request_document_block: object { source, type, cache_control, 3 more }`
+        - `beta_request_document_block: object`
 
           - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
           - `type: "document"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
-          - `citations: optional object { enabled }`
+          - `citations: optional object`
 
           - `context: optional string`
 
+            minLength: 1
+
           - `title: optional string`
 
-        - `beta_tool_reference_block_param: object { tool_name, type, cache_control }`
+            maxLength: 500, minLength: 1
+
+        - `beta_tool_reference_block_param: object`
 
           Tool reference block that can be included in tool_result content.
 
           - `tool_name: string`
 
+            maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
           - `type: "tool_reference"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
@@ -14379,7 +16181,7 @@ ant beta:messages count-tokens \
 
               Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-        - `beta_browser_state_block_param: object { tabs, type, cache_control, state_changes }`
+        - `beta_browser_state_block_param: object`
 
           The caller's browser state after a browser toolset member call —
           the full inventory of open tabs, which tab is active, and any side
@@ -14393,17 +16195,25 @@ ant beta:messages count-tokens \
 
             All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+            maxItems: 100
+
             - `tab_id: string`
 
               The caller-assigned identifier for this tab, unique within the inventory.
+
+              maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `title: string`
 
               The title of the page the tab is showing. May be empty.
 
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
             - `url: string`
 
               The URL of the page the tab is showing. May be empty.
+
+              maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
             - `active: optional boolean`
 
@@ -14411,7 +16221,7 @@ ant beta:messages count-tokens \
 
           - `type: "browser_state"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
@@ -14432,7 +16242,9 @@ ant beta:messages count-tokens \
 
             Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-            - `beta_browser_state_change_tab_opened: object { tab_id, type }`
+            maxItems: 200, minItems: 1
+
+            - `beta_browser_state_change_tab_opened: object`
 
               A tab this call's execution opened that remains open at its end —
               the creation delta of the `tabs` inventory, not an event log.
@@ -14446,9 +16258,11 @@ ant beta:messages count-tokens \
 
                 The `tab_id` of the opened tab, present in `tabs`.
 
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `type: "tab_opened"`
 
-            - `beta_browser_state_change_download_started: object { download_id, type, url }`
+            - `beta_browser_state_change_download_started: object`
 
               A file download that started during this call.
 
@@ -14456,13 +16270,17 @@ ant beta:messages count-tokens \
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `type: "download_started"`
 
               - `url: string`
 
                 The final post-redirect URL the download was served from.
 
-            - `beta_browser_state_change_download_completed: object { download_id, type, url, 2 more }`
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+            - `beta_browser_state_change_download_completed: object`
 
               A file download that finished during this call, reported with the
               same `download_id` as its `download_started` — or without a prior
@@ -14473,21 +16291,29 @@ ant beta:messages count-tokens \
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `type: "download_completed"`
 
               - `url: string`
 
                 The final post-redirect URL the download was served from.
 
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `path: optional string`
 
                 Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
               - `size_bytes: optional number`
 
                 The completed download's size.
 
-            - `beta_browser_state_change_download_failed: object { download_id, type, url, error }`
+                minimum: 0
+
+            - `beta_browser_state_change_download_failed: object`
 
               A file download that failed — or was cancelled — during this call.
 
@@ -14495,15 +16321,21 @@ ant beta:messages count-tokens \
 
                 The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+                maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `type: "download_failed"`
 
               - `url: string`
 
                 The final post-redirect URL the download was served from.
 
+                maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
               - `error: optional string`
 
                 The failure or cancellation detail, when known.
+
+                pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
       - `is_error: optional boolean`
 
@@ -14511,9 +16343,13 @@ ant beta:messages count-tokens \
 
         For a toolset member tool_result, the toolset family of the paired tool_use.
 
-    - `beta_server_tool_use_block_param: object { id, input, name, 3 more }`
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `beta_server_tool_use_block_param: object`
 
       - `id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `input: map[unknown]`
 
@@ -14537,7 +16373,7 @@ ant beta:messages count-tokens \
 
       - `type: "server_tool_use"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14558,17 +16394,17 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_search_tool_result_block_param: object { content, tool_use_id, type, 2 more }`
+    - `beta_web_search_tool_result_block_param: object`
 
       - `content: array of BetaWebSearchResultBlockParam or BetaWebSearchToolRequestError`
 
@@ -14584,7 +16420,7 @@ ant beta:messages count-tokens \
 
           - `page_age: optional string`
 
-        - `beta_web_search_tool_request_error: object { error_code, type }`
+        - `beta_web_search_tool_request_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -14604,9 +16440,11 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_search_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14627,21 +16465,21 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_fetch_tool_result_block_param: object { content, tool_use_id, type, 2 more }`
+    - `beta_web_fetch_tool_result_block_param: object`
 
       - `content: BetaWebFetchToolResultErrorBlockParam or BetaWebFetchBlockParam`
 
-        - `beta_web_fetch_tool_result_error_block_param: object { error_code, type }`
+        - `beta_web_fetch_tool_result_error_block_param: object`
 
           - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -14665,23 +16503,27 @@ ant beta:messages count-tokens \
 
           - `type: "web_fetch_tool_result_error"`
 
-        - `beta_web_fetch_block_param: object { content, type, url, retrieved_at }`
+        - `beta_web_fetch_block_param: object`
 
-          - `content: object { source, type, cache_control, 3 more }`
+          - `content: object`
 
             - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
             - `type: "document"`
 
-            - `cache_control: optional object { type, ttl }`
+            - `cache_control: optional object`
 
               Create a cache control breakpoint at this content block.
 
-            - `citations: optional object { enabled }`
+            - `citations: optional object`
 
             - `context: optional string`
 
+              minLength: 1
+
             - `title: optional string`
+
+              maxLength: 500, minLength: 1
 
           - `type: "web_fetch_result"`
 
@@ -14695,9 +16537,11 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_fetch_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14718,21 +16562,21 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_advisor_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+    - `beta_advisor_tool_result_block_param: object`
 
       - `content: BetaAdvisorToolResultErrorParam or BetaAdvisorResultBlockParam or BetaAdvisorRedactedResultBlockParam`
 
-        - `beta_advisor_tool_result_error_param: object { error_code, type }`
+        - `beta_advisor_tool_result_error_param: object`
 
           - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -14752,7 +16596,7 @@ ant beta:messages count-tokens \
 
           - `type: "advisor_tool_result_error"`
 
-        - `beta_advisor_result_block_param: object { text, type, stop_reason }`
+        - `beta_advisor_result_block_param: object`
 
           - `text: string`
 
@@ -14760,7 +16604,7 @@ ant beta:messages count-tokens \
 
           - `stop_reason: optional string`
 
-        - `beta_advisor_redacted_result_block_param: object { encrypted_content, type, stop_reason }`
+        - `beta_advisor_redacted_result_block_param: object`
 
           - `encrypted_content: string`
 
@@ -14772,9 +16616,11 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "advisor_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14791,13 +16637,13 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+    - `beta_code_execution_tool_result_block_param: object`
 
       - `content: BetaCodeExecutionToolResultErrorParam or BetaCodeExecutionResultBlockParam or BetaEncryptedCodeExecutionResultBlockParam`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
-        - `beta_code_execution_tool_result_error_param: object { error_code, type }`
+        - `beta_code_execution_tool_result_error_param: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -14811,7 +16657,7 @@ ant beta:messages count-tokens \
 
           - `type: "code_execution_tool_result_error"`
 
-        - `beta_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+        - `beta_code_execution_result_block_param: object`
 
           - `content: array of BetaCodeExecutionOutputBlockParam`
 
@@ -14827,7 +16673,7 @@ ant beta:messages count-tokens \
 
           - `type: "code_execution_result"`
 
-        - `beta_encrypted_code_execution_result_block_param: object { content, encrypted_stdout, return_code, 2 more }`
+        - `beta_encrypted_code_execution_result_block_param: object`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -14847,9 +16693,11 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14866,11 +16714,11 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_bash_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+    - `beta_bash_code_execution_tool_result_block_param: object`
 
       - `content: BetaBashCodeExecutionToolResultErrorParam or BetaBashCodeExecutionResultBlockParam`
 
-        - `beta_bash_code_execution_tool_result_error_param: object { error_code, type }`
+        - `beta_bash_code_execution_tool_result_error_param: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -14886,7 +16734,7 @@ ant beta:messages count-tokens \
 
           - `type: "bash_code_execution_tool_result_error"`
 
-        - `beta_bash_code_execution_result_block_param: object { content, return_code, stderr, 2 more }`
+        - `beta_bash_code_execution_result_block_param: object`
 
           - `content: array of BetaBashCodeExecutionOutputBlockParam`
 
@@ -14904,9 +16752,11 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "bash_code_execution_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -14923,11 +16773,11 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_text_editor_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+    - `beta_text_editor_code_execution_tool_result_block_param: object`
 
       - `content: BetaTextEditorCodeExecutionToolResultErrorParam or BetaTextEditorCodeExecutionViewResultBlockParam or BetaTextEditorCodeExecutionCreateResultBlockParam or BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
-        - `beta_text_editor_code_execution_tool_result_error_param: object { error_code, type, error_message }`
+        - `beta_text_editor_code_execution_tool_result_error_param: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -14945,7 +16795,7 @@ ant beta:messages count-tokens \
 
           - `error_message: optional string`
 
-        - `beta_text_editor_code_execution_view_result_block_param: object { content, file_type, type, 3 more }`
+        - `beta_text_editor_code_execution_view_result_block_param: object`
 
           - `content: string`
 
@@ -14965,13 +16815,13 @@ ant beta:messages count-tokens \
 
           - `total_lines: optional number`
 
-        - `beta_text_editor_code_execution_create_result_block_param: object { is_file_update, type }`
+        - `beta_text_editor_code_execution_create_result_block_param: object`
 
           - `is_file_update: boolean`
 
           - `type: "text_editor_code_execution_create_result"`
 
-        - `beta_text_editor_code_execution_str_replace_result_block_param: object { type, lines, new_lines, 3 more }`
+        - `beta_text_editor_code_execution_str_replace_result_block_param: object`
 
           - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -14987,9 +16837,11 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "text_editor_code_execution_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15006,11 +16858,11 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_tool_search_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+    - `beta_tool_search_tool_result_block_param: object`
 
       - `content: BetaToolSearchToolResultErrorParam or BetaToolSearchToolSearchResultBlockParam`
 
-        - `beta_tool_search_tool_result_error_param: object { error_code, type, error_message }`
+        - `beta_tool_search_tool_result_error_param: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -15026,15 +16878,17 @@ ant beta:messages count-tokens \
 
           - `error_message: optional string`
 
-        - `beta_tool_search_tool_search_result_block_param: object { tool_references, type }`
+        - `beta_tool_search_tool_search_result_block_param: object`
 
           - `tool_references: array of BetaToolReferenceBlockParam`
 
             - `tool_name: string`
 
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
             - `type: "tool_reference"`
 
-            - `cache_control: optional object { type, ttl }`
+            - `cache_control: optional object`
 
               Create a cache control breakpoint at this content block.
 
@@ -15042,9 +16896,11 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "tool_search_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15061,9 +16917,11 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_mcp_tool_use_block_param: object { id, input, name, 3 more }`
+    - `beta_mcp_tool_use_block_param: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
@@ -15075,7 +16933,7 @@ ant beta:messages count-tokens \
 
       - `type: "mcp_tool_use"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15092,13 +16950,15 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_request_mcp_tool_result_block_param: object { tool_use_id, type, cache_control, 2 more }`
+    - `beta_request_mcp_tool_result_block_param: object`
 
       - `tool_use_id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `type: "mcp_tool_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15123,9 +16983,11 @@ ant beta:messages count-tokens \
 
           - `text: string`
 
+            minLength: 1
+
           - `type: "text"`
 
-          - `cache_control: optional object { type, ttl }`
+          - `cache_control: optional object`
 
             Create a cache control breakpoint at this content block.
 
@@ -15133,7 +16995,7 @@ ant beta:messages count-tokens \
 
       - `is_error: optional boolean`
 
-    - `beta_container_upload_block_param: object { file_id, type, cache_control }`
+    - `beta_container_upload_block_param: object`
 
       A content block that represents a file to be uploaded to the container
       Files uploaded via this block will be available in the container's input directory.
@@ -15142,7 +17004,7 @@ ant beta:messages count-tokens \
 
       - `type: "container_upload"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15159,7 +17021,7 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_compaction_block_param: object { type, cache_control, content, encrypted_content }`
+    - `beta_compaction_block_param: object`
 
       A compaction block containing summary of previous context.
 
@@ -15171,7 +17033,7 @@ ant beta:messages count-tokens \
 
       - `type: "compaction"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15196,7 +17058,7 @@ ant beta:messages count-tokens \
 
         Opaque metadata from prior compaction, to be round-tripped verbatim
 
-    - `beta_request_tool_addition_block: object { tool, type, cache_control }`
+    - `beta_request_tool_addition_block: object`
 
       Mid-conversation directive to surface a declared tool.
 
@@ -15211,7 +17073,7 @@ ant beta:messages count-tokens \
         server assigns to MCP-resolved tools — use `mcp_tool_reference` or
         `mcp_toolset_reference` for those.
 
-        - `beta_tool_change_tool_reference: object { name, type }`
+        - `beta_tool_change_tool_reference: object`
 
           Reference to a single tool the caller declared directly in
           `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -15220,9 +17082,11 @@ ant beta:messages count-tokens \
 
           - `name: string`
 
+            pattern: ^[a-zA-Z0-9_-]{1,128}$
+
           - `type: "tool_reference"`
 
-        - `beta_tool_change_mcp_tool_reference: object { name, server_name, type }`
+        - `beta_tool_change_mcp_tool_reference: object`
 
           Reference to a single MCP tool by its server and remote name — the
           same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -15233,7 +17097,7 @@ ant beta:messages count-tokens \
 
           - `type: "mcp_tool_reference"`
 
-        - `beta_tool_change_mcp_toolset_reference: object { server_name, type }`
+        - `beta_tool_change_mcp_toolset_reference: object`
 
           Reference to every tool in the named MCP server's toolset.
 
@@ -15243,7 +17107,7 @@ ant beta:messages count-tokens \
 
       - `type: "tool_addition"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15260,7 +17124,7 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_request_tool_removal_block: object { tool, type, cache_control }`
+    - `beta_request_tool_removal_block: object`
 
       Mid-conversation directive to withdraw a tool.
 
@@ -15275,25 +17139,25 @@ ant beta:messages count-tokens \
         server assigns to MCP-resolved tools — use `mcp_tool_reference` or
         `mcp_toolset_reference` for those.
 
-        - `beta_tool_change_tool_reference: object { name, type }`
+        - `beta_tool_change_tool_reference: object`
 
           Reference to a single tool the caller declared directly in
           `tools[]`. Does not accept the composed `{server}_{name}` form the
           server assigns to MCP-resolved tools — use `mcp_tool_reference` or
           `mcp_toolset_reference` for those.
 
-        - `beta_tool_change_mcp_tool_reference: object { name, server_name, type }`
+        - `beta_tool_change_mcp_tool_reference: object`
 
           Reference to a single MCP tool by its server and remote name — the
           same `server_name`/`name` pair `mcp_tool_use` carries.
 
-        - `beta_tool_change_mcp_toolset_reference: object { server_name, type }`
+        - `beta_tool_change_mcp_toolset_reference: object`
 
           Reference to every tool in the named MCP server's toolset.
 
       - `type: "tool_removal"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -15310,7 +17174,7 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_fallback_block_param: object { from, to, type, trigger }`
+    - `beta_fallback_block_param: object`
 
       A `fallback` block echoed back from a prior response.
 
@@ -15326,7 +17190,7 @@ ant beta:messages count-tokens \
       likewise rejected; between non-thinking blocks the block's placement has
       no validation effect.
 
-      - `from: object { model }`
+      - `from: object`
 
         Identifies one hop of a fallback transition.
 
@@ -15396,7 +17260,7 @@ ant beta:messages count-tokens \
 
             High-performance model for agents and coding
 
-      - `to: object { model }`
+      - `to: object`
 
         Identifies one hop of a fallback transition.
 
@@ -15422,9 +17286,9 @@ ant beta:messages count-tokens \
 
 ### Beta Message Tokens Count
 
-- `beta_message_tokens_count: object { context_management, input_tokens }`
+- `beta_message_tokens_count: object`
 
-  - `context_management: object { original_input_tokens }`
+  - `context_management: object`
 
     Information about context management applied to the message.
 
@@ -15438,7 +17302,7 @@ ant beta:messages count-tokens \
 
 ### Beta Metadata
 
-- `beta_metadata: object { user_id }`
+- `beta_metadata: object`
 
   - `user_id: optional string`
 
@@ -15446,9 +17310,11 @@ ant beta:messages count-tokens \
 
     This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
 
+    maxLength: 512
+
 ### Beta Output Config
 
-- `beta_output_config: object { effort, format, task_budget }`
+- `beta_output_config: object`
 
   - `effort: optional "low" or "medium" or "high" or 2 more`
 
@@ -15464,7 +17330,7 @@ ant beta:messages count-tokens \
 
     - `"max"`
 
-  - `format: optional object { schema, type }`
+  - `format: optional object`
 
     A schema to specify Claude's output format in responses. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -15474,13 +17340,15 @@ ant beta:messages count-tokens \
 
     - `type: "json_schema"`
 
-  - `task_budget: optional object { total, type, remaining }`
+  - `task_budget: optional object`
 
     User-configurable total token budget across contexts.
 
     - `total: number`
 
       Total token budget across all contexts in the session.
+
+      minimum: 1024
 
     - `type: "tokens"`
 
@@ -15490,9 +17358,11 @@ ant beta:messages count-tokens \
 
       Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
+      minimum: 0
+
 ### Beta Output Tokens Details
 
-- `beta_output_tokens_details: object { thinking_tokens }`
+- `beta_output_tokens_details: object`
 
   - `thinking_tokens: number`
 
@@ -15505,9 +17375,11 @@ ant beta:messages count-tokens \
     generation count by a small number of tokens. Always ≤ `output_tokens`;
     `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+    minimum: 0
+
 ### Beta Plain Text Source
 
-- `beta_plain_text_source: object { data, media_type, type }`
+- `beta_plain_text_source: object`
 
   - `data: string`
 
@@ -15519,27 +17391,29 @@ ant beta:messages count-tokens \
 
 - `beta_raw_content_block_delta: BetaTextDelta or BetaInputJSONDelta or BetaCitationsDelta or 3 more`
 
-  - `beta_text_delta: object { text, type }`
+  - `beta_text_delta: object`
 
     - `text: string`
 
     - `type: "text_delta"`
 
-  - `beta_input_json_delta: object { partial_json, type }`
+  - `beta_input_json_delta: object`
 
     - `partial_json: string`
 
     - `type: "input_json_delta"`
 
-  - `beta_citations_delta: object { citation, type }`
+  - `beta_citations_delta: object`
 
     - `citation: BetaCitationCharLocation or BetaCitationPageLocation or BetaCitationContentBlockLocation or 2 more`
 
-      - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+      - `beta_citation_char_location: object`
 
         - `cited_text: string`
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string`
 
@@ -15549,13 +17423,17 @@ ant beta:messages count-tokens \
 
         - `start_char_index: number`
 
+          minimum: 0
+
         - `type: "char_location"`
 
-      - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+      - `beta_citation_page_location: object`
 
         - `cited_text: string`
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string`
 
@@ -15565,9 +17443,11 @@ ant beta:messages count-tokens \
 
         - `start_page_number: number`
 
+          minimum: 1
+
         - `type: "page_location"`
 
-      - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+      - `beta_citation_content_block_location: object`
 
         - `cited_text: string`
 
@@ -15576,6 +17456,8 @@ ant beta:messages count-tokens \
           Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
         - `document_index: number`
+
+          minimum: 0
 
         - `document_title: string`
 
@@ -15591,9 +17473,11 @@ ant beta:messages count-tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `type: "content_block_location"`
 
-      - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+      - `beta_citations_web_search_result_location: object`
 
         - `cited_text: string`
 
@@ -15601,11 +17485,13 @@ ant beta:messages count-tokens \
 
         - `title: string`
 
+          maxLength: 512
+
         - `type: "web_search_result_location"`
 
         - `url: string`
 
-      - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+      - `beta_citation_search_result_location: object`
 
         - `cited_text: string`
 
@@ -15625,11 +17511,15 @@ ant beta:messages count-tokens \
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
+
+          minimum: 0
 
         - `title: string`
 
@@ -15637,7 +17527,7 @@ ant beta:messages count-tokens \
 
     - `type: "citations_delta"`
 
-  - `beta_thinking_delta: object { estimated_tokens, thinking, type }`
+  - `beta_thinking_delta: object`
 
     - `estimated_tokens: number`
 
@@ -15649,7 +17539,7 @@ ant beta:messages count-tokens \
 
     - `type: "thinking_delta"`
 
-  - `beta_signature_delta: object { signature, type }`
+  - `beta_signature_delta: object`
 
     - `signature: string`
 
@@ -15657,7 +17547,7 @@ ant beta:messages count-tokens \
 
     - `type: "signature_delta"`
 
-  - `beta_compaction_content_block_delta: object { content, encrypted_content, type }`
+  - `beta_compaction_content_block_delta: object`
 
     - `content: string`
 
@@ -15669,31 +17559,33 @@ ant beta:messages count-tokens \
 
 ### Beta Raw Content Block Delta Event
 
-- `beta_raw_content_block_delta_event: object { delta, index, type }`
+- `beta_raw_content_block_delta_event: object`
 
   - `delta: BetaTextDelta or BetaInputJSONDelta or BetaCitationsDelta or 3 more`
 
-    - `beta_text_delta: object { text, type }`
+    - `beta_text_delta: object`
 
       - `text: string`
 
       - `type: "text_delta"`
 
-    - `beta_input_json_delta: object { partial_json, type }`
+    - `beta_input_json_delta: object`
 
       - `partial_json: string`
 
       - `type: "input_json_delta"`
 
-    - `beta_citations_delta: object { citation, type }`
+    - `beta_citations_delta: object`
 
       - `citation: BetaCitationCharLocation or BetaCitationPageLocation or BetaCitationContentBlockLocation or 2 more`
 
-        - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_char_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -15703,13 +17595,17 @@ ant beta:messages count-tokens \
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_page_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -15719,9 +17615,11 @@ ant beta:messages count-tokens \
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_content_block_location: object`
 
           - `cited_text: string`
 
@@ -15730,6 +17628,8 @@ ant beta:messages count-tokens \
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -15745,9 +17645,11 @@ ant beta:messages count-tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citations_web_search_result_location: object`
 
           - `cited_text: string`
 
@@ -15755,11 +17657,13 @@ ant beta:messages count-tokens \
 
           - `title: string`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+        - `beta_citation_search_result_location: object`
 
           - `cited_text: string`
 
@@ -15779,11 +17683,15 @@ ant beta:messages count-tokens \
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
 
           - `title: string`
 
@@ -15791,7 +17699,7 @@ ant beta:messages count-tokens \
 
       - `type: "citations_delta"`
 
-    - `beta_thinking_delta: object { estimated_tokens, thinking, type }`
+    - `beta_thinking_delta: object`
 
       - `estimated_tokens: number`
 
@@ -15803,7 +17711,7 @@ ant beta:messages count-tokens \
 
       - `type: "thinking_delta"`
 
-    - `beta_signature_delta: object { signature, type }`
+    - `beta_signature_delta: object`
 
       - `signature: string`
 
@@ -15811,7 +17719,7 @@ ant beta:messages count-tokens \
 
       - `type: "signature_delta"`
 
-    - `beta_compaction_content_block_delta: object { content, encrypted_content, type }`
+    - `beta_compaction_content_block_delta: object`
 
       - `content: string`
 
@@ -15827,13 +17735,13 @@ ant beta:messages count-tokens \
 
 ### Beta Raw Content Block Start Event
 
-- `beta_raw_content_block_start_event: object { content_block, index, type }`
+- `beta_raw_content_block_start_event: object`
 
   - `content_block: BetaTextBlock or BetaThinkingBlock or BetaRedactedThinkingBlock or 14 more`
 
     Response model for a file uploaded to the container.
 
-    - `beta_text_block: object { citations, text, type }`
+    - `beta_text_block: object`
 
       - `citations: array of BetaTextCitation`
 
@@ -15841,11 +17749,13 @@ ant beta:messages count-tokens \
 
         The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-        - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_char_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -15855,13 +17765,17 @@ ant beta:messages count-tokens \
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_page_location: object`
 
           - `cited_text: string`
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -15871,9 +17785,11 @@ ant beta:messages count-tokens \
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+        - `beta_citation_content_block_location: object`
 
           - `cited_text: string`
 
@@ -15882,6 +17798,8 @@ ant beta:messages count-tokens \
             Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
           - `document_index: number`
+
+            minimum: 0
 
           - `document_title: string`
 
@@ -15897,9 +17815,11 @@ ant beta:messages count-tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citations_web_search_result_location: object`
 
           - `cited_text: string`
 
@@ -15907,11 +17827,13 @@ ant beta:messages count-tokens \
 
           - `title: string`
 
+            maxLength: 512
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+        - `beta_citation_search_result_location: object`
 
           - `cited_text: string`
 
@@ -15931,11 +17853,15 @@ ant beta:messages count-tokens \
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
 
           - `title: string`
 
@@ -15943,9 +17869,11 @@ ant beta:messages count-tokens \
 
       - `text: string`
 
+        maxLength: 5000000, minLength: 0
+
       - `type: "text"`
 
-    - `beta_thinking_block: object { signature, thinking, type }`
+    - `beta_thinking_block: object`
 
       - `signature: string`
 
@@ -15961,7 +17889,7 @@ ant beta:messages count-tokens \
 
       - `type: "thinking"`
 
-    - `beta_redacted_thinking_block: object { data, type }`
+    - `beta_redacted_thinking_block: object`
 
       - `data: string`
 
@@ -15973,13 +17901,17 @@ ant beta:messages count-tokens \
 
       - `type: "redacted_thinking"`
 
-    - `beta_tool_use_block: object { id, input, name, 3 more }`
+    - `beta_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
       - `name: string`
+
+        minLength: 1
 
       - `type: "tool_use"`
 
@@ -15987,23 +17919,27 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
           - `type: "direct"`
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
           - `tool_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "code_execution_20250825"`
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
           - `tool_id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `type: "code_execution_20260120"`
 
@@ -16011,9 +17947,13 @@ ant beta:messages count-tokens \
 
         For a toolset member tool_use, the toolset family.
 
-    - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+        maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+    - `beta_server_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `input: map[unknown]`
 
@@ -16041,21 +17981,21 @@ ant beta:messages count-tokens \
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+    - `beta_web_search_tool_result_block: object`
 
       - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-        - `beta_web_search_tool_result_error: object { error_code, type }`
+        - `beta_web_search_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -16087,27 +18027,29 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_search_tool_result"`
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+    - `beta_web_fetch_tool_result_block: object`
 
       - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-        - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+        - `beta_web_fetch_tool_result_error_block: object`
 
           - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -16131,11 +18073,11 @@ ant beta:messages count-tokens \
 
           - `type: "web_fetch_tool_result_error"`
 
-        - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+        - `beta_web_fetch_block: object`
 
-          - `content: object { citations, source, title, type }`
+          - `content: object`
 
-            - `citations: object { enabled }`
+            - `citations: object`
 
               Citation configuration for the document
 
@@ -16143,15 +18085,17 @@ ant beta:messages count-tokens \
 
             - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-              - `beta_base64_pdf_source: object { data, media_type, type }`
+              - `beta_base64_pdf_source: object`
 
                 - `data: string`
+
+                  format: byte
 
                 - `media_type: "application/pdf"`
 
                 - `type: "base64"`
 
-              - `beta_plain_text_source: object { data, media_type, type }`
+              - `beta_plain_text_source: object`
 
                 - `data: string`
 
@@ -16177,27 +18121,29 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "web_fetch_tool_result"`
 
       - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
         Tool invocation directly from the model.
 
-        - `beta_direct_caller: object { type }`
+        - `beta_direct_caller: object`
 
           Tool invocation directly from the model.
 
-        - `beta_server_tool_caller: object { tool_id, type }`
+        - `beta_server_tool_caller: object`
 
           Tool invocation generated by a server-side tool.
 
-        - `beta_server_tool_caller_20260120: object { tool_id, type }`
+        - `beta_server_tool_caller_20260120: object`
 
-    - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_advisor_tool_result_block: object`
 
       - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-        - `beta_advisor_tool_result_error: object { error_code, type }`
+        - `beta_advisor_tool_result_error: object`
 
           - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -16217,7 +18163,7 @@ ant beta:messages count-tokens \
 
           - `type: "advisor_tool_result_error"`
 
-        - `beta_advisor_result_block: object { stop_reason, text, type }`
+        - `beta_advisor_result_block: object`
 
           - `stop_reason: string`
 
@@ -16227,7 +18173,7 @@ ant beta:messages count-tokens \
 
           - `type: "advisor_result"`
 
-        - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+        - `beta_advisor_redacted_result_block: object`
 
           - `encrypted_content: string`
 
@@ -16241,15 +18187,17 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "advisor_tool_result"`
 
-    - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_code_execution_tool_result_block: object`
 
       - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
         Code execution result with encrypted stdout for PFC + web_search results.
 
-        - `beta_code_execution_tool_result_error: object { error_code, type }`
+        - `beta_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -16263,7 +18211,7 @@ ant beta:messages count-tokens \
 
           - `type: "code_execution_tool_result_error"`
 
-        - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+        - `beta_code_execution_result_block: object`
 
           - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -16279,7 +18227,7 @@ ant beta:messages count-tokens \
 
           - `type: "code_execution_result"`
 
-        - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+        - `beta_encrypted_code_execution_result_block: object`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -16299,13 +18247,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_tool_result"`
 
-    - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_bash_code_execution_tool_result_block: object`
 
       - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-        - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+        - `beta_bash_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -16321,7 +18271,7 @@ ant beta:messages count-tokens \
 
           - `type: "bash_code_execution_tool_result_error"`
 
-        - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+        - `beta_bash_code_execution_result_block: object`
 
           - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -16339,13 +18289,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "bash_code_execution_tool_result"`
 
-    - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_text_editor_code_execution_tool_result_block: object`
 
       - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-        - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+        - `beta_text_editor_code_execution_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -16363,7 +18315,7 @@ ant beta:messages count-tokens \
 
           - `type: "text_editor_code_execution_tool_result_error"`
 
-        - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+        - `beta_text_editor_code_execution_view_result_block: object`
 
           - `content: string`
 
@@ -16383,13 +18335,13 @@ ant beta:messages count-tokens \
 
           - `type: "text_editor_code_execution_view_result"`
 
-        - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+        - `beta_text_editor_code_execution_create_result_block: object`
 
           - `is_file_update: boolean`
 
           - `type: "text_editor_code_execution_create_result"`
 
-        - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+        - `beta_text_editor_code_execution_str_replace_result_block: object`
 
           - `lines: array of string`
 
@@ -16405,13 +18357,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "text_editor_code_execution_tool_result"`
 
-    - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+    - `beta_tool_search_tool_result_block: object`
 
       - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-        - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+        - `beta_tool_search_tool_result_error: object`
 
           - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -16427,11 +18381,13 @@ ant beta:messages count-tokens \
 
           - `type: "tool_search_tool_result_error"`
 
-        - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+        - `beta_tool_search_tool_search_result_block: object`
 
           - `tool_references: array of BetaToolReferenceBlock`
 
             - `tool_name: string`
+
+              maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
             - `type: "tool_reference"`
 
@@ -16439,11 +18395,15 @@ ant beta:messages count-tokens \
 
       - `tool_use_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "tool_search_tool_result"`
 
-    - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+    - `beta_mcp_tool_use_block: object`
 
       - `id: string`
+
+        pattern: ^[a-zA-Z0-9_-]+$
 
       - `input: map[unknown]`
 
@@ -16457,7 +18417,7 @@ ant beta:messages count-tokens \
 
       - `type: "mcp_tool_use"`
 
-    - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+    - `beta_mcp_tool_result_block: object`
 
       - `content: string or array of BetaTextBlock`
 
@@ -16473,15 +18433,19 @@ ant beta:messages count-tokens \
 
           - `text: string`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: "text"`
 
       - `is_error: boolean`
 
       - `tool_use_id: string`
 
+        pattern: ^[a-zA-Z0-9_-]+$
+
       - `type: "mcp_tool_result"`
 
-    - `beta_container_upload_block: object { file_id, type }`
+    - `beta_container_upload_block: object`
 
       Response model for a file uploaded to the container.
 
@@ -16489,7 +18453,7 @@ ant beta:messages count-tokens \
 
       - `type: "container_upload"`
 
-    - `beta_compaction_block: object { content, encrypted_content, type }`
+    - `beta_compaction_block: object`
 
       A compaction block returned when autocompact is triggered.
 
@@ -16507,7 +18471,7 @@ ant beta:messages count-tokens \
 
       - `type: "compaction"`
 
-    - `beta_fallback_block: object { from, to, trigger, type }`
+    - `beta_fallback_block: object`
 
       Marks the point in `content` where one model's output gives way to the next.
 
@@ -16521,7 +18485,7 @@ ant beta:messages count-tokens \
       arrives via the standard `content_block_start` / `content_block_stop`
       pair and carries no deltas.
 
-      - `from: object { model }`
+      - `from: object`
 
         The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -16591,7 +18555,7 @@ ant beta:messages count-tokens \
 
             High-performance model for agents and coding
 
-      - `to: object { model }`
+      - `to: object`
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -16601,7 +18565,7 @@ ant beta:messages count-tokens \
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `trigger: object { category, type }`
+      - `trigger: object`
 
         What caused the `from` model to hand over at this hop.
 
@@ -16639,7 +18603,7 @@ ant beta:messages count-tokens \
 
 ### Beta Raw Content Block Stop Event
 
-- `beta_raw_content_block_stop_event: object { index, type }`
+- `beta_raw_content_block_stop_event: object`
 
   - `index: number`
 
@@ -16647,9 +18611,9 @@ ant beta:messages count-tokens \
 
 ### Beta Raw Message Delta Event
 
-- `beta_raw_message_delta_event: object { context_management, delta, type, usage }`
+- `beta_raw_message_delta_event: object`
 
-  - `context_management: object { applied_edits }`
+  - `context_management: object`
 
     Information about context management strategies applied during the request
 
@@ -16657,37 +18621,45 @@ ant beta:messages count-tokens \
 
       List of context management edits that were applied.
 
-      - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+      - `beta_clear_tool_uses_20250919_edit_response: object`
 
         - `cleared_input_tokens: number`
 
           Number of input tokens cleared by this edit.
+
+          minimum: 0
 
         - `cleared_tool_uses: number`
 
           Number of tool uses that were cleared.
 
+          minimum: 0
+
         - `type: "clear_tool_uses_20250919"`
 
           The type of context management edit applied.
 
-      - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+      - `beta_clear_thinking_20251015_edit_response: object`
 
         - `cleared_input_tokens: number`
 
           Number of input tokens cleared by this edit.
 
+          minimum: 0
+
         - `cleared_thinking_turns: number`
 
           Number of thinking turns that were cleared.
+
+          minimum: 0
 
         - `type: "clear_thinking_20251015"`
 
           The type of context management edit applied.
 
-  - `delta: object { container, stop_details, stop_reason, stop_sequence }`
+  - `delta: object`
 
-    - `container: object { id, expires_at, skills }`
+    - `container: object`
 
       Information about the container used in the request (for the code execution tool)
 
@@ -16699,6 +18671,8 @@ ant beta:messages count-tokens \
 
         The time at which the container will expire.
 
+        format: date-time
+
       - `skills: array of BetaSkill`
 
         Skills loaded in the container
@@ -16706,6 +18680,8 @@ ant beta:messages count-tokens \
         - `skill_id: string`
 
           Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `type: "anthropic" or "custom"`
 
@@ -16719,7 +18695,9 @@ ant beta:messages count-tokens \
 
           The resolved version: a skill version ID for custom skills.
 
-    - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+          maxLength: 64, minLength: 1
+
+    - `stop_details: object`
 
       Structured information about a refusal.
 
@@ -16826,7 +18804,7 @@ ant beta:messages count-tokens \
 
   - `type: "message_delta"`
 
-  - `usage: object { cache_creation_input_tokens, cache_read_input_tokens, fallback_credit, 5 more }`
+  - `usage: object`
 
     Billing and rate-limit usage.
 
@@ -16842,11 +18820,15 @@ ant beta:messages count-tokens \
 
       The cumulative number of input tokens used to create the cache entry.
 
+      minimum: 0
+
     - `cache_read_input_tokens: number`
 
       The cumulative number of input tokens read from the cache.
 
-    - `fallback_credit: object { status }`
+      minimum: 0
+
+    - `fallback_credit: object`
 
       Outcome of the `fallback_credit_token` presented on this request.
 
@@ -16859,14 +18841,14 @@ ant beta:messages count-tokens \
         resulting shift is zero because there was nothing to move. `not_applied`:
         no reprice was applied; the arm's `reason` says why.
 
-        - `beta_fallback_credit_redeemed: object { type }`
+        - `beta_fallback_credit_redeemed: object`
 
           The reprice was applied: the retry is billed as if the conversation
           had been on the retry model all along.
 
           - `type: "redeemed"`
 
-        - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+        - `beta_fallback_credit_not_applied: object`
 
           No reprice was applied; `reason` says why.
 
@@ -16918,6 +18900,8 @@ ant beta:messages count-tokens \
 
       The cumulative number of input tokens which were used.
 
+      minimum: 0
+
     - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
       Per-iteration token usage breakdown.
@@ -16928,11 +18912,11 @@ ant beta:messages count-tokens \
       - Calculate the true context window size from the last iteration
       - Understand token accumulation across server-side tool use loops
 
-      - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_message_iteration_usage: object`
 
         Token usage for a sampling iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -16940,21 +18924,31 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -17025,16 +19019,18 @@ ant beta:messages count-tokens \
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `type: "message"`
 
           Usage for a sampling iteration
 
-      - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+      - `beta_compaction_iteration_usage: object`
 
         Token usage for a compaction iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -17042,35 +19038,47 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `output_tokens: number`
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: "compaction"`
 
           Usage for a compaction iteration
 
-      - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_advisor_message_iteration_usage: object`
 
         Token usage for an advisor sub-inference iteration.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -17078,21 +19086,31 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -17164,11 +19182,13 @@ ant beta:messages count-tokens \
 
           The number of output tokens which were used.
 
+          minimum: 0
+
         - `type: "advisor_message"`
 
           Usage for an advisor sub-inference iteration
 
-      - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+      - `beta_fallback_message_iteration_usage: object`
 
         Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -17177,7 +19197,7 @@ ant beta:messages count-tokens \
         a fallback model served the response is signalled by the presence of this
         entry in `usage.iterations`.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -17185,21 +19205,31 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
+          minimum: 0
+
         - `input_tokens: number`
 
           The number of input tokens which were used.
+
+          minimum: 0
 
         - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -17270,6 +19300,8 @@ ant beta:messages count-tokens \
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `type: "fallback_message"`
 
@@ -17279,7 +19311,7 @@ ant beta:messages count-tokens \
 
       The cumulative number of output tokens which were used.
 
-    - `output_tokens_details: object { thinking_tokens }`
+    - `output_tokens_details: object`
 
       Breakdown of output tokens by category.
 
@@ -17299,7 +19331,9 @@ ant beta:messages count-tokens \
         generation count by a small number of tokens. Always ≤ `output_tokens`;
         `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-    - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+        minimum: 0
+
+    - `server_tool_use: object`
 
       The number of server tool requests.
 
@@ -17307,15 +19341,19 @@ ant beta:messages count-tokens \
 
         The number of web fetch tool requests.
 
+        minimum: 0
+
       - `web_search_requests: number`
 
         The number of web search tool requests.
 
+        minimum: 0
+
 ### Beta Raw Message Start Event
 
-- `beta_raw_message_start_event: object { message, type }`
+- `beta_raw_message_start_event: object`
 
-  - `message: object { id, container, content, 9 more }`
+  - `message: object`
 
     - `id: string`
 
@@ -17323,7 +19361,7 @@ ant beta:messages count-tokens \
 
       The format and length of IDs may change over time.
 
-    - `container: object { id, expires_at, skills }`
+    - `container: object`
 
       Information about the container used in the request (for the code execution tool)
 
@@ -17335,6 +19373,8 @@ ant beta:messages count-tokens \
 
         The time at which the container will expire.
 
+        format: date-time
+
       - `skills: array of BetaSkill`
 
         Skills loaded in the container
@@ -17342,6 +19382,8 @@ ant beta:messages count-tokens \
         - `skill_id: string`
 
           Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `type: "anthropic" or "custom"`
 
@@ -17354,6 +19396,8 @@ ant beta:messages count-tokens \
         - `version: string`
 
           The resolved version: a skill version ID for custom skills.
+
+          maxLength: 64, minLength: 1
 
     - `content: array of BetaContentBlock`
 
@@ -17384,7 +19428,7 @@ ant beta:messages count-tokens \
       [{"type": "text", "text": "B)"}]
       ```
 
-      - `beta_text_block: object { citations, text, type }`
+      - `beta_text_block: object`
 
         - `citations: array of BetaTextCitation`
 
@@ -17392,11 +19436,13 @@ ant beta:messages count-tokens \
 
           The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-          - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+          - `beta_citation_char_location: object`
 
             - `cited_text: string`
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string`
 
@@ -17406,13 +19452,17 @@ ant beta:messages count-tokens \
 
             - `start_char_index: number`
 
+              minimum: 0
+
             - `type: "char_location"`
 
-          - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+          - `beta_citation_page_location: object`
 
             - `cited_text: string`
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string`
 
@@ -17422,9 +19472,11 @@ ant beta:messages count-tokens \
 
             - `start_page_number: number`
 
+              minimum: 1
+
             - `type: "page_location"`
 
-          - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+          - `beta_citation_content_block_location: object`
 
             - `cited_text: string`
 
@@ -17433,6 +19485,8 @@ ant beta:messages count-tokens \
               Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string`
 
@@ -17448,9 +19502,11 @@ ant beta:messages count-tokens \
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `type: "content_block_location"`
 
-          - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+          - `beta_citations_web_search_result_location: object`
 
             - `cited_text: string`
 
@@ -17458,11 +19514,13 @@ ant beta:messages count-tokens \
 
             - `title: string`
 
+              maxLength: 512
+
             - `type: "web_search_result_location"`
 
             - `url: string`
 
-          - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+          - `beta_citation_search_result_location: object`
 
             - `cited_text: string`
 
@@ -17482,11 +19540,15 @@ ant beta:messages count-tokens \
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
 
             - `title: string`
 
@@ -17494,9 +19556,11 @@ ant beta:messages count-tokens \
 
         - `text: string`
 
+          maxLength: 5000000, minLength: 0
+
         - `type: "text"`
 
-      - `beta_thinking_block: object { signature, thinking, type }`
+      - `beta_thinking_block: object`
 
         - `signature: string`
 
@@ -17512,7 +19576,7 @@ ant beta:messages count-tokens \
 
         - `type: "thinking"`
 
-      - `beta_redacted_thinking_block: object { data, type }`
+      - `beta_redacted_thinking_block: object`
 
         - `data: string`
 
@@ -17524,13 +19588,17 @@ ant beta:messages count-tokens \
 
         - `type: "redacted_thinking"`
 
-      - `beta_tool_use_block: object { id, input, name, 3 more }`
+      - `beta_tool_use_block: object`
 
         - `id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: map[unknown]`
 
         - `name: string`
+
+          minLength: 1
 
         - `type: "tool_use"`
 
@@ -17538,23 +19606,27 @@ ant beta:messages count-tokens \
 
           Tool invocation directly from the model.
 
-          - `beta_direct_caller: object { type }`
+          - `beta_direct_caller: object`
 
             Tool invocation directly from the model.
 
             - `type: "direct"`
 
-          - `beta_server_tool_caller: object { tool_id, type }`
+          - `beta_server_tool_caller: object`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "code_execution_20250825"`
 
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
+          - `beta_server_tool_caller_20260120: object`
 
             - `tool_id: string`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `type: "code_execution_20260120"`
 
@@ -17562,9 +19634,13 @@ ant beta:messages count-tokens \
 
           For a toolset member tool_use, the toolset family.
 
-      - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `beta_server_tool_use_block: object`
 
         - `id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: map[unknown]`
 
@@ -17592,21 +19668,21 @@ ant beta:messages count-tokens \
 
           Tool invocation directly from the model.
 
-          - `beta_direct_caller: object { type }`
+          - `beta_direct_caller: object`
 
             Tool invocation directly from the model.
 
-          - `beta_server_tool_caller: object { tool_id, type }`
+          - `beta_server_tool_caller: object`
 
             Tool invocation generated by a server-side tool.
 
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
+          - `beta_server_tool_caller_20260120: object`
 
-      - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+      - `beta_web_search_tool_result_block: object`
 
         - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-          - `beta_web_search_tool_result_error: object { error_code, type }`
+          - `beta_web_search_tool_result_error: object`
 
             - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -17638,27 +19714,29 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "web_search_tool_result"`
 
         - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
           Tool invocation directly from the model.
 
-          - `beta_direct_caller: object { type }`
+          - `beta_direct_caller: object`
 
             Tool invocation directly from the model.
 
-          - `beta_server_tool_caller: object { tool_id, type }`
+          - `beta_server_tool_caller: object`
 
             Tool invocation generated by a server-side tool.
 
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
+          - `beta_server_tool_caller_20260120: object`
 
-      - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+      - `beta_web_fetch_tool_result_block: object`
 
         - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-          - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+          - `beta_web_fetch_tool_result_error_block: object`
 
             - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -17682,11 +19760,11 @@ ant beta:messages count-tokens \
 
             - `type: "web_fetch_tool_result_error"`
 
-          - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+          - `beta_web_fetch_block: object`
 
-            - `content: object { citations, source, title, type }`
+            - `content: object`
 
-              - `citations: object { enabled }`
+              - `citations: object`
 
                 Citation configuration for the document
 
@@ -17694,15 +19772,17 @@ ant beta:messages count-tokens \
 
               - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-                - `beta_base64_pdf_source: object { data, media_type, type }`
+                - `beta_base64_pdf_source: object`
 
                   - `data: string`
+
+                    format: byte
 
                   - `media_type: "application/pdf"`
 
                   - `type: "base64"`
 
-                - `beta_plain_text_source: object { data, media_type, type }`
+                - `beta_plain_text_source: object`
 
                   - `data: string`
 
@@ -17728,27 +19808,29 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "web_fetch_tool_result"`
 
         - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
           Tool invocation directly from the model.
 
-          - `beta_direct_caller: object { type }`
+          - `beta_direct_caller: object`
 
             Tool invocation directly from the model.
 
-          - `beta_server_tool_caller: object { tool_id, type }`
+          - `beta_server_tool_caller: object`
 
             Tool invocation generated by a server-side tool.
 
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
+          - `beta_server_tool_caller_20260120: object`
 
-      - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_advisor_tool_result_block: object`
 
         - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-          - `beta_advisor_tool_result_error: object { error_code, type }`
+          - `beta_advisor_tool_result_error: object`
 
             - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -17768,7 +19850,7 @@ ant beta:messages count-tokens \
 
             - `type: "advisor_tool_result_error"`
 
-          - `beta_advisor_result_block: object { stop_reason, text, type }`
+          - `beta_advisor_result_block: object`
 
             - `stop_reason: string`
 
@@ -17778,7 +19860,7 @@ ant beta:messages count-tokens \
 
             - `type: "advisor_result"`
 
-          - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+          - `beta_advisor_redacted_result_block: object`
 
             - `encrypted_content: string`
 
@@ -17792,15 +19874,17 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "advisor_tool_result"`
 
-      - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_code_execution_tool_result_block: object`
 
         - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
           Code execution result with encrypted stdout for PFC + web_search results.
 
-          - `beta_code_execution_tool_result_error: object { error_code, type }`
+          - `beta_code_execution_tool_result_error: object`
 
             - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -17814,7 +19898,7 @@ ant beta:messages count-tokens \
 
             - `type: "code_execution_tool_result_error"`
 
-          - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+          - `beta_code_execution_result_block: object`
 
             - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -17830,7 +19914,7 @@ ant beta:messages count-tokens \
 
             - `type: "code_execution_result"`
 
-          - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+          - `beta_encrypted_code_execution_result_block: object`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -17850,13 +19934,15 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "code_execution_tool_result"`
 
-      - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_bash_code_execution_tool_result_block: object`
 
         - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-          - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+          - `beta_bash_code_execution_tool_result_error: object`
 
             - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -17872,7 +19958,7 @@ ant beta:messages count-tokens \
 
             - `type: "bash_code_execution_tool_result_error"`
 
-          - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+          - `beta_bash_code_execution_result_block: object`
 
             - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -17890,13 +19976,15 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "bash_code_execution_tool_result"`
 
-      - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_text_editor_code_execution_tool_result_block: object`
 
         - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-          - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+          - `beta_text_editor_code_execution_tool_result_error: object`
 
             - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -17914,7 +20002,7 @@ ant beta:messages count-tokens \
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
-          - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+          - `beta_text_editor_code_execution_view_result_block: object`
 
             - `content: string`
 
@@ -17934,13 +20022,13 @@ ant beta:messages count-tokens \
 
             - `type: "text_editor_code_execution_view_result"`
 
-          - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+          - `beta_text_editor_code_execution_create_result_block: object`
 
             - `is_file_update: boolean`
 
             - `type: "text_editor_code_execution_create_result"`
 
-          - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+          - `beta_text_editor_code_execution_str_replace_result_block: object`
 
             - `lines: array of string`
 
@@ -17956,13 +20044,15 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "text_editor_code_execution_tool_result"`
 
-      - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_tool_search_tool_result_block: object`
 
         - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-          - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+          - `beta_tool_search_tool_result_error: object`
 
             - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -17978,11 +20068,13 @@ ant beta:messages count-tokens \
 
             - `type: "tool_search_tool_result_error"`
 
-          - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+          - `beta_tool_search_tool_search_result_block: object`
 
             - `tool_references: array of BetaToolReferenceBlock`
 
               - `tool_name: string`
+
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
               - `type: "tool_reference"`
 
@@ -17990,11 +20082,15 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "tool_search_tool_result"`
 
-      - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+      - `beta_mcp_tool_use_block: object`
 
         - `id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: map[unknown]`
 
@@ -18008,7 +20104,7 @@ ant beta:messages count-tokens \
 
         - `type: "mcp_tool_use"`
 
-      - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+      - `beta_mcp_tool_result_block: object`
 
         - `content: string or array of BetaTextBlock`
 
@@ -18024,15 +20120,19 @@ ant beta:messages count-tokens \
 
             - `text: string`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: "text"`
 
         - `is_error: boolean`
 
         - `tool_use_id: string`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `type: "mcp_tool_result"`
 
-      - `beta_container_upload_block: object { file_id, type }`
+      - `beta_container_upload_block: object`
 
         Response model for a file uploaded to the container.
 
@@ -18040,7 +20140,7 @@ ant beta:messages count-tokens \
 
         - `type: "container_upload"`
 
-      - `beta_compaction_block: object { content, encrypted_content, type }`
+      - `beta_compaction_block: object`
 
         A compaction block returned when autocompact is triggered.
 
@@ -18058,7 +20158,7 @@ ant beta:messages count-tokens \
 
         - `type: "compaction"`
 
-      - `beta_fallback_block: object { from, to, trigger, type }`
+      - `beta_fallback_block: object`
 
         Marks the point in `content` where one model's output gives way to the next.
 
@@ -18072,7 +20172,7 @@ ant beta:messages count-tokens \
         arrives via the standard `content_block_start` / `content_block_stop`
         pair and carries no deltas.
 
-        - `from: object { model }`
+        - `from: object`
 
           The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -18142,7 +20242,7 @@ ant beta:messages count-tokens \
 
               High-performance model for agents and coding
 
-        - `to: object { model }`
+        - `to: object`
 
           The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -18152,7 +20252,7 @@ ant beta:messages count-tokens \
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `trigger: object { category, type }`
+        - `trigger: object`
 
           What caused the `from` model to hand over at this hop.
 
@@ -18184,7 +20284,7 @@ ant beta:messages count-tokens \
 
         - `type: "fallback"`
 
-    - `context_management: object { applied_edits }`
+    - `context_management: object`
 
       Context management response.
 
@@ -18194,35 +20294,43 @@ ant beta:messages count-tokens \
 
         List of context management edits that were applied.
 
-        - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+        - `beta_clear_tool_uses_20250919_edit_response: object`
 
           - `cleared_input_tokens: number`
 
             Number of input tokens cleared by this edit.
+
+            minimum: 0
 
           - `cleared_tool_uses: number`
 
             Number of tool uses that were cleared.
 
+            minimum: 0
+
           - `type: "clear_tool_uses_20250919"`
 
             The type of context management edit applied.
 
-        - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+        - `beta_clear_thinking_20251015_edit_response: object`
 
           - `cleared_input_tokens: number`
 
             Number of input tokens cleared by this edit.
 
+            minimum: 0
+
           - `cleared_thinking_turns: number`
 
             Number of thinking turns that were cleared.
+
+            minimum: 0
 
           - `type: "clear_thinking_20251015"`
 
             The type of context management edit applied.
 
-    - `diagnostics: object { cache_miss_reason }`
+    - `diagnostics: object`
 
       Response envelope for request-level diagnostics. Present (possibly
       null) whenever the caller supplied `diagnostics` on the request.
@@ -18231,7 +20339,7 @@ ant beta:messages count-tokens \
 
         Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-        - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
+        - `beta_cache_miss_model_changed: object`
 
           - `cache_missed_input_tokens: number`
 
@@ -18239,7 +20347,7 @@ ant beta:messages count-tokens \
 
           - `type: "model_changed"`
 
-        - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
+        - `beta_cache_miss_system_changed: object`
 
           - `cache_missed_input_tokens: number`
 
@@ -18247,7 +20355,7 @@ ant beta:messages count-tokens \
 
           - `type: "system_changed"`
 
-        - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
+        - `beta_cache_miss_tools_changed: object`
 
           - `cache_missed_input_tokens: number`
 
@@ -18255,7 +20363,7 @@ ant beta:messages count-tokens \
 
           - `type: "tools_changed"`
 
-        - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
+        - `beta_cache_miss_messages_changed: object`
 
           - `cache_missed_input_tokens: number`
 
@@ -18263,11 +20371,11 @@ ant beta:messages count-tokens \
 
           - `type: "messages_changed"`
 
-        - `beta_cache_miss_previous_message_not_found: object { type }`
+        - `beta_cache_miss_previous_message_not_found: object`
 
           - `type: "previous_message_not_found"`
 
-        - `beta_cache_miss_unavailable: object { type }`
+        - `beta_cache_miss_unavailable: object`
 
           - `type: "unavailable"`
 
@@ -18343,7 +20451,7 @@ ant beta:messages count-tokens \
 
       This will always be `"assistant"`.
 
-    - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+    - `stop_details: object`
 
       Structured information about a refusal.
 
@@ -18472,7 +20580,7 @@ ant beta:messages count-tokens \
 
       For Messages, this is always `"message"`.
 
-    - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
+    - `usage: object`
 
       Billing and rate-limit usage.
 
@@ -18484,7 +20592,7 @@ ant beta:messages count-tokens \
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -18492,19 +20600,27 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
-      - `fallback_credit: object { status }`
+        minimum: 0
+
+      - `fallback_credit: object`
 
         Outcome of the `fallback_credit_token` presented on this request.
 
@@ -18517,14 +20633,14 @@ ant beta:messages count-tokens \
           resulting shift is zero because there was nothing to move. `not_applied`:
           no reprice was applied; the arm's `reason` says why.
 
-          - `beta_fallback_credit_redeemed: object { type }`
+          - `beta_fallback_credit_redeemed: object`
 
             The reprice was applied: the retry is billed as if the conversation
             had been on the retry model all along.
 
             - `type: "redeemed"`
 
-          - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+          - `beta_fallback_credit_not_applied: object`
 
             No reprice was applied; `reason` says why.
 
@@ -18580,6 +20696,8 @@ ant beta:messages count-tokens \
 
         The number of input tokens which were used.
 
+        minimum: 0
+
       - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
         Per-iteration token usage breakdown.
@@ -18590,11 +20708,11 @@ ant beta:messages count-tokens \
         - Calculate the true context window size from the last iteration
         - Understand token accumulation across server-side tool use loops
 
-        - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+        - `beta_message_iteration_usage: object`
 
           Token usage for a sampling iteration.
 
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+          - `cache_creation: object`
 
             Breakdown of cached tokens by TTL
 
@@ -18602,21 +20720,31 @@ ant beta:messages count-tokens \
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              minimum: 0
 
           - `cache_creation_input_tokens: number`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number`
 
             The number of input tokens read from the cache.
 
+            minimum: 0
+
           - `input_tokens: number`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -18687,16 +20815,18 @@ ant beta:messages count-tokens \
           - `output_tokens: number`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `type: "message"`
 
             Usage for a sampling iteration
 
-        - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+        - `beta_compaction_iteration_usage: object`
 
           Token usage for a compaction iteration.
 
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+          - `cache_creation: object`
 
             Breakdown of cached tokens by TTL
 
@@ -18704,35 +20834,47 @@ ant beta:messages count-tokens \
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              minimum: 0
 
           - `cache_creation_input_tokens: number`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number`
 
             The number of input tokens read from the cache.
 
+            minimum: 0
+
           - `input_tokens: number`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `output_tokens: number`
 
             The number of output tokens which were used.
 
+            minimum: 0
+
           - `type: "compaction"`
 
             Usage for a compaction iteration
 
-        - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+        - `beta_advisor_message_iteration_usage: object`
 
           Token usage for an advisor sub-inference iteration.
 
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+          - `cache_creation: object`
 
             Breakdown of cached tokens by TTL
 
@@ -18740,21 +20882,31 @@ ant beta:messages count-tokens \
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              minimum: 0
 
           - `cache_creation_input_tokens: number`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number`
 
             The number of input tokens read from the cache.
 
+            minimum: 0
+
           - `input_tokens: number`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -18826,11 +20978,13 @@ ant beta:messages count-tokens \
 
             The number of output tokens which were used.
 
+            minimum: 0
+
           - `type: "advisor_message"`
 
             Usage for an advisor sub-inference iteration
 
-        - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+        - `beta_fallback_message_iteration_usage: object`
 
           Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -18839,7 +20993,7 @@ ant beta:messages count-tokens \
           a fallback model served the response is signalled by the presence of this
           entry in `usage.iterations`.
 
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+          - `cache_creation: object`
 
             Breakdown of cached tokens by TTL
 
@@ -18847,21 +21001,31 @@ ant beta:messages count-tokens \
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              minimum: 0
 
           - `cache_creation_input_tokens: number`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number`
 
             The number of input tokens read from the cache.
 
+            minimum: 0
+
           - `input_tokens: number`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -18932,6 +21096,8 @@ ant beta:messages count-tokens \
           - `output_tokens: number`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `type: "fallback_message"`
 
@@ -18941,7 +21107,9 @@ ant beta:messages count-tokens \
 
         The number of output tokens which were used.
 
-      - `output_tokens_details: object { thinking_tokens }`
+        minimum: 0
+
+      - `output_tokens_details: object`
 
         Breakdown of output tokens by category.
 
@@ -18961,7 +21129,9 @@ ant beta:messages count-tokens \
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-      - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+          minimum: 0
+
+      - `server_tool_use: object`
 
         The number of server tool requests.
 
@@ -18969,9 +21139,13 @@ ant beta:messages count-tokens \
 
           The number of web fetch tool requests.
 
+          minimum: 0
+
         - `web_search_requests: number`
 
           The number of web search tool requests.
+
+          minimum: 0
 
       - `service_tier: "standard" or "priority" or "batch"`
 
@@ -18995,7 +21169,7 @@ ant beta:messages count-tokens \
 
 ### Beta Raw Message Stop Event
 
-- `beta_raw_message_stop_event: object { type }`
+- `beta_raw_message_stop_event: object`
 
   - `type: "message_stop"`
 
@@ -19003,9 +21177,9 @@ ant beta:messages count-tokens \
 
 - `beta_raw_message_stream_event: BetaRawMessageStartEvent or BetaRawMessageDeltaEvent or BetaRawMessageStopEvent or 3 more`
 
-  - `beta_raw_message_start_event: object { message, type }`
+  - `beta_raw_message_start_event: object`
 
-    - `message: object { id, container, content, 9 more }`
+    - `message: object`
 
       - `id: string`
 
@@ -19013,7 +21187,7 @@ ant beta:messages count-tokens \
 
         The format and length of IDs may change over time.
 
-      - `container: object { id, expires_at, skills }`
+      - `container: object`
 
         Information about the container used in the request (for the code execution tool)
 
@@ -19025,6 +21199,8 @@ ant beta:messages count-tokens \
 
           The time at which the container will expire.
 
+          format: date-time
+
         - `skills: array of BetaSkill`
 
           Skills loaded in the container
@@ -19032,6 +21208,8 @@ ant beta:messages count-tokens \
           - `skill_id: string`
 
             Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `type: "anthropic" or "custom"`
 
@@ -19044,6 +21222,8 @@ ant beta:messages count-tokens \
           - `version: string`
 
             The resolved version: a skill version ID for custom skills.
+
+            maxLength: 64, minLength: 1
 
       - `content: array of BetaContentBlock`
 
@@ -19074,7 +21254,7 @@ ant beta:messages count-tokens \
         [{"type": "text", "text": "B)"}]
         ```
 
-        - `beta_text_block: object { citations, text, type }`
+        - `beta_text_block: object`
 
           - `citations: array of BetaTextCitation`
 
@@ -19082,11 +21262,13 @@ ant beta:messages count-tokens \
 
             The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-            - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+            - `beta_citation_char_location: object`
 
               - `cited_text: string`
 
               - `document_index: number`
+
+                minimum: 0
 
               - `document_title: string`
 
@@ -19096,13 +21278,17 @@ ant beta:messages count-tokens \
 
               - `start_char_index: number`
 
+                minimum: 0
+
               - `type: "char_location"`
 
-            - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+            - `beta_citation_page_location: object`
 
               - `cited_text: string`
 
               - `document_index: number`
+
+                minimum: 0
 
               - `document_title: string`
 
@@ -19112,9 +21298,11 @@ ant beta:messages count-tokens \
 
               - `start_page_number: number`
 
+                minimum: 1
+
               - `type: "page_location"`
 
-            - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+            - `beta_citation_content_block_location: object`
 
               - `cited_text: string`
 
@@ -19123,6 +21311,8 @@ ant beta:messages count-tokens \
                 Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
               - `document_index: number`
+
+                minimum: 0
 
               - `document_title: string`
 
@@ -19138,9 +21328,11 @@ ant beta:messages count-tokens \
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `type: "content_block_location"`
 
-            - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+            - `beta_citations_web_search_result_location: object`
 
               - `cited_text: string`
 
@@ -19148,11 +21340,13 @@ ant beta:messages count-tokens \
 
               - `title: string`
 
+                maxLength: 512
+
               - `type: "web_search_result_location"`
 
               - `url: string`
 
-            - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+            - `beta_citation_search_result_location: object`
 
               - `cited_text: string`
 
@@ -19172,11 +21366,15 @@ ant beta:messages count-tokens \
 
                 Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                minimum: 0
+
               - `source: string`
 
               - `start_block_index: number`
 
                 0-based index of the first cited block in the source's `content` array.
+
+                minimum: 0
 
               - `title: string`
 
@@ -19184,9 +21382,11 @@ ant beta:messages count-tokens \
 
           - `text: string`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: "text"`
 
-        - `beta_thinking_block: object { signature, thinking, type }`
+        - `beta_thinking_block: object`
 
           - `signature: string`
 
@@ -19202,7 +21402,7 @@ ant beta:messages count-tokens \
 
           - `type: "thinking"`
 
-        - `beta_redacted_thinking_block: object { data, type }`
+        - `beta_redacted_thinking_block: object`
 
           - `data: string`
 
@@ -19214,13 +21414,17 @@ ant beta:messages count-tokens \
 
           - `type: "redacted_thinking"`
 
-        - `beta_tool_use_block: object { id, input, name, 3 more }`
+        - `beta_tool_use_block: object`
 
           - `id: string`
+
+            pattern: ^[a-zA-Z0-9_-]+$
 
           - `input: map[unknown]`
 
           - `name: string`
+
+            minLength: 1
 
           - `type: "tool_use"`
 
@@ -19228,23 +21432,27 @@ ant beta:messages count-tokens \
 
             Tool invocation directly from the model.
 
-            - `beta_direct_caller: object { type }`
+            - `beta_direct_caller: object`
 
               Tool invocation directly from the model.
 
               - `type: "direct"`
 
-            - `beta_server_tool_caller: object { tool_id, type }`
+            - `beta_server_tool_caller: object`
 
               Tool invocation generated by a server-side tool.
 
               - `tool_id: string`
 
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
               - `type: "code_execution_20250825"`
 
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
+            - `beta_server_tool_caller_20260120: object`
 
               - `tool_id: string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `type: "code_execution_20260120"`
 
@@ -19252,9 +21460,13 @@ ant beta:messages count-tokens \
 
             For a toolset member tool_use, the toolset family.
 
-        - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+        - `beta_server_tool_use_block: object`
 
           - `id: string`
+
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
           - `input: map[unknown]`
 
@@ -19282,21 +21494,21 @@ ant beta:messages count-tokens \
 
             Tool invocation directly from the model.
 
-            - `beta_direct_caller: object { type }`
+            - `beta_direct_caller: object`
 
               Tool invocation directly from the model.
 
-            - `beta_server_tool_caller: object { tool_id, type }`
+            - `beta_server_tool_caller: object`
 
               Tool invocation generated by a server-side tool.
 
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
+            - `beta_server_tool_caller_20260120: object`
 
-        - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+        - `beta_web_search_tool_result_block: object`
 
           - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-            - `beta_web_search_tool_result_error: object { error_code, type }`
+            - `beta_web_search_tool_result_error: object`
 
               - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -19328,27 +21540,29 @@ ant beta:messages count-tokens \
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "web_search_tool_result"`
 
           - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
             Tool invocation directly from the model.
 
-            - `beta_direct_caller: object { type }`
+            - `beta_direct_caller: object`
 
               Tool invocation directly from the model.
 
-            - `beta_server_tool_caller: object { tool_id, type }`
+            - `beta_server_tool_caller: object`
 
               Tool invocation generated by a server-side tool.
 
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
+            - `beta_server_tool_caller_20260120: object`
 
-        - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+        - `beta_web_fetch_tool_result_block: object`
 
           - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-            - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+            - `beta_web_fetch_tool_result_error_block: object`
 
               - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -19372,11 +21586,11 @@ ant beta:messages count-tokens \
 
               - `type: "web_fetch_tool_result_error"`
 
-            - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+            - `beta_web_fetch_block: object`
 
-              - `content: object { citations, source, title, type }`
+              - `content: object`
 
-                - `citations: object { enabled }`
+                - `citations: object`
 
                   Citation configuration for the document
 
@@ -19384,15 +21598,17 @@ ant beta:messages count-tokens \
 
                 - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-                  - `beta_base64_pdf_source: object { data, media_type, type }`
+                  - `beta_base64_pdf_source: object`
 
                     - `data: string`
+
+                      format: byte
 
                     - `media_type: "application/pdf"`
 
                     - `type: "base64"`
 
-                  - `beta_plain_text_source: object { data, media_type, type }`
+                  - `beta_plain_text_source: object`
 
                     - `data: string`
 
@@ -19418,27 +21634,29 @@ ant beta:messages count-tokens \
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "web_fetch_tool_result"`
 
           - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
             Tool invocation directly from the model.
 
-            - `beta_direct_caller: object { type }`
+            - `beta_direct_caller: object`
 
               Tool invocation directly from the model.
 
-            - `beta_server_tool_caller: object { tool_id, type }`
+            - `beta_server_tool_caller: object`
 
               Tool invocation generated by a server-side tool.
 
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
+            - `beta_server_tool_caller_20260120: object`
 
-        - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+        - `beta_advisor_tool_result_block: object`
 
           - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-            - `beta_advisor_tool_result_error: object { error_code, type }`
+            - `beta_advisor_tool_result_error: object`
 
               - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -19458,7 +21676,7 @@ ant beta:messages count-tokens \
 
               - `type: "advisor_tool_result_error"`
 
-            - `beta_advisor_result_block: object { stop_reason, text, type }`
+            - `beta_advisor_result_block: object`
 
               - `stop_reason: string`
 
@@ -19468,7 +21686,7 @@ ant beta:messages count-tokens \
 
               - `type: "advisor_result"`
 
-            - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+            - `beta_advisor_redacted_result_block: object`
 
               - `encrypted_content: string`
 
@@ -19482,15 +21700,17 @@ ant beta:messages count-tokens \
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "advisor_tool_result"`
 
-        - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+        - `beta_code_execution_tool_result_block: object`
 
           - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
             Code execution result with encrypted stdout for PFC + web_search results.
 
-            - `beta_code_execution_tool_result_error: object { error_code, type }`
+            - `beta_code_execution_tool_result_error: object`
 
               - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -19504,7 +21724,7 @@ ant beta:messages count-tokens \
 
               - `type: "code_execution_tool_result_error"`
 
-            - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+            - `beta_code_execution_result_block: object`
 
               - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -19520,7 +21740,7 @@ ant beta:messages count-tokens \
 
               - `type: "code_execution_result"`
 
-            - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+            - `beta_encrypted_code_execution_result_block: object`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -19540,13 +21760,15 @@ ant beta:messages count-tokens \
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "code_execution_tool_result"`
 
-        - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+        - `beta_bash_code_execution_tool_result_block: object`
 
           - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-            - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+            - `beta_bash_code_execution_tool_result_error: object`
 
               - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -19562,7 +21784,7 @@ ant beta:messages count-tokens \
 
               - `type: "bash_code_execution_tool_result_error"`
 
-            - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+            - `beta_bash_code_execution_result_block: object`
 
               - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -19580,13 +21802,15 @@ ant beta:messages count-tokens \
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "bash_code_execution_tool_result"`
 
-        - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+        - `beta_text_editor_code_execution_tool_result_block: object`
 
           - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-            - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+            - `beta_text_editor_code_execution_tool_result_error: object`
 
               - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -19604,7 +21828,7 @@ ant beta:messages count-tokens \
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
-            - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+            - `beta_text_editor_code_execution_view_result_block: object`
 
               - `content: string`
 
@@ -19624,13 +21848,13 @@ ant beta:messages count-tokens \
 
               - `type: "text_editor_code_execution_view_result"`
 
-            - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+            - `beta_text_editor_code_execution_create_result_block: object`
 
               - `is_file_update: boolean`
 
               - `type: "text_editor_code_execution_create_result"`
 
-            - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+            - `beta_text_editor_code_execution_str_replace_result_block: object`
 
               - `lines: array of string`
 
@@ -19646,13 +21870,15 @@ ant beta:messages count-tokens \
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "text_editor_code_execution_tool_result"`
 
-        - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+        - `beta_tool_search_tool_result_block: object`
 
           - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-            - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+            - `beta_tool_search_tool_result_error: object`
 
               - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -19668,11 +21894,13 @@ ant beta:messages count-tokens \
 
               - `type: "tool_search_tool_result_error"`
 
-            - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+            - `beta_tool_search_tool_search_result_block: object`
 
               - `tool_references: array of BetaToolReferenceBlock`
 
                 - `tool_name: string`
+
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                 - `type: "tool_reference"`
 
@@ -19680,11 +21908,15 @@ ant beta:messages count-tokens \
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "tool_search_tool_result"`
 
-        - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+        - `beta_mcp_tool_use_block: object`
 
           - `id: string`
+
+            pattern: ^[a-zA-Z0-9_-]+$
 
           - `input: map[unknown]`
 
@@ -19698,7 +21930,7 @@ ant beta:messages count-tokens \
 
           - `type: "mcp_tool_use"`
 
-        - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+        - `beta_mcp_tool_result_block: object`
 
           - `content: string or array of BetaTextBlock`
 
@@ -19714,15 +21946,19 @@ ant beta:messages count-tokens \
 
               - `text: string`
 
+                maxLength: 5000000, minLength: 0
+
               - `type: "text"`
 
           - `is_error: boolean`
 
           - `tool_use_id: string`
 
+            pattern: ^[a-zA-Z0-9_-]+$
+
           - `type: "mcp_tool_result"`
 
-        - `beta_container_upload_block: object { file_id, type }`
+        - `beta_container_upload_block: object`
 
           Response model for a file uploaded to the container.
 
@@ -19730,7 +21966,7 @@ ant beta:messages count-tokens \
 
           - `type: "container_upload"`
 
-        - `beta_compaction_block: object { content, encrypted_content, type }`
+        - `beta_compaction_block: object`
 
           A compaction block returned when autocompact is triggered.
 
@@ -19748,7 +21984,7 @@ ant beta:messages count-tokens \
 
           - `type: "compaction"`
 
-        - `beta_fallback_block: object { from, to, trigger, type }`
+        - `beta_fallback_block: object`
 
           Marks the point in `content` where one model's output gives way to the next.
 
@@ -19762,7 +21998,7 @@ ant beta:messages count-tokens \
           arrives via the standard `content_block_start` / `content_block_stop`
           pair and carries no deltas.
 
-          - `from: object { model }`
+          - `from: object`
 
             The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -19832,7 +22068,7 @@ ant beta:messages count-tokens \
 
                 High-performance model for agents and coding
 
-          - `to: object { model }`
+          - `to: object`
 
             The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -19842,7 +22078,7 @@ ant beta:messages count-tokens \
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `trigger: object { category, type }`
+          - `trigger: object`
 
             What caused the `from` model to hand over at this hop.
 
@@ -19874,7 +22110,7 @@ ant beta:messages count-tokens \
 
           - `type: "fallback"`
 
-      - `context_management: object { applied_edits }`
+      - `context_management: object`
 
         Context management response.
 
@@ -19884,35 +22120,43 @@ ant beta:messages count-tokens \
 
           List of context management edits that were applied.
 
-          - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+          - `beta_clear_tool_uses_20250919_edit_response: object`
 
             - `cleared_input_tokens: number`
 
               Number of input tokens cleared by this edit.
+
+              minimum: 0
 
             - `cleared_tool_uses: number`
 
               Number of tool uses that were cleared.
 
+              minimum: 0
+
             - `type: "clear_tool_uses_20250919"`
 
               The type of context management edit applied.
 
-          - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+          - `beta_clear_thinking_20251015_edit_response: object`
 
             - `cleared_input_tokens: number`
 
               Number of input tokens cleared by this edit.
 
+              minimum: 0
+
             - `cleared_thinking_turns: number`
 
               Number of thinking turns that were cleared.
+
+              minimum: 0
 
             - `type: "clear_thinking_20251015"`
 
               The type of context management edit applied.
 
-      - `diagnostics: object { cache_miss_reason }`
+      - `diagnostics: object`
 
         Response envelope for request-level diagnostics. Present (possibly
         null) whenever the caller supplied `diagnostics` on the request.
@@ -19921,7 +22165,7 @@ ant beta:messages count-tokens \
 
           Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-          - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
+          - `beta_cache_miss_model_changed: object`
 
             - `cache_missed_input_tokens: number`
 
@@ -19929,7 +22173,7 @@ ant beta:messages count-tokens \
 
             - `type: "model_changed"`
 
-          - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
+          - `beta_cache_miss_system_changed: object`
 
             - `cache_missed_input_tokens: number`
 
@@ -19937,7 +22181,7 @@ ant beta:messages count-tokens \
 
             - `type: "system_changed"`
 
-          - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
+          - `beta_cache_miss_tools_changed: object`
 
             - `cache_missed_input_tokens: number`
 
@@ -19945,7 +22189,7 @@ ant beta:messages count-tokens \
 
             - `type: "tools_changed"`
 
-          - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
+          - `beta_cache_miss_messages_changed: object`
 
             - `cache_missed_input_tokens: number`
 
@@ -19953,11 +22197,11 @@ ant beta:messages count-tokens \
 
             - `type: "messages_changed"`
 
-          - `beta_cache_miss_previous_message_not_found: object { type }`
+          - `beta_cache_miss_previous_message_not_found: object`
 
             - `type: "previous_message_not_found"`
 
-          - `beta_cache_miss_unavailable: object { type }`
+          - `beta_cache_miss_unavailable: object`
 
             - `type: "unavailable"`
 
@@ -20033,7 +22277,7 @@ ant beta:messages count-tokens \
 
         This will always be `"assistant"`.
 
-      - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+      - `stop_details: object`
 
         Structured information about a refusal.
 
@@ -20162,7 +22406,7 @@ ant beta:messages count-tokens \
 
         For Messages, this is always `"message"`.
 
-      - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
+      - `usage: object`
 
         Billing and rate-limit usage.
 
@@ -20174,7 +22418,7 @@ ant beta:messages count-tokens \
 
         Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+        - `cache_creation: object`
 
           Breakdown of cached tokens by TTL
 
@@ -20182,19 +22426,27 @@ ant beta:messages count-tokens \
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            minimum: 0
 
         - `cache_creation_input_tokens: number`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number`
 
           The number of input tokens read from the cache.
 
-        - `fallback_credit: object { status }`
+          minimum: 0
+
+        - `fallback_credit: object`
 
           Outcome of the `fallback_credit_token` presented on this request.
 
@@ -20207,14 +22459,14 @@ ant beta:messages count-tokens \
             resulting shift is zero because there was nothing to move. `not_applied`:
             no reprice was applied; the arm's `reason` says why.
 
-            - `beta_fallback_credit_redeemed: object { type }`
+            - `beta_fallback_credit_redeemed: object`
 
               The reprice was applied: the retry is billed as if the conversation
               had been on the retry model all along.
 
               - `type: "redeemed"`
 
-            - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+            - `beta_fallback_credit_not_applied: object`
 
               No reprice was applied; `reason` says why.
 
@@ -20270,6 +22522,8 @@ ant beta:messages count-tokens \
 
           The number of input tokens which were used.
 
+          minimum: 0
+
         - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
           Per-iteration token usage breakdown.
@@ -20280,11 +22534,11 @@ ant beta:messages count-tokens \
           - Calculate the true context window size from the last iteration
           - Understand token accumulation across server-side tool use loops
 
-          - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+          - `beta_message_iteration_usage: object`
 
             Token usage for a sampling iteration.
 
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+            - `cache_creation: object`
 
               Breakdown of cached tokens by TTL
 
@@ -20292,21 +22546,31 @@ ant beta:messages count-tokens \
 
                 The number of input tokens used to create the 1 hour cache entry.
 
+                minimum: 0
+
               - `ephemeral_5m_input_tokens: number`
 
                 The number of input tokens used to create the 5 minute cache entry.
+
+                minimum: 0
 
             - `cache_creation_input_tokens: number`
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: number`
 
               The number of input tokens read from the cache.
 
+              minimum: 0
+
             - `input_tokens: number`
 
               The number of input tokens which were used.
+
+              minimum: 0
 
             - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -20377,16 +22641,18 @@ ant beta:messages count-tokens \
             - `output_tokens: number`
 
               The number of output tokens which were used.
+
+              minimum: 0
 
             - `type: "message"`
 
               Usage for a sampling iteration
 
-          - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+          - `beta_compaction_iteration_usage: object`
 
             Token usage for a compaction iteration.
 
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+            - `cache_creation: object`
 
               Breakdown of cached tokens by TTL
 
@@ -20394,35 +22660,47 @@ ant beta:messages count-tokens \
 
                 The number of input tokens used to create the 1 hour cache entry.
 
+                minimum: 0
+
               - `ephemeral_5m_input_tokens: number`
 
                 The number of input tokens used to create the 5 minute cache entry.
+
+                minimum: 0
 
             - `cache_creation_input_tokens: number`
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: number`
 
               The number of input tokens read from the cache.
 
+              minimum: 0
+
             - `input_tokens: number`
 
               The number of input tokens which were used.
+
+              minimum: 0
 
             - `output_tokens: number`
 
               The number of output tokens which were used.
 
+              minimum: 0
+
             - `type: "compaction"`
 
               Usage for a compaction iteration
 
-          - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+          - `beta_advisor_message_iteration_usage: object`
 
             Token usage for an advisor sub-inference iteration.
 
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+            - `cache_creation: object`
 
               Breakdown of cached tokens by TTL
 
@@ -20430,21 +22708,31 @@ ant beta:messages count-tokens \
 
                 The number of input tokens used to create the 1 hour cache entry.
 
+                minimum: 0
+
               - `ephemeral_5m_input_tokens: number`
 
                 The number of input tokens used to create the 5 minute cache entry.
+
+                minimum: 0
 
             - `cache_creation_input_tokens: number`
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: number`
 
               The number of input tokens read from the cache.
 
+              minimum: 0
+
             - `input_tokens: number`
 
               The number of input tokens which were used.
+
+              minimum: 0
 
             - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -20516,11 +22804,13 @@ ant beta:messages count-tokens \
 
               The number of output tokens which were used.
 
+              minimum: 0
+
             - `type: "advisor_message"`
 
               Usage for an advisor sub-inference iteration
 
-          - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+          - `beta_fallback_message_iteration_usage: object`
 
             Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -20529,7 +22819,7 @@ ant beta:messages count-tokens \
             a fallback model served the response is signalled by the presence of this
             entry in `usage.iterations`.
 
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+            - `cache_creation: object`
 
               Breakdown of cached tokens by TTL
 
@@ -20537,21 +22827,31 @@ ant beta:messages count-tokens \
 
                 The number of input tokens used to create the 1 hour cache entry.
 
+                minimum: 0
+
               - `ephemeral_5m_input_tokens: number`
 
                 The number of input tokens used to create the 5 minute cache entry.
+
+                minimum: 0
 
             - `cache_creation_input_tokens: number`
 
               The number of input tokens used to create the cache entry.
 
+              minimum: 0
+
             - `cache_read_input_tokens: number`
 
               The number of input tokens read from the cache.
 
+              minimum: 0
+
             - `input_tokens: number`
 
               The number of input tokens which were used.
+
+              minimum: 0
 
             - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -20622,6 +22922,8 @@ ant beta:messages count-tokens \
             - `output_tokens: number`
 
               The number of output tokens which were used.
+
+              minimum: 0
 
             - `type: "fallback_message"`
 
@@ -20631,7 +22933,9 @@ ant beta:messages count-tokens \
 
           The number of output tokens which were used.
 
-        - `output_tokens_details: object { thinking_tokens }`
+          minimum: 0
+
+        - `output_tokens_details: object`
 
           Breakdown of output tokens by category.
 
@@ -20651,7 +22955,9 @@ ant beta:messages count-tokens \
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-        - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+            minimum: 0
+
+        - `server_tool_use: object`
 
           The number of server tool requests.
 
@@ -20659,9 +22965,13 @@ ant beta:messages count-tokens \
 
             The number of web fetch tool requests.
 
+            minimum: 0
+
           - `web_search_requests: number`
 
             The number of web search tool requests.
+
+            minimum: 0
 
         - `service_tier: "standard" or "priority" or "batch"`
 
@@ -20683,9 +22993,9 @@ ant beta:messages count-tokens \
 
     - `type: "message_start"`
 
-  - `beta_raw_message_delta_event: object { context_management, delta, type, usage }`
+  - `beta_raw_message_delta_event: object`
 
-    - `context_management: object { applied_edits }`
+    - `context_management: object`
 
       Information about context management strategies applied during the request
 
@@ -20693,9 +23003,9 @@ ant beta:messages count-tokens \
 
         List of context management edits that were applied.
 
-    - `delta: object { container, stop_details, stop_reason, stop_sequence }`
+    - `delta: object`
 
-      - `container: object { id, expires_at, skills }`
+      - `container: object`
 
         Information about the container used in the request (for the code execution tool)
 
@@ -20707,11 +23017,13 @@ ant beta:messages count-tokens \
 
           The time at which the container will expire.
 
+          format: date-time
+
         - `skills: array of BetaSkill`
 
           Skills loaded in the container
 
-      - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+      - `stop_details: object`
 
         Structured information about a refusal.
 
@@ -20798,7 +23110,7 @@ ant beta:messages count-tokens \
 
     - `type: "message_delta"`
 
-    - `usage: object { cache_creation_input_tokens, cache_read_input_tokens, fallback_credit, 5 more }`
+    - `usage: object`
 
       Billing and rate-limit usage.
 
@@ -20814,11 +23126,15 @@ ant beta:messages count-tokens \
 
         The cumulative number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The cumulative number of input tokens read from the cache.
 
-      - `fallback_credit: object { status }`
+        minimum: 0
+
+      - `fallback_credit: object`
 
         Outcome of the `fallback_credit_token` presented on this request.
 
@@ -20835,6 +23151,8 @@ ant beta:messages count-tokens \
 
         The cumulative number of input tokens which were used.
 
+        minimum: 0
+
       - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
         Per-iteration token usage breakdown.
@@ -20845,19 +23163,19 @@ ant beta:messages count-tokens \
         - Calculate the true context window size from the last iteration
         - Understand token accumulation across server-side tool use loops
 
-        - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+        - `beta_message_iteration_usage: object`
 
           Token usage for a sampling iteration.
 
-        - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+        - `beta_compaction_iteration_usage: object`
 
           Token usage for a compaction iteration.
 
-        - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+        - `beta_advisor_message_iteration_usage: object`
 
           Token usage for an advisor sub-inference iteration.
 
-        - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+        - `beta_fallback_message_iteration_usage: object`
 
           Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -20870,7 +23188,7 @@ ant beta:messages count-tokens \
 
         The cumulative number of output tokens which were used.
 
-      - `output_tokens_details: object { thinking_tokens }`
+      - `output_tokens_details: object`
 
         Breakdown of output tokens by category.
 
@@ -20890,7 +23208,9 @@ ant beta:messages count-tokens \
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-      - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+          minimum: 0
+
+      - `server_tool_use: object`
 
         The number of server tool requests.
 
@@ -20898,21 +23218,25 @@ ant beta:messages count-tokens \
 
           The number of web fetch tool requests.
 
+          minimum: 0
+
         - `web_search_requests: number`
 
           The number of web search tool requests.
 
-  - `beta_raw_message_stop_event: object { type }`
+          minimum: 0
+
+  - `beta_raw_message_stop_event: object`
 
     - `type: "message_stop"`
 
-  - `beta_raw_content_block_start_event: object { content_block, index, type }`
+  - `beta_raw_content_block_start_event: object`
 
     - `content_block: BetaTextBlock or BetaThinkingBlock or BetaRedactedThinkingBlock or 14 more`
 
       Response model for a file uploaded to the container.
 
-      - `beta_text_block: object { citations, text, type }`
+      - `beta_text_block: object`
 
         - `citations: array of BetaTextCitation`
 
@@ -20922,9 +23246,11 @@ ant beta:messages count-tokens \
 
         - `text: string`
 
+          maxLength: 5000000, minLength: 0
+
         - `type: "text"`
 
-      - `beta_thinking_block: object { signature, thinking, type }`
+      - `beta_thinking_block: object`
 
         - `signature: string`
 
@@ -20940,7 +23266,7 @@ ant beta:messages count-tokens \
 
         - `type: "thinking"`
 
-      - `beta_redacted_thinking_block: object { data, type }`
+      - `beta_redacted_thinking_block: object`
 
         - `data: string`
 
@@ -20952,13 +23278,17 @@ ant beta:messages count-tokens \
 
         - `type: "redacted_thinking"`
 
-      - `beta_tool_use_block: object { id, input, name, 3 more }`
+      - `beta_tool_use_block: object`
 
         - `id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: map[unknown]`
 
         - `name: string`
+
+          minLength: 1
 
         - `type: "tool_use"`
 
@@ -20970,9 +23300,13 @@ ant beta:messages count-tokens \
 
           For a toolset member tool_use, the toolset family.
 
-      - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+      - `beta_server_tool_use_block: object`
 
         - `id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `input: map[unknown]`
 
@@ -20984,11 +23318,13 @@ ant beta:messages count-tokens \
 
           Tool invocation directly from the model.
 
-      - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+      - `beta_web_search_tool_result_block: object`
 
         - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
         - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `type: "web_search_tool_result"`
 
@@ -20996,11 +23332,13 @@ ant beta:messages count-tokens \
 
           Tool invocation directly from the model.
 
-      - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+      - `beta_web_fetch_tool_result_block: object`
 
         - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
         - `tool_use_id: string`
+
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
         - `type: "web_fetch_tool_result"`
 
@@ -21008,15 +23346,17 @@ ant beta:messages count-tokens \
 
           Tool invocation directly from the model.
 
-      - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_advisor_tool_result_block: object`
 
         - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "advisor_tool_result"`
 
-      - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_code_execution_tool_result_block: object`
 
         - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
@@ -21024,35 +23364,45 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "code_execution_tool_result"`
 
-      - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_bash_code_execution_tool_result_block: object`
 
         - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "bash_code_execution_tool_result"`
 
-      - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_text_editor_code_execution_tool_result_block: object`
 
         - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "text_editor_code_execution_tool_result"`
 
-      - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+      - `beta_tool_search_tool_result_block: object`
 
         - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "tool_search_tool_result"`
 
-      - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+      - `beta_mcp_tool_use_block: object`
 
         - `id: string`
+
+          pattern: ^[a-zA-Z0-9_-]+$
 
         - `input: map[unknown]`
 
@@ -21066,7 +23416,7 @@ ant beta:messages count-tokens \
 
         - `type: "mcp_tool_use"`
 
-      - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+      - `beta_mcp_tool_result_block: object`
 
         - `content: string or array of BetaTextBlock`
 
@@ -21074,9 +23424,11 @@ ant beta:messages count-tokens \
 
         - `tool_use_id: string`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `type: "mcp_tool_result"`
 
-      - `beta_container_upload_block: object { file_id, type }`
+      - `beta_container_upload_block: object`
 
         Response model for a file uploaded to the container.
 
@@ -21084,7 +23436,7 @@ ant beta:messages count-tokens \
 
         - `type: "container_upload"`
 
-      - `beta_compaction_block: object { content, encrypted_content, type }`
+      - `beta_compaction_block: object`
 
         A compaction block returned when autocompact is triggered.
 
@@ -21102,7 +23454,7 @@ ant beta:messages count-tokens \
 
         - `type: "compaction"`
 
-      - `beta_fallback_block: object { from, to, trigger, type }`
+      - `beta_fallback_block: object`
 
         Marks the point in `content` where one model's output gives way to the next.
 
@@ -21116,15 +23468,15 @@ ant beta:messages count-tokens \
         arrives via the standard `content_block_start` / `content_block_stop`
         pair and carries no deltas.
 
-        - `from: object { model }`
+        - `from: object`
 
           The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-        - `to: object { model }`
+        - `to: object`
 
           The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
-        - `trigger: object { category, type }`
+        - `trigger: object`
 
           What caused the `from` model to hand over at this hop.
 
@@ -21134,31 +23486,33 @@ ant beta:messages count-tokens \
 
     - `type: "content_block_start"`
 
-  - `beta_raw_content_block_delta_event: object { delta, index, type }`
+  - `beta_raw_content_block_delta_event: object`
 
     - `delta: BetaTextDelta or BetaInputJSONDelta or BetaCitationsDelta or 3 more`
 
-      - `beta_text_delta: object { text, type }`
+      - `beta_text_delta: object`
 
         - `text: string`
 
         - `type: "text_delta"`
 
-      - `beta_input_json_delta: object { partial_json, type }`
+      - `beta_input_json_delta: object`
 
         - `partial_json: string`
 
         - `type: "input_json_delta"`
 
-      - `beta_citations_delta: object { citation, type }`
+      - `beta_citations_delta: object`
 
         - `citation: BetaCitationCharLocation or BetaCitationPageLocation or BetaCitationContentBlockLocation or 2 more`
 
-          - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+          - `beta_citation_char_location: object`
 
             - `cited_text: string`
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string`
 
@@ -21168,13 +23522,17 @@ ant beta:messages count-tokens \
 
             - `start_char_index: number`
 
+              minimum: 0
+
             - `type: "char_location"`
 
-          - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+          - `beta_citation_page_location: object`
 
             - `cited_text: string`
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string`
 
@@ -21184,9 +23542,11 @@ ant beta:messages count-tokens \
 
             - `start_page_number: number`
 
+              minimum: 1
+
             - `type: "page_location"`
 
-          - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+          - `beta_citation_content_block_location: object`
 
             - `cited_text: string`
 
@@ -21195,6 +23555,8 @@ ant beta:messages count-tokens \
               Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string`
 
@@ -21210,9 +23572,11 @@ ant beta:messages count-tokens \
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `type: "content_block_location"`
 
-          - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+          - `beta_citations_web_search_result_location: object`
 
             - `cited_text: string`
 
@@ -21220,11 +23584,13 @@ ant beta:messages count-tokens \
 
             - `title: string`
 
+              maxLength: 512
+
             - `type: "web_search_result_location"`
 
             - `url: string`
 
-          - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+          - `beta_citation_search_result_location: object`
 
             - `cited_text: string`
 
@@ -21244,11 +23610,15 @@ ant beta:messages count-tokens \
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
+
+              minimum: 0
 
             - `title: string`
 
@@ -21256,7 +23626,7 @@ ant beta:messages count-tokens \
 
         - `type: "citations_delta"`
 
-      - `beta_thinking_delta: object { estimated_tokens, thinking, type }`
+      - `beta_thinking_delta: object`
 
         - `estimated_tokens: number`
 
@@ -21268,7 +23638,7 @@ ant beta:messages count-tokens \
 
         - `type: "thinking_delta"`
 
-      - `beta_signature_delta: object { signature, type }`
+      - `beta_signature_delta: object`
 
         - `signature: string`
 
@@ -21276,7 +23646,7 @@ ant beta:messages count-tokens \
 
         - `type: "signature_delta"`
 
-      - `beta_compaction_content_block_delta: object { content, encrypted_content, type }`
+      - `beta_compaction_content_block_delta: object`
 
         - `content: string`
 
@@ -21290,7 +23660,7 @@ ant beta:messages count-tokens \
 
     - `type: "content_block_delta"`
 
-  - `beta_raw_content_block_stop_event: object { index, type }`
+  - `beta_raw_content_block_stop_event: object`
 
     - `index: number`
 
@@ -21298,7 +23668,7 @@ ant beta:messages count-tokens \
 
 ### Beta Redacted Thinking Block
 
-- `beta_redacted_thinking_block: object { data, type }`
+- `beta_redacted_thinking_block: object`
 
   - `data: string`
 
@@ -21312,7 +23682,7 @@ ant beta:messages count-tokens \
 
 ### Beta Redacted Thinking Block Param
 
-- `beta_redacted_thinking_block_param: object { data, type }`
+- `beta_redacted_thinking_block_param: object`
 
   - `data: string`
 
@@ -21322,7 +23692,7 @@ ant beta:messages count-tokens \
 
 ### Beta Refusal Stop Details
 
-- `beta_refusal_stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+- `beta_refusal_stop_details: object`
 
   Structured information about a refusal.
 
@@ -21409,19 +23779,21 @@ ant beta:messages count-tokens \
 
 ### Beta Request Document Block
 
-- `beta_request_document_block: object { source, type, cache_control, 3 more }`
+- `beta_request_document_block: object`
 
   - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
-    - `beta_base64_pdf_source: object { data, media_type, type }`
+    - `beta_base64_pdf_source: object`
 
       - `data: string`
+
+        format: byte
 
       - `media_type: "application/pdf"`
 
       - `type: "base64"`
 
-    - `beta_plain_text_source: object { data, media_type, type }`
+    - `beta_plain_text_source: object`
 
       - `data: string`
 
@@ -21429,7 +23801,7 @@ ant beta:messages count-tokens \
 
       - `type: "text"`
 
-    - `beta_content_block_source: object { content, type }`
+    - `beta_content_block_source: object`
 
       - `content: string or array of BetaContentBlockSourceContent`
 
@@ -21437,13 +23809,15 @@ ant beta:messages count-tokens \
 
         - `beta_content_block_source_content: array of BetaContentBlockSourceContent`
 
-          - `beta_text_block_param: object { text, type, cache_control, citations }`
+          - `beta_text_block_param: object`
 
             - `text: string`
 
+              minLength: 1
+
             - `type: "text"`
 
-            - `cache_control: optional object { type, ttl }`
+            - `cache_control: optional object`
 
               Create a cache control breakpoint at this content block.
 
@@ -21466,35 +23840,47 @@ ant beta:messages count-tokens \
 
             - `citations: optional array of BetaTextCitationParam`
 
-              - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+              - `beta_citation_char_location_param: object`
 
                 - `cited_text: string`
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_char_index: number`
 
                 - `start_char_index: number`
 
+                  minimum: 0
+
                 - `type: "char_location"`
 
-              - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+              - `beta_citation_page_location_param: object`
 
                 - `cited_text: string`
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_page_number: number`
 
                 - `start_page_number: number`
 
+                  minimum: 1
+
                 - `type: "page_location"`
 
-              - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+              - `beta_citation_content_block_location_param: object`
 
                 - `cited_text: string`
 
@@ -21504,7 +23890,11 @@ ant beta:messages count-tokens \
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string`
+
+                  maxLength: 500, minLength: 1
 
                 - `end_block_index: number`
 
@@ -21516,9 +23906,11 @@ ant beta:messages count-tokens \
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: "content_block_location"`
 
-              - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+              - `beta_citation_web_search_result_location_param: object`
 
                 - `cited_text: string`
 
@@ -21526,11 +23918,15 @@ ant beta:messages count-tokens \
 
                 - `title: string`
 
+                  maxLength: 512, minLength: 1
+
                 - `type: "web_search_result_location"`
 
                 - `url: string`
 
-              - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+                  minLength: 1
+
+              - `beta_citation_search_result_location_param: object`
 
                 - `cited_text: string`
 
@@ -21550,23 +23946,29 @@ ant beta:messages count-tokens \
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: string`
 
                 - `type: "search_result_location"`
 
-          - `beta_image_block_param: object { source, type, cache_control, transformations }`
+          - `beta_image_block_param: object`
 
             - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-              - `beta_base64_image_source: object { data, media_type, type }`
+              - `beta_base64_image_source: object`
 
                 - `data: string`
+
+                  format: byte
 
                 - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -21580,13 +23982,13 @@ ant beta:messages count-tokens \
 
                 - `type: "base64"`
 
-              - `beta_url_image_source: object { type, url }`
+              - `beta_url_image_source: object`
 
                 - `type: "url"`
 
                 - `url: string`
 
-              - `beta_file_image_source: object { file_id, type }`
+              - `beta_file_image_source: object`
 
                 - `file_id: string`
 
@@ -21594,7 +23996,7 @@ ant beta:messages count-tokens \
 
             - `type: "image"`
 
-            - `cache_control: optional object { type, ttl }`
+            - `cache_control: optional object`
 
               Create a cache control breakpoint at this content block.
 
@@ -21611,7 +24013,7 @@ ant beta:messages count-tokens \
 
                 Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-            - `transformations: optional object { oversized_image }`
+            - `transformations: optional object`
 
               Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -21625,13 +24027,13 @@ ant beta:messages count-tokens \
 
       - `type: "content"`
 
-    - `beta_url_pdf_source: object { type, url }`
+    - `beta_url_pdf_source: object`
 
       - `type: "url"`
 
       - `url: string`
 
-    - `beta_file_document_source: object { file_id, type }`
+    - `beta_file_document_source: object`
 
       - `file_id: string`
 
@@ -21639,7 +24041,7 @@ ant beta:messages count-tokens \
 
   - `type: "document"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -21656,17 +24058,21 @@ ant beta:messages count-tokens \
 
       Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `citations: optional object { enabled }`
+  - `citations: optional object`
 
     - `enabled: optional boolean`
 
   - `context: optional string`
 
+    minLength: 1
+
   - `title: optional string`
+
+    maxLength: 500, minLength: 1
 
 ### Beta Request MCP Server Tool Configuration
 
-- `beta_request_mcp_server_tool_configuration: object { allowed_tools, enabled }`
+- `beta_request_mcp_server_tool_configuration: object`
 
   - `allowed_tools: optional array of string`
 
@@ -21674,7 +24080,7 @@ ant beta:messages count-tokens \
 
 ### Beta Request MCP Server URL Definition
 
-- `beta_request_mcp_server_url_definition: object { name, type, url, 2 more }`
+- `beta_request_mcp_server_url_definition: object`
 
   - `name: string`
 
@@ -21684,7 +24090,7 @@ ant beta:messages count-tokens \
 
   - `authorization_token: optional string`
 
-  - `tool_configuration: optional object { allowed_tools, enabled }`
+  - `tool_configuration: optional object`
 
     - `allowed_tools: optional array of string`
 
@@ -21692,13 +24098,15 @@ ant beta:messages count-tokens \
 
 ### Beta Request MCP Tool Result Block Param
 
-- `beta_request_mcp_tool_result_block_param: object { tool_use_id, type, cache_control, 2 more }`
+- `beta_request_mcp_tool_result_block_param: object`
 
   - `tool_use_id: string`
 
+    pattern: ^[a-zA-Z0-9_-]+$
+
   - `type: "mcp_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -21727,9 +24135,11 @@ ant beta:messages count-tokens \
 
       - `text: string`
 
+        minLength: 1
+
       - `type: "text"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -21748,35 +24158,47 @@ ant beta:messages count-tokens \
 
       - `citations: optional array of BetaTextCitationParam`
 
-        - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_char_location_param: object`
 
           - `cited_text: string`
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_char_index: number`
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_page_location_param: object`
 
           - `cited_text: string`
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_page_number: number`
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_content_block_location_param: object`
 
           - `cited_text: string`
 
@@ -21786,7 +24208,11 @@ ant beta:messages count-tokens \
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_block_index: number`
 
@@ -21798,9 +24224,11 @@ ant beta:messages count-tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citation_web_search_result_location_param: object`
 
           - `cited_text: string`
 
@@ -21808,11 +24236,15 @@ ant beta:messages count-tokens \
 
           - `title: string`
 
+            maxLength: 512, minLength: 1
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+            minLength: 1
+
+        - `beta_citation_search_result_location_param: object`
 
           - `cited_text: string`
 
@@ -21832,11 +24264,15 @@ ant beta:messages count-tokens \
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
+
+            minimum: 0
 
           - `title: string`
 
@@ -21846,7 +24282,7 @@ ant beta:messages count-tokens \
 
 ### Beta Request Tool Addition Block
 
-- `beta_request_tool_addition_block: object { tool, type, cache_control }`
+- `beta_request_tool_addition_block: object`
 
   Mid-conversation directive to surface a declared tool.
 
@@ -21861,7 +24297,7 @@ ant beta:messages count-tokens \
     server assigns to MCP-resolved tools — use `mcp_tool_reference` or
     `mcp_toolset_reference` for those.
 
-    - `beta_tool_change_tool_reference: object { name, type }`
+    - `beta_tool_change_tool_reference: object`
 
       Reference to a single tool the caller declared directly in
       `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -21870,9 +24306,11 @@ ant beta:messages count-tokens \
 
       - `name: string`
 
+        pattern: ^[a-zA-Z0-9_-]{1,128}$
+
       - `type: "tool_reference"`
 
-    - `beta_tool_change_mcp_tool_reference: object { name, server_name, type }`
+    - `beta_tool_change_mcp_tool_reference: object`
 
       Reference to a single MCP tool by its server and remote name — the
       same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -21883,7 +24321,7 @@ ant beta:messages count-tokens \
 
       - `type: "mcp_tool_reference"`
 
-    - `beta_tool_change_mcp_toolset_reference: object { server_name, type }`
+    - `beta_tool_change_mcp_toolset_reference: object`
 
       Reference to every tool in the named MCP server's toolset.
 
@@ -21893,7 +24331,7 @@ ant beta:messages count-tokens \
 
   - `type: "tool_addition"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -21916,7 +24354,7 @@ ant beta:messages count-tokens \
 
 ### Beta Request Tool Removal Block
 
-- `beta_request_tool_removal_block: object { tool, type, cache_control }`
+- `beta_request_tool_removal_block: object`
 
   Mid-conversation directive to withdraw a tool.
 
@@ -21931,7 +24369,7 @@ ant beta:messages count-tokens \
     server assigns to MCP-resolved tools — use `mcp_tool_reference` or
     `mcp_toolset_reference` for those.
 
-    - `beta_tool_change_tool_reference: object { name, type }`
+    - `beta_tool_change_tool_reference: object`
 
       Reference to a single tool the caller declared directly in
       `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -21940,9 +24378,11 @@ ant beta:messages count-tokens \
 
       - `name: string`
 
+        pattern: ^[a-zA-Z0-9_-]{1,128}$
+
       - `type: "tool_reference"`
 
-    - `beta_tool_change_mcp_tool_reference: object { name, server_name, type }`
+    - `beta_tool_change_mcp_tool_reference: object`
 
       Reference to a single MCP tool by its server and remote name — the
       same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -21953,7 +24393,7 @@ ant beta:messages count-tokens \
 
       - `type: "mcp_tool_reference"`
 
-    - `beta_tool_change_mcp_toolset_reference: object { server_name, type }`
+    - `beta_tool_change_mcp_toolset_reference: object`
 
       Reference to every tool in the named MCP server's toolset.
 
@@ -21963,7 +24403,7 @@ ant beta:messages count-tokens \
 
   - `type: "tool_removal"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -21986,15 +24426,17 @@ ant beta:messages count-tokens \
 
 ### Beta Search Result Block Param
 
-- `beta_search_result_block_param: object { content, source, title, 3 more }`
+- `beta_search_result_block_param: object`
 
   - `content: array of BetaTextBlockParam`
 
     - `text: string`
 
+      minLength: 1
+
     - `type: "text"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -22017,35 +24459,47 @@ ant beta:messages count-tokens \
 
     - `citations: optional array of BetaTextCitationParam`
 
-      - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_char_location_param: object`
 
         - `cited_text: string`
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_char_index: number`
 
         - `start_char_index: number`
 
+          minimum: 0
+
         - `type: "char_location"`
 
-      - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_page_location_param: object`
 
         - `cited_text: string`
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_page_number: number`
 
         - `start_page_number: number`
 
+          minimum: 1
+
         - `type: "page_location"`
 
-      - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+      - `beta_citation_content_block_location_param: object`
 
         - `cited_text: string`
 
@@ -22055,7 +24509,11 @@ ant beta:messages count-tokens \
 
         - `document_index: number`
 
+          minimum: 0
+
         - `document_title: string`
+
+          maxLength: 500, minLength: 1
 
         - `end_block_index: number`
 
@@ -22067,9 +24525,11 @@ ant beta:messages count-tokens \
 
           0-based index of the first cited block in the source's `content` array.
 
+          minimum: 0
+
         - `type: "content_block_location"`
 
-      - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+      - `beta_citation_web_search_result_location_param: object`
 
         - `cited_text: string`
 
@@ -22077,11 +24537,15 @@ ant beta:messages count-tokens \
 
         - `title: string`
 
+          maxLength: 512, minLength: 1
+
         - `type: "web_search_result_location"`
 
         - `url: string`
 
-      - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+          minLength: 1
+
+      - `beta_citation_search_result_location_param: object`
 
         - `cited_text: string`
 
@@ -22101,11 +24565,15 @@ ant beta:messages count-tokens \
 
           Counted separately from `document_index`; server-side web search results are not included in this count.
 
+          minimum: 0
+
         - `source: string`
 
         - `start_block_index: number`
 
           0-based index of the first cited block in the source's `content` array.
+
+          minimum: 0
 
         - `title: string`
 
@@ -22117,7 +24585,7 @@ ant beta:messages count-tokens \
 
   - `type: "search_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -22134,45 +24602,55 @@ ant beta:messages count-tokens \
 
       Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-  - `citations: optional object { enabled }`
+  - `citations: optional object`
 
     - `enabled: optional boolean`
 
 ### Beta Server Tool Caller
 
-- `beta_server_tool_caller: object { tool_id, type }`
+- `beta_server_tool_caller: object`
 
   Tool invocation generated by a server-side tool.
 
   - `tool_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "code_execution_20250825"`
 
 ### Beta Server Tool Caller 20260120
 
-- `beta_server_tool_caller_20260120: object { tool_id, type }`
+- `beta_server_tool_caller_20260120: object`
 
   - `tool_id: string`
+
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `type: "code_execution_20260120"`
 
 ### Beta Server Tool Usage
 
-- `beta_server_tool_usage: object { web_fetch_requests, web_search_requests }`
+- `beta_server_tool_usage: object`
 
   - `web_fetch_requests: number`
 
     The number of web fetch tool requests.
 
+    minimum: 0
+
   - `web_search_requests: number`
 
     The number of web search tool requests.
 
+    minimum: 0
+
 ### Beta Server Tool Use Block
 
-- `beta_server_tool_use_block: object { id, input, name, 2 more }`
+- `beta_server_tool_use_block: object`
 
   - `id: string`
+
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `input: map[unknown]`
 
@@ -22200,31 +24678,37 @@ ant beta:messages count-tokens \
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
 ### Beta Server Tool Use Block Param
 
-- `beta_server_tool_use_block_param: object { id, input, name, 3 more }`
+- `beta_server_tool_use_block_param: object`
 
   - `id: string`
+
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
   - `input: map[unknown]`
 
@@ -22248,7 +24732,7 @@ ant beta:messages count-tokens \
 
   - `type: "server_tool_use"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -22273,29 +24757,33 @@ ant beta:messages count-tokens \
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
 ### Beta Signature Delta
 
-- `beta_signature_delta: object { signature, type }`
+- `beta_signature_delta: object`
 
   - `signature: string`
 
@@ -22305,13 +24793,15 @@ ant beta:messages count-tokens \
 
 ### Beta Skill
 
-- `beta_skill: object { skill_id, type, version }`
+- `beta_skill: object`
 
   A skill that was loaded in a container (response model).
 
   - `skill_id: string`
 
     Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `type: "anthropic" or "custom"`
 
@@ -22325,15 +24815,19 @@ ant beta:messages count-tokens \
 
     The resolved version: a skill version ID for custom skills.
 
+    maxLength: 64, minLength: 1
+
 ### Beta Skill Params
 
-- `beta_skill_params: object { skill_id, type, version }`
+- `beta_skill_params: object`
 
   Specification for a skill to be loaded in a container (request model).
 
   - `skill_id: string`
 
     Skill ID
+
+    maxLength: 64, minLength: 1
 
   - `type: "anthropic" or "custom"`
 
@@ -22346,6 +24840,8 @@ ant beta:messages count-tokens \
   - `version: optional string`
 
     Skill version or 'latest' for most recent version
+
+    maxLength: 64, minLength: 1
 
 ### Beta Stop Reason
 
@@ -22369,7 +24865,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Block
 
-- `beta_text_block: object { citations, text, type }`
+- `beta_text_block: object`
 
   - `citations: array of BetaTextCitation`
 
@@ -22377,11 +24873,13 @@ ant beta:messages count-tokens \
 
     The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-    - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+    - `beta_citation_char_location: object`
 
       - `cited_text: string`
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string`
 
@@ -22391,13 +24889,17 @@ ant beta:messages count-tokens \
 
       - `start_char_index: number`
 
+        minimum: 0
+
       - `type: "char_location"`
 
-    - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+    - `beta_citation_page_location: object`
 
       - `cited_text: string`
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string`
 
@@ -22407,9 +24909,11 @@ ant beta:messages count-tokens \
 
       - `start_page_number: number`
 
+        minimum: 1
+
       - `type: "page_location"`
 
-    - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+    - `beta_citation_content_block_location: object`
 
       - `cited_text: string`
 
@@ -22418,6 +24922,8 @@ ant beta:messages count-tokens \
         Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
       - `document_index: number`
+
+        minimum: 0
 
       - `document_title: string`
 
@@ -22433,9 +24939,11 @@ ant beta:messages count-tokens \
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `type: "content_block_location"`
 
-    - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+    - `beta_citations_web_search_result_location: object`
 
       - `cited_text: string`
 
@@ -22443,11 +24951,13 @@ ant beta:messages count-tokens \
 
       - `title: string`
 
+        maxLength: 512
+
       - `type: "web_search_result_location"`
 
       - `url: string`
 
-    - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+    - `beta_citation_search_result_location: object`
 
       - `cited_text: string`
 
@@ -22467,11 +24977,15 @@ ant beta:messages count-tokens \
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: string`
 
       - `start_block_index: number`
 
         0-based index of the first cited block in the source's `content` array.
+
+        minimum: 0
 
       - `title: string`
 
@@ -22479,17 +24993,21 @@ ant beta:messages count-tokens \
 
   - `text: string`
 
+    maxLength: 5000000, minLength: 0
+
   - `type: "text"`
 
 ### Beta Text Block Param
 
-- `beta_text_block_param: object { text, type, cache_control, citations }`
+- `beta_text_block_param: object`
 
   - `text: string`
 
+    minLength: 1
+
   - `type: "text"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -22512,35 +25030,47 @@ ant beta:messages count-tokens \
 
   - `citations: optional array of BetaTextCitationParam`
 
-    - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+    - `beta_citation_char_location_param: object`
 
       - `cited_text: string`
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string`
+
+        maxLength: 500, minLength: 1
 
       - `end_char_index: number`
 
       - `start_char_index: number`
 
+        minimum: 0
+
       - `type: "char_location"`
 
-    - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+    - `beta_citation_page_location_param: object`
 
       - `cited_text: string`
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string`
+
+        maxLength: 500, minLength: 1
 
       - `end_page_number: number`
 
       - `start_page_number: number`
 
+        minimum: 1
+
       - `type: "page_location"`
 
-    - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+    - `beta_citation_content_block_location_param: object`
 
       - `cited_text: string`
 
@@ -22550,7 +25080,11 @@ ant beta:messages count-tokens \
 
       - `document_index: number`
 
+        minimum: 0
+
       - `document_title: string`
+
+        maxLength: 500, minLength: 1
 
       - `end_block_index: number`
 
@@ -22562,9 +25096,11 @@ ant beta:messages count-tokens \
 
         0-based index of the first cited block in the source's `content` array.
 
+        minimum: 0
+
       - `type: "content_block_location"`
 
-    - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+    - `beta_citation_web_search_result_location_param: object`
 
       - `cited_text: string`
 
@@ -22572,11 +25108,15 @@ ant beta:messages count-tokens \
 
       - `title: string`
 
+        maxLength: 512, minLength: 1
+
       - `type: "web_search_result_location"`
 
       - `url: string`
 
-    - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+        minLength: 1
+
+    - `beta_citation_search_result_location_param: object`
 
       - `cited_text: string`
 
@@ -22596,11 +25136,15 @@ ant beta:messages count-tokens \
 
         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+        minimum: 0
+
       - `source: string`
 
       - `start_block_index: number`
 
         0-based index of the first cited block in the source's `content` array.
+
+        minimum: 0
 
       - `title: string`
 
@@ -22610,11 +25154,13 @@ ant beta:messages count-tokens \
 
 - `beta_text_citation: BetaCitationCharLocation or BetaCitationPageLocation or BetaCitationContentBlockLocation or 2 more`
 
-  - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+  - `beta_citation_char_location: object`
 
     - `cited_text: string`
 
     - `document_index: number`
+
+      minimum: 0
 
     - `document_title: string`
 
@@ -22624,13 +25170,17 @@ ant beta:messages count-tokens \
 
     - `start_char_index: number`
 
+      minimum: 0
+
     - `type: "char_location"`
 
-  - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+  - `beta_citation_page_location: object`
 
     - `cited_text: string`
 
     - `document_index: number`
+
+      minimum: 0
 
     - `document_title: string`
 
@@ -22640,9 +25190,11 @@ ant beta:messages count-tokens \
 
     - `start_page_number: number`
 
+      minimum: 1
+
     - `type: "page_location"`
 
-  - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+  - `beta_citation_content_block_location: object`
 
     - `cited_text: string`
 
@@ -22651,6 +25203,8 @@ ant beta:messages count-tokens \
       Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
     - `document_index: number`
+
+      minimum: 0
 
     - `document_title: string`
 
@@ -22666,9 +25220,11 @@ ant beta:messages count-tokens \
 
       0-based index of the first cited block in the source's `content` array.
 
+      minimum: 0
+
     - `type: "content_block_location"`
 
-  - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+  - `beta_citations_web_search_result_location: object`
 
     - `cited_text: string`
 
@@ -22676,11 +25232,13 @@ ant beta:messages count-tokens \
 
     - `title: string`
 
+      maxLength: 512
+
     - `type: "web_search_result_location"`
 
     - `url: string`
 
-  - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+  - `beta_citation_search_result_location: object`
 
     - `cited_text: string`
 
@@ -22700,11 +25258,15 @@ ant beta:messages count-tokens \
 
       Counted separately from `document_index`; server-side web search results are not included in this count.
 
+      minimum: 0
+
     - `source: string`
 
     - `start_block_index: number`
 
       0-based index of the first cited block in the source's `content` array.
+
+      minimum: 0
 
     - `title: string`
 
@@ -22714,35 +25276,47 @@ ant beta:messages count-tokens \
 
 - `beta_text_citation_param: BetaCitationCharLocationParam or BetaCitationPageLocationParam or BetaCitationContentBlockLocationParam or 2 more`
 
-  - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+  - `beta_citation_char_location_param: object`
 
     - `cited_text: string`
 
     - `document_index: number`
 
+      minimum: 0
+
     - `document_title: string`
+
+      maxLength: 500, minLength: 1
 
     - `end_char_index: number`
 
     - `start_char_index: number`
 
+      minimum: 0
+
     - `type: "char_location"`
 
-  - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+  - `beta_citation_page_location_param: object`
 
     - `cited_text: string`
 
     - `document_index: number`
 
+      minimum: 0
+
     - `document_title: string`
+
+      maxLength: 500, minLength: 1
 
     - `end_page_number: number`
 
     - `start_page_number: number`
 
+      minimum: 1
+
     - `type: "page_location"`
 
-  - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+  - `beta_citation_content_block_location_param: object`
 
     - `cited_text: string`
 
@@ -22752,7 +25326,11 @@ ant beta:messages count-tokens \
 
     - `document_index: number`
 
+      minimum: 0
+
     - `document_title: string`
+
+      maxLength: 500, minLength: 1
 
     - `end_block_index: number`
 
@@ -22764,9 +25342,11 @@ ant beta:messages count-tokens \
 
       0-based index of the first cited block in the source's `content` array.
 
+      minimum: 0
+
     - `type: "content_block_location"`
 
-  - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+  - `beta_citation_web_search_result_location_param: object`
 
     - `cited_text: string`
 
@@ -22774,11 +25354,15 @@ ant beta:messages count-tokens \
 
     - `title: string`
 
+      maxLength: 512, minLength: 1
+
     - `type: "web_search_result_location"`
 
     - `url: string`
 
-  - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+      minLength: 1
+
+  - `beta_citation_search_result_location_param: object`
 
     - `cited_text: string`
 
@@ -22798,11 +25382,15 @@ ant beta:messages count-tokens \
 
       Counted separately from `document_index`; server-side web search results are not included in this count.
 
+      minimum: 0
+
     - `source: string`
 
     - `start_block_index: number`
 
       0-based index of the first cited block in the source's `content` array.
+
+      minimum: 0
 
     - `title: string`
 
@@ -22810,7 +25398,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Delta
 
-- `beta_text_delta: object { text, type }`
+- `beta_text_delta: object`
 
   - `text: string`
 
@@ -22818,7 +25406,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution Create Result Block
 
-- `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+- `beta_text_editor_code_execution_create_result_block: object`
 
   - `is_file_update: boolean`
 
@@ -22826,7 +25414,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution Create Result Block Param
 
-- `beta_text_editor_code_execution_create_result_block_param: object { is_file_update, type }`
+- `beta_text_editor_code_execution_create_result_block_param: object`
 
   - `is_file_update: boolean`
 
@@ -22834,7 +25422,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution Str Replace Result Block
 
-- `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+- `beta_text_editor_code_execution_str_replace_result_block: object`
 
   - `lines: array of string`
 
@@ -22850,7 +25438,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution Str Replace Result Block Param
 
-- `beta_text_editor_code_execution_str_replace_result_block_param: object { type, lines, new_lines, 3 more }`
+- `beta_text_editor_code_execution_str_replace_result_block_param: object`
 
   - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -22866,11 +25454,11 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution Tool Result Block
 
-- `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+- `beta_text_editor_code_execution_tool_result_block: object`
 
   - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-    - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+    - `beta_text_editor_code_execution_tool_result_error: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -22888,7 +25476,7 @@ ant beta:messages count-tokens \
 
       - `type: "text_editor_code_execution_tool_result_error"`
 
-    - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+    - `beta_text_editor_code_execution_view_result_block: object`
 
       - `content: string`
 
@@ -22908,13 +25496,13 @@ ant beta:messages count-tokens \
 
       - `type: "text_editor_code_execution_view_result"`
 
-    - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+    - `beta_text_editor_code_execution_create_result_block: object`
 
       - `is_file_update: boolean`
 
       - `type: "text_editor_code_execution_create_result"`
 
-    - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+    - `beta_text_editor_code_execution_str_replace_result_block: object`
 
       - `lines: array of string`
 
@@ -22930,15 +25518,17 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "text_editor_code_execution_tool_result"`
 
 ### Beta Text Editor Code Execution Tool Result Block Param
 
-- `beta_text_editor_code_execution_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+- `beta_text_editor_code_execution_tool_result_block_param: object`
 
   - `content: BetaTextEditorCodeExecutionToolResultErrorParam or BetaTextEditorCodeExecutionViewResultBlockParam or BetaTextEditorCodeExecutionCreateResultBlockParam or BetaTextEditorCodeExecutionStrReplaceResultBlockParam`
 
-    - `beta_text_editor_code_execution_tool_result_error_param: object { error_code, type, error_message }`
+    - `beta_text_editor_code_execution_tool_result_error_param: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -22956,7 +25546,7 @@ ant beta:messages count-tokens \
 
       - `error_message: optional string`
 
-    - `beta_text_editor_code_execution_view_result_block_param: object { content, file_type, type, 3 more }`
+    - `beta_text_editor_code_execution_view_result_block_param: object`
 
       - `content: string`
 
@@ -22976,13 +25566,13 @@ ant beta:messages count-tokens \
 
       - `total_lines: optional number`
 
-    - `beta_text_editor_code_execution_create_result_block_param: object { is_file_update, type }`
+    - `beta_text_editor_code_execution_create_result_block_param: object`
 
       - `is_file_update: boolean`
 
       - `type: "text_editor_code_execution_create_result"`
 
-    - `beta_text_editor_code_execution_str_replace_result_block_param: object { type, lines, new_lines, 3 more }`
+    - `beta_text_editor_code_execution_str_replace_result_block_param: object`
 
       - `type: "text_editor_code_execution_str_replace_result"`
 
@@ -22998,9 +25588,11 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "text_editor_code_execution_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23023,7 +25615,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution Tool Result Error
 
-- `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+- `beta_text_editor_code_execution_tool_result_error: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -23043,7 +25635,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution Tool Result Error Param
 
-- `beta_text_editor_code_execution_tool_result_error_param: object { error_code, type, error_message }`
+- `beta_text_editor_code_execution_tool_result_error_param: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -23063,7 +25655,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution View Result Block
 
-- `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+- `beta_text_editor_code_execution_view_result_block: object`
 
   - `content: string`
 
@@ -23085,7 +25677,7 @@ ant beta:messages count-tokens \
 
 ### Beta Text Editor Code Execution View Result Block Param
 
-- `beta_text_editor_code_execution_view_result_block_param: object { content, file_type, type, 3 more }`
+- `beta_text_editor_code_execution_view_result_block_param: object`
 
   - `content: string`
 
@@ -23107,7 +25699,7 @@ ant beta:messages count-tokens \
 
 ### Beta Thinking Block
 
-- `beta_thinking_block: object { signature, thinking, type }`
+- `beta_thinking_block: object`
 
   - `signature: string`
 
@@ -23125,7 +25717,7 @@ ant beta:messages count-tokens \
 
 ### Beta Thinking Block Param
 
-- `beta_thinking_block_param: object { signature, thinking, type }`
+- `beta_thinking_block_param: object`
 
   - `signature: string`
 
@@ -23141,7 +25733,7 @@ ant beta:messages count-tokens \
 
 ### Beta Thinking Config Adaptive
 
-- `beta_thinking_config_adaptive: object { type, display }`
+- `beta_thinking_config_adaptive: object`
 
   - `type: "adaptive"`
 
@@ -23155,13 +25747,13 @@ ant beta:messages count-tokens \
 
 ### Beta Thinking Config Disabled
 
-- `beta_thinking_config_disabled: object { type }`
+- `beta_thinking_config_disabled: object`
 
   - `type: "disabled"`
 
 ### Beta Thinking Config Enabled
 
-- `beta_thinking_config_enabled: object { budget_tokens, type, display }`
+- `beta_thinking_config_enabled: object`
 
   - `budget_tokens: number`
 
@@ -23170,6 +25762,8 @@ ant beta:messages count-tokens \
     Must be ≥1024 and less than `max_tokens`.
 
     See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
+    minimum: 1024
 
   - `type: "enabled"`
 
@@ -23191,7 +25785,7 @@ ant beta:messages count-tokens \
 
   See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-  - `beta_thinking_config_enabled: object { budget_tokens, type, display }`
+  - `beta_thinking_config_enabled: object`
 
     - `budget_tokens: number`
 
@@ -23200,6 +25794,8 @@ ant beta:messages count-tokens \
       Must be ≥1024 and less than `max_tokens`.
 
       See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
+
+      minimum: 1024
 
     - `type: "enabled"`
 
@@ -23211,11 +25807,11 @@ ant beta:messages count-tokens \
 
       - `"omitted"`
 
-  - `beta_thinking_config_disabled: object { type }`
+  - `beta_thinking_config_disabled: object`
 
     - `type: "disabled"`
 
-  - `beta_thinking_config_adaptive: object { type, display }`
+  - `beta_thinking_config_adaptive: object`
 
     - `type: "adaptive"`
 
@@ -23229,7 +25825,7 @@ ant beta:messages count-tokens \
 
 ### Beta Thinking Delta
 
-- `beta_thinking_delta: object { estimated_tokens, thinking, type }`
+- `beta_thinking_delta: object`
 
   - `estimated_tokens: number`
 
@@ -23243,21 +25839,25 @@ ant beta:messages count-tokens \
 
 ### Beta Thinking Turns
 
-- `beta_thinking_turns: object { type, value }`
+- `beta_thinking_turns: object`
 
   - `type: "thinking_turns"`
 
   - `value: number`
 
+    minimum: 1
+
 ### Beta Token Task Budget
 
-- `beta_token_task_budget: object { total, type, remaining }`
+- `beta_token_task_budget: object`
 
   User-configurable total token budget across contexts.
 
   - `total: number`
 
     Total token budget across all contexts in the session.
+
+    minimum: 1024
 
   - `type: "tokens"`
 
@@ -23267,11 +25867,13 @@ ant beta:messages count-tokens \
 
     Remaining tokens in the budget. Use this to track usage across contexts when implementing compaction client-side. Defaults to total if not provided.
 
+    minimum: 0
+
 ### Beta Tool
 
-- `beta_tool: object { input_schema, name, allowed_callers, 7 more }`
+- `beta_tool: object`
 
-  - `input_schema: object { type, properties, required }`
+  - `input_schema: object`
 
     [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
@@ -23289,6 +25891,8 @@ ant beta:messages count-tokens \
 
     This is how the tool will be called by the model and in `tool_use` blocks.
 
+    maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+
   - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
     - `"direct"`
@@ -23299,7 +25903,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23342,11 +25946,9 @@ ant beta:messages count-tokens \
 
   - `type: optional "custom"`
 
-    - `"custom"`
-
 ### Beta Tool Bash 20241022
 
-- `beta_tool_bash_20241022: object { name, type, allowed_callers, 4 more }`
+- `beta_tool_bash_20241022: object`
 
   - `name: "bash"`
 
@@ -23366,7 +25968,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23399,7 +26001,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Bash 20250124
 
-- `beta_tool_bash_20250124: object { name, type, allowed_callers, 4 more }`
+- `beta_tool_bash_20250124: object`
 
   - `name: "bash"`
 
@@ -23419,7 +26021,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23452,7 +26054,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Change MCP Tool Reference
 
-- `beta_tool_change_mcp_tool_reference: object { name, server_name, type }`
+- `beta_tool_change_mcp_tool_reference: object`
 
   Reference to a single MCP tool by its server and remote name — the
   same `server_name`/`name` pair `mcp_tool_use` carries.
@@ -23465,7 +26067,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Change MCP Toolset Reference
 
-- `beta_tool_change_mcp_toolset_reference: object { server_name, type }`
+- `beta_tool_change_mcp_toolset_reference: object`
 
   Reference to every tool in the named MCP server's toolset.
 
@@ -23475,7 +26077,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Change Tool Reference
 
-- `beta_tool_change_tool_reference: object { name, type }`
+- `beta_tool_change_tool_reference: object`
 
   Reference to a single tool the caller declared directly in
   `tools[]`. Does not accept the composed `{server}_{name}` form the
@@ -23483,6 +26085,8 @@ ant beta:messages count-tokens \
   `mcp_toolset_reference` for those.
 
   - `name: string`
+
+    pattern: ^[a-zA-Z0-9_-]{1,128}$
 
   - `type: "tool_reference"`
 
@@ -23492,7 +26096,7 @@ ant beta:messages count-tokens \
 
   How the model should use the provided tools. The model can use a specific tool, any available tool, decide by itself, or not use tools at all.
 
-  - `beta_tool_choice_auto: object { type, disable_parallel_tool_use }`
+  - `beta_tool_choice_auto: object`
 
     The model will automatically decide whether to use tools.
 
@@ -23504,7 +26108,7 @@ ant beta:messages count-tokens \
 
       Defaults to `false`. If set to `true`, the model will output at most one tool use.
 
-  - `beta_tool_choice_any: object { type, disable_parallel_tool_use }`
+  - `beta_tool_choice_any: object`
 
     The model will use any available tools.
 
@@ -23516,7 +26120,7 @@ ant beta:messages count-tokens \
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `beta_tool_choice_tool: object { name, type, disable_parallel_tool_use }`
+  - `beta_tool_choice_tool: object`
 
     The model will use the specified tool with `tool_choice.name`.
 
@@ -23532,7 +26136,7 @@ ant beta:messages count-tokens \
 
       Defaults to `false`. If set to `true`, the model will output exactly one tool use.
 
-  - `beta_tool_choice_none: object { type }`
+  - `beta_tool_choice_none: object`
 
     The model will not be allowed to use tools.
 
@@ -23540,7 +26144,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Choice Any
 
-- `beta_tool_choice_any: object { type, disable_parallel_tool_use }`
+- `beta_tool_choice_any: object`
 
   The model will use any available tools.
 
@@ -23554,7 +26158,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Choice Auto
 
-- `beta_tool_choice_auto: object { type, disable_parallel_tool_use }`
+- `beta_tool_choice_auto: object`
 
   The model will automatically decide whether to use tools.
 
@@ -23568,7 +26172,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Choice None
 
-- `beta_tool_choice_none: object { type }`
+- `beta_tool_choice_none: object`
 
   The model will not be allowed to use tools.
 
@@ -23576,7 +26180,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Choice Tool
 
-- `beta_tool_choice_tool: object { name, type, disable_parallel_tool_use }`
+- `beta_tool_choice_tool: object`
 
   The model will use the specified tool with `tool_choice.name`.
 
@@ -23594,15 +26198,19 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Computer Use 20241022
 
-- `beta_tool_computer_use_20241022: object { display_height_px, display_width_px, name, 7 more }`
+- `beta_tool_computer_use_20241022: object`
 
   - `display_height_px: number`
 
     The height of the display in pixels.
 
+    minimum: 1
+
   - `display_width_px: number`
 
     The width of the display in pixels.
+
+    minimum: 1
 
   - `name: "computer"`
 
@@ -23622,7 +26230,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23651,6 +26259,8 @@ ant beta:messages count-tokens \
 
     The X11 display number (e.g. 0, 1) for the display.
 
+    minimum: 0
+
   - `input_examples: optional array of map[unknown]`
 
   - `strict: optional boolean`
@@ -23659,15 +26269,19 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Computer Use 20250124
 
-- `beta_tool_computer_use_20250124: object { display_height_px, display_width_px, name, 7 more }`
+- `beta_tool_computer_use_20250124: object`
 
   - `display_height_px: number`
 
     The height of the display in pixels.
 
+    minimum: 1
+
   - `display_width_px: number`
 
     The width of the display in pixels.
+
+    minimum: 1
 
   - `name: "computer"`
 
@@ -23687,7 +26301,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23716,6 +26330,8 @@ ant beta:messages count-tokens \
 
     The X11 display number (e.g. 0, 1) for the display.
 
+    minimum: 0
+
   - `input_examples: optional array of map[unknown]`
 
   - `strict: optional boolean`
@@ -23724,15 +26340,19 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Computer Use 20251124
 
-- `beta_tool_computer_use_20251124: object { display_height_px, display_width_px, name, 8 more }`
+- `beta_tool_computer_use_20251124: object`
 
   - `display_height_px: number`
 
     The height of the display in pixels.
 
+    minimum: 1
+
   - `display_width_px: number`
 
     The width of the display in pixels.
+
+    minimum: 1
 
   - `name: "computer"`
 
@@ -23752,7 +26372,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23781,6 +26401,8 @@ ant beta:messages count-tokens \
 
     The X11 display number (e.g. 0, 1) for the display.
 
+    minimum: 0
+
   - `enable_zoom: optional boolean`
 
     Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -23793,23 +26415,27 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Reference Block
 
-- `beta_tool_reference_block: object { tool_name, type }`
+- `beta_tool_reference_block: object`
 
   - `tool_name: string`
+
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
   - `type: "tool_reference"`
 
 ### Beta Tool Reference Block Param
 
-- `beta_tool_reference_block_param: object { tool_name, type, cache_control }`
+- `beta_tool_reference_block_param: object`
 
   Tool reference block that can be included in tool_result content.
 
   - `tool_name: string`
 
+    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
   - `type: "tool_reference"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23832,13 +26458,15 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Result Block Param
 
-- `beta_tool_result_block_param: object { tool_use_id, type, cache_control, 3 more }`
+- `beta_tool_result_block_param: object`
 
   - `tool_use_id: string`
 
+    pattern: ^[a-zA-Z0-9_-]+$
+
   - `type: "tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -23861,13 +26489,15 @@ ant beta:messages count-tokens \
 
   - `content: optional array of BetaTextBlockParam or BetaImageBlockParam or BetaSearchResultBlockParam or 3 more`
 
-    - `beta_text_block_param: object { text, type, cache_control, citations }`
+    - `beta_text_block_param: object`
 
       - `text: string`
 
+        minLength: 1
+
       - `type: "text"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -23886,35 +26516,47 @@ ant beta:messages count-tokens \
 
       - `citations: optional array of BetaTextCitationParam`
 
-        - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_char_location_param: object`
 
           - `cited_text: string`
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_char_index: number`
 
           - `start_char_index: number`
 
+            minimum: 0
+
           - `type: "char_location"`
 
-        - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_page_location_param: object`
 
           - `cited_text: string`
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_page_number: number`
 
           - `start_page_number: number`
 
+            minimum: 1
+
           - `type: "page_location"`
 
-        - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+        - `beta_citation_content_block_location_param: object`
 
           - `cited_text: string`
 
@@ -23924,7 +26566,11 @@ ant beta:messages count-tokens \
 
           - `document_index: number`
 
+            minimum: 0
+
           - `document_title: string`
+
+            maxLength: 500, minLength: 1
 
           - `end_block_index: number`
 
@@ -23936,9 +26582,11 @@ ant beta:messages count-tokens \
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `type: "content_block_location"`
 
-        - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+        - `beta_citation_web_search_result_location_param: object`
 
           - `cited_text: string`
 
@@ -23946,11 +26594,15 @@ ant beta:messages count-tokens \
 
           - `title: string`
 
+            maxLength: 512, minLength: 1
+
           - `type: "web_search_result_location"`
 
           - `url: string`
 
-        - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+            minLength: 1
+
+        - `beta_citation_search_result_location_param: object`
 
           - `cited_text: string`
 
@@ -23970,23 +26622,29 @@ ant beta:messages count-tokens \
 
             Counted separately from `document_index`; server-side web search results are not included in this count.
 
+            minimum: 0
+
           - `source: string`
 
           - `start_block_index: number`
 
             0-based index of the first cited block in the source's `content` array.
 
+            minimum: 0
+
           - `title: string`
 
           - `type: "search_result_location"`
 
-    - `beta_image_block_param: object { source, type, cache_control, transformations }`
+    - `beta_image_block_param: object`
 
       - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-        - `beta_base64_image_source: object { data, media_type, type }`
+        - `beta_base64_image_source: object`
 
           - `data: string`
+
+            format: byte
 
           - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -24000,13 +26658,13 @@ ant beta:messages count-tokens \
 
           - `type: "base64"`
 
-        - `beta_url_image_source: object { type, url }`
+        - `beta_url_image_source: object`
 
           - `type: "url"`
 
           - `url: string`
 
-        - `beta_file_image_source: object { file_id, type }`
+        - `beta_file_image_source: object`
 
           - `file_id: string`
 
@@ -24014,7 +26672,7 @@ ant beta:messages count-tokens \
 
       - `type: "image"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -24031,7 +26689,7 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-      - `transformations: optional object { oversized_image }`
+      - `transformations: optional object`
 
         Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -24043,15 +26701,17 @@ ant beta:messages count-tokens \
 
           - `"error"`
 
-    - `beta_search_result_block_param: object { content, source, title, 3 more }`
+    - `beta_search_result_block_param: object`
 
       - `content: array of BetaTextBlockParam`
 
         - `text: string`
 
+          minLength: 1
+
         - `type: "text"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -24063,7 +26723,7 @@ ant beta:messages count-tokens \
 
       - `type: "search_result"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -24080,23 +26740,25 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-      - `citations: optional object { enabled }`
+      - `citations: optional object`
 
         - `enabled: optional boolean`
 
-    - `beta_request_document_block: object { source, type, cache_control, 3 more }`
+    - `beta_request_document_block: object`
 
       - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
-        - `beta_base64_pdf_source: object { data, media_type, type }`
+        - `beta_base64_pdf_source: object`
 
           - `data: string`
+
+            format: byte
 
           - `media_type: "application/pdf"`
 
           - `type: "base64"`
 
-        - `beta_plain_text_source: object { data, media_type, type }`
+        - `beta_plain_text_source: object`
 
           - `data: string`
 
@@ -24104,7 +26766,7 @@ ant beta:messages count-tokens \
 
           - `type: "text"`
 
-        - `beta_content_block_source: object { content, type }`
+        - `beta_content_block_source: object`
 
           - `content: string or array of BetaContentBlockSourceContent`
 
@@ -24112,41 +26774,43 @@ ant beta:messages count-tokens \
 
             - `beta_content_block_source_content: array of BetaContentBlockSourceContent`
 
-              - `beta_text_block_param: object { text, type, cache_control, citations }`
+              - `beta_text_block_param: object`
 
                 - `text: string`
 
+                  minLength: 1
+
                 - `type: "text"`
 
-                - `cache_control: optional object { type, ttl }`
+                - `cache_control: optional object`
 
                   Create a cache control breakpoint at this content block.
 
                 - `citations: optional array of BetaTextCitationParam`
 
-              - `beta_image_block_param: object { source, type, cache_control, transformations }`
+              - `beta_image_block_param: object`
 
                 - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
                 - `type: "image"`
 
-                - `cache_control: optional object { type, ttl }`
+                - `cache_control: optional object`
 
                   Create a cache control breakpoint at this content block.
 
-                - `transformations: optional object { oversized_image }`
+                - `transformations: optional object`
 
                   Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
           - `type: "content"`
 
-        - `beta_url_pdf_source: object { type, url }`
+        - `beta_url_pdf_source: object`
 
           - `type: "url"`
 
           - `url: string`
 
-        - `beta_file_document_source: object { file_id, type }`
+        - `beta_file_document_source: object`
 
           - `file_id: string`
 
@@ -24154,7 +26818,7 @@ ant beta:messages count-tokens \
 
       - `type: "document"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -24171,23 +26835,29 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-      - `citations: optional object { enabled }`
+      - `citations: optional object`
 
         - `enabled: optional boolean`
 
       - `context: optional string`
 
+        minLength: 1
+
       - `title: optional string`
 
-    - `beta_tool_reference_block_param: object { tool_name, type, cache_control }`
+        maxLength: 500, minLength: 1
+
+    - `beta_tool_reference_block_param: object`
 
       Tool reference block that can be included in tool_result content.
 
       - `tool_name: string`
 
+        maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
       - `type: "tool_reference"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -24204,7 +26874,7 @@ ant beta:messages count-tokens \
 
           Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `beta_browser_state_block_param: object { tabs, type, cache_control, state_changes }`
+    - `beta_browser_state_block_param: object`
 
       The caller's browser state after a browser toolset member call —
       the full inventory of open tabs, which tab is active, and any side
@@ -24218,17 +26888,25 @@ ant beta:messages count-tokens \
 
         All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+        maxItems: 100
+
         - `tab_id: string`
 
           The caller-assigned identifier for this tab, unique within the inventory.
+
+          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `title: string`
 
           The title of the page the tab is showing. May be empty.
 
+          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
         - `url: string`
 
           The URL of the page the tab is showing. May be empty.
+
+          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
         - `active: optional boolean`
 
@@ -24236,7 +26914,7 @@ ant beta:messages count-tokens \
 
       - `type: "browser_state"`
 
-      - `cache_control: optional object { type, ttl }`
+      - `cache_control: optional object`
 
         Create a cache control breakpoint at this content block.
 
@@ -24257,7 +26935,9 @@ ant beta:messages count-tokens \
 
         Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
 
-        - `beta_browser_state_change_tab_opened: object { tab_id, type }`
+        maxItems: 200, minItems: 1
+
+        - `beta_browser_state_change_tab_opened: object`
 
           A tab this call's execution opened that remains open at its end —
           the creation delta of the `tabs` inventory, not an event log.
@@ -24271,9 +26951,11 @@ ant beta:messages count-tokens \
 
             The `tab_id` of the opened tab, present in `tabs`.
 
+            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `type: "tab_opened"`
 
-        - `beta_browser_state_change_download_started: object { download_id, type, url }`
+        - `beta_browser_state_change_download_started: object`
 
           A file download that started during this call.
 
@@ -24281,13 +26963,17 @@ ant beta:messages count-tokens \
 
             The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `type: "download_started"`
 
           - `url: string`
 
             The final post-redirect URL the download was served from.
 
-        - `beta_browser_state_change_download_completed: object { download_id, type, url, 2 more }`
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
+        - `beta_browser_state_change_download_completed: object`
 
           A file download that finished during this call, reported with the
           same `download_id` as its `download_started` — or without a prior
@@ -24298,21 +26984,29 @@ ant beta:messages count-tokens \
 
             The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `type: "download_completed"`
 
           - `url: string`
 
             The final post-redirect URL the download was served from.
 
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `path: optional string`
 
             Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
+
+            pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
           - `size_bytes: optional number`
 
             The completed download's size.
 
-        - `beta_browser_state_change_download_failed: object { download_id, type, url, error }`
+            minimum: 0
+
+        - `beta_browser_state_change_download_failed: object`
 
           A file download that failed — or was cancelled — during this call.
 
@@ -24320,15 +27014,21 @@ ant beta:messages count-tokens \
 
             The caller-assigned identifier for this download, stable across the state changes reporting it.
 
+            maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `type: "download_failed"`
 
           - `url: string`
 
             The final post-redirect URL the download was served from.
 
+            maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
           - `error: optional string`
 
             The failure or cancellation detail, when known.
+
+            pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
   - `is_error: optional boolean`
 
@@ -24336,9 +27036,11 @@ ant beta:messages count-tokens \
 
     For a toolset member tool_result, the toolset family of the paired tool_use.
 
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
 ### Beta Tool Search Tool Bm25 20251119
 
-- `beta_tool_search_tool_bm25_20251119: object { name, type, allowed_callers, 3 more }`
+- `beta_tool_search_tool_bm25_20251119: object`
 
   - `name: "tool_search_tool_bm25"`
 
@@ -24362,7 +27064,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -24393,7 +27095,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Search Tool Regex 20251119
 
-- `beta_tool_search_tool_regex_20251119: object { name, type, allowed_callers, 3 more }`
+- `beta_tool_search_tool_regex_20251119: object`
 
   - `name: "tool_search_tool_regex"`
 
@@ -24417,7 +27119,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -24448,11 +27150,11 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Search Tool Result Block
 
-- `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+- `beta_tool_search_tool_result_block: object`
 
   - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-    - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+    - `beta_tool_search_tool_result_error: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -24468,11 +27170,13 @@ ant beta:messages count-tokens \
 
       - `type: "tool_search_tool_result_error"`
 
-    - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+    - `beta_tool_search_tool_search_result_block: object`
 
       - `tool_references: array of BetaToolReferenceBlock`
 
         - `tool_name: string`
+
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
         - `type: "tool_reference"`
 
@@ -24480,15 +27184,17 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "tool_search_tool_result"`
 
 ### Beta Tool Search Tool Result Block Param
 
-- `beta_tool_search_tool_result_block_param: object { content, tool_use_id, type, cache_control }`
+- `beta_tool_search_tool_result_block_param: object`
 
   - `content: BetaToolSearchToolResultErrorParam or BetaToolSearchToolSearchResultBlockParam`
 
-    - `beta_tool_search_tool_result_error_param: object { error_code, type, error_message }`
+    - `beta_tool_search_tool_result_error_param: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -24504,15 +27210,17 @@ ant beta:messages count-tokens \
 
       - `error_message: optional string`
 
-    - `beta_tool_search_tool_search_result_block_param: object { tool_references, type }`
+    - `beta_tool_search_tool_search_result_block_param: object`
 
       - `tool_references: array of BetaToolReferenceBlockParam`
 
         - `tool_name: string`
 
+          maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
         - `type: "tool_reference"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -24537,9 +27245,11 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "tool_search_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -24558,7 +27268,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Search Tool Result Error
 
-- `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+- `beta_tool_search_tool_result_error: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -24576,7 +27286,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Search Tool Result Error Param
 
-- `beta_tool_search_tool_result_error_param: object { error_code, type, error_message }`
+- `beta_tool_search_tool_result_error_param: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -24594,11 +27304,13 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Search Tool Search Result Block
 
-- `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+- `beta_tool_search_tool_search_result_block: object`
 
   - `tool_references: array of BetaToolReferenceBlock`
 
     - `tool_name: string`
+
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
     - `type: "tool_reference"`
 
@@ -24606,15 +27318,17 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Search Tool Search Result Block Param
 
-- `beta_tool_search_tool_search_result_block_param: object { tool_references, type }`
+- `beta_tool_search_tool_search_result_block_param: object`
 
   - `tool_references: array of BetaToolReferenceBlockParam`
 
     - `tool_name: string`
 
+      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
     - `type: "tool_reference"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -24639,7 +27353,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Text Editor 20241022
 
-- `beta_tool_text_editor_20241022: object { name, type, allowed_callers, 4 more }`
+- `beta_tool_text_editor_20241022: object`
 
   - `name: "str_replace_editor"`
 
@@ -24659,7 +27373,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -24692,7 +27406,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Text Editor 20250124
 
-- `beta_tool_text_editor_20250124: object { name, type, allowed_callers, 4 more }`
+- `beta_tool_text_editor_20250124: object`
 
   - `name: "str_replace_editor"`
 
@@ -24712,7 +27426,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -24745,7 +27459,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Text Editor 20250429
 
-- `beta_tool_text_editor_20250429: object { name, type, allowed_callers, 4 more }`
+- `beta_tool_text_editor_20250429: object`
 
   - `name: "str_replace_based_edit_tool"`
 
@@ -24765,7 +27479,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -24798,7 +27512,7 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Text Editor 20250728
 
-- `beta_tool_text_editor_20250728: object { name, type, allowed_callers, 5 more }`
+- `beta_tool_text_editor_20250728: object`
 
   - `name: "str_replace_based_edit_tool"`
 
@@ -24818,7 +27532,7 @@ ant beta:messages count-tokens \
 
     - `"code_execution_20260521"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -24849,6 +27563,8 @@ ant beta:messages count-tokens \
 
     Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+    minimum: 1
+
   - `strict: optional boolean`
 
     When true, guarantees schema validation on tool names and inputs
@@ -24859,9 +27575,9 @@ ant beta:messages count-tokens \
 
   Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
-  - `beta_tool: object { input_schema, name, allowed_callers, 7 more }`
+  - `beta_tool: object`
 
-    - `input_schema: object { type, properties, required }`
+    - `input_schema: object`
 
       [JSON schema](https://json-schema.org/draft/2020-12) for this tool's input.
 
@@ -24879,6 +27595,8 @@ ant beta:messages count-tokens \
 
       This is how the tool will be called by the model and in `tool_use` blocks.
 
+      maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
+
     - `allowed_callers: optional array of "direct" or "code_execution_20250825" or "code_execution_20260120" or "code_execution_20260521"`
 
       - `"direct"`
@@ -24889,7 +27607,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -24932,9 +27650,7 @@ ant beta:messages count-tokens \
 
     - `type: optional "custom"`
 
-      - `"custom"`
-
-  - `beta_tool_bash_20241022: object { name, type, allowed_callers, 4 more }`
+  - `beta_tool_bash_20241022: object`
 
     - `name: "bash"`
 
@@ -24954,7 +27670,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -24981,7 +27697,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_bash_20250124: object { name, type, allowed_callers, 4 more }`
+  - `beta_tool_bash_20250124: object`
 
     - `name: "bash"`
 
@@ -25001,7 +27717,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25028,7 +27744,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_code_execution_tool_20250522: object { name, type, allowed_callers, 3 more }`
+  - `beta_code_execution_tool_20250522: object`
 
     - `name: "code_execution"`
 
@@ -25048,7 +27764,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25073,7 +27789,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_code_execution_tool_20250825: object { name, type, allowed_callers, 3 more }`
+  - `beta_code_execution_tool_20250825: object`
 
     - `name: "code_execution"`
 
@@ -25093,7 +27809,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25118,7 +27834,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_code_execution_tool_20260120: object { name, type, allowed_callers, 3 more }`
+  - `beta_code_execution_tool_20260120: object`
 
     Code execution tool with REPL state persistence (daemon mode + gVisor checkpoint).
 
@@ -25140,7 +27856,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25165,7 +27881,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_code_execution_tool_20260521: object { name, type, allowed_callers, 3 more }`
+  - `beta_code_execution_tool_20260521: object`
 
     Code execution tool with REPL state persistence.
 
@@ -25187,7 +27903,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25212,7 +27928,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_browser_toolset_20260801: object { type, allowed_callers, cache_control, configs }`
+  - `beta_browser_toolset_20260801: object`
 
     The browser toolset: a single `tools[]` entry (carrying no
     `name`) that declares the browser tool family. The model is served
@@ -25231,7 +27947,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25248,7 +27964,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `configs: optional object { close_tab, double_click, file_upload, 28 more }`
+    - `configs: optional object`
 
       Per-member configuration for `browser_toolset_20260801`: one
       optional field per member tool, keyed by the member name — the same
@@ -25257,7 +27973,7 @@ ant beta:messages count-tokens \
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
 
-      - `close_tab: optional object { defer_loading, enabled }`
+      - `close_tab: optional object`
 
         `close_tab`'s config overrides.
 
@@ -25269,7 +27985,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `double_click: optional object { defer_loading, enabled }`
+      - `double_click: optional object`
 
         `double_click`'s config overrides.
 
@@ -25281,7 +27997,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `file_upload: optional object { defer_loading, enabled }`
+      - `file_upload: optional object`
 
         `file_upload`'s config overrides.
 
@@ -25293,7 +28009,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `find: optional object { defer_loading, enabled }`
+      - `find: optional object`
 
         `find`'s config overrides.
 
@@ -25305,7 +28021,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `form_input: optional object { defer_loading, enabled }`
+      - `form_input: optional object`
 
         `form_input`'s config overrides.
 
@@ -25317,7 +28033,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `get_page_text: optional object { defer_loading, enabled }`
+      - `get_page_text: optional object`
 
         `get_page_text`'s config overrides.
 
@@ -25329,7 +28045,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hold_key: optional object { defer_loading, enabled }`
+      - `hold_key: optional object`
 
         `hold_key`'s config overrides.
 
@@ -25341,7 +28057,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hover: optional object { defer_loading, enabled }`
+      - `hover: optional object`
 
         `hover`'s config overrides.
 
@@ -25353,7 +28069,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `javascript_exec: optional object { defer_loading, enabled }`
+      - `javascript_exec: optional object`
 
         `javascript_exec`'s config overrides.
 
@@ -25365,7 +28081,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `key: optional object { defer_loading, enabled }`
+      - `key: optional object`
 
         `key`'s config overrides.
 
@@ -25377,7 +28093,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click: optional object { defer_loading, enabled }`
+      - `left_click: optional object`
 
         `left_click`'s config overrides.
 
@@ -25389,7 +28105,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click_drag: optional object { defer_loading, enabled }`
+      - `left_click_drag: optional object`
 
         `left_click_drag`'s config overrides.
 
@@ -25401,7 +28117,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_down: optional object { defer_loading, enabled }`
+      - `left_mouse_down: optional object`
 
         `left_mouse_down`'s config overrides.
 
@@ -25413,7 +28129,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_up: optional object { defer_loading, enabled }`
+      - `left_mouse_up: optional object`
 
         `left_mouse_up`'s config overrides.
 
@@ -25425,7 +28141,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `list_tabs: optional object { defer_loading, enabled }`
+      - `list_tabs: optional object`
 
         `list_tabs`'s config overrides.
 
@@ -25437,7 +28153,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `middle_click: optional object { defer_loading, enabled }`
+      - `middle_click: optional object`
 
         `middle_click`'s config overrides.
 
@@ -25449,7 +28165,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `mouse_move: optional object { defer_loading, enabled }`
+      - `mouse_move: optional object`
 
         `mouse_move`'s config overrides.
 
@@ -25461,7 +28177,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `navigate: optional object { defer_loading, enabled }`
+      - `navigate: optional object`
 
         `navigate`'s config overrides.
 
@@ -25473,7 +28189,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `new_tab: optional object { defer_loading, enabled }`
+      - `new_tab: optional object`
 
         `new_tab`'s config overrides.
 
@@ -25485,7 +28201,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_console: optional object { defer_loading, enabled }`
+      - `read_console: optional object`
 
         `read_console`'s config overrides.
 
@@ -25497,7 +28213,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_network: optional object { defer_loading, enabled }`
+      - `read_network: optional object`
 
         `read_network`'s config overrides.
 
@@ -25509,7 +28225,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `read_page: optional object { defer_loading, enabled }`
+      - `read_page: optional object`
 
         `read_page`'s config overrides.
 
@@ -25521,7 +28237,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `right_click: optional object { defer_loading, enabled }`
+      - `right_click: optional object`
 
         `right_click`'s config overrides.
 
@@ -25533,7 +28249,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `screenshot: optional object { defer_loading, enabled }`
+      - `screenshot: optional object`
 
         `screenshot`'s config overrides.
 
@@ -25545,7 +28261,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll: optional object { defer_loading, enabled }`
+      - `scroll: optional object`
 
         `scroll`'s config overrides.
 
@@ -25557,7 +28273,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll_to: optional object { defer_loading, enabled }`
+      - `scroll_to: optional object`
 
         `scroll_to`'s config overrides.
 
@@ -25569,7 +28285,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `switch_tab: optional object { defer_loading, enabled }`
+      - `switch_tab: optional object`
 
         `switch_tab`'s config overrides.
 
@@ -25581,7 +28297,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `triple_click: optional object { defer_loading, enabled }`
+      - `triple_click: optional object`
 
         `triple_click`'s config overrides.
 
@@ -25593,7 +28309,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional object { defer_loading, enabled }`
+      - `type: optional object`
 
         `type`'s config overrides.
 
@@ -25605,7 +28321,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `wait: optional object { defer_loading, enabled }`
+      - `wait: optional object`
 
         `wait`'s config overrides.
 
@@ -25617,7 +28333,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `zoom: optional object { defer_loading, enabled }`
+      - `zoom: optional object`
 
         `zoom`'s config overrides.
 
@@ -25629,15 +28345,19 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `beta_tool_computer_use_20241022: object { display_height_px, display_width_px, name, 7 more }`
+  - `beta_tool_computer_use_20241022: object`
 
     - `display_height_px: number`
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: number`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: "computer"`
 
@@ -25657,7 +28377,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25682,13 +28402,15 @@ ant beta:messages count-tokens \
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_memory_tool_20250818: object { name, type, allowed_callers, 4 more }`
+  - `beta_memory_tool_20250818: object`
 
     - `name: "memory"`
 
@@ -25708,7 +28430,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25735,15 +28457,19 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_computer_use_20250124: object { display_height_px, display_width_px, name, 7 more }`
+  - `beta_tool_computer_use_20250124: object`
 
     - `display_height_px: number`
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: number`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: "computer"`
 
@@ -25763,7 +28489,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25788,13 +28514,15 @@ ant beta:messages count-tokens \
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `input_examples: optional array of map[unknown]`
 
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_text_editor_20241022: object { name, type, allowed_callers, 4 more }`
+  - `beta_tool_text_editor_20241022: object`
 
     - `name: "str_replace_editor"`
 
@@ -25814,7 +28542,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25841,15 +28569,19 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_computer_use_20251124: object { display_height_px, display_width_px, name, 8 more }`
+  - `beta_tool_computer_use_20251124: object`
 
     - `display_height_px: number`
 
       The height of the display in pixels.
 
+      minimum: 1
+
     - `display_width_px: number`
 
       The width of the display in pixels.
+
+      minimum: 1
 
     - `name: "computer"`
 
@@ -25869,7 +28601,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25894,6 +28626,8 @@ ant beta:messages count-tokens \
 
       The X11 display number (e.g. 0, 1) for the display.
 
+      minimum: 0
+
     - `enable_zoom: optional boolean`
 
       Whether to enable an action to take a zoomed-in screenshot of the screen.
@@ -25904,7 +28638,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_computer_toolset_20260801: object { type, allowed_callers, cache_control, configs }`
+  - `beta_computer_toolset_20260801: object`
 
     The computer toolset: a single `tools[]` entry (carrying no
     `name`) that declares the computer tool family. The model is
@@ -25927,7 +28661,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -25944,7 +28678,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `configs: optional object { cursor_position, double_click, hold_key, 14 more }`
+    - `configs: optional object`
 
       Per-member configuration for `computer_toolset_20260801`: one
       optional field per member tool, keyed by the member name — the same
@@ -25953,7 +28687,7 @@ ant beta:messages count-tokens \
       absent. Unknown keys are rejected: the field set is this toolset
       version's complete member set.
 
-      - `cursor_position: optional object { defer_loading, enabled }`
+      - `cursor_position: optional object`
 
         `cursor_position`'s config overrides.
 
@@ -25965,7 +28699,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `double_click: optional object { defer_loading, enabled }`
+      - `double_click: optional object`
 
         `double_click`'s config overrides.
 
@@ -25977,7 +28711,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `hold_key: optional object { defer_loading, enabled }`
+      - `hold_key: optional object`
 
         `hold_key`'s config overrides.
 
@@ -25989,7 +28723,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `key: optional object { defer_loading, enabled }`
+      - `key: optional object`
 
         `key`'s config overrides.
 
@@ -26001,7 +28735,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click: optional object { defer_loading, enabled }`
+      - `left_click: optional object`
 
         `left_click`'s config overrides.
 
@@ -26013,7 +28747,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_click_drag: optional object { defer_loading, enabled }`
+      - `left_click_drag: optional object`
 
         `left_click_drag`'s config overrides.
 
@@ -26025,7 +28759,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_down: optional object { defer_loading, enabled }`
+      - `left_mouse_down: optional object`
 
         `left_mouse_down`'s config overrides.
 
@@ -26037,7 +28771,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `left_mouse_up: optional object { defer_loading, enabled }`
+      - `left_mouse_up: optional object`
 
         `left_mouse_up`'s config overrides.
 
@@ -26049,7 +28783,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `middle_click: optional object { defer_loading, enabled }`
+      - `middle_click: optional object`
 
         `middle_click`'s config overrides.
 
@@ -26061,7 +28795,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `mouse_move: optional object { defer_loading, enabled }`
+      - `mouse_move: optional object`
 
         `mouse_move`'s config overrides.
 
@@ -26073,7 +28807,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `right_click: optional object { defer_loading, enabled }`
+      - `right_click: optional object`
 
         `right_click`'s config overrides.
 
@@ -26085,7 +28819,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `screenshot: optional object { defer_loading, enabled }`
+      - `screenshot: optional object`
 
         `screenshot`'s config overrides.
 
@@ -26097,7 +28831,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `scroll: optional object { defer_loading, enabled }`
+      - `scroll: optional object`
 
         `scroll`'s config overrides.
 
@@ -26109,7 +28843,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `triple_click: optional object { defer_loading, enabled }`
+      - `triple_click: optional object`
 
         `triple_click`'s config overrides.
 
@@ -26121,7 +28855,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `type: optional object { defer_loading, enabled }`
+      - `type: optional object`
 
         `type`'s config overrides.
 
@@ -26133,7 +28867,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `wait: optional object { defer_loading, enabled }`
+      - `wait: optional object`
 
         `wait`'s config overrides.
 
@@ -26145,7 +28879,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-      - `zoom: optional object { defer_loading, enabled }`
+      - `zoom: optional object`
 
         `zoom`'s config overrides.
 
@@ -26157,7 +28891,7 @@ ant beta:messages count-tokens \
 
           Whether this member is offered to the model. Default is per member, per the toolset's documentation. A member whose enabled resolves false is withheld from the served schema.
 
-  - `beta_tool_text_editor_20250124: object { name, type, allowed_callers, 4 more }`
+  - `beta_tool_text_editor_20250124: object`
 
     - `name: "str_replace_editor"`
 
@@ -26177,7 +28911,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26204,7 +28938,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_text_editor_20250429: object { name, type, allowed_callers, 4 more }`
+  - `beta_tool_text_editor_20250429: object`
 
     - `name: "str_replace_based_edit_tool"`
 
@@ -26224,7 +28958,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26251,7 +28985,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_text_editor_20250728: object { name, type, allowed_callers, 5 more }`
+  - `beta_tool_text_editor_20250728: object`
 
     - `name: "str_replace_based_edit_tool"`
 
@@ -26271,7 +29005,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26298,11 +29032,13 @@ ant beta:messages count-tokens \
 
       Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+      minimum: 1
+
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_web_search_tool_20250305: object { name, type, allowed_callers, 7 more }`
+  - `beta_web_search_tool_20250305: object`
 
     - `name: "web_search"`
 
@@ -26330,7 +29066,7 @@ ant beta:messages count-tokens \
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26355,11 +29091,13 @@ ant beta:messages count-tokens \
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional object { type, city, country, 2 more }`
+    - `user_location: optional object`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -26369,19 +29107,27 @@ ant beta:messages count-tokens \
 
         The city of the user.
 
+        maxLength: 255, minLength: 1
+
       - `country: optional string`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+        maxLength: 2, minLength: 2
 
       - `region: optional string`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: optional string`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-  - `beta_web_fetch_tool_20250910: object { name, type, allowed_callers, 8 more }`
+        maxLength: 255, minLength: 1
+
+  - `beta_web_fetch_tool_20250910: object`
 
     - `name: "web_fetch"`
 
@@ -26409,7 +29155,7 @@ ant beta:messages count-tokens \
 
       List of domains to block fetching from
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26426,7 +29172,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `citations: optional object { enabled }`
+    - `citations: optional object`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -26440,15 +29186,19 @@ ant beta:messages count-tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: optional number`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_web_search_tool_20260209: object { name, type, allowed_callers, 7 more }`
+  - `beta_web_search_tool_20260209: object`
 
     - `name: "web_search"`
 
@@ -26476,7 +29226,7 @@ ant beta:messages count-tokens \
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26501,11 +29251,13 @@ ant beta:messages count-tokens \
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional object { type, city, country, 2 more }`
+    - `user_location: optional object`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -26515,19 +29267,27 @@ ant beta:messages count-tokens \
 
         The city of the user.
 
+        maxLength: 255, minLength: 1
+
       - `country: optional string`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+        maxLength: 2, minLength: 2
 
       - `region: optional string`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: optional string`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-  - `beta_web_fetch_tool_20260209: object { name, type, allowed_callers, 8 more }`
+        maxLength: 255, minLength: 1
+
+  - `beta_web_fetch_tool_20260209: object`
 
     - `name: "web_fetch"`
 
@@ -26555,7 +29315,7 @@ ant beta:messages count-tokens \
 
       List of domains to block fetching from
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26572,7 +29332,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `citations: optional object { enabled }`
+    - `citations: optional object`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -26586,15 +29346,19 @@ ant beta:messages count-tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: optional number`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_web_fetch_tool_20260309: object { name, type, allowed_callers, 9 more }`
+  - `beta_web_fetch_tool_20260309: object`
 
     Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -26624,7 +29388,7 @@ ant beta:messages count-tokens \
 
       List of domains to block fetching from
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26641,7 +29405,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `citations: optional object { enabled }`
+    - `citations: optional object`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -26655,9 +29419,13 @@ ant beta:messages count-tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: optional number`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: optional boolean`
 
@@ -26667,7 +29435,7 @@ ant beta:messages count-tokens \
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `beta_web_search_tool_20260318: object { name, type, allowed_callers, 8 more }`
+  - `beta_web_search_tool_20260318: object`
 
     - `name: "web_search"`
 
@@ -26695,7 +29463,7 @@ ant beta:messages count-tokens \
 
       If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26720,6 +29488,8 @@ ant beta:messages count-tokens \
 
       Maximum number of times the tool can be used in the API request.
 
+      exclusiveMinimum: 0
+
     - `response_inclusion: optional "full" or "excluded"`
 
       How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
@@ -26732,7 +29502,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-    - `user_location: optional object { type, city, country, 2 more }`
+    - `user_location: optional object`
 
       Parameters for the user's location. Used to provide more relevant search results.
 
@@ -26742,19 +29512,27 @@ ant beta:messages count-tokens \
 
         The city of the user.
 
+        maxLength: 255, minLength: 1
+
       - `country: optional string`
 
         The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+        maxLength: 2, minLength: 2
 
       - `region: optional string`
 
         The region of the user.
 
+        maxLength: 255, minLength: 1
+
       - `timezone: optional string`
 
         The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
-  - `beta_web_fetch_tool_20260318: object { name, type, allowed_callers, 10 more }`
+        maxLength: 255, minLength: 1
+
+  - `beta_web_fetch_tool_20260318: object`
 
     - `name: "web_fetch"`
 
@@ -26782,7 +29560,7 @@ ant beta:messages count-tokens \
 
       List of domains to block fetching from
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26799,7 +29577,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `citations: optional object { enabled }`
+    - `citations: optional object`
 
       Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -26813,9 +29591,13 @@ ant beta:messages count-tokens \
 
       Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+      exclusiveMinimum: 0
+
     - `max_uses: optional number`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `response_inclusion: optional "full" or "excluded"`
 
@@ -26833,7 +29615,7 @@ ant beta:messages count-tokens \
 
       Whether to use cached content. Set to false to bypass the cache and fetch fresh content. Only set to false when the user explicitly requests fresh content or when fetching rapidly-changing sources.
 
-  - `beta_advisor_tool_20260301: object { model, name, type, 7 more }`
+  - `beta_advisor_tool_20260301: object`
 
     - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -26919,7 +29701,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -26936,7 +29718,7 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `caching: optional object { type, ttl }`
+    - `caching: optional object`
 
       Caching for the advisor's own prompt. When set, each advisor call writes a cache entry at the given TTL so subsequent calls in the same conversation read the stable prefix. When omitted, the advisor prompt is not cached.
 
@@ -26961,15 +29743,19 @@ ant beta:messages count-tokens \
 
       Bounds the advisor's total output (thinking + text) per call. When the advisor hits this cap, the returned advisor_result or advisor_redacted_result block carries stop_reason='max_tokens', and a truncation note is appended to the advice text the worker model sees (inside the encrypted blob in redacted mode). When set, the server also emits a remaining-tokens budget block in the advisor's prompt so the advisor self-shapes toward the cap. When omitted, the advisor model's default output cap applies and no budget block is emitted.
 
+      minimum: 1024
+
     - `max_uses: optional number`
 
       Maximum number of times the tool can be used in the API request.
+
+      exclusiveMinimum: 0
 
     - `strict: optional boolean`
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_search_tool_bm25_20251119: object { name, type, allowed_callers, 3 more }`
+  - `beta_tool_search_tool_bm25_20251119: object`
 
     - `name: "tool_search_tool_bm25"`
 
@@ -26993,7 +29779,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -27018,7 +29804,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_tool_search_tool_regex_20251119: object { name, type, allowed_callers, 3 more }`
+  - `beta_tool_search_tool_regex_20251119: object`
 
     - `name: "tool_search_tool_regex"`
 
@@ -27042,7 +29828,7 @@ ant beta:messages count-tokens \
 
       - `"code_execution_20260521"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -27067,7 +29853,7 @@ ant beta:messages count-tokens \
 
       When true, guarantees schema validation on tool names and inputs
 
-  - `beta_mcp_toolset: object { mcp_server_name, type, cache_control, 2 more }`
+  - `beta_mcp_toolset: object`
 
     Configuration for a group of tools from an MCP server.
 
@@ -27078,9 +29864,11 @@ ant beta:messages count-tokens \
 
       Name of the MCP server to configure tools for
 
+      maxLength: 255, minLength: 1
+
     - `type: "mcp_toolset"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -27105,7 +29893,7 @@ ant beta:messages count-tokens \
 
       - `enabled: optional boolean`
 
-    - `default_config: optional object { defer_loading, enabled }`
+    - `default_config: optional object`
 
       Default configuration applied to all tools from this server
 
@@ -27115,13 +29903,17 @@ ant beta:messages count-tokens \
 
 ### Beta Tool Use Block
 
-- `beta_tool_use_block: object { id, input, name, 3 more }`
+- `beta_tool_use_block: object`
 
   - `id: string`
+
+    pattern: ^[a-zA-Z0-9_-]+$
 
   - `input: map[unknown]`
 
   - `name: string`
+
+    minLength: 1
 
   - `type: "tool_use"`
 
@@ -27129,23 +29921,27 @@ ant beta:messages count-tokens \
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
@@ -27153,19 +29949,25 @@ ant beta:messages count-tokens \
 
     For a toolset member tool_use, the toolset family.
 
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
 ### Beta Tool Use Block Param
 
-- `beta_tool_use_block_param: object { id, input, name, 4 more }`
+- `beta_tool_use_block_param: object`
 
   - `id: string`
+
+    pattern: ^[a-zA-Z0-9_-]+$
 
   - `input: map[unknown]`
 
   - `name: string`
 
+    maxLength: 200, minLength: 1
+
   - `type: "tool_use"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -27190,23 +29992,27 @@ ant beta:messages count-tokens \
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
@@ -27214,25 +30020,31 @@ ant beta:messages count-tokens \
 
     For a toolset member tool_use, the toolset family this member belongs to.
 
+    maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
 ### Beta Tool Uses Keep
 
-- `beta_tool_uses_keep: object { type, value }`
+- `beta_tool_uses_keep: object`
 
   - `type: "tool_uses"`
 
   - `value: number`
+
+    minimum: 0
 
 ### Beta Tool Uses Trigger
 
-- `beta_tool_uses_trigger: object { type, value }`
+- `beta_tool_uses_trigger: object`
 
   - `type: "tool_uses"`
 
   - `value: number`
 
+    minimum: 1
+
 ### Beta URL Image Source
 
-- `beta_url_image_source: object { type, url }`
+- `beta_url_image_source: object`
 
   - `type: "url"`
 
@@ -27240,7 +30052,7 @@ ant beta:messages count-tokens \
 
 ### Beta URL PDF Source
 
-- `beta_url_pdf_source: object { type, url }`
+- `beta_url_pdf_source: object`
 
   - `type: "url"`
 
@@ -27248,9 +30060,9 @@ ant beta:messages count-tokens \
 
 ### Beta Usage
 
-- `beta_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
+- `beta_usage: object`
 
-  - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+  - `cache_creation: object`
 
     Breakdown of cached tokens by TTL
 
@@ -27258,19 +30070,27 @@ ant beta:messages count-tokens \
 
       The number of input tokens used to create the 1 hour cache entry.
 
+      minimum: 0
+
     - `ephemeral_5m_input_tokens: number`
 
       The number of input tokens used to create the 5 minute cache entry.
+
+      minimum: 0
 
   - `cache_creation_input_tokens: number`
 
     The number of input tokens used to create the cache entry.
 
+    minimum: 0
+
   - `cache_read_input_tokens: number`
 
     The number of input tokens read from the cache.
 
-  - `fallback_credit: object { status }`
+    minimum: 0
+
+  - `fallback_credit: object`
 
     Outcome of the `fallback_credit_token` presented on this request.
 
@@ -27283,14 +30103,14 @@ ant beta:messages count-tokens \
       resulting shift is zero because there was nothing to move. `not_applied`:
       no reprice was applied; the arm's `reason` says why.
 
-      - `beta_fallback_credit_redeemed: object { type }`
+      - `beta_fallback_credit_redeemed: object`
 
         The reprice was applied: the retry is billed as if the conversation
         had been on the retry model all along.
 
         - `type: "redeemed"`
 
-      - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+      - `beta_fallback_credit_not_applied: object`
 
         No reprice was applied; `reason` says why.
 
@@ -27346,6 +30166,8 @@ ant beta:messages count-tokens \
 
     The number of input tokens which were used.
 
+    minimum: 0
+
   - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
     Per-iteration token usage breakdown.
@@ -27356,11 +30178,11 @@ ant beta:messages count-tokens \
     - Calculate the true context window size from the last iteration
     - Understand token accumulation across server-side tool use loops
 
-    - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+    - `beta_message_iteration_usage: object`
 
       Token usage for a sampling iteration.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -27368,21 +30190,31 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -27453,16 +30285,18 @@ ant beta:messages count-tokens \
       - `output_tokens: number`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `type: "message"`
 
         Usage for a sampling iteration
 
-    - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+    - `beta_compaction_iteration_usage: object`
 
       Token usage for a compaction iteration.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -27470,35 +30304,47 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `output_tokens: number`
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: "compaction"`
 
         Usage for a compaction iteration
 
-    - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+    - `beta_advisor_message_iteration_usage: object`
 
       Token usage for an advisor sub-inference iteration.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -27506,21 +30352,31 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -27592,11 +30448,13 @@ ant beta:messages count-tokens \
 
         The number of output tokens which were used.
 
+        minimum: 0
+
       - `type: "advisor_message"`
 
         Usage for an advisor sub-inference iteration
 
-    - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+    - `beta_fallback_message_iteration_usage: object`
 
       Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -27605,7 +30463,7 @@ ant beta:messages count-tokens \
       a fallback model served the response is signalled by the presence of this
       entry in `usage.iterations`.
 
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+      - `cache_creation: object`
 
         Breakdown of cached tokens by TTL
 
@@ -27613,21 +30471,31 @@ ant beta:messages count-tokens \
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          minimum: 0
 
       - `cache_creation_input_tokens: number`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number`
 
         The number of input tokens read from the cache.
 
+        minimum: 0
+
       - `input_tokens: number`
 
         The number of input tokens which were used.
+
+        minimum: 0
 
       - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -27698,6 +30566,8 @@ ant beta:messages count-tokens \
       - `output_tokens: number`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `type: "fallback_message"`
 
@@ -27707,7 +30577,9 @@ ant beta:messages count-tokens \
 
     The number of output tokens which were used.
 
-  - `output_tokens_details: object { thinking_tokens }`
+    minimum: 0
+
+  - `output_tokens_details: object`
 
     Breakdown of output tokens by category.
 
@@ -27727,7 +30599,9 @@ ant beta:messages count-tokens \
       generation count by a small number of tokens. Always ≤ `output_tokens`;
       `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-  - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+      minimum: 0
+
+  - `server_tool_use: object`
 
     The number of server tool requests.
 
@@ -27735,9 +30609,13 @@ ant beta:messages count-tokens \
 
       The number of web fetch tool requests.
 
+      minimum: 0
+
     - `web_search_requests: number`
 
       The number of web search tool requests.
+
+      minimum: 0
 
   - `service_tier: "standard" or "priority" or "batch"`
 
@@ -27759,7 +30637,7 @@ ant beta:messages count-tokens \
 
 ### Beta User Location
 
-- `beta_user_location: object { type, city, country, 2 more }`
+- `beta_user_location: object`
 
   - `type: "approximate"`
 
@@ -27767,25 +30645,33 @@ ant beta:messages count-tokens \
 
     The city of the user.
 
+    maxLength: 255, minLength: 1
+
   - `country: optional string`
 
     The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+    maxLength: 2, minLength: 2
 
   - `region: optional string`
 
     The region of the user.
 
+    maxLength: 255, minLength: 1
+
   - `timezone: optional string`
 
     The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
+    maxLength: 255, minLength: 1
+
 ### Beta Web Fetch Block
 
-- `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+- `beta_web_fetch_block: object`
 
-  - `content: object { citations, source, title, type }`
+  - `content: object`
 
-    - `citations: object { enabled }`
+    - `citations: object`
 
       Citation configuration for the document
 
@@ -27793,15 +30679,17 @@ ant beta:messages count-tokens \
 
     - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-      - `beta_base64_pdf_source: object { data, media_type, type }`
+      - `beta_base64_pdf_source: object`
 
         - `data: string`
+
+          format: byte
 
         - `media_type: "application/pdf"`
 
         - `type: "base64"`
 
-      - `beta_plain_text_source: object { data, media_type, type }`
+      - `beta_plain_text_source: object`
 
         - `data: string`
 
@@ -27827,21 +30715,23 @@ ant beta:messages count-tokens \
 
 ### Beta Web Fetch Block Param
 
-- `beta_web_fetch_block_param: object { content, type, url, retrieved_at }`
+- `beta_web_fetch_block_param: object`
 
-  - `content: object { source, type, cache_control, 3 more }`
+  - `content: object`
 
     - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
-      - `beta_base64_pdf_source: object { data, media_type, type }`
+      - `beta_base64_pdf_source: object`
 
         - `data: string`
+
+          format: byte
 
         - `media_type: "application/pdf"`
 
         - `type: "base64"`
 
-      - `beta_plain_text_source: object { data, media_type, type }`
+      - `beta_plain_text_source: object`
 
         - `data: string`
 
@@ -27849,7 +30739,7 @@ ant beta:messages count-tokens \
 
         - `type: "text"`
 
-      - `beta_content_block_source: object { content, type }`
+      - `beta_content_block_source: object`
 
         - `content: string or array of BetaContentBlockSourceContent`
 
@@ -27857,13 +30747,15 @@ ant beta:messages count-tokens \
 
           - `beta_content_block_source_content: array of BetaContentBlockSourceContent`
 
-            - `beta_text_block_param: object { text, type, cache_control, citations }`
+            - `beta_text_block_param: object`
 
               - `text: string`
 
+                minLength: 1
+
               - `type: "text"`
 
-              - `cache_control: optional object { type, ttl }`
+              - `cache_control: optional object`
 
                 Create a cache control breakpoint at this content block.
 
@@ -27886,35 +30778,47 @@ ant beta:messages count-tokens \
 
               - `citations: optional array of BetaTextCitationParam`
 
-                - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+                - `beta_citation_char_location_param: object`
 
                   - `cited_text: string`
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_char_index: number`
 
                   - `start_char_index: number`
 
+                    minimum: 0
+
                   - `type: "char_location"`
 
-                - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+                - `beta_citation_page_location_param: object`
 
                   - `cited_text: string`
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_page_number: number`
 
                   - `start_page_number: number`
 
+                    minimum: 1
+
                   - `type: "page_location"`
 
-                - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+                - `beta_citation_content_block_location_param: object`
 
                   - `cited_text: string`
 
@@ -27924,7 +30828,11 @@ ant beta:messages count-tokens \
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_block_index: number`
 
@@ -27936,9 +30844,11 @@ ant beta:messages count-tokens \
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `type: "content_block_location"`
 
-                - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+                - `beta_citation_web_search_result_location_param: object`
 
                   - `cited_text: string`
 
@@ -27946,11 +30856,15 @@ ant beta:messages count-tokens \
 
                   - `title: string`
 
+                    maxLength: 512, minLength: 1
+
                   - `type: "web_search_result_location"`
 
                   - `url: string`
 
-                - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+                    minLength: 1
+
+                - `beta_citation_search_result_location_param: object`
 
                   - `cited_text: string`
 
@@ -27970,23 +30884,29 @@ ant beta:messages count-tokens \
 
                     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                    minimum: 0
+
                   - `source: string`
 
                   - `start_block_index: number`
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `title: string`
 
                   - `type: "search_result_location"`
 
-            - `beta_image_block_param: object { source, type, cache_control, transformations }`
+            - `beta_image_block_param: object`
 
               - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-                - `beta_base64_image_source: object { data, media_type, type }`
+                - `beta_base64_image_source: object`
 
                   - `data: string`
+
+                    format: byte
 
                   - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -28000,13 +30920,13 @@ ant beta:messages count-tokens \
 
                   - `type: "base64"`
 
-                - `beta_url_image_source: object { type, url }`
+                - `beta_url_image_source: object`
 
                   - `type: "url"`
 
                   - `url: string`
 
-                - `beta_file_image_source: object { file_id, type }`
+                - `beta_file_image_source: object`
 
                   - `file_id: string`
 
@@ -28014,7 +30934,7 @@ ant beta:messages count-tokens \
 
               - `type: "image"`
 
-              - `cache_control: optional object { type, ttl }`
+              - `cache_control: optional object`
 
                 Create a cache control breakpoint at this content block.
 
@@ -28031,7 +30951,7 @@ ant beta:messages count-tokens \
 
                   Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-              - `transformations: optional object { oversized_image }`
+              - `transformations: optional object`
 
                 Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -28045,13 +30965,13 @@ ant beta:messages count-tokens \
 
         - `type: "content"`
 
-      - `beta_url_pdf_source: object { type, url }`
+      - `beta_url_pdf_source: object`
 
         - `type: "url"`
 
         - `url: string`
 
-      - `beta_file_document_source: object { file_id, type }`
+      - `beta_file_document_source: object`
 
         - `file_id: string`
 
@@ -28059,7 +30979,7 @@ ant beta:messages count-tokens \
 
     - `type: "document"`
 
-    - `cache_control: optional object { type, ttl }`
+    - `cache_control: optional object`
 
       Create a cache control breakpoint at this content block.
 
@@ -28076,13 +30996,17 @@ ant beta:messages count-tokens \
 
         Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-    - `citations: optional object { enabled }`
+    - `citations: optional object`
 
       - `enabled: optional boolean`
 
     - `context: optional string`
 
+      minLength: 1
+
     - `title: optional string`
+
+      maxLength: 500, minLength: 1
 
   - `type: "web_fetch_result"`
 
@@ -28096,7 +31020,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Fetch Tool 20250910
 
-- `beta_web_fetch_tool_20250910: object { name, type, allowed_callers, 8 more }`
+- `beta_web_fetch_tool_20250910: object`
 
   - `name: "web_fetch"`
 
@@ -28124,7 +31048,7 @@ ant beta:messages count-tokens \
 
     List of domains to block fetching from
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -28145,7 +31069,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `citations: optional object { enabled }`
+  - `citations: optional object`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -28159,9 +31083,13 @@ ant beta:messages count-tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: optional number`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: optional boolean`
 
@@ -28169,7 +31097,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Fetch Tool 20260209
 
-- `beta_web_fetch_tool_20260209: object { name, type, allowed_callers, 8 more }`
+- `beta_web_fetch_tool_20260209: object`
 
   - `name: "web_fetch"`
 
@@ -28197,7 +31125,7 @@ ant beta:messages count-tokens \
 
     List of domains to block fetching from
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -28218,7 +31146,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `citations: optional object { enabled }`
+  - `citations: optional object`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -28232,9 +31160,13 @@ ant beta:messages count-tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: optional number`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: optional boolean`
 
@@ -28242,7 +31174,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Fetch Tool 20260309
 
-- `beta_web_fetch_tool_20260309: object { name, type, allowed_callers, 9 more }`
+- `beta_web_fetch_tool_20260309: object`
 
   Web fetch tool with use_cache parameter for bypassing cached content.
 
@@ -28272,7 +31204,7 @@ ant beta:messages count-tokens \
 
     List of domains to block fetching from
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -28293,7 +31225,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `citations: optional object { enabled }`
+  - `citations: optional object`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -28307,9 +31239,13 @@ ant beta:messages count-tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: optional number`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `strict: optional boolean`
 
@@ -28321,7 +31257,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Fetch Tool 20260318
 
-- `beta_web_fetch_tool_20260318: object { name, type, allowed_callers, 10 more }`
+- `beta_web_fetch_tool_20260318: object`
 
   - `name: "web_fetch"`
 
@@ -28349,7 +31285,7 @@ ant beta:messages count-tokens \
 
     List of domains to block fetching from
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -28370,7 +31306,7 @@ ant beta:messages count-tokens \
 
       - `"1h"`
 
-  - `citations: optional object { enabled }`
+  - `citations: optional object`
 
     Citations configuration for fetched documents. Citations are disabled by default.
 
@@ -28384,9 +31320,13 @@ ant beta:messages count-tokens \
 
     Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+    exclusiveMinimum: 0
+
   - `max_uses: optional number`
 
     Maximum number of times the tool can be used in the API request.
+
+    exclusiveMinimum: 0
 
   - `response_inclusion: optional "full" or "excluded"`
 
@@ -28406,11 +31346,11 @@ ant beta:messages count-tokens \
 
 ### Beta Web Fetch Tool Result Block
 
-- `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+- `beta_web_fetch_tool_result_block: object`
 
   - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-    - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+    - `beta_web_fetch_tool_result_error_block: object`
 
       - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -28434,11 +31374,11 @@ ant beta:messages count-tokens \
 
       - `type: "web_fetch_tool_result_error"`
 
-    - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+    - `beta_web_fetch_block: object`
 
-      - `content: object { citations, source, title, type }`
+      - `content: object`
 
-        - `citations: object { enabled }`
+        - `citations: object`
 
           Citation configuration for the document
 
@@ -28446,15 +31386,17 @@ ant beta:messages count-tokens \
 
         - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-          - `beta_base64_pdf_source: object { data, media_type, type }`
+          - `beta_base64_pdf_source: object`
 
             - `data: string`
+
+              format: byte
 
             - `media_type: "application/pdf"`
 
             - `type: "base64"`
 
-          - `beta_plain_text_source: object { data, media_type, type }`
+          - `beta_plain_text_source: object`
 
             - `data: string`
 
@@ -28480,39 +31422,45 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "web_fetch_tool_result"`
 
   - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
 ### Beta Web Fetch Tool Result Block Param
 
-- `beta_web_fetch_tool_result_block_param: object { content, tool_use_id, type, 2 more }`
+- `beta_web_fetch_tool_result_block_param: object`
 
   - `content: BetaWebFetchToolResultErrorBlockParam or BetaWebFetchBlockParam`
 
-    - `beta_web_fetch_tool_result_error_block_param: object { error_code, type }`
+    - `beta_web_fetch_tool_result_error_block_param: object`
 
       - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -28536,21 +31484,23 @@ ant beta:messages count-tokens \
 
       - `type: "web_fetch_tool_result_error"`
 
-    - `beta_web_fetch_block_param: object { content, type, url, retrieved_at }`
+    - `beta_web_fetch_block_param: object`
 
-      - `content: object { source, type, cache_control, 3 more }`
+      - `content: object`
 
         - `source: BetaBase64PDFSource or BetaPlainTextSource or BetaContentBlockSource or 2 more`
 
-          - `beta_base64_pdf_source: object { data, media_type, type }`
+          - `beta_base64_pdf_source: object`
 
             - `data: string`
+
+              format: byte
 
             - `media_type: "application/pdf"`
 
             - `type: "base64"`
 
-          - `beta_plain_text_source: object { data, media_type, type }`
+          - `beta_plain_text_source: object`
 
             - `data: string`
 
@@ -28558,7 +31508,7 @@ ant beta:messages count-tokens \
 
             - `type: "text"`
 
-          - `beta_content_block_source: object { content, type }`
+          - `beta_content_block_source: object`
 
             - `content: string or array of BetaContentBlockSourceContent`
 
@@ -28566,13 +31516,15 @@ ant beta:messages count-tokens \
 
               - `beta_content_block_source_content: array of BetaContentBlockSourceContent`
 
-                - `beta_text_block_param: object { text, type, cache_control, citations }`
+                - `beta_text_block_param: object`
 
                   - `text: string`
 
+                    minLength: 1
+
                   - `type: "text"`
 
-                  - `cache_control: optional object { type, ttl }`
+                  - `cache_control: optional object`
 
                     Create a cache control breakpoint at this content block.
 
@@ -28595,35 +31547,47 @@ ant beta:messages count-tokens \
 
                   - `citations: optional array of BetaTextCitationParam`
 
-                    - `beta_citation_char_location_param: object { cited_text, document_index, document_title, 3 more }`
+                    - `beta_citation_char_location_param: object`
 
                       - `cited_text: string`
 
                       - `document_index: number`
 
+                        minimum: 0
+
                       - `document_title: string`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_char_index: number`
 
                       - `start_char_index: number`
 
+                        minimum: 0
+
                       - `type: "char_location"`
 
-                    - `beta_citation_page_location_param: object { cited_text, document_index, document_title, 3 more }`
+                    - `beta_citation_page_location_param: object`
 
                       - `cited_text: string`
 
                       - `document_index: number`
 
+                        minimum: 0
+
                       - `document_title: string`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_page_number: number`
 
                       - `start_page_number: number`
 
+                        minimum: 1
+
                       - `type: "page_location"`
 
-                    - `beta_citation_content_block_location_param: object { cited_text, document_index, document_title, 3 more }`
+                    - `beta_citation_content_block_location_param: object`
 
                       - `cited_text: string`
 
@@ -28633,7 +31597,11 @@ ant beta:messages count-tokens \
 
                       - `document_index: number`
 
+                        minimum: 0
+
                       - `document_title: string`
+
+                        maxLength: 500, minLength: 1
 
                       - `end_block_index: number`
 
@@ -28645,9 +31613,11 @@ ant beta:messages count-tokens \
 
                         0-based index of the first cited block in the source's `content` array.
 
+                        minimum: 0
+
                       - `type: "content_block_location"`
 
-                    - `beta_citation_web_search_result_location_param: object { cited_text, encrypted_index, title, 2 more }`
+                    - `beta_citation_web_search_result_location_param: object`
 
                       - `cited_text: string`
 
@@ -28655,11 +31625,15 @@ ant beta:messages count-tokens \
 
                       - `title: string`
 
+                        maxLength: 512, minLength: 1
+
                       - `type: "web_search_result_location"`
 
                       - `url: string`
 
-                    - `beta_citation_search_result_location_param: object { cited_text, end_block_index, search_result_index, 4 more }`
+                        minLength: 1
+
+                    - `beta_citation_search_result_location_param: object`
 
                       - `cited_text: string`
 
@@ -28679,23 +31653,29 @@ ant beta:messages count-tokens \
 
                         Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                        minimum: 0
+
                       - `source: string`
 
                       - `start_block_index: number`
 
                         0-based index of the first cited block in the source's `content` array.
 
+                        minimum: 0
+
                       - `title: string`
 
                       - `type: "search_result_location"`
 
-                - `beta_image_block_param: object { source, type, cache_control, transformations }`
+                - `beta_image_block_param: object`
 
                   - `source: BetaBase64ImageSource or BetaURLImageSource or BetaFileImageSource`
 
-                    - `beta_base64_image_source: object { data, media_type, type }`
+                    - `beta_base64_image_source: object`
 
                       - `data: string`
+
+                        format: byte
 
                       - `media_type: "image/jpeg" or "image/png" or "image/gif" or "image/webp"`
 
@@ -28709,13 +31689,13 @@ ant beta:messages count-tokens \
 
                       - `type: "base64"`
 
-                    - `beta_url_image_source: object { type, url }`
+                    - `beta_url_image_source: object`
 
                       - `type: "url"`
 
                       - `url: string`
 
-                    - `beta_file_image_source: object { file_id, type }`
+                    - `beta_file_image_source: object`
 
                       - `file_id: string`
 
@@ -28723,7 +31703,7 @@ ant beta:messages count-tokens \
 
                   - `type: "image"`
 
-                  - `cache_control: optional object { type, ttl }`
+                  - `cache_control: optional object`
 
                     Create a cache control breakpoint at this content block.
 
@@ -28740,7 +31720,7 @@ ant beta:messages count-tokens \
 
                       Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-                  - `transformations: optional object { oversized_image }`
+                  - `transformations: optional object`
 
                     Configures the transformations the server applies to this image before the model observes it. Each key names a condition the server transforms images for; its value selects the transformation applied. Omitted keys keep their default behavior, and an empty object is equivalent to omitting the field.
 
@@ -28754,13 +31734,13 @@ ant beta:messages count-tokens \
 
             - `type: "content"`
 
-          - `beta_url_pdf_source: object { type, url }`
+          - `beta_url_pdf_source: object`
 
             - `type: "url"`
 
             - `url: string`
 
-          - `beta_file_document_source: object { file_id, type }`
+          - `beta_file_document_source: object`
 
             - `file_id: string`
 
@@ -28768,7 +31748,7 @@ ant beta:messages count-tokens \
 
         - `type: "document"`
 
-        - `cache_control: optional object { type, ttl }`
+        - `cache_control: optional object`
 
           Create a cache control breakpoint at this content block.
 
@@ -28785,13 +31765,17 @@ ant beta:messages count-tokens \
 
             Defaults to `5m`. See [prompt caching pricing](https://platform.claude.com/docs/en/build-with-claude/prompt-caching) for details.
 
-        - `citations: optional object { enabled }`
+        - `citations: optional object`
 
           - `enabled: optional boolean`
 
         - `context: optional string`
 
+          minLength: 1
+
         - `title: optional string`
+
+          maxLength: 500, minLength: 1
 
       - `type: "web_fetch_result"`
 
@@ -28805,9 +31789,11 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "web_fetch_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -28828,29 +31814,33 @@ ant beta:messages count-tokens \
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
 ### Beta Web Fetch Tool Result Error Block
 
-- `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+- `beta_web_fetch_tool_result_error_block: object`
 
   - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -28876,7 +31866,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Fetch Tool Result Error Block Param
 
-- `beta_web_fetch_tool_result_error_block_param: object { error_code, type }`
+- `beta_web_fetch_tool_result_error_block_param: object`
 
   - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -28924,7 +31914,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Search Result Block
 
-- `beta_web_search_result_block: object { encrypted_content, page_age, title, 2 more }`
+- `beta_web_search_result_block: object`
 
   - `encrypted_content: string`
 
@@ -28938,7 +31928,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Search Result Block Param
 
-- `beta_web_search_result_block_param: object { encrypted_content, title, type, 2 more }`
+- `beta_web_search_result_block_param: object`
 
   - `encrypted_content: string`
 
@@ -28952,7 +31942,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Search Tool 20250305
 
-- `beta_web_search_tool_20250305: object { name, type, allowed_callers, 7 more }`
+- `beta_web_search_tool_20250305: object`
 
   - `name: "web_search"`
 
@@ -28980,7 +31970,7 @@ ant beta:messages count-tokens \
 
     If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -29009,11 +31999,13 @@ ant beta:messages count-tokens \
 
     Maximum number of times the tool can be used in the API request.
 
+    exclusiveMinimum: 0
+
   - `strict: optional boolean`
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `user_location: optional object { type, city, country, 2 more }`
+  - `user_location: optional object`
 
     Parameters for the user's location. Used to provide more relevant search results.
 
@@ -29023,21 +32015,29 @@ ant beta:messages count-tokens \
 
       The city of the user.
 
+      maxLength: 255, minLength: 1
+
     - `country: optional string`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+      maxLength: 2, minLength: 2
 
     - `region: optional string`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone: optional string`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
+      maxLength: 255, minLength: 1
+
 ### Beta Web Search Tool 20260209
 
-- `beta_web_search_tool_20260209: object { name, type, allowed_callers, 7 more }`
+- `beta_web_search_tool_20260209: object`
 
   - `name: "web_search"`
 
@@ -29065,7 +32065,7 @@ ant beta:messages count-tokens \
 
     If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -29094,11 +32094,13 @@ ant beta:messages count-tokens \
 
     Maximum number of times the tool can be used in the API request.
 
+    exclusiveMinimum: 0
+
   - `strict: optional boolean`
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `user_location: optional object { type, city, country, 2 more }`
+  - `user_location: optional object`
 
     Parameters for the user's location. Used to provide more relevant search results.
 
@@ -29108,21 +32110,29 @@ ant beta:messages count-tokens \
 
       The city of the user.
 
+      maxLength: 255, minLength: 1
+
     - `country: optional string`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+      maxLength: 2, minLength: 2
 
     - `region: optional string`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone: optional string`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
+      maxLength: 255, minLength: 1
+
 ### Beta Web Search Tool 20260318
 
-- `beta_web_search_tool_20260318: object { name, type, allowed_callers, 8 more }`
+- `beta_web_search_tool_20260318: object`
 
   - `name: "web_search"`
 
@@ -29150,7 +32160,7 @@ ant beta:messages count-tokens \
 
     If provided, these domains will never appear in results. Cannot be used alongside `allowed_domains`.
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -29179,6 +32189,8 @@ ant beta:messages count-tokens \
 
     Maximum number of times the tool can be used in the API request.
 
+    exclusiveMinimum: 0
+
   - `response_inclusion: optional "full" or "excluded"`
 
     How this tool's result blocks appear in the API response when the result was consumed by a completed code_execution call in the same turn. 'full' returns the complete content (default). 'excluded' drops the nested server_tool_use and result block pair entirely. Results from direct calls, or from code_execution calls that paused before completing, are always returned in full so they can be sent back on the next turn.
@@ -29191,7 +32203,7 @@ ant beta:messages count-tokens \
 
     When true, guarantees schema validation on tool names and inputs
 
-  - `user_location: optional object { type, city, country, 2 more }`
+  - `user_location: optional object`
 
     Parameters for the user's location. Used to provide more relevant search results.
 
@@ -29201,21 +32213,29 @@ ant beta:messages count-tokens \
 
       The city of the user.
 
+      maxLength: 255, minLength: 1
+
     - `country: optional string`
 
       The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
+
+      maxLength: 2, minLength: 2
 
     - `region: optional string`
 
       The region of the user.
 
+      maxLength: 255, minLength: 1
+
     - `timezone: optional string`
 
       The [IANA timezone](https://nodatime.org/TimeZones) of the user.
 
+      maxLength: 255, minLength: 1
+
 ### Beta Web Search Tool Request Error
 
-- `beta_web_search_tool_request_error: object { error_code, type }`
+- `beta_web_search_tool_request_error: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -29235,11 +32255,11 @@ ant beta:messages count-tokens \
 
 ### Beta Web Search Tool Result Block
 
-- `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+- `beta_web_search_tool_result_block: object`
 
   - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-    - `beta_web_search_tool_result_error: object { error_code, type }`
+    - `beta_web_search_tool_result_error: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -29271,29 +32291,35 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "web_search_tool_result"`
 
   - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
@@ -29301,7 +32327,7 @@ ant beta:messages count-tokens \
 
 - `beta_web_search_tool_result_block_content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-  - `beta_web_search_tool_result_error: object { error_code, type }`
+  - `beta_web_search_tool_result_error: object`
 
     - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -29333,7 +32359,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Search Tool Result Block Param
 
-- `beta_web_search_tool_result_block_param: object { content, tool_use_id, type, 2 more }`
+- `beta_web_search_tool_result_block_param: object`
 
   - `content: array of BetaWebSearchResultBlockParam or BetaWebSearchToolRequestError`
 
@@ -29349,7 +32375,7 @@ ant beta:messages count-tokens \
 
       - `page_age: optional string`
 
-    - `beta_web_search_tool_request_error: object { error_code, type }`
+    - `beta_web_search_tool_request_error: object`
 
       - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -29369,9 +32395,11 @@ ant beta:messages count-tokens \
 
   - `tool_use_id: string`
 
+    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
   - `type: "web_search_tool_result"`
 
-  - `cache_control: optional object { type, ttl }`
+  - `cache_control: optional object`
 
     Create a cache control breakpoint at this content block.
 
@@ -29396,23 +32424,27 @@ ant beta:messages count-tokens \
 
     Tool invocation directly from the model.
 
-    - `beta_direct_caller: object { type }`
+    - `beta_direct_caller: object`
 
       Tool invocation directly from the model.
 
       - `type: "direct"`
 
-    - `beta_server_tool_caller: object { tool_id, type }`
+    - `beta_server_tool_caller: object`
 
       Tool invocation generated by a server-side tool.
 
       - `tool_id: string`
 
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
       - `type: "code_execution_20250825"`
 
-    - `beta_server_tool_caller_20260120: object { tool_id, type }`
+    - `beta_server_tool_caller_20260120: object`
 
       - `tool_id: string`
+
+        pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
       - `type: "code_execution_20260120"`
 
@@ -29432,7 +32464,7 @@ ant beta:messages count-tokens \
 
     - `page_age: optional string`
 
-  - `beta_web_search_tool_request_error: object { error_code, type }`
+  - `beta_web_search_tool_request_error: object`
 
     - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -29452,7 +32484,7 @@ ant beta:messages count-tokens \
 
 ### Beta Web Search Tool Result Error
 
-- `beta_web_search_tool_result_error: object { error_code, type }`
+- `beta_web_search_tool_result_error: object`
 
   - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -29486,13 +32518,13 @@ ant beta:messages count-tokens \
 
   - `"request_too_large"`
 
-# Batches
+## Messages › Batches
 
-## Create a Message Batch
+### Create a Message Batch
 
 `$ ant beta:messages:batches create`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -29500,11 +32532,13 @@ The Message Batches API can be used to process multiple Messages API requests at
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
-- `--request: array of object { custom_id, params }`
+- `--request: array of object`
 
   Body param: List of requests for prompt completion. Each is an individual request to create a Message.
+
+  maxItems: 100000, minItems: 1
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -29514,9 +32548,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
 
-### Returns
+#### Returns
 
-- `beta_message_batch: object { id, archived_at, cancel_initiated_at, 7 more }`
+- `beta_message_batch: object`
 
   - `id: string`
 
@@ -29528,13 +32562,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string`
 
@@ -29542,9 +32582,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" or "canceling" or "ended"`
 
@@ -29556,7 +32600,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ended"`
 
-  - `request_counts: object { canceled, errored, expired, 2 more }`
+  - `request_counts: object`
 
     Tallies requests within the Message Batch, categorized by their status.
 
@@ -29602,15 +32646,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:messages:batches create \
   --api-key my-anthropic-api-key \
   --request '{custom_id: my-custom-id-1, params: {max_tokens: 1024, messages: [{content: [{text: x, type: text}], role: user}], model: claude-opus-5}}'
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29633,17 +32677,17 @@ ant beta:messages:batches create \
 }
 ```
 
-## Retrieve a Message Batch
+### Retrieve a Message Batch
 
 `$ ant beta:messages:batches retrieve`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `--message-batch-id: string`
 
@@ -29653,9 +32697,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_message_batch: object { id, archived_at, cancel_initiated_at, 7 more }`
+- `beta_message_batch: object`
 
   - `id: string`
 
@@ -29667,13 +32711,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string`
 
@@ -29681,9 +32731,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" or "canceling" or "ended"`
 
@@ -29695,7 +32749,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ended"`
 
-  - `request_counts: object { canceled, errored, expired, 2 more }`
+  - `request_counts: object`
 
     Tallies requests within the Message Batch, categorized by their status.
 
@@ -29741,15 +32795,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:messages:batches retrieve \
   --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29772,17 +32826,17 @@ ant beta:messages:batches retrieve \
 }
 ```
 
-## List Message Batches
+### List Message Batches
 
 `$ ant beta:messages:batches list`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `--after-id: optional string`
 
@@ -29798,13 +32852,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  maximum: 1000, minimum: 1
+
 - `--beta: optional array of AnthropicBeta`
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `BetaListResponse_MessageBatch_: object { data, first_id, has_more, last_id }`
+- `BetaListResponse_MessageBatch_: object`
 
   - `data: array of BetaMessageBatch`
 
@@ -29818,13 +32874,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+      format: date-time
+
     - `cancel_initiated_at: string`
 
       RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+      format: date-time
+
     - `created_at: string`
 
       RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+      format: date-time
 
     - `ended_at: string`
 
@@ -29832,9 +32894,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+      format: date-time
+
     - `expires_at: string`
 
       RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+      format: date-time
 
     - `processing_status: "in_progress" or "canceling" or "ended"`
 
@@ -29846,7 +32912,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `"ended"`
 
-    - `request_counts: object { canceled, errored, expired, 2 more }`
+    - `request_counts: object`
 
       Tallies requests within the Message Batch, categorized by their status.
 
@@ -29904,14 +32970,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Last ID in the `data` list. Can be used as the `after_id` for the next page.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:messages:batches list \
   --api-key my-anthropic-api-key
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -29941,11 +33007,11 @@ ant beta:messages:batches list \
 }
 ```
 
-## Cancel a Message Batch
+### Cancel a Message Batch
 
 `$ ant beta:messages:batches cancel`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -29953,7 +33019,7 @@ The number of canceled requests is specified in `request_counts`. To determine w
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `--message-batch-id: string`
 
@@ -29963,9 +33029,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_message_batch: object { id, archived_at, cancel_initiated_at, 7 more }`
+- `beta_message_batch: object`
 
   - `id: string`
 
@@ -29977,13 +33043,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string`
 
@@ -29991,9 +33063,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" or "canceling" or "ended"`
 
@@ -30005,7 +33081,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"ended"`
 
-  - `request_counts: object { canceled, errored, expired, 2 more }`
+  - `request_counts: object`
 
     Tallies requests within the Message Batch, categorized by their status.
 
@@ -30051,15 +33127,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:messages:batches cancel \
   --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30082,11 +33158,11 @@ ant beta:messages:batches cancel \
 }
 ```
 
-## Delete a Message Batch
+### Delete a Message Batch
 
 `$ ant beta:messages:batches delete`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -30094,7 +33170,7 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `--message-batch-id: string`
 
@@ -30104,9 +33180,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_deleted_message_batch: object { id, type }`
+- `beta_deleted_message_batch: object`
 
   - `id: string`
 
@@ -30118,15 +33194,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:messages:batches delete \
   --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -30135,11 +33211,11 @@ ant beta:messages:batches delete \
 }
 ```
 
-## Retrieve Message Batch results
+### Retrieve Message Batch results
 
 `$ ant beta:messages:batches results`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -30147,7 +33223,7 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+#### Parameters
 
 - `--message-batch-id: string`
 
@@ -30157,9 +33233,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
-- `beta_message_batch_individual_response: object { custom_id, result }`
+- `beta_message_batch_individual_response: object`
 
   This is a single line in the response `.jsonl` file and does not represent the response as a whole.
 
@@ -30175,9 +33251,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
 
-    - `beta_message_batch_succeeded_result: object { message, type }`
+    - `beta_message_batch_succeeded_result: object`
 
-      - `message: object { id, container, content, 9 more }`
+      - `message: object`
 
         - `id: string`
 
@@ -30185,7 +33261,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           The format and length of IDs may change over time.
 
-        - `container: object { id, expires_at, skills }`
+        - `container: object`
 
           Information about the container used in the request (for the code execution tool)
 
@@ -30197,6 +33273,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
+            format: date-time
+
           - `skills: array of BetaSkill`
 
             Skills loaded in the container
@@ -30204,6 +33282,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `skill_id: string`
 
               Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `type: "anthropic" or "custom"`
 
@@ -30216,6 +33296,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `version: string`
 
               The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `content: array of BetaContentBlock`
 
@@ -30246,7 +33328,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           [{"type": "text", "text": "B)"}]
           ```
 
-          - `beta_text_block: object { citations, text, type }`
+          - `beta_text_block: object`
 
             - `citations: array of BetaTextCitation`
 
@@ -30254,11 +33336,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
 
-              - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
+              - `beta_citation_char_location: object`
 
                 - `cited_text: string`
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string`
 
@@ -30268,13 +33352,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_char_index: number`
 
+                  minimum: 0
+
                 - `type: "char_location"`
 
-              - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
+              - `beta_citation_page_location: object`
 
                 - `cited_text: string`
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string`
 
@@ -30284,9 +33372,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_page_number: number`
 
+                  minimum: 1
+
                 - `type: "page_location"`
 
-              - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
+              - `beta_citation_content_block_location: object`
 
                 - `cited_text: string`
 
@@ -30295,6 +33385,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string`
 
@@ -30310,9 +33402,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: "content_block_location"`
 
-              - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
+              - `beta_citations_web_search_result_location: object`
 
                 - `cited_text: string`
 
@@ -30320,11 +33414,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string`
 
+                  maxLength: 512
+
                 - `type: "web_search_result_location"`
 
                 - `url: string`
 
-              - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
+              - `beta_citation_search_result_location: object`
 
                 - `cited_text: string`
 
@@ -30344,11 +33440,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
+
+                  minimum: 0
 
                 - `title: string`
 
@@ -30356,9 +33456,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `text: string`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: "text"`
 
-          - `beta_thinking_block: object { signature, thinking, type }`
+          - `beta_thinking_block: object`
 
             - `signature: string`
 
@@ -30374,7 +33476,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "thinking"`
 
-          - `beta_redacted_thinking_block: object { data, type }`
+          - `beta_redacted_thinking_block: object`
 
             - `data: string`
 
@@ -30386,13 +33488,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "redacted_thinking"`
 
-          - `beta_tool_use_block: object { id, input, name, 3 more }`
+          - `beta_tool_use_block: object`
 
             - `id: string`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `input: map[unknown]`
 
             - `name: string`
+
+              minLength: 1
 
             - `type: "tool_use"`
 
@@ -30400,23 +33506,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Tool invocation directly from the model.
 
-              - `beta_direct_caller: object { type }`
+              - `beta_direct_caller: object`
 
                 Tool invocation directly from the model.
 
                 - `type: "direct"`
 
-              - `beta_server_tool_caller: object { tool_id, type }`
+              - `beta_server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: string`
 
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
                 - `type: "code_execution_20250825"`
 
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
+              - `beta_server_tool_caller_20260120: object`
 
                 - `tool_id: string`
+
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
                 - `type: "code_execution_20260120"`
 
@@ -30424,9 +33534,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               For a toolset member tool_use, the toolset family.
 
-          - `beta_server_tool_use_block: object { id, input, name, 2 more }`
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
+          - `beta_server_tool_use_block: object`
 
             - `id: string`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `input: map[unknown]`
 
@@ -30454,21 +33568,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Tool invocation directly from the model.
 
-              - `beta_direct_caller: object { type }`
+              - `beta_direct_caller: object`
 
                 Tool invocation directly from the model.
 
-              - `beta_server_tool_caller: object { tool_id, type }`
+              - `beta_server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
+              - `beta_server_tool_caller_20260120: object`
 
-          - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
+          - `beta_web_search_tool_result_block: object`
 
             - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
 
-              - `beta_web_search_tool_result_error: object { error_code, type }`
+              - `beta_web_search_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
 
@@ -30500,27 +33614,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_search_tool_result"`
 
             - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
               Tool invocation directly from the model.
 
-              - `beta_direct_caller: object { type }`
+              - `beta_direct_caller: object`
 
                 Tool invocation directly from the model.
 
-              - `beta_server_tool_caller: object { tool_id, type }`
+              - `beta_server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
+              - `beta_server_tool_caller_20260120: object`
 
-          - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
+          - `beta_web_fetch_tool_result_block: object`
 
             - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
 
-              - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
+              - `beta_web_fetch_tool_result_error_block: object`
 
                 - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
 
@@ -30544,11 +33660,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_fetch_tool_result_error"`
 
-              - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
+              - `beta_web_fetch_block: object`
 
-                - `content: object { citations, source, title, type }`
+                - `content: object`
 
-                  - `citations: object { enabled }`
+                  - `citations: object`
 
                     Citation configuration for the document
 
@@ -30556,15 +33672,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `source: BetaBase64PDFSource or BetaPlainTextSource`
 
-                    - `beta_base64_pdf_source: object { data, media_type, type }`
+                    - `beta_base64_pdf_source: object`
 
                       - `data: string`
+
+                        format: byte
 
                       - `media_type: "application/pdf"`
 
                       - `type: "base64"`
 
-                    - `beta_plain_text_source: object { data, media_type, type }`
+                    - `beta_plain_text_source: object`
 
                       - `data: string`
 
@@ -30590,27 +33708,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_fetch_tool_result"`
 
             - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
 
               Tool invocation directly from the model.
 
-              - `beta_direct_caller: object { type }`
+              - `beta_direct_caller: object`
 
                 Tool invocation directly from the model.
 
-              - `beta_server_tool_caller: object { tool_id, type }`
+              - `beta_server_tool_caller: object`
 
                 Tool invocation generated by a server-side tool.
 
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
+              - `beta_server_tool_caller_20260120: object`
 
-          - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
+          - `beta_advisor_tool_result_block: object`
 
             - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
 
-              - `beta_advisor_tool_result_error: object { error_code, type }`
+              - `beta_advisor_tool_result_error: object`
 
                 - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
 
@@ -30630,7 +33750,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "advisor_tool_result_error"`
 
-              - `beta_advisor_result_block: object { stop_reason, text, type }`
+              - `beta_advisor_result_block: object`
 
                 - `stop_reason: string`
 
@@ -30640,7 +33760,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "advisor_result"`
 
-              - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
+              - `beta_advisor_redacted_result_block: object`
 
                 - `encrypted_content: string`
 
@@ -30654,15 +33774,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "advisor_tool_result"`
 
-          - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
+          - `beta_code_execution_tool_result_block: object`
 
             - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
 
               Code execution result with encrypted stdout for PFC + web_search results.
 
-              - `beta_code_execution_tool_result_error: object { error_code, type }`
+              - `beta_code_execution_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -30676,7 +33798,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_tool_result_error"`
 
-              - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+              - `beta_code_execution_result_block: object`
 
                 - `content: array of BetaCodeExecutionOutputBlock`
 
@@ -30692,7 +33814,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_result"`
 
-              - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
+              - `beta_encrypted_code_execution_result_block: object`
 
                 Code execution result with encrypted stdout for PFC + web_search results.
 
@@ -30712,13 +33834,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "code_execution_tool_result"`
 
-          - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
+          - `beta_bash_code_execution_tool_result_block: object`
 
             - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
 
-              - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
+              - `beta_bash_code_execution_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -30734,7 +33858,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "bash_code_execution_tool_result_error"`
 
-              - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
+              - `beta_bash_code_execution_result_block: object`
 
                 - `content: array of BetaBashCodeExecutionOutputBlock`
 
@@ -30752,13 +33876,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "bash_code_execution_tool_result"`
 
-          - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
+          - `beta_text_editor_code_execution_tool_result_block: object`
 
             - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
 
-              - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
+              - `beta_text_editor_code_execution_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
 
@@ -30776,7 +33902,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
-              - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
+              - `beta_text_editor_code_execution_view_result_block: object`
 
                 - `content: string`
 
@@ -30796,13 +33922,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_view_result"`
 
-              - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
+              - `beta_text_editor_code_execution_create_result_block: object`
 
                 - `is_file_update: boolean`
 
                 - `type: "text_editor_code_execution_create_result"`
 
-              - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
+              - `beta_text_editor_code_execution_str_replace_result_block: object`
 
                 - `lines: array of string`
 
@@ -30818,13 +33944,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "text_editor_code_execution_tool_result"`
 
-          - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
+          - `beta_tool_search_tool_result_block: object`
 
             - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
 
-              - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
+              - `beta_tool_search_tool_result_error: object`
 
                 - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
 
@@ -30840,11 +33968,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "tool_search_tool_result_error"`
 
-              - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
+              - `beta_tool_search_tool_search_result_block: object`
 
                 - `tool_references: array of BetaToolReferenceBlock`
 
                   - `tool_name: string`
+
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                   - `type: "tool_reference"`
 
@@ -30852,11 +33982,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "tool_search_tool_result"`
 
-          - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
+          - `beta_mcp_tool_use_block: object`
 
             - `id: string`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `input: map[unknown]`
 
@@ -30870,7 +34004,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "mcp_tool_use"`
 
-          - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
+          - `beta_mcp_tool_result_block: object`
 
             - `content: string or array of BetaTextBlock`
 
@@ -30886,15 +34020,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `text: string`
 
+                  maxLength: 5000000, minLength: 0
+
                 - `type: "text"`
 
             - `is_error: boolean`
 
             - `tool_use_id: string`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `type: "mcp_tool_result"`
 
-          - `beta_container_upload_block: object { file_id, type }`
+          - `beta_container_upload_block: object`
 
             Response model for a file uploaded to the container.
 
@@ -30902,7 +34040,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "container_upload"`
 
-          - `beta_compaction_block: object { content, encrypted_content, type }`
+          - `beta_compaction_block: object`
 
             A compaction block returned when autocompact is triggered.
 
@@ -30920,7 +34058,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "compaction"`
 
-          - `beta_fallback_block: object { from, to, trigger, type }`
+          - `beta_fallback_block: object`
 
             Marks the point in `content` where one model's output gives way to the next.
 
@@ -30934,7 +34072,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             arrives via the standard `content_block_start` / `content_block_stop`
             pair and carries no deltas.
 
-            - `from: object { model }`
+            - `from: object`
 
               The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
@@ -31004,7 +34142,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   High-performance model for agents and coding
 
-            - `to: object { model }`
+            - `to: object`
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
@@ -31014,7 +34152,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `trigger: object { category, type }`
+            - `trigger: object`
 
               What caused the `from` model to hand over at this hop.
 
@@ -31046,7 +34184,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "fallback"`
 
-        - `context_management: object { applied_edits }`
+        - `context_management: object`
 
           Context management response.
 
@@ -31056,35 +34194,43 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of context management edits that were applied.
 
-            - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
+            - `beta_clear_tool_uses_20250919_edit_response: object`
 
               - `cleared_input_tokens: number`
 
                 Number of input tokens cleared by this edit.
+
+                minimum: 0
 
               - `cleared_tool_uses: number`
 
                 Number of tool uses that were cleared.
 
+                minimum: 0
+
               - `type: "clear_tool_uses_20250919"`
 
                 The type of context management edit applied.
 
-            - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
+            - `beta_clear_thinking_20251015_edit_response: object`
 
               - `cleared_input_tokens: number`
 
                 Number of input tokens cleared by this edit.
 
+                minimum: 0
+
               - `cleared_thinking_turns: number`
 
                 Number of thinking turns that were cleared.
+
+                minimum: 0
 
               - `type: "clear_thinking_20251015"`
 
                 The type of context management edit applied.
 
-        - `diagnostics: object { cache_miss_reason }`
+        - `diagnostics: object`
 
           Response envelope for request-level diagnostics. Present (possibly
           null) whenever the caller supplied `diagnostics` on the request.
@@ -31093,7 +34239,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
 
-            - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
+            - `beta_cache_miss_model_changed: object`
 
               - `cache_missed_input_tokens: number`
 
@@ -31101,7 +34247,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "model_changed"`
 
-            - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
+            - `beta_cache_miss_system_changed: object`
 
               - `cache_missed_input_tokens: number`
 
@@ -31109,7 +34255,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "system_changed"`
 
-            - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
+            - `beta_cache_miss_tools_changed: object`
 
               - `cache_missed_input_tokens: number`
 
@@ -31117,7 +34263,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "tools_changed"`
 
-            - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
+            - `beta_cache_miss_messages_changed: object`
 
               - `cache_missed_input_tokens: number`
 
@@ -31125,11 +34271,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "messages_changed"`
 
-            - `beta_cache_miss_previous_message_not_found: object { type }`
+            - `beta_cache_miss_previous_message_not_found: object`
 
               - `type: "previous_message_not_found"`
 
-            - `beta_cache_miss_unavailable: object { type }`
+            - `beta_cache_miss_unavailable: object`
 
               - `type: "unavailable"`
 
@@ -31205,7 +34351,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This will always be `"assistant"`.
 
-        - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
+        - `stop_details: object`
 
           Structured information about a refusal.
 
@@ -31334,7 +34480,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-        - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
+        - `usage: object`
 
           Billing and rate-limit usage.
 
@@ -31346,7 +34492,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+          - `cache_creation: object`
 
             Breakdown of cached tokens by TTL
 
@@ -31354,19 +34500,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              minimum: 0
 
           - `cache_creation_input_tokens: number`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number`
 
             The number of input tokens read from the cache.
 
-          - `fallback_credit: object { status }`
+            minimum: 0
+
+          - `fallback_credit: object`
 
             Outcome of the `fallback_credit_token` presented on this request.
 
@@ -31379,14 +34533,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               resulting shift is zero because there was nothing to move. `not_applied`:
               no reprice was applied; the arm's `reason` says why.
 
-              - `beta_fallback_credit_redeemed: object { type }`
+              - `beta_fallback_credit_redeemed: object`
 
                 The reprice was applied: the retry is billed as if the conversation
                 had been on the retry model all along.
 
                 - `type: "redeemed"`
 
-              - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
+              - `beta_fallback_credit_not_applied: object`
 
                 No reprice was applied; `reason` says why.
 
@@ -31442,6 +34596,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
 
             Per-iteration token usage breakdown.
@@ -31452,11 +34608,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - Calculate the true context window size from the last iteration
             - Understand token accumulation across server-side tool use loops
 
-            - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+            - `beta_message_iteration_usage: object`
 
               Token usage for a sampling iteration.
 
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+              - `cache_creation: object`
 
                 Breakdown of cached tokens by TTL
 
@@ -31464,21 +34620,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The number of input tokens used to create the 1 hour cache entry.
 
+                  minimum: 0
+
                 - `ephemeral_5m_input_tokens: number`
 
                   The number of input tokens used to create the 5 minute cache entry.
+
+                  minimum: 0
 
               - `cache_creation_input_tokens: number`
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: number`
 
                 The number of input tokens read from the cache.
 
+                minimum: 0
+
               - `input_tokens: number`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -31549,16 +34715,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `output_tokens: number`
 
                 The number of output tokens which were used.
+
+                minimum: 0
 
               - `type: "message"`
 
                 Usage for a sampling iteration
 
-            - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
+            - `beta_compaction_iteration_usage: object`
 
               Token usage for a compaction iteration.
 
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+              - `cache_creation: object`
 
                 Breakdown of cached tokens by TTL
 
@@ -31566,35 +34734,47 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The number of input tokens used to create the 1 hour cache entry.
 
+                  minimum: 0
+
                 - `ephemeral_5m_input_tokens: number`
 
                   The number of input tokens used to create the 5 minute cache entry.
+
+                  minimum: 0
 
               - `cache_creation_input_tokens: number`
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: number`
 
                 The number of input tokens read from the cache.
 
+                minimum: 0
+
               - `input_tokens: number`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `output_tokens: number`
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: "compaction"`
 
                 Usage for a compaction iteration
 
-            - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+            - `beta_advisor_message_iteration_usage: object`
 
               Token usage for an advisor sub-inference iteration.
 
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+              - `cache_creation: object`
 
                 Breakdown of cached tokens by TTL
 
@@ -31602,21 +34782,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The number of input tokens used to create the 1 hour cache entry.
 
+                  minimum: 0
+
                 - `ephemeral_5m_input_tokens: number`
 
                   The number of input tokens used to create the 5 minute cache entry.
+
+                  minimum: 0
 
               - `cache_creation_input_tokens: number`
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: number`
 
                 The number of input tokens read from the cache.
 
+                minimum: 0
+
               - `input_tokens: number`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -31688,11 +34878,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: "advisor_message"`
 
                 Usage for an advisor sub-inference iteration
 
-            - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
+            - `beta_fallback_message_iteration_usage: object`
 
               Token usage for the fallback-model attempt of a server-side fallback request.
 
@@ -31701,7 +34893,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               a fallback model served the response is signalled by the presence of this
               entry in `usage.iterations`.
 
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
+              - `cache_creation: object`
 
                 Breakdown of cached tokens by TTL
 
@@ -31709,21 +34901,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   The number of input tokens used to create the 1 hour cache entry.
 
+                  minimum: 0
+
                 - `ephemeral_5m_input_tokens: number`
 
                   The number of input tokens used to create the 5 minute cache entry.
+
+                  minimum: 0
 
               - `cache_creation_input_tokens: number`
 
                 The number of input tokens used to create the cache entry.
 
+                minimum: 0
+
               - `cache_read_input_tokens: number`
 
                 The number of input tokens read from the cache.
 
+                minimum: 0
+
               - `input_tokens: number`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
 
@@ -31794,6 +34996,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `output_tokens: number`
 
                 The number of output tokens which were used.
+
+                minimum: 0
 
               - `type: "fallback_message"`
 
@@ -31803,7 +35007,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of output tokens which were used.
 
-          - `output_tokens_details: object { thinking_tokens }`
+            minimum: 0
+
+          - `output_tokens_details: object`
 
             Breakdown of output tokens by category.
 
@@ -31823,7 +35029,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
-          - `server_tool_use: object { web_fetch_requests, web_search_requests }`
+              minimum: 0
+
+          - `server_tool_use: object`
 
             The number of server tool requests.
 
@@ -31831,9 +35039,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              minimum: 0
+
             - `web_search_requests: number`
 
               The number of web search tool requests.
+
+              minimum: 0
 
           - `service_tier: "standard" or "priority" or "batch"`
 
@@ -31855,61 +35067,61 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: "succeeded"`
 
-    - `beta_message_batch_errored_result: object { error, type }`
+    - `beta_message_batch_errored_result: object`
 
-      - `error: object { error, request_id, type }`
+      - `error: object`
 
         - `error: BetaInvalidRequestError or BetaAuthenticationError or BetaBillingError or 6 more`
 
-          - `beta_invalid_request_error: object { message, type }`
+          - `beta_invalid_request_error: object`
 
             - `message: string`
 
             - `type: "invalid_request_error"`
 
-          - `beta_authentication_error: object { message, type }`
+          - `beta_authentication_error: object`
 
             - `message: string`
 
             - `type: "authentication_error"`
 
-          - `beta_billing_error: object { message, type }`
+          - `beta_billing_error: object`
 
             - `message: string`
 
             - `type: "billing_error"`
 
-          - `beta_permission_error: object { message, type }`
+          - `beta_permission_error: object`
 
             - `message: string`
 
             - `type: "permission_error"`
 
-          - `beta_not_found_error: object { message, type }`
+          - `beta_not_found_error: object`
 
             - `message: string`
 
             - `type: "not_found_error"`
 
-          - `beta_rate_limit_error: object { message, type }`
+          - `beta_rate_limit_error: object`
 
             - `message: string`
 
             - `type: "rate_limit_error"`
 
-          - `beta_gateway_timeout_error: object { message, type }`
+          - `beta_gateway_timeout_error: object`
 
             - `message: string`
 
             - `type: "timeout_error"`
 
-          - `beta_api_error: object { message, type }`
+          - `beta_api_error: object`
 
             - `message: string`
 
             - `type: "api_error"`
 
-          - `beta_overloaded_error: object { message, type }`
+          - `beta_overloaded_error: object`
 
             - `message: string`
 
@@ -31921,5450 +35133,18 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: "errored"`
 
-    - `beta_message_batch_canceled_result: object { type }`
+    - `beta_message_batch_canceled_result: object`
 
       - `type: "canceled"`
 
-    - `beta_message_batch_expired_result: object { type }`
+    - `beta_message_batch_expired_result: object`
 
       - `type: "expired"`
 
-### Example
+#### Example
 
-```cli
+```bash
 ant beta:messages:batches results \
   --api-key my-anthropic-api-key \
   --message-batch-id message_batch_id
 ```
-
-## Domain Types
-
-### Beta Deleted Message Batch
-
-- `beta_deleted_message_batch: object { id, type }`
-
-  - `id: string`
-
-    ID of the Message Batch.
-
-  - `type: "message_batch_deleted"`
-
-    Deleted object type.
-
-    For Message Batches, this is always `"message_batch_deleted"`.
-
-### Beta Message Batch
-
-- `beta_message_batch: object { id, archived_at, cancel_initiated_at, 7 more }`
-
-  - `id: string`
-
-    Unique object identifier.
-
-    The format and length of IDs may change over time.
-
-  - `archived_at: string`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
-
-  - `cancel_initiated_at: string`
-
-    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
-
-  - `created_at: string`
-
-    RFC 3339 datetime string representing the time at which the Message Batch was created.
-
-  - `ended_at: string`
-
-    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
-
-    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
-
-  - `expires_at: string`
-
-    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
-
-  - `processing_status: "in_progress" or "canceling" or "ended"`
-
-    Processing status of the Message Batch.
-
-    - `"in_progress"`
-
-    - `"canceling"`
-
-    - `"ended"`
-
-  - `request_counts: object { canceled, errored, expired, 2 more }`
-
-    Tallies requests within the Message Batch, categorized by their status.
-
-    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
-
-    - `canceled: number`
-
-      Number of requests in the Message Batch that have been canceled.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `errored: number`
-
-      Number of requests in the Message Batch that encountered an error.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `expired: number`
-
-      Number of requests in the Message Batch that have expired.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-    - `processing: number`
-
-      Number of requests in the Message Batch that are processing.
-
-    - `succeeded: number`
-
-      Number of requests in the Message Batch that have completed successfully.
-
-      This is zero until processing of the entire Message Batch has ended.
-
-  - `results_url: string`
-
-    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
-
-    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
-
-  - `type: "message_batch"`
-
-    Object type.
-
-    For Message Batches, this is always `"message_batch"`.
-
-### Beta Message Batch Canceled Result
-
-- `beta_message_batch_canceled_result: object { type }`
-
-  - `type: "canceled"`
-
-### Beta Message Batch Errored Result
-
-- `beta_message_batch_errored_result: object { error, type }`
-
-  - `error: object { error, request_id, type }`
-
-    - `error: BetaInvalidRequestError or BetaAuthenticationError or BetaBillingError or 6 more`
-
-      - `beta_invalid_request_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "invalid_request_error"`
-
-      - `beta_authentication_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "authentication_error"`
-
-      - `beta_billing_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "billing_error"`
-
-      - `beta_permission_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "permission_error"`
-
-      - `beta_not_found_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "not_found_error"`
-
-      - `beta_rate_limit_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "rate_limit_error"`
-
-      - `beta_gateway_timeout_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "timeout_error"`
-
-      - `beta_api_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "api_error"`
-
-      - `beta_overloaded_error: object { message, type }`
-
-        - `message: string`
-
-        - `type: "overloaded_error"`
-
-    - `request_id: string`
-
-    - `type: "error"`
-
-  - `type: "errored"`
-
-### Beta Message Batch Expired Result
-
-- `beta_message_batch_expired_result: object { type }`
-
-  - `type: "expired"`
-
-### Beta Message Batch Individual Response
-
-- `beta_message_batch_individual_response: object { custom_id, result }`
-
-  This is a single line in the response `.jsonl` file and does not represent the response as a whole.
-
-  - `custom_id: string`
-
-    Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
-
-    Must be unique for each request within the Message Batch.
-
-  - `result: BetaMessageBatchSucceededResult or BetaMessageBatchErroredResult or BetaMessageBatchCanceledResult or BetaMessageBatchExpiredResult`
-
-    Processing result for this request.
-
-    Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-    - `beta_message_batch_succeeded_result: object { message, type }`
-
-      - `message: object { id, container, content, 9 more }`
-
-        - `id: string`
-
-          Unique object identifier.
-
-          The format and length of IDs may change over time.
-
-        - `container: object { id, expires_at, skills }`
-
-          Information about the container used in the request (for the code execution tool)
-
-          - `id: string`
-
-            Identifier for the container used in this request
-
-          - `expires_at: string`
-
-            The time at which the container will expire.
-
-          - `skills: array of BetaSkill`
-
-            Skills loaded in the container
-
-            - `skill_id: string`
-
-              Skill ID
-
-            - `type: "anthropic" or "custom"`
-
-              Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-              - `"anthropic"`
-
-              - `"custom"`
-
-            - `version: string`
-
-              The resolved version: a skill version ID for custom skills.
-
-        - `content: array of BetaContentBlock`
-
-          Content generated by the model.
-
-          This is an array of content blocks, each of which has a `type` that determines its shape.
-
-          Example:
-
-          ```json
-          [{"type": "text", "text": "Hi, I'm Claude."}]
-          ```
-
-          If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-          For example, if the input `messages` were:
-
-          ```json
-          [
-            {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-            {"role": "assistant", "content": "The best answer is ("}
-          ]
-          ```
-
-          Then the response `content` might be:
-
-          ```json
-          [{"type": "text", "text": "B)"}]
-          ```
-
-          - `beta_text_block: object { citations, text, type }`
-
-            - `citations: array of BetaTextCitation`
-
-              Citations supporting the text block.
-
-              The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-              - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
-
-                - `cited_text: string`
-
-                - `document_index: number`
-
-                - `document_title: string`
-
-                - `end_char_index: number`
-
-                - `file_id: string`
-
-                - `start_char_index: number`
-
-                - `type: "char_location"`
-
-              - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
-
-                - `cited_text: string`
-
-                - `document_index: number`
-
-                - `document_title: string`
-
-                - `end_page_number: number`
-
-                - `file_id: string`
-
-                - `start_page_number: number`
-
-                - `type: "page_location"`
-
-              - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
-
-                - `cited_text: string`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `document_index: number`
-
-                - `document_title: string`
-
-                - `end_block_index: number`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `file_id: string`
-
-                - `start_block_index: number`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                - `type: "content_block_location"`
-
-              - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
-
-                - `cited_text: string`
-
-                - `encrypted_index: string`
-
-                - `title: string`
-
-                - `type: "web_search_result_location"`
-
-                - `url: string`
-
-              - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
-
-                - `cited_text: string`
-
-                  The full text of the cited block range, concatenated.
-
-                  Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-                - `end_block_index: number`
-
-                  Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                  Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-                - `search_result_index: number`
-
-                  0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                  Counted separately from `document_index`; server-side web search results are not included in this count.
-
-                - `source: string`
-
-                - `start_block_index: number`
-
-                  0-based index of the first cited block in the source's `content` array.
-
-                - `title: string`
-
-                - `type: "search_result_location"`
-
-            - `text: string`
-
-            - `type: "text"`
-
-          - `beta_thinking_block: object { signature, thinking, type }`
-
-            - `signature: string`
-
-              A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-              This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-            - `thinking: string`
-
-              The text of Claude's thinking process for this block.
-
-            - `type: "thinking"`
-
-          - `beta_redacted_thinking_block: object { data, type }`
-
-            - `data: string`
-
-              The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-              Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-              See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-            - `type: "redacted_thinking"`
-
-          - `beta_tool_use_block: object { id, input, name, 3 more }`
-
-            - `id: string`
-
-            - `input: map[unknown]`
-
-            - `name: string`
-
-            - `type: "tool_use"`
-
-            - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `beta_direct_caller: object { type }`
-
-                Tool invocation directly from the model.
-
-                - `type: "direct"`
-
-              - `beta_server_tool_caller: object { tool_id, type }`
-
-                Tool invocation generated by a server-side tool.
-
-                - `tool_id: string`
-
-                - `type: "code_execution_20250825"`
-
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-                - `tool_id: string`
-
-                - `type: "code_execution_20260120"`
-
-            - `toolset_name: optional string`
-
-              For a toolset member tool_use, the toolset family.
-
-          - `beta_server_tool_use_block: object { id, input, name, 2 more }`
-
-            - `id: string`
-
-            - `input: map[unknown]`
-
-            - `name: "advisor" or "web_search" or "web_fetch" or 5 more`
-
-              - `"advisor"`
-
-              - `"web_search"`
-
-              - `"web_fetch"`
-
-              - `"code_execution"`
-
-              - `"bash_code_execution"`
-
-              - `"text_editor_code_execution"`
-
-              - `"tool_search_tool_regex"`
-
-              - `"tool_search_tool_bm25"`
-
-            - `type: "server_tool_use"`
-
-            - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `beta_direct_caller: object { type }`
-
-                Tool invocation directly from the model.
-
-              - `beta_server_tool_caller: object { tool_id, type }`
-
-                Tool invocation generated by a server-side tool.
-
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-          - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
-
-            - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
-
-              - `beta_web_search_tool_result_error: object { error_code, type }`
-
-                - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"max_uses_exceeded"`
-
-                  - `"too_many_requests"`
-
-                  - `"query_too_long"`
-
-                  - `"request_too_large"`
-
-                - `type: "web_search_tool_result_error"`
-
-              - `union_member_1: array of BetaWebSearchResultBlock`
-
-                - `encrypted_content: string`
-
-                - `page_age: string`
-
-                - `title: string`
-
-                - `type: "web_search_result"`
-
-                - `url: string`
-
-            - `tool_use_id: string`
-
-            - `type: "web_search_tool_result"`
-
-            - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `beta_direct_caller: object { type }`
-
-                Tool invocation directly from the model.
-
-              - `beta_server_tool_caller: object { tool_id, type }`
-
-                Tool invocation generated by a server-side tool.
-
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-          - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
-
-            - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
-
-              - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
-
-                - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
-
-                  - `"invalid_tool_input"`
-
-                  - `"url_too_long"`
-
-                  - `"url_not_allowed"`
-
-                  - `"url_not_in_prior_context"`
-
-                  - `"url_not_accessible"`
-
-                  - `"unsupported_content_type"`
-
-                  - `"too_many_requests"`
-
-                  - `"max_uses_exceeded"`
-
-                  - `"unavailable"`
-
-                - `type: "web_fetch_tool_result_error"`
-
-              - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
-
-                - `content: object { citations, source, title, type }`
-
-                  - `citations: object { enabled }`
-
-                    Citation configuration for the document
-
-                    - `enabled: boolean`
-
-                  - `source: BetaBase64PDFSource or BetaPlainTextSource`
-
-                    - `beta_base64_pdf_source: object { data, media_type, type }`
-
-                      - `data: string`
-
-                      - `media_type: "application/pdf"`
-
-                      - `type: "base64"`
-
-                    - `beta_plain_text_source: object { data, media_type, type }`
-
-                      - `data: string`
-
-                      - `media_type: "text/plain"`
-
-                      - `type: "text"`
-
-                  - `title: string`
-
-                    The title of the document
-
-                  - `type: "document"`
-
-                - `retrieved_at: string`
-
-                  ISO 8601 timestamp when the content was retrieved
-
-                - `type: "web_fetch_result"`
-
-                - `url: string`
-
-                  Fetched content URL
-
-            - `tool_use_id: string`
-
-            - `type: "web_fetch_tool_result"`
-
-            - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-              Tool invocation directly from the model.
-
-              - `beta_direct_caller: object { type }`
-
-                Tool invocation directly from the model.
-
-              - `beta_server_tool_caller: object { tool_id, type }`
-
-                Tool invocation generated by a server-side tool.
-
-              - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-          - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
-
-            - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
-
-              - `beta_advisor_tool_result_error: object { error_code, type }`
-
-                - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
-
-                  - `"max_uses_exceeded"`
-
-                  - `"prompt_too_long"`
-
-                  - `"too_many_requests"`
-
-                  - `"overloaded"`
-
-                  - `"unavailable"`
-
-                  - `"execution_time_exceeded"`
-
-                  - `"model_not_found"`
-
-                - `type: "advisor_tool_result_error"`
-
-              - `beta_advisor_result_block: object { stop_reason, text, type }`
-
-                - `stop_reason: string`
-
-                  The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
-
-                - `text: string`
-
-                - `type: "advisor_result"`
-
-              - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
-
-                - `encrypted_content: string`
-
-                  Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
-
-                - `stop_reason: string`
-
-                  The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
-
-                - `type: "advisor_redacted_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "advisor_tool_result"`
-
-          - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-            - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `beta_code_execution_tool_result_error: object { error_code, type }`
-
-                - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                - `type: "code_execution_tool_result_error"`
-
-              - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
-
-                - `content: array of BetaCodeExecutionOutputBlock`
-
-                  - `file_id: string`
-
-                  - `type: "code_execution_output"`
-
-                - `return_code: number`
-
-                - `stderr: string`
-
-                - `stdout: string`
-
-                - `type: "code_execution_result"`
-
-              - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
-
-                Code execution result with encrypted stdout for PFC + web_search results.
-
-                - `content: array of BetaCodeExecutionOutputBlock`
-
-                  - `file_id: string`
-
-                  - `type: "code_execution_output"`
-
-                - `encrypted_stdout: string`
-
-                - `return_code: number`
-
-                - `stderr: string`
-
-                - `type: "encrypted_code_execution_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "code_execution_tool_result"`
-
-          - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-            - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
-
-              - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
-
-                - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                  - `"output_file_too_large"`
-
-                - `type: "bash_code_execution_tool_result_error"`
-
-              - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
-
-                - `content: array of BetaBashCodeExecutionOutputBlock`
-
-                  - `file_id: string`
-
-                  - `type: "bash_code_execution_output"`
-
-                - `return_code: number`
-
-                - `stderr: string`
-
-                - `stdout: string`
-
-                - `type: "bash_code_execution_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "bash_code_execution_tool_result"`
-
-          - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-            - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-              - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
-
-                - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                  - `"file_not_found"`
-
-                - `error_message: string`
-
-                - `type: "text_editor_code_execution_tool_result_error"`
-
-              - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
-
-                - `content: string`
-
-                - `file_type: "text" or "image" or "pdf"`
-
-                  - `"text"`
-
-                  - `"image"`
-
-                  - `"pdf"`
-
-                - `num_lines: number`
-
-                - `start_line: number`
-
-                - `total_lines: number`
-
-                - `type: "text_editor_code_execution_view_result"`
-
-              - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
-
-                - `is_file_update: boolean`
-
-                - `type: "text_editor_code_execution_create_result"`
-
-              - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
-
-                - `lines: array of string`
-
-                - `new_lines: number`
-
-                - `new_start: number`
-
-                - `old_lines: number`
-
-                - `old_start: number`
-
-                - `type: "text_editor_code_execution_str_replace_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "text_editor_code_execution_tool_result"`
-
-          - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
-
-            - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
-
-              - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
-
-                - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-                  - `"invalid_tool_input"`
-
-                  - `"unavailable"`
-
-                  - `"too_many_requests"`
-
-                  - `"execution_time_exceeded"`
-
-                - `error_message: string`
-
-                - `type: "tool_search_tool_result_error"`
-
-              - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
-
-                - `tool_references: array of BetaToolReferenceBlock`
-
-                  - `tool_name: string`
-
-                  - `type: "tool_reference"`
-
-                - `type: "tool_search_tool_search_result"`
-
-            - `tool_use_id: string`
-
-            - `type: "tool_search_tool_result"`
-
-          - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
-
-            - `id: string`
-
-            - `input: map[unknown]`
-
-            - `name: string`
-
-              The name of the MCP tool
-
-            - `server_name: string`
-
-              The name of the MCP server
-
-            - `type: "mcp_tool_use"`
-
-          - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
-
-            - `content: string or array of BetaTextBlock`
-
-              - `union_member_0: string`
-
-              - `beta_mcp_tool_result_block_content: array of BetaTextBlock`
-
-                - `citations: array of BetaTextCitation`
-
-                  Citations supporting the text block.
-
-                  The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-                - `text: string`
-
-                - `type: "text"`
-
-            - `is_error: boolean`
-
-            - `tool_use_id: string`
-
-            - `type: "mcp_tool_result"`
-
-          - `beta_container_upload_block: object { file_id, type }`
-
-            Response model for a file uploaded to the container.
-
-            - `file_id: string`
-
-            - `type: "container_upload"`
-
-          - `beta_compaction_block: object { content, encrypted_content, type }`
-
-            A compaction block returned when autocompact is triggered.
-
-            When content is None, it indicates the compaction failed to produce a valid
-            summary (e.g., malformed output from the model). Clients may round-trip
-            compaction blocks with null content; the server treats them as no-ops.
-
-            - `content: string`
-
-              Summary of compacted content, or null if compaction failed
-
-            - `encrypted_content: string`
-
-              Opaque metadata from prior compaction, to be round-tripped verbatim
-
-            - `type: "compaction"`
-
-          - `beta_fallback_block: object { from, to, trigger, type }`
-
-            Marks the point in `content` where one model's output gives way to the next.
-
-            One block appears per hop where a preceding model actually ran this turn and
-            declined. A turn where no preceding model ran and declined has no such
-            boundary and carries no block — the signal for whether a fallback model
-            served the response is the presence of a `fallback_message` entry in
-            `usage.iterations`, not this block.
-
-            The block is treated like a server-tool content block for streaming: it
-            arrives via the standard `content_block_start` / `content_block_stop`
-            pair and carries no deltas.
-
-            - `from: object { model }`
-
-              The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `"claude-sonnet-5"`
-
-                  High-performance model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-5"`
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  High-performance model for agents and coding
-
-            - `to: object { model }`
-
-              The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `trigger: object { category, type }`
-
-              What caused the `from` model to hand over at this hop.
-
-              - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
-
-                The policy category that triggered a refusal.
-
-                - `"cyber"`
-
-                  The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-                - `"bio"`
-
-                  The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-                - `"frontier_llm"`
-
-                  The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-                - `"reasoning_extraction"`
-
-                  The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-                - `"general_harms"`
-
-                  The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-              - `type: "refusal"`
-
-            - `type: "fallback"`
-
-        - `context_management: object { applied_edits }`
-
-          Context management response.
-
-          Information about context management strategies applied during the request.
-
-          - `applied_edits: array of BetaClearToolUses20250919EditResponse or BetaClearThinking20251015EditResponse`
-
-            List of context management edits that were applied.
-
-            - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
-
-              - `cleared_input_tokens: number`
-
-                Number of input tokens cleared by this edit.
-
-              - `cleared_tool_uses: number`
-
-                Number of tool uses that were cleared.
-
-              - `type: "clear_tool_uses_20250919"`
-
-                The type of context management edit applied.
-
-            - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
-
-              - `cleared_input_tokens: number`
-
-                Number of input tokens cleared by this edit.
-
-              - `cleared_thinking_turns: number`
-
-                Number of thinking turns that were cleared.
-
-              - `type: "clear_thinking_20251015"`
-
-                The type of context management edit applied.
-
-        - `diagnostics: object { cache_miss_reason }`
-
-          Response envelope for request-level diagnostics. Present (possibly
-          null) whenever the caller supplied `diagnostics` on the request.
-
-          - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
-
-            Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
-
-            - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
-
-              - `cache_missed_input_tokens: number`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: "model_changed"`
-
-            - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
-
-              - `cache_missed_input_tokens: number`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: "system_changed"`
-
-            - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
-
-              - `cache_missed_input_tokens: number`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: "tools_changed"`
-
-            - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
-
-              - `cache_missed_input_tokens: number`
-
-                Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-              - `type: "messages_changed"`
-
-            - `beta_cache_miss_previous_message_not_found: object { type }`
-
-              - `type: "previous_message_not_found"`
-
-            - `beta_cache_miss_unavailable: object { type }`
-
-              - `type: "unavailable"`
-
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-          The model that will complete your prompt.
-
-          See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `"claude-sonnet-5"`
-
-            High-performance model for coding and agents
-
-          - `"claude-fable-5"`
-
-            Next generation of intelligence for the hardest knowledge work and coding problems
-
-          - `"claude-mythos-5"`
-
-            Most capable model for cybersecurity and biology research
-
-          - `"claude-opus-5"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-8"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-7"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-mythos-preview"`
-
-            New class of intelligence, strongest in coding and cybersecurity
-
-          - `"claude-opus-4-6"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-sonnet-4-6"`
-
-            Best combination of speed and intelligence
-
-          - `"claude-haiku-4-5"`
-
-            Fastest model with near-frontier intelligence
-
-          - `"claude-haiku-4-5-20251001"`
-
-            Fastest model with near-frontier intelligence
-
-          - `"claude-opus-4-5"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-opus-4-5-20251101"`
-
-            Powerful intelligence for long-running agents and coding
-
-          - `"claude-sonnet-4-5"`
-
-            High-performance model for agents and coding
-
-          - `"claude-sonnet-4-5-20250929"`
-
-            High-performance model for agents and coding
-
-        - `role: "assistant"`
-
-          Conversational role of the generated message.
-
-          This will always be `"assistant"`.
-
-        - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
-
-          Structured information about a refusal.
-
-          - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
-
-            The policy category that triggered a refusal.
-
-            - `"cyber"`
-
-              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-            - `"bio"`
-
-              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-            - `"frontier_llm"`
-
-              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-            - `"reasoning_extraction"`
-
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-            - `"general_harms"`
-
-              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-          - `explanation: string`
-
-            Human-readable explanation of the refusal.
-
-            This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-          - `fallback_credit_token: string`
-
-            Opaque code that refunds the cache-miss cost when retrying this refused
-            request on the fallback model. Pass it as `fallback_credit_token` on the
-            retry request. Expires 5 minutes after the refusal.
-
-            The retry is sent either with the same request body (`system`, `messages`,
-            `tools`, and other render-shaping fields), or with the same body plus one
-            appended `assistant` message whose content is the partial text (with any
-            trailing whitespace stripped from the final text block) and paired
-            server-tool blocks from this refusal — which also authorizes that
-            appended turn as an assistant-prefill continuation on models that otherwise
-            disallow prefill. A token minted mid-server-tool-loop whose partial content
-            was continuable may only be redeemed the second way — if a same-body retry
-            is rejected with a 400 saying the token must be redeemed by continuing the
-            partial response, retry the second way instead. Either way: same workspace,
-            same platform; a mismatch is a 400. Resending a token for an already-warm
-            prefix is permitted but yields no additional credit.
-
-            `null` when the refused model isn't eligible for a fallback credit.
-
-          - `fallback_has_prefill_claim: boolean`
-
-            Whether the accompanying `fallback_credit_token` may be redeemed with the
-            appended-assistant retry form. Only set when `fallback_credit_token` is
-            present.
-
-            `true`: retry by resending the same request body plus one appended
-            `assistant` message whose content is this response's `content` with any
-            trailing whitespace stripped from the final text block and unpaired
-            `tool_use` blocks omitted (the same appended-turn shape described on
-            `fallback_credit_token`), with the token attached. `false`: retry by
-            resending the original request body unchanged, with the token attached —
-            the appended-assistant form is not available for this refusal (no
-            continuable partial content, or the request uses `output_format` or a
-            `tool_choice` that forces tool use). One exception: when the request used
-            `output_format` or a forced `tool_choice` and the refusal arrived after
-            server tools (including MCP connector tools) had already executed, the
-            token may not be redeemable by either retry form; if the exact-body retry
-            is then rejected with a 400 saying the token must be redeemed by
-            continuing the partial response, discard the token and retry without it.
-
-            Advisory: if an appended-assistant retry is rejected with a 400 despite
-            `true`, fall back to resending the original request body with the token.
-
-          - `recommended_model: string`
-
-            The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
-
-          - `type: "refusal"`
-
-        - `stop_reason: "end_turn" or "max_tokens" or "stop_sequence" or 5 more`
-
-          The reason that we stopped.
-
-          This may be one the following values:
-
-          * `"end_turn"`: the model reached a natural stopping point
-          * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-          * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-          * `"tool_use"`: the model invoked one or more tools
-          * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-          * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-          * `"model_context_window_exceeded"`: we exceeded the model's context window
-
-          In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-          - `"end_turn"`
-
-          - `"max_tokens"`
-
-          - `"stop_sequence"`
-
-          - `"tool_use"`
-
-          - `"pause_turn"`
-
-          - `"compaction"`
-
-          - `"refusal"`
-
-          - `"model_context_window_exceeded"`
-
-        - `stop_sequence: string`
-
-          Which custom stop sequence was generated, if any.
-
-          This value will be a non-null string if one of your custom stop sequences was generated.
-
-        - `type: "message"`
-
-          Object type.
-
-          For Messages, this is always `"message"`.
-
-        - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
-
-          Billing and rate-limit usage.
-
-          Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-          Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-          For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-          Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-            Breakdown of cached tokens by TTL
-
-            - `ephemeral_1h_input_tokens: number`
-
-              The number of input tokens used to create the 1 hour cache entry.
-
-            - `ephemeral_5m_input_tokens: number`
-
-              The number of input tokens used to create the 5 minute cache entry.
-
-          - `cache_creation_input_tokens: number`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: number`
-
-            The number of input tokens read from the cache.
-
-          - `fallback_credit: object { status }`
-
-            Outcome of the `fallback_credit_token` presented on this request.
-
-            - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
-
-              Whether the fallback-credit reprice was applied to this response's billing.
-
-              A union discriminated on `type`. `redeemed`: the retry is billed as if
-              the conversation had been on the retry model all along — including when the
-              resulting shift is zero because there was nothing to move. `not_applied`:
-              no reprice was applied; the arm's `reason` says why.
-
-              - `beta_fallback_credit_redeemed: object { type }`
-
-                The reprice was applied: the retry is billed as if the conversation
-                had been on the retry model all along.
-
-                - `type: "redeemed"`
-
-              - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
-
-                No reprice was applied; `reason` says why.
-
-                - `reason: "body_mismatch" or "continuation_excluded" or "continuation_only" or 9 more`
-
-                  Why the reprice was not applied.
-
-                  A closed enum; additions to the redemption-check vocabulary arrive as
-                  deliberate schema updates.
-
-                  - `"body_mismatch"`
-
-                  - `"continuation_excluded"`
-
-                  - `"continuation_only"`
-
-                  - `"expired"`
-
-                  - `"invalid_target_model"`
-
-                  - `"not_enabled"`
-
-                  - `"reprice_unavailable"`
-
-                  - `"temporarily_unavailable"`
-
-                  - `"variant_fields_present"`
-
-                  - `"wrong_organization"`
-
-                  - `"wrong_platform"`
-
-                  - `"wrong_workspace"`
-
-                - `type: "not_applied"`
-
-                - `remove_to_redeem: optional array of string`
-
-                  Request fields to remove before retrying, so the retry can redeem this
-                  token.
-
-                  Present exactly when `reason` is `variant_fields_present` — never null,
-                  never an empty array; absent otherwise. Fields are named only from your own request, and only after
-                  the sealed variant hash matched. A served best-effort retry has already
-                  been billed at normal price; nothing redeems retroactively, but a corrected
-                  re-send inside the token's five-minute window can still redeem.
-
-          - `inference_geo: string`
-
-            The geographic region where inference was performed for this request.
-
-          - `input_tokens: number`
-
-            The number of input tokens which were used.
-
-          - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
-
-            Per-iteration token usage breakdown.
-
-            Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-            - Determine which iterations exceeded long context thresholds (>=200k tokens)
-            - Calculate the true context window size from the last iteration
-            - Understand token accumulation across server-side tool use loops
-
-            - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-              Token usage for a sampling iteration.
-
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-                Breakdown of cached tokens by TTL
-
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-              - `cache_creation_input_tokens: number`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: number`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: number`
-
-                The number of input tokens which were used.
-
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `"claude-sonnet-5"`
-
-                  High-performance model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-5"`
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  High-performance model for agents and coding
-
-              - `output_tokens: number`
-
-                The number of output tokens which were used.
-
-              - `type: "message"`
-
-                Usage for a sampling iteration
-
-            - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
-
-              Token usage for a compaction iteration.
-
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-                Breakdown of cached tokens by TTL
-
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-              - `cache_creation_input_tokens: number`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: number`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: number`
-
-                The number of input tokens which were used.
-
-              - `output_tokens: number`
-
-                The number of output tokens which were used.
-
-              - `type: "compaction"`
-
-                Usage for a compaction iteration
-
-            - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-              Token usage for an advisor sub-inference iteration.
-
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-                Breakdown of cached tokens by TTL
-
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-              - `cache_creation_input_tokens: number`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: number`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: number`
-
-                The number of input tokens which were used.
-
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `"claude-sonnet-5"`
-
-                  High-performance model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-5"`
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  High-performance model for agents and coding
-
-              - `output_tokens: number`
-
-                The number of output tokens which were used.
-
-              - `type: "advisor_message"`
-
-                Usage for an advisor sub-inference iteration
-
-            - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-              Token usage for the fallback-model attempt of a server-side fallback request.
-
-              Produced in place of a `message` entry for whichever hop served the
-              response. A declined hop produces the existing `message` entry. Whether
-              a fallback model served the response is signalled by the presence of this
-              entry in `usage.iterations`.
-
-              - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-                Breakdown of cached tokens by TTL
-
-                - `ephemeral_1h_input_tokens: number`
-
-                  The number of input tokens used to create the 1 hour cache entry.
-
-                - `ephemeral_5m_input_tokens: number`
-
-                  The number of input tokens used to create the 5 minute cache entry.
-
-              - `cache_creation_input_tokens: number`
-
-                The number of input tokens used to create the cache entry.
-
-              - `cache_read_input_tokens: number`
-
-                The number of input tokens read from the cache.
-
-              - `input_tokens: number`
-
-                The number of input tokens which were used.
-
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-                The model that will complete your prompt.
-
-                See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-                - `"claude-sonnet-5"`
-
-                  High-performance model for coding and agents
-
-                - `"claude-fable-5"`
-
-                  Next generation of intelligence for the hardest knowledge work and coding problems
-
-                - `"claude-mythos-5"`
-
-                  Most capable model for cybersecurity and biology research
-
-                - `"claude-opus-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-8"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-7"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-mythos-preview"`
-
-                  New class of intelligence, strongest in coding and cybersecurity
-
-                - `"claude-opus-4-6"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-6"`
-
-                  Best combination of speed and intelligence
-
-                - `"claude-haiku-4-5"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-haiku-4-5-20251001"`
-
-                  Fastest model with near-frontier intelligence
-
-                - `"claude-opus-4-5"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-opus-4-5-20251101"`
-
-                  Powerful intelligence for long-running agents and coding
-
-                - `"claude-sonnet-4-5"`
-
-                  High-performance model for agents and coding
-
-                - `"claude-sonnet-4-5-20250929"`
-
-                  High-performance model for agents and coding
-
-              - `output_tokens: number`
-
-                The number of output tokens which were used.
-
-              - `type: "fallback_message"`
-
-                Usage for the fallback-model attempt that served the response
-
-          - `output_tokens: number`
-
-            The number of output tokens which were used.
-
-          - `output_tokens_details: object { thinking_tokens }`
-
-            Breakdown of output tokens by category.
-
-            `output_tokens` remains the inclusive, authoritative total used for billing.
-            This object provides a read-only decomposition for observability — for example,
-            how many of the billed output tokens were spent on internal reasoning that may
-            have been summarized before being returned to you.
-
-            - `thinking_tokens: number`
-
-              Number of output tokens the model generated as internal reasoning, including
-              the thinking-block delimiter tokens.
-
-              Reflects the raw reasoning the model produced, not the (possibly shorter)
-              summarized thinking text returned in the response body. Computed by
-              re-tokenizing the raw reasoning text, so it may differ from the model's exact
-              generation count by a small number of tokens. Always ≤ `output_tokens`;
-              `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-          - `server_tool_use: object { web_fetch_requests, web_search_requests }`
-
-            The number of server tool requests.
-
-            - `web_fetch_requests: number`
-
-              The number of web fetch tool requests.
-
-            - `web_search_requests: number`
-
-              The number of web search tool requests.
-
-          - `service_tier: "standard" or "priority" or "batch"`
-
-            If the request used the priority, standard, or batch tier.
-
-            - `"standard"`
-
-            - `"priority"`
-
-            - `"batch"`
-
-          - `speed: "standard" or "fast"`
-
-            Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-            - `"standard"`
-
-            - `"fast"`
-
-      - `type: "succeeded"`
-
-    - `beta_message_batch_errored_result: object { error, type }`
-
-      - `error: object { error, request_id, type }`
-
-        - `error: BetaInvalidRequestError or BetaAuthenticationError or BetaBillingError or 6 more`
-
-          - `beta_invalid_request_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "invalid_request_error"`
-
-          - `beta_authentication_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "authentication_error"`
-
-          - `beta_billing_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "billing_error"`
-
-          - `beta_permission_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "permission_error"`
-
-          - `beta_not_found_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "not_found_error"`
-
-          - `beta_rate_limit_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "rate_limit_error"`
-
-          - `beta_gateway_timeout_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "timeout_error"`
-
-          - `beta_api_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "api_error"`
-
-          - `beta_overloaded_error: object { message, type }`
-
-            - `message: string`
-
-            - `type: "overloaded_error"`
-
-        - `request_id: string`
-
-        - `type: "error"`
-
-      - `type: "errored"`
-
-    - `beta_message_batch_canceled_result: object { type }`
-
-      - `type: "canceled"`
-
-    - `beta_message_batch_expired_result: object { type }`
-
-      - `type: "expired"`
-
-### Beta Message Batch Request Counts
-
-- `beta_message_batch_request_counts: object { canceled, errored, expired, 2 more }`
-
-  - `canceled: number`
-
-    Number of requests in the Message Batch that have been canceled.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `errored: number`
-
-    Number of requests in the Message Batch that encountered an error.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `expired: number`
-
-    Number of requests in the Message Batch that have expired.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-  - `processing: number`
-
-    Number of requests in the Message Batch that are processing.
-
-  - `succeeded: number`
-
-    Number of requests in the Message Batch that have completed successfully.
-
-    This is zero until processing of the entire Message Batch has ended.
-
-### Beta Message Batch Result
-
-- `beta_message_batch_result: BetaMessageBatchSucceededResult or BetaMessageBatchErroredResult or BetaMessageBatchCanceledResult or BetaMessageBatchExpiredResult`
-
-  Processing result for this request.
-
-  Contains a Message output if processing was successful, an error response if processing failed, or the reason why processing was not attempted, such as cancellation or expiration.
-
-  - `beta_message_batch_succeeded_result: object { message, type }`
-
-    - `message: object { id, container, content, 9 more }`
-
-      - `id: string`
-
-        Unique object identifier.
-
-        The format and length of IDs may change over time.
-
-      - `container: object { id, expires_at, skills }`
-
-        Information about the container used in the request (for the code execution tool)
-
-        - `id: string`
-
-          Identifier for the container used in this request
-
-        - `expires_at: string`
-
-          The time at which the container will expire.
-
-        - `skills: array of BetaSkill`
-
-          Skills loaded in the container
-
-          - `skill_id: string`
-
-            Skill ID
-
-          - `type: "anthropic" or "custom"`
-
-            Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-            - `"anthropic"`
-
-            - `"custom"`
-
-          - `version: string`
-
-            The resolved version: a skill version ID for custom skills.
-
-      - `content: array of BetaContentBlock`
-
-        Content generated by the model.
-
-        This is an array of content blocks, each of which has a `type` that determines its shape.
-
-        Example:
-
-        ```json
-        [{"type": "text", "text": "Hi, I'm Claude."}]
-        ```
-
-        If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-        For example, if the input `messages` were:
-
-        ```json
-        [
-          {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-          {"role": "assistant", "content": "The best answer is ("}
-        ]
-        ```
-
-        Then the response `content` might be:
-
-        ```json
-        [{"type": "text", "text": "B)"}]
-        ```
-
-        - `beta_text_block: object { citations, text, type }`
-
-          - `citations: array of BetaTextCitation`
-
-            Citations supporting the text block.
-
-            The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-            - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
-
-              - `cited_text: string`
-
-              - `document_index: number`
-
-              - `document_title: string`
-
-              - `end_char_index: number`
-
-              - `file_id: string`
-
-              - `start_char_index: number`
-
-              - `type: "char_location"`
-
-            - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
-
-              - `cited_text: string`
-
-              - `document_index: number`
-
-              - `document_title: string`
-
-              - `end_page_number: number`
-
-              - `file_id: string`
-
-              - `start_page_number: number`
-
-              - `type: "page_location"`
-
-            - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
-
-              - `cited_text: string`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `document_index: number`
-
-              - `document_title: string`
-
-              - `end_block_index: number`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `file_id: string`
-
-              - `start_block_index: number`
-
-                0-based index of the first cited block in the source's `content` array.
-
-              - `type: "content_block_location"`
-
-            - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
-
-              - `cited_text: string`
-
-              - `encrypted_index: string`
-
-              - `title: string`
-
-              - `type: "web_search_result_location"`
-
-              - `url: string`
-
-            - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
-
-              - `cited_text: string`
-
-                The full text of the cited block range, concatenated.
-
-                Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-              - `end_block_index: number`
-
-                Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-                Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-              - `search_result_index: number`
-
-                0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-                Counted separately from `document_index`; server-side web search results are not included in this count.
-
-              - `source: string`
-
-              - `start_block_index: number`
-
-                0-based index of the first cited block in the source's `content` array.
-
-              - `title: string`
-
-              - `type: "search_result_location"`
-
-          - `text: string`
-
-          - `type: "text"`
-
-        - `beta_thinking_block: object { signature, thinking, type }`
-
-          - `signature: string`
-
-            A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-            This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-          - `thinking: string`
-
-            The text of Claude's thinking process for this block.
-
-          - `type: "thinking"`
-
-        - `beta_redacted_thinking_block: object { data, type }`
-
-          - `data: string`
-
-            The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-            Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-            See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-          - `type: "redacted_thinking"`
-
-        - `beta_tool_use_block: object { id, input, name, 3 more }`
-
-          - `id: string`
-
-          - `input: map[unknown]`
-
-          - `name: string`
-
-          - `type: "tool_use"`
-
-          - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `beta_direct_caller: object { type }`
-
-              Tool invocation directly from the model.
-
-              - `type: "direct"`
-
-            - `beta_server_tool_caller: object { tool_id, type }`
-
-              Tool invocation generated by a server-side tool.
-
-              - `tool_id: string`
-
-              - `type: "code_execution_20250825"`
-
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-              - `tool_id: string`
-
-              - `type: "code_execution_20260120"`
-
-          - `toolset_name: optional string`
-
-            For a toolset member tool_use, the toolset family.
-
-        - `beta_server_tool_use_block: object { id, input, name, 2 more }`
-
-          - `id: string`
-
-          - `input: map[unknown]`
-
-          - `name: "advisor" or "web_search" or "web_fetch" or 5 more`
-
-            - `"advisor"`
-
-            - `"web_search"`
-
-            - `"web_fetch"`
-
-            - `"code_execution"`
-
-            - `"bash_code_execution"`
-
-            - `"text_editor_code_execution"`
-
-            - `"tool_search_tool_regex"`
-
-            - `"tool_search_tool_bm25"`
-
-          - `type: "server_tool_use"`
-
-          - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `beta_direct_caller: object { type }`
-
-              Tool invocation directly from the model.
-
-            - `beta_server_tool_caller: object { tool_id, type }`
-
-              Tool invocation generated by a server-side tool.
-
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-        - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
-
-          - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
-
-            - `beta_web_search_tool_result_error: object { error_code, type }`
-
-              - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"max_uses_exceeded"`
-
-                - `"too_many_requests"`
-
-                - `"query_too_long"`
-
-                - `"request_too_large"`
-
-              - `type: "web_search_tool_result_error"`
-
-            - `union_member_1: array of BetaWebSearchResultBlock`
-
-              - `encrypted_content: string`
-
-              - `page_age: string`
-
-              - `title: string`
-
-              - `type: "web_search_result"`
-
-              - `url: string`
-
-          - `tool_use_id: string`
-
-          - `type: "web_search_tool_result"`
-
-          - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `beta_direct_caller: object { type }`
-
-              Tool invocation directly from the model.
-
-            - `beta_server_tool_caller: object { tool_id, type }`
-
-              Tool invocation generated by a server-side tool.
-
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-        - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
-
-          - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
-
-            - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
-
-              - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
-
-                - `"invalid_tool_input"`
-
-                - `"url_too_long"`
-
-                - `"url_not_allowed"`
-
-                - `"url_not_in_prior_context"`
-
-                - `"url_not_accessible"`
-
-                - `"unsupported_content_type"`
-
-                - `"too_many_requests"`
-
-                - `"max_uses_exceeded"`
-
-                - `"unavailable"`
-
-              - `type: "web_fetch_tool_result_error"`
-
-            - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
-
-              - `content: object { citations, source, title, type }`
-
-                - `citations: object { enabled }`
-
-                  Citation configuration for the document
-
-                  - `enabled: boolean`
-
-                - `source: BetaBase64PDFSource or BetaPlainTextSource`
-
-                  - `beta_base64_pdf_source: object { data, media_type, type }`
-
-                    - `data: string`
-
-                    - `media_type: "application/pdf"`
-
-                    - `type: "base64"`
-
-                  - `beta_plain_text_source: object { data, media_type, type }`
-
-                    - `data: string`
-
-                    - `media_type: "text/plain"`
-
-                    - `type: "text"`
-
-                - `title: string`
-
-                  The title of the document
-
-                - `type: "document"`
-
-              - `retrieved_at: string`
-
-                ISO 8601 timestamp when the content was retrieved
-
-              - `type: "web_fetch_result"`
-
-              - `url: string`
-
-                Fetched content URL
-
-          - `tool_use_id: string`
-
-          - `type: "web_fetch_tool_result"`
-
-          - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-            Tool invocation directly from the model.
-
-            - `beta_direct_caller: object { type }`
-
-              Tool invocation directly from the model.
-
-            - `beta_server_tool_caller: object { tool_id, type }`
-
-              Tool invocation generated by a server-side tool.
-
-            - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-        - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
-
-          - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
-
-            - `beta_advisor_tool_result_error: object { error_code, type }`
-
-              - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
-
-                - `"max_uses_exceeded"`
-
-                - `"prompt_too_long"`
-
-                - `"too_many_requests"`
-
-                - `"overloaded"`
-
-                - `"unavailable"`
-
-                - `"execution_time_exceeded"`
-
-                - `"model_not_found"`
-
-              - `type: "advisor_tool_result_error"`
-
-            - `beta_advisor_result_block: object { stop_reason, text, type }`
-
-              - `stop_reason: string`
-
-                The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
-
-              - `text: string`
-
-              - `type: "advisor_result"`
-
-            - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
-
-              - `encrypted_content: string`
-
-                Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
-
-              - `stop_reason: string`
-
-                The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
-
-              - `type: "advisor_redacted_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "advisor_tool_result"`
-
-        - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-          - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
-
-            - `beta_code_execution_tool_result_error: object { error_code, type }`
-
-              - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-              - `type: "code_execution_tool_result_error"`
-
-            - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
-
-              - `content: array of BetaCodeExecutionOutputBlock`
-
-                - `file_id: string`
-
-                - `type: "code_execution_output"`
-
-              - `return_code: number`
-
-              - `stderr: string`
-
-              - `stdout: string`
-
-              - `type: "code_execution_result"`
-
-            - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
-
-              Code execution result with encrypted stdout for PFC + web_search results.
-
-              - `content: array of BetaCodeExecutionOutputBlock`
-
-                - `file_id: string`
-
-                - `type: "code_execution_output"`
-
-              - `encrypted_stdout: string`
-
-              - `return_code: number`
-
-              - `stderr: string`
-
-              - `type: "encrypted_code_execution_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "code_execution_tool_result"`
-
-        - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-          - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
-
-            - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
-
-              - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-                - `"output_file_too_large"`
-
-              - `type: "bash_code_execution_tool_result_error"`
-
-            - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
-
-              - `content: array of BetaBashCodeExecutionOutputBlock`
-
-                - `file_id: string`
-
-                - `type: "bash_code_execution_output"`
-
-              - `return_code: number`
-
-              - `stderr: string`
-
-              - `stdout: string`
-
-              - `type: "bash_code_execution_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "bash_code_execution_tool_result"`
-
-        - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-          - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-            - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
-
-              - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-                - `"file_not_found"`
-
-              - `error_message: string`
-
-              - `type: "text_editor_code_execution_tool_result_error"`
-
-            - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
-
-              - `content: string`
-
-              - `file_type: "text" or "image" or "pdf"`
-
-                - `"text"`
-
-                - `"image"`
-
-                - `"pdf"`
-
-              - `num_lines: number`
-
-              - `start_line: number`
-
-              - `total_lines: number`
-
-              - `type: "text_editor_code_execution_view_result"`
-
-            - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
-
-              - `is_file_update: boolean`
-
-              - `type: "text_editor_code_execution_create_result"`
-
-            - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
-
-              - `lines: array of string`
-
-              - `new_lines: number`
-
-              - `new_start: number`
-
-              - `old_lines: number`
-
-              - `old_start: number`
-
-              - `type: "text_editor_code_execution_str_replace_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "text_editor_code_execution_tool_result"`
-
-        - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
-
-          - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
-
-            - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
-
-              - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-                - `"invalid_tool_input"`
-
-                - `"unavailable"`
-
-                - `"too_many_requests"`
-
-                - `"execution_time_exceeded"`
-
-              - `error_message: string`
-
-              - `type: "tool_search_tool_result_error"`
-
-            - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
-
-              - `tool_references: array of BetaToolReferenceBlock`
-
-                - `tool_name: string`
-
-                - `type: "tool_reference"`
-
-              - `type: "tool_search_tool_search_result"`
-
-          - `tool_use_id: string`
-
-          - `type: "tool_search_tool_result"`
-
-        - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
-
-          - `id: string`
-
-          - `input: map[unknown]`
-
-          - `name: string`
-
-            The name of the MCP tool
-
-          - `server_name: string`
-
-            The name of the MCP server
-
-          - `type: "mcp_tool_use"`
-
-        - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
-
-          - `content: string or array of BetaTextBlock`
-
-            - `union_member_0: string`
-
-            - `beta_mcp_tool_result_block_content: array of BetaTextBlock`
-
-              - `citations: array of BetaTextCitation`
-
-                Citations supporting the text block.
-
-                The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-              - `text: string`
-
-              - `type: "text"`
-
-          - `is_error: boolean`
-
-          - `tool_use_id: string`
-
-          - `type: "mcp_tool_result"`
-
-        - `beta_container_upload_block: object { file_id, type }`
-
-          Response model for a file uploaded to the container.
-
-          - `file_id: string`
-
-          - `type: "container_upload"`
-
-        - `beta_compaction_block: object { content, encrypted_content, type }`
-
-          A compaction block returned when autocompact is triggered.
-
-          When content is None, it indicates the compaction failed to produce a valid
-          summary (e.g., malformed output from the model). Clients may round-trip
-          compaction blocks with null content; the server treats them as no-ops.
-
-          - `content: string`
-
-            Summary of compacted content, or null if compaction failed
-
-          - `encrypted_content: string`
-
-            Opaque metadata from prior compaction, to be round-tripped verbatim
-
-          - `type: "compaction"`
-
-        - `beta_fallback_block: object { from, to, trigger, type }`
-
-          Marks the point in `content` where one model's output gives way to the next.
-
-          One block appears per hop where a preceding model actually ran this turn and
-          declined. A turn where no preceding model ran and declined has no such
-          boundary and carries no block — the signal for whether a fallback model
-          served the response is the presence of a `fallback_message` entry in
-          `usage.iterations`, not this block.
-
-          The block is treated like a server-tool content block for streaming: it
-          arrives via the standard `content_block_start` / `content_block_stop`
-          pair and carries no deltas.
-
-          - `from: object { model }`
-
-            The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-            - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `"claude-sonnet-5"`
-
-                High-performance model for coding and agents
-
-              - `"claude-fable-5"`
-
-                Next generation of intelligence for the hardest knowledge work and coding problems
-
-              - `"claude-mythos-5"`
-
-                Most capable model for cybersecurity and biology research
-
-              - `"claude-opus-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-8"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-7"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
-              - `"claude-opus-4-6"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-6"`
-
-                Best combination of speed and intelligence
-
-              - `"claude-haiku-4-5"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-opus-4-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-5-20251101"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-5"`
-
-                High-performance model for agents and coding
-
-              - `"claude-sonnet-4-5-20250929"`
-
-                High-performance model for agents and coding
-
-          - `to: object { model }`
-
-            The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-            - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-          - `trigger: object { category, type }`
-
-            What caused the `from` model to hand over at this hop.
-
-            - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
-
-              The policy category that triggered a refusal.
-
-              - `"cyber"`
-
-                The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-              - `"bio"`
-
-                The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-              - `"frontier_llm"`
-
-                The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-              - `"reasoning_extraction"`
-
-                The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-              - `"general_harms"`
-
-                The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-            - `type: "refusal"`
-
-          - `type: "fallback"`
-
-      - `context_management: object { applied_edits }`
-
-        Context management response.
-
-        Information about context management strategies applied during the request.
-
-        - `applied_edits: array of BetaClearToolUses20250919EditResponse or BetaClearThinking20251015EditResponse`
-
-          List of context management edits that were applied.
-
-          - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
-
-            - `cleared_input_tokens: number`
-
-              Number of input tokens cleared by this edit.
-
-            - `cleared_tool_uses: number`
-
-              Number of tool uses that were cleared.
-
-            - `type: "clear_tool_uses_20250919"`
-
-              The type of context management edit applied.
-
-          - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
-
-            - `cleared_input_tokens: number`
-
-              Number of input tokens cleared by this edit.
-
-            - `cleared_thinking_turns: number`
-
-              Number of thinking turns that were cleared.
-
-            - `type: "clear_thinking_20251015"`
-
-              The type of context management edit applied.
-
-      - `diagnostics: object { cache_miss_reason }`
-
-        Response envelope for request-level diagnostics. Present (possibly
-        null) whenever the caller supplied `diagnostics` on the request.
-
-        - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
-
-          Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
-
-          - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
-
-            - `cache_missed_input_tokens: number`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: "model_changed"`
-
-          - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
-
-            - `cache_missed_input_tokens: number`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: "system_changed"`
-
-          - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
-
-            - `cache_missed_input_tokens: number`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: "tools_changed"`
-
-          - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
-
-            - `cache_missed_input_tokens: number`
-
-              Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-            - `type: "messages_changed"`
-
-          - `beta_cache_miss_previous_message_not_found: object { type }`
-
-            - `type: "previous_message_not_found"`
-
-          - `beta_cache_miss_unavailable: object { type }`
-
-            - `type: "unavailable"`
-
-      - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-        The model that will complete your prompt.
-
-        See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-        - `"claude-sonnet-5"`
-
-          High-performance model for coding and agents
-
-        - `"claude-fable-5"`
-
-          Next generation of intelligence for the hardest knowledge work and coding problems
-
-        - `"claude-mythos-5"`
-
-          Most capable model for cybersecurity and biology research
-
-        - `"claude-opus-5"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-8"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-7"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-mythos-preview"`
-
-          New class of intelligence, strongest in coding and cybersecurity
-
-        - `"claude-opus-4-6"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-sonnet-4-6"`
-
-          Best combination of speed and intelligence
-
-        - `"claude-haiku-4-5"`
-
-          Fastest model with near-frontier intelligence
-
-        - `"claude-haiku-4-5-20251001"`
-
-          Fastest model with near-frontier intelligence
-
-        - `"claude-opus-4-5"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-opus-4-5-20251101"`
-
-          Powerful intelligence for long-running agents and coding
-
-        - `"claude-sonnet-4-5"`
-
-          High-performance model for agents and coding
-
-        - `"claude-sonnet-4-5-20250929"`
-
-          High-performance model for agents and coding
-
-      - `role: "assistant"`
-
-        Conversational role of the generated message.
-
-        This will always be `"assistant"`.
-
-      - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
-
-        Structured information about a refusal.
-
-        - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
-
-          The policy category that triggered a refusal.
-
-          - `"cyber"`
-
-            The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-          - `"bio"`
-
-            The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-          - `"frontier_llm"`
-
-            The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-          - `"reasoning_extraction"`
-
-            The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-          - `"general_harms"`
-
-            The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-        - `explanation: string`
-
-          Human-readable explanation of the refusal.
-
-          This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-        - `fallback_credit_token: string`
-
-          Opaque code that refunds the cache-miss cost when retrying this refused
-          request on the fallback model. Pass it as `fallback_credit_token` on the
-          retry request. Expires 5 minutes after the refusal.
-
-          The retry is sent either with the same request body (`system`, `messages`,
-          `tools`, and other render-shaping fields), or with the same body plus one
-          appended `assistant` message whose content is the partial text (with any
-          trailing whitespace stripped from the final text block) and paired
-          server-tool blocks from this refusal — which also authorizes that
-          appended turn as an assistant-prefill continuation on models that otherwise
-          disallow prefill. A token minted mid-server-tool-loop whose partial content
-          was continuable may only be redeemed the second way — if a same-body retry
-          is rejected with a 400 saying the token must be redeemed by continuing the
-          partial response, retry the second way instead. Either way: same workspace,
-          same platform; a mismatch is a 400. Resending a token for an already-warm
-          prefix is permitted but yields no additional credit.
-
-          `null` when the refused model isn't eligible for a fallback credit.
-
-        - `fallback_has_prefill_claim: boolean`
-
-          Whether the accompanying `fallback_credit_token` may be redeemed with the
-          appended-assistant retry form. Only set when `fallback_credit_token` is
-          present.
-
-          `true`: retry by resending the same request body plus one appended
-          `assistant` message whose content is this response's `content` with any
-          trailing whitespace stripped from the final text block and unpaired
-          `tool_use` blocks omitted (the same appended-turn shape described on
-          `fallback_credit_token`), with the token attached. `false`: retry by
-          resending the original request body unchanged, with the token attached —
-          the appended-assistant form is not available for this refusal (no
-          continuable partial content, or the request uses `output_format` or a
-          `tool_choice` that forces tool use). One exception: when the request used
-          `output_format` or a forced `tool_choice` and the refusal arrived after
-          server tools (including MCP connector tools) had already executed, the
-          token may not be redeemable by either retry form; if the exact-body retry
-          is then rejected with a 400 saying the token must be redeemed by
-          continuing the partial response, discard the token and retry without it.
-
-          Advisory: if an appended-assistant retry is rejected with a 400 despite
-          `true`, fall back to resending the original request body with the token.
-
-        - `recommended_model: string`
-
-          The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
-
-        - `type: "refusal"`
-
-      - `stop_reason: "end_turn" or "max_tokens" or "stop_sequence" or 5 more`
-
-        The reason that we stopped.
-
-        This may be one the following values:
-
-        * `"end_turn"`: the model reached a natural stopping point
-        * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-        * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-        * `"tool_use"`: the model invoked one or more tools
-        * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-        * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-        * `"model_context_window_exceeded"`: we exceeded the model's context window
-
-        In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-        - `"end_turn"`
-
-        - `"max_tokens"`
-
-        - `"stop_sequence"`
-
-        - `"tool_use"`
-
-        - `"pause_turn"`
-
-        - `"compaction"`
-
-        - `"refusal"`
-
-        - `"model_context_window_exceeded"`
-
-      - `stop_sequence: string`
-
-        Which custom stop sequence was generated, if any.
-
-        This value will be a non-null string if one of your custom stop sequences was generated.
-
-      - `type: "message"`
-
-        Object type.
-
-        For Messages, this is always `"message"`.
-
-      - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
-
-        Billing and rate-limit usage.
-
-        Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-        Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-        For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-        Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-        - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-          Breakdown of cached tokens by TTL
-
-          - `ephemeral_1h_input_tokens: number`
-
-            The number of input tokens used to create the 1 hour cache entry.
-
-          - `ephemeral_5m_input_tokens: number`
-
-            The number of input tokens used to create the 5 minute cache entry.
-
-        - `cache_creation_input_tokens: number`
-
-          The number of input tokens used to create the cache entry.
-
-        - `cache_read_input_tokens: number`
-
-          The number of input tokens read from the cache.
-
-        - `fallback_credit: object { status }`
-
-          Outcome of the `fallback_credit_token` presented on this request.
-
-          - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
-
-            Whether the fallback-credit reprice was applied to this response's billing.
-
-            A union discriminated on `type`. `redeemed`: the retry is billed as if
-            the conversation had been on the retry model all along — including when the
-            resulting shift is zero because there was nothing to move. `not_applied`:
-            no reprice was applied; the arm's `reason` says why.
-
-            - `beta_fallback_credit_redeemed: object { type }`
-
-              The reprice was applied: the retry is billed as if the conversation
-              had been on the retry model all along.
-
-              - `type: "redeemed"`
-
-            - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
-
-              No reprice was applied; `reason` says why.
-
-              - `reason: "body_mismatch" or "continuation_excluded" or "continuation_only" or 9 more`
-
-                Why the reprice was not applied.
-
-                A closed enum; additions to the redemption-check vocabulary arrive as
-                deliberate schema updates.
-
-                - `"body_mismatch"`
-
-                - `"continuation_excluded"`
-
-                - `"continuation_only"`
-
-                - `"expired"`
-
-                - `"invalid_target_model"`
-
-                - `"not_enabled"`
-
-                - `"reprice_unavailable"`
-
-                - `"temporarily_unavailable"`
-
-                - `"variant_fields_present"`
-
-                - `"wrong_organization"`
-
-                - `"wrong_platform"`
-
-                - `"wrong_workspace"`
-
-              - `type: "not_applied"`
-
-              - `remove_to_redeem: optional array of string`
-
-                Request fields to remove before retrying, so the retry can redeem this
-                token.
-
-                Present exactly when `reason` is `variant_fields_present` — never null,
-                never an empty array; absent otherwise. Fields are named only from your own request, and only after
-                the sealed variant hash matched. A served best-effort retry has already
-                been billed at normal price; nothing redeems retroactively, but a corrected
-                re-send inside the token's five-minute window can still redeem.
-
-        - `inference_geo: string`
-
-          The geographic region where inference was performed for this request.
-
-        - `input_tokens: number`
-
-          The number of input tokens which were used.
-
-        - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
-
-          Per-iteration token usage breakdown.
-
-          Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-          - Determine which iterations exceeded long context thresholds (>=200k tokens)
-          - Calculate the true context window size from the last iteration
-          - Understand token accumulation across server-side tool use loops
-
-          - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-            Token usage for a sampling iteration.
-
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-              Breakdown of cached tokens by TTL
-
-              - `ephemeral_1h_input_tokens: number`
-
-                The number of input tokens used to create the 1 hour cache entry.
-
-              - `ephemeral_5m_input_tokens: number`
-
-                The number of input tokens used to create the 5 minute cache entry.
-
-            - `cache_creation_input_tokens: number`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: number`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: number`
-
-              The number of input tokens which were used.
-
-            - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `"claude-sonnet-5"`
-
-                High-performance model for coding and agents
-
-              - `"claude-fable-5"`
-
-                Next generation of intelligence for the hardest knowledge work and coding problems
-
-              - `"claude-mythos-5"`
-
-                Most capable model for cybersecurity and biology research
-
-              - `"claude-opus-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-8"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-7"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
-              - `"claude-opus-4-6"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-6"`
-
-                Best combination of speed and intelligence
-
-              - `"claude-haiku-4-5"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-opus-4-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-5-20251101"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-5"`
-
-                High-performance model for agents and coding
-
-              - `"claude-sonnet-4-5-20250929"`
-
-                High-performance model for agents and coding
-
-            - `output_tokens: number`
-
-              The number of output tokens which were used.
-
-            - `type: "message"`
-
-              Usage for a sampling iteration
-
-          - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
-
-            Token usage for a compaction iteration.
-
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-              Breakdown of cached tokens by TTL
-
-              - `ephemeral_1h_input_tokens: number`
-
-                The number of input tokens used to create the 1 hour cache entry.
-
-              - `ephemeral_5m_input_tokens: number`
-
-                The number of input tokens used to create the 5 minute cache entry.
-
-            - `cache_creation_input_tokens: number`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: number`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: number`
-
-              The number of input tokens which were used.
-
-            - `output_tokens: number`
-
-              The number of output tokens which were used.
-
-            - `type: "compaction"`
-
-              Usage for a compaction iteration
-
-          - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-            Token usage for an advisor sub-inference iteration.
-
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-              Breakdown of cached tokens by TTL
-
-              - `ephemeral_1h_input_tokens: number`
-
-                The number of input tokens used to create the 1 hour cache entry.
-
-              - `ephemeral_5m_input_tokens: number`
-
-                The number of input tokens used to create the 5 minute cache entry.
-
-            - `cache_creation_input_tokens: number`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: number`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: number`
-
-              The number of input tokens which were used.
-
-            - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `"claude-sonnet-5"`
-
-                High-performance model for coding and agents
-
-              - `"claude-fable-5"`
-
-                Next generation of intelligence for the hardest knowledge work and coding problems
-
-              - `"claude-mythos-5"`
-
-                Most capable model for cybersecurity and biology research
-
-              - `"claude-opus-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-8"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-7"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
-              - `"claude-opus-4-6"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-6"`
-
-                Best combination of speed and intelligence
-
-              - `"claude-haiku-4-5"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-opus-4-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-5-20251101"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-5"`
-
-                High-performance model for agents and coding
-
-              - `"claude-sonnet-4-5-20250929"`
-
-                High-performance model for agents and coding
-
-            - `output_tokens: number`
-
-              The number of output tokens which were used.
-
-            - `type: "advisor_message"`
-
-              Usage for an advisor sub-inference iteration
-
-          - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-            Token usage for the fallback-model attempt of a server-side fallback request.
-
-            Produced in place of a `message` entry for whichever hop served the
-            response. A declined hop produces the existing `message` entry. Whether
-            a fallback model served the response is signalled by the presence of this
-            entry in `usage.iterations`.
-
-            - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-              Breakdown of cached tokens by TTL
-
-              - `ephemeral_1h_input_tokens: number`
-
-                The number of input tokens used to create the 1 hour cache entry.
-
-              - `ephemeral_5m_input_tokens: number`
-
-                The number of input tokens used to create the 5 minute cache entry.
-
-            - `cache_creation_input_tokens: number`
-
-              The number of input tokens used to create the cache entry.
-
-            - `cache_read_input_tokens: number`
-
-              The number of input tokens read from the cache.
-
-            - `input_tokens: number`
-
-              The number of input tokens which were used.
-
-            - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-              The model that will complete your prompt.
-
-              See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-              - `"claude-sonnet-5"`
-
-                High-performance model for coding and agents
-
-              - `"claude-fable-5"`
-
-                Next generation of intelligence for the hardest knowledge work and coding problems
-
-              - `"claude-mythos-5"`
-
-                Most capable model for cybersecurity and biology research
-
-              - `"claude-opus-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-8"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-7"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-mythos-preview"`
-
-                New class of intelligence, strongest in coding and cybersecurity
-
-              - `"claude-opus-4-6"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-6"`
-
-                Best combination of speed and intelligence
-
-              - `"claude-haiku-4-5"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-haiku-4-5-20251001"`
-
-                Fastest model with near-frontier intelligence
-
-              - `"claude-opus-4-5"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-opus-4-5-20251101"`
-
-                Powerful intelligence for long-running agents and coding
-
-              - `"claude-sonnet-4-5"`
-
-                High-performance model for agents and coding
-
-              - `"claude-sonnet-4-5-20250929"`
-
-                High-performance model for agents and coding
-
-            - `output_tokens: number`
-
-              The number of output tokens which were used.
-
-            - `type: "fallback_message"`
-
-              Usage for the fallback-model attempt that served the response
-
-        - `output_tokens: number`
-
-          The number of output tokens which were used.
-
-        - `output_tokens_details: object { thinking_tokens }`
-
-          Breakdown of output tokens by category.
-
-          `output_tokens` remains the inclusive, authoritative total used for billing.
-          This object provides a read-only decomposition for observability — for example,
-          how many of the billed output tokens were spent on internal reasoning that may
-          have been summarized before being returned to you.
-
-          - `thinking_tokens: number`
-
-            Number of output tokens the model generated as internal reasoning, including
-            the thinking-block delimiter tokens.
-
-            Reflects the raw reasoning the model produced, not the (possibly shorter)
-            summarized thinking text returned in the response body. Computed by
-            re-tokenizing the raw reasoning text, so it may differ from the model's exact
-            generation count by a small number of tokens. Always ≤ `output_tokens`;
-            `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-        - `server_tool_use: object { web_fetch_requests, web_search_requests }`
-
-          The number of server tool requests.
-
-          - `web_fetch_requests: number`
-
-            The number of web fetch tool requests.
-
-          - `web_search_requests: number`
-
-            The number of web search tool requests.
-
-        - `service_tier: "standard" or "priority" or "batch"`
-
-          If the request used the priority, standard, or batch tier.
-
-          - `"standard"`
-
-          - `"priority"`
-
-          - `"batch"`
-
-        - `speed: "standard" or "fast"`
-
-          Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-          - `"standard"`
-
-          - `"fast"`
-
-    - `type: "succeeded"`
-
-  - `beta_message_batch_errored_result: object { error, type }`
-
-    - `error: object { error, request_id, type }`
-
-      - `error: BetaInvalidRequestError or BetaAuthenticationError or BetaBillingError or 6 more`
-
-        - `beta_invalid_request_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "invalid_request_error"`
-
-        - `beta_authentication_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "authentication_error"`
-
-        - `beta_billing_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "billing_error"`
-
-        - `beta_permission_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "permission_error"`
-
-        - `beta_not_found_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "not_found_error"`
-
-        - `beta_rate_limit_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "rate_limit_error"`
-
-        - `beta_gateway_timeout_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "timeout_error"`
-
-        - `beta_api_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "api_error"`
-
-        - `beta_overloaded_error: object { message, type }`
-
-          - `message: string`
-
-          - `type: "overloaded_error"`
-
-      - `request_id: string`
-
-      - `type: "error"`
-
-    - `type: "errored"`
-
-  - `beta_message_batch_canceled_result: object { type }`
-
-    - `type: "canceled"`
-
-  - `beta_message_batch_expired_result: object { type }`
-
-    - `type: "expired"`
-
-### Beta Message Batch Succeeded Result
-
-- `beta_message_batch_succeeded_result: object { message, type }`
-
-  - `message: object { id, container, content, 9 more }`
-
-    - `id: string`
-
-      Unique object identifier.
-
-      The format and length of IDs may change over time.
-
-    - `container: object { id, expires_at, skills }`
-
-      Information about the container used in the request (for the code execution tool)
-
-      - `id: string`
-
-        Identifier for the container used in this request
-
-      - `expires_at: string`
-
-        The time at which the container will expire.
-
-      - `skills: array of BetaSkill`
-
-        Skills loaded in the container
-
-        - `skill_id: string`
-
-          Skill ID
-
-        - `type: "anthropic" or "custom"`
-
-          Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-          - `"anthropic"`
-
-          - `"custom"`
-
-        - `version: string`
-
-          The resolved version: a skill version ID for custom skills.
-
-    - `content: array of BetaContentBlock`
-
-      Content generated by the model.
-
-      This is an array of content blocks, each of which has a `type` that determines its shape.
-
-      Example:
-
-      ```json
-      [{"type": "text", "text": "Hi, I'm Claude."}]
-      ```
-
-      If the request input `messages` ended with an `assistant` turn, then the response `content` will continue directly from that last turn. You can use this to constrain the model's output.
-
-      For example, if the input `messages` were:
-
-      ```json
-      [
-        {"role": "user", "content": "What's the Greek name for Sun? (A) Sol (B) Helios (C) Sun"},
-        {"role": "assistant", "content": "The best answer is ("}
-      ]
-      ```
-
-      Then the response `content` might be:
-
-      ```json
-      [{"type": "text", "text": "B)"}]
-      ```
-
-      - `beta_text_block: object { citations, text, type }`
-
-        - `citations: array of BetaTextCitation`
-
-          Citations supporting the text block.
-
-          The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-          - `beta_citation_char_location: object { cited_text, document_index, document_title, 4 more }`
-
-            - `cited_text: string`
-
-            - `document_index: number`
-
-            - `document_title: string`
-
-            - `end_char_index: number`
-
-            - `file_id: string`
-
-            - `start_char_index: number`
-
-            - `type: "char_location"`
-
-          - `beta_citation_page_location: object { cited_text, document_index, document_title, 4 more }`
-
-            - `cited_text: string`
-
-            - `document_index: number`
-
-            - `document_title: string`
-
-            - `end_page_number: number`
-
-            - `file_id: string`
-
-            - `start_page_number: number`
-
-            - `type: "page_location"`
-
-          - `beta_citation_content_block_location: object { cited_text, document_index, document_title, 4 more }`
-
-            - `cited_text: string`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `document_index: number`
-
-            - `document_title: string`
-
-            - `end_block_index: number`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `file_id: string`
-
-            - `start_block_index: number`
-
-              0-based index of the first cited block in the source's `content` array.
-
-            - `type: "content_block_location"`
-
-          - `beta_citations_web_search_result_location: object { cited_text, encrypted_index, title, 2 more }`
-
-            - `cited_text: string`
-
-            - `encrypted_index: string`
-
-            - `title: string`
-
-            - `type: "web_search_result_location"`
-
-            - `url: string`
-
-          - `beta_citation_search_result_location: object { cited_text, end_block_index, search_result_index, 4 more }`
-
-            - `cited_text: string`
-
-              The full text of the cited block range, concatenated.
-
-              Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
-
-            - `end_block_index: number`
-
-              Exclusive 0-based end index of the cited block range in the source's `content` array.
-
-              Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
-
-            - `search_result_index: number`
-
-              0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
-
-              Counted separately from `document_index`; server-side web search results are not included in this count.
-
-            - `source: string`
-
-            - `start_block_index: number`
-
-              0-based index of the first cited block in the source's `content` array.
-
-            - `title: string`
-
-            - `type: "search_result_location"`
-
-        - `text: string`
-
-        - `type: "text"`
-
-      - `beta_thinking_block: object { signature, thinking, type }`
-
-        - `signature: string`
-
-          A value used to verify that this thinking block was generated by Claude when it is passed back to the API.
-
-          This is an opaque field and should not be interpreted or parsed. When passing thinking blocks back to the API (required when using tools with extended thinking), pass them back exactly as received, with this field intact.
-
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
-
-        - `thinking: string`
-
-          The text of Claude's thinking process for this block.
-
-        - `type: "thinking"`
-
-      - `beta_redacted_thinking_block: object { data, type }`
-
-        - `data: string`
-
-          The contents of this redacted thinking block, returned when portions of the model's thinking were safety-redacted. This field is opaque and encrypted, with no readable content.
-
-          Pass `redacted_thinking` blocks back to the API unchanged when continuing a multi-turn conversation.
-
-          See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
-
-        - `type: "redacted_thinking"`
-
-      - `beta_tool_use_block: object { id, input, name, 3 more }`
-
-        - `id: string`
-
-        - `input: map[unknown]`
-
-        - `name: string`
-
-        - `type: "tool_use"`
-
-        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `beta_direct_caller: object { type }`
-
-            Tool invocation directly from the model.
-
-            - `type: "direct"`
-
-          - `beta_server_tool_caller: object { tool_id, type }`
-
-            Tool invocation generated by a server-side tool.
-
-            - `tool_id: string`
-
-            - `type: "code_execution_20250825"`
-
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-            - `tool_id: string`
-
-            - `type: "code_execution_20260120"`
-
-        - `toolset_name: optional string`
-
-          For a toolset member tool_use, the toolset family.
-
-      - `beta_server_tool_use_block: object { id, input, name, 2 more }`
-
-        - `id: string`
-
-        - `input: map[unknown]`
-
-        - `name: "advisor" or "web_search" or "web_fetch" or 5 more`
-
-          - `"advisor"`
-
-          - `"web_search"`
-
-          - `"web_fetch"`
-
-          - `"code_execution"`
-
-          - `"bash_code_execution"`
-
-          - `"text_editor_code_execution"`
-
-          - `"tool_search_tool_regex"`
-
-          - `"tool_search_tool_bm25"`
-
-        - `type: "server_tool_use"`
-
-        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `beta_direct_caller: object { type }`
-
-            Tool invocation directly from the model.
-
-          - `beta_server_tool_caller: object { tool_id, type }`
-
-            Tool invocation generated by a server-side tool.
-
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-      - `beta_web_search_tool_result_block: object { content, tool_use_id, type, caller }`
-
-        - `content: BetaWebSearchToolResultError or array of BetaWebSearchResultBlock`
-
-          - `beta_web_search_tool_result_error: object { error_code, type }`
-
-            - `error_code: "invalid_tool_input" or "unavailable" or "max_uses_exceeded" or 3 more`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"max_uses_exceeded"`
-
-              - `"too_many_requests"`
-
-              - `"query_too_long"`
-
-              - `"request_too_large"`
-
-            - `type: "web_search_tool_result_error"`
-
-          - `union_member_1: array of BetaWebSearchResultBlock`
-
-            - `encrypted_content: string`
-
-            - `page_age: string`
-
-            - `title: string`
-
-            - `type: "web_search_result"`
-
-            - `url: string`
-
-        - `tool_use_id: string`
-
-        - `type: "web_search_tool_result"`
-
-        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `beta_direct_caller: object { type }`
-
-            Tool invocation directly from the model.
-
-          - `beta_server_tool_caller: object { tool_id, type }`
-
-            Tool invocation generated by a server-side tool.
-
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-      - `beta_web_fetch_tool_result_block: object { content, tool_use_id, type, caller }`
-
-        - `content: BetaWebFetchToolResultErrorBlock or BetaWebFetchBlock`
-
-          - `beta_web_fetch_tool_result_error_block: object { error_code, type }`
-
-            - `error_code: "invalid_tool_input" or "url_too_long" or "url_not_allowed" or 6 more`
-
-              - `"invalid_tool_input"`
-
-              - `"url_too_long"`
-
-              - `"url_not_allowed"`
-
-              - `"url_not_in_prior_context"`
-
-              - `"url_not_accessible"`
-
-              - `"unsupported_content_type"`
-
-              - `"too_many_requests"`
-
-              - `"max_uses_exceeded"`
-
-              - `"unavailable"`
-
-            - `type: "web_fetch_tool_result_error"`
-
-          - `beta_web_fetch_block: object { content, retrieved_at, type, url }`
-
-            - `content: object { citations, source, title, type }`
-
-              - `citations: object { enabled }`
-
-                Citation configuration for the document
-
-                - `enabled: boolean`
-
-              - `source: BetaBase64PDFSource or BetaPlainTextSource`
-
-                - `beta_base64_pdf_source: object { data, media_type, type }`
-
-                  - `data: string`
-
-                  - `media_type: "application/pdf"`
-
-                  - `type: "base64"`
-
-                - `beta_plain_text_source: object { data, media_type, type }`
-
-                  - `data: string`
-
-                  - `media_type: "text/plain"`
-
-                  - `type: "text"`
-
-              - `title: string`
-
-                The title of the document
-
-              - `type: "document"`
-
-            - `retrieved_at: string`
-
-              ISO 8601 timestamp when the content was retrieved
-
-            - `type: "web_fetch_result"`
-
-            - `url: string`
-
-              Fetched content URL
-
-        - `tool_use_id: string`
-
-        - `type: "web_fetch_tool_result"`
-
-        - `caller: optional BetaDirectCaller or BetaServerToolCaller or BetaServerToolCaller20260120`
-
-          Tool invocation directly from the model.
-
-          - `beta_direct_caller: object { type }`
-
-            Tool invocation directly from the model.
-
-          - `beta_server_tool_caller: object { tool_id, type }`
-
-            Tool invocation generated by a server-side tool.
-
-          - `beta_server_tool_caller_20260120: object { tool_id, type }`
-
-      - `beta_advisor_tool_result_block: object { content, tool_use_id, type }`
-
-        - `content: BetaAdvisorToolResultError or BetaAdvisorResultBlock or BetaAdvisorRedactedResultBlock`
-
-          - `beta_advisor_tool_result_error: object { error_code, type }`
-
-            - `error_code: "max_uses_exceeded" or "prompt_too_long" or "too_many_requests" or 4 more`
-
-              - `"max_uses_exceeded"`
-
-              - `"prompt_too_long"`
-
-              - `"too_many_requests"`
-
-              - `"overloaded"`
-
-              - `"unavailable"`
-
-              - `"execution_time_exceeded"`
-
-              - `"model_not_found"`
-
-            - `type: "advisor_tool_result_error"`
-
-          - `beta_advisor_result_block: object { stop_reason, text, type }`
-
-            - `stop_reason: string`
-
-              The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`). `max_tokens` indicates the advisor's output was truncated at the tool's `max_tokens` value or the advisor model's policy cap.
-
-            - `text: string`
-
-            - `type: "advisor_result"`
-
-          - `beta_advisor_redacted_result_block: object { encrypted_content, stop_reason, type }`
-
-            - `encrypted_content: string`
-
-              Opaque blob containing the advisor's output. Round-trip verbatim; do not inspect or modify.
-
-            - `stop_reason: string`
-
-              The advisor sub-inference's stop reason (same values as the top-level message `stop_reason`).
-
-            - `type: "advisor_redacted_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "advisor_tool_result"`
-
-      - `beta_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-        - `content: BetaCodeExecutionToolResultError or BetaCodeExecutionResultBlock or BetaEncryptedCodeExecutionResultBlock`
-
-          Code execution result with encrypted stdout for PFC + web_search results.
-
-          - `beta_code_execution_tool_result_error: object { error_code, type }`
-
-            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-            - `type: "code_execution_tool_result_error"`
-
-          - `beta_code_execution_result_block: object { content, return_code, stderr, 2 more }`
-
-            - `content: array of BetaCodeExecutionOutputBlock`
-
-              - `file_id: string`
-
-              - `type: "code_execution_output"`
-
-            - `return_code: number`
-
-            - `stderr: string`
-
-            - `stdout: string`
-
-            - `type: "code_execution_result"`
-
-          - `beta_encrypted_code_execution_result_block: object { content, encrypted_stdout, return_code, 2 more }`
-
-            Code execution result with encrypted stdout for PFC + web_search results.
-
-            - `content: array of BetaCodeExecutionOutputBlock`
-
-              - `file_id: string`
-
-              - `type: "code_execution_output"`
-
-            - `encrypted_stdout: string`
-
-            - `return_code: number`
-
-            - `stderr: string`
-
-            - `type: "encrypted_code_execution_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "code_execution_tool_result"`
-
-      - `beta_bash_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-        - `content: BetaBashCodeExecutionToolResultError or BetaBashCodeExecutionResultBlock`
-
-          - `beta_bash_code_execution_tool_result_error: object { error_code, type }`
-
-            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-              - `"output_file_too_large"`
-
-            - `type: "bash_code_execution_tool_result_error"`
-
-          - `beta_bash_code_execution_result_block: object { content, return_code, stderr, 2 more }`
-
-            - `content: array of BetaBashCodeExecutionOutputBlock`
-
-              - `file_id: string`
-
-              - `type: "bash_code_execution_output"`
-
-            - `return_code: number`
-
-            - `stderr: string`
-
-            - `stdout: string`
-
-            - `type: "bash_code_execution_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "bash_code_execution_tool_result"`
-
-      - `beta_text_editor_code_execution_tool_result_block: object { content, tool_use_id, type }`
-
-        - `content: BetaTextEditorCodeExecutionToolResultError or BetaTextEditorCodeExecutionViewResultBlock or BetaTextEditorCodeExecutionCreateResultBlock or BetaTextEditorCodeExecutionStrReplaceResultBlock`
-
-          - `beta_text_editor_code_execution_tool_result_error: object { error_code, error_message, type }`
-
-            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or 2 more`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-              - `"file_not_found"`
-
-            - `error_message: string`
-
-            - `type: "text_editor_code_execution_tool_result_error"`
-
-          - `beta_text_editor_code_execution_view_result_block: object { content, file_type, num_lines, 3 more }`
-
-            - `content: string`
-
-            - `file_type: "text" or "image" or "pdf"`
-
-              - `"text"`
-
-              - `"image"`
-
-              - `"pdf"`
-
-            - `num_lines: number`
-
-            - `start_line: number`
-
-            - `total_lines: number`
-
-            - `type: "text_editor_code_execution_view_result"`
-
-          - `beta_text_editor_code_execution_create_result_block: object { is_file_update, type }`
-
-            - `is_file_update: boolean`
-
-            - `type: "text_editor_code_execution_create_result"`
-
-          - `beta_text_editor_code_execution_str_replace_result_block: object { lines, new_lines, new_start, 3 more }`
-
-            - `lines: array of string`
-
-            - `new_lines: number`
-
-            - `new_start: number`
-
-            - `old_lines: number`
-
-            - `old_start: number`
-
-            - `type: "text_editor_code_execution_str_replace_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "text_editor_code_execution_tool_result"`
-
-      - `beta_tool_search_tool_result_block: object { content, tool_use_id, type }`
-
-        - `content: BetaToolSearchToolResultError or BetaToolSearchToolSearchResultBlock`
-
-          - `beta_tool_search_tool_result_error: object { error_code, error_message, type }`
-
-            - `error_code: "invalid_tool_input" or "unavailable" or "too_many_requests" or "execution_time_exceeded"`
-
-              - `"invalid_tool_input"`
-
-              - `"unavailable"`
-
-              - `"too_many_requests"`
-
-              - `"execution_time_exceeded"`
-
-            - `error_message: string`
-
-            - `type: "tool_search_tool_result_error"`
-
-          - `beta_tool_search_tool_search_result_block: object { tool_references, type }`
-
-            - `tool_references: array of BetaToolReferenceBlock`
-
-              - `tool_name: string`
-
-              - `type: "tool_reference"`
-
-            - `type: "tool_search_tool_search_result"`
-
-        - `tool_use_id: string`
-
-        - `type: "tool_search_tool_result"`
-
-      - `beta_mcp_tool_use_block: object { id, input, name, 2 more }`
-
-        - `id: string`
-
-        - `input: map[unknown]`
-
-        - `name: string`
-
-          The name of the MCP tool
-
-        - `server_name: string`
-
-          The name of the MCP server
-
-        - `type: "mcp_tool_use"`
-
-      - `beta_mcp_tool_result_block: object { content, is_error, tool_use_id, type }`
-
-        - `content: string or array of BetaTextBlock`
-
-          - `union_member_0: string`
-
-          - `beta_mcp_tool_result_block_content: array of BetaTextBlock`
-
-            - `citations: array of BetaTextCitation`
-
-              Citations supporting the text block.
-
-              The type of citation returned will depend on the type of document being cited. Citing a PDF results in `page_location`, plain text results in `char_location`, and content document results in `content_block_location`.
-
-            - `text: string`
-
-            - `type: "text"`
-
-        - `is_error: boolean`
-
-        - `tool_use_id: string`
-
-        - `type: "mcp_tool_result"`
-
-      - `beta_container_upload_block: object { file_id, type }`
-
-        Response model for a file uploaded to the container.
-
-        - `file_id: string`
-
-        - `type: "container_upload"`
-
-      - `beta_compaction_block: object { content, encrypted_content, type }`
-
-        A compaction block returned when autocompact is triggered.
-
-        When content is None, it indicates the compaction failed to produce a valid
-        summary (e.g., malformed output from the model). Clients may round-trip
-        compaction blocks with null content; the server treats them as no-ops.
-
-        - `content: string`
-
-          Summary of compacted content, or null if compaction failed
-
-        - `encrypted_content: string`
-
-          Opaque metadata from prior compaction, to be round-tripped verbatim
-
-        - `type: "compaction"`
-
-      - `beta_fallback_block: object { from, to, trigger, type }`
-
-        Marks the point in `content` where one model's output gives way to the next.
-
-        One block appears per hop where a preceding model actually ran this turn and
-        declined. A turn where no preceding model ran and declined has no such
-        boundary and carries no block — the signal for whether a fallback model
-        served the response is the presence of a `fallback_message` entry in
-        `usage.iterations`, not this block.
-
-        The block is treated like a server-tool content block for streaming: it
-        arrives via the standard `content_block_start` / `content_block_stop`
-        pair and carries no deltas.
-
-        - `from: object { model }`
-
-          The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
-
-          - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `"claude-sonnet-5"`
-
-              High-performance model for coding and agents
-
-            - `"claude-fable-5"`
-
-              Next generation of intelligence for the hardest knowledge work and coding problems
-
-            - `"claude-mythos-5"`
-
-              Most capable model for cybersecurity and biology research
-
-            - `"claude-opus-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-8"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-7"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
-            - `"claude-opus-4-6"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-6"`
-
-              Best combination of speed and intelligence
-
-            - `"claude-haiku-4-5"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-opus-4-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-5-20251101"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-5"`
-
-              High-performance model for agents and coding
-
-            - `"claude-sonnet-4-5-20250929"`
-
-              High-performance model for agents and coding
-
-        - `to: object { model }`
-
-          The fallback model producing the content that follows this block. Its `model` is always the canonical id.
-
-          - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-        - `trigger: object { category, type }`
-
-          What caused the `from` model to hand over at this hop.
-
-          - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
-
-            The policy category that triggered a refusal.
-
-            - `"cyber"`
-
-              The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-            - `"bio"`
-
-              The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-            - `"frontier_llm"`
-
-              The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-            - `"reasoning_extraction"`
-
-              The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-            - `"general_harms"`
-
-              The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-          - `type: "refusal"`
-
-        - `type: "fallback"`
-
-    - `context_management: object { applied_edits }`
-
-      Context management response.
-
-      Information about context management strategies applied during the request.
-
-      - `applied_edits: array of BetaClearToolUses20250919EditResponse or BetaClearThinking20251015EditResponse`
-
-        List of context management edits that were applied.
-
-        - `beta_clear_tool_uses_20250919_edit_response: object { cleared_input_tokens, cleared_tool_uses, type }`
-
-          - `cleared_input_tokens: number`
-
-            Number of input tokens cleared by this edit.
-
-          - `cleared_tool_uses: number`
-
-            Number of tool uses that were cleared.
-
-          - `type: "clear_tool_uses_20250919"`
-
-            The type of context management edit applied.
-
-        - `beta_clear_thinking_20251015_edit_response: object { cleared_input_tokens, cleared_thinking_turns, type }`
-
-          - `cleared_input_tokens: number`
-
-            Number of input tokens cleared by this edit.
-
-          - `cleared_thinking_turns: number`
-
-            Number of thinking turns that were cleared.
-
-          - `type: "clear_thinking_20251015"`
-
-            The type of context management edit applied.
-
-    - `diagnostics: object { cache_miss_reason }`
-
-      Response envelope for request-level diagnostics. Present (possibly
-      null) whenever the caller supplied `diagnostics` on the request.
-
-      - `cache_miss_reason: BetaCacheMissModelChanged or BetaCacheMissSystemChanged or BetaCacheMissToolsChanged or 3 more`
-
-        Explains why the prompt cache could not fully reuse the prefix from the request identified by `diagnostics.previous_message_id`. `null` means diagnosis is still pending — the response was serialized before the background comparison completed.
-
-        - `beta_cache_miss_model_changed: object { cache_missed_input_tokens, type }`
-
-          - `cache_missed_input_tokens: number`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: "model_changed"`
-
-        - `beta_cache_miss_system_changed: object { cache_missed_input_tokens, type }`
-
-          - `cache_missed_input_tokens: number`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: "system_changed"`
-
-        - `beta_cache_miss_tools_changed: object { cache_missed_input_tokens, type }`
-
-          - `cache_missed_input_tokens: number`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: "tools_changed"`
-
-        - `beta_cache_miss_messages_changed: object { cache_missed_input_tokens, type }`
-
-          - `cache_missed_input_tokens: number`
-
-            Approximate number of input tokens that would have been read from cache had the prefix matched the previous request.
-
-          - `type: "messages_changed"`
-
-        - `beta_cache_miss_previous_message_not_found: object { type }`
-
-          - `type: "previous_message_not_found"`
-
-        - `beta_cache_miss_unavailable: object { type }`
-
-          - `type: "unavailable"`
-
-    - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-      The model that will complete your prompt.
-
-      See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-      - `"claude-sonnet-5"`
-
-        High-performance model for coding and agents
-
-      - `"claude-fable-5"`
-
-        Next generation of intelligence for the hardest knowledge work and coding problems
-
-      - `"claude-mythos-5"`
-
-        Most capable model for cybersecurity and biology research
-
-      - `"claude-opus-5"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-opus-4-8"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-opus-4-7"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-mythos-preview"`
-
-        New class of intelligence, strongest in coding and cybersecurity
-
-      - `"claude-opus-4-6"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-sonnet-4-6"`
-
-        Best combination of speed and intelligence
-
-      - `"claude-haiku-4-5"`
-
-        Fastest model with near-frontier intelligence
-
-      - `"claude-haiku-4-5-20251001"`
-
-        Fastest model with near-frontier intelligence
-
-      - `"claude-opus-4-5"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-opus-4-5-20251101"`
-
-        Powerful intelligence for long-running agents and coding
-
-      - `"claude-sonnet-4-5"`
-
-        High-performance model for agents and coding
-
-      - `"claude-sonnet-4-5-20250929"`
-
-        High-performance model for agents and coding
-
-    - `role: "assistant"`
-
-      Conversational role of the generated message.
-
-      This will always be `"assistant"`.
-
-    - `stop_details: object { category, explanation, fallback_credit_token, 3 more }`
-
-      Structured information about a refusal.
-
-      - `category: "cyber" or "bio" or "frontier_llm" or 2 more`
-
-        The policy category that triggered a refusal.
-
-        - `"cyber"`
-
-          The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
-
-        - `"bio"`
-
-          The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
-
-        - `"frontier_llm"`
-
-          The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
-
-        - `"reasoning_extraction"`
-
-          The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
-
-        - `"general_harms"`
-
-          The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
-
-      - `explanation: string`
-
-        Human-readable explanation of the refusal.
-
-        This text is not guaranteed to be stable. `null` when no explanation is available for the category.
-
-      - `fallback_credit_token: string`
-
-        Opaque code that refunds the cache-miss cost when retrying this refused
-        request on the fallback model. Pass it as `fallback_credit_token` on the
-        retry request. Expires 5 minutes after the refusal.
-
-        The retry is sent either with the same request body (`system`, `messages`,
-        `tools`, and other render-shaping fields), or with the same body plus one
-        appended `assistant` message whose content is the partial text (with any
-        trailing whitespace stripped from the final text block) and paired
-        server-tool blocks from this refusal — which also authorizes that
-        appended turn as an assistant-prefill continuation on models that otherwise
-        disallow prefill. A token minted mid-server-tool-loop whose partial content
-        was continuable may only be redeemed the second way — if a same-body retry
-        is rejected with a 400 saying the token must be redeemed by continuing the
-        partial response, retry the second way instead. Either way: same workspace,
-        same platform; a mismatch is a 400. Resending a token for an already-warm
-        prefix is permitted but yields no additional credit.
-
-        `null` when the refused model isn't eligible for a fallback credit.
-
-      - `fallback_has_prefill_claim: boolean`
-
-        Whether the accompanying `fallback_credit_token` may be redeemed with the
-        appended-assistant retry form. Only set when `fallback_credit_token` is
-        present.
-
-        `true`: retry by resending the same request body plus one appended
-        `assistant` message whose content is this response's `content` with any
-        trailing whitespace stripped from the final text block and unpaired
-        `tool_use` blocks omitted (the same appended-turn shape described on
-        `fallback_credit_token`), with the token attached. `false`: retry by
-        resending the original request body unchanged, with the token attached —
-        the appended-assistant form is not available for this refusal (no
-        continuable partial content, or the request uses `output_format` or a
-        `tool_choice` that forces tool use). One exception: when the request used
-        `output_format` or a forced `tool_choice` and the refusal arrived after
-        server tools (including MCP connector tools) had already executed, the
-        token may not be redeemable by either retry form; if the exact-body retry
-        is then rejected with a 400 saying the token must be redeemed by
-        continuing the partial response, discard the token and retry without it.
-
-        Advisory: if an appended-assistant retry is rejected with a 400 despite
-        `true`, fall back to resending the original request body with the token.
-
-      - `recommended_model: string`
-
-        The server's suggested retry target for this refusal. Populated when a fallback attempt could not be made (the fallback model's rate limit was exhausted, or it was overloaded); names the fallback model the caller can retry directly. Null otherwise.
-
-      - `type: "refusal"`
-
-    - `stop_reason: "end_turn" or "max_tokens" or "stop_sequence" or 5 more`
-
-      The reason that we stopped.
-
-      This may be one the following values:
-
-      * `"end_turn"`: the model reached a natural stopping point
-      * `"max_tokens"`: we exceeded the requested `max_tokens` or the model's maximum
-      * `"stop_sequence"`: one of your provided custom `stop_sequences` was generated
-      * `"tool_use"`: the model invoked one or more tools
-      * `"pause_turn"`: we paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-      * `"refusal"`: when streaming classifiers intervene to handle potential policy violations
-      * `"model_context_window_exceeded"`: we exceeded the model's context window
-
-      In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
-
-      - `"end_turn"`
-
-      - `"max_tokens"`
-
-      - `"stop_sequence"`
-
-      - `"tool_use"`
-
-      - `"pause_turn"`
-
-      - `"compaction"`
-
-      - `"refusal"`
-
-      - `"model_context_window_exceeded"`
-
-    - `stop_sequence: string`
-
-      Which custom stop sequence was generated, if any.
-
-      This value will be a non-null string if one of your custom stop sequences was generated.
-
-    - `type: "message"`
-
-      Object type.
-
-      For Messages, this is always `"message"`.
-
-    - `usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 9 more }`
-
-      Billing and rate-limit usage.
-
-      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
-
-      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
-
-      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
-
-      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
-
-      - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-        Breakdown of cached tokens by TTL
-
-        - `ephemeral_1h_input_tokens: number`
-
-          The number of input tokens used to create the 1 hour cache entry.
-
-        - `ephemeral_5m_input_tokens: number`
-
-          The number of input tokens used to create the 5 minute cache entry.
-
-      - `cache_creation_input_tokens: number`
-
-        The number of input tokens used to create the cache entry.
-
-      - `cache_read_input_tokens: number`
-
-        The number of input tokens read from the cache.
-
-      - `fallback_credit: object { status }`
-
-        Outcome of the `fallback_credit_token` presented on this request.
-
-        - `status: BetaFallbackCreditRedeemed or BetaFallbackCreditNotApplied`
-
-          Whether the fallback-credit reprice was applied to this response's billing.
-
-          A union discriminated on `type`. `redeemed`: the retry is billed as if
-          the conversation had been on the retry model all along — including when the
-          resulting shift is zero because there was nothing to move. `not_applied`:
-          no reprice was applied; the arm's `reason` says why.
-
-          - `beta_fallback_credit_redeemed: object { type }`
-
-            The reprice was applied: the retry is billed as if the conversation
-            had been on the retry model all along.
-
-            - `type: "redeemed"`
-
-          - `beta_fallback_credit_not_applied: object { reason, type, remove_to_redeem }`
-
-            No reprice was applied; `reason` says why.
-
-            - `reason: "body_mismatch" or "continuation_excluded" or "continuation_only" or 9 more`
-
-              Why the reprice was not applied.
-
-              A closed enum; additions to the redemption-check vocabulary arrive as
-              deliberate schema updates.
-
-              - `"body_mismatch"`
-
-              - `"continuation_excluded"`
-
-              - `"continuation_only"`
-
-              - `"expired"`
-
-              - `"invalid_target_model"`
-
-              - `"not_enabled"`
-
-              - `"reprice_unavailable"`
-
-              - `"temporarily_unavailable"`
-
-              - `"variant_fields_present"`
-
-              - `"wrong_organization"`
-
-              - `"wrong_platform"`
-
-              - `"wrong_workspace"`
-
-            - `type: "not_applied"`
-
-            - `remove_to_redeem: optional array of string`
-
-              Request fields to remove before retrying, so the retry can redeem this
-              token.
-
-              Present exactly when `reason` is `variant_fields_present` — never null,
-              never an empty array; absent otherwise. Fields are named only from your own request, and only after
-              the sealed variant hash matched. A served best-effort retry has already
-              been billed at normal price; nothing redeems retroactively, but a corrected
-              re-send inside the token's five-minute window can still redeem.
-
-      - `inference_geo: string`
-
-        The geographic region where inference was performed for this request.
-
-      - `input_tokens: number`
-
-        The number of input tokens which were used.
-
-      - `iterations: array of BetaMessageIterationUsage or BetaCompactionIterationUsage or BetaAdvisorMessageIterationUsage or BetaFallbackMessageIterationUsage`
-
-        Per-iteration token usage breakdown.
-
-        Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
-
-        - Determine which iterations exceeded long context thresholds (>=200k tokens)
-        - Calculate the true context window size from the last iteration
-        - Understand token accumulation across server-side tool use loops
-
-        - `beta_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-          Token usage for a sampling iteration.
-
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-            Breakdown of cached tokens by TTL
-
-            - `ephemeral_1h_input_tokens: number`
-
-              The number of input tokens used to create the 1 hour cache entry.
-
-            - `ephemeral_5m_input_tokens: number`
-
-              The number of input tokens used to create the 5 minute cache entry.
-
-          - `cache_creation_input_tokens: number`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: number`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: number`
-
-            The number of input tokens which were used.
-
-          - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `"claude-sonnet-5"`
-
-              High-performance model for coding and agents
-
-            - `"claude-fable-5"`
-
-              Next generation of intelligence for the hardest knowledge work and coding problems
-
-            - `"claude-mythos-5"`
-
-              Most capable model for cybersecurity and biology research
-
-            - `"claude-opus-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-8"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-7"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
-            - `"claude-opus-4-6"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-6"`
-
-              Best combination of speed and intelligence
-
-            - `"claude-haiku-4-5"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-opus-4-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-5-20251101"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-5"`
-
-              High-performance model for agents and coding
-
-            - `"claude-sonnet-4-5-20250929"`
-
-              High-performance model for agents and coding
-
-          - `output_tokens: number`
-
-            The number of output tokens which were used.
-
-          - `type: "message"`
-
-            Usage for a sampling iteration
-
-        - `beta_compaction_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 3 more }`
-
-          Token usage for a compaction iteration.
-
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-            Breakdown of cached tokens by TTL
-
-            - `ephemeral_1h_input_tokens: number`
-
-              The number of input tokens used to create the 1 hour cache entry.
-
-            - `ephemeral_5m_input_tokens: number`
-
-              The number of input tokens used to create the 5 minute cache entry.
-
-          - `cache_creation_input_tokens: number`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: number`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: number`
-
-            The number of input tokens which were used.
-
-          - `output_tokens: number`
-
-            The number of output tokens which were used.
-
-          - `type: "compaction"`
-
-            Usage for a compaction iteration
-
-        - `beta_advisor_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-          Token usage for an advisor sub-inference iteration.
-
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-            Breakdown of cached tokens by TTL
-
-            - `ephemeral_1h_input_tokens: number`
-
-              The number of input tokens used to create the 1 hour cache entry.
-
-            - `ephemeral_5m_input_tokens: number`
-
-              The number of input tokens used to create the 5 minute cache entry.
-
-          - `cache_creation_input_tokens: number`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: number`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: number`
-
-            The number of input tokens which were used.
-
-          - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `"claude-sonnet-5"`
-
-              High-performance model for coding and agents
-
-            - `"claude-fable-5"`
-
-              Next generation of intelligence for the hardest knowledge work and coding problems
-
-            - `"claude-mythos-5"`
-
-              Most capable model for cybersecurity and biology research
-
-            - `"claude-opus-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-8"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-7"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
-            - `"claude-opus-4-6"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-6"`
-
-              Best combination of speed and intelligence
-
-            - `"claude-haiku-4-5"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-opus-4-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-5-20251101"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-5"`
-
-              High-performance model for agents and coding
-
-            - `"claude-sonnet-4-5-20250929"`
-
-              High-performance model for agents and coding
-
-          - `output_tokens: number`
-
-            The number of output tokens which were used.
-
-          - `type: "advisor_message"`
-
-            Usage for an advisor sub-inference iteration
-
-        - `beta_fallback_message_iteration_usage: object { cache_creation, cache_creation_input_tokens, cache_read_input_tokens, 4 more }`
-
-          Token usage for the fallback-model attempt of a server-side fallback request.
-
-          Produced in place of a `message` entry for whichever hop served the
-          response. A declined hop produces the existing `message` entry. Whether
-          a fallback model served the response is signalled by the presence of this
-          entry in `usage.iterations`.
-
-          - `cache_creation: object { ephemeral_1h_input_tokens, ephemeral_5m_input_tokens }`
-
-            Breakdown of cached tokens by TTL
-
-            - `ephemeral_1h_input_tokens: number`
-
-              The number of input tokens used to create the 1 hour cache entry.
-
-            - `ephemeral_5m_input_tokens: number`
-
-              The number of input tokens used to create the 5 minute cache entry.
-
-          - `cache_creation_input_tokens: number`
-
-            The number of input tokens used to create the cache entry.
-
-          - `cache_read_input_tokens: number`
-
-            The number of input tokens read from the cache.
-
-          - `input_tokens: number`
-
-            The number of input tokens which were used.
-
-          - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
-
-            The model that will complete your prompt.
-
-            See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
-
-            - `"claude-sonnet-5"`
-
-              High-performance model for coding and agents
-
-            - `"claude-fable-5"`
-
-              Next generation of intelligence for the hardest knowledge work and coding problems
-
-            - `"claude-mythos-5"`
-
-              Most capable model for cybersecurity and biology research
-
-            - `"claude-opus-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-8"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-7"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-mythos-preview"`
-
-              New class of intelligence, strongest in coding and cybersecurity
-
-            - `"claude-opus-4-6"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-6"`
-
-              Best combination of speed and intelligence
-
-            - `"claude-haiku-4-5"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-haiku-4-5-20251001"`
-
-              Fastest model with near-frontier intelligence
-
-            - `"claude-opus-4-5"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-opus-4-5-20251101"`
-
-              Powerful intelligence for long-running agents and coding
-
-            - `"claude-sonnet-4-5"`
-
-              High-performance model for agents and coding
-
-            - `"claude-sonnet-4-5-20250929"`
-
-              High-performance model for agents and coding
-
-          - `output_tokens: number`
-
-            The number of output tokens which were used.
-
-          - `type: "fallback_message"`
-
-            Usage for the fallback-model attempt that served the response
-
-      - `output_tokens: number`
-
-        The number of output tokens which were used.
-
-      - `output_tokens_details: object { thinking_tokens }`
-
-        Breakdown of output tokens by category.
-
-        `output_tokens` remains the inclusive, authoritative total used for billing.
-        This object provides a read-only decomposition for observability — for example,
-        how many of the billed output tokens were spent on internal reasoning that may
-        have been summarized before being returned to you.
-
-        - `thinking_tokens: number`
-
-          Number of output tokens the model generated as internal reasoning, including
-          the thinking-block delimiter tokens.
-
-          Reflects the raw reasoning the model produced, not the (possibly shorter)
-          summarized thinking text returned in the response body. Computed by
-          re-tokenizing the raw reasoning text, so it may differ from the model's exact
-          generation count by a small number of tokens. Always ≤ `output_tokens`;
-          `output_tokens - thinking_tokens` approximates the non-reasoning output.
-
-      - `server_tool_use: object { web_fetch_requests, web_search_requests }`
-
-        The number of server tool requests.
-
-        - `web_fetch_requests: number`
-
-          The number of web fetch tool requests.
-
-        - `web_search_requests: number`
-
-          The number of web search tool requests.
-
-      - `service_tier: "standard" or "priority" or "batch"`
-
-        If the request used the priority, standard, or batch tier.
-
-        - `"standard"`
-
-        - `"priority"`
-
-        - `"batch"`
-
-      - `speed: "standard" or "fast"`
-
-        Inference speed mode. `fast` provides significantly faster output token generation at premium pricing. Not all models support `fast`; invalid combinations are rejected at create time.
-
-        - `"standard"`
-
-        - `"fast"`
-
-  - `type: "succeeded"`

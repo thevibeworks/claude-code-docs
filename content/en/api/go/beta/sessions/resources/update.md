@@ -1,17 +1,12 @@
----
-title: Update Session Resource
-url: https://platform.claude.com/docs/en/api/go/beta/sessions/resources/update
----
-
-## Update Session Resource
+# Update Session Resource
 
 `client.Beta.Sessions.Resources.Update(ctx, resourceID, params) (*BetaSessionResourceUpdateResponseUnion, error)`
 
-**post** `/v1/sessions/{session_id}/resources/{resource_id}`
+**POST** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Update Session Resource
 
-### Parameters
+## Parameters
 
 - `resourceID string`
 
@@ -25,7 +20,9 @@ Update Session Resource
 
     Body param: New authorization token for the resource. Currently only `github_repository` resources support token rotation.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    minLength: 1, maxLength: 4096
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -101,7 +98,7 @@ Update Session Resource
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaSessionResourceUpdateResponseUnion interface{…}`
 
@@ -115,19 +112,21 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `MountPath string`
 
     - `Type BetaManagedAgentsGitHubRepositoryResourceType`
-
-      - `const BetaManagedAgentsGitHubRepositoryResourceTypeGitHubRepository BetaManagedAgentsGitHubRepositoryResourceType = "github_repository"`
 
     - `UpdatedAt Time`
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `URL string`
 
-    - `Checkout BetaManagedAgentsGitHubRepositoryResourceCheckoutUnion`
+    - `Checkout BetaManagedAgentsGitHubRepositoryResourceCheckoutUnion Optional`
 
       - `type BetaManagedAgentsBranchCheckout struct{…}`
 
@@ -135,9 +134,9 @@ Update Session Resource
 
           Branch name to check out.
 
-        - `Type BetaManagedAgentsBranchCheckoutType`
+          minLength: 1, maxLength: 255
 
-          - `const BetaManagedAgentsBranchCheckoutTypeBranch BetaManagedAgentsBranchCheckoutType = "branch"`
+        - `Type BetaManagedAgentsBranchCheckoutType`
 
       - `type BetaManagedAgentsCommitCheckout struct{…}`
 
@@ -145,9 +144,9 @@ Update Session Resource
 
           Full commit SHA to check out.
 
-        - `Type BetaManagedAgentsCommitCheckoutType`
+          minLength: 7, maxLength: 64
 
-          - `const BetaManagedAgentsCommitCheckoutTypeCommit BetaManagedAgentsCommitCheckoutType = "commit"`
+        - `Type BetaManagedAgentsCommitCheckoutType`
 
   - `type BetaManagedAgentsFileResource struct{…}`
 
@@ -157,17 +156,19 @@ Update Session Resource
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `FileID string`
 
     - `MountPath string`
 
     - `Type BetaManagedAgentsFileResourceType`
 
-      - `const BetaManagedAgentsFileResourceTypeFile BetaManagedAgentsFileResourceType = "file"`
-
     - `UpdatedAt Time`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
   - `type BetaManagedAgentsMemoryStoreResource struct{…}`
 
@@ -179,9 +180,7 @@ Update Session Resource
 
     - `Type BetaManagedAgentsMemoryStoreResourceType`
 
-      - `const BetaManagedAgentsMemoryStoreResourceTypeMemoryStore BetaManagedAgentsMemoryStoreResourceType = "memory_store"`
-
-    - `Access BetaManagedAgentsMemoryStoreResourceAccess`
+    - `Access BetaManagedAgentsMemoryStoreResourceAccess Optional`
 
       Access mode for an attached memory store.
 
@@ -189,23 +188,25 @@ Update Session Resource
 
       - `const BetaManagedAgentsMemoryStoreResourceAccessReadOnly BetaManagedAgentsMemoryStoreResourceAccess = "read_only"`
 
-    - `Description string`
+    - `Description string Optional`
 
       Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-    - `Instructions string`
+    - `Instructions string Optional`
 
       Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-    - `MountPath string`
+      maxLength: 4096
+
+    - `MountPath string Optional`
 
       Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-    - `Name string`
+    - `Name string Optional`
 
       Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
-### Example
+## Example
 
 ```go
 package main
@@ -237,7 +238,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

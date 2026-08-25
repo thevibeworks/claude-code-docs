@@ -1,19 +1,14 @@
----
-title: Create Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/certificates/create
----
-
-## Create Tunnel Certificate
+# Create Tunnel Certificate
 
 `$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePem, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+## Parameters
 
 - `tunnelID: string`
 
@@ -25,7 +20,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `TunnelCertificate`
 
@@ -55,7 +50,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `"tunnel_certificate" type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -73,7 +68,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

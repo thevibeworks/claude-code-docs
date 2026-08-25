@@ -1,17 +1,12 @@
----
-title: Get Deployment Run
-url: https://platform.claude.com/docs/en/api/php/beta/deployment_runs/retrieve
----
-
-## Get Deployment Run
+# Get Deployment Run
 
 `$client->beta->deploymentRuns->retrieve(string deploymentRunID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeploymentRun`
 
-**get** `/v1/deployment_runs/{deployment_run_id}`
+**GET** `/v1/deployment_runs/{deployment_run_id}`
 
 Get Deployment Run
 
-### Parameters
+## Parameters
 
 - `deploymentRunID: string`
 
@@ -19,7 +14,7 @@ Get Deployment Run
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsDeploymentRun`
 
@@ -53,7 +48,7 @@ Get Deployment Run
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -69,7 +64,7 @@ $betaManagedAgentsDeploymentRun = $client->beta->deploymentRuns->retrieve(
 var_dump($betaManagedAgentsDeploymentRun);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

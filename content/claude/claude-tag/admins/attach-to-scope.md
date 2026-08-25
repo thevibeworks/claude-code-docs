@@ -38,7 +38,9 @@ DMs run under the user's own claude.ai account, so bundles attached here apply o
 
 Attaching binds the bundle to a workspace scope or to a single channel under it.
 
-The binding takes full effect in new threads only. A thread already running keeps the skills, plugins, and custom instructions it started with. A connection added after a thread started still works there if you ask Claude to use the service by name, but Claude doesn't announce it, so test with a new top-level thread after attaching a bundle.
+The binding takes full effect in new threads only. A thread already running keeps the skills, plugins, and custom instructions it started with. A connection added after a thread started still works there if you ask Claude to use the service by name, but Claude doesn't announce it, so test with a new top-level thread after attaching a bundle. See [What survives between replies](/docs/claude-tag/concepts/how-it-works#what-survives-between-replies).
+
+At the channel's top level, outside any thread, Claude works from a single long-lived channel session. After a configuration change, Claude replaces that session on the next channel message, so top-level replies pick up the change from then on.
 
 ### Attach to a workspace
 
@@ -109,6 +111,10 @@ Each scope can carry custom instructions, which are standing guidance Claude rea
 Channel members reach the same field for the channel scope through the **Configure** page, linked in the footer of any Claude reply in the channel, without going through admin settings. Both entry points write the same instructions, so a change from either place is visible in the other.
 
 The field is plain text, inserted as written; there is no include or template syntax, and `{{include:...}}` is passed through literally. To give Claude a repository's `CLAUDE.md`, [grant the repository](/docs/claude-tag/admins/configure-github#grant-repository-access) and name it in the request; its `CLAUDE.md` loads after the clone completes.
+
+What Claude reads in a channel is the concatenated custom instructions of its scope chain, plus the `CLAUDE.md` of any repository it clones. Projects in claude.ai don't apply here; Claude doesn't read a Project's instructions or knowledge in Slack, and a channel can't be pointed at a Project.
+
+A new instruction applies to sessions started after you save it. Claude reads it in every new thread right away, keeps the old text in a thread that's already running, and picks it up at the channel's top level on the next channel message, when it replaces the channel's session (see [Attach the bundle](#attach-the-bundle)). Claude doesn't read a channel's instructions in another channel or in a DM. To confirm what a session is reading, start a new thread and ask Claude to repeat its admin instructions.
 
 ### Restrict who can set channel instructions
 

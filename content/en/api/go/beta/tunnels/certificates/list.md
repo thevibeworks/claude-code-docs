@@ -1,37 +1,34 @@
----
-title: List Tunnel Certificates
-url: https://platform.claude.com/docs/en/api/go/beta/tunnels/certificates/list
----
-
-## List Tunnel Certificates
+# List Tunnel Certificates
 
 `client.Beta.Tunnels.Certificates.List(ctx, tunnelID, params) (*PageCursor[BetaTunnelCertificate], error)`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `tunnelID string`
 
 - `params BetaTunnelCertificateListParams`
 
-  - `IncludeArchived param.Field[bool]`
+  - `IncludeArchived param.Field[bool] Optional`
 
     Query param: Whether to include archived certificates in the results. Defaults to false.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
-  - `Page param.Field[string]`
+    format: int32
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -107,7 +104,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaTunnelCertificate struct{…}`
 
@@ -121,13 +118,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Fingerprint string`
 
@@ -139,9 +142,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `Type TunnelCertificate`
 
-    - `const TunnelCertificateTunnelCertificate TunnelCertificate = "tunnel_certificate"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -170,7 +171,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

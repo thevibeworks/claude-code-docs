@@ -1,17 +1,12 @@
----
-title: Get User Profile
-url: https://platform.claude.com/docs/en/api/cli/beta/user_profiles/retrieve
----
-
-## Get User Profile
+# Get User Profile
 
 `$ ant beta:user-profiles retrieve`
 
-**get** `/v1/user_profiles/{user_profile_id}`
+**GET** `/v1/user_profiles/{user_profile_id}`
 
 Get User Profile
 
-### Parameters
+## Parameters
 
 - `--user-profile-id: string`
 
@@ -21,9 +16,9 @@ Get User Profile
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_user_profile: object { id, created_at, metadata, 7 more }`
+- `beta_user_profile: object`
 
   - `id: string`
 
@@ -32,6 +27,8 @@ Get User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -55,11 +52,11 @@ Get User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -87,15 +84,15 @@ Get User Profile
 
     - `"internal"`
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:user-profiles retrieve \
   --api-key my-anthropic-api-key \
   --user-profile-id uprof_011CZkZCu8hGbp5mYRQgUmz9
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Redact a memory version
-url: https://platform.claude.com/docs/en/api/java/beta/memory_stores/memory_versions/redact
----
+# Redact a memory version
 
-## Redact a memory version
+`BetaManagedAgentsMemoryVersion beta().memoryStores().memoryVersions().redact(params, requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsMemoryVersion beta().memoryStores().memoryVersions().redact(MemoryVersionRedactParamsparams, RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
+**POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 
 Redact a memory version
 
-### Parameters
+## Parameters
 
 - `MemoryVersionRedactParams params`
 
@@ -91,7 +86,7 @@ Redact a memory version
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemoryVersion:`
 
@@ -104,6 +99,8 @@ Redact a memory version
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String memoryId`
 
@@ -125,8 +122,6 @@ Redact a memory version
 
   - `Type type`
 
-    - `MEMORY_VERSION("memory_version")`
-
   - `Optional<String> content`
 
     The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
@@ -138,6 +133,8 @@ Redact a memory version
   - `Optional<Long> contentSizeBytes`
 
     Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+
+    format: int32
 
   - `Optional<BetaManagedAgentsActor> createdBy`
 
@@ -151,9 +148,9 @@ Redact a memory version
 
         ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-      - `Type type`
+        minLength: 1
 
-        - `SESSION_ACTOR("session_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsApiActor:`
 
@@ -163,9 +160,9 @@ Redact a memory version
 
         ID of the API key that performed the write. This identifies the key, not the secret.
 
-      - `Type type`
+        minLength: 1
 
-        - `API_ACTOR("api_actor")`
+      - `Type type`
 
     - `class BetaManagedAgentsUserActor:`
 
@@ -173,11 +170,11 @@ Redact a memory version
 
       - `Type type`
 
-        - `USER_ACTOR("user_actor")`
-
       - `String userId`
 
         ID of the user who performed the write (a `user_...` value).
+
+        minLength: 1
 
     - `class BetaManagedAgentsServiceAccountActor:`
 
@@ -187,9 +184,9 @@ Redact a memory version
 
         ID of the service account that performed the write (a `svac_...` value).
 
-      - `JsonValue; type "service_account_actor"constant`
+        minLength: 1
 
-        - `SERVICE_ACCOUNT_ACTOR("service_account_actor")`
+      - `JsonValue type constant`
 
   - `Optional<String> path`
 
@@ -199,11 +196,13 @@ Redact a memory version
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `Optional<BetaManagedAgentsActor> redactedBy`
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -228,7 +227,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

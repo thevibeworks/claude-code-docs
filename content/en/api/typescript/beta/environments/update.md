@@ -1,17 +1,12 @@
----
-title: Update Environment
-url: https://platform.claude.com/docs/en/api/typescript/beta/environments/update
----
+# Update Environment
 
-## Update Environment
+`client.beta.environments.update(environmentID, params, options?): BetaEnvironment`
 
-`client.beta.environments.update(stringenvironmentID, EnvironmentUpdateParamsparams, RequestOptionsoptions?): BetaEnvironment`
-
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -32,8 +27,6 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `"cloud"`
-
       - `networking?: BetaUnrestrictedNetwork | BetaLimitedNetworkParams | null`
 
         Network configuration policy. Omit on update to preserve the existing value.
@@ -46,8 +39,6 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetworkParams`
 
           Limited network request params.
@@ -58,8 +49,6 @@ Update an existing environment's configuration.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
           - `allow_mcp_servers?: boolean | null`
 
@@ -107,7 +96,7 @@ Update an existing environment's configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
     - `BetaSelfHostedConfigParams`
 
@@ -117,11 +106,11 @@ Update an existing environment's configuration.
 
         Environment type
 
-        - `"self_hosted"`
-
   - `description?: string | null`
 
     Body param: Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+
+    maxLength: 1024
 
   - `metadata?: Record<string, string | null>`
 
@@ -130,6 +119,8 @@ Update an existing environment's configuration.
   - `name?: string | null`
 
     Body param: Updated name for the environment
+
+    maxLength: 256, minLength: 1
 
   - `scope?: "organization" | "account" | null`
 
@@ -215,7 +206,7 @@ Update an existing environment's configuration.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaEnvironment`
 
@@ -249,8 +240,6 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
         - `BetaLimitedNetwork`
 
           Limited network access.
@@ -270,8 +259,6 @@ Update an existing environment's configuration.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -305,13 +292,11 @@ Update an existing environment's configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: "cloud"`
 
         Environment type
-
-        - `"cloud"`
 
     - `BetaSelfHostedConfig`
 
@@ -320,8 +305,6 @@ Update an existing environment's configuration.
       - `type: "self_hosted"`
 
         Environment type
-
-        - `"self_hosted"`
 
   - `created_at: string`
 
@@ -343,7 +326,7 @@ Update an existing environment's configuration.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: string`
 
@@ -357,7 +340,7 @@ Update an existing environment's configuration.
 
     - `"account"`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -371,7 +354,7 @@ const betaEnvironment = await client.beta.environments.update("env_011CZkZ9X2dpN
 console.log(betaEnvironment.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

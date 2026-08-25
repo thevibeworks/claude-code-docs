@@ -1,19 +1,14 @@
----
-title: Reveal Tunnel Token
-url: https://platform.claude.com/docs/en/api/java/beta/tunnels/reveal_token
----
+# Reveal Tunnel Token
 
-## Reveal Tunnel Token
+`BetaTunnelToken beta().tunnels().revealToken(params = TunnelRevealTokenParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaTunnelToken beta().tunnels().revealToken(TunnelRevealTokenParamsparams = TunnelRevealTokenParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Reveals a tunnel's connector token. The value is fetched live on each call; Anthropic does not store it. Repeated calls return the same value until the token is rotated. Exposed as POST so the token does not appear in intermediary access logs.
 
-### Parameters
+## Parameters
 
 - `TunnelRevealTokenParams params`
 
@@ -91,7 +86,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaTunnelToken:`
 
@@ -105,11 +100,9 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `JsonValue; type "tunnel_token"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_TOKEN("tunnel_token")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -130,7 +123,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Files
-url: https://platform.claude.com/docs/en/api/python/beta/files
----
-
 # Files
 
 ## Upload File
 
-`beta.files.upload(FileUploadParams**kwargs)  -> BetaFileMetadata`
+`beta.files.upload(**kwargs)  -> BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
@@ -18,6 +13,8 @@ Upload File
 - `file: FileTypes`
 
   The file to upload
+
+  format: binary
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -109,17 +106,25 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -127,11 +132,11 @@ Upload File
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -144,8 +149,6 @@ Upload File
     - `type: Literal["session"]`
 
       The type of scope (e.g., `"session"`).
-
-      - `"session"`
 
 ### Example
 
@@ -164,7 +167,7 @@ beta_file_metadata = client.beta.files.upload(
 print(beta_file_metadata.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -184,9 +187,9 @@ print(beta_file_metadata.id)
 
 ## List Files
 
-`beta.files.list(FileListParams**kwargs)  -> SyncPage[BetaFileMetadata]`
+`beta.files.list(**kwargs)  -> SyncPage[BetaFileMetadata]`
 
-**get** `/v1/files`
+**GET** `/v1/files`
 
 List Files
 
@@ -205,6 +208,8 @@ List Files
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `scope_id: Optional[str]`
 
@@ -300,17 +305,25 @@ List Files
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -318,11 +331,11 @@ List Files
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -335,8 +348,6 @@ List Files
     - `type: Literal["session"]`
 
       The type of scope (e.g., `"session"`).
-
-      - `"session"`
 
 ### Example
 
@@ -354,7 +365,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -381,9 +392,9 @@ print(page.id)
 
 ## Download File
 
-`beta.files.download(strfile_id, FileDownloadParams**kwargs)  -> BinaryResponseContent`
+`beta.files.download(file_id, **kwargs)  -> BinaryResponseContent`
 
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
@@ -494,9 +505,9 @@ print(content)
 
 ## Get File Metadata
 
-`beta.files.retrieve_metadata(strfile_id, FileRetrieveMetadataParams**kwargs)  -> BetaFileMetadata`
+`beta.files.retrieve_metadata(file_id, **kwargs)  -> BetaFileMetadata`
 
-**get** `/v1/files/{file_id}`
+**GET** `/v1/files/{file_id}`
 
 Get File Metadata
 
@@ -596,17 +607,25 @@ Get File Metadata
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -614,11 +633,11 @@ Get File Metadata
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -631,8 +650,6 @@ Get File Metadata
     - `type: Literal["session"]`
 
       The type of scope (e.g., `"session"`).
-
-      - `"session"`
 
 ### Example
 
@@ -651,7 +668,7 @@ beta_file_metadata = client.beta.files.retrieve_metadata(
 print(beta_file_metadata.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -671,9 +688,9 @@ print(beta_file_metadata.id)
 
 ## Delete File
 
-`beta.files.delete(strfile_id, FileDeleteParams**kwargs)  -> BetaDeletedFile`
+`beta.files.delete(file_id, **kwargs)  -> BetaDeletedFile`
 
-**delete** `/v1/files/{file_id}`
+**DELETE** `/v1/files/{file_id}`
 
 Delete File
 
@@ -773,7 +790,7 @@ Delete File
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+    default: file_deleted
 
 ### Example
 
@@ -792,7 +809,7 @@ beta_deleted_file = client.beta.files.delete(
 print(beta_deleted_file.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -801,7 +818,7 @@ print(beta_deleted_file.id)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Deleted File
 
@@ -817,7 +834,7 @@ print(beta_deleted_file.id)
 
     For file deletion, this is always `"file_deleted"`.
 
-    - `"file_deleted"`
+    default: file_deleted
 
 ### Beta File Metadata
 
@@ -833,17 +850,25 @@ print(beta_deleted_file.id)
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -851,11 +876,11 @@ print(beta_deleted_file.id)
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -869,8 +894,6 @@ print(beta_deleted_file.id)
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
 ### Beta File Scope
 
 - `class BetaFileScope: …`
@@ -882,5 +905,3 @@ print(beta_deleted_file.id)
   - `type: Literal["session"]`
 
     The type of scope (e.g., `"session"`).
-
-    - `"session"`

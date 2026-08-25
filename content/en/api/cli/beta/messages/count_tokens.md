@@ -1,13 +1,8 @@
----
-title: Count tokens in a Message
-url: https://platform.claude.com/docs/en/api/cli/beta/messages/count_tokens
----
-
-## Count tokens in a Message
+# Count tokens in a Message
 
 `$ ant beta:messages count-tokens`
 
-**post** `/v1/messages/count_tokens`
+**POST** `/v1/messages/count_tokens`
 
 Count the number of tokens in a Message.
 
@@ -15,7 +10,7 @@ The Token Count API can be used to count the number of tokens in a Message, incl
 
 Learn more about token counting in our [user guide](https://platform.claude.com/docs/en/build-with-claude/token-counting)
 
-### Parameters
+## Parameters
 
 - `--message: array of BetaMessageParam`
 
@@ -74,11 +69,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-- `--cache-control: optional object { type, ttl }`
+- `--cache-control: optional object`
 
   Body param: Top-level cache control automatically applies a cache_control marker to the last cacheable block in the request.
 
-- `--context-management: optional object { edits }`
+- `--context-management: optional object`
 
   Body param: Context management configuration.
 
@@ -88,11 +83,13 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Body param: MCP servers to be utilized in this request
 
-- `--output-config: optional object { effort, format, task_budget }`
+  maxItems: 20
+
+- `--output-config: optional object`
 
   Body param: Configuration options for the model's output, such as the output format.
 
-- `--output-format: optional object { schema, type }`
+- `--output-format: optional object`
 
   Body param: Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
 
@@ -192,11 +189,11 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-### Returns
+## Returns
 
-- `beta_message_tokens_count: object { context_management, input_tokens }`
+- `beta_message_tokens_count: object`
 
-  - `context_management: object { original_input_tokens }`
+  - `context_management: object`
 
     Information about context management applied to the message.
 
@@ -208,16 +205,16 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     The total number of tokens across the provided list of messages, system prompt, and tools.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:messages count-tokens \
   --api-key my-anthropic-api-key \
   --message '{content: [{text: x, type: text}], role: user}' \
   --model claude-opus-5
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

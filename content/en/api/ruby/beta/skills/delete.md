@@ -1,17 +1,12 @@
----
-title: Delete Skill
-url: https://platform.claude.com/docs/en/api/ruby/beta/skills/delete
----
-
-## Delete Skill
+# Delete Skill
 
 `beta.skills.delete(skill_id, **kwargs) -> SkillDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}`
+**DELETE** `/v1/skills/{skill_id}`
 
 Delete Skill
 
-### Parameters
+## Parameters
 
 - `skill_id: String`
 
@@ -95,7 +90,7 @@ Delete Skill
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class SkillDeleteResponse`
 
@@ -111,7 +106,7 @@ Delete Skill
 
     For Skills, this is always `"skill_deleted"`.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -123,7 +118,7 @@ skill = anthropic.beta.skills.delete("skill_id")
 puts(skill)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/python/beta/skills/versions
----
-
 # Versions
 
 ## Create Skill Version
 
-`beta.skills.versions.create(strskill_id, VersionCreateParams**kwargs)  -> VersionCreateResponse`
+`beta.skills.versions.create(skill_id, **kwargs)  -> VersionCreateResponse`
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
@@ -145,6 +140,8 @@ Create Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
@@ -169,7 +166,7 @@ version = client.beta.skills.versions.create(
 print(version.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -186,9 +183,9 @@ print(version.id)
 
 ## List Skill Versions
 
-`beta.skills.versions.list(strskill_id, VersionListParams**kwargs)  -> SyncPageCursor[VersionListResponse]`
+`beta.skills.versions.list(skill_id, **kwargs)  -> SyncPageCursor[VersionListResponse]`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
@@ -328,6 +325,8 @@ List Skill Versions
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
@@ -352,7 +351,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -375,9 +374,9 @@ print(page.id)
 
 ## Download Skill Version Content
 
-`beta.skills.versions.download(strversion, VersionDownloadParams**kwargs)  -> BinaryResponseContent`
+`beta.skills.versions.download(version, **kwargs)  -> BinaryResponseContent`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
@@ -497,9 +496,9 @@ print(content)
 
 ## Get Skill Version
 
-`beta.skills.versions.retrieve(strversion, VersionRetrieveParams**kwargs)  -> VersionRetrieveResponse`
+`beta.skills.versions.retrieve(version, **kwargs)  -> VersionRetrieveResponse`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
@@ -635,6 +634,8 @@ Get Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
@@ -659,7 +660,7 @@ version = client.beta.skills.versions.retrieve(
 print(version.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -676,9 +677,9 @@ print(version.id)
 
 ## Delete Skill Version
 
-`beta.skills.versions.delete(strversion, VersionDeleteParams**kwargs)  -> VersionDeleteResponse`
+`beta.skills.versions.delete(version, **kwargs)  -> VersionDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
@@ -788,6 +789,8 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
+    default: skill_version_deleted
+
 ### Example
 
 ```python
@@ -806,7 +809,7 @@ version = client.beta.skills.versions.delete(
 print(version.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -815,7 +818,7 @@ print(version.id)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Version Create Response
 
@@ -858,6 +861,8 @@ print(version.id)
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
+
+    default: skill_version
 
   - `version: str`
 
@@ -907,6 +912,8 @@ print(version.id)
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
@@ -955,6 +962,8 @@ print(version.id)
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
@@ -976,3 +985,5 @@ print(version.id)
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
+
+    default: skill_version_deleted

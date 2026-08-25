@@ -1,17 +1,12 @@
----
-title: Archive Vault
-url: https://platform.claude.com/docs/en/api/java/beta/vaults/archive
----
+# Archive Vault
 
-## Archive Vault
+`BetaManagedAgentsVault beta().vaults().archive(params = VaultArchiveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsVault beta().vaults().archive(VaultArchiveParamsparams = VaultArchiveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/vaults/{vault_id}/archive`
+**POST** `/v1/vaults/{vault_id}/archive`
 
 Archive Vault
 
-### Parameters
+## Parameters
 
 - `VaultArchiveParams params`
 
@@ -89,7 +84,7 @@ Archive Vault
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsVault:`
 
@@ -103,9 +98,13 @@ Archive Vault
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `String displayName`
 
@@ -117,13 +116,13 @@ Archive Vault
 
   - `Type type`
 
-    - `VAULT("vault")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
 
-### Example
+    format: date-time
+
+## Example
 
 ```java
 package com.anthropic.example;
@@ -144,7 +143,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

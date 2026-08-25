@@ -1,21 +1,16 @@
----
-title: Create User Profile
-url: https://platform.claude.com/docs/en/api/go/beta/user_profiles/create
----
-
-## Create User Profile
+# Create User Profile
 
 `client.Beta.UserProfiles.New(ctx, params) (*BetaUserProfile, error)`
 
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
-### Parameters
+## Parameters
 
 - `params BetaUserProfileNewParams`
 
-  - `AccessType param.Field[BetaUserProfileNewParamsAccessType]`
+  - `AccessType param.Field[BetaUserProfileNewParamsAccessType] Optional`
 
     Body param: How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
@@ -23,19 +18,23 @@ Create User Profile
 
     - `const BetaUserProfileNewParamsAccessTypePassthrough BetaUserProfileNewParamsAccessType = "passthrough"`
 
-  - `ExternalID param.Field[string]`
+  - `ExternalID param.Field[string] Optional`
 
     Body param: Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
-  - `Metadata param.Field[map[string, string]]`
+    minLength: 1, maxLength: 255
+
+  - `Metadata param.Field[map[string, string]] Optional`
 
     Body param: Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
 
-  - `Name param.Field[string]`
+  - `Name param.Field[string] Optional`
 
     Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
-  - `Relationship param.Field[BetaUserProfileNewParamsRelationship]`
+    minLength: 1, maxLength: 255
+
+  - `Relationship param.Field[BetaUserProfileNewParamsRelationship] Optional`
 
     Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
@@ -45,7 +44,7 @@ Create User Profile
 
     - `const BetaUserProfileNewParamsRelationshipInternal BetaUserProfileNewParamsRelationship = "internal"`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -121,7 +120,7 @@ Create User Profile
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaUserProfile struct{…}`
 
@@ -132,6 +131,8 @@ Create User Profile
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Metadata map[string, string]`
 
@@ -155,13 +156,13 @@ Create User Profile
 
     Object type. Always `user_profile`.
 
-    - `const BetaUserProfileTypeUserProfile BetaUserProfileType = "user_profile"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
 
-  - `AccessType BetaUserProfileAccessType`
+    format: date-time
+
+  - `AccessType BetaUserProfileAccessType Optional`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
@@ -169,15 +170,15 @@ Create User Profile
 
     - `const BetaUserProfileAccessTypePassthrough BetaUserProfileAccessType = "passthrough"`
 
-  - `ExternalID string`
+  - `ExternalID string Optional`
 
     Platform's own identifier for this user. Not enforced unique.
 
-  - `Name string`
+  - `Name string Optional`
 
     Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
 
-  - `Relationship BetaUserProfileRelationship`
+  - `Relationship BetaUserProfileRelationship Optional`
 
     How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
@@ -187,7 +188,7 @@ Create User Profile
 
     - `const BetaUserProfileRelationshipInternal BetaUserProfileRelationship = "internal"`
 
-### Example
+## Example
 
 ```go
 package main
@@ -212,7 +213,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

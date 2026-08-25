@@ -1,15 +1,10 @@
----
-title: Webhooks
-url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
----
-
 # Webhooks
 
-## Domain Types
+## Domain types
 
 ### Beta Webhook Agent Archived Event Data
 
-- `beta_webhook_agent_archived_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_agent_archived_event_data: object`
 
   - `id: string`
 
@@ -23,7 +18,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Agent Created Event Data
 
-- `beta_webhook_agent_created_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_agent_created_event_data: object`
 
   - `id: string`
 
@@ -37,7 +32,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Agent Deleted Event Data
 
-- `beta_webhook_agent_deleted_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_agent_deleted_event_data: object`
 
   - `id: string`
 
@@ -51,7 +46,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Agent Updated Event Data
 
-- `beta_webhook_agent_updated_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_agent_updated_event_data: object`
 
   - `id: string`
 
@@ -65,7 +60,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Archived Event Data
 
-- `beta_webhook_deployment_archived_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_archived_event_data: object`
 
   - `id: string`
 
@@ -79,7 +74,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Created Event Data
 
-- `beta_webhook_deployment_created_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_created_event_data: object`
 
   - `id: string`
 
@@ -93,7 +88,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Deleted Event Data
 
-- `beta_webhook_deployment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_deleted_event_data: object`
 
   - `id: string`
 
@@ -107,7 +102,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Paused Event Data
 
-- `beta_webhook_deployment_paused_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_paused_event_data: object`
 
   - `id: string`
 
@@ -121,7 +116,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Run Failed Event Data
 
-- `beta_webhook_deployment_run_failed_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_run_failed_event_data: object`
 
   - `id: string`
 
@@ -135,7 +130,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Run Started Event Data
 
-- `beta_webhook_deployment_run_started_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_run_started_event_data: object`
 
   - `id: string`
 
@@ -149,7 +144,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Run Succeeded Event Data
 
-- `beta_webhook_deployment_run_succeeded_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_run_succeeded_event_data: object`
 
   - `id: string`
 
@@ -163,7 +158,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Unpaused Event Data
 
-- `beta_webhook_deployment_unpaused_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_unpaused_event_data: object`
 
   - `id: string`
 
@@ -177,7 +172,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Deployment Updated Event Data
 
-- `beta_webhook_deployment_updated_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_deployment_updated_event_data: object`
 
   - `id: string`
 
@@ -191,7 +186,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Environment Archived Event Data
 
-- `beta_webhook_environment_archived_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_environment_archived_event_data: object`
 
   - `id: string`
 
@@ -205,7 +200,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Environment Created Event Data
 
-- `beta_webhook_environment_created_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_environment_created_event_data: object`
 
   - `id: string`
 
@@ -219,7 +214,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Environment Deleted Event Data
 
-- `beta_webhook_environment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_environment_deleted_event_data: object`
 
   - `id: string`
 
@@ -233,7 +228,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Environment Updated Event Data
 
-- `beta_webhook_environment_updated_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_environment_updated_event_data: object`
 
   - `id: string`
 
@@ -247,7 +242,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Event
 
-- `beta_webhook_event: object { id, created_at, data, type }`
+- `beta_webhook_event: object`
 
   - `id: string`
 
@@ -257,9 +252,11 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 41 more`
 
-    - `beta_webhook_session_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_created_event_data: object`
 
       - `id: string`
 
@@ -271,7 +268,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_pending_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_pending_event_data: object`
 
       - `id: string`
 
@@ -283,7 +280,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_running_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_running_event_data: object`
 
       - `id: string`
 
@@ -295,7 +292,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_idled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_idled_event_data: object`
 
       - `id: string`
 
@@ -307,7 +304,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_requires_action_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_requires_action_event_data: object`
 
       - `id: string`
 
@@ -319,7 +316,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_archived_event_data: object`
 
       - `id: string`
 
@@ -331,7 +328,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_deleted_event_data: object`
 
       - `id: string`
 
@@ -343,7 +340,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_rescheduled_event_data: object`
 
       - `id: string`
 
@@ -355,7 +352,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_run_started_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_run_started_event_data: object`
 
       - `id: string`
 
@@ -367,7 +364,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_idled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_idled_event_data: object`
 
       - `id: string`
 
@@ -379,7 +376,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_terminated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_terminated_event_data: object`
 
       - `id: string`
 
@@ -391,7 +388,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_thread_created_event_data: object { id, organization_id, session_thread_id, 2 more }`
+    - `beta_webhook_session_thread_created_event_data: object`
 
       - `id: string`
 
@@ -407,7 +404,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_thread_idled_event_data: object { id, organization_id, session_thread_id, 2 more }`
+    - `beta_webhook_session_thread_idled_event_data: object`
 
       - `id: string`
 
@@ -423,7 +420,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_thread_terminated_event_data: object { id, organization_id, session_thread_id, 2 more }`
+    - `beta_webhook_session_thread_terminated_event_data: object`
 
       - `id: string`
 
@@ -439,7 +436,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_outcome_evaluation_ended_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_outcome_evaluation_ended_event_data: object`
 
       - `id: string`
 
@@ -451,7 +448,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_vault_created_event_data: object`
 
       - `id: string`
 
@@ -463,7 +460,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_vault_archived_event_data: object`
 
       - `id: string`
 
@@ -475,7 +472,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_vault_deleted_event_data: object`
 
       - `id: string`
 
@@ -487,7 +484,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_created_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_created_event_data: object`
 
       - `id: string`
 
@@ -503,7 +500,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_archived_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_archived_event_data: object`
 
       - `id: string`
 
@@ -519,7 +516,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_deleted_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_deleted_event_data: object`
 
       - `id: string`
 
@@ -535,7 +532,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_refresh_failed_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_refresh_failed_event_data: object`
 
       - `id: string`
 
@@ -551,7 +548,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_updated_event_data: object`
 
       - `id: string`
 
@@ -563,7 +560,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_created_event_data: object`
 
       - `id: string`
 
@@ -575,7 +572,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_archived_event_data: object`
 
       - `id: string`
 
@@ -587,7 +584,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_deleted_event_data: object`
 
       - `id: string`
 
@@ -599,7 +596,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_paused_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_paused_event_data: object`
 
       - `id: string`
 
@@ -611,7 +608,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_run_failed_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_run_failed_event_data: object`
 
       - `id: string`
 
@@ -623,7 +620,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_created_event_data: object`
 
       - `id: string`
 
@@ -635,7 +632,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_updated_event_data: object`
 
       - `id: string`
 
@@ -647,7 +644,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_unpaused_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_unpaused_event_data: object`
 
       - `id: string`
 
@@ -659,7 +656,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_updated_event_data: object`
 
       - `id: string`
 
@@ -671,7 +668,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_archived_event_data: object`
 
       - `id: string`
 
@@ -683,7 +680,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_run_started_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_run_started_event_data: object`
 
       - `id: string`
 
@@ -695,7 +692,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_deleted_event_data: object`
 
       - `id: string`
 
@@ -707,7 +704,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_run_succeeded_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_run_succeeded_event_data: object`
 
       - `id: string`
 
@@ -719,7 +716,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_created_event_data: object`
 
       - `id: string`
 
@@ -731,7 +728,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_updated_event_data: object`
 
       - `id: string`
 
@@ -743,7 +740,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_archived_event_data: object`
 
       - `id: string`
 
@@ -755,7 +752,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_deleted_event_data: object`
 
       - `id: string`
 
@@ -767,7 +764,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_memory_store_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_memory_store_created_event_data: object`
 
       - `id: string`
 
@@ -779,7 +776,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_memory_store_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_memory_store_archived_event_data: object`
 
       - `id: string`
 
@@ -791,7 +788,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_memory_store_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_memory_store_deleted_event_data: object`
 
       - `id: string`
 
@@ -803,7 +800,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_budget_reached_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_budget_reached_event_data: object`
 
       - `id: string`
 
@@ -823,7 +820,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 - `beta_webhook_event_data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 41 more`
 
-  - `beta_webhook_session_created_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_created_event_data: object`
 
     - `id: string`
 
@@ -835,7 +832,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_pending_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_pending_event_data: object`
 
     - `id: string`
 
@@ -847,7 +844,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_running_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_running_event_data: object`
 
     - `id: string`
 
@@ -859,7 +856,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_idled_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_idled_event_data: object`
 
     - `id: string`
 
@@ -871,7 +868,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_requires_action_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_requires_action_event_data: object`
 
     - `id: string`
 
@@ -883,7 +880,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_archived_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_archived_event_data: object`
 
     - `id: string`
 
@@ -895,7 +892,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_deleted_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_deleted_event_data: object`
 
     - `id: string`
 
@@ -907,7 +904,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_status_rescheduled_event_data: object`
 
     - `id: string`
 
@@ -919,7 +916,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_status_run_started_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_status_run_started_event_data: object`
 
     - `id: string`
 
@@ -931,7 +928,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_status_idled_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_status_idled_event_data: object`
 
     - `id: string`
 
@@ -943,7 +940,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_status_terminated_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_status_terminated_event_data: object`
 
     - `id: string`
 
@@ -955,7 +952,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_thread_created_event_data: object { id, organization_id, session_thread_id, 2 more }`
+  - `beta_webhook_session_thread_created_event_data: object`
 
     - `id: string`
 
@@ -971,7 +968,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_thread_idled_event_data: object { id, organization_id, session_thread_id, 2 more }`
+  - `beta_webhook_session_thread_idled_event_data: object`
 
     - `id: string`
 
@@ -987,7 +984,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_thread_terminated_event_data: object { id, organization_id, session_thread_id, 2 more }`
+  - `beta_webhook_session_thread_terminated_event_data: object`
 
     - `id: string`
 
@@ -1003,7 +1000,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_outcome_evaluation_ended_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_outcome_evaluation_ended_event_data: object`
 
     - `id: string`
 
@@ -1015,7 +1012,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_vault_created_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_vault_created_event_data: object`
 
     - `id: string`
 
@@ -1027,7 +1024,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_vault_archived_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_vault_archived_event_data: object`
 
     - `id: string`
 
@@ -1039,7 +1036,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_vault_deleted_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_vault_deleted_event_data: object`
 
     - `id: string`
 
@@ -1051,7 +1048,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_vault_credential_created_event_data: object { id, organization_id, type, 2 more }`
+  - `beta_webhook_vault_credential_created_event_data: object`
 
     - `id: string`
 
@@ -1067,7 +1064,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_vault_credential_archived_event_data: object { id, organization_id, type, 2 more }`
+  - `beta_webhook_vault_credential_archived_event_data: object`
 
     - `id: string`
 
@@ -1083,7 +1080,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_vault_credential_deleted_event_data: object { id, organization_id, type, 2 more }`
+  - `beta_webhook_vault_credential_deleted_event_data: object`
 
     - `id: string`
 
@@ -1099,7 +1096,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_vault_credential_refresh_failed_event_data: object { id, organization_id, type, 2 more }`
+  - `beta_webhook_vault_credential_refresh_failed_event_data: object`
 
     - `id: string`
 
@@ -1115,7 +1112,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_updated_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_updated_event_data: object`
 
     - `id: string`
 
@@ -1127,7 +1124,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_agent_created_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_agent_created_event_data: object`
 
     - `id: string`
 
@@ -1139,7 +1136,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_agent_archived_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_agent_archived_event_data: object`
 
     - `id: string`
 
@@ -1151,7 +1148,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_agent_deleted_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_agent_deleted_event_data: object`
 
     - `id: string`
 
@@ -1163,7 +1160,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_paused_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_paused_event_data: object`
 
     - `id: string`
 
@@ -1175,7 +1172,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_run_failed_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_run_failed_event_data: object`
 
     - `id: string`
 
@@ -1187,7 +1184,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_created_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_created_event_data: object`
 
     - `id: string`
 
@@ -1199,7 +1196,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_updated_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_updated_event_data: object`
 
     - `id: string`
 
@@ -1211,7 +1208,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_unpaused_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_unpaused_event_data: object`
 
     - `id: string`
 
@@ -1223,7 +1220,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_agent_updated_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_agent_updated_event_data: object`
 
     - `id: string`
 
@@ -1235,7 +1232,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_archived_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_archived_event_data: object`
 
     - `id: string`
 
@@ -1247,7 +1244,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_run_started_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_run_started_event_data: object`
 
     - `id: string`
 
@@ -1259,7 +1256,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_deleted_event_data: object`
 
     - `id: string`
 
@@ -1271,7 +1268,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_deployment_run_succeeded_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_deployment_run_succeeded_event_data: object`
 
     - `id: string`
 
@@ -1283,7 +1280,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_environment_created_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_environment_created_event_data: object`
 
     - `id: string`
 
@@ -1295,7 +1292,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_environment_updated_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_environment_updated_event_data: object`
 
     - `id: string`
 
@@ -1307,7 +1304,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_environment_archived_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_environment_archived_event_data: object`
 
     - `id: string`
 
@@ -1319,7 +1316,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_environment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_environment_deleted_event_data: object`
 
     - `id: string`
 
@@ -1331,7 +1328,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_memory_store_created_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_memory_store_created_event_data: object`
 
     - `id: string`
 
@@ -1343,7 +1340,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_memory_store_archived_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_memory_store_archived_event_data: object`
 
     - `id: string`
 
@@ -1355,7 +1352,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_memory_store_deleted_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_memory_store_deleted_event_data: object`
 
     - `id: string`
 
@@ -1367,7 +1364,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     - `workspace_id: string`
 
-  - `beta_webhook_session_budget_reached_event_data: object { id, organization_id, type, workspace_id }`
+  - `beta_webhook_session_budget_reached_event_data: object`
 
     - `id: string`
 
@@ -1381,7 +1378,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Memory Store Archived Event Data
 
-- `beta_webhook_memory_store_archived_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_memory_store_archived_event_data: object`
 
   - `id: string`
 
@@ -1395,7 +1392,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Memory Store Created Event Data
 
-- `beta_webhook_memory_store_created_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_memory_store_created_event_data: object`
 
   - `id: string`
 
@@ -1409,7 +1406,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Memory Store Deleted Event Data
 
-- `beta_webhook_memory_store_deleted_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_memory_store_deleted_event_data: object`
 
   - `id: string`
 
@@ -1423,7 +1420,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Archived Event Data
 
-- `beta_webhook_session_archived_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_archived_event_data: object`
 
   - `id: string`
 
@@ -1437,7 +1434,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Budget Reached Event Data
 
-- `beta_webhook_session_budget_reached_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_budget_reached_event_data: object`
 
   - `id: string`
 
@@ -1451,7 +1448,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Created Event Data
 
-- `beta_webhook_session_created_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_created_event_data: object`
 
   - `id: string`
 
@@ -1465,7 +1462,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Deleted Event Data
 
-- `beta_webhook_session_deleted_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_deleted_event_data: object`
 
   - `id: string`
 
@@ -1479,7 +1476,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Idled Event Data
 
-- `beta_webhook_session_idled_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_idled_event_data: object`
 
   - `id: string`
 
@@ -1493,7 +1490,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Outcome Evaluation Ended Event Data
 
-- `beta_webhook_session_outcome_evaluation_ended_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_outcome_evaluation_ended_event_data: object`
 
   - `id: string`
 
@@ -1507,7 +1504,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Pending Event Data
 
-- `beta_webhook_session_pending_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_pending_event_data: object`
 
   - `id: string`
 
@@ -1521,7 +1518,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Requires Action Event Data
 
-- `beta_webhook_session_requires_action_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_requires_action_event_data: object`
 
   - `id: string`
 
@@ -1535,7 +1532,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Running Event Data
 
-- `beta_webhook_session_running_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_running_event_data: object`
 
   - `id: string`
 
@@ -1549,7 +1546,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Status Idled Event Data
 
-- `beta_webhook_session_status_idled_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_status_idled_event_data: object`
 
   - `id: string`
 
@@ -1563,7 +1560,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Status Rescheduled Event Data
 
-- `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_status_rescheduled_event_data: object`
 
   - `id: string`
 
@@ -1577,7 +1574,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Status Run Started Event Data
 
-- `beta_webhook_session_status_run_started_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_status_run_started_event_data: object`
 
   - `id: string`
 
@@ -1591,7 +1588,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Status Terminated Event Data
 
-- `beta_webhook_session_status_terminated_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_status_terminated_event_data: object`
 
   - `id: string`
 
@@ -1605,7 +1602,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Thread Created Event Data
 
-- `beta_webhook_session_thread_created_event_data: object { id, organization_id, session_thread_id, 2 more }`
+- `beta_webhook_session_thread_created_event_data: object`
 
   - `id: string`
 
@@ -1623,7 +1620,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Thread Idled Event Data
 
-- `beta_webhook_session_thread_idled_event_data: object { id, organization_id, session_thread_id, 2 more }`
+- `beta_webhook_session_thread_idled_event_data: object`
 
   - `id: string`
 
@@ -1641,7 +1638,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Thread Terminated Event Data
 
-- `beta_webhook_session_thread_terminated_event_data: object { id, organization_id, session_thread_id, 2 more }`
+- `beta_webhook_session_thread_terminated_event_data: object`
 
   - `id: string`
 
@@ -1659,7 +1656,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Session Updated Event Data
 
-- `beta_webhook_session_updated_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_session_updated_event_data: object`
 
   - `id: string`
 
@@ -1673,7 +1670,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Vault Archived Event Data
 
-- `beta_webhook_vault_archived_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_vault_archived_event_data: object`
 
   - `id: string`
 
@@ -1687,7 +1684,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Vault Created Event Data
 
-- `beta_webhook_vault_created_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_vault_created_event_data: object`
 
   - `id: string`
 
@@ -1701,7 +1698,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Vault Credential Archived Event Data
 
-- `beta_webhook_vault_credential_archived_event_data: object { id, organization_id, type, 2 more }`
+- `beta_webhook_vault_credential_archived_event_data: object`
 
   - `id: string`
 
@@ -1719,7 +1716,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Vault Credential Created Event Data
 
-- `beta_webhook_vault_credential_created_event_data: object { id, organization_id, type, 2 more }`
+- `beta_webhook_vault_credential_created_event_data: object`
 
   - `id: string`
 
@@ -1737,7 +1734,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Vault Credential Deleted Event Data
 
-- `beta_webhook_vault_credential_deleted_event_data: object { id, organization_id, type, 2 more }`
+- `beta_webhook_vault_credential_deleted_event_data: object`
 
   - `id: string`
 
@@ -1755,7 +1752,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Vault Credential Refresh Failed Event Data
 
-- `beta_webhook_vault_credential_refresh_failed_event_data: object { id, organization_id, type, 2 more }`
+- `beta_webhook_vault_credential_refresh_failed_event_data: object`
 
   - `id: string`
 
@@ -1773,7 +1770,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Beta Webhook Vault Deleted Event Data
 
-- `beta_webhook_vault_deleted_event_data: object { id, organization_id, type, workspace_id }`
+- `beta_webhook_vault_deleted_event_data: object`
 
   - `id: string`
 
@@ -1787,7 +1784,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
 ### Unwrap Webhook Event
 
-- `unwrap_webhook_event: object { id, created_at, data, type }`
+- `unwrap_webhook_event: object`
 
   - `id: string`
 
@@ -1797,9 +1794,11 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
     RFC 3339 timestamp when the event occurred.
 
+    format: date-time
+
   - `data: BetaWebhookSessionCreatedEventData or BetaWebhookSessionPendingEventData or BetaWebhookSessionRunningEventData or 41 more`
 
-    - `beta_webhook_session_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_created_event_data: object`
 
       - `id: string`
 
@@ -1811,7 +1810,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_pending_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_pending_event_data: object`
 
       - `id: string`
 
@@ -1823,7 +1822,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_running_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_running_event_data: object`
 
       - `id: string`
 
@@ -1835,7 +1834,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_idled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_idled_event_data: object`
 
       - `id: string`
 
@@ -1847,7 +1846,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_requires_action_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_requires_action_event_data: object`
 
       - `id: string`
 
@@ -1859,7 +1858,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_archived_event_data: object`
 
       - `id: string`
 
@@ -1871,7 +1870,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_deleted_event_data: object`
 
       - `id: string`
 
@@ -1883,7 +1882,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_rescheduled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_rescheduled_event_data: object`
 
       - `id: string`
 
@@ -1895,7 +1894,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_run_started_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_run_started_event_data: object`
 
       - `id: string`
 
@@ -1907,7 +1906,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_idled_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_idled_event_data: object`
 
       - `id: string`
 
@@ -1919,7 +1918,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_status_terminated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_status_terminated_event_data: object`
 
       - `id: string`
 
@@ -1931,7 +1930,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_thread_created_event_data: object { id, organization_id, session_thread_id, 2 more }`
+    - `beta_webhook_session_thread_created_event_data: object`
 
       - `id: string`
 
@@ -1947,7 +1946,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_thread_idled_event_data: object { id, organization_id, session_thread_id, 2 more }`
+    - `beta_webhook_session_thread_idled_event_data: object`
 
       - `id: string`
 
@@ -1963,7 +1962,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_thread_terminated_event_data: object { id, organization_id, session_thread_id, 2 more }`
+    - `beta_webhook_session_thread_terminated_event_data: object`
 
       - `id: string`
 
@@ -1979,7 +1978,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_outcome_evaluation_ended_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_outcome_evaluation_ended_event_data: object`
 
       - `id: string`
 
@@ -1991,7 +1990,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_vault_created_event_data: object`
 
       - `id: string`
 
@@ -2003,7 +2002,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_vault_archived_event_data: object`
 
       - `id: string`
 
@@ -2015,7 +2014,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_vault_deleted_event_data: object`
 
       - `id: string`
 
@@ -2027,7 +2026,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_created_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_created_event_data: object`
 
       - `id: string`
 
@@ -2043,7 +2042,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_archived_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_archived_event_data: object`
 
       - `id: string`
 
@@ -2059,7 +2058,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_deleted_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_deleted_event_data: object`
 
       - `id: string`
 
@@ -2075,7 +2074,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_vault_credential_refresh_failed_event_data: object { id, organization_id, type, 2 more }`
+    - `beta_webhook_vault_credential_refresh_failed_event_data: object`
 
       - `id: string`
 
@@ -2091,7 +2090,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_updated_event_data: object`
 
       - `id: string`
 
@@ -2103,7 +2102,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_created_event_data: object`
 
       - `id: string`
 
@@ -2115,7 +2114,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_archived_event_data: object`
 
       - `id: string`
 
@@ -2127,7 +2126,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_deleted_event_data: object`
 
       - `id: string`
 
@@ -2139,7 +2138,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_paused_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_paused_event_data: object`
 
       - `id: string`
 
@@ -2151,7 +2150,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_run_failed_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_run_failed_event_data: object`
 
       - `id: string`
 
@@ -2163,7 +2162,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_created_event_data: object`
 
       - `id: string`
 
@@ -2175,7 +2174,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_updated_event_data: object`
 
       - `id: string`
 
@@ -2187,7 +2186,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_unpaused_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_unpaused_event_data: object`
 
       - `id: string`
 
@@ -2199,7 +2198,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_agent_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_agent_updated_event_data: object`
 
       - `id: string`
 
@@ -2211,7 +2210,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_archived_event_data: object`
 
       - `id: string`
 
@@ -2223,7 +2222,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_run_started_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_run_started_event_data: object`
 
       - `id: string`
 
@@ -2235,7 +2234,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_deleted_event_data: object`
 
       - `id: string`
 
@@ -2247,7 +2246,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_deployment_run_succeeded_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_deployment_run_succeeded_event_data: object`
 
       - `id: string`
 
@@ -2259,7 +2258,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_created_event_data: object`
 
       - `id: string`
 
@@ -2271,7 +2270,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_updated_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_updated_event_data: object`
 
       - `id: string`
 
@@ -2283,7 +2282,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_archived_event_data: object`
 
       - `id: string`
 
@@ -2295,7 +2294,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_environment_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_environment_deleted_event_data: object`
 
       - `id: string`
 
@@ -2307,7 +2306,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_memory_store_created_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_memory_store_created_event_data: object`
 
       - `id: string`
 
@@ -2319,7 +2318,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_memory_store_archived_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_memory_store_archived_event_data: object`
 
       - `id: string`
 
@@ -2331,7 +2330,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_memory_store_deleted_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_memory_store_deleted_event_data: object`
 
       - `id: string`
 
@@ -2343,7 +2342,7 @@ url: https://platform.claude.com/docs/en/api/cli/beta/webhooks
 
       - `workspace_id: string`
 
-    - `beta_webhook_session_budget_reached_event_data: object { id, organization_id, type, workspace_id }`
+    - `beta_webhook_session_budget_reached_event_data: object`
 
       - `id: string`
 

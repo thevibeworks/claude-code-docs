@@ -1,19 +1,14 @@
----
-title: Update Environment
-url: https://platform.claude.com/docs/en/api/beta/environments/update
----
+# Update Environment
 
-## Update Environment
-
-**post** `/v1/environments/{environment_id}`
+**POST** `/v1/environments/{environment_id}`
 
 Update an existing environment's configuration.
 
-### Path Parameters
+## Path parameters
 
 - `environment_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -91,13 +86,13 @@ Update an existing environment's configuration.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Body Parameters
+## Body parameters
 
 - `config: optional BetaCloudConfigParams or BetaSelfHostedConfigParams or null`
 
   Updated environment configuration
 
-  - `BetaCloudConfigParams object { type, networking, packages }`
+  - `BetaCloudConfigParams object`
 
     Request params for `cloud` environment configuration.
 
@@ -108,13 +103,11 @@ Update an existing environment's configuration.
 
       Environment type
 
-      - `"cloud"`
-
     - `networking: optional BetaUnrestrictedNetwork or BetaLimitedNetworkParams or null`
 
       Network configuration policy. Omit on update to preserve the existing value.
 
-      - `BetaUnrestrictedNetwork object { type }`
+      - `BetaUnrestrictedNetwork object`
 
         Unrestricted network access.
 
@@ -122,9 +115,7 @@ Update an existing environment's configuration.
 
           Network policy type
 
-          - `"unrestricted"`
-
-      - `BetaLimitedNetworkParams object { type, allow_mcp_servers, allow_package_managers, allowed_hosts }`
+      - `BetaLimitedNetworkParams object`
 
         Limited network request params.
 
@@ -134,8 +125,6 @@ Update an existing environment's configuration.
         - `type: "limited"`
 
           Network policy type
-
-          - `"limited"`
 
         - `allow_mcp_servers: optional boolean or null`
 
@@ -183,9 +172,9 @@ Update an existing environment's configuration.
 
         Package configuration type
 
-        - `"packages"`
+        default: packages
 
-  - `BetaSelfHostedConfigParams object { type }`
+  - `BetaSelfHostedConfigParams object`
 
     Request params for `self_hosted` environment configuration.
 
@@ -193,11 +182,11 @@ Update an existing environment's configuration.
 
       Environment type
 
-      - `"self_hosted"`
-
 - `description: optional string or null`
 
   Updated description of the environment. Omit to preserve; null clears to null; an empty string is stored as an empty string.
+
+  maxLength: 1024
 
 - `metadata: optional map[string]`
 
@@ -207,6 +196,8 @@ Update an existing environment's configuration.
 
   Updated name for the environment
 
+  maxLength: 256, minLength: 1
+
 - `scope: optional "organization" or "account" or null`
 
   The visibility scope for this environment. 'organization' makes the environment visible to all accounts. 'account' restricts visibility to the owning account only.
@@ -215,9 +206,9 @@ Update an existing environment's configuration.
 
   - `"account"`
 
-### Returns
+## Returns
 
-- `BetaEnvironment object { id, archived_at, config, 7 more }`
+- `BetaEnvironment object`
 
   Unified Environment resource for both cloud and self-hosted environments.
 
@@ -233,7 +224,7 @@ Update an existing environment's configuration.
 
     Environment configuration (either Anthropic Cloud or self-hosted)
 
-    - `BetaCloudConfig object { networking, packages, type }`
+    - `BetaCloudConfig object`
 
       `cloud` environment configuration.
 
@@ -241,7 +232,7 @@ Update an existing environment's configuration.
 
         Network configuration policy.
 
-        - `BetaUnrestrictedNetwork object { type }`
+        - `BetaUnrestrictedNetwork object`
 
           Unrestricted network access.
 
@@ -249,9 +240,7 @@ Update an existing environment's configuration.
 
             Network policy type
 
-            - `"unrestricted"`
-
-        - `BetaLimitedNetwork object { allow_mcp_servers, allow_package_managers, allowed_hosts, type }`
+        - `BetaLimitedNetwork object`
 
           Limited network access.
 
@@ -270,8 +259,6 @@ Update an existing environment's configuration.
           - `type: "limited"`
 
             Network policy type
-
-            - `"limited"`
 
       - `packages: BetaPackages`
 
@@ -305,23 +292,19 @@ Update an existing environment's configuration.
 
           Package configuration type
 
-          - `"packages"`
+          default: packages
 
       - `type: "cloud"`
 
         Environment type
 
-        - `"cloud"`
-
-    - `BetaSelfHostedConfig object { type }`
+    - `BetaSelfHostedConfig object`
 
       Configuration for self-hosted environments.
 
       - `type: "self_hosted"`
 
         Environment type
-
-        - `"self_hosted"`
 
   - `created_at: string`
 
@@ -343,7 +326,7 @@ Update an existing environment's configuration.
 
     The type of object (always 'environment')
 
-    - `"environment"`
+    default: environment
 
   - `updated_at: string`
 
@@ -357,9 +340,9 @@ Update an existing environment's configuration.
 
     - `"account"`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -370,7 +353,7 @@ curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID \
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

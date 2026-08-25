@@ -1,17 +1,12 @@
----
-title: Unpause Deployment
-url: https://platform.claude.com/docs/en/api/java/beta/deployments/unpause
----
+# Unpause Deployment
 
-## Unpause Deployment
+`BetaManagedAgentsDeployment beta().deployments().unpause(params = DeploymentUnpauseParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaManagedAgentsDeployment beta().deployments().unpause(DeploymentUnpauseParamsparams = DeploymentUnpauseParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/deployments/{deployment_id}/unpause`
+**POST** `/v1/deployments/{deployment_id}/unpause`
 
 Unpause Deployment
 
-### Parameters
+## Parameters
 
 - `DeploymentUnpauseParams params`
 
@@ -89,7 +84,7 @@ Unpause Deployment
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeployment:`
 
@@ -107,17 +102,21 @@ Unpause Deployment
 
     - `Type type`
 
-      - `AGENT("agent")`
-
     - `long version`
+
+      format: int32
 
   - `Optional<LocalDateTime> archivedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> description`
 
@@ -147,9 +146,9 @@ Unpause Deployment
 
             The text content.
 
-          - `Type type`
+            minLength: 1
 
-            - `TEXT("text")`
+          - `Type type`
 
         - `class BetaManagedAgentsImageBlock:`
 
@@ -167,13 +166,15 @@ Unpause Deployment
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `String mediaType`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `Type type`
+                minLength: 1
 
-                - `BASE64("base64")`
+              - `Type type`
 
             - `class BetaManagedAgentsUrlImageSource:`
 
@@ -181,11 +182,11 @@ Unpause Deployment
 
               - `Type type`
 
-                - `URL("url")`
-
               - `String url`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource:`
 
@@ -195,13 +196,11 @@ Unpause Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `Type type`
 
-                - `FILE("file")`
-
           - `Type type`
-
-            - `IMAGE("image")`
 
         - `class BetaManagedAgentsDocumentBlock:`
 
@@ -219,13 +218,15 @@ Unpause Deployment
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `String mediaType`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `Type type`
+                minLength: 1
 
-                - `BASE64("base64")`
+              - `Type type`
 
             - `class BetaManagedAgentsPlainTextDocumentSource:`
 
@@ -235,15 +236,13 @@ Unpause Deployment
 
                 The plain text content.
 
+                minLength: 1
+
               - `MediaType mediaType`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `TEXT_PLAIN("text/plain")`
-
               - `Type type`
-
-                - `TEXT("text")`
 
             - `class BetaManagedAgentsUrlDocumentSource:`
 
@@ -251,11 +250,11 @@ Unpause Deployment
 
               - `Type type`
 
-                - `URL("url")`
-
               - `String url`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource:`
 
@@ -265,13 +264,11 @@ Unpause Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `Type type`
 
-                - `FILE("file")`
-
           - `Type type`
-
-            - `DOCUMENT("document")`
 
           - `Optional<String> context`
 
@@ -287,11 +284,7 @@ Unpause Deployment
 
           - `Type type`
 
-            - `REDACTED("redacted")`
-
       - `Type type`
-
-        - `USER_MESSAGE("user.message")`
 
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent:`
 
@@ -315,8 +308,6 @@ Unpause Deployment
 
           - `Type type`
 
-            - `FILE("file")`
-
         - `class BetaManagedAgentsTextRubric:`
 
           Rubric content provided inline as text.
@@ -327,15 +318,13 @@ Unpause Deployment
 
           - `Type type`
 
-            - `TEXT("text")`
-
       - `Type type`
-
-        - `USER_DEFINE_OUTCOME("user.define_outcome")`
 
       - `Optional<Long> maxIterations`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `class BetaManagedAgentsDeploymentSystemMessageEvent:`
 
@@ -349,13 +338,11 @@ Unpause Deployment
 
           The text content.
 
+          minLength: 1
+
         - `Type type`
 
-          - `TEXT("text")`
-
       - `Type type`
-
-        - `SYSTEM_MESSAGE("system.message")`
 
   - `Metadata metadata`
 
@@ -375,8 +362,6 @@ Unpause Deployment
 
       - `Type type`
 
-        - `MANUAL("manual")`
-
     - `class BetaManagedAgentsErrorDeploymentPausedReason:`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
@@ -391,15 +376,11 @@ Unpause Deployment
 
           - `Type type`
 
-            - `ENVIRONMENT_ARCHIVED_ERROR("environment_archived_error")`
-
         - `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonError:`
 
           The deployment's agent was archived.
 
           - `Type type`
-
-            - `AGENT_ARCHIVED_ERROR("agent_archived_error")`
 
         - `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError:`
 
@@ -407,15 +388,11 @@ Unpause Deployment
 
           - `Type type`
 
-            - `ENVIRONMENT_NOT_FOUND_ERROR("environment_not_found_error")`
-
         - `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError:`
 
           A vault referenced by the deployment no longer exists.
 
           - `Type type`
-
-            - `VAULT_NOT_FOUND_ERROR("vault_not_found_error")`
 
         - `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError:`
 
@@ -423,15 +400,11 @@ Unpause Deployment
 
           - `Type type`
 
-            - `FILE_NOT_FOUND_ERROR("file_not_found_error")`
-
         - `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError:`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `Type type`
-
-            - `SESSION_RESOURCE_NOT_FOUND_ERROR("session_resource_not_found_error")`
 
         - `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError:`
 
@@ -439,15 +412,11 @@ Unpause Deployment
 
           - `Type type`
 
-            - `WORKSPACE_ARCHIVED_ERROR("workspace_archived_error")`
-
         - `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError:`
 
           The deployment's organization is disabled.
 
           - `Type type`
-
-            - `ORGANIZATION_DISABLED_ERROR("organization_disabled_error")`
 
         - `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError:`
 
@@ -455,15 +424,11 @@ Unpause Deployment
 
           - `Type type`
 
-            - `MEMORY_STORE_ARCHIVED_ERROR("memory_store_archived_error")`
-
         - `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError:`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `Type type`
-
-            - `SKILL_NOT_FOUND_ERROR("skill_not_found_error")`
 
         - `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError:`
 
@@ -471,15 +436,11 @@ Unpause Deployment
 
           - `Type type`
 
-            - `VAULT_ARCHIVED_ERROR("vault_archived_error")`
-
         - `class BetaManagedAgentsUnknownDeploymentPausedReasonError:`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `Type type`
-
-            - `UNKNOWN_ERROR("unknown_error")`
 
         - `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError:`
 
@@ -487,19 +448,13 @@ Unpause Deployment
 
           - `Type type`
 
-            - `SELF_HOSTED_RESOURCES_UNSUPPORTED_ERROR("self_hosted_resources_unsupported_error")`
-
         - `class BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError:`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
           - `Type type`
 
-            - `MCP_EGRESS_BLOCKED_ERROR("mcp_egress_blocked_error")`
-
       - `Type type`
-
-        - `ERROR("error")`
 
   - `List<BetaManagedAgentsSessionResourceConfig> resources`
 
@@ -510,8 +465,6 @@ Unpause Deployment
       A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
 
       - `Type type`
-
-        - `GITHUB_REPOSITORY("github_repository")`
 
       - `String url`
 
@@ -527,9 +480,9 @@ Unpause Deployment
 
             Branch name to check out.
 
-          - `Type type`
+            minLength: 1, maxLength: 255
 
-            - `BRANCH("branch")`
+          - `Type type`
 
         - `class BetaManagedAgentsCommitCheckout:`
 
@@ -537,9 +490,9 @@ Unpause Deployment
 
             Full commit SHA to check out.
 
-          - `Type type`
+            minLength: 7, maxLength: 64
 
-            - `COMMIT("commit")`
+          - `Type type`
 
       - `Optional<String> mountPath`
 
@@ -555,8 +508,6 @@ Unpause Deployment
 
       - `Type type`
 
-        - `FILE("file")`
-
       - `Optional<String> mountPath`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
@@ -570,8 +521,6 @@ Unpause Deployment
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
       - `Type type`
-
-        - `MEMORY_STORE("memory_store")`
 
       - `Optional<Access> access`
 
@@ -593,17 +542,21 @@ Unpause Deployment
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
 
+      minLength: 1, maxLength: 256
+
     - `String timezone`
 
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
-    - `Type type`
+      minLength: 1
 
-      - `CRON("cron")`
+    - `Type type`
 
     - `Optional<LocalDateTime> lastRunAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `Optional<List<LocalDateTime>> upcomingRunsAt`
 
@@ -619,11 +572,11 @@ Unpause Deployment
 
   - `Type type`
 
-    - `DEPLOYMENT("deployment")`
-
   - `LocalDateTime updatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `List<String> vaultIds`
 
@@ -645,13 +598,9 @@ Unpause Deployment
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `USD("USD")`
-
     - `Type type`
 
-      - `LIMIT("limit")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -672,7 +621,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

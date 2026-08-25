@@ -1,15 +1,10 @@
----
-title: Completions
-url: https://platform.claude.com/docs/en/api/go/completions
----
-
 # Completions
 
 ## Create a Text Completion
 
 `client.Completions.New(ctx, params) (*Completion, error)`
 
-**post** `/v1/complete`
+**POST** `/v1/complete`
 
 [Legacy] Create a Text Completion.
 
@@ -26,6 +21,8 @@ Future models and features will not be compatible with Text Completions. See our
     Body param: The maximum number of tokens to generate before stopping.
 
     Note that our models may stop _before_ reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate.
+
+    minimum: 1
 
   - `Model param.Field[Model]`
 
@@ -53,11 +50,13 @@ Future models and features will not be compatible with Text Completions. See our
 
     See [prompt validation](https://platform.claude.com/docs/en/build-with-claude/working-with-messages) and our guide to [prompt design](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview) for more details.
 
-  - `Metadata param.Field[Metadata]`
+    minLength: 1
+
+  - `Metadata param.Field[Metadata] Optional`
 
     Body param: An object describing metadata about the request.
 
-  - `StopSequences param.Field[[]string]`
+  - `StopSequences param.Field[[]string] Optional`
 
     Body param: Sequences that will cause the model to stop generating.
 
@@ -65,33 +64,7 @@ Future models and features will not be compatible with Text Completions. See our
 
     Human:"`, and may include additional built-in stop sequences in the future. By providing the stop_sequences parameter, you may include additional strings that will cause the model to stop generating.
 
-  - ``
-
-  - `Temperature param.Field[float64]`
-
-    Body param: Amount of randomness injected into the response.
-
-    Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-    Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
-  - `TopK param.Field[int64]`
-
-    Body param: Only sample from the top K options for each subsequent token.
-
-    Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
-
-    Recommended for advanced use cases only.
-
-  - `TopP param.Field[float64]`
-
-    Body param: Use nucleus sampling.
-
-    In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
-
-    Recommended for advanced use cases only.
-
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -166,6 +139,42 @@ Future models and features will not be compatible with Text Completions. See our
       - `const AnthropicBetaAgentMemory2026_07_22 AnthropicBeta = "agent-memory-2026-07-22"`
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
+
+  - `Temperature param.Field[float64] Optional`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+    Body param: Amount of randomness injected into the response.
+
+    Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+    Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+    maximum: 1, minimum: 0
+
+  - `TopK param.Field[int64] Optional`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
+
+    Body param: Only sample from the top K options for each subsequent token.
+
+    Used to remove "long tail" low probability responses. [Learn more technical details here](https://towardsdatascience.com/how-to-sample-from-language-models-682bceb97277).
+
+    Recommended for advanced use cases only.
+
+    minimum: 0
+
+  - `TopP param.Field[float64] Optional`
+
+    **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+    Body param: Use nucleus sampling.
+
+    In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
+
+    Recommended for advanced use cases only.
+
+    maximum: 1, minimum: 0
 
 ### Returns
 
@@ -270,7 +279,9 @@ Future models and features will not be compatible with Text Completions. See our
 
     For Text Completions, this is always `"completion"`.
 
-    - `const CompletionCompletion Completion = "completion"`
+    default: completion
+
+- `type Completion struct{…}`
 
 ### Example
 
@@ -301,7 +312,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -313,7 +324,7 @@ func main() {
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Completion
 
@@ -418,4 +429,4 @@ func main() {
 
     For Text Completions, this is always `"completion"`.
 
-    - `const CompletionCompletion Completion = "completion"`
+    default: completion

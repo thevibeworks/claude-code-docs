@@ -1,19 +1,14 @@
----
-title: Rotate Tunnel Token
-url: https://platform.claude.com/docs/en/api/java/beta/tunnels/rotate_token
----
+# Rotate Tunnel Token
 
-## Rotate Tunnel Token
+`BetaTunnelToken beta().tunnels().rotateToken(params = TunnelRotateTokenParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaTunnelToken beta().tunnels().rotateToken(TunnelRotateTokenParamsparams = TunnelRotateTokenParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Rotates a tunnel's connector token. Rotation invalidates the current token for new connections and returns a fresh value; established connections are not severed. A connector restarted after rotation must use the new value.
 
-### Parameters
+## Parameters
 
 - `TunnelRotateTokenParams params`
 
@@ -95,7 +90,9 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     Optional free-text reason for the rotation, recorded for audit.
 
-### Returns
+    maxLength: 1024
+
+## Returns
 
 - `class BetaTunnelToken:`
 
@@ -109,11 +106,9 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     The connector token used to run the tunnel. Treat as a credential.
 
-  - `JsonValue; type "tunnel_token"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL_TOKEN("tunnel_token")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -134,7 +129,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,15 +1,10 @@
----
-title: Models
-url: https://platform.claude.com/docs/en/api/typescript/models
----
-
 # Models
 
 ## List Models
 
-`client.models.list(ModelListParamsparams?, RequestOptionsoptions?): Page<ModelInfo>`
+`client.models.list(params?, options?): Page<ModelInfo>`
 
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
@@ -32,6 +27,8 @@ The Models API response can be used to determine which models are available for 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -221,6 +218,8 @@ The Models API response can be used to determine which models are available for 
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `display_name: string`
 
     A human-readable name for the model.
@@ -239,7 +238,7 @@ The Models API response can be used to determine which models are available for 
 
     For Models, this is always `"model"`.
 
-    - `"model"`
+    default: model
 
 ### Example
 
@@ -256,7 +255,7 @@ for await (const modelInfo of client.models.list()) {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -339,9 +338,9 @@ for await (const modelInfo of client.models.list()) {
 
 ## Get a Model
 
-`client.models.retrieve(stringmodelID, ModelRetrieveParamsparams?, RequestOptionsoptions?): ModelInfo`
+`client.models.retrieve(modelID, params?, options?): ModelInfo`
 
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
@@ -543,6 +542,8 @@ The Models API response can be used to determine information about a specific mo
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `display_name: string`
 
     A human-readable name for the model.
@@ -561,7 +562,7 @@ The Models API response can be used to determine information about a specific mo
 
     For Models, this is always `"model"`.
 
-    - `"model"`
+    default: model
 
 ### Example
 
@@ -577,7 +578,7 @@ const modelInfo = await client.models.retrieve("model_id");
 console.log(modelInfo.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -651,7 +652,7 @@ console.log(modelInfo.id);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Capability Support
 
@@ -937,6 +938,8 @@ console.log(modelInfo.id);
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `display_name: string`
 
     A human-readable name for the model.
@@ -955,7 +958,7 @@ console.log(modelInfo.id);
 
     For Models, this is always `"model"`.
 
-    - `"model"`
+    default: model
 
 ### Thinking Capability
 

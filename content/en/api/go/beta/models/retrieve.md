@@ -1,19 +1,14 @@
----
-title: Get a Model
-url: https://platform.claude.com/docs/en/api/go/beta/models/retrieve
----
-
-## Get a Model
+# Get a Model
 
 `client.Beta.Models.Get(ctx, modelID, query) (*BetaModelInfo, error)`
 
-**get** `/v1/models/{model_id}`
+**GET** `/v1/models/{model_id}`
 
 Get a specific model.
 
 The Models API response can be used to determine information about a specific model or resolve a model alias to a model ID.
 
-### Parameters
+## Parameters
 
 - `modelID string`
 
@@ -21,7 +16,7 @@ The Models API response can be used to determine information about a specific mo
 
 - `query BetaModelGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -97,7 +92,7 @@ The Models API response can be used to determine information about a specific mo
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaModelInfo struct{…}`
 
@@ -213,6 +208,8 @@ The Models API response can be used to determine information about a specific mo
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `DisplayName string`
 
     A human-readable name for the model.
@@ -231,9 +228,9 @@ The Models API response can be used to determine information about a specific mo
 
     For Models, this is always `"model"`.
 
-    - `const ModelModel Model = "model"`
+    default: model
 
-### Example
+## Example
 
 ```go
 package main
@@ -262,7 +259,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

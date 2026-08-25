@@ -1,17 +1,12 @@
----
-title: Update Session
-url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/update
----
-
-## Update Session
+# Update Session
 
 `beta.sessions.update(session_id, **kwargs) -> BetaManagedAgentsSession`
 
-**post** `/v1/sessions/{session_id}`
+**POST** `/v1/sessions/{session_id}`
 
 Update Session
 
-### Parameters
+## Parameters
 
 - `session_id: String`
 
@@ -27,13 +22,15 @@ Update Session
 
       Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
-    - `type: :url`
+      minLength: 1, maxLength: 255
 
-      - `:url`
+    - `type: :url`
 
     - `url: String`
 
       Endpoint URL for the MCP server.
+
+      maxLength: 2048
 
   - `tools: Array[BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams]`
 
@@ -44,8 +41,6 @@ Update Session
       Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
 
       - `type: :agent_toolset_20260401`
-
-        - `:agent_toolset_20260401`
 
       - `configs: Array[BetaManagedAgentsAgentToolConfigParams]`
 
@@ -58,8 +53,6 @@ Update Session
           - `name: :bash`
 
             Must be "bash".
-
-            - `:bash`
 
           - `enabled: bool`
 
@@ -75,19 +68,13 @@ Update Session
 
               - `type: :always_allow`
 
-                - `:always_allow`
-
             - `class BetaManagedAgentsAlwaysAskPolicy`
 
               Tool calls require user confirmation before execution.
 
               - `type: :always_ask`
 
-                - `:always_ask`
-
           - `type: :bash`
-
-            - `:bash`
 
         - `class BetaManagedAgentsEditToolConfigParams`
 
@@ -96,8 +83,6 @@ Update Session
           - `name: :edit`
 
             Must be "edit".
-
-            - `:edit`
 
           - `enabled: bool`
 
@@ -117,8 +102,6 @@ Update Session
 
           - `type: :edit`
 
-            - `:edit`
-
         - `class BetaManagedAgentsReadToolConfigParams`
 
           Configuration override for the read tool.
@@ -126,8 +109,6 @@ Update Session
           - `name: :read`
 
             Must be "read".
-
-            - `:read`
 
           - `enabled: bool`
 
@@ -147,8 +128,6 @@ Update Session
 
           - `type: :read`
 
-            - `:read`
-
         - `class BetaManagedAgentsWriteToolConfigParams`
 
           Configuration override for the write tool.
@@ -156,8 +135,6 @@ Update Session
           - `name: :write`
 
             Must be "write".
-
-            - `:write`
 
           - `enabled: bool`
 
@@ -177,8 +154,6 @@ Update Session
 
           - `type: :write`
 
-            - `:write`
-
         - `class BetaManagedAgentsGlobToolConfigParams`
 
           Configuration override for the glob tool.
@@ -186,8 +161,6 @@ Update Session
           - `name: :glob`
 
             Must be "glob".
-
-            - `:glob`
 
           - `enabled: bool`
 
@@ -207,8 +180,6 @@ Update Session
 
           - `type: :glob`
 
-            - `:glob`
-
         - `class BetaManagedAgentsGrepToolConfigParams`
 
           Configuration override for the grep tool.
@@ -216,8 +187,6 @@ Update Session
           - `name: :grep`
 
             Must be "grep".
-
-            - `:grep`
 
           - `enabled: bool`
 
@@ -237,8 +206,6 @@ Update Session
 
           - `type: :grep`
 
-            - `:grep`
-
         - `class BetaManagedAgentsWebFetchToolConfigParams`
 
           Configuration override for the web_fetch tool.
@@ -246,8 +213,6 @@ Update Session
           - `name: :web_fetch`
 
             Must be "web_fetch".
-
-            - `:web_fetch`
 
           - `allowed_domains: Array[String]`
 
@@ -265,6 +230,8 @@ Update Session
 
             Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
+            format: int32
+
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
@@ -279,8 +246,6 @@ Update Session
 
           - `type: :web_fetch`
 
-            - `:web_fetch`
-
         - `class BetaManagedAgentsWebSearchToolConfigParams`
 
           Configuration override for the web_search tool.
@@ -288,8 +253,6 @@ Update Session
           - `name: :web_search`
 
             Must be "web_search".
-
-            - `:web_search`
 
           - `allowed_domains: Array[String]`
 
@@ -317,8 +280,6 @@ Update Session
 
           - `type: :web_search`
 
-            - `:web_search`
-
           - `user_location: BetaManagedAgentsUserLocation`
 
             Approximate user location for search result localization.
@@ -327,11 +288,11 @@ Update Session
 
               Location precision. Only "approximate" is supported.
 
-              - `:approximate`
-
             - `city: String`
 
               City name.
+
+              minLength: 1, maxLength: 255
 
             - `country: String`
 
@@ -341,9 +302,13 @@ Update Session
 
               Region or state name.
 
+              minLength: 1, maxLength: 255
+
             - `timezone: String`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `default_config: BetaManagedAgentsAgentToolsetDefaultConfigParams`
 
@@ -373,9 +338,9 @@ Update Session
 
         Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
-      - `type: :mcp_toolset`
+        minLength: 1, maxLength: 255
 
-        - `:mcp_toolset`
+      - `type: :mcp_toolset`
 
       - `configs: Array[BetaManagedAgentsMCPToolConfigParams]`
 
@@ -384,6 +349,8 @@ Update Session
         - `name: String`
 
           Name of the MCP tool to configure. 1-128 characters.
+
+          minLength: 1, maxLength: 128
 
         - `enabled: bool`
 
@@ -429,13 +396,13 @@ Update Session
 
         Description of what the tool does, shown to the agent to help it decide when to use the tool.
 
+        minLength: 1
+
       - `input_schema: BetaManagedAgentsCustomToolInputSchema`
 
         JSON Schema for custom tool input parameters.
 
         - `type: :object`
-
-          - `:object`
 
         - `properties: Hash[Symbol, untyped]`
 
@@ -445,9 +412,9 @@ Update Session
 
         Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-      - `type: :custom`
+        minLength: 1, maxLength: 128
 
-        - `:custom`
+      - `type: :custom`
 
 - `budget: BetaManagedAgentsBudgetLimit`
 
@@ -465,11 +432,7 @@ Update Session
 
       Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-      - `:USD`
-
   - `type: :limit`
-
-    - `:limit`
 
 - `metadata: Hash[Symbol, String]`
 
@@ -478,6 +441,8 @@ Update Session
 - `title: String`
 
   Human-readable session title.
+
+  minLength: 1, maxLength: 500
 
 - `vault_ids: Array[String]`
 
@@ -559,7 +524,7 @@ Update Session
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsSession`
 
@@ -580,8 +545,6 @@ Update Session
       - `name: String`
 
       - `type: :url`
-
-        - `:url`
 
       - `url: String`
 
@@ -665,15 +628,11 @@ Update Session
 
           - `type: :low`
 
-            - `:low`
-
         - `class BetaManagedAgentsEffortMedium`
 
           Medium effort. Balances latency and reasoning depth.
 
           - `type: :medium`
-
-            - `:medium`
 
         - `class BetaManagedAgentsEffortHigh`
 
@@ -681,23 +640,17 @@ Update Session
 
           - `type: :high`
 
-            - `:high`
-
         - `class BetaManagedAgentsEffortXhigh`
 
           Extra-high effort. Not all models accept this level.
 
           - `type: :xhigh`
 
-            - `:xhigh`
-
         - `class BetaManagedAgentsEffortMax`
 
           Maximum effort. Favors reasoning depth over latency.
 
           - `type: :max`
-
-            - `:max`
 
       - `inference_geo: String`
 
@@ -751,8 +704,6 @@ Update Session
 
               - `type: :anthropic`
 
-                - `:anthropic`
-
               - `version: String`
 
             - `class BetaManagedAgentsCustomSkill`
@@ -762,8 +713,6 @@ Update Session
               - `skill_id: String`
 
               - `type: :custom`
-
-                - `:custom`
 
               - `version: String`
 
@@ -783,8 +732,6 @@ Update Session
 
                   - `name: :bash`
 
-                    - `:bash`
-
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                     Permission policy for tool execution.
@@ -795,19 +742,13 @@ Update Session
 
                       - `type: :always_allow`
 
-                        - `:always_allow`
-
                     - `class BetaManagedAgentsAlwaysAskPolicy`
 
                       Tool calls require user confirmation before execution.
 
                       - `type: :always_ask`
 
-                        - `:always_ask`
-
                   - `type: :bash`
-
-                    - `:bash`
 
                 - `class BetaManagedAgentsEditToolConfig`
 
@@ -816,8 +757,6 @@ Update Session
                   - `enabled: bool`
 
                   - `name: :edit`
-
-                    - `:edit`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -833,8 +772,6 @@ Update Session
 
                   - `type: :edit`
 
-                    - `:edit`
-
                 - `class BetaManagedAgentsReadToolConfig`
 
                   Configuration for the read tool.
@@ -842,8 +779,6 @@ Update Session
                   - `enabled: bool`
 
                   - `name: :read`
-
-                    - `:read`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -859,8 +794,6 @@ Update Session
 
                   - `type: :read`
 
-                    - `:read`
-
                 - `class BetaManagedAgentsWriteToolConfig`
 
                   Configuration for the write tool.
@@ -868,8 +801,6 @@ Update Session
                   - `enabled: bool`
 
                   - `name: :write`
-
-                    - `:write`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -885,8 +816,6 @@ Update Session
 
                   - `type: :write`
 
-                    - `:write`
-
                 - `class BetaManagedAgentsGlobToolConfig`
 
                   Configuration for the glob tool.
@@ -894,8 +823,6 @@ Update Session
                   - `enabled: bool`
 
                   - `name: :glob`
-
-                    - `:glob`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -911,8 +838,6 @@ Update Session
 
                   - `type: :glob`
 
-                    - `:glob`
-
                 - `class BetaManagedAgentsGrepToolConfig`
 
                   Configuration for the grep tool.
@@ -920,8 +845,6 @@ Update Session
                   - `enabled: bool`
 
                   - `name: :grep`
-
-                    - `:grep`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -937,8 +860,6 @@ Update Session
 
                   - `type: :grep`
 
-                    - `:grep`
-
                 - `class BetaManagedAgentsWebFetchToolConfig`
 
                   Configuration for the web_fetch tool.
@@ -946,8 +867,6 @@ Update Session
                   - `enabled: bool`
 
                   - `name: :web_fetch`
-
-                    - `:web_fetch`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -963,13 +882,13 @@ Update Session
 
                   - `type: :web_fetch`
 
-                    - `:web_fetch`
-
                   - `allowed_domains: Array[String]`
 
                   - `blocked_domains: Array[String]`
 
                   - `max_content_tokens: Integer`
+
+                    format: int32
 
                 - `class BetaManagedAgentsWebSearchToolConfig`
 
@@ -978,8 +897,6 @@ Update Session
                   - `enabled: bool`
 
                   - `name: :web_search`
-
-                    - `:web_search`
 
                   - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -995,8 +912,6 @@ Update Session
 
                   - `type: :web_search`
 
-                    - `:web_search`
-
                   - `allowed_domains: Array[String]`
 
                   - `blocked_domains: Array[String]`
@@ -1009,11 +924,11 @@ Update Session
 
                       Location precision. Only "approximate" is supported.
 
-                      - `:approximate`
-
                     - `city: String`
 
                       City name.
+
+                      minLength: 1, maxLength: 255
 
                     - `country: String`
 
@@ -1023,9 +938,13 @@ Update Session
 
                       Region or state name.
 
+                      minLength: 1, maxLength: 255
+
                     - `timezone: String`
 
                       IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                      minLength: 1, maxLength: 255
 
               - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -1046,8 +965,6 @@ Update Session
                     Tool calls require user confirmation before execution.
 
               - `type: :agent_toolset_20260401`
-
-                - `:agent_toolset_20260401`
 
             - `class BetaManagedAgentsMCPToolset`
 
@@ -1091,8 +1008,6 @@ Update Session
 
               - `type: :mcp_toolset`
 
-                - `:mcp_toolset`
-
             - `class BetaManagedAgentsCustomTool`
 
               A custom tool as returned in API responses.
@@ -1105,8 +1020,6 @@ Update Session
 
                 - `type: :object`
 
-                  - `:object`
-
                 - `properties: Hash[Symbol, untyped]`
 
                 - `required: Array[String]`
@@ -1115,13 +1028,11 @@ Update Session
 
               - `type: :custom`
 
-                - `:custom`
-
           - `type: :agent`
 
-            - `:agent`
-
           - `version: Integer`
+
+            format: int32
 
         - `class BetaManagedAgentsAdvisor`
 
@@ -1133,11 +1044,7 @@ Update Session
 
           - `type: :advisor`
 
-            - `:advisor`
-
       - `type: :coordinator`
-
-        - `:coordinator`
 
     - `name: String`
 
@@ -1165,13 +1072,15 @@ Update Session
 
     - `type: :agent`
 
-      - `:agent`
-
     - `version: Integer`
+
+      format: int32
 
   - `archived_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `budget: BetaManagedAgentsBudgetLimit`
 
@@ -1189,15 +1098,13 @@ Update Session
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `:USD`
-
     - `type: :limit`
-
-      - `:limit`
 
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `environment_id: String`
 
@@ -1211,6 +1118,8 @@ Update Session
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `description: String`
 
       What the agent should produce.
@@ -1223,6 +1132,8 @@ Update Session
 
       0-indexed revision cycle the outcome is currently on.
 
+      format: int32
+
     - `outcome_id: String`
 
       Server-generated outc_ ID for this outcome.
@@ -1232,8 +1143,6 @@ Update Session
       Current evaluation state. `pending` before the agent begins work; `running` while producing or revising; `evaluating` while the grader scores; `satisfied`/`max_iterations_reached`/`failed`/`interrupted` are terminal.
 
     - `type: :outcome_evaluation`
-
-      - `:outcome_evaluation`
 
   - `resources: Array[BetaManagedAgentsSessionResource]`
 
@@ -1245,15 +1154,17 @@ Update Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `mount_path: String`
 
       - `type: :github_repository`
 
-        - `:github_repository`
-
       - `updated_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `url: String`
 
@@ -1265,9 +1176,9 @@ Update Session
 
             Branch name to check out.
 
-          - `type: :branch`
+            minLength: 1, maxLength: 255
 
-            - `:branch`
+          - `type: :branch`
 
         - `class BetaManagedAgentsCommitCheckout`
 
@@ -1275,9 +1186,9 @@ Update Session
 
             Full commit SHA to check out.
 
-          - `type: :commit`
+            minLength: 7, maxLength: 64
 
-            - `:commit`
+          - `type: :commit`
 
     - `class BetaManagedAgentsFileResource`
 
@@ -1287,17 +1198,19 @@ Update Session
 
         A timestamp in RFC 3339 format
 
+        format: date-time
+
       - `file_id: String`
 
       - `mount_path: String`
 
       - `type: :file`
 
-        - `:file`
-
       - `updated_at: Time`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
     - `class BetaManagedAgentsMemoryStoreResource`
 
@@ -1308,8 +1221,6 @@ Update Session
         The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
       - `type: :memory_store`
-
-        - `:memory_store`
 
       - `access: :read_write | :read_only`
 
@@ -1327,6 +1238,8 @@ Update Session
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
+        maxLength: 4096
+
       - `mount_path: String`
 
         Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
@@ -1343,9 +1256,13 @@ Update Session
 
       Cumulative time in seconds the session spent in running status. Excludes idle time.
 
+      format: double
+
     - `duration_seconds: Float`
 
       Elapsed time since session creation in seconds. For terminated sessions, frozen at the final update.
+
+      format: double
 
   - `status: :rescheduling | :running | :idle | :terminated`
 
@@ -1363,11 +1280,11 @@ Update Session
 
   - `type: :session`
 
-    - `:session`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `usage: BetaManagedAgentsSessionUsage`
 
@@ -1377,6 +1294,8 @@ Update Session
 
       Cumulative time in seconds during which the session had at least one thread in running status. Overlapping activity from concurrent threads is counted once, unlike `stats.active_seconds`, which sums each thread's own active time. This is the duration the session's runtime cost is priced on.
 
+      format: double
+
     - `cache_creation: BetaManagedAgentsCacheCreationUsage`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -1385,17 +1304,25 @@ Update Session
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens: Integer`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens: Integer`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens: Integer`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `list_cost: BetaMonetaryAmount`
 
@@ -1405,6 +1332,8 @@ Update Session
 
       Total output tokens generated across all turns.
 
+      format: int32
+
     - `server_tool_use: BetaManagedAgentsServerToolUsage`
 
       Cumulative count of server-executed tool invocations, broken down by tool.
@@ -1413,9 +1342,13 @@ Update Session
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests: Integer`
 
         Number of server-executed web search requests.
+
+        format: int32
 
   - `vault_ids: Array[String]`
 
@@ -1425,7 +1358,7 @@ Update Session
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -1437,7 +1370,7 @@ beta_managed_agents_session = anthropic.beta.sessions.update("sesn_011CZkZAtmR3y
 puts(beta_managed_agents_session)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

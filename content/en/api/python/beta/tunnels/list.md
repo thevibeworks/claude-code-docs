@@ -1,19 +1,14 @@
----
-title: List Tunnels
-url: https://platform.claude.com/docs/en/api/python/beta/tunnels/list
----
+# List Tunnels
 
-## List Tunnels
+`beta.tunnels.list(**kwargs)  -> SyncPageCursor[BetaTunnel]`
 
-`beta.tunnels.list(TunnelListParams**kwargs)  -> SyncPageCursor[BetaTunnel]`
-
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists tunnels. Results are ordered by creation time, newest first; archived tunnels are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `include_archived: Optional[bool]`
 
@@ -22,6 +17,8 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 - `limit: Optional[int]`
 
   Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
+
+  format: int32
 
 - `page: Optional[str]`
 
@@ -103,7 +100,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaTunnel: …`
 
@@ -117,9 +114,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: datetime`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `display_name: Optional[str]`
 
@@ -131,9 +132,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `type: Literal["tunnel"]`
 
-    - `"tunnel"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -149,7 +148,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

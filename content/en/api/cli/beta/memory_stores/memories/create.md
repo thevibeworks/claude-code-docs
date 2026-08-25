@@ -1,17 +1,12 @@
----
-title: Create a memory
-url: https://platform.claude.com/docs/en/api/cli/beta/memory_stores/memories/create
----
-
-## Create a memory
+# Create a memory
 
 `$ ant beta:memory-stores:memories create`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
-### Parameters
+## Parameters
 
 - `--memory-store-id: string`
 
@@ -25,6 +20,8 @@ Create a memory
 
   Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
 
+  minLength: 2, maxLength: 1024
+
 - `--view: optional "basic" or "full"`
 
   Query param: Query parameter for view
@@ -33,9 +30,9 @@ Create a memory
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_memory: object { id, content_sha256, content_size_bytes, 7 more }`
+- `beta_managed_agents_memory: object`
 
   A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
@@ -51,9 +48,13 @@ Create a memory
 
     Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
+    format: int32
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `memory_store_id: string`
 
@@ -69,19 +70,19 @@ Create a memory
 
   - `type: "memory"`
 
-    - `"memory"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `content: optional string`
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:memory-stores:memories create \
   --api-key my-anthropic-api-key \
   --memory-store-id memory_store_id \
@@ -89,7 +90,7 @@ ant beta:memory-stores:memories create \
   --path xx
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

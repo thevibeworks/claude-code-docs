@@ -1,25 +1,22 @@
----
-title: Create Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/ruby/beta/tunnels/certificates/create
----
-
-## Create Tunnel Certificate
+# Create Tunnel Certificate
 
 `beta.tunnels.certificates.create(tunnel_id, **kwargs) -> BetaTunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+## Parameters
 
 - `tunnel_id: String`
 
 - `ca_certificate_pem: String`
 
   PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
+
+  maxLength: 8192
 
 - `betas: Array[AnthropicBeta]`
 
@@ -97,7 +94,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaTunnelCertificate`
 
@@ -111,13 +108,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: String`
 
@@ -129,9 +132,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `type: :tunnel_certificate`
 
-    - `:tunnel_certificate`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -143,7 +144,7 @@ beta_tunnel_certificate = anthropic.beta.tunnels.certificates.create("tunnel_id"
 puts(beta_tunnel_certificate)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

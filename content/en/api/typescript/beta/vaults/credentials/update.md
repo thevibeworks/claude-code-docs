@@ -1,17 +1,12 @@
----
-title: Update Credential
-url: https://platform.claude.com/docs/en/api/typescript/beta/vaults/credentials/update
----
+# Update Credential
 
-## Update Credential
+`client.beta.vaults.credentials.update(credentialID, params, options?): BetaManagedAgentsCredential`
 
-`client.beta.vaults.credentials.update(stringcredentialID, CredentialUpdateParamsparams, RequestOptionsoptions?): BetaManagedAgentsCredential`
-
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Update Credential
 
-### Parameters
+## Parameters
 
 - `credentialID: string`
 
@@ -31,15 +26,17 @@ Update Credential
 
       - `type: "mcp_oauth"`
 
-        - `"mcp_oauth"`
-
       - `access_token?: string | null`
 
         Updated OAuth access token.
 
+        minLength: 1, maxLength: 8192
+
       - `expires_at?: string | null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh?: BetaManagedAgentsMCPOAuthRefreshUpdateParams | null`
 
@@ -49,9 +46,13 @@ Update Credential
 
           Updated OAuth refresh token.
 
+          minLength: 1, maxLength: 4096
+
         - `scope?: string | null`
 
           Updated OAuth scope for the refresh request.
+
+          maxLength: 8192
 
         - `token_endpoint_auth?: BetaManagedAgentsTokenEndpointAuthBasicUpdateParam | BetaManagedAgentsTokenEndpointAuthPostUpdateParam`
 
@@ -63,11 +64,11 @@ Update Credential
 
             - `type: "client_secret_basic"`
 
-              - `"client_secret_basic"`
-
             - `client_secret?: string | null`
 
               Updated OAuth client secret.
+
+              minLength: 1, maxLength: 512
 
           - `BetaManagedAgentsTokenEndpointAuthPostUpdateParam`
 
@@ -75,11 +76,11 @@ Update Credential
 
             - `type: "client_secret_post"`
 
-              - `"client_secret_post"`
-
             - `client_secret?: string | null`
 
               Updated OAuth client secret.
+
+              minLength: 1, maxLength: 512
 
     - `BetaManagedAgentsStaticBearerUpdateParams`
 
@@ -87,19 +88,17 @@ Update Credential
 
       - `type: "static_bearer"`
 
-        - `"static_bearer"`
-
       - `token?: string | null`
 
         Updated static bearer token value.
+
+        minLength: 1, maxLength: 8192
 
     - `BetaManagedAgentsEnvironmentVariableUpdateParams`
 
       Parameters for updating an environment variable credential. `secret_name` is immutable.
 
       - `type: "environment_variable"`
-
-        - `"environment_variable"`
 
       - `injection_location?: BetaManagedAgentsInjectionLocationUpdateParams`
 
@@ -123,8 +122,6 @@ Update Credential
 
           - `type: "unrestricted"`
 
-            - `"unrestricted"`
-
         - `BetaManagedAgentsLimitedCredentialNetworkingParams`
 
           Substitute the secret only on requests to the listed hosts.
@@ -135,15 +132,17 @@ Update Credential
 
           - `type: "limited"`
 
-            - `"limited"`
-
       - `secret_value?: string | null`
 
         Updated secret value.
 
+        minLength: 1, maxLength: 4096
+
   - `display_name?: string | null`
 
     Body param: Updated human-readable name for the credential. 1-255 characters.
+
+    minLength: 1, maxLength: 255
 
   - `metadata?: Record<string, string | null> | null`
 
@@ -225,7 +224,7 @@ Update Credential
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsCredential`
 
@@ -238,6 +237,8 @@ Update Credential
   - `archived_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `auth: BetaManagedAgentsMCPOAuthAuthResponse | BetaManagedAgentsStaticBearerAuthResponse | BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -253,11 +254,11 @@ Update Credential
 
       - `type: "mcp_oauth"`
 
-        - `"mcp_oauth"`
-
       - `expires_at?: string | null`
 
         A timestamp in RFC 3339 format
+
+        format: date-time
 
       - `refresh?: BetaManagedAgentsMCPOAuthRefreshResponse | null`
 
@@ -281,23 +282,17 @@ Update Credential
 
             - `type: "none"`
 
-              - `"none"`
-
           - `BetaManagedAgentsTokenEndpointAuthBasicResponse`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `type: "client_secret_basic"`
 
-              - `"client_secret_basic"`
-
           - `BetaManagedAgentsTokenEndpointAuthPostResponse`
 
             Token endpoint uses POST body authentication with client credentials.
 
             - `type: "client_secret_post"`
-
-              - `"client_secret_post"`
 
         - `resource?: string | null`
 
@@ -316,8 +311,6 @@ Update Credential
         URL of the MCP server this credential authenticates against.
 
       - `type: "static_bearer"`
-
-        - `"static_bearer"`
 
     - `BetaManagedAgentsEnvironmentVariableAuthResponse`
 
@@ -345,8 +338,6 @@ Update Credential
 
           - `type: "unrestricted"`
 
-            - `"unrestricted"`
-
         - `BetaManagedAgentsLimitedCredentialNetworkingResponse`
 
           The secret is substituted only on requests to the listed hosts.
@@ -357,19 +348,17 @@ Update Credential
 
           - `type: "limited"`
 
-            - `"limited"`
-
       - `secret_name: string`
 
         Name of the environment variable.
 
       - `type: "environment_variable"`
 
-        - `"environment_variable"`
-
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Record<string, string>`
 
@@ -377,11 +366,11 @@ Update Credential
 
   - `type: "vault_credential"`
 
-    - `"vault_credential"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: string`
 
@@ -391,7 +380,7 @@ Update Credential
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -408,7 +397,7 @@ const betaManagedAgentsCredential = await client.beta.vaults.credentials.update(
 console.log(betaManagedAgentsCredential.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,31 +1,26 @@
----
-title: Get Tunnel
-url: https://platform.claude.com/docs/en/api/admin/mcp_tunnels/retrieve
----
+# Get Tunnel
 
-## Get Tunnel
+**GET** `/v1/organizations/tunnels/{tunnel_id}`
 
-**get** `/v1/organizations/tunnels/{tunnel_id}`
+**Deprecated**
 
 **Deprecated.** This Admin API endpoint is superseded by `/v1/tunnels` on the Claude API and will be removed after a migration window. New integrations should use [`/v1/tunnels`](/docs/en/api/beta/tunnels) with the `anthropic-beta: mcp-tunnels-2026-06-22` header and a WIF token carrying the `workspace:manage_tunnels` scope. Existing integrations continue to work with the `mcp-tunnels-2026-05-19` header and `org:manage_tunnels` scope during the migration window.
 
 Retrieve a single tunnel in the caller's organization by ID.
 
-### Path Parameters
+## Path parameters
 
 - `tunnel_id: string`
 
   ID of the Tunnel.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": array of "mcp-tunnels-2026-05-19"`
 
   Required for all Tunnel endpoints.
 
-  - `"mcp-tunnels-2026-05-19"`
-
-### Returns
+## Returns
 
 - `id: string`
 
@@ -36,9 +31,13 @@ Retrieve a single tunnel in the caller's organization by ID.
   RFC 3339 datetime string indicating when the Tunnel was archived, or
   `null` if it is not archived.
 
+  format: date-time
+
 - `created_at: string`
 
   RFC 3339 datetime string indicating when the Tunnel was created.
+
+  format: date-time
 
 - `display_name: string or null`
 
@@ -54,22 +53,22 @@ Retrieve a single tunnel in the caller's organization by ID.
 
   Object type. Always `tunnel` for Tunnels.
 
-  - `"tunnel"`
+  default: tunnel
 
 - `workspace_id: string or null`
 
   ID of the Workspace this Tunnel belongs to, or `null` for the default
   Workspace. Immutable after creation.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

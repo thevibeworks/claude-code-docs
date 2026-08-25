@@ -1,13 +1,8 @@
----
-title: Delete a Message Batch
-url: https://platform.claude.com/docs/en/api/ruby/messages/batches/delete
----
-
-## Delete a Message Batch
+# Delete a Message Batch
 
 `messages.batches.delete(message_batch_id) -> DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -15,13 +10,13 @@ Message Batches can only be deleted once they've finished processing. If you'd l
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `message_batch_id: String`
 
   ID of the Message Batch.
 
-### Returns
+## Returns
 
 - `class DeletedMessageBatch`
 
@@ -35,9 +30,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `:message_batch_deleted`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -49,7 +42,7 @@ deleted_message_batch = anthropic.messages.batches.delete("message_batch_id")
 puts(deleted_message_batch)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

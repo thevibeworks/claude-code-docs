@@ -1,15 +1,10 @@
----
-title: Skills
-url: https://platform.claude.com/docs/en/api/python/beta/skills
----
-
 # Skills
 
 ## Create Skill
 
-`beta.skills.create(SkillCreateParams**kwargs)  -> SkillCreateResponse`
+`beta.skills.create(**kwargs)  -> SkillCreateResponse`
 
-**post** `/v1/skills`
+**POST** `/v1/skills`
 
 Create Skill
 
@@ -144,6 +139,8 @@ Create Skill
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: str`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -165,7 +162,7 @@ skill = client.beta.skills.create(
 print(skill.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -181,9 +178,9 @@ print(skill.id)
 
 ## List Skills
 
-`beta.skills.list(SkillListParams**kwargs)  -> SyncPageCursor[SkillListResponse]`
+`beta.skills.list(**kwargs)  -> SyncPageCursor[SkillListResponse]`
 
-**get** `/v1/skills`
+**GET** `/v1/skills`
 
 List Skills
 
@@ -194,6 +191,8 @@ List Skills
   Number of results to return per page.
 
   Maximum value is 100. Defaults to 20.
+
+  default: 20
 
 - `page: Optional[str]`
 
@@ -327,6 +326,8 @@ List Skills
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: str`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -347,7 +348,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -369,9 +370,9 @@ print(page.id)
 
 ## Get Skill
 
-`beta.skills.retrieve(strskill_id, SkillRetrieveParams**kwargs)  -> SkillRetrieveResponse`
+`beta.skills.retrieve(skill_id, **kwargs)  -> SkillRetrieveResponse`
 
-**get** `/v1/skills/{skill_id}`
+**GET** `/v1/skills/{skill_id}`
 
 Get Skill
 
@@ -500,6 +501,8 @@ Get Skill
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: str`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -521,7 +524,7 @@ skill = client.beta.skills.retrieve(
 print(skill.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -537,9 +540,9 @@ print(skill.id)
 
 ## Delete Skill
 
-`beta.skills.delete(strskill_id, SkillDeleteParams**kwargs)  -> SkillDeleteResponse`
+`beta.skills.delete(skill_id, **kwargs)  -> SkillDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}`
+**DELETE** `/v1/skills/{skill_id}`
 
 Delete Skill
 
@@ -643,6 +646,8 @@ Delete Skill
 
     For Skills, this is always `"skill_deleted"`.
 
+    default: skill_deleted
+
 ### Example
 
 ```python
@@ -660,7 +665,7 @@ skill = client.beta.skills.delete(
 print(skill.id)
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -669,7 +674,7 @@ print(skill.id)
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Skill Create Response
 
@@ -711,6 +716,8 @@ print(skill.id)
     Object type.
 
     For Skills, this is always `"skill"`.
+
+    default: skill
 
   - `updated_at: str`
 
@@ -757,6 +764,8 @@ print(skill.id)
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: str`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -802,6 +811,8 @@ print(skill.id)
 
     For Skills, this is always `"skill"`.
 
+    default: skill
+
   - `updated_at: str`
 
     ISO 8601 timestamp of when the skill was last updated.
@@ -822,17 +833,19 @@ print(skill.id)
 
     For Skills, this is always `"skill_deleted"`.
 
-# Versions
+    default: skill_deleted
 
-## Create Skill Version
+## Skills › Versions
 
-`beta.skills.versions.create(strskill_id, VersionCreateParams**kwargs)  -> VersionCreateResponse`
+### Create Skill Version
 
-**post** `/v1/skills/{skill_id}/versions`
+`beta.skills.versions.create(skill_id, **kwargs)  -> VersionCreateResponse`
+
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Parameters
+#### Parameters
 
 - `skill_id: str`
 
@@ -922,7 +935,7 @@ Create Skill Version
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class VersionCreateResponse: …`
 
@@ -964,13 +977,15 @@ Create Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```python
 import os
@@ -988,7 +1003,7 @@ version = client.beta.skills.versions.create(
 print(version.id)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1003,15 +1018,15 @@ print(version.id)
 }
 ```
 
-## List Skill Versions
+### List Skill Versions
 
-`beta.skills.versions.list(strskill_id, VersionListParams**kwargs)  -> SyncPageCursor[VersionListResponse]`
+`beta.skills.versions.list(skill_id, **kwargs)  -> SyncPageCursor[VersionListResponse]`
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Parameters
+#### Parameters
 
 - `skill_id: str`
 
@@ -1105,7 +1120,7 @@ List Skill Versions
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class VersionListResponse: …`
 
@@ -1147,13 +1162,15 @@ List Skill Versions
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```python
 import os
@@ -1171,7 +1188,7 @@ page = page.data[0]
 print(page.id)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1192,15 +1209,15 @@ print(page.id)
 }
 ```
 
-## Download Skill Version Content
+### Download Skill Version Content
 
-`beta.skills.versions.download(strversion, VersionDownloadParams**kwargs)  -> BinaryResponseContent`
+`beta.skills.versions.download(version, **kwargs)  -> BinaryResponseContent`
 
-**get** `/v1/skills/{skill_id}/versions/{version}/content`
+**GET** `/v1/skills/{skill_id}/versions/{version}/content`
 
 Download a skill version's content as a zip archive.
 
-### Parameters
+#### Parameters
 
 - `skill_id: str`
 
@@ -1290,11 +1307,11 @@ Download a skill version's content as a zip archive.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `BinaryResponseContent`
 
-### Example
+#### Example
 
 ```python
 import os
@@ -1314,15 +1331,15 @@ content = response.read()
 print(content)
 ```
 
-## Get Skill Version
+### Get Skill Version
 
-`beta.skills.versions.retrieve(strversion, VersionRetrieveParams**kwargs)  -> VersionRetrieveResponse`
+`beta.skills.versions.retrieve(version, **kwargs)  -> VersionRetrieveResponse`
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Parameters
+#### Parameters
 
 - `skill_id: str`
 
@@ -1412,7 +1429,7 @@ Get Skill Version
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class VersionRetrieveResponse: …`
 
@@ -1454,13 +1471,15 @@ Get Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
+    default: skill_version
+
   - `version: str`
 
     Version identifier for the skill.
 
     Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
-### Example
+#### Example
 
 ```python
 import os
@@ -1478,7 +1497,7 @@ version = client.beta.skills.versions.retrieve(
 print(version.id)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1493,15 +1512,15 @@ print(version.id)
 }
 ```
 
-## Delete Skill Version
+### Delete Skill Version
 
-`beta.skills.versions.delete(strversion, VersionDeleteParams**kwargs)  -> VersionDeleteResponse`
+`beta.skills.versions.delete(version, **kwargs)  -> VersionDeleteResponse`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+#### Parameters
 
 - `skill_id: str`
 
@@ -1591,7 +1610,7 @@ Delete Skill Version
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `class VersionDeleteResponse: …`
 
@@ -1607,7 +1626,9 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+    default: skill_version_deleted
+
+#### Example
 
 ```python
 import os
@@ -1625,7 +1646,7 @@ version = client.beta.skills.versions.delete(
 print(version.id)
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1633,165 +1654,3 @@ print(version.id)
   "type": "type"
 }
 ```
-
-## Domain Types
-
-### Version Create Response
-
-- `class VersionCreateResponse: …`
-
-  - `id: str`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: str`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: str`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: str`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: str`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: str`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: str`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version List Response
-
-- `class VersionListResponse: …`
-
-  - `id: str`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: str`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: str`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: str`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: str`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: str`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: str`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version Retrieve Response
-
-- `class VersionRetrieveResponse: …`
-
-  - `id: str`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: str`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: str`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: str`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: str`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: str`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: str`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version Delete Response
-
-- `class VersionDeleteResponse: …`
-
-  - `id: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `type: str`
-
-    Deleted object type.
-
-    For Skill Versions, this is always `"skill_version_deleted"`.

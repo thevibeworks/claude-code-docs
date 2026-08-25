@@ -1,19 +1,14 @@
----
-title: Poll for Work
-url: https://platform.claude.com/docs/en/api/cli/beta/environments/work/poll
----
-
-## Poll for Work
+# Poll for Work
 
 `$ ant beta:environments:work poll`
 
-**get** `/v1/environments/{environment_id}/work/poll`
+**GET** `/v1/environments/{environment_id}/work/poll`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Long poll for work items in the queue.
 
-### Parameters
+## Parameters
 
 - `--environment-id: string`
 
@@ -23,9 +18,13 @@ Long poll for work items in the queue.
 
   Query param: How long to wait for work to arrive before returning. Must be 1-999 in milliseconds. Defaults to non-blocking (returns immediately if no work is available).
 
+  minimum: 1
+
 - `--reclaim-older-than-ms: optional number`
 
   Query param: Reclaim unacknowledged work items older than this many milliseconds. If omitted, uses the default (5000ms).
+
+  minimum: 1
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -35,9 +34,9 @@ Long poll for work items in the queue.
 
   Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
 
-### Returns
+## Returns
 
-- `beta_self_hosted_work: object { id, acknowledged_at, created_at, 10 more }`
+- `beta_self_hosted_work: object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -57,7 +56,7 @@ Long poll for work items in the queue.
 
     RFC 3339 timestamp when work was created
 
-  - `data: object { id, type }`
+  - `data: object`
 
     The actual work to be performed
 
@@ -115,15 +114,15 @@ Long poll for work items in the queue.
 
     The type of object (always 'work')
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:environments:work poll \
   --api-key my-anthropic-api-key \
   --environment-id env_011CZkZ9X2dpNyB7HsEFoRfW
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

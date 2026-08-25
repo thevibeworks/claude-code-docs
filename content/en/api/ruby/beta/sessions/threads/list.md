@@ -1,23 +1,20 @@
----
-title: List Session Threads
-url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/threads/list
----
-
-## List Session Threads
+# List Session Threads
 
 `beta.sessions.threads.list(session_id, **kwargs) -> PageCursor<BetaManagedAgentsSessionThread>`
 
-**get** `/v1/sessions/{session_id}/threads`
+**GET** `/v1/sessions/{session_id}/threads`
 
 List Session Threads
 
-### Parameters
+## Parameters
 
 - `session_id: String`
 
 - `limit: Integer`
 
   Maximum results per page. Defaults to 1000.
+
+  format: int32
 
 - `page: String`
 
@@ -99,7 +96,7 @@ List Session Threads
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsSessionThread`
 
@@ -126,8 +123,6 @@ List Session Threads
         - `name: String`
 
         - `type: :url`
-
-          - `:url`
 
         - `url: String`
 
@@ -211,15 +206,11 @@ List Session Threads
 
             - `type: :low`
 
-              - `:low`
-
           - `class BetaManagedAgentsEffortMedium`
 
             Medium effort. Balances latency and reasoning depth.
 
             - `type: :medium`
-
-              - `:medium`
 
           - `class BetaManagedAgentsEffortHigh`
 
@@ -227,23 +218,17 @@ List Session Threads
 
             - `type: :high`
 
-              - `:high`
-
           - `class BetaManagedAgentsEffortXhigh`
 
             Extra-high effort. Not all models accept this level.
 
             - `type: :xhigh`
 
-              - `:xhigh`
-
           - `class BetaManagedAgentsEffortMax`
 
             Maximum effort. Favors reasoning depth over latency.
 
             - `type: :max`
-
-              - `:max`
 
         - `inference_geo: String`
 
@@ -269,8 +254,6 @@ List Session Threads
 
           - `type: :anthropic`
 
-            - `:anthropic`
-
           - `version: String`
 
         - `class BetaManagedAgentsCustomSkill`
@@ -280,8 +263,6 @@ List Session Threads
           - `skill_id: String`
 
           - `type: :custom`
-
-            - `:custom`
 
           - `version: String`
 
@@ -301,8 +282,6 @@ List Session Threads
 
               - `name: :bash`
 
-                - `:bash`
-
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
                 Permission policy for tool execution.
@@ -313,19 +292,13 @@ List Session Threads
 
                   - `type: :always_allow`
 
-                    - `:always_allow`
-
                 - `class BetaManagedAgentsAlwaysAskPolicy`
 
                   Tool calls require user confirmation before execution.
 
                   - `type: :always_ask`
 
-                    - `:always_ask`
-
               - `type: :bash`
-
-                - `:bash`
 
             - `class BetaManagedAgentsEditToolConfig`
 
@@ -334,8 +307,6 @@ List Session Threads
               - `enabled: bool`
 
               - `name: :edit`
-
-                - `:edit`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -351,8 +322,6 @@ List Session Threads
 
               - `type: :edit`
 
-                - `:edit`
-
             - `class BetaManagedAgentsReadToolConfig`
 
               Configuration for the read tool.
@@ -360,8 +329,6 @@ List Session Threads
               - `enabled: bool`
 
               - `name: :read`
-
-                - `:read`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -377,8 +344,6 @@ List Session Threads
 
               - `type: :read`
 
-                - `:read`
-
             - `class BetaManagedAgentsWriteToolConfig`
 
               Configuration for the write tool.
@@ -386,8 +351,6 @@ List Session Threads
               - `enabled: bool`
 
               - `name: :write`
-
-                - `:write`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -403,8 +366,6 @@ List Session Threads
 
               - `type: :write`
 
-                - `:write`
-
             - `class BetaManagedAgentsGlobToolConfig`
 
               Configuration for the glob tool.
@@ -412,8 +373,6 @@ List Session Threads
               - `enabled: bool`
 
               - `name: :glob`
-
-                - `:glob`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -429,8 +388,6 @@ List Session Threads
 
               - `type: :glob`
 
-                - `:glob`
-
             - `class BetaManagedAgentsGrepToolConfig`
 
               Configuration for the grep tool.
@@ -438,8 +395,6 @@ List Session Threads
               - `enabled: bool`
 
               - `name: :grep`
-
-                - `:grep`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -455,8 +410,6 @@ List Session Threads
 
               - `type: :grep`
 
-                - `:grep`
-
             - `class BetaManagedAgentsWebFetchToolConfig`
 
               Configuration for the web_fetch tool.
@@ -464,8 +417,6 @@ List Session Threads
               - `enabled: bool`
 
               - `name: :web_fetch`
-
-                - `:web_fetch`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -481,13 +432,13 @@ List Session Threads
 
               - `type: :web_fetch`
 
-                - `:web_fetch`
-
               - `allowed_domains: Array[String]`
 
               - `blocked_domains: Array[String]`
 
               - `max_content_tokens: Integer`
+
+                format: int32
 
             - `class BetaManagedAgentsWebSearchToolConfig`
 
@@ -496,8 +447,6 @@ List Session Threads
               - `enabled: bool`
 
               - `name: :web_search`
-
-                - `:web_search`
 
               - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -513,8 +462,6 @@ List Session Threads
 
               - `type: :web_search`
 
-                - `:web_search`
-
               - `allowed_domains: Array[String]`
 
               - `blocked_domains: Array[String]`
@@ -527,11 +474,11 @@ List Session Threads
 
                   Location precision. Only "approximate" is supported.
 
-                  - `:approximate`
-
                 - `city: String`
 
                   City name.
+
+                  minLength: 1, maxLength: 255
 
                 - `country: String`
 
@@ -541,9 +488,13 @@ List Session Threads
 
                   Region or state name.
 
+                  minLength: 1, maxLength: 255
+
                 - `timezone: String`
 
                   IANA timezone identifier, e.g. "America/Los_Angeles".
+
+                  minLength: 1, maxLength: 255
 
           - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -564,8 +515,6 @@ List Session Threads
                 Tool calls require user confirmation before execution.
 
           - `type: :agent_toolset_20260401`
-
-            - `:agent_toolset_20260401`
 
         - `class BetaManagedAgentsMCPToolset`
 
@@ -609,8 +558,6 @@ List Session Threads
 
           - `type: :mcp_toolset`
 
-            - `:mcp_toolset`
-
         - `class BetaManagedAgentsCustomTool`
 
           A custom tool as returned in API responses.
@@ -623,8 +570,6 @@ List Session Threads
 
             - `type: :object`
 
-              - `:object`
-
             - `properties: Hash[Symbol, untyped]`
 
             - `required: Array[String]`
@@ -633,13 +578,11 @@ List Session Threads
 
           - `type: :custom`
 
-            - `:custom`
-
       - `type: :agent`
 
-        - `:agent`
-
       - `version: Integer`
+
+        format: int32
 
     - `class BetaManagedAgentsAdvisor`
 
@@ -651,15 +594,17 @@ List Session Threads
 
       - `type: :advisor`
 
-        - `:advisor`
-
   - `archived_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `parent_thread_id: String`
 
@@ -677,13 +622,19 @@ List Session Threads
 
       Cumulative time in seconds the thread spent actively running. Excludes idle time.
 
+      format: double
+
     - `duration_seconds: Float`
 
       Elapsed time since thread creation in seconds. For archived threads, frozen at the final update.
 
+      format: double
+
     - `startup_seconds: Float`
 
       Time in seconds for the thread to begin running. Zero for child threads, which start immediately.
+
+      format: double
 
   - `status: BetaManagedAgentsSessionThreadStatus`
 
@@ -699,11 +650,11 @@ List Session Threads
 
   - `type: :session_thread`
 
-    - `:session_thread`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `usage: BetaManagedAgentsSessionThreadUsage`
 
@@ -713,6 +664,8 @@ List Session Threads
 
       Cumulative time in seconds this thread spent in running status. Equal to `stats.active_seconds`; surfaced here so a thread's usage carries every quantity its cost is priced on.
 
+      format: double
+
     - `cache_creation: BetaManagedAgentsCacheCreationUsage`
 
       Prompt-cache creation token usage broken down by cache lifetime.
@@ -721,17 +674,25 @@ List Session Threads
 
         Tokens used to create 1-hour ephemeral cache entries.
 
+        format: int32
+
       - `ephemeral_5m_input_tokens: Integer`
 
         Tokens used to create 5-minute ephemeral cache entries.
+
+        format: int32
 
     - `cache_read_input_tokens: Integer`
 
       Total tokens read from prompt cache.
 
+      format: int32
+
     - `input_tokens: Integer`
 
       Total input tokens consumed across all turns.
+
+      format: int32
 
     - `list_cost: BetaMonetaryAmount`
 
@@ -745,11 +706,11 @@ List Session Threads
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `:USD`
-
     - `output_tokens: Integer`
 
       Total output tokens generated across all turns.
+
+      format: int32
 
     - `server_tool_use: BetaManagedAgentsServerToolUsage`
 
@@ -759,11 +720,15 @@ List Session Threads
 
         Number of server-executed web fetch requests.
 
+        format: int32
+
       - `web_search_requests: Integer`
 
         Number of server-executed web search requests.
 
-### Example
+        format: int32
+
+## Example
 
 ```ruby
 require "anthropic"
@@ -775,7 +740,7 @@ page = anthropic.beta.sessions.threads.list("sesn_011CZkZAtmR3yMPDzynEDxu7")
 puts(page)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

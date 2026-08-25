@@ -1,15 +1,10 @@
----
-title: Memory Stores
-url: https://platform.claude.com/docs/en/api/php/beta/memory_stores
----
-
 # Memory Stores
 
 ## Create a memory store
 
 `$client->beta->memoryStores->create(string name, ?string description, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores`
+**POST** `/v1/memory_stores`
 
 Create a memory store
 
@@ -84,7 +79,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->create(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -105,7 +100,7 @@ var_dump($betaManagedAgentsMemoryStore);
 
 `$client->beta->memoryStores->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsMemoryStore>`
 
-**get** `/v1/memory_stores`
+**GET** `/v1/memory_stores`
 
 List memory stores
 
@@ -190,7 +185,7 @@ $page = $client->beta->memoryStores->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -216,7 +211,7 @@ var_dump($page);
 
 `$client->beta->memoryStores->retrieve(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**get** `/v1/memory_stores/{memory_store_id}`
+**GET** `/v1/memory_stores/{memory_store_id}`
 
 Retrieve a memory store
 
@@ -278,7 +273,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->retrieve(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -299,7 +294,7 @@ var_dump($betaManagedAgentsMemoryStore);
 
 `$client->beta->memoryStores->update(string memoryStoreID, ?string description, ?array<string,string> metadata, ?string name, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores/{memory_store_id}`
+**POST** `/v1/memory_stores/{memory_store_id}`
 
 Update a memory store
 
@@ -377,7 +372,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->update(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -398,7 +393,7 @@ var_dump($betaManagedAgentsMemoryStore);
 
 `$client->beta->memoryStores->delete(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsDeletedMemoryStore`
 
-**delete** `/v1/memory_stores/{memory_store_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}`
 
 Delete a memory store
 
@@ -436,7 +431,7 @@ $betaManagedAgentsDeletedMemoryStore = $client->beta->memoryStores->delete(
 var_dump($betaManagedAgentsDeletedMemoryStore);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -449,7 +444,7 @@ var_dump($betaManagedAgentsDeletedMemoryStore);
 
 `$client->beta->memoryStores->archive(string memoryStoreID, ?list<AnthropicBeta> betas): BetaManagedAgentsMemoryStore`
 
-**post** `/v1/memory_stores/{memory_store_id}/archive`
+**POST** `/v1/memory_stores/{memory_store_id}/archive`
 
 Archive a memory store
 
@@ -511,7 +506,7 @@ $betaManagedAgentsMemoryStore = $client->beta->memoryStores->archive(
 var_dump($betaManagedAgentsMemoryStore);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -528,7 +523,7 @@ var_dump($betaManagedAgentsMemoryStore);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Managed Agents Deleted Memory Store
 
@@ -574,17 +569,17 @@ var_dump($betaManagedAgentsMemoryStore);
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-# Memories
+## Memory Stores › Memories
 
-## Create a memory
+### Create a memory
 
 `$client->beta->memoryStores->memories->create(string memoryStoreID, ?string content, string path, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories`
+**POST** `/v1/memory_stores/{memory_store_id}/memories`
 
 Create a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -604,7 +599,7 @@ Create a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemory`
 
@@ -646,7 +641,7 @@ Create a memory
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -666,7 +661,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->create(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -683,15 +678,15 @@ var_dump($betaManagedAgentsMemory);
 }
 ```
 
-## List memories
+### List memories
 
 `$client->beta->memoryStores->memories->list(string memoryStoreID, ?int depth, ?int limit, ?string page, ?string pathPrefix, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryListItem>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories`
+**GET** `/v1/memory_stores/{memory_store_id}/memories`
 
 List memories
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -719,7 +714,7 @@ List memories
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryListItem`
 
@@ -771,7 +766,7 @@ List memories
 
     - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -793,7 +788,7 @@ $page = $client->beta->memoryStores->memories->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -815,15 +810,15 @@ var_dump($page);
 }
 ```
 
-## Retrieve a memory
+### Retrieve a memory
 
 `$client->beta->memoryStores->memories->retrieve(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**get** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Retrieve a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -837,7 +832,7 @@ Retrieve a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemory`
 
@@ -879,7 +874,7 @@ Retrieve a memory
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -898,7 +893,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->retrieve(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -915,15 +910,15 @@ var_dump($betaManagedAgentsMemory);
 }
 ```
 
-## Update a memory
+### Update a memory
 
 `$client->beta->memoryStores->memories->update(string memoryID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?string content, ?string path, ?ManagedAgentsPrecondition precondition, ?list<AnthropicBeta> betas): ManagedAgentsMemory`
 
-**post** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**POST** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Update a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -949,7 +944,7 @@ Update a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemory`
 
@@ -991,7 +986,7 @@ Update a memory
 
     The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -1015,7 +1010,7 @@ $betaManagedAgentsMemory = $client->beta->memoryStores->memories->update(
 var_dump($betaManagedAgentsMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1032,15 +1027,15 @@ var_dump($betaManagedAgentsMemory);
 }
 ```
 
-## Delete a memory
+### Delete a memory
 
 `$client->beta->memoryStores->memories->delete(string memoryID, string memoryStoreID, ?string expectedContentSha256, ?list<AnthropicBeta> betas): ManagedAgentsDeletedMemory`
 
-**delete** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
+**DELETE** `/v1/memory_stores/{memory_store_id}/memories/{memory_id}`
 
 Delete a memory
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -1054,7 +1049,7 @@ Delete a memory
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsDeletedMemory`
 
@@ -1064,7 +1059,7 @@ Delete a memory
 
   - `Type type`
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -1083,7 +1078,7 @@ $betaManagedAgentsDeletedMemory = $client->beta->memoryStores->memories->delete(
 var_dump($betaManagedAgentsDeletedMemory);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1092,269 +1087,17 @@ var_dump($betaManagedAgentsDeletedMemory);
 }
 ```
 
-## Domain Types
+## Memory Stores › Memory Versions
 
-### Beta Managed Agents Conflict Error
-
-- `ManagedAgentsConflictError`
-
-  - `Type type`
-
-  - `?string message`
-
-### Beta Managed Agents Content Sha256 Precondition
-
-- `ManagedAgentsContentSha256Precondition`
-
-  - `Type type`
-
-  - `?string contentSha256`
-
-    Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
-
-### Beta Managed Agents Deleted Memory
-
-- `ManagedAgentsDeletedMemory`
-
-  - `string id`
-
-    ID of the deleted memory (a `mem_...` value).
-
-  - `Type type`
-
-### Beta Managed Agents Error
-
-- `ManagedAgentsError`
-
-  - `BetaInvalidRequestError`
-
-    - `string message`
-
-    - `"invalid_request_error" type`
-
-  - `BetaAuthenticationError`
-
-    - `string message`
-
-    - `"authentication_error" type`
-
-  - `BetaBillingError`
-
-    - `string message`
-
-    - `"billing_error" type`
-
-  - `BetaPermissionError`
-
-    - `string message`
-
-    - `"permission_error" type`
-
-  - `BetaNotFoundError`
-
-    - `string message`
-
-    - `"not_found_error" type`
-
-  - `BetaRateLimitError`
-
-    - `string message`
-
-    - `"rate_limit_error" type`
-
-  - `BetaGatewayTimeoutError`
-
-    - `string message`
-
-    - `"timeout_error" type`
-
-  - `BetaAPIError`
-
-    - `string message`
-
-    - `"api_error" type`
-
-  - `BetaOverloadedError`
-
-    - `string message`
-
-    - `"overloaded_error" type`
-
-  - `ManagedAgentsMemoryPreconditionFailedError`
-
-    - `Type type`
-
-    - `?string message`
-
-  - `ManagedAgentsMemoryPathConflictError`
-
-    - `Type type`
-
-    - `?string conflictingMemoryID`
-
-    - `?string conflictingPath`
-
-    - `?string message`
-
-  - `ManagedAgentsConflictError`
-
-    - `Type type`
-
-    - `?string message`
-
-### Beta Managed Agents Memory
-
-- `ManagedAgentsMemory`
-
-  - `string id`
-
-    Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
-
-  - `string contentSha256`
-
-    Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
-
-  - `int contentSizeBytes`
-
-    Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string memoryStoreID`
-
-    ID of the memory store this memory belongs to (a `memstore_...` value).
-
-  - `string memoryVersionID`
-
-    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
-
-  - `string path`
-
-    Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
-
-  - `Type type`
-
-  - `\Datetime updatedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?string content`
-
-    The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
-
-### Beta Managed Agents Memory List Item
-
-- `ManagedAgentsMemoryListItem`
-
-  - `ManagedAgentsMemory`
-
-    - `string id`
-
-      Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
-
-    - `string contentSha256`
-
-      Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
-
-    - `int contentSizeBytes`
-
-      Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
-
-    - `\Datetime createdAt`
-
-      A timestamp in RFC 3339 format
-
-    - `string memoryStoreID`
-
-      ID of the memory store this memory belongs to (a `memstore_...` value).
-
-    - `string memoryVersionID`
-
-      ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
-
-    - `string path`
-
-      Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
-
-    - `Type type`
-
-    - `\Datetime updatedAt`
-
-      A timestamp in RFC 3339 format
-
-    - `?string content`
-
-      The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
-
-  - `ManagedAgentsMemoryPrefix`
-
-    - `string path`
-
-      The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-    - `Type type`
-
-### Beta Managed Agents Memory Path Conflict Error
-
-- `ManagedAgentsMemoryPathConflictError`
-
-  - `Type type`
-
-  - `?string conflictingMemoryID`
-
-  - `?string conflictingPath`
-
-  - `?string message`
-
-### Beta Managed Agents Memory Precondition Failed Error
-
-- `ManagedAgentsMemoryPreconditionFailedError`
-
-  - `Type type`
-
-  - `?string message`
-
-### Beta Managed Agents Memory Prefix
-
-- `ManagedAgentsMemoryPrefix`
-
-  - `string path`
-
-    The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-  - `Type type`
-
-### Beta Managed Agents Memory View
-
-- `ManagedAgentsMemoryView`
-
-  - `"basic"`
-
-  - `"full"`
-
-### Beta Managed Agents Precondition
-
-- `ManagedAgentsPrecondition`
-
-  - `Type type`
-
-  - `?string contentSha256`
-
-    Expected `content_sha256` of the stored memory (64 lowercase hexadecimal characters). Typically the `content_sha256` returned by a prior read or list call. Because the server applies no content normalization, clients can also compute this locally as the SHA-256 of the UTF-8 content bytes.
-
-# Memory Versions
-
-## List memory versions
+### List memory versions
 
 `$client->beta->memoryStores->memoryVersions->list(string memoryStoreID, ?string apiKeyID, ?\Datetime createdAtGte, ?\Datetime createdAtLte, ?int limit, ?string memoryID, ?ManagedAgentsMemoryVersionOperation operation, ?string page, ?string serviceAccountID, ?string sessionID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): PageCursor<ManagedAgentsMemoryVersion>`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
 List memory versions
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -1402,7 +1145,7 @@ List memory versions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryVersion`
 
@@ -1456,7 +1199,7 @@ List memory versions
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -1483,7 +1226,7 @@ $page = $client->beta->memoryStores->memoryVersions->list(
 var_dump($page);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1514,15 +1257,15 @@ var_dump($page);
 }
 ```
 
-## Retrieve a memory version
+### Retrieve a memory version
 
 `$client->beta->memoryStores->memoryVersions->retrieve(string memoryVersionID, string memoryStoreID, ?ManagedAgentsMemoryView view, ?list<AnthropicBeta> betas): ManagedAgentsMemoryVersion`
 
-**get** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
+**GET** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}`
 
 Retrieve a memory version
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -1536,7 +1279,7 @@ Retrieve a memory version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryVersion`
 
@@ -1590,7 +1333,7 @@ Retrieve a memory version
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -1613,7 +1356,7 @@ $betaManagedAgentsMemoryVersion = $client
 var_dump($betaManagedAgentsMemoryVersion);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1639,15 +1382,15 @@ var_dump($betaManagedAgentsMemoryVersion);
 }
 ```
 
-## Redact a memory version
+### Redact a memory version
 
 `$client->beta->memoryStores->memoryVersions->redact(string memoryVersionID, string memoryStoreID, ?list<AnthropicBeta> betas): ManagedAgentsMemoryVersion`
 
-**post** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
+**POST** `/v1/memory_stores/{memory_store_id}/memory_versions/{memory_version_id}/redact`
 
 Redact a memory version
 
-### Parameters
+#### Parameters
 
 - `memoryStoreID: string`
 
@@ -1657,7 +1400,7 @@ Redact a memory version
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+#### Returns
 
 - `ManagedAgentsMemoryVersion`
 
@@ -1711,7 +1454,7 @@ Redact a memory version
 
     Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-### Example
+#### Example
 
 ```php
 <?php
@@ -1733,7 +1476,7 @@ $betaManagedAgentsMemoryVersion = $client
 var_dump($betaManagedAgentsMemoryVersion);
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1758,145 +1501,3 @@ var_dump($betaManagedAgentsMemoryVersion);
   }
 }
 ```
-
-## Domain Types
-
-### Beta Managed Agents Actor
-
-- `ManagedAgentsActor`
-
-  - `ManagedAgentsSessionActor`
-
-    - `string sessionID`
-
-      ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
-
-    - `Type type`
-
-  - `ManagedAgentsAPIActor`
-
-    - `string apiKeyID`
-
-      ID of the API key that performed the write. This identifies the key, not the secret.
-
-    - `Type type`
-
-  - `ManagedAgentsUserActor`
-
-    - `Type type`
-
-    - `string userID`
-
-      ID of the user who performed the write (a `user_...` value).
-
-  - `ManagedAgentsServiceAccountActor`
-
-    - `string serviceAccountID`
-
-      ID of the service account that performed the write (a `svac_...` value).
-
-    - `"service_account_actor" type`
-
-### Beta Managed Agents API Actor
-
-- `ManagedAgentsAPIActor`
-
-  - `string apiKeyID`
-
-    ID of the API key that performed the write. This identifies the key, not the secret.
-
-  - `Type type`
-
-### Beta Managed Agents Memory Version
-
-- `ManagedAgentsMemoryVersion`
-
-  - `string id`
-
-    Unique identifier for this version (a `memver_...` value).
-
-  - `\Datetime createdAt`
-
-    A timestamp in RFC 3339 format
-
-  - `string memoryID`
-
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
-
-  - `string memoryStoreID`
-
-    ID of the memory store this version belongs to (a `memstore_...` value).
-
-  - `ManagedAgentsMemoryVersionOperation operation`
-
-    The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
-
-  - `Type type`
-
-  - `?string content`
-
-    The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
-
-  - `?string contentSha256`
-
-    Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
-
-  - `?int contentSizeBytes`
-
-    Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
-
-  - `?ManagedAgentsActor createdBy`
-
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
-
-  - `?string path`
-
-    The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
-
-  - `?\Datetime redactedAt`
-
-    A timestamp in RFC 3339 format
-
-  - `?ManagedAgentsActor redactedBy`
-
-    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
-
-### Beta Managed Agents Memory Version Operation
-
-- `ManagedAgentsMemoryVersionOperation`
-
-  - `"created"`
-
-  - `"modified"`
-
-  - `"deleted"`
-
-### Beta Managed Agents Service Account Actor
-
-- `ManagedAgentsServiceAccountActor`
-
-  - `string serviceAccountID`
-
-    ID of the service account that performed the write (a `svac_...` value).
-
-  - `"service_account_actor" type`
-
-### Beta Managed Agents Session Actor
-
-- `ManagedAgentsSessionActor`
-
-  - `string sessionID`
-
-    ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
-
-  - `Type type`
-
-### Beta Managed Agents User Actor
-
-- `ManagedAgentsUserActor`
-
-  - `Type type`
-
-  - `string userID`
-
-    ID of the user who performed the write (a `user_...` value).

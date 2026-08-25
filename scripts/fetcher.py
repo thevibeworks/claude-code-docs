@@ -126,7 +126,8 @@ class Fetcher:
         # that had gone soft-404 — upstream had been pointing here for weeks.
         self.claude_com_sitemap_url = "https://claude.com/docs/sitemap.xml"
 
-        self.stats = {"total": 0, "downloaded": 0, "skipped": 0, "failed": 0, "reaped": 0}
+        self.stats = {"total": 0, "downloaded": 0, "skipped": 0,
+                      "failed": 0, "dead": 0, "reaped": 0}
 
         # Paths whose upstream answered 200-with-HTML (a soft 404). Refusing the
         # write is not enough on its own: any copy fetched before the guard
@@ -137,6 +138,20 @@ class Fetcher:
         # Collected here and reaped after the run, not deleted inline, so the
         # circuit breaker below can see the whole batch at once.
         self.soft_404_paths: List[Path] = []
+
+        # URLs already confirmed gone upstream, with the date we confirmed it.
+        # Without this every dead page fails on every run forever: 123 permanent
+        # failures pinning the success rate at 96.9% and burying the one new
+        # failure that actually matters. Known deaths are counted, not shouted.
+        self.tombstones_path = Path("tombstones.json")
+        self.tombstones: Dict[str, dict] = {}
+        if self.tombstones_path.exists():
+            try:
+                self.tombstones = json.loads(self.tombstones_path.read_text())["urls"]
+            except (OSError, ValueError, KeyError):
+                self.tombstones = {}
+        self.dead_now: Dict[str, str] = {}     # url -> reason, this run
+        self.resurrected: List[str] = []
 
         # "<from-host> -> <to-host>" : the URLs we asked for that landed there.
         # Off-site redirects are how a docs site announces it moved; this is the
@@ -276,16 +291,36 @@ class Fetcher:
                 async with session.get(f"{url}.md") as r:
                     r.raise_for_status()
                     content = await r.read()
-                    # Where a dead page points is the best new-source signal we
-                    # get. claude.com/docs — 215 pages of product documentation —
-                    # was found exactly this way: 8 support articles had been
-                    # 301-ing there for weeks and nothing was reading the
-                    # Location header. Recorded here, reported by reap().
                     if r.history:
-                        landed = r.url.host or ""
-                        asked = urlsplit(url).hostname or ""
-                        if landed and landed != asked:
-                            self.redirects_offsite[f"{asked} -> {landed}"].add(url)
+                        # Where a dead page points is the best new-source signal
+                        # we get. claude.com/docs — 215 pages of product
+                        # documentation — was found exactly this way: 8 support
+                        # articles had been 301-ing there for weeks and nothing
+                        # was reading the Location header.
+                        landed_host = r.url.host or ""
+                        asked_host = urlsplit(url).hostname or ""
+                        if landed_host and landed_host != asked_host:
+                            self.redirects_offsite[
+                                f"{asked_host} -> {landed_host}"].add(url)
+
+                        # A redirect to a different path means this page moved,
+                        # and the body now in hand belongs to the TARGET. Writing
+                        # it back to the old path silently misattributes it: when
+                        # release-notes/system-prompts split into per-model pages,
+                        # the 471KB history was replaced by the 3.7KB overview it
+                        # redirects to. The target has its own entry in the fetch
+                        # set, so drop this one and record the move.
+                        landed = normalize_url(str(r.url))
+                        if landed.removesuffix(".md") != url:
+                            self.dead_now[url] = f"moved -> {landed.removesuffix('.md')}"
+                            if output_path.exists():
+                                self.soft_404_paths.append(output_path)
+                            self.stats["failed"] += 1
+                            return {
+                                "url": url,
+                                "status": "dead" if url in self.tombstones else "failed",
+                                "error": f"moved to {landed}",
+                            }
                 if looks_like_html(content):
                     # Soft 404: HTTP 200 with the site's HTML shell. Writing it
                     # would replace docs with markup, and because incremental
@@ -294,15 +329,18 @@ class Fetcher:
                     # for reaping so a page deleted upstream also leaves us.
                     if output_path.exists():
                         self.soft_404_paths.append(output_path)
+                    self.dead_now[url] = "soft-404 (HTML shell)"
                     self.stats["failed"] += 1
                     return {
-                        "url": url, "status": "failed",
+                        "url": url, "status": "dead" if url in self.tombstones else "failed",
                         "error": "upstream returned HTML, not markdown (soft 404)",
                     }
                 output_path.parent.mkdir(parents=True, exist_ok=True)
                 async with aiofiles.open(output_path, "wb") as f:
                     await f.write(content)
                 self.stats["downloaded"] += 1
+                if url in self.tombstones:
+                    self.resurrected.append(url)
                 return {
                     "url": url, "status": "success",
                     "path": str(output_path.relative_to(self.output_dir)),
@@ -313,8 +351,16 @@ class Fetcher:
                 # 404/410 is upstream stating the page is gone — reap our copy.
                 # Every other status (429, 5xx) is noise that must never delete
                 # anything, or one bad afternoon upstream empties the archive.
-                if e.status in (404, 410) and output_path.exists():
-                    self.soft_404_paths.append(output_path)
+                if e.status in (404, 410):
+                    if output_path.exists():
+                        self.soft_404_paths.append(output_path)
+                    self.dead_now[url] = f"HTTP {e.status}"
+                    self.stats["failed"] += 1
+                    return {
+                        "url": url,
+                        "status": "dead" if url in self.tombstones else "failed",
+                        "error": f"HTTP {e.status}",
+                    }
                 self.stats["failed"] += 1
                 return {"url": url, "status": "failed", "error": f"HTTP {e.status}"}
             except Exception as e:
@@ -523,11 +569,67 @@ class Fetcher:
         # missing page is really gone. A --section run has no opinion about the
         # sections it did not fetch, and --incremental never re-probes what it
         # skipped, so neither is allowed to delete.
+        # Only a full run may rewrite tombstones.json: a --section run has not
+        # probed the other sections and would resurrect their tombstoned URLs by
+        # omission. (The dead/failed split itself happens in _print_summary, so
+        # every entry point reports it.)
         if self.want("all") and not self.incremental:
+            self._sync_tombstones(datetime.now(timezone.utc).strftime("%Y-%m-%d"))
             self.reap(dry_run=self.no_reap)
         self._report_offsite_redirects()
 
         self._print_summary()
+
+    def _sync_tombstones(self, today: str):
+        """Fold this run's deaths into tombstones.json and report only the news.
+
+        A page that died months ago is not news; a page that died today is. And
+        a tombstoned page that starts answering again is the most interesting
+        case of all, because it means we were wrong to write it off.
+        """
+        new_deaths = {u: r for u, r in self.dead_now.items() if u not in self.tombstones}
+
+        for url in self.resurrected:
+            self.tombstones.pop(url, None)
+        for url, reason in new_deaths.items():
+            self.tombstones[url] = {"since": today, "reason": reason}
+
+        if self.resurrected:
+            print(f"\nBack from the dead ({len(self.resurrected)}) — "
+                  f"tombstone removed, content refetched:")
+            for u in sorted(self.resurrected)[:10]:
+                print(f"  {u}")
+
+        if new_deaths:
+            print(f"\nNewly gone upstream ({len(new_deaths)}):")
+            for u, reason in sorted(new_deaths.items())[:20]:
+                # Print the URL we asked for first. Putting the reason first put
+                # a "moved -> <target>" ahead of the source URL, and the two read
+                # as a pair in the wrong order.
+                if reason.startswith("moved -> "):
+                    print(f"  {u}\n      moved to {reason.removeprefix('moved -> ')}")
+                else:
+                    print(f"  {u}\n      {reason}")
+            if len(new_deaths) > 20:
+                print(f"  ... +{len(new_deaths) - 20} more (full list in tombstones.json)")
+
+        known = len(self.dead_now) - len(new_deaths)
+        if known:
+            print(f"\nAlready-known dead pages re-probed: {known} "
+                  f"(see tombstones.json)")
+
+        self.tombstones_path.write_text(json.dumps(
+            {"version": 1,
+             "note": ("URLs confirmed gone upstream. Kept so a page that died "
+                      "once does not report as a fresh failure on every later "
+                      "run, which would bury the failure that is actually new. "
+                      "An entry clears itself if the URL answers again -- but "
+                      "only while something still probes it. Entries whose local "
+                      "file was removed are no longer fetched, so they stay as a "
+                      "record of the restructure rather than a live check."),
+             "updated": today,
+             "urls": dict(sorted(self.tombstones.items()))},
+            indent=2) + "\n")
 
     def _print_failures(self, results: List[Dict]):
         failed = [r for r in results if r.get("status") == "failed"]
@@ -593,15 +695,25 @@ class Fetcher:
             await f.write(json.dumps(metadata, indent=2))
 
     def _print_summary(self):
+        # A page upstream deleted is not a fetch failure. Split them before
+        # reporting so "Failed" means "needs a human" in every mode.
+        self.stats["dead"] = len(self.dead_now)
+        self.stats["failed"] -= len(self.dead_now)
+
         print()
         print(f"Total:      {self.stats['total']}")
         print(f"Downloaded: {self.stats['downloaded']}")
         print(f"Skipped:    {self.stats['skipped']}")
         print(f"Failed:     {self.stats['failed']}")
+        print(f"Gone:       {self.stats['dead']}  (confirmed removed upstream)")
         print(f"Reaped:     {self.stats['reaped']}")
-        if self.stats["total"] > 0:
-            rate = (self.stats["downloaded"] / self.stats["total"]) * 100
-            print(f"Success:    {rate:.1f}%")
+        # Pages upstream deleted are not our failures, so they are excluded from
+        # the rate. Leaving them in pinned it at 96.9% forever and made a real
+        # new breakage indistinguishable from the standing background.
+        live = self.stats["total"] - self.stats["dead"]
+        if live > 0:
+            rate = (self.stats["downloaded"] / live) * 100
+            print(f"Success:    {rate:.1f}% of {live} live docs")
 
     # -- Reaping -----------------------------------------------------------
 

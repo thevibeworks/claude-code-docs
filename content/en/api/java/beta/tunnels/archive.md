@@ -1,19 +1,14 @@
----
-title: Archive Tunnel
-url: https://platform.claude.com/docs/en/api/java/beta/tunnels/archive
----
+# Archive Tunnel
 
-## Archive Tunnel
+`BetaTunnel beta().tunnels().archive(params = TunnelArchiveParams.none(), requestOptions = RequestOptions.none())`
 
-`BetaTunnel beta().tunnels().archive(TunnelArchiveParamsparams = TunnelArchiveParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel. Archival is irreversible: every non-archived certificate on the tunnel is archived in the same operation, the hostname is retired and never re-allocated, and the tunnel token is invalidated. Retrying against an already-archived tunnel returns the existing record unchanged.
 
-### Parameters
+## Parameters
 
 - `TunnelArchiveParams params`
 
@@ -91,7 +86,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaTunnel:`
 
@@ -105,9 +100,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `LocalDateTime createdAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Optional<String> displayName`
 
@@ -117,11 +116,9 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-  - `JsonValue; type "tunnel"constant`
+  - `JsonValue type constant`
 
-    - `TUNNEL("tunnel")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -142,7 +139,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

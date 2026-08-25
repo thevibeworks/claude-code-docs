@@ -1,37 +1,34 @@
----
-title: List Message Batches
-url: https://platform.claude.com/docs/en/api/go/beta/messages/batches/list
----
-
-## List Message Batches
+# List Message Batches
 
 `client.Beta.Messages.Batches.List(ctx, params) (*Page[BetaMessageBatch], error)`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `params BetaMessageBatchListParams`
 
-  - `AfterID param.Field[string]`
+  - `AfterID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
 
-  - `BeforeID param.Field[string]`
+  - `BeforeID param.Field[string] Optional`
 
     Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    maximum: 1000, minimum: 1
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -107,7 +104,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaMessageBatch struct{…}`
 
@@ -121,13 +118,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `CancelInitiatedAt Time`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `CreatedAt Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `EndedAt Time`
 
@@ -135,9 +138,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `ProcessingStatus BetaMessageBatchProcessingStatus`
 
@@ -161,11 +168,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `Errored int64`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `Expired int64`
 
@@ -173,15 +184,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `Processing int64`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `Succeeded int64`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `ResultsURL string`
 
@@ -195,9 +212,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `const MessageBatchMessageBatch MessageBatch = "message_batch"`
+    default: message_batch
 
-### Example
+## Example
 
 ```go
 package main
@@ -222,7 +239,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

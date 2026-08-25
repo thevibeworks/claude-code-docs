@@ -1,11 +1,6 @@
----
-title: Create Federation Rule
-url: https://platform.claude.com/docs/en/api/admin/federation_rules/create
----
+# Create Federation Rule
 
-## Create Federation Rule
-
-**post** `/v1/organizations/federation_rules`
+**POST** `/v1/organizations/federation_rules`
 
 Create a federation rule owned by your organization.
 
@@ -24,7 +19,7 @@ manage rules whose `oauth_scope` is `workspace:developer` or
 `workspace:inference`; other scopes require a Console session. Admin API
 keys are not accepted.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -32,19 +27,21 @@ keys are not accepted.
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Body Parameters
+## Body parameters
 
 - `issuer_id: string`
 
   Tagged ID of the federation issuer.
 
-- `match: object { audience, claims, condition, subject_prefix }`
+- `match: object`
 
   Conditions the verified JWT must satisfy for this rule to apply. At least one of `subject_prefix` (other than a wildcard-only value like `*`), `claims`, or `condition` is required; `audience` alone is not sufficient.
 
   - `audience: optional string or null`
 
     Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+    maxLength: 1024
 
   - `claims: optional map[string] or null`
 
@@ -54,19 +51,27 @@ keys are not accepted.
 
     CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
 
+    maxLength: 4096
+
   - `subject_prefix: optional string or null`
 
     Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+    maxLength: 1024
 
 - `name: string`
 
   Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
 
+  maxLength: 255, minLength: 1
+
 - `oauth_scope: string`
 
   Space-separated OAuth scopes. OAuth callers may only set `workspace:developer` or `workspace:inference`; other scopes (such as `org:admin`) require a Console session.
 
-- `target: object { service_account_id, type, service_account_name }`
+  minLength: 1
+
+- `target: object`
 
   Identity that tokens minted via this rule act as. Currently always a `service_account` target.
 
@@ -75,8 +80,6 @@ keys are not accepted.
     Tagged ID of the service account to mint tokens for.
 
   - `type: "service_account"`
-
-    - `"service_account"`
 
   - `service_account_name: optional string or null`
 
@@ -94,17 +97,21 @@ keys are not accepted.
 
   Optional free-text description.
 
+  maxLength: 2000
+
 - `token_lifetime_seconds: optional number`
 
   Lifetime in seconds for access tokens minted via this rule (60-86400). Defaults to 3600 (1h). Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+  maximum: 86400, minimum: 60
 
 - `workspace_id: optional string or null`
 
   Tagged ID of the workspace to enable this rule for. Required unless `applies_to_all_workspaces` is true. Additional workspaces can be added via the `/federation_rules/{federation_rule_id}/workspaces` sub-resource.
 
-### Returns
+## Returns
 
-- `FederationRule object { id, applies_to_all_workspaces, archived_at, 17 more }`
+- `FederationRule object`
 
   Authorization rule binding an external OIDC identity to Anthropic.
 
@@ -129,6 +136,8 @@ keys are not accepted.
 
     If set, this rule is archived and rejects token exchange.
 
+    format: date-time
+
   - `archived_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
@@ -140,6 +149,8 @@ keys are not accepted.
   - `created_at: string`
 
     When this rule was created.
+
+    format: date-time
 
   - `created_by_actor_id: string or null`
 
@@ -157,13 +168,15 @@ keys are not accepted.
 
     Issuer's display name at read time.
 
-  - `match: object { audience, claims, condition, subject_prefix }`
+  - `match: object`
 
     Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
 
     - `audience: optional string or null`
 
       Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+      maxLength: 1024
 
     - `claims: optional map[string] or null`
 
@@ -173,9 +186,13 @@ keys are not accepted.
 
       CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
 
+      maxLength: 4096
+
     - `subject_prefix: optional string or null`
 
       Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+      maxLength: 1024
 
   - `name: string`
 
@@ -185,7 +202,7 @@ keys are not accepted.
 
     Space-separated OAuth scopes granted on the minted token.
 
-  - `target: object { service_account_id, type, service_account_name }`
+  - `target: object`
 
     Identity that tokens minted via this rule act as. Currently always a `service_account` target.
 
@@ -194,8 +211,6 @@ keys are not accepted.
       Tagged ID of the service account to mint tokens for.
 
     - `type: "service_account"`
-
-      - `"service_account"`
 
     - `service_account_name: optional string or null`
 
@@ -207,11 +222,13 @@ keys are not accepted.
 
   - `type: "federation_rule"`
 
-    - `"federation_rule"`
+    default: federation_rule
 
   - `updated_at: string`
 
     When this rule was last updated.
+
+    format: date-time
 
   - `updated_by_actor_id: string or null`
 
@@ -225,9 +242,9 @@ keys are not accepted.
 
     Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_rules \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -244,7 +261,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules \
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

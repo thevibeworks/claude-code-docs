@@ -1,17 +1,12 @@
----
-title: Delete Skill Version
-url: https://platform.claude.com/docs/en/api/cli/beta/skills/versions/delete
----
-
-## Delete Skill Version
+# Delete Skill Version
 
 `$ ant beta:skills:versions delete`
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Parameters
+## Parameters
 
 - `--skill-id: string`
 
@@ -29,9 +24,9 @@ Delete Skill Version
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaSkillVersionDeleteResponse: object { id, type }`
+- `BetaSkillVersionDeleteResponse: object`
 
   - `id: string`
 
@@ -45,16 +40,16 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:skills:versions delete \
   --api-key my-anthropic-api-key \
   --skill-id skill_id \
   --version version
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

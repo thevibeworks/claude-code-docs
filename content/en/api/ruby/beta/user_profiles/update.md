@@ -1,17 +1,12 @@
----
-title: Update User Profile
-url: https://platform.claude.com/docs/en/api/ruby/beta/user_profiles/update
----
-
-## Update User Profile
+# Update User Profile
 
 `beta.user_profiles.update(user_profile_id, **kwargs) -> BetaUserProfile`
 
-**post** `/v1/user_profiles/{user_profile_id}`
+**POST** `/v1/user_profiles/{user_profile_id}`
 
 Update User Profile
 
-### Parameters
+## Parameters
 
 - `user_profile_id: String`
 
@@ -27,6 +22,8 @@ Update User Profile
 
   If present, replaces the stored external_id. Omit to leave unchanged. Maximum 255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `metadata: Hash[Symbol, String]`
 
   Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -34,6 +31,8 @@ Update User Profile
 - `name: String`
 
   If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `relationship: :external | :resold | :internal`
 
@@ -121,7 +120,7 @@ Update User Profile
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaUserProfile`
 
@@ -132,6 +131,8 @@ Update User Profile
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: Hash[Symbol, String]`
 
@@ -155,11 +156,11 @@ Update User Profile
 
     Object type. Always `user_profile`.
 
-    - `:user_profile`
-
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: :application | :passthrough`
 
@@ -187,7 +188,7 @@ Update User Profile
 
     - `:internal`
 
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -199,7 +200,7 @@ beta_user_profile = anthropic.beta.user_profiles.update("uprof_011CZkZCu8hGbp5mY
 puts(beta_user_profile)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

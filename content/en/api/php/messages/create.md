@@ -1,13 +1,8 @@
----
-title: Create a Message
-url: https://platform.claude.com/docs/en/api/php/messages/create
----
-
-## Create a Message
+# Create a Message
 
 `$client->messages->create(int maxTokens, list<MessageParam> messages, Model model, ?CacheControlEphemeral cacheControl, ?MessageCreateParamsContainer container, ?string inferenceGeo, ?Metadata metadata, ?OutputConfig outputConfig, ?ServiceTier serviceTier, ?list<string> stopSequences, ?System system, ?float temperature, ?ThinkingConfigParam thinking, ?ToolChoice toolChoice, ?list<ToolUnion> tools, ?int topK, ?float topP, ?string userProfileID): Message`
 
-**post** `/v1/messages`
+**POST** `/v1/messages`
 
 Send a structured list of input messages with text and/or image content, and the model will generate the next message in the conversation.
 
@@ -15,7 +10,7 @@ The Messages API can be used for either single queries or stateless multi-turn c
 
 Learn more about the Messages API in our [user guide](https://platform.claude.com/docs/en/get-started)
 
-### Parameters
+## Parameters
 
 - `maxTokens: int`
 
@@ -130,14 +125,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   A system prompt is a way of providing context and instructions to Claude, such as specifying a particular goal or role. See our [guide to system prompts](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices#give-claude-a-role).
 
-- `temperature?:optional float`
-
-  Amount of randomness injected into the response.
-
-  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
-
 - `thinking?:optional ThinkingConfigParam`
 
   Configuration for enabling Claude's extended thinking.
@@ -214,7 +201,23 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   See our [guide](https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview) for more details.
 
+- `userProfileID?:optional string`
+
+  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
+
+- `temperature?:optional float`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+  Amount of randomness injected into the response.
+
+  Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+  Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
 - `topK?:optional int`
+
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
   Only sample from the top K options for each subsequent token.
 
@@ -224,17 +227,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
 - `topP?:optional float`
 
+  **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
   Use nucleus sampling.
 
   In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
   Recommended for advanced use cases only.
 
-- `userProfileID?:optional string`
-
-  The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
-
-### Returns
+## Returns
 
 - `Message`
 
@@ -333,7 +334,61 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
-### Example
+- `RawMessageStreamEvent`
+
+  - `RawMessageStartEvent`
+
+    - `Message message`
+
+    - `"message_start" type`
+
+  - `RawMessageDeltaEvent`
+
+    - `Delta delta`
+
+    - `"message_delta" type`
+
+    - `MessageDeltaUsage usage`
+
+      Billing and rate-limit usage.
+
+      Anthropic's API bills and rate-limits by token counts, as tokens represent the underlying cost to our systems.
+
+      Under the hood, the API transforms requests into a format suitable for the model. The model's output then goes through a parsing stage before becoming an API response. As a result, the token counts in `usage` will not match one-to-one with the exact visible content of an API request or response.
+
+      For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
+
+      Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+  - `RawMessageStopEvent`
+
+    - `"message_stop" type`
+
+  - `RawContentBlockStartEvent`
+
+    - `ContentBlock contentBlock`
+
+      Response model for a file uploaded to the container.
+
+    - `int index`
+
+    - `"content_block_start" type`
+
+  - `RawContentBlockDeltaEvent`
+
+    - `RawContentBlockDelta delta`
+
+    - `int index`
+
+    - `"content_block_delta" type`
+
+  - `RawContentBlockStopEvent`
+
+    - `int index`
+
+    - `"content_block_stop" type`
+
+## Example
 
 ```php
 <?php
@@ -407,7 +462,7 @@ $message = $client->messages->create(
 var_dump($message);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Delete Session Resource
-url: https://platform.claude.com/docs/en/api/ruby/beta/sessions/resources/delete
----
-
-## Delete Session Resource
+# Delete Session Resource
 
 `beta.sessions.resources.delete(resource_id, **kwargs) -> BetaManagedAgentsDeleteSessionResource`
 
-**delete** `/v1/sessions/{session_id}/resources/{resource_id}`
+**DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Delete Session Resource
 
-### Parameters
+## Parameters
 
 - `session_id: String`
 
@@ -93,7 +88,7 @@ Delete Session Resource
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeleteSessionResource`
 
@@ -103,9 +98,7 @@ Delete Session Resource
 
   - `type: :session_resource_deleted`
 
-    - `:session_resource_deleted`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -120,7 +113,7 @@ beta_managed_agents_delete_session_resource = anthropic.beta.sessions.resources.
 puts(beta_managed_agents_delete_session_resource)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

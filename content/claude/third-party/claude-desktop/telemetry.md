@@ -6,9 +6,11 @@
 
 > What Claude Desktop on 3P sends to Anthropic, how to disable it, and the network paths your firewall needs to allow
 
-When Claude Desktop on third-party (3P) is configured with Google Cloud's Agent Platform, Amazon Bedrock, or Microsoft Foundry, the app sends conversation content only to your configured inference endpoint. For Microsoft Foundry, how data is handled beyond that endpoint depends on the deployment's hosting option; see [Claude in Microsoft Foundry](/docs/third-party/claude-desktop/foundry). The app does, by default, send a small amount of operational telemetry (crash reports and product analytics) that helps Anthropic diagnose issues and improve the product. Each category can be disabled independently via managed configuration.
+When Claude Desktop on third-party (3P) is configured with Google Cloud's Agent Platform, Amazon Bedrock, or Microsoft Foundry, the app sends conversation content only to your configured inference endpoint. The app does, by default, send a small amount of operational telemetry (crash reports and product analytics) that helps Anthropic diagnose issues and improve the product. Each category can be disabled independently via managed configuration.
 
-This page covers what each category contains, how to turn it off, and the complete set of outbound hostnames the app uses so you can configure your perimeter firewall.
+Data handling at the inference endpoint depends on the provider. For Google Cloud's Agent Platform and Amazon Bedrock, data handling is governed by the cloud provider. For Microsoft Foundry, Anthropic operates the Claude models and handles conversation data as an independent processor for Microsoft. See [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider) on the Overview page for each provider's data path.
+
+This page covers what each telemetry category contains, how to turn it off, and the complete set of outbound hostnames the app uses so you can configure your perimeter firewall.
 
 ## Telemetry categories
 
@@ -260,7 +262,9 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 
 ## Disabling all Anthropic-bound connections
 
-With `disableEssentialTelemetry`, `disableNonessentialTelemetry`, `disableNonessentialServices`, and `disableAutoUpdates` all set to `true`, the desktop application makes **no outbound connections to Anthropic-operated hosts at runtime**. The only required egress is `downloads.claude.ai` (for the VM bundle at session start) and your inference provider. With the [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation), `downloads.claude.ai` is not needed either, and your inference provider is the only required egress. This describes the application's own connections; what happens to conversation content after it reaches your inference provider is governed by that provider; see the [Overview](/docs/third-party/claude-desktop/overview).
+With `disableEssentialTelemetry`, `disableNonessentialTelemetry`, `disableNonessentialServices`, and `disableAutoUpdates` all set to `true`, the desktop application makes **no outbound connections to Anthropic-operated hosts at runtime**. The only required egress is `downloads.claude.ai` (for the VM bundle at session start) and your inference provider. With the [offline installer variant](/docs/third-party/claude-desktop/installation#offline-installation), `downloads.claude.ai` is not needed either, and your inference provider is the only required egress.
+
+These settings control only the application's telemetry, update, and non-essential service connections. They do not change how your inference provider handles conversation content at the endpoint. On Microsoft Foundry, the Claude models behind your inference endpoint run in an Anthropic-operated service, so conversation content reaches Anthropic-operated infrastructure regardless of these settings. See [Data handling by provider](/docs/third-party/claude-desktop/overview#data-handling-by-provider) on the Overview page.
 
 See the [Locked down profile](/docs/third-party/claude-desktop/configuration#recommended-security-profiles) for a complete configuration.
 

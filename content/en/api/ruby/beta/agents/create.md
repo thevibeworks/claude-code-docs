@@ -1,17 +1,12 @@
----
-title: Create Agent
-url: https://platform.claude.com/docs/en/api/ruby/beta/agents/create
----
-
-## Create Agent
+# Create Agent
 
 `beta.agents.create(**kwargs) -> BetaManagedAgentsAgent`
 
-**post** `/v1/agents`
+**POST** `/v1/agents`
 
 Create Agent
 
-### Parameters
+## Parameters
 
 - `model: BetaManagedAgentsModel | BetaManagedAgentsModelConfigParams`
 
@@ -117,15 +112,11 @@ Create Agent
 
         - `type: :low`
 
-          - `:low`
-
       - `class BetaManagedAgentsEffortMedium`
 
         Medium effort. Balances latency and reasoning depth.
 
         - `type: :medium`
-
-          - `:medium`
 
       - `class BetaManagedAgentsEffortHigh`
 
@@ -133,23 +124,17 @@ Create Agent
 
         - `type: :high`
 
-          - `:high`
-
       - `class BetaManagedAgentsEffortXhigh`
 
         Extra-high effort. Not all models accept this level.
 
         - `type: :xhigh`
 
-          - `:xhigh`
-
       - `class BetaManagedAgentsEffortMax`
 
         Maximum effort. Favors reasoning depth over latency.
 
         - `type: :max`
-
-          - `:max`
 
     - `inference_geo: String`
 
@@ -167,9 +152,13 @@ Create Agent
 
   Human-readable name for the agent.
 
+  minLength: 1, maxLength: 256
+
 - `description: String`
 
   Description of what the agent does.
+
+  maxLength: 2048
 
 - `mcp_servers: Array[BetaManagedAgentsURLMCPServerParams]`
 
@@ -179,13 +168,15 @@ Create Agent
 
     Unique name for this server, referenced by mcp_toolset configurations. 1-255 characters.
 
-  - `type: :url`
+    minLength: 1, maxLength: 255
 
-    - `:url`
+  - `type: :url`
 
   - `url: String`
 
     Endpoint URL for the MCP server.
+
+    maxLength: 2048
 
 - `metadata: Hash[Symbol, String]`
 
@@ -209,21 +200,21 @@ Create Agent
 
         The `agent` ID.
 
-      - `type: :agent`
+        minLength: 1, maxLength: 128
 
-        - `:agent`
+      - `type: :agent`
 
       - `version: Integer`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+        format: int32
 
     - `class BetaManagedAgentsMultiagentSelfParams`
 
       Sentinel roster entry meaning "the agent that owns this configuration". Resolved server-side to a concrete agent reference.
 
       - `type: :self`
-
-        - `:self`
 
     - `class BetaManagedAgentsAdvisorParams`
 
@@ -233,13 +224,11 @@ Create Agent
 
         A Claude model id. The model must be permitted as an advisor for this agent's model — see the sessions/threads/advisor spec.
 
+        minLength: 1, maxLength: 256
+
       - `type: :advisor`
 
-        - `:advisor`
-
   - `type: :coordinator`
-
-    - `:coordinator`
 
 - `skills: Array[BetaManagedAgentsSkillParams]`
 
@@ -253,13 +242,15 @@ Create Agent
 
       Identifier of the Anthropic skill (e.g., "xlsx").
 
-    - `type: :anthropic`
+      minLength: 1, maxLength: 64
 
-      - `:anthropic`
+    - `type: :anthropic`
 
     - `version: String`
 
       Version to pin. Defaults to latest if omitted.
+
+      minLength: 1, maxLength: 64
 
   - `class BetaManagedAgentsCustomSkillParams`
 
@@ -269,17 +260,21 @@ Create Agent
 
       Tagged ID of the custom skill (e.g., "skill_01XJ5...").
 
-    - `type: :custom`
+      minLength: 1, maxLength: 64
 
-      - `:custom`
+    - `type: :custom`
 
     - `version: String`
 
       Version to pin. Defaults to latest if omitted.
 
+      minLength: 1, maxLength: 64
+
 - `system_: String`
 
   System prompt for the agent.
+
+  maxLength: 100000
 
 - `tools: Array[BetaManagedAgentsAgentToolset20260401Params | BetaManagedAgentsMCPToolsetParams | BetaManagedAgentsCustomToolParams]`
 
@@ -290,8 +285,6 @@ Create Agent
     Configuration for built-in agent tools. Use this to enable or disable groups of tools available to the agent.
 
     - `type: :agent_toolset_20260401`
-
-      - `:agent_toolset_20260401`
 
     - `configs: Array[BetaManagedAgentsAgentToolConfigParams]`
 
@@ -304,8 +297,6 @@ Create Agent
         - `name: :bash`
 
           Must be "bash".
-
-          - `:bash`
 
         - `enabled: bool`
 
@@ -321,19 +312,13 @@ Create Agent
 
             - `type: :always_allow`
 
-              - `:always_allow`
-
           - `class BetaManagedAgentsAlwaysAskPolicy`
 
             Tool calls require user confirmation before execution.
 
             - `type: :always_ask`
 
-              - `:always_ask`
-
         - `type: :bash`
-
-          - `:bash`
 
       - `class BetaManagedAgentsEditToolConfigParams`
 
@@ -342,8 +327,6 @@ Create Agent
         - `name: :edit`
 
           Must be "edit".
-
-          - `:edit`
 
         - `enabled: bool`
 
@@ -363,8 +346,6 @@ Create Agent
 
         - `type: :edit`
 
-          - `:edit`
-
       - `class BetaManagedAgentsReadToolConfigParams`
 
         Configuration override for the read tool.
@@ -372,8 +353,6 @@ Create Agent
         - `name: :read`
 
           Must be "read".
-
-          - `:read`
 
         - `enabled: bool`
 
@@ -393,8 +372,6 @@ Create Agent
 
         - `type: :read`
 
-          - `:read`
-
       - `class BetaManagedAgentsWriteToolConfigParams`
 
         Configuration override for the write tool.
@@ -402,8 +379,6 @@ Create Agent
         - `name: :write`
 
           Must be "write".
-
-          - `:write`
 
         - `enabled: bool`
 
@@ -423,8 +398,6 @@ Create Agent
 
         - `type: :write`
 
-          - `:write`
-
       - `class BetaManagedAgentsGlobToolConfigParams`
 
         Configuration override for the glob tool.
@@ -432,8 +405,6 @@ Create Agent
         - `name: :glob`
 
           Must be "glob".
-
-          - `:glob`
 
         - `enabled: bool`
 
@@ -453,8 +424,6 @@ Create Agent
 
         - `type: :glob`
 
-          - `:glob`
-
       - `class BetaManagedAgentsGrepToolConfigParams`
 
         Configuration override for the grep tool.
@@ -462,8 +431,6 @@ Create Agent
         - `name: :grep`
 
           Must be "grep".
-
-          - `:grep`
 
         - `enabled: bool`
 
@@ -483,8 +450,6 @@ Create Agent
 
         - `type: :grep`
 
-          - `:grep`
-
       - `class BetaManagedAgentsWebFetchToolConfigParams`
 
         Configuration override for the web_fetch tool.
@@ -492,8 +457,6 @@ Create Agent
         - `name: :web_fetch`
 
           Must be "web_fetch".
-
-          - `:web_fetch`
 
         - `allowed_domains: Array[String]`
 
@@ -511,6 +474,8 @@ Create Agent
 
           Maximum number of tokens of fetched text content to include in context per call. Does not apply to binary content such as PDFs.
 
+          format: int32
+
         - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
           Permission policy for tool execution.
@@ -525,8 +490,6 @@ Create Agent
 
         - `type: :web_fetch`
 
-          - `:web_fetch`
-
       - `class BetaManagedAgentsWebSearchToolConfigParams`
 
         Configuration override for the web_search tool.
@@ -534,8 +497,6 @@ Create Agent
         - `name: :web_search`
 
           Must be "web_search".
-
-          - `:web_search`
 
         - `allowed_domains: Array[String]`
 
@@ -563,8 +524,6 @@ Create Agent
 
         - `type: :web_search`
 
-          - `:web_search`
-
         - `user_location: BetaManagedAgentsUserLocation`
 
           Approximate user location for search result localization.
@@ -573,11 +532,11 @@ Create Agent
 
             Location precision. Only "approximate" is supported.
 
-            - `:approximate`
-
           - `city: String`
 
             City name.
+
+            minLength: 1, maxLength: 255
 
           - `country: String`
 
@@ -587,9 +546,13 @@ Create Agent
 
             Region or state name.
 
+            minLength: 1, maxLength: 255
+
           - `timezone: String`
 
             IANA timezone identifier, e.g. "America/Los_Angeles".
+
+            minLength: 1, maxLength: 255
 
     - `default_config: BetaManagedAgentsAgentToolsetDefaultConfigParams`
 
@@ -619,9 +582,9 @@ Create Agent
 
       Name of the MCP server. Must match a server name from the mcp_servers array. 1-255 characters.
 
-    - `type: :mcp_toolset`
+      minLength: 1, maxLength: 255
 
-      - `:mcp_toolset`
+    - `type: :mcp_toolset`
 
     - `configs: Array[BetaManagedAgentsMCPToolConfigParams]`
 
@@ -630,6 +593,8 @@ Create Agent
       - `name: String`
 
         Name of the MCP tool to configure. 1-128 characters.
+
+        minLength: 1, maxLength: 128
 
       - `enabled: bool`
 
@@ -675,13 +640,13 @@ Create Agent
 
       Description of what the tool does, shown to the agent to help it decide when to use the tool.
 
+      minLength: 1
+
     - `input_schema: BetaManagedAgentsCustomToolInputSchema`
 
       JSON Schema for custom tool input parameters.
 
       - `type: :object`
-
-        - `:object`
 
       - `properties: Hash[Symbol, untyped]`
 
@@ -691,9 +656,9 @@ Create Agent
 
       Unique name for the tool. 1-128 characters; letters, digits, underscores, and hyphens.
 
-    - `type: :custom`
+      minLength: 1, maxLength: 128
 
-      - `:custom`
+    - `type: :custom`
 
 - `betas: Array[AnthropicBeta]`
 
@@ -771,7 +736,7 @@ Create Agent
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsAgent`
 
@@ -783,9 +748,13 @@ Create Agent
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: String`
 
@@ -794,8 +763,6 @@ Create Agent
     - `name: String`
 
     - `type: :url`
-
-      - `:url`
 
     - `url: String`
 
@@ -881,15 +848,11 @@ Create Agent
 
         - `type: :low`
 
-          - `:low`
-
       - `class BetaManagedAgentsEffortMedium`
 
         Medium effort. Balances latency and reasoning depth.
 
         - `type: :medium`
-
-          - `:medium`
 
       - `class BetaManagedAgentsEffortHigh`
 
@@ -897,23 +860,17 @@ Create Agent
 
         - `type: :high`
 
-          - `:high`
-
       - `class BetaManagedAgentsEffortXhigh`
 
         Extra-high effort. Not all models accept this level.
 
         - `type: :xhigh`
 
-          - `:xhigh`
-
       - `class BetaManagedAgentsEffortMax`
 
         Maximum effort. Favors reasoning depth over latency.
 
         - `type: :max`
-
-          - `:max`
 
     - `inference_geo: String`
 
@@ -943,9 +900,9 @@ Create Agent
 
         - `type: :agent`
 
-          - `:agent`
-
         - `version: Integer`
+
+          format: int32
 
       - `class BetaManagedAgentsAdvisor`
 
@@ -957,11 +914,7 @@ Create Agent
 
         - `type: :advisor`
 
-          - `:advisor`
-
     - `type: :coordinator`
-
-      - `:coordinator`
 
   - `name: String`
 
@@ -975,8 +928,6 @@ Create Agent
 
       - `type: :anthropic`
 
-        - `:anthropic`
-
       - `version: String`
 
     - `class BetaManagedAgentsCustomSkill`
@@ -986,8 +937,6 @@ Create Agent
       - `skill_id: String`
 
       - `type: :custom`
-
-        - `:custom`
 
       - `version: String`
 
@@ -1007,8 +956,6 @@ Create Agent
 
           - `name: :bash`
 
-            - `:bash`
-
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
             Permission policy for tool execution.
@@ -1019,19 +966,13 @@ Create Agent
 
               - `type: :always_allow`
 
-                - `:always_allow`
-
             - `class BetaManagedAgentsAlwaysAskPolicy`
 
               Tool calls require user confirmation before execution.
 
               - `type: :always_ask`
 
-                - `:always_ask`
-
           - `type: :bash`
-
-            - `:bash`
 
         - `class BetaManagedAgentsEditToolConfig`
 
@@ -1040,8 +981,6 @@ Create Agent
           - `enabled: bool`
 
           - `name: :edit`
-
-            - `:edit`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1057,8 +996,6 @@ Create Agent
 
           - `type: :edit`
 
-            - `:edit`
-
         - `class BetaManagedAgentsReadToolConfig`
 
           Configuration for the read tool.
@@ -1066,8 +1003,6 @@ Create Agent
           - `enabled: bool`
 
           - `name: :read`
-
-            - `:read`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1083,8 +1018,6 @@ Create Agent
 
           - `type: :read`
 
-            - `:read`
-
         - `class BetaManagedAgentsWriteToolConfig`
 
           Configuration for the write tool.
@@ -1092,8 +1025,6 @@ Create Agent
           - `enabled: bool`
 
           - `name: :write`
-
-            - `:write`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1109,8 +1040,6 @@ Create Agent
 
           - `type: :write`
 
-            - `:write`
-
         - `class BetaManagedAgentsGlobToolConfig`
 
           Configuration for the glob tool.
@@ -1118,8 +1047,6 @@ Create Agent
           - `enabled: bool`
 
           - `name: :glob`
-
-            - `:glob`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1135,8 +1062,6 @@ Create Agent
 
           - `type: :glob`
 
-            - `:glob`
-
         - `class BetaManagedAgentsGrepToolConfig`
 
           Configuration for the grep tool.
@@ -1144,8 +1069,6 @@ Create Agent
           - `enabled: bool`
 
           - `name: :grep`
-
-            - `:grep`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1161,8 +1084,6 @@ Create Agent
 
           - `type: :grep`
 
-            - `:grep`
-
         - `class BetaManagedAgentsWebFetchToolConfig`
 
           Configuration for the web_fetch tool.
@@ -1170,8 +1091,6 @@ Create Agent
           - `enabled: bool`
 
           - `name: :web_fetch`
-
-            - `:web_fetch`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1187,13 +1106,13 @@ Create Agent
 
           - `type: :web_fetch`
 
-            - `:web_fetch`
-
           - `allowed_domains: Array[String]`
 
           - `blocked_domains: Array[String]`
 
           - `max_content_tokens: Integer`
+
+            format: int32
 
         - `class BetaManagedAgentsWebSearchToolConfig`
 
@@ -1202,8 +1121,6 @@ Create Agent
           - `enabled: bool`
 
           - `name: :web_search`
-
-            - `:web_search`
 
           - `permission_policy: BetaManagedAgentsAlwaysAllowPolicy | BetaManagedAgentsAlwaysAskPolicy`
 
@@ -1219,8 +1136,6 @@ Create Agent
 
           - `type: :web_search`
 
-            - `:web_search`
-
           - `allowed_domains: Array[String]`
 
           - `blocked_domains: Array[String]`
@@ -1233,11 +1148,11 @@ Create Agent
 
               Location precision. Only "approximate" is supported.
 
-              - `:approximate`
-
             - `city: String`
 
               City name.
+
+              minLength: 1, maxLength: 255
 
             - `country: String`
 
@@ -1247,9 +1162,13 @@ Create Agent
 
               Region or state name.
 
+              minLength: 1, maxLength: 255
+
             - `timezone: String`
 
               IANA timezone identifier, e.g. "America/Los_Angeles".
+
+              minLength: 1, maxLength: 255
 
       - `default_config: BetaManagedAgentsAgentToolsetDefaultConfig`
 
@@ -1270,8 +1189,6 @@ Create Agent
             Tool calls require user confirmation before execution.
 
       - `type: :agent_toolset_20260401`
-
-        - `:agent_toolset_20260401`
 
     - `class BetaManagedAgentsMCPToolset`
 
@@ -1315,8 +1232,6 @@ Create Agent
 
       - `type: :mcp_toolset`
 
-        - `:mcp_toolset`
-
     - `class BetaManagedAgentsCustomTool`
 
       A custom tool as returned in API responses.
@@ -1329,8 +1244,6 @@ Create Agent
 
         - `type: :object`
 
-          - `:object`
-
         - `properties: Hash[Symbol, untyped]`
 
         - `required: Array[String]`
@@ -1339,21 +1252,21 @@ Create Agent
 
       - `type: :custom`
 
-        - `:custom`
-
   - `type: :agent`
-
-    - `:agent`
 
   - `updated_at: Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `version: Integer`
 
     The agent's current version. Starts at 1 and increments when the agent is modified.
 
-### Example
+    format: int32
+
+## Example
 
 ```ruby
 require "anthropic"
@@ -1368,7 +1281,7 @@ beta_managed_agents_agent = anthropic.beta.agents.create(
 puts(beta_managed_agents_agent)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

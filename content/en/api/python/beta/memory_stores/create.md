@@ -1,25 +1,24 @@
----
-title: Create a memory store
-url: https://platform.claude.com/docs/en/api/python/beta/memory_stores/create
----
+# Create a memory store
 
-## Create a memory store
+`beta.memory_stores.create(**kwargs)  -> BetaManagedAgentsMemoryStore`
 
-`beta.memory_stores.create(MemoryStoreCreateParams**kwargs)  -> BetaManagedAgentsMemoryStore`
-
-**post** `/v1/memory_stores`
+**POST** `/v1/memory_stores`
 
 Create a memory store
 
-### Parameters
+## Parameters
 
 - `name: str`
 
   Human-readable name for the store. Required; 1–255 characters; no control characters. The mount-path slug under `/mnt/memory/` is derived from this name (lowercased, non-alphanumeric runs collapsed to a hyphen). Names need not be unique within a workspace.
 
+  minLength: 1, maxLength: 255
+
 - `description: Optional[str]`
 
   Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent.
+
+  maxLength: 1024
 
 - `metadata: Optional[Dict[str, str]]`
 
@@ -101,7 +100,7 @@ Create a memory store
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsMemoryStore: …`
 
@@ -115,21 +114,25 @@ Create a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: str`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: Literal["memory_store"]`
 
-    - `"memory_store"`
-
   - `updated_at: datetime`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at: Optional[datetime]`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description: Optional[str]`
 
@@ -139,7 +142,7 @@ Create a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```python
 import os
@@ -156,7 +159,7 @@ beta_managed_agents_memory_store = client.beta.memory_stores.create(
 print(beta_managed_agents_memory_store.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

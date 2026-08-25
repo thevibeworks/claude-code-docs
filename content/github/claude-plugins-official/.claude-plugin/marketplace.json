@@ -689,7 +689,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "7be35157286a6654783f82c701e46d06c40dcfb1"
+        "sha": "9918825a395d72ddea7401fc42aebff9099e3933"
       },
       "homepage": "https://carta.com"
     },
@@ -705,7 +705,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "3aa656ea870e1d8d7f73d0418c49043cab9df01a"
+        "sha": "e512bd67c11e4b084f2ddfacf5ba6c40100a7962"
       },
       "homepage": "https://carta.com"
     },
@@ -721,7 +721,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "7be35157286a6654783f82c701e46d06c40dcfb1"
+        "sha": "84e5df561bb7321300a024477082fcb04295611d"
       },
       "homepage": "https://carta.com"
     },
@@ -2383,8 +2383,40 @@
       "homepage": "https://github.com/netlify/context-and-tools"
     },
     {
+      "name": "netsuite-ai-companion",
+      "description": "Guides AI assistants that use the NetSuite AI Connector: tool-selection order, output formatting, NetSuite domain knowledge, multi-subsidiary and currency handling, and SuiteQL safety guardrails. Requires the NetSuite AI Connector Service.",
+      "author": {
+        "name": "Oracle NetSuite"
+      },
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/oracle/netsuite-suitecloud-sdk.git",
+        "path": "anthropic/netsuite-ai-companion",
+        "ref": "ai-plugins-dist",
+        "sha": "23793a10a9bb557c684c5cb8a97f926eb3463f12"
+      },
+      "homepage": "https://github.com/oracle/netsuite-suitecloud-sdk/tree/ai-plugins-dist/anthropic/netsuite-ai-companion"
+    },
+    {
+      "name": "netsuite-finance-analyst",
+      "description": "Director-level finance analysis on live NetSuite data: financial reporting, period close, variance, aging and reconciliation reviews, cash reporting, and board-ready narratives with next actions. Requires the NetSuite AI Connector Service.",
+      "author": {
+        "name": "Oracle NetSuite"
+      },
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/oracle/netsuite-suitecloud-sdk.git",
+        "path": "anthropic/netsuite-finance-analyst",
+        "ref": "ai-plugins-dist",
+        "sha": "23793a10a9bb557c684c5cb8a97f926eb3463f12"
+      },
+      "homepage": "https://github.com/oracle/netsuite-suitecloud-sdk/tree/ai-plugins-dist/anthropic/netsuite-finance-analyst"
+    },
+    {
       "name": "netsuite-suitecloud",
-      "description": "NetSuite agent skills from Oracle — authoring guidance for SuiteCloud Development Framework (SDF) objects and UIF single-page-app components, plus runtime guidance for the NetSuite AI Service Connector.",
+      "description": "Develop NetSuite SuiteCloud solutions with SuiteScript, SDF, and best practices: SuiteScript records and upgrades, SDF objects, roles and permissions, UIF single-page apps, OWASP secure coding, project documentation, and the SAFE Guide.",
       "author": {
         "name": "Oracle NetSuite"
       },
@@ -2392,21 +2424,11 @@
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/oracle/netsuite-suitecloud-sdk.git",
-        "path": "packages/agent-skills",
-        "ref": "master",
-        "sha": "d0069ddee009765d04e1afbe6ac5dde8b6b263cf"
+        "path": "anthropic/netsuite-suitecloud",
+        "ref": "ai-plugins-dist",
+        "sha": "23793a10a9bb557c684c5cb8a97f926eb3463f12"
       },
-      "strict": false,
-      "skills": [
-        "./netsuite-ai-connector-instructions",
-        "./netsuite-sdf-roles-and-permissions",
-        "./netsuite-uif-spa-reference",
-        "./netsuite-owasp-secure-coding",
-        "./netsuite-sdf-project-documentation",
-        "./netsuite-suitescript-records-reference",
-        "./netsuite-suitescript-upgrade"
-      ],
-      "homepage": "https://github.com/oracle/netsuite-suitecloud-sdk"
+      "homepage": "https://github.com/oracle/netsuite-suitecloud-sdk/tree/ai-plugins-dist/anthropic/netsuite-suitecloud"
     },
     {
       "name": "newrelic",
@@ -2825,6 +2847,9 @@
       "name": "qodo",
       "displayName": "Qodo",
       "description": "Qodo Skills provides a curated library of reusable AI agent capabilities that extend Claude's functionality for software development workflows. Each skill is designed to integrate seamlessly into your development process, enabling tasks like code quality checks, automated testing, security scanning, and compliance validation. Skills operate across your entire SDLC—from IDE to CI/CD—ensuring consistent standards and catching issues early.",
+      "author": {
+        "name": "Qodo"
+      },
       "category": "development",
       "source": {
         "source": "url",
@@ -3716,6 +3741,21 @@
         "sha": "2b8c4a944e39609214bce7aef3b05260985f0e91"
       },
       "homepage": "https://github.com/UI5/plugins-coding-agents"
+    },
+    {
+      "name": "unity",
+      "displayName": "Unity",
+      "description": "Unity's official plugin for Claude Code, with curated skills for game development, monetization, and performance optimization.",
+      "author": {
+        "name": "Unity Technologies"
+      },
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Unity-Technologies/unity-agent-plugin.git",
+        "sha": "360523972ed0cb356d679acc612bd0f8d1ba3c2b"
+      },
+      "homepage": "https://unity.com"
     },
     {
       "name": "unreal-engine-skills-for-claude-code",

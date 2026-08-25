@@ -1,19 +1,14 @@
----
-title: Stop Work
-url: https://platform.claude.com/docs/en/api/typescript/beta/environments/work/stop
----
+# Stop Work
 
-## Stop Work
+`client.beta.environments.work.stop(workID, params, options?): BetaSelfHostedWork`
 
-`client.beta.environments.work.stop(stringworkID, WorkStopParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
-
-**post** `/v1/environments/{environment_id}/work/{work_id}/stop`
+**POST** `/v1/environments/{environment_id}/work/{work_id}/stop`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Stop a work item, initiating graceful or forced shutdown.
 
-### Parameters
+## Parameters
 
 - `workID: string`
 
@@ -103,7 +98,7 @@ Stop a work item, initiating graceful or forced shutdown.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaSelfHostedWork`
 
@@ -136,8 +131,6 @@ Stop a work item, initiating graceful or forced shutdown.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -185,9 +178,9 @@ Stop a work item, initiating graceful or forced shutdown.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -203,7 +196,7 @@ const betaSelfHostedWork = await client.beta.environments.work.stop("work_id", {
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

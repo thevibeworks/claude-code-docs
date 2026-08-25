@@ -1,15 +1,10 @@
----
-title: Batches
-url: https://platform.claude.com/docs/en/api/typescript/messages/batches
----
-
 # Batches
 
 ## Create a Message Batch
 
-`client.messages.batches.create(BatchCreateParamsparams, RequestOptionsoptions?): MessageBatch`
+`client.messages.batches.create(params, options?): MessageBatch`
 
-**post** `/v1/messages/batches`
+**POST** `/v1/messages/batches`
 
 Send a batch of Message creation requests.
 
@@ -25,11 +20,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Body param: List of requests for prompt completion. Each is an individual request to create a Message.
 
+    maxItems: 100000, minItems: 1
+
     - `custom_id: string`
 
       Developer-provided ID created for each request in a Message Batch. Useful for matching results to requests, as results may be given out of request order.
 
       Must be unique for each request within the Message Batch.
+
+      maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,64}$
 
     - `params: Params`
 
@@ -46,6 +45,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         Set to `0` to populate the [prompt cache](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache) without generating a response.
 
         Different models have different maximum values for this parameter.  See [models](https://platform.claude.com/docs/en/about-claude/models/overview) for details.
+
+        minimum: 0
 
       - `messages: Array<MessageParam>`
 
@@ -108,17 +109,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `text: string`
 
-              - `type: "text"`
+                minLength: 1
 
-                - `"text"`
+              - `type: "text"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
                 Create a cache control breakpoint at this content block.
 
                 - `type: "ephemeral"`
-
-                  - `"ephemeral"`
 
                 - `ttl?: "5m" | "1h"`
 
@@ -143,15 +142,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_char_index: number`
 
                   - `start_char_index: number`
 
-                  - `type: "char_location"`
+                    minimum: 0
 
-                    - `"char_location"`
+                  - `type: "char_location"`
 
                 - `CitationPageLocationParam`
 
@@ -159,15 +162,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_page_number: number`
 
                   - `start_page_number: number`
 
-                  - `type: "page_location"`
+                    minimum: 1
 
-                    - `"page_location"`
+                  - `type: "page_location"`
 
                 - `CitationContentBlockLocationParam`
 
@@ -179,7 +186,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `document_index: number`
 
+                    minimum: 0
+
                   - `document_title: string | null`
+
+                    maxLength: 500, minLength: 1
 
                   - `end_block_index: number`
 
@@ -191,9 +202,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     0-based index of the first cited block in the source's `content` array.
 
-                  - `type: "content_block_location"`
+                    minimum: 0
 
-                    - `"content_block_location"`
+                  - `type: "content_block_location"`
 
                 - `CitationWebSearchResultLocationParam`
 
@@ -203,11 +214,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `title: string | null`
 
+                    maxLength: 512, minLength: 1
+
                   - `type: "web_search_result_location"`
 
-                    - `"web_search_result_location"`
-
                   - `url: string`
+
+                    minLength: 1
 
                 - `CitationSearchResultLocationParam`
 
@@ -229,17 +242,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                    minimum: 0
+
                   - `source: string`
 
                   - `start_block_index: number`
 
                     0-based index of the first cited block in the source's `content` array.
 
+                    minimum: 0
+
                   - `title: string | null`
 
                   - `type: "search_result_location"`
-
-                    - `"search_result_location"`
 
             - `ImageBlockParam`
 
@@ -248,6 +263,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `Base64ImageSource`
 
                   - `data: string`
+
+                    format: byte
 
                   - `media_type: "image/jpeg" | "image/png" | "image/gif" | "image/webp"`
 
@@ -261,13 +278,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "base64"`
 
-                    - `"base64"`
-
                 - `URLImageSource`
 
                   - `type: "url"`
-
-                    - `"url"`
 
                   - `url: string`
 
@@ -277,11 +290,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "file"`
 
-                    - `"file"`
-
               - `type: "image"`
-
-                - `"image"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -307,13 +316,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `data: string`
 
+                    format: byte
+
                   - `media_type: "application/pdf"`
 
-                    - `"application/pdf"`
-
                   - `type: "base64"`
-
-                    - `"base64"`
 
                 - `PlainTextSource`
 
@@ -321,11 +328,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `media_type: "text/plain"`
 
-                    - `"text/plain"`
-
                   - `type: "text"`
-
-                    - `"text"`
 
                 - `ContentBlockSource`
 
@@ -341,13 +344,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "content"`
 
-                    - `"content"`
-
                 - `URLPDFSource`
 
                   - `type: "url"`
-
-                    - `"url"`
 
                   - `url: string`
 
@@ -357,11 +356,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "file"`
 
-                    - `"file"`
-
               - `type: "document"`
-
-                - `"document"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -373,13 +368,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `context?: string | null`
 
+                minLength: 1
+
               - `title?: string | null`
+
+                maxLength: 500, minLength: 1
 
             - `SearchResultBlockParam`
 
               - `content: Array<TextBlockParam>`
 
                 - `text: string`
+
+                  minLength: 1
 
                 - `type: "text"`
 
@@ -394,8 +395,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `title: string`
 
               - `type: "search_result"`
-
-                - `"search_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -417,8 +416,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "thinking"`
 
-                - `"thinking"`
-
             - `RedactedThinkingBlockParam`
 
               - `data: string`
@@ -427,19 +424,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "redacted_thinking"`
 
-                - `"redacted_thinking"`
-
             - `ToolUseBlockParam`
 
               - `id: string`
+
+                pattern: ^[a-zA-Z0-9_-]+$
 
               - `input: Record<string, unknown>`
 
               - `name: string`
 
-              - `type: "tool_use"`
+                maxLength: 200, minLength: 1
 
-                - `"tool_use"`
+              - `type: "tool_use"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -455,37 +452,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "direct"`
 
-                    - `"direct"`
-
                 - `ServerToolCaller`
 
                   Tool invocation generated by a server-side tool.
 
                   - `tool_id: string`
 
-                  - `type: "code_execution_20250825"`
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                    - `"code_execution_20250825"`
+                  - `type: "code_execution_20250825"`
 
                 - `ServerToolCaller20260120`
 
                   - `tool_id: string`
 
-                  - `type: "code_execution_20260120"`
+                    pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                    - `"code_execution_20260120"`
+                  - `type: "code_execution_20260120"`
 
               - `toolset_name?: string | null`
 
                 For a toolset member tool_use, the toolset family this member belongs to.
 
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
             - `ToolResultBlockParam`
 
               - `tool_use_id: string`
 
-              - `type: "tool_result"`
+                pattern: ^[a-zA-Z0-9_-]+$
 
-                - `"tool_result"`
+              - `type: "tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -511,9 +508,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `tool_name: string`
 
-                    - `type: "tool_reference"`
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                      - `"tool_reference"`
+                    - `type: "tool_reference"`
 
                     - `cache_control?: CacheControlEphemeral | null`
 
@@ -533,25 +530,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       All tabs open in the browser after this call — the full inventory, not a delta. May be empty. Whenever non-empty, exactly one entry carries `active: true`.
 
+                      maxItems: 100
+
                       - `tab_id: string`
 
                         The caller-assigned identifier for this tab, unique within the inventory.
+
+                        maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `title: string`
 
                         The title of the page the tab is showing. May be empty.
 
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                       - `url: string`
 
                         The URL of the page the tab is showing. May be empty.
+
+                        maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `active?: boolean`
 
                         Whether this tab is the active tab after this call. Whenever `tabs` is non-empty, exactly one entry is marked `active: true`.
 
                     - `type: "browser_state"`
-
-                      - `"browser_state"`
 
                     - `cache_control?: CacheControlEphemeral | null`
 
@@ -560,6 +563,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                     - `state_changes?: Array<BrowserStateChange> | null`
 
                       Tabs opened and download state changes during this call. "Nothing to report" is expressed by omitting the field, never by an empty list.
+
+                      maxItems: 200, minItems: 1
 
                       - `BrowserStateChangeTabOpened`
 
@@ -575,9 +580,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           The `tab_id` of the opened tab, present in `tabs`.
 
-                        - `type: "tab_opened"`
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                          - `"tab_opened"`
+                        - `type: "tab_opened"`
 
                       - `BrowserStateChangeDownloadStarted`
 
@@ -587,13 +592,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        - `type: "download_started"`
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                          - `"download_started"`
+                        - `type: "download_started"`
 
                         - `url: string`
 
                           The final post-redirect URL the download was served from.
+
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
                       - `BrowserStateChangeDownloadCompleted`
 
@@ -606,21 +613,27 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        - `type: "download_completed"`
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                          - `"download_completed"`
+                        - `type: "download_completed"`
 
                         - `url: string`
 
                           The final post-redirect URL the download was served from.
 
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                         - `path?: string | null`
 
                           Where the executor saved the file, on the executor's filesystem. Only included when another tool in the same environment can read the file at that path.
 
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
+
                         - `size_bytes?: number | null`
 
                           The completed download's size.
+
+                          minimum: 0
 
                       - `BrowserStateChangeDownloadFailed`
 
@@ -630,17 +643,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                           The caller-assigned identifier for this download, stable across the state changes reporting it.
 
-                        - `type: "download_failed"`
+                          maxLength: 4096, minLength: 1, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
 
-                          - `"download_failed"`
+                        - `type: "download_failed"`
 
                         - `url: string`
 
                           The final post-redirect URL the download was served from.
 
+                          maxLength: 4096, pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$
+
                         - `error?: string | null`
 
                           The failure or cancellation detail, when known.
+
+                          pattern: ^[^\x00-\x1f\x7f-\x9f\u2028\u2029]*$, maxLength: 4096
 
               - `is_error?: boolean`
 
@@ -648,9 +665,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 For a toolset member tool_result, the toolset family of the paired tool_use.
 
+                maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
             - `ServerToolUseBlockParam`
 
               - `id: string`
+
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
               - `input: Record<string, unknown>`
 
@@ -671,8 +692,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `"tool_search_tool_bm25"`
 
               - `type: "server_tool_use"`
-
-                - `"server_tool_use"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -704,8 +723,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "web_search_result"`
 
-                    - `"web_search_result"`
-
                   - `url: string`
 
                   - `page_age?: string | null`
@@ -728,13 +745,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "web_search_tool_result_error"`
 
-                    - `"web_search_tool_result_error"`
-
               - `tool_use_id: string`
 
-              - `type: "web_search_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"web_search_tool_result"`
+              - `type: "web_search_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -782,15 +797,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "web_fetch_tool_result_error"`
 
-                    - `"web_fetch_tool_result_error"`
-
                 - `WebFetchBlockParam`
 
                   - `content: DocumentBlockParam`
 
                   - `type: "web_fetch_result"`
-
-                    - `"web_fetch_result"`
 
                   - `url: string`
 
@@ -802,9 +813,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `tool_use_id: string`
 
-              - `type: "web_fetch_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"web_fetch_tool_result"`
+              - `type: "web_fetch_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -844,8 +855,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "code_execution_tool_result_error"`
 
-                    - `"code_execution_tool_result_error"`
-
                 - `CodeExecutionResultBlockParam`
 
                   - `content: Array<CodeExecutionOutputBlockParam>`
@@ -854,8 +863,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `type: "code_execution_output"`
 
-                      - `"code_execution_output"`
-
                   - `return_code: number`
 
                   - `stderr: string`
@@ -863,8 +870,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `stdout: string`
 
                   - `type: "code_execution_result"`
-
-                    - `"code_execution_result"`
 
                 - `EncryptedCodeExecutionResultBlockParam`
 
@@ -884,13 +889,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "encrypted_code_execution_result"`
 
-                    - `"encrypted_code_execution_result"`
-
               - `tool_use_id: string`
 
-              - `type: "code_execution_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_tool_result"`
+              - `type: "code_execution_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -916,8 +919,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "bash_code_execution_tool_result_error"`
 
-                    - `"bash_code_execution_tool_result_error"`
-
                 - `BashCodeExecutionResultBlockParam`
 
                   - `content: Array<BashCodeExecutionOutputBlockParam>`
@@ -925,8 +926,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                     - `file_id: string`
 
                     - `type: "bash_code_execution_output"`
-
-                      - `"bash_code_execution_output"`
 
                   - `return_code: number`
 
@@ -936,13 +935,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "bash_code_execution_result"`
 
-                    - `"bash_code_execution_result"`
-
               - `tool_use_id: string`
 
-              - `type: "bash_code_execution_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"bash_code_execution_tool_result"`
+              - `type: "bash_code_execution_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -968,8 +965,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "text_editor_code_execution_tool_result_error"`
 
-                    - `"text_editor_code_execution_tool_result_error"`
-
                   - `error_message?: string | null`
 
                 - `TextEditorCodeExecutionViewResultBlockParam`
@@ -986,8 +981,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "text_editor_code_execution_view_result"`
 
-                    - `"text_editor_code_execution_view_result"`
-
                   - `num_lines?: number | null`
 
                   - `start_line?: number | null`
@@ -1000,13 +993,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "text_editor_code_execution_create_result"`
 
-                    - `"text_editor_code_execution_create_result"`
-
                 - `TextEditorCodeExecutionStrReplaceResultBlockParam`
 
                   - `type: "text_editor_code_execution_str_replace_result"`
-
-                    - `"text_editor_code_execution_str_replace_result"`
 
                   - `lines?: Array<string> | null`
 
@@ -1020,9 +1009,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `tool_use_id: string`
 
-              - `type: "text_editor_code_execution_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"text_editor_code_execution_tool_result"`
+              - `type: "text_editor_code_execution_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -1046,8 +1035,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "tool_search_tool_result_error"`
 
-                    - `"tool_search_tool_result_error"`
-
                   - `error_message?: string | null`
 
                 - `ToolSearchToolSearchResultBlockParam`
@@ -1055,6 +1042,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   - `tool_references: Array<ToolReferenceBlockParam>`
 
                     - `tool_name: string`
+
+                      maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
                     - `type: "tool_reference"`
 
@@ -1064,13 +1053,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "tool_search_tool_search_result"`
 
-                    - `"tool_search_tool_search_result"`
-
               - `tool_use_id: string`
 
-              - `type: "tool_search_tool_result"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"tool_search_tool_result"`
+              - `type: "tool_search_tool_result"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -1084,8 +1071,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               - `file_id: string`
 
               - `type: "container_upload"`
-
-                - `"container_upload"`
 
               - `cache_control?: CacheControlEphemeral | null`
 
@@ -1189,9 +1174,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             List of skills to load in the container
 
+            maxItems: 20
+
             - `skill_id: string`
 
               Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `type: "anthropic" | "custom"`
 
@@ -1204,6 +1193,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `version?: string`
 
               Skill version or 'latest' for most recent version
+
+              maxLength: 64, minLength: 1
 
         - `string`
 
@@ -1220,6 +1211,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           An external identifier for the user who is associated with the request.
 
           This should be a uuid, hash value, or other opaque identifier. Anthropic may use this id to help detect abuse. Do not include any identifying information such as name, email address, or phone number.
+
+          maxLength: 512
 
       - `output_config?: OutputConfig`
 
@@ -1248,8 +1241,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             The JSON schema of the format
 
           - `type: "json_schema"`
-
-            - `"json_schema"`
 
       - `service_tier?: "auto" | "standard_only"`
 
@@ -1287,6 +1278,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `text: string`
 
+            minLength: 1
+
           - `type: "text"`
 
           - `cache_control?: CacheControlEphemeral | null`
@@ -1294,14 +1287,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Create a cache control breakpoint at this content block.
 
           - `citations?: Array<TextCitationParam> | null`
-
-      - `temperature?: number`
-
-        Amount of randomness injected into the response.
-
-        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
-
-        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
 
       - `thinking?: ThinkingConfigParam`
 
@@ -1321,9 +1306,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking) for details.
 
-          - `type: "enabled"`
+            minimum: 1024
 
-            - `"enabled"`
+          - `type: "enabled"`
 
           - `display?: "summarized" | "omitted" | null`
 
@@ -1337,13 +1322,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "disabled"`
 
-            - `"disabled"`
-
         - `ThinkingConfigAdaptive`
 
           - `type: "adaptive"`
-
-            - `"adaptive"`
 
           - `display?: "summarized" | "omitted" | null`
 
@@ -1363,8 +1344,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "auto"`
 
-            - `"auto"`
-
           - `disable_parallel_tool_use?: boolean`
 
             Whether to disable parallel tool use.
@@ -1376,8 +1355,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The model will use any available tools.
 
           - `type: "any"`
-
-            - `"any"`
 
           - `disable_parallel_tool_use?: boolean`
 
@@ -1395,8 +1372,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "tool"`
 
-            - `"tool"`
-
           - `disable_parallel_tool_use?: boolean`
 
             Whether to disable parallel tool use.
@@ -1408,8 +1383,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The model will not be allowed to use tools.
 
           - `type: "none"`
-
-            - `"none"`
 
       - `tools?: Array<ToolUnion>`
 
@@ -1485,8 +1458,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "object"`
 
-              - `"object"`
-
             - `properties?: Record<string, unknown> | null`
 
             - `required?: Array<string> | null`
@@ -1496,6 +1467,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
+
+            maxLength: 128, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,128}$
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1533,8 +1506,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type?: "custom" | null`
 
-            - `"custom"`
-
         - `ToolBash20250124`
 
           - `name: "bash"`
@@ -1543,11 +1514,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"bash"`
-
           - `type: "bash_20250124"`
-
-            - `"bash_20250124"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1581,11 +1548,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20250522"`
-
-            - `"code_execution_20250522"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1617,11 +1580,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20250825"`
-
-            - `"code_execution_20250825"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1655,11 +1614,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20260120"`
-
-            - `"code_execution_20260120"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1693,11 +1648,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"code_execution"`
-
           - `type: "code_execution_20260521"`
-
-            - `"code_execution_20260521"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -1729,8 +1680,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           from its schema.
 
           - `type: "browser_toolset_20260801"`
-
-            - `"browser_toolset_20260801"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2135,11 +2084,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"memory"`
-
           - `type: "memory_20250818"`
-
-            - `"memory_20250818"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2177,8 +2122,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           via `configs.zoom.enabled`.
 
           - `type: "computer_toolset_20260801"`
-
-            - `"computer_toolset_20260801"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2415,11 +2358,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"str_replace_editor"`
-
           - `type: "text_editor_20250124"`
-
-            - `"text_editor_20250124"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2453,11 +2392,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"str_replace_based_edit_tool"`
-
           - `type: "text_editor_20250429"`
-
-            - `"text_editor_20250429"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2491,11 +2426,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"str_replace_based_edit_tool"`
-
           - `type: "text_editor_20250728"`
-
-            - `"text_editor_20250728"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2521,6 +2452,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of characters to display when viewing a file. If not specified, defaults to displaying the full file.
 
+            minimum: 1
+
           - `strict?: boolean`
 
             When true, guarantees schema validation on tool names and inputs
@@ -2533,11 +2466,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_search"`
-
           - `type: "web_search_20250305"`
-
-            - `"web_search_20250305"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2569,6 +2498,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of times the tool can be used in the API request.
 
+            exclusiveMinimum: 0
+
           - `strict?: boolean`
 
             When true, guarantees schema validation on tool names and inputs
@@ -2579,23 +2510,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "approximate"`
 
-              - `"approximate"`
-
             - `city?: string | null`
 
               The city of the user.
+
+              maxLength: 255, minLength: 1
 
             - `country?: string | null`
 
               The two letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of the user.
 
+              maxLength: 2, minLength: 2
+
             - `region?: string | null`
 
               The region of the user.
 
+              maxLength: 255, minLength: 1
+
             - `timezone?: string | null`
 
               The [IANA timezone](https://nodatime.org/TimeZones) of the user.
+
+              maxLength: 255, minLength: 1
 
         - `WebFetchTool20250910`
 
@@ -2605,11 +2542,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20250910"`
-
-            - `"web_fetch_20250910"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2645,9 +2578,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -2661,11 +2598,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_search"`
-
           - `type: "web_search_20260209"`
-
-            - `"web_search_20260209"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2696,6 +2629,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -2713,11 +2648,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20260209"`
-
-            - `"web_fetch_20260209"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2753,9 +2684,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -2771,11 +2706,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20260309"`
-
-            - `"web_fetch_20260309"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2811,9 +2742,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `strict?: boolean`
 
@@ -2831,11 +2766,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_search"`
-
           - `type: "web_search_20260318"`
-
-            - `"web_search_20260318"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2866,6 +2797,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `response_inclusion?: "full" | "excluded"`
 
@@ -2891,11 +2824,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"web_fetch"`
-
           - `type: "web_fetch_20260318"`
-
-            - `"web_fetch_20260318"`
 
           - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
 
@@ -2931,9 +2860,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Maximum number of tokens used by including web page text content in the context. The limit is approximate and does not apply to binary content such as PDFs.
 
+            exclusiveMinimum: 0
+
           - `max_uses?: number | null`
 
             Maximum number of times the tool can be used in the API request.
+
+            exclusiveMinimum: 0
 
           - `response_inclusion?: "full" | "excluded"`
 
@@ -2958,8 +2891,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             Name of the tool.
 
             This is how the tool will be called by the model and in `tool_use` blocks.
-
-            - `"tool_search_tool_bm25"`
 
           - `type: "tool_search_tool_bm25_20251119" | "tool_search_tool_bm25"`
 
@@ -2997,8 +2928,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This is how the tool will be called by the model and in `tool_use` blocks.
 
-            - `"tool_search_tool_regex"`
-
           - `type: "tool_search_tool_regex_20251119" | "tool_search_tool_regex"`
 
             - `"tool_search_tool_regex_20251119"`
@@ -3027,7 +2956,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             When true, guarantees schema validation on tool names and inputs
 
+      - `temperature?: number`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting temperature. A value of 1.0 of will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
+
+        Amount of randomness injected into the response.
+
+        Defaults to `1.0`. Ranges from `0.0` to `1.0`. Use `temperature` closer to `0.0` for analytical / multiple choice, and closer to `1.0` for creative and generative tasks.
+
+        Note that even with `temperature` of `0.0`, the results will not be fully deterministic.
+
+        maximum: 1, minimum: 0
+
       - `top_k?: number`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not accept top_k; any value will be rejected with a 400 error.
 
         Only sample from the top K options for each subsequent token.
 
@@ -3035,13 +2978,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         Recommended for advanced use cases only.
 
+        minimum: 0
+
       - `top_p?: number`
+
+        **Deprecated**: Deprecated. Models released after Claude Opus 4.6 do not support setting top_p. A value >= 0.99 will be accepted for backwards compatibility, all other values will be rejected with a 400 error.
 
         Use nucleus sampling.
 
         In nucleus sampling, we compute the cumulative distribution over all the options for each subsequent token in decreasing probability order and cut it off once it reaches a particular probability specified by `top_p`.
 
         Recommended for advanced use cases only.
+
+        maximum: 1, minimum: 0
 
   - `user_profile_id?: string`
 
@@ -3061,13 +3010,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -3075,9 +3030,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -3101,11 +3060,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -3113,15 +3076,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -3135,7 +3104,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -3162,7 +3131,7 @@ const messageBatch = await client.messages.batches.create({
 console.log(messageBatch.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -3187,9 +3156,9 @@ console.log(messageBatch.id);
 
 ## Retrieve a Message Batch
 
-`client.messages.batches.retrieve(stringmessageBatchID, RequestOptionsoptions?): MessageBatch`
+`client.messages.batches.retrieve(messageBatchID, options?): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
@@ -3215,13 +3184,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -3229,9 +3204,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -3255,11 +3234,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -3267,15 +3250,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -3289,7 +3278,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -3305,7 +3294,7 @@ const messageBatch = await client.messages.batches.retrieve("message_batch_id");
 console.log(messageBatch.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -3330,9 +3319,9 @@ console.log(messageBatch.id);
 
 ## List Message Batches
 
-`client.messages.batches.list(BatchListParamsquery?, RequestOptionsoptions?): Page<MessageBatch>`
+`client.messages.batches.list(query?, options?): Page<MessageBatch>`
 
-**get** `/v1/messages/batches`
+**GET** `/v1/messages/batches`
 
 List all Message Batches within a Workspace. Most recently created batches are returned first.
 
@@ -3356,6 +3345,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Defaults to `20`. Ranges from `1` to `1000`.
 
+    maximum: 1000, minimum: 1
+
 ### Returns
 
 - `MessageBatch`
@@ -3370,13 +3361,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -3384,9 +3381,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -3410,11 +3411,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -3422,15 +3427,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -3444,7 +3455,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -3461,7 +3472,7 @@ for await (const messageBatch of client.messages.batches.list()) {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -3493,9 +3504,9 @@ for await (const messageBatch of client.messages.batches.list()) {
 
 ## Cancel a Message Batch
 
-`client.messages.batches.cancel(stringmessageBatchID, RequestOptionsoptions?): MessageBatch`
+`client.messages.batches.cancel(messageBatchID, options?): MessageBatch`
 
-**post** `/v1/messages/batches/{message_batch_id}/cancel`
+**POST** `/v1/messages/batches/{message_batch_id}/cancel`
 
 Batches may be canceled any time before processing ends. Once cancellation is initiated, the batch enters a `canceling` state, at which time the system may complete any in-progress, non-interruptible requests before finalizing cancellation.
 
@@ -3523,13 +3534,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -3537,9 +3554,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -3563,11 +3584,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -3575,15 +3600,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -3597,7 +3628,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Example
 
@@ -3613,7 +3644,7 @@ const messageBatch = await client.messages.batches.cancel("message_batch_id");
 console.log(messageBatch.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -3638,9 +3669,9 @@ console.log(messageBatch.id);
 
 ## Delete a Message Batch
 
-`client.messages.batches.delete(stringmessageBatchID, RequestOptionsoptions?): DeletedMessageBatch`
+`client.messages.batches.delete(messageBatchID, options?): DeletedMessageBatch`
 
-**delete** `/v1/messages/batches/{message_batch_id}`
+**DELETE** `/v1/messages/batches/{message_batch_id}`
 
 Delete a Message Batch.
 
@@ -3668,7 +3699,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `"message_batch_deleted"`
+    default: message_batch_deleted
 
 ### Example
 
@@ -3684,7 +3715,7 @@ const deletedMessageBatch = await client.messages.batches.delete("message_batch_
 console.log(deletedMessageBatch.id);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -3695,9 +3726,9 @@ console.log(deletedMessageBatch.id);
 
 ## Retrieve Message Batch results
 
-`client.messages.batches.results(stringmessageBatchID, RequestOptionsoptions?): MessageBatchIndividualResponse | Stream<MessageBatchIndividualResponse>`
+`client.messages.batches.results(messageBatchID, options?): MessageBatchIndividualResponse | Stream<MessageBatchIndividualResponse>`
 
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -3751,6 +3782,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
+            format: date-time
+
           - `skills: Array<ContainerSkill> | null`
 
             Skills loaded in the container
@@ -3758,6 +3791,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `skill_id: string`
 
               Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `type: "anthropic" | "custom"`
 
@@ -3770,6 +3805,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `version: string`
 
               The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `content: Array<ContentBlock>`
 
@@ -3814,6 +3851,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
 
                 - `end_char_index: number`
@@ -3822,15 +3861,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_char_index: number`
 
+                  minimum: 0
+
                 - `type: "char_location"`
 
-                  - `"char_location"`
+                  default: char_location
 
               - `CitationPageLocation`
 
                 - `cited_text: string`
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string | null`
 
@@ -3840,9 +3883,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_page_number: number`
 
+                  minimum: 1
+
                 - `type: "page_location"`
 
-                  - `"page_location"`
+                  default: page_location
 
               - `CitationContentBlockLocation`
 
@@ -3853,6 +3898,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string | null`
 
@@ -3868,9 +3915,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: "content_block_location"`
 
-                  - `"content_block_location"`
+                  default: content_block_location
 
               - `CitationsWebSearchResultLocation`
 
@@ -3880,9 +3929,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: string | null`
 
+                  maxLength: 512
+
                 - `type: "web_search_result_location"`
 
-                  - `"web_search_result_location"`
+                  default: web_search_result_location
 
                 - `url: string`
 
@@ -3906,23 +3957,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: string | null`
 
                 - `type: "search_result_location"`
 
-                  - `"search_result_location"`
+                  default: search_result_location
 
             - `text: string`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: "text"`
 
-              - `"text"`
+              default: text
 
           - `ThinkingBlock`
 
@@ -3940,7 +3997,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "thinking"`
 
-              - `"thinking"`
+              default: thinking
 
           - `RedactedThinkingBlock`
 
@@ -3954,15 +4011,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "redacted_thinking"`
 
-              - `"redacted_thinking"`
+              default: redacted_thinking
 
           - `ToolUseBlock`
 
             - `id: string`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -3970,45 +4031,51 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "direct"`
 
-                  - `"direct"`
-
               - `ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: string`
 
-                - `type: "code_execution_20250825"`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: "code_execution_20250825"`
 
               - `ServerToolCaller20260120`
 
                 - `tool_id: string`
 
-                - `type: "code_execution_20260120"`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20260120"`
+                - `type: "code_execution_20260120"`
 
             - `input: Record<string, unknown>`
 
             - `name: string`
 
+              minLength: 1
+
             - `type: "tool_use"`
 
-              - `"tool_use"`
+              default: tool_use
 
             - `toolset_name?: string | null`
 
               For a toolset member tool_use, the toolset family.
 
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
           - `ServerToolUseBlock`
 
             - `id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -4040,13 +4107,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "server_tool_use"`
 
-              - `"server_tool_use"`
+              default: server_tool_use
 
           - `WebSearchToolResultBlock`
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -4078,7 +4147,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_search_tool_result_error"`
 
-                  - `"web_search_tool_result_error"`
+                  default: web_search_tool_result_error
 
               - `Array<WebSearchResultBlock>`
 
@@ -4090,21 +4159,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_search_result"`
 
-                  - `"web_search_result"`
+                  default: web_search_result
 
                 - `url: string`
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_search_tool_result"`
 
-              - `"web_search_tool_result"`
+              default: web_search_tool_result
 
           - `WebFetchToolResultBlock`
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -4142,7 +4215,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_fetch_tool_result_error"`
 
-                  - `"web_fetch_tool_result_error"`
+                  default: web_fetch_tool_result_error
 
               - `WebFetchBlock`
 
@@ -4154,19 +4227,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `enabled: boolean`
 
+                      default: false
+
                   - `source: Base64PDFSource | PlainTextSource`
 
                     - `Base64PDFSource`
 
                       - `data: string`
 
+                        format: byte
+
                       - `media_type: "application/pdf"`
 
-                        - `"application/pdf"`
-
                       - `type: "base64"`
-
-                        - `"base64"`
 
                     - `PlainTextSource`
 
@@ -4174,11 +4247,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `media_type: "text/plain"`
 
-                        - `"text/plain"`
-
                       - `type: "text"`
-
-                        - `"text"`
 
                   - `title: string | null`
 
@@ -4186,7 +4255,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "document"`
 
-                    - `"document"`
+                    default: document
 
                 - `retrieved_at: string | null`
 
@@ -4194,7 +4263,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "web_fetch_result"`
 
-                  - `"web_fetch_result"`
+                  default: web_fetch_result
 
                 - `url: string`
 
@@ -4202,9 +4271,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_fetch_tool_result"`
 
-              - `"web_fetch_tool_result"`
+              default: web_fetch_tool_result
 
           - `CodeExecutionToolResultBlock`
 
@@ -4226,7 +4297,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_tool_result_error"`
 
-                  - `"code_execution_tool_result_error"`
+                  default: code_execution_tool_result_error
 
               - `CodeExecutionResultBlock`
 
@@ -4236,7 +4307,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "code_execution_output"`
 
-                    - `"code_execution_output"`
+                    default: code_execution_output
 
                 - `return_code: number`
 
@@ -4246,7 +4317,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "code_execution_result"`
 
-                  - `"code_execution_result"`
+                  default: code_execution_result
 
               - `EncryptedCodeExecutionResultBlock`
 
@@ -4258,6 +4329,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "code_execution_output"`
 
+                    default: code_execution_output
+
                 - `encrypted_stdout: string`
 
                 - `return_code: number`
@@ -4266,13 +4339,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "encrypted_code_execution_result"`
 
-                  - `"encrypted_code_execution_result"`
+                  default: encrypted_code_execution_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "code_execution_tool_result"`
 
-              - `"code_execution_tool_result"`
+              default: code_execution_tool_result
 
           - `BashCodeExecutionToolResultBlock`
 
@@ -4294,7 +4369,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "bash_code_execution_tool_result_error"`
 
-                  - `"bash_code_execution_tool_result_error"`
+                  default: bash_code_execution_tool_result_error
 
               - `BashCodeExecutionResultBlock`
 
@@ -4304,7 +4379,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: "bash_code_execution_output"`
 
-                    - `"bash_code_execution_output"`
+                    default: bash_code_execution_output
 
                 - `return_code: number`
 
@@ -4314,13 +4389,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "bash_code_execution_result"`
 
-                  - `"bash_code_execution_result"`
+                  default: bash_code_execution_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "bash_code_execution_tool_result"`
 
-              - `"bash_code_execution_tool_result"`
+              default: bash_code_execution_tool_result
 
           - `TextEditorCodeExecutionToolResultBlock`
 
@@ -4344,7 +4421,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
-                  - `"text_editor_code_execution_tool_result_error"`
+                  default: text_editor_code_execution_tool_result_error
 
               - `TextEditorCodeExecutionViewResultBlock`
 
@@ -4366,7 +4443,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_view_result"`
 
-                  - `"text_editor_code_execution_view_result"`
+                  default: text_editor_code_execution_view_result
 
               - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -4374,7 +4451,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_create_result"`
 
-                  - `"text_editor_code_execution_create_result"`
+                  default: text_editor_code_execution_create_result
 
               - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -4390,13 +4467,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "text_editor_code_execution_str_replace_result"`
 
-                  - `"text_editor_code_execution_str_replace_result"`
+                  default: text_editor_code_execution_str_replace_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "text_editor_code_execution_tool_result"`
 
-              - `"text_editor_code_execution_tool_result"`
+              default: text_editor_code_execution_tool_result
 
           - `ToolSearchToolResultBlock`
 
@@ -4418,7 +4497,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: "tool_search_tool_result_error"`
 
-                  - `"tool_search_tool_result_error"`
+                  default: tool_search_tool_result_error
 
               - `ToolSearchToolSearchResultBlock`
 
@@ -4426,19 +4505,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: string`
 
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                   - `type: "tool_reference"`
 
-                    - `"tool_reference"`
+                    default: tool_reference
 
                 - `type: "tool_search_tool_search_result"`
 
-                  - `"tool_search_tool_search_result"`
+                  default: tool_search_tool_search_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "tool_search_tool_result"`
 
-              - `"tool_search_tool_result"`
+              default: tool_search_tool_result
 
           - `ContainerUploadBlock`
 
@@ -4448,7 +4531,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "container_upload"`
 
-              - `"container_upload"`
+              default: container_upload
 
         - `model: Model`
 
@@ -4526,7 +4609,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This will always be `"assistant"`.
 
-          - `"assistant"`
+          default: assistant
 
         - `stop_details: RefusalStopDetails | null`
 
@@ -4564,7 +4647,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "refusal"`
 
-            - `"refusal"`
+            default: refusal
 
         - `stop_reason: StopReason | null`
 
@@ -4608,7 +4691,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-          - `"message"`
+          default: message
 
         - `usage: Usage`
 
@@ -4630,17 +4713,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              default: 0, minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              default: 0, minimum: 0
 
           - `cache_creation_input_tokens: number | null`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number | null`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `inference_geo: string | null`
 
@@ -4650,9 +4741,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `output_tokens: number`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `output_tokens_details: OutputTokensDetails | null`
 
@@ -4674,6 +4769,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              default: 0, minimum: 0
+
           - `server_tool_use: ServerToolUsage | null`
 
             The number of server tool requests.
@@ -4682,9 +4779,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              default: 0, minimum: 0
+
             - `web_search_requests: number`
 
               The number of web search tool requests.
+
+              default: 0, minimum: 0
 
           - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -4698,7 +4799,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: "succeeded"`
 
-        - `"succeeded"`
+        default: succeeded
 
     - `MessageBatchErroredResult`
 
@@ -4710,95 +4811,113 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `message: string`
 
+              default: Invalid request
+
             - `type: "invalid_request_error"`
 
-              - `"invalid_request_error"`
+              default: invalid_request_error
 
           - `AuthenticationError`
 
             - `message: string`
 
+              default: Authentication error
+
             - `type: "authentication_error"`
 
-              - `"authentication_error"`
+              default: authentication_error
 
           - `BillingError`
 
             - `message: string`
 
+              default: Billing error
+
             - `type: "billing_error"`
 
-              - `"billing_error"`
+              default: billing_error
 
           - `PermissionError`
 
             - `message: string`
 
+              default: Permission denied
+
             - `type: "permission_error"`
 
-              - `"permission_error"`
+              default: permission_error
 
           - `NotFoundError`
 
             - `message: string`
 
+              default: Not found
+
             - `type: "not_found_error"`
 
-              - `"not_found_error"`
+              default: not_found_error
 
           - `RateLimitError`
 
             - `message: string`
 
+              default: Rate limited
+
             - `type: "rate_limit_error"`
 
-              - `"rate_limit_error"`
+              default: rate_limit_error
 
           - `GatewayTimeoutError`
 
             - `message: string`
 
+              default: Request timeout
+
             - `type: "timeout_error"`
 
-              - `"timeout_error"`
+              default: timeout_error
 
           - `APIErrorObject`
 
             - `message: string`
 
+              default: Internal server error
+
             - `type: "api_error"`
 
-              - `"api_error"`
+              default: api_error
 
           - `OverloadedError`
 
             - `message: string`
 
+              default: Overloaded
+
             - `type: "overloaded_error"`
 
-              - `"overloaded_error"`
+              default: overloaded_error
 
         - `request_id: string | null`
 
         - `type: "error"`
 
-          - `"error"`
+          default: error
 
       - `type: "errored"`
 
-        - `"errored"`
+        default: errored
 
     - `MessageBatchCanceledResult`
 
       - `type: "canceled"`
 
-        - `"canceled"`
+        default: canceled
 
     - `MessageBatchExpiredResult`
 
       - `type: "expired"`
 
-        - `"expired"`
+        default: expired
 
 ### Example
 
@@ -4816,7 +4935,7 @@ const messageBatchIndividualResponse = await client.messages.batches.results(
 console.log(messageBatchIndividualResponse.custom_id);
 ```
 
-## Domain Types
+## Domain types
 
 ### Deleted Message Batch
 
@@ -4832,7 +4951,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
     For Message Batches, this is always `"message_batch_deleted"`.
 
-    - `"message_batch_deleted"`
+    default: message_batch_deleted
 
 ### Message Batch
 
@@ -4848,13 +4967,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
     RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
+    format: date-time
+
   - `cancel_initiated_at: string | null`
 
     RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch was created.
+
+    format: date-time
 
   - `ended_at: string | null`
 
@@ -4862,9 +4987,13 @@ console.log(messageBatchIndividualResponse.custom_id);
 
     Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
+    format: date-time
+
   - `expires_at: string`
 
     RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+
+    format: date-time
 
   - `processing_status: "in_progress" | "canceling" | "ended"`
 
@@ -4888,11 +5017,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `errored: number`
 
       Number of requests in the Message Batch that encountered an error.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
     - `expired: number`
 
@@ -4900,15 +5033,21 @@ console.log(messageBatchIndividualResponse.custom_id);
 
       This is zero until processing of the entire Message Batch has ended.
 
+      default: 0
+
     - `processing: number`
 
       Number of requests in the Message Batch that are processing.
+
+      default: 0
 
     - `succeeded: number`
 
       Number of requests in the Message Batch that have completed successfully.
 
       This is zero until processing of the entire Message Batch has ended.
+
+      default: 0
 
   - `results_url: string | null`
 
@@ -4922,7 +5061,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
     For Message Batches, this is always `"message_batch"`.
 
-    - `"message_batch"`
+    default: message_batch
 
 ### Message Batch Canceled Result
 
@@ -4930,7 +5069,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
   - `type: "canceled"`
 
-    - `"canceled"`
+    default: canceled
 
 ### Message Batch Errored Result
 
@@ -4944,83 +5083,101 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         - `message: string`
 
+          default: Invalid request
+
         - `type: "invalid_request_error"`
 
-          - `"invalid_request_error"`
+          default: invalid_request_error
 
       - `AuthenticationError`
 
         - `message: string`
 
+          default: Authentication error
+
         - `type: "authentication_error"`
 
-          - `"authentication_error"`
+          default: authentication_error
 
       - `BillingError`
 
         - `message: string`
 
+          default: Billing error
+
         - `type: "billing_error"`
 
-          - `"billing_error"`
+          default: billing_error
 
       - `PermissionError`
 
         - `message: string`
 
+          default: Permission denied
+
         - `type: "permission_error"`
 
-          - `"permission_error"`
+          default: permission_error
 
       - `NotFoundError`
 
         - `message: string`
 
+          default: Not found
+
         - `type: "not_found_error"`
 
-          - `"not_found_error"`
+          default: not_found_error
 
       - `RateLimitError`
 
         - `message: string`
 
+          default: Rate limited
+
         - `type: "rate_limit_error"`
 
-          - `"rate_limit_error"`
+          default: rate_limit_error
 
       - `GatewayTimeoutError`
 
         - `message: string`
 
+          default: Request timeout
+
         - `type: "timeout_error"`
 
-          - `"timeout_error"`
+          default: timeout_error
 
       - `APIErrorObject`
 
         - `message: string`
 
+          default: Internal server error
+
         - `type: "api_error"`
 
-          - `"api_error"`
+          default: api_error
 
       - `OverloadedError`
 
         - `message: string`
 
+          default: Overloaded
+
         - `type: "overloaded_error"`
 
-          - `"overloaded_error"`
+          default: overloaded_error
 
     - `request_id: string | null`
 
     - `type: "error"`
 
-      - `"error"`
+      default: error
 
   - `type: "errored"`
 
-    - `"errored"`
+    default: errored
 
 ### Message Batch Expired Result
 
@@ -5028,7 +5185,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
   - `type: "expired"`
 
-    - `"expired"`
+    default: expired
 
 ### Message Batch Individual Response
 
@@ -5070,6 +5227,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             The time at which the container will expire.
 
+            format: date-time
+
           - `skills: Array<ContainerSkill> | null`
 
             Skills loaded in the container
@@ -5077,6 +5236,8 @@ console.log(messageBatchIndividualResponse.custom_id);
             - `skill_id: string`
 
               Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `type: "anthropic" | "custom"`
 
@@ -5089,6 +5250,8 @@ console.log(messageBatchIndividualResponse.custom_id);
             - `version: string`
 
               The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `content: Array<ContentBlock>`
 
@@ -5133,6 +5296,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `document_index: number`
 
+                  minimum: 0
+
                 - `document_title: string | null`
 
                 - `end_char_index: number`
@@ -5141,15 +5306,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `start_char_index: number`
 
+                  minimum: 0
+
                 - `type: "char_location"`
 
-                  - `"char_location"`
+                  default: char_location
 
               - `CitationPageLocation`
 
                 - `cited_text: string`
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string | null`
 
@@ -5159,9 +5328,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `start_page_number: number`
 
+                  minimum: 1
+
                 - `type: "page_location"`
 
-                  - `"page_location"`
+                  default: page_location
 
               - `CitationContentBlockLocation`
 
@@ -5172,6 +5343,8 @@ console.log(messageBatchIndividualResponse.custom_id);
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: number`
+
+                  minimum: 0
 
                 - `document_title: string | null`
 
@@ -5187,9 +5360,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: "content_block_location"`
 
-                  - `"content_block_location"`
+                  default: content_block_location
 
               - `CitationsWebSearchResultLocation`
 
@@ -5199,9 +5374,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `title: string | null`
 
+                  maxLength: 512
+
                 - `type: "web_search_result_location"`
 
-                  - `"web_search_result_location"`
+                  default: web_search_result_location
 
                 - `url: string`
 
@@ -5225,23 +5402,29 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: string`
 
                 - `start_block_index: number`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: string | null`
 
                 - `type: "search_result_location"`
 
-                  - `"search_result_location"`
+                  default: search_result_location
 
             - `text: string`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: "text"`
 
-              - `"text"`
+              default: text
 
           - `ThinkingBlock`
 
@@ -5259,7 +5442,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "thinking"`
 
-              - `"thinking"`
+              default: thinking
 
           - `RedactedThinkingBlock`
 
@@ -5273,15 +5456,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "redacted_thinking"`
 
-              - `"redacted_thinking"`
+              default: redacted_thinking
 
           - `ToolUseBlock`
 
             - `id: string`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -5289,45 +5476,51 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "direct"`
 
-                  - `"direct"`
-
               - `ServerToolCaller`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: string`
 
-                - `type: "code_execution_20250825"`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: "code_execution_20250825"`
 
               - `ServerToolCaller20260120`
 
                 - `tool_id: string`
 
-                - `type: "code_execution_20260120"`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20260120"`
+                - `type: "code_execution_20260120"`
 
             - `input: Record<string, unknown>`
 
             - `name: string`
 
+              minLength: 1
+
             - `type: "tool_use"`
 
-              - `"tool_use"`
+              default: tool_use
 
             - `toolset_name?: string | null`
 
               For a toolset member tool_use, the toolset family.
 
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
           - `ServerToolUseBlock`
 
             - `id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -5359,13 +5552,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "server_tool_use"`
 
-              - `"server_tool_use"`
+              default: server_tool_use
 
           - `WebSearchToolResultBlock`
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -5397,7 +5592,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "web_search_tool_result_error"`
 
-                  - `"web_search_tool_result_error"`
+                  default: web_search_tool_result_error
 
               - `Array<WebSearchResultBlock>`
 
@@ -5409,21 +5604,25 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "web_search_result"`
 
-                  - `"web_search_result"`
+                  default: web_search_result
 
                 - `url: string`
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_search_tool_result"`
 
-              - `"web_search_tool_result"`
+              default: web_search_tool_result
 
           - `WebFetchToolResultBlock`
 
             - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
               Tool invocation directly from the model.
+
+              default: {"type":"direct"}
 
               - `DirectCaller`
 
@@ -5461,7 +5660,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "web_fetch_tool_result_error"`
 
-                  - `"web_fetch_tool_result_error"`
+                  default: web_fetch_tool_result_error
 
               - `WebFetchBlock`
 
@@ -5473,19 +5672,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                     - `enabled: boolean`
 
+                      default: false
+
                   - `source: Base64PDFSource | PlainTextSource`
 
                     - `Base64PDFSource`
 
                       - `data: string`
 
+                        format: byte
+
                       - `media_type: "application/pdf"`
 
-                        - `"application/pdf"`
-
                       - `type: "base64"`
-
-                        - `"base64"`
 
                     - `PlainTextSource`
 
@@ -5493,11 +5692,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                       - `media_type: "text/plain"`
 
-                        - `"text/plain"`
-
                       - `type: "text"`
-
-                        - `"text"`
 
                   - `title: string | null`
 
@@ -5505,7 +5700,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   - `type: "document"`
 
-                    - `"document"`
+                    default: document
 
                 - `retrieved_at: string | null`
 
@@ -5513,7 +5708,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "web_fetch_result"`
 
-                  - `"web_fetch_result"`
+                  default: web_fetch_result
 
                 - `url: string`
 
@@ -5521,9 +5716,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "web_fetch_tool_result"`
 
-              - `"web_fetch_tool_result"`
+              default: web_fetch_tool_result
 
           - `CodeExecutionToolResultBlock`
 
@@ -5545,7 +5742,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "code_execution_tool_result_error"`
 
-                  - `"code_execution_tool_result_error"`
+                  default: code_execution_tool_result_error
 
               - `CodeExecutionResultBlock`
 
@@ -5555,7 +5752,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   - `type: "code_execution_output"`
 
-                    - `"code_execution_output"`
+                    default: code_execution_output
 
                 - `return_code: number`
 
@@ -5565,7 +5762,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "code_execution_result"`
 
-                  - `"code_execution_result"`
+                  default: code_execution_result
 
               - `EncryptedCodeExecutionResultBlock`
 
@@ -5577,6 +5774,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   - `type: "code_execution_output"`
 
+                    default: code_execution_output
+
                 - `encrypted_stdout: string`
 
                 - `return_code: number`
@@ -5585,13 +5784,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "encrypted_code_execution_result"`
 
-                  - `"encrypted_code_execution_result"`
+                  default: encrypted_code_execution_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "code_execution_tool_result"`
 
-              - `"code_execution_tool_result"`
+              default: code_execution_tool_result
 
           - `BashCodeExecutionToolResultBlock`
 
@@ -5613,7 +5814,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "bash_code_execution_tool_result_error"`
 
-                  - `"bash_code_execution_tool_result_error"`
+                  default: bash_code_execution_tool_result_error
 
               - `BashCodeExecutionResultBlock`
 
@@ -5623,7 +5824,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   - `type: "bash_code_execution_output"`
 
-                    - `"bash_code_execution_output"`
+                    default: bash_code_execution_output
 
                 - `return_code: number`
 
@@ -5633,13 +5834,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "bash_code_execution_result"`
 
-                  - `"bash_code_execution_result"`
+                  default: bash_code_execution_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "bash_code_execution_tool_result"`
 
-              - `"bash_code_execution_tool_result"`
+              default: bash_code_execution_tool_result
 
           - `TextEditorCodeExecutionToolResultBlock`
 
@@ -5663,7 +5866,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "text_editor_code_execution_tool_result_error"`
 
-                  - `"text_editor_code_execution_tool_result_error"`
+                  default: text_editor_code_execution_tool_result_error
 
               - `TextEditorCodeExecutionViewResultBlock`
 
@@ -5685,7 +5888,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "text_editor_code_execution_view_result"`
 
-                  - `"text_editor_code_execution_view_result"`
+                  default: text_editor_code_execution_view_result
 
               - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -5693,7 +5896,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "text_editor_code_execution_create_result"`
 
-                  - `"text_editor_code_execution_create_result"`
+                  default: text_editor_code_execution_create_result
 
               - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -5709,13 +5912,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "text_editor_code_execution_str_replace_result"`
 
-                  - `"text_editor_code_execution_str_replace_result"`
+                  default: text_editor_code_execution_str_replace_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "text_editor_code_execution_tool_result"`
 
-              - `"text_editor_code_execution_tool_result"`
+              default: text_editor_code_execution_tool_result
 
           - `ToolSearchToolResultBlock`
 
@@ -5737,7 +5942,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "tool_search_tool_result_error"`
 
-                  - `"tool_search_tool_result_error"`
+                  default: tool_search_tool_result_error
 
               - `ToolSearchToolSearchResultBlock`
 
@@ -5745,19 +5950,23 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   - `tool_name: string`
 
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                   - `type: "tool_reference"`
 
-                    - `"tool_reference"`
+                    default: tool_reference
 
                 - `type: "tool_search_tool_search_result"`
 
-                  - `"tool_search_tool_search_result"`
+                  default: tool_search_tool_search_result
 
             - `tool_use_id: string`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: "tool_search_tool_result"`
 
-              - `"tool_search_tool_result"`
+              default: tool_search_tool_result
 
           - `ContainerUploadBlock`
 
@@ -5767,7 +5976,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "container_upload"`
 
-              - `"container_upload"`
+              default: container_upload
 
         - `model: Model`
 
@@ -5845,7 +6054,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           This will always be `"assistant"`.
 
-          - `"assistant"`
+          default: assistant
 
         - `stop_details: RefusalStopDetails | null`
 
@@ -5883,7 +6092,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           - `type: "refusal"`
 
-            - `"refusal"`
+            default: refusal
 
         - `stop_reason: StopReason | null`
 
@@ -5927,7 +6136,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           For Messages, this is always `"message"`.
 
-          - `"message"`
+          default: message
 
         - `usage: Usage`
 
@@ -5949,17 +6158,25 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              default: 0, minimum: 0
+
             - `ephemeral_5m_input_tokens: number`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              default: 0, minimum: 0
 
           - `cache_creation_input_tokens: number | null`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: number | null`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `inference_geo: string | null`
 
@@ -5969,9 +6186,13 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             The number of input tokens which were used.
 
+            minimum: 0
+
           - `output_tokens: number`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `output_tokens_details: OutputTokensDetails | null`
 
@@ -5993,6 +6214,8 @@ console.log(messageBatchIndividualResponse.custom_id);
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              default: 0, minimum: 0
+
           - `server_tool_use: ServerToolUsage | null`
 
             The number of server tool requests.
@@ -6001,9 +6224,13 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               The number of web fetch tool requests.
 
+              default: 0, minimum: 0
+
             - `web_search_requests: number`
 
               The number of web search tool requests.
+
+              default: 0, minimum: 0
 
           - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -6017,7 +6244,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
       - `type: "succeeded"`
 
-        - `"succeeded"`
+        default: succeeded
 
     - `MessageBatchErroredResult`
 
@@ -6029,95 +6256,113 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `message: string`
 
+              default: Invalid request
+
             - `type: "invalid_request_error"`
 
-              - `"invalid_request_error"`
+              default: invalid_request_error
 
           - `AuthenticationError`
 
             - `message: string`
 
+              default: Authentication error
+
             - `type: "authentication_error"`
 
-              - `"authentication_error"`
+              default: authentication_error
 
           - `BillingError`
 
             - `message: string`
 
+              default: Billing error
+
             - `type: "billing_error"`
 
-              - `"billing_error"`
+              default: billing_error
 
           - `PermissionError`
 
             - `message: string`
 
+              default: Permission denied
+
             - `type: "permission_error"`
 
-              - `"permission_error"`
+              default: permission_error
 
           - `NotFoundError`
 
             - `message: string`
 
+              default: Not found
+
             - `type: "not_found_error"`
 
-              - `"not_found_error"`
+              default: not_found_error
 
           - `RateLimitError`
 
             - `message: string`
 
+              default: Rate limited
+
             - `type: "rate_limit_error"`
 
-              - `"rate_limit_error"`
+              default: rate_limit_error
 
           - `GatewayTimeoutError`
 
             - `message: string`
 
+              default: Request timeout
+
             - `type: "timeout_error"`
 
-              - `"timeout_error"`
+              default: timeout_error
 
           - `APIErrorObject`
 
             - `message: string`
 
+              default: Internal server error
+
             - `type: "api_error"`
 
-              - `"api_error"`
+              default: api_error
 
           - `OverloadedError`
 
             - `message: string`
 
+              default: Overloaded
+
             - `type: "overloaded_error"`
 
-              - `"overloaded_error"`
+              default: overloaded_error
 
         - `request_id: string | null`
 
         - `type: "error"`
 
-          - `"error"`
+          default: error
 
       - `type: "errored"`
 
-        - `"errored"`
+        default: errored
 
     - `MessageBatchCanceledResult`
 
       - `type: "canceled"`
 
-        - `"canceled"`
+        default: canceled
 
     - `MessageBatchExpiredResult`
 
       - `type: "expired"`
 
-        - `"expired"`
+        default: expired
 
 ### Message Batch Request Counts
 
@@ -6129,11 +6374,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
     This is zero until processing of the entire Message Batch has ended.
 
+    default: 0
+
   - `errored: number`
 
     Number of requests in the Message Batch that encountered an error.
 
     This is zero until processing of the entire Message Batch has ended.
+
+    default: 0
 
   - `expired: number`
 
@@ -6141,15 +6390,21 @@ console.log(messageBatchIndividualResponse.custom_id);
 
     This is zero until processing of the entire Message Batch has ended.
 
+    default: 0
+
   - `processing: number`
 
     Number of requests in the Message Batch that are processing.
+
+    default: 0
 
   - `succeeded: number`
 
     Number of requests in the Message Batch that have completed successfully.
 
     This is zero until processing of the entire Message Batch has ended.
+
+    default: 0
 
 ### Message Batch Result
 
@@ -6181,6 +6436,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           The time at which the container will expire.
 
+          format: date-time
+
         - `skills: Array<ContainerSkill> | null`
 
           Skills loaded in the container
@@ -6188,6 +6445,8 @@ console.log(messageBatchIndividualResponse.custom_id);
           - `skill_id: string`
 
             Skill ID
+
+            maxLength: 64, minLength: 1
 
           - `type: "anthropic" | "custom"`
 
@@ -6200,6 +6459,8 @@ console.log(messageBatchIndividualResponse.custom_id);
           - `version: string`
 
             The resolved version: a skill version ID for custom skills.
+
+            maxLength: 64, minLength: 1
 
       - `content: Array<ContentBlock>`
 
@@ -6244,6 +6505,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `document_index: number`
 
+                minimum: 0
+
               - `document_title: string | null`
 
               - `end_char_index: number`
@@ -6252,15 +6515,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `start_char_index: number`
 
+                minimum: 0
+
               - `type: "char_location"`
 
-                - `"char_location"`
+                default: char_location
 
             - `CitationPageLocation`
 
               - `cited_text: string`
 
               - `document_index: number`
+
+                minimum: 0
 
               - `document_title: string | null`
 
@@ -6270,9 +6537,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `start_page_number: number`
 
+                minimum: 1
+
               - `type: "page_location"`
 
-                - `"page_location"`
+                default: page_location
 
             - `CitationContentBlockLocation`
 
@@ -6283,6 +6552,8 @@ console.log(messageBatchIndividualResponse.custom_id);
                 Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
               - `document_index: number`
+
+                minimum: 0
 
               - `document_title: string | null`
 
@@ -6298,9 +6569,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `type: "content_block_location"`
 
-                - `"content_block_location"`
+                default: content_block_location
 
             - `CitationsWebSearchResultLocation`
 
@@ -6310,9 +6583,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `title: string | null`
 
+                maxLength: 512
+
               - `type: "web_search_result_location"`
 
-                - `"web_search_result_location"`
+                default: web_search_result_location
 
               - `url: string`
 
@@ -6336,23 +6611,29 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                minimum: 0
+
               - `source: string`
 
               - `start_block_index: number`
 
                 0-based index of the first cited block in the source's `content` array.
 
+                minimum: 0
+
               - `title: string | null`
 
               - `type: "search_result_location"`
 
-                - `"search_result_location"`
+                default: search_result_location
 
           - `text: string`
 
+            maxLength: 5000000, minLength: 0
+
           - `type: "text"`
 
-            - `"text"`
+            default: text
 
         - `ThinkingBlock`
 
@@ -6370,7 +6651,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           - `type: "thinking"`
 
-            - `"thinking"`
+            default: thinking
 
         - `RedactedThinkingBlock`
 
@@ -6384,15 +6665,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           - `type: "redacted_thinking"`
 
-            - `"redacted_thinking"`
+            default: redacted_thinking
 
         - `ToolUseBlock`
 
           - `id: string`
 
+            pattern: ^[a-zA-Z0-9_-]+$
+
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -6400,45 +6685,51 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "direct"`
 
-                - `"direct"`
-
             - `ServerToolCaller`
 
               Tool invocation generated by a server-side tool.
 
               - `tool_id: string`
 
-              - `type: "code_execution_20250825"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20250825"`
+              - `type: "code_execution_20250825"`
 
             - `ServerToolCaller20260120`
 
               - `tool_id: string`
 
-              - `type: "code_execution_20260120"`
+                pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                - `"code_execution_20260120"`
+              - `type: "code_execution_20260120"`
 
           - `input: Record<string, unknown>`
 
           - `name: string`
 
+            minLength: 1
+
           - `type: "tool_use"`
 
-            - `"tool_use"`
+            default: tool_use
 
           - `toolset_name?: string | null`
 
             For a toolset member tool_use, the toolset family.
 
+            maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
         - `ServerToolUseBlock`
 
           - `id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -6470,13 +6761,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           - `type: "server_tool_use"`
 
-            - `"server_tool_use"`
+            default: server_tool_use
 
         - `WebSearchToolResultBlock`
 
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -6508,7 +6801,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "web_search_tool_result_error"`
 
-                - `"web_search_tool_result_error"`
+                default: web_search_tool_result_error
 
             - `Array<WebSearchResultBlock>`
 
@@ -6520,21 +6813,25 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "web_search_result"`
 
-                - `"web_search_result"`
+                default: web_search_result
 
               - `url: string`
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "web_search_tool_result"`
 
-            - `"web_search_tool_result"`
+            default: web_search_tool_result
 
         - `WebFetchToolResultBlock`
 
           - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
             Tool invocation directly from the model.
+
+            default: {"type":"direct"}
 
             - `DirectCaller`
 
@@ -6572,7 +6869,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "web_fetch_tool_result_error"`
 
-                - `"web_fetch_tool_result_error"`
+                default: web_fetch_tool_result_error
 
             - `WebFetchBlock`
 
@@ -6584,19 +6881,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   - `enabled: boolean`
 
+                    default: false
+
                 - `source: Base64PDFSource | PlainTextSource`
 
                   - `Base64PDFSource`
 
                     - `data: string`
 
+                      format: byte
+
                     - `media_type: "application/pdf"`
 
-                      - `"application/pdf"`
-
                     - `type: "base64"`
-
-                      - `"base64"`
 
                   - `PlainTextSource`
 
@@ -6604,11 +6901,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                     - `media_type: "text/plain"`
 
-                      - `"text/plain"`
-
                     - `type: "text"`
-
-                      - `"text"`
 
                 - `title: string | null`
 
@@ -6616,7 +6909,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "document"`
 
-                  - `"document"`
+                  default: document
 
               - `retrieved_at: string | null`
 
@@ -6624,7 +6917,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "web_fetch_result"`
 
-                - `"web_fetch_result"`
+                default: web_fetch_result
 
               - `url: string`
 
@@ -6632,9 +6925,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "web_fetch_tool_result"`
 
-            - `"web_fetch_tool_result"`
+            default: web_fetch_tool_result
 
         - `CodeExecutionToolResultBlock`
 
@@ -6656,7 +6951,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "code_execution_tool_result_error"`
 
-                - `"code_execution_tool_result_error"`
+                default: code_execution_tool_result_error
 
             - `CodeExecutionResultBlock`
 
@@ -6666,7 +6961,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "code_execution_output"`
 
-                  - `"code_execution_output"`
+                  default: code_execution_output
 
               - `return_code: number`
 
@@ -6676,7 +6971,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "code_execution_result"`
 
-                - `"code_execution_result"`
+                default: code_execution_result
 
             - `EncryptedCodeExecutionResultBlock`
 
@@ -6688,6 +6983,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "code_execution_output"`
 
+                  default: code_execution_output
+
               - `encrypted_stdout: string`
 
               - `return_code: number`
@@ -6696,13 +6993,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "encrypted_code_execution_result"`
 
-                - `"encrypted_code_execution_result"`
+                default: encrypted_code_execution_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "code_execution_tool_result"`
 
-            - `"code_execution_tool_result"`
+            default: code_execution_tool_result
 
         - `BashCodeExecutionToolResultBlock`
 
@@ -6724,7 +7023,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "bash_code_execution_tool_result_error"`
 
-                - `"bash_code_execution_tool_result_error"`
+                default: bash_code_execution_tool_result_error
 
             - `BashCodeExecutionResultBlock`
 
@@ -6734,7 +7033,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `type: "bash_code_execution_output"`
 
-                  - `"bash_code_execution_output"`
+                  default: bash_code_execution_output
 
               - `return_code: number`
 
@@ -6744,13 +7043,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "bash_code_execution_result"`
 
-                - `"bash_code_execution_result"`
+                default: bash_code_execution_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "bash_code_execution_tool_result"`
 
-            - `"bash_code_execution_tool_result"`
+            default: bash_code_execution_tool_result
 
         - `TextEditorCodeExecutionToolResultBlock`
 
@@ -6774,7 +7075,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "text_editor_code_execution_tool_result_error"`
 
-                - `"text_editor_code_execution_tool_result_error"`
+                default: text_editor_code_execution_tool_result_error
 
             - `TextEditorCodeExecutionViewResultBlock`
 
@@ -6796,7 +7097,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "text_editor_code_execution_view_result"`
 
-                - `"text_editor_code_execution_view_result"`
+                default: text_editor_code_execution_view_result
 
             - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -6804,7 +7105,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "text_editor_code_execution_create_result"`
 
-                - `"text_editor_code_execution_create_result"`
+                default: text_editor_code_execution_create_result
 
             - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -6820,13 +7121,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "text_editor_code_execution_str_replace_result"`
 
-                - `"text_editor_code_execution_str_replace_result"`
+                default: text_editor_code_execution_str_replace_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "text_editor_code_execution_tool_result"`
 
-            - `"text_editor_code_execution_tool_result"`
+            default: text_editor_code_execution_tool_result
 
         - `ToolSearchToolResultBlock`
 
@@ -6848,7 +7151,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "tool_search_tool_result_error"`
 
-                - `"tool_search_tool_result_error"`
+                default: tool_search_tool_result_error
 
             - `ToolSearchToolSearchResultBlock`
 
@@ -6856,19 +7159,23 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `tool_name: string`
 
+                  maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                 - `type: "tool_reference"`
 
-                  - `"tool_reference"`
+                  default: tool_reference
 
               - `type: "tool_search_tool_search_result"`
 
-                - `"tool_search_tool_search_result"`
+                default: tool_search_tool_search_result
 
           - `tool_use_id: string`
 
+            pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
           - `type: "tool_search_tool_result"`
 
-            - `"tool_search_tool_result"`
+            default: tool_search_tool_result
 
         - `ContainerUploadBlock`
 
@@ -6878,7 +7185,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           - `type: "container_upload"`
 
-            - `"container_upload"`
+            default: container_upload
 
       - `model: Model`
 
@@ -6956,7 +7263,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         This will always be `"assistant"`.
 
-        - `"assistant"`
+        default: assistant
 
       - `stop_details: RefusalStopDetails | null`
 
@@ -6994,7 +7301,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         - `type: "refusal"`
 
-          - `"refusal"`
+          default: refusal
 
       - `stop_reason: StopReason | null`
 
@@ -7038,7 +7345,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         For Messages, this is always `"message"`.
 
-        - `"message"`
+        default: message
 
       - `usage: Usage`
 
@@ -7060,17 +7367,25 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             The number of input tokens used to create the 1 hour cache entry.
 
+            default: 0, minimum: 0
+
           - `ephemeral_5m_input_tokens: number`
 
             The number of input tokens used to create the 5 minute cache entry.
+
+            default: 0, minimum: 0
 
         - `cache_creation_input_tokens: number | null`
 
           The number of input tokens used to create the cache entry.
 
+          minimum: 0
+
         - `cache_read_input_tokens: number | null`
 
           The number of input tokens read from the cache.
+
+          minimum: 0
 
         - `inference_geo: string | null`
 
@@ -7080,9 +7395,13 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           The number of input tokens which were used.
 
+          minimum: 0
+
         - `output_tokens: number`
 
           The number of output tokens which were used.
+
+          minimum: 0
 
         - `output_tokens_details: OutputTokensDetails | null`
 
@@ -7104,6 +7423,8 @@ console.log(messageBatchIndividualResponse.custom_id);
             generation count by a small number of tokens. Always ≤ `output_tokens`;
             `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+            default: 0, minimum: 0
+
         - `server_tool_use: ServerToolUsage | null`
 
           The number of server tool requests.
@@ -7112,9 +7433,13 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             The number of web fetch tool requests.
 
+            default: 0, minimum: 0
+
           - `web_search_requests: number`
 
             The number of web search tool requests.
+
+            default: 0, minimum: 0
 
         - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -7128,7 +7453,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
     - `type: "succeeded"`
 
-      - `"succeeded"`
+      default: succeeded
 
   - `MessageBatchErroredResult`
 
@@ -7140,95 +7465,113 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           - `message: string`
 
+            default: Invalid request
+
           - `type: "invalid_request_error"`
 
-            - `"invalid_request_error"`
+            default: invalid_request_error
 
         - `AuthenticationError`
 
           - `message: string`
 
+            default: Authentication error
+
           - `type: "authentication_error"`
 
-            - `"authentication_error"`
+            default: authentication_error
 
         - `BillingError`
 
           - `message: string`
 
+            default: Billing error
+
           - `type: "billing_error"`
 
-            - `"billing_error"`
+            default: billing_error
 
         - `PermissionError`
 
           - `message: string`
 
+            default: Permission denied
+
           - `type: "permission_error"`
 
-            - `"permission_error"`
+            default: permission_error
 
         - `NotFoundError`
 
           - `message: string`
 
+            default: Not found
+
           - `type: "not_found_error"`
 
-            - `"not_found_error"`
+            default: not_found_error
 
         - `RateLimitError`
 
           - `message: string`
 
+            default: Rate limited
+
           - `type: "rate_limit_error"`
 
-            - `"rate_limit_error"`
+            default: rate_limit_error
 
         - `GatewayTimeoutError`
 
           - `message: string`
 
+            default: Request timeout
+
           - `type: "timeout_error"`
 
-            - `"timeout_error"`
+            default: timeout_error
 
         - `APIErrorObject`
 
           - `message: string`
 
+            default: Internal server error
+
           - `type: "api_error"`
 
-            - `"api_error"`
+            default: api_error
 
         - `OverloadedError`
 
           - `message: string`
 
+            default: Overloaded
+
           - `type: "overloaded_error"`
 
-            - `"overloaded_error"`
+            default: overloaded_error
 
       - `request_id: string | null`
 
       - `type: "error"`
 
-        - `"error"`
+        default: error
 
     - `type: "errored"`
 
-      - `"errored"`
+      default: errored
 
   - `MessageBatchCanceledResult`
 
     - `type: "canceled"`
 
-      - `"canceled"`
+      default: canceled
 
   - `MessageBatchExpiredResult`
 
     - `type: "expired"`
 
-      - `"expired"`
+      default: expired
 
 ### Message Batch Succeeded Result
 
@@ -7254,6 +7597,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         The time at which the container will expire.
 
+        format: date-time
+
       - `skills: Array<ContainerSkill> | null`
 
         Skills loaded in the container
@@ -7261,6 +7606,8 @@ console.log(messageBatchIndividualResponse.custom_id);
         - `skill_id: string`
 
           Skill ID
+
+          maxLength: 64, minLength: 1
 
         - `type: "anthropic" | "custom"`
 
@@ -7273,6 +7620,8 @@ console.log(messageBatchIndividualResponse.custom_id);
         - `version: string`
 
           The resolved version: a skill version ID for custom skills.
+
+          maxLength: 64, minLength: 1
 
     - `content: Array<ContentBlock>`
 
@@ -7317,6 +7666,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `document_index: number`
 
+              minimum: 0
+
             - `document_title: string | null`
 
             - `end_char_index: number`
@@ -7325,15 +7676,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `start_char_index: number`
 
+              minimum: 0
+
             - `type: "char_location"`
 
-              - `"char_location"`
+              default: char_location
 
           - `CitationPageLocation`
 
             - `cited_text: string`
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string | null`
 
@@ -7343,9 +7698,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `start_page_number: number`
 
+              minimum: 1
+
             - `type: "page_location"`
 
-              - `"page_location"`
+              default: page_location
 
           - `CitationContentBlockLocation`
 
@@ -7356,6 +7713,8 @@ console.log(messageBatchIndividualResponse.custom_id);
               Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
             - `document_index: number`
+
+              minimum: 0
 
             - `document_title: string | null`
 
@@ -7371,9 +7730,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `type: "content_block_location"`
 
-              - `"content_block_location"`
+              default: content_block_location
 
           - `CitationsWebSearchResultLocation`
 
@@ -7383,9 +7744,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `title: string | null`
 
+              maxLength: 512
+
             - `type: "web_search_result_location"`
 
-              - `"web_search_result_location"`
+              default: web_search_result_location
 
             - `url: string`
 
@@ -7409,23 +7772,29 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               Counted separately from `document_index`; server-side web search results are not included in this count.
 
+              minimum: 0
+
             - `source: string`
 
             - `start_block_index: number`
 
               0-based index of the first cited block in the source's `content` array.
 
+              minimum: 0
+
             - `title: string | null`
 
             - `type: "search_result_location"`
 
-              - `"search_result_location"`
+              default: search_result_location
 
         - `text: string`
 
+          maxLength: 5000000, minLength: 0
+
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `ThinkingBlock`
 
@@ -7443,7 +7812,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         - `type: "thinking"`
 
-          - `"thinking"`
+          default: thinking
 
       - `RedactedThinkingBlock`
 
@@ -7457,15 +7826,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         - `type: "redacted_thinking"`
 
-          - `"redacted_thinking"`
+          default: redacted_thinking
 
       - `ToolUseBlock`
 
         - `id: string`
 
+          pattern: ^[a-zA-Z0-9_-]+$
+
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -7473,45 +7846,51 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "direct"`
 
-              - `"direct"`
-
           - `ServerToolCaller`
 
             Tool invocation generated by a server-side tool.
 
             - `tool_id: string`
 
-            - `type: "code_execution_20250825"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20250825"`
+            - `type: "code_execution_20250825"`
 
           - `ServerToolCaller20260120`
 
             - `tool_id: string`
 
-            - `type: "code_execution_20260120"`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-              - `"code_execution_20260120"`
+            - `type: "code_execution_20260120"`
 
         - `input: Record<string, unknown>`
 
         - `name: string`
 
+          minLength: 1
+
         - `type: "tool_use"`
 
-          - `"tool_use"`
+          default: tool_use
 
         - `toolset_name?: string | null`
 
           For a toolset member tool_use, the toolset family.
 
+          maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
       - `ServerToolUseBlock`
 
         - `id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -7543,13 +7922,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         - `type: "server_tool_use"`
 
-          - `"server_tool_use"`
+          default: server_tool_use
 
       - `WebSearchToolResultBlock`
 
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -7581,7 +7962,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "web_search_tool_result_error"`
 
-              - `"web_search_tool_result_error"`
+              default: web_search_tool_result_error
 
           - `Array<WebSearchResultBlock>`
 
@@ -7593,21 +7974,25 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "web_search_result"`
 
-              - `"web_search_result"`
+              default: web_search_result
 
             - `url: string`
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "web_search_tool_result"`
 
-          - `"web_search_tool_result"`
+          default: web_search_tool_result
 
       - `WebFetchToolResultBlock`
 
         - `caller: DirectCaller | ServerToolCaller | ServerToolCaller20260120`
 
           Tool invocation directly from the model.
+
+          default: {"type":"direct"}
 
           - `DirectCaller`
 
@@ -7645,7 +8030,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "web_fetch_tool_result_error"`
 
-              - `"web_fetch_tool_result_error"`
+              default: web_fetch_tool_result_error
 
           - `WebFetchBlock`
 
@@ -7657,19 +8042,19 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                 - `enabled: boolean`
 
+                  default: false
+
               - `source: Base64PDFSource | PlainTextSource`
 
                 - `Base64PDFSource`
 
                   - `data: string`
 
+                    format: byte
+
                   - `media_type: "application/pdf"`
 
-                    - `"application/pdf"`
-
                   - `type: "base64"`
-
-                    - `"base64"`
 
                 - `PlainTextSource`
 
@@ -7677,11 +8062,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
                   - `media_type: "text/plain"`
 
-                    - `"text/plain"`
-
                   - `type: "text"`
-
-                    - `"text"`
 
               - `title: string | null`
 
@@ -7689,7 +8070,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "document"`
 
-                - `"document"`
+                default: document
 
             - `retrieved_at: string | null`
 
@@ -7697,7 +8078,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "web_fetch_result"`
 
-              - `"web_fetch_result"`
+              default: web_fetch_result
 
             - `url: string`
 
@@ -7705,9 +8086,11 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "web_fetch_tool_result"`
 
-          - `"web_fetch_tool_result"`
+          default: web_fetch_tool_result
 
       - `CodeExecutionToolResultBlock`
 
@@ -7729,7 +8112,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "code_execution_tool_result_error"`
 
-              - `"code_execution_tool_result_error"`
+              default: code_execution_tool_result_error
 
           - `CodeExecutionResultBlock`
 
@@ -7739,7 +8122,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "code_execution_output"`
 
-                - `"code_execution_output"`
+                default: code_execution_output
 
             - `return_code: number`
 
@@ -7749,7 +8132,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "code_execution_result"`
 
-              - `"code_execution_result"`
+              default: code_execution_result
 
           - `EncryptedCodeExecutionResultBlock`
 
@@ -7761,6 +8144,8 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "code_execution_output"`
 
+                default: code_execution_output
+
             - `encrypted_stdout: string`
 
             - `return_code: number`
@@ -7769,13 +8154,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "encrypted_code_execution_result"`
 
-              - `"encrypted_code_execution_result"`
+              default: encrypted_code_execution_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "code_execution_tool_result"`
 
-          - `"code_execution_tool_result"`
+          default: code_execution_tool_result
 
       - `BashCodeExecutionToolResultBlock`
 
@@ -7797,7 +8184,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "bash_code_execution_tool_result_error"`
 
-              - `"bash_code_execution_tool_result_error"`
+              default: bash_code_execution_tool_result_error
 
           - `BashCodeExecutionResultBlock`
 
@@ -7807,7 +8194,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `type: "bash_code_execution_output"`
 
-                - `"bash_code_execution_output"`
+                default: bash_code_execution_output
 
             - `return_code: number`
 
@@ -7817,13 +8204,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "bash_code_execution_result"`
 
-              - `"bash_code_execution_result"`
+              default: bash_code_execution_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "bash_code_execution_tool_result"`
 
-          - `"bash_code_execution_tool_result"`
+          default: bash_code_execution_tool_result
 
       - `TextEditorCodeExecutionToolResultBlock`
 
@@ -7847,7 +8236,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "text_editor_code_execution_tool_result_error"`
 
-              - `"text_editor_code_execution_tool_result_error"`
+              default: text_editor_code_execution_tool_result_error
 
           - `TextEditorCodeExecutionViewResultBlock`
 
@@ -7869,7 +8258,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "text_editor_code_execution_view_result"`
 
-              - `"text_editor_code_execution_view_result"`
+              default: text_editor_code_execution_view_result
 
           - `TextEditorCodeExecutionCreateResultBlock`
 
@@ -7877,7 +8266,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "text_editor_code_execution_create_result"`
 
-              - `"text_editor_code_execution_create_result"`
+              default: text_editor_code_execution_create_result
 
           - `TextEditorCodeExecutionStrReplaceResultBlock`
 
@@ -7893,13 +8282,15 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "text_editor_code_execution_str_replace_result"`
 
-              - `"text_editor_code_execution_str_replace_result"`
+              default: text_editor_code_execution_str_replace_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "text_editor_code_execution_tool_result"`
 
-          - `"text_editor_code_execution_tool_result"`
+          default: text_editor_code_execution_tool_result
 
       - `ToolSearchToolResultBlock`
 
@@ -7921,7 +8312,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
             - `type: "tool_search_tool_result_error"`
 
-              - `"tool_search_tool_result_error"`
+              default: tool_search_tool_result_error
 
           - `ToolSearchToolSearchResultBlock`
 
@@ -7929,19 +8320,23 @@ console.log(messageBatchIndividualResponse.custom_id);
 
               - `tool_name: string`
 
+                maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
               - `type: "tool_reference"`
 
-                - `"tool_reference"`
+                default: tool_reference
 
             - `type: "tool_search_tool_search_result"`
 
-              - `"tool_search_tool_search_result"`
+              default: tool_search_tool_search_result
 
         - `tool_use_id: string`
 
+          pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
         - `type: "tool_search_tool_result"`
 
-          - `"tool_search_tool_result"`
+          default: tool_search_tool_result
 
       - `ContainerUploadBlock`
 
@@ -7951,7 +8346,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         - `type: "container_upload"`
 
-          - `"container_upload"`
+          default: container_upload
 
     - `model: Model`
 
@@ -8029,7 +8424,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
       This will always be `"assistant"`.
 
-      - `"assistant"`
+      default: assistant
 
     - `stop_details: RefusalStopDetails | null`
 
@@ -8067,7 +8462,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
       - `type: "refusal"`
 
-        - `"refusal"`
+        default: refusal
 
     - `stop_reason: StopReason | null`
 
@@ -8111,7 +8506,7 @@ console.log(messageBatchIndividualResponse.custom_id);
 
       For Messages, this is always `"message"`.
 
-      - `"message"`
+      default: message
 
     - `usage: Usage`
 
@@ -8133,17 +8528,25 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           The number of input tokens used to create the 1 hour cache entry.
 
+          default: 0, minimum: 0
+
         - `ephemeral_5m_input_tokens: number`
 
           The number of input tokens used to create the 5 minute cache entry.
+
+          default: 0, minimum: 0
 
       - `cache_creation_input_tokens: number | null`
 
         The number of input tokens used to create the cache entry.
 
+        minimum: 0
+
       - `cache_read_input_tokens: number | null`
 
         The number of input tokens read from the cache.
+
+        minimum: 0
 
       - `inference_geo: string | null`
 
@@ -8153,9 +8556,13 @@ console.log(messageBatchIndividualResponse.custom_id);
 
         The number of input tokens which were used.
 
+        minimum: 0
+
       - `output_tokens: number`
 
         The number of output tokens which were used.
+
+        minimum: 0
 
       - `output_tokens_details: OutputTokensDetails | null`
 
@@ -8177,6 +8584,8 @@ console.log(messageBatchIndividualResponse.custom_id);
           generation count by a small number of tokens. Always ≤ `output_tokens`;
           `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+          default: 0, minimum: 0
+
       - `server_tool_use: ServerToolUsage | null`
 
         The number of server tool requests.
@@ -8185,9 +8594,13 @@ console.log(messageBatchIndividualResponse.custom_id);
 
           The number of web fetch tool requests.
 
+          default: 0, minimum: 0
+
         - `web_search_requests: number`
 
           The number of web search tool requests.
+
+          default: 0, minimum: 0
 
       - `service_tier: "standard" | "priority" | "batch" | null`
 
@@ -8201,4 +8614,4 @@ console.log(messageBatchIndividualResponse.custom_id);
 
   - `type: "succeeded"`
 
-    - `"succeeded"`
+    default: succeeded

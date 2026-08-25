@@ -1,21 +1,18 @@
----
-title: Upload File
-url: https://platform.claude.com/docs/en/api/ruby/beta/files/upload
----
-
-## Upload File
+# Upload File
 
 `beta.files.upload(**kwargs) -> BetaFileMetadata`
 
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
-### Parameters
+## Parameters
 
 - `file: String`
 
   The file to upload
+
+  format: binary
 
 - `betas: Array[AnthropicBeta]`
 
@@ -93,7 +90,7 @@ Upload File
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaFileMetadata`
 
@@ -107,25 +104,31 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: String`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: String`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: Integer`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: :file`
 
     Object type.
 
     For files, this is always `"file"`.
-
-    - `:file`
 
   - `downloadable: bool`
 
@@ -143,9 +146,7 @@ Upload File
 
       The type of scope (e.g., `"session"`).
 
-      - `:session`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -157,7 +158,7 @@ beta_file_metadata = anthropic.beta.files.upload(file: StringIO.new("Example dat
 puts(beta_file_metadata)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

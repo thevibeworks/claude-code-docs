@@ -1,17 +1,12 @@
----
-title: Delete Session Resource
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/resources/delete
----
-
-## Delete Session Resource
+# Delete Session Resource
 
 `$client->beta->sessions->resources->delete(string resourceID, string sessionID, ?list<AnthropicBeta> betas): ManagedAgentsDeleteSessionResource`
 
-**delete** `/v1/sessions/{session_id}/resources/{resource_id}`
+**DELETE** `/v1/sessions/{session_id}/resources/{resource_id}`
 
 Delete Session Resource
 
-### Parameters
+## Parameters
 
 - `sessionID: string`
 
@@ -21,7 +16,7 @@ Delete Session Resource
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `ManagedAgentsDeleteSessionResource`
 
@@ -29,7 +24,7 @@ Delete Session Resource
 
   - `Type type`
 
-### Example
+## Example
 
 ```php
 <?php
@@ -51,7 +46,7 @@ $betaManagedAgentsDeleteSessionResource = $client
 var_dump($betaManagedAgentsDeleteSessionResource);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

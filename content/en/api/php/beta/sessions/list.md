@@ -1,17 +1,12 @@
----
-title: List Sessions
-url: https://platform.claude.com/docs/en/api/php/beta/sessions/list
----
-
-## List Sessions
+# List Sessions
 
 `$client->beta->sessions->list(?string agentID, ?int agentVersion, ?\Datetime createdAtGt, ?\Datetime createdAtGte, ?\Datetime createdAtLt, ?\Datetime createdAtLte, ?string deploymentID, ?bool includeArchived, ?int limit, ?string memoryStoreID, ?Order order, ?string page, ?list<Status> statuses, ?list<AnthropicBeta> betas): BidirectionalPageCursor<BetaManagedAgentsSession>`
 
-**get** `/v1/sessions`
+**GET** `/v1/sessions`
 
 List Sessions
 
-### Parameters
+## Parameters
 
 - `agentID?:optional string`
 
@@ -69,7 +64,7 @@ List Sessions
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsSession`
 
@@ -129,7 +124,7 @@ List Sessions
 
     Deployment ID when the session was created from a deployment reference. Null otherwise.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -158,7 +153,7 @@ $page = $client->beta->sessions->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

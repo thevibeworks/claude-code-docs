@@ -1,19 +1,14 @@
----
-title: List Tunnel Certificates
-url: https://platform.claude.com/docs/en/api/cli/beta/tunnels/certificates/list
----
-
-## List Tunnel Certificates
+# List Tunnel Certificates
 
 `$ ant beta:tunnels:certificates list`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `--tunnel-id: string`
 
@@ -27,6 +22,8 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
+  format: int32
+
 - `--page: optional string`
 
   Query param: Opaque pagination cursor from a previous `list_tunnel_certificates` response.
@@ -35,9 +32,9 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `BetaListTunnelCertificatesResponse: object { data, next_page }`
+- `BetaListTunnelCertificatesResponse: object`
 
   The tunnel's certificates.
 
@@ -53,13 +50,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `created_at: string`
 
       A timestamp in RFC 3339 format
 
+      format: date-time
+
     - `expires_at: string`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `fingerprint: string`
 
@@ -75,15 +78,15 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     Pagination cursor for the next page, or null if no more results.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:tunnels:certificates list \
   --api-key my-anthropic-api-key \
   --tunnel-id tunnel_id
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

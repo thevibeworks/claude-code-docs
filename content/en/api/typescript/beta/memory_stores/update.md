@@ -1,17 +1,12 @@
----
-title: Update a memory store
-url: https://platform.claude.com/docs/en/api/typescript/beta/memory_stores/update
----
+# Update a memory store
 
-## Update a memory store
+`client.beta.memoryStores.update(memoryStoreID, params, options?): BetaManagedAgentsMemoryStore`
 
-`client.beta.memoryStores.update(stringmemoryStoreID, MemoryStoreUpdateParamsparams, RequestOptionsoptions?): BetaManagedAgentsMemoryStore`
-
-**post** `/v1/memory_stores/{memory_store_id}`
+**POST** `/v1/memory_stores/{memory_store_id}`
 
 Update a memory store
 
-### Parameters
+## Parameters
 
 - `memoryStoreID: string`
 
@@ -21,6 +16,8 @@ Update a memory store
 
     Body param: New description for the store, up to 1024 characters. Pass an empty string to clear it.
 
+    maxLength: 1024
+
   - `metadata?: Record<string, string | null> | null`
 
     Body param: Metadata patch. Set a key to a string to upsert it, or to null to delete it. Omit the field to preserve. The stored bag is limited to 16 keys (up to 64 chars each) with values up to 512 chars.
@@ -28,6 +25,8 @@ Update a memory store
   - `name?: string | null`
 
     Body param: New human-readable name for the store. 1–255 characters; no control characters. Renaming changes the slug used for the store's `mount_path` in sessions created after the update.
+
+    minLength: 1, maxLength: 255
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -105,7 +104,7 @@ Update a memory store
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -119,21 +118,25 @@ Update a memory store
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `name: string`
 
     Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
   - `type: "memory_store"`
 
-    - `"memory_store"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `archived_at?: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `description?: string`
 
@@ -143,7 +146,7 @@ Update a memory store
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -157,7 +160,7 @@ const betaManagedAgentsMemoryStore = await client.beta.memoryStores.update("memo
 console.log(betaManagedAgentsMemoryStore.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

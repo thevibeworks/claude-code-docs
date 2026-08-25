@@ -1,15 +1,10 @@
----
-title: Tunnels
-url: https://platform.claude.com/docs/en/api/go/beta/tunnels
----
-
 # Tunnels
 
 ## Create Tunnel
 
 `client.Beta.Tunnels.New(ctx, params) (*BetaTunnel, error)`
 
-**post** `/v1/tunnels`
+**POST** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -19,11 +14,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
 - `params BetaTunnelNewParams`
 
-  - `DisplayName param.Field[string]`
+  - `DisplayName param.Field[string] Optional`
 
     Body param: Optional human-readable name for the tunnel (1-255 characters).
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    minLength: 1, maxLength: 255
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -113,9 +110,13 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -126,8 +127,6 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `Type Tunnel`
-
-    - `const TunnelTunnel Tunnel = "tunnel"`
 
 ### Example
 
@@ -154,7 +153,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -171,7 +170,7 @@ func main() {
 
 `client.Beta.Tunnels.Get(ctx, tunnelID, query) (*BetaTunnel, error)`
 
-**get** `/v1/tunnels/{tunnel_id}`
+**GET** `/v1/tunnels/{tunnel_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -183,7 +182,7 @@ Fetches a tunnel by ID.
 
 - `query BetaTunnelGetParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -273,9 +272,13 @@ Fetches a tunnel by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -286,8 +289,6 @@ Fetches a tunnel by ID.
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `Type Tunnel`
-
-    - `const TunnelTunnel Tunnel = "tunnel"`
 
 ### Example
 
@@ -318,7 +319,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -335,7 +336,7 @@ func main() {
 
 `client.Beta.Tunnels.List(ctx, params) (*PageCursor[BetaTunnel], error)`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -345,19 +346,21 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 - `params BetaTunnelListParams`
 
-  - `IncludeArchived param.Field[bool]`
+  - `IncludeArchived param.Field[bool] Optional`
 
     Query param: Whether to include archived tunnels in the results. Defaults to false.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
-  - `Page param.Field[string]`
+    format: int32
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque pagination cursor from a previous `list_tunnels` response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -447,9 +450,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -460,8 +467,6 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `Type Tunnel`
-
-    - `const TunnelTunnel Tunnel = "tunnel"`
 
 ### Example
 
@@ -488,7 +493,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -510,7 +515,7 @@ func main() {
 
 `client.Beta.Tunnels.Archive(ctx, tunnelID, body) (*BetaTunnel, error)`
 
-**post** `/v1/tunnels/{tunnel_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -522,7 +527,7 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
 - `body BetaTunnelArchiveParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -612,9 +617,13 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -625,8 +634,6 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `Type Tunnel`
-
-    - `const TunnelTunnel Tunnel = "tunnel"`
 
 ### Example
 
@@ -657,7 +664,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -674,7 +681,7 @@ func main() {
 
 `client.Beta.Tunnels.RevealToken(ctx, tunnelID, body) (*BetaTunnelToken, error)`
 
-**post** `/v1/tunnels/{tunnel_id}/reveal_token`
+**POST** `/v1/tunnels/{tunnel_id}/reveal_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -686,7 +693,7 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
 - `body BetaTunnelRevealTokenParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -778,8 +785,6 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
   - `Type TunnelToken`
 
-    - `const TunnelTokenTunnelToken TunnelToken = "tunnel_token"`
-
 ### Example
 
 ```go
@@ -809,7 +814,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -823,7 +828,7 @@ func main() {
 
 `client.Beta.Tunnels.RotateToken(ctx, tunnelID, params) (*BetaTunnelToken, error)`
 
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -835,11 +840,13 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
 - `params BetaTunnelRotateTokenParams`
 
-  - `Reason param.Field[string]`
+  - `Reason param.Field[string] Optional`
 
     Body param: Optional free-text reason for the rotation, recorded for audit.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    maxLength: 1024
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -930,8 +937,6 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
     The connector token used to run the tunnel. Treat as a credential.
 
   - `Type TunnelToken`
-
-    - `const TunnelTokenTunnelToken TunnelToken = "tunnel_token"`
 
 ### Example
 
@@ -962,7 +967,7 @@ func main() {
 }
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -972,7 +977,7 @@ func main() {
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Tunnel
 
@@ -988,9 +993,13 @@ func main() {
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -1001,8 +1010,6 @@ func main() {
     Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
   - `Type Tunnel`
-
-    - `const TunnelTunnel Tunnel = "tunnel"`
 
 ### Beta Tunnel Token
 
@@ -1020,21 +1027,19 @@ func main() {
 
   - `Type TunnelToken`
 
-    - `const TunnelTokenTunnelToken TunnelToken = "tunnel_token"`
+## Tunnels › Certificates
 
-# Certificates
-
-## Create Tunnel Certificate
+### Create Tunnel Certificate
 
 `client.Beta.Tunnels.Certificates.New(ctx, tunnelID, params) (*BetaTunnelCertificate, error)`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's server certificate against this CA when it terminates the inner TLS session. A tunnel holds at most two non-archived certificates.
 
-### Parameters
+#### Parameters
 
 - `tunnelID string`
 
@@ -1044,7 +1049,9 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     Body param: PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+    maxLength: 8192
+
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -1120,7 +1127,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `type BetaTunnelCertificate struct{…}`
 
@@ -1134,13 +1141,19 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Fingerprint string`
 
@@ -1152,9 +1165,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
   - `Type TunnelCertificate`
 
-    - `const TunnelCertificateTunnelCertificate TunnelCertificate = "tunnel_certificate"`
-
-### Example
+#### Example
 
 ```go
 package main
@@ -1185,7 +1196,7 @@ func main() {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1199,17 +1210,17 @@ func main() {
 }
 ```
 
-## Get Tunnel Certificate
+### Get Tunnel Certificate
 
 `client.Beta.Tunnels.Certificates.Get(ctx, certificateID, params) (*BetaTunnelCertificate, error)`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Fetches a tunnel certificate by ID.
 
-### Parameters
+#### Parameters
 
 - `certificateID string`
 
@@ -1219,7 +1230,7 @@ Fetches a tunnel certificate by ID.
 
     Path param: Path parameter tunnel_id
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -1295,7 +1306,7 @@ Fetches a tunnel certificate by ID.
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `type BetaTunnelCertificate struct{…}`
 
@@ -1309,13 +1320,19 @@ Fetches a tunnel certificate by ID.
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Fingerprint string`
 
@@ -1327,9 +1344,7 @@ Fetches a tunnel certificate by ID.
 
   - `Type TunnelCertificate`
 
-    - `const TunnelCertificateTunnelCertificate TunnelCertificate = "tunnel_certificate"`
-
-### Example
+#### Example
 
 ```go
 package main
@@ -1360,7 +1375,7 @@ func main() {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1374,35 +1389,37 @@ func main() {
 }
 ```
 
-## List Tunnel Certificates
+### List Tunnel Certificates
 
 `client.Beta.Tunnels.Certificates.List(ctx, tunnelID, params) (*PageCursor[BetaTunnelCertificate], error)`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists the certificates registered on a tunnel. Archived certificates are excluded unless include_archived is set.
 
-### Parameters
+#### Parameters
 
 - `tunnelID string`
 
 - `params BetaTunnelCertificateListParams`
 
-  - `IncludeArchived param.Field[bool]`
+  - `IncludeArchived param.Field[bool] Optional`
 
     Query param: Whether to include archived certificates in the results. Defaults to false.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of certificates to return per page. Defaults to 20, maximum 1000.
 
-  - `Page param.Field[string]`
+    format: int32
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque pagination cursor from a previous `list_tunnel_certificates` response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -1478,7 +1495,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `type BetaTunnelCertificate struct{…}`
 
@@ -1492,13 +1509,19 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Fingerprint string`
 
@@ -1510,9 +1533,7 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
   - `Type TunnelCertificate`
 
-    - `const TunnelCertificateTunnelCertificate TunnelCertificate = "tunnel_certificate"`
-
-### Example
+#### Example
 
 ```go
 package main
@@ -1541,7 +1562,7 @@ func main() {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1560,17 +1581,17 @@ func main() {
 }
 ```
 
-## Archive Tunnel Certificate
+### Archive Tunnel Certificate
 
 `client.Beta.Tunnels.Certificates.Archive(ctx, certificateID, params) (*BetaTunnelCertificate, error)`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+#### Parameters
 
 - `certificateID string`
 
@@ -1580,7 +1601,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     Path param: Path parameter tunnel_id
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -1656,7 +1677,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+#### Returns
 
 - `type BetaTunnelCertificate struct{…}`
 
@@ -1670,13 +1691,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `ExpiresAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Fingerprint string`
 
@@ -1688,9 +1715,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `Type TunnelCertificate`
 
-    - `const TunnelCertificateTunnelCertificate TunnelCertificate = "tunnel_certificate"`
-
-### Example
+#### Example
 
 ```go
 package main
@@ -1721,7 +1746,7 @@ func main() {
 }
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1734,39 +1759,3 @@ func main() {
   "type": "tunnel_certificate"
 }
 ```
-
-## Domain Types
-
-### Beta Tunnel Certificate
-
-- `type BetaTunnelCertificate struct{…}`
-
-  A CA certificate attached to a tunnel.
-
-  - `ID string`
-
-    Unique identifier for the certificate, prefixed with `tcrt_`.
-
-  - `ArchivedAt Time`
-
-    A timestamp in RFC 3339 format
-
-  - `CreatedAt Time`
-
-    A timestamp in RFC 3339 format
-
-  - `ExpiresAt Time`
-
-    A timestamp in RFC 3339 format
-
-  - `Fingerprint string`
-
-    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
-
-  - `TunnelID string`
-
-    ID of the tunnel the certificate is registered against.
-
-  - `Type TunnelCertificate`
-
-    - `const TunnelCertificateTunnelCertificate TunnelCertificate = "tunnel_certificate"`

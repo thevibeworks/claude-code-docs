@@ -27,6 +27,16 @@ Two rules keep the archive honest, both learned the hard way:
   gone (404/410 or HTML shell). Only markup is deleted automatically; real
   markdown that died upstream is reported for a human. A >200-file reap is
   refused outright as an upstream outage.
+- **A redirect means the content belongs elsewhere.** If a fetch lands on a
+  different path, the body in hand is the *target's*; writing it back to the
+  requested path misattributes it. That is how the 471KB
+  `release-notes/system-prompts.md` briefly became the 3.7KB overview it now
+  redirects to, after upstream split it into per-model pages.
+- **A known failure must not look like a new one.** `tombstones.json` records
+  every URL confirmed gone, so a page that died once is counted quietly on
+  later runs instead of re-reported. Only *new* deaths and *resurrections*
+  are printed loudly, and the success rate is computed over live docs — 123
+  standing failures pinning it at 96.9% would hide the next real breakage.
 
 ```bash
 uv run scripts/fetcher.py                    # Fetch everything
@@ -40,6 +50,8 @@ Sections: `claude-code`, `api`, `platform`, `mcp`, `github`, `support`,
 `products`, `all`
 
 Source registry: `sources.json`
+Confirmed-dead URLs: `tombstones.json` (self-maintaining; an entry disappears
+if the URL answers again)
 Architecture: `REFACTOR.md`
 
 When adding new sections:
@@ -121,6 +133,11 @@ Use these paths to reference documentation when helping users:
 - `content/claude/third-party/` - Bedrock, Vertex, Foundry desktop setups (28)
 - `content/claude/office-agents/` - Claude for Excel, Word, PowerPoint, Outlook (12)
 - `content/claude/cowork/` - Claude Cowork (6)
+
+#### Release Notes (from platform.claude.com)
+- `content/en/release-notes/system-prompts/` - Claude.ai system prompts, one
+  page per model (split from a single file upstream on 2026-08-24)
+- `content/en/models/` - Per-model overviews and "what's new" pages
 
 #### MCP Protocol (from modelcontextprotocol.io)
 - `content/mcp/docs/` - Getting started, build client/server

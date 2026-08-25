@@ -10,7 +10,7 @@ description: Enable natural citations for RAG applications by providing search r
 
 Search result content blocks let Claude cite your own content the same way it cites web search results: each citation carries the source and title you provided. Use them in RAG (Retrieval-Augmented Generation) applications where Claude needs to attribute answers to your documents.
 
-All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support search results with citations, with the exception of Claude Haiku 3. No beta header is required: search results are part of the standard Messages API.
+All [active models](https://platform.claude.com/docs/en/models/overview) support search results with citations, with the exception of Claude Haiku 3. No beta header is required: search results are part of the standard Messages API.
 
 ## How it works
 

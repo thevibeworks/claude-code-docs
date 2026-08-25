@@ -1,19 +1,14 @@
----
-title: Archive Tunnel Certificate
-url: https://platform.claude.com/docs/en/api/typescript/beta/tunnels/certificates/archive
----
+# Archive Tunnel Certificate
 
-## Archive Tunnel Certificate
+`client.beta.tunnels.certificates.archive(certificateID, params, options?): BetaTunnelCertificate`
 
-`client.beta.tunnels.certificates.archive(stringcertificateID, CertificateArchiveParamsparams, RequestOptionsoptions?): BetaTunnelCertificate`
-
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Archives a tunnel certificate, removing it from the set Anthropic trusts for the tunnel. The certificate record is retained. Archiving the last non-archived certificate is permitted; the tunnel rejects MCP traffic until a new certificate is added.
 
-### Parameters
+## Parameters
 
 - `certificateID: string`
 
@@ -99,7 +94,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaTunnelCertificate`
 
@@ -113,13 +108,19 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `created_at: string`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `expires_at: string | null`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -131,9 +132,7 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
   - `type: "tunnel_certificate"`
 
-    - `"tunnel_certificate"`
-
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -150,7 +149,7 @@ const betaTunnelCertificate = await client.beta.tunnels.certificates.archive(
 console.log(betaTunnelCertificate.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

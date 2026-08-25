@@ -1,13 +1,8 @@
----
-title: Retrieve Message Batch results
-url: https://platform.claude.com/docs/en/api/python/beta/messages/batches/results
----
+# Retrieve Message Batch results
 
-## Retrieve Message Batch results
+`beta.messages.batches.results(message_batch_id, **kwargs)  -> BetaMessageBatchIndividualResponse`
 
-`beta.messages.batches.results(strmessage_batch_id, BatchResultsParams**kwargs)  -> BetaMessageBatchIndividualResponse`
-
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -15,7 +10,7 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `message_batch_id: str`
 
@@ -97,7 +92,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaMessageBatchIndividualResponse: …`
 
@@ -137,6 +132,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
+            format: date-time
+
           - `skills: Optional[List[BetaSkill]]`
 
             Skills loaded in the container
@@ -144,6 +141,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `skill_id: str`
 
               Skill ID
+
+              maxLength: 64, minLength: 1
 
             - `type: Literal["anthropic", "custom"]`
 
@@ -156,6 +155,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `version: str`
 
               The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `content: List[BetaContentBlock]`
 
@@ -200,6 +201,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `document_index: int`
 
+                  minimum: 0
+
                 - `document_title: Optional[str]`
 
                 - `end_char_index: int`
@@ -208,15 +211,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_char_index: int`
 
+                  minimum: 0
+
                 - `type: Literal["char_location"]`
 
-                  - `"char_location"`
+                  default: char_location
 
               - `class BetaCitationPageLocation: …`
 
                 - `cited_text: str`
 
                 - `document_index: int`
+
+                  minimum: 0
 
                 - `document_title: Optional[str]`
 
@@ -226,9 +233,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `start_page_number: int`
 
+                  minimum: 1
+
                 - `type: Literal["page_location"]`
 
-                  - `"page_location"`
+                  default: page_location
 
               - `class BetaCitationContentBlockLocation: …`
 
@@ -239,6 +248,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
                 - `document_index: int`
+
+                  minimum: 0
 
                 - `document_title: Optional[str]`
 
@@ -254,9 +265,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `type: Literal["content_block_location"]`
 
-                  - `"content_block_location"`
+                  default: content_block_location
 
               - `class BetaCitationsWebSearchResultLocation: …`
 
@@ -266,9 +279,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `title: Optional[str]`
 
+                  maxLength: 512
+
                 - `type: Literal["web_search_result_location"]`
 
-                  - `"web_search_result_location"`
+                  default: web_search_result_location
 
                 - `url: str`
 
@@ -292,23 +307,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `source: str`
 
                 - `start_block_index: int`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `title: Optional[str]`
 
                 - `type: Literal["search_result_location"]`
 
-                  - `"search_result_location"`
+                  default: search_result_location
 
             - `text: str`
 
+              maxLength: 5000000, minLength: 0
+
             - `type: Literal["text"]`
 
-              - `"text"`
+              default: text
 
           - `class BetaThinkingBlock: …`
 
@@ -326,7 +347,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["thinking"]`
 
-              - `"thinking"`
+              default: thinking
 
           - `class BetaRedactedThinkingBlock: …`
 
@@ -340,19 +361,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["redacted_thinking"]`
 
-              - `"redacted_thinking"`
+              default: redacted_thinking
 
           - `class BetaToolUseBlock: …`
 
             - `id: str`
 
+              pattern: ^[a-zA-Z0-9_-]+$
+
             - `input: Dict[str, object]`
 
             - `name: str`
 
+              minLength: 1
+
             - `type: Literal["tool_use"]`
 
-              - `"tool_use"`
+              default: tool_use
 
             - `caller: Optional[Caller]`
 
@@ -364,33 +389,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["direct"]`
 
-                  - `"direct"`
-
               - `class BetaServerToolCaller: …`
 
                 Tool invocation generated by a server-side tool.
 
                 - `tool_id: str`
 
-                - `type: Literal["code_execution_20250825"]`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20250825"`
+                - `type: Literal["code_execution_20250825"]`
 
               - `class BetaServerToolCaller20260120: …`
 
                 - `tool_id: str`
 
-                - `type: Literal["code_execution_20260120"]`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
-                  - `"code_execution_20260120"`
+                - `type: Literal["code_execution_20260120"]`
 
             - `toolset_name: Optional[str]`
 
               For a toolset member tool_use, the toolset family.
 
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
           - `class BetaServerToolUseBlock: …`
 
             - `id: str`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `input: Dict[str, object]`
 
@@ -414,7 +441,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["server_tool_use"]`
 
-              - `"server_tool_use"`
+              default: server_tool_use
 
             - `caller: Optional[Caller]`
 
@@ -452,7 +479,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_search_tool_result_error"]`
 
-                  - `"web_search_tool_result_error"`
+                  default: web_search_tool_result_error
 
               - `List[BetaWebSearchResultBlock]`
 
@@ -464,15 +491,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_search_result"]`
 
-                  - `"web_search_result"`
+                  default: web_search_result
 
                 - `url: str`
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["web_search_tool_result"]`
 
-              - `"web_search_tool_result"`
+              default: web_search_tool_result
 
             - `caller: Optional[Caller]`
 
@@ -516,7 +545,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_fetch_tool_result_error"]`
 
-                  - `"web_fetch_tool_result_error"`
+                  default: web_fetch_tool_result_error
 
               - `class BetaWebFetchBlock: …`
 
@@ -528,19 +557,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     - `enabled: bool`
 
+                      default: false
+
                   - `source: Source`
 
                     - `class BetaBase64PDFSource: …`
 
                       - `data: str`
 
+                        format: byte
+
                       - `media_type: Literal["application/pdf"]`
 
-                        - `"application/pdf"`
-
                       - `type: Literal["base64"]`
-
-                        - `"base64"`
 
                     - `class BetaPlainTextSource: …`
 
@@ -548,11 +577,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `media_type: Literal["text/plain"]`
 
-                        - `"text/plain"`
-
                       - `type: Literal["text"]`
-
-                        - `"text"`
 
                   - `title: Optional[str]`
 
@@ -560,7 +585,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["document"]`
 
-                    - `"document"`
+                    default: document
 
                 - `retrieved_at: Optional[str]`
 
@@ -568,7 +593,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["web_fetch_result"]`
 
-                  - `"web_fetch_result"`
+                  default: web_fetch_result
 
                 - `url: str`
 
@@ -576,9 +601,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["web_fetch_tool_result"]`
 
-              - `"web_fetch_tool_result"`
+              default: web_fetch_tool_result
 
             - `caller: Optional[Caller]`
 
@@ -618,7 +645,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["advisor_tool_result_error"]`
 
-                  - `"advisor_tool_result_error"`
+                  default: advisor_tool_result_error
 
               - `class BetaAdvisorResultBlock: …`
 
@@ -630,7 +657,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["advisor_result"]`
 
-                  - `"advisor_result"`
+                  default: advisor_result
 
               - `class BetaAdvisorRedactedResultBlock: …`
 
@@ -644,13 +671,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["advisor_redacted_result"]`
 
-                  - `"advisor_redacted_result"`
+                  default: advisor_redacted_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["advisor_tool_result"]`
 
-              - `"advisor_tool_result"`
+              default: advisor_tool_result
 
           - `class BetaCodeExecutionToolResultBlock: …`
 
@@ -672,7 +701,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["code_execution_tool_result_error"]`
 
-                  - `"code_execution_tool_result_error"`
+                  default: code_execution_tool_result_error
 
               - `class BetaCodeExecutionResultBlock: …`
 
@@ -682,7 +711,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["code_execution_output"]`
 
-                    - `"code_execution_output"`
+                    default: code_execution_output
 
                 - `return_code: int`
 
@@ -692,7 +721,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["code_execution_result"]`
 
-                  - `"code_execution_result"`
+                  default: code_execution_result
 
               - `class BetaEncryptedCodeExecutionResultBlock: …`
 
@@ -704,6 +733,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["code_execution_output"]`
 
+                    default: code_execution_output
+
                 - `encrypted_stdout: str`
 
                 - `return_code: int`
@@ -712,13 +743,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["encrypted_code_execution_result"]`
 
-                  - `"encrypted_code_execution_result"`
+                  default: encrypted_code_execution_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["code_execution_tool_result"]`
 
-              - `"code_execution_tool_result"`
+              default: code_execution_tool_result
 
           - `class BetaBashCodeExecutionToolResultBlock: …`
 
@@ -740,7 +773,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["bash_code_execution_tool_result_error"]`
 
-                  - `"bash_code_execution_tool_result_error"`
+                  default: bash_code_execution_tool_result_error
 
               - `class BetaBashCodeExecutionResultBlock: …`
 
@@ -750,7 +783,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `type: Literal["bash_code_execution_output"]`
 
-                    - `"bash_code_execution_output"`
+                    default: bash_code_execution_output
 
                 - `return_code: int`
 
@@ -760,13 +793,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["bash_code_execution_result"]`
 
-                  - `"bash_code_execution_result"`
+                  default: bash_code_execution_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["bash_code_execution_tool_result"]`
 
-              - `"bash_code_execution_tool_result"`
+              default: bash_code_execution_tool_result
 
           - `class BetaTextEditorCodeExecutionToolResultBlock: …`
 
@@ -790,7 +825,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_tool_result_error"]`
 
-                  - `"text_editor_code_execution_tool_result_error"`
+                  default: text_editor_code_execution_tool_result_error
 
               - `class BetaTextEditorCodeExecutionViewResultBlock: …`
 
@@ -812,7 +847,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_view_result"]`
 
-                  - `"text_editor_code_execution_view_result"`
+                  default: text_editor_code_execution_view_result
 
               - `class BetaTextEditorCodeExecutionCreateResultBlock: …`
 
@@ -820,7 +855,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_create_result"]`
 
-                  - `"text_editor_code_execution_create_result"`
+                  default: text_editor_code_execution_create_result
 
               - `class BetaTextEditorCodeExecutionStrReplaceResultBlock: …`
 
@@ -836,13 +871,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["text_editor_code_execution_str_replace_result"]`
 
-                  - `"text_editor_code_execution_str_replace_result"`
+                  default: text_editor_code_execution_str_replace_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["text_editor_code_execution_tool_result"]`
 
-              - `"text_editor_code_execution_tool_result"`
+              default: text_editor_code_execution_tool_result
 
           - `class BetaToolSearchToolResultBlock: …`
 
@@ -864,7 +901,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["tool_search_tool_result_error"]`
 
-                  - `"tool_search_tool_result_error"`
+                  default: tool_search_tool_result_error
 
               - `class BetaToolSearchToolSearchResultBlock: …`
 
@@ -872,23 +909,29 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `tool_name: str`
 
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
+
                   - `type: Literal["tool_reference"]`
 
-                    - `"tool_reference"`
+                    default: tool_reference
 
                 - `type: Literal["tool_search_tool_search_result"]`
 
-                  - `"tool_search_tool_search_result"`
+                  default: tool_search_tool_search_result
 
             - `tool_use_id: str`
 
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
             - `type: Literal["tool_search_tool_result"]`
 
-              - `"tool_search_tool_result"`
+              default: tool_search_tool_result
 
           - `class BetaMCPToolUseBlock: …`
 
             - `id: str`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `input: Dict[str, object]`
 
@@ -902,7 +945,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["mcp_tool_use"]`
 
-              - `"mcp_tool_use"`
+              default: mcp_tool_use
 
           - `class BetaMCPToolResultBlock: …`
 
@@ -920,15 +963,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `text: str`
 
+                  maxLength: 5000000, minLength: 0
+
                 - `type: Literal["text"]`
+
+                  default: text
 
             - `is_error: bool`
 
+              default: false
+
             - `tool_use_id: str`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `type: Literal["mcp_tool_result"]`
 
-              - `"mcp_tool_result"`
+              default: mcp_tool_result
 
           - `class BetaContainerUploadBlock: …`
 
@@ -938,7 +989,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["container_upload"]`
 
-              - `"container_upload"`
+              default: container_upload
 
           - `class BetaCompactionBlock: …`
 
@@ -958,7 +1009,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: Literal["compaction"]`
 
-              - `"compaction"`
+              default: compaction
 
           - `class BetaFallbackBlock: …`
 
@@ -1102,11 +1153,11 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: Literal["refusal"]`
 
-                - `"refusal"`
+                default: refusal
 
             - `type: Literal["fallback"]`
 
-              - `"fallback"`
+              default: fallback
 
         - `context_management: Optional[BetaContextManagementResponse]`
 
@@ -1124,15 +1175,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Number of input tokens cleared by this edit.
 
+                minimum: 0
+
               - `cleared_tool_uses: int`
 
                 Number of tool uses that were cleared.
+
+                minimum: 0
 
               - `type: Literal["clear_tool_uses_20250919"]`
 
                 The type of context management edit applied.
 
-                - `"clear_tool_uses_20250919"`
+                default: clear_tool_uses_20250919
 
             - `class BetaClearThinking20251015EditResponse: …`
 
@@ -1140,15 +1195,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Number of input tokens cleared by this edit.
 
+                minimum: 0
+
               - `cleared_thinking_turns: int`
 
                 Number of thinking turns that were cleared.
+
+                minimum: 0
 
               - `type: Literal["clear_thinking_20251015"]`
 
                 The type of context management edit applied.
 
-                - `"clear_thinking_20251015"`
+                default: clear_thinking_20251015
 
         - `diagnostics: Optional[BetaDiagnostics]`
 
@@ -1167,7 +1226,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: Literal["model_changed"]`
 
-                - `"model_changed"`
+                default: model_changed
 
             - `class BetaCacheMissSystemChanged: …`
 
@@ -1177,7 +1236,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: Literal["system_changed"]`
 
-                - `"system_changed"`
+                default: system_changed
 
             - `class BetaCacheMissToolsChanged: …`
 
@@ -1187,7 +1246,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: Literal["tools_changed"]`
 
-                - `"tools_changed"`
+                default: tools_changed
 
             - `class BetaCacheMissMessagesChanged: …`
 
@@ -1197,19 +1256,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: Literal["messages_changed"]`
 
-                - `"messages_changed"`
+                default: messages_changed
 
             - `class BetaCacheMissPreviousMessageNotFound: …`
 
               - `type: Literal["previous_message_not_found"]`
 
-                - `"previous_message_not_found"`
+                default: previous_message_not_found
 
             - `class BetaCacheMissUnavailable: …`
 
               - `type: Literal["unavailable"]`
 
-                - `"unavailable"`
+                default: unavailable
 
         - `model: Model`
 
@@ -1223,7 +1282,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This will always be `"assistant"`.
 
-          - `"assistant"`
+          default: assistant
 
         - `stop_details: Optional[BetaRefusalStopDetails]`
 
@@ -1310,7 +1369,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: Literal["refusal"]`
 
-            - `"refusal"`
+            default: refusal
 
         - `stop_reason: Optional[BetaStopReason]`
 
@@ -1356,7 +1415,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           For Messages, this is always `"message"`.
 
-          - `"message"`
+          default: message
 
         - `usage: BetaUsage`
 
@@ -1378,17 +1437,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of input tokens used to create the 1 hour cache entry.
 
+              default: 0, minimum: 0
+
             - `ephemeral_5m_input_tokens: int`
 
               The number of input tokens used to create the 5 minute cache entry.
+
+              default: 0, minimum: 0
 
           - `cache_creation_input_tokens: Optional[int]`
 
             The number of input tokens used to create the cache entry.
 
+            minimum: 0
+
           - `cache_read_input_tokens: Optional[int]`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `fallback_credit: Optional[BetaFallbackCreditUsage]`
 
@@ -1410,7 +1477,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["redeemed"]`
 
-                  - `"redeemed"`
+                  default: redeemed
 
               - `class BetaFallbackCreditNotApplied: …`
 
@@ -1449,7 +1516,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `type: Literal["not_applied"]`
 
-                  - `"not_applied"`
+                  default: not_applied
 
                 - `remove_to_redeem: Optional[List[str]]`
 
@@ -1469,6 +1536,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `input_tokens: int`
 
             The number of input tokens which were used.
+
+            minimum: 0
 
           - `iterations: Optional[BetaIterationsUsage]`
 
@@ -1492,13 +1561,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                default: 0, minimum: 0
+
               - `cache_read_input_tokens: int`
 
                 The number of input tokens read from the cache.
 
+                default: 0, minimum: 0
+
               - `input_tokens: int`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: Model`
 
@@ -1510,11 +1585,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: Literal["message"]`
 
                 Usage for a sampling iteration
 
-                - `"message"`
+                default: message
 
             - `class BetaCompactionIterationUsage: …`
 
@@ -1528,23 +1605,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                default: 0, minimum: 0
+
               - `cache_read_input_tokens: int`
 
                 The number of input tokens read from the cache.
+
+                default: 0, minimum: 0
 
               - `input_tokens: int`
 
                 The number of input tokens which were used.
 
+                minimum: 0
+
               - `output_tokens: int`
 
                 The number of output tokens which were used.
+
+                minimum: 0
 
               - `type: Literal["compaction"]`
 
                 Usage for a compaction iteration
 
-                - `"compaction"`
+                default: compaction
 
             - `class BetaAdvisorMessageIterationUsage: …`
 
@@ -1558,13 +1643,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                default: 0, minimum: 0
+
               - `cache_read_input_tokens: int`
 
                 The number of input tokens read from the cache.
 
+                default: 0, minimum: 0
+
               - `input_tokens: int`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: Model`
 
@@ -1576,11 +1667,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: Literal["advisor_message"]`
 
                 Usage for an advisor sub-inference iteration
 
-                - `"advisor_message"`
+                default: advisor_message
 
             - `class BetaFallbackMessageIterationUsage: …`
 
@@ -1599,13 +1692,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of input tokens used to create the cache entry.
 
+                default: 0, minimum: 0
+
               - `cache_read_input_tokens: int`
 
                 The number of input tokens read from the cache.
 
+                default: 0, minimum: 0
+
               - `input_tokens: int`
 
                 The number of input tokens which were used.
+
+                minimum: 0
 
               - `model: Model`
 
@@ -1617,15 +1716,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The number of output tokens which were used.
 
+                minimum: 0
+
               - `type: Literal["fallback_message"]`
 
                 Usage for the fallback-model attempt that served the response
 
-                - `"fallback_message"`
+                default: fallback_message
 
           - `output_tokens: int`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `output_tokens_details: Optional[BetaOutputTokensDetails]`
 
@@ -1647,6 +1750,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              default: 0, minimum: 0
+
           - `server_tool_use: Optional[BetaServerToolUsage]`
 
             The number of server tool requests.
@@ -1655,9 +1760,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The number of web fetch tool requests.
 
+              default: 0, minimum: 0
+
             - `web_search_requests: int`
 
               The number of web search tool requests.
+
+              default: 0, minimum: 0
 
           - `service_tier: Optional[Literal["standard", "priority", "batch"]]`
 
@@ -1679,7 +1788,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
       - `type: Literal["succeeded"]`
 
-        - `"succeeded"`
+        default: succeeded
 
     - `class BetaMessageBatchErroredResult: …`
 
@@ -1691,97 +1800,115 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `message: str`
 
+              default: Invalid request
+
             - `type: Literal["invalid_request_error"]`
 
-              - `"invalid_request_error"`
+              default: invalid_request_error
 
           - `class BetaAuthenticationError: …`
 
             - `message: str`
 
+              default: Authentication error
+
             - `type: Literal["authentication_error"]`
 
-              - `"authentication_error"`
+              default: authentication_error
 
           - `class BetaBillingError: …`
 
             - `message: str`
 
+              default: Billing error
+
             - `type: Literal["billing_error"]`
 
-              - `"billing_error"`
+              default: billing_error
 
           - `class BetaPermissionError: …`
 
             - `message: str`
 
+              default: Permission denied
+
             - `type: Literal["permission_error"]`
 
-              - `"permission_error"`
+              default: permission_error
 
           - `class BetaNotFoundError: …`
 
             - `message: str`
 
+              default: Not found
+
             - `type: Literal["not_found_error"]`
 
-              - `"not_found_error"`
+              default: not_found_error
 
           - `class BetaRateLimitError: …`
 
             - `message: str`
 
+              default: Rate limited
+
             - `type: Literal["rate_limit_error"]`
 
-              - `"rate_limit_error"`
+              default: rate_limit_error
 
           - `class BetaGatewayTimeoutError: …`
 
             - `message: str`
 
+              default: Request timeout
+
             - `type: Literal["timeout_error"]`
 
-              - `"timeout_error"`
+              default: timeout_error
 
           - `class BetaAPIError: …`
 
             - `message: str`
 
+              default: Internal server error
+
             - `type: Literal["api_error"]`
 
-              - `"api_error"`
+              default: api_error
 
           - `class BetaOverloadedError: …`
 
             - `message: str`
 
+              default: Overloaded
+
             - `type: Literal["overloaded_error"]`
 
-              - `"overloaded_error"`
+              default: overloaded_error
 
         - `request_id: Optional[str]`
 
         - `type: Literal["error"]`
 
-          - `"error"`
+          default: error
 
       - `type: Literal["errored"]`
 
-        - `"errored"`
+        default: errored
 
     - `class BetaMessageBatchCanceledResult: …`
 
       - `type: Literal["canceled"]`
 
-        - `"canceled"`
+        default: canceled
 
     - `class BetaMessageBatchExpiredResult: …`
 
       - `type: Literal["expired"]`
 
-        - `"expired"`
+        default: expired
 
-### Example
+## Example
 
 ```python
 import os

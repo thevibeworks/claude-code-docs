@@ -1,17 +1,12 @@
----
-title: Validate Credential
-url: https://platform.claude.com/docs/en/api/cli/beta/vaults/credentials/mcp_oauth_validate
----
-
-## Validate Credential
+# Validate Credential
 
 `$ ant beta:vaults:credentials mcp-oauth-validate`
 
-**post** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
+**POST** `/v1/vaults/{vault_id}/credentials/{credential_id}/mcp_oauth_validate`
 
 Validate Credential
 
-### Parameters
+## Parameters
 
 - `--vault-id: string`
 
@@ -25,9 +20,9 @@ Validate Credential
 
   Header param: Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
-- `beta_managed_agents_credential_validation: object { credential_id, has_refresh_token, mcp_probe, 5 more }`
+- `beta_managed_agents_credential_validation: object`
 
   Result of live-probing a credential against its configured MCP server.
 
@@ -39,11 +34,11 @@ Validate Credential
 
     Whether the credential has a refresh token configured.
 
-  - `mcp_probe: object { http_response, method }`
+  - `mcp_probe: object`
 
     The failing step of an MCP validation probe.
 
-    - `http_response: object { body, body_truncated, content_type, status_code }`
+    - `http_response: object`
 
       An HTTP response captured during a credential validation probe.
 
@@ -62,16 +57,18 @@ Validate Credential
       - `status_code: number`
 
         HTTP status code.
+
+        format: int32
 
     - `method: string`
 
       The MCP method that failed (for example `initialize` or `tools/list`).
 
-  - `refresh: object { http_response, status }`
+  - `refresh: object`
 
     Outcome of a refresh-token exchange attempted during credential validation.
 
-    - `http_response: object { body, body_truncated, content_type, status_code }`
+    - `http_response: object`
 
       An HTTP response captured during a credential validation probe.
 
@@ -90,6 +87,8 @@ Validate Credential
       - `status_code: number`
 
         HTTP status code.
+
+        format: int32
 
     - `status: "succeeded" or "failed" or "connect_error" or "no_refresh_token"`
 
@@ -115,26 +114,26 @@ Validate Credential
 
   - `type: "vault_credential_validation"`
 
-    - `"vault_credential_validation"`
-
   - `validated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `vault_id: string`
 
     Identifier of the vault containing the credential.
 
-### Example
+## Example
 
-```cli
+```bash
 ant beta:vaults:credentials mcp-oauth-validate \
   --api-key my-anthropic-api-key \
   --vault-id vlt_011CZkZDLs7fYzm1hXNPeRjv \
   --credential-id vcrd_011CZkZEMt8gZan2iYOQfSkw
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

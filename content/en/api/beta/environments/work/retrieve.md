@@ -1,23 +1,18 @@
----
-title: Get Work Item
-url: https://platform.claude.com/docs/en/api/beta/environments/work/retrieve
----
+# Get Work Item
 
-## Get Work Item
-
-**get** `/v1/environments/{environment_id}/work/{work_id}`
+**GET** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Retrieve detailed information about a specific work item.
 
-### Path Parameters
+## Path parameters
 
 - `environment_id: string`
 
 - `work_id: string`
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -95,9 +90,9 @@ Retrieve detailed information about a specific work item.
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
-- `BetaSelfHostedWork object { id, acknowledged_at, created_at, 10 more }`
+- `BetaSelfHostedWork object`
 
   Work resource representing a unit of work in a self-hosted environment.
 
@@ -128,8 +123,6 @@ Retrieve detailed information about a specific work item.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -177,18 +170,18 @@ Retrieve detailed information about a specific work item.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/environments/$ENVIRONMENT_ID/work/$WORK_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H 'anthropic-beta: managed-agents-2026-04-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

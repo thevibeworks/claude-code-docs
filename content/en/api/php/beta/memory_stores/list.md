@@ -1,17 +1,12 @@
----
-title: List memory stores
-url: https://platform.claude.com/docs/en/api/php/beta/memory_stores/list
----
-
-## List memory stores
+# List memory stores
 
 `$client->beta->memoryStores->list(?\Datetime createdAtGte, ?\Datetime createdAtLte, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<BetaManagedAgentsMemoryStore>`
 
-**get** `/v1/memory_stores`
+**GET** `/v1/memory_stores`
 
 List memory stores
 
-### Parameters
+## Parameters
 
 - `createdAtGte?:optional \Datetime`
 
@@ -37,7 +32,7 @@ List memory stores
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsMemoryStore`
 
@@ -71,7 +66,7 @@ List memory stores
 
     Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -92,7 +87,7 @@ $page = $client->beta->memoryStores->list(
 var_dump($page);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

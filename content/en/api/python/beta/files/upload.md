@@ -1,21 +1,18 @@
----
-title: Upload File
-url: https://platform.claude.com/docs/en/api/python/beta/files/upload
----
+# Upload File
 
-## Upload File
+`beta.files.upload(**kwargs)  -> BetaFileMetadata`
 
-`beta.files.upload(FileUploadParams**kwargs)  -> BetaFileMetadata`
-
-**post** `/v1/files`
+**POST** `/v1/files`
 
 Upload File
 
-### Parameters
+## Parameters
 
 - `file: FileTypes`
 
   The file to upload
+
+  format: binary
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -93,7 +90,7 @@ Upload File
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaFileMetadata: …`
 
@@ -107,17 +104,25 @@ Upload File
 
     RFC 3339 datetime string representing when the file was created.
 
+    format: date-time
+
   - `filename: str`
 
     Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
 
   - `mime_type: str`
 
     MIME type of the file.
 
+    maxLength: 255, minLength: 1
+
   - `size_bytes: int`
 
     Size of the file in bytes.
+
+    minimum: 0
 
   - `type: Literal["file"]`
 
@@ -125,11 +130,11 @@ Upload File
 
     For files, this is always `"file"`.
 
-    - `"file"`
-
   - `downloadable: Optional[bool]`
 
     Whether the file can be downloaded.
+
+    default: false
 
   - `scope: Optional[BetaFileScope]`
 
@@ -143,9 +148,7 @@ Upload File
 
       The type of scope (e.g., `"session"`).
 
-      - `"session"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -162,7 +165,7 @@ beta_file_metadata = client.beta.files.upload(
 print(beta_file_metadata.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

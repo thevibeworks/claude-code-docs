@@ -1,19 +1,14 @@
----
-title: List Models
-url: https://platform.claude.com/docs/en/api/java/beta/models/list
----
+# List Models
 
-## List Models
+`ModelListPage beta().models().list(params = ModelListParams.none(), requestOptions = RequestOptions.none())`
 
-`ModelListPage beta().models().list(ModelListParamsparams = ModelListParams.none(), RequestOptionsrequestOptions = RequestOptions.none())`
-
-**get** `/v1/models`
+**GET** `/v1/models`
 
 List available models.
 
 The Models API response can be used to determine which models are available for use in the API. More recently released models are listed first.
 
-### Parameters
+## Parameters
 
 - `ModelListParams params`
 
@@ -30,6 +25,8 @@ The Models API response can be used to determine which models are available for 
     Number of items to return per page.
 
     Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -103,7 +100,7 @@ The Models API response can be used to determine which models are available for 
 
     - `MID_CONVERSATION_TOOL_CHANGES_2026_07_01("mid-conversation-tool-changes-2026-07-01")`
 
-### Returns
+## Returns
 
 - `class BetaModelInfo:`
 
@@ -219,6 +216,8 @@ The Models API response can be used to determine which models are available for 
 
     RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
+    format: date-time
+
   - `String displayName`
 
     A human-readable name for the model.
@@ -231,15 +230,13 @@ The Models API response can be used to determine which models are available for 
 
     Maximum value for the `max_tokens` parameter when using this model.
 
-  - `JsonValue; type "model"constant`
+  - `JsonValue type constant`
 
     Object type.
 
     For Models, this is always `"model"`.
 
-    - `MODEL("model")`
-
-### Example
+## Example
 
 ```java
 package com.anthropic.example;
@@ -260,7 +257,7 @@ public final class Main {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

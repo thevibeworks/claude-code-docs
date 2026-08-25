@@ -1,17 +1,12 @@
----
-title: Update Vault
-url: https://platform.claude.com/docs/en/api/php/beta/vaults/update
----
-
-## Update Vault
+# Update Vault
 
 `$client->beta->vaults->update(string vaultID, ?string displayName, ?array<string,string> metadata, ?list<AnthropicBeta> betas): BetaManagedAgentsVault`
 
-**post** `/v1/vaults/{vault_id}`
+**POST** `/v1/vaults/{vault_id}`
 
 Update Vault
 
-### Parameters
+## Parameters
 
 - `vaultID: string`
 
@@ -27,7 +22,7 @@ Update Vault
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaManagedAgentsVault`
 
@@ -57,7 +52,7 @@ Update Vault
 
     A timestamp in RFC 3339 format
 
-### Example
+## Example
 
 ```php
 <?php
@@ -76,7 +71,7 @@ $betaManagedAgentsVault = $client->beta->vaults->update(
 var_dump($betaManagedAgentsVault);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

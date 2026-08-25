@@ -1,35 +1,32 @@
----
-title: List Tunnels
-url: https://platform.claude.com/docs/en/api/go/beta/tunnels/list
----
-
-## List Tunnels
+# List Tunnels
 
 `client.Beta.Tunnels.List(ctx, params) (*PageCursor[BetaTunnel], error)`
 
-**get** `/v1/tunnels`
+**GET** `/v1/tunnels`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Lists tunnels. Results are ordered by creation time, newest first; archived tunnels are excluded unless include_archived is set.
 
-### Parameters
+## Parameters
 
 - `params BetaTunnelListParams`
 
-  - `IncludeArchived param.Field[bool]`
+  - `IncludeArchived param.Field[bool] Optional`
 
     Query param: Whether to include archived tunnels in the results. Defaults to false.
 
-  - `Limit param.Field[int64]`
+  - `Limit param.Field[int64] Optional`
 
     Query param: Maximum number of tunnels to return per page. Defaults to 20, maximum 1000.
 
-  - `Page param.Field[string]`
+    format: int32
+
+  - `Page param.Field[string] Optional`
 
     Query param: Opaque pagination cursor from a previous `list_tunnels` response.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -105,7 +102,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaTunnel struct{…}`
 
@@ -119,9 +116,13 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `DisplayName string`
 
@@ -133,9 +134,7 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
   - `Type Tunnel`
 
-    - `const TunnelTunnel Tunnel = "tunnel"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -160,7 +159,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

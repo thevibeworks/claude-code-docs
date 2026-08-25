@@ -1,23 +1,18 @@
----
-title: Delete Vault
-url: https://platform.claude.com/docs/en/api/go/beta/vaults/delete
----
-
-## Delete Vault
+# Delete Vault
 
 `client.Beta.Vaults.Delete(ctx, vaultID, body) (*BetaManagedAgentsDeletedVault, error)`
 
-**delete** `/v1/vaults/{vault_id}`
+**DELETE** `/v1/vaults/{vault_id}`
 
 Delete Vault
 
-### Parameters
+## Parameters
 
 - `vaultID string`
 
 - `body BetaVaultDeleteParams`
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Optional header to specify the beta version(s) you want to use.
 
@@ -93,7 +88,7 @@ Delete Vault
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsDeletedVault struct{…}`
 
@@ -105,9 +100,7 @@ Delete Vault
 
   - `Type BetaManagedAgentsDeletedVaultType`
 
-    - `const BetaManagedAgentsDeletedVaultTypeVaultDeleted BetaManagedAgentsDeletedVaultType = "vault_deleted"`
-
-### Example
+## Example
 
 ```go
 package main
@@ -136,7 +129,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

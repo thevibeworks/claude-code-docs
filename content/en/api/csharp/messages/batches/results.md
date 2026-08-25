@@ -1,13 +1,8 @@
----
-title: Retrieve Message Batch results
-url: https://platform.claude.com/docs/en/api/csharp/messages/batches/results
----
+# Retrieve Message Batch results
 
-## Retrieve Message Batch results
+`MessageBatchIndividualResponse Messages.Batches.ResultsStreaming(parameters, cancellationToken = default)`
 
-`MessageBatchIndividualResponse Messages.Batches.ResultsStreaming(BatchResultsParamsparameters, CancellationTokencancellationToken = default)`
-
-**get** `/v1/messages/batches/{message_batch_id}/results`
+**GET** `/v1/messages/batches/{message_batch_id}/results`
 
 Streams the results of a Message Batch as a `.jsonl` file.
 
@@ -15,7 +10,7 @@ Each line in the file is a JSON object containing the result of a single request
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `BatchResultsParams parameters`
 
@@ -23,7 +18,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     ID of the Message Batch.
 
-### Returns
+## Returns
 
 - `class MessageBatchIndividualResponse:`
 
@@ -63,6 +58,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The time at which the container will expire.
 
+            format: date-time
+
           - `required IReadOnlyList<ContainerSkill>? Skills`
 
             Skills loaded in the container
@@ -71,17 +68,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               Skill ID
 
+              maxLength: 64, minLength: 1
+
             - `required ContainerSkillType Type`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-              - `"anthropic"Anthropic`
+              - `Anthropic`
 
-              - `"custom"Custom`
+              - `Custom`
 
             - `required string Version`
 
               The resolved version: a skill version ID for custom skills.
+
+              maxLength: 64, minLength: 1
 
         - `required IReadOnlyList<ContentBlock> Content`
 
@@ -124,33 +125,41 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string CitedText`
 
-                - `required Long DocumentIndex`
+                - `required long DocumentIndex`
+
+                  minimum: 0
 
                 - `required string? DocumentTitle`
 
-                - `required Long EndCharIndex`
+                - `required long EndCharIndex`
 
                 - `required string? FileID`
 
-                - `required Long StartCharIndex`
+                - `required long StartCharIndex`
 
-                - `JsonElement Type "char_location"constant`
+                  minimum: 0
+
+                - `JsonElement Type constant`
 
               - `class CitationPageLocation:`
 
                 - `required string CitedText`
 
-                - `required Long DocumentIndex`
+                - `required long DocumentIndex`
+
+                  minimum: 0
 
                 - `required string? DocumentTitle`
 
-                - `required Long EndPageNumber`
+                - `required long EndPageNumber`
 
                 - `required string? FileID`
 
-                - `required Long StartPageNumber`
+                - `required long StartPageNumber`
 
-                - `JsonElement Type "page_location"constant`
+                  minimum: 1
+
+                - `JsonElement Type constant`
 
               - `class CitationContentBlockLocation:`
 
@@ -160,11 +169,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-                - `required Long DocumentIndex`
+                - `required long DocumentIndex`
+
+                  minimum: 0
 
                 - `required string? DocumentTitle`
 
-                - `required Long EndBlockIndex`
+                - `required long EndBlockIndex`
 
                   Exclusive 0-based end index of the cited block range in the source's `content` array.
 
@@ -172,11 +183,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string? FileID`
 
-                - `required Long StartBlockIndex`
+                - `required long StartBlockIndex`
 
                   0-based index of the first cited block in the source's `content` array.
 
-                - `JsonElement Type "content_block_location"constant`
+                  minimum: 0
+
+                - `JsonElement Type constant`
 
               - `class CitationsWebSearchResultLocation:`
 
@@ -186,7 +199,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string? Title`
 
-                - `JsonElement Type "web_search_result_location"constant`
+                  maxLength: 512
+
+                - `JsonElement Type constant`
 
                 - `required string Url`
 
@@ -198,31 +213,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   Always equals the contents of `content[start_block_index:end_block_index]` joined together. The text block is the minimal citable unit; this field is never a substring of a single block. Not counted toward output tokens, and not counted toward input tokens when sent back in subsequent turns.
 
-                - `required Long EndBlockIndex`
+                - `required long EndBlockIndex`
 
                   Exclusive 0-based end index of the cited block range in the source's `content` array.
 
                   Always greater than `start_block_index`; a single-block citation has `end_block_index = start_block_index + 1`.
 
-                - `required Long SearchResultIndex`
+                - `required long SearchResultIndex`
 
                   0-based index of the cited search result among all `search_result` content blocks in the request, in the order they appear across messages and tool results.
 
                   Counted separately from `document_index`; server-side web search results are not included in this count.
 
+                  minimum: 0
+
                 - `required string Source`
 
-                - `required Long StartBlockIndex`
+                - `required long StartBlockIndex`
 
                   0-based index of the first cited block in the source's `content` array.
 
+                  minimum: 0
+
                 - `required string? Title`
 
-                - `JsonElement Type "search_result_location"constant`
+                - `JsonElement Type constant`
 
             - `required string Text`
 
-            - `JsonElement Type "text"constant`
+              maxLength: 5000000, minLength: 0
+
+            - `JsonElement Type constant`
 
           - `class ThinkingBlock:`
 
@@ -238,7 +259,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The text of Claude's thinking process for this block.
 
-            - `JsonElement Type "thinking"constant`
+            - `JsonElement Type constant`
 
           - `class RedactedThinkingBlock:`
 
@@ -250,11 +271,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               See [extended thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#redacted-thinking-blocks) for details.
 
-            - `JsonElement Type "redacted_thinking"constant`
+            - `JsonElement Type constant`
 
           - `class ToolUseBlock:`
 
             - `required string ID`
+
+              pattern: ^[a-zA-Z0-9_-]+$
 
             - `required Caller Caller`
 
@@ -264,7 +287,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 Tool invocation directly from the model.
 
-                - `JsonElement Type "direct"constant`
+                - `JsonElement Type constant`
 
               - `class ServerToolCaller:`
 
@@ -272,27 +295,37 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string ToolID`
 
-                - `JsonElement Type "code_execution_20250825"constant`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `JsonElement Type constant`
 
               - `class ServerToolCaller20260120:`
 
                 - `required string ToolID`
 
-                - `JsonElement Type "code_execution_20260120"constant`
+                  pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+                - `JsonElement Type constant`
 
             - `required IReadOnlyDictionary<string, JsonElement> Input`
 
             - `required string Name`
 
-            - `JsonElement Type "tool_use"constant`
+              minLength: 1
+
+            - `JsonElement Type constant`
 
             - `string? ToolsetName`
 
               For a toolset member tool_use, the toolset family.
 
+              maxLength: 64, minLength: 1, pattern: ^[a-zA-Z0-9_-]+$
+
           - `class ServerToolUseBlock:`
 
             - `required string ID`
+
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
 
             - `required Caller Caller`
 
@@ -312,21 +345,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required Name Name`
 
-              - `"web_search"WebSearch`
+              - `WebSearch`
 
-              - `"web_fetch"WebFetch`
+              - `WebFetch`
 
-              - `"code_execution"CodeExecution`
+              - `CodeExecution`
 
-              - `"bash_code_execution"BashCodeExecution`
+              - `BashCodeExecution`
 
-              - `"text_editor_code_execution"TextEditorCodeExecution`
+              - `TextEditorCodeExecution`
 
-              - `"tool_search_tool_regex"ToolSearchToolRegex`
+              - `ToolSearchToolRegex`
 
-              - `"tool_search_tool_bm25"ToolSearchToolBm25`
+              - `ToolSearchToolBm25`
 
-            - `JsonElement Type "server_tool_use"constant`
+            - `JsonElement Type constant`
 
           - `class WebSearchToolResultBlock:`
 
@@ -350,19 +383,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required WebSearchToolResultErrorCode ErrorCode`
 
-                  - `"invalid_tool_input"InvalidToolInput`
+                  - `InvalidToolInput`
 
-                  - `"unavailable"Unavailable`
+                  - `Unavailable`
 
-                  - `"max_uses_exceeded"MaxUsesExceeded`
+                  - `MaxUsesExceeded`
 
-                  - `"too_many_requests"TooManyRequests`
+                  - `TooManyRequests`
 
-                  - `"query_too_long"QueryTooLong`
+                  - `QueryTooLong`
 
-                  - `"request_too_large"RequestTooLarge`
+                  - `RequestTooLarge`
 
-                - `JsonElement Type "web_search_tool_result_error"constant`
+                - `JsonElement Type constant`
 
               - `IReadOnlyList<WebSearchResultBlock>`
 
@@ -372,13 +405,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required string Title`
 
-                - `JsonElement Type "web_search_result"constant`
+                - `JsonElement Type constant`
 
                 - `required string Url`
 
             - `required string ToolUseID`
 
-            - `JsonElement Type "web_search_tool_result"constant`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `JsonElement Type constant`
 
           - `class WebFetchToolResultBlock:`
 
@@ -402,25 +437,25 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required WebFetchToolResultErrorCode ErrorCode`
 
-                  - `"invalid_tool_input"InvalidToolInput`
+                  - `InvalidToolInput`
 
-                  - `"url_too_long"UrlTooLong`
+                  - `UrlTooLong`
 
-                  - `"url_not_allowed"UrlNotAllowed`
+                  - `UrlNotAllowed`
 
-                  - `"url_not_in_prior_context"UrlNotInPriorContext`
+                  - `UrlNotInPriorContext`
 
-                  - `"url_not_accessible"UrlNotAccessible`
+                  - `UrlNotAccessible`
 
-                  - `"unsupported_content_type"UnsupportedContentType`
+                  - `UnsupportedContentType`
 
-                  - `"too_many_requests"TooManyRequests`
+                  - `TooManyRequests`
 
-                  - `"max_uses_exceeded"MaxUsesExceeded`
+                  - `MaxUsesExceeded`
 
-                  - `"unavailable"Unavailable`
+                  - `Unavailable`
 
-                - `JsonElement Type "web_fetch_tool_result_error"constant`
+                - `JsonElement Type constant`
 
               - `class WebFetchBlock:`
 
@@ -430,7 +465,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     Citation configuration for the document
 
-                    - `required Boolean Enabled`
+                    - `required bool Enabled`
 
                   - `required Source Source`
 
@@ -438,29 +473,31 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                       - `required string Data`
 
-                      - `JsonElement MediaType "application/pdf"constant`
+                        format: byte
 
-                      - `JsonElement Type "base64"constant`
+                      - `JsonElement MediaType constant`
+
+                      - `JsonElement Type constant`
 
                     - `class PlainTextSource:`
 
                       - `required string Data`
 
-                      - `JsonElement MediaType "text/plain"constant`
+                      - `JsonElement MediaType constant`
 
-                      - `JsonElement Type "text"constant`
+                      - `JsonElement Type constant`
 
                   - `required string? Title`
 
                     The title of the document
 
-                  - `JsonElement Type "document"constant`
+                  - `JsonElement Type constant`
 
                 - `required string? RetrievedAt`
 
                   ISO 8601 timestamp when the content was retrieved
 
-                - `JsonElement Type "web_fetch_result"constant`
+                - `JsonElement Type constant`
 
                 - `required string Url`
 
@@ -468,7 +505,9 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required string ToolUseID`
 
-            - `JsonElement Type "web_fetch_tool_result"constant`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `JsonElement Type constant`
 
           - `class CodeExecutionToolResultBlock:`
 
@@ -480,15 +519,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required CodeExecutionToolResultErrorCode ErrorCode`
 
-                  - `"invalid_tool_input"InvalidToolInput`
+                  - `InvalidToolInput`
 
-                  - `"unavailable"Unavailable`
+                  - `Unavailable`
 
-                  - `"too_many_requests"TooManyRequests`
+                  - `TooManyRequests`
 
-                  - `"execution_time_exceeded"ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded`
 
-                - `JsonElement Type "code_execution_tool_result_error"constant`
+                - `JsonElement Type constant`
 
               - `class CodeExecutionResultBlock:`
 
@@ -496,15 +535,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type "code_execution_output"constant`
+                  - `JsonElement Type constant`
 
-                - `required Long ReturnCode`
+                - `required long ReturnCode`
 
                 - `required string Stderr`
 
                 - `required string Stdout`
 
-                - `JsonElement Type "code_execution_result"constant`
+                - `JsonElement Type constant`
 
               - `class EncryptedCodeExecutionResultBlock:`
 
@@ -514,19 +553,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type "code_execution_output"constant`
+                  - `JsonElement Type constant`
 
                 - `required string EncryptedStdout`
 
-                - `required Long ReturnCode`
+                - `required long ReturnCode`
 
                 - `required string Stderr`
 
-                - `JsonElement Type "encrypted_code_execution_result"constant`
+                - `JsonElement Type constant`
 
             - `required string ToolUseID`
 
-            - `JsonElement Type "code_execution_tool_result"constant`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `JsonElement Type constant`
 
           - `class BashCodeExecutionToolResultBlock:`
 
@@ -536,17 +577,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required BashCodeExecutionToolResultErrorCode ErrorCode`
 
-                  - `"invalid_tool_input"InvalidToolInput`
+                  - `InvalidToolInput`
 
-                  - `"unavailable"Unavailable`
+                  - `Unavailable`
 
-                  - `"too_many_requests"TooManyRequests`
+                  - `TooManyRequests`
 
-                  - `"execution_time_exceeded"ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded`
 
-                  - `"output_file_too_large"OutputFileTooLarge`
+                  - `OutputFileTooLarge`
 
-                - `JsonElement Type "bash_code_execution_tool_result_error"constant`
+                - `JsonElement Type constant`
 
               - `class BashCodeExecutionResultBlock:`
 
@@ -554,19 +595,21 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string FileID`
 
-                  - `JsonElement Type "bash_code_execution_output"constant`
+                  - `JsonElement Type constant`
 
-                - `required Long ReturnCode`
+                - `required long ReturnCode`
 
                 - `required string Stderr`
 
                 - `required string Stdout`
 
-                - `JsonElement Type "bash_code_execution_result"constant`
+                - `JsonElement Type constant`
 
             - `required string ToolUseID`
 
-            - `JsonElement Type "bash_code_execution_tool_result"constant`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `JsonElement Type constant`
 
           - `class TextEditorCodeExecutionToolResultBlock:`
 
@@ -576,19 +619,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required TextEditorCodeExecutionToolResultErrorCode ErrorCode`
 
-                  - `"invalid_tool_input"InvalidToolInput`
+                  - `InvalidToolInput`
 
-                  - `"unavailable"Unavailable`
+                  - `Unavailable`
 
-                  - `"too_many_requests"TooManyRequests`
+                  - `TooManyRequests`
 
-                  - `"execution_time_exceeded"ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded`
 
-                  - `"file_not_found"FileNotFound`
+                  - `FileNotFound`
 
                 - `required string? ErrorMessage`
 
-                - `JsonElement Type "text_editor_code_execution_tool_result_error"constant`
+                - `JsonElement Type constant`
 
               - `class TextEditorCodeExecutionViewResultBlock:`
 
@@ -596,43 +639,45 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required FileType FileType`
 
-                  - `"text"Text`
+                  - `Text`
 
-                  - `"image"Image`
+                  - `Image`
 
-                  - `"pdf"Pdf`
+                  - `Pdf`
 
-                - `required Long? NumLines`
+                - `required long? NumLines`
 
-                - `required Long? StartLine`
+                - `required long? StartLine`
 
-                - `required Long? TotalLines`
+                - `required long? TotalLines`
 
-                - `JsonElement Type "text_editor_code_execution_view_result"constant`
+                - `JsonElement Type constant`
 
               - `class TextEditorCodeExecutionCreateResultBlock:`
 
-                - `required Boolean IsFileUpdate`
+                - `required bool IsFileUpdate`
 
-                - `JsonElement Type "text_editor_code_execution_create_result"constant`
+                - `JsonElement Type constant`
 
               - `class TextEditorCodeExecutionStrReplaceResultBlock:`
 
                 - `required IReadOnlyList<string>? Lines`
 
-                - `required Long? NewLines`
+                - `required long? NewLines`
 
-                - `required Long? NewStart`
+                - `required long? NewStart`
 
-                - `required Long? OldLines`
+                - `required long? OldLines`
 
-                - `required Long? OldStart`
+                - `required long? OldStart`
 
-                - `JsonElement Type "text_editor_code_execution_str_replace_result"constant`
+                - `JsonElement Type constant`
 
             - `required string ToolUseID`
 
-            - `JsonElement Type "text_editor_code_execution_tool_result"constant`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `JsonElement Type constant`
 
           - `class ToolSearchToolResultBlock:`
 
@@ -642,17 +687,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `required ToolSearchToolResultErrorCode ErrorCode`
 
-                  - `"invalid_tool_input"InvalidToolInput`
+                  - `InvalidToolInput`
 
-                  - `"unavailable"Unavailable`
+                  - `Unavailable`
 
-                  - `"too_many_requests"TooManyRequests`
+                  - `TooManyRequests`
 
-                  - `"execution_time_exceeded"ExecutionTimeExceeded`
+                  - `ExecutionTimeExceeded`
 
                 - `required string? ErrorMessage`
 
-                - `JsonElement Type "tool_search_tool_result_error"constant`
+                - `JsonElement Type constant`
 
               - `class ToolSearchToolSearchResultBlock:`
 
@@ -660,13 +705,17 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                   - `required string ToolName`
 
-                  - `JsonElement Type "tool_reference"constant`
+                    maxLength: 256, minLength: 1, pattern: ^[a-zA-Z0-9_-]{1,256}$
 
-                - `JsonElement Type "tool_search_tool_search_result"constant`
+                  - `JsonElement Type constant`
+
+                - `JsonElement Type constant`
 
             - `required string ToolUseID`
 
-            - `JsonElement Type "tool_search_tool_result"constant`
+              pattern: ^srvtoolu_[a-zA-Z0-9_]+$
+
+            - `JsonElement Type constant`
 
           - `class ContainerUploadBlock:`
 
@@ -674,7 +723,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required string FileID`
 
-            - `JsonElement Type "container_upload"constant`
+            - `JsonElement Type constant`
 
         - `required Model Model`
 
@@ -682,67 +731,67 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `"claude-sonnet-5"ClaudeSonnet5`
+          - `ClaudeSonnet5`
 
             High-performance model for coding and agents
 
-          - `"claude-fable-5"ClaudeFable5`
+          - `ClaudeFable5`
 
             Next generation of intelligence for the hardest knowledge work and coding problems
 
-          - `"claude-mythos-5"ClaudeMythos5`
+          - `ClaudeMythos5`
 
             Most capable model for cybersecurity and biology research
 
-          - `"claude-opus-5"ClaudeOpus5`
+          - `ClaudeOpus5`
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-opus-4-8"ClaudeOpus4_8`
+          - `ClaudeOpus4_8`
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-opus-4-7"ClaudeOpus4_7`
+          - `ClaudeOpus4_7`
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-mythos-preview"ClaudeMythosPreview`
+          - `ClaudeMythosPreview`
 
             New class of intelligence, strongest in coding and cybersecurity
 
-          - `"claude-opus-4-6"ClaudeOpus4_6`
+          - `ClaudeOpus4_6`
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-sonnet-4-6"ClaudeSonnet4_6`
+          - `ClaudeSonnet4_6`
 
             Best combination of speed and intelligence
 
-          - `"claude-haiku-4-5"ClaudeHaiku4_5`
+          - `ClaudeHaiku4_5`
 
             Fastest model with near-frontier intelligence
 
-          - `"claude-haiku-4-5-20251001"ClaudeHaiku4_5_20251001`
+          - `ClaudeHaiku4_5_20251001`
 
             Fastest model with near-frontier intelligence
 
-          - `"claude-opus-4-5"ClaudeOpus4_5`
+          - `ClaudeOpus4_5`
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-opus-4-5-20251101"ClaudeOpus4_5_20251101`
+          - `ClaudeOpus4_5_20251101`
 
             Powerful intelligence for long-running agents and coding
 
-          - `"claude-sonnet-4-5"ClaudeSonnet4_5`
+          - `ClaudeSonnet4_5`
 
             High-performance model for agents and coding
 
-          - `"claude-sonnet-4-5-20250929"ClaudeSonnet4_5_20250929`
+          - `ClaudeSonnet4_5_20250929`
 
             High-performance model for agents and coding
 
-        - `JsonElement Role "assistant"constant`
+        - `JsonElement Role constant`
 
           Conversational role of the generated message.
 
@@ -756,23 +805,23 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             The policy category that triggered a refusal.
 
-            - `"cyber"Cyber`
+            - `Cyber`
 
               The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
 
-            - `"bio"Bio`
+            - `Bio`
 
               The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
 
-            - `"frontier_llm"FrontierLlm`
+            - `FrontierLlm`
 
               The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
 
-            - `"reasoning_extraction"ReasoningExtraction`
+            - `ReasoningExtraction`
 
               The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
 
-            - `"general_harms"GeneralHarms`
+            - `GeneralHarms`
 
               The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
@@ -782,7 +831,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             This text is not guaranteed to be stable. `null` when no explanation is available for the category.
 
-          - `JsonElement Type "refusal"constant`
+          - `JsonElement Type constant`
 
         - `required StopReason? StopReason`
 
@@ -800,19 +849,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           In non-streaming mode this value is always non-null. In streaming mode, it is null in the `message_start` event and non-null otherwise.
 
-          - `"end_turn"EndTurn`
+          - `EndTurn`
 
-          - `"max_tokens"MaxTokens`
+          - `MaxTokens`
 
-          - `"stop_sequence"StopSequence`
+          - `StopSequence`
 
-          - `"tool_use"ToolUse`
+          - `ToolUse`
 
-          - `"pause_turn"PauseTurn`
+          - `PauseTurn`
 
-          - `"refusal"Refusal`
+          - `Refusal`
 
-          - `"model_context_window_exceeded"ModelContextWindowExceeded`
+          - `ModelContextWindowExceeded`
 
         - `required string? StopSequence`
 
@@ -820,7 +869,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           This value will be a non-null string if one of your custom stop sequences was generated.
 
-        - `JsonElement Type "message"constant`
+        - `JsonElement Type constant`
 
           Object type.
 
@@ -842,33 +891,45 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Breakdown of cached tokens by TTL
 
-            - `required Long Ephemeral1hInputTokens`
+            - `required long Ephemeral1hInputTokens`
 
               The number of input tokens used to create the 1 hour cache entry.
 
-            - `required Long Ephemeral5mInputTokens`
+              minimum: 0
+
+            - `required long Ephemeral5mInputTokens`
 
               The number of input tokens used to create the 5 minute cache entry.
 
-          - `required Long? CacheCreationInputTokens`
+              minimum: 0
+
+          - `required long? CacheCreationInputTokens`
 
             The number of input tokens used to create the cache entry.
 
-          - `required Long? CacheReadInputTokens`
+            minimum: 0
+
+          - `required long? CacheReadInputTokens`
 
             The number of input tokens read from the cache.
+
+            minimum: 0
 
           - `required string? InferenceGeo`
 
             The geographic region where inference was performed for this request.
 
-          - `required Long InputTokens`
+          - `required long InputTokens`
 
             The number of input tokens which were used.
 
-          - `required Long OutputTokens`
+            minimum: 0
+
+          - `required long OutputTokens`
 
             The number of output tokens which were used.
+
+            minimum: 0
 
           - `required OutputTokensDetails? OutputTokensDetails`
 
@@ -879,7 +940,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             how many of the billed output tokens were spent on internal reasoning that may
             have been summarized before being returned to you.
 
-            - `required Long ThinkingTokens`
+            - `required long ThinkingTokens`
 
               Number of output tokens the model generated as internal reasoning, including
               the thinking-block delimiter tokens.
@@ -890,29 +951,35 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
               generation count by a small number of tokens. Always ≤ `output_tokens`;
               `output_tokens - thinking_tokens` approximates the non-reasoning output.
 
+              minimum: 0
+
           - `required ServerToolUsage? ServerToolUse`
 
             The number of server tool requests.
 
-            - `required Long WebFetchRequests`
+            - `required long WebFetchRequests`
 
               The number of web fetch tool requests.
 
-            - `required Long WebSearchRequests`
+              minimum: 0
+
+            - `required long WebSearchRequests`
 
               The number of web search tool requests.
+
+              minimum: 0
 
           - `required ServiceTier? ServiceTier`
 
             If the request used the priority, standard, or batch tier.
 
-            - `"standard"Standard`
+            - `Standard`
 
-            - `"priority"Priority`
+            - `Priority`
 
-            - `"batch"Batch`
+            - `Batch`
 
-      - `JsonElement Type "succeeded"constant`
+      - `JsonElement Type constant`
 
     - `class MessageBatchErroredResult:`
 
@@ -924,71 +991,71 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `required string Message`
 
-            - `JsonElement Type "invalid_request_error"constant`
+            - `JsonElement Type constant`
 
           - `class AuthenticationError:`
 
             - `required string Message`
 
-            - `JsonElement Type "authentication_error"constant`
+            - `JsonElement Type constant`
 
           - `class BillingError:`
 
             - `required string Message`
 
-            - `JsonElement Type "billing_error"constant`
+            - `JsonElement Type constant`
 
           - `class PermissionError:`
 
             - `required string Message`
 
-            - `JsonElement Type "permission_error"constant`
+            - `JsonElement Type constant`
 
           - `class NotFoundError:`
 
             - `required string Message`
 
-            - `JsonElement Type "not_found_error"constant`
+            - `JsonElement Type constant`
 
           - `class RateLimitError:`
 
             - `required string Message`
 
-            - `JsonElement Type "rate_limit_error"constant`
+            - `JsonElement Type constant`
 
           - `class GatewayTimeoutError:`
 
             - `required string Message`
 
-            - `JsonElement Type "timeout_error"constant`
+            - `JsonElement Type constant`
 
           - `class ApiErrorObject:`
 
             - `required string Message`
 
-            - `JsonElement Type "api_error"constant`
+            - `JsonElement Type constant`
 
           - `class OverloadedError:`
 
             - `required string Message`
 
-            - `JsonElement Type "overloaded_error"constant`
+            - `JsonElement Type constant`
 
         - `required string? RequestID`
 
-        - `JsonElement Type "error"constant`
+        - `JsonElement Type constant`
 
-      - `JsonElement Type "errored"constant`
+      - `JsonElement Type constant`
 
     - `class MessageBatchCanceledResult:`
 
-      - `JsonElement Type "canceled"constant`
+      - `JsonElement Type constant`
 
     - `class MessageBatchExpiredResult:`
 
-      - `JsonElement Type "expired"constant`
+      - `JsonElement Type constant`
 
-### Example
+## Example
 
 ```csharp
 BatchResultsParams parameters = new() { MessageBatchID = "message_batch_id" };

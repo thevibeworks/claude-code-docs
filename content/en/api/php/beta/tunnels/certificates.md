@@ -1,15 +1,10 @@
----
-title: Certificates
-url: https://platform.claude.com/docs/en/api/php/beta/tunnels/certificates
----
-
 # Certificates
 
 ## Create Tunnel Certificate
 
 `$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePem, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -75,7 +70,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -93,7 +88,7 @@ var_dump($betaTunnelCertificate);
 
 `$client->beta->tunnels->certificates->retrieve(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -157,7 +152,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->retrieve(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -175,7 +170,7 @@ var_dump($betaTunnelCertificate);
 
 `$client->beta->tunnels->certificates->list(string tunnelID, ?bool includeArchived, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<TunnelCertificate>`
 
-**get** `/v1/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/tunnels/{tunnel_id}/certificates`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -251,7 +246,7 @@ $page = $client->beta->tunnels->certificates->list(
 var_dump($page);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -274,7 +269,7 @@ var_dump($page);
 
 `$client->beta->tunnels->certificates->archive(string certificateID, string tunnelID, ?list<AnthropicBeta> betas): TunnelCertificate`
 
-**post** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
@@ -338,7 +333,7 @@ $betaTunnelCertificate = $client->beta->tunnels->certificates->archive(
 var_dump($betaTunnelCertificate);
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -352,7 +347,7 @@ var_dump($betaTunnelCertificate);
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Beta Tunnel Certificate
 

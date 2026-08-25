@@ -1,17 +1,12 @@
----
-title: Create Credential
-url: https://platform.claude.com/docs/en/api/go/beta/vaults/credentials/create
----
-
-## Create Credential
+# Create Credential
 
 `client.Beta.Vaults.Credentials.New(ctx, vaultID, params) (*BetaManagedAgentsCredential, error)`
 
-**post** `/v1/vaults/{vault_id}/credentials`
+**POST** `/v1/vaults/{vault_id}/credentials`
 
 Create Credential
 
-### Parameters
+## Parameters
 
 - `vaultID string`
 
@@ -29,19 +24,23 @@ Create Credential
 
         OAuth access token.
 
+        minLength: 1, maxLength: 8192
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
+        minLength: 1, maxLength: 2047
+
       - `Type BetaManagedAgentsMCPOAuthCreateParamsType`
 
-        - `const BetaManagedAgentsMCPOAuthCreateParamsTypeMCPOAuth BetaManagedAgentsMCPOAuthCreateParamsType = "mcp_oauth"`
-
-      - `ExpiresAt Time`
+      - `ExpiresAt Time Optional`
 
         A timestamp in RFC 3339 format
 
-      - `Refresh BetaManagedAgentsMCPOAuthRefreshParamsResp`
+        format: date-time
+
+      - `Refresh BetaManagedAgentsMCPOAuthRefreshParamsResp Optional`
 
         OAuth refresh token parameters for creating a credential with refresh support.
 
@@ -49,13 +48,19 @@ Create Credential
 
           OAuth client ID.
 
+          minLength: 1, maxLength: 1024
+
         - `RefreshToken string`
 
           OAuth refresh token.
 
+          minLength: 1, maxLength: 4096
+
         - `TokenEndpoint string`
 
           Token endpoint URL used to refresh the access token.
+
+          minLength: 1, maxLength: 2047
 
         - `TokenEndpointAuth BetaManagedAgentsMCPOAuthRefreshParamsTokenEndpointAuthUnionResp`
 
@@ -67,8 +72,6 @@ Create Credential
 
             - `Type BetaManagedAgentsTokenEndpointAuthNoneParamType`
 
-              - `const BetaManagedAgentsTokenEndpointAuthNoneParamTypeNone BetaManagedAgentsTokenEndpointAuthNoneParamType = "none"`
-
           - `type BetaManagedAgentsTokenEndpointAuthBasicParamResp struct{…}`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
@@ -77,9 +80,9 @@ Create Credential
 
               OAuth client secret.
 
-            - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
+              minLength: 1, maxLength: 512
 
-              - `const BetaManagedAgentsTokenEndpointAuthBasicParamTypeClientSecretBasic BetaManagedAgentsTokenEndpointAuthBasicParamType = "client_secret_basic"`
+            - `Type BetaManagedAgentsTokenEndpointAuthBasicParamType`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostParamResp struct{…}`
 
@@ -89,17 +92,21 @@ Create Credential
 
               OAuth client secret.
 
+              minLength: 1, maxLength: 512
+
             - `Type BetaManagedAgentsTokenEndpointAuthPostParamType`
 
-              - `const BetaManagedAgentsTokenEndpointAuthPostParamTypeClientSecretPost BetaManagedAgentsTokenEndpointAuthPostParamType = "client_secret_post"`
-
-        - `Resource string`
+        - `Resource string Optional`
 
           OAuth resource indicator.
 
-        - `Scope string`
+          minLength: 1, maxLength: 2047
+
+        - `Scope string Optional`
 
           OAuth scope for the refresh request.
+
+          minLength: 1, maxLength: 8192
 
     - `type BetaManagedAgentsStaticBearerCreateParamsResp struct{…}`
 
@@ -109,13 +116,15 @@ Create Credential
 
         Static bearer token value.
 
+        minLength: 1, maxLength: 8192
+
       - `MCPServerURL string`
 
         URL of the MCP server this credential authenticates against.
 
-      - `Type BetaManagedAgentsStaticBearerCreateParamsType`
+        minLength: 1, maxLength: 2047
 
-        - `const BetaManagedAgentsStaticBearerCreateParamsTypeStaticBearer BetaManagedAgentsStaticBearerCreateParamsType = "static_bearer"`
+      - `Type BetaManagedAgentsStaticBearerCreateParamsType`
 
     - `type BetaManagedAgentsEnvironmentVariableCreateParamsResp struct{…}`
 
@@ -131,8 +140,6 @@ Create Credential
 
           - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType`
 
-            - `const BetaManagedAgentsUnrestrictedCredentialNetworkingParamsTypeUnrestricted BetaManagedAgentsUnrestrictedCredentialNetworkingParamsType = "unrestricted"`
-
         - `type BetaManagedAgentsLimitedCredentialNetworkingParamsResp struct{…}`
 
           Substitute the secret only on requests to the listed hosts.
@@ -143,41 +150,43 @@ Create Credential
 
           - `Type BetaManagedAgentsLimitedCredentialNetworkingParamsType`
 
-            - `const BetaManagedAgentsLimitedCredentialNetworkingParamsTypeLimited BetaManagedAgentsLimitedCredentialNetworkingParamsType = "limited"`
-
       - `SecretName string`
 
         Name of the environment variable. Immutable after create.
+
+        minLength: 1, maxLength: 255
 
       - `SecretValue string`
 
         Secret value. Write-only; never returned in responses.
 
+        minLength: 1, maxLength: 4096
+
       - `Type BetaManagedAgentsEnvironmentVariableCreateParamsType`
 
-        - `const BetaManagedAgentsEnvironmentVariableCreateParamsTypeEnvironmentVariable BetaManagedAgentsEnvironmentVariableCreateParamsType = "environment_variable"`
-
-      - `InjectionLocation BetaManagedAgentsInjectionLocationParamsResp`
+      - `InjectionLocation BetaManagedAgentsInjectionLocationParamsResp Optional`
 
         Where in the outbound request the secret value may be substituted.
 
-        - `Body bool`
+        - `Body bool Optional`
 
           Substitute when the placeholder appears in the request body.
 
-        - `Header bool`
+        - `Header bool Optional`
 
           Substitute when the placeholder appears in a request header value.
 
-  - `DisplayName param.Field[string]`
+  - `DisplayName param.Field[string] Optional`
 
     Body param: Human-readable name for the credential. Up to 255 characters.
 
-  - `Metadata param.Field[map[string, string]]`
+    maxLength: 255
+
+  - `Metadata param.Field[map[string, string]] Optional`
 
     Body param: Arbitrary key-value metadata to attach to the credential. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-  - `Betas param.Field[[]AnthropicBeta]`
+  - `Betas param.Field[[]AnthropicBeta] Optional`
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
@@ -253,7 +262,7 @@ Create Credential
 
       - `const AnthropicBetaMidConversationToolChanges2026_07_01 AnthropicBeta = "mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `type BetaManagedAgentsCredential struct{…}`
 
@@ -266,6 +275,8 @@ Create Credential
   - `ArchivedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Auth BetaManagedAgentsCredentialAuthUnion`
 
@@ -281,13 +292,13 @@ Create Credential
 
       - `Type BetaManagedAgentsMCPOAuthAuthResponseType`
 
-        - `const BetaManagedAgentsMCPOAuthAuthResponseTypeMCPOAuth BetaManagedAgentsMCPOAuthAuthResponseType = "mcp_oauth"`
-
-      - `ExpiresAt Time`
+      - `ExpiresAt Time Optional`
 
         A timestamp in RFC 3339 format
 
-      - `Refresh BetaManagedAgentsMCPOAuthRefreshResponse`
+        format: date-time
+
+      - `Refresh BetaManagedAgentsMCPOAuthRefreshResponse Optional`
 
         OAuth refresh token configuration returned in credential responses.
 
@@ -309,15 +320,11 @@ Create Credential
 
             - `Type BetaManagedAgentsTokenEndpointAuthNoneResponseType`
 
-              - `const BetaManagedAgentsTokenEndpointAuthNoneResponseTypeNone BetaManagedAgentsTokenEndpointAuthNoneResponseType = "none"`
-
           - `type BetaManagedAgentsTokenEndpointAuthBasicResponse struct{…}`
 
             Token endpoint uses HTTP Basic authentication with client credentials.
 
             - `Type BetaManagedAgentsTokenEndpointAuthBasicResponseType`
-
-              - `const BetaManagedAgentsTokenEndpointAuthBasicResponseTypeClientSecretBasic BetaManagedAgentsTokenEndpointAuthBasicResponseType = "client_secret_basic"`
 
           - `type BetaManagedAgentsTokenEndpointAuthPostResponse struct{…}`
 
@@ -325,13 +332,11 @@ Create Credential
 
             - `Type BetaManagedAgentsTokenEndpointAuthPostResponseType`
 
-              - `const BetaManagedAgentsTokenEndpointAuthPostResponseTypeClientSecretPost BetaManagedAgentsTokenEndpointAuthPostResponseType = "client_secret_post"`
-
-        - `Resource string`
+        - `Resource string Optional`
 
           OAuth resource indicator.
 
-        - `Scope string`
+        - `Scope string Optional`
 
           OAuth scope for the refresh request.
 
@@ -344,8 +349,6 @@ Create Credential
         URL of the MCP server this credential authenticates against.
 
       - `Type BetaManagedAgentsStaticBearerAuthResponseType`
-
-        - `const BetaManagedAgentsStaticBearerAuthResponseTypeStaticBearer BetaManagedAgentsStaticBearerAuthResponseType = "static_bearer"`
 
     - `type BetaManagedAgentsEnvironmentVariableAuthResponse struct{…}`
 
@@ -373,8 +376,6 @@ Create Credential
 
           - `Type BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType`
 
-            - `const BetaManagedAgentsUnrestrictedCredentialNetworkingResponseTypeUnrestricted BetaManagedAgentsUnrestrictedCredentialNetworkingResponseType = "unrestricted"`
-
         - `type BetaManagedAgentsLimitedCredentialNetworkingResponse struct{…}`
 
           The secret is substituted only on requests to the listed hosts.
@@ -385,19 +386,17 @@ Create Credential
 
           - `Type BetaManagedAgentsLimitedCredentialNetworkingResponseType`
 
-            - `const BetaManagedAgentsLimitedCredentialNetworkingResponseTypeLimited BetaManagedAgentsLimitedCredentialNetworkingResponseType = "limited"`
-
       - `SecretName string`
 
         Name of the environment variable.
 
       - `Type BetaManagedAgentsEnvironmentVariableAuthResponseType`
 
-        - `const BetaManagedAgentsEnvironmentVariableAuthResponseTypeEnvironmentVariable BetaManagedAgentsEnvironmentVariableAuthResponseType = "environment_variable"`
-
   - `CreatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `Metadata map[string, string]`
 
@@ -405,21 +404,21 @@ Create Credential
 
   - `Type BetaManagedAgentsCredentialType`
 
-    - `const BetaManagedAgentsCredentialTypeVaultCredential BetaManagedAgentsCredentialType = "vault_credential"`
-
   - `UpdatedAt Time`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `VaultID string`
 
     Identifier of the vault this credential belongs to.
 
-  - `DisplayName string`
+  - `DisplayName string Optional`
 
     Human-readable name for the credential.
 
-### Example
+## Example
 
 ```go
 package main
@@ -456,7 +455,7 @@ func main() {
 }
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

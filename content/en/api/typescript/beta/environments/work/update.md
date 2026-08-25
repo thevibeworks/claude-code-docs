@@ -1,19 +1,14 @@
----
-title: Update Work Item
-url: https://platform.claude.com/docs/en/api/typescript/beta/environments/work/update
----
+# Update Work Item
 
-## Update Work Item
+`client.beta.environments.work.update(workID, params, options?): BetaSelfHostedWork`
 
-`client.beta.environments.work.update(stringworkID, WorkUpdateParamsparams, RequestOptionsoptions?): BetaSelfHostedWork`
-
-**post** `/v1/environments/{environment_id}/work/{work_id}`
+**POST** `/v1/environments/{environment_id}/work/{work_id}`
 
 Note: these endpoints are called automatically by the pre-built environment worker provided in the SDKs and CLI, for orchestrating sessions with self-hosted sandbox environments. They are included here as a reference; you do not need to invoke them directly.
 
 Update work item metadata with merge semantics.
 
-### Parameters
+## Parameters
 
 - `workID: string`
 
@@ -103,7 +98,7 @@ Update work item metadata with merge semantics.
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `BetaSelfHostedWork`
 
@@ -136,8 +131,6 @@ Update work item metadata with merge semantics.
     - `type: "session"`
 
       Type of work data
-
-      - `"session"`
 
   - `environment_id: string`
 
@@ -185,9 +178,9 @@ Update work item metadata with merge semantics.
 
     The type of object (always 'work')
 
-    - `"work"`
+    default: work
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
@@ -204,7 +197,7 @@ const betaSelfHostedWork = await client.beta.environments.work.update("work_id",
 console.log(betaSelfHostedWork.id);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

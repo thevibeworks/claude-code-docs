@@ -1,25 +1,22 @@
----
-title: Rotate Tunnel Token
-url: https://platform.claude.com/docs/en/api/python/beta/tunnels/rotate_token
----
+# Rotate Tunnel Token
 
-## Rotate Tunnel Token
+`beta.tunnels.rotate_token(tunnel_id, **kwargs)  -> BetaTunnelToken`
 
-`beta.tunnels.rotate_token(strtunnel_id, TunnelRotateTokenParams**kwargs)  -> BetaTunnelToken`
-
-**post** `/v1/tunnels/{tunnel_id}/rotate_token`
+**POST** `/v1/tunnels/{tunnel_id}/rotate_token`
 
 The Tunnels API is in research preview. It requires the `anthropic-beta: mcp-tunnels-2026-06-22` header and may change without a deprecation period. It supersedes the Admin API endpoints at `/v1/organizations/tunnels`, which remain available during a migration window.
 
 Rotates a tunnel's connector token. Rotation invalidates the current token for new connections and returns a fresh value; established connections are not severed. A connector restarted after rotation must use the new value.
 
-### Parameters
+## Parameters
 
 - `tunnel_id: str`
 
 - `reason: Optional[str]`
 
   Optional free-text reason for the rotation, recorded for audit.
+
+  maxLength: 1024
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -97,7 +94,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaTunnelToken: …`
 
@@ -113,9 +110,7 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
 
   - `type: Literal["tunnel_token"]`
 
-    - `"tunnel_token"`
-
-### Example
+## Example
 
 ```python
 import os
@@ -132,7 +127,7 @@ beta_tunnel_token = client.beta.tunnels.rotate_token(
 print(beta_tunnel_token.id)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

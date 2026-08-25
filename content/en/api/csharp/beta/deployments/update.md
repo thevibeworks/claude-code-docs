@@ -1,17 +1,12 @@
----
-title: Update Deployment
-url: https://platform.claude.com/docs/en/api/csharp/beta/deployments/update
----
+# Update Deployment
 
-## Update Deployment
+`BetaManagedAgentsDeployment Beta.Deployments.Update(parameters, cancellationToken = default)`
 
-`BetaManagedAgentsDeployment Beta.Deployments.Update(DeploymentUpdateParamsparameters, CancellationTokencancellationToken = default)`
-
-**post** `/v1/deployments/{deployment_id}`
+**POST** `/v1/deployments/{deployment_id}`
 
 Update Deployment
 
-### Parameters
+## Parameters
 
 - `DeploymentUpdateParams parameters`
 
@@ -33,13 +28,15 @@ Update Deployment
 
         The `agent` ID.
 
+        minLength: 1, maxLength: 128
+
       - `required Type Type`
 
-        - `"agent"Agent`
-
-      - `Int Version`
+      - `int Version`
 
         The specific `agent` version to use. Omit to use the latest version. Must be at least 1 if specified.
+
+        format: int32
 
   - `BetaManagedAgentsBudgetLimit? budget`
 
@@ -49,9 +46,13 @@ Update Deployment
 
     Body param: Description. Omit to preserve; send empty string or null to clear.
 
+    maxLength: 2048
+
   - `string environmentID`
 
     Body param: ID of the `environment` where sessions run. Omit to preserve. Cannot be cleared.
+
+    maxLength: 128
 
   - `IReadOnlyList<BetaManagedAgentsDeploymentInitialEventParams> initialEvents`
 
@@ -73,9 +74,9 @@ Update Deployment
 
             The text content.
 
-          - `required Type Type`
+            minLength: 1
 
-            - `"text"Text`
+          - `required Type Type`
 
         - `class BetaManagedAgentsImageBlock:`
 
@@ -93,13 +94,15 @@ Update Deployment
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `required string MediaType`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `required Type Type`
+                minLength: 1
 
-                - `"base64"Base64`
+              - `required Type Type`
 
             - `class BetaManagedAgentsUrlImageSource:`
 
@@ -107,11 +110,11 @@ Update Deployment
 
               - `required Type Type`
 
-                - `"url"Url`
-
               - `required string Url`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource:`
 
@@ -121,13 +124,11 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `required Type Type`
 
-                - `"file"File`
-
           - `required Type Type`
-
-            - `"image"Image`
 
         - `class BetaManagedAgentsDocumentBlock:`
 
@@ -145,13 +146,15 @@ Update Deployment
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `required string MediaType`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `required Type Type`
+                minLength: 1
 
-                - `"base64"Base64`
+              - `required Type Type`
 
             - `class BetaManagedAgentsPlainTextDocumentSource:`
 
@@ -161,15 +164,13 @@ Update Deployment
 
                 The plain text content.
 
+                minLength: 1
+
               - `required MediaType MediaType`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"TextPlain`
-
               - `required Type Type`
-
-                - `"text"Text`
 
             - `class BetaManagedAgentsUrlDocumentSource:`
 
@@ -177,11 +178,11 @@ Update Deployment
 
               - `required Type Type`
 
-                - `"url"Url`
-
               - `required string Url`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource:`
 
@@ -191,13 +192,11 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `required Type Type`
 
-                - `"file"File`
-
           - `required Type Type`
-
-            - `"document"Document`
 
           - `string? Context`
 
@@ -213,11 +212,7 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"redacted"Redacted`
-
       - `required Type Type`
-
-        - `"user.message"UserMessage`
 
     - `class BetaManagedAgentsUserDefineOutcomeEventParams:`
 
@@ -241,8 +236,6 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"file"File`
-
         - `class BetaManagedAgentsTextRubricParams:`
 
           Rubric content provided inline as text.
@@ -251,17 +244,17 @@ Update Deployment
 
             Rubric content. Plain text or markdown — the grader treats it as freeform text. Maximum 262144 characters.
 
-          - `required Type Type`
+            maxLength: 262144
 
-            - `"text"Text`
+          - `required Type Type`
 
       - `required Type Type`
 
-        - `"user.define_outcome"UserDefineOutcome`
-
-      - `Int? MaxIterations`
+      - `int? MaxIterations`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `class BetaManagedAgentsSystemMessageEventParams:`
 
@@ -275,13 +268,11 @@ Update Deployment
 
           The text content.
 
+          minLength: 1
+
         - `required Type Type`
 
-          - `"text"Text`
-
       - `required Type Type`
-
-        - `"system.message"SystemMessage`
 
   - `IReadOnlyDictionary<string, string>? metadata`
 
@@ -290,6 +281,8 @@ Update Deployment
   - `string name`
 
     Body param: Human-readable name. Must be non-empty. Omit to preserve. Cannot be cleared.
+
+    maxLength: 256
 
   - `IReadOnlyList<Resource>? resources`
 
@@ -303,13 +296,15 @@ Update Deployment
 
         GitHub authorization token used to clone the repository.
 
-      - `required Type Type`
+        minLength: 1, maxLength: 4096
 
-        - `"github_repository"GitHubRepository`
+      - `required Type Type`
 
       - `required string Url`
 
         Github URL of the repository
+
+        minLength: 1, maxLength: 2048
 
       - `Checkout? Checkout`
 
@@ -321,9 +316,9 @@ Update Deployment
 
             Branch name to check out.
 
-          - `required Type Type`
+            minLength: 1, maxLength: 255
 
-            - `"branch"Branch`
+          - `required Type Type`
 
         - `class BetaManagedAgentsCommitCheckout:`
 
@@ -331,13 +326,15 @@ Update Deployment
 
             Full commit SHA to check out.
 
-          - `required Type Type`
+            minLength: 7, maxLength: 64
 
-            - `"commit"Commit`
+          - `required Type Type`
 
       - `string? MountPath`
 
         Mount path in the container. Defaults to `/workspace/<repo-name>`.
+
+        minLength: 1, maxLength: 4096
 
     - `class BetaManagedAgentsFileResourceParams:`
 
@@ -347,13 +344,15 @@ Update Deployment
 
         ID of a previously uploaded file.
 
-      - `required Type Type`
+        minLength: 1, maxLength: 128
 
-        - `"file"File`
+      - `required Type Type`
 
       - `string? MountPath`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
+
+        minLength: 1, maxLength: 4096
 
     - `class BetaManagedAgentsMemoryStoreResourceParam:`
 
@@ -365,19 +364,19 @@ Update Deployment
 
       - `required Type Type`
 
-        - `"memory_store"MemoryStore`
-
       - `Access? Access`
 
         Access mode for an attached memory store.
 
-        - `"read_write"ReadWrite`
+        - `ReadWrite`
 
-        - `"read_only"ReadOnly`
+        - `ReadOnly`
 
       - `string? Instructions`
 
         Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+
+        maxLength: 4096
 
   - `BetaManagedAgentsScheduleParams? schedule`
 
@@ -391,75 +390,75 @@ Update Deployment
 
     Header param: Optional header to specify the beta version(s) you want to use.
 
-    - `"message-batches-2024-09-24"MessageBatches2024_09_24`
+    - `MessageBatches2024_09_24`
 
-    - `"prompt-caching-2024-07-31"PromptCaching2024_07_31`
+    - `PromptCaching2024_07_31`
 
-    - `"computer-use-2024-10-22"ComputerUse2024_10_22`
+    - `ComputerUse2024_10_22`
 
-    - `"computer-use-2025-01-24"ComputerUse2025_01_24`
+    - `ComputerUse2025_01_24`
 
-    - `"pdfs-2024-09-25"Pdfs2024_09_25`
+    - `Pdfs2024_09_25`
 
-    - `"token-counting-2024-11-01"TokenCounting2024_11_01`
+    - `TokenCounting2024_11_01`
 
-    - `"token-efficient-tools-2025-02-19"TokenEfficientTools2025_02_19`
+    - `TokenEfficientTools2025_02_19`
 
-    - `"output-128k-2025-02-19"Output128k2025_02_19`
+    - `Output128k2025_02_19`
 
-    - `"files-api-2025-04-14"FilesApi2025_04_14`
+    - `FilesApi2025_04_14`
 
-    - `"mcp-client-2025-04-04"McpClient2025_04_04`
+    - `McpClient2025_04_04`
 
-    - `"mcp-client-2025-11-20"McpClient2025_11_20`
+    - `McpClient2025_11_20`
 
-    - `"dev-full-thinking-2025-05-14"DevFullThinking2025_05_14`
+    - `DevFullThinking2025_05_14`
 
-    - `"interleaved-thinking-2025-05-14"InterleavedThinking2025_05_14`
+    - `InterleavedThinking2025_05_14`
 
-    - `"code-execution-2025-05-22"CodeExecution2025_05_22`
+    - `CodeExecution2025_05_22`
 
-    - `"extended-cache-ttl-2025-04-11"ExtendedCacheTtl2025_04_11`
+    - `ExtendedCacheTtl2025_04_11`
 
-    - `"context-1m-2025-08-07"Context1m2025_08_07`
+    - `Context1m2025_08_07`
 
-    - `"context-management-2025-06-27"ContextManagement2025_06_27`
+    - `ContextManagement2025_06_27`
 
-    - `"model-context-window-exceeded-2025-08-26"ModelContextWindowExceeded2025_08_26`
+    - `ModelContextWindowExceeded2025_08_26`
 
-    - `"skills-2025-10-02"Skills2025_10_02`
+    - `Skills2025_10_02`
 
-    - `"fast-mode-2026-02-01"FastMode2026_02_01`
+    - `FastMode2026_02_01`
 
-    - `"output-300k-2026-03-24"Output300k2026_03_24`
+    - `Output300k2026_03_24`
 
-    - `"user-profiles-2026-03-24"UserProfiles2026_03_24`
+    - `UserProfiles2026_03_24`
 
-    - `"user-profiles-2026-08-18"UserProfiles2026_08_18`
+    - `UserProfiles2026_08_18`
 
-    - `"advisor-tool-2026-03-01"AdvisorTool2026_03_01`
+    - `AdvisorTool2026_03_01`
 
-    - `"managed-agents-2026-04-01"ManagedAgents2026_04_01`
+    - `ManagedAgents2026_04_01`
 
-    - `"cache-diagnosis-2026-04-07"CacheDiagnosis2026_04_07`
+    - `CacheDiagnosis2026_04_07`
 
-    - `"dreaming-2026-04-21"Dreaming2026_04_21`
+    - `Dreaming2026_04_21`
 
-    - `"thinking-token-count-2026-05-13"ThinkingTokenCount2026_05_13`
+    - `ThinkingTokenCount2026_05_13`
 
-    - `"server-side-fallback-2026-06-01"ServerSideFallback2026_06_01`
+    - `ServerSideFallback2026_06_01`
 
-    - `"server-side-fallback-2026-07-01"ServerSideFallback2026_07_01`
+    - `ServerSideFallback2026_07_01`
 
-    - `"fallback-credit-2026-06-01"FallbackCredit2026_06_01`
+    - `FallbackCredit2026_06_01`
 
-    - `"fallback-credit-2026-07-01"FallbackCredit2026_07_01`
+    - `FallbackCredit2026_07_01`
 
-    - `"agent-memory-2026-07-22"AgentMemory2026_07_22`
+    - `AgentMemory2026_07_22`
 
-    - `"mid-conversation-tool-changes-2026-07-01"MidConversationToolChanges2026_07_01`
+    - `MidConversationToolChanges2026_07_01`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeployment:`
 
@@ -477,17 +476,21 @@ Update Deployment
 
     - `required Type Type`
 
-      - `"agent"Agent`
+    - `required int Version`
 
-    - `required Int Version`
+      format: int32
 
   - `required DateTimeOffset? ArchivedAt`
 
     A timestamp in RFC 3339 format
 
+    format: date-time
+
   - `required DateTimeOffset CreatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required string? Description`
 
@@ -517,9 +520,9 @@ Update Deployment
 
             The text content.
 
-          - `required Type Type`
+            minLength: 1
 
-            - `"text"Text`
+          - `required Type Type`
 
         - `class BetaManagedAgentsImageBlock:`
 
@@ -537,13 +540,15 @@ Update Deployment
 
                 Base64-encoded image data.
 
+                minLength: 1
+
               - `required string MediaType`
 
                 MIME type of the image (e.g., "image/png", "image/jpeg", "image/gif", "image/webp").
 
-              - `required Type Type`
+                minLength: 1
 
-                - `"base64"Base64`
+              - `required Type Type`
 
             - `class BetaManagedAgentsUrlImageSource:`
 
@@ -551,11 +556,11 @@ Update Deployment
 
               - `required Type Type`
 
-                - `"url"Url`
-
               - `required string Url`
 
                 URL of the image to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileImageSource:`
 
@@ -565,13 +570,11 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `required Type Type`
 
-                - `"file"File`
-
           - `required Type Type`
-
-            - `"image"Image`
 
         - `class BetaManagedAgentsDocumentBlock:`
 
@@ -589,13 +592,15 @@ Update Deployment
 
                 Base64-encoded document data.
 
+                minLength: 1
+
               - `required string MediaType`
 
                 MIME type of the document (e.g., "application/pdf").
 
-              - `required Type Type`
+                minLength: 1
 
-                - `"base64"Base64`
+              - `required Type Type`
 
             - `class BetaManagedAgentsPlainTextDocumentSource:`
 
@@ -605,15 +610,13 @@ Update Deployment
 
                 The plain text content.
 
+                minLength: 1
+
               - `required MediaType MediaType`
 
                 MIME type of the text content. Must be "text/plain".
 
-                - `"text/plain"TextPlain`
-
               - `required Type Type`
-
-                - `"text"Text`
 
             - `class BetaManagedAgentsUrlDocumentSource:`
 
@@ -621,11 +624,11 @@ Update Deployment
 
               - `required Type Type`
 
-                - `"url"Url`
-
               - `required string Url`
 
                 URL of the document to fetch.
+
+                minLength: 1
 
             - `class BetaManagedAgentsFileDocumentSource:`
 
@@ -635,13 +638,11 @@ Update Deployment
 
                 ID of a previously uploaded file.
 
+                minLength: 1
+
               - `required Type Type`
 
-                - `"file"File`
-
           - `required Type Type`
-
-            - `"document"Document`
 
           - `string? Context`
 
@@ -657,11 +658,7 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"redacted"Redacted`
-
       - `required Type Type`
-
-        - `"user.message"UserMessage`
 
     - `class BetaManagedAgentsDeploymentUserDefineOutcomeEvent:`
 
@@ -685,8 +682,6 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"file"File`
-
         - `class BetaManagedAgentsTextRubric:`
 
           Rubric content provided inline as text.
@@ -697,15 +692,13 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"text"Text`
-
       - `required Type Type`
 
-        - `"user.define_outcome"UserDefineOutcome`
-
-      - `Int? MaxIterations`
+      - `int? MaxIterations`
 
         Eval→revision cycles before giving up. Default 3, max 20.
+
+        format: int32
 
     - `class BetaManagedAgentsDeploymentSystemMessageEvent:`
 
@@ -719,13 +712,11 @@ Update Deployment
 
           The text content.
 
+          minLength: 1
+
         - `required Type Type`
 
-          - `"text"Text`
-
       - `required Type Type`
-
-        - `"system.message"SystemMessage`
 
   - `required IReadOnlyDictionary<string, string> Metadata`
 
@@ -745,8 +736,6 @@ Update Deployment
 
       - `required Type Type`
 
-        - `"manual"Manual`
-
     - `class BetaManagedAgentsErrorDeploymentPausedReason:`
 
       A scheduled fire recorded a failed run whose error auto-pauses the deployment.
@@ -761,15 +750,11 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"environment_archived_error"EnvironmentArchivedError`
-
         - `class BetaManagedAgentsAgentArchivedDeploymentPausedReasonError:`
 
           The deployment's agent was archived.
 
           - `required Type Type`
-
-            - `"agent_archived_error"AgentArchivedError`
 
         - `class BetaManagedAgentsEnvironmentNotFoundDeploymentPausedReasonError:`
 
@@ -777,15 +762,11 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"environment_not_found_error"EnvironmentNotFoundError`
-
         - `class BetaManagedAgentsVaultNotFoundDeploymentPausedReasonError:`
 
           A vault referenced by the deployment no longer exists.
 
           - `required Type Type`
-
-            - `"vault_not_found_error"VaultNotFoundError`
 
         - `class BetaManagedAgentsFileNotFoundDeploymentPausedReasonError:`
 
@@ -793,15 +774,11 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"file_not_found_error"FileNotFoundError`
-
         - `class BetaManagedAgentsSessionResourceNotFoundDeploymentPausedReasonError:`
 
           A referenced resource no longer exists and its kind was not reported.
 
           - `required Type Type`
-
-            - `"session_resource_not_found_error"SessionResourceNotFoundError`
 
         - `class BetaManagedAgentsWorkspaceArchivedDeploymentPausedReasonError:`
 
@@ -809,15 +786,11 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"workspace_archived_error"WorkspaceArchivedError`
-
         - `class BetaManagedAgentsOrganizationDisabledDeploymentPausedReasonError:`
 
           The deployment's organization is disabled.
 
           - `required Type Type`
-
-            - `"organization_disabled_error"OrganizationDisabledError`
 
         - `class BetaManagedAgentsMemoryStoreArchivedDeploymentPausedReasonError:`
 
@@ -825,15 +798,11 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"memory_store_archived_error"MemoryStoreArchivedError`
-
         - `class BetaManagedAgentsSkillNotFoundDeploymentPausedReasonError:`
 
           A skill referenced by the deployment's agent no longer exists.
 
           - `required Type Type`
-
-            - `"skill_not_found_error"SkillNotFoundError`
 
         - `class BetaManagedAgentsVaultArchivedDeploymentPausedReasonError:`
 
@@ -841,15 +810,11 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"vault_archived_error"VaultArchivedError`
-
         - `class BetaManagedAgentsUnknownDeploymentPausedReasonError:`
 
           An unrecognized error auto-paused the deployment. A fallback variant; matches a run whose `error.type` is `unknown_error`.
 
           - `required Type Type`
-
-            - `"unknown_error"UnknownError`
 
         - `class BetaManagedAgentsSelfHostedResourcesUnsupportedDeploymentPausedReasonError:`
 
@@ -857,19 +822,13 @@ Update Deployment
 
           - `required Type Type`
 
-            - `"self_hosted_resources_unsupported_error"SelfHostedResourcesUnsupportedError`
-
         - `class BetaManagedAgentsMcpEgressBlockedDeploymentPausedReasonError:`
 
           An MCP server host used by the deployment's agent is blocked by the environment's network policy.
 
           - `required Type Type`
 
-            - `"mcp_egress_blocked_error"McpEgressBlockedError`
-
       - `required Type Type`
-
-        - `"error"Error`
 
   - `required IReadOnlyList<BetaManagedAgentsSessionResourceConfig> Resources`
 
@@ -880,8 +839,6 @@ Update Deployment
       A GitHub repository mounted into each session's container. The authorization token is write-only and never returned.
 
       - `required Type Type`
-
-        - `"github_repository"GitHubRepository`
 
       - `required string Url`
 
@@ -897,9 +854,9 @@ Update Deployment
 
             Branch name to check out.
 
-          - `required Type Type`
+            minLength: 1, maxLength: 255
 
-            - `"branch"Branch`
+          - `required Type Type`
 
         - `class BetaManagedAgentsCommitCheckout:`
 
@@ -907,9 +864,9 @@ Update Deployment
 
             Full commit SHA to check out.
 
-          - `required Type Type`
+            minLength: 7, maxLength: 64
 
-            - `"commit"Commit`
+          - `required Type Type`
 
       - `string? MountPath`
 
@@ -925,8 +882,6 @@ Update Deployment
 
       - `required Type Type`
 
-        - `"file"File`
-
       - `string? MountPath`
 
         Mount path in the container. Defaults to `/mnt/session/uploads/<file_id>`.
@@ -941,15 +896,13 @@ Update Deployment
 
       - `required Type Type`
 
-        - `"memory_store"MemoryStore`
-
       - `Access? Access`
 
         Access mode for an attached memory store.
 
-        - `"read_write"ReadWrite`
+        - `ReadWrite`
 
-        - `"read_only"ReadOnly`
+        - `ReadOnly`
 
       - `string? Instructions`
 
@@ -963,17 +916,21 @@ Update Deployment
 
       5-field POSIX cron expression: minute hour day-of-month month day-of-week (e.g., "0 9 * * 1-5" for weekdays at 9am). Day-of-week is 0-7 where 0 and 7 both mean Sunday. Extended cron syntax - seconds or year fields, and the special characters L, W, #, and ? - is not supported, nor are predefined shortcuts (@daily).
 
+      minLength: 1, maxLength: 256
+
     - `required string Timezone`
 
       IANA timezone identifier (e.g., "America/Los_Angeles", "UTC").
 
-    - `required Type Type`
+      minLength: 1
 
-      - `"cron"Cron`
+    - `required Type Type`
 
     - `DateTimeOffset? LastRunAt`
 
       A timestamp in RFC 3339 format
+
+      format: date-time
 
     - `IReadOnlyList<DateTimeOffset> UpcomingRunsAt`
 
@@ -983,17 +940,17 @@ Update Deployment
 
     Lifecycle status of a deployment.
 
-    - `"active"Active`
+    - `Active`
 
-    - `"paused"Paused`
+    - `Paused`
 
   - `required Type Type`
-
-    - `"deployment"Deployment`
 
   - `required DateTimeOffset UpdatedAt`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `required IReadOnlyList<string> VaultIds`
 
@@ -1015,13 +972,9 @@ Update Deployment
 
         Uppercase ISO-4217 currency code. `USD` is the only currency currently supported; the accepted set is closed and grows only when a new currency is priced.
 
-        - `"USD"Usd`
-
     - `required Type Type`
 
-      - `"limit"Limit`
-
-### Example
+## Example
 
 ```csharp
 DeploymentUpdateParams parameters = new()
@@ -1034,7 +987,7 @@ var betaManagedAgentsDeployment = await client.Beta.Deployments.Update(parameter
 Console.WriteLine(betaManagedAgentsDeployment);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

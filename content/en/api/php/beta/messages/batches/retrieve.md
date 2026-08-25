@@ -1,19 +1,14 @@
----
-title: Retrieve a Message Batch
-url: https://platform.claude.com/docs/en/api/php/beta/messages/batches/retrieve
----
-
-## Retrieve a Message Batch
+# Retrieve a Message Batch
 
 `$client->beta->messages->batches->retrieve(string messageBatchID, ?list<AnthropicBeta> betas): MessageBatch`
 
-**get** `/v1/messages/batches/{message_batch_id}`
+**GET** `/v1/messages/batches/{message_batch_id}`
 
 This endpoint is idempotent and can be used to poll for Message Batch completion. To access the results of a Message Batch, make a request to the `results_url` field in the response.
 
 Learn more about the Message Batches API in our [user guide](https://platform.claude.com/docs/en/build-with-claude/batch-processing)
 
-### Parameters
+## Parameters
 
 - `messageBatchID: string`
 
@@ -23,7 +18,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `MessageBatch`
 
@@ -77,7 +72,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     For Message Batches, this is always `"message_batch"`.
 
-### Example
+## Example
 
 ```php
 <?php
@@ -93,7 +88,7 @@ $betaMessageBatch = $client->beta->messages->batches->retrieve(
 var_dump($betaMessageBatch);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

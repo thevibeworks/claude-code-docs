@@ -1,17 +1,12 @@
----
-title: Delete Environment
-url: https://platform.claude.com/docs/en/api/php/beta/environments/delete
----
-
-## Delete Environment
+# Delete Environment
 
 `$client->beta->environments->delete(string environmentID, ?list<AnthropicBeta> betas): BetaEnvironmentDeleteResponse`
 
-**delete** `/v1/environments/{environment_id}`
+**DELETE** `/v1/environments/{environment_id}`
 
 Delete an environment by ID. Returns a confirmation of the deletion.
 
-### Parameters
+## Parameters
 
 - `environmentID: string`
 
@@ -19,7 +14,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
   Optional header to specify the beta version(s) you want to use.
 
-### Returns
+## Returns
 
 - `BetaEnvironmentDeleteResponse`
 
@@ -31,7 +26,7 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     The type of response
 
-### Example
+## Example
 
 ```php
 <?php
@@ -48,7 +43,7 @@ $betaEnvironmentDeleteResponse = $client->beta->environments->delete(
 var_dump($betaEnvironmentDeleteResponse);
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Download File
-url: https://platform.claude.com/docs/en/api/typescript/beta/files/download
----
+# Download File
 
-## Download File
+`client.beta.files.download(fileID, params?, options?): Response`
 
-`client.beta.files.download(stringfileID, FileDownloadParamsparams?, RequestOptionsoptions?): Response`
-
-**get** `/v1/files/{file_id}/content`
+**GET** `/v1/files/{file_id}/content`
 
 Download File
 
-### Parameters
+## Parameters
 
 - `fileID: string`
 
@@ -95,11 +90,11 @@ Download File
 
       - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `unnamed_schema_1 = Response`
 
-### Example
+## Example
 
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";

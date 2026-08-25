@@ -1,17 +1,12 @@
----
-title: Delete Credential
-url: https://platform.claude.com/docs/en/api/ruby/beta/vaults/credentials/delete
----
-
-## Delete Credential
+# Delete Credential
 
 `beta.vaults.credentials.delete(credential_id, **kwargs) -> BetaManagedAgentsDeletedCredential`
 
-**delete** `/v1/vaults/{vault_id}/credentials/{credential_id}`
+**DELETE** `/v1/vaults/{vault_id}/credentials/{credential_id}`
 
 Delete Credential
 
-### Parameters
+## Parameters
 
 - `vault_id: String`
 
@@ -93,7 +88,7 @@ Delete Credential
 
     - `:"mid-conversation-tool-changes-2026-07-01"`
 
-### Returns
+## Returns
 
 - `class BetaManagedAgentsDeletedCredential`
 
@@ -105,9 +100,7 @@ Delete Credential
 
   - `type: :vault_credential_deleted`
 
-    - `:vault_credential_deleted`
-
-### Example
+## Example
 
 ```ruby
 require "anthropic"
@@ -122,7 +115,7 @@ beta_managed_agents_deleted_credential = anthropic.beta.vaults.credentials.delet
 puts(beta_managed_agents_deleted_credential)
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {
