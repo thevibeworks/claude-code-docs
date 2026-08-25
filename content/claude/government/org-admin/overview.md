@@ -79,4 +79,6 @@ The navigation groups the pages into three sections.
 
 ## How changes take effect
 
-Most changes you make in this portal take effect immediately. Changing a user's seat tier, updating a spend limit, or resetting a user's rate limits applies to their very next request. Product configuration changes are picked up the next time a user's Claude application refreshes its settings, which happens when the application is launched or when the user signs in. Group mapping changes trigger an immediate re-sync so you do not need to wait for a scheduled cycle.
+Most changes you make in this portal take effect immediately. Changing a user's seat tier, updating a spend limit, or resetting a user's rate limits applies to their very next request. Group mapping changes trigger an immediate re-sync so you do not need to wait for a scheduled cycle.
+
+Settings on the [Config](/docs/government/org-admin/configuration) page that govern the Claude applications themselves, such as the Claude Desktop banner and telemetry, reach each user's application the next time it starts or the user signs in. Claude Desktop also checks for changes about every 30 minutes while it is running and prompts the user to relaunch when something has changed.

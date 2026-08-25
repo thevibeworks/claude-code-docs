@@ -1177,7 +1177,7 @@ Server-side fallback is not available for batches (a batch request that includes
     How SDK middleware works, including the refusal-fallback helper.
   </Card>
 
-  <Card title="Migration guide" icon="arrow-right" href="https://platform.claude.com/docs/en/about-claude/models/migration-guide">
+  <Card title="Migration guide" icon="arrow-right" href="https://platform.claude.com/docs/en/models/fable-5/migration-guide">
     Move an existing application to Claude Fable 5.
   </Card>
 </CardGroup>

@@ -189,7 +189,7 @@ Then review the following:
 2. **Extended thinking:** if you still set `budget_tokens`, migrate to [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking). Manual extended thinking (`thinking: {type: "enabled"}`) is not supported and returns a 400 error.
 3. **Sampling parameters:** requests that set sampling parameters (`temperature`, `top_p`, `top_k`) to a non-default value return a 400 error; remove them when migrating. Tool definitions and response shapes are unchanged, and assistant message prefilling was already unsupported on Claude Sonnet 4.6.
 
-See the [Claude Sonnet 5 section of the migration guide](https://platform.claude.com/docs/en/about-claude/models/migration-guide#migrating-from-claude-sonnet-4-6-to-claude-sonnet-5) for details.
+See [Migrating to Claude Sonnet 5 from Claude Sonnet 4.6](https://platform.claude.com/docs/en/models/sonnet-5/migration-guide#migrating-from-claude-sonnet-4-6-to-claude-sonnet-5) for details.
 
 ## Next steps
 

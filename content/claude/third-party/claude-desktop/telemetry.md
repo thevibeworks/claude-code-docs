@@ -253,12 +253,13 @@ The `sentry.io` apex is listed alongside the wildcards because some firewalls do
 
 ### Optional features
 
-| Host                                                                                                                                    | Required when                               |
-| --------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| Host of `otlpEndpoint`                                                                                                                  | OpenTelemetry export is configured          |
-| `github.com`, `objects.githubusercontent.com`, `pypi.org`, `files.pythonhosted.org`                                                     | Python-based desktop extensions are enabled |
-| Hosts of each entry in `managedMcpServers` (server URL, plus `oauth.authorizationServer` and `login.microsoftonline.com` if configured) | Managed MCP servers are configured          |
-| Hosts in `coworkEgressAllowedHosts`                                                                                                     | Sandbox web access is configured            |
+| Host                                                                                                                                            | Required when                                                                                  |
+| ----------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| Host of `otlpEndpoint`                                                                                                                          | OpenTelemetry export is configured                                                             |
+| `github.com`, `objects.githubusercontent.com`, `pypi.org`, `files.pythonhosted.org`                                                             | Python-based desktop extensions are enabled                                                    |
+| Hosts of each entry in `managedMcpServers` (server URL, plus `oauth.authorizationServer` and `login.microsoftonline.com` if configured)         | Managed MCP servers are configured                                                             |
+| Search provider host of a built-in `websearch` server (`api.search.brave.com`, `api.tavily.com`, `api.exa.ai`, or the host of your `customUrl`) | [Built-in web search](/docs/third-party/claude-desktop/web-tools#built-in-web-search) is configured |
+| Hosts in `coworkEgressAllowedHosts`                                                                                                             | Sandbox web access is configured                                                               |
 
 ## Disabling all Anthropic-bound connections
 
