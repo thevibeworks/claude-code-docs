@@ -71,6 +71,17 @@ DISCOVER_DOMAINS = [
     ("academy.claude.com",      "Courses/tutorials (HTML-only, not fetched)"),
 ]
 
+# Which of the above the fetcher actually archives. Kept next to
+# DISCOVER_DOMAINS so "we probe it" and "we fetch it" can never drift apart
+# silently — that gap is the whole reason academy.claude.com went unnoticed.
+FETCHED_DOMAINS = {
+    "platform.claude.com", "code.claude.com", "modelcontextprotocol.io",
+    "support.claude.com", "claude.com",
+}
+# Archived, deliberately not refreshed: anthropic.com is HTML-only and the
+# jina.ai proxy path was removed in 2026-07.
+FROZEN_DOMAINS = {"anthropic.com"}
+
 
 def normalize_url(url: str) -> str:
     """Drop the #fragment and any trailing slash from a sitemap URL.
@@ -128,6 +139,7 @@ class Fetcher:
 
         self.stats = {"total": 0, "downloaded": 0, "skipped": 0,
                       "failed": 0, "dead": 0, "reaped": 0}
+        self._stats_finalized = False
 
         # Paths whose upstream answered 200-with-HTML (a soft 404). Refusing the
         # write is not enough on its own: any copy fetched before the guard
@@ -158,6 +170,15 @@ class Fetcher:
         # discovery signal --discover cannot see, because it only probes domains
         # we already know to ask about.
         self.redirects_offsite: Dict[str, set] = defaultdict(set)
+
+        # What the last full run could see of the world outside sources.json.
+        # Printing it was not enough: the run that found academy.claude.com had
+        # already printed "support.claude.com -> academy.claude.com" for weeks,
+        # into an Actions log with no reader. The decision agent downstream sees
+        # `git status`, so a discovery only reaches a human once it is a file
+        # that changes. Sets and capability booleans only — no counts, or every
+        # run rewrites it and the diff stops meaning anything.
+        self.discovery_path = Path("discovery.json")
 
     def want(self, *sections: str) -> bool:
         if not self.section or self.section == "all":
@@ -565,6 +586,13 @@ class Fetcher:
                 await self._save_metadata(results)
                 self._print_failures(results)
 
+            # Same rule as tombstones below: only a full run has seen every
+            # redirect, so only a full run may rewrite the snapshot. A --section
+            # run would drop the other sections' redirect targets by omission
+            # and report the loss as news.
+            if self.want("all") and not self.incremental:
+                await self.snapshot_discovery(session)
+
         # Only a full run sees every URL, so only a full run may conclude that a
         # missing page is really gone. A --section run has no opinion about the
         # sections it did not fetch, and --incremental never re-probes what it
@@ -668,6 +696,7 @@ class Fetcher:
             print(f"  WARN: CHANGELOG: {e}", file=sys.stderr)
 
     async def _save_metadata(self, results: List[Dict]):
+        live = self._finalize_stats()
         metadata = {
             "metadata": {
                 "version": "2.0",
@@ -679,14 +708,24 @@ class Fetcher:
                 {"url": r["url"], "error": str(r.get("error", ""))[:200]}
                 for r in results if r.get("status") == "failed"
             ],
+            # Known deaths appeared in neither list before: "items" keeps only
+            # successes and "failures" only status == "failed", so all 94
+            # tombstoned pages fell through the artifact entirely while the
+            # summary still counted them. Recorded here so the file explains its
+            # own numbers.
+            "dead": [
+                {"url": r["url"], "reason": self.dead_now.get(r["url"], "")}
+                for r in results if r.get("status") == "dead"
+            ],
             "summary": {
                 "total": self.stats["total"],
                 "downloaded": self.stats["downloaded"],
                 "skipped": self.stats["skipped"],
                 "failed": self.stats["failed"],
+                "dead": self.stats["dead"],
                 "success_rate": (
-                    round(self.stats["downloaded"] / self.stats["total"] * 100, 1)
-                    if self.stats["total"] > 0 else 0
+                    round(self.stats["downloaded"] / live * 100, 1)
+                    if live > 0 else 0
                 ),
             },
         }
@@ -694,11 +733,28 @@ class Fetcher:
         async with aiofiles.open(path, "w") as f:
             await f.write(json.dumps(metadata, indent=2))
 
+    def _finalize_stats(self) -> int:
+        """Split confirmed-dead pages out of the failure count. Returns live docs.
+
+        A page upstream deleted is not a fetch failure. This used to happen only
+        in _print_summary, so the console told the truth while
+        content/.metadata.json — the machine-readable artifact, the one a
+        consumer would actually parse — kept reporting `failed: 95` and
+        `success_rate: 97.6` for a run whose real numbers were 1 and 100.0%.
+        That is rule 12's camouflage surviving in the file after being removed
+        from the terminal: a rate pinned by 94 standing deaths cannot show the
+        95th failure that is new. Instrumentation is code; it has bugs too.
+
+        Idempotent, because both writers call it.
+        """
+        if not self._stats_finalized:
+            self._stats_finalized = True
+            self.stats["dead"] = len(self.dead_now)
+            self.stats["failed"] -= len(self.dead_now)
+        return self.stats["total"] - self.stats["dead"]
+
     def _print_summary(self):
-        # A page upstream deleted is not a fetch failure. Split them before
-        # reporting so "Failed" means "needs a human" in every mode.
-        self.stats["dead"] = len(self.dead_now)
-        self.stats["failed"] -= len(self.dead_now)
+        live = self._finalize_stats()
 
         print()
         print(f"Total:      {self.stats['total']}")
@@ -710,7 +766,6 @@ class Fetcher:
         # Pages upstream deleted are not our failures, so they are excluded from
         # the rate. Leaving them in pinned it at 96.9% forever and made a real
         # new breakage indistinguishable from the standing background.
-        live = self.stats["total"] - self.stats["dead"]
         if live > 0:
             rate = (self.stats["downloaded"] / live) * 100
             print(f"Success:    {rate:.1f}% of {live} live docs")
@@ -782,6 +837,186 @@ class Fetcher:
             self._prune_empty_dirs()
         self.stats["reaped"] = len(paths)
         return len(paths)
+
+    # -- Discovery state ---------------------------------------------------
+
+    async def _probe_domain(self, session, domain: str) -> dict:
+        """What this domain offers a fetcher, as stable facts.
+
+        Deliberately no counts. "sitemap has 1,541 URLs" changes on almost every
+        run and would make discovery.json churn like the content it is supposed
+        to be a signal *about*; a file that always changes says nothing when it
+        changes. Capability booleans flip once, on the day the answer is news.
+
+        `serves_markdown` is the one that decides everything: it is the exact
+        test for whether this fetcher could archive the domain at all. It is why
+        academy.claude.com sits recorded-but-unfetched (725 pages, every path a
+        404 to an HTML shell) rather than being silently forgotten, and the day
+        upstream adds .md variants that `false` becomes a `true` in a diff.
+        """
+        out = {"serves_llms_txt": False, "serves_sitemap": False,
+               "serves_markdown": False}
+        locs: List[str] = []
+
+        for path in ("/llms.txt", "/docs/llms.txt"):
+            try:
+                async with session.get(f"https://{domain}{path}") as r:
+                    ct = r.headers.get("content-type", "")
+                    if r.status == 200 and "text/" in ct and "html" not in ct:
+                        out["serves_llms_txt"] = True
+                        break
+            except Exception:
+                pass
+
+        for path in ("/docs/sitemap.xml", "/sitemap.xml"):
+            try:
+                async with session.get(f"https://{domain}{path}") as r:
+                    if r.status != 200:
+                        continue
+                    text = await r.text()
+                    if "<loc>" not in text:
+                        continue
+                    out["serves_sitemap"] = True
+                    locs = [normalize_url(c.split("</loc>", 1)[0])
+                            for c in text.split("<loc>")[1:]]
+                    break
+            except Exception:
+                # Cloudflare answers claude.ai's sitemap with a challenge. That
+                # is a fact about the domain, not an error to swallow silently.
+                out["serves_sitemap"] = "blocked"
+
+        # Sample doc pages, not the first <loc>. The first entry is the site
+        # root on platform.claude.com and a localised marketing page on
+        # claude.com — neither has a .md twin, so a one-sample probe called both
+        # domains markdown-incapable while the fetcher was busy pulling 829 .md
+        # files off them. Spread the sample so one dead page cannot decide it.
+        docs = [u for u in locs if "/docs/" in u] or locs
+        step = max(1, len(docs) // 5)
+        for sample in docs[::step][:5]:
+            try:
+                async with session.get(f"{sample}.md") as r:
+                    body = await r.read()
+                    if r.status == 200 and not looks_like_html(body):
+                        out["serves_markdown"] = True
+                        break
+            except Exception:
+                pass
+        return out
+
+    async def snapshot_discovery(self, session) -> dict:
+        """Write discovery.json: what exists upstream that sources.json does not.
+
+        The pipeline could already see new sources and threw the sight away.
+        `_report_offsite_redirects` prints "<-- UNKNOWN DOMAIN" to stdout, and
+        stdout in CI is an Actions log nobody opens; the agent that decides
+        whether a run is newsworthy reads `git status`, not the log above it.
+        So academy.claude.com — 725 pages that support.claude.com had been
+        redirecting to for weeks — was found by a human chasing a dead article,
+        not by the automation that had been printing the hop all along.
+
+        Making it a tracked file needs no new plumbing: a new domain, a new
+        anthropics repo, or a domain that starts serving markdown all become a
+        line in a diff, which is exactly the signal the existing publish path
+        already turns into a PR.
+        """
+        known = {d for d, _ in DISCOVER_DOMAINS}
+        domains = {}
+        for domain, _desc in DISCOVER_DOMAINS:
+            probe = await self._probe_domain(session, domain)
+            if domain in FETCHED_DOMAINS:
+                status = "fetched"
+            elif domain in FROZEN_DOMAINS:
+                status = "frozen"
+            else:
+                status = "not-fetched"
+            domains[domain] = {"status": status, **probe}
+
+        # Redirect targets are observed by *fetching*, so a --discover run sees
+        # none. Overwriting from one would wipe the field the pipeline fills and
+        # report academy.claude.com's disappearance as good news. Keep the last
+        # full run's answer unless this run actually fetched something.
+        targets = sorted({hop.split(" -> ")[1] for hop in self.redirects_offsite})
+        if not targets:
+            try:
+                targets = json.loads(
+                    self.discovery_path.read_text()).get("redirect_targets", [])
+            except (OSError, ValueError):
+                targets = []
+        for target in targets:
+            if target not in domains:
+                # A domain upstream points at that we have never probed. This is
+                # the branch that would have caught academy.claude.com.
+                domains[target] = {
+                    "status": "UNKNOWN — seen only as a redirect target",
+                    **await self._probe_domain(session, target),
+                }
+
+        fetched_repos = {r for r, _, _ in GITHUB_REPOS}
+        org = sorted(await self._list_org_repos(session))
+        review = sorted(
+            f"{d}: reachable and serves .md, but not fetched"
+            for d, v in domains.items()
+            if v.get("serves_markdown") and v["status"] not in ("fetched", "frozen")
+        )
+
+        snapshot = {
+            "version": 1,
+            "note": (
+                "What the last full run could see outside sources.json. Written "
+                "by the fetcher so a new source arrives as a diff a human "
+                "reviews, not as a line in an Actions log nobody reads. Stable "
+                "facts only: a change here is always news. `review` is the "
+                "actionable list — domains we could archive today and do not."
+            ),
+            "updated": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+            "domains": domains,
+            "redirect_targets": targets,
+            "github_org_anthropics": {
+                "fetched": sorted(fetched_repos),
+                "not_fetched": [r for r in org if r not in fetched_repos],
+            },
+            "review": review,
+        }
+
+        if org:
+            self.discovery_path.write_text(json.dumps(snapshot, indent=2) + "\n")
+        else:
+            # A rate-limited or unauthenticated GitHub API returns nothing, and
+            # writing that would delete every repo from the file and report it
+            # as "Anthropic archived its whole org". Skip instead.
+            print("\n::warning::GitHub org enumeration returned no repos "
+                  "(rate limit?) — discovery.json left untouched")
+
+        unknown = [d for d, v in domains.items() if v["status"].startswith("UNKNOWN")]
+        if unknown or review:
+            print("\nDiscovery — needs a decision (see discovery.json):")
+            for d in unknown:
+                print(f"  UNKNOWN domain seen upstream: {d}")
+            for line in review:
+                print(f"  {line}")
+        return snapshot
+
+    async def _list_org_repos(self, session) -> List[str]:
+        repos, page = [], 1
+        headers = {}
+        if os.environ.get("GITHUB_TOKEN"):
+            headers["Authorization"] = f"Bearer {os.environ['GITHUB_TOKEN']}"
+        while True:
+            url = (f"https://api.github.com/orgs/anthropics/repos"
+                   f"?per_page=100&page={page}&type=public")
+            try:
+                async with session.get(url, headers=headers) as r:
+                    if r.status != 200:
+                        break
+                    batch = await r.json()
+            except Exception:
+                break
+            if not batch:
+                break
+            repos.extend(f"anthropics/{x['name']}" for x in batch
+                         if not x.get("archived"))
+            page += 1
+        return repos
 
     def _report_offsite_redirects(self):
         known = {d for d, _ in DISCOVER_DOMAINS} | {"www.anthropic.com"}
@@ -985,7 +1220,14 @@ class Fetcher:
                 print(f"  Error: {e}")
 
         print(f"\n{'=' * 60}")
-        print("Compare against sources.json to find gaps.")
+        # The human report above is for reading; the snapshot is for diffing.
+        # Writing it here too means `--discover` and the scheduled run leave the
+        # same artifact, so a manual probe cannot disagree with the pipeline.
+        timeout = aiohttp.ClientTimeout(total=60)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
+            await self.snapshot_discovery(session)
+        print(f"Snapshot written to {self.discovery_path} — "
+              f"diff it against the committed copy to find gaps.")
 
 
 async def main():

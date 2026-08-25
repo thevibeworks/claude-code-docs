@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "2.0",
-    "fetch_date": "2026-08-25T08:55:46.526454Z",
+    "fetch_date": "2026-08-25T09:05:52.481680Z",
     "section": "all"
   },
   "items": [
@@ -8101,8 +8101,8 @@
       "url": "https://support.claude.com/en/articles/8114491-get-started-with-claude",
       "status": "success",
       "path": "support/8114491-get-started-with-claude.md",
-      "sha256": "a290ea49b9d52bd44b885038dfbaedd900f6b9975b80eb67fe104fc3c7a667d0",
-      "size": 5300
+      "sha256": "f0d669a32e2c429fb2f1dec8f3d2280d45c19d4fe90f4428d37459b2a2afa179",
+      "size": 5298
     },
     {
       "url": "https://support.claude.com/en/articles/8114494-how-up-to-date-is-claude-s-training-data",
@@ -19354,6 +19354,13 @@
       "size": 5409
     },
     {
+      "url": "https://platform.claude.com/docs/en/api/python/beta/sessions/resources/delete",
+      "status": "success",
+      "path": "en/api/python/beta/sessions/resources/delete.md",
+      "sha256": "c80e2e69616f8fc7673bc121b2380503db97529d4f5fce57f173233f2016c133",
+      "size": 2503
+    },
+    {
       "url": "https://platform.claude.com/docs/en/api/python/beta/sessions/resources/update",
       "status": "success",
       "path": "en/api/python/beta/sessions/resources/update.md",
@@ -26669,17 +26676,391 @@
       "size": 170
     }
   ],
-  "failures": [
+  "failures": [],
+  "dead": [
     {
-      "url": "https://platform.claude.com/docs/en/api/python/beta/sessions/resources/delete",
-      "error": "Cannot connect to host platform.claude.com:443 ssl:default [None]"
+      "url": "https://support.claude.com/en/articles/10366473-where-can-i-find-full-receipts-and-invoices-for-my-claude-api-and-console-payments",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/12650343-use-claude-for-excel",
+      "reason": "moved -> https://claude.com/docs/office-agents/excel"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/13521390-use-claude-for-powerpoint",
+      "reason": "moved -> https://claude.com/docs/office-agents/powerpoint"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/13892150-work-across-microsoft-365-apps",
+      "reason": "moved -> https://claude.com/docs/office-agents/work-across-apps"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/13945233-use-claude-for-microsoft-365-with-third-party-platforms",
+      "reason": "moved -> https://claude.com/docs/office-agents/third-party-platforms"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/14465370-use-claude-for-word",
+      "reason": "moved -> https://claude.com/docs/office-agents/word"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/14479591-use-dictation-in-office-agents",
+      "reason": "moved -> https://claude.com/docs/office-agents/dictation"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/14855664-use-claude-for-outlook",
+      "reason": "moved -> https://claude.com/docs/office-agents/outlook"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agent-sdk/stop-reasons",
+      "reason": "moved -> https://code.claude.com/docs/en/agent-sdk"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/agents-and-tools/claude-for-sheets",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/sdks/cli",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/csharp/completions/create",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/csharp/beta/webhooks/unwrap",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/php/completions/create",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/cli/beta/webhooks/unwrap",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/java/beta/webhooks/unwrap",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/api/python/completions/create",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/about-claude/use-case-guides/classification",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://code.claude.com/docs/en/sdk/migration-guide",
+      "reason": "moved -> https://code.claude.com/docs/en/agent-sdk"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/mindfulness-mentor",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/corporate-clairvoyant",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/lesson-planner",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/brand-builder",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/grading-guru",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/dream-interpreter",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/culinary-creator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/alliteration-alchemist",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/riddle-me-this",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/career-coach",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/adaptive-editor",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/philosophical-musings",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/sci-fi-scenario-simulator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/meeting-scribe",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/polyglot-superpowers",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/prose-polisher",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/master-moderator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/time-travel-consultant",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/email-extractor",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/babels-broadcasts",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/sql-sorcerer",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/tongue-twister",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/memo-maestro",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/efficiency-estimator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/trivia-generator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/python-bug-buster",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/csv-converter",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/cite-your-sources",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/mood-colorizer",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/library",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/code-clarifier",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/tweet-tone-detector",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/neologism-creator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/pii-purifier",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/futuristic-fashion-advisor",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/ethical-dilemma-navigator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/emoji-encoder",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/latex-legend",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/perspectives-ponderer",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/motivational-muse",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/storytelling-sidekick",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/google-apps-scripter",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/airport-code-analyst",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/spreadsheet-sorcerer",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/code-consultant",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/function-fabricator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/excel-formula-expert",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/data-organizer",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/product-naming-pro",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/vr-fitness-innovator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/grammar-genie",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/hal-the-humorous-helper",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/direction-decoder",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/review-classifier",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/idiom-illuminator",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/alien-anthropologist",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/interview-question-crafter",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/socratic-sage",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/portmanteau-poet",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/git-gud",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/pun-dit",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/second-grade-simplifier",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://platform.claude.com/docs/en/resources/prompt-library/simile-savant",
+      "reason": "moved -> https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/specification/draft/basic/utilities/mrtr",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://modelcontextprotocol.io/specification/draft/basic/utilities/subscriptions",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/12922490-remote-mcp-server-submission-guide",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/11503834-build-custom-connectors-via-remote-mcp-servers",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/9612889-how-can-i-uninstall-claude-for-android",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/9264804-how-can-i-cancel-my-claude-pro-subscription-on-the-claude-app-for-ios",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8606395-how-large-is-the-claude-api-s-context-window",
+      "reason": "moved -> https://platform.claude.com/docs/en/models/overview"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/13851150-install-financial-services-plugins",
+      "reason": "moved -> https://academy.claude.com/tutorials/install-financial-services-plugins-for-cowork"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/8114526-how-will-i-be-billed-for-claude-api-use",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/12922832-local-mcp-server-submission-guide",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/12922929-building-desktop-extensions-with-mcpb",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://support.claude.com/en/articles/10722177-sharing-prompts-in-the-claude-console",
+      "reason": "HTTP 404"
     }
   ],
   "summary": {
     "total": 3904,
-    "downloaded": 3809,
+    "downloaded": 3810,
     "skipped": 0,
-    "failed": 95,
-    "success_rate": 97.6
+    "failed": 0,
+    "dead": 94,
+    "success_rate": 100.0
   }
 }

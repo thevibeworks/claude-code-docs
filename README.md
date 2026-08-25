@@ -69,7 +69,7 @@ content/
 
 ## Fetching
 
-Auto-updates every 6 hours via GitHub Actions. To fetch manually:
+Auto-updates four times daily via GitHub Actions. To fetch manually:
 
 ```bash
 # Requires: uv (https://docs.astral.sh/uv/)
@@ -82,22 +82,42 @@ uv run scripts/fetcher.py --discover         # Probe domains for new sources
 ```
 
 GitHub repo fetching needs `GITHUB_TOKEN` or `GH_TOKEN` in the environment.
-Blog, research, and support articles use [jina.ai](https://jina.ai) for
-HTML-to-markdown conversion (rate-limited at ~10 req/s).
+Every fetched source serves a `.md` variant of each page, so nothing is
+converted from HTML. That is also why `content/blog/` is frozen: anthropic.com
+is HTML-only and the jina.ai proxy path it used was removed in July 2026.
 
 See [`sources.json`](sources.json) for the complete machine-readable source
 registry.
 
 ## Source Discovery
 
-The fetcher doesn't just download from hardcoded URLs. `--discover` probes
-every known Anthropic domain for `robots.txt`, `sitemap.xml`, `llms.txt`,
-and `llms-full.txt`, then compares against what we already archive.
+The fetcher doesn't just download from hardcoded URLs. It probes every known
+Anthropic domain for `robots.txt`, `sitemap.xml`, `llms.txt`, and — the
+question that decides everything — whether the domain serves `.md` variants at
+all. It also enumerates `github.com/anthropics` and watches the `Location`
+header on every redirect it follows.
 
 Known domains: `anthropic.com`, `platform.claude.com`, `code.claude.com`,
-`support.claude.com`, `modelcontextprotocol.io`, `claude.ai`, `claude.com`
+`support.claude.com`, `modelcontextprotocol.io`, `claude.ai`, `claude.com`,
+`academy.claude.com`
 
-Run `--discover` periodically to catch new sources before they go stale.
+**The result is a file, not a log line.** Every full run rewrites
+[`discovery.json`](discovery.json) with what exists upstream that
+`sources.json` does not. This matters because printing it did not work: the
+pipeline had been logging `support.claude.com -> academy.claude.com` four
+times a day for weeks, into an Actions log nobody opens, and those 725 pages
+were eventually found by a human chasing a dead support article. A discovery
+that isn't a diff doesn't reach anyone.
+
+So a new domain, a new `anthropics` repo, or a domain that starts serving
+markdown now shows up as a tracked change, gets classified as high-signal, and
+opens a PR — the same path a new doc takes. `discovery.json.review` is the
+actionable list: reachable, serves markdown, nothing fetches it. Empty is
+healthy. Adding a source stays a human decision.
+
+```bash
+uv run scripts/fetcher.py --discover   # manual probe; writes the same file
+```
 
 **Sitemaps are treated as incomplete, not authoritative.** Upstream de-indexes
 pages it still serves: in July 2026 platform.claude.com dropped every

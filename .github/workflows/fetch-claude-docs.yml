@@ -129,6 +129,21 @@ jobs:
               entries removed from it (pages that came BACK). Both are
               editorial news. `git diff tombstones.json` shows exactly what
               changed - read it, do not just note that the file changed.
+            - ANY change to `discovery.json`. This is the archive finding
+              something it does not yet hold, and it is the highest-value
+              thing a run can produce - a source we are missing is worse
+              than a doc we are missing. `git diff discovery.json` and say
+              which of these happened:
+                * a domain appeared under `domains` with status `UNKNOWN` -
+                  upstream is redirecting somewhere we have never probed
+                * a `review` line appeared - a domain now serves .md and
+                  could be archived today but is not in `sources.json`
+                * `serves_markdown` flipped false -> true on a `not-fetched`
+                  domain (e.g. academy.claude.com getting .md variants)
+                * a repo appeared under `github_org_anthropics.not_fetched` -
+                  Anthropic published a new public repo
+              Name the domain or repo in the title. Adding the source is a
+              human decision; your job is to make sure it reaches one.
 
             **minor** (WHY: archive freshness, zero human value - PR is self-merged instantly):
             - Only github/ mirror or support/ content changed
