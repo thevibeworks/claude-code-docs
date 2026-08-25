@@ -689,7 +689,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-cap-table",
         "ref": "main",
-        "sha": "7be35157286a6654783f82c701e46d06c40dcfb1"
+        "sha": "9918825a395d72ddea7401fc42aebff9099e3933"
       },
       "homepage": "https://carta.com"
     },
@@ -705,7 +705,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-crm",
         "ref": "main",
-        "sha": "3aa656ea870e1d8d7f73d0418c49043cab9df01a"
+        "sha": "e512bd67c11e4b084f2ddfacf5ba6c40100a7962"
       },
       "homepage": "https://carta.com"
     },
@@ -721,7 +721,7 @@
         "url": "https://github.com/carta/plugins.git",
         "path": "plugins/carta-investors",
         "ref": "main",
-        "sha": "7be35157286a6654783f82c701e46d06c40dcfb1"
+        "sha": "84e5df561bb7321300a024477082fcb04295611d"
       },
       "homepage": "https://carta.com"
     },
@@ -2825,6 +2825,9 @@
       "name": "qodo",
       "displayName": "Qodo",
       "description": "Qodo Skills provides a curated library of reusable AI agent capabilities that extend Claude's functionality for software development workflows. Each skill is designed to integrate seamlessly into your development process, enabling tasks like code quality checks, automated testing, security scanning, and compliance validation. Skills operate across your entire SDLC—from IDE to CI/CD—ensuring consistent standards and catching issues early.",
+      "author": {
+        "name": "Qodo"
+      },
       "category": "development",
       "source": {
         "source": "url",
@@ -3716,6 +3719,21 @@
         "sha": "2b8c4a944e39609214bce7aef3b05260985f0e91"
       },
       "homepage": "https://github.com/UI5/plugins-coding-agents"
+    },
+    {
+      "name": "unity",
+      "displayName": "Unity",
+      "description": "Unity's official plugin for Claude Code, with curated skills for game development, monetization, and performance optimization.",
+      "author": {
+        "name": "Unity Technologies"
+      },
+      "category": "development",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Unity-Technologies/unity-agent-plugin.git",
+        "sha": "360523972ed0cb356d679acc612bd0f8d1ba3c2b"
+      },
+      "homepage": "https://unity.com"
     },
     {
       "name": "unreal-engine-skills-for-claude-code",

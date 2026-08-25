@@ -1,11 +1,6 @@
----
-title: Get project document metadata
-url: https://platform.claude.com/docs/en/api/compliance/apps/projects/documents/metadata
----
+# Get project document metadata
 
-## Get project document metadata
-
-**get** `/v1/compliance/apps/projects/documents/{document_id}/metadata`
+**GET** `/v1/compliance/apps/projects/documents/{document_id}/metadata`
 
 Returns metadata for a project document, without the content body.
 
@@ -14,17 +9,17 @@ endpoint to fetch the document text. The `md5` and `size_bytes`
 fields here are computed over the UTF-8 encoding of that text, so a DLP
 consumer can dedupe or match hashes without downloading every document.
 
-### Path Parameters
+## Path parameters
 
 - `document_id: string`
 
   The document ID (tagged ID, e.g., claude_proj_doc_abc123)
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
 - `id: string`
 
@@ -38,6 +33,8 @@ consumer can dedupe or match hashes without downloading every document.
 
   Document creation timestamp
 
+  format: date-time
+
 - `filename: string`
 
   Document filename
@@ -50,13 +47,13 @@ consumer can dedupe or match hashes without downloading every document.
 
   MIME type of the document content, always plain text
 
-  - `"text/plain"`
+  default: text/plain
 
 - `size_bytes: number`
 
   Size in bytes of the document content (UTF-8 encoded)
 
-- `user: object { id, email_address }  or null`
+- `user: object or null`
 
   The user who created a project or project document.
 
@@ -72,14 +69,14 @@ consumer can dedupe or match hashes without downloading every document.
 
     User's email address
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_ID/metadata \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

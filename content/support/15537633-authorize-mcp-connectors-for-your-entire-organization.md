@@ -2,7 +2,7 @@
 
 This article explains how Enterprise-managed auth works and how admins can authorize connectors for their organization through their identity provider. With Enterprise-managed auth, you authorize a connector once for your entire organization, and your team inherits access automatically on first login.
 
-This feature is available in beta for Team and Enterprise plans on Claude. If you are a Claude customer, **[apply for access to get started](https://claude.com/form/ema-waitlist)**. If you are an MCP provider, **[apply here](https://docs.google.com/forms/d/e/1FAIpQLSf1goHGNDVFK7rncYuh6wnRpWSy7eGOcgL1i8uw3oyKFO9UUA/viewform?usp=sharing&ouid=101055591948883487705)**. We’ll share documentation with customers and MCP providers on how to get started once you have access.
+This feature is generally available for Team and Enterprise plans on Claude.
 
 ## What is Enterprise-managed auth?
 
@@ -16,7 +16,7 @@ You decide which connectors are enabled, which groups or roles get them, and at 
 
 - Auth connectors once for your organization, and access is given to your team automatically.
 
-- Use role-based permissions to choose exactly which roles get each connector, so different teams get the access that fits their work. See **Choose which roles get managed auth** below.
+- Use **[role-based permissions](https://support.claude.com/en/articles/13930458-set-up-role-based-permissions-on-enterprise-plans)** to choose exactly which roles get each connector, so different teams get the access that fits their work. See **Choose which roles get managed auth** below.
 
 - Choose which permissions Claude can request when members connect through your identity provider, and narrow that further for individual roles.
 
@@ -70,27 +70,31 @@ Enterprise-managed auth brings together two things your organization already use
 
 ### Identity providers
 
-Okta is supported at launch, with more identity providers coming soon. See **[Okta’s documentation](https://support.okta.com/help/s/article/claude-enterprise-managed-auth-with-okta-cross-app-access-xaa-beta-participation-guide?language=en_US)** for more details.
+Okta is supported at launch, with more identity providers coming soon. See **[Okta’s documentation](https://developer.okta.com/docs/guides/xaa-agent-to-app/main/)** for more details.
 
 ### Connectors
 
 Currently, you can provision these connectors through Enterprise-managed auth:
 
-- Asana
+- Asana (see **[Asana’s documentation](https://help.asana.com/s/article/cross-app-access)**)
 
-- Atlassian
+- Atlassian (see **[Atlassian’s documentation](https://support.atlassian.com/security-and-access-policies/docs/configuring-enterprise-managed-authentication/)**)
 
-- Canva
+- Canva (see **[Canva’s documentation](https://www.canva.com/help/manage-cross-app-access/)**)
 
-- Figma
+- Datadog (see **[Datadog’s documentation](https://docs.datadoghq.com/account_management/org_settings/cross_app_access/)**)
 
-- Granola
+- Figma (see **[Figma’s documentation](https://help.figma.com/hc/articles/41992841175959)**)
 
-- Linear
+- Granola (see **[Granola’s documentation](https://docs.granola.ai/help-center/sharing/integrations/mcp#enterprise-managed-authorization)**)
 
-- Supabase
+- Linear (see **[Linear’s documentation](https://linear.app/docs/mcp#enterprise-managed-authorization)**)
 
-- Slack (coming soon)
+- Notion (see **[Notion’s documentation](https://www.notion.com/help/set-up-enterprise-managed-connections-for-notion-mcp)**)
+
+- Slack (see **[Slack’s documentation](https://slack.com/help/articles/54548358406419)**)
+
+- Supabase (see **[Supabase’s documentation](https://supabase.com/docs/guides/platform/sso/enterprise-mcp-authentication)**)
 
 Any MCP provider can add support for Enterprise-managed auth. See **[Enterprise-Managed Authorization](https://modelcontextprotocol.io/extensions/auth/enterprise-managed-authorization)** for more details.
 

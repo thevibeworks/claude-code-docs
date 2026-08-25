@@ -1,15 +1,10 @@
----
-title: Delete Skill
-url: https://platform.claude.com/docs/en/api/skills/delete
----
+# Delete Skill
 
-## Delete Skill
-
-**delete** `/v1/skills/{skill_id}`
+**DELETE** `/v1/skills/{skill_id}`
 
 Delete Skill
 
-### Path Parameters
+## Path parameters
 
 - `skill_id: string`
 
@@ -17,9 +12,9 @@ Delete Skill
 
   The format and length of IDs may change over time.
 
-### Returns
+## Returns
 
-- `DeletedSkill object { id, type }`
+- `DeletedSkill object`
 
   - `id: string`
 
@@ -33,18 +28,18 @@ Delete Skill
 
     For Skills, this is always `"skill_deleted"`.
 
-    - `"skill_deleted"`
+    default: skill_deleted
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/skills/$SKILL_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

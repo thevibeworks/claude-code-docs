@@ -1,13 +1,8 @@
----
-title: Chat Projects
-url: https://platform.claude.com/docs/en/api/admin/analytics/chat_projects
----
-
 # Chat Projects
 
 ## Get Chat Project Usage
 
-**get** `/v1/organizations/analytics/apps/chat/projects`
+**GET** `/v1/organizations/analytics/apps/chat/projects`
 
 Get per-project activity for a given day, with cursor-based pagination.
 
@@ -17,23 +12,31 @@ group, and filter[] to scope results; the parameter descriptions list the
 supported dimensions. Available to organizations on a Claude Enterprise
 plan. Requires an API key with the `read:analytics` scope.
 
-### Query Parameters
+### Query parameters
 
 - `date: optional string`
 
   UTC date in YYYY-MM-DD format. The day to get project activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
 
+  format: date
+
 - `ending_date: optional string`
 
   UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with starting_date. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after starting_date.
+
+  format: date
 
 - `filter: optional array of string`
 
   Filters as 'dimension:value', e.g. filter[]=rbac_group_id:<id>. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: project_id, rbac_group_id, user_id. Value forms: project_id takes a tagged project id (claude_proj_...); rbac_group_id takes the tagged id (rbac_group_..., as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); user_id takes a tagged user id (user_...), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
 
+  maxItems: 100
+
 - `group_by: optional array of "rbac_group_id" or "user_id"`
 
   Dimensions to break results out by (e.g. group_by[]=user_id). Supported on this endpoint: rbac_group_id, user_id. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via next_page; an unsupported dimension returns 400. rbac_group_id attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+
+  maxItems: 100
 
   - `"rbac_group_id"`
 
@@ -42,6 +45,8 @@ plan. Requires an API key with the `read:analytics` scope.
 - `limit: optional number`
 
   Number of results per page (1-1000, default 100).
+
+  minimum: 1, maximum: 1000
 
 - `order: optional "asc" or "desc"`
 
@@ -63,13 +68,15 @@ plan. Requires an API key with the `read:analytics` scope.
 
   UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either date or starting_date, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
 
+  format: date
+
 ### Returns
 
-- `ChatProjectUsage object { data, next_page }`
+- `ChatProjectUsage object`
 
   Response for GET /v1/organizations/analytics/apps/chat/projects.
 
-  - `data: array of object { distinct_user_count, message_count, project_id, 8 more }`
+  - `data: array of object`
 
     - `distinct_user_count: number`
 
@@ -107,7 +114,7 @@ plan. Requires an API key with the `read:analytics` scope.
 
         Object type. Always `user`.
 
-        - `"user"`
+        default: user
 
     - `distinct_conversation_count: optional number or null`
 
@@ -135,13 +142,13 @@ plan. Requires an API key with the `read:analytics` scope.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/analytics/apps/chat/projects \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -168,15 +175,15 @@ curl https://api.anthropic.com/v1/organizations/analytics/apps/chat/projects \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Chat Project Usage
 
-- `ChatProjectUsage object { data, next_page }`
+- `ChatProjectUsage object`
 
   Response for GET /v1/organizations/analytics/apps/chat/projects.
 
-  - `data: array of object { distinct_user_count, message_count, project_id, 8 more }`
+  - `data: array of object`
 
     - `distinct_user_count: number`
 
@@ -214,7 +221,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/apps/chat/projects \
 
         Object type. Always `user`.
 
-        - `"user"`
+        default: user
 
     - `distinct_conversation_count: optional number or null`
 

@@ -229,4 +229,4 @@ Priority Tier targets 99.5% uptime with prioritized computational resources. Req
 
 Priority Tier is supported on all available Claude models except Claude Mythos 5, [Claude Mythos Preview](https://anthropic.com/glasswing), Claude Opus 5, and Claude Sonnet 5.
 
-Check the [Models overview](https://platform.claude.com/docs/en/about-claude/models/overview) for more details on available models.
+Check the [Models overview](https://platform.claude.com/docs/en/models/overview) for more details on available models.

@@ -1,15 +1,10 @@
----
-title: Create User Profile
-url: https://platform.claude.com/docs/en/api/beta/user_profiles/create
----
+# Create User Profile
 
-## Create User Profile
-
-**post** `/v1/user_profiles`
+**POST** `/v1/user_profiles`
 
 Create User Profile
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of AnthropicBeta`
 
@@ -87,7 +82,7 @@ Create User Profile
 
     - `"mid-conversation-tool-changes-2026-07-01"`
 
-### Body Parameters
+## Body parameters
 
 - `access_type: optional "application" or "passthrough"`
 
@@ -101,6 +96,8 @@ Create User Profile
 
   Platform's own identifier for this user. Not enforced unique. Maximum 255 characters.
 
+  minLength: 1, maxLength: 255
+
 - `metadata: optional map[string]`
 
   Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
@@ -108,6 +105,8 @@ Create User Profile
 - `name: optional string or null`
 
   Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+
+  minLength: 1, maxLength: 255
 
 - `relationship: optional "external" or "resold" or "internal"`
 
@@ -119,9 +118,9 @@ Create User Profile
 
   - `"internal"`
 
-### Returns
+## Returns
 
-- `BetaUserProfile object { id, created_at, metadata, 7 more }`
+- `BetaUserProfile object`
 
   - `id: string`
 
@@ -130,6 +129,8 @@ Create User Profile
   - `created_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `metadata: map[string]`
 
@@ -153,11 +154,11 @@ Create User Profile
 
     Object type. Always `user_profile`.
 
-    - `"user_profile"`
-
   - `updated_at: string`
 
     A timestamp in RFC 3339 format
+
+    format: date-time
 
   - `access_type: optional "application" or "passthrough"`
 
@@ -185,9 +186,9 @@ Create User Profile
 
     - `"internal"`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/user_profiles \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -199,7 +200,7 @@ curl https://api.anthropic.com/v1/user_profiles \
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

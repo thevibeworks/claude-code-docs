@@ -1,23 +1,18 @@
----
-title: List RBAC Role Permissions
-url: https://platform.claude.com/docs/en/api/admin/rbac_roles/permissions/list
----
+# List RBAC Role Permissions
 
-## List RBAC Role Permissions
-
-**get** `/v1/organizations/rbac_roles/{role_id}/permissions`
+**GET** `/v1/organizations/rbac_roles/{role_id}/permissions`
 
 List the permissions an RBAC Role grants.
 
 The RBAC Roles API is in beta and available to Claude Enterprise organizations only. Requests must send the `ce-user-management-2026-07-13` value in the `anthropic-beta` header.
 
-### Path Parameters
+## Path parameters
 
 - `role_id: string`
 
   ID of the RBAC Role.
 
-### Query Parameters
+## Query parameters
 
 - `limit: optional number`
 
@@ -25,11 +20,13 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
   Defaults to `20`. Ranges from `1` to `1000`.
 
+  default: 20, maximum: 1000, minimum: 1
+
 - `page: optional string`
 
   Optionally set to the `next_page` token from the previous response.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -37,7 +34,7 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
 - `data: array of RbacRolePermission`
 
@@ -60,14 +57,14 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
     `all_connectors` grants carry a tool-access action, the scope action, or
     an authentication-method action (`interactive` or `managed`).
 
-  - `resource: object { organization_id, type }  or object { connector_id, tool_name, type }  or object { connector_id, scope, type }  or 2 more`
+  - `resource: object or object or object or 2 more`
 
     What the permission applies to.
 
     A tagged union: `type` names the kind of resource and determines which
     identifier fields are present.
 
-    - `Organization object { organization_id, type }`
+    - `Organization object`
 
       - `organization_id: string`
 
@@ -77,9 +74,9 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"organization"`
+        default: organization
 
-    - `ConnectorTool object { connector_id, tool_name, type }`
+    - `ConnectorTool object`
 
       - `connector_id: string`
 
@@ -98,9 +95,9 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"connector_tool"`
+        default: connector_tool
 
-    - `ConnectorScope object { connector_id, scope, type }`
+    - `ConnectorScope object`
 
       - `connector_id: string`
 
@@ -120,9 +117,9 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"connector_scope"`
+        default: connector_scope
 
-    - `Connector object { connector_id, type }`
+    - `Connector object`
 
       - `connector_id: string`
 
@@ -132,15 +129,15 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
         Kind of resource the permission applies to.
 
-        - `"connector"`
+        default: connector
 
-    - `AllConnectors object { type }`
+    - `AllConnectors object`
 
       - `type: "all_connectors"`
 
         Kind of resource the permission applies to.
 
-        - `"all_connectors"`
+        default: all_connectors
 
   - `type: "rbac_role_permission"`
 
@@ -148,7 +145,7 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
 
     For RBAC Role Permissions, this is always `"rbac_role_permission"`.
 
-    - `"rbac_role_permission"`
+    default: rbac_role_permission
 
 - `has_more: boolean`
 
@@ -159,15 +156,15 @@ The RBAC Roles API is in beta and available to Claude Enterprise organizations o
   Opaque cursor for the next page. Pass as the `page` parameter on the next
   request.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/rbac_roles/$ROLE_ID/permissions \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

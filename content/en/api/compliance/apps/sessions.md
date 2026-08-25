@@ -1,50 +1,59 @@
----
-title: Sessions
-url: https://platform.claude.com/docs/en/api/compliance/apps/sessions
----
-
 # Sessions
 
-# Local
+## Sessions › Local
 
-## List local sessions
+### List local sessions
 
-**get** `/v1/compliance/apps/sessions/local`
+**GET** `/v1/compliance/apps/sessions/local`
 
 List local sessions across the organizations the key may read.
 
 Results are ordered by `created_at` descending. Pagination is
 forward-only via `next_page`; there is no reverse cursor.
 
-### Query Parameters
+#### Query parameters
 
-- `created_at: optional object { gte, lt }`
+- `created_at: optional object`
 
   - `gte: optional string`
 
     Only return sessions whose first inference call is at or after this time (RFC 3339; a UTC offset is required).
 
+    format: date-time
+
   - `lt: optional string`
 
     Only return sessions whose first inference call is strictly before this time (RFC 3339; a UTC offset is required).
+
+    format: date-time
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 500)
 
+  default: 100, maximum: 500, minimum: 1
+
 - `page: optional string`
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-### Header Parameters
+- `updated_at: optional object`
+
+  - `gte: optional string`
+
+    Only return sessions whose last inference call is at or after this time (RFC 3339; a UTC offset is required). Combines with `created_at.gte` / `created_at.lt`; the ordering and pagination are unchanged. Use it to poll for sessions that have been active since a previous pass — a session that becomes active later can only enter the result, never leave it.
+
+    format: date-time
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, created_at, organization_uuid, 4 more }`
+- `data: array of object`
 
-  Page of local sessions, ordered by `created_at` descending; ties are broken by a fixed server-side order.
+  Page of local sessions, ordered by `created_at` descending; ties are broken by a fixed server-side order. `updated_at` never participates in the ordering; the `updated_at.gte` query parameter filters on it without changing the order or the pagination cursor.
 
   - `id: string`
 
@@ -53,6 +62,8 @@ forward-only via `next_page`; there is no reverse cursor.
   - `created_at: string`
 
     Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
+
+    format: date-time
 
   - `organization_uuid: string`
 
@@ -64,9 +75,15 @@ forward-only via `next_page`; there is no reverse cursor.
 
   - `type: "compliance_local_session"`
 
-    - `"compliance_local_session"`
+    default: compliance_local_session
 
-  - `user: object { id, email_address }`
+  - `updated_at: string`
+
+    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+
+    format: date-time
+
+  - `user: object`
 
     The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
 
@@ -86,14 +103,14 @@ forward-only via `next_page`; there is no reverse cursor.
 
   Opaque pagination cursor (prefixed `page_`) for the next page. Null when there is no further page. Treat as an opaque string; the format may change without notice.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/local \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -108,15 +125,16 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local \
         "email_address": "engineer@example.com"
       },
       "product_surface": "cowork",
-      "created_at": "2026-07-09T14:02:11Z"
+      "created_at": "2026-07-09T14:02:11Z",
+      "updated_at": "2026-07-09T15:47:33Z"
     }
   ]
 }
 ```
 
-## Retrieve a local session
+### Retrieve a local session
 
-**get** `/v1/compliance/apps/sessions/local/{local_session_id}`
+**GET** `/v1/compliance/apps/sessions/local/{local_session_id}`
 
 Retrieve one local session.
 
@@ -125,15 +143,15 @@ with `user.email_address` resolved the same way. Retention is
 enforced when the response is served: a session whose every
 inference call has aged out returns 404.
 
-### Path Parameters
+#### Path parameters
 
 - `local_session_id: string`
 
-### Header Parameters
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
 - `id: string`
 
@@ -142,6 +160,8 @@ inference call has aged out returns 404.
 - `created_at: string`
 
   Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
+
+  format: date-time
 
 - `organization_uuid: string`
 
@@ -153,9 +173,15 @@ inference call has aged out returns 404.
 
 - `type: "compliance_local_session"`
 
-  - `"compliance_local_session"`
+  default: compliance_local_session
 
-- `user: object { id, email_address }`
+- `updated_at: string`
+
+  Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+
+  format: date-time
+
+- `user: object`
 
   The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
 
@@ -171,14 +197,14 @@ inference call has aged out returns 404.
 
   Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -191,103 +217,16 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "email_address": "engineer@example.com"
   },
   "product_surface": "cowork",
-  "created_at": "2026-07-09T14:02:11Z"
+  "created_at": "2026-07-09T14:02:11Z",
+  "updated_at": "2026-07-09T15:47:33Z"
 }
 ```
 
-## Domain Types
+## Sessions › Local › Messages
 
-### Local List Response
+### Retrieve local session messages
 
-- `LocalListResponse object { id, created_at, organization_uuid, 4 more }`
-
-  A Cowork or Claude Code session that a user ran on their own computer
-  while signed in with their organization account.
-
-  - `id: string`
-
-    Local session identifier, prefixed `clls_`. Unique within the parent organization. Treat as an opaque string; the format may change without notice.
-
-  - `created_at: string`
-
-    Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
-
-  - `organization_uuid: string`
-
-    UUID of the child organization the session belongs to
-
-  - `product_surface: string or null`
-
-    The product the session ran in: `cowork` for Cowork sessions in Claude Desktop, or `claude_code` for Claude Code sessions. New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
-
-  - `type: "compliance_local_session"`
-
-    - `"compliance_local_session"`
-
-  - `user: object { id, email_address }`
-
-    The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID, prefixed `user_`). Always set, so attribution survives after the user's account is deleted or the user leaves the organizations the key may read.
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user's account has been deleted or the user is no longer a member of an organization the key may read. The messages endpoint does not resolve email addresses; this field is always null there.
-
-  - `workspace_id: string or null`
-
-    Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
-
-### Local Retrieve Response
-
-- `LocalRetrieveResponse object { id, created_at, organization_uuid, 4 more }`
-
-  A Cowork or Claude Code session that a user ran on their own computer
-  while signed in with their organization account.
-
-  - `id: string`
-
-    Local session identifier, prefixed `clls_`. Unique within the parent organization. Treat as an opaque string; the format may change without notice.
-
-  - `created_at: string`
-
-    Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
-
-  - `organization_uuid: string`
-
-    UUID of the child organization the session belongs to
-
-  - `product_surface: string or null`
-
-    The product the session ran in: `cowork` for Cowork sessions in Claude Desktop, or `claude_code` for Claude Code sessions. New values appear as coverage expands; treat unrecognized values as opaque. `null` when the surface was not recorded.
-
-  - `type: "compliance_local_session"`
-
-    - `"compliance_local_session"`
-
-  - `user: object { id, email_address }`
-
-    The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
-
-    - `id: string`
-
-      User identifier (tagged ID, prefixed `user_`). Always set, so attribution survives after the user's account is deleted or the user leaves the organizations the key may read.
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user's account has been deleted or the user is no longer a member of an organization the key may read. The messages endpoint does not resolve email addresses; this field is always null there.
-
-  - `workspace_id: string or null`
-
-    Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
-
-# Messages
-
-## Retrieve local session messages
-
-**get** `/v1/compliance/apps/sessions/local/{local_session_id}/messages`
+**GET** `/v1/compliance/apps/sessions/local/{local_session_id}/messages`
 
 Read one local session's transcript, oldest-first by default.
 
@@ -299,19 +238,23 @@ in their place. The boundary is pinned on the walk's first page and
 honored for 24 hours: a cursor older than that is rejected with an
 explicit 400; restart the walk to read under the current boundary.
 
-### Path Parameters
+#### Path parameters
 
 - `local_session_id: string`
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 1000)
 
+  default: 100, maximum: 1000, minimum: 1
+
 - `order: optional "asc" or "desc"`
 
   Sort direction. `asc` (oldest-first, default) or `desc`.
+
+  default: asc
 
   - `"asc"`
 
@@ -325,29 +268,33 @@ explicit 400; restart the walk to read under the current boundary.
 
   Truncate each text item inside a tool result to at most this many bytes (cut on a code-point boundary). Pass `-1` to request the server maximum (approximately 1 MiB); larger values are clamped to it. `0` is not a valid value.
 
+  default: 10000, maximum: 2147483647, minimum: -1
+
 - `tool_use_input_max_bytes: optional number`
 
   Truncate each tool-use input to at most this many bytes (cut on a code-point boundary so the result is valid UTF-8). Pass `-1` to request the server maximum (approximately 1 MiB); larger values are clamped to it. `0` is not a valid value.
 
-### Header Parameters
+  default: 10000, maximum: 2147483647, minimum: -1
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, content, created_at, 3 more }`
+- `data: array of object`
 
-  Transcript turns for this page, ordered by `created_at` in the direction selected by the `order` parameter (ascending by default). Turns sharing a `created_at` (all messages of one inference call carry the call's timestamp) are returned in transcript order.
+  Transcript turns for this page, in call order: oldest call first by default, newest call first with `order=desc`. The messages of one call carry the call's timestamp and follow each other in transcript order; a page boundary can fall between them.
 
   - `id: string`
 
     Message identifier, prefixed `clsm_`. Stable for as long as the message's turn is retained: identifiers of retained turns do not change as older turns age out of the organization's retention period. The `retention_elapsed` placeholder's identifier is distinct from every retained turn's and changes only when further turns age out.
 
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
+  - `content: array of object or object or object`
 
     Content blocks within the message, discriminated on `type` (`text` / `tool_use` / `tool_result`: the same discriminator values as the claude.ai chat-messages endpoint; the tool variants omit `integration_name` and `mcp_server_url`, and `text` carries `truncated`). Extended-thinking content is never included. The request's `system` field is never included; a presence-only marker message is emitted when it was set. The request's `tools[]` definitions are never included as transcript messages. Project-level instructions (such as CLAUDE.md files) appear in the message stream as a user-role context block and are included. Empty when `provenance.type` is `content_unavailable`.
 
-    - `Text object { text, truncated, type }`
+    - `Text object`
 
       Text content block.
 
@@ -359,11 +306,13 @@ explicit 400; restart the walk to read under the current boundary.
 
         True when `text` was shortened by the server's fixed per-string bound (approximately 1 MiB), or when ancillary content the block carried (such as citations) was omitted, or when this block stands in for a non-text block whose content is not shown, or when it is an explanatory marker the server inserted (its text enclosed in square brackets, e.g. prefacing client-asserted history). There is no request parameter that raises the per-string bound.
 
+        default: false
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
-    - `ToolUse object { id, input, name, 2 more }`
+    - `ToolUse object`
 
       Tool invocation requested by the assistant.
 
@@ -383,15 +332,17 @@ explicit 400; restart the walk to read under the current boundary.
 
         True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request the server maximum.
 
+        default: false
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
 
-    - `ToolResult object { content, is_error, name, 3 more }`
+    - `ToolResult object`
 
       Result returned by a tool invocation.
 
-      - `content: array of object { text, type }`
+      - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted and signalled via `truncated` with an in-band item-count marker.
 
@@ -401,7 +352,7 @@ explicit 400; restart the walk to read under the current boundary.
 
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `is_error: boolean`
 
@@ -419,31 +370,39 @@ explicit 400; restart the walk to read under the current boundary.
 
         True when one or more text items in `content` were shortened or non-text items were omitted. Pass `tool_result_max_bytes=-1` to request the server maximum.
 
+        default: false
+
       - `type: "tool_result"`
 
-        - `"tool_result"`
+        default: tool_result
 
   - `created_at: string`
 
     When the message was recorded (RFC 3339, UTC)
 
-  - `provenance: object { reason, type }  or object { type }  or object { type }  or null`
+    format: date-time
+
+  - `model: string or null`
+
+    The model that served this assistant turn, as reported in the `model` field of the underlying Messages API response. Null on user messages and on any assistant message whose `provenance` is set: client-asserted history and synthetic markers were not produced by a model during this session, and for unavailable content the serving model is not known.
+
+  - `provenance: object or object or object or null`
 
     Where this turn's content came from, discriminated on `type`. Null (the common case) means verified content: on an assistant message, content Claude produced during this session; on a user message, content the user sent. `content_unavailable`: the turn's content cannot be returned and `content` is empty; `reason` says why. `client_asserted`: assistant content the client supplied as conversation history; `content` shows what the model received but its authorship is not verified; never on user-role messages. `synthetic_marker`: a transcript marker the endpoint generated rather than content either party sent during the session. Both `client_asserted` and `synthetic_marker` can result from normal request or client processing, not only client modification. Callers should tolerate unrecognized `type` values.
 
-    - `ContentUnavailable object { reason, type }`
+    - `ContentUnavailable object`
 
       The turn's content cannot be returned; `content` is empty.
 
       - `reason: string`
 
-        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
+        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `client_aborted` (the client closed the connection or cancelled the request before the response completed, so the response was not captured for this turn; any partial output already streamed to the client is not included; assistant-role turns only), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
 
       - `type: "content_unavailable"`
 
-        - `"content_unavailable"`
+        default: content_unavailable
 
-    - `ClientAsserted object { type }`
+    - `ClientAsserted object`
 
       Assistant content the client supplied as conversation history
       rather than produced by Claude during this session. `content` shows
@@ -453,9 +412,9 @@ explicit 400; restart the walk to read under the current boundary.
 
       - `type: "client_asserted"`
 
-        - `"client_asserted"`
+        default: client_asserted
 
-    - `SyntheticMarker object { type }`
+    - `SyntheticMarker object`
 
       A transcript marker generated by the endpoint rather than sent by
       either party during the session. Marker messages indicate that the
@@ -469,7 +428,7 @@ explicit 400; restart the walk to read under the current boundary.
 
       - `type: "synthetic_marker"`
 
-        - `"synthetic_marker"`
+        default: synthetic_marker
 
   - `role: "assistant" or "user"`
 
@@ -481,13 +440,13 @@ explicit 400; restart the walk to read under the current boundary.
 
   - `type: "compliance_local_session_message"`
 
-    - `"compliance_local_session_message"`
+    default: compliance_local_session_message
 
 - `next_page: string or null`
 
   Opaque pagination cursor (prefixed `page_`) for the next page. Null when there is no further page. Treat as an opaque string; the format may change without notice.
 
-- `session: object { id, created_at, organization_uuid, 4 more }`
+- `session: object`
 
   The local session the messages belong to. `user.email_address` is always null on this endpoint; the messages endpoint does not resolve email addresses.
 
@@ -499,6 +458,8 @@ explicit 400; restart the walk to read under the current boundary.
 
     Timestamp of the session's first retained inference call (RFC 3339, UTC). When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected, so this value is the timestamp of the earliest retained call: always strictly after the boundary, never the boundary itself.
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the child organization the session belongs to
@@ -509,9 +470,15 @@ explicit 400; restart the walk to read under the current boundary.
 
   - `type: "compliance_local_session"`
 
-    - `"compliance_local_session"`
+    default: compliance_local_session
 
-  - `user: object { id, email_address }`
+  - `updated_at: string`
+
+    Timestamp of the session's last retained inference call (RFC 3339, UTC). Always at or after `created_at`. When a session's activity spans the child organization's retention boundary, calls older than the boundary are no longer reflected — but because retention removes only the oldest calls, this value (unlike `created_at`) is unaffected until the entire session has aged out. On the list endpoint this value is a lower bound: for a session still active at a page or `created_at.lt` window boundary it can momentarily lag the session's true last activity. Retrieving the session, or its messages, always reflects the exact latest retained call.
+
+    format: date-time
+
+  - `user: object`
 
     The authenticated user at the time of the session. Always set; `user.id` is always populated. `user.email_address` is null when the user's account has been deleted or the user is no longer a member of an organization the key may read.
 
@@ -527,14 +494,14 @@ explicit 400; restart the walk to read under the current boundary.
 
     Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_ID/messages \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -549,6 +516,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
         }
       ],
       "created_at": "2025-03-12T18:22:41.123456Z",
+      "model": "claude-opus-5",
       "provenance": {
         "reason": "not_captured",
         "type": "content_unavailable"
@@ -564,6 +532,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
     "organization_uuid": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
     "product_surface": "cowork",
     "type": "compliance_local_session",
+    "updated_at": "2025-03-12T18:22:41.123456Z",
     "user": {
       "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
       "email_address": "jane.doe@example.com"
@@ -573,163 +542,11 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
 }
 ```
 
-## Domain Types
+## Sessions › Remote
 
-### Message List Response
+### List remote sessions
 
-- `MessageListResponse object { id, content, created_at, 3 more }`
-
-  A single user or assistant turn in a local session transcript.
-
-  - `id: string`
-
-    Message identifier, prefixed `clsm_`. Stable for as long as the message's turn is retained: identifiers of retained turns do not change as older turns age out of the organization's retention period. The `retention_elapsed` placeholder's identifier is distinct from every retained turn's and changes only when further turns age out.
-
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
-
-    Content blocks within the message, discriminated on `type` (`text` / `tool_use` / `tool_result`: the same discriminator values as the claude.ai chat-messages endpoint; the tool variants omit `integration_name` and `mcp_server_url`, and `text` carries `truncated`). Extended-thinking content is never included. The request's `system` field is never included; a presence-only marker message is emitted when it was set. The request's `tools[]` definitions are never included as transcript messages. Project-level instructions (such as CLAUDE.md files) appear in the message stream as a user-role context block and are included. Empty when `provenance.type` is `content_unavailable`.
-
-    - `Text object { text, truncated, type }`
-
-      Text content block.
-
-      - `text: string`
-
-        Text content from the user or the assistant
-
-      - `truncated: boolean`
-
-        True when `text` was shortened by the server's fixed per-string bound (approximately 1 MiB), or when ancillary content the block carried (such as citations) was omitted, or when this block stands in for a non-text block whose content is not shown, or when it is an explanatory marker the server inserted (its text enclosed in square brackets, e.g. prefacing client-asserted history). There is no request parameter that raises the per-string bound.
-
-      - `type: "text"`
-
-        - `"text"`
-
-    - `ToolUse object { id, input, name, 2 more }`
-
-      Tool invocation requested by the assistant.
-
-      - `id: string or null`
-
-        Tool-use ID, e.g. 'toolu_01AbC...'
-
-      - `input: string`
-
-        Arguments passed to the tool, as a JSON-encoded string. May be shortened (see the `truncated` field); a truncated value is cut mid-document and is not valid JSON.
-
-      - `name: string`
-
-        Name of the tool invoked
-
-      - `truncated: boolean`
-
-        True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request the server maximum.
-
-      - `type: "tool_use"`
-
-        - `"tool_use"`
-
-    - `ToolResult object { content, is_error, name, 3 more }`
-
-      Result returned by a tool invocation.
-
-      - `content: array of object { text, type }`
-
-        Text content returned by the tool. Non-text item types are omitted and signalled via `truncated` with an in-band item-count marker.
-
-        - `text: string`
-
-          Text returned by the tool
-
-        - `type: "text"`
-
-          - `"text"`
-
-      - `is_error: boolean`
-
-        True when the tool reported an error
-
-      - `name: string`
-
-        Name of the tool that produced this result
-
-      - `tool_use_id: string or null`
-
-        ID of the tool_use block this result responds to
-
-      - `truncated: boolean`
-
-        True when one or more text items in `content` were shortened or non-text items were omitted. Pass `tool_result_max_bytes=-1` to request the server maximum.
-
-      - `type: "tool_result"`
-
-        - `"tool_result"`
-
-  - `created_at: string`
-
-    When the message was recorded (RFC 3339, UTC)
-
-  - `provenance: object { reason, type }  or object { type }  or object { type }  or null`
-
-    Where this turn's content came from, discriminated on `type`. Null (the common case) means verified content: on an assistant message, content Claude produced during this session; on a user message, content the user sent. `content_unavailable`: the turn's content cannot be returned and `content` is empty; `reason` says why. `client_asserted`: assistant content the client supplied as conversation history; `content` shows what the model received but its authorship is not verified; never on user-role messages. `synthetic_marker`: a transcript marker the endpoint generated rather than content either party sent during the session. Both `client_asserted` and `synthetic_marker` can result from normal request or client processing, not only client modification. Callers should tolerate unrecognized `type` values.
-
-    - `ContentUnavailable object { reason, type }`
-
-      The turn's content cannot be returned; `content` is empty.
-
-      - `reason: string`
-
-        Why this turn's content cannot be returned, e.g. `not_captured` (the content was not captured for compliance retrieval), `cmek_key_revoked` (the content is encrypted under the organization's customer-managed key and that key is unavailable), `retention_elapsed` (the content lies past the organization's retention boundary; on the placeholder standing in for every pre-boundary turn), or `oversize` (the message exceeds the server's per-message size bound even after per-block truncation). Callers should tolerate unrecognized values. `not_captured` is not proof that no record was stored: content withheld by the storage layer's fail-closed access policies carries the same reason and is deliberately indistinguishable from content that was never captured.
-
-      - `type: "content_unavailable"`
-
-        - `"content_unavailable"`
-
-    - `ClientAsserted object { type }`
-
-      Assistant content the client supplied as conversation history
-      rather than produced by Claude during this session. `content` shows
-      what the model received but its authorship is not verified; this can
-      result from normal request or client processing, not only client
-      modification. Never on user-role messages.
-
-      - `type: "client_asserted"`
-
-        - `"client_asserted"`
-
-    - `SyntheticMarker object { type }`
-
-      A transcript marker generated by the endpoint rather than sent by
-      either party during the session. Marker messages indicate that the
-      prompt history diverged from what was captured, that the request's
-      `system` field was present but is not shown, or that
-      prompt-carried history was suppressed because the session spans the
-      child organization's retention boundary and those turns cannot be
-      placed against it (the marker's text names the cause). Markers that
-      report a mismatch with captured history can result from normal request
-      or client processing, not only client modification.
-
-      - `type: "synthetic_marker"`
-
-        - `"synthetic_marker"`
-
-  - `role: "assistant" or "user"`
-
-    Message sender (`user` or `assistant`)
-
-    - `"assistant"`
-
-    - `"user"`
-
-  - `type: "compliance_local_session_message"`
-
-    - `"compliance_local_session_message"`
-
-# Remote
-
-## List remote sessions
-
-**get** `/v1/compliance/apps/sessions/remote`
+**GET** `/v1/compliance/apps/sessions/remote`
 
 List remote sessions (Cowork sessions that run in Anthropic-managed
 cloud environments) across the organizations the key may read.
@@ -749,33 +566,45 @@ sessions per page (default 100, maximum 500). Pagination is
 forward-only: pass the response's `next_page` value back as `page` to
 retrieve the next page, and stop when `next_page` is null.
 
-### Query Parameters
+#### Query parameters
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter remote sessions created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter remote sessions created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter remote sessions created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter remote sessions created at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 500)
 
+  default: 100, maximum: 500, minimum: 1
+
 - `organization_ids: optional array of string`
 
   Filter to specific child organization identifiers. Omit to enumerate every child organization the key may read.
+
+  maxItems: 500
 
 - `page: optional string`
 
@@ -785,13 +614,15 @@ retrieve the next page, and stop when `next_page` is null.
 
   Filter to sessions owned by specific users (max 10 per request). Agent-owned sessions are excluded when this filter is set.
 
-### Header Parameters
+  maxItems: 10
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, agent_id, claude_project_id, 7 more }`
+- `data: array of object`
 
   - `id: string`
 
@@ -809,6 +640,8 @@ retrieve the next page, and stop when `next_page` is null.
 
     When the session was created (RFC 3339, UTC)
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the organization the session belongs to
@@ -817,7 +650,7 @@ retrieve the next page, and stop when `next_page` is null.
 
     The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
 
-  - `started_by_user: object { id, email_address }  or null`
+  - `started_by_user: object or null`
 
     A user associated with a remote session.
 
@@ -837,7 +670,9 @@ retrieve the next page, and stop when `next_page` is null.
 
     When the session was last modified (RFC 3339, UTC)
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     A user associated with a remote session.
 
@@ -853,14 +688,14 @@ retrieve the next page, and stop when `next_page` is null.
 
   Opaque page token; pass as `page` to retrieve the next page. Null when no rows exist after this page. Treat this value as opaque; do not parse or store it long-term, as the format may change without notice.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -883,79 +718,11 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
 }
 ```
 
-## Domain Types
+## Sessions › Remote › Messages
 
-### Remote List Response
+### Retrieve remote session messages
 
-- `RemoteListResponse object { id, agent_id, claude_project_id, 7 more }`
-
-  Metadata for one remote session, as returned in the list response
-  and in the messages response's `session` field.
-
-  Carries session attributes only, not transcript content. Use the
-  messages endpoint to retrieve a session's transcript.
-
-  - `id: string`
-
-    Remote session identifier
-
-  - `agent_id: string or null`
-
-    Identifier of the automated agent that owns the session. Null for user-owned sessions. At most one of `user` and `agent_id` is set.
-
-  - `claude_project_id: string or null`
-
-    ID of the project the session is bound to. Null when the session has no project binding.
-
-  - `created_at: string`
-
-    When the session was created (RFC 3339, UTC)
-
-  - `organization_uuid: string`
-
-    UUID of the organization the session belongs to
-
-  - `product_surface: string or null`
-
-    The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
-
-  - `started_by_user: object { id, email_address }  or null`
-
-    A user associated with a remote session.
-
-    - `id: string`
-
-      User identifier
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
-
-  - `status: string`
-
-    Session lifecycle state. One of `active`, `paused`, `archived`, or `failed` — the lifecycle states the owning product surface exposes — plus `pending`, a brief transient state that resolves before any transcript content exists. The list endpoint includes `pending`; the messages endpoint returns 404 for it. Deleted sessions are not returned on either endpoint. Treat unrecognized values as an unknown state rather than an error.
-
-  - `updated_at: string`
-
-    When the session was last modified (RFC 3339, UTC)
-
-  - `user: object { id, email_address }  or null`
-
-    A user associated with a remote session.
-
-    - `id: string`
-
-      User identifier
-
-    - `email_address: string or null`
-
-      User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
-
-# Messages
-
-## Retrieve remote session messages
-
-**get** `/v1/compliance/apps/sessions/remote/{claude_remote_session_id}/messages`
+**GET** `/v1/compliance/apps/sessions/remote/{claude_remote_session_id}/messages`
 
 Retrieve one remote session's transcript: user prompts, assistant
 responses, and tool calls and results. Thinking blocks and images are
@@ -978,21 +745,25 @@ Returns 404 while the session is still `pending`, for deleted sessions,
 and for sessions outside the organizations the key may read. A
 malformed session identifier returns 400.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_remote_session_id: string`
 
   The remote session identifier (`cse_...`) to retrieve
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 1000)
 
+  default: 100, maximum: 1000, minimum: 1
+
 - `order: optional "asc" or "desc"`
 
   Sort direction. `asc` (oldest-first) or `desc`.
+
+  default: asc
 
   - `"asc"`
 
@@ -1006,17 +777,21 @@ malformed session identifier returns 400.
 
   Truncate each text item inside a tool result to at most this many bytes (cut on a code-point boundary). Pass `-1` to request the server maximum. `0` is not a valid value.
 
+  default: 10000, maximum: 2147483647, minimum: -1
+
 - `tool_use_input_max_bytes: optional number`
 
   Truncate each tool-use input to at most this many bytes (cut on a code-point boundary so the result is valid UTF-8). Pass `-1` to request the server maximum. `0` is not a valid value.
 
-### Header Parameters
+  default: 10000, maximum: 2147483647, minimum: -1
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, content, content_unavailable, 3 more }`
+- `data: array of object`
 
   Transcript turns for this page, ordered by transcript position. `created_at` is a commit timestamp and may tie or invert under concurrent writes; do not re-sort by it.
 
@@ -1024,11 +799,11 @@ malformed session identifier returns 400.
 
     Unique identifier for the message, e.g. `csev_abc123`
 
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
+  - `content: array of object or object or object`
 
     Content blocks within the message
 
-    - `Text object { text, truncated, type }`
+    - `Text object`
 
       Text content block.
 
@@ -1040,11 +815,13 @@ malformed session identifier returns 400.
 
         True when `text` exceeded the server-defined maximum (approximately 1 MiB) and was shortened.
 
+        default: false
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
-    - `ToolUse object { id, input, name, 2 more }`
+    - `ToolUse object`
 
       Tool invocation requested by the assistant.
 
@@ -1064,15 +841,17 @@ malformed session identifier returns 400.
 
         True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request full content, subject to the server-side maximum.
 
+        default: false
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
 
-    - `ToolResult object { content, is_error, name, 3 more }`
+    - `ToolResult object`
 
       Result returned by a tool invocation.
 
-      - `content: array of object { text, type }`
+      - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted.
 
@@ -1082,7 +861,7 @@ malformed session identifier returns 400.
 
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `is_error: boolean`
 
@@ -1100,17 +879,23 @@ malformed session identifier returns 400.
 
         True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
 
+        default: false
+
       - `type: "tool_result"`
 
-        - `"tool_result"`
+        default: tool_result
 
   - `content_unavailable: boolean`
 
     True when the stored content could not be returned — it could not be decrypted, or it exceeded the server's per-event size bound. `content` is empty in that case; this distinguishes 'no content' from 'content withheld'.
 
+    default: false
+
   - `created_at: string`
 
     When the message was recorded (RFC 3339, UTC)
+
+    format: date-time
 
   - `role: "assistant" or "user"`
 
@@ -1128,7 +913,7 @@ malformed session identifier returns 400.
 
   Opaque page token; pass as `page` to retrieve the next page. Null when no rows exist after this page. Treat this value as opaque; do not parse or store it long-term, as the format may change without notice.
 
-- `session: object { id, agent_id, claude_project_id, 7 more }`
+- `session: object`
 
   Session metadata. `started_by_user`, `user.email_address`, and `claude_project_id` are always null on this endpoint; the messages endpoint resolves neither email addresses nor project bindings.
 
@@ -1148,6 +933,8 @@ malformed session identifier returns 400.
 
     When the session was created (RFC 3339, UTC)
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the organization the session belongs to
@@ -1156,7 +943,7 @@ malformed session identifier returns 400.
 
     The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
 
-  - `started_by_user: object { id, email_address }  or null`
+  - `started_by_user: object or null`
 
     A user associated with a remote session.
 
@@ -1176,7 +963,9 @@ malformed session identifier returns 400.
 
     When the session was last modified (RFC 3339, UTC)
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     A user associated with a remote session.
 
@@ -1188,14 +977,14 @@ malformed session identifier returns 400.
 
       User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/remote/$CLAUDE_REMOTE_SESSION_ID/messages \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -1236,118 +1025,3 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote/$CLAUDE_REMOTE
   }
 }
 ```
-
-## Domain Types
-
-### Message List Response
-
-- `MessageListResponse object { id, content, content_unavailable, 3 more }`
-
-  A single user or assistant turn in a remote session transcript.
-
-  `content` is a discriminated union of `text`, `tool_use`, and
-  `tool_result` blocks.
-
-  - `id: string`
-
-    Unique identifier for the message, e.g. `csev_abc123`
-
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
-
-    Content blocks within the message
-
-    - `Text object { text, truncated, type }`
-
-      Text content block.
-
-      - `text: string`
-
-        Text content from the user or the assistant
-
-      - `truncated: boolean`
-
-        True when `text` exceeded the server-defined maximum (approximately 1 MiB) and was shortened.
-
-      - `type: "text"`
-
-        - `"text"`
-
-    - `ToolUse object { id, input, name, 2 more }`
-
-      Tool invocation requested by the assistant.
-
-      - `id: string or null`
-
-        Tool-use ID, e.g. 'toolu_01AbC...'
-
-      - `input: string`
-
-        Arguments passed to the tool, as a JSON-encoded string. May be shortened — see the `truncated` field
-
-      - `name: string`
-
-        Name of the tool invoked
-
-      - `truncated: boolean`
-
-        True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request full content, subject to the server-side maximum.
-
-      - `type: "tool_use"`
-
-        - `"tool_use"`
-
-    - `ToolResult object { content, is_error, name, 3 more }`
-
-      Result returned by a tool invocation.
-
-      - `content: array of object { text, type }`
-
-        Text content returned by the tool. Non-text item types are omitted.
-
-        - `text: string`
-
-          Text returned by the tool
-
-        - `type: "text"`
-
-          - `"text"`
-
-      - `is_error: boolean`
-
-        True when the tool reported an error
-
-      - `name: string`
-
-        Name of the tool that produced this result
-
-      - `tool_use_id: string or null`
-
-        ID of the tool_use block this result responds to
-
-      - `truncated: boolean`
-
-        True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
-
-      - `type: "tool_result"`
-
-        - `"tool_result"`
-
-  - `content_unavailable: boolean`
-
-    True when the stored content could not be returned — it could not be decrypted, or it exceeded the server's per-event size bound. `content` is empty in that case; this distinguishes 'no content' from 'content withheld'.
-
-  - `created_at: string`
-
-    When the message was recorded (RFC 3339, UTC)
-
-  - `role: "assistant" or "user"`
-
-    Message sender (`user` or `assistant`)
-
-    - `"assistant"`
-
-    - `"user"`
-
-  - `sent_by_user_id: string or null`
-
-    Identifier of the human account that sent this turn on an agent-owned session. Null on user-owned sessions, where every user-role turn was sent by the session's `user`.

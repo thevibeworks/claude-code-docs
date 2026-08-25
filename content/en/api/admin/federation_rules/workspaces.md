@@ -1,13 +1,8 @@
----
-title: Workspaces
-url: https://platform.claude.com/docs/en/api/admin/federation_rules/workspaces
----
-
 # Workspaces
 
 ## List Federation Rule Workspaces
 
-**get** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces`
+**GET** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces`
 
 List workspaces where this federation rule is enabled.
 
@@ -17,23 +12,25 @@ always `null`. Returns explicit per-workspace enablements only; for
 rules with `applies_to_all_workspaces` or a legacy single
 `workspace_id`, check those fields on the rule itself.
 
-### Path Parameters
+### Path parameters
 
 - `federation_rule_id: string`
 
   ID of the federation rule.
 
-### Query Parameters
+### Query parameters
 
 - `limit: optional number`
 
   Number of results per page.
 
+  default: 20, maximum: 100, minimum: 1
+
 - `page: optional string`
 
   Opaque cursor from a previous response's `next_page`.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -43,11 +40,13 @@ rules with `applies_to_all_workspaces` or a legacy single
 
 ### Returns
 
-- `data: array of object { created_at, created_by_actor_id, federation_rule_id, 3 more }`
+- `data: array of object`
 
   - `created_at: string`
 
     When this workspace was enabled for the rule.
+
+    format: date-time
 
   - `created_by_actor_id: string or null`
 
@@ -59,7 +58,7 @@ rules with `applies_to_all_workspaces` or a legacy single
 
   - `type: "federation_rule_workspace"`
 
-    - `"federation_rule_workspace"`
+    default: federation_rule_workspace
 
   - `workspace_id: string`
 
@@ -75,13 +74,13 @@ rules with `applies_to_all_workspaces` or a legacy single
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RULE_ID/workspaces \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -101,7 +100,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
 ## Add Federation Rule Workspace
 
-**post** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces`
+**POST** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces`
 
 Enable a federation rule for a workspace.
 
@@ -114,13 +113,13 @@ Archived rules are rejected with 400. OAuth callers may only manage rules whose
 `oauth_scope` is `workspace:developer` or `workspace:inference`; other
 scopes require a Console session. Admin API keys are not accepted.
 
-### Path Parameters
+### Path parameters
 
 - `federation_rule_id: string`
 
   ID of the federation rule.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -128,7 +127,7 @@ scopes require a Console session. Admin API keys are not accepted.
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Body Parameters
+### Body parameters
 
 - `workspace_id: string`
 
@@ -140,6 +139,8 @@ scopes require a Console session. Admin API keys are not accepted.
 
   When this workspace was enabled for the rule.
 
+  format: date-time
+
 - `created_by_actor_id: string or null`
 
   Tagged ID (`user_...` or `svac_...`) of the actor that enabled this workspace for the rule, if known.
@@ -150,7 +151,7 @@ scopes require a Console session. Admin API keys are not accepted.
 
 - `type: "federation_rule_workspace"`
 
-  - `"federation_rule_workspace"`
+  default: federation_rule_workspace
 
 - `workspace_id: string`
 
@@ -162,7 +163,7 @@ scopes require a Console session. Admin API keys are not accepted.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RULE_ID/workspaces \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -172,7 +173,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
         }'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -187,7 +188,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
 ## Remove Federation Rule Workspace
 
-**delete** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces/{workspace_id}`
+**DELETE** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces/{workspace_id}`
 
 Disable a federation rule for a workspace.
 
@@ -196,7 +197,7 @@ callers may only manage rules whose `oauth_scope` is
 `workspace:developer` or `workspace:inference`; other scopes require a
 Console session. Admin API keys are not accepted.
 
-### Path Parameters
+### Path parameters
 
 - `federation_rule_id: string`
 
@@ -206,7 +207,7 @@ Console session. Admin API keys are not accepted.
 
   ID of the workspace to disable for.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -222,7 +223,7 @@ Console session. Admin API keys are not accepted.
 
 - `type: "federation_rule_workspace_deleted"`
 
-  - `"federation_rule_workspace_deleted"`
+  default: federation_rule_workspace_deleted
 
 - `workspace_id: string`
 
@@ -230,14 +231,14 @@ Console session. Admin API keys are not accepted.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RULE_ID/workspaces/$WORKSPACE_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -247,15 +248,17 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Workspace List Response
 
-- `WorkspaceListResponse object { created_at, created_by_actor_id, federation_rule_id, 3 more }`
+- `WorkspaceListResponse object`
 
   - `created_at: string`
 
     When this workspace was enabled for the rule.
+
+    format: date-time
 
   - `created_by_actor_id: string or null`
 
@@ -267,7 +270,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
   - `type: "federation_rule_workspace"`
 
-    - `"federation_rule_workspace"`
+    default: federation_rule_workspace
 
   - `workspace_id: string`
 
@@ -279,11 +282,13 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
 ### Workspace Create Response
 
-- `WorkspaceCreateResponse object { created_at, created_by_actor_id, federation_rule_id, 3 more }`
+- `WorkspaceCreateResponse object`
 
   - `created_at: string`
 
     When this workspace was enabled for the rule.
+
+    format: date-time
 
   - `created_by_actor_id: string or null`
 
@@ -295,7 +300,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
   - `type: "federation_rule_workspace"`
 
-    - `"federation_rule_workspace"`
+    default: federation_rule_workspace
 
   - `workspace_id: string`
 
@@ -307,7 +312,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
 ### Workspace Delete Response
 
-- `WorkspaceDeleteResponse object { federation_rule_id, type, workspace_id }`
+- `WorkspaceDeleteResponse object`
 
   - `federation_rule_id: string`
 
@@ -315,7 +320,7 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
   - `type: "federation_rule_workspace_deleted"`
 
-    - `"federation_rule_workspace_deleted"`
+    default: federation_rule_workspace_deleted
 
   - `workspace_id: string`
 

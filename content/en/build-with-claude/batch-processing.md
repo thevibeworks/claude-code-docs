@@ -50,7 +50,7 @@ This is especially useful for bulk operations that don't require immediate resul
 
 ### Supported models
 
-All [active models](https://platform.claude.com/docs/en/about-claude/models/overview) support the Message Batches API.
+All [active models](https://platform.claude.com/docs/en/models/overview) support the Message Batches API.
 
 ### What can be batched
 

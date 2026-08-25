@@ -1,11 +1,6 @@
----
-title: List User Activity
-url: https://platform.claude.com/docs/en/api/admin/analytics/users/list
----
+# List User Activity
 
-## List User Activity
-
-**get** `/v1/organizations/analytics/users`
+**GET** `/v1/organizations/analytics/users`
 
 Get per-user activity for a given day, with cursor-based pagination.
 
@@ -15,29 +10,37 @@ scope results to specific members, groups, or a chat project. Available
 to organizations on a Claude Enterprise plan. Requires an API key with
 the `read:analytics` scope.
 
-### Query Parameters
+## Query parameters
 
 - `date: optional string`
 
   UTC date in YYYY-MM-DD format. The day to get user activity for. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
 
+  format: date
+
 - `ending_date: optional string`
 
   UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with starting_date. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after starting_date.
+
+  format: date
 
 - `filter: optional array of string`
 
   Filters as 'dimension:value', e.g. filter[]=rbac_group_id:<id>. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: project_id, rbac_group_id, user_id. Value forms: project_id takes a tagged project id (claude_proj_...) and scopes each member's row to their claude.ai chat activity within that project (it cannot be combined with group_by[] or an rbac_group_id filter); rbac_group_id takes the tagged id (rbac_group_..., as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); user_id takes a tagged user id (user_...), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
 
+  maxItems: 100
+
 - `group_by: optional array of "rbac_group_id"`
 
   Dimensions to break results out by (e.g. group_by[]=rbac_group_id). Supported on this endpoint: rbac_group_id. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via next_page; an unsupported dimension returns 400. rbac_group_id attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
-  - `"rbac_group_id"`
+  maxItems: 100
 
 - `limit: optional number`
 
   Number of results per page (1-1000, default 100).
+
+  minimum: 1, maximum: 1000
 
 - `order: optional "asc" or "desc"`
 
@@ -59,15 +62,17 @@ the `read:analytics` scope.
 
   UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either date or starting_date, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
 
-### Returns
+  format: date
 
-- `UserActivity object { data, next_page }`
+## Returns
+
+- `UserActivity object`
 
   Response for GET /v1/organizations/analytics/users.
 
-  - `data: array of object { chat_metrics, claude_code_metrics, cowork_metrics, 9 more }`
+  - `data: array of object`
 
-    - `chat_metrics: object { connectors_used_count, distinct_artifacts_created_count, distinct_connectors_used_count, 9 more }`
+    - `chat_metrics: object`
 
       Claude.ai activity metrics for a single user on a given day.
 
@@ -119,11 +124,11 @@ the `read:analytics` scope.
 
         Number of messages that used extended thinking
 
-    - `claude_code_metrics: object { core_metrics, tool_actions }`
+    - `claude_code_metrics: object`
 
       Claude Code activity metrics for a single user on a given day.
 
-      - `core_metrics: object { commit_count, distinct_session_count, lines_of_code, pull_request_count }`
+      - `core_metrics: object`
 
         Core Claude Code activity metrics for a single user on a given day.
 
@@ -135,7 +140,7 @@ the `read:analytics` scope.
 
           Number of distinct Claude Code sessions. On aggregated rows and in date-range mode: summed per-day distinct counts. A session essentially never spans a UTC day, so the sum is in practice the true distinct count.
 
-        - `lines_of_code: object { added_count, removed_count }`
+        - `lines_of_code: object`
 
           Lines of code added and removed via Claude Code.
 
@@ -151,7 +156,7 @@ the `read:analytics` scope.
 
           Number of pull requests created via Claude Code
 
-      - `tool_actions: object { edit_tool, multi_edit_tool, notebook_edit_tool, write_tool }`
+      - `tool_actions: object`
 
         Per-tool accepted/rejected counts for Claude Code file modification tools.
 
@@ -179,7 +184,7 @@ the `read:analytics` scope.
 
           Accepted/rejected counts for a single Claude Code tool type.
 
-    - `cowork_metrics: object { action_count, connectors_used_count, dispatch_turn_count, 13 more }`
+    - `cowork_metrics: object`
 
       Cowork activity metrics for a single user on a given day.
 
@@ -247,7 +252,7 @@ the `read:analytics` scope.
 
         Number of successful Write tool calls in Cowork sessions. Null while the file-edit metrics are not enabled for this organization.
 
-    - `design_metrics: object { distinct_projects_created_count, distinct_projects_used_count, distinct_session_count, message_count }`
+    - `design_metrics: object`
 
       Claude Design activity metrics for a single user on a given day.
 
@@ -267,7 +272,7 @@ the `read:analytics` scope.
 
         Number of messages sent in Claude Design sessions
 
-    - `office_metrics: object { excel, outlook, powerpoint, word }`
+    - `office_metrics: object`
 
       Office Agent activity metrics for a single user on a given day, broken out by Office product.
 
@@ -311,7 +316,7 @@ the `read:analytics` scope.
 
         Office Agent activity metrics for a single user on a given day within one Office product.
 
-    - `science_metrics: object { delegation_count, distinct_session_count, message_count, 2 more }`
+    - `science_metrics: object`
 
       Claude Science activity metrics for a single user on a given day.
 
@@ -371,21 +376,21 @@ the `read:analytics` scope.
 
         Object type. Always `user`.
 
-        - `"user"`
+        default: user
 
   - `next_page: string or null`
 
     Opaque cursor for the next page, or null if no more results
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/analytics/users \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_ADMIN_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

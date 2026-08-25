@@ -661,7 +661,7 @@ You made your first API call. Next, learn the Messages API patterns you'll use i
 Once you're comfortable with the basics, explore further:
 
 <CardGroup cols={2}>
-  <Card title="Models overview" icon="brain" href="https://platform.claude.com/docs/en/about-claude/models/overview">
+  <Card title="Models overview" icon="brain" href="https://platform.claude.com/docs/en/models/overview">
     Compare Claude models by capability and cost.
   </Card>
 

@@ -1,23 +1,20 @@
----
-title: Invites
-url: https://platform.claude.com/docs/en/api/admin/invites
----
-
 # Invites
 
 ## Create Invite
 
-**post** `/v1/organizations/invites`
+**POST** `/v1/organizations/invites`
 
 For Claude Enterprise organizations, this endpoint's availability is in beta.
 
 On plans that draw members from a finite pool of purchased seats, the invite automatically consumes a seat from the lowest tier with availability; there is no seat-tier parameter. When no seat is free the request fails with a 400 error rather than purchasing a seat.
 
-### Body Parameters
+### Body parameters
 
 - `email: string`
 
   Email of the User.
+
+  format: email
 
 - `role: "billing" or "claude_code_user" or "developer" or 2 more`
 
@@ -39,9 +36,11 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
   RBAC group IDs to assign to the User when the Invite is accepted. A non-empty array is accepted only for a Claude Enterprise organization with RBAC groups (beta), and requires the key to carry the `write:rbac_groups` scope.
 
+  maxItems: 100
+
 ### Returns
 
-- `Invite object { id, accepted_at, email, 6 more }`
+- `Invite object`
 
   - `id: string`
 
@@ -51,6 +50,8 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
     RFC 3339 datetime string indicating when the Invite was accepted, or null.
 
+    format: date-time
+
   - `email: string`
 
     Email of the User being invited.
@@ -59,9 +60,13 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
     RFC 3339 datetime string indicating when the Invite expires.
 
+    format: date-time
+
   - `invited_at: string`
 
     RFC 3339 datetime string indicating when the Invite was created.
+
+    format: date-time
 
   - `rbac_group_ids: array of string`
 
@@ -107,11 +112,11 @@ On plans that draw members from a finite pool of purchased seats, the invite aut
 
     For Invites, this is always `"invite"`.
 
-    - `"invite"`
+    default: invite
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/invites \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -122,7 +127,7 @@ curl https://api.anthropic.com/v1/organizations/invites \
         }'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -142,11 +147,11 @@ curl https://api.anthropic.com/v1/organizations/invites \
 
 ## Get Invite
 
-**get** `/v1/organizations/invites/{invite_id}`
+**GET** `/v1/organizations/invites/{invite_id}`
 
 For Claude Enterprise organizations, this endpoint's availability is in beta.
 
-### Path Parameters
+### Path parameters
 
 - `invite_id: string`
 
@@ -154,7 +159,7 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
 ### Returns
 
-- `Invite object { id, accepted_at, email, 6 more }`
+- `Invite object`
 
   - `id: string`
 
@@ -164,6 +169,8 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     RFC 3339 datetime string indicating when the Invite was accepted, or null.
 
+    format: date-time
+
   - `email: string`
 
     Email of the User being invited.
@@ -172,9 +179,13 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     RFC 3339 datetime string indicating when the Invite expires.
 
+    format: date-time
+
   - `invited_at: string`
 
     RFC 3339 datetime string indicating when the Invite was created.
+
+    format: date-time
 
   - `rbac_group_ids: array of string`
 
@@ -220,17 +231,17 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     For Invites, this is always `"invite"`.
 
-    - `"invite"`
+    default: invite
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -250,11 +261,11 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
 ## List Invites
 
-**get** `/v1/organizations/invites`
+**GET** `/v1/organizations/invites`
 
 For Claude Enterprise organizations, this endpoint's availability is in beta.
 
-### Query Parameters
+### Query parameters
 
 - `after_id: optional string`
 
@@ -268,11 +279,15 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
   Filter by the email address the Invite was sent to. Matches the same way as the Users list's `email` filter (normalized, case-insensitive).
 
+  format: email
+
 - `limit: optional number`
 
   Number of items to return per page.
 
   Defaults to `20`. Ranges from `1` to `1000`.
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `roles: optional array of string`
 
@@ -302,6 +317,8 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     RFC 3339 datetime string indicating when the Invite was accepted, or null.
 
+    format: date-time
+
   - `email: string`
 
     Email of the User being invited.
@@ -310,9 +327,13 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     RFC 3339 datetime string indicating when the Invite expires.
 
+    format: date-time
+
   - `invited_at: string`
 
     RFC 3339 datetime string indicating when the Invite was created.
+
+    format: date-time
 
   - `rbac_group_ids: array of string`
 
@@ -358,7 +379,7 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
     For Invites, this is always `"invite"`.
 
-    - `"invite"`
+    default: invite
 
 - `first_id: string or null`
 
@@ -374,13 +395,13 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/invites \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -407,11 +428,11 @@ curl https://api.anthropic.com/v1/organizations/invites \
 
 ## Delete Invite
 
-**delete** `/v1/organizations/invites/{invite_id}`
+**DELETE** `/v1/organizations/invites/{invite_id}`
 
 For Claude Enterprise organizations, this endpoint's availability is in beta.
 
-### Path Parameters
+### Path parameters
 
 - `invite_id: string`
 
@@ -429,18 +450,18 @@ For Claude Enterprise organizations, this endpoint's availability is in beta.
 
   For Invites, this is always `"invite_deleted"`.
 
-  - `"invite_deleted"`
+  default: invite_deleted
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -449,11 +470,11 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Invite
 
-- `Invite object { id, accepted_at, email, 6 more }`
+- `Invite object`
 
   - `id: string`
 
@@ -463,6 +484,8 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
     RFC 3339 datetime string indicating when the Invite was accepted, or null.
 
+    format: date-time
+
   - `email: string`
 
     Email of the User being invited.
@@ -471,9 +494,13 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
     RFC 3339 datetime string indicating when the Invite expires.
 
+    format: date-time
+
   - `invited_at: string`
 
     RFC 3339 datetime string indicating when the Invite was created.
+
+    format: date-time
 
   - `rbac_group_ids: array of string`
 
@@ -519,11 +546,11 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
     For Invites, this is always `"invite"`.
 
-    - `"invite"`
+    default: invite
 
 ### Invite Delete Response
 
-- `InviteDeleteResponse object { id, type }`
+- `InviteDeleteResponse object`
 
   - `id: string`
 
@@ -535,4 +562,4 @@ curl https://api.anthropic.com/v1/organizations/invites/$INVITE_ID \
 
     For Invites, this is always `"invite_deleted"`.
 
-    - `"invite_deleted"`
+    default: invite_deleted

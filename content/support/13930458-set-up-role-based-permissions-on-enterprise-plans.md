@@ -168,7 +168,7 @@ The **How members connect** dropdown controls whether the role's members sign in
 
 - **Individually:** Members sign in to each connector with their own account.
 
-- **Managed authorization (beta):** Members connect through your identity provider automatically, without signing in themselves.
+- **Managed authorization:** Members connect through your identity provider automatically, without signing in themselves.
 
 - **Set per connector:** Choose Individually or Managed authorization separately for each connector, instead of one setting for all of them.
 

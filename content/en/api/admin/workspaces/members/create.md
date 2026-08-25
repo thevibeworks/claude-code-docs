@@ -1,21 +1,16 @@
----
-title: Create Workspace Member
-url: https://platform.claude.com/docs/en/api/admin/workspaces/members/create
----
+# Create Workspace Member
 
-## Create Workspace Member
-
-**post** `/v1/organizations/workspaces/{workspace_id}/members`
+**POST** `/v1/organizations/workspaces/{workspace_id}/members`
 
 Create Workspace Member
 
-### Path Parameters
+## Path parameters
 
 - `workspace_id: string`
 
   ID of the Workspace.
 
-### Body Parameters
+## Body parameters
 
 - `user_id: string`
 
@@ -33,9 +28,9 @@ Create Workspace Member
 
   - `"workspace_user"`
 
-### Returns
+## Returns
 
-- `WorkspaceMember object { type, user_id, workspace_id, workspace_role }`
+- `WorkspaceMember object`
 
   - `type: "workspace_member"`
 
@@ -43,7 +38,7 @@ Create Workspace Member
 
     For Workspace Members, this is always `"workspace_member"`.
 
-    - `"workspace_member"`
+    default: workspace_member
 
   - `user_id: string`
 
@@ -67,9 +62,9 @@ Create Workspace Member
 
     - `"workspace_user"`
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -80,7 +75,7 @@ curl https://api.anthropic.com/v1/organizations/workspaces/$WORKSPACE_ID/members
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

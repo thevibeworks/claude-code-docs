@@ -1,23 +1,18 @@
----
-title: Get Spend Limit
-url: https://platform.claude.com/docs/en/api/admin/spend_limits/retrieve
----
+# Get Spend Limit
 
-## Get Spend Limit
-
-**get** `/v1/organizations/spend_limits/{spend_limit_id}`
+**GET** `/v1/organizations/spend_limits/{spend_limit_id}`
 
 Retrieve a spend limit by ID.
 
-### Path Parameters
+## Path parameters
 
 - `spend_limit_id: string`
 
   ID of the Spend Limit.
 
-### Returns
+## Returns
 
-- `SpendLimit object { id, amount, created_at, 5 more }`
+- `SpendLimit object`
 
   - `id: string`
 
@@ -26,6 +21,8 @@ Retrieve a spend limit by ID.
     Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
 
   - `created_at: string`
+
+    format: date-time
 
   - `currency: string`
 
@@ -39,61 +36,63 @@ Retrieve a spend limit by ID.
 
     - `"weekly"`
 
-  - `scope: object { type, user_id }  or object { seat_tier, type }  or object { rbac_group_id, type }  or 2 more`
+  - `scope: object or object or object or 2 more`
 
-    - `User object { type, user_id }`
+    - `User object`
 
       - `type: "user"`
 
-        - `"user"`
+        default: user
 
       - `user_id: string`
 
-    - `SeatTier object { seat_tier, type }`
+    - `SeatTier object`
 
       - `seat_tier: string`
 
       - `type: "seat_tier"`
 
-        - `"seat_tier"`
+        default: seat_tier
 
-    - `RbacGroup object { rbac_group_id, type }`
+    - `RbacGroup object`
 
       - `rbac_group_id: string`
 
       - `type: "rbac_group"`
 
-        - `"rbac_group"`
+        default: rbac_group
 
-    - `OrganizationService object { service, type }`
+    - `OrganizationService object`
 
       - `service: string`
 
       - `type: "organization_service"`
 
-        - `"organization_service"`
+        default: organization_service
 
-    - `Organization object { type }`
+    - `Organization object`
 
       - `type: "organization"`
 
-        - `"organization"`
+        default: organization
 
   - `type: "spend_limit"`
 
-    - `"spend_limit"`
+    default: spend_limit
 
   - `updated_at: string`
 
-### Example
+    format: date-time
 
-```http
+## Example
+
+```bash
 curl https://api.anthropic.com/v1/organizations/spend_limits/$SPEND_LIMIT_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,29 +1,24 @@
----
-title: Create External Key
-url: https://platform.claude.com/docs/en/api/admin/external_keys/create
----
+# Create External Key
 
-## Create External Key
-
-**post** `/v1/organizations/external_keys`
+**POST** `/v1/organizations/external_keys`
 
 Create an external key config owned by the caller's organization.
 
-### Body Parameters
+## Body parameters
 
-- `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+- `provider_config: object or object or object`
 
   KMS provider identity and auth coordinates.
 
-  - `Aws object { kms_arn, type, region, role_arn }`
+  - `Aws object`
 
     - `kms_arn: string`
 
       Full ARN of the AWS KMS key.
 
-    - `type: "aws"`
+      maxLength: 2048
 
-      - `"aws"`
+    - `type: "aws"`
 
     - `region: optional string or null`
 
@@ -31,9 +26,11 @@ Create an external key config owned by the caller's organization.
 
     - `role_arn: optional string or null`
 
+      **Deprecated**
+
       IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
-  - `Gcp object { key_name, type }`
+  - `Gcp object`
 
     - `key_name: string`
 
@@ -41,9 +38,7 @@ Create an external key config owned by the caller's organization.
 
     - `type: "gcp"`
 
-      - `"gcp"`
-
-  - `Azure object { key_name, tenant_id, type, 2 more }`
+  - `Azure object`
 
     Azure Key Vault provider configuration.
 
@@ -57,8 +52,6 @@ Create an external key config owned by the caller's organization.
 
     - `type: "azure"`
 
-      - `"azure"`
-
     - `vault_uri: string`
 
       Key Vault data-plane URI — https://<vault-name>.vault.azure.net or https://<hsm-name>.managedhsm.azure.net.
@@ -71,35 +64,37 @@ Create an external key config owned by the caller's organization.
 
   Human-friendly display name.
 
+  maxLength: 255, minLength: 1
+
 - `geo: optional "us"`
 
   Data residency geo. Only `us` is supported.
 
-  - `"us"`
-
-### Returns
+## Returns
 
 - `id: string`
 
   Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
 
-- `attachment: object { type }  or object { type }`
+- `attachment: object or object`
 
   Whether any workspace uses this config to encrypt its data — counting live and archived workspaces (an archived workspace's data remains encrypted under the config), excluding deleted ones. Only an attached config is used by the encryption path; an `unattached` config is inert and can be deleted.
 
-  - `Attached object { type }`
+  - `Attached object`
 
     - `type: "attached"`
 
-      - `"attached"`
+      default: attached
 
-  - `Unattached object { type }`
+  - `Unattached object`
 
     - `type: "unattached"`
 
-      - `"unattached"`
+      default: unattached
 
 - `created_at: string`
+
+  format: date-time
 
 - `display_name: string or null`
 
@@ -109,19 +104,19 @@ Create an external key config owned by the caller's organization.
 
   Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
 
-- `provider_config: object { kms_arn, type, region, role_arn }  or object { key_name, type }  or object { key_name, tenant_id, type, 2 more }`
+- `provider_config: object or object or object`
 
   KMS provider identity and auth coordinates.
 
-  - `Aws object { kms_arn, type, region, role_arn }`
+  - `Aws object`
 
     - `kms_arn: string`
 
       Full ARN of the AWS KMS key.
 
-    - `type: "aws"`
+      maxLength: 2048
 
-      - `"aws"`
+    - `type: "aws"`
 
     - `region: optional string or null`
 
@@ -129,9 +124,11 @@ Create an external key config owned by the caller's organization.
 
     - `role_arn: optional string or null`
 
+      **Deprecated**
+
       IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
 
-  - `Gcp object { key_name, type }`
+  - `Gcp object`
 
     - `key_name: string`
 
@@ -139,9 +136,7 @@ Create an external key config owned by the caller's organization.
 
     - `type: "gcp"`
 
-      - `"gcp"`
-
-  - `Azure object { key_name, tenant_id, type, 2 more }`
+  - `Azure object`
 
     - `key_name: string`
 
@@ -153,8 +148,6 @@ Create an external key config owned by the caller's organization.
 
     - `type: "azure"`
 
-      - `"azure"`
-
     - `vault_uri: string`
 
       Key Vault data-plane URI — https://<vault-name>.vault.azure.net or https://<hsm-name>.managedhsm.azure.net.
@@ -165,13 +158,15 @@ Create an external key config owned by the caller's organization.
 
 - `type: "external_key"`
 
-  - `"external_key"`
+  default: external_key
 
 - `updated_at: string`
 
-### Example
+  format: date-time
 
-```http
+## Example
+
+```bash
 curl https://api.anthropic.com/v1/organizations/external_keys \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -184,7 +179,7 @@ curl https://api.anthropic.com/v1/organizations/external_keys \
         }'
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

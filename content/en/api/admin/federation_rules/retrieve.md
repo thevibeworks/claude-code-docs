@@ -1,21 +1,16 @@
----
-title: Get Federation Rule
-url: https://platform.claude.com/docs/en/api/admin/federation_rules/retrieve
----
+# Get Federation Rule
 
-## Get Federation Rule
-
-**get** `/v1/organizations/federation_rules/{federation_rule_id}`
+**GET** `/v1/organizations/federation_rules/{federation_rule_id}`
 
 Retrieve a federation rule by its ID (`fdrl_...`).
 
-### Path Parameters
+## Path parameters
 
 - `federation_rule_id: string`
 
   ID of the federation rule.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -23,9 +18,9 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
-- `FederationRule object { id, applies_to_all_workspaces, archived_at, 17 more }`
+- `FederationRule object`
 
   Authorization rule binding an external OIDC identity to Anthropic.
 
@@ -50,6 +45,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
     If set, this rule is archived and rejects token exchange.
 
+    format: date-time
+
   - `archived_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
@@ -61,6 +58,8 @@ Retrieve a federation rule by its ID (`fdrl_...`).
   - `created_at: string`
 
     When this rule was created.
+
+    format: date-time
 
   - `created_by_actor_id: string or null`
 
@@ -78,13 +77,15 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
     Issuer's display name at read time.
 
-  - `match: object { audience, claims, condition, subject_prefix }`
+  - `match: object`
 
     Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
 
     - `audience: optional string or null`
 
       Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+      maxLength: 1024
 
     - `claims: optional map[string] or null`
 
@@ -94,9 +95,13 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
       CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
 
+      maxLength: 4096
+
     - `subject_prefix: optional string or null`
 
       Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+      maxLength: 1024
 
   - `name: string`
 
@@ -106,7 +111,7 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
     Space-separated OAuth scopes granted on the minted token.
 
-  - `target: object { service_account_id, type, service_account_name }`
+  - `target: object`
 
     Identity that tokens minted via this rule act as. Currently always a `service_account` target.
 
@@ -115,8 +120,6 @@ Retrieve a federation rule by its ID (`fdrl_...`).
       Tagged ID of the service account to mint tokens for.
 
     - `type: "service_account"`
-
-      - `"service_account"`
 
     - `service_account_name: optional string or null`
 
@@ -128,11 +131,13 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
   - `type: "federation_rule"`
 
-    - `"federation_rule"`
+    default: federation_rule
 
   - `updated_at: string`
 
     When this rule was last updated.
+
+    format: date-time
 
   - `updated_by_actor_id: string or null`
 
@@ -146,15 +151,15 @@ Retrieve a federation rule by its ID (`fdrl_...`).
 
     Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RULE_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

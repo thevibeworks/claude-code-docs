@@ -1,25 +1,20 @@
----
-title: Get Compliance Group
-url: https://platform.claude.com/docs/en/api/compliance/groups/retrieve
----
+# Get Compliance Group
 
-## Get Compliance Group
-
-**get** `/v1/compliance/groups/{group_id}`
+**GET** `/v1/compliance/groups/{group_id}`
 
 Get Compliance Group
 
-### Path Parameters
+## Path parameters
 
 - `group_id: string`
 
   The group ID (tagged ID, e.g., rbac_group_abc123)
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
 - `id: string`
 
@@ -49,14 +44,14 @@ Get Compliance Group
 
   Group last-updated timestamp (ISO 8601)
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/groups/$GROUP_ID \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

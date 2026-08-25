@@ -1,13 +1,8 @@
----
-title: Remote
-url: https://platform.claude.com/docs/en/api/compliance/apps/sessions/remote
----
-
 # Remote
 
 ## List remote sessions
 
-**get** `/v1/compliance/apps/sessions/remote`
+**GET** `/v1/compliance/apps/sessions/remote`
 
 List remote sessions (Cowork sessions that run in Anthropic-managed
 cloud environments) across the organizations the key may read.
@@ -27,33 +22,45 @@ sessions per page (default 100, maximum 500). Pagination is
 forward-only: pass the response's `next_page` value back as `page` to
 retrieve the next page, and stop when `next_page` is null.
 
-### Query Parameters
+### Query parameters
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter remote sessions created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter remote sessions created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter remote sessions created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter remote sessions created at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 500)
 
+  default: 100, maximum: 500, minimum: 1
+
 - `organization_ids: optional array of string`
 
   Filter to specific child organization identifiers. Omit to enumerate every child organization the key may read.
+
+  maxItems: 500
 
 - `page: optional string`
 
@@ -63,13 +70,15 @@ retrieve the next page, and stop when `next_page` is null.
 
   Filter to sessions owned by specific users (max 10 per request). Agent-owned sessions are excluded when this filter is set.
 
-### Header Parameters
+  maxItems: 10
+
+### Headers
 
 - `"x-api-key": optional string`
 
 ### Returns
 
-- `data: array of object { id, agent_id, claude_project_id, 7 more }`
+- `data: array of object`
 
   - `id: string`
 
@@ -87,6 +96,8 @@ retrieve the next page, and stop when `next_page` is null.
 
     When the session was created (RFC 3339, UTC)
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the organization the session belongs to
@@ -95,7 +106,7 @@ retrieve the next page, and stop when `next_page` is null.
 
     The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
 
-  - `started_by_user: object { id, email_address }  or null`
+  - `started_by_user: object or null`
 
     A user associated with a remote session.
 
@@ -115,7 +126,9 @@ retrieve the next page, and stop when `next_page` is null.
 
     When the session was last modified (RFC 3339, UTC)
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     A user associated with a remote session.
 
@@ -133,12 +146,12 @@ retrieve the next page, and stop when `next_page` is null.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -161,11 +174,11 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Remote List Response
 
-- `RemoteListResponse object { id, agent_id, claude_project_id, 7 more }`
+- `RemoteListResponse object`
 
   Metadata for one remote session, as returned in the list response
   and in the messages response's `session` field.
@@ -189,6 +202,8 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
 
     When the session was created (RFC 3339, UTC)
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the organization the session belongs to
@@ -197,7 +212,7 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
 
     The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
 
-  - `started_by_user: object { id, email_address }  or null`
+  - `started_by_user: object or null`
 
     A user associated with a remote session.
 
@@ -217,7 +232,9 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
 
     When the session was last modified (RFC 3339, UTC)
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     A user associated with a remote session.
 
@@ -229,11 +246,11 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote \
 
       User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
 
-# Messages
+## Remote › Messages
 
-## Retrieve remote session messages
+### Retrieve remote session messages
 
-**get** `/v1/compliance/apps/sessions/remote/{claude_remote_session_id}/messages`
+**GET** `/v1/compliance/apps/sessions/remote/{claude_remote_session_id}/messages`
 
 Retrieve one remote session's transcript: user prompts, assistant
 responses, and tool calls and results. Thinking blocks and images are
@@ -256,21 +273,25 @@ Returns 404 while the session is still `pending`, for deleted sessions,
 and for sessions outside the organizations the key may read. A
 malformed session identifier returns 400.
 
-### Path Parameters
+#### Path parameters
 
 - `claude_remote_session_id: string`
 
   The remote session identifier (`cse_...`) to retrieve
 
-### Query Parameters
+#### Query parameters
 
 - `limit: optional number`
 
   Maximum results (default: 100, max: 1000)
 
+  default: 100, maximum: 1000, minimum: 1
+
 - `order: optional "asc" or "desc"`
 
   Sort direction. `asc` (oldest-first) or `desc`.
+
+  default: asc
 
   - `"asc"`
 
@@ -284,17 +305,21 @@ malformed session identifier returns 400.
 
   Truncate each text item inside a tool result to at most this many bytes (cut on a code-point boundary). Pass `-1` to request the server maximum. `0` is not a valid value.
 
+  default: 10000, maximum: 2147483647, minimum: -1
+
 - `tool_use_input_max_bytes: optional number`
 
   Truncate each tool-use input to at most this many bytes (cut on a code-point boundary so the result is valid UTF-8). Pass `-1` to request the server maximum. `0` is not a valid value.
 
-### Header Parameters
+  default: 10000, maximum: 2147483647, minimum: -1
+
+#### Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+#### Returns
 
-- `data: array of object { id, content, content_unavailable, 3 more }`
+- `data: array of object`
 
   Transcript turns for this page, ordered by transcript position. `created_at` is a commit timestamp and may tie or invert under concurrent writes; do not re-sort by it.
 
@@ -302,11 +327,11 @@ malformed session identifier returns 400.
 
     Unique identifier for the message, e.g. `csev_abc123`
 
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
+  - `content: array of object or object or object`
 
     Content blocks within the message
 
-    - `Text object { text, truncated, type }`
+    - `Text object`
 
       Text content block.
 
@@ -318,11 +343,13 @@ malformed session identifier returns 400.
 
         True when `text` exceeded the server-defined maximum (approximately 1 MiB) and was shortened.
 
+        default: false
+
       - `type: "text"`
 
-        - `"text"`
+        default: text
 
-    - `ToolUse object { id, input, name, 2 more }`
+    - `ToolUse object`
 
       Tool invocation requested by the assistant.
 
@@ -342,15 +369,17 @@ malformed session identifier returns 400.
 
         True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request full content, subject to the server-side maximum.
 
+        default: false
+
       - `type: "tool_use"`
 
-        - `"tool_use"`
+        default: tool_use
 
-    - `ToolResult object { content, is_error, name, 3 more }`
+    - `ToolResult object`
 
       Result returned by a tool invocation.
 
-      - `content: array of object { text, type }`
+      - `content: array of object`
 
         Text content returned by the tool. Non-text item types are omitted.
 
@@ -360,7 +389,7 @@ malformed session identifier returns 400.
 
         - `type: "text"`
 
-          - `"text"`
+          default: text
 
       - `is_error: boolean`
 
@@ -378,17 +407,23 @@ malformed session identifier returns 400.
 
         True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
 
+        default: false
+
       - `type: "tool_result"`
 
-        - `"tool_result"`
+        default: tool_result
 
   - `content_unavailable: boolean`
 
     True when the stored content could not be returned — it could not be decrypted, or it exceeded the server's per-event size bound. `content` is empty in that case; this distinguishes 'no content' from 'content withheld'.
 
+    default: false
+
   - `created_at: string`
 
     When the message was recorded (RFC 3339, UTC)
+
+    format: date-time
 
   - `role: "assistant" or "user"`
 
@@ -406,7 +441,7 @@ malformed session identifier returns 400.
 
   Opaque page token; pass as `page` to retrieve the next page. Null when no rows exist after this page. Treat this value as opaque; do not parse or store it long-term, as the format may change without notice.
 
-- `session: object { id, agent_id, claude_project_id, 7 more }`
+- `session: object`
 
   Session metadata. `started_by_user`, `user.email_address`, and `claude_project_id` are always null on this endpoint; the messages endpoint resolves neither email addresses nor project bindings.
 
@@ -426,6 +461,8 @@ malformed session identifier returns 400.
 
     When the session was created (RFC 3339, UTC)
 
+    format: date-time
+
   - `organization_uuid: string`
 
     UUID of the organization the session belongs to
@@ -434,7 +471,7 @@ malformed session identifier returns 400.
 
     The Claude product the session was created from. Currently `cowork_remote`, for Cowork sessions started on claude.ai web or mobile. More values will appear as other surfaces launch, so treat any unrecognized value as an unclassified surface rather than an error. Null for sessions created before this field was recorded, for surfaces that do not stamp it, and for unrecognized tag values.
 
-  - `started_by_user: object { id, email_address }  or null`
+  - `started_by_user: object or null`
 
     A user associated with a remote session.
 
@@ -454,7 +491,9 @@ malformed session identifier returns 400.
 
     When the session was last modified (RFC 3339, UTC)
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     A user associated with a remote session.
 
@@ -466,14 +505,14 @@ malformed session identifier returns 400.
 
       User's email address. Null when the user is no longer a member of an organization the key may read — `id` remains set so attribution is preserved. The messages endpoint does not resolve email addresses; this field is always null there.
 
-### Example
+#### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/sessions/remote/$CLAUDE_REMOTE_SESSION_ID/messages \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+##### Response (200)
 
 ```json
 {
@@ -514,118 +553,3 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/remote/$CLAUDE_REMOTE
   }
 }
 ```
-
-## Domain Types
-
-### Message List Response
-
-- `MessageListResponse object { id, content, content_unavailable, 3 more }`
-
-  A single user or assistant turn in a remote session transcript.
-
-  `content` is a discriminated union of `text`, `tool_use`, and
-  `tool_result` blocks.
-
-  - `id: string`
-
-    Unique identifier for the message, e.g. `csev_abc123`
-
-  - `content: array of object { text, truncated, type }  or object { id, input, name, 2 more }  or object { content, is_error, name, 3 more }`
-
-    Content blocks within the message
-
-    - `Text object { text, truncated, type }`
-
-      Text content block.
-
-      - `text: string`
-
-        Text content from the user or the assistant
-
-      - `truncated: boolean`
-
-        True when `text` exceeded the server-defined maximum (approximately 1 MiB) and was shortened.
-
-      - `type: "text"`
-
-        - `"text"`
-
-    - `ToolUse object { id, input, name, 2 more }`
-
-      Tool invocation requested by the assistant.
-
-      - `id: string or null`
-
-        Tool-use ID, e.g. 'toolu_01AbC...'
-
-      - `input: string`
-
-        Arguments passed to the tool, as a JSON-encoded string. May be shortened — see the `truncated` field
-
-      - `name: string`
-
-        Name of the tool invoked
-
-      - `truncated: boolean`
-
-        True when `input` was shortened. Pass `tool_use_input_max_bytes=-1` to request full content, subject to the server-side maximum.
-
-      - `type: "tool_use"`
-
-        - `"tool_use"`
-
-    - `ToolResult object { content, is_error, name, 3 more }`
-
-      Result returned by a tool invocation.
-
-      - `content: array of object { text, type }`
-
-        Text content returned by the tool. Non-text item types are omitted.
-
-        - `text: string`
-
-          Text returned by the tool
-
-        - `type: "text"`
-
-          - `"text"`
-
-      - `is_error: boolean`
-
-        True when the tool reported an error
-
-      - `name: string`
-
-        Name of the tool that produced this result
-
-      - `tool_use_id: string or null`
-
-        ID of the tool_use block this result responds to
-
-      - `truncated: boolean`
-
-        True when one or more text items in `content` were shortened. Pass `tool_result_max_bytes=-1` to request full content, subject to the server-side maximum.
-
-      - `type: "tool_result"`
-
-        - `"tool_result"`
-
-  - `content_unavailable: boolean`
-
-    True when the stored content could not be returned — it could not be decrypted, or it exceeded the server's per-event size bound. `content` is empty in that case; this distinguishes 'no content' from 'content withheld'.
-
-  - `created_at: string`
-
-    When the message was recorded (RFC 3339, UTC)
-
-  - `role: "assistant" or "user"`
-
-    Message sender (`user` or `assistant`)
-
-    - `"assistant"`
-
-    - `"user"`
-
-  - `sent_by_user_id: string or null`
-
-    Identifier of the human account that sent this turn on an agent-owned session. Null on user-owned sessions, where every user-role turn was sent by the session's `user`.

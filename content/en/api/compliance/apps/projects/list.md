@@ -1,38 +1,43 @@
----
-title: List projects
-url: https://platform.claude.com/docs/en/api/compliance/apps/projects/list
----
+# List projects
 
-## List projects
-
-**get** `/v1/compliance/apps/projects`
+**GET** `/v1/compliance/apps/projects`
 
 Lists project metadata with filtering capabilities. Results
 are sorted chronologically (time ascending) by created_at.
 
-### Query Parameters
+## Query parameters
 
-- `created_at: optional object { gt, gte, lt, lte }`
+- `created_at: optional object`
 
   - `gt: optional string`
 
     Filter projects created after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter projects created at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter projects created before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter projects created at or before this time (RFC 3339 format)
 
+    format: date-time
+
 - `limit: optional number`
 
   Maximum results (default: 20, max: 100)
+
+  default: 20, maximum: 100, minimum: 1
 
 - `organization_ids: optional array of string`
 
@@ -42,35 +47,43 @@ are sorted chronologically (time ascending) by created_at.
 
   Opaque pagination token from a previous response's `next_page` field. Pass this to retrieve the next page of results. Clients should treat this value as an opaque string and not attempt to parse or interpret its contents, as the format may change without notice.
 
-- `updated_at: optional object { gt, gte, lt, lte }`
+- `updated_at: optional object`
 
   - `gt: optional string`
 
     Filter projects updated after this time (RFC 3339 format)
 
+    format: date-time
+
   - `gte: optional string`
 
     Filter projects updated at or after this time (RFC 3339 format)
+
+    format: date-time
 
   - `lt: optional string`
 
     Filter projects updated before this time (RFC 3339 format)
 
+    format: date-time
+
   - `lte: optional string`
 
     Filter projects updated at or before this time (RFC 3339 format)
+
+    format: date-time
 
 - `user_ids: optional array of string`
 
   Filter by user IDs. Enumerate IDs via `GET /v1/compliance/organizations/{org_uuid}/users`.
 
-### Header Parameters
+## Headers
 
 - `"x-api-key": optional string`
 
-### Returns
+## Returns
 
-- `data: array of object { id, created_at, deleted_at, 6 more }`
+- `data: array of object`
 
   List of projects sorted by creation date ascending
 
@@ -82,9 +95,13 @@ are sorted chronologically (time ascending) by created_at.
 
     Project creation timestamp
 
+    format: date-time
+
   - `deleted_at: string or null`
 
     Timestamp when the project was deleted by an end user, or null otherwise
+
+    format: date-time
 
   - `is_private: boolean`
 
@@ -94,10 +111,6 @@ are sorted chronologically (time ascending) by created_at.
 
     Project name
 
-  - `organization_id: string`
-
-    Organization identifier (tagged ID)
-
   - `organization_uuid: string`
 
     Organization UUID this project belongs to
@@ -106,7 +119,9 @@ are sorted chronologically (time ascending) by created_at.
 
     Project last update timestamp
 
-  - `user: object { id, email_address }  or null`
+    format: date-time
+
+  - `user: object or null`
 
     The user who created a project or project document.
 
@@ -122,6 +137,12 @@ are sorted chronologically (time ascending) by created_at.
 
       User's email address
 
+  - `organization_id: string`
+
+    **Deprecated**
+
+    Organization identifier (tagged ID)
+
 - `has_more: boolean`
 
   Whether more records exist beyond the current result set
@@ -130,14 +151,14 @@ are sorted chronologically (time ascending) by created_at.
 
   Token to retrieve the next page. Use this as the 'page' parameter in your next request
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/compliance/apps/projects \
     -H "Authorization: Bearer $ANTHROPIC_COMPLIANCE_API_KEY"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

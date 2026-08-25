@@ -1,21 +1,16 @@
----
-title: Get Federation Issuer
-url: https://platform.claude.com/docs/en/api/admin/federation_issuers/retrieve
----
+# Get Federation Issuer
 
-## Get Federation Issuer
-
-**get** `/v1/organizations/federation_issuers/{federation_issuer_id}`
+**GET** `/v1/organizations/federation_issuers/{federation_issuer_id}`
 
 Retrieve a federation issuer by its ID (`fdis_...`).
 
-### Path Parameters
+## Path parameters
 
 - `federation_issuer_id: string`
 
   ID of the federation issuer.
 
-### Header Parameters
+## Headers
 
 - `"anthropic-beta": optional array of string`
 
@@ -23,9 +18,9 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
   To use multiple betas, use a comma separated list like `beta1,beta2` or specify the header multiple times for each beta.
 
-### Returns
+## Returns
 
-- `FederationIssuer object { id, archived_at, archived_by_actor_id, 12 more }`
+- `FederationIssuer object`
 
   Registered external OIDC identity provider.
 
@@ -40,6 +35,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
     If set, all rules referencing this issuer reject token exchange.
 
+    format: date-time
+
   - `archived_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
@@ -52,6 +49,8 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
     When this issuer was created.
 
+    format: date-time
+
   - `created_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
@@ -60,43 +59,45 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
     The `iss` claim value. Incoming JWTs must match exactly.
 
-  - `jwks: object { type, ca_cert_pem, discovery_base }  or object { type, url, ca_cert_pem }  or object { keys, type }`
+  - `jwks: object or object or object`
 
     How signing keys are obtained for signature verification.
 
-    - `Discovery object { type, ca_cert_pem, discovery_base }`
+    - `Discovery object`
 
       JWKS via the issuer's OIDC discovery document.
 
       - `type: "discovery"`
 
-        - `"discovery"`
-
       - `ca_cert_pem: optional string or null`
 
         Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
 
       - `discovery_base: optional string or null`
 
         Set when the discovery URL differs from `issuer_url`.
 
-    - `ExplicitURL object { type, url, ca_cert_pem }`
+    - `ExplicitURL object`
 
       JWKS fetched from a fixed endpoint.
 
       - `type: "explicit_url"`
 
-        - `"explicit_url"`
-
       - `url: string`
 
         JWKS endpoint.
+
+        minLength: 1
 
       - `ca_cert_pem: optional string or null`
 
         Optional custom CA (PEM) for TLS verification of the JWKS fetch.
 
-    - `Inline object { keys, type }`
+        maxLength: 8192
+
+    - `Inline object`
 
       JWKS supplied directly; no network fetch.
 
@@ -104,13 +105,15 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
         Inline JWK objects.
 
-      - `type: "inline"`
+        minItems: 1
 
-        - `"inline"`
+      - `type: "inline"`
 
   - `jwks_polling_disabled_at: string or null`
 
     If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
+
+    format: date-time
 
   - `max_jwt_lifetime_seconds: number`
 
@@ -120,7 +123,7 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
     Admin-chosen slug identifier.
 
-  - `poll_status: object { consecutive_failures, last_fetched_at, next_poll_at }  or null`
+  - `poll_status: object or null`
 
     Status of automatic JWKS polling for a federation issuer.
 
@@ -136,31 +139,37 @@ Retrieve a federation issuer by its ID (`fdis_...`).
 
       When the last successful fetch completed.
 
+      format: date-time
+
     - `next_poll_at: string or null`
 
       When the next fetch is scheduled. Null if paused.
 
+      format: date-time
+
   - `type: "federation_issuer"`
 
-    - `"federation_issuer"`
+    default: federation_issuer
 
   - `updated_at: string`
 
     When this issuer was last updated.
 
+    format: date-time
+
   - `updated_by_actor_id: string or null`
 
     Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
 
-### Example
+## Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/federation_issuers/$FEDERATION_ISSUER_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+### Response (200)
 
 ```json
 {

@@ -1,17 +1,12 @@
----
-title: Versions
-url: https://platform.claude.com/docs/en/api/skills/versions
----
-
 # Versions
 
 ## Create Skill Version
 
-**post** `/v1/skills/{skill_id}/versions`
+**POST** `/v1/skills/{skill_id}/versions`
 
 Create Skill Version
 
-### Path Parameters
+### Path parameters
 
 - `skill_id: string`
 
@@ -19,9 +14,17 @@ Create Skill Version
 
   The format and length of IDs may change over time.
 
+### Body parameters (form-data)
+
+- `files: array of string`
+
+  Files to upload for the skill.
+
+  All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
+
 ### Returns
 
-- `SkillVersion object { id, created_at, description, 3 more }`
+- `SkillVersion object`
 
   - `id: string`
 
@@ -31,6 +34,8 @@ Create Skill Version
   - `created_at: string`
 
     ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `description: string`
 
@@ -57,11 +62,11 @@ Create Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
-    - `"skill_version"`
+    default: skill_version
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
     -H 'Content-Type: multipart/form-data' \
     -H 'anthropic-version: 2023-06-01' \
@@ -69,7 +74,7 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
     -F files='["Example data"]'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -84,11 +89,11 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
 
 ## List Skill Versions
 
-**get** `/v1/skills/{skill_id}/versions`
+**GET** `/v1/skills/{skill_id}/versions`
 
 List Skill Versions
 
-### Path Parameters
+### Path parameters
 
 - `skill_id: string`
 
@@ -96,13 +101,15 @@ List Skill Versions
 
   The format and length of IDs may change over time.
 
-### Query Parameters
+### Query parameters
 
 - `limit: optional number`
 
   Number of results to return per page.
 
   Ranges from `1` to `1000`. Defaults to `20`.
+
+  default: 20, minimum: 1, maximum: 1000
 
 - `page: optional string`
 
@@ -123,6 +130,8 @@ List Skill Versions
 
     ISO 8601 timestamp of when the skill was created.
 
+    format: date-time
+
   - `description: string`
 
     Description of the skill version.
@@ -148,7 +157,7 @@ List Skill Versions
 
     For Skill Versions, this is always `"skill_version"`.
 
-    - `"skill_version"`
+    default: skill_version
 
 - `next_page: string or null`
 
@@ -158,13 +167,13 @@ List Skill Versions
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -184,11 +193,11 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions \
 
 ## Get Skill Version
 
-**get** `/v1/skills/{skill_id}/versions/{version}`
+**GET** `/v1/skills/{skill_id}/versions/{version}`
 
 Get Skill Version
 
-### Path Parameters
+### Path parameters
 
 - `skill_id: string`
 
@@ -204,7 +213,7 @@ Get Skill Version
 
 ### Returns
 
-- `SkillVersion object { id, created_at, description, 3 more }`
+- `SkillVersion object`
 
   - `id: string`
 
@@ -214,6 +223,8 @@ Get Skill Version
   - `created_at: string`
 
     ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `description: string`
 
@@ -240,17 +251,17 @@ Get Skill Version
 
     For Skill Versions, this is always `"skill_version"`.
 
-    - `"skill_version"`
+    default: skill_version
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -265,11 +276,11 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION \
 
 ## Delete Skill Version
 
-**delete** `/v1/skills/{skill_id}/versions/{version}`
+**DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
 Delete Skill Version
 
-### Path Parameters
+### Path parameters
 
 - `skill_id: string`
 
@@ -285,7 +296,7 @@ Delete Skill Version
 
 ### Returns
 
-- `DeletedSkillVersion object { id, type }`
+- `DeletedSkillVersion object`
 
   - `id: string`
 
@@ -298,18 +309,18 @@ Delete Skill Version
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-    - `"skill_version_deleted"`
+    default: skill_version_deleted
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -318,11 +329,11 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION \
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Deleted Skill Version
 
-- `DeletedSkillVersion object { id, type }`
+- `DeletedSkillVersion object`
 
   - `id: string`
 
@@ -335,11 +346,11 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION \
 
     For Skill Versions, this is always `"skill_version_deleted"`.
 
-    - `"skill_version_deleted"`
+    default: skill_version_deleted
 
 ### Skill Version
 
-- `SkillVersion object { id, created_at, description, 3 more }`
+- `SkillVersion object`
 
   - `id: string`
 
@@ -349,6 +360,8 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION \
   - `created_at: string`
 
     ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `description: string`
 
@@ -375,4 +388,4 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID/versions/$VERSION \
 
     For Skill Versions, this is always `"skill_version"`.
 
-    - `"skill_version"`
+    default: skill_version

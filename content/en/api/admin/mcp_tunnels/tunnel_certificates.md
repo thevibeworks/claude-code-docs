@@ -1,13 +1,10 @@
----
-title: Tunnel Certificates
-url: https://platform.claude.com/docs/en/api/admin/mcp_tunnels/tunnel_certificates
----
-
 # Tunnel Certificates
 
 ## Create Tunnel Certificate
 
-**post** `/v1/organizations/tunnels/{tunnel_id}/certificates`
+**POST** `/v1/organizations/tunnels/{tunnel_id}/certificates`
+
+**Deprecated**
 
 **Deprecated.** This Admin API endpoint is superseded by `/v1/tunnels` on the Claude API and will be removed after a migration window. New integrations should use [`/v1/tunnels`](/docs/en/api/beta/tunnels) with the `anthropic-beta: mcp-tunnels-2026-06-22` header and a WIF token carrying the `workspace:manage_tunnels` scope. Existing integrations continue to work with the `mcp-tunnels-2026-05-19` header and `org:manage_tunnels` scope during the migration window.
 
@@ -18,26 +15,26 @@ when it terminates the inner TLS session. The PEM body must contain
 exactly one X.509 certificate and no private-key material. A tunnel
 holds at most two non-archived certificates.
 
-### Path Parameters
+### Path parameters
 
 - `tunnel_id: string`
 
   ID of the Tunnel.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": array of "mcp-tunnels-2026-05-19"`
 
   Required for all Tunnel endpoints.
 
-  - `"mcp-tunnels-2026-05-19"`
-
-### Body Parameters
+### Body parameters
 
 - `ca_certificate_pem: string`
 
   PEM-encoded X.509 CA certificate. Must contain exactly one certificate and
   no private-key material.
+
+  maxLength: 8192
 
 ### Returns
 
@@ -50,14 +47,20 @@ holds at most two non-archived certificates.
   RFC 3339 datetime string indicating when the certificate was archived, or
   `null` if it is not archived.
 
+  format: date-time
+
 - `created_at: string`
 
   RFC 3339 datetime string indicating when the certificate was registered.
+
+  format: date-time
 
 - `expires_at: string or null`
 
   RFC 3339 datetime string indicating when the certificate expires, or
   `null` if it does not expire.
+
+  format: date-time
 
 - `fingerprint: string`
 
@@ -71,11 +74,11 @@ holds at most two non-archived certificates.
 
   Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-  - `"tunnel_certificate"`
+  default: tunnel_certificate
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates \
     -H 'Content-Type: application/json' \
     -H 'anthropic-version: 2023-06-01' \
@@ -85,7 +88,7 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates 
         }'
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -101,13 +104,15 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates 
 
 ## Get Tunnel Certificate
 
-**get** `/v1/organizations/tunnels/{tunnel_id}/certificates/{certificate_id}`
+**GET** `/v1/organizations/tunnels/{tunnel_id}/certificates/{certificate_id}`
+
+**Deprecated**
 
 **Deprecated.** This Admin API endpoint is superseded by `/v1/tunnels` on the Claude API and will be removed after a migration window. New integrations should use [`/v1/tunnels`](/docs/en/api/beta/tunnels) with the `anthropic-beta: mcp-tunnels-2026-06-22` header and a WIF token carrying the `workspace:manage_tunnels` scope. Existing integrations continue to work with the `mcp-tunnels-2026-05-19` header and `org:manage_tunnels` scope during the migration window.
 
 Retrieve a single certificate registered on a tunnel by ID.
 
-### Path Parameters
+### Path parameters
 
 - `tunnel_id: string`
 
@@ -117,13 +122,11 @@ Retrieve a single certificate registered on a tunnel by ID.
 
   ID of the Tunnel Certificate.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": array of "mcp-tunnels-2026-05-19"`
 
   Required for all Tunnel endpoints.
-
-  - `"mcp-tunnels-2026-05-19"`
 
 ### Returns
 
@@ -136,14 +139,20 @@ Retrieve a single certificate registered on a tunnel by ID.
   RFC 3339 datetime string indicating when the certificate was archived, or
   `null` if it is not archived.
 
+  format: date-time
+
 - `created_at: string`
 
   RFC 3339 datetime string indicating when the certificate was registered.
+
+  format: date-time
 
 - `expires_at: string or null`
 
   RFC 3339 datetime string indicating when the certificate expires, or
   `null` if it does not expire.
+
+  format: date-time
 
 - `fingerprint: string`
 
@@ -157,17 +166,17 @@ Retrieve a single certificate registered on a tunnel by ID.
 
   Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-  - `"tunnel_certificate"`
+  default: tunnel_certificate
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_ID \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -183,7 +192,9 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
 
 ## List Tunnel Certificates
 
-**get** `/v1/organizations/tunnels/{tunnel_id}/certificates`
+**GET** `/v1/organizations/tunnels/{tunnel_id}/certificates`
+
+**Deprecated**
 
 **Deprecated.** This Admin API endpoint is superseded by `/v1/tunnels` on the Claude API and will be removed after a migration window. New integrations should use [`/v1/tunnels`](/docs/en/api/beta/tunnels) with the `anthropic-beta: mcp-tunnels-2026-06-22` header and a WIF token carrying the `workspace:manage_tunnels` scope. Existing integrations continue to work with the `mcp-tunnels-2026-05-19` header and `org:manage_tunnels` scope during the migration window.
 
@@ -191,39 +202,41 @@ List the certificates registered on a tunnel.
 
 Archived certificates are excluded unless `include_archived` is set.
 
-### Path Parameters
+### Path parameters
 
 - `tunnel_id: string`
 
   ID of the Tunnel.
 
-### Query Parameters
+### Query parameters
 
 - `include_archived: optional boolean`
 
   Include archived certificates in the results. Archived certificates are
   excluded by default.
 
+  default: false
+
 - `limit: optional number`
 
   Maximum number of certificates to return.
+
+  default: 20, maximum: 1000, minimum: 1
 
 - `page: optional string`
 
   A tunnel has at most two active certificates, so this list is not
   paginated.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": array of "mcp-tunnels-2026-05-19"`
 
   Required for all Tunnel endpoints.
 
-  - `"mcp-tunnels-2026-05-19"`
-
 ### Returns
 
-- `data: array of object { id, archived_at, created_at, 4 more }`
+- `data: array of object`
 
   - `id: string`
 
@@ -234,14 +247,20 @@ Archived certificates are excluded unless `include_archived` is set.
     RFC 3339 datetime string indicating when the certificate was archived, or
     `null` if it is not archived.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string indicating when the certificate was registered.
+
+    format: date-time
 
   - `expires_at: string or null`
 
     RFC 3339 datetime string indicating when the certificate expires, or
     `null` if it does not expire.
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -255,7 +274,7 @@ Archived certificates are excluded unless `include_archived` is set.
 
     Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-    - `"tunnel_certificate"`
+    default: tunnel_certificate
 
 - `next_page: string or null`
 
@@ -263,13 +282,13 @@ Archived certificates are excluded unless `include_archived` is set.
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -290,7 +309,9 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates 
 
 ## Archive Tunnel Certificate
 
-**post** `/v1/organizations/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+**POST** `/v1/organizations/tunnels/{tunnel_id}/certificates/{certificate_id}/archive`
+
+**Deprecated**
 
 **Deprecated.** This Admin API endpoint is superseded by `/v1/tunnels` on the Claude API and will be removed after a migration window. New integrations should use [`/v1/tunnels`](/docs/en/api/beta/tunnels) with the `anthropic-beta: mcp-tunnels-2026-06-22` header and a WIF token carrying the `workspace:manage_tunnels` scope. Existing integrations continue to work with the `mcp-tunnels-2026-05-19` header and `org:manage_tunnels` scope during the migration window.
 
@@ -300,7 +321,7 @@ The certificate record is retained. Archiving the last non-archived
 certificate is permitted; the tunnel rejects MCP traffic until a new
 certificate is added.
 
-### Path Parameters
+### Path parameters
 
 - `tunnel_id: string`
 
@@ -310,13 +331,11 @@ certificate is added.
 
   ID of the Tunnel Certificate.
 
-### Header Parameters
+### Headers
 
 - `"anthropic-beta": array of "mcp-tunnels-2026-05-19"`
 
   Required for all Tunnel endpoints.
-
-  - `"mcp-tunnels-2026-05-19"`
 
 ### Returns
 
@@ -329,14 +348,20 @@ certificate is added.
   RFC 3339 datetime string indicating when the certificate was archived, or
   `null` if it is not archived.
 
+  format: date-time
+
 - `created_at: string`
 
   RFC 3339 datetime string indicating when the certificate was registered.
+
+  format: date-time
 
 - `expires_at: string or null`
 
   RFC 3339 datetime string indicating when the certificate expires, or
   `null` if it does not expire.
+
+  format: date-time
 
 - `fingerprint: string`
 
@@ -350,18 +375,18 @@ certificate is added.
 
   Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-  - `"tunnel_certificate"`
+  default: tunnel_certificate
 
 ### Example
 
-```http
+```bash
 curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/$CERTIFICATE_ID/archive \
     -X POST \
     -H 'anthropic-version: 2023-06-01' \
     -H "Authorization: Bearer $ANTHROPIC_OAUTH_TOKEN"
 ```
 
-#### Response
+#### Response (200)
 
 ```json
 {
@@ -375,11 +400,11 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
 }
 ```
 
-## Domain Types
+## Domain types
 
 ### Tunnel Certificate Create Response
 
-- `TunnelCertificateCreateResponse object { id, archived_at, created_at, 4 more }`
+- `TunnelCertificateCreateResponse object`
 
   - `id: string`
 
@@ -390,14 +415,20 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
     RFC 3339 datetime string indicating when the certificate was archived, or
     `null` if it is not archived.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string indicating when the certificate was registered.
+
+    format: date-time
 
   - `expires_at: string or null`
 
     RFC 3339 datetime string indicating when the certificate expires, or
     `null` if it does not expire.
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -411,11 +442,11 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
 
     Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-    - `"tunnel_certificate"`
+    default: tunnel_certificate
 
 ### Tunnel Certificate Retrieve Response
 
-- `TunnelCertificateRetrieveResponse object { id, archived_at, created_at, 4 more }`
+- `TunnelCertificateRetrieveResponse object`
 
   - `id: string`
 
@@ -426,14 +457,20 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
     RFC 3339 datetime string indicating when the certificate was archived, or
     `null` if it is not archived.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string indicating when the certificate was registered.
+
+    format: date-time
 
   - `expires_at: string or null`
 
     RFC 3339 datetime string indicating when the certificate expires, or
     `null` if it does not expire.
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -447,11 +484,11 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
 
     Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-    - `"tunnel_certificate"`
+    default: tunnel_certificate
 
 ### Tunnel Certificate List Response
 
-- `TunnelCertificateListResponse object { id, archived_at, created_at, 4 more }`
+- `TunnelCertificateListResponse object`
 
   - `id: string`
 
@@ -462,14 +499,20 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
     RFC 3339 datetime string indicating when the certificate was archived, or
     `null` if it is not archived.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string indicating when the certificate was registered.
+
+    format: date-time
 
   - `expires_at: string or null`
 
     RFC 3339 datetime string indicating when the certificate expires, or
     `null` if it does not expire.
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -483,11 +526,11 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
 
     Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-    - `"tunnel_certificate"`
+    default: tunnel_certificate
 
 ### Tunnel Certificate Archive Response
 
-- `TunnelCertificateArchiveResponse object { id, archived_at, created_at, 4 more }`
+- `TunnelCertificateArchiveResponse object`
 
   - `id: string`
 
@@ -498,14 +541,20 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
     RFC 3339 datetime string indicating when the certificate was archived, or
     `null` if it is not archived.
 
+    format: date-time
+
   - `created_at: string`
 
     RFC 3339 datetime string indicating when the certificate was registered.
+
+    format: date-time
 
   - `expires_at: string or null`
 
     RFC 3339 datetime string indicating when the certificate expires, or
     `null` if it does not expire.
+
+    format: date-time
 
   - `fingerprint: string`
 
@@ -519,4 +568,4 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/certificates/
 
     Object type. Always `tunnel_certificate` for Tunnel Certificates.
 
-    - `"tunnel_certificate"`
+    default: tunnel_certificate
