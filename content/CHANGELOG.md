@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.245
+
+- Fixed a crash on startup on Linux distributions that ship glibc 2.44 (for example Arch Linux, CachyOS and Fedora Rawhide)
+
 ## 2.1.243
 
 - Added a Loops breakdown to `/usage`: per-loop run count, total tokens, tokens per run, and last run, so runaway or chatty `/loop` tasks are easy to spot
