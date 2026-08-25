@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787650200&amp;signature=e5285cd2fa876cf7f2616a1fa79983f46a604644c979c0114bb2598dc3293589&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVL%2BYK1gN0ADj5oqFA6isfqy7eXJB8LGwUb%0AkyLEioW5c8bUPgJjlaE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1787658300&amp;signature=c49fe296c5a9a55d65bd435e8cddc0c9af2ce6e04a14e63cb239a84b355198c7&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcVL%2BYq0gN0ADj5oqFCiCBEz%2FaoNcIxoIJ%2B4%0A2WBiGtn6MzM5LwzA4iM%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787650200&amp;signature=cb9870439ad3fc85b11ae6b1e3dcfca9f609f20bd8dc0b1fa168586e5383c299&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmF2jSzu7A4lHPBihAUhUYRZLH7JdeCBb%2BGM%0ACzjc4IAk9PGOhrzMqvQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1787658300&amp;signature=e0ae6a11b7e0a16d865400d988d1cabd53e047f73aa37a0c4db823c442ba961c&amp;req=diYnEsB5nYldXPMW1HO4zZ3NqmF2jSTv7A4lHPBihAUFcDTgUfyAF9yeR9aU%0ANbO2RcFYqrbsfB1iBV0%3D%0A)
 
 ### Permission options
 
