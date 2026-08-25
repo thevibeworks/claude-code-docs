@@ -311,3 +311,4 @@ These are controls an admin might look for that Claude Tag doesn't have.
 * [Configure per-channel access](/docs/claude-tag/admins/attach-to-scope): change the scopes these controls apply to
 * [How agent identity works](/docs/claude-tag/concepts/agent-identity): the model these controls operate on
 * [Security and data handling](/docs/claude-tag/concepts/security-and-data): what these controls don't cover (data flow, retention, where credentials are stored)
+* [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle): which of these controls delete data and which only stop Claude responding

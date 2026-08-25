@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1787640300&amp;signature=325b5c56fe728e149d9905aace8e9327bad5b14755c7ec439791746a7bd098a2&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhLbN%2FVWxakFVfq5Wwy27PB7NBFCZjt2%2FoUu%0AkD4Jum7%2FbQf2sgdXdJc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1787650200&amp;signature=df65be79891772950539ce02a2d93a29eae6428b0eee4c7850eeffd591d5825f&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhLbNvVXxakFVfq5WwxP4eAnmDemyQcBKWfB%0AhARv33NKtfcllme2KFs%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1787640300&amp;signature=0449347006a3ac9c7ba3c8b21f376b9c418ccf031de1a2e6936741e53a2342a6&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPH6h0CXmKUxugP2BQvyVNMLkjK6TxBKjUKj%0Aetth39%2FITylw5qTA32s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1787650200&amp;signature=9f536b6a4e2c67e51dcf72668f77bfc47fa314a2bcf00100a55d9e4b508a9bd3&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPH6hkCWmKUxugP2BQvnPyBUFMZwHRGt03TJ%0ATsQCfoX4P8Q64ixuBFM%3D%0A)
 
 ---
 

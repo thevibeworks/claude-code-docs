@@ -407,8 +407,13 @@ keep a server-side copy or index of your mailbox.
 ### When you connect through a third-party platform
 
 The prompt goes only to the inference endpoint you configured, such as
-Vertex AI, Azure AI Foundry, or an LLM gateway. No mailbox content reaches
-Anthropic. See
+Amazon Bedrock, Vertex AI, Azure AI Foundry, or an LLM gateway. On Amazon
+Bedrock, Vertex AI, or a gateway that routes to them, no mailbox content
+reaches Anthropic. On Azure AI Foundry, Anthropic operates the Claude models
+and processes prompts as an independent processor for Microsoft, as
+described in
+[Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
+See
 [Use Claude for M365 with third-party platforms](/docs/office-agents/third-party-platforms)
 for configuration details. The add-in does not keep a server-side copy or
 index of your mailbox.

@@ -104,5 +104,6 @@ By default, anyone in a connected Slack workspace can invoke Claude in channels,
 ## Related resources
 
 * [How agent identity works](/docs/claude-tag/concepts/agent-identity): the identity model in full, including DM attribution
+* [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle): what Anthropic stores, how long it's kept, and what each action deletes
 * [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access): the controls that exist and the ones that don't
 * [Audit Claude Tag activity](/docs/claude-tag/admins/audit): the trails for tracing what it did

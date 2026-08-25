@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-Claude keeps memory by channel. Memory from public channels is shared across the workspace. What it learns working in a private channel is saved to that channel's own store, and nothing it learns in a channel is attached to you individually.
+Claude keeps memory by channel. Memory from public channels is shared across the workspace. What it learns working in a private channel is saved to that channel's own store, and channel memory isn't organized by person. In a direct message, Claude keeps separate notes for its conversation with you; see [Workspace memory](#workspace-memory).
 
 Memory accumulates three ways:
 
@@ -29,9 +29,11 @@ Reading and saving follow different rules depending on where Claude is working:
 | Public channel          | Workspace memory                                         | This channel's notes or workspace-shared, both inside the workspace store |
 | Private channel         | That channel's memory, plus workspace memory (read-only) | That channel's own store                                                  |
 
-DMs and other workspaces stay separate.
+Other workspaces stay separate. Direct messages stay separate too. Claude keeps notes for each direct-message conversation, stored with the workspace rather than with your Claude account. Those notes are deleted when an Owner [disconnects the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing), not when you disconnect your own Claude account in Slack.
 
 If a private channel is later made public, its accumulated memory does not move with it: new sessions there read and write the workspace store, and the memory it saved while private is no longer read by new sessions.
+
+If a public channel is later made private, what Claude saved to workspace memory while the channel was public stays in workspace memory, where sessions in the workspace's other channels can still read it, and new sessions in the now-private channel save to the channel's own store. If those earlier entries shouldn't stay shared, ask an Owner to delete them from the workspace scope's memory files.
 
 ## Manage what Claude Tag remembers
 

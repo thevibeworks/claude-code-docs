@@ -109,9 +109,9 @@ Anyone in the channel can steer a running session by replying in its thread, not
 
 Editing or deleting an earlier message doesn't steer the session the way a reply does:
 
-* **Editing a message**: Claude receives a note each time you edit, showing what the message said before the edit and what it says now. An edit doesn't start a new task or re-address Claude, even if you add `@Claude` to it.
-* **Deleting a reply**: Claude gets no notification and keeps the version it already read.
-* **Deleting the thread's first message**: if the thread already has replies, Claude keeps working and the session stays open. If you delete it before anyone has replied, the session closes. Anything Claude already pushed or posted persists, per [what survives between replies](#what-survives-between-replies), and you start a new thread to pick the task back up.
+* **Editing a message**: Claude receives a note each time you edit, showing what the message said before the edit and what it says now. Both versions become part of the session's transcript, so editing a message doesn't remove the earlier text from what Anthropic stores. An edit doesn't start a new task or re-address Claude, even if you add `@Claude` to it.
+* **Deleting a reply**: Claude gets no notification and keeps the version it already read. Deleting the reply in Slack doesn't remove it from the session's transcript.
+* **Deleting the thread's first message**: if the thread already has replies, Claude keeps working and the session stays open. If you delete it before anyone has replied, the session closes. Anything Claude already pushed or posted persists, per [what survives between replies](#what-survives-between-replies), and you start a new thread to pick the task back up. Closing the session archives it rather than deleting it, so its transcript, including the message you deleted, stays with the channel's Claude data until that data is [deleted](/docs/claude-tag/admins/workspaces#revoke-a-pairing).
 * **Correcting course**: Claude responds to replies; edits reach it only as notes, and a deleted reply not at all. Say the change in a new reply; the reply is also how you walk back a message it already read.
 
 ## Team channels and personal DMs
@@ -227,7 +227,7 @@ Claude works in channels it has been added to, but workspace search can still fi
 
 ### What survives between replies
 
-A thread is durable, but the sandbox behind it is not. Durable means the thread, and everything Claude read and said in it, stays in Slack and stays available to the session for as long as the thread exists. The sandbox is the computer where Claude runs commands and keeps working files for a task. A few minutes after a session finishes its turn, Anthropic releases its sandbox, and the same session resumes in a fresh one when the next message arrives. A thread's session keeps resuming this way for as long as people use the thread. Claude replaces it with a new session in two cases.
+A thread is durable, but the sandbox behind it is not. Durable means the thread stays in Slack, and everything Claude read and said in it is kept in the session's transcript on Anthropic's side, so the session can pick up where it left off whenever someone replies. Deleting messages or the thread in Slack doesn't remove them from that transcript. The sandbox is the computer where Claude runs commands and keeps working files for a task. A few minutes after a session finishes its turn, Anthropic releases its sandbox, and the same session resumes in a fresh one when the next message arrives. A thread's session keeps resuming this way for as long as people use the thread. Claude replaces it with a new session in two cases.
 
 | When                                                                                                                        | What Claude does                                                               |
 | :-------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |
@@ -257,7 +257,7 @@ Claude also stops reading a channel's top-level messages once about 100 of them 
 
 Memory follows places the same way access does, and it accumulates for the team rather than for any individual.
 
-Memory from public channels is shared across the workspace, so a decision recorded while working in #launch-week is available when someone asks in #gtm-west. When Claude cites something from a channel you have never used it in, it is reading workspace memory, not a record about you.
+Memory from public channels is shared across the workspace, so a decision recorded while working in #launch-week is available when someone asks in #gtm-west. When Claude cites something from a channel you have never used it in, it is reading workspace memory shared from that channel, not a profile of you.
 
 Private channels read workspace memory while working, and what they save is written to that channel's own store rather than the workspace store.
 

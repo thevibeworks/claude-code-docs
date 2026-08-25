@@ -63,17 +63,26 @@ Per-scope version changes (workspace and channel) are reversible; see [Migrate f
 
 ## Revoke a pairing
 
-In the **Connected workspaces** list, select **Disconnect** on the workspace's row, then confirm in the dialog. Claude stops responding in that workspace immediately, and your organization is no longer billed for Claude usage there.
+In the **Connected workspaces** list, select **Disconnect** on the workspace's row, then confirm in the dialog. Claude stops responding in that workspace's channels immediately, and your organization is no longer billed for Claude usage there. Direct messages run on each member's own Claude account, so they keep working until the deletion below removes the member's account link. A member who reconnects their account afterward can use direct messages again while the app stays installed.
 
 <Warning>
-  When you disconnect a workspace, Anthropic permanently deletes its Claude data within 30 days: the workspace's sessions and transcripts, its channel and workspace memory, the routines set up in its channels, its scopes with their instructions and bundle bindings, and the links between members' Slack and Claude accounts. This can't be undone. Routines a person set up in a direct message with Claude belong to that person's account and aren't deleted with the workspace.
+  When you disconnect a workspace, Anthropic deletes its Claude data:
+
+  * The workspace's sessions and their transcripts, including members' direct-message conversations with Claude in that workspace
+  * Its channel, workspace, and direct-message memory
+  * The routines set up in its channels, and the artifacts published from them
+  * Its scopes, with their instructions and bundle bindings
+  * The links between members' Slack and Claude accounts
+
+  Deletion starts as soon as you confirm and runs to completion in the background. This can't be undone. Routines a person set up in a direct message with Claude belong to that person's account and keep running; an admin can delete them from the [**Scheduled work** tab](/docs/claude-tag/admins/audit).
 </Warning>
 
 Access bundles belong to your organization, not to a workspace, so they stay available to attach to other scopes; only their bindings to the deleted scopes go.
 
-The Slack app stays installed, so a workspace admin can pair the workspace again by sending `@Claude connect` in it, to the same Claude organization or a different one. The new pairing starts without the deleted data. To remove the app from Slack as well, uninstall it from the workspace's Slack app settings; see [Quiet or remove Claude Tag](/docs/claude-tag/admins/restrict-access#quiet-or-remove-claude-tag).
+The Slack app stays installed, so a workspace admin can pair the workspace again by sending `@Claude connect` in it, to the same Claude organization or a different one. If you intend the data to be deleted, wait a few minutes before pairing the workspace to the same organization again, because a new pairing that arrives while the deletion is still starting can cancel it. Once the deletion has run, the new pairing starts without the deleted data. Uninstalling the app from the workspace in Slack deletes the same data, whether or not you disconnected first; see [Quiet or remove Claude Tag](/docs/claude-tag/admins/restrict-access#quiet-or-remove-claude-tag).
 
 ## Related resources
 
+* [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle): what disconnecting deletes, what it keeps, and what other actions do to Claude-side data
 * [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier): the upgrade path and what changes for existing users
 * [Pair your Slack workspace](/docs/claude-tag/admins/pair-workspace): the first pairing, with the Slack-admin handoff

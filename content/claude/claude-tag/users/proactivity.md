@@ -104,7 +104,7 @@ Anyone in the channel can list, edit, or disable its standing work:
 * **Edit.** Describe the change and it updates the job
 * **Disable.** Name the job to stop, as in "disable the Friday rollup"
 
-Standing work is visible to the channel: jobs post into the channel they belong to, or into another public channel you name that Claude has been added to. Routines keep running if their creator leaves the organization, but stop firing if the creator is removed from the channel.
+Standing work is visible to the channel: jobs post into the channel they belong to, or into another public channel you name that Claude has been added to. A channel's routines keep running if their creator leaves the channel, is removed from your Claude organization, or has their Slack account deactivated, and anyone still in the channel can disable them. Routines a person set up in a direct message with Claude belong to that person's account and are turned off when the person is removed from your Claude organization.
 
 A few boundaries apply:
 
