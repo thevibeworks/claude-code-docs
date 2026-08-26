@@ -6,6 +6,75 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.37937.1" description="2026-08-25">
+  **General**
+
+  * Updated the bundled Claude Code CLI to version 2.1.246.
+
+  **Code**
+
+  * Fixed remote MCP servers never recovering after a dropped connection; they now reconnect automatically or report as failed.
+  * Fixed signing in to some MCP servers, such as Linear, failing with an "Invalid redirect URI" error.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
+<Update label="v1.37937.0" description="2026-08-25">
+  **General**
+
+  * Added support for legacy Word .doc files, which now open like .docx, and Excel .xlsx and .xls spreadsheets, which now attach as text where they used to be refused.
+  * Removed sharing of chat artifacts for members of organizations whose admin has turned Artifacts off; links already shared keep working.
+  * Fixed chat refusing new messages after the weekly Cowork limit was used up.
+  * Fixed scheduled tasks set to run on both a day of the month and a weekday (for example "the 1st and every Monday") only running when the two coincided; they now run on either day, as their schedule description says.
+  * Fixed several chat reliability issues: queued messages could disappear or send on their own, a send retried during a service overload could add repeated copies of a message, reopening a chat before the reply arrived could show a false "message wasn't sent" error, and a single failed response could show two error messages.
+  * Fixed the app sometimes signing you out right after an automatic update.
+
+  **Code**
+
+  * Improved SSH session reliability: fixed connections failing when the configured identity file is a public key (common with 1Password setups), messages sent while the host reconnects are delivered once it is back, a Claude Code upload to the host now rides out a brief network pause, idle sessions no longer show a false "Lost connection" card, reconnecting can ask for a password or one-time code when needed, and a reconnect no longer reports lost output unless it truly could not be recovered.
+  * Fixed all saved SSH connections disappearing when one stored connection entry was invalid.
+  * Fixed background cleanup of old session worktrees on Windows sometimes also deleting the contents of folders that NTFS junctions inside the worktree pointed to, such as the main checkout's `node_modules`.
+  * Fixed removing a claude.ai import run resetting uncommitted work in a session you had started from that import; the session's files are now kept on disk.
+  * Fixed sessions failing to start for organizations using the `disableSideloadFlags` setting in Claude Code's `managed-settings.json`; sessions now start without the desktop's bundled skills and plugins instead.
+  * Fixed very high memory use, and a blank or unresponsive window, when opening or reconnecting sessions with very large transcripts or many subagents.
+
+  **Cowork**
+
+  * Added dictation in the Claude in Chrome side panel; allow the microphone once in the extension's settings.
+  * Fixed "upload failed" errors when staging Google Drive and other cloud-synced files that are not downloaded on your Mac yet; they now download automatically, and clearer messages explain when the sync app needs to be started.
+  * Fixed a Rename, Delete, or Move dialog left open in a task's header staying open when you switched to another task and acting on the task you switched to; it now closes on switch.
+  * Fixed only the last file staying attached when several files opened with Claude each needed confirmation.
+  * Fixed restored Cowork tabs showing a "Try again" error when the app restarted before sessions finished loading, such as right after an update.
+  * Fixed the tasks and files panel staying open as an empty pane after a restart.
+
+  **3P**
+
+  * Added `mcpToolTimeoutSec`, which sets how long an MCP tool call may run before it times out. Defaults to 180 seconds.
+  * Added `organizationInstructions`: organization-wide instructions appended to Claude's system prompt in Chat, Cowork, and Code sessions (up to 3,000 characters); settable via device management, a local configuration file, or the bootstrap response. They are guidance the model follows, not an enforced control.
+  * Added `skipWebFetchPreflight`. When enabled, Code sessions no longer contact api.anthropic.com before fetching a web page, which fixes page fetches failing on networks that block that host. Off by default.
+  * Added `userPluginMarketplacesEnabled` and `userPluginUploadsEnabled`, which control whether members can add their own plugin marketplaces and upload their own plugins; when off, the add options are hidden and adds are refused. Unset keys change nothing.
+  * Added Code tab features already available in the standard app: the Files panel with Show in Files, emoji autocomplete and inline prompt suggestions in the composer, interactive MCP app widgets in the conversation, and letting Claude read output from the integrated terminal panel.
+  * Added cost estimates to the Usage page: `inferenceModelPricingEnabled` shows an estimated cost alongside token counts, priced at Anthropic list price; `inferenceModelPricing` supplies per-model rates and `inferenceModelPricingMultiplier` scales every estimate (a number between 0 and 1). The two rate keys take effect in a future release; until then estimates use list price. Off by default.
+  * Added suggestions for plugins and skills from your organization's own library in chat.
+  * Added support for plugin marketplace credential helpers that return a username or `authtype=Bearer`, so marketplaces hosted on Bitbucket Data Center or behind GitLab deploy tokens can authenticate.
+  * Added the `disableDesktopLocalSessions` setting to Claude Code's `managed-settings.json`, which turns off Code sessions that run on the device itself so the Code tab offers only remote environments such as SSH; the environment menu shows Local greyed out with a "Disabled by your organization" explanation.
+  * Changed `allowedPluginMarketplaces` (beta): a `url` marketplace hosted on the bootstrap server's own origin can now use `credentialKind: "inferenceCredential"` and is fetched with the same sign-in the app already uses for its bootstrap configuration.
+  * Changed `builtinToolPolicy` to accept argument-scoped Claude Code permission rules such as `Bash(curl *)` in addition to bare tool names; `WebSearch` and `WebFetch` entries stay bare tool names, and entries that are not usable rules are rejected with a configuration error.
+  * Changed gateway device-code sign-in to show the signed-in account's email, when the gateway returns one, instead of the computer's login name.
+  * Changed the Code tab's file pane and git panel to follow the administrator's `allowedWorkspaceFolders` setting.
+  * Fixed Bedrock sessions behind a proxy that strips the response content type silently re-running every request without streaming, which billed each request twice.
+  * Fixed Cowork scheduled tasks running on the 200K-context model when the 1M-context row or "Default model" was selected in the task form; the form now labels the 1M row.
+  * Fixed the built-in Microsoft 365 connector publishing an invalid schema for updating a calendar event's end time.
+  * Fixed the Microsoft 365 local connector on Windows failing for users with more than one Microsoft work account on the PC. The Reconnect card now opens the Windows account picker and the chosen account is remembered; users of this connector will be asked to reconnect once after this update.
+  * Fixed the model picker showing a duplicate, mislabeled 1M-context row when `inferenceModels` lists a model both with and without the `[1m]` suffix.
+</Update>
+
 <Update label="v1.34493.1" description="2026-08-21">
   **General**
 

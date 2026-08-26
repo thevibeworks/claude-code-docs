@@ -13,8 +13,9 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 <div className="tm-stepbar">
   <a className="tm-stepbar-seg tm-current" href="/docs/docs/claude-tag/admins/pair-workspace">1 · Pair workspace</a>
   <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/add-connections">2 · Give access</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/set-spend-limit">3 · Spend limit</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">4 · See it work</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/configure-github">3 · Connect GitHub</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/set-spend-limit">4 · Spend limit</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">5 · See it work</a>
 </div>
 
 <div className="tm-stepmeta">

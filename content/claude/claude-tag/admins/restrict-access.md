@@ -216,7 +216,7 @@ You name channel managers one channel at a time. For that channel, a channel man
 
 ### What a channel manager can do on the Configure page
 
-A channel manager has to be a member of the channel in Slack. In a channel you assigned to them, they see a **Channel manager settings** section on the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), reached from the **Configure** link in any Claude reply. Other members see the same values read-only.
+A channel manager has to be a member of the channel in Slack. The channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), reached from the **Configure** link in any Claude reply, is split into tabs. In a channel you assigned to them, a channel manager sees the **Default model** card on the **General** tab and the repository and access bundle cards on the **Tools and access** tab. Members without the role don't see those cards. Owners and Admins also see an **Admin** tab, whose **Channel settings** card holds some of the channel scope's settings from admin settings.
 
 | Setting            | What a channel manager can do                                                                                                                                                                                                                                   |
 | :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -242,7 +242,7 @@ Channel managers are built on [custom roles](https://claude.ai/admin-settings/ro
   </Step>
 
   <Step title="Add people or a group">
-    In the **Channel managers** section, select **Add channel managers who can add connections and repos to this channel**. Select **Add users** to add people, which also creates a group named after the channel, or **Add groups** to add a group from [`claude.ai/admin-settings/groups`](https://claude.ai/admin-settings/groups). The same group can manage several channels.
+    In the panel's header, select the people-icon button labeled **Add channel managers who can add connections and repos to this channel**. In the popup, select **Add users** to add people, which also creates a group named after the channel, or **Add groups** to add a group from [`claude.ai/admin-settings/groups`](https://claude.ai/admin-settings/groups). The same group can manage several channels.
   </Step>
 
   <Step title="Check each manager's access level">
@@ -252,17 +252,17 @@ Channel managers are built on [custom roles](https://claude.ai/admin-settings/ro
   </Step>
 </Steps>
 
-Owners can already configure every channel, so you see them as **Already has full access** and can't add them.
+Owners and Admins can already configure every channel, so you see them as **Already has full access** and can't add them.
 
-Leave the role as it was created: assigned to its channel, with **Claude Tag channel setup** as its only permission. If the role's permissions are changed on the Roles page, the channel's **Channel managers** section stops recognizing the role, shows no managers, and refuses to add or remove any, with an error that points you to the Roles page. To recover, set the role's permissions back to exactly **Claude Tag channel setup**; the group and its members are kept. To give channel managers any other permission, create a separate role for it.
+Leave the role as it was created: assigned to its channel, with **Claude Tag channel setup** as its only permission. If the role's permissions are changed on the Roles page, the channel's channel-managers popup stops recognizing the role and refuses to add or remove any, with a notice that points you to the Roles page. To recover, set the role's permissions back to exactly **Claude Tag channel setup**; the group and its members are kept. To give channel managers any other permission, create a separate role for it.
 
 ### Remove a channel manager
 
-To remove a channel manager, open the same **Channel managers** section on the channel's panel. Remove a member you added directly, or detach a group you added. The member keeps their access level and any other custom roles. In the channel, they go back to seeing the Configure page's values read-only, like any other member.
+To remove a channel manager, open the same popup from the people-icon button on the channel's panel. The current managers are listed under **Channel managers**. Remove a member you added directly, or detach a group you added. The member keeps their access level and any other custom roles. The manager cards on the channel's Configure page disappear for them.
 
 ### Verify a channel manager's access
 
-The **Channel managers** section on the channel's panel shows each manager's status. A member whose access level doesn't support the role appears as **Not in effect**; the role works only on the **Custom roles** access level, so change the member's level on the Members page to put it into effect. An active manager sees the **Channel manager settings** section on the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), so asking them to open that page confirms the setup.
+The popup behind the people-icon button on the channel's panel shows each manager's status under **Channel managers**. A member whose access level doesn't support the role appears as **Not in effect**; the role works only on the **Custom roles** access level, so change the member's level on the Members page to put it into effect. An active manager sees the **Default model**, repository, and access bundle cards on the channel's [Configure page](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel), so asking them to open that page confirms the setup.
 
 ### Audit channel manager activity
 

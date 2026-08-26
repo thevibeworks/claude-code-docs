@@ -40,7 +40,7 @@ If your work involves a physical machine, Claude keeps working while you step aw
 
 Claude asks for your permission before accessing each application. You’ll see a prompt and must approve before Claude can interact with that app. Some apps are off-limits by default.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1787676300&amp;signature=fa1a9058802f0790a6a0a5b0cd5dc18edd126e2185298805c1a8fa526a269c00&amp;req=diEuFct3molbUPMW1HO4za8%2BRnuERCafOFMEfKzd96on5aETBIY38X3qHJLU%0Ae7cwKW3nFpvg6IuFPHw%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1787832000&amp;signature=aa2b1e590c4f072d79fb8e55d3de851a2eee888935bfb1c7733df02e94b33af5&amp;req=diEuFct3molbUPMW3nq%2BgUwo4rVPu%2BGWj5A5uJn0DHqTXU1VQ0QAXYZ5kK6z%0A%2FUSj4DzCnRPzkZeNeNEp4s63t7k%3D%0A)
 
 Claude is trained to avoid risky operations—like transferring funds, modifying or deleting files, or handling sensitive data—and to flag signs of prompt injection. However, these safeguards aren't perfect, and Claude may occasionally act outside these boundaries.
 
@@ -84,7 +84,7 @@ We strongly advise against using computer use to manage or take actions on sensi
 
 ### Memory
 
-Cowork has memory, which means Claude can learn how you work and retain context across sessions. Sensitive data—like passwords, financial details, or health information—is excluded from memory. You can view, edit, and delete what Claude remembers at any time.
+Cowork in the cloud shares the memory you use in chat, so Claude can start from what it already knows about how you work. By default, Claude doesn't save topics some people consider sensitive, such as health information, unless you turn on **Include sensitive topics in memory** in **[Settings > Memory](https://claude.ai/settings/memory)**. Some information is never saved, including government ID numbers, criminal history, financial account numbers, and immigration status. You can view, edit, and delete what Claude remembers at any time. Learn more about **[Claude's memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_82126ebcc9)**.
 
 ---
 
@@ -128,7 +128,7 @@ To start using computer use:
 
 3. Find the **Computer use** toggle and turn it on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193911341/630e6df3b08b27d1c7b4f1ca6a1f/image.png?expires=1787676300&amp;signature=74f27096ad659cb66b219ab132c02add9e3d9117874e9d6d64eaab6e3f1d3989&amp;req=diEuFcB%2FnIJbWPMW1HO4zR8GoUN6QkwzjdPXX%2BaSOrFfPvxu1q80sdYk61%2FT%0AFNk6%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193911341/630e6df3b08b27d1c7b4f1ca6a1f/image.png?expires=1787832000&amp;signature=9f915eadc52230dbd406aa9a62cd4e02fc5d49a322757ae766d06ed6c6a53af1&amp;req=diEuFcB%2FnIJbWPMW3nq%2BgdUsBqXcDkFI%2FAcnV%2FJm3T%2FNJ%2F4943AFVojZAhip%0A%2BRyY0lLcy9qT7w7ess5SMtlTbvM%3D%0A)
 
 4. Open Cowork or Claude Code in the desktop app and start a session.
 

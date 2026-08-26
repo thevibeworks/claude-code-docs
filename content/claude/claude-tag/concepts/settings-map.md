@@ -20,7 +20,7 @@ Claude Tag's settings live on claude.ai, split across a few pages that each own 
 | The **Configure** link in the footer of any Claude reply in a channel                          | Channel members (unless an admin restricts editing) and [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for their assigned channels | One channel's instructions and whether Claude replies there without an @-mention. Channel managers also set the channel's default model, repositories, and connections |
 | [Customize > Connectors](https://claude.ai/customize/connectors) on your own claude.ai account | You                                                                                                                                                                                   | Which of your personal tools apply in [DMs](/docs/claude-tag/concepts/agent-identity#direct-message-channels)                                                               |
 
-Channel memory and routines aren't in the table because you change them by talking to Claude in the channel; see [what anyone can change from the channel](/docs/claude-tag/admins/customize#change-behavior-from-the-channel). Admins can review both, as each scope's memory files and scheduled work, from [the Audit page](/docs/claude-tag/admins/audit).
+Channel memory and routines aren't in the table because you change them by talking to Claude in the channel; see [what anyone can change from the channel](/docs/claude-tag/admins/customize#change-behavior-from-the-channel). Admins can review both, as each scope's memory files and scheduled work, from [the Audit page](/docs/claude-tag/admins/audit), labeled **Activity** in the console.
 
 ## The Claude Tag admin page
 
@@ -43,11 +43,13 @@ Spend trends live at [`claude.ai/analytics/claude-tag`](https://claude.ai/analyt
 
 Every Claude reply in a channel ends with a footer, and its **Configure** link opens a claude.ai page for that channel; replies in DMs have no Configure link. You can also send [`@Claude !configure`](/docs/claude-tag/users/commands#get-the-link-to-configure-a-channel) in the channel, and Claude replies with a link to the same page.
 
-Anyone in the channel who is also a member of your Claude organization can edit the **Channel instructions** field on that page, unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions). The page's **Respond automatically** toggle controls whether Claude replies in the channel without an @-mention; see [Turn automatic replies on or off](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off). The page's **Connections** tab shows the channel's resolved connections, which admins set, so members can see the list but not change it. A **Routines** tab lists the channel's routines with each one's schedule, status, and last run.
+Anyone in the channel who is also a member of your Claude organization can edit the **Channel instructions** field on that page, unless an admin has [restricted editing to admins](/docs/claude-tag/admins/attach-to-scope#restrict-who-can-set-channel-instructions). The page's **Respond automatically** toggle controls whether Claude replies in the channel without an @-mention; see [Turn automatic replies on or off](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off).
+
+The page's **Tools and access** tab shows the channel's resolved connections and any allowed domains. Members can see those lists but not change them there. The same tab's **Plugins** card lists the channel's plugins, and members can add plugins there unless an admin has restricted editing to admins. A **Routines** tab lists the channel's routines with each one's schedule, status, and last run.
 
 The Configure page and the **Custom instructions** field on the scope's panel in admin settings write the same instructions, so a change from either place is visible in the other. See [Configure Claude for a channel](/docs/claude-tag/users/good-habits#configure-claude-for-a-channel).
 
-On the Enterprise plan, an Owner can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel. For them, the same page adds a **Channel manager settings** section where they set the channel's default model, repositories, and connections.
+On the Enterprise plan, an Owner can name [channel managers](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for a channel. For them, the same page adds editable cards: the channel's default model on the **General** tab, and its repositories and access bundles on the **Tools and access** tab.
 
 ## Personal connectors on claude.ai
 

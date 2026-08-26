@@ -104,19 +104,19 @@ Starring a project allows for quick access from your projects and chats list, vi
 
 You can move a standalone chat into a project by clicking on the dropdown arrow next to the chat name, then “Add to project”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1787677200&amp;signature=4b7377c682aa29a91afb0fd28834b435fcec9593b0ac4b51d6abf286dccbfdad&amp;req=dScvEsh3nYNbUfMW1HO4zQABaWZqTacXBSXNVFXQ%2FVEDHEOzAkg63aHPKfhS%0AQjfZ%2F2JzKogyyrHu8ss%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1787832000&amp;signature=5b5e19e59b23fd8aa4c92e2294a825a5d644b50918a338d0e8572b3ce68ac0ae&amp;req=dScvEsh3nYNbUfMW3nq%2BgXuLDiqq7D0yXv8vfZakkxGdv0DVbfkKG7vy4ABU%0ARmwpi%2FJ7Jb8ZGu%2BAIleqR%2B0WFeA%3D%0A)
 
 Browse or search for the correct project in the **Move chat** modal that appears, then click on it to move the chat.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1787677200&amp;signature=67a11ac96d60cef593bffdd727cdc437cd533b1617ac21eda826e78bbfed85a6&amp;req=dScvEsh3nYhaWPMW1HO4zSMECie2zA4DgYbpTjViBxDZcIDFH1XyZZh6v9t3%0AaumUkVL3eQCgCOEytio%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1787832000&amp;signature=e0e17b27c7ee79debfe30287f7ded18bbed26deab87ff7b8ae7dc491323d2527&amp;req=dScvEsh3nYhaWPMW3nq%2BgaHJV1YFlIUf9yuLKq4iewp7iy%2BBT17NSHTTyL90%0AsUbyHNZTjV85pkdjScSRhuvvTMg%3D%0A)
 
 You can also remove chats from projects, or move them between projects, using the same dropdown menu within the chat:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1787677200&amp;signature=a7686002f177e642fb121e221804e1a882b6671ef7ba12cdd51126bb47b359e0&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DuPAqCUIIS2r1%2FGRlqORGx%2B39kwuP54dCNUis%0AyFbjii6CVG9r6j505Uc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1787832000&amp;signature=426f82ee2fdd5f742a14ad3b54b942f6666db4911f3fc39fa6c3010a5225de85&amp;req=dScvEsh2mIdXW%2FMW3nq%2BgcRackgi6lSsCIpgXkUx%2BGGdH2GqyilRvh%2FDaBup%0Ah%2B%2FlHXVaGn97sxs5HwckKS%2BY6vw%3D%0A)
 
 You can move chats into projects in bulk from **[Your chat history page](https://claude.ai/recents)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185685/bb960063204592db277a4ba62d8d/ebbf5c69-da79-4e56-9d87-f2a97a22fe67?expires=1787677200&amp;signature=9ecf8a1a01e77f6a66e8af3a1b11a71bf797cf09cb64129aa6e2e96500cc958f&amp;req=dScvEsh2mIdXXPMW1HO4zbParUtP7v2huQSB0Ebsw9ddwPSXPTNB3zLAKEi9%0AyDG2ikWWyzc2sMEEOlQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185685/bb960063204592db277a4ba62d8d/ebbf5c69-da79-4e56-9d87-f2a97a22fe67?expires=1787832000&amp;signature=2364f0a4da14e5befbd02d092f917419618c464528da57c7e12791fdbfc79865&amp;req=dScvEsh2mIdXXPMW3nq%2BgSoMxJ7JZGtEqwQ3Kn7bRQKwTiv%2FryXl1GODsiB2%0ARrqzuCFoCwqw45BduAQovIaFo%2FQ%3D%0A)
 
 Select the chats you want to move, then click the icon next to the number of selected chats to move them into your project.
 
@@ -124,7 +124,7 @@ Select the chats you want to move, then click the icon next to the number of sel
 
 ## Move chats to manage Claude’s memory
 
-Memory from chat history is available for users on Pro, Max, Team, and Enterprise plans on the web, Claude Desktop, and Claude Mobile.
+Memory is on by default for Free, Pro, and Max plans on the web, Claude Desktop, and Claude Mobile. On Team and Enterprise plans, memory is available when an owner has enabled it.
 
 For Team and Enterprise plans using Claude’s memory, the ability to move chats into and out of projects allows you to manage what’s included in Claude’s memory. Each project has its own memory, kept separate from your non-project chats. For example, if you accidentally start an unrelated chat in a project and need to remove it from the project-specific memory summary, you can click “Remove from project” so it will be included in Claude’s non-project memory instead.
 

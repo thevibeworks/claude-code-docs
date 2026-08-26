@@ -24,6 +24,10 @@ Claude is most useful when the work is somewhere the team can see, steer, and bu
 * **Give Claude the destination, not the route.** State the outcome you want and let Claude work out the steps; the [definition of done](#give-every-task-a-definition-of-done) below makes that concrete.
 * **Tolerate the mess.** A first draft posted in the thread is more useful than a polished one in a DM. The thread is the workspace, not the deliverable.
 
+### Mentioning people who aren't in the channel
+
+Claude can't add anyone to a channel, and it doesn't decide whether a mentioned person is notified. Slack's prompt to invite or notify someone who isn't in the channel appears only for messages you type yourself; it never applies to messages Claude posts. Slack delivers Claude's mention the way it delivers any app-posted message. In a public channel, the person is notified in their Activity view even though they haven't joined. In a private channel, they aren't notified and can't see the message until someone invites them. If you want someone to follow a thread Claude is working in, invite them yourself.
+
 ## Write tasks that close
 
 The phrasing of a task determines whether it has a verifiable end state, what form the result takes, and how Claude responds while working on it.
@@ -176,7 +180,7 @@ The **Respond automatically** toggle on that page controls whether Claude replie
 
 Use the **Channel instructions** field on that page to write standing guidance Claude reads in every new session in the channel: the channel's purpose, its conventions, the tone replies should take, and anything Claude should do or avoid there. Channel instructions outrank channel memory and sit alongside any instructions an admin has set for the workspace or organization. Save the field and the change applies to new sessions started in the channel.
 
-The page also shows **Connections**, the services Claude can reach from this channel. Your organization's admins set that list, so you can see it on this page but not change it. If an Owner has made you a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for the channel, you can change it here.
+The page's **Tools and access** tab shows **Connections**, the services Claude can reach from this channel, along with any allowed domains. You can see those lists but not change them on this page. The same tab's **Plugins** card lists the channel's plugins, and you can add plugins there unless an admin has restricted editing to admins. If an Owner has made you a [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) for the channel, the tab also has access bundle and repository cards you can edit.
 
 ## Keep thread count and review rate matched
 

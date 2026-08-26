@@ -148,7 +148,7 @@ With your permission, Claude can read the following types of data from Health Co
 
 - **Nutrition:** Calories consumed, macronutrients, hydration, and micronutrients (if tracked)
 
-**Note:** Our **[memory feature](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c1c0b33879)** is designed to prevent Claude from using sensitive health information in future conversations.
+**Note:** By default, Claude doesn't save health information to memory. If you turn on **Include sensitive topics in memory**, Claude may remember health-related context from your conversations. Learn more about **[sensitive topics in memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_6fe1d0e66f)**.
 
 ### How to use health features
 
@@ -222,7 +222,7 @@ Permission requirements vary by feature:
 
 For features requiring permissions (like location or calendar access), Claude will request permission contextually with clear explanations of why the access is needed. You’ll be prompted to approve the action with three options: Allow once, Always allow, or Don't allow.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1707351614/ccb910e4b87b1e96ad9a11bbd835/b57b2130-d8d6-4499-89f6-6c12de236fd4?expires=1787676300&amp;signature=c87aaadafd7371b0dea8966486a77720019dd94aabaaf8faf188ded12a299664&amp;req=dScnEcp7nIdeXfMW1HO4zQe5GliJ3CP3S5x65TIld%2FCZ3qx29UN9bz333v2w%0AskK25TtVifkNiSRCv8g%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1707351614/ccb910e4b87b1e96ad9a11bbd835/b57b2130-d8d6-4499-89f6-6c12de236fd4?expires=1787832000&amp;signature=28c5d1458e786b7b66aa57e9abc41464394f4bb912d0f859a4ae6f69ea3b6baf&amp;req=dScnEcp7nIdeXfMW3nq%2BgT%2BIyd%2F9rAuT7TnKikGn3FWibeRiMBLRui%2FLvYhs%0A9ja%2Fb3xyqegpT5TdfvxpN%2BoXpRU%3D%0A)
 
 These permissions can be managed at any time in your device settings by going to Settings > Apps > Claude > Permissions. Click into each permission listed under **Allowed** and **Not allowed** to make changes. You can toggle between “Allow only while using the app” or “Ask every time” to change Claude’s access, or remove permissions by choosing “Don’t allow.” Claude will only request permissions if needed for specific features, and you can always choose to decline while still using other capabilities.
 

@@ -10,6 +10,14 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
+<div className="tm-stepbar">
+  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/pair-workspace">1 · Pair workspace</a>
+  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/add-connections">2 · Give access</a>
+  <a className="tm-stepbar-seg tm-current" href="/docs/docs/claude-tag/admins/configure-github">3 · Connect GitHub</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/set-spend-limit">4 · Spend limit</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">5 · See it work</a>
+</div>
+
 <Tip>Using GitLab instead of GitHub? See [Configure GitLab access](/docs/claude-tag/admins/configure-gitlab). GitLab uses a service-account token rather than an installed app.</Tip>
 
 Claude Tag gives Claude its own GitHub identity, the Claude GitHub App, so pull requests it opens from a channel are authored by Claude rather than by a person. You only need GitHub access if a team will hand Claude code work: branches, pull requests, review, or CI follow-up.
