@@ -79,6 +79,8 @@ In the **Connected workspaces** list, select **Disconnect** on the workspace's r
 
 Access bundles belong to your organization, not to a workspace, so they stay available to attach to other scopes; only their bindings to the deleted scopes go.
 
+After you disconnect, the Slack row under **Where Claude Tag works** shows **Disconnected** with the workspace's name, and offers a **Reconnect** action, as a button on that row and in the row's **⋮** menu. **Reconnect** reopens the pairing dialog, where you redeem a fresh code from `@Claude connect`.
+
 The Slack app stays installed, so a workspace admin can pair the workspace again by sending `@Claude connect` in it, to the same Claude organization or a different one. If you intend the data to be deleted, wait a few minutes before pairing the workspace to the same organization again, because a new pairing that arrives while the deletion is still starting can cancel it. Once the deletion has run, the new pairing starts without the deleted data. Uninstalling the app from the workspace in Slack deletes the same data, whether or not you disconnected first; see [Quiet or remove Claude Tag](/docs/claude-tag/admins/restrict-access#quiet-or-remove-claude-tag).
 
 ## Related resources

@@ -31,7 +31,7 @@ See [Create a dedicated account per service](/docs/claude-tag/admins/add-connect
 | **Name**                     | A label for this connection (for example "Internal billing API")                                                                                                                                                                                                                                               |
 | **Credential type**          | Pick the type that matches how the API authenticates; see [Credential types](#credential-types)                                                                                                                                                                                                                |
 | **Allowed websites**         | The API's host (for example `api.example.com`). A wildcard is allowed as the leftmost label. You can't enter `*` alone here; a credential is always limited to specific hosts (see [Allow all hosts](/docs/claude-tag/admins/add-connections#allow-all-hosts)). The credential is sent only to hosts you list here. |
-| **Path prefixes** (optional) | Restrict the credential to specific URL paths under the host. Shown only for the OAuth 2.0 authorization code type.                                                                                                                                                                                            |
+| **Path prefixes** (optional) | Restrict the credential to specific URL paths under the host. Shown only for the MCP Connector type, and only when the provider you pick doesn't fix its own hosts and paths.                                                                                                                                  |
 | **Custom headers**           | Any extra headers the API requires beyond the credential. Shown only for the Bearer credential type.                                                                                                                                                                                                           |
 
 After saving, where the credential has an allow rule, you can narrow it by HTTP method and path from its **Edit connection** dialog; see [Restrict by path or method](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method).
@@ -48,8 +48,9 @@ After saving, where the credential has an allow rule, you can narrow it by HTTP 
 | **GCP IAP (with Service Account Key)**          | Google Cloud services behind Identity-Aware Proxy                                                           |
 | **OAuth 2.0 JWT bearer**                        | APIs that accept a JWT signed with your private key in exchange for an access token (DocuSign, for example) |
 | **OAuth 2.0 client credentials**                | Machine-to-machine OAuth with a client ID and secret                                                        |
-| **OAuth 2.0 authorization code (3-legged)**     | OAuth with a user-consent step; the connection stores the resulting refresh token                           |
-| **GitHub App**                                  | GitHub repositories; covered separately at [Configure GitHub access](/docs/claude-tag/admins/configure-github)   |
+| **MCP Connector**                               | OAuth sign-in. Sign in once as an admin; the agent acts as that account.                                    |
+
+For GitHub repositories, use the GitHub connection at [Configure GitHub access](/docs/claude-tag/admins/configure-github) rather than a credential from this table.
 
 If you're unsure which type, check the service's API authentication docs for which header or flow it expects.
 

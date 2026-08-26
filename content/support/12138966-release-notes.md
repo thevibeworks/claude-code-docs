@@ -2,6 +2,12 @@
 
 ## August 2026
 
+### August 25, 2026
+
+**Memory in Claude Cowork, editable topics, and a sensitive topics setting**
+
+Memory now works across chat and Cowork in the cloud. Everything Claude remembers is listed under **Topics** in **[Settings > Memory](https://claude.ai/settings/memory)**, where you can edit or delete any item. Topics such as health or beliefs stay out of memory unless you turn on **Include sensitive topics in memory**. Memory is on by default for Free, Pro, and Max plans and off by default for Team and Enterprise organizations. See **[Use Claude's chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273)**.
+
 ### August 6, 2026
 
 **Skill and plugin security scanning (beta)**

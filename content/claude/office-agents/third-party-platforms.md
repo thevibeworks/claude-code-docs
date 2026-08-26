@@ -209,6 +209,38 @@ different settings.
   <img src="https://mintcdn.com/claude-ai/-4jzPa4NasvobarI/images/office-agents/architecture/config-discovery.png?fit=max&auto=format&n=-4jzPa4NasvobarI&q=85&s=b6c750272cf3ad9765ec2563af436806" alt="The add-in resolves each configuration key from a bootstrap endpoint, then Entra ID extension attributes, then manifest parameters." width="2398" height="1670" data-path="images/office-agents/architecture/config-discovery.png" />
 </Frame>
 
+### Admin feature controls
+
+The `disabled_features` configuration key turns off individual add-in
+features for your users. It travels over the same three channels as every
+other key: manifest parameters (comma-separated), Entra ID extension
+attributes (comma-separated), or a bootstrap endpoint (JSON array), so it
+can apply org-wide from one manifest or vary per user.
+
+| Slug               | Effect                                                                                                                                                                                    |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `skills.authoring` | Blocks creating, editing, and uploading skills. Running admin-provisioned skills is unaffected.                                                                                           |
+| `thumbs`           | Blocks response feedback (thumbs up / down and the follow-up prompt).                                                                                                                     |
+| `addin.access`     | Kill switch: the add-in refuses to run.                                                                                                                                                   |
+| `file.upload`      | Blocks attaching files to the conversation.                                                                                                                                               |
+| `web_search`       | Removes the built-in web search and web fetch tools, whose queries are served by Anthropic's search provider, along with the user-facing web search toggle. Code execution is unaffected. |
+
+Unknown slugs are ignored, so setting a slug from a newer add-in version
+on an older deployment is safe.
+
+Disabling `web_search` pairs with the `mcp_servers` key: attach your own
+search tool from a server inside your network, and with the built-in
+search disabled the model uses the tool you provide. This keeps search
+queries on infrastructure you control.
+
+For document-scoped control, such as disabling a feature only on files
+carrying certain sensitivity labels, use the `access_policies` key
+instead; a statement without a resource behaves exactly like
+`disabled_features`. The setup wizard's
+`/claude-for-msft-365-install:manifest` and
+`/claude-for-msft-365-install:access-policies` commands document both
+keys in full.
+
 ### Deploy to Outlook
 
 Outlook requires a separate manifest file from Excel, PowerPoint, and
@@ -731,16 +763,16 @@ application in your tenant, confirm it matches these values.
 | Publisher               | Anthropic, PBC (verified publisher)      |
 | Supported account types | Accounts in any organizational directory |
 
-The add-in uses the following redirect URIs for sign-in. Each one exists
-for a specific sign-in path, and none of them receives a Microsoft
-access token in the URL.
+The add-in uses the following redirect URIs with this application. Each
+one exists for a specific Microsoft sign-in path, and none of them
+receives a Microsoft access token in the URL.
 
-| Redirect URI                                 | Platform                | Purpose                                                                                  |
-| -------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------- |
-| `https://pivot.claude.ai/auth/callback`      | Web                     | admin consent confirmation page, receives `admin_consent` and `tenant` only              |
-| `https://pivot.claude.ai/msal-redirect.html` | Single-page application | MSAL response bridge for Office on the web, where the host cannot broker tokens natively |
-| `brk-multihub://pivot.claude.ai`             | Single-page application | Nested App Authentication broker on Office desktop and Mac                               |
-| `https://pivot.claude.ai/auth/3p`            | Web                     | legacy entry from earlier builds, not used by current builds, scheduled for removal      |
+| Redirect URI                                 | Platform                | Purpose                                                                                                                                                                                                                   |
+| -------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `https://pivot.claude.ai/auth/callback`      | Web                     | admin consent confirmation page, receives only `admin_consent` and `tenant` from Microsoft. Google sign-in for Vertex AI reuses this URI for its [OAuth authorization-code redirect](#oauth-authorization-code-redirects) |
+| `https://pivot.claude.ai/msal-redirect.html` | Single-page application | MSAL response bridge for Office on the web, where the host cannot broker tokens natively                                                                                                                                  |
+| `brk-multihub://pivot.claude.ai`             | Single-page application | Nested App Authentication broker on Office desktop and Mac                                                                                                                                                                |
+| `https://pivot.claude.ai/auth/3p`            | Web                     | legacy entry from earlier builds, not used by current builds, scheduled for removal                                                                                                                                       |
 
 ### Verify this in your own environment
 

@@ -13,8 +13,9 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 <div className="tm-stepbar">
   <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/pair-workspace">1 · Pair workspace</a>
   <a className="tm-stepbar-seg tm-current" href="/docs/docs/claude-tag/admins/add-connections">2 · Give access</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/set-spend-limit">3 · Spend limit</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">4 · See it work</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/configure-github">3 · Connect GitHub</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/set-spend-limit">4 · Spend limit</a>
+  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">5 · See it work</a>
 </div>
 
 <div className="tm-stepmeta">
@@ -201,10 +202,19 @@ For a custom connection, choose the credential type:
 | GCP IAP (with Service Account Key)          | Google Cloud services behind Identity-Aware Proxy.                                                                                                                                |
 | OAuth 2.0 JWT bearer                        | Server-to-server OAuth.                                                                                                                                                           |
 | OAuth 2.0 client credentials                | Server-to-server OAuth. Salesforce uses this.                                                                                                                                     |
-| OAuth 2.0 authorization code (3-legged)     | Sign in once as an admin; the agent acts as that account.                                                                                                                         |
-| GitHub App                                  | GitHub repositories; covered separately at [Configure GitHub access](/docs/claude-tag/admins/configure-github).                                                                        |
+| MCP Connector                               | Sign in once as an admin; the agent acts as that account.                                                                                                                         |
+
+For GitHub repositories, use the GitHub connection at [Configure GitHub access](/docs/claude-tag/admins/configure-github) rather than a credential from this table.
 
 Credentials are injected at the network boundary by Agent Proxy; the model and the sandbox are not given the key. A request to a host you haven't allowed is blocked, not sent. See [how Agent Proxy works](/docs/claude-tag/concepts/agent-identity#agent-proxy).
+
+### Send a setup link to another admin
+
+When someone else holds a service's secret, create a setup link instead of collecting the secret yourself. On the service's row in the **Credentials** tab, open the **Connect** button's menu and select **Copy link for another admin**. Whoever opens the link signs in to your Claude organization and submits the credential there. They don't need an admin role.
+
+The row tracks the link. It shows **Pending** until the credential is submitted, then **Approval needed**. Select **Review** to check the submission and approve or reject it. The credential becomes active only after you approve it. The row shows **Expired** for a link that went unused, and until the credential is submitted you can revoke the link from the row's **⋮** menu.
+
+Setup links are available for services that use the Bearer or Basic credential type. For other types, the **Connect** menu has no link option.
 
 ### Set allowed websites
 
@@ -222,7 +232,7 @@ Agent Proxy starts applying a change within about a minute of your saving it, in
 
 ### Connections vs claude.ai connectors
 
-The connection gallery lists credential types the agent can hold, not the connectors your organization or its members have set up on claude.ai. A connection authenticates the agent, not a person; a connector on someone's personal claude.ai account doesn't appear here. For Google services, use a service-account key or the OAuth sign-in option, both of which give the agent one credential with access to the data the channel needs. Personal connectors keep working in [DMs](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
+The connection gallery lists credential types the agent can hold, not the connectors your organization or its members have set up on claude.ai. A connection authenticates the agent, not a person; a connector on someone's personal claude.ai account doesn't appear here. For Google services, use a service-account key or the MCP Connector sign-in option, both of which give the agent one credential with access to the data the channel needs. Personal connectors keep working in [DMs](/docs/claude-tag/concepts/agent-identity#direct-message-channels).
 
 ## Attach plugins
 

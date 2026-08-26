@@ -8,6 +8,62 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v1.37937.1" description="2026-08-25">
+  No configuration changes in this release.
+</Update>
+
+<Update label="v1.37937.0" description="2026-08-25">
+  <div className="cfg-keys">
+    | MDM key                                                                                                        | Type       | Description                          |
+    | -------------------------------------------------------------------------------------------------------------- | ---------- | ------------------------------------ |
+    | [`inferenceModelPricingEnabled`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingenabled)       | `boolean`  | Show estimated cost                  |
+    | [`inferenceModelPricingMultiplier`](/docs/third-party/claude-desktop/configuration#inferencemodelpricingmultiplier) | `number`   | Price multiplier                     |
+    | [`inferenceModelPricing`](/docs/third-party/claude-desktop/configuration#inferencemodelpricing)                     | `object[]` | Model pricing                        |
+    | [`userPluginMarketplacesEnabled`](/docs/third-party/claude-desktop/configuration#userpluginmarketplacesenabled)     | `boolean`  | Allow user-added plugin marketplaces |
+    | [`userPluginUploadsEnabled`](/docs/third-party/claude-desktop/configuration#userpluginuploadsenabled)               | `boolean`  | Allow user-added plugins             |
+    | [`mcpToolTimeoutSec`](/docs/third-party/claude-desktop/configuration#mcptooltimeoutsec)                             | `integer`  | MCP tool call timeout                |
+    | [`skipWebFetchPreflight`](/docs/third-party/claude-desktop/configuration#skipwebfetchpreflight)                     | `boolean`  | Skip WebFetch domain check           |
+    | [`organizationInstructions`](/docs/third-party/claude-desktop/configuration#organizationinstructions)               | `string`   | Organization instructions            |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "models": {
+      "pricing": {
+        "enabled": "<boolean>",
+        "multiplier": "<number>",
+        "models": [
+          {
+            "name": "<string>",
+            "inputPerMtok": "<number>",
+            "outputPerMtok": "<number>",
+            "cacheReadPerMtok": "<number>",
+            "cacheWritePerMtok": "<number>"
+          }
+        ]
+      }
+    },
+    "plugins": {
+      "userPluginMarketplacesEnabled": "<boolean>",
+      "userPluginUploadsEnabled": "<boolean>"
+    },
+    "mcp": {
+      "toolTimeoutSec": "<integer>"
+    },
+    "workspace": {
+      "skipWebFetchPreflight": "<boolean>",
+      "organizationInstructions": "<string>"
+    }
+  }
+  ```
+
+  **Changed:**
+
+  * `builtinToolPolicy` accepts argument-scoped Claude Code permission rules such as `Bash(curl *)` or `Edit(**/*.env)` as keys, in addition to bare tool names; `WebSearch` and `WebFetch` take the bare name only, and a key that is not a usable rule is dropped with a configuration error. Deploy argument-scoped entries once your whole fleet is on this release: an older build drops an argument-scoped `ask` entry as an unknown tool, so that tool runs without a prompt.
+</Update>
+
 <Update label="v1.34493.1" description="2026-08-21">
   No configuration changes in this release.
 </Update>
