@@ -1,6 +1,6 @@
 # Change the model, effort, and thinking settings
 
-The model menu next to the send button controls three settings: which Claude model you're chatting with, how much effort it puts into each response, and whether it uses extended thinking. This article explains how to change each one and when to use them.
+The model menu next to the send button controls three settings: which Claude model you're chatting with, how much effort it puts into each response, and whether it uses thinking. This article explains how to change each one and when to use them.
 
 ---
 
@@ -48,15 +48,15 @@ Learn more about **[how usage and length limits work](https://support.claude.com
 
 ---
 
-## Use extended thinking
+## Use thinking
 
-Extended thinking lets Claude spend more time breaking down problems, planning solutions, and exploring different approaches before responding.
+Thinking lets Claude spend more time breaking down problems, planning solutions, and exploring different approaches before responding.
 
 Thinking and effort are separate settings, and you can use any combination of the two. The effort level controls how thorough Claude is with every response. The thinking toggle controls whether Claude works through its reasoning in an expandable section before responding.
 
-Extended thinking cannot be turned off in Claude when using Claude Opus 5. On the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error.
+Thinking cannot be turned off in Claude when using Claude Opus 5. On the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error.
 
-### Turn extended thinking on or off
+### Turn thinking on or off
 
 For models with effort levels:
 
@@ -64,7 +64,7 @@ For models with effort levels:
 
 2. Mouse over "Effort."
 
-3. Switch the "Thinking" toggle on or off.
+3. Switch the "Thinking" (or “Extended”) toggle on or off.
 
 For other models:
 
@@ -74,7 +74,7 @@ For other models:
 
 ### View Claude's thought process
 
-When extended thinking is enabled, you'll see:
+When thinking is enabled, you'll see:
 
 - A "Thinking" indicator with a timer showing how long Claude has been processing.
 

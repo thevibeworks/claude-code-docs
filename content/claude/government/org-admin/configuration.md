@@ -18,7 +18,7 @@ The Config page works the same way at the tenant and organization levels, with t
 
 **Settings only the tenant can change.** [Let organizations manage their own seat tiers](/docs/government/config/settings#let-organizations-manage-their-own-seat-tiers) and [Compliance API](/docs/government/config/settings#compliance-api) are always read-only here, regardless of whether they are locked.
 
-**Inherited plugins.** Plugins the tenant has added are labeled **Inherited from your tenant** and cannot be changed from here. See [Tool and connector cards](/docs/government/config/settings#tool-and-connector-cards).
+**Inherited connectors and plugins.** Connectors and plugins the tenant has added are labeled **Inherited from your tenant** and cannot be changed from here. A connector or plugin you add with the same name takes priority over the inherited one for your members. See [The Connectors card](/docs/government/connectors/overview#the-connectors-card) and [Tool and connector cards](/docs/government/config/settings#tool-and-connector-cards).
 
 **Group settings within your organization.** A value you set for a directory group at this level applies only to people who are both a member of the group and a member of your organization, and it is the most specific level in the chain. Group priority is set by your tenant administrator and is shown here for reference; you cannot reorder it from the organization portal. See [Group-specific settings](/docs/government/config/overview#group-specific-settings).
 

@@ -26,7 +26,12 @@ Settings combine across the chain in one of three ways, and the kind is fixed pe
 
 A **lock** prevents levels below from changing a setting. When you lock a setting at your level it shows as **Enforced** to you, and levels below see it as **Managed**, which means it is read-only for them. Any value a lower level had previously set is ignored while your lock is in place, and it comes back into effect if you later remove the lock.
 
-A tenant lock makes the setting read-only for every organization. A lock you set at the organization level prevents any group-level value within your organization from taking priority over it.
+How far a lock reaches depends on where you set it:
+
+* **On the tenant Config page**, the lock reaches everyone in the tenant. The setting becomes read-only for every organization and at both group levels.
+* **On a tenant-wide group setting**, the lock reaches the people that group's settings apply to. They get the locked value even if their organization has set a different one, and organizations cannot set their own value for that group while the lock is in place. Other people in those organizations are not affected.
+
+A group lock does not keep anyone on that group's settings. If someone in the group also belongs to a higher-priority group that has any configuration, that group's settings apply to them instead and the lock does not, as described under [When someone belongs to more than one group](#when-someone-belongs-to-more-than-one-group).
 
 **Locked by Anthropic** is the **Managed** state when the lock was applied by Anthropic at the application level rather than by your own tenant. It appears on features that are not available in Claude for Government, and only Anthropic can change or unlock those settings.
 
@@ -76,19 +81,25 @@ In addition to setting values for your whole tenant or organization, you can set
 
 There are two kinds of group level:
 
-* **Tenant-wide group settings** sit between the tenant and the organization in the chain. A value set here takes priority over the tenant default for the group's members, in every organization they belong to. Tenant administrators manage these.
+* **Tenant-wide group settings** sit between the tenant and the organization in the chain. A value set here takes priority over the tenant default for the group's members, in every organization. Tenant administrators manage these.
 * **Organization group settings** are scoped to one organization. A value set here applies only to people who are both a member of the group and a member of that organization, and it is the most specific level in the chain. Organization owners manage these for their own organization and see the same list of groups the tenant does.
 
 To edit settings for a group, open the scope bar above the settings list and choose the group's name from the dropdown. The page switches to show the same settings editor, now scoped to that group. Editing, saving, resetting, and locking all work the same way as at the other levels. Anything locked at a higher level still shows as **Managed** here and cannot be changed.
 
+You can also add connectors for a group's members from the **Connectors** card while the page is scoped to the group. See [Who receives a connector](/docs/government/connectors/overview#who-receives-a-connector) for which members a group's connectors reach.
+
 ### When someone belongs to more than one group
 
-Only one group's settings apply to any given person. When someone is a member of more than one group, the settings from their highest-priority group that has any configuration are used, and the other groups are ignored for that person. The priority order is set by a tenant administrator on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page by dragging the groups into the order they want. The same priority order is used wherever configuration is resolved for a person; seat-tier group mappings on the [Provisioning](/docs/government/org-admin/provisioning) page use a separate fixed order. At the organization level the priority order is shown for reference and cannot be reordered there.
+Only one group's settings apply to any given person. When someone is a member of more than one group, the settings from their highest-priority group that has any configuration are used, and the other groups are ignored for that person. A group has configuration for a person once any setting is set or locked for it, either as a tenant-wide group setting or as an organization group setting in that person's organization.
+
+When a higher-priority group gains configuration for someone, it takes the place of the lower-priority group that applied to them before, and the lower-priority group's settings, including locked ones, stop applying to them. Removing a group's last setting, changing the priority order, or changing someone's group memberships in your identity provider can change which group applies to a person in the same way.
+
+The priority order is set by a tenant administrator on the [Identity and access](/docs/government/tenant-admin/identity-and-access) page by dragging the groups into the order they want. The same priority order is used wherever configuration is resolved for a person; seat-tier group mappings on the [Provisioning](/docs/government/org-admin/provisioning) page use a separate fixed order. At the organization level the priority order is shown for reference and cannot be reordered there.
 
 If no groups appear in the scope bar dropdown, none have been synced from the identity provider yet. Connect SCIM on the Identity and access page and push groups from your directory, and they will appear automatically.
 
 <Note>
-  Two settings, **Organization instructions** and **Organization Analytics connector**, can be set at the tenant and organization levels but not at either group level.
+  The **Organization instructions** and **Organization Analytics connector** settings can be set at the tenant and organization levels, but not at either group level. The **Plugins** card is read-only when you view a group, and the group's members receive the plugins added for their organization and tenant.
 </Note>
 
 ## What differs between the tenant and organization levels
@@ -99,7 +110,7 @@ The Config page shows the same list of settings at both levels, and almost all o
 * **Preview impact appears only at the tenant level.** See [Previewing impact](#previewing-impact) above.
 * **Group priority is set at the tenant level.** Organization owners see the priority order for reference but cannot change it.
 * **Tenant administrators can open any organization's Config page** and act on that organization's behalf. Organization owners see only their own organization.
-* **Inherited plugins are labeled at the organization level.** Plugins the tenant has added appear under a **From levels above** heading on the organization page; see [Tool and connector cards](/docs/government/config/settings#tool-and-connector-cards).
+* **Inherited connectors and plugins are labeled at the organization level.** Connectors and plugins the tenant has added appear on the organization page with an **Inherited from your tenant** badge; see [The Connectors card](/docs/government/connectors/overview#the-connectors-card) and [Tool and connector cards](/docs/government/config/settings#tool-and-connector-cards).
 
 For more detail see [Config at the tenant level](/docs/government/tenant-admin/configuration) and [Config at the organization level](/docs/government/org-admin/configuration).
 

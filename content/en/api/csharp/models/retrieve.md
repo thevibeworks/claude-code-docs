@@ -88,6 +88,20 @@ The Models API response can be used to determine information about a specific mo
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 ## Returns
 
 - `class ModelInfo:`

@@ -30,7 +30,7 @@ Under a ZDR arrangement, Anthropic does not store customer prompts or responses 
 
 ### What ZDR does not cover
 
-* **Claude Console:** Any usage in the Claude Console, including Playground.
+* **Claude Console:** Any usage in the Claude Console, including playground.
 * **Claude Managed Agents:** Claude Managed Agents is a stateful resource; session transcripts persist until you delete them.
 * **Claude consumer products:** Claude Free, Pro, and Max plans, including when customers on those plans use Claude's web, desktop, or mobile apps or Claude Code.
 * **Claude Teams and Claude Enterprise product interfaces:** These interfaces are not ZDR-eligible. The exception is Claude Code used through Claude Enterprise with ZDR enabled; see [What ZDR covers](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#what-zdr-covers).

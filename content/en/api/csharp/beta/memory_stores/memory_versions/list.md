@@ -132,6 +132,20 @@ List memory versions
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 ## Returns
 
 - `class MemoryVersionListPageResponse:`
@@ -154,7 +168,7 @@ List memory versions
 
     - `required string MemoryID`
 
-      ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
+      ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
 
     - `required string MemoryStoreID`
 

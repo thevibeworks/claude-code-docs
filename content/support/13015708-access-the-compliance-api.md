@@ -2,9 +2,11 @@
 
 The Compliance API lets your organization programmatically pull activity feed events, chat data, and file content across all your Claude deployments. Use it to monitor, audit, and meet compliance requirements with your own tools.
 
-The Compliance API is generally available to Claude Enterprise plans, excluding Public Sector organizations, and Claude Platform customers in Claude chats.
+The Compliance API is available to Enterprise plan organizations, excluding Public Sector organizations, and to Claude Platform customers in Claude chats.
 
-Compliance API coverage now extends to Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop), in beta for Claude Enterprise customers. It uses your organization's existing Compliance Access Key and settings, so no additional integration is required. This beta doesn't include Claude Code on web, Claude Code accessed through the Claude Platform, or sessions run on Amazon Bedrock or Google Vertex AI.
+Coverage also includes Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop). Coverage for the Claude for Microsoft 365 add-ins (Excel, Word, PowerPoint, and Outlook) and Claude Science is available in beta. All of these use your organization's existing Compliance Access Key and settings, so no additional integration is required.
+
+Coverage doesn't include Claude Code on the web, Claude Code accessed through the Claude Platform, other Microsoft 365 apps, or sessions run on Amazon Bedrock or Google Vertex AI.
 
 ## Compliance API technical documentation
 

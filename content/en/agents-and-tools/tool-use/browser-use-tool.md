@@ -7,7 +7,7 @@ description: Let Claude navigate, read, and interact with webpages in your own b
 ## Compatibility
 - [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): eligible (excludes [Covered Models](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements))
 - Supported models: `claude-fable-5`, `claude-mythos-5`, `claude-opus-5`, `claude-sonnet-5`, `claude-opus-4-8`
-- Platforms: Claude API; not available on Claude Platform on AWS, Amazon Bedrock, Google Cloud, Microsoft Foundry
+- Platforms: Claude API, Google Cloud; not available on Claude Platform on AWS, Amazon Bedrock, Microsoft Foundry
 
 The browser use tool lets Claude navigate, read, and interact with webpages in a browser that your application runs. It works with the page both through its structure (the accessibility tree, elements, forms, and tabs) and through pixels (screenshots and viewport coordinates), whereas the [computer use tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool) works with a whole desktop through screenshots and coordinates alone. It's an Anthropic-defined [client toolset](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets): one `browser_toolset_20260801` entry in your `tools` array gives Claude 27 member tools by default, such as `navigate`, `read_page`, `left_click`, and `screenshot`, plus four more (`javascript_exec`, `file_upload`, `read_console`, and `read_network`) when you [enable them](https://platform.claude.com/docs/en/agents-and-tools/tool-use/browser-use-tool#enable-optional-member-tools). Your application runs every call against its own browser automation; nothing runs on Anthropic's side. It isn't currently available in [Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/tools). This page says "your application" for the agent loop that calls the Messages API and "your executor" for the part of it that drives the browser and produces tool results.
 
@@ -17,7 +17,7 @@ With browser use, Claude reads and acts on live webpages, so everything a page s
 
 ## Quick start
 
-The browser use tool is available on the Claude API with no beta header: add one entry of type `browser_toolset_20260801`, with no `name`, to the `tools` array of a [Messages API](https://platform.claude.com/docs/en/api/messages/create) request.
+The browser use tool is available on the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai): add one entry of type `browser_toolset_20260801`, with no `name`, to the `tools` array of a [Messages API](https://platform.claude.com/docs/en/api/messages/create) request.
 
 <CodeGroup>
   ```bash cURL
@@ -1529,7 +1529,7 @@ The API validates the toolset entry and every member `tool_use` and `tool_result
 
 ## Limitations
 
-* **Platform availability:** Browser use is available on the Claude API only.
+* **Platform availability:** Browser use is available on the Claude API and [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai).
 * **Whole-input streaming only:** When you stream, each member's `input` arrives as one complete `input_json_delta` ([Client toolsets](https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-reference#client-toolsets)).
 * **Element references are best-effort:** Highly dynamic pages (virtualized lists, canvas-rendered interfaces, pages that re-render on scroll) might not expose stable references, and Claude falls back to screenshots and coordinate clicks there.
 * **`read_console` and `read_network` depend on your browser automation:** They report only what it can capture, and only from the moment it attached to a tab.

@@ -66,7 +66,7 @@ Two habits keep memory useful over time:
 * **After correcting an entry, have Claude record the fix.** "Update your memory for this channel so this doesn't happen again" turns a one-time fix into a standing one.
 * **Prune what your work has outgrown.** Entries written weeks ago can describe a repository, owner, or convention that no longer exists; review the memory list when the channel's work shifts.
 
-An Admin in your Claude organization can view a scope's memory files at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), under the scope's options menu; only an Owner can edit or delete them.
+An Owner in your Claude organization can view, edit, or delete a scope's memory files at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), under the scope's options menu.
 
 ## Related resources
 

@@ -22,21 +22,19 @@ Web search expands Claude's knowledge with real-time data, helping you make bett
 
 **To access this feature on a Team or Enterprise plan account:**
 
-An Owner or Primary Owner must first enable web search for the entire workspace. This can be found in **[Admin settings > Capabilities](https://claude.ai/admin-settings/capabilities)**:
-
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2032032614/ad907328c4d9a26ee4bd9ca27a52/CleanShot+2026-02-05+at+09_01_42%402x.png?expires=1787744700&amp;signature=a6771d42576c41e2cfcd6308de8a7472fd57280f2e874ad1feb8adfc13f9d060&amp;req=diAkFMl9n4deXfMW1HO4zetvyrW9HMpXUJIbgsqS2%2BMz48deoMa8sqNCp81F%0AQCDtlItbhW%2F1tltmcP0%3D%0A)
+An Owner or Primary Owner must first enable web search for the entire workspace in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
 
 Once this is enabled at the workspace level, any member of the organization can switch it on while starting a chat by clicking the “+” button in the lower left corner of the chat window and selecting “Web search." Users can toggle this off for chats that don’t require web search capabilities.
 
-## How to enable web search in a chat
+## Enable web search in a chat
 
-1. Click on the slider icon in your chat input interface.
+1. Click on the “+” button in the lower left corner of the chat window.
 
-2. Locate **Web search** in the dropdown.
+2. Find "Web search” in the dropdown and click on it.
 
-3. Switch the toggle on.
+3. A checkmark will appear next to “Web search” when it’s enabled.
 
-You can disable the feature at any time by following the same steps and turning the toggle off.
+You can disable the feature at any time by clicking “Web search” again.
 
 ## How web search works
 
@@ -62,11 +60,11 @@ When Claude searches the web:
 
 When “Web search” is toggled on, Claude can also retrieve content directly from web pages when provided with specific URLs. This feature, called web fetch, allows Claude to access and analyze the full content of articles, blog posts, and other web pages you want to discuss.
 
-**Important note for free Claude accounts:** When you provide Claude with a direct link to a long article or document and ask it to analyze or summarize the contents, the entire article is retrieved into Claude's context window. This can consume a significant portion of your usage capacity, especially for lengthy content. For example, asking Claude to summarize a 10,000-word article will use substantially more of your context window than a regular web search query.
+**Important note for free Claude accounts:** When you provide Claude with a direct link to a long article or document and ask it to analyze or summarize the contents, the entire article is retrieved into Claude's context window. This can consume a significant portion of your usage limit, especially for lengthy content. For example, asking Claude to summarize a 10,000-word article will use substantially more of your context window than a regular web search query.
 
 ## Image results
 
-When web search is enabled, Claude can also search for and display images directly in your conversation. You don't need to enable a separate setting — image results are part of web search.
+When web search is enabled, Claude can also search for and display images directly in your conversation. You don't need to enable a separate setting—image results are part of web search.
 
 For example, you might ask Claude to:
 
@@ -80,11 +78,11 @@ For example, you might ask Claude to:
 
 Claude selects images from web search results, powered by Bing, and displays them alongside its text response. Each image includes a source link so you can visit the original page for more details.
 
-Image search is powered by Bing (<https://www.microsoft.com/en-us/privacy/privacystatement>).
+Image search is powered by Bing (**[Microsoft Privacy Statement](https://www.microsoft.com/en-us/privacy/privacystatement)**).
 
 Claude can also display interactive content in search results. For more detailed information, see here: **[Visual and interactive content](https://support.claude.com/en/articles/13641943-visual-responses-and-interactive-widgets)**.
 
-## Managing usage on free Claude accounts
+## Manage usage on free Claude accounts
 
 As a free user, you have daily usage limits for Claude. Since web search and fetch both contribute to these limits, here are some tips to make the most of your capacity:
 
@@ -96,11 +94,11 @@ As a free user, you have daily usage limits for Claude. Since web search and fet
 
 To disable web search and conserve your capacity:
 
-1. Click on the slider icon in the lower left corner of your chat input.
+1. Click on the “+” button in the lower left corner of the chat window.
 
-2. Find **Web search** in the dropdown.
+2. Find "Web search” in the dropdown and click on it.
 
-3. Toggle it off.
+3. The checkmark next to “Web search” will disappear when it’s disabled.
 
 You can re-enable it anytime you need current information.
 
@@ -138,4 +136,4 @@ You can re-enable it anytime you need current information.
 
 - For web search questions or support, please visit our **[Online Safety Contacts](https://support.claude.com/en/articles/11174660-online-safety-contacts)** page.
 
-- For content removal requests, please visit our **[Blocking and Removing Content from Claude](https://support.claude.com/en/articles/10684638-reporting-blocking-and-removing-content-from-claude)** page.
+- For content removal requests, please visit our **[Report, block, and remove content from Claude](https://support.claude.com/en/articles/10684638)** page.

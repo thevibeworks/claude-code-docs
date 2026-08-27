@@ -41,7 +41,7 @@ Anthropic calls your key management service from its standard public IP range. I
 
 CMEK is currently available in US regions only, and all encryption operations are processed in US regions.
 
-On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), CMEK is available with AWS KMS keys only; Google Cloud KMS and Azure Key Vault keys cannot be registered. Create, validate, and attach keys in the Claude Console; the `external_keys` API endpoints are not currently available on Claude Platform on AWS. The key must be in the same AWS region as the workspace it is attached to.
+On [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), CMEK is available with AWS KMS keys only; Google Cloud KMS and Azure Key Vault keys cannot be registered. Create and attach keys in the Claude Console; the `external_keys` API endpoints are not currently available on Claude Platform on AWS. There is no separate validation step: the key is implicitly validated when you attach it to a workspace (the attach call performs an encrypt/decrypt round), so a key policy problem surfaces at attach time rather than at registration. The key must be in the same AWS region as the workspace it is attached to.
 
 For minimal latency, choose a region close to Anthropic's US infrastructure:
 
@@ -68,6 +68,7 @@ What CMEK covers depends on which product you use.
 * Chat attachments and project attachments.
 * Claude Code on the CLI, including message content.
 * Cowork in Claude Desktop.
+* Compliance API [local session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) captured from sessions on users' machines. If your key cannot be used, the messages endpoint returns [503 Service Unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable) instead of transcript content. Session metadata is still listed.
 * Office agents.
 * Claude in Chrome.
 
@@ -81,7 +82,7 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 
 * Playground in the Claude Console is disabled.
 * Portions of the Compliance API that return raw content, such as prompts, responses, and files, are disabled.
-* Other beta and research preview features may not be covered by CMEK.
+* Other beta and research preview features might not be covered by CMEK.
 
 **Claude Enterprise**
 
@@ -90,7 +91,6 @@ Some features are turned off or substantially modified when CMEK is enabled. Thi
 * Certain analytics are degraded: admin analytics for claude.ai skills and connectors (under claude.ai/analytics/usage and through the [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)), Claude smart reports (under claude.ai/analytics/insights), and Claude Code contribution metrics (under claude.ai/analytics/claude-code).
 * Audit log exports are disabled.
 * Signed URLs for temporary file exchanges are disabled. These back organization data exports in claude.ai and Claude Code Remote file flows such as screenshot updates.
-* Compliance API [local session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-local-sessions) (Cowork and Claude Code on users' machines) currently return no message content. Session metadata is listed as usual, and the local session messages endpoint (`GET /v1/compliance/apps/sessions/local/{session_id}/messages`) returns each message with its content marked unavailable; see [Retrieve a local session transcript](https://platform.claude.com/docs/en/manage-claude/compliance-sessions#retrieve-a-local-session-transcript) for the response shape.
 
 ### Encrypted with Anthropic key
 
@@ -106,7 +106,7 @@ These features remain available, but their data is not encrypted under your key.
 **Claude Enterprise**
 
 * Claude Code Desktop, Claude Code on the web, and Claude in Slack. Anthropic recommends disabling any of these that are not appropriate for your use case in the admin console.
-* Beta and research preview features may not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and Claude Design.
+* Beta and research preview features might not be covered by CMEK and can break in CMEK organizations, for example, Claude Security and Claude Design.
 * On-demand data export under **Settings** > **Privacy**.
 * [Personal preferences - Instructions for Claude section](https://claude.ai/new#settings/general) and Cowork Global instructions. These are set at the account level and shared across all of a user's organizations.
 
@@ -146,7 +146,8 @@ Outside of [CSAM screening](https://support.claude.com/en/articles/9020328-csam-
 * **No retroactive encryption:** CMEK only protects data written after your key takes effect (see [How it works](https://platform.claude.com/docs/en/manage-claude/cmek#how-it-works)).
 * **Latency:** Operations that wrap or unwrap data keys make a round-trip to your key management service, which can add a small amount of latency to actions that read or write data at rest.
 * **Revocation delay:** Key revocation can take up to 1 hour (the cache TTL). Requests already in flight during that window may continue to succeed.
-* **KMS costs:** CMEK requires a key in a third-party key management service (AWS KMS, Google Cloud KMS, or Azure Key Vault), which may incur separate charges billed by your KMS provider.
+* **KMS costs:** CMEK requires a key in a third-party key management service (AWS KMS, Google Cloud KMS, or Azure Key Vault), which might incur separate charges billed by your KMS provider.
+* **Claude Code telemetry behind a gateway:** When Claude Code connects through an LLM gateway or proxy (a custom `ANTHROPIC_BASE_URL`), CMEK does not apply to Claude Code's operational telemetry. To turn this telemetry off, set the `DISABLE_TELEMETRY` environment variable to `1`, as described under [Telemetry services](https://code.claude.com/docs/en/data-usage#telemetry-services) in the Claude Code documentation.
 
 ## Configure your provider
 

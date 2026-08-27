@@ -32,7 +32,7 @@ List Session Threads
 
   - `Agent agent`
 
-    A session-resolved multiagent roster entry.
+    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
 
   - `?\Datetime archivedAt`
 

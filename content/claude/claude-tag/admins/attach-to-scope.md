@@ -120,13 +120,13 @@ A new instruction applies to sessions started after you save it. Claude reads it
 
 By default, anyone in a channel who is also a member of your Claude organization can edit that channel's instructions from the **Configure** link in Claude's reply footer. The **Channel member edits** setting in a scope's **Advanced** settings controls this.
 
-| Option      | Effect                                                                                                    |
-| :---------- | :-------------------------------------------------------------------------------------------------------- |
-| **Inherit** | Follow the parent scope's setting                                                                         |
-| **Allow**   | Members can edit channel instructions from the Configure link                                             |
-| **Block**   | The Configure page is read-only for members, with a note that only admins can change channel instructions |
+| Option      | Effect                                                                                                                                                                                           |
+| :---------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Inherit** | Follow the parent scope's setting                                                                                                                                                                |
+| **Allow**   | Members can edit channel instructions from the Configure link                                                                                                                                    |
+| **Block**   | The Configure page is read-only for members, with a note that only admins can change channel instructions. Claude also declines to make a model the channel default when anyone asks in a thread |
 
-A chain of scopes that all inherit resolves to **Allow**. Set **Block** at the workspace or Default Slack access scope to lock channel instructions across every channel beneath it. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can still edit instructions in a channel assigned to them when **Block** is set.
+A chain of scopes that all inherit resolves to **Allow**. Set **Block** at the workspace or Default Slack access scope to lock channel instructions across every channel beneath it. A [channel manager](/docs/claude-tag/admins/restrict-access#delegate-channel-setup-to-channel-managers) can still edit instructions and the default model from the Configure page in a channel assigned to them when **Block** is set.
 
 ## Verify the bundle is live
 

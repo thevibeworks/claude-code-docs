@@ -16,7 +16,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 31 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 38 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -85,6 +85,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `"agent-memory-2026-07-22"`
 
     - `"mid-conversation-tool-changes-2026-07-01"`
+
+    - `"compact-2026-01-12"`
+
+    - `"computer-use-2025-11-24"`
+
+    - `"mcp-tunnels-2026-06-22"`
+
+    - `"structured-outputs-2025-11-13"`
+
+    - `"task-budgets-2026-03-13"`
+
+    - `"thinking-display-updates-2026-08-18"`
+
+    - `"ce-user-management-2026-07-13"`
 
 - `"anthropic-user-profile-id": optional string`
 
@@ -1690,13 +1704,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: "enabled"`
 
-    - `display: optional "summarized" or "omitted" or null`
+    - `display: optional "summarized" or "omitted" or "updates" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
       - `"summarized"`
 
       - `"omitted"`
+
+      - `"updates"`
 
   - `BetaThinkingConfigDisabled object`
 
@@ -1706,13 +1722,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: "adaptive"`
 
-    - `display: optional "summarized" or "omitted" or null`
+    - `display: optional "summarized" or "omitted" or "updates" or null`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
 
       - `"summarized"`
 
       - `"omitted"`
+
+      - `"updates"`
 
 - `tool_choice: optional BetaToolChoice`
 

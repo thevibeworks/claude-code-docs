@@ -74,7 +74,7 @@ In the **Connected workspaces** list, select **Disconnect** on the workspace's r
   * Its scopes, with their instructions and bundle bindings
   * The links between members' Slack and Claude accounts
 
-  Deletion starts as soon as you confirm and runs to completion in the background. This can't be undone. Routines a person set up in a direct message with Claude belong to that person's account and keep running; an admin can delete them from the [**Scheduled work** tab](/docs/claude-tag/admins/audit).
+  Deletion starts as soon as you confirm and runs to completion in the background. This can't be undone. Routines a person set up in a direct message with Claude belong to that person's account and keep running; an Owner can delete them from the [**Scheduled work** tab](/docs/claude-tag/admins/audit).
 </Warning>
 
 Access bundles belong to your organization, not to a workspace, so they stay available to attach to other scopes; only their bindings to the deleted scopes go.

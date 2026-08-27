@@ -20,15 +20,130 @@ Use this API to:
   **Admin API key required.** These endpoints require an Admin API key, which is different from a standard Claude API key. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) to find where to create one for your organization type and which scopes to select.
 </Check>
 
+The SDK and CLI examples on this page construct the default client, which reads the Admin API key from the `ANTHROPIC_API_KEY` environment variable. The SDKs expose these endpoints as `client.beta.organization.rate_limits` and `client.beta.organization.workspaces.rate_limits`; the Python, TypeScript, C#, Go, and Java list methods return an iterator that follows `next_page` for you, while the PHP, Ruby, and curl examples read one page.
+
 ## Quick start
 
 List the rate limits configured for your organization:
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rate_limits" \
-  --header "anthropic-version: 2023-06-01" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rate_limits" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rate-limits list
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  rate_limits = client.beta.organization.rate_limits.list()
+
+  for group in rate_limits:
+      models = f" ({', '.join(group.models)})" if group.models else ""
+      print(f"{group.group_type}{models}")
+      for limit in group.limits:
+          print(f"  {limit.type}: {limit.value}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const rateLimits = await client.beta.organization.rateLimits.list();
+
+  for await (const group of rateLimits) {
+    const models = group.models ? ` (${group.models.join(", ")})` : "";
+    console.log(`${group.group_type}${models}`);
+    for (const limit of group.limits) {
+      console.log(`  ${limit.type}: ${limit.value}`);
+    }
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var rateLimits = await client.Beta.Organization.RateLimits.List();
+
+  await foreach (var group in rateLimits.Paginate())
+  {
+      var models = group.Models is null ? "" : $" ({string.Join(", ", group.Models)})";
+      Console.WriteLine($"{group.GroupType.Raw()}{models}");
+      foreach (var limit in group.Limits)
+      {
+          Console.WriteLine($"  {limit.Type}: {limit.Value}");
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  rateLimits := client.Beta.Organization.RateLimits.ListAutoPaging(context.Background(), anthropic.BetaOrganizationRateLimitListParams{})
+
+  for rateLimits.Next() {
+  	group := rateLimits.Current()
+  	models := ""
+  	if len(group.Models) > 0 {
+  		models = fmt.Sprintf(" (%s)", strings.Join(group.Models, ", "))
+  	}
+  	fmt.Printf("%s%s\n", group.GroupType, models)
+  	for _, limit := range group.Limits {
+  		fmt.Printf("  %s: %d\n", limit.Type, limit.Value)
+  	}
+  }
+  if err := rateLimits.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var rateLimits = client.beta().organization().rateLimits().list();
+
+  for (var group : rateLimits.autoPager()) {
+      var models = group.models()
+          .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
+          .orElse("");
+      IO.println(group.groupType().asString() + models);
+      for (var limit : group.limits()) {
+          IO.println("  " + limit.type() + ": " + limit.value());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $rateLimits = $client->beta->organization->rateLimits->list();
+
+  foreach ($rateLimits->data as $group) {
+      $models = $group->models ? ' (' . implode(', ', $group->models) . ')' : '';
+      echo "{$group->groupType}{$models}\n";
+      foreach ($group->limits as $limit) {
+          echo "  {$limit->type}: {$limit->value}\n";
+      }
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rate_limits = client.beta.organization.rate_limits.list
+
+  rate_limits.data.each do |group|
+    models = group.models ? " (#{group.models.join(", ")})" : ""
+    puts "#{group.group_type}#{models}"
+    group.limits.each do |limit|
+      puts "  #{limit.type}: #{limit.value}"
+    end
+  end
+  ```
+</CodeGroup>
 
 ## Organization rate limits
 
@@ -45,11 +160,124 @@ For complete parameter details and response schemas, see the [Organization Rate 
 
 ### List all organization rate limits
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rate_limits" \
-  --header "anthropic-version: 2023-06-01" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rate_limits" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rate-limits list
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  rate_limits = client.beta.organization.rate_limits.list()
+
+  for group in rate_limits:
+      models = f" ({', '.join(group.models)})" if group.models else ""
+      print(f"{group.group_type}{models}")
+      for limit in group.limits:
+          print(f"  {limit.type}: {limit.value}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const rateLimits = await client.beta.organization.rateLimits.list();
+
+  for await (const group of rateLimits) {
+    const models = group.models ? ` (${group.models.join(", ")})` : "";
+    console.log(`${group.group_type}${models}`);
+    for (const limit of group.limits) {
+      console.log(`  ${limit.type}: ${limit.value}`);
+    }
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var rateLimits = await client.Beta.Organization.RateLimits.List();
+
+  await foreach (var group in rateLimits.Paginate())
+  {
+      var models = group.Models is null ? "" : $" ({string.Join(", ", group.Models)})";
+      Console.WriteLine($"{group.GroupType.Raw()}{models}");
+      foreach (var limit in group.Limits)
+      {
+          Console.WriteLine($"  {limit.Type}: {limit.Value}");
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  rateLimits := client.Beta.Organization.RateLimits.ListAutoPaging(context.Background(), anthropic.BetaOrganizationRateLimitListParams{})
+
+  for rateLimits.Next() {
+  	group := rateLimits.Current()
+  	models := ""
+  	if len(group.Models) > 0 {
+  		models = fmt.Sprintf(" (%s)", strings.Join(group.Models, ", "))
+  	}
+  	fmt.Printf("%s%s\n", group.GroupType, models)
+  	for _, limit := range group.Limits {
+  		fmt.Printf("  %s: %d\n", limit.Type, limit.Value)
+  	}
+  }
+  if err := rateLimits.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var rateLimits = client.beta().organization().rateLimits().list();
+
+  for (var group : rateLimits.autoPager()) {
+      var models = group.models()
+          .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
+          .orElse("");
+      IO.println(group.groupType().asString() + models);
+      for (var limit : group.limits()) {
+          IO.println("  " + limit.type() + ": " + limit.value());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $rateLimits = $client->beta->organization->rateLimits->list();
+
+  foreach ($rateLimits->data as $group) {
+      $models = $group->models ? ' (' . implode(', ', $group->models) . ')' : '';
+      echo "{$group->groupType}{$models}\n";
+      foreach ($group->limits as $limit) {
+          echo "  {$limit->type}: {$limit->value}\n";
+      }
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rate_limits = client.beta.organization.rate_limits.list
+
+  rate_limits.data.each do |group|
+    models = group.models ? " (#{group.models.join(", ")})" : ""
+    puts "#{group.group_type}#{models}"
+    group.limits.each do |limit|
+      puts "  #{limit.type}: #{limit.value}"
+    end
+  end
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -95,11 +323,141 @@ curl "https://api.anthropic.com/v1/organizations/rate_limits" \
 
 Pass any model ID or alias as the `model` query parameter to return only the entry that contains it:
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rate_limits?model=claude-opus-5" \
-  --header "anthropic-version: 2023-06-01" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rate_limits?model=claude-opus-5" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rate-limits list --model claude-opus-5
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  rate_limits = client.beta.organization.rate_limits.list(model="claude-opus-5")
+
+  for group in rate_limits:
+      models = f" ({', '.join(group.models)})" if group.models else ""
+      print(f"{group.group_type}{models}")
+      for limit in group.limits:
+          print(f"  {limit.type}: {limit.value}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const rateLimits = await client.beta.organization.rateLimits.list({ model: "claude-opus-5" });
+
+  for await (const group of rateLimits) {
+    const models = group.models ? ` (${group.models.join(", ")})` : "";
+    console.log(`${group.group_type}${models}`);
+    for (const limit of group.limits) {
+      console.log(`  ${limit.type}: ${limit.value}`);
+    }
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var rateLimits = await client.Beta.Organization.RateLimits.List(new()
+  {
+      Model = "claude-opus-5"
+  });
+
+  await foreach (var group in rateLimits.Paginate())
+  {
+      var models = group.Models is null ? "" : $" ({string.Join(", ", group.Models)})";
+      Console.WriteLine($"{group.GroupType.Raw()}{models}");
+      foreach (var limit in group.Limits)
+      {
+          Console.WriteLine($"  {limit.Type}: {limit.Value}");
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  rateLimits := client.Beta.Organization.RateLimits.ListAutoPaging(context.Background(), anthropic.BetaOrganizationRateLimitListParams{
+  	Model: anthropic.String(anthropic.ModelClaudeOpus5),
+  })
+
+  for rateLimits.Next() {
+  	group := rateLimits.Current()
+  	models := ""
+  	if len(group.Models) > 0 {
+  		models = fmt.Sprintf(" (%s)", strings.Join(group.Models, ", "))
+  	}
+  	fmt.Printf("%s%s\n", group.GroupType, models)
+  	for _, limit := range group.Limits {
+  		fmt.Printf("  %s: %d\n", limit.Type, limit.Value)
+  	}
+  }
+  if err := rateLimits.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.ratelimits.RateLimitListParams;
+  import com.anthropic.models.messages.Model;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = RateLimitListParams.builder()
+          .model(Model.CLAUDE_OPUS_5.asString())
+          .build();
+      var rateLimits = client.beta().organization().rateLimits().list(params);
+
+      for (var group : rateLimits.autoPager()) {
+          var models = group.models()
+              .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
+              .orElse("");
+          IO.println(group.groupType().asString() + models);
+          for (var limit : group.limits()) {
+              IO.println("  " + limit.type() + ": " + limit.value());
+          }
+      }
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Messages\Model;
+
+  $client = new Client();
+
+  $rateLimits = $client->beta->organization->rateLimits->list(
+      model: Model::CLAUDE_OPUS_5->value,
+  );
+
+  foreach ($rateLimits->data as $group) {
+      $models = $group->models ? ' (' . implode(', ', $group->models) . ')' : '';
+      echo "{$group->groupType}{$models}\n";
+      foreach ($group->limits as $limit) {
+          echo "  {$limit->type}: {$limit->value}\n";
+      }
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rate_limits = client.beta.organization.rate_limits.list(model: Anthropic::Model::CLAUDE_OPUS_5)
+
+  rate_limits.data.each do |group|
+    models = group.models ? " (#{group.models.join(", ")})" : ""
+    puts "#{group.group_type}#{models}"
+    group.limits.each do |limit|
+      puts "  #{limit.type}: #{limit.value}"
+    end
+  end
+  ```
+</CodeGroup>
 
 If the model string doesn't match any group, the endpoint returns a 404 error. The `model` parameter is supported on the organization endpoint only; the workspace endpoint doesn't accept it.
 
@@ -119,11 +477,139 @@ For complete parameter details and response schemas, see the [Workspace Rate Lim
   To retrieve your organization's workspace IDs, use the [List Workspaces](https://platform.claude.com/docs/en/api/admin/workspaces/list) endpoint, or find them in the [Claude Console](https://platform.claude.com/settings/workspaces). The default workspace cannot have rate limit overrides, so it has no entry on this endpoint; use the organization endpoint to read its limits.
 </Tip>
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/rate_limits" \
-  --header "anthropic-version: 2023-06-01" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/rate_limits" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:workspaces:rate-limits list \
+    --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  rate_limits = client.beta.organization.workspaces.rate_limits.list(
+      "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  )
+
+  for group in rate_limits:
+      models = f" ({', '.join(group.models)})" if group.models else ""
+      print(f"{group.group_type}{models}")
+      for limit in group.limits:
+          print(f"  {limit.type}: {limit.value}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const rateLimits = await client.beta.organization.workspaces.rateLimits.list(
+    "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  );
+
+  for await (const group of rateLimits) {
+    const models = group.models ? ` (${group.models.join(", ")})` : "";
+    console.log(`${group.group_type}${models}`);
+    for (const limit of group.limits) {
+      console.log(`  ${limit.type}: ${limit.value}`);
+    }
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var rateLimits = await client.Beta.Organization.Workspaces.RateLimits.List(
+      "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  );
+
+  await foreach (var group in rateLimits.Paginate())
+  {
+      var models = group.Models is null ? "" : $" ({string.Join(", ", group.Models)})";
+      Console.WriteLine($"{group.GroupType.Raw()}{models}");
+      foreach (var limit in group.Limits)
+      {
+          Console.WriteLine($"  {limit.Type}: {limit.Value}");
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  rateLimits := client.Beta.Organization.Workspaces.RateLimits.ListAutoPaging(
+  	context.Background(),
+  	"wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  	anthropic.BetaOrganizationWorkspaceRateLimitListParams{},
+  )
+
+  for rateLimits.Next() {
+  	group := rateLimits.Current()
+  	models := ""
+  	if len(group.Models) > 0 {
+  		models = fmt.Sprintf(" (%s)", strings.Join(group.Models, ", "))
+  	}
+  	fmt.Printf("%s%s\n", group.GroupType, models)
+  	for _, limit := range group.Limits {
+  		fmt.Printf("  %s: %d\n", limit.Type, limit.Value)
+  	}
+  }
+  if err := rateLimits.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var rateLimits = client.beta().organization().workspaces().rateLimits()
+      .list("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ");
+
+  for (var group : rateLimits.autoPager()) {
+      var models = group.models()
+          .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
+          .orElse("");
+      IO.println(group.groupType().asString() + models);
+      for (var limit : group.limits()) {
+          IO.println("  " + limit.type() + ": " + limit.value());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $rateLimits = $client->beta->organization->workspaces->rateLimits->list(
+      workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
+  );
+
+  foreach ($rateLimits->data as $group) {
+      $models = $group->models ? ' (' . implode(', ', $group->models) . ')' : '';
+      echo "{$group->groupType}{$models}\n";
+      foreach ($group->limits as $limit) {
+          echo "  {$limit->type}: {$limit->value}\n";
+      }
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  workspace_id = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  rate_limits = client.beta.organization.workspaces.rate_limits.list(workspace_id)
+
+  rate_limits.data.each do |group|
+    models = group.models ? " (#{group.models.join(", ")})" : ""
+    puts "#{group.group_type}#{models}"
+    group.limits.each do |limit|
+      puts "  #{limit.type}: #{limit.value}"
+    end
+  end
+  ```
+</CodeGroup>
 
 ```json
 {
@@ -161,11 +647,143 @@ curl "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA
 
 Both endpoints accept an optional `group_type` query parameter that restricts the response to a single category:
 
-```bash cURL
-curl "https://api.anthropic.com/v1/organizations/rate_limits?group_type=batch" \
-  --header "anthropic-version: 2023-06-01" \
-  --header "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/rate_limits?group_type=batch" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:rate-limits list --group-type batch
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  rate_limits = client.beta.organization.rate_limits.list(group_type="batch")
+
+  for group in rate_limits:
+      models = f" ({', '.join(group.models)})" if group.models else ""
+      print(f"{group.group_type}{models}")
+      for limit in group.limits:
+          print(f"  {limit.type}: {limit.value}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const rateLimits = await client.beta.organization.rateLimits.list({ group_type: "batch" });
+
+  for await (const group of rateLimits) {
+    const models = group.models ? ` (${group.models.join(", ")})` : "";
+    console.log(`${group.group_type}${models}`);
+    for (const limit of group.limits) {
+      console.log(`  ${limit.type}: ${limit.value}`);
+    }
+  }
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta.Organization.RateLimits;
+
+  AnthropicClient client = new();
+
+  var rateLimits = await client.Beta.Organization.RateLimits.List(new()
+  {
+      GroupType = GroupType.Batch
+  });
+
+  await foreach (var group in rateLimits.Paginate())
+  {
+      var models = group.Models is null ? "" : $" ({string.Join(", ", group.Models)})";
+      Console.WriteLine($"{group.GroupType.Raw()}{models}");
+      foreach (var limit in group.Limits)
+      {
+          Console.WriteLine($"  {limit.Type}: {limit.Value}");
+      }
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  rateLimits := client.Beta.Organization.RateLimits.ListAutoPaging(context.Background(), anthropic.BetaOrganizationRateLimitListParams{
+  	GroupType: anthropic.BetaOrganizationRateLimitListParamsGroupTypeBatch,
+  })
+
+  for rateLimits.Next() {
+  	group := rateLimits.Current()
+  	models := ""
+  	if len(group.Models) > 0 {
+  		models = fmt.Sprintf(" (%s)", strings.Join(group.Models, ", "))
+  	}
+  	fmt.Printf("%s%s\n", group.GroupType, models)
+  	for _, limit := range group.Limits {
+  		fmt.Printf("  %s: %d\n", limit.Type, limit.Value)
+  	}
+  }
+  if err := rateLimits.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.ratelimits.RateLimitListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = RateLimitListParams.builder()
+          .groupType(RateLimitListParams.GroupType.BATCH)
+          .build();
+      var rateLimits = client.beta().organization().rateLimits().list(params);
+
+      for (var group : rateLimits.autoPager()) {
+          var models = group.models()
+              .map(modelIds -> " (" + String.join(", ", modelIds) + ")")
+              .orElse("");
+          IO.println(group.groupType().asString() + models);
+          for (var limit : group.limits()) {
+              IO.println("  " + limit.type() + ": " + limit.value());
+          }
+      }
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\Organization\RateLimits\RateLimitListParams\GroupType;
+  // ...
+
+  $client = new Client();
+
+  $rateLimits = $client->beta->organization->rateLimits->list(
+      groupType: GroupType::BATCH,
+  );
+
+  foreach ($rateLimits->data as $group) {
+      $models = $group->models ? ' (' . implode(', ', $group->models) . ')' : '';
+      echo "{$group->groupType}{$models}\n";
+      foreach ($group->limits as $limit) {
+          echo "  {$limit->type}: {$limit->value}\n";
+      }
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  rate_limits = client.beta.organization.rate_limits.list(group_type: :batch)
+
+  rate_limits.data.each do |group|
+    models = group.models ? " (#{group.models.join(", ")})" : ""
+    puts "#{group.group_type}#{models}"
+    group.limits.each do |limit|
+      puts "  #{limit.type}: #{limit.value}"
+    end
+  end
+  ```
+</CodeGroup>
 
 Valid values are `model_group`, `batch`, `token_count`, `files`, `skills`, and `web_search`.
 

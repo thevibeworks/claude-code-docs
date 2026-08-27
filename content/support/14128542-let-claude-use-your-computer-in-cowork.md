@@ -12,7 +12,7 @@ In Cowork, Claude uses the most precise tool first. When you assign a task, Clau
 
 1. **Connectors.** If a connector is available—like Gmail, Google Drive, or Slack—Claude uses it. This is the fastest and most reliable path.
 
-2. **Browser.** When there isn’t a connector for the tool you need, Claude can navigate the Chrome browser to work on your task using Claude in Chrome.
+2. **Browser.** When there isn't a connector for the tool you need, Claude works on your task in the browser built into the Claude Desktop app, or in your own Chrome browser through Claude in Chrome if that's your preferred browser. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
 
 3. **Screen interaction.** Claude uses computer use to interact directly with your screen: clicking, typing, and navigating your desktop apps.
 
@@ -40,7 +40,7 @@ If your work involves a physical machine, Claude keeps working while you step aw
 
 Claude asks for your permission before accessing each application. You’ll see a prompt and must approve before Claude can interact with that app. Some apps are off-limits by default.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1787832000&amp;signature=aa2b1e590c4f072d79fb8e55d3de851a2eee888935bfb1c7733df02e94b33af5&amp;req=diEuFct3molbUPMW3nq%2BgUwo4rVPu%2BGWj5A5uJn0DHqTXU1VQ0QAXYZ5kK6z%0A%2FUSj4DzCnRPzkZeNeNEp4s63t7k%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1787896800&amp;signature=a3388b75e2f554090aabe7ae89329fab7d3abd75a27b2d4b80430dbd988e08ea&amp;req=diEuFct3molbUPMW3nq%2BgUwo4rVPu%2BGci5g5uJn0DHrB%2BybJD2uggduzcX9Z%0AaCGQlWkdt4cJHKC%2FHoEpZ8PMWhE%3D%0A)
 
 Claude is trained to avoid risky operations—like transferring funds, modifying or deleting files, or handling sensitive data—and to flag signs of prompt injection. However, these safeguards aren't perfect, and Claude may occasionally act outside these boundaries.
 
@@ -128,7 +128,7 @@ To start using computer use:
 
 3. Find the **Computer use** toggle and turn it on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193911341/630e6df3b08b27d1c7b4f1ca6a1f/image.png?expires=1787832000&amp;signature=9f915eadc52230dbd406aa9a62cd4e02fc5d49a322757ae766d06ed6c6a53af1&amp;req=diEuFcB%2FnIJbWPMW3nq%2BgdUsBqXcDkFI%2FAcnV%2FJm3T%2FNJ%2F4943AFVojZAhip%0A%2BRyY0lLcy9qT7w7ess5SMtlTbvM%3D%0A)
+  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193911341/630e6df3b08b27d1c7b4f1ca6a1f/image.png?expires=1787896800&amp;signature=bffe59ae4118f9f19052945ffb8a0ea459e2da8006eaa072178d2c1ac4e50d1f&amp;req=diEuFcB%2FnIJbWPMW3nq%2BgdUsBqXcDkFC%2BA8nV%2FJm3T%2FA8ktDHhdakJPO6zgW%0AKW9lwTsbmGwzN09P6P86gieI%2B%2Fw%3D%0A)
 
 4. Open Cowork or Claude Code in the desktop app and start a session.
 

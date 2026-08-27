@@ -71,7 +71,7 @@ Then prompt naturally: *“Migrate all sync IO to async. Batch the changes and l
 The `/batch` command interviews you about a migration, then fans the work out to as many worktree agents as needed — dozens, hundreds, or more. Each agent works in isolation, tests its own changes, and creates a PR independently.
 
 ```
-> /batch migrate src/ from Solid to React
+> /batch migrate src/ from JavaScript to TypeScript
 ```
 
 ---

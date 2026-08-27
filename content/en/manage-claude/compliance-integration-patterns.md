@@ -113,7 +113,7 @@ Five retention horizons govern what you can retrieve later:
 | Data                                                    | Retained for                                                                                             | Controlled by                                                        |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | Activity Feed records                                   | 6 years                                                                                                  | Anthropic                                                            |
-| Chat, file, and project content                         | Your organization's claude.ai retention policy                                                           | Your organization                                                    |
+| Chat, file, and project content                         | Your organization's claude.ai retention policy, unless a user deletes it sooner                          | Your organization                                                    |
 | Local session transcripts (sessions on users' machines) | 6 years by default, or your organization's custom conversation retention period when a finite one is set | Anthropic by default; your organization when it sets a custom period |
 | Remote session transcripts (sessions in the cloud)      | 6 years                                                                                                  | Anthropic                                                            |
 | Content hard-deleted through the Compliance API         | Not retained; deletion is immediate and permanent                                                        | The caller of the `DELETE` endpoint                                  |
@@ -124,7 +124,8 @@ Decide between export-and-archive and on-demand API retrieval as follows:
 
 * If your legal-hold or audit horizon exceeds 6 years for activity metadata or session transcripts, export Activity Feed pages and session transcripts to your own archive as you ingest them.
 * If your content-retention policy is shorter than your eDiscovery horizon, export chat and file content before the retention window expires; the Compliance API cannot return content that retention has already removed. The same applies to local session transcripts, which follow your organization's custom conversation retention period when a finite one is set, even when that period is shorter than 6 years. The local session endpoints stop returning messages older than your organization's current period as soon as the setting changes, and lengthening the period later does not restore transcripts that have already expired, so export any transcript you must keep beyond it.
-* If a workflow might issue a Compliance API hard-delete (for example, DLP enforcement), retrieve and archive the target content first. There is no recovery window after a hard-delete; soft-deletes from claude.ai remain retrievable with `deleted_at` populated, but Compliance API deletes do not.
+* If you must retain chat content after users delete it in claude.ai (for example, under a legal hold), export chat, file, and artifact content to your own archive as you ingest it; the Compliance API cannot return content that a user has already deleted.
+* If a workflow might issue a Compliance API hard-delete (for example, DLP enforcement), retrieve and archive the target content first. There is no recovery window after a hard-delete.
 
 In every other case, rely on direct API retrieval and avoid maintaining a parallel copy.
 
@@ -147,10 +148,12 @@ The content endpoints (chats, files, projects, project attachments, and local an
 * Claude Code usage authenticated with a Claude Console API key, run through a third-party cloud platform (Amazon Bedrock, Google Cloud, or Microsoft Foundry), or run in Claude Code on the web.
 * Local sessions from organizations with [HIPAA readiness](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness) enabled, and local sessions for which [zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#zero-data-retention-zdr-scope) is in effect.
 * Thinking blocks, and images or other binary content, inside session transcripts (transcripts carry user prompts, assistant responses, and tool activity only; local session transcripts show a placeholder `text` block where binary content was omitted).
+* The original file for a chat attachment that claude.ai stored as extracted text, such as some Word, PowerPoint, and PDF uploads (the file content endpoint returns the extracted text; see [Retrieve files and artifacts](https://platform.claude.com/docs/en/manage-claude/compliance-content-data#retrieve-files-and-artifacts)).
 * The system prompt of local sessions (a marker message stands in for it).
 * Tool definitions and MCP server configuration in session transcripts (local or remote), and citation metadata on `text` blocks in local session transcripts.
-* Transcript content for local sessions in organizations that use [customer-managed encryption keys](https://platform.claude.com/docs/en/manage-claude/cmek) (session metadata is still listed).
+* Local session transcript content in an organization whose [customer-managed encryption key](https://platform.claude.com/docs/en/manage-claude/cmek) cannot currently be used. Those requests return [503 Service Unavailable](https://platform.claude.com/docs/en/manage-claude/compliance-errors#local-sessions-temporarily-unavailable), and session metadata is still listed.
 * Content removed by your organization's retention policy.
+* Content of chats that users delete in claude.ai (the chats are still listed, with `deleted_at` populated).
 * Content hard-deleted through the Compliance API.
 
 See the [Compliance API FAQ](https://platform.claude.com/docs/en/manage-claude/compliance-faq#data-coverage-and-retention) for more on what the Compliance API does and does not capture.

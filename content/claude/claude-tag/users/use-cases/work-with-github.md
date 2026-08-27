@@ -28,7 +28,7 @@ Check that the channel has the connection below. Ask `@Claude what can you acces
 | :--------- | :------- | :----------------------------------------------------------------- |
 | Code       | GitHub   | Required. Reads granted repositories and opens draft pull requests |
 
-The same workflows apply to other source control systems. For GitLab, an admin [connects it with an access token](/docs/claude-tag/admins/connections/gitlab) instead of the GitHub App, and Claude clones its repositories the same way.
+The GitHub connection is what lets Claude clone a repository. For GitLab, an admin [connects it with an access token](/docs/claude-tag/admins/connections/gitlab), and Claude reads projects, manages issues, and comments on merge requests through the GitLab API.
 
 If Claude replies that a repository isn't configured, the repository wasn't granted for this channel. An admin can [verify GitHub access](/docs/claude-tag/admins/configure-github#verify-github-access). After the grant changes, start a fresh thread and name the repository in the first message.
 

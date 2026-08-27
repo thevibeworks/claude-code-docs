@@ -38,7 +38,7 @@ For prompt injection attacks to be successful, two things must be true at the sa
 
 - Avoid granting access to local files with sensitive information, like financial documents.
 
-- Be deliberate about which sites Claude works in through Claude in Chrome, especially sites where you're signed in or that handle money or personal information.
+- Be deliberate about which sites Claude works in, whether through the built-in browser or Claude in Chrome, especially sites where you're signed in or that handle money or personal information.
 
 - Extend internet access only to sites you trust.
 
@@ -48,7 +48,7 @@ For prompt injection attacks to be successful, two things must be true at the sa
 
 - Be especially cautious with computer use—Claude clicks, types, and navigates your screen directly, without the permission checks that gate other Cowork tools. For details on how computer use works and how to manage permissions, see **[Let Claude use your computer in Cowork](https://support.claude.com/en/articles/14128542-computer-use-safety)**.
 
-**Important:** Cowork has access to Claude in Chrome; we strongly advise against using Claude in Chrome to manage or take actions involving sensitive information. See **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely#h_044f6a88a7)** for more information about the potential risks.
+**Important:** Cowork can work in the browser built into the Claude Desktop app and in Claude in Chrome. Both run the same safeguards, and the same guidance applies to both: we strongly advise against using either to manage or take actions involving sensitive information. See **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely#h_044f6a88a7)** and **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)** for more information about the potential risks.
 
 Cowork via mobile and web is captured in Compliance API. Learn more about **[retrieving remote sessions in the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-content-data)**.
 

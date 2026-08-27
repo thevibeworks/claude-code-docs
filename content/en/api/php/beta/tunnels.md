@@ -480,7 +480,7 @@ var_dump($betaTunnelToken);
 
 ### Create Tunnel Certificate
 
-`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePem, ?list<AnthropicBeta> betas): TunnelCertificate`
+`$client->beta->tunnels->certificates->create(string tunnelID, string caCertificatePEM, ?list<AnthropicBeta> betas): TunnelCertificate`
 
 **POST** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -492,7 +492,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
 - `tunnelID: string`
 
-- `caCertificatePem: string`
+- `caCertificatePEM: string`
 
   PEM-encoded X.509 CA certificate. Must contain exactly one certificate and no private-key material. Maximum 8KB.
 
@@ -541,7 +541,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaTunnelCertificate = $client->beta->tunnels->certificates->create(
   'tunnel_id',
-  caCertificatePem: 'ca_certificate_pem',
+  caCertificatePEM: 'ca_certificate_pem',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 

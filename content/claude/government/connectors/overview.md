@@ -14,9 +14,23 @@ A **connector** is a link between Claude and an external service. The service ru
 
 ## The Connectors card
 
-The **Connectors** card appears on your [tenant](/docs/government/tenant-admin/configuration) or [organization](/docs/government/org-admin/configuration) Config page alongside the built-in connector cards. It lists every connector you have added, with each one's name, address, the products it applies to, and a summary of how many of its tools are allowed. Click **Add connector** to open the wizard, or click the edit icon next to a connector to change it.
+The **Connectors** card appears on your [tenant](/docs/government/tenant-admin/configuration) or [organization](/docs/government/org-admin/configuration) Config page alongside the built-in connector cards, and on the Config page for each [directory group](/docs/government/config/overview#group-specific-settings). It lists the connectors added at the level you are viewing and the connectors that level inherits, with each one's name, address, the products it applies to, and a summary of how many of its tools are allowed. Click **Add connector** to open the wizard, or click the edit icon next to a connector added at this level to change it.
 
-Connectors are set at the tenant or organization level. When you are viewing a group scope, the card is read-only and points you to the organization or tenant settings where connectors are configured.
+An inherited connector has a badge that says where it comes from, such as **Inherited from your tenant** or **Inherited from your organization**, in place of the edit and remove controls. To change an inherited connector for the members at your level, click **Add connector** and create one with the same name. The inherited connector's details and stored secret are not copied, so you enter the server address and authentication again. Your entry then replaces the inherited one in the list and takes priority over it, as described under [Who receives a connector](#who-receives-a-connector).
+
+## Who receives a connector
+
+Who receives a connector depends on where you add it:
+
+* On the tenant Config page, it reaches the members of every organization in the tenant.
+* On an organization's Config page, it reaches every member of that organization.
+* On the Config page for a [directory group](/docs/government/config/overview#group-specific-settings), it reaches that group's members: in every organization when you open the group from the tenant Config page (a tenant-wide group setting), or only in one organization when you open the group from that organization's Config page (an organization group setting).
+
+In every case it is delivered only to the products you select, with the tool policy you set.
+
+When the same connector name is added at more than one level, each member receives only the entry from the most specific level that applies to them: the organization's group settings first, then the organization, then the tenant-wide group settings, then the tenant. That entry replaces the others as a whole, including its address, authentication, products, and tool policy. You cannot remove a connector inherited from a level above, but you can stop it from reaching the members at your level by adding one with the same name and selecting no products under **Apply to**.
+
+A connector added for a group does not always reach every member of the group. Someone who belongs to more than one directory group receives group settings, connectors included, from only one of them: their [highest-priority group](/docs/government/config/overview#when-someone-belongs-to-more-than-one-group) that has any configuration. Adding a group's first connector or deleting its last one can therefore change which group, and so which group settings, apply to some members. The group's Config page shows a note when this could happen. To check which group applies to a particular member, use the person lookup described under [Comparing settings across levels](/docs/government/config/overview#comparing-settings-across-levels).
 
 ## Adding a connector
 
@@ -57,4 +71,4 @@ Click **Save** to create the connector. It appears in the **Connectors** card an
 
 ## Editing and removing a connector
 
-Click the edit icon next to a connector in the card to open the same wizard with its current values filled in. Changing the authentication method clears any stored secret and the app details saved for **OAuth (pre-registered app)**. Click the remove button next to a connector to delete it; it is withdrawn from every product at the next refresh.
+Click the edit icon next to a connector in the card to open the same wizard with its current values filled in. Changing the authentication method clears any stored secret and the app details saved for **OAuth (pre-registered app)**. Click the remove button next to a connector to delete it; it is withdrawn from every product at the next refresh. If you delete a connector that takes priority over an inherited connector with the same name, the inherited connector applies again from that refresh.
