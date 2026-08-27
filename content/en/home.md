@@ -241,15 +241,10 @@ with Claude"
   <HomeSection>
     <HomeSectionHeader label="Models" title="The Claude model family" description="Choose the right model for your use case." />
 
-    <HomeModelCards>
-      <HomeModelCard name="Fable 5" badge="Most capable" modelId="claude-fable-5" description="Highest capability for the most demanding reasoning and long-horizon agentic work." href="https://platform.claude.com/docs/en/models/fable-5/overview" />
-
-      <HomeModelCard name="Opus 5" badge="Advanced" modelId="claude-opus-5" description="Excellent for complex analysis, coding, and creative tasks requiring deep reasoning." href="https://platform.claude.com/docs/en/models/opus-5/overview" />
-
-      <HomeModelCard name="Sonnet 5" badge="Best balance" modelId="claude-sonnet-5" description="Ideal balance of intelligence and speed for most production workloads." href="https://platform.claude.com/docs/en/models/sonnet-5/overview" />
-
-      <HomeModelCard name="Haiku 4.5" badge="Fastest" modelId="claude-haiku-4-5" description="Lightning-fast responses for high-volume, latency-sensitive applications." href="https://platform.claude.com/docs/en/models/haiku-4-5/overview" />
-    </HomeModelCards>
+    * [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview) (`claude-fable-5`) — *Next-generation intelligence for long-running agents* — Most capable · Research · Multi-day tasks
+    * [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview) (`claude-opus-5`) — New — *For complex agentic coding and enterprise work* — Complex projects · Agents · Coding
+    * [Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/overview) (`claude-sonnet-5`) — *The best combination of speed and intelligence* — Everyday tasks · Writing · Cost-efficient
+    * [Claude Haiku 4.5](https://platform.claude.com/docs/en/models/haiku-4-5/overview) (`claude-haiku-4-5`) — *The fastest model with near-frontier intelligence* — Fastest · Lowest cost · High volume
   </HomeSection>
 
   <HomeSection last>

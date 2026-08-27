@@ -106,7 +106,7 @@ If the failure happens while Claude is posting a message rather than replying, t
 
 **What it means**
 
-**Allow Claude to work in channels with guests** is set to **Restrict** or **Channel only** for this channel's [scope](/docs/claude-tag/concepts/glossary#scope), so Claude checks the channel for guests before replying, and this install predates the `users:read` permission that check needs.
+**Allow Claude to work in channels with guests** is set to **Restrict** for this channel's [scope](/docs/claude-tag/concepts/glossary#scope), so Claude checks the channel for guests before replying, and this install predates the `users:read` permission that check needs.
 
 **How to resolve**
 
@@ -153,9 +153,9 @@ The channel includes at least one Slack guest account, and **Allow Claude to wor
 Either fix works:
 
 * Remove the guests from the channel, or move the conversation to a channel with no guests; this changes no settings, so no other channel is affected.
-* Or change **Allow Claude to work in channels with guests** for the scope covering this channel; changing it needs an organization owner. **Channel only** restores replies while keeping Claude to the channel's own instructions and access. **Allow** gives guests the full access the scope has. The setting is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, in the scope's collapsed **Advanced** section. Either value applies to every guest channel that scope covers; to limit it to one channel, set it on the channel's own scope. See [restrict guest channels](/docs/claude-tag/admins/restrict-access#restrict-guest-channels) for what each value exposes.
+* Or set **Allow Claude to work in channels with guests** to **Allow** for the scope covering this channel. The setting is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, in the scope's collapsed **Advanced** section. **Allow** applies to every guest channel that scope covers, and guests there can see Claude's replies and interact with it. To limit it to one channel, set it on the channel's own scope. See [restrict guest channels](/docs/claude-tag/admins/restrict-access#restrict-guest-channels) for the full exposure picture.
 
-Either value restores replies, not workspace search. Claude can't search the workspace from a channel that includes guests, even under **Allow**. Removing the guests restores search as well.
+**Allow** restores replies, not workspace search. Claude can't search the workspace from a channel that includes guests, even when the setting is **Allow**. Removing the guests restores search as well.
 
 If the fix worked, a mention in the channel gets a reply.
 
@@ -188,7 +188,7 @@ The same check also refuses requests made from another conversation, such as ask
 
 **What it means**
 
-This message comes from the guest check, not from workspace sharing. **Allow Claude to work in channels with guests** is set to **Restrict** or **Channel only** for this channel's scope, and the channel's membership can't be verified, most often because the channel is shared across an Enterprise Grid organization, so Claude declines.
+This message comes from the guest check, not from workspace sharing. **Allow Claude to work in channels with guests** is set to **Restrict** for this channel's scope, and the channel's membership can't be verified, most often because the channel is shared across an Enterprise Grid organization, so Claude declines.
 
 **How to resolve**
 

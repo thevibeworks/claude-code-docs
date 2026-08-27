@@ -36,7 +36,7 @@ First launch prints a local URL right away, then continues setting up its starte
 
 When the app opens in your browser, sign in with your Claude account. If the OAuth redirect can't return to the app (for example, through an SSH tunnel), use the Paste a code option on the sign-in screen instead. No API key is required.
 
-After sign-in, a setup wizard walks you through enabling connectors and skills and setting which websites Claude can access. You can change these at any time in Settings.
+After sign-in, a setup wizard walks you through enabling connectors and skills, setting which websites Claude can access, and choosing whether memory is on. You can change these at any time in Settings.
 
 <Note>
   Claude Science keeps all of its data in a single folder (`~/.claude-science`) in your home directory; on Linux, the `claude-science` command itself installs to `~/.local/bin`. It doesn't modify your existing conda installation, R libraries, or shell configuration.

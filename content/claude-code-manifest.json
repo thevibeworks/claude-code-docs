@@ -104,7 +104,6 @@
   "_nodeVersion": "24.19.0",
   "dependencies": {},
   "_hasShrinkwrap": false,
-  "readmeFilename": "README.md",
   "optionalDependencies": {
     "@anthropic-ai/claude-code-linux-x64": "2.1.247",
     "@anthropic-ai/claude-code-win32-x64": "2.1.247",

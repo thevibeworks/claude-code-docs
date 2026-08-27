@@ -4,7 +4,7 @@
 
 # Restrict where Claude Tag operates
 
-> Claude Tag responds only where it has been added and addressed. See who can invoke it, what changes in guest and Slack Connect channels, the per-scope version setting, how to limit it to chosen channels, how to delegate a channel's setup, and how to quiet or remove it.
+> Claude Tag responds only where it has been added and addressed. See who can invoke it, guest and externally shared channel limits, the per-scope version setting, how to limit it to chosen channels, how to delegate a channel's setup, and how to quiet or remove it.
 
 export const BetaNote = () => <Info>Claude Tag is in public beta. Features and behavior described here may change before general availability.</Info>;
 
@@ -107,8 +107,8 @@ If someone invites the app into another channel afterward, Claude stays silent t
 DMs, guest channels, and shared channels sit outside the version setting:
 
 * **DMs.** The version setting doesn't cover them. To close those off too, turn off [Allow direct messages](#allow-or-disable-direct-messages).
-* **Guest channels.** By default Claude is off in any channel that includes a Slack guest. If a chosen channel has guests, also set [Allow Claude to work in channels with guests](#restrict-guest-channels) to **Allow** or **Channel only** on its scope.
-* **Shared channels.** A [channel shared across workspaces in your Enterprise Grid](#channels-shared-across-workspaces-in-your-enterprise-grid) takes its settings from **Default Slack access** only and can't serve as a chosen channel. In a [Slack Connect channel](#externally-shared-channels), Claude replies only where the guest setting allows it.
+* **Guest channels.** By default Claude is off in any channel that includes a Slack guest. If a chosen channel has guests, also set [Allow Claude to work in channels with guests](#restrict-guest-channels) to **Allow** on its scope.
+* **Shared channels.** A [channel shared across workspaces in your Enterprise Grid](#channels-shared-across-workspaces-in-your-enterprise-grid) takes its settings from **Default Slack access** only, and Claude [doesn't operate in Slack Connect channels](#externally-shared-channels) at all; neither can serve as a chosen channel.
 
 To control who can use Claude in the allowed channels, turn on the [restriction toggle](#restrict-who-can-use-claude); to cap what a channel spends, [set a per-channel spend limit](#set-spend-limits).
 
@@ -125,58 +125,21 @@ A channel that matches a blocked pattern stays off-limits even when it also matc
 
 ### Restrict guest channels
 
-By default, Claude is disabled in any channel that includes a Slack guest. The **Allow Claude to work in channels with guests** setting changes that per scope. It's at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, in the scope's collapsed **Advanced** section, and it has three values:
+By default, Claude is disabled in any channel that includes a Slack guest. To allow it there, set **Allow Claude to work in channels with guests** to **Allow** for the scope covering the channel; **Restrict** (the default) keeps it off wherever a guest is present. The setting is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, in the scope's collapsed **Advanced** section.
 
-| Value                  | What Claude does in a channel that includes a guest                                                                                                                                                                                                                                                                                           |
-| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Restrict** (default) | Doesn't reply. When someone mentions it, Claude posts a short notice that it doesn't respond in channels that include guests, with a link to this setting.                                                                                                                                                                                    |
-| **Channel only**       | Replies, but while a guest is present it runs with channel-only access. Bundles, connectors, and instructions from the workspace or from **Default Slack access** don't reach the channel, and neither do repositories, memory, or skills. The channel's own instructions and any access bundle attached directly to the channel still apply. |
-| **Allow**              | Replies with the full access the scope gives it, as in any other channel.                                                                                                                                                                                                                                                                     |
+**Allow** applies to every guest channel the scope covers, and guests in those channels can see Claude's replies and interact with it. To open one channel rather than a whole workspace, set it on the channel's own scope.
 
-A channel without its own value shows **Inherit** and takes the value from its workspace, or from **Default Slack access**. Changing this setting requires an organization owner. The setting applies to every guest channel the scope covers; to open one channel rather than a whole workspace, set it on the channel's own scope.
+**Allow** controls whether Claude replies, not what it can search. Workspace search is unavailable in any channel that includes a guest, even when the setting is **Allow**. Search results could include content from channels the guests can't see, the same reason Claude doesn't search private channels. To run a search that covers the workspace, ask from a channel without guests.
 
-Under every value, guests in the channel can read what Claude posts there. In any channel that includes a guest, even under **Allow**, Claude won't search the workspace, look up people or channels, or read channels other than the one it's in, because the results could include content the guests can't see in Slack. That is the same reason Claude doesn't search private channels. To do any of that, ask from a channel without guests.
+### Externally shared channels
 
-#### How Channel only works
-
-**Channel only** lets a team keep using Claude in a channel shared with contractors, clients, or agency partners without exposing the rest of the organization's setup to that conversation. While a guest is in the channel, Claude keeps what is set on the channel itself and drops what it would inherit:
-
-* No [access bundles](/docs/claude-tag/admins/attach-to-scope) from the workspace or from **Default Slack access**. A bundle attached directly to this channel's scope still applies, with its connections, instructions, and plugins, so attach to a guest channel only what you're comfortable having used in front of guests.
-* No repositories, including any in a bundle attached to the channel, and no connectors set directly on the channel.
-* No instructions set on the workspace or the organization. Instructions set on the channel itself still apply.
-* No memory, including this channel's own, and no skills.
-* No [environment set on the scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope). The session runs on the standard environment, so that environment's setup script, environment variables, and network access level don't apply while a guest is present.
-
-Claude decides this when a conversation starts. When no guest is in the channel, new conversations get its usual full access, as under **Allow**. A guest can talk to Claude by mentioning `@Claude` or by replying in a thread Claude started after a guest was in the channel, and Claude answers them. In a thread Claude began before the first guest joined, Claude stops replying while a guest is present, and a guest who writes there gets the same notice as under **Restrict**; start a new thread instead. While a guest is present, Claude replies only to mentions and to threads it's already part of; it doesn't pick up other channel messages on its own, even where [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) is on. A guest can't approve a tool or permission request, or restart, mute, fork, or stop the session. If a guest clicks approve, nothing is granted and a workspace member has to ask Claude again.
-
-Treat a channel's instructions, and the instructions in any bundle attached to the channel, as visible to everyone in that channel, including guests. Under **Channel only** they shape replies that guests read and take part in.
-
-**Channel only** takes effect where the **New** version answers. On a scope where **Legacy** answers, a channel that includes a guest is treated as **Restrict**.
-
-<a id="externally-shared-channels" />
-
-### Slack Connect channels
-
-In a Slack Connect channel, one shared with another company, Claude treats everyone from the other company as a guest, and the [guest setting](#restrict-guest-channels), **Allow Claude to work in channels with guests**, decides whether it replies. Under **Restrict**, the default, Claude stays silent and posts no notice, unlike in a channel with a Slack guest. To let Claude answer, set the guest setting to **Channel only** on the channel's scope, or on a scope it inherits from; **Allow** behaves the same there, because in a Slack Connect channel Claude only ever runs with [channel-only access](#how-channel-only-works).
-
-When Claude replies in a Slack Connect channel:
-
-* People from the other company can ask it by mentioning `@Claude` or replying in a thread it's already in. When the [restriction toggle](#restrict-who-can-use-claude) that limits Claude to your organization's members is on, Claude doesn't answer them. Whether or not the toggle is on, they can't approve a tool or permission request.
-* Claude doesn't search your workspace, look up people or channels, read other channels, or use memory. Of the [commands](/docs/claude-tag/users/commands), your organization's members can use only `!help`, `!mute`, and `!unmute`; restarting or forking a session isn't available, and neither are routines.
-* Claude replies only to mentions and to threads it's already in, even where [**Respond automatically**](/docs/claude-tag/users/when-claude-responds#turn-automatic-replies-on-or-off) is on. It reads the rest of the channel as context, including what the other company's people and apps post, but never answers their apps or bots.
-* You can't create a scope for a channel that's already shared; the console refuses it. A scope created before the channel was shared still applies, with its instructions and any bundle attached directly to it, so treat both as visible to the other company.
-* Everyone in the channel reads what Claude posts.
-* Claude stops replying in a thread it was in before the channel was shared, and posts a notice asking for a mention in a new thread.
-
-The guest setting controls only your organization's Claude. If the other company also uses Claude Tag, their settings decide whether their Claude answers in the channel, and you can't turn theirs off from your side. Claude never answers the other company's Claude.
-
-On Enterprise Grid, when Claude is installed at the organization level rather than per workspace, it replies only in Slack Connect channels that one of your own workspaces created. In a channel the other company created, it stays silent and posts no notice.
+Claude doesn't operate in Slack Connect channels, the ones shared with another company. It's off in those channels regardless of scope or bundle, and this isn't configurable.
 
 ### Channels shared across workspaces in your Enterprise Grid
 
 What happens in a channel shared across more than one workspace inside your Enterprise Grid depends on whether every workspace in it is connected to the same Claude organization.
 
-When the workspaces all belong to your one Claude organization, Claude replies in the channel, but only with the access and settings on your organization's [Default Slack access](/docs/claude-tag/admins/attach-to-scope) scope. Bundles, instructions, and memory set on a workspace or on that channel don't reach it. Claude posts a notice in the thread explaining this, about once a month per channel at most rather than on every reply. Where guest access is **Restrict** or **Channel only**, the [guest check](#restrict-guest-channels) still runs first and can refuse the reply.
+When the workspaces all belong to your one Claude organization, Claude replies in the channel, but only with the access and settings on your organization's [Default Slack access](/docs/claude-tag/admins/attach-to-scope) scope. Bundles, instructions, and memory set on a workspace or on that channel don't reach it. Claude posts a notice in the thread explaining this, about once a month per channel at most rather than on every reply. Where guest access is at its default **Restrict**, the [guest check](#restrict-guest-channels) still runs first and can refuse the reply.
 
 When the workspaces belong to different Claude organizations, each with its own settings and plan, Claude won't reply and posts a refusal message instead.
 

@@ -122,7 +122,7 @@ The claude.ai/security page runs a per-user check against your own connected Git
 
 - **Severity configuration** — as of today, severity is not configurable.
 
-- **Non-GitHub repositories** — Only repositories hosted on GitHub can be scanned today.
+- **Non-GitHub repositories** — Repositories hosted on **[GitHub.com](https://github.com)** and GitHub Enterprise Server can be scanned. Other hosting providers are not supported today.
 
 - **No Zero Data Retention (No ZDR)** — Anthropic may retain data where required by law or to address Usage Policy violations.
 
@@ -132,6 +132,6 @@ The claude.ai/security page runs a per-user check against your own connected Git
 
 - **Feedback** — Please share your feedback using the in-product feedback icon on the right.
 
-- **IP addresses for Github** — Use the following Anthropic guide for IP addresses allowlisting: **[IP addresses](https://platform.claude.com/docs/en/api/ip-addresses)**.
+- **IP addresses for Github** — Use the following Anthropic guide for IP addresses allowlisting: **[IP addresses](https://platform.claude.com/docs/en/api/ip-addresses)**. If you use GitHub Enterprise Server, your instance must allow inbound traffic from these IP addresses so Claude Security can reach your repositories.
 
 **Scope of use:** You will only use Claude Security to scan code that you or your company owns and to which you or your company holds all necessary rights to scan. You will not use Claude Security to scan code owned by or licensed from third parties, including but not limited to open source projects or repositories other than those included in your company's codebase(s).

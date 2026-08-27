@@ -28,11 +28,10 @@ Each key is scoped to the organization it was created in. A request can only eve
 
 ## Calling the API
 
-Send a GET request to `/v1/compliance/activities` on the Claude for Government host provided to you during onboarding, with your key in the `x-api-key` header.
+Send a GET request to your Claude for Government host followed by the fixed path `/gateway-api/v1/compliance/activities`, with your key in the `x-api-key` header. The Claude for Government host is the address of your organization admin portal. If you are unsure of it, ask your Anthropic representative.
 
 ```http theme={null}
-GET /v1/compliance/activities?since=2026-07-01T00:00:00Z&limit=500
-Host: <your-deployment-host>
+GET https://<claude-for-government-host>/gateway-api/v1/compliance/activities?since=2026-07-01T00:00:00Z&limit=500
 x-api-key: <your-compliance-api-key>
 ```
 

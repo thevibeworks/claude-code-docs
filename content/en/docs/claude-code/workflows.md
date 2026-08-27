@@ -156,7 +156,7 @@ With ultracode on, Claude decides when a task warrants a workflow. A single requ
 In the CLI, the per-run prompt shows the planned phases and these options:
 
 * **Yes, run it**: start the run
-* **Yes, and don't ask again for `<name>` in `<path>`**: start, and skip this prompt for this workflow in this project from now on
+* **Yes, and don't ask again for `<name>` in `<path>`**: start, and skip this prompt for this workflow in this project from now on. Claude Code offers this option when you run a bundled, saved, or plugin workflow by name, not for a script Claude wrote for the current task.
 * **View raw script**: read the script before deciding
 * **No**: cancel
 
@@ -164,19 +164,20 @@ In the CLI, the per-run prompt shows the planned phases and these options:
 
 Whether you see this prompt depends on your [permission mode](/docs/en/permission-modes):
 
-| Permission mode                            | When you're prompted                                                                                                                                    |
-| :----------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Auto                                       | First launch only. Any **Yes** records consent in your user settings, and later launches start without prompting. Skipped entirely when ultracode is on |
-| Manual, accept edits                       | Every run, unless you've selected **Yes, and don't ask again** for that workflow in this project                                                        |
-| Bypass permissions, `claude -p`, Agent SDK | Never. The run starts immediately                                                                                                                       |
+| Permission mode        | When you're prompted                                                                                                                                    |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Auto                   | First launch only. Any **Yes** records consent in your user settings, and later launches start without prompting. Skipped entirely when ultracode is on |
+| Manual, accept edits   | Every run, unless you've selected **Yes, and don't ask again** for that workflow in this project                                                        |
+| Bypass permissions     | Claude Code doesn't prompt you. The run starts immediately                                                                                              |
+| `claude -p`, Agent SDK | Claude Code doesn't prompt you                                                                                                                          |
+
+Outside bypass permission mode, in `claude -p` and the Agent SDK, Claude Code denies the workflow unless a permission rule allows the Workflow tool or your host approves it through `--permission-prompt-tool` or the SDK's `canUseTool` callback.
 
 In the Desktop app, an approval card shows the workflow name, the phase list, and a token-usage caution, with **Once**, **Always**, and **Deny** actions. The progress view appears in the Background tasks side pane.
 
 Your permission mode controls only the launch prompt above. The subagents the workflow spawns always run in `acceptEdits` mode and inherit your [tool allowlist](/docs/en/settings-reference#permission-settings), regardless of your session's mode. File edits are auto-approved.
 
 Shell commands, web fetches, and MCP tools that aren't in your allowlist can still prompt you mid-run. To avoid this on a long run, add the commands the agents need to your allowlist before starting.
-
-In `claude -p` and the Agent SDK there is no one to prompt, so tool calls follow your configured permission rules without interactive confirmation.
 
 ### Save the workflow for reuse
 
