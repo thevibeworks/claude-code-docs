@@ -21,7 +21,7 @@ This isn't a complete list. The reviewer checks whether claims match the record;
 
 ## How Claude responds to findings
 
-If the reviewer finds something, a **Reviewer · N findings** card appears in the conversation. Each finding shows the claim, the evidence, and a link into the transcript. Claude reads the findings and addresses them in its next message, either by correcting the work or by explaining why the finding doesn't apply. You can open the reviewer's full reasoning from the card.
+If the reviewer finds something, each finding appears as a card directly under the message it refers to, showing what the reviewer found and the finding's status. A message with more than three findings shows the first three and a **Show all** control. Click a card to open the reviewer's full reasoning. Claude reads the findings and addresses them in its next message, either by correcting the work or by explaining why the finding doesn't apply.
 
 ## Adding your own review criteria
 

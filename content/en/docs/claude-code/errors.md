@@ -89,6 +89,7 @@ Match the message you see to a section below.
 | `403` with `x-deny-reason: host_not_allowed` in a cloud or routine session                                                                                                                    | [Network](#host-not-allowed-in-a-cloud-session)                                                                               |
 | `proxy refused the connection`                                                                                                                                                                | [Network](#the-proxy-refused-the-connection)                                                                                  |
 | `403` with `This GraphQL query is not enabled for this session` in a cloud session                                                                                                            | [GitHub proxy](/docs/en/cloud-environments#github-proxy)                                                                           |
+| `The cloud environments service returned an empty response` / `The cloud environments service returned a response in an unexpected format`                                                    | [Network](#the-cloud-environments-service-returned-an-empty-or-unexpected-response)                                           |
 | `Couldn't reconnect to your Remote Control session`                                                                                                                                           | [Network](#couldnt-reconnect-to-your-remote-control-session)                                                                  |
 | `N sessions ended while this machine was offline — the environment was cleaned up on the server and can't be resumed.`                                                                        | [Network](#sessions-ended-while-this-machine-was-offline)                                                                     |
 | `Couldn't share the transcript.`                                                                                                                                                              | [Network](#couldnt-share-the-transcript)                                                                                      |
@@ -1242,6 +1243,27 @@ The status is the proxy's answer to the `CONNECT`. The host never answered, so e
 * If your network lets Claude Code reach the artifact host directly, add `.frame.claudeusercontent.com` to [`NO_PROXY`](/docs/en/network-config#environment-variables). Keep the entry that narrow: a broader `.claudeusercontent.com` entry also bypasses the proxy for `bridge.claudeusercontent.com`, which organizations with [IP allowlisting](/docs/en/network-config#organization-ip-allowlists-and-proxy-egress) need to keep on the proxy.
 
 Before v2.1.238, Claude Code reported a refused tunnel as a generic network error.
+
+<h3 id="the-cloud-environments-service-returned-an-empty-or-unexpected-response">
+  The cloud environments service returned an empty or unexpected response
+</h3>
+
+Claude Code requests your [cloud environments](/docs/en/cloud-environments) list at several points, such as when you create a cloud session from the CLI or run [`/remote-env`](/docs/en/cloud-environments#select-an-environment-from-the-cli). When it can't read the server's answer, it shows one of these messages:
+
+```text theme={null}
+The cloud environments service returned an empty response (HTTP 200 with no body). This is usually temporary — try again in a moment.
+The cloud environments service returned a response in an unexpected format (HTTP 200 with a non-JSON body). This is usually temporary — try again in a moment.
+The cloud environments service returned a response in an unexpected format (HTTP 200 without a usable environments list). This is usually temporary — try again in a moment.
+```
+
+The server accepted the request but answered with a body that isn't the environments list: empty, not JSON, or JSON without the list. This usually accompanies a service-side disruption and clears on its own. Depending on the surface that requested the list, Claude Code may add a prefix, such as `couldn't list environments:` in the `/remote-env` dialog.
+
+**What to do:**
+
+* Retry the action. Claude Code requests the list again each time
+* If the message keeps appearing, check [status.claude.com](https://status.claude.com) for active incidents
+
+Before v2.1.236, Claude Code showed a raw JavaScript TypeError instead of these messages.
 
 <h3 id="couldnt-reconnect-to-your-remote-control-session">
   Couldn't reconnect to your Remote Control session

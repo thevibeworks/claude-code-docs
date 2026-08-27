@@ -6,6 +6,19 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.41" description="August 27, 2026">
+  * Messages now show when they were sent: hover one of your messages to see the time, and Claude's replies show it next to their copy and feedback buttons
+  * Reviewer findings now appear as cards directly under the message they refer to, instead of a single summary card; click a card to open the reviewer's reasoning
+  * When a connector's sign-in expires mid-session, Claude now tells you which connector to reconnect, and Settings > Connectors shows "Sign-in expired" with a Reconnect button
+  * Choosing a model whose safeguards block most life sciences research now shows a short warning first, with a one-click switch to an alternative model
+  * Sessions on Claude Opus 5 now stay focused on what you asked for, with fewer unrequested analyses, figures, and sub-agents
+  * On macOS behind a TLS-inspecting proxy (such as Zscaler or Netskope), Python, pip, curl, and git inside a session now trust the same corporate root certificate that environment builds already use
+  * Tab-separated (.tsv) files open as tables, and the 3D structure viewer follows dark mode and opens small-molecule files (SDF, MOL2, XYZ, and similar) in stick view
+  * First-time setup now includes a memory step, with memory on unless you switch it off there; existing installs keep their current setting (change it anytime under Settings > Memory)
+  * Security hardening across the analysis sandbox and credential handling on macOS and Linux
+  * Lots of other miscellaneous improvements and fixes
+</Update>
+
 <Update label="0.1.27" description="August 7, 2026">
   * On macOS, installs that showed an environment setup error in their first session now repair themselves automatically after updating; the Featured connectors become available once the repair finishes, which can take a few minutes
   * Star a session from its menu to keep it in a Starred section at the top of your project's session list

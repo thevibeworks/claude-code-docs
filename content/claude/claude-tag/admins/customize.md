@@ -126,7 +126,7 @@ When a session starts, Claude uses the first environment it finds, in this order
 3. The **Environment** setting on **Default Slack access**
 4. The [organization's default environment](https://code.claude.com/docs/en/cloud-environments#the-default-environment), which an Owner chooses under **Cloud sessions** at [`claude.ai/admin-settings/claude-code`](https://claude.ai/admin-settings/claude-code)
 
-If you haven't chosen an environment on a scope, its picker shows **Organization default**, but sessions there may still run on an environment you chose on the workspace or on **Default Slack access**. In a channel where Claude runs with [channel-only access](/docs/claude-tag/admins/restrict-access#how-channel-only-works) because a guest is present, sessions run on the standard environment regardless of these settings. If a channel's sessions aren't on the environment you expect, see [channel sessions use the wrong environment](/docs/claude-tag/admins/troubleshooting#channel-sessions-use-the-wrong-environment-or-can%E2%80%99t-find-one).
+If you haven't chosen an environment on a scope, its picker shows **Organization default**, but sessions there may still run on an environment you chose on the workspace or on **Default Slack access**. If a channel's sessions aren't on the environment you expect, see [channel sessions use the wrong environment](/docs/claude-tag/admins/troubleshooting#channel-sessions-use-the-wrong-environment-or-can%E2%80%99t-find-one).
 
 ## Auto mode allow rules
 

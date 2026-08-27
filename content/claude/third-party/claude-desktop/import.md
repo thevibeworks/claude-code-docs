@@ -119,6 +119,7 @@ When your administrator also sets `exportEnabled` to `true` under `claudeAiImpor
 ## What is and isn't included
 
 * **Your data only.** An export contains your own conversations, projects, and memory. Other workspace members' content is not included.
-* **Attachment bytes are not fetched over sign-in.** When you use **Sign in to claude.ai**, the export contains chats and projects only. To include the files you uploaded to conversations, use the **Choose a downloaded file** path instead.
+* **Chats and projects come over.** Each imported project becomes a Space. If the project has custom instructions, Claude Desktop shows them in the Space for you to review and accept before they take effect.
+* **Project knowledge files and conversation attachments do not.** A member's own export never includes the contents of files uploaded to a project's knowledge or attached to a conversation. This is a security policy on claude.ai, and it applies to both the **Sign in to claude.ai** and **Choose a downloaded file** paths. Imported chats keep the messages that referenced an attachment, but not the file itself. The only export that includes file contents is an organization-level export, which only a workspace owner can request.
 * **One-time copy.** Imported history does not stay in sync with claude.ai. Run the import again to pick up newer conversations; existing imports are matched and skipped, so you won't get duplicates.
 * **Download links expire.** The email link from claude.ai is valid for 24 hours. Request a new export if it lapses.

@@ -50,7 +50,7 @@ All code Claude writes runs inside an operating-system sandbox on your computer.
 
 ## Memory
 
-Memory lets Claude save short facts about you, your projects, and your files across sessions. Memory is off by default. Turn it on in Settings > Memory.
+Memory lets Claude save short facts about you, your projects, and your files across sessions. You choose whether memory is on during first-time setup, and you can change it anytime in Settings > Memory.
 
 Saved facts are stored in the app's local database on your computer; they aren't synced to Anthropic. The Memory settings page lists every saved fact. You can edit, delete, add, or clear facts there. A per-session toggle in the session settings menu turns memory off for that session only.
 

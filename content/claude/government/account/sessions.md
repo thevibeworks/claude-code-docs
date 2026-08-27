@@ -26,7 +26,7 @@ To limit how much information about your devices is held in the system, the list
 
 ## How long sessions last
 
-Sessions expire after a period of inactivity, and using a session extends it. Once you have been inactive for longer than the idle timeout, that browser tab or desktop application prompts you to sign in again the next time it tries to do anything. The idle timeout is set by your agency or organization; unless they have chosen a shorter value, it is 24 hours.
+Sessions expire after a period of inactivity, and using a session extends it. Once you have been inactive for longer than the idle timeout, that browser tab or desktop application prompts you to sign in again the next time it tries to do anything. Your agency or organization sets the idle timeout, which is 24 hours unless they have changed it.
 
 Your agency or organization can set a maximum session length in addition to the idle timeout. When a session reaches that length, it expires even if you have been using it the whole time, and the browser tab or desktop application prompts you to sign in again. Sessions that expire either way drop off this list automatically.
 

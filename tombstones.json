@@ -183,10 +183,6 @@
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/agents-and-tools/tool-use/define-tools"
     },
-    "https://platform.claude.com/docs/en/api/cli/beta/webhooks/unwrap": {
-      "since": "2026-08-25",
-      "reason": "HTTP 404"
-    },
     "https://platform.claude.com/docs/en/api/client-sdks": {
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/overview"
@@ -203,29 +199,9 @@
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/api/compliance/apps/chats/generated_files/download"
     },
-    "https://platform.claude.com/docs/en/api/csharp/beta/webhooks/unwrap": {
-      "since": "2026-08-25",
-      "reason": "HTTP 404"
-    },
-    "https://platform.claude.com/docs/en/api/csharp/completions/create": {
-      "since": "2026-08-25",
-      "reason": "HTTP 404"
-    },
-    "https://platform.claude.com/docs/en/api/java/beta/webhooks/unwrap": {
-      "since": "2026-08-25",
-      "reason": "HTTP 404"
-    },
     "https://platform.claude.com/docs/en/api/openai-sdk": {
       "since": "2026-08-25",
       "reason": "moved -> https://platform.claude.com/docs/en/cli-sdks-libraries/libraries/openai-sdk"
-    },
-    "https://platform.claude.com/docs/en/api/php/completions/create": {
-      "since": "2026-08-25",
-      "reason": "HTTP 404"
-    },
-    "https://platform.claude.com/docs/en/api/python/completions/create": {
-      "since": "2026-08-25",
-      "reason": "HTTP 404"
     },
     "https://platform.claude.com/docs/en/api/sdks/cli": {
       "since": "2026-08-25",

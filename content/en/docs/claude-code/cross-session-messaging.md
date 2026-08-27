@@ -127,6 +127,8 @@ Claude addresses a session beyond this machine by name, the same as a local sess
 
 A session answers to the name you set with the [`/rename`](/docs/en/commands) command or the [`--name`](/docs/en/cli-reference#cli-flags) flag. When you don't set one, Claude Code names the session itself. For an interactive session, that is the name shown in [listings of running sessions](/docs/en/sessions#name-your-sessions).
 
+When you rename a session, Claude Code also updates the shared record your other sessions use to look up the session's name. If it can't update that record, it warns you in the `/rename` output that other sessions may still show the old name. Run the session with [`--debug`](/docs/en/cli-reference#cli-flags), and Claude Code logs the cause of the failed update.
+
 When you rename a session, or start or resume an interactive one, with a name another live session on this machine already uses, Claude Code leaves the name with the session that already has it and [renames yours to a variant](/docs/en/sessions#name-your-sessions). Sessions can still share a name, for example when one of them runs an earlier version of Claude Code or the shared name is one Claude Code generated. Claude Code shows each local session's working directory in the `/list-agents` output, so you can tell same-named sessions apart when they run in different directories. Claude addresses the message in one of two ways, depending on how many live sessions answer to the name:
 
 * **One session answers to the name**: Claude Code delivers the message on the name alone.
@@ -167,14 +169,22 @@ When session A messages session B, Claude Code tells B's Claude that the message
   What a message looks like
 </h3>
 
-When the message arrives, it appears in the conversation under the sender's session name and stays there. Claude Code queues it while Claude is mid-turn, or starts a new turn with it right away when the session is idle.
+When a message arrives, Claude Code shows it in the conversation as a dim one-line preview, and the preview line stays in the conversation afterward. The preview carries the sender's name and the first line of the message, cut with `…` when it's long, such as `› Message from @api-worker: Schema migration finished (ctrl+o to expand)`. Before v2.1.247, Claude Code showed the arriving message in full instead of a preview.
 
-A message is a piece of text one Claude writes to another. Claude receives it with the sender's name and a reply address, except for a [one-way cross-machine message](#message-sessions-on-other-machines), which carries no reply address. You see the name and the text, and the receiving session gets only that text, never the sender's conversation history or files.
+Either of these shows you the full text:
 
-This example is a message one Claude wrote to another, as the receiving session sees it:
+* Press `Ctrl+O` to open the [transcript viewer](/docs/en/interactive-mode#transcript-viewer) and read the full text under the sender's session name.
+* In a session started with [`--verbose`](/docs/en/cli-reference#cli-flags), Claude Code shows the full text instead of the preview.
+
+The preview shortens only what you see. Whether or not you expand it, Claude reads the full message.
+
+Claude receives the message with the sender's name and a reply address, except for a [one-way cross-machine message](#message-sessions-on-other-machines), which carries no reply address. Beyond the name and reply address, the receiving Claude gets only the message's text, never the sender's conversation history or files.
+
+This example is a message one Claude wrote to another, as its full text reads when you expand it:
 
 ```text wrap theme={null}
-Schema migration finished: the new column is tenant_id, and rebasing on main is safe now.
+Schema migration finished
+The new column is tenant_id, and rebasing on main is safe now.
 ```
 
 ### Control inbound messages
@@ -243,6 +253,8 @@ Alongside the socket's path, Claude Code exports a per-session token as [`CLAUDE
 
 * **macOS and Linux, including WSL 2**: the line is optional. Claude Code accepts a connection with or without it.
 * **Native Windows**: the line is required. Claude Code closes any connection whose first line isn't a valid auth line and delivers nothing from that connection.
+
+Open the connection only when the message you're posting is ready. Claude Code closes a connection that hasn't sent a complete line within 30 seconds, so capture a slow command's output first and then open the connection to send it.
 
 The [own-child rules](#own-child-messages) below say when Claude Code consults the token and how it treats a message it can't verify.
 

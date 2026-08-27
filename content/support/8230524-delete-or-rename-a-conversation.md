@@ -44,15 +44,15 @@ These steps apply to Claude for iOS, listed on the App Store as Claude by Anthro
 
 4. If deleting, tap "Delete" again in the confirmation prompt.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599501318/75c28edc693efbe8befd21e4da64/d18a921a-df4b-4788-833c-12c966a32527?expires=1787829300&amp;signature=5848e465df157bc27c1e2c4704bb85938443862839222dc22d7d44d5996974bb&amp;req=diUuH8x%2BnIJeUfMW1HO4zSc12alSimmo1DBI29QsIlGGQMV4dppc3Gv%2FMaTK%0A4J5C9PuDhco2gLe1wis%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599501318/75c28edc693efbe8befd21e4da64/d18a921a-df4b-4788-833c-12c966a32527?expires=1787865300&amp;signature=138cd90706a21ad38fb7a02cbc44f5658c3e04a79b30bba215d0691d06cbdbd7&amp;req=diUuH8x%2BnIJeUfMW1HO4zSc12alSjmWo1DBI29QsIlHLs%2B54hob8YIct08XX%0AVMuU8z3TH6tKMTRBbeQ%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493852/2e58b92d18f307bb79ae30650f26/1bbe52f3-202b-4d5d-9f9a-eeda4d6952c3?expires=1787829300&amp;signature=37fd50de9d9d2244212941200df107661575f06a088b131b73db38d8afb9cad2&amp;req=diUuH813nolaW%2FMW1HO4zTjXMuCELMnmj7blKEDtUI3EV55uR0MKCxsnut7C%0A1BbBx6NXtMcWcJiIylQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493852/2e58b92d18f307bb79ae30650f26/1bbe52f3-202b-4d5d-9f9a-eeda4d6952c3?expires=1787865300&amp;signature=272ca3187059f8c57aa09635dff9f298187ad806456bbb4398411bb520a805b8&amp;req=diUuH813nolaW%2FMW1HO4zTjXMuCEKMXmj7blKEDtUI1RttWHEODpWFzRVDeT%0AvtfH2Kbpkl45YsbHElk%3D%0A)
 
 You can also delete the conversation you have open: tap the "⋯" button in the top right corner, tap "Delete," then confirm.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493848/997184c386d0e6fb0bd2d7c1f2b6/5d2bc394-25fc-4814-8c2a-2f54d004f83f?expires=1787829300&amp;signature=7ce5808f43cd7e0f783062bd62fe9475fe3eb24a0c7aaf9cd9488dda217334c2&amp;req=diUuH813nolbUfMW1HO4zVCIqp3HydVFzQl%2BKgU984wQutAS1cw54yBvljOI%0ATd0BV2%2F9NVHUDhGDXTE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493848/997184c386d0e6fb0bd2d7c1f2b6/5d2bc394-25fc-4814-8c2a-2f54d004f83f?expires=1787865300&amp;signature=02d685c05ed46ceb58e84c320375f70c2f5fa1ae7a890e0182ad004609b95309&amp;req=diUuH813nolbUfMW1HO4zVCIqp3HzdlFzQl%2BKgU984zH8trqRAB%2FlNS16vwv%0Ac4%2F8n4Y63bGpb7h13yU%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493856/799041da9fa918e90068c5ebf5bd/2e8d5cee-c45a-41d7-a14b-486e50a37f88?expires=1787829300&amp;signature=29760495e07b7ce40228e93fa749c2843b2eb579314ea98e6640e0e7afcaf78c&amp;req=diUuH813nolaX%2FMW1HO4zVCl4A%2F602xOEDIU8RT6jk04r4C4fZM8vjEpcO7x%0AZM84g8SGARiJkpLf82w%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493856/799041da9fa918e90068c5ebf5bd/2e8d5cee-c45a-41d7-a14b-486e50a37f88?expires=1787865300&amp;signature=173a3a410a8529a688517d9f40205fe71a3a7499dc7ed93e7da0b50153b80c9d&amp;req=diUuH813nolaX%2FMW1HO4zVCl4A%2F612BOEDIU8RT6jk3Pl8P6KU7OZGwiKr9l%0AfE1x8gPRHsedD9pH1XI%3D%0A)
 
 ## Delete or rename a conversation on Claude for Android
 
@@ -66,9 +66,9 @@ These steps apply to the Claude for Android, listed on Google Play as Claude by 
 
 3. If deleting, tap "Delete" again in the confirmation prompt.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493850/a64e6561222d535f2f5bd03e71f0/5de429c2-d8ed-4e8a-89e8-a13ccaa49767?expires=1787829300&amp;signature=1e21c76c8451356fbb1b23664b4bec20965546fc8f6cefe91379a3dee2b907ab&amp;req=diUuH813nolaWfMW1HO4zVTdd9UkwFl2rqtc0YNNUtKr4ncmRJ0ugYfmIh0X%0AJh5AOT5Lkva9b4nAqfU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493850/a64e6561222d535f2f5bd03e71f0/5de429c2-d8ed-4e8a-89e8-a13ccaa49767?expires=1787865300&amp;signature=d53333ba3b7dd8e74f9b0da93584a9545c926abf80a56afabc7fc5ff0880c080&amp;req=diUuH813nolaWfMW1HO4zVTdd9UkxFV2rqtc0YNNUtIYHRPodrXRDjQOyqRo%0As556gXp8m17sjM%2FjrJI%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493851/f21b39c60e88050d4b0745325f0d/0a8c0d08-dc53-4ef1-8d9f-2b995242c1f9?expires=1787829300&amp;signature=952836f06d38d410b369525ab0bc112bfecc8439fa1ba3967871fbb418b0bf8d&amp;req=diUuH813nolaWPMW1HO4zUYvw1IDoDdf%2FjekULCQNzUqArMC1xoIH1orgtge%0AAsXmSBp6QVMXWm5KgRQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493851/f21b39c60e88050d4b0745325f0d/0a8c0d08-dc53-4ef1-8d9f-2b995242c1f9?expires=1787865300&amp;signature=c112d03788549013f40c8647484489602cfca33387f5ba6c289c14065b6dd45a&amp;req=diUuH813nolaWPMW1HO4zUYvw1IDpDtf%2FjekULCQNzVnekpLsnuddZg5yyZh%0APDs1rDSbHSHXH0as%2Fjw%3D%0A)
 
 **To delete multiple conversations at once:**
 
@@ -78,9 +78,9 @@ These steps apply to the Claude for Android, listed on Google Play as Claude by 
 
 3. Tap the trash icon, then tap "Delete" in the confirmation prompt.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493849/3013a0ab921337b4544f7ffeffa6/e828ec14-fb52-4205-a840-707b6f2a848d?expires=1787829300&amp;signature=aafe3ac1ddb82ce6d6996e8e93b15b2f61f8deef6baf639bb35f58d1fc59be18&amp;req=diUuH813nolbUPMW1HO4zWGamMB8eITc4AqhTnZa84XbXhKbz1pPzN%2BIk4tg%0AlrEb0YISTLzWMkGc63Q%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493849/3013a0ab921337b4544f7ffeffa6/e828ec14-fb52-4205-a840-707b6f2a848d?expires=1787865300&amp;signature=dbce12ad00d386767cb680e65ff7feb3428ce8e1c2bd646362477fe5fdbcd106&amp;req=diUuH813nolbUPMW1HO4zWGamMB8fIjc4AqhTnZa84UrFFNU2oYk3i%2F72MAH%0AnWChfCU2PSteEdl7R7k%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493853/e2507f53cce8a26776a22a457b1a/bd79bb8a-b078-420f-a4e1-75590367aa80?expires=1787829300&amp;signature=0a667b15ae8c8b62954b3a14dca1b1a88b47e16640aed3a9c0b0c1dab1329ae2&amp;req=diUuH813nolaWvMW1HO4zQTtExL5xkk7SBGfF3I2bRj6M8KGosD2mITjRH3q%0A9fAFJDHanugijhiTRlE%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2599493853/e2507f53cce8a26776a22a457b1a/bd79bb8a-b078-420f-a4e1-75590367aa80?expires=1787865300&amp;signature=6fdac11c2a951091a0e96b0d266955f3ea1202e06899eba1adeb7f98df1f1b94&amp;req=diUuH813nolaWvMW1HO4zQTtExL5wkU7SBGfF3I2bRheVzOVEOFr0I9axw0g%0AXT8E9igkYwPQlDIa3WU%3D%0A)
 
 ## What happens when you delete a conversation
 

@@ -14,7 +14,7 @@ This page describes the settings on the **Config** page in the admin portal. Eac
 
 ### Session idle timeout
 
-Controls how long a member can stay inactive before being signed out. The value must be a whole number of minutes, 15 or higher, and the Anthropic default is 1440 minutes (24 hours). A lower value applies at the next sign-in; a higher value applies on the next request. This is a restriction, so each level can shorten the timeout but not lengthen it past what the level above allows, and the value that takes effect is always the shortest one in the chain.
+Controls how long a member can stay inactive before being signed out. The value must be a whole number of minutes from 15 to 5,760 (96 hours), and the default is 1,440 minutes (24 hours) until your tenant sets a value. This is a restriction, so organizations and groups can only set a shorter timeout than the tenant.
 
 ### Maximum session length
 

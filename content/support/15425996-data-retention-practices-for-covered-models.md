@@ -20,7 +20,7 @@ Claude Mythos 5 represents a substantial increase in model capabilities, some of
 
 By default, no Anthropic personnel can read your retained conversations. Human review can occur only through a controlled access path—for example, when content is flagged by our automated trust and safety systems for potential harm. These reviews can only be performed by a small set of approved reviewers. Every instance of access is recorded in a tamper-proof log that reviewers cannot suppress or modify. After 30 days, the data is deleted automatically, except in the rare cases where it's been flagged by our automated trust and safety systems or we're legally required to keep it. Eligible organizations also have the option to add customer-managed encryption keys and access transparency audit logs.
 
-Anthropic maintains a documented information security program with technical and organizational measures that are designed to protect the security, confidentiality, and integrity of customer data. Our risk-based program is built for and evolves to defend against known and anticipated threat models and is tested regularly. For more information, see the **[technical white paper](https://trust.anthropic.com/resources?s=7ksqkied5hn0pocsj206m&name=[anthropic]-security-and-privacy-design-of-anthropic-data-retention-and-review)** in our Trust Center.
+Anthropic maintains a documented information security program with technical and organizational measures that are designed to protect the security, confidentiality, and integrity of customer data. Our risk-based program is built for and evolves to defend against known and anticipated threat models and is tested regularly.
 
 ## What, if anything, do I need to configure?
 
