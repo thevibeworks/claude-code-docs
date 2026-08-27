@@ -26,7 +26,9 @@ This integration is especially useful for design verification (comparing Figma m
 
 When you start a chat, task, or session in Claude Cowork that touches a website, Claude can open the browser directly in Chrome and do the work, clicking, typing, and filling out forms the way a person would. You can let Claude handle work in the browser without switching windows.
 
-Follow these steps to enable the Claude in Chrome connector in your desktop app:
+**Note:** Claude Cowork also has a browser built into the Claude Desktop app, with nothing to install. It's rolling out gradually this week. If you already use Claude in Chrome, it stays your preferred browser for Cowork; otherwise Cowork uses the built-in browser by default. Choose either one in **Settings > Cowork > Preferred browser**. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
+
+Follow these steps to connect Claude in Chrome in your desktop app:
 
 1. Click your initials in the lower left corner, then select “Settings.”
 
@@ -36,7 +38,7 @@ Follow these steps to enable the Claude in Chrome connector in your desktop app:
 
 4. Toggle the connector on, then download and install the extension if you haven’t already.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604933811/ae37c41fc808dbdf48d135338334/6cc9ba4b-9d31-43a2-ab80-8048b5f9d791?expires=1787744700&amp;signature=9c74b3ad00dfc6f6dbba2a87ba996bc042112a1064e05554a61a86920af82ee4&amp;req=diYnEsB9noleWPMW1HO4zUOPbPvBkuaKnt%2F2nPMwUPgWrNaqAu6UoZzP8ow4%0AtPTq5LZgRHaOb%2Fr%2FtAM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604933811/ae37c41fc808dbdf48d135338334/6cc9ba4b-9d31-43a2-ab80-8048b5f9d791?expires=1787896800&amp;signature=711bbc3805fd2ceac2ed0f38c88b5647f5364d19f890b02142a491f570a29d01&amp;req=diYnEsB9noleWPMW3nq%2BgYRoBvFK8e7NNt1ouCD7O2iMkRRKXBOxZa37nKzb%0AlL7GFas%2BCPl8IHOD8pB0cm83mYU%3D%0A)
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
@@ -64,7 +66,7 @@ The side panel starts in "Automatically approve" mode: Claude works continuously
 
 **Note:** On Enterprise plans, the Cowork side panel requires your admin to enable Cowork in the cloud and Claude in Chrome for your organization. If you see the classic side panel, contact your admin. Learn more in **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)**.
 
-To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Install Claude in Chrome](#h_e0aabae2db)** below.
+To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Install Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome#h_e0aabae2db)** below.
 
 **Note:** The side panel reads the tab you're on with no extra setup. Tasks that need your local files, your computer, or Claude driving Chrome from another surface still need the Claude Desktop app open and connected, even though your session runs in the cloud.
 

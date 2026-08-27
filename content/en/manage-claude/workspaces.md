@@ -38,7 +38,7 @@ Members can have different roles in each workspace, allowing fine-grained access
 
 | Role                        | Permissions                                                                                     |
 | --------------------------- | ----------------------------------------------------------------------------------------------- |
-| Workspace User              | Use Playground only                                                                             |
+| Workspace User              | Use playground only                                                                             |
 | Workspace Limited Developer | Create and manage API keys, use the API. Cannot access session tracing views or download files. |
 | Workspace Developer         | Create and manage API keys, use the API                                                         |
 | Workspace Admin             | Full control over workspace settings and members                                                |
@@ -140,54 +140,680 @@ Programmatically manage workspaces using the [Admin API](https://platform.claude
   Admin API endpoints require an Admin API key (starting with `sk-ant-admin...`) that differs from standard API keys. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) for how to provision one.
 </Note>
 
-```bash cURL
-# Create a workspace
-curl -X POST "https://api.anthropic.com/v1/organizations/workspaces" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -d '{"name": "Production"}'
+The following SDK and CLI examples construct the default client, which reads the Admin API key from the `ANTHROPIC_API_KEY` environment variable; the SDKs expose these endpoints under `client.beta.organization.workspaces`. SDK list methods fetch further pages on demand, so `limit` sets the page size; the PHP, Ruby, and curl examples return one page.
 
-# List workspaces
-curl "https://api.anthropic.com/v1/organizations/workspaces?limit=10&include_archived=false" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
+Create a workspace:
 
-# Archive a workspace
-curl -X POST "https://api.anthropic.com/v1/organizations/workspaces/{workspace_id}/archive" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/workspaces" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{"name": "Production"}'
+  ```
+
+  ```bash CLI
+  ant beta:organization:workspaces create --name Production
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  workspace = client.beta.organization.workspaces.create(name="Production")
+
+  print(f"id: {workspace.id}")
+  print(f"name: {workspace.name}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const workspace = await client.beta.organization.workspaces.create({ name: "Production" });
+
+  console.log(`id: ${workspace.id}`);
+  console.log(`name: ${workspace.name}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var workspace = await client.Beta.Organization.Workspaces.Create(new()
+  {
+      Name = "Production"
+  });
+
+  Console.WriteLine($"id: {workspace.ID}");
+  Console.WriteLine($"name: {workspace.Name}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  workspace, err := client.Beta.Organization.Workspaces.New(context.Background(), anthropic.BetaOrganizationWorkspaceNewParams{
+  	Name: "Production",
+  })
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", workspace.ID)
+  fmt.Printf("name: %s\n", workspace.Name)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.workspaces.WorkspaceCreateParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = WorkspaceCreateParams.builder()
+          .name("Production")
+          .build();
+      var workspace = client.beta().organization().workspaces().create(params);
+
+      IO.println("id: " + workspace.id());
+      IO.println("name: " + workspace.name());
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $workspace = $client->beta->organization->workspaces->create(
+      name: 'Production',
+  );
+
+  echo "id: {$workspace->id}\n";
+  echo "name: {$workspace->name}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  workspace = client.beta.organization.workspaces.create(name: "Production")
+
+  puts "id: #{workspace.id}"
+  puts "name: #{workspace.name}"
+  ```
+</CodeGroup>
+
+List workspaces:
+
+<CodeGroup>
+  ```bash cURL
+  curl "https://api.anthropic.com/v1/organizations/workspaces?limit=10&include_archived=false" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:workspaces list --limit 10 --include-archived=false
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  workspaces = client.beta.organization.workspaces.list(limit=10, include_archived=False)
+
+  for workspace in workspaces:
+      print(f"{workspace.id}: {workspace.name}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const workspaces = await client.beta.organization.workspaces.list({
+    limit: 10,
+    include_archived: false
+  });
+
+  for await (const workspace of workspaces) {
+    console.log(`${workspace.id}: ${workspace.name}`);
+  }
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var workspaces = await client.Beta.Organization.Workspaces.List(new()
+  {
+      Limit = 10,
+      IncludeArchived = false
+  });
+
+  await foreach (var workspace in workspaces.Paginate())
+  {
+      Console.WriteLine($"{workspace.ID}: {workspace.Name}");
+  }
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  workspaces := client.Beta.Organization.Workspaces.ListAutoPaging(context.Background(), anthropic.BetaOrganizationWorkspaceListParams{
+  	Limit:           anthropic.Int(10),
+  	IncludeArchived: anthropic.Bool(false),
+  })
+
+  for workspaces.Next() {
+  	workspace := workspaces.Current()
+  	fmt.Printf("%s: %s\n", workspace.ID, workspace.Name)
+  }
+  if err := workspaces.Err(); err != nil {
+  	log.Fatal(err)
+  }
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.workspaces.WorkspaceListParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = WorkspaceListParams.builder()
+          .limit(10)
+          .includeArchived(false)
+          .build();
+      var workspaces = client.beta().organization().workspaces().list(params);
+
+      for (var workspace : workspaces.autoPager()) {
+          IO.println(workspace.id() + ": " + workspace.name());
+      }
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $workspaces = $client->beta->organization->workspaces->list(
+      limit: 10,
+      includeArchived: false,
+  );
+
+  foreach ($workspaces->getItems() as $workspace) {
+      echo "{$workspace->id}: {$workspace->name}\n";
+  }
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  workspaces = client.beta.organization.workspaces.list(limit: 10, include_archived: false)
+
+  workspaces.data.each do |workspace|
+    puts "#{workspace.id}: #{workspace.name}"
+  end
+  ```
+</CodeGroup>
+
+Archive a workspace:
+
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/archive" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:workspaces archive --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  workspace = client.beta.organization.workspaces.archive(
+      "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  )
+
+  print(f"id: {workspace.id}")
+  print(f"archived_at: {workspace.archived_at}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const workspace = await client.beta.organization.workspaces.archive(
+    "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  );
+
+  console.log(`id: ${workspace.id}`);
+  console.log(`archived_at: ${workspace.archived_at}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var workspace = await client.Beta.Organization.Workspaces.Archive(
+      "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  );
+
+  Console.WriteLine($"id: {workspace.ID}");
+  Console.WriteLine($"archived_at: {workspace.ArchivedAt:O}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  workspace, err := client.Beta.Organization.Workspaces.Archive(context.Background(), "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ")
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("id: %s\n", workspace.ID)
+  fmt.Printf("archived_at: %s\n", workspace.ArchivedAt)
+  ```
+
+  ```java Java
+  AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+  var workspace = client.beta().organization().workspaces()
+      .archive("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ");
+
+  IO.println("id: " + workspace.id());
+  IO.println("archived_at: " + workspace.archivedAt().orElseThrow());
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $workspace = $client->beta->organization->workspaces->archive(
+      workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
+  );
+
+  echo "id: {$workspace->id}\n";
+  echo "archived_at: {$workspace->archivedAt?->format(DATE_ATOM)}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  workspace_id = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  workspace = client.beta.organization.workspaces.archive(workspace_id)
+
+  puts "id: #{workspace.id}"
+  puts "archived_at: #{workspace.archived_at}"
+  ```
+</CodeGroup>
 
 For complete parameter details and response schemas, see the [Workspaces API reference](https://platform.claude.com/docs/en/api/admin/workspaces/retrieve).
 
 ### Managing workspace members
 
-Add, update, or remove members from a workspace:
+Add a member to a workspace:
 
-```bash cURL
-# Add a member to a workspace
-curl -X POST "https://api.anthropic.com/v1/organizations/workspaces/{workspace_id}/members" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -d '{
-    "user_id": "user_xxx",
-    "workspace_role": "workspace_developer"
-  }'
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/members" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{
+      "user_id": "user_01XyDMpzjS89pFZXqSFUBDr6",
+      "workspace_role": "workspace_developer"
+    }'
+  ```
 
-# Update a member's role
-curl -X POST "https://api.anthropic.com/v1/organizations/workspaces/{workspace_id}/members/{user_id}" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "content-type: application/json" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY" \
-  -d '{"workspace_role": "workspace_admin"}'
+  ```bash CLI
+  ant beta:organization:workspaces:members add \
+    --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ \
+    --user-id user_01XyDMpzjS89pFZXqSFUBDr6 \
+    --workspace-role workspace_developer
+  ```
 
-# Remove a member from a workspace
-curl -X DELETE "https://api.anthropic.com/v1/organizations/workspaces/{workspace_id}/members/{user_id}" \
-  -H "anthropic-version: 2023-06-01" \
-  -H "x-api-key: $ANTHROPIC_ADMIN_KEY"
-```
+  ```python Python
+  client = anthropic.Anthropic()
+
+  member = client.beta.organization.workspaces.members.add(
+      "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      user_id="user_01XyDMpzjS89pFZXqSFUBDr6",
+      workspace_role="workspace_developer",
+  )
+
+  print(f"user_id: {member.user_id}")
+  print(f"workspace_role: {member.workspace_role}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const member = await client.beta.organization.workspaces.members.add(
+    "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+    {
+      user_id: "user_01XyDMpzjS89pFZXqSFUBDr6",
+      workspace_role: "workspace_developer"
+    }
+  );
+
+  console.log(`user_id: ${member.user_id}`);
+  console.log(`workspace_role: ${member.workspace_role}`);
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta.Organization.Workspaces;
+
+  AnthropicClient client = new();
+
+  var member = await client.Beta.Organization.Workspaces.Members.Add(
+      "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      new()
+      {
+          UserID = "user_01XyDMpzjS89pFZXqSFUBDr6",
+          WorkspaceRole = BetaNoBillingWorkspaceRole.WorkspaceDeveloper
+      }
+  );
+
+  Console.WriteLine($"user_id: {member.UserID}");
+  Console.WriteLine($"workspace_role: {member.WorkspaceRole.Raw()}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  member, err := client.Beta.Organization.Workspaces.Members.Add(
+  	context.Background(),
+  	"wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  	anthropic.BetaOrganizationWorkspaceMemberAddParams{
+  		UserID:        "user_01XyDMpzjS89pFZXqSFUBDr6",
+  		WorkspaceRole: anthropic.BetaNoBillingWorkspaceRoleWorkspaceDeveloper,
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("user_id: %s\n", member.UserID)
+  fmt.Printf("workspace_role: %s\n", member.WorkspaceRole)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.workspaces.BetaNoBillingWorkspaceRole;
+  import com.anthropic.models.beta.organization.workspaces.members.MemberAddParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = MemberAddParams.builder()
+          .userId("user_01XyDMpzjS89pFZXqSFUBDr6")
+          .workspaceRole(BetaNoBillingWorkspaceRole.WORKSPACE_DEVELOPER)
+          .build();
+      var member = client.beta().organization().workspaces().members()
+          .add("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ", params);
+
+      IO.println("user_id: " + member.userId());
+      IO.println("workspace_role: " + member.workspaceRole().asString());
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\Organization\Workspaces\NoBillingWorkspaceRole;
+  // ...
+
+  $client = new Client();
+
+  $member = $client->beta->organization->workspaces->members->add(
+      workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
+      userID: 'user_01XyDMpzjS89pFZXqSFUBDr6',
+      workspaceRole: NoBillingWorkspaceRole::WORKSPACE_DEVELOPER,
+  );
+
+  echo "user_id: {$member->userID}\n";
+  echo "workspace_role: {$member->workspaceRole}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  workspace_id = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  member = client.beta.organization.workspaces.members.add(
+    workspace_id,
+    user_id: "user_01XyDMpzjS89pFZXqSFUBDr6",
+    workspace_role: :workspace_developer
+  )
+
+  puts "user_id: #{member.user_id}"
+  puts "workspace_role: #{member.workspace_role}"
+  ```
+</CodeGroup>
+
+Update a member's role:
+
+<CodeGroup>
+  ```bash cURL
+  curl -X POST "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/members/user_01XyDMpzjS89pFZXqSFUBDr6" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{"workspace_role": "workspace_admin"}'
+  ```
+
+  ```bash CLI
+  ant beta:organization:workspaces:members update \
+    --user-id user_01XyDMpzjS89pFZXqSFUBDr6 \
+    --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ \
+    --workspace-role workspace_admin
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  member = client.beta.organization.workspaces.members.update(
+      "user_01XyDMpzjS89pFZXqSFUBDr6",
+      workspace_id="wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      workspace_role="workspace_admin",
+  )
+
+  print(f"user_id: {member.user_id}")
+  print(f"workspace_role: {member.workspace_role}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const member = await client.beta.organization.workspaces.members.update(
+    "user_01XyDMpzjS89pFZXqSFUBDr6",
+    {
+      workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      workspace_role: "workspace_admin"
+    }
+  );
+
+  console.log(`user_id: ${member.user_id}`);
+  console.log(`workspace_role: ${member.workspace_role}`);
+  ```
+
+  ```csharp C#
+  using Anthropic.Models.Beta.Organization.Workspaces;
+
+  AnthropicClient client = new();
+
+  var member = await client.Beta.Organization.Workspaces.Members.Update(
+      "user_01XyDMpzjS89pFZXqSFUBDr6",
+      new()
+      {
+          WorkspaceID = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+          WorkspaceRole = BetaWorkspaceRole.WorkspaceAdmin
+      }
+  );
+
+  Console.WriteLine($"user_id: {member.UserID}");
+  Console.WriteLine($"workspace_role: {member.WorkspaceRole.Raw()}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  member, err := client.Beta.Organization.Workspaces.Members.Update(
+  	context.Background(),
+  	"user_01XyDMpzjS89pFZXqSFUBDr6",
+  	anthropic.BetaOrganizationWorkspaceMemberUpdateParams{
+  		WorkspaceID:   "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  		WorkspaceRole: anthropic.BetaWorkspaceRoleWorkspaceAdmin,
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("user_id: %s\n", member.UserID)
+  fmt.Printf("workspace_role: %s\n", member.WorkspaceRole)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.workspaces.BetaWorkspaceRole;
+  import com.anthropic.models.beta.organization.workspaces.members.MemberUpdateParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = MemberUpdateParams.builder()
+          .workspaceId("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ")
+          .workspaceRole(BetaWorkspaceRole.WORKSPACE_ADMIN)
+          .build();
+      var member = client.beta().organization().workspaces().members()
+          .update("user_01XyDMpzjS89pFZXqSFUBDr6", params);
+
+      IO.println("user_id: " + member.userId());
+      IO.println("workspace_role: " + member.workspaceRole().asString());
+  }
+  ```
+
+  ```php PHP
+  use Anthropic\Beta\Organization\Workspaces\WorkspaceRole;
+  // ...
+
+  $client = new Client();
+
+  $member = $client->beta->organization->workspaces->members->update(
+      userID: 'user_01XyDMpzjS89pFZXqSFUBDr6',
+      workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
+      workspaceRole: WorkspaceRole::WORKSPACE_ADMIN,
+  );
+
+  echo "user_id: {$member->userID}\n";
+  echo "workspace_role: {$member->workspaceRole}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  user_id = "user_01XyDMpzjS89pFZXqSFUBDr6"
+  member = client.beta.organization.workspaces.members.update(
+    user_id,
+    workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+    workspace_role: :workspace_admin
+  )
+
+  puts "user_id: #{member.user_id}"
+  puts "workspace_role: #{member.workspace_role}"
+  ```
+</CodeGroup>
+
+Remove a member from a workspace:
+
+<CodeGroup>
+  ```bash cURL
+  curl -X DELETE "https://api.anthropic.com/v1/organizations/workspaces/wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ/members/user_01XyDMpzjS89pFZXqSFUBDr6" \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01"
+  ```
+
+  ```bash CLI
+  ant beta:organization:workspaces:members remove \
+    --user-id user_01XyDMpzjS89pFZXqSFUBDr6 \
+    --workspace-id wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ
+  ```
+
+  ```python Python
+  client = anthropic.Anthropic()
+
+  removed_member = client.beta.organization.workspaces.members.remove(
+      "user_01XyDMpzjS89pFZXqSFUBDr6",
+      workspace_id="wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  )
+
+  print(f"user_id: {removed_member.user_id}")
+  ```
+
+  ```typescript TypeScript
+  const client = new Anthropic();
+
+  const removedMember = await client.beta.organization.workspaces.members.remove(
+    "user_01XyDMpzjS89pFZXqSFUBDr6",
+    { workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ" }
+  );
+
+  console.log(`user_id: ${removedMember.user_id}`);
+  ```
+
+  ```csharp C#
+  AnthropicClient client = new();
+
+  var removedMember = await client.Beta.Organization.Workspaces.Members.Remove(
+      "user_01XyDMpzjS89pFZXqSFUBDr6",
+      new() { WorkspaceID = "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ" }
+  );
+
+  Console.WriteLine($"user_id: {removedMember.UserID}");
+  ```
+
+  ```go Go
+  client := anthropic.NewClient()
+
+  removedMember, err := client.Beta.Organization.Workspaces.Members.Remove(
+  	context.Background(),
+  	"user_01XyDMpzjS89pFZXqSFUBDr6",
+  	anthropic.BetaOrganizationWorkspaceMemberRemoveParams{
+  		WorkspaceID: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  	},
+  )
+  if err != nil {
+  	log.Fatal(err)
+  }
+
+  fmt.Printf("user_id: %s\n", removedMember.UserID)
+  ```
+
+  ```java Java
+  import com.anthropic.models.beta.organization.workspaces.members.MemberRemoveParams;
+
+  void main() {
+      AnthropicClient client = AnthropicOkHttpClient.fromEnv();
+
+      var params = MemberRemoveParams.builder()
+          .workspaceId("wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ")
+          .build();
+      var removedMember = client.beta().organization().workspaces().members()
+          .remove("user_01XyDMpzjS89pFZXqSFUBDr6", params);
+
+      IO.println("user_id: " + removedMember.userId());
+  }
+  ```
+
+  ```php PHP
+  $client = new Client();
+
+  $removedMember = $client->beta->organization->workspaces->members->remove(
+      userID: 'user_01XyDMpzjS89pFZXqSFUBDr6',
+      workspaceID: 'wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ',
+  );
+
+  echo "user_id: {$removedMember->userID}\n";
+  ```
+
+  ```ruby Ruby
+  client = Anthropic::Client.new
+
+  user_id = "user_01XyDMpzjS89pFZXqSFUBDr6"
+  removed_member = client.beta.organization.workspaces.members.remove(
+    user_id,
+    workspace_id: "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  )
+
+  puts "user_id: #{removed_member.user_id}"
+  ```
+</CodeGroup>
 
 For complete parameter details, see the [Workspace Members API reference](https://platform.claude.com/docs/en/api/admin/workspaces/members/retrieve).
 

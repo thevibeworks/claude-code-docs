@@ -100,7 +100,10 @@ Repository skills apply only in sessions that have the repository. To give a ski
 
 ### Install project dependencies
 
-Every session runs in an isolated sandbox with a standard set of preinstalled tools. The sandbox is the same for every repository; there is no setup script or custom image to configure. If a project needs something the standard set doesn't include, such as a specific language runtime or a database client, add the install commands to the repository's `CLAUDE.md`.
+Every session runs in an isolated sandbox with a standard set of preinstalled tools. There are two places to add what a project needs beyond that set, such as a specific language runtime or a database client:
+
+* **For every session in a channel**, an admin adds the install commands to the setup script of the environment the channel's sessions run on. See [Configure the environment for a scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope).
+* **For one repository**, add the install commands to the repository's `CLAUDE.md`.
 
 Claude follows `CLAUDE.md` as guidance when it starts work that needs it, not as an unconditional setup step. Write each install as a precondition of the work it supports, for example "install the SDK before building or running tests", so Claude runs it when a task touches that code. The sandbox is fresh for every session, so the installs repeat each time Claude works in the repository.
 

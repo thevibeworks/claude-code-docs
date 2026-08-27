@@ -14,7 +14,9 @@ The Compliance API provides access to different data depending on the product:
 
   - **Conversation content** including chats, uploaded files, and projects
 
-  - **Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop) session content**, in beta. Includes prompts and responses, tool calls content, and skills and artifacts content captured as transcript text.
+  - **Session content from Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop).** Includes prompts and responses, tool calls content, and skills and artifacts content captured as transcript text.
+
+  - **Session content from the Claude for Microsoft 365 add-ins (Excel, Word, PowerPoint, and Outlook) and Claude Science**, in beta. Includes prompts and responses, plus drafted emails, formulas, and document text from the Microsoft 365 add-ins.
 
   - **Activity feed events** covering user logins, admin actions, and configuration changes
 
@@ -30,7 +32,7 @@ For Claude Enterprise customers, using an integration is straightforward:
 
 1. Enable the Compliance API in your organization settings. Learn how to **[access the Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**.
 
-2. Connect your instance to a supported security platform. Setup guides are available in the **[Available integrations section](#h_7ff9e34f8e)**.
+2. Connect your instance to a supported security platform. Setup guides are available in the **[Available integrations section](https://support.claude.com/en/articles/15167101-get-started-with-claude-compliance-api-integrations#h_7ff9e34f8e)**.
 
 Claude activity will flow into the same dashboards and workflows your team uses for every other application.
 

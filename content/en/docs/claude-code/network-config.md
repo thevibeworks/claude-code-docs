@@ -194,7 +194,7 @@ Configure the timers with these variables, each detailed in the [environment var
 * `CLAUDE_BYTE_STREAM_IDLE_TIMEOUT_MS` sets the byte-level watchdog's timeout alone, clamped to between 10 seconds and 30 minutes, and takes precedence over `CLAUDE_STREAM_IDLE_TIMEOUT_MS` for that watchdog.
 * `API_FORCE_IDLE_TIMEOUT` set to `0` turns the body idle timeout off, and set to `1` turns it on for every provider. The watchdogs run independently of it, so to let a stream pause longer than their thresholds, also raise or disable them.
 
-When a timer aborts a stalled stream, Claude Code handles it like any other mid-stream failure: it retries, keeps completed output with an [incomplete-response notice](/docs/en/errors#the-response-above-may-be-incomplete), or ends the turn, depending on where the response stood.
+When a watchdog aborts a stalled stream, Claude Code treats it as a mid-stream failure: depending on how far the response had got, it retries the request or ends the turn with an error, keeps the completed output and shows an [incomplete-response notice](/docs/en/errors#the-response-above-may-be-incomplete), or ends the turn normally. [Automatic retries](/docs/en/errors#automatic-retries) says where each outcome applies. In a [non-interactive session](/docs/en/headless), Claude Code may first prompt Claude to continue the cut-off response; [that notice's entry](/docs/en/errors#the-response-above-may-be-incomplete) says when it does and when you still see the notice.
 
 ## Network access requirements
 
@@ -226,6 +226,12 @@ The two Datadog intake hosts carry only optional operational telemetry, and sett
 When using [Amazon Bedrock](/docs/en/amazon-bedrock), [Google Cloud's Agent Platform](/docs/en/google-vertex-ai), [Microsoft Foundry](/docs/en/microsoft-foundry), or a signed-in [Claude apps gateway](/docs/en/claude-apps-gateway) session, model traffic and authentication go to your provider or gateway instead of `api.anthropic.com`, `claude.ai`, or `platform.claude.com`. The WebFetch tool still calls `api.anthropic.com` for its [domain safety check](/docs/en/data-usage#webfetch-domain-safety-check) unless you set `skipWebFetchPreflight: true` in [settings](/docs/en/settings).
 
 When routing through an [LLM gateway](/docs/en/llm-gateway) with [`ANTHROPIC_BASE_URL`](/docs/en/llm-gateway-connect#set-the-base-url-and-credential), the [fast mode](/docs/en/fast-mode) availability check still calls `api.anthropic.com` rather than the gateway base URL. The check does honor a configured HTTP proxy, so where a network block is the cause, an allowlist entry for `api.anthropic.com` in the proxy is the fix. A network block fails the check only where the host is unreachable even through the proxy, and fast mode then reports a connectivity error. The same connectivity error appears when the check presents a gateway-issued credential that Anthropic rejects; allowlisting doesn't help there, since nothing is blocked. See [use fast mode behind proxies and LLM gateways](/docs/en/fast-mode#use-fast-mode-behind-proxies-and-llm-gateways) for the variables that restore it.
+
+### Organization IP allowlists and proxy egress
+
+If your organization has [IP allowlisting](https://support.claude.com/en/articles/13200993-restrict-access-to-claude-with-ip-allowlisting) enabled for Claude, route `bridge.claudeusercontent.com` through the same proxy egress as `claude.ai` and `api.anthropic.com`, for example by placing it in the same Zscaler app segment or Netskope steering policy. If you can't route it that way, add the egress address your proxy uses for that host to your organization's IP allowlist, but only when that address is dedicated to your organization: a shared proxy egress range also admits the proxy vendor's other customers.
+
+Anthropic checks connections to `bridge.claudeusercontent.com` against your organization's IP allowlist using the address they arrive from. If your proxy sends traffic for that host out through an address that isn't on that allowlist, Claude Code can't connect to the [Claude in Chrome](/docs/en/chrome) extension even though the rest of Claude Code works.
 
 ### GitHub allow lists and firewalls
 

@@ -320,6 +320,20 @@ The Models API response can be used to determine which models are available for 
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class ModelListPageResponse:`
@@ -655,6 +669,20 @@ The Models API response can be used to determine information about a specific mo
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -4428,6 +4456,20 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -5761,11 +5803,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       Per-iteration token usage breakdown.
 
-      Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+      Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
       - Determine which iterations exceeded long context thresholds (>=200k tokens)
-      - Calculate the true context window size from the last iteration
+      - Calculate the context window size from the last `message` entry
       - Understand token accumulation across server-side tool use loops
+
+      A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
       - `class BetaMessageIterationUsage:`
 
@@ -6064,11 +6108,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         Per-iteration token usage breakdown.
 
-        Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+        Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
         - Determine which iterations exceeded long context thresholds (>=200k tokens)
-        - Calculate the true context window size from the last iteration
+        - Calculate the context window size from the last `message` entry
         - Understand token accumulation across server-side tool use loops
+
+        A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
       - `required long OutputTokens`
 
@@ -9763,6 +9809,20 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -11535,6 +11595,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 - `Omitted`
 
+                - `Updates`
+
             - `class BetaThinkingConfigDisabled:`
 
               - `JsonElement Type constant`
@@ -11550,6 +11612,8 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
                 - `Summarized`
 
                 - `Omitted`
+
+                - `Updates`
 
         - `JsonElement`
 
@@ -13716,6 +13780,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute the requests in this batch to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header. Applies to every request in the batch; an individual request whose `user_profile_id` body field conflicts with this header is errored.
@@ -14120,6 +14198,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaMessageBatch:`
@@ -14352,6 +14444,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -14599,6 +14705,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaMessageBatch:`
@@ -14822,6 +14942,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaDeletedMessageBatch:`
@@ -14946,6 +15080,20 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -16250,11 +16398,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             Per-iteration token usage breakdown.
 
-            Each entry represents one sampling iteration, with its own input/output token counts and cache statistics. This allows you to:
+            Each entry represents one sampling iteration, with its own input/output token counts and cache statistics, discriminated by `type`. For `message` entries (model sampling iterations, such as the turns of a server-side tool use loop), this allows you to:
 
             - Determine which iterations exceeded long context thresholds (>=200k tokens)
-            - Calculate the true context window size from the last iteration
+            - Calculate the context window size from the last `message` entry
             - Understand token accumulation across server-side tool use loops
+
+            A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
 
             - `class BetaMessageIterationUsage:`
 
@@ -17310,6 +17460,20 @@ Create Agent
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsAgent:`
@@ -18033,6 +18197,20 @@ List Agents
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class AgentListPageResponse:`
@@ -18750,6 +18928,20 @@ Get Agent
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -20109,6 +20301,20 @@ Update Agent
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsAgent:`
@@ -20808,6 +21014,20 @@ Archive Agent
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -21521,6 +21741,20 @@ List Agent Versions
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class VersionListPageResponse:`
@@ -22212,7 +22446,7 @@ Create a new environment with the specified configuration.
 
           - `bool? AllowPackageManagers`
 
-            Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
+            Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
           - `IReadOnlyList<string>? AllowedHosts`
 
@@ -22223,6 +22457,8 @@ Create a new environment with the specified configuration.
         Specify packages (and optionally their versions) available in this environment.
 
         When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
+
+        Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
         - `IReadOnlyList<string>? Apt`
 
@@ -22349,6 +22585,20 @@ Create a new environment with the specified configuration.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -22636,6 +22886,20 @@ List environments with pagination support.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -22930,6 +23194,20 @@ Retrieve a specific environment by ID.
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaEnvironment:`
@@ -23182,7 +23460,7 @@ Update an existing environment's configuration.
 
           - `bool? AllowPackageManagers`
 
-            Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false`.
+            Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array. Defaults to `false` on creation. Must be `true` when `packages` are specified.
 
           - `IReadOnlyList<string>? AllowedHosts`
 
@@ -23193,6 +23471,8 @@ Update an existing environment's configuration.
         Specify packages (and optionally their versions) available in this environment.
 
         When versioning, use the version semantics relevant for the package manager, e.g. for `pip` use `package==1.0.0`. You are responsible for validating the package and version exist. Unversioned installs the latest.
+
+        Under `limited` networking, requires `networking.allow_package_managers` to be `true`.
 
         - `IReadOnlyList<string>? Apt`
 
@@ -23325,6 +23605,20 @@ Update an existing environment's configuration.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -23604,6 +23898,20 @@ Delete an environment by ID. Returns a confirmation of the deletion.
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaEnvironmentDeleteResponse:`
@@ -23725,6 +24033,20 @@ Archive an environment by ID. Archived environments cannot be used to create new
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -24014,6 +24336,20 @@ Retrieve detailed information about a specific work item.
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaSelfHostedWork:`
@@ -24235,6 +24571,20 @@ Long poll for work items in the queue.
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
   - `string anthropicWorkerID`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console
@@ -24450,6 +24800,20 @@ Acknowledge receipt of a work item, transitioning it from 'queued' to 'starting'
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -24672,6 +25036,20 @@ Record a heartbeat for a work item to maintain the lease.
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaSelfHostedWorkHeartbeatResponse:`
@@ -24831,6 +25209,20 @@ Stop a work item, initiating graceful or forced shutdown.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -25050,6 +25442,20 @@ List work items in an environment.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -25278,6 +25684,20 @@ Update work item metadata with merge semantics.
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaSelfHostedWork:`
@@ -25483,6 +25903,20 @@ Get statistics about the work queue for an environment.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -26616,6 +27050,20 @@ Create Session
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -27811,6 +28259,20 @@ List Sessions
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class SessionListPageResponse:`
@@ -28948,6 +29410,20 @@ Get Session
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -30092,6 +30568,20 @@ Update Session
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsSession:`
@@ -31213,6 +31703,20 @@ Delete Session
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeletedSession:`
@@ -31332,6 +31836,20 @@ Archive Session
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -32501,6 +33019,20 @@ List Events
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -35127,6 +35659,20 @@ Send Events
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsSendSessionEvents:`
@@ -35716,6 +36262,20 @@ Stream Events
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -38031,6 +38591,20 @@ Add Session Resource
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsFileResource:`
@@ -38180,6 +38754,20 @@ List Session Resources
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -38434,6 +39022,20 @@ Get Session Resource
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class ResourceRetrieveResponse: union`
@@ -38671,6 +39273,20 @@ Update Session Resource
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class ResourceUpdateResponse: union`
@@ -38903,6 +39519,20 @@ Delete Session Resource
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeleteSessionResource:`
@@ -39036,6 +39666,20 @@ List Session Threads
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class ThreadListPageResponse:`
@@ -39052,7 +39696,7 @@ List Session Threads
 
     - `required Agent Agent`
 
-      A session-resolved multiagent roster entry.
+      The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
 
       - `class BetaManagedAgentsSessionThreadAgent:`
 
@@ -39869,6 +40513,20 @@ Get Session Thread
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsSessionThread:`
@@ -39881,7 +40539,7 @@ Get Session Thread
 
   - `required Agent Agent`
 
-    A session-resolved multiagent roster entry.
+    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
 
     - `class BetaManagedAgentsSessionThreadAgent:`
 
@@ -40688,6 +41346,20 @@ Archive Session Thread
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsSessionThread:`
@@ -40700,7 +41372,7 @@ Archive Session Thread
 
   - `required Agent Agent`
 
-    A session-resolved multiagent roster entry.
+    The resolved agent a session thread runs: a saved-agent snapshot, the platform advisor entry, or an inline-defined (ephemeral) agent snapshot.
 
     - `class BetaManagedAgentsSessionThreadAgent:`
 
@@ -41518,6 +42190,20 @@ List Session Thread Events
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -43783,6 +44469,20 @@ Stream Session Thread Events
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -46449,6 +47149,20 @@ Create Deployment
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeployment:`
@@ -47180,6 +47894,20 @@ List Deployments
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class DeploymentListPageResponse:`
@@ -47875,6 +48603,20 @@ Get Deployment
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -48932,6 +49674,20 @@ Update Deployment
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeployment:`
@@ -49615,6 +50371,20 @@ Archive Deployment
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -50300,6 +51070,20 @@ Run Deployment Now
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeploymentRun:`
@@ -50649,6 +51433,20 @@ Pause Deployment
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -51333,6 +52131,20 @@ Unpause Deployment
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -52062,6 +52874,20 @@ List Deployment Runs
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class DeploymentRunListPageResponse:`
@@ -52424,6 +53250,20 @@ Get Deployment Run
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeploymentRun:`
@@ -52782,6 +53622,20 @@ Create Vault
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsVault:`
@@ -52943,6 +53797,20 @@ List Vaults
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -53111,6 +53979,20 @@ Get Vault
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsVault:`
@@ -53276,6 +54158,20 @@ Update Vault
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsVault:`
@@ -53431,6 +54327,20 @@ Delete Vault
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeletedVault:`
@@ -53552,6 +54462,20 @@ Archive Vault
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -53884,6 +54808,20 @@ Create Credential
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsCredential:`
@@ -54182,6 +55120,20 @@ List Credentials
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class CredentialListPageResponse:`
@@ -54478,6 +55430,20 @@ Get Credential
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -54894,6 +55860,20 @@ Update Credential
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsCredential:`
@@ -55177,6 +56157,20 @@ Delete Credential
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeletedCredential:`
@@ -55303,6 +56297,20 @@ Archive Credential
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -55587,6 +56595,20 @@ Validate Credential
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsCredentialValidation:`
@@ -55820,6 +56842,20 @@ Create a memory store
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsMemoryStore:`
@@ -55999,6 +57035,20 @@ List memory stores
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class MemoryStoreListPageResponse:`
@@ -56170,6 +57220,20 @@ Retrieve a memory store
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -56347,6 +57411,20 @@ Update a memory store
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsMemoryStore:`
@@ -56507,6 +57585,20 @@ Delete a memory store
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeletedMemoryStore:`
@@ -56628,6 +57720,20 @@ Archive a memory store
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -56805,6 +57911,20 @@ Create a memory
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsMemory:`
@@ -56837,7 +57957,7 @@ Create a memory
 
   - `required string MemoryVersionID`
 
-    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
   - `required string Path`
 
@@ -56999,6 +58119,20 @@ List memories
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class MemoryListPageResponse:`
@@ -57039,7 +58173,7 @@ List memories
 
       - `required string MemoryVersionID`
 
-        ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+        ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
       - `required string Path`
 
@@ -57201,6 +58335,20 @@ Retrieve a memory
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsMemory:`
@@ -57233,7 +58381,7 @@ Retrieve a memory
 
   - `required string MemoryVersionID`
 
-    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
   - `required string Path`
 
@@ -57392,6 +58540,20 @@ Update a memory
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsMemory:`
@@ -57424,7 +58586,7 @@ Update a memory
 
   - `required string MemoryVersionID`
 
-    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the full history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+    ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
   - `required string Path`
 
@@ -57569,11 +58731,25 @@ Delete a memory
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsDeletedMemory:`
 
-  Tombstone returned by [Delete a memory](/docs/en/api/beta/memory_stores/memories/delete). The memory's version history persists and remains listable via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) until the store itself is deleted.
+  Tombstone returned by [Delete a memory](/docs/en/api/beta/memory_stores/memories/delete). Deleting a memory does not erase its version history: its versions remain listable via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) while they are retained (each version is kept for at least the version retention period after it was written, unless the store itself is deleted).
 
   - `required string ID`
 
@@ -57740,6 +58916,20 @@ List memory versions
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class MemoryVersionListPageResponse:`
@@ -57762,7 +58952,7 @@ List memory versions
 
     - `required string MemoryID`
 
-      ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
+      ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
 
     - `required string MemoryStoreID`
 
@@ -58006,11 +59196,25 @@ Retrieve a memory version
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsMemoryVersion:`
 
-  A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and persist after the memory is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
+  A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
 
   - `required string ID`
 
@@ -58024,7 +59228,7 @@ Retrieve a memory version
 
   - `required string MemoryID`
 
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
+    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
 
   - `required string MemoryStoreID`
 
@@ -58254,11 +59458,25 @@ Redact a memory version
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaManagedAgentsMemoryVersion:`
 
-  A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and persist after the memory is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
+  A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
 
   - `required string ID`
 
@@ -58272,7 +59490,7 @@ Redact a memory version
 
   - `required string MemoryID`
 
-    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the full lineage including the `deleted` row.
+    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
 
   - `required string MemoryStoreID`
 
@@ -58502,6 +59720,20 @@ Upload File
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaFileMetadata:`
@@ -58692,6 +59924,20 @@ List Files
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -58890,6 +60136,20 @@ Download File
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Example
 
 ```csharp
@@ -58987,6 +60247,20 @@ Get File Metadata
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -59160,6 +60434,20 @@ Delete File
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaDeletedFile:`
@@ -59290,6 +60578,20 @@ Create Skill
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -59470,6 +60772,20 @@ List Skills
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -59654,6 +60970,20 @@ Get Skill
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class SkillRetrieveResponse:`
@@ -59813,6 +61143,20 @@ Delete Skill
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class SkillDeleteResponse:`
@@ -59945,6 +61289,20 @@ Create Skill Version
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -60125,6 +61483,20 @@ List Skill Versions
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -60315,6 +61687,20 @@ Download a skill version's content as a zip archive.
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Example
 
 ```csharp
@@ -60424,6 +61810,20 @@ Get Skill Version
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -60598,6 +61998,20 @@ Delete Skill Version
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class VersionDeleteResponse:`
@@ -60756,6 +62170,20 @@ Create User Profile
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -60958,6 +62386,20 @@ List User Profiles
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class UserProfileListPageResponse:`
@@ -61159,6 +62601,20 @@ Get User Profile
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -61384,6 +62840,20 @@ Update User Profile
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaUserProfile:`
@@ -61574,6 +63044,20 @@ Create Enrollment URL
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaUserProfileEnrollmentUrl:`
@@ -61756,6 +63240,20 @@ Create a Dream
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -62092,6 +63590,20 @@ List Dreams
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class DreamListPageResponse:`
@@ -62389,6 +63901,20 @@ Get a Dream
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaDream:`
@@ -62677,6 +64203,20 @@ Cancel a Dream
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaDream:`
@@ -62964,6 +64504,20 @@ Archive a Dream
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -63259,6 +64813,20 @@ Creates a tunnel. Creation allocates a fresh hostname and provisions the tunnel;
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaTunnel:`
@@ -63403,6 +64971,20 @@ Fetches a tunnel by ID.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -63558,6 +65140,20 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -63719,6 +65315,20 @@ Archives a tunnel. Archival is irreversible: every non-archived certificate on t
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaTunnel:`
@@ -63864,6 +65474,20 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaTunnelToken:`
@@ -63995,6 +65619,20 @@ Rotates a tunnel's connector token. Rotation invalidates the current token for n
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -64130,6 +65768,20 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
@@ -64174,7 +65826,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 CertificateCreateParams parameters = new()
 {
     TunnelID = "tunnel_id",
-    CaCertificatePem = "ca_certificate_pem",
+    CACertificatePem = "ca_certificate_pem",
 };
 
 var betaTunnelCertificate = await client.Beta.Tunnels.Certificates.Create(parameters);
@@ -64289,6 +65941,20 @@ Fetches a tunnel certificate by ID.
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -64459,6 +66125,20 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
     - `AgentMemory2026_07_22`
 
     - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
 
 #### Returns
 
@@ -64631,6 +66311,20 @@ Archives a tunnel certificate, removing it from the set Anthropic trusts for the
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 #### Returns
 
 - `class BetaTunnelCertificate:`
@@ -64694,5 +66388,10126 @@ Console.WriteLine(betaTunnelCertificate);
   "fingerprint": "fingerprint",
   "tunnel_id": "tunnel_id",
   "type": "tunnel_certificate"
+}
+```
+
+## Beta › Organization
+
+### Get Current Organization
+
+`BetaOrganization Beta.Organization.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/me`
+
+Retrieve information about the organization associated with the authenticated API key.
+
+#### Parameters
+
+- `OrganizationRetrieveParams parameters`
+
+#### Returns
+
+- `class BetaOrganization:`
+
+  - `required string ID`
+
+    ID of the Organization.
+
+    format: uuid
+
+  - `required string Name`
+
+    Name of the Organization.
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Organizations, this is always `"organization"`.
+
+#### Example
+
+```csharp
+OrganizationRetrieveParams parameters = new();
+
+var betaOrganization = await client.Beta.Organization.Retrieve(parameters);
+
+Console.WriteLine(betaOrganization);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "12345678-1234-5678-1234-567812345678",
+  "name": "Organization Name",
+  "type": "organization"
+}
+```
+
+## Beta › Organization › API Keys
+
+### List API Keys
+
+`ApiKeyListPageResponse Beta.Organization.ApiKeys.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/api_keys`
+
+List API Keys
+
+#### Parameters
+
+- `ApiKeyListParams parameters`
+
+  - `string afterID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+
+  - `string beforeID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+
+  - `string? createdByUserID`
+
+    Filter by the ID of the User who created the object.
+
+  - `long limit`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
+
+  - `Status? status`
+
+    Filter by API key status.
+
+    - `Active`
+
+    - `Archived`
+
+    - `Expired`
+
+    - `Inactive`
+
+  - `string? workspaceID`
+
+    Filter by Workspace ID.
+
+#### Returns
+
+- `class ApiKeyListPageResponse:`
+
+  - `required IReadOnlyList<BetaApiKey> Data`
+
+    - `required string ID`
+
+      ID of the API key.
+
+    - `required DateTimeOffset CreatedAt`
+
+      RFC 3339 datetime string indicating when the API Key was created.
+
+      format: date-time
+
+    - `required BetaApiKeyCreatedBy? CreatedBy`
+
+      The ID and type of the actor that created the API key, or `null` when the
+      creator is not recorded (legacy, workload-identity-federated, or
+      system-created keys).
+
+      - `required string ID`
+
+        ID of the actor that created the object.
+
+      - `required Type Type`
+
+        Type of the actor that created the object.
+
+        - `ServiceAccount`
+
+        - `User`
+
+    - `required DateTimeOffset? ExpiresAt`
+
+      RFC 3339 datetime string indicating when the API Key expires, or `null` if it never expires.
+
+      format: date-time
+
+    - `required string Name`
+
+      Name of the API key.
+
+    - `required string? PartialKeyHint`
+
+      Partially redacted hint for the API key.
+
+    - `required Principal? Principal`
+
+      The principal the API key acts as (a User or a Service Account), or `null` if the API key is not bound to a principal.
+
+      - `class BetaApiKeyUserActor:`
+
+        - `JsonElement Type constant`
+
+          Principal type. Always `"user_actor"` for a User.
+
+        - `required string UserID`
+
+          ID of the User the API key acts as.
+
+      - `class BetaApiKeyServiceAccountActor:`
+
+        - `required string ServiceAccountID`
+
+          ID of the Service Account the API key acts as.
+
+        - `JsonElement Type constant`
+
+          Principal type. Always `"service_account_actor"` for a Service Account.
+
+    - `required Scope Scope`
+
+      Where the API key belongs: its Workspace (`{"type": "workspace", "workspace_id": "wrkspc_..."}`, with the Workspace's real ID even when it is the organization's default Workspace), or the organization (`{"type": "organization"}`) for a principal-bound API key that has no Workspace.
+
+      - `class BetaApiKeyOrganizationScope:`
+
+        - `JsonElement Type constant`
+
+          Scope type. Always `"organization"`: the API key has no Workspace. Only a principal-bound API key can have this scope.
+
+      - `class BetaApiKeyWorkspaceScope:`
+
+        - `JsonElement Type constant`
+
+          Scope type. Always `"workspace"`: the API key belongs to one Workspace.
+
+        - `required string WorkspaceID`
+
+          ID of the Workspace the API key belongs to. Unlike the deprecated top-level `workspace_id`, this is the Workspace's real ID even for the organization's default Workspace.
+
+    - `required Status Status`
+
+      Status of the API key.
+
+      - `Active`
+
+      - `Archived`
+
+      - `Expired`
+
+      - `Inactive`
+
+    - `JsonElement Type constant`
+
+      Object type.
+
+      For API Keys, this is always `"api_key"`.
+
+    - `required string? WorkspaceID`
+
+      **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
+
+      Deprecated: use `scope` instead. ID of the Workspace associated with the API key, or `null` if the API key belongs to the default Workspace. Also `null` for a principal-bound API key that has no Workspace; `scope` tells the two apart.
+
+  - `required string? FirstID`
+
+    First ID in the `data` list. Can be used as the `before_id` for the previous page.
+
+  - `required bool HasMore`
+
+    Indicates if there are more results in the requested page direction.
+
+  - `required string? LastID`
+
+    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+#### Example
+
+```csharp
+ApiKeyListParams parameters = new();
+
+var page = await client.Beta.Organization.ApiKeys.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "apikey_01Rj2N8SVvo6BePZj99NhmiT",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "created_by": {
+        "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+        "type": "user"
+      },
+      "expires_at": "2024-10-30T23:58:27.427722Z",
+      "name": "Developer Key",
+      "partial_key_hint": "sk-ant-api03-R2D...igAA",
+      "principal": {
+        "type": "user_actor",
+        "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+      },
+      "scope": {
+        "type": "workspace",
+        "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+      },
+      "status": "active",
+      "type": "api_key",
+      "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+    }
+  ],
+  "first_id": "first_id",
+  "has_more": true,
+  "last_id": "last_id"
+}
+```
+
+### Get API Key
+
+`BetaApiKey Beta.Organization.ApiKeys.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/api_keys/{api_key_id}`
+
+Get API Key
+
+#### Parameters
+
+- `ApiKeyRetrieveParams parameters`
+
+  - `required string apiKeyID`
+
+    ID of the API key.
+
+#### Returns
+
+- `class BetaApiKey:`
+
+  - `required string ID`
+
+    ID of the API key.
+
+  - `required DateTimeOffset CreatedAt`
+
+    RFC 3339 datetime string indicating when the API Key was created.
+
+    format: date-time
+
+  - `required BetaApiKeyCreatedBy? CreatedBy`
+
+    The ID and type of the actor that created the API key, or `null` when the
+    creator is not recorded (legacy, workload-identity-federated, or
+    system-created keys).
+
+    - `required string ID`
+
+      ID of the actor that created the object.
+
+    - `required Type Type`
+
+      Type of the actor that created the object.
+
+      - `ServiceAccount`
+
+      - `User`
+
+  - `required DateTimeOffset? ExpiresAt`
+
+    RFC 3339 datetime string indicating when the API Key expires, or `null` if it never expires.
+
+    format: date-time
+
+  - `required string Name`
+
+    Name of the API key.
+
+  - `required string? PartialKeyHint`
+
+    Partially redacted hint for the API key.
+
+  - `required Principal? Principal`
+
+    The principal the API key acts as (a User or a Service Account), or `null` if the API key is not bound to a principal.
+
+    - `class BetaApiKeyUserActor:`
+
+      - `JsonElement Type constant`
+
+        Principal type. Always `"user_actor"` for a User.
+
+      - `required string UserID`
+
+        ID of the User the API key acts as.
+
+    - `class BetaApiKeyServiceAccountActor:`
+
+      - `required string ServiceAccountID`
+
+        ID of the Service Account the API key acts as.
+
+      - `JsonElement Type constant`
+
+        Principal type. Always `"service_account_actor"` for a Service Account.
+
+  - `required Scope Scope`
+
+    Where the API key belongs: its Workspace (`{"type": "workspace", "workspace_id": "wrkspc_..."}`, with the Workspace's real ID even when it is the organization's default Workspace), or the organization (`{"type": "organization"}`) for a principal-bound API key that has no Workspace.
+
+    - `class BetaApiKeyOrganizationScope:`
+
+      - `JsonElement Type constant`
+
+        Scope type. Always `"organization"`: the API key has no Workspace. Only a principal-bound API key can have this scope.
+
+    - `class BetaApiKeyWorkspaceScope:`
+
+      - `JsonElement Type constant`
+
+        Scope type. Always `"workspace"`: the API key belongs to one Workspace.
+
+      - `required string WorkspaceID`
+
+        ID of the Workspace the API key belongs to. Unlike the deprecated top-level `workspace_id`, this is the Workspace's real ID even for the organization's default Workspace.
+
+  - `required Status Status`
+
+    Status of the API key.
+
+    - `Active`
+
+    - `Archived`
+
+    - `Expired`
+
+    - `Inactive`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
+  - `required string? WorkspaceID`
+
+    **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
+
+    Deprecated: use `scope` instead. ID of the Workspace associated with the API key, or `null` if the API key belongs to the default Workspace. Also `null` for a principal-bound API key that has no Workspace; `scope` tells the two apart.
+
+#### Example
+
+```csharp
+ApiKeyRetrieveParams parameters = new() { ApiKeyID = "api_key_id" };
+
+var betaApiKey = await client.Beta.Organization.ApiKeys.Retrieve(parameters);
+
+Console.WriteLine(betaApiKey);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "apikey_01Rj2N8SVvo6BePZj99NhmiT",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by": {
+    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "type": "user"
+  },
+  "expires_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Developer Key",
+  "partial_key_hint": "sk-ant-api03-R2D...igAA",
+  "principal": {
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "scope": {
+    "type": "workspace",
+    "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  },
+  "status": "active",
+  "type": "api_key",
+  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+}
+```
+
+### Update API Key
+
+`BetaApiKey Beta.Organization.ApiKeys.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/api_keys/{api_key_id}`
+
+Update API Key
+
+#### Parameters
+
+- `ApiKeyUpdateParams parameters`
+
+  - `required string apiKeyID`
+
+    ID of the API key.
+
+  - `string? name`
+
+    Name of the API key.
+
+    maxLength: 500, minLength: 1
+
+  - `Status? status`
+
+    Status of the API key.
+
+    - `Active`
+
+    - `Archived`
+
+    - `Inactive`
+
+#### Returns
+
+- `class BetaApiKey:`
+
+  - `required string ID`
+
+    ID of the API key.
+
+  - `required DateTimeOffset CreatedAt`
+
+    RFC 3339 datetime string indicating when the API Key was created.
+
+    format: date-time
+
+  - `required BetaApiKeyCreatedBy? CreatedBy`
+
+    The ID and type of the actor that created the API key, or `null` when the
+    creator is not recorded (legacy, workload-identity-federated, or
+    system-created keys).
+
+    - `required string ID`
+
+      ID of the actor that created the object.
+
+    - `required Type Type`
+
+      Type of the actor that created the object.
+
+      - `ServiceAccount`
+
+      - `User`
+
+  - `required DateTimeOffset? ExpiresAt`
+
+    RFC 3339 datetime string indicating when the API Key expires, or `null` if it never expires.
+
+    format: date-time
+
+  - `required string Name`
+
+    Name of the API key.
+
+  - `required string? PartialKeyHint`
+
+    Partially redacted hint for the API key.
+
+  - `required Principal? Principal`
+
+    The principal the API key acts as (a User or a Service Account), or `null` if the API key is not bound to a principal.
+
+    - `class BetaApiKeyUserActor:`
+
+      - `JsonElement Type constant`
+
+        Principal type. Always `"user_actor"` for a User.
+
+      - `required string UserID`
+
+        ID of the User the API key acts as.
+
+    - `class BetaApiKeyServiceAccountActor:`
+
+      - `required string ServiceAccountID`
+
+        ID of the Service Account the API key acts as.
+
+      - `JsonElement Type constant`
+
+        Principal type. Always `"service_account_actor"` for a Service Account.
+
+  - `required Scope Scope`
+
+    Where the API key belongs: its Workspace (`{"type": "workspace", "workspace_id": "wrkspc_..."}`, with the Workspace's real ID even when it is the organization's default Workspace), or the organization (`{"type": "organization"}`) for a principal-bound API key that has no Workspace.
+
+    - `class BetaApiKeyOrganizationScope:`
+
+      - `JsonElement Type constant`
+
+        Scope type. Always `"organization"`: the API key has no Workspace. Only a principal-bound API key can have this scope.
+
+    - `class BetaApiKeyWorkspaceScope:`
+
+      - `JsonElement Type constant`
+
+        Scope type. Always `"workspace"`: the API key belongs to one Workspace.
+
+      - `required string WorkspaceID`
+
+        ID of the Workspace the API key belongs to. Unlike the deprecated top-level `workspace_id`, this is the Workspace's real ID even for the organization's default Workspace.
+
+  - `required Status Status`
+
+    Status of the API key.
+
+    - `Active`
+
+    - `Archived`
+
+    - `Expired`
+
+    - `Inactive`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For API Keys, this is always `"api_key"`.
+
+  - `required string? WorkspaceID`
+
+    **Deprecated**: Use `scope` instead. `workspace_id` is `null` both for an API key in the default Workspace and for a principal-bound API key that has no Workspace.
+
+    Deprecated: use `scope` instead. ID of the Workspace associated with the API key, or `null` if the API key belongs to the default Workspace. Also `null` for a principal-bound API key that has no Workspace; `scope` tells the two apart.
+
+#### Example
+
+```csharp
+ApiKeyUpdateParams parameters = new() { ApiKeyID = "api_key_id" };
+
+var betaApiKey = await client.Beta.Organization.ApiKeys.Update(parameters);
+
+Console.WriteLine(betaApiKey);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "apikey_01Rj2N8SVvo6BePZj99NhmiT",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by": {
+    "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    "type": "user"
+  },
+  "expires_at": "2024-10-30T23:58:27.427722Z",
+  "name": "Developer Key",
+  "partial_key_hint": "sk-ant-api03-R2D...igAA",
+  "principal": {
+    "type": "user_actor",
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
+  },
+  "scope": {
+    "type": "workspace",
+    "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+  },
+  "status": "active",
+  "type": "api_key",
+  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+}
+```
+
+## Beta › Organization › External Keys
+
+### Create External Key
+
+`BetaExternalKey Beta.Organization.ExternalKeys.Create(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/external_keys`
+
+Create an external key config owned by the caller's organization.
+
+#### Parameters
+
+- `ExternalKeyCreateParams parameters`
+
+  - `required ProviderConfig providerConfig`
+
+    KMS provider identity and auth coordinates.
+
+    - `class BetaAwsExternalKeyConfig:`
+
+      - `required string KmsArn`
+
+        Full ARN of the AWS KMS key.
+
+        maxLength: 2048
+
+      - `JsonElement Type constant`
+
+      - `string? Region`
+
+        AWS region. Derived from `kms_arn` if omitted.
+
+      - `string? RoleArn`
+
+        **Deprecated**
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+
+    - `class BetaGcpExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Full resource name of the Cloud KMS key.
+
+      - `JsonElement Type constant`
+
+    - `class BetaAzureExternalKeyConfigParam:`
+
+      Azure Key Vault provider configuration.
+
+      - `required string KeyName`
+
+        Name of the key within the vault.
+
+      - `required string TenantID`
+
+        Azure AD tenant ID.
+
+      - `JsonElement Type constant`
+
+      - `required string VaultUri`
+
+        Key Vault data-plane URI — `https://{vault-name}.vault.azure.net` or `https://{hsm-name}.managedhsm.azure.net`.
+
+      - `string? ClientID`
+
+        Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+
+  - `string? displayName`
+
+    Human-friendly display name.
+
+    maxLength: 255, minLength: 1
+
+  - `Geo geo`
+
+    Data residency geo. Only `us` is supported.
+
+    - `Us`
+
+#### Returns
+
+- `class BetaExternalKey:`
+
+  CMEK external key config belonging to the caller's organization.
+
+  Configs are organization-scoped. Workspaces attach to a config; once any
+  workspace references it, the provider fields become effectively immutable
+  (existing encrypted data needs the config for decrypt).
+
+  - `required string ID`
+
+    Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
+
+  - `required Attachment Attachment`
+
+    Whether any workspace uses this config to encrypt its data — counting live and archived workspaces (an archived workspace's data remains encrypted under the config), excluding deleted ones. Only an attached config is used by the encryption path; an `unattached` config is inert and can be deleted.
+
+    - `class BetaExternalKeyAttachedAttachment:`
+
+      - `JsonElement Type constant`
+
+    - `class BetaExternalKeyUnattachedAttachment:`
+
+      - `JsonElement Type constant`
+
+  - `required DateTimeOffset CreatedAt`
+
+    format: date-time
+
+  - `required string? DisplayName`
+
+    Human-friendly display name. Null if none was set.
+
+  - `required string Geo`
+
+    Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
+
+  - `required ProviderConfig ProviderConfig`
+
+    KMS provider identity and auth coordinates.
+
+    - `class BetaAwsExternalKeyConfig:`
+
+      - `required string KmsArn`
+
+        Full ARN of the AWS KMS key.
+
+        maxLength: 2048
+
+      - `JsonElement Type constant`
+
+      - `string? Region`
+
+        AWS region. Derived from `kms_arn` if omitted.
+
+      - `string? RoleArn`
+
+        **Deprecated**
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+
+    - `class BetaGcpExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Full resource name of the Cloud KMS key.
+
+      - `JsonElement Type constant`
+
+    - `class BetaAzureExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Name of the key within the vault.
+
+      - `required string TenantID`
+
+        Azure AD tenant ID.
+
+      - `JsonElement Type constant`
+
+      - `required string VaultUri`
+
+        Key Vault data-plane URI — `https://{vault-name}.vault.azure.net` or `https://{hsm-name}.managedhsm.azure.net`.
+
+      - `string? ClientID`
+
+        Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    format: date-time
+
+#### Example
+
+```csharp
+ExternalKeyCreateParams parameters = new()
+{
+    ProviderConfig = new BetaAwsExternalKeyConfig()
+    {
+        KmsArn = "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
+        Region = "us-east-1",
+        RoleArn = "arn:aws:iam::111122223333:role/anthropic-cmek",
+    },
+};
+
+var betaExternalKey = await client.Beta.Organization.ExternalKeys.Create(parameters);
+
+Console.WriteLine(betaExternalKey);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "attachment": {
+    "type": "attached"
+  },
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "display_name": "prod-us-key",
+  "geo": "us",
+  "provider_config": {
+    "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
+    "type": "aws",
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
+  },
+  "type": "external_key",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### List External Keys
+
+`ExternalKeyListPageResponse Beta.Organization.ExternalKeys.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/external_keys`
+
+List external key configs in the caller's organization.
+
+Results are ordered by creation time (newest first). Use the
+`next_page` cursor from the response to fetch subsequent pages.
+
+#### Parameters
+
+- `ExternalKeyListParams parameters`
+
+  - `long limit`
+
+    Number of results per page.
+
+    maximum: 100, minimum: 1
+
+  - `string? page`
+
+    Opaque cursor from a previous response's `next_page`.
+
+#### Returns
+
+- `class ExternalKeyListPageResponse:`
+
+  Opaque-cursor page of external keys, ordered by creation time (newest first).
+
+  - `required IReadOnlyList<BetaExternalKey> Data`
+
+    - `required string ID`
+
+      Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
+
+    - `required Attachment Attachment`
+
+      Whether any workspace uses this config to encrypt its data — counting live and archived workspaces (an archived workspace's data remains encrypted under the config), excluding deleted ones. Only an attached config is used by the encryption path; an `unattached` config is inert and can be deleted.
+
+      - `class BetaExternalKeyAttachedAttachment:`
+
+        - `JsonElement Type constant`
+
+      - `class BetaExternalKeyUnattachedAttachment:`
+
+        - `JsonElement Type constant`
+
+    - `required DateTimeOffset CreatedAt`
+
+      format: date-time
+
+    - `required string? DisplayName`
+
+      Human-friendly display name. Null if none was set.
+
+    - `required string Geo`
+
+      Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
+
+    - `required ProviderConfig ProviderConfig`
+
+      KMS provider identity and auth coordinates.
+
+      - `class BetaAwsExternalKeyConfig:`
+
+        - `required string KmsArn`
+
+          Full ARN of the AWS KMS key.
+
+          maxLength: 2048
+
+        - `JsonElement Type constant`
+
+        - `string? Region`
+
+          AWS region. Derived from `kms_arn` if omitted.
+
+        - `string? RoleArn`
+
+          **Deprecated**
+
+          IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+
+      - `class BetaGcpExternalKeyConfig:`
+
+        - `required string KeyName`
+
+          Full resource name of the Cloud KMS key.
+
+        - `JsonElement Type constant`
+
+      - `class BetaAzureExternalKeyConfig:`
+
+        - `required string KeyName`
+
+          Name of the key within the vault.
+
+        - `required string TenantID`
+
+          Azure AD tenant ID.
+
+        - `JsonElement Type constant`
+
+        - `required string VaultUri`
+
+          Key Vault data-plane URI — `https://{vault-name}.vault.azure.net` or `https://{hsm-name}.managedhsm.azure.net`.
+
+        - `string? ClientID`
+
+          Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+
+    - `JsonElement Type constant`
+
+    - `required DateTimeOffset UpdatedAt`
+
+      format: date-time
+
+  - `required string? NextPage`
+
+    Opaque cursor for the next page, or null if no more results. Pass as `?page=` to fetch the next page.
+
+#### Example
+
+```csharp
+ExternalKeyListParams parameters = new();
+
+var page = await client.Beta.Organization.ExternalKeys.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+      "attachment": {
+        "type": "attached"
+      },
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "display_name": "prod-us-key",
+      "geo": "us",
+      "provider_config": {
+        "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
+        "type": "aws",
+        "region": "us-east-1",
+        "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
+      },
+      "type": "external_key",
+      "updated_at": "2024-10-30T23:58:27.427722Z"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Get External Key
+
+`BetaExternalKey Beta.Organization.ExternalKeys.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/external_keys/{external_key_id}`
+
+Retrieve a single external key config in the caller's organization by ID.
+
+#### Parameters
+
+- `ExternalKeyRetrieveParams parameters`
+
+  - `required string externalKeyID`
+
+    ID of the External Key.
+
+    maxLength: 2048
+
+#### Returns
+
+- `class BetaExternalKey:`
+
+  CMEK external key config belonging to the caller's organization.
+
+  Configs are organization-scoped. Workspaces attach to a config; once any
+  workspace references it, the provider fields become effectively immutable
+  (existing encrypted data needs the config for decrypt).
+
+  - `required string ID`
+
+    Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
+
+  - `required Attachment Attachment`
+
+    Whether any workspace uses this config to encrypt its data — counting live and archived workspaces (an archived workspace's data remains encrypted under the config), excluding deleted ones. Only an attached config is used by the encryption path; an `unattached` config is inert and can be deleted.
+
+    - `class BetaExternalKeyAttachedAttachment:`
+
+      - `JsonElement Type constant`
+
+    - `class BetaExternalKeyUnattachedAttachment:`
+
+      - `JsonElement Type constant`
+
+  - `required DateTimeOffset CreatedAt`
+
+    format: date-time
+
+  - `required string? DisplayName`
+
+    Human-friendly display name. Null if none was set.
+
+  - `required string Geo`
+
+    Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
+
+  - `required ProviderConfig ProviderConfig`
+
+    KMS provider identity and auth coordinates.
+
+    - `class BetaAwsExternalKeyConfig:`
+
+      - `required string KmsArn`
+
+        Full ARN of the AWS KMS key.
+
+        maxLength: 2048
+
+      - `JsonElement Type constant`
+
+      - `string? Region`
+
+        AWS region. Derived from `kms_arn` if omitted.
+
+      - `string? RoleArn`
+
+        **Deprecated**
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+
+    - `class BetaGcpExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Full resource name of the Cloud KMS key.
+
+      - `JsonElement Type constant`
+
+    - `class BetaAzureExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Name of the key within the vault.
+
+      - `required string TenantID`
+
+        Azure AD tenant ID.
+
+      - `JsonElement Type constant`
+
+      - `required string VaultUri`
+
+        Key Vault data-plane URI — `https://{vault-name}.vault.azure.net` or `https://{hsm-name}.managedhsm.azure.net`.
+
+      - `string? ClientID`
+
+        Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    format: date-time
+
+#### Example
+
+```csharp
+ExternalKeyRetrieveParams parameters = new()
+{
+    ExternalKeyID = "external_key_id"
+};
+
+var betaExternalKey = await client.Beta.Organization.ExternalKeys.Retrieve(parameters);
+
+Console.WriteLine(betaExternalKey);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "attachment": {
+    "type": "attached"
+  },
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "display_name": "prod-us-key",
+  "geo": "us",
+  "provider_config": {
+    "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
+    "type": "aws",
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
+  },
+  "type": "external_key",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### Update External Key
+
+`BetaExternalKey Beta.Organization.ExternalKeys.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/external_keys/{external_key_id}`
+
+Partially update an external key config. Omitted fields are left unchanged.
+
+`display_name` is always editable. `geo` and `provider_config` cannot
+be changed once any workspace references this config, because previously
+encrypted data requires the original key identity to decrypt.
+
+#### Parameters
+
+- `ExternalKeyUpdateParams parameters`
+
+  - `required string externalKeyID`
+
+    ID of the External Key.
+
+    maxLength: 2048
+
+  - `string? displayName`
+
+    Human-friendly display name.
+
+    maxLength: 255, minLength: 1
+
+  - `Geo? geo`
+
+    Data residency geo. Only `us` is supported.
+
+    - `Us`
+
+  - `ProviderConfig? providerConfig`
+
+    KMS provider identity and auth coordinates.
+
+    - `class BetaAwsExternalKeyConfig:`
+
+      - `required string KmsArn`
+
+        Full ARN of the AWS KMS key.
+
+        maxLength: 2048
+
+      - `JsonElement Type constant`
+
+      - `string? Region`
+
+        AWS region. Derived from `kms_arn` if omitted.
+
+      - `string? RoleArn`
+
+        **Deprecated**
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+
+    - `class BetaGcpExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Full resource name of the Cloud KMS key.
+
+      - `JsonElement Type constant`
+
+    - `class BetaAzureExternalKeyConfigParam:`
+
+      Azure Key Vault provider configuration.
+
+      - `required string KeyName`
+
+        Name of the key within the vault.
+
+      - `required string TenantID`
+
+        Azure AD tenant ID.
+
+      - `JsonElement Type constant`
+
+      - `required string VaultUri`
+
+        Key Vault data-plane URI — `https://{vault-name}.vault.azure.net` or `https://{hsm-name}.managedhsm.azure.net`.
+
+      - `string? ClientID`
+
+        Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+
+#### Returns
+
+- `class BetaExternalKey:`
+
+  CMEK external key config belonging to the caller's organization.
+
+  Configs are organization-scoped. Workspaces attach to a config; once any
+  workspace references it, the provider fields become effectively immutable
+  (existing encrypted data needs the config for decrypt).
+
+  - `required string ID`
+
+    Identifier of the external key config. A tagged ID prefixed `ekey_`, or — for organizations on the Claude Platform on AWS — the AWS KMS key ARN.
+
+  - `required Attachment Attachment`
+
+    Whether any workspace uses this config to encrypt its data — counting live and archived workspaces (an archived workspace's data remains encrypted under the config), excluding deleted ones. Only an attached config is used by the encryption path; an `unattached` config is inert and can be deleted.
+
+    - `class BetaExternalKeyAttachedAttachment:`
+
+      - `JsonElement Type constant`
+
+    - `class BetaExternalKeyUnattachedAttachment:`
+
+      - `JsonElement Type constant`
+
+  - `required DateTimeOffset CreatedAt`
+
+    format: date-time
+
+  - `required string? DisplayName`
+
+    Human-friendly display name. Null if none was set.
+
+  - `required string Geo`
+
+    Data residency geo. Selects which regional validator handles this key's encrypt/decrypt roundtrips.
+
+  - `required ProviderConfig ProviderConfig`
+
+    KMS provider identity and auth coordinates.
+
+    - `class BetaAwsExternalKeyConfig:`
+
+      - `required string KmsArn`
+
+        Full ARN of the AWS KMS key.
+
+        maxLength: 2048
+
+      - `JsonElement Type constant`
+
+      - `string? Region`
+
+        AWS region. Derived from `kms_arn` if omitted.
+
+      - `string? RoleArn`
+
+        **Deprecated**
+
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+
+    - `class BetaGcpExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Full resource name of the Cloud KMS key.
+
+      - `JsonElement Type constant`
+
+    - `class BetaAzureExternalKeyConfig:`
+
+      - `required string KeyName`
+
+        Name of the key within the vault.
+
+      - `required string TenantID`
+
+        Azure AD tenant ID.
+
+      - `JsonElement Type constant`
+
+      - `required string VaultUri`
+
+        Key Vault data-plane URI — `https://{vault-name}.vault.azure.net` or `https://{hsm-name}.managedhsm.azure.net`.
+
+      - `string? ClientID`
+
+        Azure AD application (client) ID. Omit to use Anthropic's multitenant app. Provide only if using a single-tenant app registration in the customer's directory.
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    format: date-time
+
+#### Example
+
+```csharp
+ExternalKeyUpdateParams parameters = new()
+{
+    ExternalKeyID = "external_key_id"
+};
+
+var betaExternalKey = await client.Beta.Organization.ExternalKeys.Update(parameters);
+
+Console.WriteLine(betaExternalKey);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "attachment": {
+    "type": "attached"
+  },
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "display_name": "prod-us-key",
+  "geo": "us",
+  "provider_config": {
+    "kms_arn": "arn:aws:kms:us-east-1:111122223333:key/abcd1234-5678-90ab-cdef-000011112222",
+    "type": "aws",
+    "region": "us-east-1",
+    "role_arn": "arn:aws:iam::111122223333:role/anthropic-cmek"
+  },
+  "type": "external_key",
+  "updated_at": "2024-10-30T23:58:27.427722Z"
+}
+```
+
+### Delete External Key
+
+`ExternalKeyDeleteResponse Beta.Organization.ExternalKeys.Delete(parameters, cancellationToken = default)`
+
+**DELETE** `/v1/organizations/external_keys/{external_key_id}`
+
+Delete an external key config.
+
+The request is rejected if any workspace still references this config.
+
+#### Parameters
+
+- `ExternalKeyDeleteParams parameters`
+
+  - `required string externalKeyID`
+
+    ID of the External Key.
+
+    maxLength: 2048
+
+#### Returns
+
+- `class ExternalKeyDeleteResponse:`
+
+  - `required string ID`
+
+    ID of the deleted External Key.
+
+  - `JsonElement Type constant`
+
+#### Example
+
+```csharp
+ExternalKeyDeleteParams parameters = new()
+{
+    ExternalKeyID = "external_key_id"
+};
+
+var externalKey = await client.Beta.Organization.ExternalKeys.Delete(parameters);
+
+Console.WriteLine(externalKey);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "ekey_01AbCdEfGhIjKlMnOpQrStUv",
+  "type": "external_key_deleted"
+}
+```
+
+### Validate External Key
+
+`ExternalKeyValidateResponse Beta.Organization.ExternalKeys.Validate(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/external_keys/{external_key_id}/validate`
+
+Validate an external key config against the customer's KMS.
+
+Anthropic performs an encrypt/decrypt roundtrip against the configured
+KMS key and waits up to 30 seconds for the result. The response status is
+`success` if the roundtrip succeeded, or `failure` with an error
+message if it failed or timed out.
+
+#### Parameters
+
+- `ExternalKeyValidateParams parameters`
+
+  - `required string externalKeyID`
+
+    ID of the External Key.
+
+    maxLength: 2048
+
+#### Returns
+
+- `class ExternalKeyValidateResponse:`
+
+  Result of a validation roundtrip against the customer's KMS.
+
+  HTTP 200 for both outcomes — the operation completed; `status` says
+  whether the key works.
+
+  - `required string? Error`
+
+    Error message when status is `failure`. Null otherwise.
+
+  - `required Status Status`
+
+    `success` — encrypt/decrypt roundtrip succeeded. `failure` — the roundtrip failed or timed out; see `error`.
+
+    - `Failure`
+
+    - `Success`
+
+  - `JsonElement Type constant`
+
+#### Example
+
+```csharp
+ExternalKeyValidateParams parameters = new()
+{
+    ExternalKeyID = "external_key_id"
+};
+
+var response = await client.Beta.Organization.ExternalKeys.Validate(parameters);
+
+Console.WriteLine(response);
+```
+
+##### Response (200)
+
+```json
+{
+  "error": "error",
+  "status": "failure",
+  "type": "external_key_validation"
+}
+```
+
+## Beta › Organization › Federation › Issuers
+
+### Create Federation Issuer
+
+`BetaFederationIssuer Beta.Organization.Federation.Issuers.Create(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/federation_issuers`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Register an OIDC issuer that Anthropic will trust for workload identity
+federation in your organization.
+
+The `jwks` field controls how the issuer's signing keys are obtained and
+takes one of three shapes selected by `type`: `discovery` (resolve keys
+through OIDC discovery), `explicit_url` (fetch keys from a fixed JWKS
+URL), or `inline` (provide a static key set). When `jwks.type` is
+`discovery` and no `discovery_base` is set, the issuer URL must be
+publicly reachable over HTTPS so Anthropic can fetch the discovery
+document; for `explicit_url` and `inline` modes the issuer URL is only
+matched as the JWT's `iss` claim and is not fetched.
+
+#### Parameters
+
+- `IssuerCreateParams parameters`
+
+  - `required string issuerUrl`
+
+    Body param: The `iss` claim value to match against.
+
+    minLength: 1
+
+  - `required string name`
+
+    Body param: Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+
+    maxLength: 255, minLength: 1
+
+  - `bool? checkJti`
+
+    Body param: Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Defaults to true. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+
+  - `Jwks jwks`
+
+    Body param: How signing keys are obtained. Defaults to OIDC discovery.
+
+    - `class BetaJwksDiscovery:`
+
+      JWKS via the issuer's OIDC discovery document.
+
+      - `JsonElement Type constant`
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+      - `string? DiscoveryBase`
+
+        Set when the discovery URL differs from `issuer_url`.
+
+    - `class BetaJwksExplicitUrl:`
+
+      JWKS fetched from a fixed endpoint.
+
+      - `JsonElement Type constant`
+
+      - `required string Url`
+
+        JWKS endpoint.
+
+        minLength: 1
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+    - `class BetaJwksInline:`
+
+      JWKS supplied directly; no network fetch.
+
+      - `required IReadOnlyList<IReadOnlyDictionary<string, JsonElement>> Keys`
+
+        Inline JWK objects.
+
+        minItems: 1
+
+      - `JsonElement Type constant`
+
+  - `long? maxJwtLifetimeSeconds`
+
+    Body param: Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Defaults to 3600 (1h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+
+    maximum: 176400, exclusiveMinimum: 0
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationIssuer:`
+
+  Registered external OIDC identity provider.
+
+  Records an external IdP the organization trusts for the RFC 7523
+  jwt-bearer grant. The `issuer_url` must match the JWT `iss` claim exactly.
+
+  - `required string ID`
+
+    Tagged ID of the federation issuer.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, all rules referencing this issuer reject token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
+
+  - `required bool CheckJti`
+
+    Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this issuer was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
+
+  - `required string IssuerUrl`
+
+    The `iss` claim value. Incoming JWTs must match exactly.
+
+  - `required Jwks Jwks`
+
+    How signing keys are obtained for signature verification.
+
+    - `class BetaJwksDiscovery:`
+
+      JWKS via the issuer's OIDC discovery document.
+
+      - `JsonElement Type constant`
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+      - `string? DiscoveryBase`
+
+        Set when the discovery URL differs from `issuer_url`.
+
+    - `class BetaJwksExplicitUrl:`
+
+      JWKS fetched from a fixed endpoint.
+
+      - `JsonElement Type constant`
+
+      - `required string Url`
+
+        JWKS endpoint.
+
+        minLength: 1
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+    - `class BetaJwksInline:`
+
+      JWKS supplied directly; no network fetch.
+
+      - `required IReadOnlyList<IReadOnlyDictionary<string, JsonElement>> Keys`
+
+        Inline JWK objects.
+
+        minItems: 1
+
+      - `JsonElement Type constant`
+
+  - `required DateTimeOffset? JwksPollingDisabledAt`
+
+    If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
+
+    format: date-time
+
+  - `required long MaxJwtLifetimeSeconds`
+
+    Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required BetaFederationIssuerPollStatus? PollStatus`
+
+    Status of automatic JWKS polling for a federation issuer.
+
+    Anthropic periodically fetches the issuer's signing keys in the
+    background. These fields summarize the most recent fetches so the
+    health of the JWKS endpoint can be monitored.
+
+    - `required long ConsecutiveFailures`
+
+      Consecutive fetch failures since the last success.
+
+    - `required DateTimeOffset? LastFetchedAt`
+
+      When the last successful fetch completed.
+
+      format: date-time
+
+    - `required DateTimeOffset? NextPollAt`
+
+      When the next fetch is scheduled. Null if paused.
+
+      format: date-time
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this issuer was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
+
+#### Example
+
+```csharp
+IssuerCreateParams parameters = new()
+{
+    IssuerUrl = "x",
+    Name = "x",
+};
+
+var betaFederationIssuer = await client.Beta.Organization.Federation.Issuers.Create(parameters);
+
+Console.WriteLine(betaFederationIssuer);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdis_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "check_jti": true,
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "issuer_url": "https://token.actions.githubusercontent.com",
+  "jwks": {
+    "type": "discovery",
+    "ca_cert_pem": "ca_cert_pem",
+    "discovery_base": "discovery_base"
+  },
+  "jwks_polling_disabled_at": "2019-12-27T18:11:19.117Z",
+  "max_jwt_lifetime_seconds": 0,
+  "name": "github-actions",
+  "poll_status": {
+    "consecutive_failures": 0,
+    "last_fetched_at": "2019-12-27T18:11:19.117Z",
+    "next_poll_at": "2019-12-27T18:11:19.117Z"
+  },
+  "type": "federation_issuer",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+### List Federation Issuers
+
+`IssuerListPageResponse Beta.Organization.Federation.Issuers.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/federation_issuers`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+List federation issuers in your organization.
+
+Archived issuers are excluded unless `include_archived=true`.
+
+#### Parameters
+
+- `IssuerListParams parameters`
+
+  - `bool includeArchived`
+
+    Query param: Include archived resources. Defaults to false.
+
+  - `long limit`
+
+    Query param: Number of results per page.
+
+    maximum: 100, minimum: 1
+
+  - `string? page`
+
+    Query param: Opaque cursor from a previous response's `next_page`.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class IssuerListPageResponse:`
+
+  - `required IReadOnlyList<BetaFederationIssuer> Data`
+
+    - `required string ID`
+
+      Tagged ID of the federation issuer.
+
+    - `required DateTimeOffset? ArchivedAt`
+
+      If set, all rules referencing this issuer reject token exchange.
+
+      format: date-time
+
+    - `required string? ArchivedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
+
+    - `required bool CheckJti`
+
+      Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+
+    - `required DateTimeOffset CreatedAt`
+
+      When this issuer was created.
+
+      format: date-time
+
+    - `required string? CreatedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
+
+    - `required string IssuerUrl`
+
+      The `iss` claim value. Incoming JWTs must match exactly.
+
+    - `required Jwks Jwks`
+
+      How signing keys are obtained for signature verification.
+
+      - `class BetaJwksDiscovery:`
+
+        JWKS via the issuer's OIDC discovery document.
+
+        - `JsonElement Type constant`
+
+        - `string? CACertPem`
+
+          Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+          maxLength: 8192
+
+        - `string? DiscoveryBase`
+
+          Set when the discovery URL differs from `issuer_url`.
+
+      - `class BetaJwksExplicitUrl:`
+
+        JWKS fetched from a fixed endpoint.
+
+        - `JsonElement Type constant`
+
+        - `required string Url`
+
+          JWKS endpoint.
+
+          minLength: 1
+
+        - `string? CACertPem`
+
+          Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+          maxLength: 8192
+
+      - `class BetaJwksInline:`
+
+        JWKS supplied directly; no network fetch.
+
+        - `required IReadOnlyList<IReadOnlyDictionary<string, JsonElement>> Keys`
+
+          Inline JWK objects.
+
+          minItems: 1
+
+        - `JsonElement Type constant`
+
+    - `required DateTimeOffset? JwksPollingDisabledAt`
+
+      If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
+
+      format: date-time
+
+    - `required long MaxJwtLifetimeSeconds`
+
+      Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+
+    - `required string Name`
+
+      Admin-chosen slug identifier.
+
+    - `required BetaFederationIssuerPollStatus? PollStatus`
+
+      Status of automatic JWKS polling for a federation issuer.
+
+      Anthropic periodically fetches the issuer's signing keys in the
+      background. These fields summarize the most recent fetches so the
+      health of the JWKS endpoint can be monitored.
+
+      - `required long ConsecutiveFailures`
+
+        Consecutive fetch failures since the last success.
+
+      - `required DateTimeOffset? LastFetchedAt`
+
+        When the last successful fetch completed.
+
+        format: date-time
+
+      - `required DateTimeOffset? NextPollAt`
+
+        When the next fetch is scheduled. Null if paused.
+
+        format: date-time
+
+    - `JsonElement Type constant`
+
+    - `required DateTimeOffset UpdatedAt`
+
+      When this issuer was last updated.
+
+      format: date-time
+
+    - `required string? UpdatedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
+
+  - `required string? NextPage`
+
+    Opaque cursor for the next page, or null if no more results.
+
+#### Example
+
+```csharp
+IssuerListParams parameters = new();
+
+var page = await client.Beta.Organization.Federation.Issuers.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "fdis_01SDCCSbTxrXDpWc1phhtcfK",
+      "archived_at": "2019-12-27T18:11:19.117Z",
+      "archived_by_actor_id": "archived_by_actor_id",
+      "check_jti": true,
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "created_by_actor_id": "created_by_actor_id",
+      "issuer_url": "https://token.actions.githubusercontent.com",
+      "jwks": {
+        "type": "discovery",
+        "ca_cert_pem": "ca_cert_pem",
+        "discovery_base": "discovery_base"
+      },
+      "jwks_polling_disabled_at": "2019-12-27T18:11:19.117Z",
+      "max_jwt_lifetime_seconds": 0,
+      "name": "github-actions",
+      "poll_status": {
+        "consecutive_failures": 0,
+        "last_fetched_at": "2019-12-27T18:11:19.117Z",
+        "next_poll_at": "2019-12-27T18:11:19.117Z"
+      },
+      "type": "federation_issuer",
+      "updated_at": "2024-10-30T23:58:27.427722Z",
+      "updated_by_actor_id": "updated_by_actor_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Get Federation Issuer
+
+`BetaFederationIssuer Beta.Organization.Federation.Issuers.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/federation_issuers/{federation_issuer_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Retrieve a federation issuer by its ID (`fdis_...`).
+
+#### Parameters
+
+- `IssuerRetrieveParams parameters`
+
+  - `required string federationIssuerID`
+
+    ID of the federation issuer.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationIssuer:`
+
+  Registered external OIDC identity provider.
+
+  Records an external IdP the organization trusts for the RFC 7523
+  jwt-bearer grant. The `issuer_url` must match the JWT `iss` claim exactly.
+
+  - `required string ID`
+
+    Tagged ID of the federation issuer.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, all rules referencing this issuer reject token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
+
+  - `required bool CheckJti`
+
+    Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this issuer was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
+
+  - `required string IssuerUrl`
+
+    The `iss` claim value. Incoming JWTs must match exactly.
+
+  - `required Jwks Jwks`
+
+    How signing keys are obtained for signature verification.
+
+    - `class BetaJwksDiscovery:`
+
+      JWKS via the issuer's OIDC discovery document.
+
+      - `JsonElement Type constant`
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+      - `string? DiscoveryBase`
+
+        Set when the discovery URL differs from `issuer_url`.
+
+    - `class BetaJwksExplicitUrl:`
+
+      JWKS fetched from a fixed endpoint.
+
+      - `JsonElement Type constant`
+
+      - `required string Url`
+
+        JWKS endpoint.
+
+        minLength: 1
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+    - `class BetaJwksInline:`
+
+      JWKS supplied directly; no network fetch.
+
+      - `required IReadOnlyList<IReadOnlyDictionary<string, JsonElement>> Keys`
+
+        Inline JWK objects.
+
+        minItems: 1
+
+      - `JsonElement Type constant`
+
+  - `required DateTimeOffset? JwksPollingDisabledAt`
+
+    If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
+
+    format: date-time
+
+  - `required long MaxJwtLifetimeSeconds`
+
+    Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required BetaFederationIssuerPollStatus? PollStatus`
+
+    Status of automatic JWKS polling for a federation issuer.
+
+    Anthropic periodically fetches the issuer's signing keys in the
+    background. These fields summarize the most recent fetches so the
+    health of the JWKS endpoint can be monitored.
+
+    - `required long ConsecutiveFailures`
+
+      Consecutive fetch failures since the last success.
+
+    - `required DateTimeOffset? LastFetchedAt`
+
+      When the last successful fetch completed.
+
+      format: date-time
+
+    - `required DateTimeOffset? NextPollAt`
+
+      When the next fetch is scheduled. Null if paused.
+
+      format: date-time
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this issuer was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
+
+#### Example
+
+```csharp
+IssuerRetrieveParams parameters = new()
+{
+    FederationIssuerID = "federation_issuer_id"
+};
+
+var betaFederationIssuer = await client.Beta.Organization.Federation.Issuers.Retrieve(parameters);
+
+Console.WriteLine(betaFederationIssuer);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdis_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "check_jti": true,
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "issuer_url": "https://token.actions.githubusercontent.com",
+  "jwks": {
+    "type": "discovery",
+    "ca_cert_pem": "ca_cert_pem",
+    "discovery_base": "discovery_base"
+  },
+  "jwks_polling_disabled_at": "2019-12-27T18:11:19.117Z",
+  "max_jwt_lifetime_seconds": 0,
+  "name": "github-actions",
+  "poll_status": {
+    "consecutive_failures": 0,
+    "last_fetched_at": "2019-12-27T18:11:19.117Z",
+    "next_poll_at": "2019-12-27T18:11:19.117Z"
+  },
+  "type": "federation_issuer",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+### Update Federation Issuer
+
+`BetaFederationIssuer Beta.Organization.Federation.Issuers.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/federation_issuers/{federation_issuer_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Partially update a federation issuer.
+
+Setting `jwks` replaces the full JWKS shape at once. Archived issuers
+cannot be updated; this returns 400. Create a new issuer instead.
+
+Updating an issuer that backs a rule with a scope outside
+`workspace:developer` or `workspace:inference` requires a Console
+session.
+
+#### Parameters
+
+- `IssuerUpdateParams parameters`
+
+  - `required string federationIssuerID`
+
+    Path param: ID of the federation issuer to update.
+
+  - `bool? checkJti`
+
+    Body param: Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+
+  - `string? issuerUrl`
+
+    Body param: Replaces the `iss` claim value to match against. For discovery-mode issuers without a `discovery_base`, this is also the URL Anthropic fetches the OIDC discovery document and signing keys from, so changing it repoints the JWKS source. Changing the issuer URL to a well-known shared platform is rejected while any live rule under this issuer would not constrain tenant identity.
+
+    minLength: 1
+
+  - `Jwks? jwks`
+
+    Body param: Replaces the entire JWKS configuration.
+
+    - `class BetaJwksDiscovery:`
+
+      JWKS via the issuer's OIDC discovery document.
+
+      - `JsonElement Type constant`
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+      - `string? DiscoveryBase`
+
+        Set when the discovery URL differs from `issuer_url`.
+
+    - `class BetaJwksExplicitUrl:`
+
+      JWKS fetched from a fixed endpoint.
+
+      - `JsonElement Type constant`
+
+      - `required string Url`
+
+        JWKS endpoint.
+
+        minLength: 1
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+    - `class BetaJwksInline:`
+
+      JWKS supplied directly; no network fetch.
+
+      - `required IReadOnlyList<IReadOnlyDictionary<string, JsonElement>> Keys`
+
+        Inline JWK objects.
+
+        minItems: 1
+
+      - `JsonElement Type constant`
+
+  - `bool? jwksPollingDisabled`
+
+    Body param: Only `false` is accepted, to re-enable polling after the system pauses it. Polling is paused automatically; sending `true` is rejected.
+
+  - `long? maxJwtLifetimeSeconds`
+
+    Body param: Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+
+    maximum: 176400, exclusiveMinimum: 0
+
+  - `string? name`
+
+    Body param: Replaces the slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+
+    maxLength: 255, minLength: 1
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationIssuer:`
+
+  Registered external OIDC identity provider.
+
+  Records an external IdP the organization trusts for the RFC 7523
+  jwt-bearer grant. The `issuer_url` must match the JWT `iss` claim exactly.
+
+  - `required string ID`
+
+    Tagged ID of the federation issuer.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, all rules referencing this issuer reject token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
+
+  - `required bool CheckJti`
+
+    Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this issuer was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
+
+  - `required string IssuerUrl`
+
+    The `iss` claim value. Incoming JWTs must match exactly.
+
+  - `required Jwks Jwks`
+
+    How signing keys are obtained for signature verification.
+
+    - `class BetaJwksDiscovery:`
+
+      JWKS via the issuer's OIDC discovery document.
+
+      - `JsonElement Type constant`
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+      - `string? DiscoveryBase`
+
+        Set when the discovery URL differs from `issuer_url`.
+
+    - `class BetaJwksExplicitUrl:`
+
+      JWKS fetched from a fixed endpoint.
+
+      - `JsonElement Type constant`
+
+      - `required string Url`
+
+        JWKS endpoint.
+
+        minLength: 1
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+    - `class BetaJwksInline:`
+
+      JWKS supplied directly; no network fetch.
+
+      - `required IReadOnlyList<IReadOnlyDictionary<string, JsonElement>> Keys`
+
+        Inline JWK objects.
+
+        minItems: 1
+
+      - `JsonElement Type constant`
+
+  - `required DateTimeOffset? JwksPollingDisabledAt`
+
+    If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
+
+    format: date-time
+
+  - `required long MaxJwtLifetimeSeconds`
+
+    Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required BetaFederationIssuerPollStatus? PollStatus`
+
+    Status of automatic JWKS polling for a federation issuer.
+
+    Anthropic periodically fetches the issuer's signing keys in the
+    background. These fields summarize the most recent fetches so the
+    health of the JWKS endpoint can be monitored.
+
+    - `required long ConsecutiveFailures`
+
+      Consecutive fetch failures since the last success.
+
+    - `required DateTimeOffset? LastFetchedAt`
+
+      When the last successful fetch completed.
+
+      format: date-time
+
+    - `required DateTimeOffset? NextPollAt`
+
+      When the next fetch is scheduled. Null if paused.
+
+      format: date-time
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this issuer was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
+
+#### Example
+
+```csharp
+IssuerUpdateParams parameters = new()
+{
+    FederationIssuerID = "federation_issuer_id"
+};
+
+var betaFederationIssuer = await client.Beta.Organization.Federation.Issuers.Update(parameters);
+
+Console.WriteLine(betaFederationIssuer);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdis_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "check_jti": true,
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "issuer_url": "https://token.actions.githubusercontent.com",
+  "jwks": {
+    "type": "discovery",
+    "ca_cert_pem": "ca_cert_pem",
+    "discovery_base": "discovery_base"
+  },
+  "jwks_polling_disabled_at": "2019-12-27T18:11:19.117Z",
+  "max_jwt_lifetime_seconds": 0,
+  "name": "github-actions",
+  "poll_status": {
+    "consecutive_failures": 0,
+    "last_fetched_at": "2019-12-27T18:11:19.117Z",
+    "next_poll_at": "2019-12-27T18:11:19.117Z"
+  },
+  "type": "federation_issuer",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+### Archive Federation Issuer
+
+`BetaFederationIssuer Beta.Organization.Federation.Issuers.Archive(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/federation_issuers/{federation_issuer_id}/archive`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Archive a federation issuer.
+
+Idempotent; re-archiving returns the issuer with its original
+`archived_at`. Rejected with 400 if any live (non-archived) federation
+rule still references the issuer; archive those rules first (a rule's
+issuer cannot be changed), or recreate them against another issuer.
+
+#### Parameters
+
+- `IssuerArchiveParams parameters`
+
+  - `required string federationIssuerID`
+
+    ID of the federation issuer to archive.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationIssuer:`
+
+  Registered external OIDC identity provider.
+
+  Records an external IdP the organization trusts for the RFC 7523
+  jwt-bearer grant. The `issuer_url` must match the JWT `iss` claim exactly.
+
+  - `required string ID`
+
+    Tagged ID of the federation issuer.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, all rules referencing this issuer reject token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this issuer.
+
+  - `required bool CheckJti`
+
+    Whether the jwt-bearer exchange enforces JTI single-use (replay protection) for tokens from this issuer. Applies only to assertions carrying a `jti` claim; tokens without one are accepted without single-use enforcement.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this issuer was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this issuer.
+
+  - `required string IssuerUrl`
+
+    The `iss` claim value. Incoming JWTs must match exactly.
+
+  - `required Jwks Jwks`
+
+    How signing keys are obtained for signature verification.
+
+    - `class BetaJwksDiscovery:`
+
+      JWKS via the issuer's OIDC discovery document.
+
+      - `JsonElement Type constant`
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+      - `string? DiscoveryBase`
+
+        Set when the discovery URL differs from `issuer_url`.
+
+    - `class BetaJwksExplicitUrl:`
+
+      JWKS fetched from a fixed endpoint.
+
+      - `JsonElement Type constant`
+
+      - `required string Url`
+
+        JWKS endpoint.
+
+        minLength: 1
+
+      - `string? CACertPem`
+
+        Optional custom CA (PEM) for TLS verification of the JWKS fetch.
+
+        maxLength: 8192
+
+    - `class BetaJwksInline:`
+
+      JWKS supplied directly; no network fetch.
+
+      - `required IReadOnlyList<IReadOnlyDictionary<string, JsonElement>> Keys`
+
+        Inline JWK objects.
+
+        minItems: 1
+
+      - `JsonElement Type constant`
+
+  - `required DateTimeOffset? JwksPollingDisabledAt`
+
+    If set, Anthropic's JWKS poller has paused polling for this issuer after repeated fetch failures. Re-enable by sending `jwks_polling_disabled: false` via the issuer update endpoint (POST) once the upstream JWKS endpoint is fixed. An OAuth caller cannot send this when the issuer backs a rule with any scope other than `workspace:developer` or `workspace:inference`; use a Console session.
+
+    format: date-time
+
+  - `required long MaxJwtLifetimeSeconds`
+
+    Maximum allowed iat→exp spread for assertions from this issuer (1-176400 seconds, i.e. up to 49h). Assertions must carry both `iat` and `exp`; a missing `iat` is rejected.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required BetaFederationIssuerPollStatus? PollStatus`
+
+    Status of automatic JWKS polling for a federation issuer.
+
+    Anthropic periodically fetches the issuer's signing keys in the
+    background. These fields summarize the most recent fetches so the
+    health of the JWKS endpoint can be monitored.
+
+    - `required long ConsecutiveFailures`
+
+      Consecutive fetch failures since the last success.
+
+    - `required DateTimeOffset? LastFetchedAt`
+
+      When the last successful fetch completed.
+
+      format: date-time
+
+    - `required DateTimeOffset? NextPollAt`
+
+      When the next fetch is scheduled. Null if paused.
+
+      format: date-time
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this issuer was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this issuer.
+
+#### Example
+
+```csharp
+IssuerArchiveParams parameters = new()
+{
+    FederationIssuerID = "federation_issuer_id"
+};
+
+var betaFederationIssuer = await client.Beta.Organization.Federation.Issuers.Archive(parameters);
+
+Console.WriteLine(betaFederationIssuer);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdis_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "check_jti": true,
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "issuer_url": "https://token.actions.githubusercontent.com",
+  "jwks": {
+    "type": "discovery",
+    "ca_cert_pem": "ca_cert_pem",
+    "discovery_base": "discovery_base"
+  },
+  "jwks_polling_disabled_at": "2019-12-27T18:11:19.117Z",
+  "max_jwt_lifetime_seconds": 0,
+  "name": "github-actions",
+  "poll_status": {
+    "consecutive_failures": 0,
+    "last_fetched_at": "2019-12-27T18:11:19.117Z",
+    "next_poll_at": "2019-12-27T18:11:19.117Z"
+  },
+  "type": "federation_issuer",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+## Beta › Organization › Federation › Rules
+
+### Create Federation Rule
+
+`BetaFederationRule Beta.Organization.Federation.Rules.Create(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/federation_rules`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Create a federation rule owned by your organization.
+
+The referenced issuer and the target service account must already exist
+in the same organization; invalid references are rejected with a 400
+error. The workspace reference is validated. Membership is not checked
+at rule creation: token exchange resolves a single enabled workspace per
+call and is rejected unless the target service account is a member of
+that workspace (it is implicitly a member of the default workspace).
+Rules on well-known shared issuers (GitHub Actions, GitLab, Buildkite,
+Terraform Cloud, Google) must constrain tenant identity via an
+identity-bearing claim, a tenant-pinning subject prefix (such as
+`repo:YOUR_ORG/...`), or a CEL condition referencing one of those
+identity claims (e.g. `claims.repository_owner`). OAuth callers may only
+manage rules whose `oauth_scope` is `workspace:developer` or
+`workspace:inference`; other scopes require a Console session.
+
+#### Parameters
+
+- `RuleCreateParams parameters`
+
+  - `required string issuerID`
+
+    Body param: Tagged ID of the federation issuer.
+
+  - `required BetaFederationRuleMatch match`
+
+    Body param: Conditions the verified JWT must satisfy for this rule to apply. At least one of `subject_prefix` (other than a wildcard-only value like `*`), `claims`, or `condition` is required; `audience` alone is not sufficient.
+
+  - `required string name`
+
+    Body param: Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+
+    maxLength: 255, minLength: 1
+
+  - `required string oauthScope`
+
+    Body param: Space-separated OAuth scopes. OAuth callers may only set `workspace:developer` or `workspace:inference`; other scopes (such as `org:admin`) require a Console session.
+
+    minLength: 1
+
+  - `required BetaServiceAccountTarget target`
+
+    Body param: Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+
+  - `bool appliesToAllWorkspaces`
+
+    Body param: When true, enable this rule for every workspace in the org (including workspaces created later).
+
+  - `IReadOnlyDictionary<string, string>? attributes`
+
+    Body param: CEL expressions `{name: expr}` extracting named values from claims. Not yet supported; any non-empty value is rejected with 400.
+
+  - `string? description`
+
+    Body param: Optional free-text description.
+
+    maxLength: 2000
+
+  - `long tokenLifetimeSeconds`
+
+    Body param: Lifetime in seconds for access tokens minted via this rule (60-86400). Defaults to 3600 (1h). Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+    maximum: 86400, minimum: 60
+
+  - `string? workspaceID`
+
+    Body param: Tagged ID of the workspace to enable this rule for. Required unless `applies_to_all_workspaces` is true. Additional workspaces can be added via the `/federation_rules/{federation_rule_id}/workspaces` sub-resource.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationRule:`
+
+  Authorization rule binding an external OIDC identity to Anthropic.
+
+  Evaluates the match conditions and mints an OAuth access token for the
+  resolved target, scoped to a single workspace where the rule is enabled
+  (chosen by the caller at exchange time when the rule is enabled for more
+  than one). For rules enabled via `workspace_ids` or
+  `applies_to_all_workspaces`, the target service account must be a member
+  of that workspace (it is implicitly a member of the default workspace);
+  rules carrying only the legacy `workspace_id` binding do not enforce
+  this.
+
+  - `required string ID`
+
+    Tagged ID of the federation rule.
+
+  - `required bool AppliesToAllWorkspaces`
+
+    When true, this rule is enabled for every workspace in the org (including ones created after the rule). `workspace_ids` is ignored at exchange time.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this rule is archived and rejects token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
+
+  - `required IReadOnlyDictionary<string, string>? Attributes`
+
+    CEL expressions extracting named values from claims. Not yet supported; always null.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this rule was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this rule.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string IssuerID`
+
+    Tagged ID of the issuer whose tokens this rule accepts.
+
+  - `required string? IssuerName`
+
+    Issuer's display name at read time.
+
+  - `required BetaFederationRuleMatch Match`
+
+    Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
+
+    - `string? Audience`
+
+      Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+      maxLength: 1024
+
+    - `IReadOnlyDictionary<string, string>? Claims`
+
+      Exact-match `{claim: value}` pairs against top-level claims. Only string-valued claims can be matched; use `condition` for non-string claims.
+
+    - `string? Condition`
+
+      CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
+
+      maxLength: 4096
+
+    - `string? SubjectPrefix`
+
+      Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+      maxLength: 1024
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required string OAuthScope`
+
+    Space-separated OAuth scopes granted on the minted token.
+
+  - `required BetaServiceAccountTarget Target`
+
+    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+
+    - `required string ServiceAccountID`
+
+      Tagged ID of the service account to mint tokens for.
+
+    - `JsonElement Type constant`
+
+    - `string? ServiceAccountName`
+
+      Service account's display name at read time. Ignored on writes.
+
+  - `required long TokenLifetimeSeconds`
+
+    Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this rule was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this rule.
+
+  - `required string? WorkspaceID`
+
+    Legacy single-workspace binding. Prefer `workspace_ids` and the `/federation_rules/{federation_rule_id}/workspaces` sub-resource for managing workspace enablement.
+
+  - `required IReadOnlyList<string> WorkspaceIds`
+
+    Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
+
+#### Example
+
+```csharp
+RuleCreateParams parameters = new()
+{
+    IssuerID = "issuer_id",
+    Match = new()
+    {
+        Audience = "audience",
+        Claims = new Dictionary<string, string>() { { "foo", "string" } },
+        Condition = "condition",
+        SubjectPrefix = "subject_prefix",
+    },
+    Name = "x",
+    OAuthScope = "x",
+    Target = new()
+    {
+        ServiceAccountID = "svac_01SDCCSbTxrXDpWc1phhtcfK",
+        ServiceAccountName = "service_account_name",
+    },
+};
+
+var betaFederationRule = await client.Beta.Organization.Federation.Rules.Create(parameters);
+
+Console.WriteLine(betaFederationRule);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdrl_01SDCCSbTxrXDpWc1phhtcfK",
+  "applies_to_all_workspaces": true,
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "attributes": {
+    "foo": "string"
+  },
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "issuer_id": "issuer_id",
+  "issuer_name": "issuer_name",
+  "match": {
+    "audience": "audience",
+    "claims": {
+      "foo": "string"
+    },
+    "condition": "condition",
+    "subject_prefix": "subject_prefix"
+  },
+  "name": "prod-deploy-pipeline",
+  "oauth_scope": "oauth_scope",
+  "target": {
+    "service_account_id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+    "type": "service_account",
+    "service_account_name": "service_account_name"
+  },
+  "token_lifetime_seconds": 0,
+  "type": "federation_rule",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id",
+  "workspace_id": "workspace_id",
+  "workspace_ids": [
+    "string"
+  ]
+}
+```
+
+### List Federation Rules
+
+`RuleListPageResponse Beta.Organization.Federation.Rules.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/federation_rules`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+List federation rules in your organization.
+
+Optionally filter by issuer with `issuer_id`. Archived rules are excluded
+unless `include_archived=true`.
+
+#### Parameters
+
+- `RuleListParams parameters`
+
+  - `bool includeArchived`
+
+    Query param: Include archived resources. Defaults to false.
+
+  - `string? issuerID`
+
+    Query param: Filter to rules referencing this federation issuer.
+
+  - `long limit`
+
+    Query param: Number of results per page.
+
+    maximum: 100, minimum: 1
+
+  - `string? page`
+
+    Query param: Opaque cursor from a previous response's `next_page`.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class RuleListPageResponse:`
+
+  - `required IReadOnlyList<BetaFederationRule> Data`
+
+    - `required string ID`
+
+      Tagged ID of the federation rule.
+
+    - `required bool AppliesToAllWorkspaces`
+
+      When true, this rule is enabled for every workspace in the org (including ones created after the rule). `workspace_ids` is ignored at exchange time.
+
+    - `required DateTimeOffset? ArchivedAt`
+
+      If set, this rule is archived and rejects token exchange.
+
+      format: date-time
+
+    - `required string? ArchivedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
+
+    - `required IReadOnlyDictionary<string, string>? Attributes`
+
+      CEL expressions extracting named values from claims. Not yet supported; always null.
+
+    - `required DateTimeOffset CreatedAt`
+
+      When this rule was created.
+
+      format: date-time
+
+    - `required string? CreatedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that created this rule.
+
+    - `required string? Description`
+
+      Optional free-text description.
+
+    - `required string IssuerID`
+
+      Tagged ID of the issuer whose tokens this rule accepts.
+
+    - `required string? IssuerName`
+
+      Issuer's display name at read time.
+
+    - `required BetaFederationRuleMatch Match`
+
+      Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
+
+      - `string? Audience`
+
+        Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+        maxLength: 1024
+
+      - `IReadOnlyDictionary<string, string>? Claims`
+
+        Exact-match `{claim: value}` pairs against top-level claims. Only string-valued claims can be matched; use `condition` for non-string claims.
+
+      - `string? Condition`
+
+        CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
+
+        maxLength: 4096
+
+      - `string? SubjectPrefix`
+
+        Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+        maxLength: 1024
+
+    - `required string Name`
+
+      Admin-chosen slug identifier.
+
+    - `required string OAuthScope`
+
+      Space-separated OAuth scopes granted on the minted token.
+
+    - `required BetaServiceAccountTarget Target`
+
+      Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+
+      - `required string ServiceAccountID`
+
+        Tagged ID of the service account to mint tokens for.
+
+      - `JsonElement Type constant`
+
+      - `string? ServiceAccountName`
+
+        Service account's display name at read time. Ignored on writes.
+
+    - `required long TokenLifetimeSeconds`
+
+      Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+    - `JsonElement Type constant`
+
+    - `required DateTimeOffset UpdatedAt`
+
+      When this rule was last updated.
+
+      format: date-time
+
+    - `required string? UpdatedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that last updated this rule.
+
+    - `required string? WorkspaceID`
+
+      Legacy single-workspace binding. Prefer `workspace_ids` and the `/federation_rules/{federation_rule_id}/workspaces` sub-resource for managing workspace enablement.
+
+    - `required IReadOnlyList<string> WorkspaceIds`
+
+      Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
+
+  - `required string? NextPage`
+
+    Opaque cursor for the next page, or null if no more results.
+
+#### Example
+
+```csharp
+RuleListParams parameters = new();
+
+var page = await client.Beta.Organization.Federation.Rules.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "fdrl_01SDCCSbTxrXDpWc1phhtcfK",
+      "applies_to_all_workspaces": true,
+      "archived_at": "2019-12-27T18:11:19.117Z",
+      "archived_by_actor_id": "archived_by_actor_id",
+      "attributes": {
+        "foo": "string"
+      },
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "created_by_actor_id": "created_by_actor_id",
+      "description": "description",
+      "issuer_id": "issuer_id",
+      "issuer_name": "issuer_name",
+      "match": {
+        "audience": "audience",
+        "claims": {
+          "foo": "string"
+        },
+        "condition": "condition",
+        "subject_prefix": "subject_prefix"
+      },
+      "name": "prod-deploy-pipeline",
+      "oauth_scope": "oauth_scope",
+      "target": {
+        "service_account_id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+        "type": "service_account",
+        "service_account_name": "service_account_name"
+      },
+      "token_lifetime_seconds": 0,
+      "type": "federation_rule",
+      "updated_at": "2024-10-30T23:58:27.427722Z",
+      "updated_by_actor_id": "updated_by_actor_id",
+      "workspace_id": "workspace_id",
+      "workspace_ids": [
+        "string"
+      ]
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Get Federation Rule
+
+`BetaFederationRule Beta.Organization.Federation.Rules.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/federation_rules/{federation_rule_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Retrieve a federation rule by its ID (`fdrl_...`).
+
+#### Parameters
+
+- `RuleRetrieveParams parameters`
+
+  - `required string federationRuleID`
+
+    ID of the federation rule.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationRule:`
+
+  Authorization rule binding an external OIDC identity to Anthropic.
+
+  Evaluates the match conditions and mints an OAuth access token for the
+  resolved target, scoped to a single workspace where the rule is enabled
+  (chosen by the caller at exchange time when the rule is enabled for more
+  than one). For rules enabled via `workspace_ids` or
+  `applies_to_all_workspaces`, the target service account must be a member
+  of that workspace (it is implicitly a member of the default workspace);
+  rules carrying only the legacy `workspace_id` binding do not enforce
+  this.
+
+  - `required string ID`
+
+    Tagged ID of the federation rule.
+
+  - `required bool AppliesToAllWorkspaces`
+
+    When true, this rule is enabled for every workspace in the org (including ones created after the rule). `workspace_ids` is ignored at exchange time.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this rule is archived and rejects token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
+
+  - `required IReadOnlyDictionary<string, string>? Attributes`
+
+    CEL expressions extracting named values from claims. Not yet supported; always null.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this rule was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this rule.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string IssuerID`
+
+    Tagged ID of the issuer whose tokens this rule accepts.
+
+  - `required string? IssuerName`
+
+    Issuer's display name at read time.
+
+  - `required BetaFederationRuleMatch Match`
+
+    Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
+
+    - `string? Audience`
+
+      Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+      maxLength: 1024
+
+    - `IReadOnlyDictionary<string, string>? Claims`
+
+      Exact-match `{claim: value}` pairs against top-level claims. Only string-valued claims can be matched; use `condition` for non-string claims.
+
+    - `string? Condition`
+
+      CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
+
+      maxLength: 4096
+
+    - `string? SubjectPrefix`
+
+      Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+      maxLength: 1024
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required string OAuthScope`
+
+    Space-separated OAuth scopes granted on the minted token.
+
+  - `required BetaServiceAccountTarget Target`
+
+    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+
+    - `required string ServiceAccountID`
+
+      Tagged ID of the service account to mint tokens for.
+
+    - `JsonElement Type constant`
+
+    - `string? ServiceAccountName`
+
+      Service account's display name at read time. Ignored on writes.
+
+  - `required long TokenLifetimeSeconds`
+
+    Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this rule was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this rule.
+
+  - `required string? WorkspaceID`
+
+    Legacy single-workspace binding. Prefer `workspace_ids` and the `/federation_rules/{federation_rule_id}/workspaces` sub-resource for managing workspace enablement.
+
+  - `required IReadOnlyList<string> WorkspaceIds`
+
+    Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
+
+#### Example
+
+```csharp
+RuleRetrieveParams parameters = new()
+{
+    FederationRuleID = "federation_rule_id"
+};
+
+var betaFederationRule = await client.Beta.Organization.Federation.Rules.Retrieve(parameters);
+
+Console.WriteLine(betaFederationRule);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdrl_01SDCCSbTxrXDpWc1phhtcfK",
+  "applies_to_all_workspaces": true,
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "attributes": {
+    "foo": "string"
+  },
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "issuer_id": "issuer_id",
+  "issuer_name": "issuer_name",
+  "match": {
+    "audience": "audience",
+    "claims": {
+      "foo": "string"
+    },
+    "condition": "condition",
+    "subject_prefix": "subject_prefix"
+  },
+  "name": "prod-deploy-pipeline",
+  "oauth_scope": "oauth_scope",
+  "target": {
+    "service_account_id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+    "type": "service_account",
+    "service_account_name": "service_account_name"
+  },
+  "token_lifetime_seconds": 0,
+  "type": "federation_rule",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id",
+  "workspace_id": "workspace_id",
+  "workspace_ids": [
+    "string"
+  ]
+}
+```
+
+### Update Federation Rule
+
+`BetaFederationRule Beta.Organization.Federation.Rules.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/federation_rules/{federation_rule_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Partially update a federation rule.
+
+`issuer_id` is immutable. `match` and `target` are replaced as whole
+objects when set. Referenced service accounts and workspaces must exist
+in your organization; invalid references are rejected with a 400 error.
+Archived rules cannot be updated; this returns 400. Create a new rule
+instead. Rules on well-known shared issuers (GitHub Actions, GitLab,
+Buildkite, Terraform Cloud, Google) must constrain tenant identity via
+an identity-bearing claim, a tenant-pinning subject prefix (such as
+`repo:YOUR_ORG/...`), or a CEL condition referencing one of those
+identity claims (e.g. `claims.repository_owner`). On these issuers the
+requirement is re-checked on every update; if an existing rule's stored
+match does not yet constrain tenant identity, any update (even a rename
+or description change) must also supply a conforming `match` in the same
+request. OAuth callers may only manage rules whose `oauth_scope` is
+`workspace:developer` or `workspace:inference`; other scopes require a
+Console session.
+
+#### Parameters
+
+- `RuleUpdateParams parameters`
+
+  - `required string federationRuleID`
+
+    Path param: ID of the federation rule to update.
+
+  - `bool? appliesToAllWorkspaces`
+
+    Body param: When true, enables this rule for every workspace in the org (including workspaces created later). Setting `false` is rejected with 400 if no workspace would remain enabled; a rule with only a legacy `workspace_id` binding continues to mint.
+
+  - `IReadOnlyDictionary<string, string>? attributes`
+
+    Body param: Replaces the CEL expressions `{name: expr}` extracting named values from claims. Send null to clear them. Not yet supported; any non-empty value is rejected with 400.
+
+  - `string? description`
+
+    Body param: Replaces the description. Omit to leave unchanged; send `null` to clear (the field is stored as an empty string).
+
+    maxLength: 2000
+
+  - `BetaFederationRuleMatch? match`
+
+    Body param: Does the incoming JWT qualify?
+
+    All populated fields must pass; omitted fields are skipped. At least one
+    of `subject_prefix` (other than a wildcard-only value like `*`), `claims`,
+    or `condition` is required; `audience` alone is not sufficient.
+
+  - `string? name`
+
+    Body param: Replaces the slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+
+    maxLength: 255, minLength: 1
+
+  - `string? oauthScope`
+
+    Body param: Replaces the space-separated OAuth scopes granted on minted tokens. OAuth callers may only set `workspace:developer` or `workspace:inference`; other scopes (such as `org:admin`) require a Console session.
+
+    minLength: 1
+
+  - `BetaServiceAccountTarget? target`
+
+    Body param: Bind to a fixed service account by ID.
+
+  - `long? tokenLifetimeSeconds`
+
+    Body param: Replaces the lifetime in seconds for access tokens minted via this rule (60-86400). Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+    maximum: 86400, minimum: 60
+
+  - `string? workspaceID`
+
+    Body param: Replaces the existing single workspace enablement (the previous one is removed). Rejected with 400 if the rule is enabled for more than one workspace; use the `/federation_rules/{federation_rule_id}/workspaces` sub-resource instead.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationRule:`
+
+  Authorization rule binding an external OIDC identity to Anthropic.
+
+  Evaluates the match conditions and mints an OAuth access token for the
+  resolved target, scoped to a single workspace where the rule is enabled
+  (chosen by the caller at exchange time when the rule is enabled for more
+  than one). For rules enabled via `workspace_ids` or
+  `applies_to_all_workspaces`, the target service account must be a member
+  of that workspace (it is implicitly a member of the default workspace);
+  rules carrying only the legacy `workspace_id` binding do not enforce
+  this.
+
+  - `required string ID`
+
+    Tagged ID of the federation rule.
+
+  - `required bool AppliesToAllWorkspaces`
+
+    When true, this rule is enabled for every workspace in the org (including ones created after the rule). `workspace_ids` is ignored at exchange time.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this rule is archived and rejects token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
+
+  - `required IReadOnlyDictionary<string, string>? Attributes`
+
+    CEL expressions extracting named values from claims. Not yet supported; always null.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this rule was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this rule.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string IssuerID`
+
+    Tagged ID of the issuer whose tokens this rule accepts.
+
+  - `required string? IssuerName`
+
+    Issuer's display name at read time.
+
+  - `required BetaFederationRuleMatch Match`
+
+    Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
+
+    - `string? Audience`
+
+      Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+      maxLength: 1024
+
+    - `IReadOnlyDictionary<string, string>? Claims`
+
+      Exact-match `{claim: value}` pairs against top-level claims. Only string-valued claims can be matched; use `condition` for non-string claims.
+
+    - `string? Condition`
+
+      CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
+
+      maxLength: 4096
+
+    - `string? SubjectPrefix`
+
+      Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+      maxLength: 1024
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required string OAuthScope`
+
+    Space-separated OAuth scopes granted on the minted token.
+
+  - `required BetaServiceAccountTarget Target`
+
+    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+
+    - `required string ServiceAccountID`
+
+      Tagged ID of the service account to mint tokens for.
+
+    - `JsonElement Type constant`
+
+    - `string? ServiceAccountName`
+
+      Service account's display name at read time. Ignored on writes.
+
+  - `required long TokenLifetimeSeconds`
+
+    Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this rule was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this rule.
+
+  - `required string? WorkspaceID`
+
+    Legacy single-workspace binding. Prefer `workspace_ids` and the `/federation_rules/{federation_rule_id}/workspaces` sub-resource for managing workspace enablement.
+
+  - `required IReadOnlyList<string> WorkspaceIds`
+
+    Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
+
+#### Example
+
+```csharp
+RuleUpdateParams parameters = new() { FederationRuleID = "federation_rule_id" };
+
+var betaFederationRule = await client.Beta.Organization.Federation.Rules.Update(parameters);
+
+Console.WriteLine(betaFederationRule);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdrl_01SDCCSbTxrXDpWc1phhtcfK",
+  "applies_to_all_workspaces": true,
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "attributes": {
+    "foo": "string"
+  },
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "issuer_id": "issuer_id",
+  "issuer_name": "issuer_name",
+  "match": {
+    "audience": "audience",
+    "claims": {
+      "foo": "string"
+    },
+    "condition": "condition",
+    "subject_prefix": "subject_prefix"
+  },
+  "name": "prod-deploy-pipeline",
+  "oauth_scope": "oauth_scope",
+  "target": {
+    "service_account_id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+    "type": "service_account",
+    "service_account_name": "service_account_name"
+  },
+  "token_lifetime_seconds": 0,
+  "type": "federation_rule",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id",
+  "workspace_id": "workspace_id",
+  "workspace_ids": [
+    "string"
+  ]
+}
+```
+
+### Archive Federation Rule
+
+`BetaFederationRule Beta.Organization.Federation.Rules.Archive(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/federation_rules/{federation_rule_id}/archive`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Archive a federation rule.
+
+Token exchange through this rule stops immediately. Idempotent;
+re-archiving returns the rule with its original `archived_at`. Archiving
+clears the rule's workspace targeting (`workspace_id` and
+`workspace_ids` are emptied). Tokens already minted before archive
+remain valid until they expire. OAuth callers may only manage rules
+whose `oauth_scope` is `workspace:developer` or `workspace:inference`;
+other scopes require a Console session.
+
+#### Parameters
+
+- `RuleArchiveParams parameters`
+
+  - `required string federationRuleID`
+
+    ID of the federation rule to archive.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationRule:`
+
+  Authorization rule binding an external OIDC identity to Anthropic.
+
+  Evaluates the match conditions and mints an OAuth access token for the
+  resolved target, scoped to a single workspace where the rule is enabled
+  (chosen by the caller at exchange time when the rule is enabled for more
+  than one). For rules enabled via `workspace_ids` or
+  `applies_to_all_workspaces`, the target service account must be a member
+  of that workspace (it is implicitly a member of the default workspace);
+  rules carrying only the legacy `workspace_id` binding do not enforce
+  this.
+
+  - `required string ID`
+
+    Tagged ID of the federation rule.
+
+  - `required bool AppliesToAllWorkspaces`
+
+    When true, this rule is enabled for every workspace in the org (including ones created after the rule). `workspace_ids` is ignored at exchange time.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this rule is archived and rejects token exchange.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this rule.
+
+  - `required IReadOnlyDictionary<string, string>? Attributes`
+
+    CEL expressions extracting named values from claims. Not yet supported; always null.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this rule was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this rule.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string IssuerID`
+
+    Tagged ID of the issuer whose tokens this rule accepts.
+
+  - `required string? IssuerName`
+
+    Issuer's display name at read time.
+
+  - `required BetaFederationRuleMatch Match`
+
+    Conditions the verified JWT must satisfy for this rule to apply. All populated matcher fields must pass.
+
+    - `string? Audience`
+
+      Exact match against the `aud` claim (any element if array). When omitted, the JWT's `aud` must still equal Anthropic's expected audience for the issuer; setting this field overrides that default.
+
+      maxLength: 1024
+
+    - `IReadOnlyDictionary<string, string>? Claims`
+
+      Exact-match `{claim: value}` pairs against top-level claims. Only string-valued claims can be matched; use `condition` for non-string claims.
+
+    - `string? Condition`
+
+      CEL expression over claims for logic the structural fields can't express. Must evaluate to a boolean and may reference only the `claims` variable; a constant-true expression (such as `true`) is rejected with 400.
+
+      maxLength: 4096
+
+    - `string? SubjectPrefix`
+
+      Match the verified JWT `sub` claim. Exact match unless the value ends with `*`, in which case it is a prefix match. Example: `repo:my-org/my-repo:ref:refs/heads/main`.
+
+      maxLength: 1024
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required string OAuthScope`
+
+    Space-separated OAuth scopes granted on the minted token.
+
+  - `required BetaServiceAccountTarget Target`
+
+    Identity that tokens minted via this rule act as. Currently always a `service_account` target.
+
+    - `required string ServiceAccountID`
+
+      Tagged ID of the service account to mint tokens for.
+
+    - `JsonElement Type constant`
+
+    - `string? ServiceAccountName`
+
+      Service account's display name at read time. Ignored on writes.
+
+  - `required long TokenLifetimeSeconds`
+
+    Lifetime in seconds of access tokens minted via this rule. Minted tokens are capped at `max(60, min(this value, 2 × remaining assertion validity))` seconds.
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this rule was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this rule.
+
+  - `required string? WorkspaceID`
+
+    Legacy single-workspace binding. Prefer `workspace_ids` and the `/federation_rules/{federation_rule_id}/workspaces` sub-resource for managing workspace enablement.
+
+  - `required IReadOnlyList<string> WorkspaceIds`
+
+    Tagged IDs of the workspaces this rule is enabled for. May be empty for older rules that only carry the legacy `workspace_id` binding. Ignored at exchange time when `applies_to_all_workspaces` is true (the list may still be non-empty).
+
+#### Example
+
+```csharp
+RuleArchiveParams parameters = new()
+{
+    FederationRuleID = "federation_rule_id"
+};
+
+var betaFederationRule = await client.Beta.Organization.Federation.Rules.Archive(parameters);
+
+Console.WriteLine(betaFederationRule);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "fdrl_01SDCCSbTxrXDpWc1phhtcfK",
+  "applies_to_all_workspaces": true,
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "attributes": {
+    "foo": "string"
+  },
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "issuer_id": "issuer_id",
+  "issuer_name": "issuer_name",
+  "match": {
+    "audience": "audience",
+    "claims": {
+      "foo": "string"
+    },
+    "condition": "condition",
+    "subject_prefix": "subject_prefix"
+  },
+  "name": "prod-deploy-pipeline",
+  "oauth_scope": "oauth_scope",
+  "target": {
+    "service_account_id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+    "type": "service_account",
+    "service_account_name": "service_account_name"
+  },
+  "token_lifetime_seconds": 0,
+  "type": "federation_rule",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id",
+  "workspace_id": "workspace_id",
+  "workspace_ids": [
+    "string"
+  ]
+}
+```
+
+## Beta › Organization › Federation › Rules › Workspaces
+
+### Add Federation Rule Workspace
+
+`BetaFederationRuleWorkspace Beta.Organization.Federation.Rules.Workspaces.Add(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Enable a federation rule for a workspace.
+
+Idempotent; re-enabling returns the existing enablement. The rule and
+workspace must both belong to your organization. Membership of the
+rule's target service account in this workspace is not checked at
+enablement: token exchange into this workspace is rejected unless the
+target is a member (it is implicitly a member of the default workspace).
+Archived rules are rejected with 400. OAuth callers may only manage rules
+whose `oauth_scope` is `workspace:developer` or `workspace:inference`;
+other scopes require a Console session.
+
+#### Parameters
+
+- `WorkspaceAddParams parameters`
+
+  - `required string federationRuleID`
+
+    Path param: ID of the federation rule.
+
+  - `required string workspaceID`
+
+    Body param: Tagged ID of the workspace to enable this rule for.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaFederationRuleWorkspace:`
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this workspace was enabled for the rule.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_...` or `svac_...`) of the actor that enabled this workspace for the rule, if known.
+
+  - `required string FederationRuleID`
+
+    Tagged ID of the federation rule.
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged ID of the workspace this rule is enabled for.
+
+  - `required string? WorkspaceName`
+
+    Workspace display name. Populated when listing; null in the enable response.
+
+#### Example
+
+```csharp
+WorkspaceAddParams parameters = new()
+{
+    FederationRuleID = "federation_rule_id",
+    WorkspaceID = "workspace_id",
+};
+
+var betaFederationRuleWorkspace = await client.Beta.Organization.Federation.Rules.Workspaces.Add(parameters);
+
+Console.WriteLine(betaFederationRuleWorkspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "federation_rule_id": "federation_rule_id",
+  "type": "federation_rule_workspace",
+  "workspace_id": "workspace_id",
+  "workspace_name": "workspace_name"
+}
+```
+
+### List Federation Rule Workspaces
+
+`WorkspaceListPageResponse Beta.Organization.Federation.Rules.Workspaces.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+List workspaces where this federation rule is enabled.
+
+Returns all workspace enablements in a single response; the `limit` and
+`page` parameters are accepted but have no effect, and `next_page` is
+always `null`. Returns explicit per-workspace enablements only; for
+rules with `applies_to_all_workspaces` or a legacy single
+`workspace_id`, check those fields on the rule itself.
+
+#### Parameters
+
+- `WorkspaceListParams parameters`
+
+  - `required string federationRuleID`
+
+    Path param: ID of the federation rule.
+
+  - `long limit`
+
+    Query param: Number of results per page.
+
+    maximum: 100, minimum: 1
+
+  - `string? page`
+
+    Query param: Opaque cursor from a previous response's `next_page`.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class WorkspaceListPageResponse:`
+
+  - `required IReadOnlyList<BetaFederationRuleWorkspace> Data`
+
+    - `required DateTimeOffset CreatedAt`
+
+      When this workspace was enabled for the rule.
+
+      format: date-time
+
+    - `required string? CreatedByActorID`
+
+      Tagged ID (`user_...` or `svac_...`) of the actor that enabled this workspace for the rule, if known.
+
+    - `required string FederationRuleID`
+
+      Tagged ID of the federation rule.
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+      Tagged ID of the workspace this rule is enabled for.
+
+    - `required string? WorkspaceName`
+
+      Workspace display name. Populated when listing; null in the enable response.
+
+  - `required string? NextPage`
+
+    Opaque cursor for the next page; null when there are no more results.
+
+#### Example
+
+```csharp
+WorkspaceListParams parameters = new()
+{
+    FederationRuleID = "federation_rule_id"
+};
+
+var page = await client.Beta.Organization.Federation.Rules.Workspaces.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "created_by_actor_id": "created_by_actor_id",
+      "federation_rule_id": "federation_rule_id",
+      "type": "federation_rule_workspace",
+      "workspace_id": "workspace_id",
+      "workspace_name": "workspace_name"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Remove Federation Rule Workspace
+
+`WorkspaceRemoveResponse Beta.Organization.Federation.Rules.Workspaces.Remove(parameters, cancellationToken = default)`
+
+**DELETE** `/v1/organizations/federation_rules/{federation_rule_id}/workspaces/{workspace_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Disable a federation rule for a workspace.
+
+Idempotent; succeeds even if the enablement was already removed. OAuth
+callers may only manage rules whose `oauth_scope` is
+`workspace:developer` or `workspace:inference`; other scopes require a
+Console session.
+
+#### Parameters
+
+- `WorkspaceRemoveParams parameters`
+
+  - `required string federationRuleID`
+
+    Path param: ID of the federation rule.
+
+  - `required string workspaceID`
+
+    Path param: ID of the workspace to disable for.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class WorkspaceRemoveResponse:`
+
+  - `required string FederationRuleID`
+
+    Tagged ID of the federation rule.
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged ID of the workspace named in the delete request. Removal is idempotent.
+
+#### Example
+
+```csharp
+WorkspaceRemoveParams parameters = new()
+{
+    FederationRuleID = "federation_rule_id",
+    WorkspaceID = "workspace_id",
+};
+
+var workspace = await client.Beta.Organization.Federation.Rules.Workspaces.Remove(parameters);
+
+Console.WriteLine(workspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "federation_rule_id": "federation_rule_id",
+  "type": "federation_rule_workspace_deleted",
+  "workspace_id": "workspace_id"
+}
+```
+
+## Beta › Organization › Invites
+
+### Create Invite
+
+`BetaOrganizationInvite Beta.Organization.Invites.Create(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/invites`
+
+Invite a user to join the organization by email.
+
+On plans that draw members from a finite pool of purchased seats, the invite automatically consumes a seat from the lowest tier with availability; there is no seat-tier parameter. When no seat is free the request fails with a 400 error rather than purchasing a seat.
+
+#### Parameters
+
+- `InviteCreateParams parameters`
+
+  - `required string email`
+
+    Email of the User.
+
+    format: email
+
+  - `required Role role`
+
+    Role for the invited User.
+
+    The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
+
+    - `Billing`
+
+    - `ClaudeCodeUser`
+
+    - `Developer`
+
+    - `Managed`
+
+    - `User`
+
+  - `IReadOnlyList<string> rbacGroupIds`
+
+    RBAC group IDs to assign to the User when the Invite is accepted. A non-empty array is accepted only for a Claude Enterprise organization with RBAC groups, and requires the key to carry the `write:rbac_groups` scope.
+
+    maxItems: 100
+
+#### Returns
+
+- `class BetaOrganizationInvite:`
+
+  - `required string ID`
+
+    ID of the Invite.
+
+  - `required DateTimeOffset? AcceptedAt`
+
+    RFC 3339 datetime string indicating when the Invite was accepted, or null.
+
+    format: date-time
+
+  - `required string Email`
+
+    Email of the User being invited.
+
+  - `required DateTimeOffset ExpiresAt`
+
+    RFC 3339 datetime string indicating when the Invite expires.
+
+    format: date-time
+
+  - `required DateTimeOffset InvitedAt`
+
+    RFC 3339 datetime string indicating when the Invite was created.
+
+    format: date-time
+
+  - `required IReadOnlyList<string> RbacGroupIds`
+
+    RBAC group IDs recorded on the Invite (Claude Enterprise organizations), to be assigned to the User when the Invite is accepted. `[]` when none.
+
+  - `required BetaOrganizationRole Role`
+
+    Organization role of the User.
+
+    - `Admin`
+
+    - `Billing`
+
+    - `ClaudeCodeUser`
+
+    - `Developer`
+
+    - `Managed`
+
+    - `MembershipAdmin`
+
+    - `Owner`
+
+    - `PrimaryOwner`
+
+    - `User`
+
+  - `required Status Status`
+
+    Status of the Invite.
+
+    - `Accepted`
+
+    - `Deleted`
+
+    - `Expired`
+
+    - `Pending`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Invites, this is always `"invite"`.
+
+#### Example
+
+```csharp
+InviteCreateParams parameters = new()
+{
+    Email = "user@emaildomain.com",
+    Role = Role.User,
+};
+
+var betaOrganizationInvite = await client.Beta.Organization.Invites.Create(parameters);
+
+Console.WriteLine(betaOrganizationInvite);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "invite_015gWxCN9Hfg2QhZwTK7Mdeu",
+  "accepted_at": "2019-12-27T18:11:19.117Z",
+  "email": "user@emaildomain.com",
+  "expires_at": "2024-11-20T23:58:27.427722Z",
+  "invited_at": "2024-10-30T23:58:27.427722Z",
+  "rbac_group_ids": [
+    "string"
+  ],
+  "role": "admin",
+  "status": "pending",
+  "type": "invite"
+}
+```
+
+### List Invites
+
+`InviteListPageResponse Beta.Organization.Invites.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/invites`
+
+List the organization's invites.
+
+#### Parameters
+
+- `InviteListParams parameters`
+
+  - `string afterID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+
+  - `string beforeID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+
+  - `string email`
+
+    Filter by the email address the Invite was sent to. Matches the same way as the Users list's `email` filter (normalized, case-insensitive).
+
+    format: email
+
+  - `long limit`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
+
+  - `IReadOnlyList<string> roles`
+
+    Filter to items whose `role` equals one of the supplied values. Repeatable; values are OR'ed together.
+
+    Accepted values depend on the organization type: Console and API organizations accept `user`, `developer`, `billing`, `admin`, and `claude_code_user`; Claude Enterprise organizations accept `user`, `owner`, `primary_owner`, `membership_admin`, and `managed`.
+
+  - `IReadOnlyList<Status> statuses`
+
+    Filter by Invite status. Repeatable; values are OR'ed together. Omit to return `pending`, `accepted`, and `expired` Invites alike.
+
+    - `Accepted`
+
+    - `Expired`
+
+    - `Pending`
+
+#### Returns
+
+- `class InviteListPageResponse:`
+
+  - `required IReadOnlyList<BetaOrganizationInvite> Data`
+
+    - `required string ID`
+
+      ID of the Invite.
+
+    - `required DateTimeOffset? AcceptedAt`
+
+      RFC 3339 datetime string indicating when the Invite was accepted, or null.
+
+      format: date-time
+
+    - `required string Email`
+
+      Email of the User being invited.
+
+    - `required DateTimeOffset ExpiresAt`
+
+      RFC 3339 datetime string indicating when the Invite expires.
+
+      format: date-time
+
+    - `required DateTimeOffset InvitedAt`
+
+      RFC 3339 datetime string indicating when the Invite was created.
+
+      format: date-time
+
+    - `required IReadOnlyList<string> RbacGroupIds`
+
+      RBAC group IDs recorded on the Invite (Claude Enterprise organizations), to be assigned to the User when the Invite is accepted. `[]` when none.
+
+    - `required BetaOrganizationRole Role`
+
+      Organization role of the User.
+
+      - `Admin`
+
+      - `Billing`
+
+      - `ClaudeCodeUser`
+
+      - `Developer`
+
+      - `Managed`
+
+      - `MembershipAdmin`
+
+      - `Owner`
+
+      - `PrimaryOwner`
+
+      - `User`
+
+    - `required Status Status`
+
+      Status of the Invite.
+
+      - `Accepted`
+
+      - `Deleted`
+
+      - `Expired`
+
+      - `Pending`
+
+    - `JsonElement Type constant`
+
+      Object type.
+
+      For Invites, this is always `"invite"`.
+
+  - `required string? FirstID`
+
+    First ID in the `data` list. Can be used as the `before_id` for the previous page.
+
+  - `required bool HasMore`
+
+    Indicates if there are more results in the requested page direction.
+
+  - `required string? LastID`
+
+    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+#### Example
+
+```csharp
+InviteListParams parameters = new();
+
+var page = await client.Beta.Organization.Invites.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "invite_015gWxCN9Hfg2QhZwTK7Mdeu",
+      "accepted_at": "2019-12-27T18:11:19.117Z",
+      "email": "user@emaildomain.com",
+      "expires_at": "2024-11-20T23:58:27.427722Z",
+      "invited_at": "2024-10-30T23:58:27.427722Z",
+      "rbac_group_ids": [
+        "string"
+      ],
+      "role": "admin",
+      "status": "pending",
+      "type": "invite"
+    }
+  ],
+  "first_id": "first_id",
+  "has_more": true,
+  "last_id": "last_id"
+}
+```
+
+### Get Invite
+
+`BetaOrganizationInvite Beta.Organization.Invites.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/invites/{invite_id}`
+
+Retrieve an invite by ID.
+
+#### Parameters
+
+- `InviteRetrieveParams parameters`
+
+  - `required string inviteID`
+
+    ID of the Invite.
+
+#### Returns
+
+- `class BetaOrganizationInvite:`
+
+  - `required string ID`
+
+    ID of the Invite.
+
+  - `required DateTimeOffset? AcceptedAt`
+
+    RFC 3339 datetime string indicating when the Invite was accepted, or null.
+
+    format: date-time
+
+  - `required string Email`
+
+    Email of the User being invited.
+
+  - `required DateTimeOffset ExpiresAt`
+
+    RFC 3339 datetime string indicating when the Invite expires.
+
+    format: date-time
+
+  - `required DateTimeOffset InvitedAt`
+
+    RFC 3339 datetime string indicating when the Invite was created.
+
+    format: date-time
+
+  - `required IReadOnlyList<string> RbacGroupIds`
+
+    RBAC group IDs recorded on the Invite (Claude Enterprise organizations), to be assigned to the User when the Invite is accepted. `[]` when none.
+
+  - `required BetaOrganizationRole Role`
+
+    Organization role of the User.
+
+    - `Admin`
+
+    - `Billing`
+
+    - `ClaudeCodeUser`
+
+    - `Developer`
+
+    - `Managed`
+
+    - `MembershipAdmin`
+
+    - `Owner`
+
+    - `PrimaryOwner`
+
+    - `User`
+
+  - `required Status Status`
+
+    Status of the Invite.
+
+    - `Accepted`
+
+    - `Deleted`
+
+    - `Expired`
+
+    - `Pending`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Invites, this is always `"invite"`.
+
+#### Example
+
+```csharp
+InviteRetrieveParams parameters = new() { InviteID = "invite_id" };
+
+var betaOrganizationInvite = await client.Beta.Organization.Invites.Retrieve(parameters);
+
+Console.WriteLine(betaOrganizationInvite);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "invite_015gWxCN9Hfg2QhZwTK7Mdeu",
+  "accepted_at": "2019-12-27T18:11:19.117Z",
+  "email": "user@emaildomain.com",
+  "expires_at": "2024-11-20T23:58:27.427722Z",
+  "invited_at": "2024-10-30T23:58:27.427722Z",
+  "rbac_group_ids": [
+    "string"
+  ],
+  "role": "admin",
+  "status": "pending",
+  "type": "invite"
+}
+```
+
+### Delete Invite
+
+`InviteDeleteResponse Beta.Organization.Invites.Delete(parameters, cancellationToken = default)`
+
+**DELETE** `/v1/organizations/invites/{invite_id}`
+
+Delete a pending invite.
+
+#### Parameters
+
+- `InviteDeleteParams parameters`
+
+  - `required string inviteID`
+
+    ID of the Invite.
+
+#### Returns
+
+- `class InviteDeleteResponse:`
+
+  - `required string ID`
+
+    ID of the Invite.
+
+  - `JsonElement Type constant`
+
+    Deleted object type.
+
+    For Invites, this is always `"invite_deleted"`.
+
+#### Example
+
+```csharp
+InviteDeleteParams parameters = new() { InviteID = "invite_id" };
+
+var invite = await client.Beta.Organization.Invites.Delete(parameters);
+
+Console.WriteLine(invite);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "invite_015gWxCN9Hfg2QhZwTK7Mdeu",
+  "type": "invite_deleted"
+}
+```
+
+## Beta › Organization › Service Accounts
+
+### Create Service Account
+
+`BetaServiceAccount Beta.Organization.ServiceAccounts.Create(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/service_accounts`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Create a service account.
+
+A service account is a named workload identity that federation rules
+target. `organization_role` is `developer` (default) or `admin`; a rule
+may only be created or retargeted to grant `org:admin` scope when the
+target's `organization_role` is `admin`. Creating an `admin`-role service
+account requires an interactive credential (a user OAuth token or a
+Console session) — a workload may only create `developer`-role service
+accounts.
+
+#### Parameters
+
+- `ServiceAccountCreateParams parameters`
+
+  - `required string name`
+
+    Body param: Slug identifier (lowercase, digits, hyphens). Unique within the organization; a duplicate name returns 409.
+
+    maxLength: 255, minLength: 1
+
+  - `string? description`
+
+    Body param: Optional free-text description.
+
+    maxLength: 2000
+
+  - `OrganizationRole organizationRole`
+
+    Body param: Org-level role. Defaults to `developer`.
+
+    - `Admin`
+
+    - `Developer`
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccount:`
+
+  Named non-human identity within the caller's organization.
+
+  A service account is a pure identity: name + org. Authorization lives on
+  whatever references it (federation rules).
+
+  - `required string ID`
+
+    Tagged ID of the service account.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this service account is archived.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this service account was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this service account.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required OrganizationRole OrganizationRole`
+
+    Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
+
+    - `Admin`
+
+    - `Developer`
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this service account was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
+
+#### Example
+
+```csharp
+ServiceAccountCreateParams parameters = new() { Name = "ci-deploy-bot" };
+
+var betaServiceAccount = await client.Beta.Organization.ServiceAccounts.Create(parameters);
+
+Console.WriteLine(betaServiceAccount);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "name": "ci-deploy-bot",
+  "organization_role": "admin",
+  "type": "service_account",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+### List Service Accounts
+
+`ServiceAccountListPageResponse Beta.Organization.ServiceAccounts.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/service_accounts`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+List service accounts in the caller's organization.
+
+Results are ordered by creation time, newest first. Use `limit` and the
+`next_page` cursor to paginate; set `include_archived=true` to include
+archived service accounts.
+
+#### Parameters
+
+- `ServiceAccountListParams parameters`
+
+  - `bool includeArchived`
+
+    Query param: Include archived resources. Defaults to false.
+
+  - `long limit`
+
+    Query param: Number of results per page.
+
+    maximum: 100, minimum: 1
+
+  - `string? page`
+
+    Query param: Opaque cursor from a previous response's `next_page`.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class ServiceAccountListPageResponse:`
+
+  - `required IReadOnlyList<BetaServiceAccount> Data`
+
+    - `required string ID`
+
+      Tagged ID of the service account.
+
+    - `required DateTimeOffset? ArchivedAt`
+
+      If set, this service account is archived.
+
+      format: date-time
+
+    - `required string? ArchivedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
+
+    - `required DateTimeOffset CreatedAt`
+
+      When this service account was created.
+
+      format: date-time
+
+    - `required string? CreatedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that created this service account.
+
+    - `required string? Description`
+
+      Optional free-text description.
+
+    - `required string Name`
+
+      Admin-chosen slug identifier.
+
+    - `required OrganizationRole OrganizationRole`
+
+      Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
+
+      - `Admin`
+
+      - `Developer`
+
+    - `JsonElement Type constant`
+
+    - `required DateTimeOffset UpdatedAt`
+
+      When this service account was last updated.
+
+      format: date-time
+
+    - `required string? UpdatedByActorID`
+
+      Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
+
+  - `required string? NextPage`
+
+    Opaque cursor for the next page, or null if no more results.
+
+#### Example
+
+```csharp
+ServiceAccountListParams parameters = new();
+
+var page = await client.Beta.Organization.ServiceAccounts.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+      "archived_at": "2019-12-27T18:11:19.117Z",
+      "archived_by_actor_id": "archived_by_actor_id",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "created_by_actor_id": "created_by_actor_id",
+      "description": "description",
+      "name": "ci-deploy-bot",
+      "organization_role": "admin",
+      "type": "service_account",
+      "updated_at": "2024-10-30T23:58:27.427722Z",
+      "updated_by_actor_id": "updated_by_actor_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Get Service Account
+
+`BetaServiceAccount Beta.Organization.ServiceAccounts.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/service_accounts/{service_account_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Retrieve a service account by its ID (`svac_...`).
+
+#### Parameters
+
+- `ServiceAccountRetrieveParams parameters`
+
+  - `required string serviceAccountID`
+
+    ID of the service account.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccount:`
+
+  Named non-human identity within the caller's organization.
+
+  A service account is a pure identity: name + org. Authorization lives on
+  whatever references it (federation rules).
+
+  - `required string ID`
+
+    Tagged ID of the service account.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this service account is archived.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this service account was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this service account.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required OrganizationRole OrganizationRole`
+
+    Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
+
+    - `Admin`
+
+    - `Developer`
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this service account was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
+
+#### Example
+
+```csharp
+ServiceAccountRetrieveParams parameters = new()
+{
+    ServiceAccountID = "service_account_id"
+};
+
+var betaServiceAccount = await client.Beta.Organization.ServiceAccounts.Retrieve(parameters);
+
+Console.WriteLine(betaServiceAccount);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "name": "ci-deploy-bot",
+  "organization_role": "admin",
+  "type": "service_account",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+### Update Service Account
+
+`BetaServiceAccount Beta.Organization.ServiceAccounts.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/service_accounts/{service_account_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Update a service account.
+
+Only `description` and `organization_role` are mutable; `name` cannot be
+changed. Archived service accounts cannot be updated; this returns 400.
+Setting `organization_role` to `admin` (even when unchanged) requires an
+interactive credential (a user OAuth token or a Console session).
+
+#### Parameters
+
+- `ServiceAccountUpdateParams parameters`
+
+  - `required string serviceAccountID`
+
+    Path param: ID of the service account to update.
+
+  - `string? description`
+
+    Body param: Replaces the description. Omit to leave unchanged; send `null` to clear (the field is stored as an empty string).
+
+    maxLength: 2000
+
+  - `OrganizationRole? organizationRole`
+
+    Body param: Replaces the org-level role. Omit or send `null` to leave unchanged.
+
+    - `Admin`
+
+    - `Developer`
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccount:`
+
+  Named non-human identity within the caller's organization.
+
+  A service account is a pure identity: name + org. Authorization lives on
+  whatever references it (federation rules).
+
+  - `required string ID`
+
+    Tagged ID of the service account.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this service account is archived.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this service account was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this service account.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required OrganizationRole OrganizationRole`
+
+    Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
+
+    - `Admin`
+
+    - `Developer`
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this service account was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
+
+#### Example
+
+```csharp
+ServiceAccountUpdateParams parameters = new()
+{
+    ServiceAccountID = "service_account_id"
+};
+
+var betaServiceAccount = await client.Beta.Organization.ServiceAccounts.Update(parameters);
+
+Console.WriteLine(betaServiceAccount);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "name": "ci-deploy-bot",
+  "organization_role": "admin",
+  "type": "service_account",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+### Archive Service Account
+
+`BetaServiceAccount Beta.Organization.ServiceAccounts.Archive(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/service_accounts/{service_account_id}/archive`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Archive a service account.
+
+Idempotent; re-archiving returns the service account with its original
+`archived_at`. Rejected with 400 if any live (non-archived) federation
+rule still targets this service account, same as issuer archival; archive
+those rules first or change their target to another service account.
+
+#### Parameters
+
+- `ServiceAccountArchiveParams parameters`
+
+  - `required string serviceAccountID`
+
+    ID of the service account to archive.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccount:`
+
+  Named non-human identity within the caller's organization.
+
+  A service account is a pure identity: name + org. Authorization lives on
+  whatever references it (federation rules).
+
+  - `required string ID`
+
+    Tagged ID of the service account.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    If set, this service account is archived.
+
+    format: date-time
+
+  - `required string? ArchivedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that archived this service account.
+
+  - `required DateTimeOffset CreatedAt`
+
+    When this service account was created.
+
+    format: date-time
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that created this service account.
+
+  - `required string? Description`
+
+    Optional free-text description.
+
+  - `required string Name`
+
+    Admin-chosen slug identifier.
+
+  - `required OrganizationRole OrganizationRole`
+
+    Org-level role. A federation rule may only be created or retargeted to grant `org:admin` scope when this is `admin`. A rule granting `org:admin` whose target is later demoted to `developer` is rejected at token exchange. Rules granting `org:admin` are managed in the Console.
+
+    - `Admin`
+
+    - `Developer`
+
+  - `JsonElement Type constant`
+
+  - `required DateTimeOffset UpdatedAt`
+
+    When this service account was last updated.
+
+    format: date-time
+
+  - `required string? UpdatedByActorID`
+
+    Tagged ID (`user_`/`svac_`) of the actor that last updated this service account.
+
+#### Example
+
+```csharp
+ServiceAccountArchiveParams parameters = new()
+{
+    ServiceAccountID = "service_account_id"
+};
+
+var betaServiceAccount = await client.Beta.Organization.ServiceAccounts.Archive(parameters);
+
+Console.WriteLine(betaServiceAccount);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "svac_01SDCCSbTxrXDpWc1phhtcfK",
+  "archived_at": "2019-12-27T18:11:19.117Z",
+  "archived_by_actor_id": "archived_by_actor_id",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "created_by_actor_id": "created_by_actor_id",
+  "description": "description",
+  "name": "ci-deploy-bot",
+  "organization_role": "admin",
+  "type": "service_account",
+  "updated_at": "2024-10-30T23:58:27.427722Z",
+  "updated_by_actor_id": "updated_by_actor_id"
+}
+```
+
+## Beta › Organization › Service Accounts › Workspaces
+
+### Add Workspace To Service Account
+
+`BetaServiceAccountWorkspaceMember Beta.Organization.ServiceAccounts.Workspaces.Add(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/service_accounts/{service_account_id}/workspaces`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Add a service account to a workspace with the given `workspace_role`.
+
+Mirror of `POST /workspaces/{workspace_id}/service_accounts`, addressed
+from the service-account side; both create the same membership. If the
+service account is already an explicit member of the workspace, its
+`workspace_role` is replaced with the value supplied here. Archived
+workspaces return 400. Archived service accounts cannot be added and are
+rejected.
+
+#### Parameters
+
+- `WorkspaceAddParams parameters`
+
+  - `required string serviceAccountID`
+
+    Path param: ID of the service account.
+
+  - `required string workspaceID`
+
+    Body param: Tagged workspace ID to add the service account to.
+
+  - `required BetaNoBillingWorkspaceRole workspaceRole`
+
+    Body param: Role to assign to the service account in this workspace.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccountWorkspaceMember:`
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
+
+  - `required bool? Implicit`
+
+    True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
+
+  - `required string ServiceAccountID`
+
+    Tagged service account ID (`svac_...`).
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged workspace ID (`wrkspc_...`).
+
+  - `required BetaWorkspaceRole WorkspaceRole`
+
+    Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
+
+    - `WorkspaceAdmin`
+
+    - `WorkspaceBilling`
+
+    - `WorkspaceDeveloper`
+
+    - `WorkspaceRestrictedDeveloper`
+
+    - `WorkspaceUser`
+
+#### Example
+
+```csharp
+WorkspaceAddParams parameters = new()
+{
+    ServiceAccountID = "service_account_id",
+    WorkspaceID = "workspace_id",
+    WorkspaceRole = BetaNoBillingWorkspaceRole.WorkspaceAdmin,
+};
+
+var betaServiceAccountWorkspaceMember = await client.Beta.Organization.ServiceAccounts.Workspaces.Add(parameters);
+
+Console.WriteLine(betaServiceAccountWorkspaceMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_by_actor_id": "created_by_actor_id",
+  "implicit": true,
+  "service_account_id": "service_account_id",
+  "type": "service_account_workspace_member",
+  "workspace_id": "workspace_id",
+  "workspace_role": "workspace_admin"
+}
+```
+
+### List Workspaces For Service Account
+
+`WorkspaceListPageResponse Beta.Organization.ServiceAccounts.Workspaces.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/service_accounts/{service_account_id}/workspaces`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+List the workspaces a service account is a member of.
+
+Each entry includes the service account's `workspace_role` in that
+workspace. Use `limit` and the `next_page` cursor to paginate. When the
+service account has no explicit default-workspace membership, the
+implicit (`implicit: true`) membership is returned as the first entry on
+the first page; with `limit=1` the first page may return up to 2 entries
+(the implicit entry plus one explicit membership) so a pagination cursor
+can be derived. Memberships are returned only while
+the service account is active. Without a `page` cursor, an archived
+service account returns an empty list. A `page` cursor that does not
+match an active membership returns a 400 invalid-request error. A cursor
+stops matching when the membership is removed, the workspace is deleted,
+or the service account is archived. Restart pagination from the first
+page to recover.
+
+#### Parameters
+
+- `WorkspaceListParams parameters`
+
+  - `required string serviceAccountID`
+
+    Path param: ID of the service account.
+
+  - `long limit`
+
+    Query param: Number of results per page.
+
+    maximum: 100, minimum: 1
+
+  - `string? page`
+
+    Query param: Opaque cursor from a previous response's `next_page`.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class WorkspaceListPageResponse:`
+
+  - `required IReadOnlyList<BetaServiceAccountWorkspaceMember> Data`
+
+    - `required string? CreatedByActorID`
+
+      Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
+
+    - `required bool? Implicit`
+
+      True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
+
+    - `required string ServiceAccountID`
+
+      Tagged service account ID (`svac_...`).
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+      Tagged workspace ID (`wrkspc_...`).
+
+    - `required BetaWorkspaceRole WorkspaceRole`
+
+      Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
+
+      - `WorkspaceAdmin`
+
+      - `WorkspaceBilling`
+
+      - `WorkspaceDeveloper`
+
+      - `WorkspaceRestrictedDeveloper`
+
+      - `WorkspaceUser`
+
+  - `required string? NextPage`
+
+    Opaque cursor for the next page, or null if no more results.
+
+#### Example
+
+```csharp
+WorkspaceListParams parameters = new()
+{
+    ServiceAccountID = "service_account_id"
+};
+
+var page = await client.Beta.Organization.ServiceAccounts.Workspaces.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_by_actor_id": "created_by_actor_id",
+      "implicit": true,
+      "service_account_id": "service_account_id",
+      "type": "service_account_workspace_member",
+      "workspace_id": "workspace_id",
+      "workspace_role": "workspace_admin"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Remove Workspace From Service Account
+
+`WorkspaceRemoveResponse Beta.Organization.ServiceAccounts.Workspaces.Remove(parameters, cancellationToken = default)`
+
+**DELETE** `/v1/organizations/service_accounts/{service_account_id}/workspaces/{workspace_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Remove a service account from a workspace.
+
+Mirror of `DELETE /workspaces/{workspace_id}/service_accounts/{service_account_id}`,
+addressed from the service-account side. Removal is idempotent (returns
+200 even if the membership was already removed). A DELETE against the
+implicit default-workspace membership returns 200 but is a no-op and the
+membership persists; deleting an explicit default-workspace row reverts
+to the implicit `workspace_user` membership. Archived workspaces return
+400.
+
+#### Parameters
+
+- `WorkspaceRemoveParams parameters`
+
+  - `required string serviceAccountID`
+
+    Path param: ID of the service account.
+
+  - `required string workspaceID`
+
+    Path param: ID of the workspace.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class WorkspaceRemoveResponse:`
+
+  - `required string ServiceAccountID`
+
+    Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged workspace ID (`wrkspc_...`) named in the delete request.
+
+#### Example
+
+```csharp
+WorkspaceRemoveParams parameters = new()
+{
+    ServiceAccountID = "service_account_id",
+    WorkspaceID = "workspace_id",
+};
+
+var workspace = await client.Beta.Organization.ServiceAccounts.Workspaces.Remove(parameters);
+
+Console.WriteLine(workspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "service_account_id": "service_account_id",
+  "type": "service_account_workspace_member_deleted",
+  "workspace_id": "workspace_id"
+}
+```
+
+## Beta › Organization › Users
+
+### List Users
+
+`UserListPageResponse Beta.Organization.Users.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/users`
+
+List the organization's members.
+
+#### Parameters
+
+- `UserListParams parameters`
+
+  - `string afterID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+
+  - `string beforeID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+
+  - `string email`
+
+    Filter by user email.
+
+    format: email
+
+  - `long limit`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
+
+  - `IReadOnlyList<string> roles`
+
+    Filter to items whose `role` equals one of the supplied values. Repeatable; values are OR'ed together.
+
+    Accepted values depend on the organization type: Console and API organizations accept `user`, `developer`, `billing`, `admin`, and `claude_code_user`; Claude Enterprise organizations accept `user`, `owner`, `primary_owner`, `membership_admin`, and `managed`.
+
+#### Returns
+
+- `class UserListPageResponse:`
+
+  - `required IReadOnlyList<BetaOrganizationUser> Data`
+
+    - `required string ID`
+
+      ID of the User.
+
+    - `required DateTimeOffset AddedAt`
+
+      RFC 3339 datetime string indicating when the User joined the Organization.
+
+      format: date-time
+
+    - `required string Email`
+
+      Email of the User.
+
+    - `required string Name`
+
+      Name of the User.
+
+    - `required BetaOrganizationRole Role`
+
+      Organization role of the User.
+
+      - `Admin`
+
+      - `Billing`
+
+      - `ClaudeCodeUser`
+
+      - `Developer`
+
+      - `Managed`
+
+      - `MembershipAdmin`
+
+      - `Owner`
+
+      - `PrimaryOwner`
+
+      - `User`
+
+    - `JsonElement Type constant`
+
+      Object type.
+
+      For Users, this is always `"user"`.
+
+  - `required string? FirstID`
+
+    First ID in the `data` list. Can be used as the `before_id` for the previous page.
+
+  - `required bool HasMore`
+
+    Indicates if there are more results in the requested page direction.
+
+  - `required string? LastID`
+
+    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+#### Example
+
+```csharp
+UserListParams parameters = new();
+
+var page = await client.Beta.Organization.Users.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+      "added_at": "2024-10-30T23:58:27.427722Z",
+      "email": "user@emaildomain.com",
+      "name": "Jane Doe",
+      "role": "admin",
+      "type": "user"
+    }
+  ],
+  "first_id": "first_id",
+  "has_more": true,
+  "last_id": "last_id"
+}
+```
+
+### Get User
+
+`BetaOrganizationUser Beta.Organization.Users.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/users/{user_id}`
+
+Retrieve a member of the organization by user ID.
+
+#### Parameters
+
+- `UserRetrieveParams parameters`
+
+  - `required string userID`
+
+    ID of the User.
+
+#### Returns
+
+- `class BetaOrganizationUser:`
+
+  - `required string ID`
+
+    ID of the User.
+
+  - `required DateTimeOffset AddedAt`
+
+    RFC 3339 datetime string indicating when the User joined the Organization.
+
+    format: date-time
+
+  - `required string Email`
+
+    Email of the User.
+
+  - `required string Name`
+
+    Name of the User.
+
+  - `required BetaOrganizationRole Role`
+
+    Organization role of the User.
+
+    - `Admin`
+
+    - `Billing`
+
+    - `ClaudeCodeUser`
+
+    - `Developer`
+
+    - `Managed`
+
+    - `MembershipAdmin`
+
+    - `Owner`
+
+    - `PrimaryOwner`
+
+    - `User`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Users, this is always `"user"`.
+
+#### Example
+
+```csharp
+UserRetrieveParams parameters = new() { UserID = "user_id" };
+
+var betaOrganizationUser = await client.Beta.Organization.Users.Retrieve(parameters);
+
+Console.WriteLine(betaOrganizationUser);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "added_at": "2024-10-30T23:58:27.427722Z",
+  "email": "user@emaildomain.com",
+  "name": "Jane Doe",
+  "role": "admin",
+  "type": "user"
+}
+```
+
+### Update User
+
+`BetaOrganizationUser Beta.Organization.Users.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/users/{user_id}`
+
+Update a member's organization role.
+
+#### Parameters
+
+- `UserUpdateParams parameters`
+
+  - `required string userID`
+
+    ID of the User.
+
+  - `required Role role`
+
+    New role for the User.
+
+    The accepted values depend on the organization type. Console and API organizations accept `user`, `developer`, `billing`, and `claude_code_user`; `admin` cannot be assigned through the API. Claude Enterprise organizations accept `user` and `managed`.
+
+    - `Billing`
+
+    - `ClaudeCodeUser`
+
+    - `Developer`
+
+    - `Managed`
+
+    - `User`
+
+#### Returns
+
+- `class BetaOrganizationUser:`
+
+  - `required string ID`
+
+    ID of the User.
+
+  - `required DateTimeOffset AddedAt`
+
+    RFC 3339 datetime string indicating when the User joined the Organization.
+
+    format: date-time
+
+  - `required string Email`
+
+    Email of the User.
+
+  - `required string Name`
+
+    Name of the User.
+
+  - `required BetaOrganizationRole Role`
+
+    Organization role of the User.
+
+    - `Admin`
+
+    - `Billing`
+
+    - `ClaudeCodeUser`
+
+    - `Developer`
+
+    - `Managed`
+
+    - `MembershipAdmin`
+
+    - `Owner`
+
+    - `PrimaryOwner`
+
+    - `User`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Users, this is always `"user"`.
+
+#### Example
+
+```csharp
+UserUpdateParams parameters = new()
+{
+    UserID = "user_id",
+    Role = Role.User,
+};
+
+var betaOrganizationUser = await client.Beta.Organization.Users.Update(parameters);
+
+Console.WriteLine(betaOrganizationUser);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "added_at": "2024-10-30T23:58:27.427722Z",
+  "email": "user@emaildomain.com",
+  "name": "Jane Doe",
+  "role": "admin",
+  "type": "user"
+}
+```
+
+### Remove User
+
+`UserRemoveResponse Beta.Organization.Users.Remove(parameters, cancellationToken = default)`
+
+**DELETE** `/v1/organizations/users/{user_id}`
+
+Remove a member from the organization.
+
+#### Parameters
+
+- `UserRemoveParams parameters`
+
+  - `required string userID`
+
+    ID of the User.
+
+#### Returns
+
+- `class UserRemoveResponse:`
+
+  - `required string ID`
+
+    ID of the User.
+
+  - `JsonElement Type constant`
+
+    Deleted object type.
+
+    For Users, this is always `"user_deleted"`.
+
+#### Example
+
+```csharp
+UserRemoveParams parameters = new() { UserID = "user_id" };
+
+var user = await client.Beta.Organization.Users.Remove(parameters);
+
+Console.WriteLine(user);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "type": "user_deleted"
+}
+```
+
+## Beta › Organization › Workspaces
+
+### List Workspaces
+
+`WorkspaceListPageResponse Beta.Organization.Workspaces.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/workspaces`
+
+List Workspaces
+
+#### Parameters
+
+- `WorkspaceListParams parameters`
+
+  - `string afterID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+
+  - `string beforeID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+
+  - `bool includeArchived`
+
+    Whether to include Workspaces that have been archived in the response
+
+  - `long limit`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
+
+#### Returns
+
+- `class WorkspaceListPageResponse:`
+
+  - `required IReadOnlyList<BetaWorkspace> Data`
+
+    - `required string ID`
+
+      ID of the Workspace.
+
+    - `required DateTimeOffset? ArchivedAt`
+
+      RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
+
+      format: date-time
+
+    - `required string CompartmentID`
+
+      Identifier for this Workspace's encryption compartment. When you configure a
+      customer-managed encryption key (CMEK) on AWS, reference this value in your
+      KMS key-policy condition so the key is scoped to this compartment. On GCP and
+      Azure, Anthropic enforces the compartment binding automatically; you do not
+      need to reference this value in your key configuration. See the CMEK integration guide for the
+      required key configuration, including the value used during key validation.
+
+    - `required DateTimeOffset CreatedAt`
+
+      RFC 3339 datetime string indicating when the Workspace was created.
+
+      format: date-time
+
+    - `required BetaDataResidency DataResidency`
+
+      Data residency configuration.
+
+      - `required AllowedInferenceGeos AllowedInferenceGeos`
+
+        Permitted inference geo values. 'unrestricted' means all geos are allowed.
+
+        - `IReadOnlyList<string>`
+
+        - `class Unrestricted:`
+
+      - `required string DefaultInferenceGeo`
+
+        Default inference geo applied when requests omit the parameter.
+
+      - `required string WorkspaceGeo`
+
+        Geographic region for workspace data storage. Immutable after creation.
+
+    - `required string DisplayColor`
+
+      Hex color code representing the Workspace in the Anthropic Console.
+
+    - `required string? ExternalKeyID`
+
+      ID of the customer-managed encryption key (CMEK) configuration to use for this
+      Workspace. Setting this field requires CMEK to be enabled for your
+      organization. When set, data stored for this Workspace is encrypted with the
+      referenced key. Create key configurations with the External Keys API. This
+      field is write-once: once a key is attached to a Workspace it cannot be
+      detached or replaced. To rotate key material, rotate the underlying key on
+      your cloud KMS; the `external_key_id` stays the same.
+
+    - `required string Name`
+
+      Name of the Workspace.
+
+    - `required IReadOnlyDictionary<string, string> Tags`
+
+      User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+    - `JsonElement Type constant`
+
+      Object type.
+
+      For Workspaces, this is always `"workspace"`.
+
+  - `required string? FirstID`
+
+    First ID in the `data` list. Can be used as the `before_id` for the previous page.
+
+  - `required bool HasMore`
+
+    Indicates if there are more results in the requested page direction.
+
+  - `required string? LastID`
+
+    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+#### Example
+
+```csharp
+WorkspaceListParams parameters = new();
+
+var page = await client.Beta.Organization.Workspaces.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      "archived_at": "2024-11-01T23:59:27.427722Z",
+      "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
+      "created_at": "2024-10-30T23:58:27.427722Z",
+      "data_residency": {
+        "allowed_inference_geos": "unrestricted",
+        "default_inference_geo": "default_inference_geo",
+        "workspace_geo": "workspace_geo"
+      },
+      "display_color": "#6C5BB9",
+      "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+      "name": "Workspace Name",
+      "tags": {
+        "env": "prod",
+        "team": "platform"
+      },
+      "type": "workspace"
+    }
+  ],
+  "first_id": "first_id",
+  "has_more": true,
+  "last_id": "last_id"
+}
+```
+
+### Create Workspace
+
+`BetaWorkspace Beta.Organization.Workspaces.Create(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/workspaces`
+
+Create Workspace
+
+#### Parameters
+
+- `WorkspaceCreateParams parameters`
+
+  - `required string name`
+
+    Body param: Name of the Workspace.
+
+    maxLength: 40, minLength: 1
+
+  - `BetaDataResidencyCreateConfig? dataResidency`
+
+    Body param: Data residency configuration for the workspace. If omitted, defaults to `workspace_geo: "us"`, `allowed_inference_geos: "unrestricted"`, and `default_inference_geo: "global"`.
+
+  - `string? displayColor`
+
+    Body param: Hex color code representing the Workspace in the Anthropic Console.
+
+    maxLength: 7, pattern: ^#[0-9A-Fa-f]{6}$
+
+  - `string? externalKeyID`
+
+    Body param: ID of the customer-managed encryption key (CMEK) configuration to use for this
+    Workspace. Setting this field requires CMEK to be enabled for your
+    organization. When set, data stored for this Workspace is encrypted with the
+    referenced key. Create key configurations with the External Keys API. This
+    field is write-once: once a key is attached to a Workspace it cannot be
+    detached or replaced. To rotate key material, rotate the underlying key on
+    your cloud KMS; the `external_key_id` stays the same.
+
+  - `IReadOnlyDictionary<string, string>? tags`
+
+    Body param: User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaWorkspace:`
+
+  - `required string ID`
+
+    ID of the Workspace.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
+
+    format: date-time
+
+  - `required string CompartmentID`
+
+    Identifier for this Workspace's encryption compartment. When you configure a
+    customer-managed encryption key (CMEK) on AWS, reference this value in your
+    KMS key-policy condition so the key is scoped to this compartment. On GCP and
+    Azure, Anthropic enforces the compartment binding automatically; you do not
+    need to reference this value in your key configuration. See the CMEK integration guide for the
+    required key configuration, including the value used during key validation.
+
+  - `required DateTimeOffset CreatedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was created.
+
+    format: date-time
+
+  - `required BetaDataResidency DataResidency`
+
+    Data residency configuration.
+
+    - `required AllowedInferenceGeos AllowedInferenceGeos`
+
+      Permitted inference geo values. 'unrestricted' means all geos are allowed.
+
+      - `IReadOnlyList<string>`
+
+      - `class Unrestricted:`
+
+    - `required string DefaultInferenceGeo`
+
+      Default inference geo applied when requests omit the parameter.
+
+    - `required string WorkspaceGeo`
+
+      Geographic region for workspace data storage. Immutable after creation.
+
+  - `required string DisplayColor`
+
+    Hex color code representing the Workspace in the Anthropic Console.
+
+  - `required string? ExternalKeyID`
+
+    ID of the customer-managed encryption key (CMEK) configuration to use for this
+    Workspace. Setting this field requires CMEK to be enabled for your
+    organization. When set, data stored for this Workspace is encrypted with the
+    referenced key. Create key configurations with the External Keys API. This
+    field is write-once: once a key is attached to a Workspace it cannot be
+    detached or replaced. To rotate key material, rotate the underlying key on
+    your cloud KMS; the `external_key_id` stays the same.
+
+  - `required string Name`
+
+    Name of the Workspace.
+
+  - `required IReadOnlyDictionary<string, string> Tags`
+
+    User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
+#### Example
+
+```csharp
+WorkspaceCreateParams parameters = new() { Name = "x" };
+
+var betaWorkspace = await client.Beta.Organization.Workspaces.Create(parameters);
+
+Console.WriteLine(betaWorkspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "archived_at": "2024-11-01T23:59:27.427722Z",
+  "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "data_residency": {
+    "allowed_inference_geos": "unrestricted",
+    "default_inference_geo": "default_inference_geo",
+    "workspace_geo": "workspace_geo"
+  },
+  "display_color": "#6C5BB9",
+  "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "name": "Workspace Name",
+  "tags": {
+    "env": "prod",
+    "team": "platform"
+  },
+  "type": "workspace"
+}
+```
+
+### Get Workspace
+
+`BetaWorkspace Beta.Organization.Workspaces.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/workspaces/{workspace_id}`
+
+Get Workspace
+
+#### Parameters
+
+- `WorkspaceRetrieveParams parameters`
+
+  - `required string workspaceID`
+
+    ID of the Workspace.
+
+#### Returns
+
+- `class BetaWorkspace:`
+
+  - `required string ID`
+
+    ID of the Workspace.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
+
+    format: date-time
+
+  - `required string CompartmentID`
+
+    Identifier for this Workspace's encryption compartment. When you configure a
+    customer-managed encryption key (CMEK) on AWS, reference this value in your
+    KMS key-policy condition so the key is scoped to this compartment. On GCP and
+    Azure, Anthropic enforces the compartment binding automatically; you do not
+    need to reference this value in your key configuration. See the CMEK integration guide for the
+    required key configuration, including the value used during key validation.
+
+  - `required DateTimeOffset CreatedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was created.
+
+    format: date-time
+
+  - `required BetaDataResidency DataResidency`
+
+    Data residency configuration.
+
+    - `required AllowedInferenceGeos AllowedInferenceGeos`
+
+      Permitted inference geo values. 'unrestricted' means all geos are allowed.
+
+      - `IReadOnlyList<string>`
+
+      - `class Unrestricted:`
+
+    - `required string DefaultInferenceGeo`
+
+      Default inference geo applied when requests omit the parameter.
+
+    - `required string WorkspaceGeo`
+
+      Geographic region for workspace data storage. Immutable after creation.
+
+  - `required string DisplayColor`
+
+    Hex color code representing the Workspace in the Anthropic Console.
+
+  - `required string? ExternalKeyID`
+
+    ID of the customer-managed encryption key (CMEK) configuration to use for this
+    Workspace. Setting this field requires CMEK to be enabled for your
+    organization. When set, data stored for this Workspace is encrypted with the
+    referenced key. Create key configurations with the External Keys API. This
+    field is write-once: once a key is attached to a Workspace it cannot be
+    detached or replaced. To rotate key material, rotate the underlying key on
+    your cloud KMS; the `external_key_id` stays the same.
+
+  - `required string Name`
+
+    Name of the Workspace.
+
+  - `required IReadOnlyDictionary<string, string> Tags`
+
+    User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
+#### Example
+
+```csharp
+WorkspaceRetrieveParams parameters = new() { WorkspaceID = "workspace_id" };
+
+var betaWorkspace = await client.Beta.Organization.Workspaces.Retrieve(parameters);
+
+Console.WriteLine(betaWorkspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "archived_at": "2024-11-01T23:59:27.427722Z",
+  "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "data_residency": {
+    "allowed_inference_geos": "unrestricted",
+    "default_inference_geo": "default_inference_geo",
+    "workspace_geo": "workspace_geo"
+  },
+  "display_color": "#6C5BB9",
+  "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "name": "Workspace Name",
+  "tags": {
+    "env": "prod",
+    "team": "platform"
+  },
+  "type": "workspace"
+}
+```
+
+### Update Workspace
+
+`BetaWorkspace Beta.Organization.Workspaces.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/workspaces/{workspace_id}`
+
+Update Workspace
+
+#### Parameters
+
+- `WorkspaceUpdateParams parameters`
+
+  - `required string workspaceID`
+
+  - `BetaDataResidencyUpdateConfig? dataResidency`
+
+    Data residency configuration for the workspace.
+
+  - `string displayColor`
+
+    Hex color code representing the Workspace in the Anthropic Console.
+
+    maxLength: 7, pattern: ^#[0-9A-Fa-f]{6}$
+
+  - `string externalKeyID`
+
+    ID of the customer-managed encryption key (CMEK) configuration to use for this
+    Workspace. Setting this field requires CMEK to be enabled for your
+    organization. When set, data stored for this Workspace is encrypted with the
+    referenced key. Create key configurations with the External Keys API. This
+    field is write-once: once a key is attached to a Workspace it cannot be
+    detached or replaced. To rotate key material, rotate the underlying key on
+    your cloud KMS; the `external_key_id` stays the same.
+
+  - `string name`
+
+    Name of the Workspace.
+
+    maxLength: 40, minLength: 1
+
+  - `IReadOnlyDictionary<string, string>? tags`
+
+    User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+#### Returns
+
+- `class BetaWorkspace:`
+
+  - `required string ID`
+
+    ID of the Workspace.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
+
+    format: date-time
+
+  - `required string CompartmentID`
+
+    Identifier for this Workspace's encryption compartment. When you configure a
+    customer-managed encryption key (CMEK) on AWS, reference this value in your
+    KMS key-policy condition so the key is scoped to this compartment. On GCP and
+    Azure, Anthropic enforces the compartment binding automatically; you do not
+    need to reference this value in your key configuration. See the CMEK integration guide for the
+    required key configuration, including the value used during key validation.
+
+  - `required DateTimeOffset CreatedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was created.
+
+    format: date-time
+
+  - `required BetaDataResidency DataResidency`
+
+    Data residency configuration.
+
+    - `required AllowedInferenceGeos AllowedInferenceGeos`
+
+      Permitted inference geo values. 'unrestricted' means all geos are allowed.
+
+      - `IReadOnlyList<string>`
+
+      - `class Unrestricted:`
+
+    - `required string DefaultInferenceGeo`
+
+      Default inference geo applied when requests omit the parameter.
+
+    - `required string WorkspaceGeo`
+
+      Geographic region for workspace data storage. Immutable after creation.
+
+  - `required string DisplayColor`
+
+    Hex color code representing the Workspace in the Anthropic Console.
+
+  - `required string? ExternalKeyID`
+
+    ID of the customer-managed encryption key (CMEK) configuration to use for this
+    Workspace. Setting this field requires CMEK to be enabled for your
+    organization. When set, data stored for this Workspace is encrypted with the
+    referenced key. Create key configurations with the External Keys API. This
+    field is write-once: once a key is attached to a Workspace it cannot be
+    detached or replaced. To rotate key material, rotate the underlying key on
+    your cloud KMS; the `external_key_id` stays the same.
+
+  - `required string Name`
+
+    Name of the Workspace.
+
+  - `required IReadOnlyDictionary<string, string> Tags`
+
+    User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
+#### Example
+
+```csharp
+WorkspaceUpdateParams parameters = new() { WorkspaceID = "workspace_id" };
+
+var betaWorkspace = await client.Beta.Organization.Workspaces.Update(parameters);
+
+Console.WriteLine(betaWorkspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "archived_at": "2024-11-01T23:59:27.427722Z",
+  "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "data_residency": {
+    "allowed_inference_geos": "unrestricted",
+    "default_inference_geo": "default_inference_geo",
+    "workspace_geo": "workspace_geo"
+  },
+  "display_color": "#6C5BB9",
+  "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "name": "Workspace Name",
+  "tags": {
+    "env": "prod",
+    "team": "platform"
+  },
+  "type": "workspace"
+}
+```
+
+### Archive Workspace
+
+`BetaWorkspace Beta.Organization.Workspaces.Archive(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/workspaces/{workspace_id}/archive`
+
+Archive Workspace
+
+#### Parameters
+
+- `WorkspaceArchiveParams parameters`
+
+  - `required string workspaceID`
+
+#### Returns
+
+- `class BetaWorkspace:`
+
+  - `required string ID`
+
+    ID of the Workspace.
+
+  - `required DateTimeOffset? ArchivedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was archived, or `null` if the Workspace is not archived.
+
+    format: date-time
+
+  - `required string CompartmentID`
+
+    Identifier for this Workspace's encryption compartment. When you configure a
+    customer-managed encryption key (CMEK) on AWS, reference this value in your
+    KMS key-policy condition so the key is scoped to this compartment. On GCP and
+    Azure, Anthropic enforces the compartment binding automatically; you do not
+    need to reference this value in your key configuration. See the CMEK integration guide for the
+    required key configuration, including the value used during key validation.
+
+  - `required DateTimeOffset CreatedAt`
+
+    RFC 3339 datetime string indicating when the Workspace was created.
+
+    format: date-time
+
+  - `required BetaDataResidency DataResidency`
+
+    Data residency configuration.
+
+    - `required AllowedInferenceGeos AllowedInferenceGeos`
+
+      Permitted inference geo values. 'unrestricted' means all geos are allowed.
+
+      - `IReadOnlyList<string>`
+
+      - `class Unrestricted:`
+
+    - `required string DefaultInferenceGeo`
+
+      Default inference geo applied when requests omit the parameter.
+
+    - `required string WorkspaceGeo`
+
+      Geographic region for workspace data storage. Immutable after creation.
+
+  - `required string DisplayColor`
+
+    Hex color code representing the Workspace in the Anthropic Console.
+
+  - `required string? ExternalKeyID`
+
+    ID of the customer-managed encryption key (CMEK) configuration to use for this
+    Workspace. Setting this field requires CMEK to be enabled for your
+    organization. When set, data stored for this Workspace is encrypted with the
+    referenced key. Create key configurations with the External Keys API. This
+    field is write-once: once a key is attached to a Workspace it cannot be
+    detached or replaced. To rotate key material, rotate the underlying key on
+    your cloud KMS; the `external_key_id` stays the same.
+
+  - `required string Name`
+
+    Name of the Workspace.
+
+  - `required IReadOnlyDictionary<string, string> Tags`
+
+    User-defined tags as string key-value pairs. Keys may not begin with `anthropic`.
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Workspaces, this is always `"workspace"`.
+
+#### Example
+
+```csharp
+WorkspaceArchiveParams parameters = new() { WorkspaceID = "workspace_id" };
+
+var betaWorkspace = await client.Beta.Organization.Workspaces.Archive(parameters);
+
+Console.WriteLine(betaWorkspace);
+```
+
+##### Response (200)
+
+```json
+{
+  "id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "archived_at": "2024-11-01T23:59:27.427722Z",
+  "compartment_id": "f8a7b6c5-4d3e-4f1a-8b9c-0d1e2f3a4b5c",
+  "created_at": "2024-10-30T23:58:27.427722Z",
+  "data_residency": {
+    "allowed_inference_geos": "unrestricted",
+    "default_inference_geo": "default_inference_geo",
+    "workspace_geo": "workspace_geo"
+  },
+  "display_color": "#6C5BB9",
+  "external_key_id": "ekey_01SDCCSbTxrXDpWc1phhtcfK",
+  "name": "Workspace Name",
+  "tags": {
+    "env": "prod",
+    "team": "platform"
+  },
+  "type": "workspace"
+}
+```
+
+## Beta › Organization › Workspaces › Rate Limits
+
+### List Workspace Rate Limits
+
+`RateLimitListPageResponse Beta.Organization.Workspaces.RateLimits.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/workspaces/{workspace_id}/rate_limits`
+
+List rate-limit overrides configured for a workspace.
+
+Returns only the groups and limiter types that have a workspace-level
+override. Groups without overrides inherit the organization limits and
+are not listed; use `GET /v1/organizations/rate_limits` to see those.
+
+This endpoint currently returns every matching entry in a single page
+regardless of `limit`; follow `next_page` so that clients keep working
+when pagination is enabled.
+
+#### Parameters
+
+- `RateLimitListParams parameters`
+
+  - `required string workspaceID`
+
+    The ID of the workspace.
+
+  - `GroupType? groupType`
+
+    Filter by group type.
+
+    - `Batch`
+
+    - `Files`
+
+    - `ModelGroup`
+
+    - `Skills`
+
+    - `TokenCount`
+
+    - `WebSearch`
+
+  - `long? limit`
+
+    Maximum number of items to return per page. Ranges from `1` to `1000`.
+
+    Accepted for request-shape compatibility and currently ignored: every entry is returned in a single page.
+
+    maximum: 1000, minimum: 1
+
+  - `string? page`
+
+    Opaque cursor from a previous response's `next_page`.
+
+#### Returns
+
+- `class RateLimitListPageResponse:`
+
+  - `required IReadOnlyList<BetaWorkspaceRateLimit> Data`
+
+    Rate-limit entries for the workspace, one per group that has at least one override.
+
+    - `required GroupType GroupType`
+
+      The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`.
+
+      - `Batch`
+
+      - `Files`
+
+      - `ModelGroup`
+
+      - `Skills`
+
+      - `TokenCount`
+
+      - `WebSearch`
+
+    - `required IReadOnlyList<BetaWorkspaceRateLimitValue> Limits`
+
+      The limiter values overridden for this group in this workspace. Limiter types without a workspace override are omitted and inherit the organization value.
+
+      - `required long? OrgLimit`
+
+        The organization-level value for the same limiter type, for reference. `null` when the organization has no limit configured for this limiter type.
+
+      - `required string Type`
+
+        The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute`).
+
+      - `required long Value`
+
+        The workspace-level override value for this limiter type.
+
+    - `required IReadOnlyList<string>? Models`
+
+      Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
+
+    - `required string RateLimitID`
+
+      The `id` of the RateLimit group this override applies to.
+
+    - `JsonElement Type constant`
+
+      Object type. Always `workspace_rate_limit` for workspace rate-limit entries.
+
+    - `required string WorkspaceID`
+
+      ID of the Workspace this override applies to.
+
+  - `required string? NextPage`
+
+    Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+
+#### Example
+
+```csharp
+RateLimitListParams parameters = new() { WorkspaceID = "workspace_id" };
+
+var page = await client.Beta.Organization.Workspaces.RateLimits.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "group_type": "batch",
+      "limits": [
+        {
+          "org_limit": 0,
+          "type": "type",
+          "value": 0
+        }
+      ],
+      "models": [
+        "string"
+      ],
+      "rate_limit_id": "rate_limit_id",
+      "type": "workspace_rate_limit",
+      "workspace_id": "workspace_id"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Workspaces › Members
+
+### List Workspace Members
+
+`MemberListPageResponse Beta.Organization.Workspaces.Members.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/workspaces/{workspace_id}/members`
+
+List Workspace Members
+
+#### Parameters
+
+- `MemberListParams parameters`
+
+  - `required string workspaceID`
+
+    ID of the Workspace.
+
+  - `string afterID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
+
+  - `string beforeID`
+
+    ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+
+  - `long limit`
+
+    Number of items to return per page.
+
+    Defaults to `20`. Ranges from `1` to `1000`.
+
+    maximum: 1000, minimum: 1
+
+#### Returns
+
+- `class MemberListPageResponse:`
+
+  - `required IReadOnlyList<BetaWorkspaceMember> Data`
+
+    - `JsonElement Type constant`
+
+      Object type.
+
+      For Workspace Members, this is always `"workspace_member"`.
+
+    - `required string UserID`
+
+      ID of the User.
+
+    - `required string WorkspaceID`
+
+      ID of the Workspace.
+
+    - `required BetaWorkspaceRole WorkspaceRole`
+
+      Role of the Workspace Member.
+
+      - `WorkspaceAdmin`
+
+      - `WorkspaceBilling`
+
+      - `WorkspaceDeveloper`
+
+      - `WorkspaceRestrictedDeveloper`
+
+      - `WorkspaceUser`
+
+  - `required string? FirstID`
+
+    First ID in the `data` list. Can be used as the `before_id` for the previous page.
+
+  - `required bool HasMore`
+
+    Indicates if there are more results in the requested page direction.
+
+  - `required string? LastID`
+
+    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+
+#### Example
+
+```csharp
+MemberListParams parameters = new() { WorkspaceID = "workspace_id" };
+
+var page = await client.Beta.Organization.Workspaces.Members.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "type": "workspace_member",
+      "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+      "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+      "workspace_role": "workspace_admin"
+    }
+  ],
+  "first_id": "first_id",
+  "has_more": true,
+  "last_id": "last_id"
+}
+```
+
+### Create Workspace Member
+
+`BetaWorkspaceMember Beta.Organization.Workspaces.Members.Add(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/workspaces/{workspace_id}/members`
+
+Create Workspace Member
+
+#### Parameters
+
+- `MemberAddParams parameters`
+
+  - `required string workspaceID`
+
+    ID of the Workspace.
+
+  - `required string userID`
+
+    ID of the User.
+
+  - `required BetaNoBillingWorkspaceRole workspaceRole`
+
+    Role of the new Workspace Member. Cannot be `workspace_billing`.
+
+#### Returns
+
+- `class BetaWorkspaceMember:`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Workspace Members, this is always `"workspace_member"`.
+
+  - `required string UserID`
+
+    ID of the User.
+
+  - `required string WorkspaceID`
+
+    ID of the Workspace.
+
+  - `required BetaWorkspaceRole WorkspaceRole`
+
+    Role of the Workspace Member.
+
+    - `WorkspaceAdmin`
+
+    - `WorkspaceBilling`
+
+    - `WorkspaceDeveloper`
+
+    - `WorkspaceRestrictedDeveloper`
+
+    - `WorkspaceUser`
+
+#### Example
+
+```csharp
+MemberAddParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    UserID = "user_01WCz1FkmYMm4gnmykNKUu3Q",
+    WorkspaceRole = BetaNoBillingWorkspaceRole.WorkspaceAdmin,
+};
+
+var betaWorkspaceMember = await client.Beta.Organization.Workspaces.Members.Add(parameters);
+
+Console.WriteLine(betaWorkspaceMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "type": "workspace_member",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "workspace_role": "workspace_admin"
+}
+```
+
+### Get Workspace Member
+
+`BetaWorkspaceMember Beta.Organization.Workspaces.Members.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/workspaces/{workspace_id}/members/{user_id}`
+
+Get Workspace Member
+
+#### Parameters
+
+- `MemberRetrieveParams parameters`
+
+  - `required string workspaceID`
+
+    ID of the Workspace.
+
+  - `required string userID`
+
+    ID of the User.
+
+#### Returns
+
+- `class BetaWorkspaceMember:`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Workspace Members, this is always `"workspace_member"`.
+
+  - `required string UserID`
+
+    ID of the User.
+
+  - `required string WorkspaceID`
+
+    ID of the Workspace.
+
+  - `required BetaWorkspaceRole WorkspaceRole`
+
+    Role of the Workspace Member.
+
+    - `WorkspaceAdmin`
+
+    - `WorkspaceBilling`
+
+    - `WorkspaceDeveloper`
+
+    - `WorkspaceRestrictedDeveloper`
+
+    - `WorkspaceUser`
+
+#### Example
+
+```csharp
+MemberRetrieveParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    UserID = "user_id",
+};
+
+var betaWorkspaceMember = await client.Beta.Organization.Workspaces.Members.Retrieve(parameters);
+
+Console.WriteLine(betaWorkspaceMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "type": "workspace_member",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "workspace_role": "workspace_admin"
+}
+```
+
+### Update Workspace Member
+
+`BetaWorkspaceMember Beta.Organization.Workspaces.Members.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/workspaces/{workspace_id}/members/{user_id}`
+
+Update Workspace Member
+
+#### Parameters
+
+- `MemberUpdateParams parameters`
+
+  - `required string workspaceID`
+
+    Path param: ID of the Workspace.
+
+  - `required string userID`
+
+    Path param: ID of the User.
+
+  - `required BetaWorkspaceRole workspaceRole`
+
+    Body param: New workspace role for the User.
+
+#### Returns
+
+- `class BetaWorkspaceMember:`
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For Workspace Members, this is always `"workspace_member"`.
+
+  - `required string UserID`
+
+    ID of the User.
+
+  - `required string WorkspaceID`
+
+    ID of the Workspace.
+
+  - `required BetaWorkspaceRole WorkspaceRole`
+
+    Role of the Workspace Member.
+
+    - `WorkspaceAdmin`
+
+    - `WorkspaceBilling`
+
+    - `WorkspaceDeveloper`
+
+    - `WorkspaceRestrictedDeveloper`
+
+    - `WorkspaceUser`
+
+#### Example
+
+```csharp
+MemberUpdateParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    UserID = "user_id",
+    WorkspaceRole = BetaWorkspaceRole.WorkspaceAdmin,
+};
+
+var betaWorkspaceMember = await client.Beta.Organization.Workspaces.Members.Update(parameters);
+
+Console.WriteLine(betaWorkspaceMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "type": "workspace_member",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ",
+  "workspace_role": "workspace_admin"
+}
+```
+
+### Delete Workspace Member
+
+`MemberRemoveResponse Beta.Organization.Workspaces.Members.Remove(parameters, cancellationToken = default)`
+
+**DELETE** `/v1/organizations/workspaces/{workspace_id}/members/{user_id}`
+
+Delete Workspace Member
+
+#### Parameters
+
+- `MemberRemoveParams parameters`
+
+  - `required string workspaceID`
+
+    ID of the Workspace.
+
+  - `required string userID`
+
+    ID of the User.
+
+#### Returns
+
+- `class MemberRemoveResponse:`
+
+  - `JsonElement Type constant`
+
+    Deleted object type.
+
+    For Workspace Members, this is always `"workspace_member_deleted"`.
+
+  - `required string UserID`
+
+    ID of the User.
+
+  - `required string WorkspaceID`
+
+    ID of the Workspace.
+
+#### Example
+
+```csharp
+MemberRemoveParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    UserID = "user_id",
+};
+
+var member = await client.Beta.Organization.Workspaces.Members.Remove(parameters);
+
+Console.WriteLine(member);
+```
+
+##### Response (200)
+
+```json
+{
+  "type": "workspace_member_deleted",
+  "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q",
+  "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
+}
+```
+
+## Beta › Organization › Workspaces › Service Accounts
+
+### List Service Account Workspace Members
+
+`ServiceAccountListPageResponse Beta.Organization.Workspaces.ServiceAccounts.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/workspaces/{workspace_id}/service_accounts`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+List the service accounts that are members of a workspace.
+
+Each entry includes the service account's `workspace_role`. Use `limit`
+and the `next_page` cursor to paginate. Archived workspaces return 400;
+use `GET /service_accounts/{id}/workspaces` to audit memberships of an
+archived workspace. The implicit default-workspace membership is not
+included in this list. Memberships of archived service accounts are
+omitted from the results.
+
+#### Parameters
+
+- `ServiceAccountListParams parameters`
+
+  - `required string workspaceID`
+
+    Path param: ID of the workspace.
+
+  - `long limit`
+
+    Query param: Number of results per page.
+
+    maximum: 100, minimum: 1
+
+  - `string? page`
+
+    Query param: Opaque cursor from a previous response's `next_page`.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class ServiceAccountListPageResponse:`
+
+  - `required IReadOnlyList<BetaServiceAccountWorkspaceMember> Data`
+
+    - `required string? CreatedByActorID`
+
+      Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
+
+    - `required bool? Implicit`
+
+      True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
+
+    - `required string ServiceAccountID`
+
+      Tagged service account ID (`svac_...`).
+
+    - `JsonElement Type constant`
+
+    - `required string WorkspaceID`
+
+      Tagged workspace ID (`wrkspc_...`).
+
+    - `required BetaWorkspaceRole WorkspaceRole`
+
+      Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
+
+      - `WorkspaceAdmin`
+
+      - `WorkspaceBilling`
+
+      - `WorkspaceDeveloper`
+
+      - `WorkspaceRestrictedDeveloper`
+
+      - `WorkspaceUser`
+
+  - `required string? NextPage`
+
+    Opaque cursor for the next page, or null if no more results.
+
+#### Example
+
+```csharp
+ServiceAccountListParams parameters = new() { WorkspaceID = "workspace_id" };
+
+var page = await client.Beta.Organization.Workspaces.ServiceAccounts.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "created_by_actor_id": "created_by_actor_id",
+      "implicit": true,
+      "service_account_id": "service_account_id",
+      "type": "service_account_workspace_member",
+      "workspace_id": "workspace_id",
+      "workspace_role": "workspace_admin"
+    }
+  ],
+  "next_page": "next_page"
+}
+```
+
+### Create Service Account Workspace Member
+
+`BetaServiceAccountWorkspaceMember Beta.Organization.Workspaces.ServiceAccounts.Add(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/workspaces/{workspace_id}/service_accounts`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Add a service account to a workspace with the given `workspace_role`.
+
+The role determines what the service account can do in the workspace and
+which workspace-scoped permissions it can be granted when authenticating
+through federation. Every service account is already an implicit
+`workspace_user` member of the default workspace; adding it explicitly
+assigns a chosen role. If the service account is already an explicit
+member of the workspace, its `workspace_role` is replaced with the
+value supplied here. Archived workspaces return 400. Archived service
+accounts cannot be added and are rejected.
+
+#### Parameters
+
+- `ServiceAccountAddParams parameters`
+
+  - `required string workspaceID`
+
+    Path param: ID of the workspace.
+
+  - `required string serviceAccountID`
+
+    Body param: Tagged service account ID to add.
+
+  - `required BetaNoBillingWorkspaceRole workspaceRole`
+
+    Body param: Role to assign to the service account in this workspace.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccountWorkspaceMember:`
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
+
+  - `required bool? Implicit`
+
+    True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
+
+  - `required string ServiceAccountID`
+
+    Tagged service account ID (`svac_...`).
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged workspace ID (`wrkspc_...`).
+
+  - `required BetaWorkspaceRole WorkspaceRole`
+
+    Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
+
+    - `WorkspaceAdmin`
+
+    - `WorkspaceBilling`
+
+    - `WorkspaceDeveloper`
+
+    - `WorkspaceRestrictedDeveloper`
+
+    - `WorkspaceUser`
+
+#### Example
+
+```csharp
+ServiceAccountAddParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    ServiceAccountID = "service_account_id",
+    WorkspaceRole = BetaNoBillingWorkspaceRole.WorkspaceAdmin,
+};
+
+var betaServiceAccountWorkspaceMember = await client.Beta.Organization.Workspaces.ServiceAccounts.Add(parameters);
+
+Console.WriteLine(betaServiceAccountWorkspaceMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_by_actor_id": "created_by_actor_id",
+  "implicit": true,
+  "service_account_id": "service_account_id",
+  "type": "service_account_workspace_member",
+  "workspace_id": "workspace_id",
+  "workspace_role": "workspace_admin"
+}
+```
+
+### Get Service Account Workspace Member
+
+`BetaServiceAccountWorkspaceMember Beta.Organization.Workspaces.ServiceAccounts.Retrieve(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/workspaces/{workspace_id}/service_accounts/{service_account_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Retrieve a service account's membership in a workspace.
+
+Returns the membership record, including the service account's
+`workspace_role` in this workspace. Archived workspaces return 400. For
+the default workspace, returns the implicit (`implicit: true`)
+membership when no explicit membership exists; an explicitly added
+membership is returned with its assigned role. An archived service
+account returns 404.
+
+#### Parameters
+
+- `ServiceAccountRetrieveParams parameters`
+
+  - `required string workspaceID`
+
+    Path param: ID of the workspace.
+
+  - `required string serviceAccountID`
+
+    Path param: ID of the service account.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccountWorkspaceMember:`
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
+
+  - `required bool? Implicit`
+
+    True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
+
+  - `required string ServiceAccountID`
+
+    Tagged service account ID (`svac_...`).
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged workspace ID (`wrkspc_...`).
+
+  - `required BetaWorkspaceRole WorkspaceRole`
+
+    Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
+
+    - `WorkspaceAdmin`
+
+    - `WorkspaceBilling`
+
+    - `WorkspaceDeveloper`
+
+    - `WorkspaceRestrictedDeveloper`
+
+    - `WorkspaceUser`
+
+#### Example
+
+```csharp
+ServiceAccountRetrieveParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    ServiceAccountID = "service_account_id",
+};
+
+var betaServiceAccountWorkspaceMember = await client.Beta.Organization.Workspaces.ServiceAccounts.Retrieve(parameters);
+
+Console.WriteLine(betaServiceAccountWorkspaceMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_by_actor_id": "created_by_actor_id",
+  "implicit": true,
+  "service_account_id": "service_account_id",
+  "type": "service_account_workspace_member",
+  "workspace_id": "workspace_id",
+  "workspace_role": "workspace_admin"
+}
+```
+
+### Update Service Account Workspace Member
+
+`BetaServiceAccountWorkspaceMember Beta.Organization.Workspaces.ServiceAccounts.Update(parameters, cancellationToken = default)`
+
+**POST** `/v1/organizations/workspaces/{workspace_id}/service_accounts/{service_account_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Change a service account's role in a workspace.
+
+The new `workspace_role` replaces the current one. Only explicit
+memberships can be updated; to set a role on the implicit
+default-workspace membership, add the service account explicitly with
+`POST /workspaces/{workspace_id}/service_accounts`. Archived workspaces
+return 400. Archived service accounts cannot be updated and are
+rejected.
+
+#### Parameters
+
+- `ServiceAccountUpdateParams parameters`
+
+  - `required string workspaceID`
+
+    Path param: ID of the workspace.
+
+  - `required string serviceAccountID`
+
+    Path param: ID of the service account.
+
+  - `required BetaNoBillingWorkspaceRole workspaceRole`
+
+    Body param: New role for the service account in this workspace.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class BetaServiceAccountWorkspaceMember:`
+
+  - `required string? CreatedByActorID`
+
+    Tagged ID (`user_...`/`svac_...`) of the actor who created this membership.
+
+  - `required bool? Implicit`
+
+    True when this is the implicit default-workspace membership every service account has when no explicit membership exists. Implicit memberships have role `workspace_user` and cannot be removed.
+
+  - `required string ServiceAccountID`
+
+    Tagged service account ID (`svac_...`).
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged workspace ID (`wrkspc_...`).
+
+  - `required BetaWorkspaceRole WorkspaceRole`
+
+    Role of the service account in this workspace. Service accounts cannot hold the `workspace_billing` role.
+
+    - `WorkspaceAdmin`
+
+    - `WorkspaceBilling`
+
+    - `WorkspaceDeveloper`
+
+    - `WorkspaceRestrictedDeveloper`
+
+    - `WorkspaceUser`
+
+#### Example
+
+```csharp
+ServiceAccountUpdateParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    ServiceAccountID = "service_account_id",
+    WorkspaceRole = BetaNoBillingWorkspaceRole.WorkspaceAdmin,
+};
+
+var betaServiceAccountWorkspaceMember = await client.Beta.Organization.Workspaces.ServiceAccounts.Update(parameters);
+
+Console.WriteLine(betaServiceAccountWorkspaceMember);
+```
+
+##### Response (200)
+
+```json
+{
+  "created_by_actor_id": "created_by_actor_id",
+  "implicit": true,
+  "service_account_id": "service_account_id",
+  "type": "service_account_workspace_member",
+  "workspace_id": "workspace_id",
+  "workspace_role": "workspace_admin"
+}
+```
+
+### Delete Service Account Workspace Member
+
+`ServiceAccountRemoveResponse Beta.Organization.Workspaces.ServiceAccounts.Remove(parameters, cancellationToken = default)`
+
+**DELETE** `/v1/organizations/workspaces/{workspace_id}/service_accounts/{service_account_id}`
+
+**Requires an OAuth access token with the `org:admin` scope**, from `ant auth login --scope org:admin` or a workload identity federation rule; Admin API keys are not accepted. See [Manage WIF with the Admin API](/docs/en/manage-claude/wif-admin-api).
+
+Remove a service account from a workspace.
+
+Removal is idempotent (returns 200 even if the membership was already
+removed). A DELETE against the implicit default-workspace membership
+returns 200 but is a no-op and the membership persists; deleting an
+explicit default-workspace row reverts to the implicit `workspace_user`
+membership. Archived workspaces return 400.
+
+#### Parameters
+
+- `ServiceAccountRemoveParams parameters`
+
+  - `required string workspaceID`
+
+    Path param: ID of the workspace.
+
+  - `required string serviceAccountID`
+
+    Path param: ID of the service account.
+
+  - `IReadOnlyList<AnthropicBeta> betas`
+
+    Header param: Optional header to specify the beta version(s) you want to use.
+
+    - `MessageBatches2024_09_24`
+
+    - `PromptCaching2024_07_31`
+
+    - `ComputerUse2024_10_22`
+
+    - `ComputerUse2025_01_24`
+
+    - `Pdfs2024_09_25`
+
+    - `TokenCounting2024_11_01`
+
+    - `TokenEfficientTools2025_02_19`
+
+    - `Output128k2025_02_19`
+
+    - `FilesApi2025_04_14`
+
+    - `McpClient2025_04_04`
+
+    - `McpClient2025_11_20`
+
+    - `DevFullThinking2025_05_14`
+
+    - `InterleavedThinking2025_05_14`
+
+    - `CodeExecution2025_05_22`
+
+    - `ExtendedCacheTtl2025_04_11`
+
+    - `Context1m2025_08_07`
+
+    - `ContextManagement2025_06_27`
+
+    - `ModelContextWindowExceeded2025_08_26`
+
+    - `Skills2025_10_02`
+
+    - `FastMode2026_02_01`
+
+    - `Output300k2026_03_24`
+
+    - `UserProfiles2026_03_24`
+
+    - `UserProfiles2026_08_18`
+
+    - `AdvisorTool2026_03_01`
+
+    - `ManagedAgents2026_04_01`
+
+    - `CacheDiagnosis2026_04_07`
+
+    - `Dreaming2026_04_21`
+
+    - `ThinkingTokenCount2026_05_13`
+
+    - `ServerSideFallback2026_06_01`
+
+    - `ServerSideFallback2026_07_01`
+
+    - `FallbackCredit2026_06_01`
+
+    - `FallbackCredit2026_07_01`
+
+    - `AgentMemory2026_07_22`
+
+    - `MidConversationToolChanges2026_07_01`
+
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
+#### Returns
+
+- `class ServiceAccountRemoveResponse:`
+
+  - `required string ServiceAccountID`
+
+    Tagged service account ID (`svac_...`) named in the delete request. Removal is idempotent; see the endpoint description for the implicit-membership no-op.
+
+  - `JsonElement Type constant`
+
+  - `required string WorkspaceID`
+
+    Tagged workspace ID (`wrkspc_...`) named in the delete request.
+
+#### Example
+
+```csharp
+ServiceAccountRemoveParams parameters = new()
+{
+    WorkspaceID = "workspace_id",
+    ServiceAccountID = "service_account_id",
+};
+
+var serviceAccount = await client.Beta.Organization.Workspaces.ServiceAccounts.Remove(parameters);
+
+Console.WriteLine(serviceAccount);
+```
+
+##### Response (200)
+
+```json
+{
+  "service_account_id": "service_account_id",
+  "type": "service_account_workspace_member_deleted",
+  "workspace_id": "workspace_id"
+}
+```
+
+## Beta › Organization › Rate Limits
+
+### List Organization Rate Limits
+
+`RateLimitListPageResponse Beta.Organization.RateLimits.List(parameters, cancellationToken = default)`
+
+**GET** `/v1/organizations/rate_limits`
+
+List Messages API rate limits for your organization.
+
+Each entry corresponds to one rate-limit group (either a model family
+or an API-surface category such as the Files API or Message Batches)
+and contains the set of limiter values that apply to it.
+
+This endpoint currently returns every matching entry in a single page
+regardless of `limit`; follow `next_page` so that clients keep working
+when pagination is enabled.
+
+#### Parameters
+
+- `RateLimitListParams parameters`
+
+  - `GroupType? groupType`
+
+    Filter by group type.
+
+    - `Batch`
+
+    - `Files`
+
+    - `ModelGroup`
+
+    - `Skills`
+
+    - `TokenCount`
+
+    - `WebSearch`
+
+  - `long? limit`
+
+    Maximum number of items to return per page. Ranges from `1` to `1000`.
+
+    Accepted for request-shape compatibility and currently ignored: every entry is returned in a single page.
+
+    maximum: 1000, minimum: 1
+
+  - `string? model`
+
+    Filter to the single entry containing this model. Accepts full model names and aliases. Returns 404 if the model is not found or has no rate limits for this organization.
+
+  - `string? page`
+
+    Opaque cursor from a previous response's `next_page`.
+
+#### Returns
+
+- `class RateLimitListPageResponse:`
+
+  - `required IReadOnlyList<BetaOrganizationRateLimit> Data`
+
+    Rate-limit entries for the organization, one per group.
+
+    - `required string ID`
+
+      Stable identifier for this rate-limit group within the organization.
+
+    - `required GroupType GroupType`
+
+      The kind of rate-limit group this entry represents. `model_group` entries apply to a family of models (listed in `models`); other values apply to an API-surface category and have `models` set to `null`.
+
+      - `Batch`
+
+      - `Files`
+
+      - `ModelGroup`
+
+      - `Skills`
+
+      - `TokenCount`
+
+      - `WebSearch`
+
+    - `required IReadOnlyList<BetaOrganizationRateLimitValue> Limits`
+
+      The limiter values that apply to this group.
+
+      - `required string Type`
+
+        The limiter type (for example, `requests_per_minute` or `input_tokens_per_minute`).
+
+      - `required long Value`
+
+        The configured limit value for this limiter type.
+
+    - `required IReadOnlyList<string>? Models`
+
+      Model names this entry's limits apply to, including aliases. `null` when `group_type` is not `"model_group"`.
+
+    - `JsonElement Type constant`
+
+      Object type. Always `rate_limit` for organization rate-limit entries.
+
+  - `required string? NextPage`
+
+    Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+
+#### Example
+
+```csharp
+RateLimitListParams parameters = new();
+
+var page = await client.Beta.Organization.RateLimits.List(parameters);
+await foreach (var item in page.Paginate())
+{
+    Console.WriteLine(item);
+}
+```
+
+##### Response (200)
+
+```json
+{
+  "data": [
+    {
+      "id": "id",
+      "group_type": "batch",
+      "limits": [
+        {
+          "type": "type",
+          "value": 0
+        }
+      ],
+      "models": [
+        "string"
+      ],
+      "type": "rate_limit"
+    }
+  ],
+  "next_page": "next_page"
 }
 ```

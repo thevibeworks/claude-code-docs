@@ -613,7 +613,7 @@ Sessions in a channel start on an environment you didn't expect, or session star
 
 **What it means**
 
-Each scope at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), on the **Slack** tab under **Claude Tag's access**, has an **Environment** picker (in the scope's **Advanced** section) that pins the Claude Code environment or runner pool that sessions in that scope use. A channel with no pin of its own inherits the nearest pin above it; with nothing pinned anywhere, sessions use the **Organization default**. The picker only lists environments scoped to the organization; an environment created under an individual account doesn't appear, because channel sessions run with no user account attached.
+Sessions run on the environment or runner pool set on the nearest scope above them, or on the organization's default environment when none is set; [Configure the environment for a scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope) covers the picker. The picker only lists environments scoped to the organization; an environment created under an individual account doesn't appear, because channel sessions run with no user account attached.
 
 **How to resolve**
 

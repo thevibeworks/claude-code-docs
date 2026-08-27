@@ -6,6 +6,42 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.37937.3" description="2026-08-26">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
+<Update label="v1.37937.2" description="2026-08-26">
+  **General**
+
+  * No user-facing changes.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v1.37937.1" description="2026-08-25">
   **General**
 
@@ -22,7 +58,7 @@
 
   **3P**
 
-  * No user-facing changes.
+  * Added support for the `inferenceModelPricing` rates and the `inferenceModelPricingMultiplier` discount in the Usage page's cost estimate; in 1.37937.0 the estimate always used Anthropic list price.
 </Update>
 
 <Update label="v1.37937.0" description="2026-08-25">
@@ -60,7 +96,7 @@
   * Added `skipWebFetchPreflight`. When enabled, Code sessions no longer contact api.anthropic.com before fetching a web page, which fixes page fetches failing on networks that block that host. Off by default.
   * Added `userPluginMarketplacesEnabled` and `userPluginUploadsEnabled`, which control whether members can add their own plugin marketplaces and upload their own plugins; when off, the add options are hidden and adds are refused. Unset keys change nothing.
   * Added Code tab features already available in the standard app: the Files panel with Show in Files, emoji autocomplete and inline prompt suggestions in the composer, interactive MCP app widgets in the conversation, and letting Claude read output from the integrated terminal panel.
-  * Added cost estimates to the Usage page: `inferenceModelPricingEnabled` shows an estimated cost alongside token counts, priced at Anthropic list price; `inferenceModelPricing` supplies per-model rates and `inferenceModelPricingMultiplier` scales every estimate (a number between 0 and 1). The two rate keys take effect in a future release; until then estimates use list price. Off by default.
+  * Added cost estimates to the Usage page: `inferenceModelPricingEnabled` shows an estimated cost alongside token counts, priced at Anthropic list price; `inferenceModelPricing` supplies per-model rates and `inferenceModelPricingMultiplier` scales every estimate (a number between 0 and 1). The two rate keys take effect from 1.37937.1; in 1.37937.0 estimates use list price. Off by default.
   * Added suggestions for plugins and skills from your organization's own library in chat.
   * Added support for plugin marketplace credential helpers that return a username or `authtype=Bearer`, so marketplaces hosted on Bitbucket Data Center or behind GitLab deploy tokens can authenticate.
   * Added the `disableDesktopLocalSessions` setting to Claude Code's `managed-settings.json`, which turns off Code sessions that run on the device itself so the Code tab offers only remote environments such as SSH; the environment menu shows Local greyed out with a "Disabled by your organization" explanation.

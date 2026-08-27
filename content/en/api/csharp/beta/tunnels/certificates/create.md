@@ -94,6 +94,20 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 
     - `MidConversationToolChanges2026_07_01`
 
+    - `Compact2026_01_12`
+
+    - `ComputerUse2025_11_24`
+
+    - `McpTunnels2026_06_22`
+
+    - `StructuredOutputs2025_11_13`
+
+    - `TaskBudgets2026_03_13`
+
+    - `ThinkingDisplayUpdates2026_08_18`
+
+    - `CEUserManagement2026_07_13`
+
 ## Returns
 
 - `class BetaTunnelCertificate:`
@@ -138,7 +152,7 @@ Registers a public CA certificate on a tunnel. Anthropic verifies the gateway's 
 CertificateCreateParams parameters = new()
 {
     TunnelID = "tunnel_id",
-    CaCertificatePem = "ca_certificate_pem",
+    CACertificatePem = "ca_certificate_pem",
 };
 
 var betaTunnelCertificate = await client.Beta.Tunnels.Certificates.Create(parameters);

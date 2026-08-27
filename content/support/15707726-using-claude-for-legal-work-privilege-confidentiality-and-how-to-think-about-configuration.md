@@ -22,7 +22,7 @@ This is an area of law that's moving quickly. None of these are appellate decisi
 
 There are two questions worth separating: *what does Anthropic see*, and *what protections survive even when a vendor sees something*.
 
-On the first—our **[published security and privacy design](https://trust.anthropic.com)** describes the architecture in detail, but in short:
+On the first—our **[Trust Center](https://trust.anthropic.com/)** and our **[data retention practices article](https://support.claude.com/en/articles/15425996)** cover the details, but in short:
 
 - **We do not train on your content by default.** Under our commercial terms, **[by default](https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training)**, customer content from Claude for Work, the Claude Platform, and the API is not used to train our models.
 
@@ -32,7 +32,7 @@ On the first—our **[published security and privacy design](https://trust.anthr
 
 - **You can verify this.** Every human read is logged to a tamper-proof entry that customers with **[Access Transparency](https://platform.claude.com/docs/en/manage-claude/access-transparency)** can retrieve.
 
-- **Customer-managed encryption** is available for **[qualifying customers](https://trust.anthropic.com/resources?s=7ksqkied5hn0pocsj206m&name=%5Banthropic%5D-security-and-privacy-design-of-anthropic-data-retention-and-review)**, putting the encryption keys for the retention store in your own key management system (KMS)—though this controls key custody, not the narrow safety review above.
+- **Customer-managed encryption** is available for **[qualifying customers](https://platform.claude.com/docs/en/manage-claude/cmek)**, putting the encryption keys for the retention store in your own key management system (KMS)—though this controls key custody, not the narrow safety review above.
 
 - **In-tenancy options.** Claude is also available via AWS Bedrock and Google Cloud Vertex AI for organizations whose policy is that data stay within their own cloud environment. This changes where your data resides and whom you contract with; it does not by itself switch off the safety monitoring described above.
 

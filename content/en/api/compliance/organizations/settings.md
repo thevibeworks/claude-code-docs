@@ -75,7 +75,7 @@ unknown organizations and organizations outside the hierarchy return 404.
 
     A setting whose enforced value is a single true/false flag.
 
-    - `name: "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or "artifact_connectors_enabled" or 44 more`
+    - `name: "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or "artifact_connectors_enabled" or 52 more`
 
       - `"ai_powered_artifacts_enabled"`
 
@@ -118,6 +118,22 @@ unknown organizations and organizations outside the hierarchy return 404.
       - `"claude_design_enabled"`
 
       - `"claude_in_slack_enabled"`
+
+      - `"claude_science_custom_connectors_enabled"`
+
+      - `"claude_science_custom_skills_enabled"`
+
+      - `"claude_science_enabled"`
+
+      - `"claude_science_managed_network_allowlist_enabled"`
+
+      - `"claude_science_memory_enabled"`
+
+      - `"claude_science_modal_enabled"`
+
+      - `"claude_science_scientific_model_endpoints_enabled"`
+
+      - `"claude_science_ssh_hosts_enabled"`
 
       - `"code_execution_enabled"`
 
@@ -402,7 +418,7 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
 
       A setting whose enforced value is a single true/false flag.
 
-      - `name: "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or "artifact_connectors_enabled" or 44 more`
+      - `name: "ai_powered_artifacts_enabled" or "api_workbench_feedback_collection_enabled" or "artifact_connectors_enabled" or 52 more`
 
         - `"ai_powered_artifacts_enabled"`
 
@@ -445,6 +461,22 @@ curl https://api.anthropic.com/v1/compliance/organizations/$ORGANIZATION_ID/sett
         - `"claude_design_enabled"`
 
         - `"claude_in_slack_enabled"`
+
+        - `"claude_science_custom_connectors_enabled"`
+
+        - `"claude_science_custom_skills_enabled"`
+
+        - `"claude_science_enabled"`
+
+        - `"claude_science_managed_network_allowlist_enabled"`
+
+        - `"claude_science_memory_enabled"`
+
+        - `"claude_science_modal_enabled"`
+
+        - `"claude_science_scientific_model_endpoints_enabled"`
+
+        - `"claude_science_ssh_hosts_enabled"`
 
         - `"code_execution_enabled"`
 

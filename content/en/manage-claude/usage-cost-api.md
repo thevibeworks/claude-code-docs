@@ -56,6 +56,10 @@ Leading observability platforms offer ready-to-use integrations for monitoring y
     Agentless integration for easy LLM observability with out-of-the-box dashboards and alerts
   </Card>
 
+  <Card title="Harness" icon="chart" href="https://developer.harness.io/docs/cloud-cost-management/provider-integrations/ai-providers/anthropic/">
+    FinOps platform for cloud and AI cost management
+  </Card>
+
   <Card title="Honeycomb" icon="polygon" href="https://docs.honeycomb.io/integrations/anthropic-usage-monitoring/">
     Advanced querying and visualization through OpenTelemetry
   </Card>
@@ -310,9 +314,9 @@ Code execution costs appear in the cost endpoint grouped under `Code Execution U
 
 Filter or group by `service_tier` in the usage endpoint and look for the `priority` value. Priority Tier costs are not available in the cost endpoint.
 
-### What happens with Playground usage?
+### What happens with playground usage?
 
-API usage from Playground in the Claude Console (and from the legacy Workbench before it) is not associated with an API key, so `api_key_id` will be `null` even when grouping by that dimension.
+API usage from playground in the Claude Console (and from the legacy Workbench before it) is not associated with an API key, so `api_key_id` will be `null` even when grouping by that dimension.
 
 ### How is the default workspace represented?
 

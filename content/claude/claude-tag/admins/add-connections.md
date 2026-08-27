@@ -150,21 +150,7 @@ Domain entries allow hosts one at a time. For a scope whose work needs more of t
 
 A new environment's network access level is Trusted access, which allows a [documented set of package registries and developer hosts](https://code.claude.com/docs/en/cloud-environments#default-allowed-domains). A channel can already reach hosts like `pypi.org` and `registry.npmjs.org` with no domain entry.
 
-To give a scope broader access, create an environment with a more permissive level and pin it on the scope.
-
-<Steps>
-  <Step title="Create the environment">
-    From the **Cloud environments** page in [admin settings](https://claude.ai/admin-settings), add an [organization-shared environment](https://code.claude.com/docs/en/cloud-environments#organization-shared-environments) and set its network access level. **Full access** allows any domain; see [Network access in the Claude Code docs](https://code.claude.com/docs/en/cloud-environments#network-access) for the other levels. This step takes an Owner or admin.
-
-    Don't create the environment at [`claude.ai/code`](https://claude.ai/code): environments you create there belong to your individual account, so they never appear in the picker.
-  </Step>
-
-  <Step title="Pin it on the scope">
-    Open the scope's **Advanced** section and use the **Environment** picker. With nothing pinned, sessions use the organization default.
-  </Step>
-</Steps>
-
-The environment must be scoped to the organization, not an individual account. If sessions don't pick up the one you pinned, see [the environment troubleshooting entry](/docs/claude-tag/admins/troubleshooting#channel-sessions-use-the-wrong-environment-or-can%E2%80%99t-find-one).
+To give a scope broader access, create an organization-shared environment with a more permissive level and set it on the scope, as described in [Configure the environment for a scope](/docs/claude-tag/admins/customize#configure-the-environment-for-a-scope). **Full access** allows any domain; see [Network access in the Claude Code docs](https://code.claude.com/docs/en/cloud-environments#network-access) for the other levels.
 
 ### Allow all hosts
 
