@@ -7,7 +7,7 @@
 Get per-user activity for a given day, with cursor-based pagination.
 
 Returns activity metrics for each user in the organization, sorted by email
-address. Use group_by[] for per-RBAC-group aggregates, or filter[] to
+address. Use `group_by[]` for per-RBAC-group aggregates, or `filter[]` to
 scope results to specific members, groups, or a chat project. Available
 to organizations on a Claude Enterprise plan. Requires an API key with
 the `read:analytics` scope.
@@ -22,19 +22,19 @@ the `read:analytics` scope.
 
 - `ending_date: optional string`
 
-  UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with starting_date. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after starting_date.
+  UTC date in YYYY-MM-DD format. End of the date range (exclusive); only valid with `starting_date`. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day), so this can be at most today — which is also the default when omitted, resolved once when the first page is served and reused for the rest of the pagination sequence. At most 366 days after `starting_date`.
 
   format: date
 
 - `filter: optional array of string`
 
-  Filters as 'dimension:value', e.g. filter[]=rbac_group_id:<id>. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: project_id, rbac_group_id, user_id. Value forms: project_id takes a tagged project id (claude_proj_...) and scopes each member's row to their claude.ai chat activity within that project (it cannot be combined with group_by[] or an rbac_group_id filter); rbac_group_id takes the tagged id (rbac_group_..., as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); user_id takes a tagged user id (user_...), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
+  Filters as `dimension:value`, e.g. `filter[]=rbac_group_id:{id}`. Repeat the param for OR within a dimension and across dimensions for AND. Supported dimensions on this endpoint: `project_id`, `rbac_group_id`, `user_id`. Value forms: `project_id` takes a tagged project id (`claude_proj_...`) and scopes each member's row to their claude.ai chat activity within that project (it cannot be combined with `group_by[]` or an `rbac_group_id` filter); `rbac_group_id` takes the tagged id (`rbac_group_...`, as emitted in responses and by the spend-limits API) or a bare group UUID, and matches users who held the group at any point during each covered UTC day (time-of-usage attribution); `user_id` takes a tagged user id (`user_...`), as emitted in responses. An unsupported dimension returns 400. At most 100 entries.
 
   maxItems: 100
 
 - `group_by: optional array of "rbac_group_id"`
 
-  Dimensions to break results out by (e.g. group_by[]=rbac_group_id). Supported on this endpoint: rbac_group_id. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via next_page; an unsupported dimension returns 400. rbac_group_id attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
+  Dimensions to break results out by (e.g. `group_by[]=rbac_group_id`). Supported on this endpoint: `rbac_group_id`. Rows are already per-member, so the one supported grouping aggregates them per RBAC group instead. Grouped rows carry the requested dimension values as additional fields and paginate like ungrouped responses via `next_page`; an unsupported dimension returns 400. `rbac_group_id` attributes a user to every group they held at any point during each covered UTC day, so grouped rows are not an exclusive partition and can sum above org-level totals. At most 100 entries.
 
   maxItems: 100
 
@@ -46,7 +46,7 @@ the `read:analytics` scope.
 
 - `order: optional "asc" or "desc"`
 
-  Sort direction: 'asc' or 'desc'. Defaults to 'asc' for the endpoint's sort column and to 'desc' when order_by names a metric (a top-N ranking). Applies to order_by, or to the endpoint's default sort field when order_by is omitted.
+  Sort direction: `asc` or `desc`. Defaults to `asc` for the endpoint's sort column and to `desc` when `order_by` names a metric (a top-N ranking). Applies to `order_by`, or to the endpoint's default sort field when `order_by` is omitted.
 
   - `"asc"`
 
@@ -58,11 +58,11 @@ the `read:analytics` scope.
 
 - `page: optional string`
 
-  Opaque cursor from a previous response's next_page field.
+  Opaque cursor from a previous response's `next_page` field.
 
 - `starting_date: optional string`
 
-  UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either date or starting_date, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
+  UTC date in YYYY-MM-DD format. Start of a date range (inclusive). Enables rollup mode: one row per entity aggregated over the whole range — addable counters are summed across days, and a distinct count is never summed where summing could double-count (a field's range value is recomputed exactly over the window, approximate via HLL with typical error under 2%, null, or — for the creation-event counts, whose per-day values cannot overlap — a per-day sum that is itself exact; each field's own description says which). Use either `date` or `starting_date`, not both. Data is typically available with a 1-day lag (varies by query; the error for a too-recent date names the latest available day) and may be revised by a few percent over the following days. No earlier than 2026-01-01.
 
   format: date
 
@@ -134,6 +134,10 @@ the `read:analytics` scope.
 
         Core Claude Code activity metrics for a single user on a given day.
 
+        - `artifacts_created_count: number`
+
+          Number of artifacts created in Claude Code sessions: an artifact counts once, on the day a session first saves it. Counted from 2026-08-17; 0 on earlier days. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
+
         - `commit_count: number`
 
           Number of commits made via Claude Code
@@ -193,6 +197,10 @@ the `read:analytics` scope.
       - `action_count: number`
 
         Number of tool actions completed in Cowork sessions
+
+      - `artifacts_created_count: number`
+
+        Number of artifacts created in Cowork sessions: an artifact counts once, on the day a session first saves it. Counted from 2026-08-17; 0 on earlier days. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
 
       - `connectors_used_count: number`
 
@@ -352,7 +360,9 @@ the `read:analytics` scope.
 
     - `last_activity_date: optional string or null`
 
-      Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested date in single-day mode, and to the latest active day in [starting_date, ending_date) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id` it is the last day the user was active while a member of that group, consistent with the row's other metrics. Null on grouped (`group_by[]`) rows. Omitted from the response while last-activity reporting is not enabled for this organization.
+      Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member of that group, consistent with the row's other metrics. On grouped (`group_by[]`) rows it is the latest day any member of the group was active (the requested `date` in single-day mode). Omitted from the response while last-activity reporting is not enabled for this organization.
+
+      format: date
 
     - `rbac_group_id: optional string or null`
 
@@ -364,7 +374,7 @@ the `read:analytics` scope.
 
     - `user: optional AnalyticsUser or null`
 
-      User identifier.
+      A user in the organization, identified by tagged id and email address.
 
       - `id: string`
 
@@ -374,7 +384,7 @@ the `read:analytics` scope.
 
         Email address of the user
 
-      - `type: optional "user"`
+      - `type: "user"`
 
         Object type. Always `user`.
 
@@ -414,6 +424,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
       },
       "claude_code_metrics": {
         "core_metrics": {
+          "artifacts_created_count": 0,
           "commit_count": 0,
           "distinct_session_count": 0,
           "lines_of_code": {
@@ -443,6 +454,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
       },
       "cowork_metrics": {
         "action_count": 0,
+        "artifacts_created_count": 0,
         "connectors_used_count": 0,
         "dispatch_turn_count": 0,
         "distinct_connectors_used_count": 0,
@@ -508,7 +520,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
       },
       "web_search_count": 0,
       "distinct_user_count": 0,
-      "last_activity_date": "last_activity_date",
+      "last_activity_date": "2019-12-27",
       "rbac_group_id": "rbac_group_id",
       "rbac_group_name": "rbac_group_name",
       "user": {
@@ -592,6 +604,10 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
 
         Core Claude Code activity metrics for a single user on a given day.
 
+        - `artifacts_created_count: number`
+
+          Number of artifacts created in Claude Code sessions: an artifact counts once, on the day a session first saves it. Counted from 2026-08-17; 0 on earlier days. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
+
         - `commit_count: number`
 
           Number of commits made via Claude Code
@@ -651,6 +667,10 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
       - `action_count: number`
 
         Number of tool actions completed in Cowork sessions
+
+      - `artifacts_created_count: number`
+
+        Number of artifacts created in Cowork sessions: an artifact counts once, on the day a session first saves it. Counted from 2026-08-17; 0 on earlier days. Exact in date-range mode: a creation belongs to exactly one day, so the per-day counts never overlap and their sum over the window is the exact count of distinct creations in it.
 
       - `connectors_used_count: number`
 
@@ -810,7 +830,9 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
 
     - `last_activity_date: optional string or null`
 
-      Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested date in single-day mode, and to the latest active day in [starting_date, ending_date) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id` it is the last day the user was active while a member of that group, consistent with the row's other metrics. Null on grouped (`group_by[]`) rows. Omitted from the response while last-activity reporting is not enabled for this organization.
+      Most recent UTC day (YYYY-MM-DD) on which the user had any counted activity, within the requested window: equal to the requested `date` in single-day mode, and to the latest active day from `starting_date` (inclusive) to `ending_date` (exclusive) in date-range rollup mode — never a day earlier than the window start. On filtered requests (`filter[]`) only days matching the filter count: with `filter[]=rbac_group_id:{id}` it is the last day the user was active while a member of that group, consistent with the row's other metrics. On grouped (`group_by[]`) rows it is the latest day any member of the group was active (the requested `date` in single-day mode). Omitted from the response while last-activity reporting is not enabled for this organization.
+
+      format: date
 
     - `rbac_group_id: optional string or null`
 
@@ -822,7 +844,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
 
     - `user: optional AnalyticsUser or null`
 
-      User identifier.
+      A user in the organization, identified by tagged id and email address.
 
       - `id: string`
 
@@ -832,7 +854,7 @@ curl https://api.anthropic.com/v1/organizations/analytics/users \
 
         Email address of the user
 
-      - `type: optional "user"`
+      - `type: "user"`
 
         Object type. Always `user`.
 

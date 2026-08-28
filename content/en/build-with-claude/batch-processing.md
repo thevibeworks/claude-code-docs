@@ -43,7 +43,7 @@ This is especially useful for bulk operations that don't require immediate resul
 * A Message Batch is limited to either 100,000 Message requests or 256 MB in size, whichever is reached first.
 * The system processes each batch as fast as possible, with most batches completing within 1 hour. You can access batch results when all messages have completed or after 24 hours, whichever comes first. Batches expire if processing does not complete within 24 hours.
 * Batch results are available for 29 days after creation. After that, you may still view the Batch, but its results will no longer be available for download.
-* Batches are scoped to a [Workspace](https://platform.claude.com/settings/workspaces). You may view all batches (and their results) that were created within the Workspace that your API key belongs to.
+* Batches are scoped to a [Workspace](https://platform.claude.com/settings/workspaces). You may view all batches (and their results) that were created within the Workspace your request runs in.
 * Rate limits apply to both Batches API HTTP requests and the number of requests within a batch waiting to be processed. See [Message Batches API rate limits](https://platform.claude.com/docs/en/api/rate-limits#message-batches-api). Additionally, processing may be slowed down based on current demand and your request volume. In that case, you may see more requests expiring after 24 hours.
 * Because of high throughput and concurrent processing, batches may go slightly over your Workspace's configured [spend limit](https://platform.claude.com/settings/billing).
 * Each batched request must have `max_tokens` of at least `1`. `max_tokens: 0` ([cache pre-warming](https://platform.claude.com/docs/en/build-with-claude/prompt-caching#pre-warming-the-cache)) is not supported inside a batch, because an ephemeral cache entry written during batch processing would likely expire before the follow-up request runs.
@@ -1819,7 +1819,7 @@ Note that the failure of one request in a batch does not affect the processing o
 
 ## Batch storage and privacy
 
-* **Workspace isolation**: Batches are isolated within the Workspace they are created in. They can only be accessed by API keys associated with that Workspace, or users with permission to view Workspace batches in the Console.
+* **Workspace isolation**: Batches are isolated within the Workspace they are created in. They can only be accessed by API requests in that same Workspace, or users with permission to view Workspace batches in the Console.
 
 * **Result availability**: Batch results are available for 29 days after the batch is created, allowing ample time for retrieval and processing.
 
@@ -1863,7 +1863,7 @@ For ZDR eligibility across all features, see [API and data retention](https://pl
   <Accordion title="How does the Message Batches API handle privacy and data separation?">
     The Message Batches API is designed with strong privacy and data separation measures:
 
-    1. Batches and their results are isolated within the Workspace in which they were created. This means they can only be accessed by API keys from that same Workspace.
+    1. Batches and their results are isolated within the Workspace in which they were created. This means they can only be accessed by API requests in that same Workspace.
     2. Each request within a batch is processed independently, with no data leakage between requests.
     3. Results are only available for a limited time (29 days), and follow Anthropic's [data retention policy](https://support.claude.com/en/articles/7996866-how-long-do-you-store-personal-data).
     4. Downloading batch results in the Console can be disabled on the organization-level or on a per-workspace basis.

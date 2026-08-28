@@ -74,7 +74,7 @@ If you're choosing between Claude products for Slack-shaped work, [how Claude Ta
 
 Claude Tag works in Slack. You interact with it by writing in a Slack channel, thread, or direct message, and it replies there. Mention `@Claude` in a channel to guarantee it picks the message up.
 
-When Claude works on a task, it runs in an ephemeral sandbox hosted by Anthropic, not on your computer or inside your network. The sandbox is created when a conversation starts, holds any code or files Claude is working with, and is discarded when the conversation goes idle. See [how Claude Tag works](/docs/claude-tag/concepts/how-it-works) for the full lifecycle.
+When Claude works on a task, it runs in an ephemeral sandbox, not on your computer. The sandbox is created when a conversation starts, holds any code or files Claude is working with, and is discarded when the conversation goes idle. See [how Claude Tag works](/docs/claude-tag/concepts/how-it-works) for the full lifecycle.
 
 You extend what Claude can reach, like your repositories, ticketing systems, data warehouses, and custom tools, through [connections](/docs/claude-tag/admins/add-connections), [plugins, and skills](/docs/claude-tag/admins/customize). An Owner configures these per scope (a channel, a workspace, or the whole organization), separately from any connectors an individual user has set up in their own claude.ai account.
 
@@ -83,7 +83,7 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
     <a className="tm-band tm-band-admins" href="/docs/docs/claude-tag/admins/setup-overview">
       <span className="tm-band-text">
         <span className="tm-band-label">For administrators</span>
-        <span className="tm-band-title">Provision the identity</span>
+        <span className="tm-band-title">Set up Claude Tag</span>
       </span>
 
       <img src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/illustrations/Hand-Key.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=1b7a9675728f971bc7a4663c7f1ea599" alt="" noZoom width="1000" height="1000" data-path="images/claude-tag/illustrations/Hand-Key.svg" />
@@ -93,7 +93,7 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
       <a className="tm-qrow" href="/docs/docs/claude-tag/admins/setup-overview">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">Where do I start?</span>
-          <span className="tm-qrow-sub">The four setup steps, what to have ready, and what to test first</span>
+          <span className="tm-qrow-sub">Pair your Slack workspace, connect the services Claude will work in, launch, and test that it works</span>
         </span>
       </a>
 
@@ -188,11 +188,16 @@ Begin with [Get started](/docs/claude-tag/users/getting-started), which covers y
 
 ## Set Claude Tag up once for everyone
 
-Installing the Claude app in Slack is a prerequisite, not the setup. Setup is provisioning an identity. Claude Tag starts with no access to your external systems; you choose its credentials and repositories (an [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle)), and which workspaces and channels they apply to.
+You set up Claude Tag once, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and you must be an Owner in your Claude organization to do it. The setup page at that URL walks you through it:
 
-You configure this once, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and everyone in those places can use Claude Tag immediately, with no per-user setup. You must be an Owner in your Claude organization to run setup.
+* **Pair your Slack workspace**: send `@Claude connect` in Slack to get a pairing code, then enter it on the setup page.
+* **Connect the services Claude will work in**: for each one, such as your issue tracker or data warehouse, create an account for Claude and enter its credential.
+* **Grant repositories**: choose which repositories the Claude GitHub App can reach.
+* **Set a monthly spend limit and launch**.
 
-[Set up Claude Tag](/docs/claude-tag/admins/setup-overview) walks the four provisioning steps, from creating the identity to attaching it to your first channel.
+Claude Tag starts with no access to your external systems. The services you connect during setup form an [Access bundle](/docs/claude-tag/concepts/glossary#access-bundle), the set of tools Claude can reach, attached to the workspace or channels you paired. Once you launch, everyone in a channel Claude is in can use Claude Tag immediately, with no per-user setup.
+
+[Set up Claude Tag](/docs/claude-tag/admins/setup-overview) walks through those steps with what to have ready, what each choice means, and how to verify Claude Tag works once you launch.
 
 <div className="tm-strip">
   <div className="tm-strip-head">
@@ -207,7 +212,7 @@ You configure this once, at [`claude.ai/admin-settings/claude-tag`](https://clau
 
 <CardGroup cols={2}>
   <Card title="Set up Claude Tag" icon="gear" href="/docs/claude-tag/admins/setup-overview" horizontal arrow>
-    Admins: provision the identity and connect your first channel
+    Admins: pair your Slack workspace, connect the services Claude will work in, and launch
   </Card>
 
   <Card title="Hand Claude Tag your first task" icon="paper-plane" href="/docs/claude-tag/users/getting-started" horizontal arrow>

@@ -22,6 +22,10 @@ Create a dedicated Atlassian account for Claude (for example `claude@yourcompany
 
 Sign in as that account and create an API token at [id.atlassian.com/manage-profile/security/api-tokens](https://id.atlassian.com/manage-profile/security/api-tokens). Atlassian shows the token once; store it somewhere you can retrieve it. Atlassian API tokens expire, with a maximum lifetime of one year, so plan to create a new token and update the connection before the old one lapses.
 
+<Note>Create the API token without scopes. Atlassian accepts tokens with scopes, including service account tokens, only at its `api.atlassian.com` gateway, not at your site's hostname, so the preset can't use them.</Note>
+
+If your organization requires tokens with scopes, connect through the gateway instead of the preset. Add a [custom connection](/docs/claude-tag/admins/connections/custom) with the **Basic** credential type, the dedicated account's email and token, and `api.atlassian.com` under **Allowed websites**. Then [restrict the connection](/docs/claude-tag/admins/add-connections#restrict-by-path-or-method) to the path prefixes `/ex/jira/<cloud-id>/` and `/ex/confluence/<cloud-id>/`, because the cloud ID in a gateway request's path chooses which Atlassian site the request reaches. Atlassian documents [tokens with scopes](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/), [service account tokens](https://support.atlassian.com/user-management/docs/manage-api-tokens-for-service-accounts/), and [how to find your site's cloud ID](https://support.atlassian.com/jira/kb/retrieve-my-atlassian-sites-cloud-id/).
+
 ## Add the connection to a bundle
 
 On the bundle's **Credentials** tab, click **Connect** next to **Jira & Confluence**.

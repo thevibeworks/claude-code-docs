@@ -14,7 +14,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 This page is for engineers and anyone else with questions a repository can answer. Claude works with the GitHub repositories an admin granted for the channel. It reads the code to answer questions, watches pull requests you name, and hands back changes as draft pull requests.
 
-Each prompt below is a Slack message. Paste it in the channel or thread where the question lives. Claude clones the repository into an isolated workspace Anthropic hosts, posts progress in that thread, and delivers the result there too.
+Each prompt below is a Slack message. Paste it in the channel or thread where the question lives. Claude clones the repository into an isolated workspace, posts progress in that thread, and delivers the result there too.
 
 Name the repository in the first message. A session starts with no repositories checked out and clones one when the request names it. Anything Claude opens on GitHub is authored by the Claude GitHub App, so it appears in your review queue like any other pull request.
 

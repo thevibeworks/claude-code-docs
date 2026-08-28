@@ -24,13 +24,13 @@ The authoritative list is [Anthropic's published IP addresses](https://platform.
 
 The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) are what scope which of *your* systems Claude can call.
 
-Allowlist changes on enterprise systems can take days to take effect, which is why the [setup overview](/docs/claude-tag/admins/setup-overview#before-you-start) sends you here before you start setup.
+Allowlist changes on enterprise systems can take days to take effect, which is why the [prerequisites for setup](/docs/claude-tag/admins/setup-overview#before-you-start-check-that-you-have-what-setup-needs) send you here before you start setup.
 
 ## Internet reachability
 
 <Warning>A connected service must accept traffic from the internet (restricted by IP allowlist if you like). A service reachable only inside your private network can't be connected; private networking such as PrivateLink or VPC peering is not supported.</Warning>
 
-Every request from a channel's sandbox to your service passes through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy), which carries HTTP and HTTPS only. A service reachable only over another protocol, such as SSH or a database's native wire protocol, can't be connected; put an HTTP API in front of it instead.
+In an Anthropic-hosted environment, every request from a channel's sandbox to your service passes through [Agent Proxy](/docs/claude-tag/concepts/agent-identity#agent-proxy), which carries HTTP and HTTPS only. A service reachable only over another protocol, such as SSH or a database's native wire protocol, can't be connected; put an HTTP API in front of it instead.
 
 ## IP allowlist vs. allowed websites
 

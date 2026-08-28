@@ -22,7 +22,7 @@ In channels where the app has been added, an @-mention guarantees a response; Cl
 
 ### Restrict who can use Claude
 
-Open **Manage** on the Slack entry under **Where Claude Tag works** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). The dialog shows a toggle that controls who in your Slack workspace can use Claude at all; its label depends on your plan. You must be an Owner of your Claude organization to change it.
+At [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), under **Where Claude Tag works**, click **Manage** next to **Member access**. The **Claude Tag in Slack** dialog lists your connected workspaces and shows a toggle that controls who in your Slack workspace can use Claude at all; its label depends on your plan. You must be an Owner of your Claude organization to change it.
 
 | Plan       | Toggle                                       | Off (default)                                                                         | On                                                                                   |
 | :--------- | :------------------------------------------- | :------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------- |
@@ -77,14 +77,23 @@ Six ways to stop Claude Tag from responding, ordered from quietest to most compl
 
 1. **Ask it to stay quiet.** Saying "stay quiet in this thread unless tagged" stops Claude following an active thread.
 2. **Remove it from the channel.** Run `/remove @Claude`. It can no longer read or post there.
-3. **Set the scope's Claude Tag version to Off.** Claude stops responding in that scope even if someone invites it back; an @-mention gets a disabled notice instead of a reply. The control is on the scope's panel at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), and only an Owner can change it.
+3. **Set the scope's Claude Tag version to Off.** Claude stops responding in that scope even if someone invites it back; an @-mention gets a disabled notice instead of a reply. Only an Owner can change it, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → **Advanced** → **Claude Tag version**.
 4. **Remove the channel's scope.** Choose **Remove this scope** from the scope's options menu. Claude keeps answering in the channel with the access it inherits from its workspace, and deletes the channel's sessions, memory, routines, and published artifacts; see [what each action deletes](/docs/claude-tag/concepts/data-lifecycle#actions-in-claude). To stop it answering as well, run `/remove @Claude` or set the scope's version to **Off** first.
 5. **Delete the bundle.** This revokes its credentials everywhere it was attached (the credentials are removed; memory, routines, and transcripts are not). Running sessions may keep a revoked credential for a short window before the change propagates.
 6. **Uninstall the app.** This removes Claude from the workspace and deletes the workspace's Claude data the same way [disconnecting the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing) does.
 
 To keep Claude out of channels by name ahead of time, add a [blocked channel pattern](#block-or-auto-join-channels-by-name) instead.
 
-Steps 1–3 do not delete any data. Step 4 (removing the scope) deletes the channel's data. Step 5 (deleting a bundle) removes the credentials in that bundle; memory, routines, and session transcripts are unaffected. Removing Claude from a channel stops it responding there; the channel's memory and routines remain on record, and re-adding it restores them. To delete data without uninstalling, use the dedicated controls at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag).
+Steps 1–3 do not delete any data. Removing Claude from a channel stops it responding there; the channel's memory and routines stay on record, and re-adding Claude restores them.
+
+Steps 4 through 6, and disconnecting the workspace, each delete something different:
+
+* **Remove the channel's scope (step 4):** deletes the channel's sessions, memory, routines, and published artifacts. Claude keeps answering in the channel with the access it inherits from its workspace; see [what each action deletes](/docs/claude-tag/concepts/data-lifecycle#actions-in-claude).
+* **Delete the bundle (step 5):** removes the credentials in that bundle. Memory, routines, and session transcripts stay.
+* **Uninstall the app (step 6):** Anthropic deletes the workspace's Claude data, the same set as disconnecting the workspace, plus the app's installation credential; see [what each action deletes](/docs/claude-tag/concepts/data-lifecycle#actions-in-slack).
+* **[Disconnect the workspace](/docs/claude-tag/admins/workspaces#revoke-a-pairing)** at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag): Anthropic deletes the workspace's sessions and transcripts, memory, routines and artifacts, scopes, and members' account links, and the app stays installed so a workspace admin can pair again; see [what each action deletes](/docs/claude-tag/concepts/data-lifecycle#actions-in-claude).
+
+Access bundles belong to your organization, not to a workspace, so uninstalling or disconnecting keeps them; only their bindings to that workspace's scopes go. To delete one channel's data while Claude stays in the workspace, remove that channel's scope (step 4) rather than uninstalling.
 
 ### Limit Claude Tag to specific channels
 
@@ -94,11 +103,17 @@ To let Claude respond only in channels you choose, for example during a pilot co
 
 <Steps>
   <Step title="Turn Claude Tag off everywhere">
-    Set the **Claude Tag version** on [**Default Slack access**](/docs/claude-tag/admins/attach-to-scope) to **Off**. Then set any workspace or channel scope whose version is something other than **Inherit** to **Off** or **Inherit** too, leaving alone the scopes you're keeping on **Legacy**.
+    The control is at [**Default Slack access**](/docs/claude-tag/admins/attach-to-scope) > **Advanced** > **Claude Tag version**. Set it to **Off**.
   </Step>
 
-  <Step title="Switch the chosen channels back on">
-    Set each chosen channel's version to **New**. A channel's own setting wins over the **Off** above it, so Claude responds in the chosen channels and nowhere else. Channels Claude was added to already appear in the **Claude Tag's access** section, and the version control is on each channel scope's panel; use **Search channels** to find each one. For a channel that isn't listed, create a scope with **Add channel** as described in [Attach to a channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel).
+  <Step title="Reset the scopes that override it">
+    Open each workspace or channel scope set to **New**, and each one set to **Legacy** that you aren't keeping on the earlier app, and set its **Claude Tag version** to **Inherit**.
+  </Step>
+
+  <Step title="Switch each chosen channel back on">
+    Find the channel with **Search channels**; channels Claude was added to are already listed. If it isn't listed, create a scope for it with **Add channel** as described in [Attach to a channel](/docs/claude-tag/admins/attach-to-scope#attach-to-a-channel). The control is at the channel's scope > **Advanced** > **Claude Tag version**. Set it to **New**.
+
+    A channel's own setting wins over the **Off** above it, so Claude responds in the chosen channels and nowhere else.
   </Step>
 </Steps>
 
@@ -157,7 +172,7 @@ On [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/clau
 
 ### Set spend limits
 
-Spend limits live at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag), a different page than the main Claude Tag settings. Spend trends and per-channel reports live on a separate analytics page; see [Usage analytics](#usage-analytics) below.
+Spend limits live at [`claude.ai/admin-settings/usage/claude-tag`](https://claude.ai/admin-settings/usage/claude-tag), a different page than the main Claude Tag settings; see [when the usage page is available](/docs/claude-tag/admins/set-spend-limit#set-the-spend-limit). Spend trends and per-channel reports live on a separate analytics page; see [Usage analytics](#usage-analytics) below.
 
 A spend limit is a cap on how much of your organization's usage balance Claude Tag can draw each billing period. Setting a limit doesn't fund the balance; on a Team plan, [fund the usage balance first](/docs/claude-tag/admins/set-spend-limit) or Claude won't respond in channels regardless of the limit.
 
@@ -170,7 +185,7 @@ Work that would exceed a limit is declined rather than silently truncated. A use
 
 ### Usage analytics
 
-Spend trends live at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag), the Claude Tag section of the Analytics dashboard. It shows total and projected month-end spend for the period you pick, spend by channel with a CSV export, DM versus channel spend, [spend by kind of work](/docs/claude-tag/admins/set-spend-limit#see-spend-by-kind-of-work), and any promotional credit, as billed after your discount. Anyone with permission to view your organization's Analytics dashboard can open it; it has no controls, so use the usage page to change a limit. The two pages link to each other.
+Spend trends live at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag), the Claude Tag section of the Analytics dashboard, refreshed once a day. It shows total and projected month-end spend for the period you pick, spend by channel with a CSV export, DM versus channel spend, [spend by kind of work](/docs/claude-tag/admins/set-spend-limit#see-spend-by-kind-of-work), and any promotional credit, as billed after your discount. Anyone with permission to view your organization's Analytics dashboard can open it; it has no controls, so use the usage page to change a limit. The two pages link to each other.
 
 ## Delegate channel setup to channel managers
 
@@ -262,7 +277,7 @@ Scheduled jobs run with the channel's credentials, so a member creating one can'
 
 These are controls an admin might look for that Claude Tag doesn't have.
 
-* **Third-party deployment.** Sessions run on Anthropic's first-party infrastructure; Claude Tag isn't available through third-party deployments.
+* **Third-party deployment.** Claude Tag runs on Anthropic's first-party service; it isn't available through third-party deployments.
 * **Renaming or rebranding the app.** The Claude app's name, @-handle, and avatar in Slack are fixed; there is no per-workspace rename setting.
 * **Per-user spend caps on channel work.** Spend limits apply at the organization and channel level. There's no way to cap what one member can spend in channels; DM usage bills to that member's own seat and follows the seat's usual limits.
 * **Per-channel responder allowlist.** The restriction toggle governs who can invoke Claude across the workspace; you can't narrow it to a list of people for one channel only.

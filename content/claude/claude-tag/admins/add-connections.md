@@ -10,20 +10,6 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<div className="tm-stepbar">
-  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/pair-workspace">1 · Pair workspace</a>
-  <a className="tm-stepbar-seg tm-current" href="/docs/docs/claude-tag/admins/add-connections">2 · Give access</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/configure-github">3 · Connect GitHub</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/set-spend-limit">4 · Spend limit</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">5 · See it work</a>
-</div>
-
-<div className="tm-stepmeta">
-  <div className="tm-stepmeta-row"><span className="tm-stepmeta-label">Role you need</span><span>Owner in your Claude organization. You'll also need a credential for each service, created by you or by that service's admin.</span></div>
-  <div className="tm-stepmeta-row"><span className="tm-stepmeta-label">Before this step</span><span>A <a href="/docs/docs/claude-tag/admins/pair-workspace">paired workspace</a></span></div>
-  <div className="tm-stepmeta-row"><span className="tm-stepmeta-label">Do I need this?</span><span><span className="tm-meta-pill tm-meta-pill-opt">Optional to start</span>You need a connection only when Claude should act in a system beyond Slack, like querying BigQuery, reading Google Drive, or filing Linear tickets.<br /><br />You can add connections any time after setup (they apply immediately), but adding the systems your team expects before they onboard means their first requests succeed.</span></div>
-</div>
-
 <Tip>Claude starts delivering work before you connect anything. On Slack content alone, it can [catch a team up on a channel or thread](/docs/claude-tag/users/use-cases/catch-up), [triage a request channel](/docs/claude-tag/users/use-cases/triage-requests), [turn a discussion into a doc](/docs/claude-tag/users/use-cases/create-artifacts), and [track a project from channel history](/docs/claude-tag/users/use-cases/track-projects). Connections multiply what it can do from there; each one adds a system Claude can act in beyond Slack.</Tip>
 
 ## Your first Access bundle
@@ -34,7 +20,7 @@ If you're in [setup](/docs/claude-tag/admins/setup-overview), you add these conn
 
 <Steps>
   <Step title="Open the admin page">
-    Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). Under **Claude Tag's access**, the **Slack** tab shows your scopes (the organization-wide **Slack** row, each workspace, and any channels under them). The **Slack** row opens as **Default Slack access**.
+    Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag). Under **Claude Tag's access**, the **Slack** tab lists your scopes: **Default Slack** (organization-wide), then each workspace and any channels under them. Selecting **Default Slack** opens the **Default Slack access** panel.
   </Step>
 
   <Step title="Create a bundle on a scope">
@@ -42,11 +28,11 @@ If you're in [setup](/docs/claude-tag/admins/setup-overview), you add these conn
   </Step>
 
   <Step title="Name the bundle">
-    Click the pencil next to **Untitled access bundle** to rename it (the console uses "profile" and "Access bundle" interchangeably).
+    The new bundle is named after its scope, like **Acme bundle** for a workspace named Acme or **#engineering bundle** for that channel. To rename it, click the pencil next to the name (the console uses "profile" and "Access bundle" interchangeably).
   </Step>
 </Steps>
 
-You can also create an unattached bundle by clicking **Create** on the **Access bundles** page in the left navigation, then attach it to scopes afterward.
+You can also create an unattached bundle by clicking **Create** on the **Access bundles** page in the left navigation, then attach it to scopes afterward. A bundle created there is named **Untitled access bundle** until you rename it.
 
 Connections belong to the [agent identity](/docs/claude-tag/concepts/agent-identity), not to any person. Personal claude.ai connectors apply only in DMs.
 
@@ -64,14 +50,14 @@ Six categories cover most of the work teams hand to Claude. Any service with an 
 
 Read-only connections are most useful in combination: an answer that joins the ticket, the deploy, and the error rate needs all three systems connected. Connecting many systems read-only is a different decision from granting write access anywhere.
 
-| Connect            | Examples                                                                                                                                                  | Recommended access | What it adds                                                                                                                          |
-| :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| Knowledge and docs | Google Drive, [Notion](/docs/claude-tag/admins/connections/notion), [Confluence](/docs/claude-tag/admins/connections/atlassian)                                     | Read               | Answers grounded in design docs, runbooks, and prior decisions                                                                        |
-| Code               | GitHub, [GitLab](/docs/claude-tag/admins/connections/gitlab)                                                                                                   | Read and write     | Branches, pull requests, review, CI follow-up. GitHub is managed through the [Claude GitHub App](/docs/claude-tag/admins/configure-github) |
-| Data warehouse     | BigQuery, [Snowflake](/docs/claude-tag/admins/connections/snowflake), Redshift                                                                                 | Read               | Data questions answered with charts in the thread; recurring reports                                                                  |
-| Monitoring         | [Sentry](/docs/claude-tag/admins/connections/sentry), [Datadog](/docs/claude-tag/admins/connections/datadog), [PagerDuty](/docs/claude-tag/admins/connections/pagerduty) | Read               | Logs, metrics, and errors for debugging and incident work                                                                             |
-| Issue tracking     | [Linear](/docs/claude-tag/admins/connections/linear), [Asana](/docs/claude-tag/admins/connections/asana), [Jira](/docs/claude-tag/admins/connections/atlassian)          | Read and write     | File tickets and post status updates where work lives                                                                                 |
-| Go-to-market       | [HubSpot](/docs/claude-tag/admins/connections/hubspot), [Gong](/docs/claude-tag/admins/connections/gong), [Salesforce](/docs/claude-tag/admins/connections/salesforce)   | Read               | Pipeline and customer state for account questions                                                                                     |
+| Connect            | Examples                                                                                                                                                  | Recommended access | What it adds                                                                                                                                                                                                      |
+| :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Knowledge and docs | Google Drive, [Notion](/docs/claude-tag/admins/connections/notion), [Confluence](/docs/claude-tag/admins/connections/atlassian)                                     | Read               | Answers grounded in design docs, runbooks, and prior decisions                                                                                                                                                    |
+| Code               | GitHub, [GitLab](/docs/claude-tag/admins/connections/gitlab)                                                                                                   | Read and write     | On GitHub, branches, pull requests, review, and CI follow-up through the [Claude GitHub App](/docs/claude-tag/admins/configure-github). On GitLab, issues, merge request comments, and pipeline checks through its API |
+| Data warehouse     | BigQuery, [Snowflake](/docs/claude-tag/admins/connections/snowflake), Redshift                                                                                 | Read               | Data questions answered with charts in the thread; recurring reports                                                                                                                                              |
+| Monitoring         | [Sentry](/docs/claude-tag/admins/connections/sentry), [Datadog](/docs/claude-tag/admins/connections/datadog), [PagerDuty](/docs/claude-tag/admins/connections/pagerduty) | Read               | Logs, metrics, and errors for debugging and incident work                                                                                                                                                         |
+| Issue tracking     | [Linear](/docs/claude-tag/admins/connections/linear), [Asana](/docs/claude-tag/admins/connections/asana), [Jira](/docs/claude-tag/admins/connections/atlassian)          | Read and write     | File tickets and post status updates where work lives                                                                                                                                                             |
+| Go-to-market       | [HubSpot](/docs/claude-tag/admins/connections/hubspot), [Gong](/docs/claude-tag/admins/connections/gong), [Salesforce](/docs/claude-tag/admins/connections/salesforce)   | Read               | Pipeline and customer state for account questions                                                                                                                                                                 |
 
 Per-service instructions, with the credential fields and allowed-websites values, are in the [connection guides](/docs/claude-tag/admins/connections/overview).
 
@@ -206,7 +192,7 @@ Setup links are available for services that use the Bearer or Basic credential t
 
 List the hosts a connection's credential may be sent to. A wildcard works only as the leftmost label, like `*.example.com`; it covers subdomains at any depth but not `example.com` itself. You can't enter `*` alone here; a credential is always limited to specific hosts. To let Claude reach any host without a credential, see [Allow all hosts](#allow-all-hosts).
 
-To change a connection's name or allowed websites after saving, open the **⋮** menu on that connection's row in the bundle's **Credentials** tab and choose **Edit**. The same menu has **Rotate secret** (where the credential type supports it) and **Delete**.
+To change a connection's name or allowed websites after saving, open the **⋮** menu on that connection's row in the bundle's **Credentials** tab and choose **Edit**; the **Edit connection** dialog labels the field **Allowed hosts**. The same menu has **Rotate secret** (where the credential type supports it) and **Delete**.
 
 Check the host against your account's region before saving. Some presets fill a default host that may not match your account's region; a Datadog key, for example, only works against your account's Datadog site, like `api.datadoghq.com` or `api.datadoghq.eu`.
 

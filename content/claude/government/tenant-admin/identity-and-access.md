@@ -49,6 +49,8 @@ For SAML, a **More values your IdP may ask for** expander below these fields lis
 
 After you save a SAML connection, an **SP metadata URL** appears alongside these values. Most identity providers can import this address to fill in the other values automatically if you need to reconfigure.
 
+People start sign-in from Claude Desktop (**Sign in with your organization**) or from the web portal in a browser, and Claude for Government then sends them to your identity provider. Starting from the application's tile in your provider's app portal (such as Microsoft My Apps), or from a sign-in test in your provider's admin console, is not supported.
+
 ### Connecting with OIDC
 
 If your identity provider supports OpenID Connect, fill in the OIDC section:

@@ -10,14 +10,6 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<div className="tm-stepbar">
-  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/pair-workspace">1 · Pair workspace</a>
-  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/add-connections">2 · Give access</a>
-  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/configure-github">3 · Connect GitHub</a>
-  <a className="tm-stepbar-seg tm-current" href="/docs/docs/claude-tag/admins/set-spend-limit">4 · Spend limit</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">5 · See it work</a>
-</div>
-
 Work Claude does in channels bills to your **organization's usage balance**, not to individual seats. The **spend limit** is a cap you set on how much of that balance Claude Tag can use each billing period.
 
 | Work                                                                                                                                                                             | Bills to                          | Capped by                                                                                             |
@@ -35,7 +27,7 @@ Work Claude does in channels bills to your **organization's usage balance**, not
 
 ## Set the spend limit
 
-If your organization bills through a reseller, this page is not available and these steps don't apply; your organization's usage is funded through the reseller instead.
+Not every organization sees this page. A trial organization that hasn't enabled usage billing, a single-seat Team plan, an organization with a hybrid desktop deployment, or an admin whose role can't view billing is redirected to personal usage settings instead. If your organization bills through a reseller, the page is not available and these steps don't apply; your organization's usage is funded through the reseller instead.
 
 <Steps>
   <Step title="Open the usage page">
@@ -82,7 +74,7 @@ DMs are separate. A DM bills to the sender's own seat, not to the organization's
 
 ## See spend by kind of work
 
-On the analytics page at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag), you see channel spend split into four categories, so you can tell which kind of work is driving it. For each billed category you see its share of channel spend over the period you pick; Monitoring shows as not billed. The shares are approximate; for exact amounts, use your invoice.
+On the analytics page at [`claude.ai/analytics/claude-tag`](https://claude.ai/analytics/claude-tag), you see channel spend split into four categories. The page refreshes once a day, so today's activity appears tomorrow and a new month is empty until its first complete day. The split shows which kind of work is driving spend. For each billed category you see its share of channel spend over the period you pick; Monitoring shows as not billed. The shares are approximate; for exact amounts, use your invoice.
 
 * **Engaged**: threads where someone @-mentioned Claude, replied to Claude, or asked it for a reminder
 * **Proactive**: work Claude picked up or started on its own, before anyone addressed it
@@ -93,5 +85,5 @@ Reading a channel Claude belongs to, whether or not anyone tags it, doesn't draw
 
 ## Related resources
 
-* [See it work](/docs/claude-tag/admins/test-it): run a first task in the pilot channel
+* [Verify your setup](/docs/claude-tag/admins/setup-overview#verify-your-setup): run a first task in a channel
 * [Restrict where Claude Tag operates](/docs/claude-tag/admins/restrict-access#set-spend-limits): per-channel limits and the usage page in full

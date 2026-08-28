@@ -20,7 +20,7 @@ You can connect multiple Slack workspaces to one Claude organization. After the 
 
 The reverse doesn't hold. A Slack workspace or Enterprise Grid pairs with one Claude organization at a time.
 
-To move a pairing to a different Claude organization, an Owner in the organization that currently holds it must [disconnect it](#revoke-a-pairing) first. Until then, the console refuses the new pairing as [already connected to a different organization](/docs/claude-tag/admins/pair-workspace#if-the-console-says-“already-connected-to-a-different-organization”). Once the pairing moves, changes the previous organization's admins make in their settings no longer reach that workspace.
+To move a pairing to a different Claude organization, an Owner in the organization that currently holds it must [disconnect it](#revoke-a-pairing) first. Until then, the console refuses the new pairing as [already connected to a different organization](/docs/claude-tag/admins/troubleshooting#already-connected-to-a-different-organization). Once the pairing moves, changes the previous organization's admins make in their settings no longer reach that workspace.
 
 If your company has more than one Claude organization (a subsidiary with its own, for example), agree on which one holds the pairing before connecting.
 
@@ -48,7 +48,7 @@ The choice matters for direct messages. On Enterprise Grid, DMs follow each user
 
 ## Set the version for a scope
 
-Every scope routes to one of four versions. In the **Claude Tag's access** section of admin settings, select the scope and use the **Claude Tag version** control. Channels Claude was added to appear in the section automatically, and the **Search channels** field finds a channel's scope by name or ID.
+Every scope routes to one of four versions. The control is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → **Advanced** → **Claude Tag version**. Channels Claude was added to appear under **Slack** automatically, and the **Search channels** field finds a channel's scope by name or ID.
 
 | Label       | Effect                                                                                                                                                               |
 | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -87,4 +87,4 @@ The Slack app stays installed, so a workspace admin can pair the workspace again
 
 * [Data lifecycle and deletion](/docs/claude-tag/concepts/data-lifecycle): what disconnecting deletes, what it keeps, and what other actions do to Claude-side data
 * [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier): the upgrade path and what changes for existing users
-* [Pair your Slack workspace](/docs/claude-tag/admins/pair-workspace): the first pairing, with the Slack-admin handoff
+* [Pair your Slack workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace): the first pairing, with the Slack-admin handoff

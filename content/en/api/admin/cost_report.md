@@ -65,6 +65,8 @@ Get Cost Report
 
       End of the time bucket (exclusive) in RFC 3339 format.
 
+      format: date-time
+
     - `results: array of object`
 
       List of cost items for this time bucket. There may be multiple items if one or more `group_by[]` parameters are specified.
@@ -145,6 +147,8 @@ Get Cost Report
     - `starting_at: string`
 
       Start of the time bucket (inclusive) in RFC 3339 format.
+
+      format: date-time
 
   - `has_more: boolean`
 
@@ -175,9 +179,9 @@ curl https://api.anthropic.com/v1/organizations/cost_report \
           "context_window": "0-200k",
           "cost_type": "tokens",
           "currency": "USD",
-          "description": "Claude Sonnet 4 Usage - Input Tokens",
+          "description": "Claude Opus 5 Usage - Input Tokens",
           "inference_geo": "global",
-          "model": "claude-opus-4-6",
+          "model": "claude-opus-5",
           "service_tier": "standard",
           "token_type": "uncached_input_tokens",
           "workspace_id": "wrkspc_01JwQvzr7rXLA5AGx3HKfFUJ"
@@ -204,6 +208,8 @@ curl https://api.anthropic.com/v1/organizations/cost_report \
     - `ending_at: string`
 
       End of the time bucket (exclusive) in RFC 3339 format.
+
+      format: date-time
 
     - `results: array of object`
 
@@ -285,6 +291,8 @@ curl https://api.anthropic.com/v1/organizations/cost_report \
     - `starting_at: string`
 
       Start of the time bucket (inclusive) in RFC 3339 format.
+
+      format: date-time
 
   - `has_more: boolean`
 

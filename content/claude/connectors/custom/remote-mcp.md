@@ -39,6 +39,8 @@ You can manually add any third-party connector to Claude as long as you have the
 4. Optionally configure OAuth Client ID/Secret in Advanced settings
 5. Click "Add"
 
+If your Add custom connector dialog has two steps, see [The Add custom connector dialog, field by field](#the-add-custom-connector-dialog-field-by-field).
+
 **Members then:**
 
 1. Go to **Customize > Connectors**
@@ -53,14 +55,42 @@ You can manually add any third-party connector to Claude as long as you have the
 4. Optionally configure OAuth credentials
 5. Click "Add"
 
+If your Add custom connector dialog has two steps, see [The Add custom connector dialog, field by field](#the-add-custom-connector-dialog-field-by-field).
+
 ### Enabling connectors in chat
 
 Use the "+" button in your chat interface to access "Connectors," where you can enable/disable connectors per conversation.
 
+## The Add custom connector dialog, field by field
+
+<Note>
+  The two-step dialog described here is rolling out gradually. If your dialog shows a name, URL, and Advanced settings on one screen, your organization has the earlier version; the steps above still apply.
+</Note>
+
+**Name**: the display name shown in the connectors list.
+
+**Remote MCP server URL**: the HTTPS address where the server accepts MCP requests, for example `https://mcp.example.com/mcp`. After you continue, Claude checks the URL and pre-fills the authentication settings it detects, marked "Detected."
+
+**Authentication**: how people connect to the server.
+
+* **Always required**: each user signs in through the server's OAuth flow before using it.
+* **Required when the server asks**: Claude connects without credentials and prompts users to sign in when the server asks.
+* **None**: no sign-in. Anyone with access to the server URL can use the connector. If the server uses an API key, choose None and add the key under **Request headers**; Claude stores it as the connector's credential.
+
+**OAuth client** (shown unless you chose None): how Claude identifies itself to the server's authorization server.
+
+* **Use Anthropic's hosted client metadata** (recommended): the server reads Claude's client details from a URL Anthropic hosts (Client ID Metadata Document). Nothing to set up; the server must support it.
+* **No client ID — register one automatically**: Claude registers OAuth clients with the server as users connect (Dynamic Client Registration). Works with most servers, but adds client registrations over time.
+* **Use your own OAuth client**: enter a client ID you registered with the server. Leave the secret blank unless your authorization server requires one. See [Authentication for connectors](/docs/connectors/building/authentication).
+
+**Request headers**: fixed credentials such as API keys, sent on every request. See [Authenticating with request headers](#authenticating-with-request-headers).
+
+**Advanced > Transport**: set from the URL automatically; a URL ending in `/sse` selects the older SSE transport. Change it only if the server's documentation says to.
+
 ## Authenticating with request headers
 
 <Note>
-  Request header authentication is in beta. This feature is being slowly rolled out to customers; contact Anthropic for early access.
+  Request header authentication is in beta and available to a limited set of organizations. If you don't see the **Request headers** section in the Add custom connector dialog, your organization doesn't have access yet.
 </Note>
 
 If your MCP server authenticates with an API key, bearer token, or other fixed credential instead of OAuth, you can configure it in the **Request headers** section of the Add custom connector dialog. Claude stores each header value securely, does not show it again after you save, and sends it on every request to your server.
@@ -72,7 +102,7 @@ You can also use request headers in addition to OAuth, including OAuth with your
 ### Adding a request header
 
 1. In the Add custom connector dialog, open **Request headers**.
-2. Select a header name from the list, or enter one manually. Claude accepts a fixed set of standard authentication and routing header names such as `authorization`, `x-api-key`, and `x-auth-token`. Header names are restricted to this allowlist for security reasons: each name is reviewed before Claude will send it to a third-party server, which prevents connector configuration from being used to send arbitrary header names. To request an addition to the allowlist, contact your Anthropic representative.
+2. Select a header name from the list, or choose **Custom header** to enter a different name. The list offers standard authentication and routing header names such as `authorization`, `x-api-key`, and `x-auth-token`, which every connector can use. Anthropic reviews and approves each custom header name before Claude will send it to a third-party server, which prevents connector configuration from being used to send arbitrary header names. If you enter a header name that isn't approved, Claude rejects the save with an error. To request approval for a custom header name, contact [Claude support](https://support.claude.com/en/articles/9015913-how-to-get-support).
 3. Enter the header value exactly as your server expects to receive it.
 4. Choose whether the header is **Required**. When a required header has no stored value at connection time, the connection fails. When an optional header has no value, Claude simply omits it from the request.
 5. Repeat for any additional headers your server needs (you can add up to four), then click **Add**.
@@ -92,11 +122,13 @@ Most servers that use bearer tokens reject the second form. If your server's doc
 
 ## Managing connectors
 
-To remove or edit connectors:
+To edit a connector's name or URL, or to remove a connector:
 
-1. Go to **Customize > Connectors**
+1. Go to **Customize > Connectors** (Team and Enterprise owners: **Admin settings > Connectors**)
 2. Click "Remove" or select the three-dot menu
-3. Follow prompts to edit or remove
+3. Follow the prompts
+
+Authentication settings (OAuth credentials and request headers) can't be changed after a connector is added. To change them, remove the connector and add it again with the new details. Members will need to reconnect.
 
 ## Security and privacy
 

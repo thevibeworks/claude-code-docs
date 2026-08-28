@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-Claude Tag runs the same engine as Claude Code. When you tag `@Claude` in Slack with a task, a session starts in a sandbox that Anthropic hosts and your organization configures, not on your machine. That sandbox is the same managed compute behind [Claude Code on the web](https://code.claude.com/docs/en/web-quickstart), described in [Compute and the sandbox](/docs/claude-tag/concepts/security-and-data#compute-and-the-sandbox).
+Claude Tag runs the same engine as Claude Code. When you tag `@Claude` in Slack with a task, a session starts in a sandbox that your organization configures, not on your machine. That sandbox is the same infrastructure that runs [Claude Code on the web](https://code.claude.com/docs/en/web-quickstart), described in [Compute and the sandbox](/docs/claude-tag/concepts/security-and-data#compute-and-the-sandbox).
 
 If you use Claude Code on the web, a session works the way a web session does, from a fresh clone of your repository rather than from files on your machine. The configuration you checked into that repository, such as `CLAUDE.md`, hooks, and skills, applies in the session as it does in a web session.
 

@@ -284,7 +284,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/messages \
           "cache_read_input_tokens": 200,
           "context_window": "0-200k",
           "inference_geo": "global",
-          "model": "claude-opus-4-6",
+          "model": "claude-opus-5",
           "output_tokens": 500,
           "server_tool_use": {
             "web_search_requests": 10
@@ -316,7 +316,7 @@ Enables organizations to analyze developer productivity and build custom dashboa
 
   UTC date in YYYY-MM-DD format. Returns metrics for this single day only.
 
-  pattern: ^\d{4}-\d{2}-\d{2}$
+  pattern: ^\d{4}-\d{2}-\d{2}$, format: date
 
 - `limit: optional number`
 
@@ -520,7 +520,7 @@ curl https://api.anthropic.com/v1/organizations/usage_report/claude_code \
             "amount": 186,
             "currency": "USD"
           },
-          "model": "claude-opus-4-8",
+          "model": "claude-opus-5",
           "tokens": {
             "cache_creation": 2340,
             "cache_read": 8790,

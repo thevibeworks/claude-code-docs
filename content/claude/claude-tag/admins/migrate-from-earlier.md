@@ -20,7 +20,7 @@ If your organization already used the earlier Claude in Slack, including [Claude
   </Step>
 
   <Step title="Check for channels still on Legacy">
-    In the **Claude Tag's access** section, look at the **Claude Tag version** on each scope. Pairing defaults every scope to New, so this is usually empty; set any showing **Legacy** to **New**.
+    Under **Claude Tag's access** → **Slack**, open each scope's **Advanced** section. Pairing defaults every scope's **Claude Tag version** to **New**, so this is usually quick. Set any showing **Legacy** to **New**.
   </Step>
 
   <Step title="Give Claude its connections">
@@ -38,7 +38,7 @@ If your organization already used the earlier Claude in Slack, including [Claude
 
 ### If `@Claude` doesn't respond at all
 
-On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. See [Claude is silent everywhere on Enterprise Grid](/docs/claude-tag/admins/troubleshooting#claude-is-silent-everywhere-on-enterprise-grid) for the reinstall that refreshes it without uninstalling, then send `@Claude connect` again in a channel of that workspace and continue with step 1 above.
+On Enterprise Grid, an earlier install can lose its connection and stop responding in every workspace. See [Claude is silent everywhere on Enterprise Grid](/docs/claude-tag/admins/troubleshooting#claude-is-silent-everywhere-on-enterprise-grid) for the reinstall that refreshes it without uninstalling, then send `@Claude connect` again in a channel of that workspace and [pair the workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace) with the new code.
 
 <Warning>The earlier Claude in Slack app, shown as **Legacy** in admin settings, is being deprecated; check with your account team for the cutover date. After that date, channels still set to Legacy stop responding until the scope's Claude Tag version is set to New.</Warning>
 

@@ -59,4 +59,4 @@ On Enterprise Grid, this applies when the app was installed on an individual wor
 ## Related resources
 
 * [Security and data handling](/docs/claude-tag/concepts/security-and-data): where credentials are stored and what leaves your workspace
-* [Pair your Slack workspace](/docs/claude-tag/admins/pair-workspace): what the Claude Owner does with the code you send
+* [Pair your Slack workspace](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace): what the Claude Owner does with the code you send

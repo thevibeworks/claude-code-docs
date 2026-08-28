@@ -4,9 +4,9 @@
 
 # Manage Claude Science on devices
 
-> Claude Science is a desktop application that stores all member content locally.
+> Claude Science is a desktop application that stores member content locally.
 
-Claude Science is a desktop application that stores all member content locally. This page covers what IT and endpoint teams need to know: where the app writes data, how to deploy configuration with device management, what telemetry is sent, and what members see when Anthropic requires an update.
+Claude Science is a desktop application that stores member content locally. This page covers what IT and endpoint teams need to know: where the app writes data, how to deploy configuration with device management, what telemetry is sent, and what members see when Anthropic requires an update.
 
 ## Where the app stores data
 
@@ -17,7 +17,7 @@ Data: the app's data directory holds conversations, generated artifacts, delegat
 
 Authentication tokens and the shared package environment live under \~/.claude-science/ regardless of the data directory, so endpoint backup or wipe policies that target the data directory don't affect sign-in state.
 
-Your endpoint tooling governs these folders the same way it governs any other local application data. There's no Anthropic-hosted copy, so Custom Data Retention, Org Data Export, and the Compliance API don't reach them.
+Your endpoint tooling governs these folders the same way it governs any other local application data. Anthropic doesn't host a copy of these folders, so Custom Data Retention and Org Data Export don't reach them. [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data) covers what Anthropic does receive from the app, including the session transcripts available to Enterprise organizations with the Compliance API enabled.
 
 ## Deploy configuration with device management
 

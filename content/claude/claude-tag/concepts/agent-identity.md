@@ -22,17 +22,17 @@ In direct messages (DMs) between a user and `@Claude`, the provisioned identity 
 
 ## Channel sessions
 
-When Claude works on a channel task, three systems are involved:
+When Claude works on a channel task, the request moves through three places:
 
 * The ask happens in your Slack workspace, when a user tags Claude to do something or a scheduled task starts.
-* The work Claude does runs in a sandbox on Anthropic's infrastructure, with nothing installed in your network.
-* The agent's credentials for any additional connections, such as GitHub or a data warehouse, reach those systems to pull the required information. An organization Owner sets up those credentials as part of [provisioning the identity](/docs/claude-tag/admins/setup-overview#setup-steps).
+* The work Claude does runs in a sandbox, an isolated working environment built for the thread.
+* The agent's credentials for any additional connections, such as GitHub or a data warehouse, reach those systems to pull the required information. An organization Owner sets up those credentials as part of [provisioning the identity](/docs/claude-tag/admins/setup-overview#create-accounts-for-claude%E2%80%99s-other-tools).
 
 The diagram below traces one request through this process.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=e8776cf0edd1f3ec912b9b044c9cc838" alt="Diagram showing the request path across three zones. A task mentioned in your Slack workspace runs in a session sandbox on Anthropic's infrastructure, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path.svg" />
+<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=e8776cf0edd1f3ec912b9b044c9cc838" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path.svg" />
 
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=a2ed5f3270989c3ed3d9b9a78a72bff0" alt="Diagram showing the request path across three zones. A task mentioned in your Slack workspace runs in a session sandbox on Anthropic's infrastructure, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path-dark.svg" />
+<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/request-path-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=a2ed5f3270989c3ed3d9b9a78a72bff0" alt="Diagram showing the request path across three zones, labeled your Slack workspace, Anthropic's infrastructure, and your systems. A task mentioned in the Slack workspace runs in a session sandbox in the middle zone, one sandbox per thread, holding no credentials. Outbound requests pass to Agent Proxy, which injects the credential drawn from the credential store; a request matching no rule is blocked. Credentialed requests reach your systems, like GitHub, a data warehouse, monitoring, or any HTTP API. A dashed return path shows results posting back in the thread, as Claude." width="1000" height="440" data-path="images/claude-tag/diagrams/request-path-dark.svg" />
 
 <Steps>
   <Step title="Tag Claude in a channel">
@@ -40,7 +40,7 @@ The diagram below traces one request through this process.
   </Step>
 
   <Step title="The session sandbox starts">
-    Claude does the work in an isolated environment Anthropic builds for this thread, reading files, writing documents, and running code. The credentials you provision are not placed in the sandbox; they stay in the credential store and are injected at the proxy.
+    Claude does the work in an isolated environment built for this thread, reading files, writing documents, and running code. The credentials you provision are not placed in the sandbox; they stay in the credential store and are injected at the proxy.
   </Step>
 
   <Step title="The request crosses Agent Proxy">
@@ -73,7 +73,7 @@ The same rules apply to code Claude runs in the sandbox, like `curl` or a `fetch
 
 Agent Proxy carries HTTP and HTTPS only. A protocol that isn't HTTP, such as SSH or a database's native wire protocol, can't cross the proxy even to an allowed host.
 
-Nothing is installed inside your network. Your systems see only requests authenticated with the credentials Agent Proxy attached. For the endpoints and addresses your network team may need to allowlist, see [Network requirements](/docs/claude-tag/admins/network-requirements).
+For the endpoints and addresses your network team may need to allowlist, see [Network requirements](/docs/claude-tag/admins/network-requirements).
 
 ### How a host gets allowed
 
@@ -106,9 +106,9 @@ That service-account identity is also how Claude appears wherever it acts. In Sl
 
 A DM with Claude works differently from a channel. There is no scope to attach an identity to, so a DM session runs with your own claude.ai account instead, the same way a Claude Code session on the web does, using your own connectors and credentials, with results attributed to you (pull requests excepted; the Claude GitHub App authors those from DMs too). The diagram contrasts with the channel path above; the sandbox is the same engine, but everything around it is yours.
 
-<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/dm-identity.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=d4089034f46e4a760f9fac9d36a689cc" alt="Diagram showing how a DM session reaches your systems. A message to Claude in a direct message runs in a session sandbox on Anthropic's infrastructure, the same engine as a channel session, but it runs with your identity. From there it reaches your systems through your own connectors and accounts, like GitHub or Drive, using your own credentials. A dashed return path shows results posting back in the DM, as Claude." width="1000" height="270" data-path="images/claude-tag/diagrams/dm-identity.svg" />
+<img className="block dark:hidden" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/dm-identity.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=d4089034f46e4a760f9fac9d36a689cc" alt="Diagram showing how a DM session reaches your systems. A message to Claude in a direct message runs in a session sandbox, in a zone labeled Anthropic's infrastructure, the same engine as a channel session, but it runs with your identity. From there it reaches your systems through your own connectors and accounts, like GitHub or Drive, using your own credentials. A dashed return path shows results posting back in the DM, as you." width="1000" height="270" data-path="images/claude-tag/diagrams/dm-identity.svg" />
 
-<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/dm-identity-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=a3ca3c8aa926704742402882f4345b1b" alt="Diagram showing how a DM session reaches your systems. A message to Claude in a direct message runs in a session sandbox on Anthropic's infrastructure, the same engine as a channel session, but it runs with your identity. From there it reaches your systems through your own connectors and accounts, like GitHub or Drive, using your own credentials. A dashed return path shows results posting back in the DM, as Claude." width="1000" height="270" data-path="images/claude-tag/diagrams/dm-identity-dark.svg" />
+<img className="hidden dark:block" src="https://mintcdn.com/claude-ai/5JFKyLlO7sHMMf5J/images/claude-tag/diagrams/dm-identity-dark.svg?fit=max&auto=format&n=5JFKyLlO7sHMMf5J&q=85&s=a3ca3c8aa926704742402882f4345b1b" alt="Diagram showing how a DM session reaches your systems. A message to Claude in a direct message runs in a session sandbox, in a zone labeled Anthropic's infrastructure, the same engine as a channel session, but it runs with your identity. From there it reaches your systems through your own connectors and accounts, like GitHub or Drive, using your own credentials. A dashed return path shows results posting back in the DM, as you." width="1000" height="270" data-path="images/claude-tag/diagrams/dm-identity-dark.svg" />
 
 The table lines up the two paths on the four dimensions that differ.
 
