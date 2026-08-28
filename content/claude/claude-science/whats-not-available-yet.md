@@ -10,14 +10,13 @@ Claude Science is in beta, and some admin controls you use with other Claude pro
 
 ## Audit and compliance
 
-Audit log: no Claude Science events are written to the organization audit log yet. This is on the roadmap.\
-Compliance API: admins can't export or delete Claude Science data through the Compliance API. Because conversations live on members' computers, there's no Anthropic-side data for the API to reach; see [Manage on devices](/docs/claude-science/manage-on-devices) for endpoint-level options.\
+Audit log: Claude Science doesn't write events to the organization audit log. For Enterprise organizations with the Compliance API enabled, settings changes and read-only session transcripts are available through the [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) instead (Claude Science session coverage is in beta); see [Compliance API coverage](/docs/claude-science/how-claude-science-works-with-your-data#compliance-api-coverage).\
 Org data export: the organization export doesn't include data stored on members' computers.
 
 ## Data retention
 
-Custom Data Retention: your auto-delete window applies to conversations, projects, and artifacts stored on Anthropic's servers. Claude Science doesn't store that data on Anthropic's servers, so the setting has nothing to act on.\
-Local deletion signal: when a member deletes local Claude Science data, Anthropic isn't notified to drop the matching server-side model-traffic log early. The log still expires under Anthropic's standard retention.
+Custom Data Retention: your auto-delete window applies to conversations, projects, and artifacts stored on Anthropic's servers. Claude Science keeps conversations and artifacts on members' computers, where the window doesn't reach. For Enterprise organizations with the Compliance API enabled, the window does apply to the session transcripts it returns.\
+Local deletion signal: when a member deletes local Claude Science data, Anthropic isn't notified, so the matching server-side records (the model-call log and, for Enterprise organizations with the Compliance API enabled, the session transcript) aren't dropped early. Each expires under its own retention period.
 
 ## Connector and domain allowlists
 

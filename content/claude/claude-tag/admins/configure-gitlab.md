@@ -12,6 +12,8 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Connecting GitLab lets Claude read repository contents, manage issues, review and comment on merge requests, and check pipeline status from any channel under a bundle's scope, all through the GitLab API. Unlike GitHub, there is no Claude app to install in GitLab. Instead, you give Claude its own GitLab user and add that user's personal access token to an Access bundle.
 
+The connection is API-only. The token authenticates GitLab API requests, not git, so Claude gets a 401 error when it tries to clone a private project or push to any project over HTTPS, even with the connection in place. To clone a repository into the session workspace, connect it through [GitHub](/docs/claude-tag/admins/configure-github) instead.
+
 A dedicated service account keeps Claude's GitLab activity attributed to a single identity you control. You decide which groups and projects it can reach by granting that account membership the same way you would for a person, and you can revoke or rescope it at any time without touching anyone else's access.
 
 ## Prerequisites

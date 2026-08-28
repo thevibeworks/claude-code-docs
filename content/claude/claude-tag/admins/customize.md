@@ -108,11 +108,11 @@ Creating the environment and choosing it on a scope happen on two different admi
     From the **Cloud environments** page in [admin settings](https://claude.ai/admin-settings), add an [organization-shared environment](https://code.claude.com/docs/en/cloud-environments#organization-shared-environments) and fill in its setup script, environment variables, and network access level.
   </Step>
 
-  <Step title="Choose it on the scope">
-    Open [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), select the **Slack** tab under **Claude Tag's access**, and select the scope's row: the **Slack** row for **Default Slack access**, or the workspace or channel. Expand **Advanced** and pick the environment in the **Environment** picker.
+  <Step title="Set the scope's environment">
+    The picker is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) > **Claude Tag's access** > **Slack** > the scope (**Default Slack** is the organization-wide scope) > **Advanced** > **Environment**. Pick the environment there.
   </Step>
 
-  <Step title="Check it in a new thread">
+  <Step title="Confirm the environment in a new thread">
     Start a fresh thread in the channel and ask Claude to use what you added, such as running the tool your setup script installed. Threads already underway keep the environment they started on, so an existing thread won't show the change.
   </Step>
 </Steps>
@@ -134,7 +134,7 @@ Sessions run in [auto mode](https://code.claude.com/docs/en/permission-modes#eli
 
 A rule is a plain sentence that describes work you approve in the scope, such as "Deploying to our staging cluster from a session in this channel is a normal, approved workflow." To add one:
 
-1. On [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open the **Slack** tab under **Claude Tag's access** and find the scope you want to change (the organization-wide **Slack** row, a workspace, or a channel). The **Slack** row opens as **Default Slack access**.
+1. On [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), open the **Slack** tab under **Claude Tag's access** and find the scope you want to change (the organization-wide **Default Slack** row, a workspace, or a channel). The **Default Slack** row opens as **Default Slack access**.
 2. Open the scope's **Advanced** section and find **Auto mode allow rules**, below the [**Default model**](#choose-the-model-for-a-scope) setting.
 3. Select **Add rule** and write the rule as one plain sentence.
 

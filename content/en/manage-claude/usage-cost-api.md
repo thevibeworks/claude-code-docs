@@ -19,7 +19,7 @@ This API enables you to better monitor, analyze, and optimize your Claude implem
 * **Advanced analysis:** Perform deeper data analysis than what's available in Console
 
 <Check>
-  **Admin API key required.** These endpoints require an Admin API key, which is different from a standard Claude API key. See [Create an Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys) to find where to create one for your organization type and which scopes to select.
+  **Admin API credentials required.** These endpoints are part of the Admin API. You can access them using an [Admin API key](https://platform.claude.com/docs/en/manage-claude/admin-api-keys), an OAuth token with the `org:admin` scope, or a personal or service account key that isn't scoped to a workspace; workspace API keys don't work. See [Authentication](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) for details.
 </Check>
 
 Claude Enterprise organizations use an Analytics API key with a different API instead; see [Which API do you need?](https://platform.claude.com/docs/en/manage-claude/usage-cost-api#which-api-do-you-need).
@@ -32,10 +32,10 @@ Claude Enterprise organizations use an Analytics API key with a different API in
 
 Anthropic provides cost and usage reporting through two APIs, depending on which Claude product your organization manages:
 
-| Your organization                | API                                                                                                                     | Key type                             |
-| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
-| Claude Console (Claude Platform) | The Usage and Cost Admin API described on this page                                                                     | Admin API key (`sk-ant-admin01-...`) |
-| Claude Enterprise (claude.ai)    | The [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/api/admin/analytics) cost and usage endpoints | Analytics API key                    |
+| Your organization                | API                                                                                                                     | Key type                                                                                                                                           |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Console (Claude Platform) | The Usage and Cost Admin API described on this page                                                                     | Admin API key (`sk-ant-admin01-...`) or another [Admin API credential](https://platform.claude.com/docs/en/manage-claude/admin-api#authentication) |
+| Claude Enterprise (claude.ai)    | The [Claude Enterprise Analytics API](https://platform.claude.com/docs/en/api/admin/analytics) cost and usage endpoints | Analytics API key                                                                                                                                  |
 
 Claude Enterprise parent organizations do not appear in Claude Console and carry no Admin API keys, so for them the Analytics API key is the only path to this data. See [Analytics APIs](https://platform.claude.com/docs/en/manage-claude/analytics-api) for how to create each key type and which plans the Claude Enterprise cost data applies to.
 

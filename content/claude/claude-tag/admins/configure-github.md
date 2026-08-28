@@ -10,14 +10,6 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-<div className="tm-stepbar">
-  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/pair-workspace">1 · Pair workspace</a>
-  <a className="tm-stepbar-seg tm-done" href="/docs/docs/claude-tag/admins/add-connections">2 · Give access</a>
-  <a className="tm-stepbar-seg tm-current" href="/docs/docs/claude-tag/admins/configure-github">3 · Connect GitHub</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/set-spend-limit">4 · Spend limit</a>
-  <a className="tm-stepbar-seg" href="/docs/docs/claude-tag/admins/test-it">5 · See it work</a>
-</div>
-
 <Tip>Using GitLab instead of GitHub? See [Configure GitLab access](/docs/claude-tag/admins/configure-gitlab). GitLab uses a service-account token rather than an installed app.</Tip>
 
 Claude Tag gives Claude its own GitHub identity, the Claude GitHub App, so pull requests it opens from a channel are authored by Claude rather than by a person. You only need GitHub access if a team will hand Claude code work: branches, pull requests, review, or CI follow-up.
@@ -38,14 +30,15 @@ You link GitHub once for your Claude organization, then grant repositories per A
   </Step>
 
   <Step title="Connect Claude to GitHub">
-    Click **Connect Claude to GitHub** and complete the GitHub authorization. After authorizing, the page shows two sections: **Connected GitHub accounts** lists organizations already linked, and **Unlinked accounts** lists organizations where the Claude GitHub App is installed but not yet linked.
+    Click **Connect Claude to GitHub** (**Connect**, once any account is already linked) and complete the GitHub authorization. After authorizing, the page shows two sections: **Connected GitHub accounts** lists accounts already linked, with a **Type** column of **Organization** or **Personal**, and **Unlinked accounts** lists organizations where the Claude GitHub App is installed but not yet linked. Claude Tag uses **Organization** accounts only; a **Personal** row is someone's own GitHub account and can't be used for your repositories.
   </Step>
 
   <Step title="Link or install">
     If your organization is under **Unlinked accounts**, click **Link** next to it. If it isn't listed at all, click **Install on another organization** and complete the install on github.com; you're returned to this page with the organization under **Connected GitHub accounts** as **Connected**.
 
-    * A disabled **Link** button means you aren't an owner of that GitHub organization
+    * A disabled **Link** button means you can't link that account yet; the button's tooltip names the reason, such as not being an owner of that GitHub organization
     * A **Needs permissions** status means the installation has a pending request; **Review permissions** takes you to github.com to approve it
+    * An **Authorize SSO** button in place of **Link** means your GitHub token isn't authorized for that organization's SSO; the button opens github.com to authorize it, and you link after returning
   </Step>
 </Steps>
 

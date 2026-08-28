@@ -94,6 +94,8 @@ Saving also fails when a PEM-encoded key isn't an RSA key or has a passphrase. O
 
 ## Add a custom MCP server
 
+The server must be a remote endpoint that Claude can reach at a URL over the internet. An MCP server that runs on a person's machine over stdio, including one packaged as a [desktop extension](/docs/connectors/custom/desktop-extensions), can't be connected, because [sessions](/docs/claude-tag/concepts/glossary#session) run in a cloud sandbox that Anthropic hosts, not on anyone's machine. Host the server as a remote endpoint first, then follow the steps below.
+
 To give Claude an MCP server (one you run, or a vendor's hosted MCP endpoint), the pattern is a plugin plus a credential:
 
 <Steps>

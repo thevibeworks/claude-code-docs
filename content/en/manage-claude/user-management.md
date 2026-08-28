@@ -517,6 +517,8 @@ curl "https://api.anthropic.com/v1/organizations/rbac_roles/rbac_role_01CdEfGhIj
 
 3. Remove members who should no longer be in the group with `DELETE /v1/organizations/rbac_groups/{group_id}/members/{user_id}`. For `scim` groups, make the change in your identity provider instead.
 
+For a workflow that combines group membership with a temporary spend limit raise, see [Temporarily raise a member's spend limit during an incident](https://platform.claude.com/docs/en/manage-claude/spend-limits-api#temporarily-raise-a-members-spend-limit-during-an-incident) on the Spend Limits API page.
+
 ## Frequently asked questions
 
 ### Is this a different API from the Admin API?

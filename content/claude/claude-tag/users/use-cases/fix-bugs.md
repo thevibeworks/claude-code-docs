@@ -14,7 +14,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 This page is for engineering teams. A pull request is a proposed code change opened for review; Claude opens them under its own GitHub identity, so they appear in your review queue like any other pull request.
 
-Each prompt below is a Slack message. You paste it in the channel or thread where the bug lives, Claude works on it in an isolated workspace Anthropic hosts and posts progress in that thread, and the result lands there too. What the result is depends on the prompt, and each one below says what it returns, like a draft pull request, a root-cause writeup, or a standing watch that triages new reports as they arrive. Anything it opens on GitHub is authored by the Claude GitHub App.
+Each prompt below is a Slack message. You paste it in the channel or thread where the bug lives, Claude works on it in an isolated workspace and posts progress in that thread, and the result lands there too. What the result is depends on the prompt, and each one below says what it returns, like a draft pull request, a root-cause writeup, or a standing watch that triages new reports as they arrive. Anything it opens on GitHub is authored by the Claude GitHub App.
 
 ## Check the channel's connections
 

@@ -1,7 +1,7 @@
 {
   "version": 1,
   "note": "What the last full run could see outside sources.json. Written by the fetcher so a new source arrives as a diff a human reviews, not as a line in an Actions log nobody reads. Stable facts only: a change here is always news. `review` is the actionable list \u2014 domains we could archive today and do not.",
-  "updated": "2026-08-27",
+  "updated": "2026-08-28",
   "domains": {
     "anthropic.com": {
       "status": "frozen",
@@ -112,6 +112,7 @@
       "anthropics/devcontainer-features",
       "anthropics/evals",
       "anthropics/financial-services",
+      "anthropics/formal-math",
       "anthropics/github-mcp-server",
       "anthropics/headvis",
       "anthropics/healthcare",
@@ -150,8 +151,7 @@
       "anthropics/tokio",
       "anthropics/torchtyping",
       "anthropics/triton",
-      "anthropics/xls",
-      "anthropics/zeta-23-lean"
+      "anthropics/xls"
     ]
   },
   "review": []

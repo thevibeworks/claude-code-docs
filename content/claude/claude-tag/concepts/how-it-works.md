@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Claude Tag is Claude, working inside your team's Slack channels. An organization Owner gives it its own accounts to the tools your team uses, so it arrives already able to act, and anyone in a channel can tag it into a problem without setting anything up.
 
-When someone tags Claude in at a channel's top level, the channel's own [session](/docs/claude-tag/concepts/glossary#session) picks the message up. A task that needs investigation, tools, or a longer exchange gets a working session in a thread under the message, and that thread binds to its own session from then on. Claude works through the task and posts the result back into the conversation. The work runs in an ephemeral cloud sandbox that Anthropic hosts, not on your local machine or inside your network.
+When someone tags Claude in at a channel's top level, the channel's own [session](/docs/claude-tag/concepts/glossary#session) picks the message up. A task that needs investigation, tools, or a longer exchange gets a working session in a thread under the message, and that thread binds to its own session from then on. Claude works through the task and posts the result back into the conversation. The work runs in an ephemeral cloud sandbox, not on your local machine.
 
 This page covers:
 
@@ -153,7 +153,7 @@ Three ideas recur across this page and the rest of these docs.
 Every session, in any channel, follows the same five-step loop.
 
 1. **The session starts.** Someone tags `@Claude` with a task that needs a working session, or a [scheduled routine](/docs/claude-tag/users/proactivity) runs. At a channel's top level, the channel's own session picks the message up and starts the thread's session.
-2. **A sandbox builds.** Anthropic builds an isolated working environment for this thread.
+2. **A sandbox builds.** Each thread gets its own isolated working environment.
 3. **The working loop runs.** Claude works through the task with the channel's access, editing its checklist in place.
 4. **The result lands in the thread.** An answer, a doc, a chart, or a pull request.
 5. **A quiet period follows.** The sandbox is released while the thread persists; a new reply rebuilds it and starts the loop again.
@@ -164,7 +164,7 @@ Every session, in any channel, follows the same five-step loop.
 
 Steps 1 and 2 are [starting a session](#start-a-session): a message tags Claude in, and a sandbox builds for that thread. Step 3, the working loop, is [the checklist](#how-the-checklist-updates) below. Steps 4 and 5, the result and the quiet period that follows, are covered in [What survives between replies](#what-survives-between-replies).
 
-Every session runs in an ephemeral sandbox Anthropic hosts, a real working environment where it can read documents, run code, build charts, and open pull requests. Claude clones your repositories into the sandbox, edits them there, and pushes changes back to your Git host as a branch or pull request. The sandbox runs the same engine that powers Claude Code on the web, Anthropic's agent for writing and running code, which is why the results are working artifacts rather than chat.
+Every session runs in an ephemeral sandbox, a real working environment where Claude can read documents, run code, build charts, and open pull requests. Claude clones your GitHub repositories into the sandbox, edits them there, and pushes changes back to GitHub as a branch or pull request. The sandbox runs the same engine that powers Claude Code on the web, Anthropic's agent for writing and running code, which is why the results are working artifacts rather than chat.
 
 Two threads in the same channel are two separate sessions with separate sandboxes; sessions don't share state directly.
 
@@ -227,7 +227,7 @@ Claude works in channels it has been added to, but workspace search can still fi
 
 ### What survives between replies
 
-A thread is durable, but the sandbox behind it is not. Durable means the thread stays in Slack, and everything Claude read and said in it is kept in the session's transcript on Anthropic's side, so the session can pick up where it left off whenever someone replies. Deleting messages or the thread in Slack doesn't remove them from that transcript. The sandbox is the computer where Claude runs commands and keeps working files for a task. A few minutes after a session finishes its turn, Anthropic releases its sandbox, and the same session resumes in a fresh one when the next message arrives. A thread's session keeps resuming this way for as long as people use the thread. Claude replaces it with a new session in two cases.
+A thread is durable, but the sandbox behind it is not. Durable means the thread stays in Slack, and everything Claude read and said in it is kept in the session's transcript on Anthropic's side, so the session can pick up where it left off whenever someone replies. Deleting messages or the thread in Slack doesn't remove them from that transcript. The sandbox is the computer where Claude runs commands and keeps working files for a task. A few minutes after a session finishes its turn, its sandbox is released, and the same session resumes in a fresh one when the next message arrives. A thread's session keeps resuming this way for as long as people use the thread. Claude replaces it with a new session in two cases.
 
 | When                                                                                                                        | What Claude does                                                               |
 | :-------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------- |

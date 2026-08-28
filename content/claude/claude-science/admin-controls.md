@@ -6,7 +6,7 @@
 
 > Members sign in to Claude Science with their Claude account, so your identity and billing controls apply automatically.
 
-Members sign in to Claude Science with their Claude account, so your identity and billing controls apply automatically. Because the app stores conversations on each member's computer rather than on Anthropic's servers, most of the data-handling controls Anthropic provides don't reach that data today. The tables show, for each admin setting, whether it governs Claude Science in beta. Status values describe Claude Science specifically; other Claude products may differ.
+Members sign in to Claude Science with their Claude account, so your identity and billing controls apply automatically. Because the app stores conversations on each member's computer, most of the data-handling controls Anthropic provides don't reach that data today. The tables show, for each admin setting, whether it governs Claude Science in beta. Status values describe Claude Science specifically; other Claude products may differ.
 
 Legend: Supported / Partial / Not available / Not applicable
 
@@ -52,20 +52,20 @@ Legend: Supported / Partial / Not available / Not applicable
 
 ## Data and privacy
 
-| Admin setting             | Status in Claude Science beta | Note                                                                                                                                                                                 |
-| ------------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| CMEK                      | Supported                     | Applies to the product's model traffic the same as Chat.                                                                                                                             |
-| Data processing geography | Partial                       | Covers Anthropic-hosted processing, not remote compute you configure (code the member runs on their own SSH hosts or cloud accounts) or the member's computer (same as Claude Code). |
-| HIPAA                     | Partial                       | HIPAA-ready organizations can enable the Claude Science beta, but usage isn't covered under the BAA.                                                                                 |
-| Custom Data Retention     | Not available                 | The auto-delete window doesn't cover local data or the usage logs Anthropic keeps for this product.                                                                                  |
+| Admin setting             | Status in Claude Science beta | Note                                                                                                                                                                                                                                                |
+| ------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CMEK                      | Supported                     | Applies to the product's model traffic the same as Chat. Compliance API session transcripts are also encrypted under your key.                                                                                                                      |
+| Data processing geography | Partial                       | Covers Anthropic-hosted processing, not remote compute you configure (code the member runs on their own SSH hosts or cloud accounts) or the member's computer (same as Claude Code).                                                                |
+| HIPAA                     | Partial                       | Organizations with HIPAA compliance enabled can turn on the Claude Science beta, but usage isn't covered under the BAA.                                                                                                                             |
+| Custom Data Retention     | Partial                       | The auto-delete window doesn't cover data on members' computers or the model-call logs Anthropic keeps for this product. For Enterprise organizations with the Compliance API enabled, the window does apply to the session transcripts it returns. |
 
 ## Audit and compliance
 
-| Admin setting   | Status in Claude Science beta | Note                                                                                |
-| --------------- | ----------------------------- | ----------------------------------------------------------------------------------- |
-| Audit log       | Not available                 | No events recorded yet; on the roadmap.                                             |
-| Compliance API  | Not available                 | Admins can't export or delete this product's data through the API.                  |
-| Org data export | Not available                 | The export doesn't include data stored on members' computers (same as Claude Code). |
+| Admin setting   | Status in Claude Science beta | Note                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Audit log       | Not available                 | Claude Science doesn't write events to the audit log. For Enterprise organizations with the Compliance API enabled, changes to your Claude Science organization settings are recorded in its Activity Feed instead.                                                                                                                                                                                                                                                                        |
+| Compliance API  | Partial                       | Enterprise plans only. The [Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api) returns read-only transcripts of members' Claude Science sessions (this coverage is in beta) and records changes to your Claude Science organization settings in its Activity Feed. Sessions in organizations with HIPAA compliance enabled aren't captured. See [Compliance API coverage](/docs/claude-science/how-claude-science-works-with-your-data#compliance-api-coverage). |
+| Org data export | Not available                 | The export doesn't include data stored on members' computers (same as Claude Code).                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ## Usage, models, and billing
 
@@ -78,7 +78,7 @@ Legend: Supported / Partial / Not available / Not applicable
 
 ## Offboarding and local data
 
-| Admin setting            | Status in Claude Science beta | Note                                                                                                                |
-| ------------------------ | ----------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Offboarding (local data) | Not available                 | Removing a member doesn't wipe data already on their computer.                                                      |
-| Local deletion signal    | Not available                 | Deleting local data doesn't notify Anthropic to drop the matching server-side record early. This is on the roadmap. |
+| Admin setting            | Status in Claude Science beta | Note                                                                                                                                                                                                                       |
+| ------------------------ | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Offboarding (local data) | Not available                 | Removing a member doesn't wipe data already on their computer.                                                                                                                                                             |
+| Local deletion signal    | Not available                 | Deleting local data doesn't notify Anthropic to drop the matching server-side model-call logs early; this is on the roadmap. Compliance API session transcripts, where captured, remain until their retention period ends. |

@@ -55,7 +55,7 @@ The footer under each reply names the model that handled it. You can [choose a d
 
 | If you see                                                                            | It means                                                                                                   | Do this                                                                                                                                                            |
 | :------------------------------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Typing `@Claude` doesn't show **Claude** with an **APP** badge in the suggestion list | The Claude app isn't installed in your workspace                                                           | Ask your Slack admin to install the Claude app, and send them [the installation guide](/docs/claude-tag/admins/pair-workspace#install-and-pair)                         |
+| Typing `@Claude` doesn't show **Claude** with an **APP** badge in the suggestion list | The Claude app isn't installed in your workspace                                                           | Ask your Slack admin to install the Claude app, and send them [the installation guide](/docs/claude-tag/admins/setup-overview#pair-your-slack-workspace)                |
 | The mention sends but Claude doesn't reply                                            | Setup isn't finished for this channel                                                                      | Ask your Claude organization admin to enable Claude Tag for this channel, and send them [the setup guide](/docs/claude-tag/admins/setup-overview) with the channel name |
 | Claude replies "I couldn't find a Claude Code environment for your account"           | Claude couldn't resolve an environment for this DM; DMs run on your account rather than the organization's | Mention Claude again. If it keeps happening, see [I get an environment error in a DM](/docs/claude-tag/users/troubleshooting#i-get-an-environment-error-in-a-dm)        |
 
@@ -73,7 +73,7 @@ Once Claude is in a thread, you don't need to @-mention it again; it reads every
 
 Read Claude's work before you use it, in proportion to what's at stake. A summary you can skim; something going to a customer or changing a system gets a careful read. If a result needs checking, ask it to show its work in the same thread.
 
-The work runs on Anthropic's servers, so it continues after you close Slack.
+Tasks run in the cloud, so Claude keeps working after you close Slack.
 
 Replies in the thread reach Claude without re-mentioning. If the thread looks idle, Claude is usually still working; see [how to read its progress](/docs/claude-tag/concepts/how-it-works#track-claude%E2%80%99s-progress).
 

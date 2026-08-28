@@ -16,11 +16,17 @@ group, and organization-level defaults are configured in claude.ai.
 
 - `scope: object`
 
+  Scope selecting a single member of the organization.
+
   - `type: "user"`
+
+    Scope type. Always `user` for this scope.
 
     default: user
 
   - `user_id: string`
+
+    Tagged ID of the member the spend limit applies to.
 
 - `period: optional "daily" or "monthly" or "weekly"`
 
@@ -34,13 +40,19 @@ group, and organization-level defaults are configured in claude.ai.
 
 - `SpendLimit object`
 
+  A configured spend limit: a cap on metered spend for one scope and period.
+
   - `id: string`
+
+    Unique tagged ID of the spend limit (`spl_...`).
 
   - `amount: string or null`
 
     Limit amount as a non-negative integer decimal string in the minor unit of `currency` (cents for USD): "50000" is $500.00. `null` means no numeric cap is configured at this scope — see the effective report for whether a limit applies.
 
   - `created_at: string`
+
+    RFC 3339 datetime at which the spend limit was created.
 
     format: date-time
 
@@ -50,6 +62,8 @@ group, and organization-level defaults are configured in claude.ai.
 
   - `period: "daily" or "monthly" or "weekly"`
 
+    Length of the window the limit resets over. `amount` caps spend within each period.
+
     - `"daily"`
 
     - `"monthly"`
@@ -58,13 +72,21 @@ group, and organization-level defaults are configured in claude.ai.
 
   - `scope: object or object or object or 2 more`
 
+    What the limit applies to. A tagged union on `type`; each variant carries the identifier for its scope.
+
     - `User object`
 
+      Scope selecting a single member of the organization.
+
       - `type: "user"`
+
+        Scope type. Always `user` for this scope.
 
         default: user
 
       - `user_id: string`
+
+        Tagged ID of the member the spend limit applies to.
 
     - `SeatTier object`
 
@@ -98,9 +120,13 @@ group, and organization-level defaults are configured in claude.ai.
 
   - `type: "spend_limit"`
 
+    Object type. Always `spend_limit`.
+
     default: spend_limit
 
   - `updated_at: string`
+
+    RFC 3339 datetime at which the spend limit was last modified.
 
     format: date-time
 
@@ -115,7 +141,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits \
           "amount": "50000",
           "scope": {
             "type": "user",
-            "user_id": "user_id"
+            "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
           },
           "period": "monthly"
         }'
@@ -132,7 +158,7 @@ curl https://api.anthropic.com/v1/organizations/spend_limits \
   "period": "monthly",
   "scope": {
     "type": "user",
-    "user_id": "user_id"
+    "user_id": "user_01WCz1FkmYMm4gnmykNKUu3Q"
   },
   "type": "spend_limit",
   "updated_at": "2019-12-27T18:11:19.117Z"
