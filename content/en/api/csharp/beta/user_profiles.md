@@ -233,7 +233,7 @@ Console.WriteLine(betaUserProfile);
 
 ## List User Profiles
 
-`UserProfileListPageResponse Beta.UserProfiles.List(parameters, cancellationToken = default)`
+`UserProfileListPage Beta.UserProfiles.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/user_profiles`
 
@@ -349,79 +349,71 @@ List User Profiles
 
 ### Returns
 
-- `class UserProfileListPageResponse:`
+- `class BetaUserProfile:`
 
-  - `required IReadOnlyList<BetaUserProfile> Data`
+  - `required string ID`
 
-    User profiles on this page.
+    Unique identifier for this user profile, prefixed `uprof_`.
 
-    - `required string ID`
+  - `required DateTimeOffset CreatedAt`
 
-      Unique identifier for this user profile, prefixed `uprof_`.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required IReadOnlyDictionary<string, string> Metadata`
 
-      format: date-time
+    Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
 
-    - `required IReadOnlyDictionary<string, string> Metadata`
+  - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
 
-      Arbitrary key-value metadata. Maximum 16 pairs, keys up to 64 chars, values up to 512 chars.
+    Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
 
-    - `required IReadOnlyDictionary<string, BetaUserProfileTrustGrant> TrustGrants`
+    - `required Status Status`
 
-      Trust grants for this profile, keyed by grant name. Key omitted when no grant is active or in flight.
+      Status of the trust grant.
 
-      - `required Status Status`
+      - `Active`
 
-        Status of the trust grant.
+      - `Pending`
 
-        - `Active`
+      - `Rejected`
 
-        - `Pending`
+  - `required Type Type`
 
-        - `Rejected`
+    Object type. Always `user_profile`.
 
-    - `required Type Type`
+  - `required DateTimeOffset UpdatedAt`
 
-      Object type. Always `user_profile`.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset UpdatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `AccessType AccessType`
 
-      format: date-time
+    How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
 
-    - `AccessType AccessType`
+    - `Application`
 
-      How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
+    - `Passthrough`
 
-      - `Application`
+  - `string? ExternalID`
 
-      - `Passthrough`
+    Platform's own identifier for this user. Not enforced unique.
 
-    - `string? ExternalID`
+  - `string? Name`
 
-      Platform's own identifier for this user. Not enforced unique.
+    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
 
-    - `string? Name`
+  - `Relationship Relationship`
 
-      Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
+    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
-    - `Relationship Relationship`
+    - `External`
 
-      How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
+    - `Resold`
 
-      - `External`
-
-      - `Resold`
-
-      - `Internal`
-
-  - `required string? NextPage`
-
-    Cursor for the next page, or `null` when there are no more results.
+    - `Internal`
 
 ### Example
 

@@ -24,7 +24,7 @@ The authoritative list is [Anthropic's published IP addresses](https://platform.
 
 The range is shared across Anthropic services, and dedicated per-organization egress addresses aren't available, so the allowlist entry admits Anthropic's infrastructure as a whole. Your credential's [allowed websites](/docs/claude-tag/admins/add-connections#set-allowed-websites) are what scope which of *your* systems Claude can call.
 
-Allowlist changes on enterprise systems can take days to take effect, which is why the [prerequisites for setup](/docs/claude-tag/admins/setup-overview#before-you-start-check-that-you-have-what-setup-needs) send you here before you start setup.
+Allowlist changes on enterprise systems can take days to take effect, which is why the [prerequisites for setup](/docs/claude-tag/admins/setup-overview) send you here before you start setup.
 
 ## Internet reachability
 

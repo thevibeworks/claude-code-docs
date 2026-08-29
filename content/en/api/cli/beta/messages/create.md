@@ -319,7 +319,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       format: date-time
 
-    - `skills: array of BetaSkill`
+    - `skills: array of BetaContainerSkill`
 
       Skills loaded in the container
 
@@ -2251,7 +2251,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           format: date-time
 
-        - `skills: array of BetaSkill`
+        - `skills: array of BetaContainerSkill`
 
           Skills loaded in the container
 

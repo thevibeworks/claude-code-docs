@@ -5123,7 +5123,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             format: date-time
 
-          - `Optional<List<BetaSkill>> skills`
+          - `Optional<List<BetaContainerSkill>> skills`
 
             Skills loaded in the container
 
@@ -6380,7 +6380,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 0
 
-          - `Optional<List<BetaIterationsUsageItems>> iterations`
+          - `Optional<List<Iteration>> iterations`
 
             Per-iteration token usage breakdown.
 
@@ -6955,7 +6955,7 @@ public final class Main {
 
             format: date-time
 
-          - `Optional<List<BetaSkill>> skills`
+          - `Optional<List<BetaContainerSkill>> skills`
 
             Skills loaded in the container
 
@@ -8212,7 +8212,7 @@ public final class Main {
 
             minimum: 0
 
-          - `Optional<List<BetaIterationsUsageItems>> iterations`
+          - `Optional<List<Iteration>> iterations`
 
             Per-iteration token usage breakdown.
 
@@ -8593,7 +8593,7 @@ public final class Main {
 
           format: date-time
 
-        - `Optional<List<BetaSkill>> skills`
+        - `Optional<List<BetaContainerSkill>> skills`
 
           Skills loaded in the container
 
@@ -9850,7 +9850,7 @@ public final class Main {
 
           minimum: 0
 
-        - `Optional<List<BetaIterationsUsageItems>> iterations`
+        - `Optional<List<Iteration>> iterations`
 
           Per-iteration token usage breakdown.
 
@@ -10193,7 +10193,7 @@ public final class Main {
 
         format: date-time
 
-      - `Optional<List<BetaSkill>> skills`
+      - `Optional<List<BetaContainerSkill>> skills`
 
         Skills loaded in the container
 
@@ -11450,7 +11450,7 @@ public final class Main {
 
         minimum: 0
 
-      - `Optional<List<BetaIterationsUsageItems>> iterations`
+      - `Optional<List<Iteration>> iterations`
 
         Per-iteration token usage breakdown.
 

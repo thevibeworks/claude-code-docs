@@ -1,6 +1,6 @@
 # Delete Skill
 
-`beta.skills.delete(skill_id, **kwargs) -> SkillDeleteResponse`
+`beta.skills.delete(skill_id, **kwargs) -> BetaDeletedSkill`
 
 **DELETE** `/v1/skills/{skill_id}`
 
@@ -106,7 +106,7 @@ Delete Skill
 
 ## Returns
 
-- `class SkillDeleteResponse`
+- `class BetaDeletedSkill`
 
   - `id: String`
 
@@ -114,7 +114,7 @@ Delete Skill
 
     The format and length of IDs may change over time.
 
-  - `type: String`
+  - `type: :skill_deleted`
 
     Deleted object type.
 
@@ -127,9 +127,9 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-skill = anthropic.beta.skills.delete("skill_id")
+beta_deleted_skill = anthropic.beta.skills.delete("skill_id")
 
-puts(skill)
+puts(beta_deleted_skill)
 ```
 
 ### Response (200)
@@ -137,6 +137,6 @@ puts(skill)
 ```json
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type"
+  "type": "skill_deleted"
 }
 ```

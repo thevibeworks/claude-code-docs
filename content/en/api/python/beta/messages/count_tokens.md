@@ -3687,14 +3687,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-- `output_format: Optional[BetaJSONOutputFormatParam]`
-
-  **Deprecated**
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-
 ## Returns
 
 - `class BetaMessageTokensCount: …`

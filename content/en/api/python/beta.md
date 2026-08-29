@@ -4987,14 +4987,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
 
-- `output_format: Optional[BetaJSONOutputFormatParam]`
-
-  **Deprecated**
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
-
 #### Returns
 
 - `class BetaMessage: …`
@@ -5019,7 +5011,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       format: date-time
 
-    - `skills: Optional[List[BetaSkill]]`
+    - `skills: Optional[List[BetaContainerSkill]]`
 
       Skills loaded in the container
 
@@ -6016,6 +6008,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           The policy category that triggered a refusal.
 
+          - `cyber` - The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+          - `bio` - The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
+          - `frontier_llm` - The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+          - `reasoning_extraction` - The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+          - `general_harms` - The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
+
           - `"cyber"`
 
             The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
@@ -6176,6 +6174,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
       The policy category that triggered a refusal.
+
+      - `cyber` - The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+      - `bio` - The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
+      - `frontier_llm` - The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+      - `reasoning_extraction` - The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+      - `general_harms` - The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
       - `"cyber"`
 
@@ -10745,14 +10749,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 - `user_profile_id: Optional[str]`
 
   The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
-
-- `output_format: Optional[BetaJSONOutputFormatParam]`
-
-  **Deprecated**
-
-  Deprecated: Use `output_config.format` instead. See [structured outputs](https://platform.claude.com/docs/en/build-with-claude/structured-outputs)
-
-  A schema to specify Claude's output format in responses. This parameter will be removed in a future release.
 
 #### Returns
 
@@ -15953,7 +15949,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             format: date-time
 
-          - `skills: Optional[List[BetaSkill]]`
+          - `skills: Optional[List[BetaContainerSkill]]`
 
             Skills loaded in the container
 
@@ -16950,6 +16946,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 The policy category that triggered a refusal.
 
+                - `cyber` - The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+                - `bio` - The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
+                - `frontier_llm` - The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+                - `reasoning_extraction` - The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+                - `general_harms` - The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
+
                 - `"cyber"`
 
                   The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
@@ -17110,6 +17112,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `category: Optional[Literal["cyber", "bio", "frontier_llm", 2 more]]`
 
             The policy category that triggered a refusal.
+
+            - `cyber` - The request could enable cyber harm, such as malware or exploit development. Benign cybersecurity work can also trigger this category.
+            - `bio` - The request could enable biological harm, such as dangerous lab methods. Beneficial life sciences work can also trigger this category.
+            - `frontier_llm` - The request could assist the development of competing AI models, which is restricted under [Anthropic's commercial terms](https://www.anthropic.com/legal/commercial-terms). Benign machine learning work can also trigger this category.
+            - `reasoning_extraction` - The request asks the model to reproduce its internal reasoning in the response text. To get reasoning in a structured form instead, use [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/adaptive-thinking).
+            - `general_harms` - The request could be related to an area that was determined as harmful. Benign work might sometimes trigger this category.
 
             - `"cyber"`
 
@@ -61850,6 +61858,12 @@ Upload File
 
   format: binary
 
+- `expires_in_seconds: Optional[int]`
+
+  Seconds from upload until the file expires and its bytes become permanently unavailable. Must be between 3600 (one hour) and 7776000 (ninety days).
+
+  minimum: 3600, maximum: 7776000
+
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -61986,6 +62000,12 @@ Upload File
 
     default: false
 
+  - `expires_at: Optional[datetime]`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
+    format: date-time
+
   - `scope: Optional[BetaFileScope]`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
@@ -62026,6 +62046,7 @@ print(beta_file_metadata.id)
   "size_bytes": 102400,
   "type": "file",
   "downloadable": false,
+  "expires_at": "2025-05-15T18:37:24.100435Z",
   "scope": {
     "id": "id",
     "type": "session"
@@ -62035,7 +62056,7 @@ print(beta_file_metadata.id)
 
 ### List Files
 
-`beta.files.list(**kwargs)  -> SyncPage[BetaFileMetadata]`
+`beta.files.list(**kwargs)  -> SyncPageCursor[BetaFileMetadata]`
 
 **GET** `/v1/files`
 
@@ -62043,13 +62064,9 @@ List Files
 
 #### Parameters
 
-- `after_id: Optional[str]`
+- `ids: Optional[Sequence[str]]`
 
-  ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
-
-- `before_id: Optional[str]`
-
-  ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+  Restrict the result set to Files whose `id` is in this list. At most 100 entries (after de-duplication). Mutually exclusive with `page` and `limit`. When supplied, the response is always a single page (`next_page` is null). IDs that do not resolve to a visible File — including deleted Files — are silently omitted.
 
 - `limit: Optional[int]`
 
@@ -62058,6 +62075,10 @@ List Files
   Defaults to `20`. Ranges from `1` to `1000`.
 
   default: 20, maximum: 1000, minimum: 1
+
+- `page: Optional[str]`
+
+  Opaque page cursor returned in a prior list response's `next_page`. Prefixed `page_`.
 
 - `scope_id: Optional[str]`
 
@@ -62199,6 +62220,12 @@ List Files
 
     default: false
 
+  - `expires_at: Optional[datetime]`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
+    format: date-time
+
   - `scope: Optional[BetaFileScope]`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
@@ -62240,15 +62267,14 @@ print(page.id)
       "size_bytes": 102400,
       "type": "file",
       "downloadable": false,
+      "expires_at": "2025-05-15T18:37:24.100435Z",
       "scope": {
         "id": "id",
         "type": "session"
       }
     }
   ],
-  "first_id": "file_011CNha8iCJcU1wXNR6q4V8w",
-  "has_more": true,
-  "last_id": "file_013Zva2CMHLNnXjNJJKqJ2EF"
+  "next_page": "next_page"
 }
 ```
 
@@ -62529,6 +62555,12 @@ Get File Metadata
 
     default: false
 
+  - `expires_at: Optional[datetime]`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
+    format: date-time
+
   - `scope: Optional[BetaFileScope]`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
@@ -62569,6 +62601,7 @@ print(beta_file_metadata.id)
   "size_bytes": 102400,
   "type": "file",
   "downloadable": false,
+  "expires_at": "2025-05-15T18:37:24.100435Z",
   "scope": {
     "id": "id",
     "type": "session"
@@ -62726,7 +62759,7 @@ print(beta_deleted_file.id)
 
 ### Create Skill
 
-`beta.skills.create(**kwargs)  -> SkillCreateResponse`
+`beta.skills.create(**kwargs)  -> BetaSkill`
 
 **POST** `/v1/skills`
 
@@ -62740,11 +62773,11 @@ Create Skill
 
   All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-- `display_title: Optional[str]`
+- `display_name: Optional[str]`
 
-  Display title for the skill.
-
-  This is a human-readable label that is not included in the prompt sent to the model.
+  Human-readable, single-line label for the Skill. Maximum 255 characters.
+  Always set: derived from the SKILL.md frontmatter `name` when omitted at
+  creation. Not unique.
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -62838,7 +62871,7 @@ Create Skill
 
 #### Returns
 
-- `class SkillCreateResponse: …`
+- `class BetaSkill: …`
 
   - `id: str`
 
@@ -62846,32 +62879,53 @@ Create Skill
 
     The format and length of IDs may change over time.
 
-  - `created_at: str`
+  - `created_at: datetime`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: Optional[str]`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: str`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: Optional[str]`
+  - `latest_version_id: str`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: str`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: Literal["custom", "anthropic", "anthropic_example", "plugin"]`
 
-  - `type: str`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: Literal["skill"]`
 
     Object type.
 
@@ -62879,9 +62933,11 @@ Create Skill
 
     default: skill
 
-  - `updated_at: str`
+  - `updated_at: datetime`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 #### Example
 
@@ -62894,10 +62950,10 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-skill = client.beta.skills.create(
+beta_skill = client.beta.skills.create(
     files=[b"Example data"],
 )
-print(skill.id)
+print(beta_skill.id)
 ```
 
 ##### Response (200)
@@ -62906,17 +62962,19 @@ print(skill.id)
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```
 
 ### List Skills
 
-`beta.skills.list(**kwargs)  -> SyncPageCursor[SkillListResponse]`
+`beta.skills.list(**kwargs)  -> SyncPageCursor[BetaSkill]`
 
 **GET** `/v1/skills`
 
@@ -62928,9 +62986,9 @@ List Skills
 
   Number of results to return per page.
 
-  Maximum value is 100. Defaults to 20.
+  Ranges from `1` to `1000`. Defaults to `20`.
 
-  default: 20
+  default: 20, minimum: 1, maximum: 1000
 
 - `page: Optional[str]`
 
@@ -63039,7 +63097,7 @@ List Skills
 
 #### Returns
 
-- `class SkillListResponse: …`
+- `class BetaSkill: …`
 
   - `id: str`
 
@@ -63047,32 +63105,53 @@ List Skills
 
     The format and length of IDs may change over time.
 
-  - `created_at: str`
+  - `created_at: datetime`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: Optional[str]`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: str`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: Optional[str]`
+  - `latest_version_id: str`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: str`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: Literal["custom", "anthropic", "anthropic_example", "plugin"]`
 
-  - `type: str`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: Literal["skill"]`
 
     Object type.
 
@@ -63080,9 +63159,11 @@ List Skills
 
     default: skill
 
-  - `updated_at: str`
+  - `updated_at: datetime`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 #### Example
 
@@ -63108,21 +63189,22 @@ print(page.id)
     {
       "id": "skill_01JAbcdefghijklmnopqrstuvw",
       "created_at": "2024-10-30T23:58:27.427722Z",
-      "display_title": "My Custom Skill",
-      "latest_version": "1759178010641129",
-      "source": "custom",
-      "type": "type",
+      "display_name": "display_name",
+      "latest_version_id": "latest_version_id",
+      "source": {
+        "type": "custom"
+      },
+      "type": "skill",
       "updated_at": "2024-10-30T23:58:27.427722Z"
     }
   ],
-  "has_more": true,
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "next_page"
 }
 ```
 
 ### Get Skill
 
-`beta.skills.retrieve(skill_id, **kwargs)  -> SkillRetrieveResponse`
+`beta.skills.retrieve(skill_id, **kwargs)  -> BetaSkill`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -63228,7 +63310,7 @@ Get Skill
 
 #### Returns
 
-- `class SkillRetrieveResponse: …`
+- `class BetaSkill: …`
 
   - `id: str`
 
@@ -63236,32 +63318,53 @@ Get Skill
 
     The format and length of IDs may change over time.
 
-  - `created_at: str`
+  - `created_at: datetime`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: Optional[str]`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: str`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: Optional[str]`
+  - `latest_version_id: str`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: str`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: Literal["custom", "anthropic", "anthropic_example", "plugin"]`
 
-  - `type: str`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: Literal["skill"]`
 
     Object type.
 
@@ -63269,9 +63372,11 @@ Get Skill
 
     default: skill
 
-  - `updated_at: str`
+  - `updated_at: datetime`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 #### Example
 
@@ -63284,10 +63389,10 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-skill = client.beta.skills.retrieve(
+beta_skill = client.beta.skills.retrieve(
     skill_id="skill_id",
 )
-print(skill.id)
+print(beta_skill.id)
 ```
 
 ##### Response (200)
@@ -63296,17 +63401,19 @@ print(skill.id)
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```
 
 ### Delete Skill
 
-`beta.skills.delete(skill_id, **kwargs)  -> SkillDeleteResponse`
+`beta.skills.delete(skill_id, **kwargs)  -> BetaDeletedSkill`
 
 **DELETE** `/v1/skills/{skill_id}`
 
@@ -63412,7 +63519,7 @@ Delete Skill
 
 #### Returns
 
-- `class SkillDeleteResponse: …`
+- `class BetaDeletedSkill: …`
 
   - `id: str`
 
@@ -63420,7 +63527,7 @@ Delete Skill
 
     The format and length of IDs may change over time.
 
-  - `type: str`
+  - `type: Literal["skill_deleted"]`
 
     Deleted object type.
 
@@ -63439,10 +63546,10 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-skill = client.beta.skills.delete(
+beta_deleted_skill = client.beta.skills.delete(
     skill_id="skill_id",
 )
-print(skill.id)
+print(beta_deleted_skill.id)
 ```
 
 ##### Response (200)
@@ -63450,7 +63557,7 @@ print(skill.id)
 ```json
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type"
+  "type": "skill_deleted"
 }
 ```
 
@@ -63458,7 +63565,7 @@ print(skill.id)
 
 ### Create Skill Version
 
-`beta.skills.versions.create(skill_id, **kwargs)  -> VersionCreateResponse`
+`beta.skills.versions.create(skill_id, **kwargs)  -> BetaSkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -63570,17 +63677,18 @@ Create Skill Version
 
 #### Returns
 
-- `class VersionCreateResponse: …`
+- `class BetaSkillVersion: …`
 
   - `id: str`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `created_at: datetime`
 
-  - `created_at: str`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `description: str`
 
@@ -63588,35 +63696,26 @@ Create Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: str`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: str`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: str`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: str`
+    The format and length of IDs may change over time.
+
+  - `type: Literal["skill_version"]`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `version: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 #### Example
 
@@ -63629,31 +63728,29 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-version = client.beta.skills.versions.create(
+beta_skill_version = client.beta.skills.versions.create(
     skill_id="skill_id",
     files=[b"Example data"],
 )
-print(version.id)
+print(beta_skill_version.id)
 ```
 
 ##### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```
 
 ### List Skill Versions
 
-`beta.skills.versions.list(skill_id, **kwargs)  -> SyncPageCursor[VersionListResponse]`
+`beta.skills.versions.list(skill_id, **kwargs)  -> SyncPageCursor[BetaSkillVersion]`
 
 **GET** `/v1/skills/{skill_id}/versions`
 
@@ -63669,9 +63766,11 @@ List Skill Versions
 
 - `limit: Optional[int]`
 
-  Number of items to return per page.
+  Number of results to return per page.
 
-  Defaults to `20`. Ranges from `1` to `1000`.
+  Ranges from `1` to `1000`. Defaults to `20`.
+
+  default: 20, minimum: 1, maximum: 1000
 
 - `page: Optional[str]`
 
@@ -63769,17 +63868,18 @@ List Skill Versions
 
 #### Returns
 
-- `class VersionListResponse: …`
+- `class BetaSkillVersion: …`
 
   - `id: str`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `created_at: datetime`
 
-  - `created_at: str`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `description: str`
 
@@ -63787,35 +63887,26 @@ List Skill Versions
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: str`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: str`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: str`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: str`
+    The format and length of IDs may change over time.
+
+  - `type: Literal["skill_version"]`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `version: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 #### Example
 
@@ -63841,18 +63932,15 @@ print(page.id)
 {
   "data": [
     {
-      "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+      "id": "id",
       "created_at": "2024-10-30T23:58:27.427722Z",
-      "description": "A custom skill for doing something useful",
-      "directory": "my-skill",
-      "name": "my-skill",
+      "description": "description",
+      "name": "name",
       "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-      "type": "type",
-      "version": "1759178010641129"
+      "type": "skill_version"
     }
   ],
-  "has_more": true,
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "next_page"
 }
 ```
 
@@ -63874,9 +63962,9 @@ Download a skill version's content as a zip archive.
 
 - `version: str`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -63994,7 +64082,7 @@ print(content)
 
 ### Get Skill Version
 
-`beta.skills.versions.retrieve(version, **kwargs)  -> VersionRetrieveResponse`
+`beta.skills.versions.retrieve(version, **kwargs)  -> BetaSkillVersion`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -64010,9 +64098,9 @@ Get Skill Version
 
 - `version: str`
 
-  Version identifier for the skill.
+  Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -64106,17 +64194,18 @@ Get Skill Version
 
 #### Returns
 
-- `class VersionRetrieveResponse: …`
+- `class BetaSkillVersion: …`
 
   - `id: str`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `created_at: datetime`
 
-  - `created_at: str`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `description: str`
 
@@ -64124,35 +64213,26 @@ Get Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: str`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: str`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: str`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: str`
+    The format and length of IDs may change over time.
+
+  - `type: Literal["skill_version"]`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `version: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 #### Example
 
@@ -64165,31 +64245,29 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-version = client.beta.skills.versions.retrieve(
+beta_skill_version = client.beta.skills.versions.retrieve(
     version="version",
     skill_id="skill_id",
 )
-print(version.id)
+print(beta_skill_version.id)
 ```
 
 ##### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```
 
 ### Delete Skill Version
 
-`beta.skills.versions.delete(version, **kwargs)  -> VersionDeleteResponse`
+`beta.skills.versions.delete(version, **kwargs)  -> BetaDeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -64205,9 +64283,9 @@ Delete Skill Version
 
 - `version: str`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -64301,15 +64379,14 @@ Delete Skill Version
 
 #### Returns
 
-- `class VersionDeleteResponse: …`
+- `class BetaDeletedSkillVersion: …`
 
   - `id: str`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `type: str`
+  - `type: Literal["skill_version_deleted"]`
 
     Deleted object type.
 
@@ -64328,19 +64405,19 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-version = client.beta.skills.versions.delete(
+beta_deleted_skill_version = client.beta.skills.versions.delete(
     version="version",
     skill_id="skill_id",
 )
-print(version.id)
+print(beta_deleted_skill_version.id)
 ```
 
 ##### Response (200)
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```
 
@@ -64349,6 +64426,10 @@ print(version.id)
 ### Unwrap
 
 `beta.webhooks.unwrap()`
+
+Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
+headers using your webhook signing key, then parses the payload into an event. Fails if the
+signature is missing or invalid.
 
 #### Example
 
@@ -64362,6 +64443,27 @@ client = Anthropic(
     ),  # This is the default and can be omitted
 )
 client.beta.webhooks.unwrap()
+```
+
+### Parse Unverified
+
+`beta.webhooks.parse_unverified()`
+
+Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
+you have already verified the signature yourself.
+
+#### Example
+
+```python
+import os
+from anthropic import Anthropic
+
+client = Anthropic(
+    api_key=os.environ.get(
+        "ANTHROPIC_API_KEY"
+    ),  # This is the default and can be omitted
+)
+client.beta.webhooks.parse_unverified()
 ```
 
 ## Beta › User Profiles
@@ -77721,9 +77823,9 @@ Returns only the groups and limiter types that have a workspace-level
 override. Groups without overrides inherit the organization limits and
 are not listed; use `GET /v1/organizations/rate_limits` to see those.
 
-This endpoint currently returns every matching entry in a single page
-regardless of `limit`; follow `next_page` so that clients keep working
-when pagination is enabled.
+When `limit` is omitted, every matching entry is returned in a single
+page; when `limit` truncates the result, follow `next_page` to fetch
+the remaining entries.
 
 #### Parameters
 
@@ -77751,7 +77853,7 @@ when pagination is enabled.
 
   Maximum number of items to return per page. Ranges from `1` to `1000`.
 
-  Accepted for request-shape compatibility and currently ignored: every entry is returned in a single page.
+  When omitted, every remaining entry is returned in a single page and `next_page` is `null`.
 
   maximum: 1000, minimum: 1
 
@@ -79261,9 +79363,9 @@ Each entry corresponds to one rate-limit group (either a model family
 or an API-surface category such as the Files API or Message Batches)
 and contains the set of limiter values that apply to it.
 
-This endpoint currently returns every matching entry in a single page
-regardless of `limit`; follow `next_page` so that clients keep working
-when pagination is enabled.
+When `limit` is omitted, every matching entry is returned in a single
+page; when `limit` truncates the result, follow `next_page` to fetch
+the remaining entries.
 
 #### Parameters
 
@@ -79287,7 +79389,7 @@ when pagination is enabled.
 
   Maximum number of items to return per page. Ranges from `1` to `1000`.
 
-  Accepted for request-shape compatibility and currently ignored: every entry is returned in a single page.
+  When omitted, every remaining entry is returned in a single page and `next_page` is `null`.
 
   maximum: 1000, minimum: 1
 

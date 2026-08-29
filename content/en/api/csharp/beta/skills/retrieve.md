@@ -1,6 +1,6 @@
 # Get Skill
 
-`SkillRetrieveResponse Beta.Skills.Retrieve(parameters, cancellationToken = default)`
+`BetaSkill Beta.Skills.Retrieve(parameters, cancellationToken = default)`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -104,7 +104,7 @@ Get Skill
 
 ## Returns
 
-- `class SkillRetrieveResponse:`
+- `class BetaSkill:`
 
   - `required string ID`
 
@@ -112,49 +112,72 @@ Get Skill
 
     The format and length of IDs may change over time.
 
-  - `required string CreatedAt`
+  - `required DateTimeOffset CreatedAt`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `required string? DisplayTitle`
+    format: date-time
 
-    Display title for the skill.
+  - `required string DisplayName`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `required string? LatestVersion`
+  - `required string LatestVersionID`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `required BetaSkillSource Source`
 
-  - `required string Source`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `required Type Type`
 
-  - `required string Type`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `Custom`
+
+      - `Anthropic`
+
+      - `AnthropicExample`
+
+      - `Plugin`
+
+  - `JsonElement Type constant`
 
     Object type.
 
     For Skills, this is always `"skill"`.
 
-  - `required string UpdatedAt`
+  - `required DateTimeOffset UpdatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 ## Example
 
 ```csharp
 SkillRetrieveParams parameters = new() { SkillID = "skill_id" };
 
-var skill = await client.Beta.Skills.Retrieve(parameters);
+var betaSkill = await client.Beta.Skills.Retrieve(parameters);
 
-Console.WriteLine(skill);
+Console.WriteLine(betaSkill);
 ```
 
 ### Response (200)
@@ -163,10 +186,12 @@ Console.WriteLine(skill);
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```

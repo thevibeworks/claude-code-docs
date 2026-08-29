@@ -100,7 +100,7 @@ Claude can watch a pull request and address CI failures, review comments, and ch
 @Claude watch your PR #562 in acme/data-pipeline. When CI fails, fix it and push. When a review comment arrives, address it and push. Post here after each push saying what changed and why. Done means CI is green and every comment is addressed. I do the approving and merging.
 ```
 
-<Warning>If you don't want Claude to approve or merge pull requests, turn on branch protection rules that restrict who can merge. These rules apply to Claude too. Also write "I do the approving and merging" into the task, as the example does. The task wording states your intent, but it's an instruction Claude can lose track of, not a control. The branch protection rule is what enforces it.</Warning>
+<Warning>If you don't want Claude to merge pull requests, turn on branch protection rules that restrict who can merge. These rules apply to Claude too. Claude can't approve a pull request it opened, but the person who asked for it can; to require a second approver, see [Require a second approval on Claude's pull requests](/docs/claude-tag/admins/configure-github#require-a-second-approval-on-claude%E2%80%99s-pull-requests). Also write "I do the approving and merging" into the task, as the example does. The task wording states your intent, but it's an instruction Claude can lose track of, not a control. The branch protection rule is what enforces it.</Warning>
 
 Ask for a post after each push so you can follow the pull request from the thread instead of opening GitHub.
 

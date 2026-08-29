@@ -259,6 +259,22 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
 
       User's email address
 
+### Document Delete Response
+
+- `DocumentDeleteResponse object`
+
+  Response for deleting a project document.
+
+  - `id: string`
+
+    The ID of the project document that was deleted
+
+  - `type: "claude_project_document_deleted"`
+
+    Constant string confirming deletion.
+
+    default: claude_project_document_deleted
+
 ### Document Metadata Response
 
 - `DocumentMetadataResponse object`
@@ -315,19 +331,3 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/documents/$DOCUMENT_I
     - `email_address: string`
 
       User's email address
-
-### Document Delete Response
-
-- `DocumentDeleteResponse object`
-
-  Response for deleting a project document.
-
-  - `id: string`
-
-    The ID of the project document that was deleted
-
-  - `type: "claude_project_document_deleted"`
-
-    Constant string confirming deletion.
-
-    default: claude_project_document_deleted

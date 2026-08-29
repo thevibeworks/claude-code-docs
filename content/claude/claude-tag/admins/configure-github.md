@@ -12,7 +12,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <Tip>Using GitLab instead of GitHub? See [Configure GitLab access](/docs/claude-tag/admins/configure-gitlab). GitLab uses a service-account token rather than an installed app.</Tip>
 
-Claude Tag gives Claude its own GitHub identity, the Claude GitHub App, so pull requests it opens from a channel are authored by Claude rather than by a person. You only need GitHub access if a team will hand Claude code work: branches, pull requests, review, or CI follow-up.
+Claude Tag gives Claude its own GitHub identity, the Claude GitHub App, so pull requests it opens from a channel or a DM are authored by Claude rather than by a person. You only need GitHub access if a team will hand Claude code work: branches, pull requests, review, or CI follow-up.
 
 You link GitHub once for your Claude organization, then grant repositories per Access bundle.
 
@@ -120,6 +120,17 @@ Claude can't:
 * Approve a workflow run that's waiting on approval, or its pending deployments
 
 A request for either is refused with a `403`; a `repository_dispatch` request returns "repository\_dispatch is not permitted for this session type." Approving a held run or a pending deployment releases a checkpoint GitHub inserted for a person, so do it from the repository's **Actions** tab on github.com.
+
+## Require a second approval on Claude's pull requests
+
+Claude is the author of the pull requests it opens, from a channel or a DM, so GitHub's rule against approving your own pull request applies to Claude and not to the person who asked for the change. On a branch that requires one approving review, the person who asked Claude for a change can approve and merge it alone. If you want a second person to look at Claude's work before it merges, require the second review in GitHub.
+
+GitHub gives you two ways, both set in a branch protection rule or ruleset on each branch Claude opens pull requests against.
+
+* **Require two approving reviews.** GitHub's built-in setting. It applies to pull requests from people too.
+* **Require a status check that only Claude's pull requests must pass.** A check you build and maintain, for example a GitHub Actions workflow that fails on pull requests authored by `claude[bot]` (or by your own app's `<slug>[bot]` login on [GitHub Enterprise Server](#github-enterprise-server)) until two people have approved, and passes on pull requests people open.
+
+With either, also turn on dismissing stale approvals when new commits are pushed, so an approval doesn't carry over to a later push. See [About protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches) and [About status checks](https://docs.github.com/en/pull-requests/reference/status-checks) in GitHub's documentation.
 
 ## Scheduled work uses the same connection
 

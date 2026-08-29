@@ -78,6 +78,8 @@ Install the Claude app in Slack, get a pairing code from Slack, and paste it on 
     Select **Entire workspace (recommended)** or **Specific channel**.
 
     If you select **Specific channel**, enter each channel's ID in the **Channel IDs** field, separated by commas, like `C0B1SLDGBPG, C0ARH08HQCA`. To find a channel's ID in Slack, right-click the channel, choose **Copy**, then **Copy link**; the ID is the part after the last slash. For a private channel, invite `@Claude` to it in Slack first.
+
+    If you aren't asked where Claude can reply, Claude replies across the whole workspace once you [launch](#launch-claude-tag).
   </Step>
 
   <Step title="Click Pair workspace">

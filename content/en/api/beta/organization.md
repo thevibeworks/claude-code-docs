@@ -8642,9 +8642,9 @@ Returns only the groups and limiter types that have a workspace-level
 override. Groups without overrides inherit the organization limits and
 are not listed; use `GET /v1/organizations/rate_limits` to see those.
 
-This endpoint currently returns every matching entry in a single page
-regardless of `limit`; follow `next_page` so that clients keep working
-when pagination is enabled.
+When `limit` is omitted, every matching entry is returned in a single
+page; when `limit` truncates the result, follow `next_page` to fetch
+the remaining entries.
 
 #### Path parameters
 
@@ -8674,7 +8674,7 @@ when pagination is enabled.
 
   Maximum number of items to return per page. Ranges from `1` to `1000`.
 
-  Accepted for request-shape compatibility and currently ignored: every entry is returned in a single page.
+  When omitted, every remaining entry is returned in a single page and `next_page` is `null`.
 
   maximum: 1000, minimum: 1
 
@@ -8740,7 +8740,7 @@ when pagination is enabled.
 
 - `next_page: string or null`
 
-  Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+  Opaque cursor for the next page of results, or `null` when no entries remain beyond this response.
 
 #### Example
 
@@ -10102,9 +10102,9 @@ Each entry corresponds to one rate-limit group (either a model family
 or an API-surface category such as the Files API or Message Batches)
 and contains the set of limiter values that apply to it.
 
-This endpoint currently returns every matching entry in a single page
-regardless of `limit`; follow `next_page` so that clients keep working
-when pagination is enabled.
+When `limit` is omitted, every matching entry is returned in a single
+page; when `limit` truncates the result, follow `next_page` to fetch
+the remaining entries.
 
 #### Query parameters
 
@@ -10128,7 +10128,7 @@ when pagination is enabled.
 
   Maximum number of items to return per page. Ranges from `1` to `1000`.
 
-  Accepted for request-shape compatibility and currently ignored: every entry is returned in a single page.
+  When omitted, every remaining entry is returned in a single page and `next_page` is `null`.
 
   maximum: 1000, minimum: 1
 
@@ -10190,7 +10190,7 @@ when pagination is enabled.
 
 - `next_page: string or null`
 
-  Token to provide in as `page` in the subsequent request to retrieve the next page of data.
+  Opaque cursor for the next page of results, or `null` when no entries remain beyond this response.
 
 #### Example
 

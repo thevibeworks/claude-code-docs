@@ -1,6 +1,6 @@
 # Create Skill Version
 
-`beta.skills.versions.create(skill_id, **kwargs)  -> VersionCreateResponse`
+`beta.skills.versions.create(skill_id, **kwargs)  -> BetaSkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -112,17 +112,18 @@ Create Skill Version
 
 ## Returns
 
-- `class VersionCreateResponse: …`
+- `class BetaSkillVersion: …`
 
   - `id: str`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `created_at: datetime`
 
-  - `created_at: str`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `description: str`
 
@@ -130,35 +131,26 @@ Create Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: str`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: str`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: str`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: str`
+    The format and length of IDs may change over time.
+
+  - `type: Literal["skill_version"]`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `version: str`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 ## Example
 
@@ -171,24 +163,22 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-version = client.beta.skills.versions.create(
+beta_skill_version = client.beta.skills.versions.create(
     skill_id="skill_id",
     files=[b"Example data"],
 )
-print(version.id)
+print(beta_skill_version.id)
 ```
 
 ### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```

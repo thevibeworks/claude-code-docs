@@ -3631,7 +3631,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       format: date-time
 
-    - `Optional<List<BetaSkill>> skills`
+    - `Optional<List<BetaContainerSkill>> skills`
 
       Skills loaded in the container
 
@@ -4888,7 +4888,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       minimum: 0
 
-    - `Optional<List<BetaIterationsUsageItems>> iterations`
+    - `Optional<List<Iteration>> iterations`
 
       Per-iteration token usage breakdown.
 
@@ -5193,7 +5193,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minimum: 0
 
-      - `Optional<List<BetaIterationsUsageItems>> iterations`
+      - `Optional<List<Iteration>> iterations`
 
         Per-iteration token usage breakdown.
 

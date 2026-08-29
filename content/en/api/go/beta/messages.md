@@ -3639,7 +3639,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       format: date-time
 
-    - `Skills []BetaSkill`
+    - `Skills []BetaContainerSkill`
 
       Skills loaded in the container
 
@@ -3649,13 +3649,13 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         maxLength: 64, minLength: 1
 
-      - `Type BetaSkillType`
+      - `Type BetaContainerSkillType`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-        - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
+        - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
-        - `const BetaSkillTypeCustom BetaSkillType = "custom"`
+        - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
 
       - `Version string`
 
@@ -13693,7 +13693,7 @@ func main() {
 
     format: date-time
 
-  - `Skills []BetaSkill`
+  - `Skills []BetaContainerSkill`
 
     Skills loaded in the container
 
@@ -13703,13 +13703,13 @@ func main() {
 
       maxLength: 64, minLength: 1
 
-    - `Type BetaSkillType`
+    - `Type BetaContainerSkillType`
 
       Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-      - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
+      - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
-      - `const BetaSkillTypeCustom BetaSkillType = "custom"`
+      - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
 
     - `Version string`
 
@@ -13752,6 +13752,32 @@ func main() {
       Skill version or 'latest' for most recent version
 
       maxLength: 64, minLength: 1
+
+### Beta Container Skill
+
+- `type BetaContainerSkill struct{…}`
+
+  A skill that was loaded in a container (response model).
+
+  - `SkillID string`
+
+    Skill ID
+
+    maxLength: 64, minLength: 1
+
+  - `Type BetaContainerSkillType`
+
+    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
+
+    - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
+
+    - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
+
+  - `Version string`
+
+    The resolved version: a skill version ID for custom skills.
+
+    maxLength: 64, minLength: 1
 
 ### Beta Container Upload Block
 
@@ -18917,7 +18943,7 @@ func main() {
 
       format: date-time
 
-    - `Skills []BetaSkill`
+    - `Skills []BetaContainerSkill`
 
       Skills loaded in the container
 
@@ -18927,13 +18953,13 @@ func main() {
 
         maxLength: 64, minLength: 1
 
-      - `Type BetaSkillType`
+      - `Type BetaContainerSkillType`
 
         Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-        - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
+        - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
-        - `const BetaSkillTypeCustom BetaSkillType = "custom"`
+        - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
 
       - `Version string`
 
@@ -23936,7 +23962,7 @@ func main() {
 
         format: date-time
 
-      - `Skills []BetaSkill`
+      - `Skills []BetaContainerSkill`
 
         Skills loaded in the container
 
@@ -23946,13 +23972,13 @@ func main() {
 
           maxLength: 64, minLength: 1
 
-        - `Type BetaSkillType`
+        - `Type BetaContainerSkillType`
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-          - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
+          - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
-          - `const BetaSkillTypeCustom BetaSkillType = "custom"`
+          - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
 
         - `Version string`
 
@@ -24508,7 +24534,7 @@ func main() {
 
         format: date-time
 
-      - `Skills []BetaSkill`
+      - `Skills []BetaContainerSkill`
 
         Skills loaded in the container
 
@@ -24518,13 +24544,13 @@ func main() {
 
           maxLength: 64, minLength: 1
 
-        - `Type BetaSkillType`
+        - `Type BetaContainerSkillType`
 
           Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-          - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
+          - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
-          - `const BetaSkillTypeCustom BetaSkillType = "custom"`
+          - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
 
         - `Version string`
 
@@ -26186,7 +26212,7 @@ func main() {
 
           format: date-time
 
-        - `Skills []BetaSkill`
+        - `Skills []BetaContainerSkill`
 
           Skills loaded in the container
 
@@ -26196,13 +26222,13 @@ func main() {
 
             maxLength: 64, minLength: 1
 
-          - `Type BetaSkillType`
+          - `Type BetaContainerSkillType`
 
             Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-            - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
+            - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
-            - `const BetaSkillTypeCustom BetaSkillType = "custom"`
+            - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
 
           - `Version string`
 
@@ -29155,32 +29181,6 @@ func main() {
   - `Type SignatureDelta`
 
     default: signature_delta
-
-### Beta Skill
-
-- `type BetaSkill struct{…}`
-
-  A skill that was loaded in a container (response model).
-
-  - `SkillID string`
-
-    Skill ID
-
-    maxLength: 64, minLength: 1
-
-  - `Type BetaSkillType`
-
-    Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
-
-    - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
-
-    - `const BetaSkillTypeCustom BetaSkillType = "custom"`
-
-  - `Version string`
-
-    The resolved version: a skill version ID for custom skills.
-
-    maxLength: 64, minLength: 1
 
 ### Beta Skill Params
 
@@ -41485,7 +41485,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             format: date-time
 
-          - `Skills []BetaSkill`
+          - `Skills []BetaContainerSkill`
 
             Skills loaded in the container
 
@@ -41495,13 +41495,13 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               maxLength: 64, minLength: 1
 
-            - `Type BetaSkillType`
+            - `Type BetaContainerSkillType`
 
               Type of skill - either 'anthropic' (built-in) or 'custom' (user-defined)
 
-              - `const BetaSkillTypeAnthropic BetaSkillType = "anthropic"`
+              - `const BetaContainerSkillTypeAnthropic BetaContainerSkillType = "anthropic"`
 
-              - `const BetaSkillTypeCustom BetaSkillType = "custom"`
+              - `const BetaContainerSkillTypeCustom BetaContainerSkillType = "custom"`
 
             - `Version string`
 

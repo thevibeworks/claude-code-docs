@@ -16,9 +16,9 @@ Delete Skill Version
 
 - `--version: string`
 
-  Path param: Version identifier for the skill.
+  Path param: Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -26,15 +26,14 @@ Delete Skill Version
 
 ## Returns
 
-- `BetaSkillVersionDeleteResponse: object`
+- `beta_deleted_skill_version: object`
 
   - `id: string`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `type: string`
+  - `type: "skill_version_deleted"`
 
     Deleted object type.
 
@@ -53,7 +52,7 @@ ant beta:skills:versions delete \
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```

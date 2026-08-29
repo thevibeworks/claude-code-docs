@@ -8,6 +8,56 @@
 
 Configuration keys by Claude Desktop release. Each section lists keys added in that release, with the MDM key name (for plist/registry deployment) and the equivalent JSON shape (for local-file or bootstrap remote configuration).
 
+<Update label="v1.40609.0" description="2026-08-27">
+  <div className="cfg-keys">
+    | MDM key                                                                                                          | Type       | Description                             |
+    | ---------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------- |
+    | [`sshHostAllowlist`](/docs/third-party/claude-desktop/configuration#sshhostallowlist) · Beta                          | `string[]` | SSH host allowlist                      |
+    | [`disableConfigDeprecationWarnings`](/docs/third-party/claude-desktop/configuration#disableconfigdeprecationwarnings) | `boolean`  | Hide configuration deprecation warnings |
+  </div>
+
+  **JSON (e.g. for non-MDM users or Bootstrap):**
+
+  ```json theme={null}
+  {
+    "codeSurface": {
+      "sshHostAllowlist": ["<string>"]
+    },
+    "bootstrap": {
+      "relaunchEnforcementHours": "<integer>"
+    },
+    "appearance": {
+      "disableConfigDeprecationWarnings": "<boolean>"
+    }
+  }
+  ```
+
+  `relaunchEnforcementHours` is read from served configuration only (a bootstrap URL); a value in a local configuration file or in device management is ignored with a warning.
+
+  **Changed:**
+
+  * `inferenceVertexProjectId` and `inferenceVertexWorkforceUserProject` now require the user's consent when delivered by a bootstrap URL the user configured themselves (`consentRequired`); a bootstrap URL set by device management, or covered by `trustBootstrapDelivery: true`, never prompts. Both keys must match the Google Cloud project format (`^[a-z0-9][a-z0-9.:-]*$`).
+  * `inferenceCredentialKind` accepts `interactive` for Vertex AI (Google sign-in); the Vertex `oauth` value is deprecated (below).
+  * `orgPluginSettings` is published as an array of `{ "serverName", "tools": [{ "toolName", "permission" }] }` entries; the `{ "mcpServers": {…} }` record form is deprecated (below).
+  * The published bootstrap JSON schema now rejects `authorityHost` on the Microsoft 365 entry, so a configuration that still uses it fails schema validation in tools that check against the schema; the app itself keeps mapping it to `azureCloud` until October 7, 2026.
+  * `allowedPluginMarketplaces` is no longer marked Beta.
+
+  **Deprecated** (each accepted until October 7, 2026, 12:00 PM Pacific Time; users see an in-app warning from September 10, 2026, which `disableConfigDeprecationWarnings` hides, and a final reminder in the 24 hours before the cut-off, which it does not):
+
+  * `inferenceGatewayHeaders`: use `inferenceCustomHeaders` instead. After the cut-off no custom inference headers are sent.
+  * `inferenceCustomHeaders`, `otlpHeaders`, `otlpResourceAttributes` and `bootstrapHeaders` written as a `"Name=value,…"` string or a `["Name: value", …]` list: use a JSON object such as `{"Name": "value"}` instead. After the cut-off a string or list value is rejected as malformed and no headers (or resource attributes) are sent.
+  * `inferenceGatewayAuthScheme: "sso"`: use `inferenceCredentialKind: "interactive"` instead. After the cut-off the value is reported as invalid and, unless another credential field says how to sign in, the gateway connection has no credential and inference does not start.
+  * `inferenceGatewayAuthScheme: "auto"`: use `"bearer"` instead, or remove the key (`bearer` is the default). After the cut-off the value is reported as invalid and the default applies.
+  * `inferenceCredentialKind: "oauth"` (Vertex AI): use `"interactive"` instead. After the cut-off `oauth` is reported as invalid and the kind is derived from the credential fields present.
+  * `inferenceCredentialKind: "interactive"` together with `inferenceVertexWorkforceAudience` (Vertex AI): use `"workforce"` instead, or remove the audience if Google sign-in is meant. After the cut-off the audience no longer implies Workforce Identity; `interactive` then needs `inferenceVertexOAuthClientId` or inference does not start.
+  * `isDxtEnabled` and `isDxtSignatureRequired`: use `isDesktopExtensionEnabled` and `isDesktopExtensionSignatureRequired` instead. After the cut-off the old names are unreadable: extensions are disabled, or only signed extensions load, until the name is updated.
+  * `trustBootstrapLocalExec`: use `trustBootstrapDelivery` instead. After the cut-off the key reads `false` and each user is asked to consent to bootstrap-delivered values.
+  * `enduserAttribution`: use `endUserAttribution` instead. After the cut-off the key reads `false` and end-user attribution stays off.
+  * `orgPluginSettings` as a `{ "mcpServers": {…} }` record: use the array form instead (read by desktop 1.15200.0 and later; older desktops ignore the array and enforce no tool locks). After the cut-off the record is rejected and every plugin-delivered MCP tool is blocked until the value is rewritten.
+  * `ask-session` in `builtinToolPolicy`, `orgPluginSettings[].tools[].permission` and `managedMcpServers[].toolPolicy`: use `ask` instead. After the cut-off it is treated as an unrecognized value: `ask` for a built-in tool, `blocked` for a plugin-delivered tool, and an invalid entry for a managed server.
+  * In `managedMcpServers` entries: replace `scopes` with `scope` (one space-separated string); remove `transport: "builtin"` and `source`; replace `authorityHost` with `azureCloud: "us-gov-high"` for a GCC High tenant; write `oauth` as `true` or an oauth object rather than a number or string; replace `oauth.scopes` (or `oauth.scope` as a list) with `oauth.scope` as one string; add `transport: "http"` (or `"sse"` / `"stdio"`) to an entry with no `transport` that is not a built-in server (a built-in Microsoft 365 or GitHub entry takes no `transport`). After the cut-off such an entry is rejected and that connector is unavailable until it is rewritten (`source` is ignored by the desktop but refused by a customer-run Apps Gateway).
+</Update>
+
 <Update label="v1.37937.3" description="2026-08-26">
   No configuration changes in this release.
 </Update>

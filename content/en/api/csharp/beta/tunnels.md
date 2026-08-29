@@ -322,7 +322,7 @@ Console.WriteLine(betaTunnel);
 
 ## List Tunnels
 
-`TunnelListPageResponse Beta.Tunnels.List(parameters, cancellationToken = default)`
+`TunnelListPage Beta.Tunnels.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/tunnels`
 
@@ -436,43 +436,35 @@ Lists tunnels. Results are ordered by creation time, newest first; archived tunn
 
 ### Returns
 
-- `class TunnelListPageResponse:`
+- `class BetaTunnel:`
 
-  A paginated list of tunnels.
+  An MCP tunnel.
 
-  - `required IReadOnlyList<BetaTunnel> Data`
+  - `required string ID`
 
-    List of tunnels, ordered by created_at descending.
+    Unique identifier for the tunnel, prefixed with `tnl_`.
 
-    - `required string ID`
+  - `required DateTimeOffset? ArchivedAt`
 
-      Unique identifier for the tunnel, prefixed with `tnl_`.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset? ArchivedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required DateTimeOffset CreatedAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string? DisplayName`
 
-      format: date-time
+    Human-readable name for the tunnel (1-255 characters). Null if unset.
 
-    - `required string? DisplayName`
+  - `required string Domain`
 
-      Human-readable name for the tunnel (1-255 characters). Null if unset.
+    Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
 
-    - `required string Domain`
-
-      Anthropic-assigned hostname for the tunnel. MCP server URLs whose host is a subdomain of this value are routed through the tunnel. Globally unique and never reused, even after the tunnel is archived.
-
-    - `JsonElement Type constant`
-
-  - `required string? NextPage`
-
-    Pagination cursor for the next page, or null if no more results.
+  - `JsonElement Type constant`
 
 ### Example
 
@@ -1353,7 +1345,7 @@ Console.WriteLine(betaTunnelCertificate);
 
 ### List Tunnel Certificates
 
-`CertificateListPageResponse Beta.Tunnels.Certificates.List(parameters, cancellationToken = default)`
+`CertificateListPage Beta.Tunnels.Certificates.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -1471,49 +1463,41 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 #### Returns
 
-- `class CertificateListPageResponse:`
+- `class BetaTunnelCertificate:`
 
-  The tunnel's certificates.
+  A CA certificate attached to a tunnel.
 
-  - `required IReadOnlyList<BetaTunnelCertificate> Data`
+  - `required string ID`
 
-    List of certificates, ordered by created_at descending.
+    Unique identifier for the certificate, prefixed with `tcrt_`.
 
-    - `required string ID`
+  - `required DateTimeOffset? ArchivedAt`
 
-      Unique identifier for the certificate, prefixed with `tcrt_`.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset? ArchivedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required DateTimeOffset CreatedAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required DateTimeOffset? ExpiresAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset? ExpiresAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string Fingerprint`
 
-      format: date-time
+    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
 
-    - `required string Fingerprint`
+  - `required string TunnelID`
 
-      Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
+    ID of the tunnel the certificate is registered against.
 
-    - `required string TunnelID`
-
-      ID of the tunnel the certificate is registered against.
-
-    - `JsonElement Type constant`
-
-  - `required string? NextPage`
-
-    Pagination cursor for the next page, or null if no more results.
+  - `JsonElement Type constant`
 
 #### Example
 

@@ -2,7 +2,7 @@
 
 ## Create Skill Version
 
-`beta.skills.versions.create(skill_id, **kwargs) -> VersionCreateResponse`
+`beta.skills.versions.create(skill_id, **kwargs) -> BetaSkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -114,17 +114,18 @@ Create Skill Version
 
 ### Returns
 
-- `class VersionCreateResponse`
+- `class BetaSkillVersion`
 
   - `id: String`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `created_at: Time`
 
-  - `created_at: String`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `description: String`
 
@@ -132,33 +133,24 @@ Create Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: String`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: String`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: String`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: String`
+    The format and length of IDs may change over time.
+
+  - `type: :skill_version`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
-
-  - `version: String`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 ### Example
 
@@ -167,29 +159,27 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-version = anthropic.beta.skills.versions.create("skill_id", files: [StringIO.new("Example data")])
+beta_skill_version = anthropic.beta.skills.versions.create("skill_id", files: [StringIO.new("Example data")])
 
-puts(version)
+puts(beta_skill_version)
 ```
 
 #### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```
 
 ## List Skill Versions
 
-`beta.skills.versions.list(skill_id, **kwargs) -> PageCursor<VersionListResponse>`
+`beta.skills.versions.list(skill_id, **kwargs) -> PageCursor<BetaSkillVersion>`
 
 **GET** `/v1/skills/{skill_id}/versions`
 
@@ -205,9 +195,11 @@ List Skill Versions
 
 - `limit: Integer`
 
-  Number of items to return per page.
+  Number of results to return per page.
 
-  Defaults to `20`. Ranges from `1` to `1000`.
+  Ranges from `1` to `1000`. Defaults to `20`.
+
+  minimum: 1, maximum: 1000
 
 - `page: String`
 
@@ -305,17 +297,18 @@ List Skill Versions
 
 ### Returns
 
-- `class VersionListResponse`
+- `class BetaSkillVersion`
 
   - `id: String`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `created_at: Time`
 
-  - `created_at: String`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `description: String`
 
@@ -323,33 +316,24 @@ List Skill Versions
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: String`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: String`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: String`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: String`
+    The format and length of IDs may change over time.
+
+  - `type: :skill_version`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
-
-  - `version: String`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 ### Example
 
@@ -369,18 +353,15 @@ puts(page)
 {
   "data": [
     {
-      "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+      "id": "id",
       "created_at": "2024-10-30T23:58:27.427722Z",
-      "description": "A custom skill for doing something useful",
-      "directory": "my-skill",
-      "name": "my-skill",
+      "description": "description",
+      "name": "name",
       "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-      "type": "type",
-      "version": "1759178010641129"
+      "type": "skill_version"
     }
   ],
-  "has_more": true,
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "next_page"
 }
 ```
 
@@ -402,9 +383,9 @@ Download a skill version's content as a zip archive.
 
 - `version: String`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `betas: Array[AnthropicBeta]`
 
@@ -514,7 +495,7 @@ puts(response)
 
 ## Get Skill Version
 
-`beta.skills.versions.retrieve(version, **kwargs) -> VersionRetrieveResponse`
+`beta.skills.versions.retrieve(version, **kwargs) -> BetaSkillVersion`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -530,9 +511,9 @@ Get Skill Version
 
 - `version: String`
 
-  Version identifier for the skill.
+  Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `betas: Array[AnthropicBeta]`
 
@@ -626,17 +607,18 @@ Get Skill Version
 
 ### Returns
 
-- `class VersionRetrieveResponse`
+- `class BetaSkillVersion`
 
   - `id: String`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `created_at: Time`
 
-  - `created_at: String`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `description: String`
 
@@ -644,33 +626,24 @@ Get Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: String`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: String`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: String`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: String`
+    The format and length of IDs may change over time.
+
+  - `type: :skill_version`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
-
-  - `version: String`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 ### Example
 
@@ -679,29 +652,27 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-version = anthropic.beta.skills.versions.retrieve("version", skill_id: "skill_id")
+beta_skill_version = anthropic.beta.skills.versions.retrieve("version", skill_id: "skill_id")
 
-puts(version)
+puts(beta_skill_version)
 ```
 
 #### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```
 
 ## Delete Skill Version
 
-`beta.skills.versions.delete(version, **kwargs) -> VersionDeleteResponse`
+`beta.skills.versions.delete(version, **kwargs) -> BetaDeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -717,9 +688,9 @@ Delete Skill Version
 
 - `version: String`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `betas: Array[AnthropicBeta]`
 
@@ -813,15 +784,14 @@ Delete Skill Version
 
 ### Returns
 
-- `class VersionDeleteResponse`
+- `class BetaDeletedSkillVersion`
 
   - `id: String`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `type: String`
+  - `type: :skill_version_deleted`
 
     Deleted object type.
 
@@ -834,178 +804,73 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-version = anthropic.beta.skills.versions.delete("version", skill_id: "skill_id")
+beta_deleted_skill_version = anthropic.beta.skills.versions.delete("version", skill_id: "skill_id")
 
-puts(version)
+puts(beta_deleted_skill_version)
 ```
 
 #### Response (200)
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```
 
 ## Domain types
 
-### Version Create Response
+### Beta Deleted Skill Version
 
-- `class VersionCreateResponse`
-
-  - `id: String`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: String`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: String`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: String`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: String`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: String`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: String`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: String`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version List Response
-
-- `class VersionListResponse`
+- `class BetaDeletedSkillVersion`
 
   - `id: String`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
-
-  - `created_at: String`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: String`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: String`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: String`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: String`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: String`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: String`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version Retrieve Response
-
-- `class VersionRetrieveResponse`
-
-  - `id: String`
-
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: String`
-
-    ISO 8601 timestamp of when the skill version was created.
-
-  - `description: String`
-
-    Description of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `directory: String`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
-  - `name: String`
-
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
-
-  - `skill_id: String`
-
-    Identifier for the skill that this version belongs to.
-
-  - `type: String`
-
-    Object type.
-
-    For Skill Versions, this is always `"skill_version"`.
-
-  - `version: String`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-### Version Delete Response
-
-- `class VersionDeleteResponse`
-
-  - `id: String`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `type: String`
+  - `type: :skill_version_deleted`
 
     Deleted object type.
 
     For Skill Versions, this is always `"skill_version_deleted"`.
+
+### Beta Skill Version
+
+- `class BetaSkillVersion`
+
+  - `id: String`
+
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
+
+  - `created_at: Time`
+
+    ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
+
+  - `description: String`
+
+    Description of the skill version.
+
+    This is extracted from the SKILL.md file in the skill upload.
+
+  - `name: String`
+
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
+
+  - `skill_id: String`
+
+    Unique identifier for the skill.
+
+    The format and length of IDs may change over time.
+
+  - `type: :skill_version`
+
+    Object type.
+
+    For Skill Versions, this is always `"skill_version"`.

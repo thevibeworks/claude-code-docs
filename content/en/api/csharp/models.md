@@ -2,7 +2,7 @@
 
 ## List Models
 
-`ModelListPageResponse Models.List(parameters, cancellationToken = default)`
+`ModelListPage Models.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/models`
 
@@ -118,149 +118,135 @@ The Models API response can be used to determine which models are available for 
 
 ### Returns
 
-- `class ModelListPageResponse:`
+- `class ModelInfo:`
 
-  - `required IReadOnlyList<ModelInfo> Data`
+  - `required string ID`
 
-    - `required string ID`
+    Unique model identifier.
 
-      Unique model identifier.
+  - `required ModelCapabilities? Capabilities`
 
-    - `required ModelCapabilities? Capabilities`
+    Model capability information.
 
-      Model capability information.
+    - `required CapabilitySupport Batch`
 
-      - `required CapabilitySupport Batch`
+      Whether the model supports the Batch API.
 
-        Whether the model supports the Batch API.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+    - `required CapabilitySupport Citations`
 
-      - `required CapabilitySupport Citations`
+      Whether the model supports citation generation.
 
-        Whether the model supports citation generation.
+    - `required CapabilitySupport CodeExecution`
 
-      - `required CapabilitySupport CodeExecution`
+      Whether the model supports code execution tools.
 
-        Whether the model supports code execution tools.
+    - `required ContextManagementCapability ContextManagement`
 
-      - `required ContextManagementCapability ContextManagement`
+      Context management support and available strategies.
 
-        Context management support and available strategies.
+      - `required CapabilitySupport? ClearThinking20251015`
 
-        - `required CapabilitySupport? ClearThinking20251015`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+      - `required CapabilitySupport? ClearToolUses20250919`
 
-        - `required CapabilitySupport? ClearToolUses20250919`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+      - `required CapabilitySupport? Compact20260112`
 
-        - `required CapabilitySupport? Compact20260112`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+    - `required EffortCapability Effort`
 
-      - `required EffortCapability Effort`
+      Effort (reasoning_effort) support and available levels.
 
-        Effort (reasoning_effort) support and available levels.
+      - `required CapabilitySupport High`
 
-        - `required CapabilitySupport High`
+        Whether the model supports high effort level.
 
-          Whether the model supports high effort level.
+      - `required CapabilitySupport Low`
 
-        - `required CapabilitySupport Low`
+        Whether the model supports low effort level.
 
-          Whether the model supports low effort level.
+      - `required CapabilitySupport Max`
 
-        - `required CapabilitySupport Max`
+        Whether the model supports max effort level.
 
-          Whether the model supports max effort level.
+      - `required CapabilitySupport Medium`
 
-        - `required CapabilitySupport Medium`
+        Whether the model supports medium effort level.
 
-          Whether the model supports medium effort level.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+      - `required CapabilitySupport? Xhigh`
 
-        - `required CapabilitySupport? Xhigh`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+    - `required CapabilitySupport ImageInput`
 
-      - `required CapabilitySupport ImageInput`
+      Whether the model accepts image content blocks.
 
-        Whether the model accepts image content blocks.
+    - `required CapabilitySupport PdfInput`
 
-      - `required CapabilitySupport PdfInput`
+      Whether the model accepts PDF content blocks.
 
-        Whether the model accepts PDF content blocks.
+    - `required CapabilitySupport StructuredOutputs`
 
-      - `required CapabilitySupport StructuredOutputs`
+      Whether the model supports structured output / JSON mode / strict tool schemas.
 
-        Whether the model supports structured output / JSON mode / strict tool schemas.
+    - `required ThinkingCapability Thinking`
 
-      - `required ThinkingCapability Thinking`
+      Thinking capability and supported type configurations.
 
-        Thinking capability and supported type configurations.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+      - `required ThinkingTypes Types`
 
-        - `required ThinkingTypes Types`
+        Supported thinking type configurations.
 
-          Supported thinking type configurations.
+        - `required CapabilitySupport Adaptive`
 
-          - `required CapabilitySupport Adaptive`
+          Whether the model supports thinking with type 'adaptive' (auto).
 
-            Whether the model supports thinking with type 'adaptive' (auto).
+        - `required CapabilitySupport Enabled`
 
-          - `required CapabilitySupport Enabled`
+          Whether the model supports thinking with type 'enabled'.
 
-            Whether the model supports thinking with type 'enabled'.
+  - `required DateTimeOffset CreatedAt`
 
-    - `required DateTimeOffset CreatedAt`
+    RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
-      RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
+    format: date-time
 
-      format: date-time
+  - `required string DisplayName`
 
-    - `required string DisplayName`
+    A human-readable name for the model.
 
-      A human-readable name for the model.
+  - `required long? MaxInputTokens`
 
-    - `required long? MaxInputTokens`
+    Maximum input context window size in tokens for this model.
 
-      Maximum input context window size in tokens for this model.
+  - `required long? MaxTokens`
 
-    - `required long? MaxTokens`
+    Maximum value for the `max_tokens` parameter when using this model.
 
-      Maximum value for the `max_tokens` parameter when using this model.
+  - `JsonElement Type constant`
 
-    - `JsonElement Type constant`
+    Object type.
 
-      Object type.
-
-      For Models, this is always `"model"`.
-
-  - `required string? FirstID`
-
-    First ID in the `data` list. Can be used as the `before_id` for the previous page.
-
-  - `required bool HasMore`
-
-    Indicates if there are more results in the requested page direction.
-
-  - `required string? LastID`
-
-    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+    For Models, this is always `"model"`.
 
 ### Example
 

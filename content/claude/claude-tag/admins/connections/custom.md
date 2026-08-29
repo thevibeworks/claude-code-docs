@@ -18,7 +18,7 @@ For a service that doesn't have a preset Connect button, use **Custom tool** on 
 
 ### What you need from the service
 
-* A service-account credential (an API key, token, or OAuth client) — not your personal login
+* A service-account credential (an API key, token, or OAuth client), not your personal login
 * The API host (for example `api.example.com`)
 * How the API authenticates (which header or flow it expects)
 

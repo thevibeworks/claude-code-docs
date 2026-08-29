@@ -1,6 +1,6 @@
 # List Files
 
-`FileListPageResponse Beta.Files.List(parameters, cancellationToken = default)`
+`FileListPage Beta.Files.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/files`
 
@@ -10,13 +10,9 @@ List Files
 
 - `FileListParams parameters`
 
-  - `string afterID`
+  - `IReadOnlyList<string>? ids`
 
-    Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
-
-  - `string beforeID`
-
-    Query param: ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+    Query param: Restrict the result set to Files whose `id` is in this list. At most 100 entries (after de-duplication). Mutually exclusive with `page` and `limit`. When supplied, the response is always a single page (`next_page` is null). IDs that do not resolve to a visible File — including deleted Files — are silently omitted.
 
   - `long limit`
 
@@ -25,6 +21,10 @@ List Files
     Defaults to `20`. Ranges from `1` to `1000`.
 
     maximum: 1000, minimum: 1
+
+  - `string? page`
+
+    Query param: Opaque page cursor returned in a prior list response's `next_page`. Prefixed `page_`.
 
   - `string scopeID`
 
@@ -118,75 +118,65 @@ List Files
 
 ## Returns
 
-- `class FileListPageResponse:`
+- `class BetaFileMetadata:`
 
-  - `required IReadOnlyList<BetaFileMetadata> Data`
+  - `required string ID`
 
-    List of file metadata objects.
+    Unique object identifier.
+
+    The format and length of IDs may change over time.
+
+  - `required DateTimeOffset CreatedAt`
+
+    RFC 3339 datetime string representing when the file was created.
+
+    format: date-time
+
+  - `required string Filename`
+
+    Original filename of the uploaded file.
+
+    maxLength: 500, minLength: 1
+
+  - `required string MimeType`
+
+    MIME type of the file.
+
+    maxLength: 255, minLength: 1
+
+  - `required long SizeBytes`
+
+    Size of the file in bytes.
+
+    minimum: 0
+
+  - `JsonElement Type constant`
+
+    Object type.
+
+    For files, this is always `"file"`.
+
+  - `bool Downloadable`
+
+    Whether the file can be downloaded.
+
+  - `DateTimeOffset? ExpiresAt`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
+    format: date-time
+
+  - `BetaFileScope? Scope`
+
+    The scope of this file, indicating the context in which it was created (e.g., a session).
 
     - `required string ID`
 
-      Unique object identifier.
-
-      The format and length of IDs may change over time.
-
-    - `required DateTimeOffset CreatedAt`
-
-      RFC 3339 datetime string representing when the file was created.
-
-      format: date-time
-
-    - `required string Filename`
-
-      Original filename of the uploaded file.
-
-      maxLength: 500, minLength: 1
-
-    - `required string MimeType`
-
-      MIME type of the file.
-
-      maxLength: 255, minLength: 1
-
-    - `required long SizeBytes`
-
-      Size of the file in bytes.
-
-      minimum: 0
+      The ID of the scoping resource (e.g., the session ID).
 
     - `JsonElement Type constant`
 
-      Object type.
-
-      For files, this is always `"file"`.
-
-    - `bool Downloadable`
-
-      Whether the file can be downloaded.
-
-    - `BetaFileScope? Scope`
-
-      The scope of this file, indicating the context in which it was created (e.g., a session).
-
-      - `required string ID`
-
-        The ID of the scoping resource (e.g., the session ID).
-
-      - `JsonElement Type constant`
-
-        The type of scope (e.g., `"session"`).
-
-  - `string? FirstID`
-
-    ID of the first file in this page of results.
-
-  - `bool HasMore`
-
-    Whether there are more results available.
-
-  - `string? LastID`
-
-    ID of the last file in this page of results.
+      The type of scope (e.g., `"session"`).
 
 ## Example
 
@@ -213,14 +203,13 @@ await foreach (var item in page.Paginate())
       "size_bytes": 102400,
       "type": "file",
       "downloadable": false,
+      "expires_at": "2025-05-15T18:37:24.100435Z",
       "scope": {
         "id": "id",
         "type": "session"
       }
     }
   ],
-  "first_id": "file_011CNha8iCJcU1wXNR6q4V8w",
-  "has_more": true,
-  "last_id": "file_013Zva2CMHLNnXjNJJKqJ2EF"
+  "next_page": "next_page"
 }
 ```

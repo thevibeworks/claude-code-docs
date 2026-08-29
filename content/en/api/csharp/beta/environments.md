@@ -407,7 +407,7 @@ Console.WriteLine(betaEnvironment);
 
 ## List Environments
 
-`EnvironmentListPageResponse Beta.Environments.List(parameters, cancellationToken = default)`
+`EnvironmentListPage Beta.Environments.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/environments`
 
@@ -519,144 +519,133 @@ List environments with pagination support.
 
 ### Returns
 
-- `class EnvironmentListPageResponse:`
+- `class BetaEnvironment:`
 
-  Response when listing environments.
+  Unified Environment resource for both cloud and self-hosted environments.
 
-  This response model uses opaque cursor-based pagination. Use the `page`
-  query parameter with the value from `next_page` to fetch the next page.
+  - `required string ID`
 
-  - `required IReadOnlyList<BetaEnvironment> Data`
+    Environment identifier (e.g., 'env_...')
 
-    List of environments.
+  - `required string? ArchivedAt`
 
-    - `required string ID`
+    RFC 3339 timestamp when environment was archived, or null if not archived
 
-      Environment identifier (e.g., 'env_...')
+  - `required Config Config`
 
-    - `required string? ArchivedAt`
+    Environment configuration (either Anthropic Cloud or self-hosted)
 
-      RFC 3339 timestamp when environment was archived, or null if not archived
+    - `class BetaCloudConfig:`
 
-    - `required Config Config`
+      `cloud` environment configuration.
 
-      Environment configuration (either Anthropic Cloud or self-hosted)
+      - `required Networking Networking`
 
-      - `class BetaCloudConfig:`
+        Network configuration policy.
 
-        `cloud` environment configuration.
+        - `class BetaUnrestrictedNetwork:`
 
-        - `required Networking Networking`
+          Unrestricted network access.
 
-          Network configuration policy.
+          - `JsonElement Type constant`
 
-          - `class BetaUnrestrictedNetwork:`
+            Network policy type
 
-            Unrestricted network access.
+        - `class BetaLimitedNetwork:`
 
-            - `JsonElement Type constant`
+          Limited network access.
 
-              Network policy type
+          - `required bool AllowMcpServers`
 
-          - `class BetaLimitedNetwork:`
+            Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
 
-            Limited network access.
+          - `required bool AllowPackageManagers`
 
-            - `required bool AllowMcpServers`
+            Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array.
 
-              Permits outbound access to MCP server endpoints configured on the agent, beyond those listed in the `allowed_hosts` array.
+          - `required IReadOnlyList<string> AllowedHosts`
 
-            - `required bool AllowPackageManagers`
+            Specifies domains the container can reach.
 
-              Permits outbound access to public package registries (PyPI, npm, etc.) beyond those listed in the `allowed_hosts` array.
+          - `JsonElement Type constant`
 
-            - `required IReadOnlyList<string> AllowedHosts`
+            Network policy type
 
-              Specifies domains the container can reach.
+      - `required BetaPackages Packages`
 
-            - `JsonElement Type constant`
+        Package manager configuration.
 
-              Network policy type
+        - `required IReadOnlyList<string> Apt`
 
-        - `required BetaPackages Packages`
+          Ubuntu/Debian packages to install
 
-          Package manager configuration.
+        - `required IReadOnlyList<string> Cargo`
 
-          - `required IReadOnlyList<string> Apt`
+          Rust packages to install
 
-            Ubuntu/Debian packages to install
+        - `required IReadOnlyList<string> Gem`
 
-          - `required IReadOnlyList<string> Cargo`
+          Ruby packages to install
 
-            Rust packages to install
+        - `required IReadOnlyList<string> Go`
 
-          - `required IReadOnlyList<string> Gem`
+          Go packages to install
 
-            Ruby packages to install
+        - `required IReadOnlyList<string> Npm`
 
-          - `required IReadOnlyList<string> Go`
+          Node.js packages to install
 
-            Go packages to install
+        - `required IReadOnlyList<string> Pip`
 
-          - `required IReadOnlyList<string> Npm`
+          Python packages to install
 
-            Node.js packages to install
+        - `Type Type`
 
-          - `required IReadOnlyList<string> Pip`
+          Package configuration type
 
-            Python packages to install
+      - `JsonElement Type constant`
 
-          - `Type Type`
+        Environment type
 
-            Package configuration type
+    - `class BetaSelfHostedConfig:`
 
-        - `JsonElement Type constant`
+      Configuration for self-hosted environments.
 
-          Environment type
+      - `JsonElement Type constant`
 
-      - `class BetaSelfHostedConfig:`
+        Environment type
 
-        Configuration for self-hosted environments.
+  - `required string CreatedAt`
 
-        - `JsonElement Type constant`
+    RFC 3339 timestamp when environment was created
 
-          Environment type
+  - `required string? Description`
 
-    - `required string CreatedAt`
+    User-provided description for the environment; null when unset
 
-      RFC 3339 timestamp when environment was created
+  - `required IReadOnlyDictionary<string, string> Metadata`
 
-    - `required string? Description`
+    User-provided metadata key-value pairs
 
-      User-provided description for the environment; null when unset
+  - `required string Name`
 
-    - `required IReadOnlyDictionary<string, string> Metadata`
+    Human-readable name for the environment
 
-      User-provided metadata key-value pairs
+  - `JsonElement Type constant`
 
-    - `required string Name`
+    The type of object (always 'environment')
 
-      Human-readable name for the environment
+  - `required string UpdatedAt`
 
-    - `JsonElement Type constant`
+    RFC 3339 timestamp when environment was last updated
 
-      The type of object (always 'environment')
+  - `Scope Scope`
 
-    - `required string UpdatedAt`
+    The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
 
-      RFC 3339 timestamp when environment was last updated
+    - `Organization`
 
-    - `Scope Scope`
-
-      The visibility scope for this environment. 'organization' means visible to all accounts. 'account' means visible only to the owning account.
-
-      - `Organization`
-
-      - `Account`
-
-  - `required string? NextPage`
-
-    Token for fetching the next page of results. If `null`, there are no more results available. Pass this value to the `page` parameter in the next request.
+    - `Account`
 
 ### Example
 
@@ -3414,7 +3403,7 @@ Console.WriteLine(betaSelfHostedWork);
 
 ### List Work Items
 
-`BetaSelfHostedWorkListResponse Beta.Environments.Work.List(parameters, cancellationToken = default)`
+`WorkListPage Beta.Environments.Work.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/environments/{environment_id}/work`
 
@@ -3528,87 +3517,83 @@ List work items in an environment.
 
 #### Returns
 
-- `class BetaSelfHostedWorkListResponse:`
+- `class BetaSelfHostedWork:`
 
-  Response when listing work items with cursor-based pagination.
+  Work resource representing a unit of work in a self-hosted environment.
 
-  - `required IReadOnlyList<BetaSelfHostedWork> Data`
+  Work items are queued when sessions are created or when long-dormant sessions
+  receive new messages. The environment worker polls for work to execute in a
+  self-hosted sandbox.
 
-    List of work items
+  - `required string ID`
+
+    Work identifier (e.g., 'work_...')
+
+  - `required string? AcknowledgedAt`
+
+    RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
+
+  - `required string CreatedAt`
+
+    RFC 3339 timestamp when work was created
+
+  - `required BetaSessionWorkData Data`
+
+    The actual work to be performed
 
     - `required string ID`
 
-      Work identifier (e.g., 'work_...')
-
-    - `required string? AcknowledgedAt`
-
-      RFC 3339 timestamp when the work item was acknowledged and assigned to a self-hosted sandbox
-
-    - `required string CreatedAt`
-
-      RFC 3339 timestamp when work was created
-
-    - `required BetaSessionWorkData Data`
-
-      The actual work to be performed
-
-      - `required string ID`
-
-        Session identifier (e.g., 'session_...')
-
-      - `JsonElement Type constant`
-
-        Type of work data
-
-    - `required string EnvironmentID`
-
-      Environment identifier this work belongs to (e.g., `env_...`)
-
-    - `required string? LatestHeartbeatAt`
-
-      RFC 3339 timestamp of the most recent heartbeat
-
-    - `required IReadOnlyDictionary<string, string> Metadata`
-
-      User-provided metadata key-value pairs associated with this work item
-
-    - `required string? Secret`
-
-      Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
-
-    - `required string? StartedAt`
-
-      RFC 3339 timestamp when work execution started
-
-    - `required State State`
-
-      Current state of the work item
-
-      - `Queued`
-
-      - `Starting`
-
-      - `Active`
-
-      - `Stopping`
-
-      - `Stopped`
-
-    - `required string? StopRequestedAt`
-
-      RFC 3339 timestamp when stop was requested
-
-    - `required string? StoppedAt`
-
-      RFC 3339 timestamp when work execution stopped
+      Session identifier (e.g., 'session_...')
 
     - `JsonElement Type constant`
 
-      The type of object (always 'work')
+      Type of work data
 
-  - `required string? NextPage`
+  - `required string EnvironmentID`
 
-    Opaque cursor for fetching the next page of results
+    Environment identifier this work belongs to (e.g., `env_...`)
+
+  - `required string? LatestHeartbeatAt`
+
+    RFC 3339 timestamp of the most recent heartbeat
+
+  - `required IReadOnlyDictionary<string, string> Metadata`
+
+    User-provided metadata key-value pairs associated with this work item
+
+  - `required string? Secret`
+
+    Credential payload used by the environment worker to execute this work item. May be populated when polling for work; null on all other retrieval paths.
+
+  - `required string? StartedAt`
+
+    RFC 3339 timestamp when work execution started
+
+  - `required State State`
+
+    Current state of the work item
+
+    - `Queued`
+
+    - `Starting`
+
+    - `Active`
+
+    - `Stopping`
+
+    - `Stopped`
+
+  - `required string? StopRequestedAt`
+
+    RFC 3339 timestamp when stop was requested
+
+  - `required string? StoppedAt`
+
+    RFC 3339 timestamp when work execution stopped
+
+  - `JsonElement Type constant`
+
+    The type of object (always 'work')
 
 #### Example
 

@@ -3925,7 +3925,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       format: date-time
 
-    - `skills: Array[BetaSkill]`
+    - `skills: Array[BetaContainerSkill]`
 
       Skills loaded in the container
 

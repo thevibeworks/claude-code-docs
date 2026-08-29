@@ -51,7 +51,7 @@ The tables below compare the feature set of Claude Desktop on third-party (3P) t
 | Claude Tag                                          |         ✓         |           —          |
 | Computer use                                        |         —         |           —          |
 
-§ Amazon Bedrock deployments, Microsoft Foundry deployments [hosted on Azure](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#hosting-options), and gateways that do not forward Anthropic server tools need a web search provider configured first; see [Web search options](/docs/third-party/claude-desktop/web-tools#web-search-options).
+§ Amazon Bedrock deployments and gateways that do not forward Anthropic server tools need a web search provider configured first; see [Web search options](/docs/third-party/claude-desktop/web-tools#web-search-options).
 
 † Memory in Claude Desktop on 3P is stored on the device, not on Anthropic infrastructure. Users can review, delete, or pause it under **Settings → Cowork → Memory**; see [Memory](/docs/third-party/claude-desktop/data-storage#memory). Chat-history search and nightly summary generation are not available in Chat on 3P.
 

@@ -1,6 +1,6 @@
 # List Tunnel Certificates
 
-`CertificateListPageResponse Beta.Tunnels.Certificates.List(parameters, cancellationToken = default)`
+`CertificateListPage Beta.Tunnels.Certificates.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/tunnels/{tunnel_id}/certificates`
 
@@ -118,49 +118,41 @@ Lists the certificates registered on a tunnel. Archived certificates are exclude
 
 ## Returns
 
-- `class CertificateListPageResponse:`
+- `class BetaTunnelCertificate:`
 
-  The tunnel's certificates.
+  A CA certificate attached to a tunnel.
 
-  - `required IReadOnlyList<BetaTunnelCertificate> Data`
+  - `required string ID`
 
-    List of certificates, ordered by created_at descending.
+    Unique identifier for the certificate, prefixed with `tcrt_`.
 
-    - `required string ID`
+  - `required DateTimeOffset? ArchivedAt`
 
-      Unique identifier for the certificate, prefixed with `tcrt_`.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset? ArchivedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required DateTimeOffset CreatedAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required DateTimeOffset? ExpiresAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset? ExpiresAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string Fingerprint`
 
-      format: date-time
+    Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
 
-    - `required string Fingerprint`
+  - `required string TunnelID`
 
-      Lowercase hex SHA-256 fingerprint of the certificate's DER encoding.
+    ID of the tunnel the certificate is registered against.
 
-    - `required string TunnelID`
-
-      ID of the tunnel the certificate is registered against.
-
-    - `JsonElement Type constant`
-
-  - `required string? NextPage`
-
-    Pagination cursor for the next page, or null if no more results.
+  - `JsonElement Type constant`
 
 ## Example
 

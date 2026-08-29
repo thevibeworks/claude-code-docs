@@ -102,6 +102,12 @@ Upload File
 
     format: binary
 
+  - `Optional<Long> expiresInSeconds`
+
+    Seconds from upload until the file expires and its bytes become permanently unavailable. Must be between 3600 (one hour) and 7776000 (ninety days).
+
+    minimum: 3600, maximum: 7776000
+
 ## Returns
 
 - `class BetaFileMetadata:`
@@ -145,6 +151,12 @@ Upload File
   - `Optional<Boolean> downloadable`
 
     Whether the file can be downloaded.
+
+  - `Optional<LocalDateTime> expiresAt`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
+    format: date-time
 
   - `Optional<BetaFileScope> scope`
 
@@ -194,6 +206,7 @@ public final class Main {
   "size_bytes": 102400,
   "type": "file",
   "downloadable": false,
+  "expires_at": "2025-05-15T18:37:24.100435Z",
   "scope": {
     "id": "id",
     "type": "session"

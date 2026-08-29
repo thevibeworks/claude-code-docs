@@ -2,7 +2,7 @@
 
 ## Create Skill
 
-`client.beta.skills.create(params, options?): SkillCreateResponse`
+`client.beta.skills.create(params, options?): BetaSkill`
 
 **POST** `/v1/skills`
 
@@ -18,11 +18,11 @@ Create Skill
 
     All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-  - `display_title?: string | null`
+  - `display_name?: string | null`
 
-    Body param: Display title for the skill.
-
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Body param: Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
   - `betas?: Array<AnthropicBeta>`
 
@@ -116,7 +116,7 @@ Create Skill
 
 ### Returns
 
-- `SkillCreateResponse`
+- `BetaSkill`
 
   - `id: string`
 
@@ -128,28 +128,49 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string | null`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: string`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: string | null`
+  - `latest_version_id: string`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: string`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
 
-  - `type: string`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: "skill"`
 
     Object type.
 
@@ -161,6 +182,8 @@ Create Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
+    format: date-time
+
 ### Example
 
 ```typescript
@@ -170,11 +193,11 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const skill = await client.beta.skills.create({
+const betaSkill = await client.beta.skills.create({
   files: [fs.createReadStream("path/to/file")]
 });
 
-console.log(skill.id);
+console.log(betaSkill.id);
 ```
 
 #### Response (200)
@@ -183,17 +206,19 @@ console.log(skill.id);
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```
 
 ## List Skills
 
-`client.beta.skills.list(params?, options?): PageCursor<SkillListResponse>`
+`client.beta.skills.list(params?, options?): PageCursor<BetaSkill>`
 
 **GET** `/v1/skills`
 
@@ -207,7 +232,9 @@ List Skills
 
     Query param: Number of results to return per page.
 
-    Maximum value is 100. Defaults to 20.
+    Ranges from `1` to `1000`. Defaults to `20`.
+
+    minimum: 1, maximum: 1000
 
   - `page?: string | null`
 
@@ -316,7 +343,7 @@ List Skills
 
 ### Returns
 
-- `SkillListResponse`
+- `BetaSkill`
 
   - `id: string`
 
@@ -328,28 +355,49 @@ List Skills
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string | null`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: string`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: string | null`
+  - `latest_version_id: string`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: string`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
 
-  - `type: string`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: "skill"`
 
     Object type.
 
@@ -361,6 +409,8 @@ List Skills
 
     ISO 8601 timestamp of when the skill was last updated.
 
+    format: date-time
+
 ### Example
 
 ```typescript
@@ -371,8 +421,8 @@ const client = new Anthropic({
 });
 
 // Automatically fetches more pages as needed.
-for await (const skillListResponse of client.beta.skills.list()) {
-  console.log(skillListResponse.id);
+for await (const betaSkill of client.beta.skills.list()) {
+  console.log(betaSkill.id);
 }
 ```
 
@@ -384,21 +434,22 @@ for await (const skillListResponse of client.beta.skills.list()) {
     {
       "id": "skill_01JAbcdefghijklmnopqrstuvw",
       "created_at": "2024-10-30T23:58:27.427722Z",
-      "display_title": "My Custom Skill",
-      "latest_version": "1759178010641129",
-      "source": "custom",
-      "type": "type",
+      "display_name": "display_name",
+      "latest_version_id": "latest_version_id",
+      "source": {
+        "type": "custom"
+      },
+      "type": "skill",
       "updated_at": "2024-10-30T23:58:27.427722Z"
     }
   ],
-  "has_more": true,
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "next_page"
 }
 ```
 
 ## Get Skill
 
-`client.beta.skills.retrieve(skillID, params?, options?): SkillRetrieveResponse`
+`client.beta.skills.retrieve(skillID, params?, options?): BetaSkill`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -506,7 +557,7 @@ Get Skill
 
 ### Returns
 
-- `SkillRetrieveResponse`
+- `BetaSkill`
 
   - `id: string`
 
@@ -518,28 +569,49 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: string | null`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: string`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: string | null`
+  - `latest_version_id: string`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: string`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
 
-  - `type: string`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: "skill"`
 
     Object type.
 
@@ -551,6 +623,8 @@ Get Skill
 
     ISO 8601 timestamp of when the skill was last updated.
 
+    format: date-time
+
 ### Example
 
 ```typescript
@@ -560,9 +634,9 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const skill = await client.beta.skills.retrieve("skill_id");
+const betaSkill = await client.beta.skills.retrieve("skill_id");
 
-console.log(skill.id);
+console.log(betaSkill.id);
 ```
 
 #### Response (200)
@@ -571,17 +645,19 @@ console.log(skill.id);
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```
 
 ## Delete Skill
 
-`client.beta.skills.delete(skillID, params?, options?): SkillDeleteResponse`
+`client.beta.skills.delete(skillID, params?, options?): BetaDeletedSkill`
 
 **DELETE** `/v1/skills/{skill_id}`
 
@@ -689,7 +765,7 @@ Delete Skill
 
 ### Returns
 
-- `SkillDeleteResponse`
+- `BetaDeletedSkill`
 
   - `id: string`
 
@@ -697,7 +773,7 @@ Delete Skill
 
     The format and length of IDs may change over time.
 
-  - `type: string`
+  - `type: "skill_deleted"`
 
     Deleted object type.
 
@@ -714,9 +790,9 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const skill = await client.beta.skills.delete("skill_id");
+const betaDeletedSkill = await client.beta.skills.delete("skill_id");
 
-console.log(skill.id);
+console.log(betaDeletedSkill.id);
 ```
 
 #### Response (200)
@@ -724,62 +800,15 @@ console.log(skill.id);
 ```json
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type"
+  "type": "skill_deleted"
 }
 ```
 
 ## Domain types
 
-### Skill Create Response
+### Beta Deleted Skill
 
-- `SkillCreateResponse`
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-  - `display_title: string | null`
-
-    Display title for the skill.
-
-    This is a human-readable label that is not included in the prompt sent to the model.
-
-  - `latest_version: string | null`
-
-    The latest version identifier for the skill.
-
-    This represents the most recent version of the skill that has been created.
-
-  - `source: string`
-
-    Source of the skill.
-
-    This may be one of the following values:
-
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
-
-  - `type: string`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
-    default: skill
-
-  - `updated_at: string`
-
-    ISO 8601 timestamp of when the skill was last updated.
-
-### Skill List Response
-
-- `SkillListResponse`
+- `BetaDeletedSkill`
 
   - `id: string`
 
@@ -787,101 +816,7 @@ console.log(skill.id);
 
     The format and length of IDs may change over time.
 
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-  - `display_title: string | null`
-
-    Display title for the skill.
-
-    This is a human-readable label that is not included in the prompt sent to the model.
-
-  - `latest_version: string | null`
-
-    The latest version identifier for the skill.
-
-    This represents the most recent version of the skill that has been created.
-
-  - `source: string`
-
-    Source of the skill.
-
-    This may be one of the following values:
-
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
-
-  - `type: string`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
-    default: skill
-
-  - `updated_at: string`
-
-    ISO 8601 timestamp of when the skill was last updated.
-
-### Skill Retrieve Response
-
-- `SkillRetrieveResponse`
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `created_at: string`
-
-    ISO 8601 timestamp of when the skill was created.
-
-  - `display_title: string | null`
-
-    Display title for the skill.
-
-    This is a human-readable label that is not included in the prompt sent to the model.
-
-  - `latest_version: string | null`
-
-    The latest version identifier for the skill.
-
-    This represents the most recent version of the skill that has been created.
-
-  - `source: string`
-
-    Source of the skill.
-
-    This may be one of the following values:
-
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
-
-  - `type: string`
-
-    Object type.
-
-    For Skills, this is always `"skill"`.
-
-    default: skill
-
-  - `updated_at: string`
-
-    ISO 8601 timestamp of when the skill was last updated.
-
-### Skill Delete Response
-
-- `SkillDeleteResponse`
-
-  - `id: string`
-
-    Unique identifier for the skill.
-
-    The format and length of IDs may change over time.
-
-  - `type: string`
+  - `type: "skill_deleted"`
 
     Deleted object type.
 
@@ -889,11 +824,104 @@ console.log(skill.id);
 
     default: skill_deleted
 
+### Beta Skill
+
+- `BetaSkill`
+
+  - `id: string`
+
+    Unique identifier for the skill.
+
+    The format and length of IDs may change over time.
+
+  - `created_at: string`
+
+    ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
+
+  - `display_name: string`
+
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
+
+  - `latest_version_id: string`
+
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
+
+  - `source: BetaSkillSource`
+
+    Where the Skill comes from.
+
+    Possible values:
+
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
+
+    - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
+
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: "skill"`
+
+    Object type.
+
+    For Skills, this is always `"skill"`.
+
+    default: skill
+
+  - `updated_at: string`
+
+    ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
+
+### Beta Skill Source
+
+- `BetaSkillSource`
+
+  - `type: "custom" | "anthropic" | "anthropic_example" | "plugin"`
+
+    Where the Skill comes from.
+
+    Possible values:
+
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
+
+    - `"custom"`
+
+    - `"anthropic"`
+
+    - `"anthropic_example"`
+
+    - `"plugin"`
+
 ## Skills › Versions
 
 ### Create Skill Version
 
-`client.beta.skills.versions.create(skillID, params, options?): VersionCreateResponse`
+`client.beta.skills.versions.create(skillID, params, options?): BetaSkillVersion`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -1007,17 +1035,18 @@ Create Skill Version
 
 #### Returns
 
-- `VersionCreateResponse`
+- `BetaSkillVersion`
 
   - `id: string`
 
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
   - `created_at: string`
 
-    ISO 8601 timestamp of when the skill version was created.
+    ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `description: string`
 
@@ -1025,35 +1054,26 @@ Create Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: string`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: string`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: string`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: string`
+    The format and length of IDs may change over time.
+
+  - `type: "skill_version"`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `version: string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 #### Example
 
@@ -1064,31 +1084,29 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const version = await client.beta.skills.versions.create("skill_id", {
+const betaSkillVersion = await client.beta.skills.versions.create("skill_id", {
   files: [fs.createReadStream("path/to/file")]
 });
 
-console.log(version.id);
+console.log(betaSkillVersion.id);
 ```
 
 ##### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```
 
 ### List Skill Versions
 
-`client.beta.skills.versions.list(skillID, params?, options?): PageCursor<VersionListResponse>`
+`client.beta.skills.versions.list(skillID, params?, options?): PageCursor<BetaSkillVersion>`
 
 **GET** `/v1/skills/{skill_id}/versions`
 
@@ -1106,9 +1124,11 @@ List Skill Versions
 
   - `limit?: number | null`
 
-    Query param: Number of items to return per page.
+    Query param: Number of results to return per page.
 
-    Defaults to `20`. Ranges from `1` to `1000`.
+    Ranges from `1` to `1000`. Defaults to `20`.
+
+    minimum: 1, maximum: 1000
 
   - `page?: string | null`
 
@@ -1206,17 +1226,18 @@ List Skill Versions
 
 #### Returns
 
-- `VersionListResponse`
+- `BetaSkillVersion`
 
   - `id: string`
 
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
   - `created_at: string`
 
-    ISO 8601 timestamp of when the skill version was created.
+    ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `description: string`
 
@@ -1224,35 +1245,26 @@ List Skill Versions
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: string`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: string`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: string`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: string`
+    The format and length of IDs may change over time.
+
+  - `type: "skill_version"`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `version: string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 #### Example
 
@@ -1264,8 +1276,8 @@ const client = new Anthropic({
 });
 
 // Automatically fetches more pages as needed.
-for await (const versionListResponse of client.beta.skills.versions.list("skill_id")) {
-  console.log(versionListResponse.id);
+for await (const betaSkillVersion of client.beta.skills.versions.list("skill_id")) {
+  console.log(betaSkillVersion.id);
 }
 ```
 
@@ -1275,18 +1287,15 @@ for await (const versionListResponse of client.beta.skills.versions.list("skill_
 {
   "data": [
     {
-      "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+      "id": "id",
       "created_at": "2024-10-30T23:58:27.427722Z",
-      "description": "A custom skill for doing something useful",
-      "directory": "my-skill",
-      "name": "my-skill",
+      "description": "description",
+      "name": "name",
       "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-      "type": "type",
-      "version": "1759178010641129"
+      "type": "skill_version"
     }
   ],
-  "has_more": true,
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "next_page"
 }
 ```
 
@@ -1302,9 +1311,9 @@ Download a skill version's content as a zip archive.
 
 - `version: string`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `params: VersionDownloadParams`
 
@@ -1429,7 +1438,7 @@ console.log(content);
 
 ### Get Skill Version
 
-`client.beta.skills.versions.retrieve(version, params, options?): VersionRetrieveResponse`
+`client.beta.skills.versions.retrieve(version, params, options?): BetaSkillVersion`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -1439,9 +1448,9 @@ Get Skill Version
 
 - `version: string`
 
-  Version identifier for the skill.
+  Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `params: VersionRetrieveParams`
 
@@ -1543,17 +1552,18 @@ Get Skill Version
 
 #### Returns
 
-- `VersionRetrieveResponse`
+- `BetaSkillVersion`
 
   - `id: string`
 
-    Unique identifier for the skill version.
-
-    The format and length of IDs may change over time.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
   - `created_at: string`
 
-    ISO 8601 timestamp of when the skill version was created.
+    ISO 8601 timestamp of when the skill was created.
+
+    format: date-time
 
   - `description: string`
 
@@ -1561,35 +1571,26 @@ Get Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `directory: string`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `name: string`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `skill_id: string`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `type: string`
+    The format and length of IDs may change over time.
+
+  - `type: "skill_version"`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `version: string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 #### Example
 
@@ -1600,31 +1601,29 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const version = await client.beta.skills.versions.retrieve("version", {
+const betaSkillVersion = await client.beta.skills.versions.retrieve("version", {
   skill_id: "skill_id"
 });
 
-console.log(version.id);
+console.log(betaSkillVersion.id);
 ```
 
 ##### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```
 
 ### Delete Skill Version
 
-`client.beta.skills.versions.delete(version, params, options?): VersionDeleteResponse`
+`client.beta.skills.versions.delete(version, params, options?): BetaDeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -1634,9 +1633,9 @@ Delete Skill Version
 
 - `version: string`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `params: VersionDeleteParams`
 
@@ -1738,15 +1737,14 @@ Delete Skill Version
 
 #### Returns
 
-- `VersionDeleteResponse`
+- `BetaDeletedSkillVersion`
 
   - `id: string`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `type: string`
+  - `type: "skill_version_deleted"`
 
     Deleted object type.
 
@@ -1763,16 +1761,18 @@ const client = new Anthropic({
   apiKey: process.env["ANTHROPIC_API_KEY"] // This is the default and can be omitted
 });
 
-const version = await client.beta.skills.versions.delete("version", { skill_id: "skill_id" });
+const betaDeletedSkillVersion = await client.beta.skills.versions.delete("version", {
+  skill_id: "skill_id"
+});
 
-console.log(version.id);
+console.log(betaDeletedSkillVersion.id);
 ```
 
 ##### Response (200)
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```

@@ -222,9 +222,9 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
 
 ## Domain types
 
-### Local List Response
+### Local Retrieve Response
 
-- `LocalListResponse object`
+- `LocalRetrieveResponse object`
 
   A session that a user ran on their own computer in a Claude app while
   signed in with their organization account.
@@ -273,9 +273,9 @@ curl https://api.anthropic.com/v1/compliance/apps/sessions/local/$LOCAL_SESSION_
 
     Workspace identifier (tagged ID, prefixed `wrkspc_`). Null for sessions not attributed to a workspace.
 
-### Local Retrieve Response
+### Local List Response
 
-- `LocalRetrieveResponse object`
+- `LocalListResponse object`
 
   A session that a user ran on their own computer in a Claude app while
   signed in with their organization account.

@@ -4,6 +4,10 @@
 
 `$client->beta->webhooks->unwrap(): void`
 
+Verifies the webhook signature from the `webhook-id`, `webhook-timestamp` and `webhook-signature`
+headers using your webhook signing key, then parses the payload into an event. Fails if the
+signature is missing or invalid.
+
 ### Example
 
 ```php
@@ -14,6 +18,27 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $result = $client->beta->webhooks->unwrap();
+
+var_dump($result);
+```
+
+## Parse Unverified
+
+`$client->beta->webhooks->parseUnverified(): void`
+
+Parses a webhook payload into an event without verifying its signature. Prefer `unwrap()` unless
+you have already verified the signature yourself.
+
+### Example
+
+```php
+<?php
+
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$client = new Client(apiKey: 'my-anthropic-api-key');
+
+$result = $client->beta->webhooks->parseUnverified();
 
 var_dump($result);
 ```
@@ -1241,21 +1266,3 @@ var_dump($result);
   - `"vault.deleted" type`
 
   - `string workspaceID`
-
-### Unwrap Webhook Event
-
-- `UnwrapWebhookEvent`
-
-  - `string id`
-
-    Unique event identifier for idempotency.
-
-  - `\Datetime createdAt`
-
-    RFC 3339 timestamp when the event occurred.
-
-  - `BetaWebhookEventData data`
-
-  - `"event" type`
-
-    Object type. Always `event` for webhook payloads.

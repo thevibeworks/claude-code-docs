@@ -3943,11 +3943,9 @@ public final class Main {
         WorkUpdateParams params = WorkUpdateParams.builder()
             .environmentId("env_011CZkZ9X2dpNyB7HsEFoRfW")
             .workId("work_id")
-            .betaSelfHostedWorkUpdateRequest(BetaSelfHostedWorkUpdateRequest.builder()
-                .metadata(BetaSelfHostedWorkUpdateRequest.Metadata.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                    .build())
-                .build())
+            .betaSelfHostedWorkUpdateRequest(BetaSelfHostedWorkUpdateRequest.of(BetaSelfHostedWorkUpdateRequest.Metadata.builder()
+                .putAdditionalProperty("foo", JsonValue.from("string"))
+                .build()))
             .build();
         BetaSelfHostedWork betaSelfHostedWork = client.beta().environments().work().update(params);
     }

@@ -1,6 +1,6 @@
 # List Files
 
-`$client->beta->files->list(?string afterID, ?string beforeID, ?int limit, ?string scopeID, ?list<AnthropicBeta> betas): Page<BetaFileMetadata>`
+`$client->beta->files->list(?list<string> ids, ?int limit, ?string page, ?string scopeID, ?list<AnthropicBeta> betas): PageCursor<BetaFileMetadata>`
 
 **GET** `/v1/files`
 
@@ -8,13 +8,9 @@ List Files
 
 ## Parameters
 
-- `afterID?:optional string`
+- `ids?:optional list<string>`
 
-  ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately after this object.
-
-- `beforeID?:optional string`
-
-  ID of the object to use as a cursor for pagination. When provided, returns the page of results immediately before this object.
+  Restrict the result set to Files whose `id` is in this list. At most 100 entries (after de-duplication). Mutually exclusive with `page` and `limit`. When supplied, the response is always a single page (`next_page` is null). IDs that do not resolve to a visible File — including deleted Files — are silently omitted.
 
 - `limit?:optional int`
 
@@ -23,6 +19,10 @@ List Files
   Defaults to `20`. Ranges from `1` to `1000`.
 
   default: 20
+
+- `page?:optional string`
+
+  Opaque page cursor returned in a prior list response's `next_page`. Prefixed `page_`.
 
 - `scopeID?:optional string`
 
@@ -68,6 +68,10 @@ List Files
 
     Whether the file can be downloaded.
 
+  - `?\Datetime expiresAt`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
   - `?BetaFileScope scope`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
@@ -82,9 +86,9 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->files->list(
-  afterID: 'after_id',
-  beforeID: 'before_id',
+  ids: ['string'],
   limit: 1,
+  page: 'page',
   scopeID: 'scope_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
@@ -105,14 +109,13 @@ var_dump($page);
       "size_bytes": 102400,
       "type": "file",
       "downloadable": false,
+      "expires_at": "2025-05-15T18:37:24.100435Z",
       "scope": {
         "id": "id",
         "type": "session"
       }
     }
   ],
-  "first_id": "file_011CNha8iCJcU1wXNR6q4V8w",
-  "has_more": true,
-  "last_id": "file_013Zva2CMHLNnXjNJJKqJ2EF"
+  "next_page": "next_page"
 }
 ```

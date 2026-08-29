@@ -150,7 +150,7 @@ Claude performs that join with its own `channels:join` permission, so Slack's au
 
 **How to resolve**
 
-Nothing is misconfigured. If an auto-join pattern brought Claude in, review the patterns in the scope's **Advanced** section. If Claude shouldn't be in the channel, remove it with `/remove @Claude`, or [set the scope's Claude Tag version to Off](/docs/claude-tag/admins/restrict-access#quiet-or-remove-claude-tag) so it stops responding there even if it's added again. If you want every join in the audit log attributed to a person, ask members to add Claude with `/invite @Claude` rather than the buttons; Slack records an invite as the inviting member's action.
+Nothing is misconfigured. If an auto-join pattern brought Claude in, review the patterns in the scope's **Advanced** section. If Claude shouldn't be in the channel, remove it with `/remove @Claude`, or [set the scope's Claude Tag version to Off](/docs/claude-tag/admins/restrict-access#quiet-or-remove-claude-tag) so it stops responding there even if it's added again. If you have the [**Enable Claude Tag** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan) instead of per-scope version settings, remove Claude and add a [blocked channel pattern](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) for the channel's name. If you want every join in the audit log attributed to a person, ask members to add Claude with `/invite @Claude` rather than the buttons; Slack records an invite as the inviting member's action.
 
 ## Guest and shared channels
 
@@ -518,7 +518,7 @@ Only the first sentence is fixed. A sender who isn't a Slack workspace admin is 
 
 **What it means**
 
-This channel's scope has **Claude Tag version** set to **Off**.
+This channel's scope has **Claude Tag version** set to **Off**. If you have the [**Enable Claude Tag** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan) instead of per-scope version settings, the same notice means the switch is off, or the channel's workspace is set to **Off** on its own.
 
 **How to resolve**
 
@@ -529,7 +529,7 @@ An Owner turns the scope back on:
 3. Expand **Advanced**.
 4. Set **Claude Tag version** to **New**.
 
-If the fix worked, a mention in the channel gets a reply.
+If you have the [**Enable Claude Tag** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan) instead of per-scope version settings, check that the switch is on at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag**. If the fix worked, a mention in the channel gets a reply.
 
 ## Access and connections
 

@@ -24,11 +24,11 @@ A leading `~` expands to the user's home directory, so a single profile can expr
 
 Each entry is either a plain path string or an object with these fields:
 
-| Field               | Description                                                                                                                                                                                                                      |
-| ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `path`              | The folder path (required). Subfolders are included.                                                                                                                                                                             |
-| `mode`              | `rw` (the default) or `ro`. The agent can view and search a read-only folder but cannot modify it in Cowork. In Code sessions, read-only applies to Claude's file tools only; shell commands and SSH sessions do not enforce it. |
-| `isDefaultSelected` | When `true`, the folder appears already selected on the new-task page and skips the trust prompt. Users can remove it.                                                                                                           |
+| Field               | Description                                                                                                                                                                                                                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `path`              | The folder path (required). Subfolders are included.                                                                                                                                                                                                                                       |
+| `mode`              | `rw` (the default) or `ro`. The agent can view and search a read-only folder but cannot modify it in Cowork. In Code sessions, read-only applies to Claude's file tools only; shell commands and [SSH remote sessions](/docs/third-party/claude-desktop/ssh-remote-sessions) do not enforce it. |
+| `isDefaultSelected` | When `true`, the folder appears already selected on the new-task page and skips the trust prompt. Users can remove it.                                                                                                                                                                     |
 
 For example, `[{"path": "~/Documents/Claude"}, {"path": "/Volumes/Shared/Reference", "mode": "ro"}]` lets users work in their own folder and consult the shared reference folder without changing it.
 

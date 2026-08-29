@@ -1,6 +1,6 @@
 # Get Skill Version
 
-`client.Beta.Skills.Versions.Get(ctx, version, params) (*BetaSkillVersionGetResponse, error)`
+`client.Beta.Skills.Versions.Get(ctx, version, params) (*BetaSkillVersion, error)`
 
 **GET** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -10,9 +10,9 @@ Get Skill Version
 
 - `version string`
 
-  Version identifier for the skill.
+  Identifies the skill version: a version ID, or the literal `latest` for the skill's most recent version.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `params BetaSkillVersionGetParams`
 
@@ -114,17 +114,18 @@ Get Skill Version
 
 ## Returns
 
-- `type BetaSkillVersionGetResponse struct{…}`
+- `type BetaSkillVersion struct{…}`
 
   - `ID string`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `CreatedAt Time`
 
-  - `CreatedAt string`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `Description string`
 
@@ -132,35 +133,26 @@ Get Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `Directory string`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `Name string`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `SkillID string`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `Type string`
+    The format and length of IDs may change over time.
+
+  - `Type SkillVersion`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
 
     default: skill_version
-
-  - `Version string`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 ## Example
 
@@ -179,7 +171,7 @@ func main() {
 	client := anthropic.NewClient(
 		option.WithAPIKey("my-anthropic-api-key"),
 	)
-	version, err := client.Beta.Skills.Versions.Get(
+	betaSkillVersion, err := client.Beta.Skills.Versions.Get(
 		context.TODO(),
 		"version",
 		anthropic.BetaSkillVersionGetParams{
@@ -189,7 +181,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", version.ID)
+	fmt.Printf("%+v\n", betaSkillVersion.ID)
 }
 ```
 
@@ -197,13 +189,11 @@ func main() {
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```

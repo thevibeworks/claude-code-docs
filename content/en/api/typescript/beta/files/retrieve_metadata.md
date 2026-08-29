@@ -150,6 +150,12 @@ Get File Metadata
 
     default: false
 
+  - `expires_at?: string | null`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
+    format: date-time
+
   - `scope?: BetaFileScope | null`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
@@ -187,6 +193,7 @@ console.log(betaFileMetadata.id);
   "size_bytes": 102400,
   "type": "file",
   "downloadable": false,
+  "expires_at": "2025-05-15T18:37:24.100435Z",
   "scope": {
     "id": "id",
     "type": "session"

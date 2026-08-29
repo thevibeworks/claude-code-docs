@@ -3631,7 +3631,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       format: date-time
 
-    - `required IReadOnlyList<BetaSkill>? Skills`
+    - `required IReadOnlyList<BetaContainerSkill>? Skills`
 
       Skills loaded in the container
 
@@ -4888,7 +4888,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       minimum: 0
 
-    - `required IReadOnlyList<BetaIterationsUsageItems>? Iterations`
+    - `required IReadOnlyList<Iteration>? Iterations`
 
       Per-iteration token usage breakdown.
 
@@ -5193,7 +5193,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         minimum: 0
 
-      - `required IReadOnlyList<BetaIterationsUsageItems>? Iterations`
+      - `required IReadOnlyList<Iteration>? Iterations`
 
         Per-iteration token usage breakdown.
 
@@ -5204,6 +5204,27 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         - Understand token accumulation across server-side tool use loops
 
         A `compaction` entry reports the token usage of the compaction operation itself — the server-side request that summarizes the context being closed — NOT the size of the context that was compacted away, and its token counts can be much smaller than that closed context (for example, a compaction that closes a ~200k-token context can report only a few thousand tokens). Do not derive the context window size from a `compaction` entry, even when it is the last entry. A `compaction` entry's tokens are not included in the top-level `usage` fields. When an input-token trigger is in effect (the default — 150,000 tokens unless configured otherwise), each `compaction` entry closes a context that had reached at least that threshold, though the context can exceed it by the final iteration's output and tool results.
+
+        - `class BetaMessageIterationUsage:`
+
+          Token usage for a sampling iteration.
+
+        - `class BetaCompactionIterationUsage:`
+
+          Token usage for a compaction iteration.
+
+        - `class BetaAdvisorMessageIterationUsage:`
+
+          Token usage for an advisor sub-inference iteration.
+
+        - `class BetaFallbackMessageIterationUsage:`
+
+          Token usage for the fallback-model attempt of a server-side fallback request.
+
+          Produced in place of a `message` entry for whichever hop served the
+          response. A declined hop produces the existing `message` entry. Whether
+          a fallback model served the response is signalled by the presence of this
+          entry in `usage.iterations`.
 
       - `required long OutputTokens`
 
