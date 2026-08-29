@@ -4,7 +4,7 @@ url: https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5
 description: Overview of new features and behavior changes in Claude Opus 5.
 ---
 
-Claude Opus 5 is a step-change improvement over Claude Opus 4.8, with the largest gains in deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. This page summarizes everything new in Claude Opus 5, including thinking on by default, mid-conversation tool changes, and a breaking change to when thinking can be disabled.
+Claude Opus 5 is a step-change improvement over Claude Opus 4.8, with the largest gains in deep reasoning, agentic and long-horizon tasks, and test-time compute scaling. This page summarizes everything new in Claude Opus 5, including mid-conversation tool changes and two breaking changes for code running on Claude Opus 4.8: thinking is on by default, and thinking can be disabled only at effort `high` or below.
 
 ## New model
 
@@ -12,7 +12,7 @@ Claude Opus 5 is a step-change improvement over Claude Opus 4.8, with the larges
 | ------------- | --------------- | ---------------------------------------------- |
 | Claude Opus 5 | `claude-opus-5` | For complex agentic coding and enterprise work |
 
-Claude Opus 5 has a [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) (1M tokens is both the default and the maximum; there is no smaller context variant), 128k max output tokens, and [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on by default.
+Claude Opus 5 has a [1M token context window](https://platform.claude.com/docs/en/build-with-claude/context-windows) (1M tokens is both the default and the maximum; there is no smaller context variant), 128k max output tokens, and [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on by default. [Priority Tier](https://platform.claude.com/docs/en/api/service-tiers#supported-models) is not supported on Claude Opus 5.
 
 For complete pricing and specs, see the [models overview](https://platform.claude.com/docs/en/models/overview).
 
@@ -38,11 +38,13 @@ The minimum cacheable prompt length on Claude Opus 5 is 512 tokens, down from 1,
 
 ### Thinking on by default
 
-On Claude Opus 4.8, requests run without thinking unless you set `thinking: {"type": "adaptive"}`. On Claude Opus 5, the same requests run with [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on: the model decides when and how much to think on each turn, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) is the control for thinking depth. The wire value is unchanged; `thinking: {"type": "adaptive"}` remains valid and equivalent to the default.
+On Claude Opus 4.8, requests run without thinking unless you set `thinking: {"type": "adaptive"}`. On Claude Opus 5, the same requests run with [adaptive thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) on by default: the model decides when and how much to think on each turn, and the [effort parameter](https://platform.claude.com/docs/en/build-with-claude/effort) is the control for thinking depth. The wire value is unchanged; `thinking: {"type": "adaptive"}` remains valid and equivalent to the default.
 
-Because `max_tokens` is a hard limit on total output (thinking plus response text), revisit it for workloads that ran without thinking on Claude Opus 4.8.
+This is a breaking change for code that ran without thinking on Claude Opus 4.8. A response can begin with one or more `thinking` blocks before the first `text` block, returned with an empty `thinking` field at the default `display: "omitted"`, so code that reads `content[0].text` or treats the first streamed content block as text must select content blocks by their `type` field instead. Tool-use loops must pass `thinking` blocks back complete and unmodified with their tool results; see [Preserving thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking#preserving-thinking-blocks).
 
-The API keeps the option to disable thinking, subject to the effort restriction below.
+Thinking tokens are billed as output tokens and count toward `max_tokens`, a hard limit on total output (thinking plus response text), so revisit `max_tokens` and re-baseline cost for workloads that ran without thinking on Claude Opus 4.8.
+
+The API keeps the option to disable thinking, subject to the [effort restriction](https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5#disabling-thinking-requires-effort-high-or-below) on disabling it.
 
 ### Effort matters more
 
@@ -234,17 +236,17 @@ Thinking is [on by default](https://platform.claude.com/docs/en/models/opus-5/wh
 
 ### Disabling thinking requires effort `high` or below
 
-On Claude Opus 5, `thinking: {"type": "disabled"}` is accepted only when the effort level is `high` or below. Setting `thinking: {"type": "disabled"}` with effort `xhigh` or `max` returns a 400 error. This rule is enforced on every request to Claude Opus 5 and later models. It is a breaking change from Claude Opus 4.8, where disabling thinking was independent of the effort level. If you disable thinking at high effort levels today, either keep thinking disabled and set effort to `high` or below, or keep the effort level and remove the `thinking` field.
+On Claude Opus 5, `thinking: {"type": "disabled"}` is accepted only when the effort level is `high` or below. Setting `thinking: {"type": "disabled"}` with effort `xhigh` or `max` returns a 400 error. This rule is enforced on every request to Claude Opus 5 and later models. It is a breaking change from Claude Opus 4.8, where disabling thinking was independent of the effort level. If your Claude Opus 4.8 requests disable thinking at effort `xhigh` or `max`, either keep thinking disabled and set effort to `high` or below, or keep the effort level and remove the `thinking` field.
 
 With thinking disabled, Claude Opus 5 can occasionally write a tool call into its text output instead of emitting a `tool_use` block, or include internal XML tags in its visible response. Where possible, keep thinking enabled and control token cost with lower effort levels; for integrations that must keep thinking disabled, see [Running with thinking disabled](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5#running-with-thinking-disabled) for prompting mitigations.
 
 ### Model behavior differences
 
-Beyond the API changes above, Claude Opus 5 behaves differently from Claude Opus 4.8 in ways you may notice without changing any code. Default user-facing responses and written deliverables run longer. In agentic sessions, the model narrates its progress to the user more often. In multi-agent frameworks, it delegates to subagents more readily. It also verifies its own work without being told to, so remove verification instructions carried over from earlier models ("include a final verification step," "use a subagent to verify"); they cause over-verification on Claude Opus 5. For prompting patterns that tune each of these behaviors, see [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5).
+Beyond these API changes, Claude Opus 5 behaves differently from Claude Opus 4.8 in ways you may notice without changing any code. Default user-facing responses and written deliverables run longer. In agentic sessions, the model narrates its progress to the user more often. In multi-agent frameworks, it delegates to subagents more readily. It also verifies its own work without being told to, so remove verification instructions carried over from earlier models ("include a final verification step," "use a subagent to verify"); they cause over-verification on Claude Opus 5. For prompting patterns that tune each of these behaviors, see [Prompting Claude Opus 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5).
 
 ## Capability improvements
 
-Compared with Claude Opus 4.8, Claude Opus 5 is a step-change improvement rather than an incremental one, and it delivers frontier intelligence at half the cost of Claude Fable 5. The largest gains are in:
+Compared with Claude Opus 4.8, Claude Opus 5 is a step-change improvement rather than an incremental one, and it delivers frontier intelligence at half the cost of [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5). The largest gains are in:
 
 * **Deep reasoning**, sustaining multistep analysis across long problem chains.
 * **Agentic coding and long-horizon tasks**, staying on task across extended tool-use loops and completing multi-file features, larger refactors, and end-to-end feature work without leaving stubs or placeholders.
@@ -260,7 +262,7 @@ For the prompting patterns that get the most out of these capabilities, see [Pro
 
 ## Pricing
 
-Claude Opus 5 is priced at $5 USD per million input tokens and $25 USD per million output tokens, unchanged from Claude Opus 4.8.
+Claude Opus 5 is priced at $5 USD per million input tokens and $25 USD per million output tokens, unchanged from Claude Opus 4.8. Because thinking is on by default and thinking tokens are billed as output tokens, a workload that ran without thinking on Claude Opus 4.8 can produce more output tokens per request at the same per-token rates; see [Cost control](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#cost-control).
 
 See [Pricing](https://platform.claude.com/docs/en/about-claude/pricing) for complete pricing, including batch processing, prompt caching, and fast mode rates.
 
@@ -316,7 +318,7 @@ To migrate from Claude Opus 4.8, update your model ID:
   ```
 </CodeGroup>
 
-Then review the two [behavior changes](https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5#behavior-changes): thinking is on by default, and disabling thinking with effort `xhigh` or `max` returns a 400 error. See the [migration guide](https://platform.claude.com/docs/en/models/opus-5/migration-guide#migrating-from-claude-opus-4-8-to-claude-opus-5) for step-by-step instructions.
+Then review the two breaking changes under [Behavior changes](https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5#behavior-changes): thinking is on by default (responses can begin with `thinking` blocks, so select content blocks by `type`), and disabling thinking with effort `xhigh` or `max` returns a 400 error. See the [migration guide](https://platform.claude.com/docs/en/models/opus-5/migration-guide#migrating-from-claude-opus-4-8-to-claude-opus-5) for step-by-step instructions and the full checklist.
 
 ## Next steps
 

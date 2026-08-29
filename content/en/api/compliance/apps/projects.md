@@ -360,15 +360,23 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
 ## Domain types
 
-### Project List Response
+### Project Retrieve Response
 
-- `ProjectListResponse object`
+- `ProjectRetrieveResponse object`
 
-  Project information for compliance responses.
+  Detailed project information for compliance responses.
 
   - `id: string`
 
     Project identifier (tagged ID)
+
+  - `attachments_count: number`
+
+    Number of attachments contained within this project
+
+  - `chats_count: number`
+
+    Number of chats contained within this project
 
   - `created_at: string`
 
@@ -381,6 +389,14 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
     Timestamp when the project was deleted by an end user, or null otherwise
 
     format: date-time
+
+  - `description: string`
+
+    Project description
+
+  - `instructions: string`
+
+    Project's custom instructions / prompt
 
   - `is_private: boolean`
 
@@ -422,23 +438,15 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
 
     Organization identifier (tagged ID)
 
-### Project Retrieve Response
+### Project List Response
 
-- `ProjectRetrieveResponse object`
+- `ProjectListResponse object`
 
-  Detailed project information for compliance responses.
+  Project information for compliance responses.
 
   - `id: string`
 
     Project identifier (tagged ID)
-
-  - `attachments_count: number`
-
-    Number of attachments contained within this project
-
-  - `chats_count: number`
-
-    Number of chats contained within this project
 
   - `created_at: string`
 
@@ -451,14 +459,6 @@ curl https://api.anthropic.com/v1/compliance/apps/projects/$PROJECT_ID \
     Timestamp when the project was deleted by an end user, or null otherwise
 
     format: date-time
-
-  - `description: string`
-
-    Project description
-
-  - `instructions: string`
-
-    Project's custom instructions / prompt
 
   - `is_private: boolean`
 

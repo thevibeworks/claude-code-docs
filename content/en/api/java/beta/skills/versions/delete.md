@@ -1,6 +1,6 @@
 # Delete Skill Version
 
-`VersionDeleteResponse beta().skills().versions().delete(params, requestOptions = RequestOptions.none())`
+`BetaDeletedSkillVersion beta().skills().versions().delete(params, requestOptions = RequestOptions.none())`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -18,9 +18,9 @@ Delete Skill Version
 
   - `Optional<String> version`
 
-    Version identifier for the skill.
+    Identifies the skill version by its version ID.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+    Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
   - `Optional<List<AnthropicBeta>> betas`
 
@@ -110,15 +110,14 @@ Delete Skill Version
 
 ## Returns
 
-- `class VersionDeleteResponse:`
+- `class BetaDeletedSkillVersion:`
 
   - `String id`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `String type`
+  - `JsonValue type constant`
 
     Deleted object type.
 
@@ -131,8 +130,8 @@ package com.anthropic.example;
 
 import com.anthropic.client.AnthropicClient;
 import com.anthropic.client.okhttp.AnthropicOkHttpClient;
+import com.anthropic.models.beta.skills.versions.BetaDeletedSkillVersion;
 import com.anthropic.models.beta.skills.versions.VersionDeleteParams;
-import com.anthropic.models.beta.skills.versions.VersionDeleteResponse;
 
 public final class Main {
     private Main() {}
@@ -144,7 +143,7 @@ public final class Main {
             .skillId("skill_id")
             .version("version")
             .build();
-        VersionDeleteResponse version = client.beta().skills().versions().delete(params);
+        BetaDeletedSkillVersion betaDeletedSkillVersion = client.beta().skills().versions().delete(params);
     }
 }
 ```
@@ -153,7 +152,7 @@ public final class Main {
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```

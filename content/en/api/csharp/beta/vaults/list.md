@@ -1,6 +1,6 @@
 # List Vaults
 
-`VaultListPageResponse Beta.Vaults.List(parameters, cancellationToken = default)`
+`VaultListPage Beta.Vaults.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/vaults`
 
@@ -112,49 +112,41 @@ List Vaults
 
 ## Returns
 
-- `class VaultListPageResponse:`
+- `class BetaManagedAgentsVault:`
 
-  Response containing a paginated list of vaults.
+  A vault that stores credentials for use by agents during sessions.
 
-  - `IReadOnlyList<BetaManagedAgentsVault> Data`
+  - `required string ID`
 
-    List of vaults.
+    Unique identifier for the vault.
 
-    - `required string ID`
+  - `required DateTimeOffset? ArchivedAt`
 
-      Unique identifier for the vault.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset? ArchivedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required DateTimeOffset CreatedAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string DisplayName`
 
-      format: date-time
+    Human-readable name for the vault.
 
-    - `required string DisplayName`
+  - `required IReadOnlyDictionary<string, string> Metadata`
 
-      Human-readable name for the vault.
+    Arbitrary key-value metadata attached to the vault.
 
-    - `required IReadOnlyDictionary<string, string> Metadata`
+  - `required Type Type`
 
-      Arbitrary key-value metadata attached to the vault.
+  - `required DateTimeOffset UpdatedAt`
 
-    - `required Type Type`
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset UpdatedAt`
-
-      A timestamp in RFC 3339 format
-
-      format: date-time
-
-  - `string? NextPage`
-
-    Pagination token for the next page, or null if no more results.
+    format: date-time
 
 ## Example
 

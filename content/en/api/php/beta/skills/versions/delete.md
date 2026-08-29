@@ -1,6 +1,6 @@
 # Delete Skill Version
 
-`$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas): VersionDeleteResponse`
+`$client->beta->skills->versions->delete(string version, string skillID, ?list<AnthropicBeta> betas): DeletedSkillVersion`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -16,9 +16,9 @@ Delete Skill Version
 
 - `version: string`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -26,15 +26,14 @@ Delete Skill Version
 
 ## Returns
 
-- `VersionDeleteResponse`
+- `DeletedSkillVersion`
 
   - `string id`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `string type`
+  - `"skill_version_deleted" type`
 
     Deleted object type.
 
@@ -49,20 +48,20 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$version = $client->beta->skills->versions->delete(
+$betaDeletedSkillVersion = $client->beta->skills->versions->delete(
   'version',
   skillID: 'skill_id',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
-var_dump($version);
+var_dump($betaDeletedSkillVersion);
 ```
 
 ### Response (200)
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```

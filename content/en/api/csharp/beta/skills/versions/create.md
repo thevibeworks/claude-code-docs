@@ -1,6 +1,6 @@
 # Create Skill Version
 
-`VersionCreateResponse Beta.Skills.Versions.Create(parameters, cancellationToken = default)`
+`BetaSkillVersion Beta.Skills.Versions.Create(parameters, cancellationToken = default)`
 
 **POST** `/v1/skills/{skill_id}/versions`
 
@@ -110,17 +110,18 @@ Create Skill Version
 
 ## Returns
 
-- `class VersionCreateResponse:`
+- `class BetaSkillVersion:`
 
   - `required string ID`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `required DateTimeOffset CreatedAt`
 
-  - `required string CreatedAt`
+    ISO 8601 timestamp of when the skill was created.
 
-    ISO 8601 timestamp of when the skill version was created.
+    format: date-time
 
   - `required string Description`
 
@@ -128,33 +129,24 @@ Create Skill Version
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `required string Directory`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `required string Name`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `required string SkillID`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `required string Type`
+    The format and length of IDs may change over time.
+
+  - `JsonElement Type constant`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
-
-  - `required string Version`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 ## Example
 
@@ -168,22 +160,20 @@ VersionCreateParams parameters = new()
     ],
 };
 
-var version = await client.Beta.Skills.Versions.Create(parameters);
+var betaSkillVersion = await client.Beta.Skills.Versions.Create(parameters);
 
-Console.WriteLine(version);
+Console.WriteLine(betaSkillVersion);
 ```
 
 ### Response (200)
 
 ```json
 {
-  "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+  "id": "id",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "description": "A custom skill for doing something useful",
-  "directory": "my-skill",
-  "name": "my-skill",
+  "description": "description",
+  "name": "name",
   "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type",
-  "version": "1759178010641129"
+  "type": "skill_version"
 }
 ```

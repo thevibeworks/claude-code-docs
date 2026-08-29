@@ -22,7 +22,7 @@ Claude is a family of state-of-the-art large language models developed by Anthro
 
 ## Compare models
 
-If you're unsure which model to use, start with [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview) for complex agentic coding and enterprise work; for the highest available capability, use [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview). All current models support text and image input, text output, multilingual capabilities, vision, and tool use; each model’s page lists the platforms it is available on.
+If you're unsure which model to use, start with [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview) for complex agentic coding and enterprise work; for the highest available capability, use [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview). All current models support text and image input, text output, multilingual capabilities, vision, and tool use; each model's page lists the platforms it is available on.
 
 | Feature                                                                                                   | Claude Fable 5                                                                | Claude Opus 5                                                               | Claude Sonnet 5                                                                 | Claude Haiku 4.5                                                                  |
 | :-------------------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------- | :-------------------------------------------------------------------------- | :------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------- |
@@ -75,7 +75,7 @@ Current Claude models excel in:
 
 * **Performance:** Top-tier results in reasoning, coding, multilingual tasks, long-context handling, honesty, and image processing. See [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) for general and model-specific prompting guidance.
 * **Engaging responses:** Claude models are ideal for applications that require rich, human-like interactions. If you prefer more concise responses, adjust your prompts to guide the model toward the desired output length. Refer to the [prompt engineering guides](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering) for details.
-* **Output quality:** When migrating from a previous model generation, you may notice larger improvements in overall performance. If you're on Claude Opus 4.8 or earlier, see [Migrating to Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/migration-guide#migrating-from-claude-opus-4-8-to-claude-opus-5).
+* **Output quality:** When migrating from a previous model generation, you may notice larger improvements in overall performance. If you're on Claude Opus 4.8 or earlier, see [Migrating to Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/migration-guide).
 
 ## Get started with Claude
 

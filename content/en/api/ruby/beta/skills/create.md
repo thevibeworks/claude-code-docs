@@ -1,6 +1,6 @@
 # Create Skill
 
-`beta.skills.create(**kwargs) -> SkillCreateResponse`
+`beta.skills.create(**kwargs) -> BetaSkill`
 
 **POST** `/v1/skills`
 
@@ -14,11 +14,11 @@ Create Skill
 
   All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-- `display_title: String`
+- `display_name: String`
 
-  Display title for the skill.
-
-  This is a human-readable label that is not included in the prompt sent to the model.
+  Human-readable, single-line label for the Skill. Maximum 255 characters.
+  Always set: derived from the SKILL.md frontmatter `name` when omitted at
+  creation. Not unique.
 
 - `betas: Array[AnthropicBeta]`
 
@@ -112,7 +112,7 @@ Create Skill
 
 ## Returns
 
-- `class SkillCreateResponse`
+- `class BetaSkill`
 
   - `id: String`
 
@@ -120,40 +120,63 @@ Create Skill
 
     The format and length of IDs may change over time.
 
-  - `created_at: String`
+  - `created_at: Time`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: String`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: String`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: String`
+  - `latest_version_id: String`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: String`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: :custom | :anthropic | :anthropic_example | :plugin`
 
-  - `type: String`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `:custom`
+
+      - `:anthropic`
+
+      - `:anthropic_example`
+
+      - `:plugin`
+
+  - `type: :skill`
 
     Object type.
 
     For Skills, this is always `"skill"`.
 
-  - `updated_at: String`
+  - `updated_at: Time`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 ## Example
 
@@ -162,9 +185,9 @@ require "anthropic"
 
 anthropic = Anthropic::Client.new(api_key: "my-anthropic-api-key")
 
-skill = anthropic.beta.skills.create(files: [StringIO.new("Example data")])
+beta_skill = anthropic.beta.skills.create(files: [StringIO.new("Example data")])
 
-puts(skill)
+puts(beta_skill)
 ```
 
 ### Response (200)
@@ -173,10 +196,12 @@ puts(skill)
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```

@@ -146,7 +146,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             format: date-time
 
-          - `required IReadOnlyList<BetaSkill>? Skills`
+          - `required IReadOnlyList<BetaContainerSkill>? Skills`
 
             Skills loaded in the container
 
@@ -1403,7 +1403,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             minimum: 0
 
-          - `required IReadOnlyList<BetaIterationsUsageItems>? Iterations`
+          - `required IReadOnlyList<Iteration>? Iterations`
 
             Per-iteration token usage breakdown.
 

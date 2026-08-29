@@ -134,7 +134,7 @@ You extend what Claude can reach, like your repositories, ticketing systems, dat
       <a className="tm-qrow" href="/docs/docs/claude-tag/users/use-cases">
         <span className="tm-qrow-text">
           <span className="tm-qrow-q">What is Claude Tag good at?</span>
-          <span className="tm-qrow-sub">Use cases for coding, data, incidents, and GTM</span>
+          <span className="tm-qrow-sub">Use cases for coding, data, incidents, and go-to-market</span>
         </span>
       </a>
 
@@ -178,11 +178,24 @@ To learn what your team's usage costs, run a pilot with a spend limit set and wa
 
 If Claude Tag is in your channel, you can use it now. (If it isn't there yet, an Owner in your Claude organization runs setup: see [Set up Claude Tag](/docs/claude-tag/admins/setup-overview).) Anyone in the channel can hand it work, and channel work bills to the organization, not to you.
 
-What it can reach depends on the channel you're in, not on who you are. The fastest way to find out is to ask it: `@Claude what can you access from this channel?` Or, if you're signed in to your Claude organization, click **Configure** in the footer of any Claude reply to see the channel's connections.
+What it can reach depends on the channel you're in, not on who you are. The fastest way to find out is to ask it: `@Claude what can you access from this channel?` Or, if you're signed in to your Claude organization, click **Configure** in the footer of a Claude reply in the channel to see its [connections](/docs/claude-tag/concepts/glossary#connection), the external services an admin has connected for that channel. Replies in org-shared channels have no Configure link.
 
 The one exception is a DM, where it runs on your own claude.ai account instead of the channel's setup. Owners can disable DMs organization-wide; see [Allow or disable direct messages](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages).
 
-Begin with [Get started](/docs/claude-tag/users/getting-started), which covers your first message, what you see while it works, and how to shape its behavior in your channel.
+### Common uses
+
+The list below covers common ways teams use Claude Tag. Each link opens a guide with the prompts to paste and the connections the task needs.
+
+* [Watch monitors and alerts](/docs/claude-tag/users/use-cases/watch-monitors): scheduled dashboard checks, and alerts investigated as they arrive. Needs a monitoring connection like Datadog, Sentry, or PagerDuty.
+* [Triage requests](/docs/claude-tag/users/use-cases/triage-requests): an intake channel where Claude answers what it can, flags duplicates, and routes the rest. Works on Slack content alone.
+* [Find answers in your docs](/docs/claude-tag/users/use-cases/find-answers): policy and runbook questions answered with the source. Needs a docs connection like Google Drive, Notion, or Confluence.
+* [Answer data questions](/docs/claude-tag/users/use-cases/answer-data-questions): a plain-language question becomes a warehouse query and a chart. Needs a data warehouse connection.
+* [Track projects and chase approvals](/docs/claude-tag/users/use-cases/track-projects): standing status digests and follow-ups that run until an approval lands
+* [Turn threads into docs and tickets](/docs/claude-tag/users/use-cases/create-artifacts): a settled discussion becomes the decision doc, the customer reply, or the filed tickets
+* [Fix bugs](/docs/claude-tag/users/use-cases/fix-bugs): a bug reported in the channel comes back as a draft pull request. Needs GitHub.
+* [Work from your own channel](/docs/claude-tag/users/use-cases/your-own-channel): scratch questions, digests of channels you don't follow, and follow-ups on what you said you'd do
+
+[Get started](/docs/claude-tag/users/getting-started) covers your first message, what you see while Claude works, and how to shape Claude's behavior in your channel.
 
 <div className="tm-eyebrow"><span className="tm-swatch tm-swatch-admins" />For administrators</div>
 

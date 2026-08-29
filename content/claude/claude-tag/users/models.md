@@ -12,6 +12,8 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 Every Claude Tag reply in Slack comes from one Claude model, and you choose which one by asking Claude for it in plain language, the same way you hand it any other task. The footer of each reply names the model that handled it, so you can confirm a switch took effect.
 
+Model choice is part of Claude Tag, which is available on Team and Enterprise plans. It isn't available on individual plans (Free, Pro, or Max) or for third-party deployments.
+
 Which models you can ask for depends on your organization; see [which models you can use](#which-models-you-can-use).
 
 ## Switch the model in a thread

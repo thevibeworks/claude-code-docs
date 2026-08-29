@@ -1,6 +1,6 @@
 # List memory versions
 
-`MemoryVersionListPageResponse Beta.MemoryStores.MemoryVersions.List(parameters, cancellationToken = default)`
+`MemoryVersionListPage Beta.MemoryStores.MemoryVersions.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
@@ -148,127 +148,119 @@ List memory versions
 
 ## Returns
 
-- `class MemoryVersionListPageResponse:`
+- `class BetaManagedAgentsMemoryVersion:`
 
-  Response payload for [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+  A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
 
-  - `IReadOnlyList<BetaManagedAgentsMemoryVersion> Data`
+  - `required string ID`
 
-    One page of `memory_version` objects, ordered by `created_at` descending (newest first), with `id` as tiebreak.
+    Unique identifier for this version (a `memver_...` value).
 
-    - `required string ID`
+  - `required DateTimeOffset CreatedAt`
 
-      Unique identifier for this version (a `memver_...` value).
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string MemoryID`
 
-      format: date-time
+    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
 
-    - `required string MemoryID`
+  - `required string MemoryStoreID`
 
-      ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
+    ID of the memory store this version belongs to (a `memstore_...` value).
 
-    - `required string MemoryStoreID`
+  - `required BetaManagedAgentsMemoryVersionOperation Operation`
 
-      ID of the memory store this version belongs to (a `memstore_...` value).
+    The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
 
-    - `required BetaManagedAgentsMemoryVersionOperation Operation`
+    - `Created`
 
-      The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
+    - `Modified`
 
-      - `Created`
+    - `Deleted`
 
-      - `Modified`
+  - `required Type Type`
 
-      - `Deleted`
+  - `string? Content`
 
-    - `required Type Type`
+    The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-    - `string? Content`
+  - `string? ContentSha256`
 
-      The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
+    Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-    - `string? ContentSha256`
+  - `int? ContentSizeBytes`
 
-      Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+    Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-    - `int? ContentSizeBytes`
+    format: int32
 
-      Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+  - `BetaManagedAgentsActor CreatedBy`
 
-      format: int32
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-    - `BetaManagedAgentsActor CreatedBy`
+    - `class BetaManagedAgentsSessionActor:`
 
-      Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+      Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
-      - `class BetaManagedAgentsSessionActor:`
+      - `required string SessionID`
 
-        Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
+        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-        - `required string SessionID`
+        minLength: 1
 
-          ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+      - `required Type Type`
 
-          minLength: 1
+    - `class BetaManagedAgentsApiActor:`
 
-        - `required Type Type`
+      Attribution for a write made directly via the public API (outside of any session).
 
-      - `class BetaManagedAgentsApiActor:`
+      - `required string ApiKeyID`
 
-        Attribution for a write made directly via the public API (outside of any session).
+        ID of the API key that performed the write. This identifies the key, not the secret.
 
-        - `required string ApiKeyID`
+        minLength: 1
 
-          ID of the API key that performed the write. This identifies the key, not the secret.
+      - `required Type Type`
 
-          minLength: 1
+    - `class BetaManagedAgentsUserActor:`
 
-        - `required Type Type`
+      Attribution for a write made by a human user through the Anthropic Console.
 
-      - `class BetaManagedAgentsUserActor:`
+      - `required Type Type`
 
-        Attribution for a write made by a human user through the Anthropic Console.
+      - `required string UserID`
 
-        - `required Type Type`
+        ID of the user who performed the write (a `user_...` value).
 
-        - `required string UserID`
+        minLength: 1
 
-          ID of the user who performed the write (a `user_...` value).
+    - `class BetaManagedAgentsServiceAccountActor:`
 
-          minLength: 1
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
-      - `class BetaManagedAgentsServiceAccountActor:`
+      - `required string ServiceAccountID`
 
-        Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+        ID of the service account that performed the write (a `svac_...` value).
 
-        - `required string ServiceAccountID`
+        minLength: 1
 
-          ID of the service account that performed the write (a `svac_...` value).
+      - `JsonElement Type constant`
 
-          minLength: 1
+  - `string? Path`
 
-        - `JsonElement Type constant`
+    The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-    - `string? Path`
+  - `DateTimeOffset? RedactedAt`
 
-      The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
+    A timestamp in RFC 3339 format
 
-    - `DateTimeOffset? RedactedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `BetaManagedAgentsActor RedactedBy`
 
-      format: date-time
-
-    - `BetaManagedAgentsActor RedactedBy`
-
-      Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
-
-  - `string? NextPage`
-
-    Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
 ## Example
 

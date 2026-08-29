@@ -20,7 +20,7 @@ Delete Skill
 
 ## Returns
 
-- `BetaSkillDeleteResponse: object`
+- `beta_deleted_skill: object`
 
   - `id: string`
 
@@ -28,7 +28,7 @@ Delete Skill
 
     The format and length of IDs may change over time.
 
-  - `type: string`
+  - `type: "skill_deleted"`
 
     Deleted object type.
 
@@ -47,6 +47,6 @@ ant beta:skills delete \
 ```json
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type"
+  "type": "skill_deleted"
 }
 ```

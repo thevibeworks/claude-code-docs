@@ -14,6 +14,12 @@ Upload File
 
   format: binary
 
+- `expires_in_seconds: Optional[int]`
+
+  Seconds from upload until the file expires and its bytes become permanently unavailable. Must be between 3600 (one hour) and 7776000 (ninety days).
+
+  minimum: 3600, maximum: 7776000
+
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
@@ -150,6 +156,12 @@ Upload File
 
     default: false
 
+  - `expires_at: Optional[datetime]`
+
+    RFC 3339 datetime string representing when the file will expire and become unavailable for download. Null if the file does not expire. For files uploaded with `expires_in_seconds`, this is the upload time plus that value.
+
+    format: date-time
+
   - `scope: Optional[BetaFileScope]`
 
     The scope of this file, indicating the context in which it was created (e.g., a session).
@@ -190,6 +202,7 @@ print(beta_file_metadata.id)
   "size_bytes": 102400,
   "type": "file",
   "downloadable": false,
+  "expires_at": "2025-05-15T18:37:24.100435Z",
   "scope": {
     "id": "id",
     "type": "session"

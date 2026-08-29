@@ -1,6 +1,6 @@
 # Get Skill
 
-`client.Beta.Skills.Get(ctx, skillID, query) (*BetaSkillGetResponse, error)`
+`client.Beta.Skills.Get(ctx, skillID, query) (*BetaSkill, error)`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -108,7 +108,7 @@ Get Skill
 
 ## Returns
 
-- `type BetaSkillGetResponse struct{…}`
+- `type BetaSkill struct{…}`
 
   - `ID string`
 
@@ -116,32 +116,53 @@ Get Skill
 
     The format and length of IDs may change over time.
 
-  - `CreatedAt string`
+  - `CreatedAt Time`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `DisplayTitle string`
+    format: date-time
 
-    Display title for the skill.
+  - `DisplayName string`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `LatestVersion string`
+  - `LatestVersionID string`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `Source BetaSkillSource`
 
-  - `Source string`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `Type BetaSkillSourceType`
 
-  - `Type string`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `const BetaSkillSourceTypeCustom BetaSkillSourceType = "custom"`
+
+      - `const BetaSkillSourceTypeAnthropic BetaSkillSourceType = "anthropic"`
+
+      - `const BetaSkillSourceTypeAnthropicExample BetaSkillSourceType = "anthropic_example"`
+
+      - `const BetaSkillSourceTypePlugin BetaSkillSourceType = "plugin"`
+
+  - `Type Skill`
 
     Object type.
 
@@ -149,9 +170,11 @@ Get Skill
 
     default: skill
 
-  - `UpdatedAt string`
+  - `UpdatedAt Time`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 ## Example
 
@@ -170,7 +193,7 @@ func main() {
 	client := anthropic.NewClient(
 		option.WithAPIKey("my-anthropic-api-key"),
 	)
-	skill, err := client.Beta.Skills.Get(
+	betaSkill, err := client.Beta.Skills.Get(
 		context.TODO(),
 		"skill_id",
 		anthropic.BetaSkillGetParams{},
@@ -178,7 +201,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", skill.ID)
+	fmt.Printf("%+v\n", betaSkill.ID)
 }
 ```
 
@@ -188,10 +211,12 @@ func main() {
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```

@@ -1,6 +1,6 @@
 # List memory stores
 
-`MemoryStoreListPageResponse Beta.MemoryStores.List(parameters, cancellationToken = default)`
+`MemoryStoreListPage Beta.MemoryStores.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/memory_stores`
 
@@ -124,53 +124,45 @@ List memory stores
 
 ## Returns
 
-- `class MemoryStoreListPageResponse:`
+- `class BetaManagedAgentsMemoryStore:`
 
-  A page of `memory_store` results, ordered by `created_at` descending (newest first).
+  A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
-  - `IReadOnlyList<BetaManagedAgentsMemoryStore> Data`
+  - `required string ID`
 
-    Memory stores on this page, newest first. Empty when there are no stores matching the filters.
+    Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
-    - `required string ID`
+  - `required DateTimeOffset CreatedAt`
 
-      Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string Name`
 
-      format: date-time
+    Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
-    - `required string Name`
+  - `required Type Type`
 
-      Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
+  - `required DateTimeOffset UpdatedAt`
 
-    - `required Type Type`
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset UpdatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `DateTimeOffset? ArchivedAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `DateTimeOffset? ArchivedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `string Description`
 
-      format: date-time
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
 
-    - `string Description`
+  - `IReadOnlyDictionary<string, string> Metadata`
 
-      Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-    - `IReadOnlyDictionary<string, string> Metadata`
-
-      Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
-
-  - `string? NextPage`
-
-    Opaque cursor for the next page (a `page_...` value). Pass as `page` on the next request. `null` when there are no more results.
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ## Example
 

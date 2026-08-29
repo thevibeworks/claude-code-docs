@@ -511,44 +511,6 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/archive \
     ID of the Workspace this Tunnel belongs to, or `null` for the default
     Workspace. Immutable after creation.
 
-### MCP Tunnel Reveal Token Response
-
-- `MCPTunnelRevealTokenResponse object`
-
-  - `id: string`
-
-    Stable identifier for the current token value. Changes when the token is
-    rotated.
-
-  - `tunnel_token: string`
-
-    The tunnel's connection token.
-
-  - `type: "tunnel_token"`
-
-    Object type. Always `tunnel_token` for Tunnel Tokens.
-
-    default: tunnel_token
-
-### MCP Tunnel Rotate Token Response
-
-- `MCPTunnelRotateTokenResponse object`
-
-  - `id: string`
-
-    Stable identifier for the current token value. Changes when the token is
-    rotated.
-
-  - `tunnel_token: string`
-
-    The tunnel's connection token.
-
-  - `type: "tunnel_token"`
-
-    Object type. Always `tunnel_token` for Tunnel Tokens.
-
-    default: tunnel_token
-
 ### MCP Tunnel Archive Response
 
 - `MCPTunnelArchiveResponse object`
@@ -590,6 +552,44 @@ curl https://api.anthropic.com/v1/organizations/tunnels/$TUNNEL_ID/archive \
 
     ID of the Workspace this Tunnel belongs to, or `null` for the default
     Workspace. Immutable after creation.
+
+### MCP Tunnel Reveal Token Response
+
+- `MCPTunnelRevealTokenResponse object`
+
+  - `id: string`
+
+    Stable identifier for the current token value. Changes when the token is
+    rotated.
+
+  - `tunnel_token: string`
+
+    The tunnel's connection token.
+
+  - `type: "tunnel_token"`
+
+    Object type. Always `tunnel_token` for Tunnel Tokens.
+
+    default: tunnel_token
+
+### MCP Tunnel Rotate Token Response
+
+- `MCPTunnelRotateTokenResponse object`
+
+  - `id: string`
+
+    Stable identifier for the current token value. Changes when the token is
+    rotated.
+
+  - `tunnel_token: string`
+
+    The tunnel's connection token.
+
+  - `type: "tunnel_token"`
+
+    Object type. Always `tunnel_token` for Tunnel Tokens.
+
+    default: tunnel_token
 
 ## MCP Tunnels › Tunnel Certificates
 

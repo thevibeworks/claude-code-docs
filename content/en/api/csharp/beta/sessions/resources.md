@@ -174,7 +174,7 @@ Console.WriteLine(betaManagedAgentsFileResource);
 
 ## List Session Resources
 
-`ResourceListPageResponse Beta.Sessions.Resources.List(parameters, cancellationToken = default)`
+`ResourceListPage Beta.Sessions.Resources.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/sessions/{session_id}/resources`
 
@@ -286,119 +286,111 @@ List Session Resources
 
 ### Returns
 
-- `class ResourceListPageResponse:`
+- `class BetaManagedAgentsSessionResource: union`
 
-  Paginated list of resources attached to a session.
+  A memory store attached to an agent session.
 
-  - `required IReadOnlyList<BetaManagedAgentsSessionResource> Data`
+  - `class BetaManagedAgentsGitHubRepositoryResource:`
 
-    Resources for the session, ordered by `created_at`.
+    - `required string ID`
 
-    - `class BetaManagedAgentsGitHubRepositoryResource:`
+    - `required DateTimeOffset CreatedAt`
 
-      - `required string ID`
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset CreatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+    - `required string MountPath`
 
-        format: date-time
+    - `required Type Type`
 
-      - `required string MountPath`
+    - `required DateTimeOffset UpdatedAt`
 
-      - `required Type Type`
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset UpdatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+    - `required string Url`
 
-        format: date-time
+    - `Checkout? Checkout`
 
-      - `required string Url`
+      - `class BetaManagedAgentsBranchCheckout:`
 
-      - `Checkout? Checkout`
+        - `required string Name`
 
-        - `class BetaManagedAgentsBranchCheckout:`
+          Branch name to check out.
 
-          - `required string Name`
+          minLength: 1, maxLength: 255
 
-            Branch name to check out.
+        - `required Type Type`
 
-            minLength: 1, maxLength: 255
+      - `class BetaManagedAgentsCommitCheckout:`
 
-          - `required Type Type`
+        - `required string Sha`
 
-        - `class BetaManagedAgentsCommitCheckout:`
+          Full commit SHA to check out.
 
-          - `required string Sha`
+          minLength: 7, maxLength: 64
 
-            Full commit SHA to check out.
+        - `required Type Type`
 
-            minLength: 7, maxLength: 64
+  - `class BetaManagedAgentsFileResource:`
 
-          - `required Type Type`
+    - `required string ID`
 
-    - `class BetaManagedAgentsFileResource:`
+    - `required DateTimeOffset CreatedAt`
 
-      - `required string ID`
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset CreatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+    - `required string FileID`
 
-        format: date-time
+    - `required string MountPath`
 
-      - `required string FileID`
+    - `required Type Type`
 
-      - `required string MountPath`
+    - `required DateTimeOffset UpdatedAt`
 
-      - `required Type Type`
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset UpdatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+  - `class BetaManagedAgentsMemoryStoreResource:`
 
-        format: date-time
+    A memory store attached to an agent session.
 
-    - `class BetaManagedAgentsMemoryStoreResource:`
+    - `required string MemoryStoreID`
 
-      A memory store attached to an agent session.
+      The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
 
-      - `required string MemoryStoreID`
+    - `required Type Type`
 
-        The memory store ID (memstore_...). Must belong to the caller's organization and workspace.
+    - `Access? Access`
 
-      - `required Type Type`
+      Access mode for an attached memory store.
 
-      - `Access? Access`
+      - `ReadWrite`
 
-        Access mode for an attached memory store.
+      - `ReadOnly`
 
-        - `ReadWrite`
+    - `string Description`
 
-        - `ReadOnly`
+      Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
 
-      - `string Description`
+    - `string? Instructions`
 
-        Description of the memory store, snapshotted at attach time. Rendered into the agent's system prompt. Empty string when the store has no description.
+      Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
 
-      - `string? Instructions`
+      maxLength: 4096
 
-        Per-attachment guidance for the agent on how to use this store. Rendered into the memory section of the system prompt. Max 4096 chars.
+    - `string? MountPath`
 
-        maxLength: 4096
+      Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
 
-      - `string? MountPath`
+    - `string? Name`
 
-        Filesystem path where the store is mounted in the session container, e.g. /mnt/memory/user-preferences. Derived from the store's name. Output-only.
-
-      - `string? Name`
-
-        Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
-
-  - `string? NextPage`
-
-    Opaque cursor for the next page. Null when no more results.
+      Display name of the memory store, snapshotted at attach time. Later edits to the store's name do not propagate to this resource.
 
 ### Example
 

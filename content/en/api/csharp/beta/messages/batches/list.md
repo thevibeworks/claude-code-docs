@@ -1,6 +1,6 @@
 # List Message Batches
 
-`BatchListPageResponse Beta.Messages.Batches.List(parameters, cancellationToken = default)`
+`BatchListPage Beta.Messages.Batches.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/messages/batches`
 
@@ -116,115 +116,101 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
 ## Returns
 
-- `class BatchListPageResponse:`
+- `class BetaMessageBatch:`
 
-  - `required IReadOnlyList<BetaMessageBatch> Data`
+  - `required string ID`
 
-    - `required string ID`
+    Unique object identifier.
 
-      Unique object identifier.
+    The format and length of IDs may change over time.
 
-      The format and length of IDs may change over time.
+  - `required DateTimeOffset? ArchivedAt`
 
-    - `required DateTimeOffset? ArchivedAt`
+    RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
 
-      RFC 3339 datetime string representing the time at which the Message Batch was archived and its results became unavailable.
+    format: date-time
 
-      format: date-time
+  - `required DateTimeOffset? CancelInitiatedAt`
 
-    - `required DateTimeOffset? CancelInitiatedAt`
+    RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
 
-      RFC 3339 datetime string representing the time at which cancellation was initiated for the Message Batch. Specified only if cancellation was initiated.
+    format: date-time
 
-      format: date-time
+  - `required DateTimeOffset CreatedAt`
 
-    - `required DateTimeOffset CreatedAt`
+    RFC 3339 datetime string representing the time at which the Message Batch was created.
 
-      RFC 3339 datetime string representing the time at which the Message Batch was created.
+    format: date-time
 
-      format: date-time
+  - `required DateTimeOffset? EndedAt`
 
-    - `required DateTimeOffset? EndedAt`
+    RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
 
-      RFC 3339 datetime string representing the time at which processing for the Message Batch ended. Specified only once processing ends.
+    Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
 
-      Processing ends when every request in a Message Batch has either succeeded, errored, canceled, or expired.
+    format: date-time
 
-      format: date-time
+  - `required DateTimeOffset ExpiresAt`
 
-    - `required DateTimeOffset ExpiresAt`
+    RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
 
-      RFC 3339 datetime string representing the time at which the Message Batch will expire and end processing, which is 24 hours after creation.
+    format: date-time
 
-      format: date-time
+  - `required ProcessingStatus ProcessingStatus`
 
-    - `required ProcessingStatus ProcessingStatus`
+    Processing status of the Message Batch.
 
-      Processing status of the Message Batch.
+    - `InProgress`
 
-      - `InProgress`
+    - `Canceling`
 
-      - `Canceling`
+    - `Ended`
 
-      - `Ended`
+  - `required BetaMessageBatchRequestCounts RequestCounts`
 
-    - `required BetaMessageBatchRequestCounts RequestCounts`
+    Tallies requests within the Message Batch, categorized by their status.
 
-      Tallies requests within the Message Batch, categorized by their status.
+    Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
 
-      Requests start as `processing` and move to one of the other statuses only once processing of the entire batch ends. The sum of all values always matches the total number of requests in the batch.
+    - `required long Canceled`
 
-      - `required long Canceled`
+      Number of requests in the Message Batch that have been canceled.
 
-        Number of requests in the Message Batch that have been canceled.
+      This is zero until processing of the entire Message Batch has ended.
 
-        This is zero until processing of the entire Message Batch has ended.
+    - `required long Errored`
 
-      - `required long Errored`
+      Number of requests in the Message Batch that encountered an error.
 
-        Number of requests in the Message Batch that encountered an error.
+      This is zero until processing of the entire Message Batch has ended.
 
-        This is zero until processing of the entire Message Batch has ended.
+    - `required long Expired`
 
-      - `required long Expired`
+      Number of requests in the Message Batch that have expired.
 
-        Number of requests in the Message Batch that have expired.
+      This is zero until processing of the entire Message Batch has ended.
 
-        This is zero until processing of the entire Message Batch has ended.
+    - `required long Processing`
 
-      - `required long Processing`
+      Number of requests in the Message Batch that are processing.
 
-        Number of requests in the Message Batch that are processing.
+    - `required long Succeeded`
 
-      - `required long Succeeded`
+      Number of requests in the Message Batch that have completed successfully.
 
-        Number of requests in the Message Batch that have completed successfully.
+      This is zero until processing of the entire Message Batch has ended.
 
-        This is zero until processing of the entire Message Batch has ended.
+  - `required string? ResultsUrl`
 
-    - `required string? ResultsUrl`
+    URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
 
-      URL to a `.jsonl` file containing the results of the Message Batch requests. Specified only once processing ends.
+    Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
 
-      Results in the file are not guaranteed to be in the same order as requests. Use the `custom_id` field to match results to requests.
+  - `JsonElement Type constant`
 
-    - `JsonElement Type constant`
+    Object type.
 
-      Object type.
-
-      For Message Batches, this is always `"message_batch"`.
-
-  - `required string? FirstID`
-
-    First ID in the `data` list. Can be used as the `before_id` for the previous page.
-
-  - `required bool HasMore`
-
-    Indicates if there are more results in the requested page direction.
-
-  - `required string? LastID`
-
-    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+    For Message Batches, this is always `"message_batch"`.
 
 ## Example
 

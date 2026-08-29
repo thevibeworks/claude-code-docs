@@ -64,7 +64,7 @@ If something is wrong or stale, tell it to update or forget the entry. Anyone in
 Two habits keep memory useful over time:
 
 * **After correcting an entry, have Claude record the fix.** "Update your memory for this channel so this doesn't happen again" turns a one-time fix into a standing one.
-* **Prune what your work has outgrown.** Entries written weeks ago can describe a repository, owner, or convention that no longer exists; review the memory list when the channel's work shifts.
+* **Prune what your work has outgrown.** Entries written weeks ago can describe a repository, owner, or convention that no longer exists. Ask Claude in the channel to review its memory and drop the entries that no longer apply. For ongoing upkeep, set up a [routine](/docs/claude-tag/users/proactivity) that repeats the review on a schedule; weekly works well.
 
 An Owner in your Claude organization can view, edit, or delete a scope's memory files at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag), under the scope's options menu.
 

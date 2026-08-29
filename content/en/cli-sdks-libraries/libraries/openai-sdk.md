@@ -33,7 +33,7 @@ To use the OpenAI SDK compatibility feature, you'll need to:
 
 ### Quick start example
 
-<CodeGroup>
+<CodeGroup exclude="shell">
   ```python Python
   import os
 
@@ -59,16 +59,124 @@ To use the OpenAI SDK compatibility feature, you'll need to:
   import OpenAI from "openai";
 
   const openai = new OpenAI({
-    apiKey: "ANTHROPIC_API_KEY", // Your Claude API key
+    apiKey: process.env.ANTHROPIC_API_KEY, // Your Claude API key
     baseURL: "https://api.anthropic.com/v1/" // Claude API endpoint
   });
 
   const response = await openai.chat.completions.create({
-    messages: [{ role: "user", content: "Who are you?" }],
+    messages: [
+      { role: "system", content: "You are a helpful assistant." },
+      { role: "user", content: "Who are you?" }
+    ],
     model: "claude-opus-5" // Claude model name
   });
 
   console.log(response.choices[0].message.content);
+  ```
+
+  ```csharp C#
+  using System.ClientModel;
+  using OpenAI;
+  using OpenAI.Chat;
+
+  ChatClient chatClient = new(
+      model: "claude-opus-5", // Claude model name
+      credential: new ApiKeyCredential(
+          Environment.GetEnvironmentVariable("ANTHROPIC_API_KEY")), // Your Claude API key
+      options: new OpenAIClientOptions()
+      {
+          Endpoint = new Uri("https://api.anthropic.com/v1/") // the Claude API endpoint
+      });
+
+  ChatCompletion completion = chatClient.CompleteChat(
+      new SystemChatMessage("You are a helpful assistant."),
+      new UserChatMessage("Who are you?"));
+
+  Console.WriteLine(completion.Content[0].Text);
+  ```
+
+  ```go Go
+  package main
+
+  import (
+  	"context"
+  	"fmt"
+  	"os"
+
+  	"github.com/openai/openai-go/v3"
+  	"github.com/openai/openai-go/v3/option"
+  )
+
+  func main() {
+  	client := openai.NewClient(
+  		option.WithAPIKey(os.Getenv("ANTHROPIC_API_KEY")),   // Your Claude API key
+  		option.WithBaseURL("https://api.anthropic.com/v1/"), // the Claude API endpoint
+  	)
+
+  	response, err := client.Chat.Completions.New(context.Background(), openai.ChatCompletionNewParams{
+  		Model: "claude-opus-5", // Claude model name
+  		Messages: []openai.ChatCompletionMessageParamUnion{
+  			openai.SystemMessage("You are a helpful assistant."),
+  			openai.UserMessage("Who are you?"),
+  		},
+  	})
+  	if err != nil {
+  		panic(err)
+  	}
+
+  	fmt.Println(response.Choices[0].Message.Content)
+  }
+  ```
+
+  ```java Java
+  import com.openai.client.OpenAIClient;
+  import com.openai.client.okhttp.OpenAIOkHttpClient;
+  import com.openai.models.chat.completions.ChatCompletion;
+  import com.openai.models.chat.completions.ChatCompletionCreateParams;
+
+  public class QuickStart {
+      public static void main(String[] args) {
+          OpenAIClient client = OpenAIOkHttpClient.builder()
+                  .apiKey(System.getenv("ANTHROPIC_API_KEY")) // Your Claude API key
+                  .baseUrl("https://api.anthropic.com/v1/") // the Claude API endpoint
+                  .build();
+
+          ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+                  .model("claude-opus-5") // Claude model name
+                  .addSystemMessage("You are a helpful assistant.")
+                  .addUserMessage("Who are you?")
+                  .build();
+
+          ChatCompletion completion = client.chat().completions().create(params);
+          System.out.println(completion.choices().get(0).message().content().orElse(""));
+      }
+  }
+  ```
+
+  ```php PHP
+  <?php
+  // There is no official OpenAI PHP SDK, so no example is shown here.
+  // To use Claude from PHP, use the native Claude API instead:
+  // https://platform.claude.com/docs/en/cli-sdks-libraries/overview
+  ```
+
+  ```ruby Ruby
+  require "openai"
+
+  openai = OpenAI::Client.new(
+    api_key: ENV["ANTHROPIC_API_KEY"], # Your Claude API key
+    base_url: "https://api.anthropic.com/v1/" # the Claude API endpoint
+  )
+
+  response = openai.chat.completions.create(
+    model: "claude-opus-5", # Claude model name
+    messages: [
+      {role: "system", content: "You are a helpful assistant."},
+      {role: "user", content: "Who are you?"}
+    ]
+  )
+
+  puts response.choices.first.message.content
   ```
 </CodeGroup>
 
@@ -95,9 +203,9 @@ Most of the inputs to the OpenAI SDK clearly map directly to Anthropic’s API p
 
 ### Thinking support
 
-You can enable [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) by adding the `thinking` parameter. On current models thinking is adaptive, with Claude deciding when and how deeply to think, and on Claude 5 models it is on by default; manually configured extended thinking is a legacy mode. While thinking improves Claude's reasoning for complex tasks, the OpenAI SDK doesn't return Claude's detailed thought process. For full thinking features, including access to Claude's step-by-step reasoning output, use the native Claude API.
+You can enable [thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) by adding the `thinking` parameter. On current models thinking is adaptive, with Claude deciding when and how deeply to think, and on Claude 5 models it is on by default; manually configured extended thinking is a legacy mode. Although thinking improves Claude's reasoning for complex tasks, the OpenAI SDK doesn't return Claude's detailed thought process. For full thinking features, including access to Claude's step-by-step reasoning output, use the native Claude API.
 
-<CodeGroup>
+<CodeGroup exclude="shell">
   ```python Python
   response = client.chat.completions.create(
       model="claude-sonnet-4-6",
@@ -113,6 +221,61 @@ You can enable [thinking](https://platform.claude.com/docs/en/build-with-claude/
     // @ts-expect-error
     thinking: { type: "enabled", budget_tokens: 2000 }
   });
+  ```
+
+  ```csharp C#
+  // The .NET SDK has no extra_body parameter like Python's, so this example
+  // sends the thinking parameter with the SDK's documented protocol method
+  // (a raw JSON request body).
+  BinaryData input = BinaryData.FromString("""
+      {
+        "model": "claude-sonnet-4-6",
+        "messages": [{ "role": "user", "content": "Who are you?" }],
+        "thinking": { "type": "enabled", "budget_tokens": 2000 }
+      }
+      """);
+
+  using BinaryContent content = BinaryContent.Create(input);
+  ClientResult result = chatClient.CompleteChat(content);
+  ```
+
+  ```go Go
+  response, err := client.Chat.Completions.New(
+  	context.Background(),
+  	openai.ChatCompletionNewParams{
+  		Model: "claude-sonnet-4-6",
+  		Messages: []openai.ChatCompletionMessageParamUnion{
+  			openai.UserMessage("Who are you?"),
+  		},
+  	},
+  	option.WithJSONSet("thinking", map[string]any{"type": "enabled", "budget_tokens": 2000}),
+  )
+  ```
+
+  ```java Java
+  ChatCompletionCreateParams params = ChatCompletionCreateParams.builder()
+          .model("claude-sonnet-4-6")
+          .addUserMessage("Who are you?")
+          .putAdditionalBodyProperty("thinking",
+                  JsonValue.from(Map.of("type", "enabled", "budget_tokens", 2000)))
+          .build();
+
+  ChatCompletion completion = client.chat().completions().create(params);
+  ```
+
+  ```php PHP
+  <?php
+  // There is no official OpenAI PHP SDK, so no example is shown here.
+  // To use Claude from PHP, use the native Claude API instead:
+  // https://platform.claude.com/docs/en/cli-sdks-libraries/overview
+  ```
+
+  ```ruby Ruby
+  response = openai.chat.completions.create(
+    model: "claude-sonnet-4-6",
+    messages: [{role: "user", content: "Who are you?"}],
+    request_options: {extra_body: {thinking: {type: "enabled", budget_tokens: 2000}}}
+  )
   ```
 </CodeGroup>
 

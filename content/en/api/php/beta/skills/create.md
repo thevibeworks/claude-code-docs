@@ -1,6 +1,6 @@
 # Create Skill
 
-`$client->beta->skills->create(list<string> files, ?string displayTitle, ?list<AnthropicBeta> betas): SkillNewResponse`
+`$client->beta->skills->create(list<string> files, ?string displayName, ?list<AnthropicBeta> betas): BetaSkill`
 
 **POST** `/v1/skills`
 
@@ -14,11 +14,11 @@ Create Skill
 
   All files must be in the same top-level directory and must include a SKILL.md file at the root of that directory.
 
-- `displayTitle?:optional string`
+- `displayName?:optional string`
 
-  Display title for the skill.
-
-  This is a human-readable label that is not included in the prompt sent to the model.
+  Human-readable, single-line label for the Skill. Maximum 255 characters.
+  Always set: derived from the SKILL.md frontmatter `name` when omitted at
+  creation. Not unique.
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -26,7 +26,7 @@ Create Skill
 
 ## Returns
 
-- `SkillNewResponse`
+- `BetaSkill`
 
   - `string id`
 
@@ -34,38 +34,38 @@ Create Skill
 
     The format and length of IDs may change over time.
 
-  - `string createdAt`
+  - `\Datetime createdAt`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `?string displayTitle`
+  - `string displayName`
 
-    Display title for the skill.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+  - `string latestVersionID`
 
-  - `?string latestVersion`
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    The latest version identifier for the skill.
+  - `BetaSkillSource source`
 
-    This represents the most recent version of the skill that has been created.
+    Where the Skill comes from.
 
-  - `string source`
+    Possible values:
 
-    Source of the skill.
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    This may be one of the following values:
-
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
-
-  - `string type`
+  - `"skill" type`
 
     Object type.
 
     For Skills, this is always `"skill"`.
 
-  - `string updatedAt`
+  - `\Datetime updatedAt`
 
     ISO 8601 timestamp of when the skill was last updated.
 
@@ -78,15 +78,15 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
-$skill = $client->beta->skills->create(
+$betaSkill = $client->beta->skills->create(
   files: [
     FileParam::fromString('Example data', filename: uniqid('file-upload-', true)),
   ],
-  displayTitle: 'display_title',
+  displayName: 'display_name',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
 
-var_dump($skill);
+var_dump($betaSkill);
 ```
 
 ### Response (200)
@@ -95,10 +95,12 @@ var_dump($skill);
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```

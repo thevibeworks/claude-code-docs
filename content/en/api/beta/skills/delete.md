@@ -106,19 +106,21 @@ Delete Skill
 
 ## Returns
 
-- `id: string`
+- `BetaDeletedSkill object`
 
-  Unique identifier for the skill.
+  - `id: string`
 
-  The format and length of IDs may change over time.
+    Unique identifier for the skill.
 
-- `type: string`
+    The format and length of IDs may change over time.
 
-  Deleted object type.
+  - `type: "skill_deleted"`
 
-  For Skills, this is always `"skill_deleted"`.
+    Deleted object type.
 
-  default: skill_deleted
+    For Skills, this is always `"skill_deleted"`.
+
+    default: skill_deleted
 
 ## Example
 
@@ -126,7 +128,6 @@ Delete Skill
 curl https://api.anthropic.com/v1/skills/$SKILL_ID \
     -X DELETE \
     -H 'anthropic-version: 2023-06-01' \
-    -H 'anthropic-beta: skills-2025-10-02' \
     -H "X-Api-Key: $ANTHROPIC_API_KEY"
 ```
 
@@ -135,6 +136,6 @@ curl https://api.anthropic.com/v1/skills/$SKILL_ID \
 ```json
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type"
+  "type": "skill_deleted"
 }
 ```

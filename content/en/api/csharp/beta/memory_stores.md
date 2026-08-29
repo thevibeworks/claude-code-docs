@@ -185,7 +185,7 @@ Console.WriteLine(betaManagedAgentsMemoryStore);
 
 ## List memory stores
 
-`MemoryStoreListPageResponse Beta.MemoryStores.List(parameters, cancellationToken = default)`
+`MemoryStoreListPage Beta.MemoryStores.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/memory_stores`
 
@@ -309,53 +309,45 @@ List memory stores
 
 ### Returns
 
-- `class MemoryStoreListPageResponse:`
+- `class BetaManagedAgentsMemoryStore:`
 
-  A page of `memory_store` results, ordered by `created_at` descending (newest first).
+  A `memory_store`: a named container for agent memories, scoped to a workspace. Attach a store to a session via `resources[]` to mount it as a directory the agent can read and write.
 
-  - `IReadOnlyList<BetaManagedAgentsMemoryStore> Data`
+  - `required string ID`
 
-    Memory stores on this page, newest first. Empty when there are no stores matching the filters.
+    Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
 
-    - `required string ID`
+  - `required DateTimeOffset CreatedAt`
 
-      Unique identifier for the memory store (a `memstore_...` tagged ID). Use this when attaching the store to a session, or in the `{memory_store_id}` path parameter of subsequent calls.
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string Name`
 
-      format: date-time
+    Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
 
-    - `required string Name`
+  - `required Type Type`
 
-      Human-readable name for the store. 1–255 characters. The store's mount-path slug under `/mnt/memory/` is derived from this name.
+  - `required DateTimeOffset UpdatedAt`
 
-    - `required Type Type`
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset UpdatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `DateTimeOffset? ArchivedAt`
 
-      format: date-time
+    A timestamp in RFC 3339 format
 
-    - `DateTimeOffset? ArchivedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `string Description`
 
-      format: date-time
+    Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
 
-    - `string Description`
+  - `IReadOnlyDictionary<string, string> Metadata`
 
-      Free-text description of what the store contains, up to 1024 characters. Included in the agent's system prompt when the store is attached, so word it to be useful to the agent. Empty string when unset.
-
-    - `IReadOnlyDictionary<string, string> Metadata`
-
-      Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
-
-  - `string? NextPage`
-
-    Opaque cursor for the next page (a `page_...` value). Pass as `page` on the next request. `null` when there are no more results.
+    Arbitrary key-value tags for your own bookkeeping (such as the end user a store belongs to). Up to 16 pairs; keys 1–64 characters; values up to 512 characters. Returned on retrieve/list but not filterable.
 
 ### Example
 
@@ -1323,7 +1315,7 @@ Console.WriteLine(betaManagedAgentsMemory);
 
 ### List memories
 
-`MemoryListPageResponse Beta.MemoryStores.Memories.List(parameters, cancellationToken = default)`
+`MemoryListPage Beta.MemoryStores.Memories.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories`
 
@@ -1449,75 +1441,67 @@ List memories
 
 #### Returns
 
-- `class MemoryListPageResponse:`
+- `class BetaManagedAgentsMemoryListItem: union`
 
-  Response payload for [List memories](/docs/en/api/beta/memory_stores/memories/list).
+  One item in a [List memories](/docs/en/api/beta/memory_stores/memories/list) response: either a `memory` object or, when `depth` is set, a `memory_prefix` rollup marker.
 
-  - `IReadOnlyList<BetaManagedAgentsMemoryListItem> Data`
+  - `class BetaManagedAgentsMemory:`
 
-    One page of results. Each item is either a `memory` object or, when `depth` was set, a `memory_prefix` rollup marker. Items are returned in a stable, server-defined order.
+    A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
-    - `class BetaManagedAgentsMemory:`
+    - `required string ID`
 
-      A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+      Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
 
-      - `required string ID`
+    - `required string ContentSha256`
 
-        Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
+      Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
 
-      - `required string ContentSha256`
+    - `required int ContentSizeBytes`
 
-        Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
+      Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
-      - `required int ContentSizeBytes`
+      format: int32
 
-        Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
+    - `required DateTimeOffset CreatedAt`
 
-        format: int32
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset CreatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+    - `required string MemoryStoreID`
 
-        format: date-time
+      ID of the memory store this memory belongs to (a `memstore_...` value).
 
-      - `required string MemoryStoreID`
+    - `required string MemoryVersionID`
 
-        ID of the memory store this memory belongs to (a `memstore_...` value).
+      ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
-      - `required string MemoryVersionID`
+    - `required string Path`
 
-        ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+      Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-      - `required string Path`
+    - `required Type Type`
 
-        Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
+    - `required DateTimeOffset UpdatedAt`
 
-      - `required Type Type`
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset UpdatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+    - `string? Content`
 
-        format: date-time
+      The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-      - `string? Content`
+  - `class BetaManagedAgentsMemoryPrefix:`
 
-        The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
+    A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
-    - `class BetaManagedAgentsMemoryPrefix:`
+    - `required string Path`
 
-      A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
+      The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
 
-      - `required string Path`
-
-        The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-      - `required Type Type`
-
-  - `string? NextPage`
-
-    Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
+    - `required Type Type`
 
 #### Example
 
@@ -2098,7 +2082,7 @@ Console.WriteLine(betaManagedAgentsDeletedMemory);
 
 ### List memory versions
 
-`MemoryVersionListPageResponse Beta.MemoryStores.MemoryVersions.List(parameters, cancellationToken = default)`
+`MemoryVersionListPage Beta.MemoryStores.MemoryVersions.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memory_versions`
 
@@ -2246,127 +2230,119 @@ List memory versions
 
 #### Returns
 
-- `class MemoryVersionListPageResponse:`
+- `class BetaManagedAgentsMemoryVersion:`
 
-  Response payload for [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+  A `memory_version` object: one immutable, attributed row in a memory's append-only history. Every non-no-op mutation to a memory produces a new version. Versions belong to the store (not the individual memory) and are not deleted with the memory; each version is retained for at least the version retention period after it was written, unless the store itself is deleted. Retrieving a redacted version returns 200 with `content`, `path`, `content_size_bytes`, and `content_sha256` set to `null`; branch on `redacted_at`, not HTTP status.
 
-  - `IReadOnlyList<BetaManagedAgentsMemoryVersion> Data`
+  - `required string ID`
 
-    One page of `memory_version` objects, ordered by `created_at` descending (newest first), with `id` as tiebreak.
+    Unique identifier for this version (a `memver_...` value).
 
-    - `required string ID`
+  - `required DateTimeOffset CreatedAt`
 
-      Unique identifier for this version (a `memver_...` value).
+    A timestamp in RFC 3339 format
 
-    - `required DateTimeOffset CreatedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `required string MemoryID`
 
-      format: date-time
+    ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
 
-    - `required string MemoryID`
+  - `required string MemoryStoreID`
 
-      ID of the memory this version snapshots (a `mem_...` value). Remains valid after the memory is deleted; pass it as `memory_id` to [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list) to retrieve the memory's retained versions, including the `deleted` row while the lineage is retained.
+    ID of the memory store this version belongs to (a `memstore_...` value).
 
-    - `required string MemoryStoreID`
+  - `required BetaManagedAgentsMemoryVersionOperation Operation`
 
-      ID of the memory store this version belongs to (a `memstore_...` value).
+    The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
 
-    - `required BetaManagedAgentsMemoryVersionOperation Operation`
+    - `Created`
 
-      The kind of mutation a `memory_version` records. Every non-no-op mutation to a memory appends exactly one version row with one of these values.
+    - `Modified`
 
-      - `Created`
+    - `Deleted`
 
-      - `Modified`
+  - `required Type Type`
 
-      - `Deleted`
+  - `string? Content`
 
-    - `required Type Type`
+    The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
 
-    - `string? Content`
+  - `string? ContentSha256`
 
-      The memory's UTF-8 text content as of this version. `null` when `view=basic`, when `operation` is `deleted`, or when `redacted_at` is set.
+    Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-    - `string? ContentSha256`
+  - `int? ContentSizeBytes`
 
-      Lowercase hex SHA-256 digest of `content` as of this version (64 characters). `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+    Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
 
-    - `int? ContentSizeBytes`
+    format: int32
 
-      Size of `content` in bytes as of this version. `null` when `redacted_at` is set or `operation` is `deleted`. Populated regardless of `view` otherwise.
+  - `BetaManagedAgentsActor CreatedBy`
 
-      format: int32
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
-    - `BetaManagedAgentsActor CreatedBy`
+    - `class BetaManagedAgentsSessionActor:`
 
-      Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
+      Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
 
-      - `class BetaManagedAgentsSessionActor:`
+      - `required string SessionID`
 
-        Attribution for a write made by an agent during a session, through the mounted filesystem at `/mnt/memory/`.
+        ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
 
-        - `required string SessionID`
+        minLength: 1
 
-          ID of the session that performed the write (a `sesn_...` value). Look up the session via [Retrieve a session](/docs/en/api/sessions-retrieve) for further provenance.
+      - `required Type Type`
 
-          minLength: 1
+    - `class BetaManagedAgentsApiActor:`
 
-        - `required Type Type`
+      Attribution for a write made directly via the public API (outside of any session).
 
-      - `class BetaManagedAgentsApiActor:`
+      - `required string ApiKeyID`
 
-        Attribution for a write made directly via the public API (outside of any session).
+        ID of the API key that performed the write. This identifies the key, not the secret.
 
-        - `required string ApiKeyID`
+        minLength: 1
 
-          ID of the API key that performed the write. This identifies the key, not the secret.
+      - `required Type Type`
 
-          minLength: 1
+    - `class BetaManagedAgentsUserActor:`
 
-        - `required Type Type`
+      Attribution for a write made by a human user through the Anthropic Console.
 
-      - `class BetaManagedAgentsUserActor:`
+      - `required Type Type`
 
-        Attribution for a write made by a human user through the Anthropic Console.
+      - `required string UserID`
 
-        - `required Type Type`
+        ID of the user who performed the write (a `user_...` value).
 
-        - `required string UserID`
+        minLength: 1
 
-          ID of the user who performed the write (a `user_...` value).
+    - `class BetaManagedAgentsServiceAccountActor:`
 
-          minLength: 1
+      Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
 
-      - `class BetaManagedAgentsServiceAccountActor:`
+      - `required string ServiceAccountID`
 
-        Attribution for a write made by a workload authenticated as a service account, for example via Workload Identity Federation.
+        ID of the service account that performed the write (a `svac_...` value).
 
-        - `required string ServiceAccountID`
+        minLength: 1
 
-          ID of the service account that performed the write (a `svac_...` value).
+      - `JsonElement Type constant`
 
-          minLength: 1
+  - `string? Path`
 
-        - `JsonElement Type constant`
+    The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
 
-    - `string? Path`
+  - `DateTimeOffset? RedactedAt`
 
-      The memory's path at the time of this write. `null` if and only if `redacted_at` is set.
+    A timestamp in RFC 3339 format
 
-    - `DateTimeOffset? RedactedAt`
+    format: date-time
 
-      A timestamp in RFC 3339 format
+  - `BetaManagedAgentsActor RedactedBy`
 
-      format: date-time
-
-    - `BetaManagedAgentsActor RedactedBy`
-
-      Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
-
-  - `string? NextPage`
-
-    Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
+    Identifies who performed a write or redact operation. Captured at write time on the `memory_version` row. The API key that created a session is not recorded on agent writes; attribution answers who made the write, not who is ultimately responsible. Look up session provenance separately via the [Sessions API](/docs/en/api/sessions-retrieve).
 
 #### Example
 

@@ -1,6 +1,6 @@
 # Get Skill
 
-`beta.skills.retrieve(skill_id, **kwargs)  -> SkillRetrieveResponse`
+`beta.skills.retrieve(skill_id, **kwargs)  -> BetaSkill`
 
 **GET** `/v1/skills/{skill_id}`
 
@@ -106,7 +106,7 @@ Get Skill
 
 ## Returns
 
-- `class SkillRetrieveResponse: …`
+- `class BetaSkill: …`
 
   - `id: str`
 
@@ -114,32 +114,53 @@ Get Skill
 
     The format and length of IDs may change over time.
 
-  - `created_at: str`
+  - `created_at: datetime`
 
     ISO 8601 timestamp of when the skill was created.
 
-  - `display_title: Optional[str]`
+    format: date-time
 
-    Display title for the skill.
+  - `display_name: str`
 
-    This is a human-readable label that is not included in the prompt sent to the model.
+    Human-readable, single-line label for the Skill. Maximum 255 characters.
+    Always set: derived from the SKILL.md frontmatter `name` when omitted at
+    creation. Not unique.
 
-  - `latest_version: Optional[str]`
+  - `latest_version_id: str`
 
-    The latest version identifier for the skill.
+    ID of the newest Skill Version — what `latest` references resolve to. Always set: a Skill holds at least one version.
 
-    This represents the most recent version of the skill that has been created.
+  - `source: BetaSkillSource`
 
-  - `source: str`
+    Where the Skill comes from.
 
-    Source of the skill.
+    Possible values:
 
-    This may be one of the following values:
+    * `"custom"`: authored by the platform user; private to their workspace
+    * `"anthropic"`: published by Anthropic; shared and read-only
+    * `"anthropic_example"`: Anthropic-published sample Skill
+    * `"plugin"`: resolved from an installed plugin
 
-    * `"custom"`: the skill was created by a user
-    * `"anthropic"`: the skill was created by Anthropic
+    - `type: Literal["custom", "anthropic", "anthropic_example", "plugin"]`
 
-  - `type: str`
+      Where the Skill comes from.
+
+      Possible values:
+
+      * `"custom"`: authored by the platform user; private to their workspace
+      * `"anthropic"`: published by Anthropic; shared and read-only
+      * `"anthropic_example"`: Anthropic-published sample Skill
+      * `"plugin"`: resolved from an installed plugin
+
+      - `"custom"`
+
+      - `"anthropic"`
+
+      - `"anthropic_example"`
+
+      - `"plugin"`
+
+  - `type: Literal["skill"]`
 
     Object type.
 
@@ -147,9 +168,11 @@ Get Skill
 
     default: skill
 
-  - `updated_at: str`
+  - `updated_at: datetime`
 
     ISO 8601 timestamp of when the skill was last updated.
+
+    format: date-time
 
 ## Example
 
@@ -162,10 +185,10 @@ client = Anthropic(
         "ANTHROPIC_API_KEY"
     ),  # This is the default and can be omitted
 )
-skill = client.beta.skills.retrieve(
+beta_skill = client.beta.skills.retrieve(
     skill_id="skill_id",
 )
-print(skill.id)
+print(beta_skill.id)
 ```
 
 ### Response (200)
@@ -174,10 +197,12 @@ print(skill.id)
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
   "created_at": "2024-10-30T23:58:27.427722Z",
-  "display_title": "My Custom Skill",
-  "latest_version": "1759178010641129",
-  "source": "custom",
-  "type": "type",
+  "display_name": "display_name",
+  "latest_version_id": "latest_version_id",
+  "source": {
+    "type": "custom"
+  },
+  "type": "skill",
   "updated_at": "2024-10-30T23:58:27.427722Z"
 }
 ```

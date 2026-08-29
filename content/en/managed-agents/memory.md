@@ -203,7 +203,7 @@ Pre-load a store with reference material before any agent runs:
 </CodeGroup>
 
 <Tip>
-  Individual memories within the store are capped at 100 kB (\~25k tokens). A store holds a maximum of 2,000 memories. Structure memory as many small focused files, not a few large ones.
+  Individual memories within the store are capped at 100 kB (\~25k tokens). A store holds a maximum of 10,000 memories. Structure memory as many small focused files, not a few large ones.
 </Tip>
 
 ## Attach a memory store to a session
@@ -917,9 +917,9 @@ See the [Delete a memory reference](https://platform.claude.com/docs/en/api/beta
 
 Every mutation to a memory creates an immutable **memory version** (`memver_...`). Use the version endpoints to audit who changed what and when, to inspect or restore a prior snapshot, and to scrub sensitive content out of history with redact.
 
-Versions belong to the store (not the individual memory) and survive even after the memory itself is deleted, so the audit trail stays complete. Versions are retained for 30 days; however, the recent versions are always kept regardless of age, so memories that change infrequently might retain history beyond 30 days. The live `memories.retrieve` call always returns the latest version; the version endpoints give you the retained history.
+Versions belong to the store (not the individual memory) and are not deleted when the memory itself is deleted, so the audit trail also covers deleted memories, subject to the retention described below. Versions are retained for 30 days after they are written; however, the recent versions of a live memory are always kept regardless of age, so memories that change infrequently might retain history beyond 30 days. The live `memories.retrieve` call always returns the latest version; the version endpoints give you the retained history.
 
-There is no dedicated restore endpoint; to roll back, retrieve the version you want and write its `content` back with `memories.update` (or `memories.create` if the parent memory has been deleted, because versions outlive their parent).
+There is no dedicated restore endpoint; to roll back, retrieve the version you want and write its `content` back with `memories.update` (or `memories.create` if the parent memory has been deleted, provided the version you want is still retained).
 
 Past memory versions might be deleted after 30 days. To preserve memory history for longer, export versions through the API.
 
@@ -1328,9 +1328,9 @@ To permanently remove a store along with all of its memories and versions, use [
 
 ## Best practices for memory management
 
-When a store reaches its 2,000-memory limit, writes to new memories fail: both direct `memories.create` calls and the agent's file writes to unmapped paths. Existing memories remain readable and editable. The following practices help you stay well under the limit and recover gracefully if you reach it.
+When a store reaches its 10,000-memory limit, writes to new memories fail: both direct `memories.create` calls and the agent's file writes to unmapped paths. Existing memories remain readable and editable. The following practices help you stay well under the limit and recover gracefully if you reach it.
 
-* **Use focused stores.** Rather than one large general-purpose store, use smaller purpose-built stores: one per user, one for shared domain knowledge, and one for project-specific context. Each store has its own 2,000-memory limit, so keeping stores scoped reduces the chance any single one fills up.
+* **Use focused stores.** Rather than one large general-purpose store, use smaller purpose-built stores: one per user, one for shared domain knowledge, and one for project-specific context. Each store has its own 10,000-memory limit, so keeping stores scoped reduces the chance any single one fills up.
 
 * **Condense or prune before the store fills up.** Delete stale or redundant memories with `memories.delete`. You can also run a [dreaming session](https://platform.claude.com/docs/en/managed-agents/dreams), which consolidates fragmented content into a separate new output store rather than modifying the original. Switch your sessions over to that output store, then archive or delete the original.
 

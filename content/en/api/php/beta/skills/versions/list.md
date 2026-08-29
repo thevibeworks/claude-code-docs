@@ -1,6 +1,6 @@
 # List Skill Versions
 
-`$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<VersionListResponse>`
+`$client->beta->skills->versions->list(string skillID, ?int limit, ?string page, ?list<AnthropicBeta> betas): PageCursor<SkillVersion>`
 
 **GET** `/v1/skills/{skill_id}/versions`
 
@@ -16,9 +16,11 @@ List Skill Versions
 
 - `limit?:optional int`
 
-  Number of items to return per page.
+  Number of results to return per page.
 
-  Defaults to `20`. Ranges from `1` to `1000`.
+  Ranges from `1` to `1000`. Defaults to `20`.
+
+  default: 20
 
 - `page?:optional string`
 
@@ -30,17 +32,16 @@ List Skill Versions
 
 ## Returns
 
-- `VersionListResponse`
+- `SkillVersion`
 
   - `string id`
 
-    Unique identifier for the skill version.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    The format and length of IDs may change over time.
+  - `\Datetime createdAt`
 
-  - `string createdAt`
-
-    ISO 8601 timestamp of when the skill version was created.
+    ISO 8601 timestamp of when the skill was created.
 
   - `string description`
 
@@ -48,33 +49,24 @@ List Skill Versions
 
     This is extracted from the SKILL.md file in the skill upload.
 
-  - `string directory`
-
-    Directory name of the skill version.
-
-    This is the top-level directory name that was extracted from the uploaded files.
-
   - `string name`
 
-    Human-readable name of the skill version.
-
-    This is extracted from the SKILL.md file in the skill upload.
+    The Skill's immutable kebab-case slug, set at creation from the first
+    upload's SKILL.md frontmatter `name` (or its enclosing directory). Every
+    later upload must resolve to the same value. Also the top-level directory
+    of the Skill's mounted files and the base name of a downloaded archive.
 
   - `string skillID`
 
-    Identifier for the skill that this version belongs to.
+    Unique identifier for the skill.
 
-  - `string type`
+    The format and length of IDs may change over time.
+
+  - `"skill_version" type`
 
     Object type.
 
     For Skill Versions, this is always `"skill_version"`.
-
-  - `string version`
-
-    Version identifier for the skill.
-
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
 
 ## Example
 
@@ -87,7 +79,7 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $page = $client->beta->skills->versions->list(
   'skill_id',
-  limit: 0,
+  limit: 1,
   page: 'page',
   betas: [AnthropicBeta::MESSAGE_BATCHES_2024_09_24],
 );
@@ -101,17 +93,14 @@ var_dump($page);
 {
   "data": [
     {
-      "id": "skillver_01JAbcdefghijklmnopqrstuvw",
+      "id": "id",
       "created_at": "2024-10-30T23:58:27.427722Z",
-      "description": "A custom skill for doing something useful",
-      "directory": "my-skill",
-      "name": "my-skill",
+      "description": "description",
+      "name": "name",
       "skill_id": "skill_01JAbcdefghijklmnopqrstuvw",
-      "type": "type",
-      "version": "1759178010641129"
+      "type": "skill_version"
     }
   ],
-  "has_more": true,
-  "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
+  "next_page": "next_page"
 }
 ```

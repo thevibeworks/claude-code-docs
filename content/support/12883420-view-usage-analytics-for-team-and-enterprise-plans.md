@@ -22,7 +22,7 @@ This page includes the following analytics:
 
 - Sessions in Cowork
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515895966/9f231a620f47d49e0ee648152189/848c1787-4eaa-4809-8fd2-1dbe2722560f?expires=1787921100&amp;signature=c8bf04e02ed9890b5c2c6254cce6ae8cf2b3d78cc9f8198d882d472cf2332f33&amp;req=diUmE8F3mIhZX%2FMW1HO4zZL6waF7mYRwExEG4dCAGDavtohjorgZ2Rw1lul7%0A5xdHrixOIOUcOcou5rs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515895966/9f231a620f47d49e0ee648152189/848c1787-4eaa-4809-8fd2-1dbe2722560f?expires=1787964300&amp;signature=e356d8736fcd90141e4fe3227b73f6f069920ad662aee0786410a317e98d9316&amp;req=diUmE8F3mIhZX%2FMW1HO4zZL6waF7nYFyExEG4dCAGDY0gQq9JJhZH%2BWdobOT%0AAmPwFBCvrwLTK0K%2BeVE%3D%0A)
 
 ### Who’s using Claude?
 
@@ -34,7 +34,7 @@ This page includes the following analytics:
 
 Use the dropdown on the **Active members and assigned seats** chart to filter by product, including Claude Design.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896351/4d955858e6662c37489cc1470871/457cf159-8c2a-4403-ba22-cb92cb47e459?expires=1787921100&amp;signature=996561461a911e50b236cb267f22756dc8a78096c3c7240bf4749f349c25cab2&amp;req=diUmE8F3m4JaWPMW1HO4zYEqejCgQJGuYqPRsgaNdTwb4XXs5o6I7hJhniIj%0AsJroCrDOZ%2BN628AVDOU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896351/4d955858e6662c37489cc1470871/457cf159-8c2a-4403-ba22-cb92cb47e459?expires=1787964300&amp;signature=e259c1a3b2edf725dc29fc00b7629acfbb139a8fb22ec83f289ea0fc46b13257&amp;req=diUmE8F3m4JaWPMW1HO4zYEqejCgRJSsYqPRsgaNdTyhONl91tQtZKHE3EUs%0AAcwqN34ZkSVaeAL0tYY%3D%0A)
 
 ### How are they using Claude?
 
@@ -48,9 +48,9 @@ Use the dropdown on the **Active members and assigned seats** chart to filter by
 
 - How agentic is their work? (beta)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2583875713/e3cb3c329f3b643cb9a3809876b3/image.png?expires=1787921100&amp;signature=dd5e08b2af2606f56f3dacdba468936bbac2f5019ad1247d0fa0901e863deb9c&amp;req=diUvFcF5mIZeWvMW1HO4zciS3a%2FgmL9qDFD6TO7tG4iv80EcX0qPpKp8GplM%0AANsUcWUymn3QvxJ6ad8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2583875713/e3cb3c329f3b643cb9a3809876b3/image.png?expires=1787964300&amp;signature=64357652ef66008056c25b5640f12baa60e7c62ed1f8f06588729b412c7bf299&amp;req=diUvFcF5mIZeWvMW1HO4zciS3a%2FgnLpoDFD6TO7tG4iZZNHndIRRA3qJJeaF%0AalfNItlfPm9e5ThD7XE%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896563/abf008596ce5501297a609696362/fce5423c-4769-4b73-9a0a-c50f6407ebea?expires=1787921100&amp;signature=1b51243965aa26ce1a1197d7706822190b66a25a3436aee6ad035211bc9985f2&amp;req=diUmE8F3m4RZWvMW1HO4zR%2BIDoBnv%2Fb2LS3kobW3ZgQr4LOw6sPcXTX1A9e1%0Ac0%2B%2F7nEG2bK%2BCn7pmIA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896563/abf008596ce5501297a609696362/fce5423c-4769-4b73-9a0a-c50f6407ebea?expires=1787964300&amp;signature=bf2fc39e8ce41027ec285b142dd35bdf8e5f2db920fd7ca609af8e5ef79b2993&amp;req=diUmE8F3m4RZWvMW1HO4zR%2BIDoBnu%2FP0LS3kobW3ZgTa7cm%2FFxbmqAI%2BdKlq%0A30eLBn4lnrQCnVJynVY%3D%0A)
 
 ### What are the results?
 
@@ -66,7 +66,7 @@ Use the dropdown on the **Active members and assigned seats** chart to filter by
 
 - Estimated time saved
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896943/dd415f03afe56ca38308ef987f86/189e8ebc-5594-4f4b-bd84-e3c11c824d5b?expires=1787921100&amp;signature=f1612b3682a38a13649e0c88fcdb5a84dbc9386bcc0fa168cbefd03a4e3325fc&amp;req=diUmE8F3m4hbWvMW1HO4zfJThCM2q91HiovaLYNN7RnTE%2FgBQf%2BxaNMjA3ke%0Ac%2BYLRdt0tvDY2lATBII%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896943/dd415f03afe56ca38308ef987f86/189e8ebc-5594-4f4b-bd84-e3c11c824d5b?expires=1787964300&amp;signature=bf31ea367497442484510e9cebc89bbf22ce41be229c69a666ca28094874c3b0&amp;req=diUmE8F3m4hbWvMW1HO4zfJThCM2r9hFiovaLYNN7Rmgc59IZpoxr14p9Bw6%0Awl%2B%2F%2FU7%2B43FV%2FuF0on0%3D%0A)
 
 ### How much is Claude costing?
 
@@ -82,9 +82,9 @@ This section includes the following analytics:
 
 - Spend by model (month-to-date, quarter-to-date, year-to-date, 1 year)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896942/b403f2d216fc40b5195911020b8e/446b99f1-3187-4b79-b2be-9f17b1632ff8?expires=1787921100&amp;signature=2835fbca8d5f220337431563e7874a74126e9b302d1f712a884410945402930f&amp;req=diUmE8F3m4hbW%2FMW1HO4zYE%2BQ9kL7jDcWbBLGZ4vBJVhIjeFHpKMTvsPKZmc%0A2bMW21AvJNr%2FNOnJYQ0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896942/b403f2d216fc40b5195911020b8e/446b99f1-3187-4b79-b2be-9f17b1632ff8?expires=1787964300&amp;signature=60f70ee4c69e613c6913afa742453ae598ee89f0f0189fb3b85b169ff916c6c9&amp;req=diUmE8F3m4hbW%2FMW1HO4zYE%2BQ9kL6jXeWbBLGZ4vBJWujyCM7ZQ1jGGYqARb%0AcCw2A3MTWOsstTelRB8%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896941/2239ce38639df339b24d5af1cb50/f829bc2a-ee52-4135-9b13-09ef1b7d66d6?expires=1787921100&amp;signature=19107242958ab104c29646601449d3a25a35d74f9eee8a51a5f99a659bf0efd4&amp;req=diUmE8F3m4hbWPMW1HO4zTz0Nu0LJchRC%2BtvTPa1I7Ewhh02GKcZqfgfKqD5%0ANdIWFMQW23VBkRKXm4k%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896941/2239ce38639df339b24d5af1cb50/f829bc2a-ee52-4135-9b13-09ef1b7d66d6?expires=1787964300&amp;signature=a0e5f542f53fc5916fce53f7a70a76d60253b621fc46a98386a6bcae6f28243f&amp;req=diUmE8F3m4hbWPMW1HO4zTz0Nu0LIc1TC%2BtvTPa1I7GdDB9mNoExTMrVLxB7%0AthD31js0Y%2FuPj1pjUG4%3D%0A)
 
 ## Export a spend report
 
@@ -160,7 +160,7 @@ Navigate to **[Analytics > Claude Chat](https://claude.ai/analytics/usage)** to 
 
 - Top members by chats
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515898793/405db0c492da11886c28a2b82731/71a55afc-1cef-4c50-b7e1-86775cb9a168?expires=1787921100&amp;signature=0b3434eaefcd927de2326cd87debe861e5790bb346c24db7d632cdc6c37b97d5&amp;req=diUmE8F3lYZWWvMW1HO4zbhc8fqVY%2BUgTcfMEUwBBiWmWPZ%2Bf4q2%2BB8DI2k2%0Ay1A5DDXV02tZKcDIQHo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515898793/405db0c492da11886c28a2b82731/71a55afc-1cef-4c50-b7e1-86775cb9a168?expires=1787964300&amp;signature=2acfc768d32a910b11b9bbfea44760b16ef72339f419cf5c1a378b99782fe915&amp;req=diUmE8F3lYZWWvMW1HO4zbhc8fqVZ%2BAiTcfMEUwBBiXXIxBI53SLBNTk746N%0AYm82xNkBRdRF7YLuz9A%3D%0A)
 
 ### Projects
 
@@ -172,7 +172,7 @@ Navigate to **[Analytics > Claude Chat](https://claude.ai/analytics/usage)** to 
 
 - Top members by project usage
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515899610/91d93108f0767e795fb9e488e882/71607d6d-dff1-4a13-a445-aa1d79850eed?expires=1787921100&amp;signature=4165672da6f0de09ee62c5b7e8f1030a5cd13c2eb54d3b4955a810cbd6474979&amp;req=diUmE8F3lIdeWfMW1HO4zWhGoTuQmSKjExu5cYiHHN8KHpkbQMNHKqUx9UvU%0AO4BhUuQwoGDaLJVcam8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515899610/91d93108f0767e795fb9e488e882/71607d6d-dff1-4a13-a445-aa1d79850eed?expires=1787964300&amp;signature=61d3645a67e578555120e8233d0e9e4a58d63ef2eb8c7aa00fec520965148d29&amp;req=diUmE8F3lIdeWfMW1HO4zWhGoTuQnSehExu5cYiHHN8l4qoiz9msAhsGLuA7%0ASYisHJ5E3XsU3enSIxM%3D%0A)
 
 ### Artifacts
 
@@ -182,7 +182,7 @@ Navigate to **[Analytics > Claude Chat](https://claude.ai/analytics/usage)** to 
 
 - Top 10 users by artifacts generated (month-to-date, quarter-to-date, year-to-date, 1 year)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515899838/33d737f2357d6e485704669962ae/43faadc3-47da-4a93-bbb7-47a7983e7441?expires=1787921100&amp;signature=90359d31218b60304203a29ab4331439722536911116b11c492ea53b1da78294&amp;req=diUmE8F3lIlcUfMW1HO4zcSk4r3bfO%2FBjHDogqK0V%2BzxnXFc%2FeHVFWdVI70s%0AUxi3PXnJSqaFormb1bs%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515899838/33d737f2357d6e485704669962ae/43faadc3-47da-4a93-bbb7-47a7983e7441?expires=1787964300&amp;signature=6c112b538c6e284d69c4fe118a53e5805527595e1c4351780227415dd8140607&amp;req=diUmE8F3lIlcUfMW1HO4zcSk4r3beOrDjHDogqK0V%2ByDTbxQLNRxbXYZ%2B0vd%0AZ6fCkgbmc1TT8Qp5%2Fb0%3D%0A)
 
 ---
 
@@ -278,7 +278,7 @@ Navigate to **[Analytics > Cowork](https://claude.ai/analytics/cowork)** to view
 
 - Daily, weekly, and monthly active Cowork users
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515901489/8005693d55b7fefbfe9233258d39/106c22a0-3f47-47a6-abbd-4788dd70f218?expires=1787921100&amp;signature=1de18cf137b12d280f2ab92cd384b2e585c554710d2e693a48d0e491842af779&amp;req=diUmE8B%2BnIVXUPMW1HO4zX7WEo%2B4X0CpFSi1Z3SzLLsUTTOIXfVxi6xrVt5W%0AM7U8WATcc4j5r%2FlamYk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515901489/8005693d55b7fefbfe9233258d39/106c22a0-3f47-47a6-abbd-4788dd70f218?expires=1787964300&amp;signature=b0853d23986125a89c6389e36bb71bb1b7385fb4ab61f784435a56d942388374&amp;req=diUmE8B%2BnIVXUPMW1HO4zX7WEo%2B4W0WrFSi1Z3SzLLsAY2oa14zH811ZG%2Fb5%0AOc7rmwFbrm58hHHLj5Q%3D%0A)
 
 **Note:** Cowork analytics are available alongside Chat and Claude Code data in the **[Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)**.
 
@@ -288,7 +288,7 @@ Navigate to **[Analytics > Cowork](https://claude.ai/analytics/cowork)** to view
 
 When your admin turns on individual usage analytics, any member of the organization can see their own usage broken down by product, model, and skill, along with where they stand against any spend limits set for them. Individual usage analytics are available in **[Settings > Usage](https://claude.ai/settings/usage)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533906328/1f5cd0a57def40676410f8f379b4/member-usage-30d-model.png?expires=1787921100&amp;signature=589d71019530873073371b9e235d5f45c793f081b9054ef3d4320eba975b2dc7&amp;req=diUkFcB%2Bm4JdUfMW1HO4zfveB6jMfurbWGUKUw6QS4%2Bf5ffWhkc5dRY%2B9Uje%0Asrdz0adp3rtJmzB%2BxZo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533906328/1f5cd0a57def40676410f8f379b4/member-usage-30d-model.png?expires=1787964300&amp;signature=1f18aea6d2f51f8372f0ea9ca809e3db55c25e23be8bdf3c24b1ddbd3cb4233d&amp;req=diUkFcB%2Bm4JdUfMW1HO4zfveB6jMeu%2FZWGUKUw6QS48kkEjcu2y1pJE2mvMD%0AWpjkxktwEHWUHazS9X4%3D%0A)
 
 ---
 

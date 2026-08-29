@@ -250,9 +250,9 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
 ## Domain types
 
-### Workspace List Response
+### Workspace Create Response
 
-- `WorkspaceListResponse object`
+- `WorkspaceCreateResponse object`
 
   - `created_at: string`
 
@@ -280,9 +280,9 @@ curl https://api.anthropic.com/v1/organizations/federation_rules/$FEDERATION_RUL
 
     Workspace display name. Populated when listing; null in the enable response.
 
-### Workspace Create Response
+### Workspace List Response
 
-- `WorkspaceCreateResponse object`
+- `WorkspaceListResponse object`
 
   - `created_at: string`
 

@@ -321,7 +321,7 @@ If a new session fails to start with `Session creation failed` or stalls at prov
 
 ### Unable to get organization UUID
 
-`claude --cloud` and `claude --teleport` require sign-in with a claude.ai account. If you authenticate with an API key, or your stored account details are stale, these commands fail with `Unable to get organization UUID` or a message that API key authentication is not sufficient.
+`claude --cloud` and `claude --teleport` require sign-in with a claude.ai account. If you authenticate with an API key, or your stored account details are stale, these commands fail with `Unable to get organization UUID` or a message that API key authentication is not sufficient. With API key authentication or stale account details, running `claude --teleport` without a session ID shows `Error loading Claude Code sessions` in the session picker instead of either message, and the same fix applies.
 
 Run `/login` to sign in with your claude.ai account, then retry the command. If the error names your provider instead, see the [error table](#output-and-errors): cloud sessions aren't available through third-party providers.
 

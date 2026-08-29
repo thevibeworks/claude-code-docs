@@ -1,6 +1,6 @@
 # List memories
 
-`MemoryListPageResponse Beta.MemoryStores.Memories.List(parameters, cancellationToken = default)`
+`MemoryListPage Beta.MemoryStores.Memories.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/memory_stores/{memory_store_id}/memories`
 
@@ -126,75 +126,67 @@ List memories
 
 ## Returns
 
-- `class MemoryListPageResponse:`
+- `class BetaManagedAgentsMemoryListItem: union`
 
-  Response payload for [List memories](/docs/en/api/beta/memory_stores/memories/list).
+  One item in a [List memories](/docs/en/api/beta/memory_stores/memories/list) response: either a `memory` object or, when `depth` is set, a `memory_prefix` rollup marker.
 
-  - `IReadOnlyList<BetaManagedAgentsMemoryListItem> Data`
+  - `class BetaManagedAgentsMemory:`
 
-    One page of results. Each item is either a `memory` object or, when `depth` was set, a `memory_prefix` rollup marker. Items are returned in a stable, server-defined order.
+    A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
 
-    - `class BetaManagedAgentsMemory:`
+    - `required string ID`
 
-      A `memory` object: a single text document at a hierarchical path inside a memory store. The `content` field is populated when `view=full` and `null` when `view=basic`; the `content_size_bytes` and `content_sha256` fields are always populated so sync clients can diff without fetching content. Memories are addressed by their `mem_...` ID; the path is the create key and can be changed via update.
+      Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
 
-      - `required string ID`
+    - `required string ContentSha256`
 
-        Unique identifier for this memory (a `mem_...` value). Stable across renames; use this ID, not the path, to read, update, or delete the memory.
+      Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
 
-      - `required string ContentSha256`
+    - `required int ContentSizeBytes`
 
-        Lowercase hex SHA-256 digest of the UTF-8 `content` bytes (64 characters). The server applies no normalization, so clients can compute the same hash locally for staleness checks and as the value for a `content_sha256` precondition on update. Always populated, regardless of `view`.
+      Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
 
-      - `required int ContentSizeBytes`
+      format: int32
 
-        Size of `content` in bytes (the UTF-8 plaintext length). Always populated, regardless of `view`.
+    - `required DateTimeOffset CreatedAt`
 
-        format: int32
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset CreatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+    - `required string MemoryStoreID`
 
-        format: date-time
+      ID of the memory store this memory belongs to (a `memstore_...` value).
 
-      - `required string MemoryStoreID`
+    - `required string MemoryVersionID`
 
-        ID of the memory store this memory belongs to (a `memstore_...` value).
+      ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
 
-      - `required string MemoryVersionID`
+    - `required string Path`
 
-        ID of the `memory_version` representing this memory's current content (a `memver_...` value). This is the authoritative head pointer; `memory_version` objects do not carry an `is_latest` flag, so compare against this field instead. Enumerate the history via [List memory versions](/docs/en/api/beta/memory_stores/memory_versions/list).
+      Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
 
-      - `required string Path`
+    - `required Type Type`
 
-        Hierarchical path of the memory within the store, e.g. `/projects/foo/notes.md`. Always starts with `/`. Paths are case-sensitive and unique within a store. Maximum 1,024 bytes.
+    - `required DateTimeOffset UpdatedAt`
 
-      - `required Type Type`
+      A timestamp in RFC 3339 format
 
-      - `required DateTimeOffset UpdatedAt`
+      format: date-time
 
-        A timestamp in RFC 3339 format
+    - `string? Content`
 
-        format: date-time
+      The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
 
-      - `string? Content`
+  - `class BetaManagedAgentsMemoryPrefix:`
 
-        The memory's UTF-8 text content. Populated when `view=full`; `null` when `view=basic`. Maximum 100 kB (102,400 bytes).
+    A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
 
-    - `class BetaManagedAgentsMemoryPrefix:`
+    - `required string Path`
 
-      A rolled-up directory marker returned by [List memories](/docs/en/api/beta/memory_stores/memories/list) when `depth` is set. Indicates that one or more memories exist deeper than the requested depth under this prefix. This is a list-time rollup, not a stored resource; it has no ID and no lifecycle. Each prefix counts toward the page `limit` and interleaves with `memory` items in path order.
+      The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
 
-      - `required string Path`
-
-        The rolled-up path prefix, including a trailing `/` (e.g. `/projects/foo/`). Pass this value as `path_prefix` on a subsequent list call to drill into the directory.
-
-      - `required Type Type`
-
-  - `string? NextPage`
-
-    Opaque cursor for the next page (a `page_...` value), or `null` if there are no more results. Pass as `page` on the next request.
+    - `required Type Type`
 
 ## Example
 

@@ -12,6 +12,8 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 If your organization already used the earlier Claude in Slack, including [Claude Code in Slack](https://code.claude.com/docs/en/slack), Claude Tag replaces it. Your existing Slack app and `@Claude` handle stay, and no data migrates. What changes is who Claude acts as and who sets it up.
 
+<Note>On the Team plan, a single [**Enable Claude Tag** switch](/docs/claude-tag/admins/workspaces#turn-claude-tag-on-or-off-on-the-team-plan) replaces the **Claude Tag version** controls described on this page, and there is nothing to migrate; the switch appears only while no scope routes to the earlier app.</Note>
+
 ## Switch your workspace to Claude Tag
 
 <Steps>

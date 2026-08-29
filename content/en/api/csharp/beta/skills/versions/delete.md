@@ -1,6 +1,6 @@
 # Delete Skill Version
 
-`VersionDeleteResponse Beta.Skills.Versions.Delete(parameters, cancellationToken = default)`
+`BetaDeletedSkillVersion Beta.Skills.Versions.Delete(parameters, cancellationToken = default)`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -18,9 +18,9 @@ Delete Skill Version
 
   - `required string version`
 
-    Path param: Version identifier for the skill.
+    Path param: Identifies the skill version by its version ID.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+    Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -110,15 +110,14 @@ Delete Skill Version
 
 ## Returns
 
-- `class VersionDeleteResponse:`
+- `class BetaDeletedSkillVersion:`
 
   - `required string ID`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `required string Type`
+  - `JsonElement Type constant`
 
     Deleted object type.
 
@@ -133,16 +132,16 @@ VersionDeleteParams parameters = new()
     Version = "version",
 };
 
-var version = await client.Beta.Skills.Versions.Delete(parameters);
+var betaDeletedSkillVersion = await client.Beta.Skills.Versions.Delete(parameters);
 
-Console.WriteLine(version);
+Console.WriteLine(betaDeletedSkillVersion);
 ```
 
 ### Response (200)
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```

@@ -10,7 +10,7 @@ export const BetaNote = () => <Info>Claude Tag is in public beta. Features and b
 
 <BetaNote />
 
-This page covers managing Slack workspace pairings after initial setup: adding more workspaces, choosing which Claude Tag version each one runs, and disconnecting one.
+This page covers managing Slack workspace pairings after initial setup: adding more workspaces, choosing which Claude Tag version each one runs, turning Claude on or off on the Team plan, and disconnecting one.
 
 A workspace pairing links one Slack workspace (or Enterprise Grid) to your Claude organization so `@Claude` can run there. Your first pairing was created during [setup](/docs/claude-tag/admins/setup-overview). To add more, you must be an Owner in your Claude organization, and a Workspace Admin (or Grid Org Admin) in the Slack workspace you're adding.
 
@@ -48,7 +48,7 @@ The choice matters for direct messages. On Enterprise Grid, DMs follow each user
 
 ## Set the version for a scope
 
-Every scope routes to one of four versions. The control is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → **Advanced** → **Claude Tag version**. Channels Claude was added to appear under **Slack** automatically, and the **Search channels** field finds a channel's scope by name or ID.
+Every scope routes to one of four versions. On the Team plan, a single [**Enable Claude Tag** switch](#turn-claude-tag-on-or-off-on-the-team-plan) replaces the control this section describes. The control is at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → the scope → **Advanced** → **Claude Tag version**. Channels Claude was added to appear under **Slack** automatically, and the **Search channels** field finds a channel's scope by name or ID.
 
 | Label       | Effect                                                                                                                                                               |
 | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -60,6 +60,36 @@ Every scope routes to one of four versions. The control is at [`claude.ai/admin-
 Both versions answer through the same @Claude app, so **Off** turns off the Legacy version too. To opt out of Claude Tag while keeping the earlier behavior, set the scope to **Legacy**, not **Off**.
 
 Per-scope version changes (workspace and channel) are reversible; see [Migrate from the earlier app](/docs/claude-tag/admins/migrate-from-earlier).
+
+## Turn Claude Tag on or off on the Team plan
+
+On the [Team plan](https://claude.com/pricing), you turn Claude on or off in every connected Slack workspace with one switch, at [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag**. The switch doesn't override a workspace set to **Off** on its own. On the Enterprise plan, and in a Team organization whose Slack configuration can't be expressed as one on-or-off choice (a scope set to **Legacy**, a workspace or channel set to **New**, a channel set to **Off**, an access bundle attached to a channel, or a migration from the earlier Claude in Slack still in progress), the workspace and channel entries under **Slack** show a **Claude Tag version** setting instead of the switch; use [Set the version for a scope](#set-the-version-for-a-scope).
+
+### Turn Claude off in channels
+
+Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch off. An @-mention in any channel gets "Claude is disabled in this channel" while the switch is off. Direct messages keep working. To stop those too, turn off the [**Allow direct messages**](/docs/claude-tag/admins/restrict-access#allow-or-disable-direct-messages) toggle.
+
+### Turn Claude back on
+
+Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch on. Everything you set on each scope, such as [access bundles](/docs/claude-tag/admins/attach-to-scope) and [custom instructions](/docs/claude-tag/admins/attach-to-scope#add-custom-instructions), applies again. A workspace set to **Off** on its own stays off, along with its channels; the switch doesn't override a workspace's own **Off** setting.
+
+### Turn Claude off for the whole organization
+
+Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) and turn off the **Enable Claude Tag for your organization** toggle at the top of the page, above **Claude Tag's access**. That toggle turns off direct messages too.
+
+### Keep Claude out of specific channels
+
+The switch has no per-channel setting. Add [blocked channel patterns](/docs/claude-tag/admins/restrict-access#block-or-auto-join-channels-by-name) for the channels instead.
+
+### Notices that settings aren't applied
+
+When a workspace or channel entry shows a notice that its settings aren't applied, nothing you set there is lost.
+
+| Notice                                                                                                                                                                                                                   | What to do                                                                                                                                                                                          |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "These settings aren't applied while Claude Tag is disabled. They're saved and will take effect once it's enabled."                                                                                                      | Go to [`claude.ai/admin-settings/claude-tag`](https://claude.ai/admin-settings/claude-tag) → **Claude Tag's access** → **Slack** → **Default Slack** → **Enable Claude Tag** and turn the switch on |
+| "These settings aren't applied while Claude Tag is turned off for this workspace or channel; the org-wide Enable Claude Tag setting doesn't override that. They're saved and will take effect once it's turned back on." | The workspace, or the channel's workspace, is set to **Off** on its own, and the switch doesn't override it. While you have the switch, the admin page has no control for that setting              |
+| "These settings aren’t applied while Claude Tag setup is incomplete for this workspace or channel."                                                                                                                      | Select **Resume** beside the notice and finish that workspace's setup                                                                                                                               |
 
 ## Revoke a pairing
 

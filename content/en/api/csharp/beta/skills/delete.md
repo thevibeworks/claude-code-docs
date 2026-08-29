@@ -1,6 +1,6 @@
 # Delete Skill
 
-`SkillDeleteResponse Beta.Skills.Delete(parameters, cancellationToken = default)`
+`BetaDeletedSkill Beta.Skills.Delete(parameters, cancellationToken = default)`
 
 **DELETE** `/v1/skills/{skill_id}`
 
@@ -104,7 +104,7 @@ Delete Skill
 
 ## Returns
 
-- `class SkillDeleteResponse:`
+- `class BetaDeletedSkill:`
 
   - `required string ID`
 
@@ -112,7 +112,7 @@ Delete Skill
 
     The format and length of IDs may change over time.
 
-  - `required string Type`
+  - `JsonElement Type constant`
 
     Deleted object type.
 
@@ -123,9 +123,9 @@ Delete Skill
 ```csharp
 SkillDeleteParams parameters = new() { SkillID = "skill_id" };
 
-var skill = await client.Beta.Skills.Delete(parameters);
+var betaDeletedSkill = await client.Beta.Skills.Delete(parameters);
 
-Console.WriteLine(skill);
+Console.WriteLine(betaDeletedSkill);
 ```
 
 ### Response (200)
@@ -133,6 +133,6 @@ Console.WriteLine(skill);
 ```json
 {
   "id": "skill_01JAbcdefghijklmnopqrstuvw",
-  "type": "type"
+  "type": "skill_deleted"
 }
 ```

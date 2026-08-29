@@ -1,6 +1,6 @@
 # Delete Skill Version
 
-`client.Beta.Skills.Versions.Delete(ctx, version, params) (*BetaSkillVersionDeleteResponse, error)`
+`client.Beta.Skills.Versions.Delete(ctx, version, params) (*BetaDeletedSkillVersion, error)`
 
 **DELETE** `/v1/skills/{skill_id}/versions/{version}`
 
@@ -10,9 +10,9 @@ Delete Skill Version
 
 - `version string`
 
-  Version identifier for the skill.
+  Identifies the skill version by its version ID.
 
-  Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
+  Requests carrying the `skills-2025-10-02` beta header address versions by their Unix epoch timestamp instead (e.g., "1759178010641129").
 
 - `params BetaSkillVersionDeleteParams`
 
@@ -114,15 +114,14 @@ Delete Skill Version
 
 ## Returns
 
-- `type BetaSkillVersionDeleteResponse struct{…}`
+- `type BetaDeletedSkillVersion struct{…}`
 
   - `ID string`
 
-    Version identifier for the skill.
+    Unique identifier for this Skill Version. The id addresses the version in
+    paths and pins it in references.
 
-    Each version is identified by a Unix epoch timestamp (e.g., "1759178010641129").
-
-  - `Type string`
+  - `Type SkillVersionDeleted`
 
     Deleted object type.
 
@@ -147,7 +146,7 @@ func main() {
 	client := anthropic.NewClient(
 		option.WithAPIKey("my-anthropic-api-key"),
 	)
-	version, err := client.Beta.Skills.Versions.Delete(
+	betaDeletedSkillVersion, err := client.Beta.Skills.Versions.Delete(
 		context.TODO(),
 		"version",
 		anthropic.BetaSkillVersionDeleteParams{
@@ -157,7 +156,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	fmt.Printf("%+v\n", version.ID)
+	fmt.Printf("%+v\n", betaDeletedSkillVersion.ID)
 }
 ```
 
@@ -165,7 +164,7 @@ func main() {
 
 ```json
 {
-  "id": "1759178010641129",
-  "type": "type"
+  "id": "id",
+  "type": "skill_version_deleted"
 }
 ```

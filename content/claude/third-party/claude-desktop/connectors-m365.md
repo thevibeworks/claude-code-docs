@@ -195,15 +195,15 @@ Choose the local connector when your data-residency requirements do not allow Mi
     }
     ```
 
-    | Field        | Required | Description                                                                                                                                                                   |
-    | ------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-    | `name`       | Yes      | Unique display name, shown to users in connector settings.                                                                                                                    |
-    | `server`     | Yes      | Must be `microsoft365`. Built-in entries use this field instead of `url`, `transport`, or `command`; an entry that mixes `server` with those fields is rejected.              |
-    | `clientId`   | Yes      | The Application (client) ID of the local-mode app from step 1.                                                                                                                |
-    | `tenantId`   | Yes      | Your Directory (tenant) ID.                                                                                                                                                   |
-    | `azureCloud` | No       | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for US Government clouds.                                           |
-    | `scope`      | No       | Space-separated delegated Graph scopes to request instead of the default read set. A string array named `scopes` is also accepted. See [Configure scopes](#configure-scopes). |
-    | `toolPolicy` | No       | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers).                                 |
+    | Field        | Required | Description                                                                                                                                                                                         |
+    | ------------ | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | `name`       | Yes      | Unique display name, shown to users in connector settings.                                                                                                                                          |
+    | `server`     | Yes      | Must be `microsoft365`. Built-in entries use this field instead of `url`, `transport`, or `command`; an entry that mixes `server` with those fields is rejected.                                    |
+    | `clientId`   | Yes      | The Application (client) ID of the local-mode app from step 1.                                                                                                                                      |
+    | `tenantId`   | Yes      | Your Directory (tenant) ID.                                                                                                                                                                         |
+    | `azureCloud` | No       | `global` (default), `us-gov-high`, or `us-gov-dod`. Selects the Microsoft Entra and Microsoft Graph hosts for US Government clouds.                                                                 |
+    | `scope`      | No       | Space-separated delegated Graph scopes to request instead of the default read set. A string array named `scopes` is also accepted until October 7, 2026. See [Configure scopes](#configure-scopes). |
+    | `toolPolicy` | No       | Per-tool approval locks, the same as for any managed server. See [`toolPolicy`](/docs/third-party/claude-desktop/configuration#managedmcpservers).                                                       |
 
     The server ships inside the app, so nothing else needs to be installed on the device, and it activates only from managed configuration; users cannot add it themselves. Deploy the configuration through your device-management tool as usual.
   </Step>

@@ -2,7 +2,7 @@
 
 ## List Models
 
-`ModelListPageResponse Beta.Models.List(parameters, cancellationToken = default)`
+`ModelListPage Beta.Models.List(parameters, cancellationToken = default)`
 
 **GET** `/v1/models`
 
@@ -118,153 +118,139 @@ The Models API response can be used to determine which models are available for 
 
 ### Returns
 
-- `class ModelListPageResponse:`
+- `class BetaModelInfo:`
 
-  - `required IReadOnlyList<BetaModelInfo> Data`
+  - `required string ID`
 
-    - `required string ID`
+    Unique model identifier.
 
-      Unique model identifier.
+  - `required IReadOnlyList<string>? AllowedFallbackModels`
 
-    - `required IReadOnlyList<string>? AllowedFallbackModels`
+    Model IDs this model accepts as `fallbacks[i].model` on the Messages API. An empty list means the `fallbacks` parameter is not supported for this model as primary.
 
-      Model IDs this model accepts as `fallbacks[i].model` on the Messages API. An empty list means the `fallbacks` parameter is not supported for this model as primary.
+  - `required BetaModelCapabilities? Capabilities`
 
-    - `required BetaModelCapabilities? Capabilities`
+    Model capability information.
 
-      Model capability information.
+    - `required BetaCapabilitySupport Batch`
 
-      - `required BetaCapabilitySupport Batch`
+      Whether the model supports the Batch API.
 
-        Whether the model supports the Batch API.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+    - `required BetaCapabilitySupport Citations`
 
-      - `required BetaCapabilitySupport Citations`
+      Whether the model supports citation generation.
 
-        Whether the model supports citation generation.
+    - `required BetaCapabilitySupport CodeExecution`
 
-      - `required BetaCapabilitySupport CodeExecution`
+      Whether the model supports code execution tools.
 
-        Whether the model supports code execution tools.
+    - `required BetaContextManagementCapability ContextManagement`
 
-      - `required BetaContextManagementCapability ContextManagement`
+      Context management support and available strategies.
 
-        Context management support and available strategies.
+      - `required BetaCapabilitySupport? ClearThinking20251015`
 
-        - `required BetaCapabilitySupport? ClearThinking20251015`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+      - `required BetaCapabilitySupport? ClearToolUses20250919`
 
-        - `required BetaCapabilitySupport? ClearToolUses20250919`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+      - `required BetaCapabilitySupport? Compact20260112`
 
-        - `required BetaCapabilitySupport? Compact20260112`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+    - `required BetaEffortCapability Effort`
 
-      - `required BetaEffortCapability Effort`
+      Effort (reasoning_effort) support and available levels.
 
-        Effort (reasoning_effort) support and available levels.
+      - `required BetaCapabilitySupport High`
 
-        - `required BetaCapabilitySupport High`
+        Whether the model supports high effort level.
 
-          Whether the model supports high effort level.
+      - `required BetaCapabilitySupport Low`
 
-        - `required BetaCapabilitySupport Low`
+        Whether the model supports low effort level.
 
-          Whether the model supports low effort level.
+      - `required BetaCapabilitySupport Max`
 
-        - `required BetaCapabilitySupport Max`
+        Whether the model supports max effort level.
 
-          Whether the model supports max effort level.
+      - `required BetaCapabilitySupport Medium`
 
-        - `required BetaCapabilitySupport Medium`
+        Whether the model supports medium effort level.
 
-          Whether the model supports medium effort level.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+      - `required BetaCapabilitySupport? Xhigh`
 
-        - `required BetaCapabilitySupport? Xhigh`
+        Indicates whether a capability is supported.
 
-          Indicates whether a capability is supported.
+    - `required BetaCapabilitySupport ImageInput`
 
-      - `required BetaCapabilitySupport ImageInput`
+      Whether the model accepts image content blocks.
 
-        Whether the model accepts image content blocks.
+    - `required BetaCapabilitySupport PdfInput`
 
-      - `required BetaCapabilitySupport PdfInput`
+      Whether the model accepts PDF content blocks.
 
-        Whether the model accepts PDF content blocks.
+    - `required BetaCapabilitySupport StructuredOutputs`
 
-      - `required BetaCapabilitySupport StructuredOutputs`
+      Whether the model supports structured output / JSON mode / strict tool schemas.
 
-        Whether the model supports structured output / JSON mode / strict tool schemas.
+    - `required BetaThinkingCapability Thinking`
 
-      - `required BetaThinkingCapability Thinking`
+      Thinking capability and supported type configurations.
 
-        Thinking capability and supported type configurations.
+      - `required bool Supported`
 
-        - `required bool Supported`
+        Whether this capability is supported by the model.
 
-          Whether this capability is supported by the model.
+      - `required BetaThinkingTypes Types`
 
-        - `required BetaThinkingTypes Types`
+        Supported thinking type configurations.
 
-          Supported thinking type configurations.
+        - `required BetaCapabilitySupport Adaptive`
 
-          - `required BetaCapabilitySupport Adaptive`
+          Whether the model supports thinking with type 'adaptive' (auto).
 
-            Whether the model supports thinking with type 'adaptive' (auto).
+        - `required BetaCapabilitySupport Enabled`
 
-          - `required BetaCapabilitySupport Enabled`
+          Whether the model supports thinking with type 'enabled'.
 
-            Whether the model supports thinking with type 'enabled'.
+  - `required DateTimeOffset CreatedAt`
 
-    - `required DateTimeOffset CreatedAt`
+    RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
 
-      RFC 3339 datetime string representing the time at which the model was released. May be set to an epoch value if the release date is unknown.
+    format: date-time
 
-      format: date-time
+  - `required string DisplayName`
 
-    - `required string DisplayName`
+    A human-readable name for the model.
 
-      A human-readable name for the model.
+  - `required long? MaxInputTokens`
 
-    - `required long? MaxInputTokens`
+    Maximum input context window size in tokens for this model.
 
-      Maximum input context window size in tokens for this model.
+  - `required long? MaxTokens`
 
-    - `required long? MaxTokens`
+    Maximum value for the `max_tokens` parameter when using this model.
 
-      Maximum value for the `max_tokens` parameter when using this model.
+  - `JsonElement Type constant`
 
-    - `JsonElement Type constant`
+    Object type.
 
-      Object type.
-
-      For Models, this is always `"model"`.
-
-  - `required string? FirstID`
-
-    First ID in the `data` list. Can be used as the `before_id` for the previous page.
-
-  - `required bool HasMore`
-
-    Indicates if there are more results in the requested page direction.
-
-  - `required string? LastID`
-
-    Last ID in the `data` list. Can be used as the `after_id` for the next page.
+    For Models, this is always `"model"`.
 
 ### Example
 
