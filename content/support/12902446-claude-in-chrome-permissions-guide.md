@@ -28,7 +28,7 @@ In "Manually approve," Claude checks with you before it acts. What that looks li
 
 Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1788103800&amp;signature=42da4bb4beb14c6395e2e5b3b27e880f0fedaf9f96ebcefd1a3211fc9f0b94ac&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcpM%2FIG%2FgN0ADj5oqFDmWQ%2FlHys7BJzVXDCi%0AG%2BvLK2HCfM8fDOdZeLg%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1788117300&amp;signature=f9687aaf400fa42ad13488fb660f63490d88dda4b1bcfe197ab52a254f8c8bef&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcpM%2FYW0gN0ADj5oqFBV5LkKcbwYI7dwA2Ox%0ALBqVJQ6lu3ZUzx87blM%3D%0A)
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -62,7 +62,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1788103800&amp;signature=28bbe3ce29cd37444fbf98ee5e621907b05757b0d18b49a12fbe9bc3dcc32560&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm5xiC%2Fk7A4lHPBihAXNwmABXHTVbDWq0uD6%0AhH2zKHTH3nfdZTEBBV0%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2604970825/d7b961271be69e7541b406df1efd/d845324e-6b4a-4f54-83b9-0bea86ec09c6?expires=1788117300&amp;signature=f0ecf8ea65d036b37339df11a14ceb53696b8453a4de1e84d7baeaf3200c253d&amp;req=diYnEsB5nYldXPMW1HO4zZ3Nqm5xiSvv7A4lHPBihAWtKH0QR76QOblnjN2n%0AsYokrllorFHfs78oTQM%3D%0A)
 
 ### Permission options
 
