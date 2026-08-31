@@ -191,7 +191,7 @@ Then click **Export** to produce a `.mobileconfig` (macOS) or `.reg` (Windows) f
 
     **The gateway MUST validate `iss` AND `aud`, not just the signature.** Signature + issuer alone accepts *any* token from the same tenant, including tokens issued to unrelated apps. In `id_token` mode the audience is the `clientId`:
 
-    ```yaml theme={null} theme={null}
+    ```yaml theme={null}
     # LiteLLM example — `audience` is REQUIRED, not optional
     general_settings:
       litellm_jwtauth:

@@ -195,7 +195,7 @@ The reference below is generated from the configuration schema and grouped to ma
 
     **The gateway MUST validate `iss` AND `aud`, not just the signature.** Signature + issuer alone accepts *any* token from the same tenant, including tokens issued to unrelated apps. In `id_token` mode the audience is the `clientId`:
 
-    ```yaml theme={null} theme={null}
+    ```yaml theme={null}
     # LiteLLM example — `audience` is REQUIRED, not optional
     general_settings:
       litellm_jwtauth:
@@ -251,7 +251,7 @@ The reference below is generated from the configuration schema and grouped to ma
 
     **Extended context** (`supports1m`) is a capability assertion you make about your deployment; only set it for models you've confirmed support the 1M-token window:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "claude-sonnet-5", "supports1m": true}, "claude-opus-4-8"]
     ```
 
@@ -259,19 +259,19 @@ The reference below is generated from the configuration schema and grouped to ma
 
     **Default to 1M context** (`prefer1m`) makes the 1M-context variant the default picker selection when this entry is the default model (the first entry); users can still switch to the standard variant, and an explicit user pick is always kept. No effect without `supports1m`. Under dynamic discovery (no explicit list), the equivalent flat key in the **Models** group applies instead:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "claude-opus-4-8", "supports1m": true, "prefer1m": true}]
     ```
 
     **Display label** (`labelOverride`) is for IDs the picker can't derive a friendly name from (Bedrock ARNs, gateway routing aliases). Display-only; `name` is still what the app sends:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "arn:aws:bedrock:us-east-1:123:application-inference-profile/abc", "labelOverride": "Claude Opus (Prod)"}]
     ```
 
     **Tier mapping** (`anthropicFamilyTier`) tells the app which Claude tier (`haiku`/`sonnet`/`opus`/`fable`/`mythos`) an entry stands in for, so bare tier aliases (e.g. in Code sessions) resolve to your model. `isFamilyDefault: true` picks the winner when several entries share a tier:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"name": "us.anthropic.claude-opus-4-8", "anthropicFamilyTier": "opus"}]
     ```
 
@@ -296,7 +296,7 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="inferenceModelPricing details">
     Each row replaces Anthropic list price for one model in the Usage page's estimate, in USD per million tokens (`inputPerMtok`, `outputPerMtok`, `cacheReadPerMtok`, `cacheWritePerMtok` — all four required; `cacheWritePerMtok` prices both 5-minute and 1-hour cache writes); any row also turns the estimate on. Mirrors Claude Code's managed `modelPricing.overrides`, and `name` is matched the same way: a built-in Claude model ID (e.g. `claude-sonnet-4-6`, or its Bedrock, Vertex, or Foundry ID) covers every dated and provider spelling of that model; any other value — a gateway alias, an inference-profile ARN — matches that exact ID only (case-insensitive) and wins over a built-in row. An ID Claude Code cannot map to a Claude model at all gets no estimate until a row here prices it. `inferenceModelPricingMultiplier` still applies on top of a row.
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     {"inferenceModelPricingEnabled": true, "inferenceModelPricingMultiplier": 0.9, "inferenceModelPricing": [{"name": "claude-sonnet-4-6", "inputPerMtok": 2.4, "outputPerMtok": 12, "cacheReadPerMtok": 0.24, "cacheWritePerMtok": 3}]}
     ```
 
@@ -382,13 +382,13 @@ The reference below is generated from the configuration schema and grouped to ma
 
 <AccordionGroup>
   <Accordion title="sshHostAllowlist details">
-    Controls whether the Code tab offers SSH remote sessions, and to which hosts. When this key is `[]` or unset and no Claude Code managed-settings allowlist applies on the device (see below), SSH remote sessions are off: the option is hidden and any connection attempt is refused. Set it to a list of host patterns to turn the feature on for those hosts, or to `["*"]` to allow any host.
+    When off, the SSH option is hidden and any connection attempt is refused.
 
-    Entries are exact hostnames (`build01.corp.example.com`) or `*.` wildcards (`*.corp.example.com` matches the apex and subdomains at any depth); matching is case-insensitive and ignores a `user@` prefix. Each connection is checked twice: against the host the user entered, and again against the `HostName` their `~/.ssh/config` resolves it to, so an alias cannot reach a host outside the list. `ProxyCommand`/`ProxyJump` are permitted when the resolved host matches — this key governs which hosts the app offers, not network egress.
+    Entries are exact hostnames (`build01.corp.example.com`) or `*.` wildcards (`*.corp.example.com` matches the apex and subdomains at any depth); matching is case-insensitive and ignores a `user@` prefix. Both the host the user entered and the `HostName` their `~/.ssh/config` resolves it to must match, so an alias cannot reach a host outside the list. `ProxyCommand` is permitted when the resolved host matches (this key governs which hosts the app offers, not network egress); `ProxyJump` is refused with a message suggesting `ProxyCommand`.
 
-    This is opt-in because a remote session runs Claude Code on the SSH host and the app forwards the session's inference credentials (the API key or gateway token it would hand a local session) to that process — and, when `otlpEndpoint` is configured, the organization's OTLP collector endpoint and its auth headers so the remote session exports telemetry like a local one. List only hosts you trust with those credentials. Remote sessions work with the Gateway, Anthropic API, and Foundry providers, and with Bedrock, Bedrock Mantle, and Vertex when the connection uses a token-based credential the app can forward (API key / bearer token, credential helper script, Vertex workforce identity federation). File-based kinds — Bedrock IAM Identity Center sign-in and AWS profile, Vertex Google sign-in and an ADC / service-account credentials file — are refused at session start with a message naming the credential kind, because those credentials live in local files the app does not copy to the remote host.
+    This is opt-in because a remote session runs Claude Code on the SSH host and the app forwards the session's inference credential to it, plus your OTLP collector endpoint and auth headers when `otlpEndpoint` is set. List only hosts you trust with those. Token-based credentials are forwarded; file-based kinds (Bedrock IAM Identity Center sign-in or AWS profile, Vertex Google sign-in or a credentials file) are refused at session start.
 
-    If this key is unset, an `sshHostAllowlist` deployed through Claude Code's own managed-settings file on the device still applies; when both are set, this key wins where the app's configuration is admin-managed (an MDM-owned configuration, or one served by the admin console / a device-managed bootstrap URL) — on a self-configured install it applies only while that managed-settings file sets none. Like any key outside the app-behavior group, delivering it by MDM makes the MDM tier the app's whole configuration; to restrict SSH on self-configured installs without taking ownership, deploy `sshHostAllowlist` in Claude Code's managed-settings file instead. `allowedWorkspaceFolders` continues to apply on the remote host (see that key).
+    If this key is unset, an `sshHostAllowlist` in Claude Code's own managed-settings file on the device still applies; when both are set, this key wins where the app's configuration is admin-managed (MDM, the admin console, or a device-managed bootstrap URL) and otherwise applies only while that file sets none. `allowedWorkspaceFolders` still applies on the remote host.
   </Accordion>
 </AccordionGroup>
 
@@ -832,7 +832,7 @@ The reference below is generated from the configuration schema and grouped to ma
   <Accordion title="orgPluginSettings details">
     Locks per-tool permissions on MCP servers that arrive via the org-plugins directory — one entry per server name:
 
-    ```json theme={null} theme={null}
+    ```json theme={null}
     [{"serverName": "internal-search", "tools": [{"toolName": "delete_document", "permission": "blocked"}]}]
     ```
 
