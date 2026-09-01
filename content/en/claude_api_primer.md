@@ -11,7 +11,8 @@ description: This guide is designed to give Claude the basics of using the Claud
 ## Models
 
 ```text wrap
-For complex agentic coding and enterprise work: Claude Opus 5: claude-opus-5
+Recommended default for most work, including complex agentic coding: Claude Opus 5: claude-opus-5
+Step up for the hardest long-running agentic and research tasks, at 2x Claude Opus 5 pricing: Claude Fable 5.1: claude-fable-5-1
 Previous Opus model: Claude Opus 4.8: claude-opus-4-8
 Smart model: Claude Sonnet 5: claude-sonnet-5
 For fast, cost-effective tasks: Claude Haiku 4.5: claude-haiku-4-5-20251001
@@ -620,6 +621,8 @@ When working with the `tool_choice` parameter, there are four possible options:
 * `any` tells Claude that it must use one of the provided tools.
 * `tool` forces Claude to always use a particular tool.
 * `none` prevents Claude from using any tools.
+
+On Claude Fable 5.1 and Claude Mythos 5.1, `any` and `tool` return a 400 error. Leave `tool_choice` at `auto` and set `"strict": true` on the tool definition to guarantee that any call Claude makes matches the tool's `input_schema`. See [Strict tool use](https://platform.claude.com/docs/en/agents-and-tools/tool-use/strict-tool-use).
 
 ### JSON output
 

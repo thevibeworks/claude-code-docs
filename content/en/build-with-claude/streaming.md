@@ -297,7 +297,7 @@ Each server-sent event includes a named event type and associated JSON data. Eac
 
 Each stream uses the following event flow:
 
-1. `message_start`: contains a `Message` object with empty `content`.
+1. `message_start`: contains a `Message` object with empty `content`. Under the [`thinking-binding-controls-2026-08-01`](https://platform.claude.com/docs/en/build-with-claude/thinking#preserved-thinking-controls) beta header, this `Message` object also carries the `input_transformations` array. After a mid-stream [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback), the final `message_delta` event carries the array again with the serving model's entries.
 2. A series of content blocks, each of which has a `content_block_start`, one or more `content_block_delta` events, and a `content_block_stop` event. Each content block has an `index` that corresponds to its index in the final Message `content` array. One exception: during [server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) responses, a `fallback` content block arrives at each model boundary as a `content_block_start` and `content_block_stop` pair with no deltas in between.
 3. One or more `message_delta` events, indicating top-level changes to the final `Message` object.
 4. A final `message_stop` event.
@@ -357,7 +357,7 @@ When using [thinking](https://platform.claude.com/docs/en/build-with-claude/thin
 
 For thinking content, a special `signature_delta` event is sent just before the `content_block_stop` event. This signature is used to verify the integrity of the thinking block.
 
-When `display: "omitted"` is set on the thinking configuration, no `thinking_delta` events are sent. The thinking block opens, receives a single `signature_delta`, and closes. See [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
+When `display: "omitted"` is set on the thinking configuration, no `thinking_delta` events are sent. The thinking block opens, receives a single `signature_delta`, and closes. With `display: "updates"` (beta), reasoning blocks stream the same way, and only the [progress updates](https://platform.claude.com/docs/en/build-with-claude/thinking#progress-updates) that some models write between tool calls stream `thinking_delta` events. See [Controlling thinking display](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
 A typical thinking delta looks like:
 

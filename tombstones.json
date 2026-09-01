@@ -699,6 +699,14 @@
       "since": "2026-08-25",
       "reason": "soft-404 (HTML shell)"
     },
+    "https://support.claude.com/en/articles/15363606-why-claude-switched-models-in-your-conversation-with-fable-5": {
+      "since": "2026-09-01",
+      "reason": "moved -> https://support.claude.com/en/articles/15363606-why-claude-switched-models-in-your-conversation-with-fable-5-or-fable-5-1"
+    },
+    "https://support.claude.com/en/articles/15424964-claude-fable-5-on-your-plan": {
+      "since": "2026-09-01",
+      "reason": "moved -> https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan"
+    },
     "https://support.claude.com/en/articles/7996906-reporting-blocking-and-removing-content-from-claude": {
       "since": "2026-08-25",
       "reason": "moved -> https://support.claude.com/en/articles/7996906-report-block-and-remove-content-from-claude"

@@ -41,6 +41,8 @@ Both tool search variants are available on the following models:
 
 | Model                                          | Tool versions                                                       |
 | ---------------------------------------------- | ------------------------------------------------------------------- |
+| Claude Fable 5.1 (claude-fable-5-1)            | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
+| Claude Mythos 5.1 (claude-mythos-5-1)          | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Fable 5 (claude-fable-5)                | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Mythos 5 (claude-mythos-5)              | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |
 | Claude Opus 5 (claude-opus-5)                  | `tool_search_tool_regex_20251119`, `tool_search_tool_bm25_20251119` |

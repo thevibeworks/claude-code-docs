@@ -24,7 +24,7 @@ If you're on an Enterprise plan and a model or effort level you expect is missin
 
 The effort level controls how much thinking Claude applies to a response. Higher effort means more thorough responses, but they take longer and use more tokens, so you'll reach your usage limits faster.
 
-The effort selector is available for Opus 5, Sonnet 5, Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6.
+The effort selector is available for Fable 5.1, Opus 5, Sonnet 5, Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6.
 
 To change the effort level:
 
@@ -54,7 +54,7 @@ Thinking lets Claude spend more time breaking down problems, planning solutions,
 
 Thinking and effort are separate settings, and you can use any combination of the two. The effort level controls how thorough Claude is with every response. The thinking toggle controls whether Claude works through its reasoning in an expandable section before responding.
 
-Thinking cannot be turned off in Claude when using Claude Opus 5. On the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error.
+Thinking cannot be turned off in Claude when using Claude Fable 5.1 or Claude Opus 5. On Fable 5.1, thinking is always on at every effort level, including on the Claude API. For Opus 5 on the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error.
 
 ### Turn thinking on or off
 

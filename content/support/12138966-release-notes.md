@@ -1,5 +1,13 @@
 # Release notes
 
+## September 2026
+
+### September 1, 2026
+
+**Claude Fable 5.1 and Claude Mythos 5.1 launch**
+
+We just launched Claude Fable 5.1 and Claude Mythos 5.1, the world’s most advanced models for coding and knowledge work. For more information, see our blog post: **[Claude Fable 5.1 and Mythos 5.1](https://www.anthropic.com/claude-fable-and-mythos-5-1)**.
+
 ## August 2026
 
 ### August 25, 2026

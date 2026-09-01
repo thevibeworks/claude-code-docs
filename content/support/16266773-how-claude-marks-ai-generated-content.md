@@ -10,9 +10,9 @@ What our marking commitments mean for Claude:
 
 - **Marking works everywhere you use Claude.** Marks will apply to output from supported Claude models across Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag, and wherever Claude is offered, worldwide. Some platforms or features may not support certain marking types.
 
-- **We'll help you detect Claude's marks.** We'll support users and other third parties to detect Claude’s marks, as the Code requires, and we’ll share details in forthcoming documentation.
-
 - **Existing models are in progress.** The law includes a transition period for Anthropic models launched before August 2, 2026, and we’re working to add marking support for those models as well.
+
+- **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
 More details about our marking plans are below.
 
@@ -24,11 +24,11 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 
 ### What’s covered
 
-- **Models.** Claude models launched on or after August 2, 2026 support marking at launch. We’re also working to add marking support to Claude models released before that date, and we’ll update this article as that becomes available.
+- **Models.** Claude models launched on or after August 2, 2026 support marking at launch. Models currently supported include Fable 5.1 and Mythos 5.1. We’re working to add marking support to other Claude models released before that date, and we’ll update this article as that becomes available.
 
 - **Products.** Claude markings cover output from supported models everywhere you use Claude, including Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag. Embedded watermarks will apply to all generated text. Provenance metadata will apply where Claude supports processing files.
 
-- **Cloud partners.** Embedded watermarks will apply when supported Claude models are accessed through AWS, Google Cloud, or Microsoft Foundry. Signed provenance metadata may not be supported on every platform, depending on the features each platform offers.
+- **Cloud partners.** When supported Claude models are accessed through AWS, Google Cloud, or Microsoft Foundry they will carry watermarks. Signed provenance metadata is added when Claude creates a file, so it applies only where a platform offers Claude's file generation features.
 
 - **Regions.** Marking will apply to output from supported models wherever Claude is offered, worldwide.
 
@@ -46,11 +46,13 @@ Because the watermark is part of the text, it will travel with the text when it�
 
 When Claude generates a supported file type, such as a .svg, .png, or .jpg, it will attach signed provenance metadata. This metadata follows the Coalition for Content Provenance and Authenticity (C2PA) open standard, which is used across the industry to record information about content provenance. If a signed metadata label is present, it signals that a file was processed by Claude and lets you detect whether the file has been tampered with.
 
-## Detecting Claude’s marks
+## Detect Claude’s marks
 
-We’re also working to enable users and other third parties to detect Claude’s embedded watermarks and provenance metadata. Detection checks whether a piece of text or a file carries a supported Claude mark. If a supported mark is found, it indicates that the content may have been processed by Claude.
+Detection checks whether a piece of text or a file carries a supported Claude mark. If a supported mark is found, it indicates that the content may have been processed by Claude.
 
-We’ll share details on detection mechanisms in forthcoming technical documentation.
+To check whether a file contains a Claude-issued Content Credential, use the free **[Claude Content Checker](https://claude.com/check-content)**. To learn more about how Claude marks files and how to verify Claude-issued Content Credentials, see **[Content Credentials on generated files](https://platform.claude.com/docs/en/build-with-claude/watermark-detection)**.
+
+Watermark detection is currently in private preview, available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
 ## Limitations
 
