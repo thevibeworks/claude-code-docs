@@ -64,7 +64,7 @@ You never need to keep a link. claude-science open mints a fresh one and opens i
 
 ## Environment variables
 
-`DO_NOT_TRACK`, set to any value, turns usage analytics off. It is the same switch as `disable_telemetry = true` in the configuration file. `GITHUB_TOKEN` is optional and is used only against `api.github.com`, to lift the rate limit when you install a skill from a GitHub repository. Claude Science also reads the standard proxy variables (`HTTPS_PROXY`, `HTTP_PROXY`, `NO_PROXY`, and `ALL_PROXY`); see [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks#connect-through-an-outbound-proxy). The proxy address variables are the one case where the environment overrides the configuration file, and `NO_PROXY` is merged with the `no_proxy` key rather than replacing it. Every other setting belongs in the configuration file.
+`DO_NOT_TRACK`, set to any value other than `0` or `false`, turns usage analytics and error reports off. It is the same switch as `disable_telemetry = true` in the configuration file. `GITHUB_TOKEN` is optional and is used only against `api.github.com`, to lift the rate limit when you install a skill from a GitHub repository. Claude Science also reads the standard proxy variables (`HTTPS_PROXY`, `HTTP_PROXY`, `NO_PROXY`, and `ALL_PROXY`); see [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks#connect-through-an-outbound-proxy). The proxy address variables are the one case where the environment overrides the configuration file, and `NO_PROXY` is merged with the `no_proxy` key rather than replacing it. Every other setting belongs in the configuration file.
 
 ## See also
 

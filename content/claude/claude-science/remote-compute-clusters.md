@@ -8,6 +8,8 @@
 
 Connect a machine you can reach over SSH (a lab workstation or an HPC login node) so Claude can run jobs on it. Use it to connect to a remote workstation with a GPU, or your existing HPC cluster. Claude Science uses your existing `~/.ssh/config`, authenticates with your key or `ssh-agent`, and installs nothing on the host itself.
 
+On Team and Enterprise plans, your organization can turn SSH hosts off. When it has, **Add SSH host** isn't available, hosts you added earlier stay listed but refuse new commands and file transfers, and a job that's already running can still be stopped and its results collected (see [SSH hosts](/docs/claude-science/admin-controls#ssh-hosts) in the admin controls).
+
 ## Adding a host
 
 Go to **Settings > Compute** > **SSH hosts** > **Add SSH host**.\

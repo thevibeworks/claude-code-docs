@@ -6,7 +6,7 @@
 
 > Claude Science is in beta, and some admin controls you use with other Claude products don't govern it yet.
 
-Claude Science is in beta, and some admin controls you use with other Claude products don't govern it yet. The setup wizard lists some of these when you enable the product; this page has the full detail. See [Admin controls](/docs/claude-science/admin-controls) for the complete per-setting table.
+Claude Science is in beta, and some admin controls you use with other Claude products don't govern it yet. This page lists them. See [Admin controls](/docs/claude-science/admin-controls) for the complete per-setting table and for the controls on the **Organization settings** > **Claude Science** page itself.
 
 ## Audit and compliance
 
@@ -20,11 +20,11 @@ Local deletion signal: when a member deletes local Claude Science data, Anthropi
 
 ## Connector and domain allowlists
 
-Your organization's connector and domain allowlists apply to Directory connectors you publish, but don't restrict connectors a member adds locally (running on their own computer or pointing at a custom URL). Adding admin control over local and custom connectors is on the roadmap. Skills allowlists work the same way: org-published skills are visible; there's no admin control over which featured skills members can enable.
+Your organization's connector allowlist applies to Directory connectors you publish, and doesn't filter the custom connectors a member adds in the app; you can only turn custom connectors off for the whole organization. The Claude Science controls for connectors, skills, and the sandbox domain allowlist are on the **Organization settings** > **Claude Science** page (see [Organization settings](/docs/claude-science/admin-controls#organization-settings)), separate from the connector allowlist and from the code execution network allowlist for claude.ai chat.
 
 ## Session duration
 
-Your session-duration setting limits the browser sign-in step only. After a member signs in, the app holds its own token and stays signed in beyond that window.
+Your session-duration setting limits the browser sign-in step only. After a member signs in, the app holds its own token and stays signed in beyond that window. Turning Claude Science off for the organization still stops that member within a few minutes (see [Turn off Claude Science](/docs/claude-science/enable-claude-science#turn-off-claude-science)).
 
 ## Offboarding
 

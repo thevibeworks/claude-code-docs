@@ -865,7 +865,7 @@ The entry also can't be declared in the same request as a `computer_20251124` en
 
 ### Combining with thinking
 
-For combining computer use with thinking, see [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking).
+To combine computer use with thinking, see [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking).
 
 <Tip>
   For the earlier `computer_20251124` tool, internal benchmarking on the models that use it suggests these `effort` settings:

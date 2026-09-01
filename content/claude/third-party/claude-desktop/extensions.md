@@ -34,12 +34,14 @@ In the exported configuration, each server is one entry in the `managedMcpServer
 [
   {
     "name": "internal-search",
+    "transport": "http",
     "url": "https://mcp.example.corp",
     "oauth": true,
     "toolPolicy": { "search": "allow", "delete_document": "blocked" }
   },
   {
     "name": "ticketing",
+    "transport": "http",
     "url": "https://tickets.example.corp/mcp",
     "headersHelper": "/usr/local/bin/corp-sso-token",
     "headersHelperTtlSec": 900
@@ -49,9 +51,43 @@ In the exported configuration, each server is one entry in the `managedMcpServer
 
 See the [`managedMcpServers` schema](/docs/third-party/claude-desktop/configuration#managedmcpservers) in the configuration reference for every field, including static headers, OAuth, and the headers-helper executable for short-lived tokens.
 
-For a server whose OAuth sign-in goes to Microsoft Entra ID, you can run that sign-in through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker) instead of the system browser by setting `authFlow` to `broker` inside the entry's `oauth` object, alongside `tenantId`, `clientId`, and `scope`. On a device where the broker is unavailable, sign-in for that server falls back to the system browser, so keep the loopback redirect URI registered as well if any devices lack the broker.
-
 In the in-app configuration window, each server you add under **Connectors** has a **Test this connection** button that runs a live MCP `initialize` and `tools/list` against the server using the headers or OAuth settings you've entered, then shows the round-trip latency, the discovered tool list, or the error returned. Use it to validate reachability and credentials before exporting the configuration.
+
+### OAuth sign-in
+
+For a remote server entry with `oauth` set, Claude Desktop signs each user in through the system browser and receives the authorization code on a fixed loopback address. Register this redirect URI on the OAuth client, or allow it on your authorization server if clients register themselves:
+
+```text theme={null}
+http://127.0.0.1:53280/callback
+```
+
+The value is the same on every device and for every delivery method (device management, a local configuration file, or a [bootstrap server](/docs/third-party/claude-desktop/bootstrap)). On identity providers that accept any port on a loopback redirect URI (the [RFC 8252](https://datatracker.ietf.org/doc/html/rfc8252#section-7.3) native-app pattern), a registration of `http://127.0.0.1/callback` also matches.
+
+With `"oauth": true`, Claude Desktop registers its own public client through dynamic client registration and lists this URI as the client's only redirect URI, so the authorization server must offer a registration endpoint and accept an `http` loopback redirect URI. With a client you registered yourself, set `oauth.clientId` and add the URI to that registration. If the registration uses `localhost` or another port, set `oauth.callbackHost` or `oauth.callbackPort` to match; both require `clientId`.
+
+An `http` or `sse` entry with no `oauth`, no `headersHelper`, and no `Authorization` header is treated as `"oauth": true` when its server asks for authentication (Claude Desktop 1.24012.0 or later). This redirect URI applies to MCP server sign-in only. [Gateway single sign-on](/docs/third-party/claude-desktop/gateway#set-up-single-sign-on) and [bootstrap sign-in](/docs/third-party/claude-desktop/bootstrap#provider-notes) register their own loopback redirect URI.
+
+#### How OAuth sign-in works
+
+Claude Desktop starts sign-in only when the MCP server answers an unauthenticated request with HTTP `401`. A redirect to a web sign-in page does not start sign-in, so a gateway in front of the server must answer an unauthenticated MCP request with `401` rather than `302`.
+
+At launch, Claude Desktop connects to every managed server without user interaction. A server with a stored token connects silently, and Claude Desktop refreshes the token first when it is near expiry. A server with no usable token appears under **Customize → Connectors** with a **Connect** button, and no browser window opens until the user selects it.
+
+When the user selects **Connect**, Claude Desktop:
+
+1. Starts a temporary HTTP listener on `127.0.0.1:53280` (or the host and port set in `oauth.callbackHost` and `oauth.callbackPort`). If another process holds the port, sign-in fails with a port-in-use error.
+2. Reads the `401` response. The `resource_metadata` URL in its `WWW-Authenticate: Bearer` header, or else the server's `/.well-known/oauth-protected-resource` URL, leads to the protected-resource metadata. Its `resource` must be the server URL or a parent path on the same origin, and Claude Desktop uses the first authorization server it lists, or looks for authorization-server metadata on the MCP server's own origin when the server publishes no protected-resource metadata. Claude Desktop then fetches the authorization server's metadata from `/.well-known/oauth-authorization-server` or `/.well-known/openid-configuration`, and the `issuer` in the metadata must match the authorization server URL, or sign-in stops.
+3. Uses the client from `oauth.clientId`, or registers one at the authorization server's registration endpoint and stores it for later sign-ins.
+4. Opens the authorization URL in the system browser with a PKCE (`S256`) challenge and a `state` value. The authorization endpoint must use `https`.
+5. Waits up to 120 seconds for the browser to return to the redirect URI, exchanges the code at the token endpoint, and connects to the server with the resulting access token. The listener closes when sign-in completes or fails.
+
+To name the authorization server yourself instead of discovering it, set `oauth.clientId` together with one of `oauth.tenantId` plus `oauth.scope` (Microsoft Entra ID), a single `oauth.authorizationServer` entry (the issuer URL exactly as that server's metadata states it), or `oauth.authorizationUrl` and `oauth.tokenUrl` for a provider that serves no discovery document. With several `oauth.authorizationServer` entries, discovery runs as in step 2 and the discovered authorization server must match one of them.
+
+Tokens are stored on the device, encrypted with the operating system's secure storage (see [Credentials](/docs/third-party/claude-desktop/data-storage#credentials)), and refreshed in the background before they expire. When the authorization request carries a scope and the authorization server's metadata lists `offline_access`, Claude Desktop adds `offline_access` so that a refresh token is issued; see `oauth.scope` and `oauth.appendOfflineAccess` in the [configuration reference](/docs/third-party/claude-desktop/configuration#managedmcpservers) to change the requested scopes. If the authorization server rejects a refresh, or issued no refresh token and the access token expires, the server returns to the **Connect** state and the user signs in again.
+
+If sign-in fails (the callback does not arrive within 120 seconds, the authorization server rejects the registration or the redirect URI, or the identity provider completes sign-in from a host other than the authorization endpoint's), the user sees a connection error, the server keeps its **Connect** button, and `main.log` in the [logs directory](/docs/third-party/claude-desktop/data-storage#where-data-lives) records the reason. For an identity provider that completes sign-in from a different host than its authorization endpoint, list that host in `oauth.additionalRedirectReferrerHosts`. The log names the rejected host.
+
+For a server whose OAuth sign-in goes to Microsoft Entra ID, you can run that sign-in through the [OS identity broker](/docs/third-party/claude-desktop/entra-broker) instead of the system browser by setting `authFlow` to `broker` inside the entry's `oauth` object, alongside `tenantId`, `clientId`, and `scope`. On a device where the broker is unavailable, sign-in for that server falls back to the system browser, so keep the loopback redirect URI registered as well if any devices lack the broker.
 
 ### Short-lived credentials with a headers helper
 

@@ -54,6 +54,8 @@ Memory lets Claude save short facts about you, your projects, and your files acr
 
 Saved facts are stored in the app's local database on your computer; they aren't synced to Anthropic. The Memory settings page lists every saved fact. You can edit, delete, add, or clear facts there. A per-session toggle in the session settings menu turns memory off for that session only.
 
+Facts Claude recalls for a session are sent to Anthropic as part of that session's conversation, and Anthropic retains them as [How Claude Science works with your data](/docs/claude-science/how-claude-science-works-with-your-data) describes. On Team and Enterprise plans, your organization's admin can turn memory off for the organization. Memory is then off for you whatever you chose, and your saved facts stay on your computer, where you can still review and delete them (see [Memory](/docs/claude-science/admin-controls#memory) in the admin controls).
+
 ## Composer shortcuts
 
 * `@` inserts an artifact or uploaded file by name

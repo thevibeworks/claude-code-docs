@@ -6,9 +6,9 @@
 
 > The domains Claude Science connects to, grouped for a proxy or firewall allowlist: the app's connections to Anthropic, the analysis sandbox's package and research domains, the domains a package mirror adds and removes, and the built-in list of domains it always blocks.
 
-Claude Science connects to a small, fixed set of domains for sign-in, the Claude API, and the app's own literature search, and to a larger, member-adjustable set of package and research domains when Claude runs analysis code. This page lists them for the team that manages your proxy or firewall allowlist.
+Claude Science connects to a small, fixed set of domains for sign-in, the Claude API, and the app's own literature search, and to a larger set of package and research domains when Claude runs analysis code, which members adjust on their own computers or your organization manages for every member. This page lists them for the team that manages your proxy or firewall allowlist.
 
-Connections are outbound-only and almost entirely HTTPS on TCP 443 (an internal package mirror may use 8443). The app's own domains are fixed, apart from open-access full-text downloads (covered below); the analysis-sandbox domains are a built-in allowlist whose groups members can adjust during onboarding or under **Settings** > **Network**.
+Connections are outbound-only and almost entirely HTTPS on TCP 443 (an internal package mirror may use 8443). The app's own domains are fixed, apart from open-access full-text downloads (covered below); the analysis-sandbox domains are a built-in allowlist that members adjust during onboarding or under **Settings** > **Network**, or that the organization manages for every member (see [Analysis sandbox domains](#analysis-sandbox-domains)).
 
 The domains fall into three groups: the app's own connections every member needs, the analysis sandbox's package and research domains, and the domains the member's browser loads. For the proxy and TLS-inspection settings, see [Use Claude Science on a corporate network](/docs/claude-science/corporate-networks).
 
@@ -16,16 +16,17 @@ The domains fall into three groups: the app's own connections every member needs
 
 Every Claude Science install makes these connections, which travel through the member's outbound proxy and TLS inspection, so they need the proxy and corporate-certificate settings from the corporate networks page. All are outbound HTTPS on TCP 443.
 
-| Domain                                  | Required when                                       | Purpose                                                                                                |
-| --------------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `claude.ai`                             | Always                                              | Browser-based sign-in, usage analytics, feature configuration, and the catalog of available connectors |
-| `platform.claude.com`                   | Always                                              | Completing sign-in (the OAuth token exchange)                                                          |
-| `api.anthropic.com`                     | Always                                              | The Claude API for every request Claude makes, plus account and usage information                      |
-| `*.mcp.claude.com`                      | When members use the Anthropic-hosted connectors    | PubMed, ClinicalTrials.gov, ChEMBL, and bioRxiv connectors                                             |
-| `storage.googleapis.com`                | When automatic updates are on                       | Update manifests and installers                                                                        |
-| `api.github.com`, `codeload.github.com` | When members import skills from a GitHub repository | Fetching the skill repository's contents                                                               |
+| Domain                                  | Required when                                       | Purpose                                                                                                                                                                                            |
+| --------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `claude.ai`                             | Always                                              | Browser-based sign-in, usage analytics, feature configuration, and the catalog of available connectors                                                                                             |
+| `platform.claude.com`                   | Always                                              | Completing sign-in (the OAuth token exchange)                                                                                                                                                      |
+| `api.anthropic.com`                     | Always                                              | The Claude API for every request Claude makes, plus account and usage information                                                                                                                  |
+| `o1158394.ingest.us.sentry.io`          | When telemetry is on (the default)                  | Crash and error reporting (the error type and where it happened in Claude Science's own code, never error messages, conversation content, or research data); blocking it degrades diagnostics only |
+| `*.mcp.claude.com`                      | When members use the Anthropic-hosted connectors    | PubMed, ClinicalTrials.gov, ChEMBL, and bioRxiv connectors                                                                                                                                         |
+| `storage.googleapis.com`                | When automatic updates are on                       | Update manifests and installers                                                                                                                                                                    |
+| `api.github.com`, `codeload.github.com` | When members import skills from a GitHub repository | Fetching the skill repository's contents                                                                                                                                                           |
 
-Custom connectors and remote compute that members add reach whatever hosts they are configured with, so allow those case by case. Claude Science's crash-reporting channel is off and sends no traffic in this release, so it needs no allowlist entry.
+Custom connectors and remote compute that members add reach whatever hosts they are configured with, so allow those case by case. Installs with telemetry turned off (see [Telemetry](/docs/claude-science/manage-on-devices#telemetry)) send no error reports, and blocking `o1158394.ingest.us.sentry.io` affects only error reporting, not the rest of the app.
 
 ### Full-text and literature retrieval
 
@@ -42,11 +43,13 @@ When Claude searches the scientific literature or retrieves full text, the app i
 
 ## Analysis sandbox domains
 
-When Claude runs code, its network access passes through a local filtering proxy that allows only the domains on the sandbox's built-in allowlist, grouped by purpose below. These are member-level controls with no organization-level setting: members can turn off any group except package management, during onboarding or under **Settings** > **Network**, and add allowed domains of their own in Settings. An administrator can instead use the per-device configuration file, whose `[sandbox.network]` keys add allowed or denied domains, or disable sandbox networking entirely.
+When Claude runs code, its network access passes through a local filtering proxy that allows only the domains on the sandbox's built-in allowlist, grouped by purpose below. By default, each member manages the list on their own computer. Members can turn off any group except package management, during onboarding or under **Settings** > **Network**, and add allowed domains of their own in Settings. An administrator can also use the per-device configuration file, whose `[sandbox.network]` keys add allowed or denied domains, or disable sandbox networking entirely.
+
+An organization can instead manage the list for every member from **Organization settings** > **Claude Science**, with one switch per domain and custom domains of its own. Members then see their **Network** settings read-only, and the domains a member or a configuration file added are set aside while the organization manages the list. See [Network allowlist](/docs/claude-science/admin-controls#network-allowlist) for what the organization's list covers and how changes reach members.
 
 ### Package management domains
 
-These domains are always on the sandbox allowlist and supply Python, R, and system packages when Claude builds an analysis environment.
+These domains supply Python, R, and system packages when Claude builds an analysis environment. Members can't turn them off. An organization that manages the allowlist can turn the CRAN and Bioconductor, npm, and GitHub domains off, and the PyPI and conda domains off once an organization package mirror replaces them.
 
 | Domain                                                                                    | Purpose                                         |
 | ----------------------------------------------------------------------------------------- | ----------------------------------------------- |
@@ -60,9 +63,11 @@ Claude Science itself does not require GitHub; the package manager ships inside 
 
 When you configure a conda channel mirror, Claude Science removes only the conda hosts (`conda.anaconda.org`, `repo.anaconda.com`, `anaconda.org`, `*.anaconda.org`) from the allowlist, and a Python index mirror removes only `pypi.org`, `*.pypi.org`, and `files.pythonhosted.org`. The `*.conda.io`, CRAN and Bioconductor, npm, and GitHub rows stay. A removed host is reachable again if a member re-adds it under **Settings** > **Network** or an administrator lists it in `[sandbox.network] allowed_domains`, which takes precedence over the removal. Environment builds contact the mirror host directly from the workstation, not through the outbound proxy, so it must be reachable directly (over your VPN or internal network if the mirror is internal, HTTPS on TCP 443 or 8443). A proxy allowlist entry alone does not make the mirror reachable for builds, and build-time mirror traffic will not appear in your proxy logs. See [Point package installs at an internal mirror](/docs/claude-science/corporate-networks#point-package-installs-at-an-internal-mirror).
 
+An organization package mirror set under **Organization settings** > **Claude Science** removes the same hosts for every member and is admitted the same way. When the organization manages the allowlist, the removed hosts stay unreachable even if they are switched on in the organization's list, and a member's own mirror host is reachable only if the organization's list includes it.
+
 ### Research database domains
 
-These groups are on by default and can be turned off during onboarding or anytime under **Settings** > **Network**.
+These groups are on by default. Members can turn them off during onboarding or anytime under **Settings** > **Network**. When the organization manages the allowlist, the organization's per-domain switches apply instead.
 
 | Group                    | Domains                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

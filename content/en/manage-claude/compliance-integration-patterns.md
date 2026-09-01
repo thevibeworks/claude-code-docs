@@ -118,7 +118,7 @@ Five retention horizons govern what you can retrieve later:
 | Remote session transcripts (sessions in the cloud)      | 6 years                                                                                                  | Anthropic                                                            |
 | Content hard-deleted through the Compliance API         | Not retained; deletion is immediate and permanent                                                        | The caller of the `DELETE` endpoint                                  |
 
-For how the rest of the Claude Platform handles retention, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+To learn how the rest of the Claude Platform handles retention, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 
 Decide between export-and-archive and on-demand API retrieval as follows:
 

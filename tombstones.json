@@ -1,8 +1,12 @@
 {
   "version": 1,
   "note": "URLs confirmed gone upstream. Kept so a page that died once does not report as a fresh failure on every later run, which would bury the failure that is actually new. An entry clears itself if the URL answers again -- but only while something still probes it. Entries whose local file was removed are no longer fetched, so they stay as a record of the restructure rather than a live check.",
-  "updated": "2026-08-31",
+  "updated": "2026-09-01",
   "urls": {
+    "https://claude.com/docs/claude-science/annotations": {
+      "since": "2026-09-01",
+      "reason": "moved -> https://claude.com/docs/claude-science/comments"
+    },
     "https://claude.com/docs/claude-tag/admins/pair-workspace": {
       "since": "2026-08-28",
       "reason": "moved -> https://claude.com/docs/claude-tag/admins/setup-overview"

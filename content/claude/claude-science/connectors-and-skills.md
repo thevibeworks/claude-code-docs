@@ -10,7 +10,7 @@ Connectors give Claude access to external data sources during an analysis. Skill
 
 ## Featured connectors
 
-Claude Science includes Featured connectors to public life-sciences databases. All are on by default and can be turned off individually in **Settings > Connectors**. Featured connectors are read-only and don't require an account or key. Some underlying databases have non-commercial or attribution terms; review each source's license for your use case.
+Claude Science includes Featured connectors to public life-sciences databases. They're on by default and can be turned off individually in **Settings > Connectors**. On Team and Enterprise plans, your organization can also turn individual Featured connectors off for everyone, and in organizations with HIPAA compliance enabled they start off until an admin turns them on. A connector your organization has off stays listed, grayed, and Claude can't use it (see [Featured connectors and skills](/docs/claude-science/admin-controls#featured-connectors-and-skills)). Featured connectors are read-only and don't require an account or key. Some underlying databases have non-commercial or attribution terms; review each source's license for your use case.
 
 | Connector                 | Sources                                              |
 | ------------------------- | ---------------------------------------------------- |
@@ -35,7 +35,7 @@ Additional Featured connectors: **BioMart**, **CellGuide** (CELLxGENE cell types
 
 Four Directory connectors are available from the [connector directory](https://claude.com/connectors) and are accessible in Claude Science and other Claude products: **PubMed**, **Clinical Trials**, **ChEMBL**, and **bioRxiv**. On Team and Enterprise plans, directory connectors appear only after an admin adds them.
 
-By choosing to enable connectors, you authorize Claude to use the optional enabled resources on your behalf and confirm you have the necessary rights and licenses. These resources and content they reach may be subject to third-party terms (viewable in Settings), and you are solely responsible for compliance.
+By choosing to enable connectors, you authorize Claude to use the optional enabled resources on your behalf and confirm you have the necessary rights and licenses. These resources and content they reach may be subject to third-party terms (viewable in Settings), and you are solely responsible for compliance. On Team and Enterprise plans, an admin in your organization gives this authorization for the team when turning Claude Science on and choosing which connectors members can use, and you remain responsible for complying with those terms.
 
 ## Using connectors
 
@@ -47,6 +47,6 @@ The databases behind Featured connectors are on the network allowlist in groups 
 
 **Settings > Skills** lists the skills Claude can load. Featured science skills include literature review, indication dossier, and model-specific skills for AlphaFold2, Boltz-2, Chai-1, ESMFold2, OpenFold3, ProteinMPNN (with LigandMPNN and SolubleMPNN), DiffDock, ESM-2, Evo 2, Borzoi, scGPT, and scvi-tools.
 
-Claude loads a skill automatically when the work calls for it. Type **/** in the composer to open the skill picker and insert one explicitly.
+Claude loads a skill automatically when the work calls for it. Type **/** in the composer to open the skill picker and insert one explicitly. On Team and Enterprise plans, your organization can turn individual Featured skills off; a skill it has off stays listed, grayed, and Claude doesn't load it.
 
-**Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. **Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. You can also ask Claude to distill a workflow from an existing session into a skill.
+**Add skill** lets you create your own via **Chat with Claude**, **Write from scratch**, **Upload a skill**, or **Import from GitHub**. **Import from GitHub** works with private repositories too, once you add a GitHub token under **Settings > Credentials**. You can also ask Claude to distill a workflow from an existing session into a skill. On Team and Enterprise plans, adding skills of your own is available only if your organization allows custom skills; skills you added earlier keep working either way (see [Custom skills](/docs/claude-science/admin-controls#custom-skills)).

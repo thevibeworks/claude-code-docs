@@ -1,17 +1,17 @@
 # Set organization instructions
 
-Organization instructions let Admins and above on Team and Enterprise plans set custom instructions that Claude follows in every conversation across your organization. Use them to apply communication standards, formatting requirements, compliance guidance, or domain-specific context that should show up everywhere your team works with Claude.
+Organization instructions let owners of Team and Enterprise plans set custom instructions that Claude follows in every conversation across your organization. Use them to apply communication standards, formatting requirements, compliance guidance, or domain-specific context that should show up everywhere your team works with Claude.
 
-Organization instructions are available to Admins, Owners, and Primary Owners on Team and Enterprise plans.
+Organization instructions are available to Owners and Primary Owners on Team and Enterprise plans.
 
 ## How organization and user instructions interact
 
-Claude supports two levels of instructions. Understanding how they interact helps admins and the people on your team get the most out of both.
+Claude supports two levels of instructions. Understanding how they interact helps owners and the people on your team get the most out of both.
 
-| **Level**                    | **Set by**                         | **Scope**                                           | **Visibility**                         |
-| ---------------------------- | ---------------------------------- | --------------------------------------------------- | -------------------------------------- |
-| Organization instructions    | Admins, Owners, and Primary Owners | All people in your organization, every conversation | Only Admins and above can view or edit |
-| Individual user instructions | Each user                          | That individual’s conversations only                | Only that user can view or edit        |
+| **Level**                    | **Set by**                | **Scope**                                           | **Visibility**                         |
+| ---------------------------- | ------------------------- | --------------------------------------------------- | -------------------------------------- |
+| Organization instructions    | Owners and Primary Owners | All people in your organization, every conversation | Only Owners and above can view or edit |
+| Individual user instructions | Each user                 | That individual’s conversations only                | Only that user can view or edit        |
 
 When both are set, organization instructions take precedence. If an individual instruction directly contradicts an organization instruction, Claude favors the organization-level instruction. For example, if an organization instruction says “Always respond in formal English” but an individual instruction says “use a casual tone,” Claude responds formally.
 
@@ -21,7 +21,7 @@ Individual instructions still apply for anything the organization instructions d
 
 ## Set up organization instructions
 
-You need at least an Admin role to configure organization instructions.
+You need at least an Owner role to configure organization instructions.
 
 1. Go to **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**.
 
@@ -29,11 +29,11 @@ You need at least an Admin role to configure organization instructions.
 
 3. Enter your instructions in the text area. The maximum length is 3,000 characters.
 
-4. Click “Save.”
+4. Click “Save changes.”
 
 5. Changes may take up to an hour to take effect across Claude products.
 
-To remove instructions entirely, clear the text area and click “Save.”
+To remove instructions entirely, clear the text area and click “Save changes.”
 
 ---
 

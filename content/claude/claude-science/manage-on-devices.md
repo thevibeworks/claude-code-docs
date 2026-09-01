@@ -21,11 +21,11 @@ Your endpoint tooling governs these folders the same way it governs any other lo
 
 ## Deploy configuration with device management
 
-To set configuration keys organization-wide, deploy \~/.claude-science/config.toml through your MDM or endpoint tool. Claude Science doesn't read a system-level managed-preferences file, so there's no native MDM configuration channel. Deploying the per-member config.toml is the supported approach. The keys most relevant to admins are:
+To set configuration keys organization-wide, deploy \~/.claude-science/config.toml through your MDM or endpoint tool. Claude Science doesn't read a system-level managed-preferences file, so there's no native MDM configuration channel. Deploying the per-member config.toml is the supported approach. The sandbox network allowlist and the package mirror can instead be set once for every member under **Organization settings** > **Claude Science** (see [Organization settings](/docs/claude-science/admin-controls#organization-settings)). The keys most relevant to admins are:
 
 | Key                                | Effect                                                                                                                                         |
 | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| disable\_telemetry = true          | Stops the app from sending product-usage telemetry to Anthropic.                                                                               |
+| disable\_telemetry = true          | Stops the app from sending product-usage telemetry and error reports to Anthropic.                                                             |
 | data\_dir = "`<path>`"             | Moves conversations, artifacts, and workspaces to a managed location (for example, a volume your backup tooling covers).                       |
 | \[update] auto\_update = false     | Prevents the app from updating itself; pair with your own distribution channel.                                                                |
 | \[sandbox.network] enabled = false | Blocks network access from the app's local code-execution sandbox. The similarly named \[sandbox] network\_isolated key does not control this. |
@@ -34,10 +34,14 @@ The [configuration file reference](/docs/claude-science/configuration-file-refer
 
 ## Telemetry
 
-The app sends product-usage telemetry (event counts and timings, not conversation content) to Anthropic. There's no in-app setting for this; consent is covered by your organization's acceptance of Anthropic's commercial terms. To turn telemetry off on managed devices, use either of:
+The app sends product-usage telemetry (event counts and timings, not conversation content) to Anthropic. There's no in-app setting for this; consent is covered by your organization's acceptance of Anthropic's commercial terms.
+
+When the app runs into an error, it also sends an error report to the error-reporting service Anthropic uses that identifies the error type and where it occurred in Claude Science's own code. The report includes the app version, its runtime version, the operating system version, and the app's most recent telemetry events. The app redacts each report on the member's computer before sending it: error messages are removed, and code locations outside Claude Science's own code are blanked. Reports contain no conversation content, research data, file contents, or file paths, and no usernames, account identifiers, or organization identifiers.
+
+To turn telemetry and error reports off on managed devices, use either of:
 
 Set disable\_telemetry = true in \~/.claude-science/config.toml (deployable through MDM).\
-Set the DO\_NOT\_TRACK environment variable on the device.
+Set the DO\_NOT\_TRACK environment variable (for example to 1) on the device.
 
 Both are device-level settings. There's no per-member or per-organization telemetry toggle in Organization settings.
 
