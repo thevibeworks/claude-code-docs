@@ -7,7 +7,7 @@ description: Cache prompt prefixes with `cache_control` to cut costs and latency
 Prompt caching optimizes your API usage by allowing resuming from specific prefixes in your prompts. This significantly reduces processing time and costs for repetitive tasks or prompts with consistent elements.
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+  To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 There are two ways to enable prompt caching:

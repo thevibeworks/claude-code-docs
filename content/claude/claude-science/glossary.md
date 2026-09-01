@@ -4,17 +4,17 @@
 
 # Glossary
 
-> One-sentence definitions for the terms you meet in Claude Science, from annotation to workspace.
+> One-sentence definitions for the terms you meet in Claude Science, from artifact to workspace.
 
-One-sentence definitions for the terms you meet in Claude Science, from annotation to workspace.
-
-**[Annotation](/docs/claude-science/annotations)**: a comment you pin to part of an artifact by selecting it; Claude reads pending annotations as instructions on its next turn.
+One-sentence definitions for the terms you meet in Claude Science, from artifact to workspace.
 
 **[Artifact](/docs/claude-science/artifacts)**: any file Claude makes and saves for you, listed in its session's Files view.
 
 **Cell**: one block of code Claude runs in a kernel; the cell, its output, and the environment it ran in are recorded in the session's Notebook.
 
 **Cloud provider**: your own account at a cloud service where Claude can start jobs; you pay that provider directly.
+
+**[Comment](/docs/claude-science/comments)**: a note you pin to part of an artifact by selecting it; Claude reads pending comments as instructions on its next turn.
 
 **Connector**: an outside data source or tool wired into Claude over MCP; Claude Science includes a featured set, you can access partner connectors from the Connectors Directory, and you can add your own under Settings > Connectors.
 
@@ -30,7 +30,7 @@ One-sentence definitions for the terms you meet in Claude Science, from annotati
 
 **Model endpoint**: a scientific domain-specific model server you register under Settings > Compute, that runs locally or connects to a vendor's hosted solution, that Claude sends single prediction requests to.
 
-**Network allowlist**: the list under Settings of every outside host that sandboxed code may reach.
+**Network allowlist**: the list of every outside host that sandboxed code may reach, kept under Settings or, on Team and Enterprise plans, managed by your organization.
 
 **Permission card**: the card that replaces the message box when Claude needs your permission for running code, running a job, accessing a network host, a folder, a connector tool, or re-configuring Claude Science; you allow or deny it.
 

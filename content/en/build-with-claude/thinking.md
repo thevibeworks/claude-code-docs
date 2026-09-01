@@ -5,7 +5,7 @@ description: "Understand how Claude's thinking works: turn it on, read thinking 
 ---
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+  To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 A model that answers in a single pass has to get everything right on the first try: no scratch work, no checking, no changing course halfway through. For a proof, a tricky bug, or a long agentic task, the first approach is often not the best one.
@@ -805,7 +805,7 @@ For general streaming mechanics, see [Streaming Messages](https://platform.claud
 
 The `thinking` parameter controls whether Claude thinks in [thinking blocks](https://platform.claude.com/docs/en/build-with-claude/thinking) before answering; the `effort` parameter controls how much work Claude puts into the whole response, which in adaptive mode includes how often and how deeply it thinks. Don't pass `adaptive` as an `effort` value: `adaptive` is a thinking mode, not an effort level.
 
-For what each effort level does to thinking behavior, see the [per-level thinking behavior table](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#effort-levels) on the [Steering thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost) page. The [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) page documents the parameter itself, including which levels each model supports. On Claude Opus 4.5, the only extended-thinking-only model that supports effort, effort composes with `budget_tokens`. See [Budget rules and tuning](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#budget-rules-and-tuning).
+To learn what each effort level does to thinking behavior, see the [per-level thinking behavior table](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost#effort-levels) on the [Steering thinking](https://platform.claude.com/docs/en/build-with-claude/thinking-steering-and-cost) page. The [Effort](https://platform.claude.com/docs/en/build-with-claude/effort) page documents the parameter itself, including which levels each model supports. On Claude Opus 4.5, the only extended-thinking-only model that supports effort, effort composes with `budget_tokens`. See [Budget rules and tuning](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#budget-rules-and-tuning).
 
 With the two controls separated this way, pick the one that matches your goal:
 
@@ -1004,7 +1004,7 @@ On Claude Fable 5 and Claude Mythos 5, the raw chain of thought is never returne
 
 When continuing a conversation on the same model, pass each thinking block back to the API exactly as received, including blocks whose `thinking` field is empty. Don't edit or reconstruct them. Reading the summary text for display is fine: the API rejects blocks whose returned content has been modified, not blocks you have read. Text placed in an empty omitted `thinking` field is [ignored rather than rejected](https://platform.claude.com/docs/en/build-with-claude/thinking#controlling-thinking-display).
 
-For how thinking blocks are handled when you switch models mid-conversation, see [Thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model).
+To learn how thinking blocks are handled when you switch models mid-conversation, see [Thinking block preservation by model](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-block-preservation-by-model).
 
 Two exceptions, covered in [Fallback credit](https://platform.claude.com/docs/en/build-with-claude/fallback-credit):
 

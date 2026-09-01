@@ -12,6 +12,12 @@ Claude Science can run jobs on Modal using a Modal account you own and control. 
 
 In Settings > Compute > **Cloud providers**, click Connect on the Modal card. If you've signed in with the Modal CLI (`modal token new`), the app reads `~/.modal.toml` automatically; click Check again after the file exists. Alternatively, paste a **Token ID** and **Token secret** in Settings > Credentials, under Modal. Tokens are stored encrypted on your computer and never shown to Claude.
 
+### Workspace restrictions set by your organization
+
+On Team and Enterprise plans, your organization's admin can limit Modal to specific workspaces. When Claude uses your Modal token, the app checks the workspace that Modal reports for that token, not the label in your `~/.modal.toml`. If that workspace isn't on your organization's list, the app tells you that this Modal workspace is not allowed by your admin, and Claude can't run jobs there until you connect a token from an allowed workspace. Your admin can also turn Modal off for the organization (see [Modal](/docs/claude-science/admin-controls#modal)).
+
+If your organization manages the network allowlist, set **Network restrictions** on the Modal page under **Settings** > **Compute** to **Allowlist** or **No network** before you run jobs. Jobs from a Modal setup with unrestricted network access are refused while your organization manages the list (see [Network allowlist](/docs/claude-science/admin-controls#network-allowlist)).
+
 ## Running cloud jobs
 
 When work needs a GPU or more memory than your machine has, Claude proposes a job and a **Start a Modal job?** card appears. The card shows the Modal profile, exact machine spec (for example, H100, 8 CPUs, 32 GiB), a note that billing is per-second, and the maximum billable time. It links to Modal's pricing page. Approve per job, or for the conversation or project.
@@ -32,9 +38,11 @@ On the Modal page under Settings > Compute you can set the Modal environment and
 
 Claude derives a container image from the environment a job needs and builds it once on Modal's build servers, then reuses that image for later jobs until the environment changes. Claude tracks built images in the Details document on the Modal page under Settings > Compute.
 
-## Model endpoints
+## Scientific model endpoints
 
 Claude Science can connect to a model server (hosted, or a container you run) that serves a scientific model over HTTP, and call it directly from analyses.
+
+On Team and Enterprise plans, your organization's admin can turn off scientific model endpoints for the organization. When your admin turns them off, you can't connect these providers or use endpoints you set up earlier, and the settings you entered are kept. Turning them off doesn't change which Claude models you can use (see [Scientific model endpoints](/docs/claude-science/admin-controls#scientific-model-endpoints)). If your organization manages the network allowlist, an endpoint at a public or internal host name works only while that list includes the host.
 
 ### NVIDIA BioNeMo NIM
 

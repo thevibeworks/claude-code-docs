@@ -12,7 +12,7 @@ description: Control how many tokens Claude uses when responding with the effort
 The effort parameter lets you control how many tokens Claude spends when responding to requests. You can trade off between response thoroughness and token efficiency with a single model. The effort parameter is available on all supported models with no beta header required.
 
 <Tip>
-  For how effort interacts with thinking and which control to reach for, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort). Where adaptive thinking is available, effort is the recommended way to control thinking depth.
+  To learn how effort interacts with thinking and which control to reach for, see [Thinking and effort](https://platform.claude.com/docs/en/build-with-claude/thinking#thinking-and-effort). Where adaptive thinking is available, effort is the recommended way to control thinking depth.
 </Tip>
 
 ## How effort works

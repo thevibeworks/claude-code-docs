@@ -4,6 +4,14 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-
 description: Let Claude call your tools from code in the code execution container, cutting model round trips and token use in multi-tool workflows.
 ---
 
+## Compatibility
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): not eligible
+- Supported models: `claude-fable-5`, `claude-mythos-5`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-opus-4-5-20251101`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-sonnet-4-5-20250929`
+- Platforms: Claude API, Claude Platform on AWS, Microsoft Foundry [1]; not available on Amazon Bedrock, Google Cloud
+- Programmatic tool calling requires the code execution tool with the `code_execution_20260120` or later [tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions).
+- Claude Haiku 4.5 accepts the `code_execution_20260120` and later tool versions but doesn't support programmatic tool calling.
+1. On [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), programmatic tool calling requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure).
+
 Programmatic tool calling allows Claude to write code that calls your tools programmatically within a [code execution](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) container, rather than requiring round trips through the model for each tool invocation. This reduces latency for multi-tool workflows and decreases token consumption by allowing Claude to filter or process data before it reaches the model's context window. On agentic search benchmarks like [BrowseComp](https://arxiv.org/abs/2504.12516) and [DeepSearchQA](https://github.com/google-deepmind/deepsearchqa), which test multistep web research and complex information retrieval, adding programmatic tool calling on top of basic search tools improved performance by an average of 11% while using 24% fewer input tokens (see [Improved web search with dynamic filtering](https://claude.com/blog/improved-web-search-with-dynamic-filtering)).
 
 Consider checking budget compliance across 20 employees: the traditional approach requires 20 separate model round-trips, pulling thousands of expense line items into the context along the way. With programmatic tool calling, a single script runs all 20 lookups, filters the results, and returns only the employees who exceeded their limits, shrinking what Claude needs to reason over from hundreds of kilobytes down to a handful of lines.
@@ -12,32 +20,7 @@ Consider checking budget compliance across 20 employees: the traditional approac
   For a deeper look at the inference and context costs that programmatic tool calling addresses, see [Advanced tool use](https://www.anthropic.com/engineering/advanced-tool-use).
 </Tip>
 
-<Note>
-  This feature requires the code execution tool to be enabled.
-</Note>
-
-<Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-</Note>
-
-## Model compatibility
-
-Programmatic tool calling requires `code_execution_20260120` or later, which is supported on the following models:
-
-| Model                                          |
-| ---------------------------------------------- |
-| Claude Fable 5 (claude-fable-5)                |
-| Claude Mythos 5 (claude-mythos-5)              |
-| Claude Opus 5 (claude-opus-5)                  |
-| Claude Opus 4.8 (claude-opus-4-8)              |
-| Claude Opus 4.7 (claude-opus-4-7)              |
-| Claude Opus 4.6 (claude-opus-4-6)              |
-| Claude Sonnet 5 (claude-sonnet-5)              |
-| Claude Sonnet 4.6 (claude-sonnet-4-6)          |
-| Claude Opus 4.5 (claude-opus-4-5-20251101)     |
-| Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) |
-
-For the full code execution tool version matrix, see the [code execution tool model compatibility table](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility). Programmatic tool calling is available on the Claude API, [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry). On Microsoft Foundry, programmatic tool calling requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure). It is not currently available on Amazon Bedrock or Google Cloud.
+Programmatic tool calling requires the [code execution tool](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool) with tool version `code_execution_20260120` or later.
 
 ## Quick start
 

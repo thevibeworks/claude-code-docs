@@ -5,10 +5,10 @@ description: "Diagnose and fix the most common thinking failures: configuration 
 ---
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+  To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
-This page covers the most common failures when configuring thinking or round-tripping thinking blocks (sending returned thinking blocks back in later requests). The first section maps each model to its supported thinking configurations and the ones it rejects; the sections after it each start from a symptom you observe, so you can match an error message or unexpected response directly to its cause and fix. For how thinking works, see the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview.
+This page covers the most common failures when configuring thinking or round-tripping thinking blocks (sending returned thinking blocks back in later requests). The first section maps each model to its supported thinking configurations and the ones it rejects; the sections after it each start from a symptom you observe, so you can match an error message or unexpected response directly to its cause and fix. To learn how thinking works, see the [Thinking](https://platform.claude.com/docs/en/build-with-claude/thinking) overview.
 
 ## Configurations each model rejects
 

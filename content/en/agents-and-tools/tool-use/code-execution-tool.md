@@ -4,6 +4,14 @@ url: https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-executio
 description: Run Python and bash code in a sandboxed container to analyze data, generate files, and iterate on solutions.
 ---
 
+## Compatibility
+- [ZDR](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention): not eligible
+- Supported models: `claude-fable-5`, `claude-mythos-5`, `claude-opus-5`, `claude-opus-4-8`, `claude-opus-4-7`, `claude-opus-4-6`, `claude-opus-4-5-20251101`, `claude-sonnet-5`, `claude-sonnet-4-6`, `claude-sonnet-4-5-20250929`, `claude-haiku-4-5-20251001`
+- Platforms: Claude API, Claude Platform on AWS, Microsoft Foundry [1]; not available on Amazon Bedrock, Google Cloud
+- Every supported model accepts all three [tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions). On Claude Haiku 4.5, programmatic tool calling and REPL state persistence aren't available, so the newer versions behave like `code_execution_20250825` there.
+- For [Claude Mythos Preview](https://anthropic.com/glasswing), code execution is supported on the Claude API and Microsoft Foundry.
+1. On [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry), code execution requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure).
+
 Claude can analyze data, create visualizations, perform complex calculations, run system commands, create and edit files, and process uploaded files directly within the API conversation. The code execution tool allows Claude to run Bash commands and manipulate files, including writing code, in a secure, sandboxed environment.
 
 **Code execution is free when used with web search or web fetch (`web_search_20260209`, `web_fetch_20260209`, or later).** When one of those tools is in your request, there are no additional charges for code execution in that request beyond standard token costs. This covers both the code execution behind dynamic filtering and any code Claude runs directly. Standard code execution pricing applies when they are not included.
@@ -14,29 +22,9 @@ Code execution also powers dynamic filtering in the [web search](https://platfor
   Reach out through the [feedback form](https://forms.gle/LTAU6Xn2puCJMi1n6) to share your feedback on this feature.
 </Note>
 
-<Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
-</Note>
+## Tool versions
 
-## Model compatibility
-
-The code execution tool is available on the following models:
-
-| Model                                          | Tool versions                                                                   |
-| ---------------------------------------------- | ------------------------------------------------------------------------------- |
-| Claude Opus 5 (claude-opus-5)                  | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Fable 5 (claude-fable-5)                | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Mythos 5 (claude-mythos-5)              | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Sonnet 5 (claude-sonnet-5)              | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Opus 4.8 (claude-opus-4-8)              | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Opus 4.7 (claude-opus-4-7)              | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Opus 4.6 (claude-opus-4-6)              | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Sonnet 4.6 (claude-sonnet-4-6)          | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Opus 4.5 (claude-opus-4-5-20251101)     | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Sonnet 4.5 (claude-sonnet-4-5-20250929) | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-| Claude Haiku 4.5 (claude-haiku-4-5-20251001)   | `code_execution_20250825`, `code_execution_20260120`, `code_execution_20260521` |
-
-Each tool version builds on the previous one:
+The code execution tool has three current versions, and every [supported model](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#compatibility) accepts all three. Each version builds on the previous one:
 
 * `code_execution_20250825` supports Bash commands and file operations.
 * `code_execution_20260120` adds REPL state persistence and [programmatic tool calling](https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling) from within the sandbox. Claude Haiku 4.5 accepts the `code_execution_20260120` and `code_execution_20260521` tool types, but programmatic tool calling and the REPL state persistence that depends on it aren't available on it, so the newer versions behave like `code_execution_20250825` there.
@@ -44,28 +32,12 @@ Each tool version builds on the previous one:
 
 None of the three tool versions requires an `anthropic-beta` header. The legacy code execution beta headers remain valid opt-ins.
 
-The examples on this page use `code_execution_20250825`, which covers the Bash and file operations they demonstrate and behaves the same way on every model in the table; use `code_execution_20260120` or later when you need programmatic tool calling or REPL state persistence. The current [web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) and [web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool) tools (`web_search_20260209`, `web_fetch_20260209`, and later) require `code_execution_20260120` or later as their code execution version.
+The examples on this page use `code_execution_20250825`, which covers the Bash and file operations they demonstrate and behaves the same way on every supported model; use `code_execution_20260120` or later when you need programmatic tool calling or REPL state persistence. The current [web search](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool) and [web fetch](https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool) tools (`web_search_20260209`, `web_fetch_20260209`, and later) require `code_execution_20260120` or later as their code execution version.
+
+Older tool versions aren't guaranteed to stay compatible with newer models. When you adopt a new model, check [Tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions) and [Compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#compatibility), and prefer the newest tool version your integration supports.
 
 <Note>
   If you're still using the legacy `code_execution_20250522` (Python only), see [Upgrade to latest tool version](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#upgrade-to-latest-tool-version) to migrate from it.
-</Note>
-
-<Warning>
-  Older tool versions are not guaranteed to stay compatible with newer models. When you adopt a new model, check the [model compatibility table](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility) and prefer the newest tool version your integration supports.
-</Warning>
-
-## Platform availability
-
-Code execution is available on:
-
-* **Claude API** (Anthropic)
-* **[Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws)**
-* **[Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry)** (requires a [Hosted on Anthropic deployment](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#additional-features-not-supported-when-hosted-on-azure))
-
-Code execution is not currently available on Amazon Bedrock or Google Cloud.
-
-<Note>
-  For [Claude Mythos Preview](https://anthropic.com/glasswing), code execution is supported on the Claude API and Microsoft Foundry only. It is not available for Mythos Preview on Amazon Bedrock, Claude Platform on AWS, or Google Cloud.
 </Note>
 
 ## Quick start
@@ -1490,7 +1462,7 @@ Code execution usage is tracked in the response:
 
 ## Upgrade to latest tool version
 
-The latest tool version is `code_execution_20260521`. To move between the three current versions, update the `type` string in your request: all three return the response blocks documented in [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format). See [Model compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#model-compatibility) for what each version adds and which models support it.
+The latest tool version is `code_execution_20260521`. To move between the three current versions, update the `type` string in your request: all three return the response blocks documented in [Response format](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#response-format). See [Tool versions](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#tool-versions) for what each version adds and [Compatibility](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#compatibility) for the models that support them.
 
 The rest of this section covers migrating from the legacy Python-only `code_execution_20250522` to the current tool versions.
 

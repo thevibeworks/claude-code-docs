@@ -5,7 +5,7 @@ description: Change system instructions or tool availability partway through a c
 ---
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+  To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 System instructions normally live in the top-level `system` field, ahead of every message in the conversation. That position is great for [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching): the system prompt is part of the stable prefix, so subsequent turns hit the cache. It is a poor position for instructions you only discover you need partway through a session, because editing the top-level `system` field changes the very beginning of the prompt and invalidates the cache for everything that follows.

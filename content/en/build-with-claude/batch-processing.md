@@ -14,7 +14,7 @@ Batch processing is a powerful approach for handling large volumes of requests e
 The Message Batches API is Anthropic's first implementation of this pattern.
 
 <Note>
-  For how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
+  To learn how zero data retention (ZDR) applies to this feature, see [API and data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention).
 </Note>
 
 # Message Batches API

@@ -1410,9 +1410,9 @@ Token counting is **free to use** but subject to requests per minute rate limits
 
 | Usage tier | Requests per minute (RPM) |
 | ---------- | ------------------------- |
-| Start      | 2,000                     |
-| Build      | 4,000                     |
-| Scale      | 8,000                     |
+| Start      | 5,000                     |
+| Build      | 10,000                    |
+| Scale      | 20,000                    |
 
 <Note>
   Token counting and message creation have separate and independent rate limits. Usage of one does not count against the limits of the other.

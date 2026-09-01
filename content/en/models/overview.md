@@ -63,7 +63,7 @@ See [Model IDs and versioning](https://platform.claude.com/docs/en/about-claude/
 
 Legacy models (still available): [Claude Opus 4.8](https://platform.claude.com/docs/en/models/opus-4-8/overview), [Claude Opus 4.7](https://platform.claude.com/docs/en/models/opus-4-7/overview), [Claude Opus 4.6](https://platform.claude.com/docs/en/models/opus-4-6/overview), [Claude Opus 4.5](https://platform.claude.com/docs/en/models/opus-4-5/overview), [Claude Sonnet 4.6](https://platform.claude.com/docs/en/models/sonnet-4-6/overview), [Claude Sonnet 4.5](https://platform.claude.com/docs/en/models/sonnet-4-5/overview).
 
-Once you've picked a model, [learn how to make your first API call](https://platform.claude.com/docs/en/get-started). For how model IDs, aliases, and snapshots work, see [Model IDs and versioning](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions); for the reliable-knowledge and training-data cutoffs behind each model, see [Anthropic's Transparency Hub](https://www.anthropic.com/transparency).
+Once you've picked a model, [learn how to make your first API call](https://platform.claude.com/docs/en/get-started). To understand how model IDs, aliases, and snapshots work, see [Model IDs and versioning](https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions); for the reliable-knowledge and training-data cutoffs behind each model, see [Anthropic's Transparency Hub](https://www.anthropic.com/transparency).
 
 ## Using the Models API
 

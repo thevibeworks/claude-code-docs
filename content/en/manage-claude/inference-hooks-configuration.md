@@ -8,7 +8,7 @@ description: Allow Inference hooks for your Claude Enterprise organization, conn
   Inference hooks are in beta and available to Claude Enterprise organizations. Configuring them requires the `organization:manage` permission, which the built-in Admin, Owner, and Primary owner roles hold, as does any custom role granted it.
 </Note>
 
-Inference hooks send prompts from your organization to an AI security server you choose, and hold each request for an allow or deny verdict before Claude processes it. This page walks through turning the feature on, connecting your server, and controlling enforcement. For what Inference hooks are and when to use them, see the [Inference hooks overview](https://platform.claude.com/docs/en/manage-claude/inference-hooks). For building the AI security server itself, see [Develop an Inference hooks integration](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint).
+Inference hooks send prompts from your organization to an AI security server you choose, and hold each request for an allow or deny verdict before Claude processes it. This page walks through turning the feature on, connecting your server, and controlling enforcement. To learn what Inference hooks are and when to use them, see the [Inference hooks overview](https://platform.claude.com/docs/en/manage-claude/inference-hooks). To build the AI security server itself, see [Develop an Inference hooks integration](https://platform.claude.com/docs/en/manage-claude/inference-hooks-endpoint).
 
 ## Before you begin
 
@@ -118,11 +118,15 @@ The panel is best-effort: if Anthropic cannot read the counters it shows zero fa
 
 ## Circuit breaker
 
-Sustained webhook failures attributable to your AI security server trip the circuit breaker, which stops enforcement: your server is no longer contacted, and your **Failure handling** choice applies to every inspected request. With **Block the request** selected, users in your organization are blocked until you act. When the breaker trips, administrators are also notified in the claude.ai notification center.
+Sustained webhook failures attributable to your AI security server trip the circuit breaker, which stops enforcement: your server is no longer contacted, and your **Failure handling** choice applies to every inspected request. With **Block the request** selected, users in your organization are blocked until the breaker resets. When the breaker trips, administrators are also notified in the claude.ai notification center.
 
 Each trip is also recorded in your organization's [Activity Feed](https://platform.claude.com/docs/en/manage-claude/compliance-activity-feed) as an `inference_hooks_circuit_breaker_tripped` activity, so your security team or vendor can alert on trips from monitoring they already run, such as a SIEM that ingests the feed. One activity is recorded per trip, not one per affected request. Recording requires the Compliance API to be enabled for your organization; see [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 
 To recover, fix the server, then turn **Enforce verdicts** back on to reset the breaker.
+
+The breaker can also reset on its own. Starting 10 minutes after the trip, Anthropic tests whether your server has recovered: at most about once per minute, one request from your organization's normal traffic is sent to your server for inspection, and that request proceeds for its user whether or not your server answers. If your server responds with a valid verdict, allow or deny, the breaker resets and enforcement resumes. Any other outcome is a webhook failure: the breaker stays tripped and testing continues.
+
+Automatic recovery runs only while your Inference hooks settings are unchanged since the trip. If you change any Inference hooks setting after a trip, including rotating the signing secret, testing stops and the breaker no longer resets on its own; turn **Enforce verdicts** back on when your server is fixed. Automatic recovery applies only to trips: if you turn **Enforce verdicts** off yourself, enforcement stays off until you turn it back on.
 
 ## Rotate your signing secret
 
@@ -139,7 +143,7 @@ Inference hooks activity is recorded in your organization's [Activity Feed](http
 There are two levels of off:
 
 * **Enforce verdicts** off, on the Inference hooks settings page: within about a minute, prompts from your organization stop being sent to your AI security server; requests already in flight finish under the old setting. The settings page stays available, so use this to pause enforcement while you work on your AI security server.
-* **Allow for your organization** off, in **Data and privacy** settings: prompts are no longer inspected, and the Inference hooks settings become unavailable until you turn it back on. Your endpoint configuration, custom headers, and signing secret are kept either way; turning it back on forces **Enforce verdicts** off, so turn enforcement on again when you are ready.
+* **Allow for your organization** off, in **Data and privacy** settings: prompts are no longer inspected, and the Inference hooks settings become unavailable until you turn it back on. Your endpoint configuration, custom headers, and signing secret are kept either way; turning it back on forces **Enforce verdicts** off and clears a tripped circuit breaker, so turn enforcement on again when you are ready.
 
 ## Next steps
 

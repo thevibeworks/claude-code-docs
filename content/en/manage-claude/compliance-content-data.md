@@ -5,7 +5,7 @@ description: Access chat content, file attachments, and projects for claude.ai o
 ---
 
 <Note>
-  The endpoints on this page are available only to Claude Enterprise organizations. They retrieve and delete claude.ai chats, files, and projects; Cowork and Claude Code session transcripts are covered on [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions). See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
+  The endpoints on this page are available only to Claude Enterprise organizations. They retrieve and delete claude.ai chats, files, and projects; transcripts of sessions in apps such as Cowork and Claude Code are covered on [Retrieve session transcripts](https://platform.claude.com/docs/en/manage-claude/compliance-sessions). See [Set up the Compliance API](https://platform.claude.com/docs/en/manage-claude/compliance-api-access).
 </Note>
 
 <Check>

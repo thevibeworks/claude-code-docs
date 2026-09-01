@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1788200100&amp;signature=319cbf464e8ca1e07c4294e9b58fcbc8b99e45c9dbacb00c95ac6835184e0ac6&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3Ih3fM%2FVUxakFVfq5WwzceLcNA%2B8WH6Ou24OO%0A%2FeL65VGMG%2FQv4xtNXRU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1788243300&amp;signature=762d7ea5c810d443a34205fbd5f74c8edb1739cbb12df56f8844d04b0fd91a26&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3Ih3fN%2FZWxakFVfq5Wwzr6fOxQaSOP9yLrhCe%0AtvXDm4vcVUIwSOMxEj4%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1788200100&amp;signature=26584012a09fd4d31f3dc7826371f5e9b6fd930b0233b1ca3a525f580acca7d1&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBP7%2Bg0CVmKUxugP2BQsTVbj5LxMpxUtA6ugo%0A2S2g%2FWiXUN2IKzs%2F5Fo%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1788243300&amp;signature=db3c33176f6576826dc2dd2782f498dc74352e954aee184669326b15f7e09927&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBP7%2Bh0OXmKUxugP2BQtoqjO9XEwFF3qSp3rb%0A6iaRkFB%2Bv%2B1wdQ3ICsI%3D%0A)
 
 ---
 

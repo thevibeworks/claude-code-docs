@@ -6,6 +6,12 @@
 
 > Release notes for Claude Science, including new features, improvements, and bug fixes by version.
 
+<Update label="0.1.43" description="August 31, 2026">
+  * On Linux, commands, notebook cells, and local connectors work again on systems with bubblewrap's recent security update
+  * Cloud storage in Settings (Amazon S3, S3-compatible services, and Google Cloud Storage with HMAC keys) now works behind a TLS-inspecting proxy such as Zscaler or Netskope, trusting the same corporate root certificate as sign-in and the Claude API
+  * Various bug fixes and security improvements
+</Update>
+
 <Update label="0.1.41" description="August 27, 2026">
   * Messages now show when they were sent: hover one of your messages to see the time, and Claude's replies show it next to their copy and feedback buttons
   * Reviewer findings now appear as cards directly under the message they refer to, instead of a single summary card; click a card to open the reviewer's reasoning

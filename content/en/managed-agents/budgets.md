@@ -378,7 +378,7 @@ The session object carries its `budget` and a `usage` object with the tracked sp
 
 The `session.usage` event is a snapshot of the session's cumulative usage and tracked list cost. It carries the session's token totals, `list_cost`, `active_seconds`, `server_tool_use` request counts (`web_search_requests`, priced into list cost per request, and `web_fetch_requests`, which reads `0` because web fetch requests carry no per-request charge and aren't metered), and an echo of the session's `budget`, or `null` when the session has none. It appears in the events list and the session stream. The session emits one immediately before it goes idle, whatever the stop reason, so a session that reaches its budget always emits one immediately before the budget-reached idle event.
 
-For reading usage from the stream and the session object, see [Tracking usage](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#tracking-usage).
+To read usage from the stream and the session object, see [Tracking usage](https://platform.claude.com/docs/en/managed-agents/events-and-streaming#tracking-usage).
 
 ## Budgets in multiagent sessions
 
