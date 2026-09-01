@@ -40,7 +40,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1788243300&amp;signature=762d7ea5c810d443a34205fbd5f74c8edb1739cbb12df56f8844d04b0fd91a26&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3Ih3fN%2FZWxakFVfq5Wwzr6fOxQaSOP9yLrhCe%0AtvXDm4vcVUIwSOMxEj4%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1788260400&amp;signature=e0a9d49030fc1dc4ad8b3bea82d9ba342df3b387b47e54e5da346aec95c429df&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3Ih3fNfVRxakFVfq5WwxCF51yoRjmSizl7Gut%0AaaKUBCvudGz99%2Fl7wUc%3D%0A)
 
 If you're on the Enterprise plan and your organization has skill scanning turned on, plugins are checked for malicious content when they're installed or updated. A plugin with malicious content is blocked, and one that may carry risk shows a caution banner. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
 
@@ -50,7 +50,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1788243300&amp;signature=db3c33176f6576826dc2dd2782f498dc74352e954aee184669326b15f7e09927&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBP7%2Bh0OXmKUxugP2BQtoqjO9XEwFF3qSp3rb%0A6iaRkFB%2Bv%2B1wdQ3ICsI%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1788260400&amp;signature=6efe97a83fc9e406c26a3f6a6f878a572f9ad52b2d0db87c727ae5fbb6dec8e1&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBP7%2BhUCQmKUxugP2BQuUL100DLTo6pqOoPBx%0AQx61Y73LXFeMFSmox0c%3D%0A)
 
 ---
 
