@@ -16,6 +16,8 @@ The simplest way to change models is to use the /model command directly within C
 
 ## Supported models
 
+- Fable 5.1, `claude-fable-5-1`
+
 - Opus 5, `claude-opus-5`
 
 - Sonnet 5, `claude-sonnet-5`
@@ -43,6 +45,8 @@ Use the `--model` flag when starting Claude Code.
 1. Start a fresh Terminal session.
 
 2. Enter the following commands (depending on the model you’d like to use for that session):
+
+  - **For Fable 5.1**: `claude --model claude-fable-5-1`
 
   - **For Opus 5**: `claude --model claude-opus-5`
 
@@ -76,6 +80,8 @@ Use the `--model` flag when starting Claude Code.
 
 ### For ZSH users (macOS)
 
+- Fable 5.1: `echo 'export ANTHROPIC_MODEL="claude-fable-5-11"' >> ~/.zshrc`
+
 - Opus 5: `echo 'export ANTHROPIC_MODEL="claude-opus-5"' >> ~/.zshrc`
 
 - Sonnet 5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-5"' >> ~/.zshrc`
@@ -97,6 +103,8 @@ Use the `--model` flag when starting Claude Code.
 - Sonnet 4.5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-4-5-20250929"' >> ~/.zshrc`
 
 ### For BASH users (Linux)
+
+- Fable 5.1: `echo 'export ANTHROPIC_MODEL="claude-fable-5-1"' >> ~/.bashrc`
 
 - Opus 5: `echo 'export ANTHROPIC_MODEL="claude-opus-5"' >> ~/.bashrc`
 

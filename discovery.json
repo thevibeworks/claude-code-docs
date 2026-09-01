@@ -84,7 +84,6 @@
       "anthropics/anthropic-sdk-java",
       "anthropics/anthropic-sdk-php",
       "anthropics/anthropic-sdk-ruby",
-      "anthropics/anthropic-tokenizer-typescript",
       "anthropics/apitools",
       "anthropics/argo-cd",
       "anthropics/beam",

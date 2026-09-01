@@ -1,10 +1,10 @@
 ---
 title: Fallback credit
 url: https://platform.claude.com/docs/en/build-with-claude/fallback-credit
-description: Avoid paying the prompt-cache cost twice when you retry a refused Claude Fable 5 request on another model.
+description: Avoid paying the prompt-cache cost twice when you retry a refused request on another model.
 ---
 
-Prompt caches are per-model. When Claude Fable 5 declines a request and you retry on another model, the conversation prefix that was already cached for Claude Fable 5 must be written into the new model's cache from scratch. Cache writes cost more than cache reads. Fallback credit removes that extra cost. The refusal carries a credit token, you echo the token on the retry, and the retry is billed as though the conversation had been on the new model all along.
+Prompt caches are per-model. When a model declines a request and you retry on another model, the conversation prefix already cached for the first model must be written into the new model's cache from scratch. Cache writes cost more than cache reads. Fallback credit removes that extra cost. The refusal carries a credit token, you echo the token on the retry, and the retry is billed as though the conversation had been on the new model all along.
 
 You need this page only when you build the retry yourself: over raw HTTP or with custom retry logic. [Server-side fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#server-side-fallback) and the [SDK middleware](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#client-side-fallback) apply fallback credit automatically. If you use either, skip this page.
 
@@ -27,7 +27,7 @@ You need this page only when you build the retry yourself: over raw HTTP or with
   </Step>
 
   <Step title="Build the retry">
-    Start from the refused request body. Set `model` to the fallback model and add the token as the top-level `fallback_credit_token` parameter. Pick the body shape from the table below.
+    Start from the refused request body. Set `model` to the fallback model and add the token as the top-level `fallback_credit_token` parameter. Pick the body shape from the following table.
   </Step>
 
   <Step title="Send the retry with the same header">
@@ -564,7 +564,7 @@ The following example makes a request that may be refused and redeems the credit
 
 Fallback credit is in beta on the Claude API, Amazon Bedrock, Claude Platform on AWS, Google Cloud, and Microsoft Foundry. Refusals in [Message Batches](https://platform.claude.com/docs/en/build-with-claude/batch-processing) don't mint credit tokens, and redemption applies only to direct Messages API requests: a token passed on a batch request is accepted but ignored.
 
-The retry model must be one of the refused model's permitted fallback targets. Claude Fable 5's permitted targets are Claude Opus 4.8 (`claude-opus-4-8`) and Claude Opus 5 (`claude-opus-5`).
+The retry model must be one of the refused model's permitted fallback targets. For Claude Fable 5.1 and Claude Fable 5, those are Claude Opus 4.8 (`claude-opus-4-8`) and Claude Opus 5 (`claude-opus-5`).
 
 <Accordion title="Looking up permitted fallback targets programmatically">
   On the Claude API and Claude Platform on AWS, the target list is published as `allowed_fallback_models` on each model's entry in the [Models API](https://platform.claude.com/docs/en/api/models/list) when the `server-side-fallback-2026-07-01` beta header is set. The list is not yet visible under the `fallback-credit-*` header alone. It is not exposed on Amazon Bedrock, Google Cloud, or Microsoft Foundry.
@@ -598,7 +598,7 @@ Most retries redeem on the first attempt. When one does not, the API returns a 4
 
 ## Reference
 
-The sections below cover edge cases and the complete redemption rules. Most integrations do not need them.
+The following sections cover edge cases and the complete redemption rules. Most integrations do not need them.
 
 <Accordion title="Fields that must match the refused request">
   Redemption compares the retry against the refused request. Every field that shapes the prompt must match exactly. Fields that do not shape the prompt may change on the retry.
@@ -622,12 +622,12 @@ The sections below cover edge cases and the complete redemption rules. Most inte
   * **`fallback-credit-*`:** keep this header on both requests. The retry needs it to redeem the token.
 
   <Note>
-    On models that include the 1M token context window by default, such as Claude Fable 5, Claude Opus 5, and Claude Opus 4.8, the `context-1m-2025-08-07` beta header has no effect. The most robust way to keep the two requests identical is to omit that header on both, rather than sending it on one request and not the other.
+    On models that include the 1M token context window by default, such as Claude Fable 5.1, Claude Fable 5, Claude Opus 5, and Claude Opus 4.8, the `context-1m-2025-08-07` beta header has no effect. To keep the two requests identical, omit that header on both rather than sending it on one and not the other.
   </Note>
 </Accordion>
 
 <Accordion title="When fallback_has_prefill_claim is absent">
-  The field is `null` only when the token is also `null`, so a value you observe while holding a token is never `null`. It can still surface as absent (`None` in the typed SDKs) on Amazon Bedrock, Google Cloud, and Microsoft Foundry while their support for the field rolls out. In that case, treat the retry shape as unknown rather than as `false`. Try the appended-assistant-message shape first, and rely on the rejection handling in [When a retry is rejected](https://platform.claude.com/docs/en/build-with-claude/fallback-credit#when-a-retry-is-rejected), which falls back to the unchanged body.
+  The field is `null` only when the token is also `null`, so a value you observe while holding a token is never `null`. It can still be absent (`None` in the typed SDKs) on Amazon Bedrock, Google Cloud, and Microsoft Foundry while their support for the field rolls out. In that case, treat the retry shape as unknown rather than as `false`. Try the appended-assistant-message shape first, and rely on the rejection handling in [When a retry is rejected](https://platform.claude.com/docs/en/build-with-claude/fallback-credit#when-a-retry-is-rejected), which falls back to the unchanged body.
 </Accordion>
 
 <Accordion title="Echoing the refused response's content">

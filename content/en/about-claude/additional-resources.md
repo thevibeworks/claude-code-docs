@@ -11,7 +11,7 @@ description: Learning resources and documentation formats optimized for AI inges
     Deployable applications built with the API.
   </Card>
 
-  <Card title="Courses" icon="graduation-cap" href="https://anthropic.skilljar.com/">
+  <Card title="Courses" icon="graduation-cap" href="https://academy.claude.com/courses">
     Step-by-step lessons on building with Claude.
   </Card>
 

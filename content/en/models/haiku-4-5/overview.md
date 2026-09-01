@@ -16,12 +16,12 @@ Context window: 200K tokens · Max output: 64K tokens · Input pricing: $1 / MTo
 
 ## How it compares
 
-| Model                                                                           | Context | Max output | Price / MTok | Latency  | Thinking             | Default effort | Knowledge cutoff |
-| :------------------------------------------------------------------------------ | :------ | :--------- | :----------- | :------- | :------------------- | :------------- | :--------------- |
-| [Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/overview)   | 1M      | 128K       | $10 / $50    | Slower   | Adaptive (always on) | `high`         | Jan 2026         |
-| [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview)     | 1M      | 128K       | $5 / $25     | Moderate | Adaptive             | `high`         | May 2026         |
-| [Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/overview) | 1M      | 128K       | $2 / $10     | Fast     | Adaptive             | `high`         | Jan 2026         |
-| **Claude Haiku 4.5** (this model)                                               | 200K    | 64K        | $1 / $5      | Fastest  | Extended             | —              | Feb 2025         |
+| Model                                                                             | Context | Max output | Price / MTok | Latency  | Thinking             | Default effort | Knowledge cutoff |
+| :-------------------------------------------------------------------------------- | :------ | :--------- | :----------- | :------- | :------------------- | :------------- | :--------------- |
+| [Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/overview) | 1M      | 128K       | $10 / $50    | Slower   | Adaptive (always on) | `high`         | Jun 2026         |
+| [Claude Opus 5](https://platform.claude.com/docs/en/models/opus-5/overview)       | 1M      | 128K       | $5 / $25     | Moderate | Adaptive             | `high`         | May 2026         |
+| [Claude Sonnet 5](https://platform.claude.com/docs/en/models/sonnet-5/overview)   | 1M      | 128K       | $2 / $10     | Fast     | Adaptive             | `high`         | Jan 2026         |
+| **Claude Haiku 4.5** (this model)                                                 | 200K    | 64K        | $1 / $5      | Fastest  | Extended             | —              | Feb 2025         |
 
 * **Context:** 1M tokens is roughly 555k words or 2.5M Unicode characters on the current tokenizer (introduced with Claude Opus 4.7); models before it fit about 750k words in 1M tokens. 200k tokens is roughly 150k words.
 * **Max output:** Synchronous Messages API limit. On the Message Batches API, Claude Opus 5, Claude Sonnet 5, Claude Opus 4.8, Claude Opus 4.7, Claude Opus 4.6, and Claude Sonnet 4.6 support up to 300k output tokens with the output-300k-2026-03-24 beta header.

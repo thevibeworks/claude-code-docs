@@ -4,11 +4,15 @@ url: https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable
 description: Claude Fable 5 and Claude Mythos 5 capabilities, API changes, and availability.
 ---
 
+<Note>
+  Claude Fable 5.1 and Claude Mythos 5.1 build on these models. See [What's new in Claude Fable 5.1](https://platform.claude.com/docs/en/models/fable-5-1/whats-new-fable-5-1).
+</Note>
+
 <Tip>
   Access to Claude Fable 5 and Claude Mythos 5 has been restored. See [our statement](https://www.anthropic.com/news/redeploying-fable-5) for more information.
 </Tip>
 
-Claude Fable 5 is Anthropic's most capable widely released model, built for the most demanding reasoning and long-horizon agentic work. Claude Mythos 5 shares the same capabilities and is available only in limited release through [Project Glasswing](https://anthropic.com/glasswing).
+Claude Fable 5 is built for demanding reasoning and long-horizon agentic work. Claude Mythos 5 shares the same capabilities and is available only in limited release through [Project Glasswing](https://anthropic.com/glasswing).
 
 The headline change for integrations: Claude Fable 5 includes safety classifiers that can decline requests. Claude Mythos 5 does not include these classifiers. If your integration calls Claude Fable 5, plan for three changes: new response handling for refusals, fallback options for retrying on another Claude model, and new billing rules. [Refusals, fallback, and billing on Claude Fable 5](https://platform.claude.com/docs/en/models/fable-5/introducing-claude-fable-5-and-claude-mythos-5#refusals-fallback-and-billing-on-claude-fable-5) summarizes all three.
 
@@ -16,7 +20,7 @@ The headline change for integrations: Claude Fable 5 includes safety classifiers
 
 | Model           | API model ID      | Description                                                                                                                                   |
 | --------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Fable 5  | `claude-fable-5`  | Anthropic's most capable widely released model, for the most demanding reasoning and long-horizon agentic work                                |
+| Claude Fable 5  | `claude-fable-5`  | Built for demanding reasoning and long-horizon agentic work                                                                                   |
 | Claude Mythos 5 | `claude-mythos-5` | Shares Claude Fable 5's capabilities without the safety classifiers. Available through Project Glasswing. Successor to Claude Mythos Preview. |
 
 Claude Fable 5 and Claude Mythos 5 share the same specs and pricing:
@@ -28,7 +32,7 @@ For specs across all current models, see the [models overview](https://platform.
 
 ## Refusals, fallback, and billing on Claude Fable 5
 
-Claude Fable 5 includes safety classifiers that can decline certain requests. Claude Mythos 5 does not include these classifiers, so this section applies to Claude Fable 5 only. The following sections summarize what refusals mean for your integration; each links to the full guide.
+Claude Fable 5 includes safety classifiers that can decline certain requests. Claude Mythos 5 does not include these classifiers, so this section applies to Claude Fable 5 only. The following sections summarize what refusals mean for your integration. Each links to the full guide.
 
 ### Refusals
 
@@ -48,16 +52,12 @@ You are not billed for a request that is refused before any output is generated.
 
 ## Availability
 
-Claude Fable 5 and Claude Mythos 5 both become available on June 9, 2026:
-
 * **Claude Fable 5** is available on the Claude API, [Amazon Bedrock](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock), [Claude Platform on AWS](https://platform.claude.com/docs/en/build-with-claude/claude-platform-on-aws), [Google Cloud](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai), and [Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry).
 * **Claude Mythos 5** is offered only to approved customers in [Project Glasswing](https://anthropic.com/glasswing). For access, contact your Anthropic, AWS, or Google Cloud account team. Customers without access to Claude Mythos 5 can use Claude Fable 5, which does not require access approval and offers the same capabilities.
 
-Claude Fable 5 and Claude Mythos 5 carry 30-day data retention and are not available under zero data retention: both are designated [Covered Models](https://support.claude.com/en/articles/15425695). See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
+Claude Fable 5 and Claude Mythos 5 carry 30-day data retention and are not available under zero data retention unless expressly authorized by Anthropic. Both are designated [Covered Models](https://support.claude.com/en/articles/15425695). See [Model-specific data retention requirements](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#model-specific-data-retention-requirements).
 
-## Working with Claude Fable 5 and Claude Mythos 5
-
-### Prompting
+## Prompting
 
 Claude Fable 5 responds to the same prompting techniques as other Claude models, with a few differences in how to structure long-context prompts and reasoning instructions. See [Prompting Claude Fable 5](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-fable-5).
 
@@ -65,7 +65,7 @@ Claude Fable 5 responds to the same prompting techniques as other Claude models,
 
 ### Adaptive thinking is always on
 
-Claude Fable 5 and Claude Mythos 5 always have thinking enabled; passing `thinking: {"type": "disabled"}` is not supported. To reduce or otherwise control thinking depth, use the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) parameter.
+Claude Fable 5 and Claude Mythos 5 always have thinking enabled. Passing `thinking: {"type": "disabled"}` is not supported. To reduce or otherwise control thinking depth, use the [effort](https://platform.claude.com/docs/en/build-with-claude/effort) parameter.
 
 ### Raw thinking content is never returned
 
@@ -78,7 +78,7 @@ Pass thinking blocks back unchanged in multi-turn conversations on the same mode
 
 ## Supported features
 
-At launch, Claude Fable 5 and Claude Mythos 5 support:
+Claude Fable 5 and Claude Mythos 5 support:
 
 * [Effort](https://platform.claude.com/docs/en/build-with-claude/effort)
 * [Task budgets](https://platform.claude.com/docs/en/build-with-claude/task-budgets) (beta: set the `task-budgets-2026-03-13` header)
@@ -99,10 +99,6 @@ Step-by-step instructions live in the migration guide:
 ## Next steps
 
 <CardGroup>
-  <Card title="Migration guide" icon="arrow-right" href="https://platform.claude.com/docs/en/models/fable-5/migration-guide">
-    Step-by-step upgrade instructions from Claude Opus 4.8 and Claude Mythos Preview.
-  </Card>
-
   <Card title="Models overview" icon="settings" href="https://platform.claude.com/docs/en/models/overview">
     Specs and comparison for all current Claude models.
   </Card>

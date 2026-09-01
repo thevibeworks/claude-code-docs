@@ -2,7 +2,7 @@
 
 ## What is the Claude Team plan for scientists?
 
-The **[Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists)** gives academic and non-profit research groups and labs discounted access to a Claude Team subscription plan. Standard seats are free, and Premium seats are $15 per user per month. This discounted pricing is for verified research groups, available for 12 months and offered to a limited number of groups.
+The **[Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists)** gives academic and non-profit research groups and labs discounted access to a Claude Team subscription plan. Standard seats are free, and Premium seats are $15 per user per month. This discounted pricing is for verified research groups, available for 12 months and offered to a limited number of groups. Final pricing is confirmed after verification at sign up; **[terms apply](https://anthropic.com/legal/team-plan-for-scientists-terms)**.
 
 A principal investigator (PI) can sign up directly, verify their eligibility, and then invite their whole group.
 

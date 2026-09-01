@@ -4,6 +4,8 @@ This guide explains how to choose the Claude model that new conversations start 
 
 Default model settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
+You can also set the default effort level that new conversations start on, or leave it on Anthropic's recommended default effort. To control which models members can use and cap the effort level they can select, see **[Manage model access for your organization](https://support.claude.com/en/articles/15330089)**.
+
 ---
 
 ## How default models work
@@ -22,6 +24,8 @@ You can set a default at two levels:
 
 - Custom role default: applies to members assigned to that role and takes precedence over the organization default.
 
+Alongside the default model, you can set a default effort level. New conversations on the default model start at that effort level. Members can still change the effort level for any conversation, within the organization's effort cap for that model and any cap set by their custom role. If the default effort is higher than a cap that applies to a member, their conversations start at the highest level they're allowed.
+
 **Note:** Members on Claude Code CLI versions earlier than 2.1.199 won't pick up the organization default. Versions 2.1.196 through 2.1.198 also had a bug where setting a specific organization default caused other enabled models to disappear from the model picker in the CLI and VS Code extension; updating to 2.1.199 or later resolves both.
 
 For member-facing CLI instructions, see **[Claude Code model configuration](https://support.claude.com/en/articles/11940350)**.
@@ -36,17 +40,35 @@ The organization default applies to every member. To set it:
 
 1. Navigate to **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
-2. Under **Default model**, select an option:
+2. Under **Default model**, select an option under the model dropdown list:
 
   1. “Use Anthropic’s recommended default”: Anthropic’s recommended model that updates automatically when new models are released.
 
   2. “Choose a specific model”: a specific model that won’t change when new models are released.
 
-3. If you select “Choose a specific model,” choose a model from the list.
+3. If you select “Choose a specific model,” choose a model from the list. Only models enabled under **Model access** on the same page can be selected.
 
 4. Click “Save changes.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1788277500&amp;signature=0cd7da4a4081135cd9edb09a5647d2892d18c3002b45be44836314881352ba29&amp;req=diUmEs58n4BcUPMW1HO4zelOdzpCKk9CfdGVZ664dGGV7YDrvALqKnMcrXAY%0AEUkx3W%2FiwsmrcR%2FW3PQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1788415200&amp;signature=7dff4ae2ee5117b519e1d61269c7a1d603cdfc0cac1e8b008a60604c1c0b0fdf&amp;req=diUmEs58n4BcUPMW3nq%2Bga5jDn%2BYGMxCfgCMkc502AXpyKrEBudynYpgAQBw%0ApLGBZK2cwBCNt0E7AWXo9Zi3TcE%3D%0A)
+
+---
+
+## Set the default effort level
+
+The default effort level applies to new conversations on the organization default model. To set it:
+
+1. Navigate to **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
+
+2. Under **Default model**, select an option under the effort level dropdown list:
+
+  1. "Use Anthropic's recommended default effort": Anthropic's recommended effort level for the default model, which updates automatically when recommendations change.
+
+  2. Choose a level from the list. Available effort levels differ depending on the model, and some models don't support effort level settings at all.
+
+3. Click "Save changes."
+
+The default effort level can't be higher than the organization's effort cap for the default model. If you lower that cap below the current default effort, the default effort is lowered to match.
 
 ---
 
@@ -65,6 +87,8 @@ Custom role defaults let you set different starting models for different teams. 
 A role’s default model takes precedence over the organization default for members assigned to that role.
 
 If a member belongs to multiple groups whose custom roles set different default models, the most capable model will be the default. Capability is determined first by model family (Haiku, Sonnet, Opus), then release date, so more capable model families take precedence, and newer models within the same family take precedence.
+
+The role's effort cap for the default model, if any, still applies. A role can't set an effort cap higher than the organization's cap for that model. For details, see **[Limit the maximum effort level for a custom role](https://support.claude.com/en/articles/15694740-manage-model-access-for-your-organization#h_e693614582)**.
 
 **Note:** Custom roles only affect members whose role is set to “Custom.” Members with the User, Admin, or Owner roles get the default model from the organization setting, not from custom roles.
 

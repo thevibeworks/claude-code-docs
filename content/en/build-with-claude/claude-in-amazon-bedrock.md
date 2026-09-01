@@ -12,7 +12,7 @@ This guide walks you through setting up and making API calls to Claude in Amazon
 
 ## Access
 
-Amazon Bedrock sets access criteria for each Claude model individually. Claude Fable 5, Claude Opus 4.8, Claude Sonnet 5, Claude Opus 4.7, and Claude Haiku 4.5 are open to all Amazon Bedrock customers; for any other model's current criteria, check [Amazon Bedrock model access](https://console.aws.amazon.com/bedrock/home#/modelaccess) in the AWS console. Claude Mythos Preview requires an invitation; see [Project Glasswing](https://anthropic.com/glasswing). For region availability, see [Regions](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#regions).
+Amazon Bedrock sets access criteria for each Claude model individually. Claude Fable 5.1, Claude Fable 5, Claude Opus 4.8, Claude Sonnet 5, Claude Opus 4.7, and Claude Haiku 4.5 are open to all Amazon Bedrock customers. For any other model's current criteria, check [Amazon Bedrock model access](https://console.aws.amazon.com/bedrock/home#/modelaccess) in the AWS console. Claude Mythos Preview requires an invitation through [Project Glasswing](https://anthropic.com/glasswing). For region availability, see [Regions](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#regions).
 
 ## Prerequisites
 
@@ -328,6 +328,7 @@ Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Mod
 
 | Model                 | Model ID                        | Access                                                                                              |
 | --------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Claude Fable 5.1      | anthropic.claude-fable-5-1      | Open                                                                                                |
 | Claude Fable 5        | anthropic.claude-fable-5        | Open                                                                                                |
 | Claude Opus 5         | anthropic.claude-opus-5         | See [Access](https://platform.claude.com/docs/en/build-with-claude/claude-in-amazon-bedrock#access) |
 | Claude Opus 4.8       | anthropic.claude-opus-4-8       | Open                                                                                                |
@@ -335,6 +336,8 @@ Model IDs in Claude in Amazon Bedrock carry an `anthropic.` provider prefix. Mod
 | Claude Sonnet 5       | `anthropic.claude-sonnet-5`     | Open                                                                                                |
 | Claude Haiku 4.5      | anthropic.claude-haiku-4-5      | Open                                                                                                |
 | Claude Mythos Preview | anthropic.claude-mythos-preview | Invitation only ([Project Glasswing](https://anthropic.com/glasswing))                              |
+
+Use Claude Code 2.1.255 or later with Claude Fable 5.1 on Amazon Bedrock; run `claude update` to upgrade.
 
 <Tip>
   Upgrading to a newer Claude model? In Claude Code, run `/claude-api migrate` to apply model ID swaps and breaking parameter changes across your codebase. The skill detects which cloud platform your code targets and adjusts model ID formats and feature changes for that platform. See [Migrating to a newer Claude model](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/claude-api-skill#migrating-to-a-newer-claude-model).
@@ -370,7 +373,7 @@ Claude in Amazon Bedrock is available in the following AWS regions. Amazon Bedro
 * **Global:** dynamic routing across all available regions for maximum availability. No pricing premium.
 * **Regional:** the endpoint resolves to the single AWS region you specify, for data-residency requirements. Regional endpoints carry a 10% pricing premium over global endpoints. To route across multiple regions within a geography, use an [inference profile](https://docs.aws.amazon.com/bedrock/latest/userguide/cross-region-inference.html) (US, EU, JP, or AU). Regions marked **In-region only** in the table support direct single-region routing without an inference profile.
 
-The global endpoint is available for Claude Fable 5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5, and Claude Haiku 4.5. Claude Mythos Preview is regional only and is available in `us-east-1`.
+The global endpoint is available for Claude Fable 5.1, Claude Fable 5, Claude Opus 5, Claude Opus 4.8, Claude Opus 4.7, Claude Sonnet 5, and Claude Haiku 4.5. For Claude Fable 5.1, regional endpoints are currently available in `us-east-1` only. Claude Mythos Preview is regional only and is available in `us-east-1`.
 
 | AWS region       | Location                  | Endpoint types             |
 | ---------------- | ------------------------- | -------------------------- |
@@ -404,7 +407,7 @@ The global endpoint is available for Claude Fable 5, Claude Opus 5, Claude Opus 
 
 ## Quotas
 
-Default quota is 2 million input tokens per minute (TPM). You can request up to 4 million input TPM without additional Anthropic approval. AWS enforces requests-per-minute (RPM) limits on the Bedrock side; contact AWS support for RPM adjustments.
+Default quota is 2 million input tokens per minute (TPM). You can request up to 5 million input TPM and 500,000 output TPM without additional Anthropic approval. AWS enforces requests-per-minute (RPM) limits on the Bedrock side; contact AWS support for RPM adjustments.
 
 ## Data retention
 

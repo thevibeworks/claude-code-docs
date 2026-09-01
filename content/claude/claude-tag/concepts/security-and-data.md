@@ -95,7 +95,7 @@ Isolating a credential doesn't isolate what Claude knows. What it learns in a pu
 
 ## Artifact visibility
 
-A session can publish an artifact, a web page hosted on claude.ai with the link posted in the thread, and the page stays available after the sandbox is released. Anyone with access to the source Slack channel can open it, which in a public channel covers everyone in the workspace. Someone who opens the link without that access sees a request-access prompt rather than the page. There is no share setting for anyone to change, and updates go through Claude in the thread.
+A session can publish an artifact, a web page hosted on claude.ai with the link posted in the thread, and the page stays available after the sandbox is released. Anyone with access to the source Slack channel can open it, which in a public channel covers everyone in the workspace. Someone who opens the link without that access sees a request-access prompt rather than the page. There is no share setting for anyone to change. Updates go through Claude: ask in the Slack thread, or [send Claude a comment on the page](/docs/claude-tag/users/use-cases/create-artifacts#comment-on-the-page-to-ask-for-changes), which anyone who can post in the channel can do.
 
 Artifacts you publish from your own Claude Code sessions work differently: they belong to you, and you control who can open them, with sharing options that depend on your plan and organization settings. See the [Claude Code artifacts documentation](https://code.claude.com/docs/en/artifacts).
 
