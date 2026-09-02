@@ -6,6 +6,24 @@
 
 > Release notes for Claude Desktop
 
+<Update label="v1.40609.1" description="2026-08-30">
+  **General**
+
+  * Updated the bundled Claude Code CLI to version 2.1.255.
+
+  **Code**
+
+  * No user-facing changes.
+
+  **Cowork**
+
+  * No user-facing changes.
+
+  **3P**
+
+  * No user-facing changes.
+</Update>
+
 <Update label="v1.40609.0" description="2026-08-27">
   **General**
 

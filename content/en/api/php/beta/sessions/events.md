@@ -34,11 +34,11 @@ List Events
 
 - `order?:optional Order`
 
-  Sort direction for results, ordered by the event's `processed_at`. Defaults to asc (chronological).
+  Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
 - `page?:optional string`
 
-  Opaque pagination cursor from a previous response's next_page.
+  Opaque pagination cursor from a previous response's `next_page`.
 
 - `types?:optional list<string>`
 

@@ -87,7 +87,7 @@ Both self-serve and sales-assisted Enterprise plans include the same features an
 
 *New self-serve Enterprise organizations can choose ACH bank transfer, credit card, or debit card at signup. Organizations upgrading from a Team plan start on credit card and can switch to ACH bank transfer afterward in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
 
-†For sales-assisted invoices of $50,000 or more, only bank transfer (ACH or wire) is available. Reach out to your Anthropic Contact to request a card-payment exception.
+†For sales-assisted invoices of $50,000 or more, only bank transfer (ACH or wire) is available.
 
 **When to contact Sales:** If your organization needs invoicing, dedicated customer success management, or to pay with a currency other than USD, reach out to our **[Sales team](https://claude.com/contact-sales)** to set up a sales-assisted Enterprise plan.
 

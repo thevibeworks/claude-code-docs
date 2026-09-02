@@ -22,6 +22,14 @@ List User Profiles
 
   - `:desc`
 
+- `order_by: :created_at | :name`
+
+  Query parameter for order_by
+
+  - `:created_at`
+
+  - `:name`
+
 - `page: String`
 
   Query parameter for page
@@ -32,7 +40,7 @@ List User Profiles
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -116,6 +124,12 @@ List User Profiles
 
     - `:"ce-user-management-2026-07-13"`
 
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
+
 ## Returns
 
 - `class BetaUserProfile`
@@ -170,19 +184,15 @@ List User Profiles
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: Time`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: String`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: :external | :resold | :internal`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `:external`
-
-    - `:resold`
-
-    - `:internal`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ## Example
 
@@ -214,8 +224,8 @@ puts(page)
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
-      "name": "Example User",
-      "relationship": "external"
+      "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+      "name": "Example User"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="

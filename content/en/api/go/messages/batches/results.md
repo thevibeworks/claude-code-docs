@@ -819,6 +819,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+            - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
+
             - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
               High-performance model for coding and agents

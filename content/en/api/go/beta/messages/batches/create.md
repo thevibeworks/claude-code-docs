@@ -1322,6 +1322,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+                    - `const ModelClaudeFable5_1 Model = "claude-fable-5-1"`
+
+                      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                    - `const ModelClaudeMythos5_1 Model = "claude-mythos-5-1"`
+
+                      Our most capable model for cybersecurity and biology research, available through trusted access programs
+
                     - `const ModelClaudeSonnet5 Model = "claude-sonnet-5"`
 
                       High-performance model for coding and agents
@@ -1401,6 +1409,36 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `const BetaMessageParamRoleAssistant BetaMessageParamRole = "assistant"`
 
           - `const BetaMessageParamRoleSystem BetaMessageParamRole = "system"`
+
+        - `ClearAt BetaMessageParamClearAt Optional`
+
+          How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+          - `const BetaMessageParamClearAtNextUserMessage BetaMessageParamClearAt = "next_user_message"`
+
+          - `const BetaMessageParamClearAtNever BetaMessageParamClearAt = "never"`
+
+        - `OutputConfig BetaSystemMessageOutputConfig Optional`
+
+          Per-message output configuration on a role:"system" input message.
+
+          Fields here apply per-turn; `format` remains top-level only. An
+          empty `{}` is accepted on a message that carries content; a message
+          with neither content nor output_config fields is rejected.
+
+          - `Effort BetaSystemMessageOutputConfigEffort Optional`
+
+            All possible effort levels.
+
+            - `const BetaSystemMessageOutputConfigEffortLow BetaSystemMessageOutputConfigEffort = "low"`
+
+            - `const BetaSystemMessageOutputConfigEffortMedium BetaSystemMessageOutputConfigEffort = "medium"`
+
+            - `const BetaSystemMessageOutputConfigEffortHigh BetaSystemMessageOutputConfigEffort = "high"`
+
+            - `const BetaSystemMessageOutputConfigEffortXhigh BetaSystemMessageOutputConfigEffort = "xhigh"`
+
+            - `const BetaSystemMessageOutputConfigEffortMax BetaSystemMessageOutputConfigEffort = "max"`
 
       - `Model Model`
 
@@ -1704,6 +1742,24 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `Type Enabled`
 
+              - `BlockBinding BetaThinkingBlockBinding Optional`
+
+                Controls for block binding: what happens when a thinking block this
+                request sends back fails the conversation check. Every field is optional;
+                an empty object means every default.
+
+                - `PrefixMismatchBehavior BetaThinkingPrefixMismatchBehavior Optional`
+
+                  What happens when a thinking block in `messages` fails the conversation
+                  check: it was created in a different conversation, or the messages before
+                  it have changed since. `"error"` (the default) fails the request with a
+                  400 error. `"drop_block"` removes the failing blocks and the request
+                  proceeds; the model no longer sees the dropped reasoning.
+
+                  - `const BetaThinkingPrefixMismatchBehaviorError BetaThinkingPrefixMismatchBehavior = "error"`
+
+                  - `const BetaThinkingPrefixMismatchBehaviorDropBlock BetaThinkingPrefixMismatchBehavior = "drop_block"`
+
               - `Display BetaThinkingConfigEnabledDisplay Optional`
 
                 Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -1721,6 +1777,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `type BetaThinkingConfigAdaptive struct{…}`
 
               - `Type Adaptive`
+
+              - `BlockBinding BetaThinkingBlockBinding Optional`
+
+                Controls for block binding: what happens when a thinking block this
+                request sends back fails the conversation check. Every field is optional;
+                an empty object means every default.
 
               - `Display BetaThinkingConfigAdaptiveDisplay Optional`
 
@@ -2220,16 +2282,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           from its schema.
 
           - `Type BrowserToolset20260801`
-
-          - `AllowedCallers []string Optional`
-
-            - `const BetaBrowserToolset20260801AllowedCallerDirect BetaBrowserToolset20260801AllowedCaller = "direct"`
-
-            - `const BetaBrowserToolset20260801AllowedCallerCodeExecution20250825 BetaBrowserToolset20260801AllowedCaller = "code_execution_20250825"`
-
-            - `const BetaBrowserToolset20260801AllowedCallerCodeExecution20260120 BetaBrowserToolset20260801AllowedCaller = "code_execution_20260120"`
-
-            - `const BetaBrowserToolset20260801AllowedCallerCodeExecution20260521 BetaBrowserToolset20260801AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -2856,16 +2908,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           via `configs.zoom.enabled`.
 
           - `Type ComputerToolset20260801`
-
-          - `AllowedCallers []string Optional`
-
-            - `const BetaComputerToolset20260801AllowedCallerDirect BetaComputerToolset20260801AllowedCaller = "direct"`
-
-            - `const BetaComputerToolset20260801AllowedCallerCodeExecution20250825 BetaComputerToolset20260801AllowedCaller = "code_execution_20250825"`
-
-            - `const BetaComputerToolset20260801AllowedCallerCodeExecution20260120 BetaComputerToolset20260801AllowedCaller = "code_execution_20260120"`
-
-            - `const BetaComputerToolset20260801AllowedCallerCodeExecution20260521 BetaComputerToolset20260801AllowedCaller = "code_execution_20260521"`
 
           - `CacheControl BetaCacheControlEphemeral Optional`
 
@@ -3912,6 +3954,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
       - `const AnthropicBetaThinkingDisplayUpdates2026_08_18 AnthropicBeta = "thinking-display-updates-2026-08-18"`
 
       - `const AnthropicBetaCEUserManagement2026_07_13 AnthropicBeta = "ce-user-management-2026-07-13"`
+
+      - `const AnthropicBetaMidConversationOutputConfig2026_07_01 AnthropicBeta = "mid-conversation-output-config-2026-07-01"`
+
+      - `const AnthropicBetaThinkingBindingControls2026_08_01 AnthropicBeta = "thinking-binding-controls-2026-08-01"`
+
+      - `const AnthropicBetaMidConversationSystemClearAt2026_08_21 AnthropicBeta = "mid-conversation-system-clear-at-2026-08-21"`
 
   - `UserProfileID param.Field[string] Optional`
 

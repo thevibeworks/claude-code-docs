@@ -1793,6 +1793,10 @@ var_dump($betaManagedAgentsAgent);
 
 - `BetaManagedAgentsModel`
 
+  - `"claude-fable-5-1"`
+
+    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
   - `"claude-sonnet-5"`
 
     High-performance model for coding and agents

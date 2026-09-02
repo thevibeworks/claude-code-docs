@@ -114,6 +114,12 @@ Long poll for work items in the queue.
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
   - `string anthropicWorkerID`
 
     Header param: Unique identifier for the specific worker polling, used to track aggregated environment-level work metrics in Console

@@ -1443,16 +1443,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `JsonValue type constant`
 
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
-
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1884,16 +1874,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       via `configs.zoom.enabled`.
 
       - `JsonValue type constant`
-
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -3448,6 +3428,14 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
@@ -5361,16 +5349,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `JsonValue type constant`
 
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
-
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -5802,16 +5780,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `JsonValue type constant`
-
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -7714,16 +7682,6 @@ public final class Main {
   from its schema.
 
   - `JsonValue type constant`
-
-  - `Optional<List<AllowedCaller>> allowedCallers`
-
-    - `DIRECT("direct")`
-
-    - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-    - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-    - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -9752,16 +9710,6 @@ public final class Main {
   via `configs.zoom.enabled`.
 
   - `JsonValue type constant`
-
-  - `Optional<List<AllowedCaller>> allowedCallers`
-
-    - `DIRECT("direct")`
-
-    - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-    - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-    - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
   - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -13647,6 +13595,14 @@ public final class Main {
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+    - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
+
     - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
       High-performance model for coding and agents
@@ -14151,16 +14107,6 @@ public final class Main {
 
     - `JsonValue type constant`
 
-    - `Optional<List<AllowedCaller>> allowedCallers`
-
-      - `DIRECT("direct")`
-
-      - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-      - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-      - `CODE_EXECUTION_20260521("code_execution_20260521")`
-
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -14592,16 +14538,6 @@ public final class Main {
     via `configs.zoom.enabled`.
 
     - `JsonValue type constant`
-
-    - `Optional<List<AllowedCaller>> allowedCallers`
-
-      - `DIRECT("direct")`
-
-      - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-      - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -16551,6 +16487,14 @@ public final class Main {
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+  - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+  - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+    Our most capable model for cybersecurity and biology research, available through trusted access programs
+
   - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
     High-performance model for coding and agents
@@ -18485,6 +18429,14 @@ public final class Main {
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+      - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
+
       - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
         High-performance model for coding and agents
@@ -19439,6 +19391,14 @@ public final class Main {
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
@@ -22787,16 +22747,6 @@ public final class Main {
 
     - `JsonValue type constant`
 
-    - `Optional<List<AllowedCaller>> allowedCallers`
-
-      - `DIRECT("direct")`
-
-      - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-      - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-      - `CODE_EXECUTION_20260521("code_execution_20260521")`
-
     - `Optional<CacheControlEphemeral> cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -23228,16 +23178,6 @@ public final class Main {
     via `configs.zoom.enabled`.
 
     - `JsonValue type constant`
-
-    - `Optional<List<AllowedCaller>> allowedCallers`
-
-      - `DIRECT("direct")`
-
-      - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-      - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-      - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
     - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -27211,6 +27151,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+        - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
+
         - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
           High-performance model for coding and agents
@@ -27798,16 +27746,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `JsonValue type constant`
 
-          - `Optional<List<AllowedCaller>> allowedCallers`
-
-            - `DIRECT("direct")`
-
-            - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-            - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-            - `CODE_EXECUTION_20260521("code_execution_20260521")`
-
           - `Optional<CacheControlEphemeral> cacheControl`
 
             Create a cache control breakpoint at this content block.
@@ -28239,16 +28177,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           via `configs.zoom.enabled`.
 
           - `JsonValue type constant`
-
-          - `Optional<List<AllowedCaller>> allowedCallers`
-
-            - `DIRECT("direct")`
-
-            - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-            - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-            - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
           - `Optional<CacheControlEphemeral> cacheControl`
 
@@ -30559,6 +30487,14 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `CLAUDE_SONNET_5("claude-sonnet-5")`
 

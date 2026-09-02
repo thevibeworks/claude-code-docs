@@ -42,7 +42,7 @@ List Deployments
 
   - `BetaManagedAgentsDeploymentStatus status`
 
-    Query param: Filter by status: active or paused. Omit for both. To include archived deployments, use include_archived instead; the two cannot be combined.
+    Query param: Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -129,6 +129,12 @@ List Deployments
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ## Returns
 

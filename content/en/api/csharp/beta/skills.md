@@ -110,6 +110,12 @@ Create Skill
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaSkill:`
@@ -331,6 +337,12 @@ List Skills
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaSkill:`
@@ -536,6 +548,12 @@ Get Skill
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaSkill:`
@@ -733,6 +751,12 @@ Delete Skill
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 
@@ -990,6 +1014,12 @@ Create Skill Version
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaSkillVersion:`
@@ -1176,6 +1206,12 @@ List Skill Versions
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Returns
 
 - `class BetaSkillVersion:`
@@ -1356,6 +1392,12 @@ Download a skill version's content as a zip archive.
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 #### Example
 
 ```csharp
@@ -1479,6 +1521,12 @@ Get Skill Version
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 
@@ -1656,6 +1704,12 @@ Delete Skill Version
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 #### Returns
 

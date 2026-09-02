@@ -1396,11 +1396,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: "container_upload"`
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -2635,11 +2643,19 @@ ant messages:batches results \
 
             - `type: "container_upload"`
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -3694,11 +3710,19 @@ ant messages:batches results \
 
           - `type: "container_upload"`
 
-      - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+      - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `"claude-sonnet-5"`
 
@@ -4715,11 +4739,19 @@ ant messages:batches results \
 
         - `type: "container_upload"`
 
-    - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+    - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `"claude-sonnet-5"`
 

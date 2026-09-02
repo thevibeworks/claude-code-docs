@@ -1399,16 +1399,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `JsonValue type constant`
 
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
-
       - `Optional<CacheControlEphemeral> cacheControl`
 
         Create a cache control breakpoint at this content block.
@@ -1840,16 +1830,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `JsonValue type constant`
-
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<CacheControlEphemeral> cacheControl`
 

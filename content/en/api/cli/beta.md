@@ -931,7 +931,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   There is a limit of 100,000 messages in a single request.
 
-- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+- `--model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
   Body param: The model that will complete your prompt.
 
@@ -1976,11 +1976,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -2046,7 +2054,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
@@ -2179,11 +2187,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "unavailable"`
 
-  - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+  - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-fable-5-1"`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `"claude-mythos-5-1"`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `"claude-sonnet-5"`
 
@@ -2548,11 +2564,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -2710,11 +2734,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -2829,11 +2861,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           minimum: 0
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -2967,6 +3007,58 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `"fast"`
 
+  - `input_transformations: optional array of BetaThinkingDroppedInputTransformation`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
+    - `path: string`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `reason: "model_binding_mismatch" or "prefix_binding_mismatch" or "organization_binding_mismatch" or "end_user_binding_mismatch"`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `"model_binding_mismatch"`
+
+      - `"prefix_binding_mismatch"`
+
+      - `"organization_binding_mismatch"`
+
+      - `"end_user_binding_mismatch"`
+
+    - `type: "thinking_dropped"`
+
+      Always `thinking_dropped` for this entry type.
+
 - `beta_raw_message_stream_event: BetaRawMessageStartEvent or BetaRawMessageDeltaEvent or BetaRawMessageStopEvent or 3 more`
 
   - `beta_raw_message_start_event: object`
@@ -3023,7 +3115,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         Response envelope for request-level diagnostics. Present (possibly
         null) whenever the caller supplied `diagnostics` on the request.
 
-      - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+      - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
         The model that will complete your prompt.
 
@@ -3078,6 +3170,24 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
 
         Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+      - `input_transformations: optional array of BetaThinkingDroppedInputTransformation`
+
+        Changes the API made to the request's input before showing it to the model:
+        one entry per change, in request order. Today the only entry type is
+        `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+        block from the request's `messages` that was removed from the prompt instead
+        of being shown to the model because it failed a binding check. More entry
+        types may be added over time; ignore types you do not recognize.
+
+        Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+        every such response from a model that supports extended thinking, as `[]`
+        when nothing was changed; without the beta, blocks are removed all the same
+        but nothing is reported. Removed blocks contribute nothing to
+        `usage.input_tokens`. When streaming, the array is final in `message_start`;
+        the final `message_delta` event carries it only when a server-side model
+        fallback happened mid-stream, in which case it holds the serving model's
+        entries and replaces the one in `message_start`.
 
     - `type: "message_start"`
 
@@ -3315,6 +3425,50 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
           The number of web search tool requests.
 
           minimum: 0
+
+    - `input_transformations: optional array of BetaThinkingDroppedInputTransformation`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
+
+      - `path: string`
+
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `reason: "model_binding_mismatch" or "prefix_binding_mismatch" or "organization_binding_mismatch" or "end_user_binding_mismatch"`
+
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `type: "thinking_dropped"`
+
+        Always `thinking_dropped` for this entry type.
 
   - `beta_raw_message_stop_event: object`
 
@@ -3850,7 +4004,7 @@ ant beta:messages create \
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-sonnet-5",
+        "model": "claude-fable-5-1",
         "output_tokens": 0,
         "type": "message"
       }
@@ -3865,7 +4019,14 @@ ant beta:messages create \
     },
     "service_tier": "standard",
     "speed": "standard"
-  }
+  },
+  "input_transformations": [
+    {
+      "path": "path",
+      "reason": "model_binding_mismatch",
+      "type": "thinking_dropped"
+    }
+  ]
 }
 ```
 
@@ -3934,7 +4095,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   There is a limit of 100,000 messages in a single request.
 
-- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+- `--model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
   Body param: The model that will complete your prompt.
 
@@ -5654,11 +5815,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The model whose output ends at this point — the model that declined at this hop. When the declining hop is the requested model, its `model` echoes the top-level `model` string the caller sent (alias or canonical); when the declining hop is a fallback model, its `model` is that model's canonical id.
 
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+              - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `"claude-fable-5-1"`
+
+                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                - `"claude-mythos-5-1"`
+
+                  Our most capable model for cybersecurity and biology research, available through trusted access programs
 
                 - `"claude-sonnet-5"`
 
@@ -5724,7 +5893,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               The fallback model producing the content that follows this block. Its `model` is always the canonical id.
 
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+              - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
                 The model that will complete your prompt.
 
@@ -5857,11 +6026,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
               - `type: "unavailable"`
 
-        - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+        - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -6226,11 +6403,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+              - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `"claude-fable-5-1"`
+
+                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                - `"claude-mythos-5-1"`
+
+                  Our most capable model for cybersecurity and biology research, available through trusted access programs
 
                 - `"claude-sonnet-5"`
 
@@ -6388,11 +6573,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+              - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `"claude-fable-5-1"`
+
+                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                - `"claude-mythos-5-1"`
+
+                  Our most capable model for cybersecurity and biology research, available through trusted access programs
 
                 - `"claude-sonnet-5"`
 
@@ -6507,11 +6700,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 minimum: 0
 
-              - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+              - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `"claude-fable-5-1"`
+
+                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                - `"claude-mythos-5-1"`
+
+                  Our most capable model for cybersecurity and biology research, available through trusted access programs
 
                 - `"claude-sonnet-5"`
 
@@ -6644,6 +6845,58 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `"standard"`
 
             - `"fast"`
+
+        - `input_transformations: optional array of BetaThinkingDroppedInputTransformation`
+
+          Changes the API made to the request's input before showing it to the model:
+          one entry per change, in request order. Today the only entry type is
+          `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+          block from the request's `messages` that was removed from the prompt instead
+          of being shown to the model because it failed a binding check. More entry
+          types may be added over time; ignore types you do not recognize.
+
+          Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+          every such response from a model that supports extended thinking, as `[]`
+          when nothing was changed; without the beta, blocks are removed all the same
+          but nothing is reported. Removed blocks contribute nothing to
+          `usage.input_tokens`. When streaming, the array is final in `message_start`;
+          the final `message_delta` event carries it only when a server-side model
+          fallback happened mid-stream, in which case it holds the serving model's
+          entries and replaces the one in `message_start`.
+
+          - `path: string`
+
+            Where the removed block was in your request, as `messages.{i}.content.{j}`:
+            `i` indexes the `messages` array you sent and `j` that message's `content`
+            array — the same form error messages use.
+
+          - `reason: "model_binding_mismatch" or "prefix_binding_mismatch" or "organization_binding_mismatch" or "end_user_binding_mismatch"`
+
+            Which binding check removed the block: `model_binding_mismatch` — it was
+            created by a model whose reasoning the requested model may not read;
+            `prefix_binding_mismatch` — the conversation before it differs from the
+            conversation it was created in (the rest of that turn's consecutive thinking
+            blocks are removed with it, each with this reason);
+            `organization_binding_mismatch` — it was created under a different
+            organization (an Anthropic organization, AWS account or Google Cloud project)
+            and this organization is not one of its additional organizations;
+            `end_user_binding_mismatch` — it was created for a different end user, or
+            was removed by the consumer-organization binding. A block that would fail
+            several checks reports one reason, in this order of precedence:
+            `organization_binding_mismatch`, `end_user_binding_mismatch`,
+            `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+            - `"model_binding_mismatch"`
+
+            - `"prefix_binding_mismatch"`
+
+            - `"organization_binding_mismatch"`
+
+            - `"end_user_binding_mismatch"`
+
+          - `type: "thinking_dropped"`
+
+            Always `thinking_dropped` for this entry type.
 
       - `type: "succeeded"`
 
@@ -6823,11 +7076,15 @@ Create Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
       - `"claude-sonnet-5"`
 
@@ -7475,11 +7732,15 @@ List Agents
 
       Model identifier and configuration.
 
-      - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `"claude-sonnet-5"`
 
@@ -8114,11 +8375,15 @@ Get Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
       - `"claude-sonnet-5"`
 
@@ -8787,11 +9052,15 @@ Update Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
       - `"claude-sonnet-5"`
 
@@ -9412,11 +9681,15 @@ Archive Agent
 
     Model identifier and configuration.
 
-    - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+    - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
       The model that will power your agent.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
       - `"claude-sonnet-5"`
 
@@ -10053,11 +10326,15 @@ List Agent Versions
 
       Model identifier and configuration.
 
-      - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `"claude-sonnet-5"`
 
@@ -12869,11 +13146,15 @@ Create Session
 
       Model identifier and configuration.
 
-      - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `"claude-sonnet-5"`
 
@@ -13001,7 +13282,7 @@ Create Session
 
             Model identifier and configuration.
 
-            - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+            - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
               The model that will power your agent.
 
@@ -13439,7 +13720,7 @@ Create Session
 
   - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
     - `completed_at: string`
 
@@ -13453,7 +13734,7 @@ Create Session
 
     - `explanation: string`
 
-      Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
     - `iteration: number`
 
@@ -13581,7 +13862,7 @@ Create Session
 
     - `active_seconds: optional number`
 
-      Cumulative time in seconds the session spent in running status. Excludes idle time.
+      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 
@@ -13912,7 +14193,7 @@ List Sessions
 
 - `--agent-version: optional number`
 
-  Query param: Filter by agent version. Only applies when agent_id is also set.
+  Query param: Filter by agent version. Only applies when `agent_id` is also set.
 
   format: int32
 
@@ -13956,11 +14237,11 @@ List Sessions
 
 - `--memory-store-id: optional string`
 
-  Query param: Filter sessions whose resources contain a memory_store with this memory store ID.
+  Query param: Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
 - `--order: optional "asc" or "desc"`
 
-  Query param: Sort direction for results, ordered by created_at. Defaults to desc (newest first).
+  Query param: Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
 - `--page: optional string`
 
@@ -14006,11 +14287,15 @@ List Sessions
 
         Model identifier and configuration.
 
-        - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+        - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
           - `"claude-sonnet-5"`
 
@@ -14138,7 +14423,7 @@ List Sessions
 
               Model identifier and configuration.
 
-              - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+              - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
                 The model that will power your agent.
 
@@ -14576,7 +14861,7 @@ List Sessions
 
     - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
 
-      Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+      Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
       - `completed_at: string`
 
@@ -14590,7 +14875,7 @@ List Sessions
 
       - `explanation: string`
 
-        Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+        Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
       - `iteration: number`
 
@@ -14718,7 +15003,7 @@ List Sessions
 
       - `active_seconds: optional number`
 
-        Cumulative time in seconds the session spent in running status. Excludes idle time.
+        Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
         format: double
 
@@ -15091,11 +15376,15 @@ Get Session
 
       Model identifier and configuration.
 
-      - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `"claude-sonnet-5"`
 
@@ -15223,7 +15512,7 @@ Get Session
 
             Model identifier and configuration.
 
-            - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+            - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
               The model that will power your agent.
 
@@ -15661,7 +15950,7 @@ Get Session
 
   - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
     - `completed_at: string`
 
@@ -15675,7 +15964,7 @@ Get Session
 
     - `explanation: string`
 
-      Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
     - `iteration: number`
 
@@ -15803,7 +16092,7 @@ Get Session
 
     - `active_seconds: optional number`
 
-      Cumulative time in seconds the session spent in running status. Excludes idle time.
+      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 
@@ -16185,11 +16474,15 @@ Update Session
 
       Model identifier and configuration.
 
-      - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `"claude-sonnet-5"`
 
@@ -16317,7 +16610,7 @@ Update Session
 
             Model identifier and configuration.
 
-            - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+            - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
               The model that will power your agent.
 
@@ -16755,7 +17048,7 @@ Update Session
 
   - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
     - `completed_at: string`
 
@@ -16769,7 +17062,7 @@ Update Session
 
     - `explanation: string`
 
-      Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
     - `iteration: number`
 
@@ -16897,7 +17190,7 @@ Update Session
 
     - `active_seconds: optional number`
 
-      Cumulative time in seconds the session spent in running status. Excludes idle time.
+      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 
@@ -17302,11 +17595,15 @@ Archive Session
 
       Model identifier and configuration.
 
-      - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+      - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `"claude-sonnet-5"`
 
@@ -17434,7 +17731,7 @@ Archive Session
 
             Model identifier and configuration.
 
-            - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+            - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
               The model that will power your agent.
 
@@ -17872,7 +18169,7 @@ Archive Session
 
   - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
     - `completed_at: string`
 
@@ -17886,7 +18183,7 @@ Archive Session
 
     - `explanation: string`
 
-      Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
     - `iteration: number`
 
@@ -18014,7 +18311,7 @@ Archive Session
 
     - `active_seconds: optional number`
 
-      Cumulative time in seconds the session spent in running status. Excludes idle time.
+      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 
@@ -18376,11 +18673,11 @@ List Events
 
 - `--order: optional "asc" or "desc"`
 
-  Query param: Sort direction for results, ordered by the event's `processed_at`. Defaults to asc (chronological).
+  Query param: Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
 - `--page: optional string`
 
-  Query param: Opaque pagination cursor from a previous response's next_page.
+  Query param: Opaque pagination cursor from a previous response's `next_page`.
 
 - `--type: optional array of string`
 
@@ -19888,11 +20185,15 @@ List Events
 
           Model identifier and configuration.
 
-          - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+          - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
             - `"claude-sonnet-5"`
 
@@ -20020,7 +20321,7 @@ List Events
 
                 Model identifier and configuration.
 
-                - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+                - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
                   The model that will power your agent.
 
@@ -22631,11 +22932,15 @@ Stream Events
 
         Model identifier and configuration.
 
-        - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+        - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
           - `"claude-sonnet-5"`
 
@@ -22763,7 +23068,7 @@ Stream Events
 
               Model identifier and configuration.
 
-              - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+              - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
                 The model that will power your agent.
 
@@ -23658,7 +23963,7 @@ List Session Resources
 
 - `--page: optional string`
 
-  Query param: Opaque cursor from a previous response's next_page field.
+  Query param: Opaque cursor from a previous response's `next_page` field.
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -24211,7 +24516,7 @@ List Session Threads
 
 - `--page: optional string`
 
-  Query param: Opaque pagination cursor from a previous response's next_page. Forward-only.
+  Query param: Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -24255,11 +24560,15 @@ List Session Threads
 
           Model identifier and configuration.
 
-          - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+          - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
             - `"claude-sonnet-5"`
 
@@ -25007,11 +25316,15 @@ Get Session Thread
 
         Model identifier and configuration.
 
-        - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+        - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
           - `"claude-sonnet-5"`
 
@@ -25751,11 +26064,15 @@ Archive Session Thread
 
         Model identifier and configuration.
 
-        - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+        - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
           - `"claude-sonnet-5"`
 
@@ -27971,11 +28288,15 @@ List Session Thread Events
 
           Model identifier and configuration.
 
-          - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+          - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
             The model that will power your agent.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
             - `"claude-sonnet-5"`
 
@@ -28103,7 +28424,7 @@ List Session Thread Events
 
                 Model identifier and configuration.
 
-                - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+                - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
                   The model that will power your agent.
 
@@ -30211,11 +30532,15 @@ Stream Session Thread Events
 
         Model identifier and configuration.
 
-        - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+        - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
           - `"claude-sonnet-5"`
 
@@ -30343,7 +30668,7 @@ Stream Session Thread Events
 
               Model identifier and configuration.
 
-              - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+              - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
                 The model that will power your agent.
 
@@ -31832,7 +32157,7 @@ List Deployments
 
 - `--status: optional "active" or "paused"`
 
-  Query param: Filter by status: active or paused. Omit for both. To include archived deployments, use include_archived instead; the two cannot be combined.
+  Query param: Filter by status: `active` or `paused`. Omit for both. To include archived deployments, use `include_archived` instead; the two cannot be combined.
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -34530,7 +34855,7 @@ Run Deployment Now
 
   - `session_id: string`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `trigger_context: BetaManagedAgentsScheduleTriggerContext or BetaManagedAgentsManualTriggerContext`
 
@@ -35845,11 +36170,11 @@ List Deployment Runs
 
 - `--deployment-id: optional string`
 
-  Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent deployment_id returns 200 with empty data.
+  Query param: Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
 
 - `--has-error: optional boolean`
 
-  Query param: Filter: true for runs with non-null error, false for runs with non-null session_id. Omit for all.
+  Query param: Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
 
 - `--limit: optional number`
 
@@ -35859,7 +36184,7 @@ List Deployment Runs
 
 - `--page: optional string`
 
-  Query param: Opaque pagination cursor. Pass next_page from the previous response. Invalid or expired cursors return 400.
+  Query param: Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
 - `--trigger-type: optional "schedule" or "manual"`
 
@@ -35873,7 +36198,7 @@ List Deployment Runs
 
 - `BetaManagedAgentsListDeploymentRunsData: object`
 
-  Paginated list of deployment runs. Sorted by created_at descending (most recent first).
+  Paginated list of deployment runs. Sorted by `created_at` descending (most recent first).
 
   - `data: array of BetaManagedAgentsDeploymentRun`
 
@@ -36071,7 +36396,7 @@ List Deployment Runs
 
     - `session_id: string`
 
-      Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+      Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
     - `trigger_context: BetaManagedAgentsScheduleTriggerContext or BetaManagedAgentsManualTriggerContext`
 
@@ -36354,7 +36679,7 @@ Get Deployment Run
 
   - `session_id: string`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `trigger_context: BetaManagedAgentsScheduleTriggerContext or BetaManagedAgentsManualTriggerContext`
 
@@ -38764,7 +39089,7 @@ Create a memory
 
 - `--path: string`
 
-  Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive.
+  Body param: Hierarchical path for the new memory, e.g. `/projects/foo/notes.md`. Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive.
 
   minLength: 2, maxLength: 1024
 
@@ -39127,7 +39452,7 @@ Update a memory
 
 - `--path: optional string`
 
-  Body param: New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
+  Body param: New path for the memory (a rename). Must start with `/`, contain at least one non-empty segment, and be at most 1,024 bytes. Must not contain empty segments, `.` or `..` segments, control or format characters, or the Unicode line and paragraph separators (U+2028, U+2029), and must be NFC-normalized. Paths are case-sensitive. The memory's `id` is preserved across renames. Omit to leave the path unchanged.
 
   minLength: 2, maxLength: 1024
 
@@ -41170,19 +41495,21 @@ Create User Profile
 
   minLength: 1, maxLength: 255
 
+- `--external-user-onboarded-at: optional string`
+
+  Body param: A timestamp in RFC 3339 format
+
+  format: date-time
+
 - `--metadata: optional map[string]`
 
   Body param: Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
 
 - `--name: optional string`
 
-  Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+  Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a company the platform resells Claude access to (`access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
   minLength: 1, maxLength: 255
-
-- `--relationship: optional "external" or "resold" or "internal"`
-
-  Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -41242,19 +41569,15 @@ Create User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: optional string`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: optional string`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: optional "external" or "resold" or "internal"`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 #### Example
 
@@ -41279,8 +41602,8 @@ ant beta:user-profiles create \
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -41303,6 +41626,10 @@ List User Profiles
 - `--order: optional "asc" or "desc"`
 
   Query param: Query parameter for order
+
+- `--order-by: optional "created_at" or "name"`
+
+  Query param: Query parameter for order_by
 
 - `--page: optional string`
 
@@ -41370,19 +41697,15 @@ List User Profiles
 
       Platform's own identifier for this user. Not enforced unique.
 
+    - `external_user_onboarded_at: optional string`
+
+      A timestamp in RFC 3339 format
+
+      format: date-time
+
     - `name: optional string`
 
-      Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-    - `relationship: optional "external" or "resold" or "internal"`
-
-      How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-      - `"external"`
-
-      - `"resold"`
-
-      - `"internal"`
+      Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
   - `next_page: string`
 
@@ -41413,8 +41736,8 @@ ant beta:user-profiles list \
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
-      "name": "Example User",
-      "relationship": "external"
+      "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+      "name": "Example User"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -41493,19 +41816,15 @@ Get User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: optional string`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: optional string`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: optional "external" or "resold" or "internal"`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 #### Example
 
@@ -41531,8 +41850,8 @@ ant beta:user-profiles retrieve \
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -41560,6 +41879,12 @@ Update User Profile
 
   minLength: 1, maxLength: 255
 
+- `--external-user-onboarded-at: optional string`
+
+  Body param: A timestamp in RFC 3339 format
+
+  format: date-time
+
 - `--metadata: optional map[string]`
 
   Body param: Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -41569,10 +41894,6 @@ Update User Profile
   Body param: If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
   minLength: 1, maxLength: 255
-
-- `--relationship: optional "external" or "resold" or "internal"`
-
-  Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
 
 - `--beta: optional array of AnthropicBeta`
 
@@ -41632,19 +41953,15 @@ Update User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: optional string`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: optional string`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: optional "external" or "resold" or "internal"`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 #### Example
 
@@ -41670,8 +41987,8 @@ ant beta:user-profiles update \
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -44319,7 +44636,7 @@ Create an external key config owned by the caller's organization.
 
       - `kms_arn: string`
 
-        Full ARN of the AWS KMS key.
+        Full ARN of the AWS KMS key. On Claude Platform on AWS the key must be a single-Region key in your organization's own AWS account; cross-account keys, multi-Region keys, and alias ARNs are rejected.
 
         maxLength: 2048
 
@@ -44333,7 +44650,7 @@ Create an external key config owned by the caller's organization.
 
         **Deprecated**
 
-        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key through its own intermediate role (or, on Claude Platform on AWS, with credentials AWS issues for the Workspace); this field is ignored.
 
     - `beta_gcp_external_key_config: object`
 
@@ -44466,7 +44783,7 @@ Results are ordered by creation time (newest first). Use the
 
         - `kms_arn: string`
 
-          Full ARN of the AWS KMS key.
+          Full ARN of the AWS KMS key. On Claude Platform on AWS the key must be a single-Region key in your organization's own AWS account; cross-account keys, multi-Region keys, and alias ARNs are rejected.
 
           maxLength: 2048
 
@@ -44480,7 +44797,7 @@ Results are ordered by creation time (newest first). Use the
 
           **Deprecated**
 
-          IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+          IAM role ARN. Deprecated — Anthropic reaches the KMS key through its own intermediate role (or, on Claude Platform on AWS, with credentials AWS issues for the Workspace); this field is ignored.
 
       - `beta_gcp_external_key_config: object`
 
@@ -44616,7 +44933,7 @@ Retrieve a single external key config in the caller's organization by ID.
 
       - `kms_arn: string`
 
-        Full ARN of the AWS KMS key.
+        Full ARN of the AWS KMS key. On Claude Platform on AWS the key must be a single-Region key in your organization's own AWS account; cross-account keys, multi-Region keys, and alias ARNs are rejected.
 
         maxLength: 2048
 
@@ -44630,7 +44947,7 @@ Retrieve a single external key config in the caller's organization by ID.
 
         **Deprecated**
 
-        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key through its own intermediate role (or, on Claude Platform on AWS, with credentials AWS issues for the Workspace); this field is ignored.
 
     - `beta_gcp_external_key_config: object`
 
@@ -44776,7 +45093,7 @@ encrypted data requires the original key identity to decrypt.
 
       - `kms_arn: string`
 
-        Full ARN of the AWS KMS key.
+        Full ARN of the AWS KMS key. On Claude Platform on AWS the key must be a single-Region key in your organization's own AWS account; cross-account keys, multi-Region keys, and alias ARNs are rejected.
 
         maxLength: 2048
 
@@ -44790,7 +45107,7 @@ encrypted data requires the original key identity to decrypt.
 
         **Deprecated**
 
-        IAM role ARN. Deprecated — Anthropic reaches the KMS key via a managed intermediate role; this field is ignored.
+        IAM role ARN. Deprecated — Anthropic reaches the KMS key through its own intermediate role (or, on Claude Platform on AWS, with credentials AWS issues for the Workspace); this field is ignored.
 
     - `beta_gcp_external_key_config: object`
 
@@ -49182,8 +49499,13 @@ List Workspaces
       customer-managed encryption key (CMEK) on AWS, reference this value in your
       KMS key-policy condition so the key is scoped to this compartment. On GCP and
       Azure, Anthropic enforces the compartment binding automatically; you do not
-      need to reference this value in your key configuration. See the CMEK integration guide for the
-      required key configuration, including the value used during key validation.
+      need to reference this value in your key configuration. See the CMEK
+      integration guide for the required key configuration; unless your organization
+      is on Claude Platform on AWS, it includes a separate value used during key
+      validation. On Claude Platform on AWS there is no separate validation value:
+      the key is validated against this Workspace's own value when it is attached, so
+      if your key policy uses the compartment condition, add this value to it before
+      attaching the key.
 
     - `created_at: string`
 
@@ -49220,10 +49542,14 @@ List Workspaces
       ID of the customer-managed encryption key (CMEK) configuration to use for this
       Workspace. Setting this field requires CMEK to be enabled for your
       organization. When set, data stored for this Workspace is encrypted with the
-      referenced key. Create key configurations with the External Keys API. This
-      field is write-once: once a key is attached to a Workspace it cannot be
-      detached or replaced. To rotate key material, rotate the underlying key on
-      your cloud KMS; the `external_key_id` stays the same.
+      referenced key. Create key configurations with the External Keys API. On
+      Claude Platform on AWS the value is the AWS KMS key ARN, and the key must be a
+      single-Region key in the same AWS account and Region as the Workspace. On that
+      platform the key is validated against this Workspace when it is attached, so a
+      key-policy problem is reported as an error on this request. This field is write-once:
+      once a key is attached to a Workspace it cannot be detached or replaced. To
+      rotate key material, rotate the underlying key on your cloud KMS; the
+      `external_key_id` stays the same.
 
     - `name: string`
 
@@ -49320,10 +49646,14 @@ Create Workspace
   Body param: ID of the customer-managed encryption key (CMEK) configuration to use for this
   Workspace. Setting this field requires CMEK to be enabled for your
   organization. When set, data stored for this Workspace is encrypted with the
-  referenced key. Create key configurations with the External Keys API. This
-  field is write-once: once a key is attached to a Workspace it cannot be
-  detached or replaced. To rotate key material, rotate the underlying key on
-  your cloud KMS; the `external_key_id` stays the same.
+  referenced key. Create key configurations with the External Keys API. On
+  Claude Platform on AWS the value is the AWS KMS key ARN, and the key must be a
+  single-Region key in the same AWS account and Region as the Workspace. On that
+  platform the key is validated against this Workspace when it is attached, so a
+  key-policy problem is reported as an error on this request. This field is write-once:
+  once a key is attached to a Workspace it cannot be detached or replaced. To
+  rotate key material, rotate the underlying key on your cloud KMS; the
+  `external_key_id` stays the same.
 
 - `--tags: optional map[string]`
 
@@ -49353,8 +49683,13 @@ Create Workspace
     customer-managed encryption key (CMEK) on AWS, reference this value in your
     KMS key-policy condition so the key is scoped to this compartment. On GCP and
     Azure, Anthropic enforces the compartment binding automatically; you do not
-    need to reference this value in your key configuration. See the CMEK integration guide for the
-    required key configuration, including the value used during key validation.
+    need to reference this value in your key configuration. See the CMEK
+    integration guide for the required key configuration; unless your organization
+    is on Claude Platform on AWS, it includes a separate value used during key
+    validation. On Claude Platform on AWS there is no separate validation value:
+    the key is validated against this Workspace's own value when it is attached, so
+    if your key policy uses the compartment condition, add this value to it before
+    attaching the key.
 
   - `created_at: string`
 
@@ -49391,10 +49726,14 @@ Create Workspace
     ID of the customer-managed encryption key (CMEK) configuration to use for this
     Workspace. Setting this field requires CMEK to be enabled for your
     organization. When set, data stored for this Workspace is encrypted with the
-    referenced key. Create key configurations with the External Keys API. This
-    field is write-once: once a key is attached to a Workspace it cannot be
-    detached or replaced. To rotate key material, rotate the underlying key on
-    your cloud KMS; the `external_key_id` stays the same.
+    referenced key. Create key configurations with the External Keys API. On
+    Claude Platform on AWS the value is the AWS KMS key ARN, and the key must be a
+    single-Region key in the same AWS account and Region as the Workspace. On that
+    platform the key is validated against this Workspace when it is attached, so a
+    key-policy problem is reported as an error on this request. This field is write-once:
+    once a key is attached to a Workspace it cannot be detached or replaced. To
+    rotate key material, rotate the underlying key on your cloud KMS; the
+    `external_key_id` stays the same.
 
   - `name: string`
 
@@ -49476,8 +49815,13 @@ Get Workspace
     customer-managed encryption key (CMEK) on AWS, reference this value in your
     KMS key-policy condition so the key is scoped to this compartment. On GCP and
     Azure, Anthropic enforces the compartment binding automatically; you do not
-    need to reference this value in your key configuration. See the CMEK integration guide for the
-    required key configuration, including the value used during key validation.
+    need to reference this value in your key configuration. See the CMEK
+    integration guide for the required key configuration; unless your organization
+    is on Claude Platform on AWS, it includes a separate value used during key
+    validation. On Claude Platform on AWS there is no separate validation value:
+    the key is validated against this Workspace's own value when it is attached, so
+    if your key policy uses the compartment condition, add this value to it before
+    attaching the key.
 
   - `created_at: string`
 
@@ -49514,10 +49858,14 @@ Get Workspace
     ID of the customer-managed encryption key (CMEK) configuration to use for this
     Workspace. Setting this field requires CMEK to be enabled for your
     organization. When set, data stored for this Workspace is encrypted with the
-    referenced key. Create key configurations with the External Keys API. This
-    field is write-once: once a key is attached to a Workspace it cannot be
-    detached or replaced. To rotate key material, rotate the underlying key on
-    your cloud KMS; the `external_key_id` stays the same.
+    referenced key. Create key configurations with the External Keys API. On
+    Claude Platform on AWS the value is the AWS KMS key ARN, and the key must be a
+    single-Region key in the same AWS account and Region as the Workspace. On that
+    platform the key is validated against this Workspace when it is attached, so a
+    key-policy problem is reported as an error on this request. This field is write-once:
+    once a key is attached to a Workspace it cannot be detached or replaced. To
+    rotate key material, rotate the underlying key on your cloud KMS; the
+    `external_key_id` stays the same.
 
   - `name: string`
 
@@ -49592,10 +49940,14 @@ Update Workspace
   ID of the customer-managed encryption key (CMEK) configuration to use for this
   Workspace. Setting this field requires CMEK to be enabled for your
   organization. When set, data stored for this Workspace is encrypted with the
-  referenced key. Create key configurations with the External Keys API. This
-  field is write-once: once a key is attached to a Workspace it cannot be
-  detached or replaced. To rotate key material, rotate the underlying key on
-  your cloud KMS; the `external_key_id` stays the same.
+  referenced key. Create key configurations with the External Keys API. On
+  Claude Platform on AWS the value is the AWS KMS key ARN, and the key must be a
+  single-Region key in the same AWS account and Region as the Workspace. On that
+  platform the key is validated against this Workspace when it is attached, so a
+  key-policy problem is reported as an error on this request. This field is write-once:
+  once a key is attached to a Workspace it cannot be detached or replaced. To
+  rotate key material, rotate the underlying key on your cloud KMS; the
+  `external_key_id` stays the same.
 
 - `--name: optional string`
 
@@ -49627,8 +49979,13 @@ Update Workspace
     customer-managed encryption key (CMEK) on AWS, reference this value in your
     KMS key-policy condition so the key is scoped to this compartment. On GCP and
     Azure, Anthropic enforces the compartment binding automatically; you do not
-    need to reference this value in your key configuration. See the CMEK integration guide for the
-    required key configuration, including the value used during key validation.
+    need to reference this value in your key configuration. See the CMEK
+    integration guide for the required key configuration; unless your organization
+    is on Claude Platform on AWS, it includes a separate value used during key
+    validation. On Claude Platform on AWS there is no separate validation value:
+    the key is validated against this Workspace's own value when it is attached, so
+    if your key policy uses the compartment condition, add this value to it before
+    attaching the key.
 
   - `created_at: string`
 
@@ -49665,10 +50022,14 @@ Update Workspace
     ID of the customer-managed encryption key (CMEK) configuration to use for this
     Workspace. Setting this field requires CMEK to be enabled for your
     organization. When set, data stored for this Workspace is encrypted with the
-    referenced key. Create key configurations with the External Keys API. This
-    field is write-once: once a key is attached to a Workspace it cannot be
-    detached or replaced. To rotate key material, rotate the underlying key on
-    your cloud KMS; the `external_key_id` stays the same.
+    referenced key. Create key configurations with the External Keys API. On
+    Claude Platform on AWS the value is the AWS KMS key ARN, and the key must be a
+    single-Region key in the same AWS account and Region as the Workspace. On that
+    platform the key is validated against this Workspace when it is attached, so a
+    key-policy problem is reported as an error on this request. This field is write-once:
+    once a key is attached to a Workspace it cannot be detached or replaced. To
+    rotate key material, rotate the underlying key on your cloud KMS; the
+    `external_key_id` stays the same.
 
   - `name: string`
 
@@ -49748,8 +50109,13 @@ Archive Workspace
     customer-managed encryption key (CMEK) on AWS, reference this value in your
     KMS key-policy condition so the key is scoped to this compartment. On GCP and
     Azure, Anthropic enforces the compartment binding automatically; you do not
-    need to reference this value in your key configuration. See the CMEK integration guide for the
-    required key configuration, including the value used during key validation.
+    need to reference this value in your key configuration. See the CMEK
+    integration guide for the required key configuration; unless your organization
+    is on Claude Platform on AWS, it includes a separate value used during key
+    validation. On Claude Platform on AWS there is no separate validation value:
+    the key is validated against this Workspace's own value when it is attached, so
+    if your key policy uses the compartment condition, add this value to it before
+    attaching the key.
 
   - `created_at: string`
 
@@ -49786,10 +50152,14 @@ Archive Workspace
     ID of the customer-managed encryption key (CMEK) configuration to use for this
     Workspace. Setting this field requires CMEK to be enabled for your
     organization. When set, data stored for this Workspace is encrypted with the
-    referenced key. Create key configurations with the External Keys API. This
-    field is write-once: once a key is attached to a Workspace it cannot be
-    detached or replaced. To rotate key material, rotate the underlying key on
-    your cloud KMS; the `external_key_id` stays the same.
+    referenced key. Create key configurations with the External Keys API. On
+    Claude Platform on AWS the value is the AWS KMS key ARN, and the key must be a
+    single-Region key in the same AWS account and Region as the Workspace. On that
+    platform the key is validated against this Workspace when it is attached, so a
+    key-policy problem is reported as an error on this request. This field is write-once:
+    once a key is attached to a Workspace it cannot be detached or replaced. To
+    rotate key material, rotate the underlying key on your cloud KMS; the
+    `external_key_id` stays the same.
 
   - `name: string`
 
@@ -50919,5 +51289,120 @@ ant beta:organization:rate-limits list \
     }
   ],
   "next_page": "next_page"
+}
+```
+
+## Beta › Organization › Compliance Settings
+
+### Get Compliance Settings
+
+`$ ant beta:organization:compliance-settings retrieve`
+
+**GET** `/v1/organizations/compliance_settings`
+
+Retrieve your organization's Compliance Settings.
+
+Compliance Settings is a singleton resource: there is exactly one per
+organization, addressed without an identifier. The `state` field reflects
+whether the Compliance API is enabled. An organization with a parent
+organization reads the state inherited from the parent's configuration.
+
+#### Returns
+
+- `beta_compliance_settings: object`
+
+  - `state: BetaComplianceSettingsStateEnabled or BetaComplianceSettingsStateDisabled`
+
+    Whether the Compliance API is enabled for this organization.
+
+    - `beta_compliance_settings_state_enabled: object`
+
+      - `type: "enabled"`
+
+    - `beta_compliance_settings_state_disabled: object`
+
+      - `type: "disabled"`
+
+  - `type: "compliance_settings"`
+
+#### Example
+
+```bash
+ant beta:organization:compliance-settings retrieve \
+  --api-key my-anthropic-api-key
+```
+
+##### Response (200)
+
+```json
+{
+  "state": {
+    "type": "enabled"
+  },
+  "type": "compliance_settings"
+}
+```
+
+### Update Compliance Settings
+
+`$ ant beta:organization:compliance-settings update`
+
+**POST** `/v1/organizations/compliance_settings`
+
+Update your organization's Compliance Settings.
+
+Setting `state` to `enabled` turns on the Compliance API and begins
+capturing organization activity events. Setting it to `disabled` turns
+both off. `state` reflects whether the Compliance API is enabled.
+
+A request that sets `state` to its current value succeeds and leaves the
+resource unchanged. A `disabled` request stays in effect until a later
+`enabled` request or the organization's next provisioning action that
+enables Access Transparency: enabling Access Transparency also enables
+the Compliance API, which serves its activity events, so such
+provisioning (including re-runs) re-enables the Compliance API even
+after a `disabled` request. Automated provisioning never disables
+compliance settings.
+
+#### Parameters
+
+- `--state: BetaComplianceSettingsStateEnabledParam or BetaComplianceSettingsStateDisabledParam`
+
+  Desired state. Accepts the string shorthand "enabled" or "disabled" in place of the object form; the response always returns the canonical object form.
+
+#### Returns
+
+- `beta_compliance_settings: object`
+
+  - `state: BetaComplianceSettingsStateEnabled or BetaComplianceSettingsStateDisabled`
+
+    Whether the Compliance API is enabled for this organization.
+
+    - `beta_compliance_settings_state_enabled: object`
+
+      - `type: "enabled"`
+
+    - `beta_compliance_settings_state_disabled: object`
+
+      - `type: "disabled"`
+
+  - `type: "compliance_settings"`
+
+#### Example
+
+```bash
+ant beta:organization:compliance-settings update \
+  --api-key my-anthropic-api-key \
+  --state '{type: enabled}'
+```
+
+##### Response (200)
+
+```json
+{
+  "state": {
+    "type": "enabled"
+  },
+  "type": "compliance_settings"
 }
 ```

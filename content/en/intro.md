@@ -7,7 +7,7 @@ description: Claude is a highly performant, trustworthy, and intelligent AI plat
 <Tip>
   The latest generation of Claude models:
 
-  **Claude Fable 5.1** - For demanding reasoning and long-horizon agentic work. Read the [Claude Fable 5.1 announcement](https://www.anthropic.com/claude/fable/5-1).
+  **Claude Fable 5.1** - For demanding reasoning and long-horizon agentic work. Read the [Claude Fable 5.1 announcement](https://www.anthropic.com/claude-fable-and-mythos-5-1).
 
   **Claude Mythos 5.1** - Offers Claude Fable 5.1's capabilities by invitation through [Project Glasswing](https://anthropic.com/glasswing).
 

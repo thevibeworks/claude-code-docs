@@ -16,7 +16,7 @@ List Sessions
 
   - `int agentVersion`
 
-    Query param: Filter by agent version. Only applies when agent_id is also set.
+    Query param: Filter by agent version. Only applies when `agent_id` is also set.
 
     format: int32
 
@@ -60,11 +60,11 @@ List Sessions
 
   - `string memoryStoreID`
 
-    Query param: Filter sessions whose resources contain a memory_store with this memory store ID.
+    Query param: Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
   - `Order order`
 
-    Query param: Sort direction for results, ordered by created_at. Defaults to desc (newest first).
+    Query param: Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
     - `Asc`
 
@@ -172,6 +172,12 @@ List Sessions
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ## Returns
 
 - `class BetaManagedAgentsSession:`
@@ -205,6 +211,10 @@ List Sessions
         The model that will power your agent.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `ClaudeFable5_1`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
         - `ClaudeSonnet5`
 
@@ -752,7 +762,7 @@ List Sessions
 
   - `required IReadOnlyList<BetaManagedAgentsOutcomeEvaluationResource> OutcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
     - `required DateTimeOffset? CompletedAt`
 
@@ -766,7 +776,7 @@ List Sessions
 
     - `required string? Explanation`
 
-      Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+      Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
     - `required int Iteration`
 
@@ -894,7 +904,7 @@ List Sessions
 
     - `double ActiveSeconds`
 
-      Cumulative time in seconds the session spent in running status. Excludes idle time.
+      Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
       format: double
 

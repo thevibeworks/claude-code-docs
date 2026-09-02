@@ -1300,11 +1300,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+            - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `:"claude-fable-5-1"`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `:"claude-mythos-5-1"`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
 
               - `:"claude-sonnet-5"`
 
@@ -1385,6 +1393,36 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `:assistant`
 
     - `:system`
+
+  - `clear_at: :next_user_message | :never`
+
+    How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+    - `:next_user_message`
+
+    - `:never`
+
+  - `output_config: BetaSystemMessageOutputConfig`
+
+    Per-message output configuration on a role:"system" input message.
+
+    Fields here apply per-turn; `format` remains top-level only. An
+    empty `{}` is accepted on a message that carries content; a message
+    with neither content nor output_config fields is rejected.
+
+    - `effort: :low | :medium | :high | 2 more`
+
+      All possible effort levels.
+
+      - `:low`
+
+      - `:medium`
+
+      - `:high`
+
+      - `:xhigh`
+
+      - `:max`
 
 - `model: Model`
 
@@ -1688,6 +1726,24 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: :enabled`
 
+        - `block_binding: BetaThinkingBlockBinding`
+
+          Controls for block binding: what happens when a thinking block this
+          request sends back fails the conversation check. Every field is optional;
+          an empty object means every default.
+
+          - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+            What happens when a thinking block in `messages` fails the conversation
+            check: it was created in a different conversation, or the messages before
+            it have changed since. `"error"` (the default) fails the request with a
+            400 error. `"drop_block"` removes the failing blocks and the request
+            proceeds; the model no longer sees the dropped reasoning.
+
+            - `:error`
+
+            - `:drop_block`
+
         - `display_: :summarized | :omitted | :updates`
 
           Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -1705,6 +1761,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `class BetaThinkingConfigAdaptive`
 
         - `type: :adaptive`
+
+        - `block_binding: BetaThinkingBlockBinding`
+
+          Controls for block binding: what happens when a thinking block this
+          request sends back fails the conversation check. Every field is optional;
+          an empty object means every default.
 
         - `display_: :summarized | :omitted | :updates`
 
@@ -2206,16 +2268,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     from its schema.
 
     - `type: :browser_toolset_20260801`
-
-    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-      - `:direct`
-
-      - `:code_execution_20250825`
-
-      - `:code_execution_20260120`
-
-      - `:code_execution_20260521`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -2842,16 +2894,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     via `configs.zoom.enabled`.
 
     - `type: :computer_toolset_20260801`
-
-    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-      - `:direct`
-
-      - `:code_execution_20250825`
-
-      - `:code_execution_20260120`
-
-      - `:code_execution_20260521`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -3771,7 +3813,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -3854,6 +3896,12 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 - `user_profile_id: String`
 
@@ -4734,11 +4782,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+          - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `:"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `:"claude-mythos-5-1"`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
 
             - `:"claude-sonnet-5"`
 
@@ -5433,6 +5489,58 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `:fast`
 
+  - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
+    - `path: String`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `:model_binding_mismatch`
+
+      - `:prefix_binding_mismatch`
+
+      - `:organization_binding_mismatch`
+
+      - `:end_user_binding_mismatch`
+
+    - `type: :thinking_dropped`
+
+      Always `thinking_dropped` for this entry type.
+
 - `BetaRawMessageStreamEvent = BetaRawMessageStartEvent | BetaRawMessageDeltaEvent | BetaRawMessageStopEvent | 3 more`
 
   - `class BetaRawMessageStartEvent`
@@ -5525,6 +5633,50 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       - `server_tool_use: BetaServerToolUsage`
 
         The number of server tool requests.
+
+    - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
+
+      - `path: String`
+
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `type: :thinking_dropped`
+
+        Always `thinking_dropped` for this entry type.
 
   - `class BetaRawMessageStopEvent`
 
@@ -5766,7 +5918,7 @@ puts(beta_message)
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-sonnet-5",
+        "model": "claude-fable-5-1",
         "output_tokens": 0,
         "type": "message"
       }
@@ -5781,7 +5933,14 @@ puts(beta_message)
     },
     "service_tier": "standard",
     "speed": "standard"
-  }
+  },
+  "input_transformations": [
+    {
+      "path": "path",
+      "reason": "model_binding_mismatch",
+      "type": "thinking_dropped"
+    }
+  ]
 }
 ```
 
@@ -7073,11 +7232,19 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+            - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `:"claude-fable-5-1"`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `:"claude-mythos-5-1"`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
 
               - `:"claude-sonnet-5"`
 
@@ -7158,6 +7325,36 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `:assistant`
 
     - `:system`
+
+  - `clear_at: :next_user_message | :never`
+
+    How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+    - `:next_user_message`
+
+    - `:never`
+
+  - `output_config: BetaSystemMessageOutputConfig`
+
+    Per-message output configuration on a role:"system" input message.
+
+    Fields here apply per-turn; `format` remains top-level only. An
+    empty `{}` is accepted on a message that carries content; a message
+    with neither content nor output_config fields is rejected.
+
+    - `effort: :low | :medium | :high | 2 more`
+
+      All possible effort levels.
+
+      - `:low`
+
+      - `:medium`
+
+      - `:high`
+
+      - `:xhigh`
+
+      - `:max`
 
 - `model: Model`
 
@@ -7397,6 +7594,24 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `type: :enabled`
 
+    - `block_binding: BetaThinkingBlockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
+
+      - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+        What happens when a thinking block in `messages` fails the conversation
+        check: it was created in a different conversation, or the messages before
+        it have changed since. `"error"` (the default) fails the request with a
+        400 error. `"drop_block"` removes the failing blocks and the request
+        proceeds; the model no longer sees the dropped reasoning.
+
+        - `:error`
+
+        - `:drop_block`
+
     - `display_: :summarized | :omitted | :updates`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -7414,6 +7629,12 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
   - `class BetaThinkingConfigAdaptive`
 
     - `type: :adaptive`
+
+    - `block_binding: BetaThinkingBlockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
 
     - `display_: :summarized | :omitted | :updates`
 
@@ -7805,16 +8026,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     from its schema.
 
     - `type: :browser_toolset_20260801`
-
-    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-      - `:direct`
-
-      - `:code_execution_20250825`
-
-      - `:code_execution_20260120`
-
-      - `:code_execution_20260521`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -8441,16 +8652,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     via `configs.zoom.enabled`.
 
     - `type: :computer_toolset_20260801`
-
-    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-      - `:direct`
-
-      - `:code_execution_20250825`
-
-      - `:code_execution_20260120`
-
-      - `:code_execution_20260521`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -9370,7 +9571,7 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -9453,6 +9654,12 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 - `user_profile_id: String`
 
@@ -9556,11 +9763,19 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+    - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `:"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `:"claude-sonnet-5"`
 
@@ -9692,11 +9907,19 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+    - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `:"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `:"claude-sonnet-5"`
 
@@ -11018,16 +11241,6 @@ puts(beta_message_tokens_count)
   from its schema.
 
   - `type: :browser_toolset_20260801`
-
-  - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-    - `:direct`
-
-    - `:code_execution_20250825`
-
-    - `:code_execution_20260120`
-
-    - `:code_execution_20260521`
 
   - `cache_control: BetaCacheControlEphemeral`
 
@@ -13382,16 +13595,6 @@ puts(beta_message_tokens_count)
 
   - `type: :computer_toolset_20260801`
 
-  - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-    - `:direct`
-
-    - `:code_execution_20250825`
-
-    - `:code_execution_20260120`
-
-    - `:code_execution_20260521`
-
   - `cache_control: BetaCacheControlEphemeral`
 
     Create a cache control breakpoint at this content block.
@@ -14801,11 +15004,19 @@ puts(beta_message_tokens_count)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+        - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `:"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `:"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `:"claude-sonnet-5"`
 
@@ -16128,11 +16339,19 @@ puts(beta_message_tokens_count)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+        - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `:"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `:"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `:"claude-sonnet-5"`
 
@@ -16960,11 +17179,19 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+      - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `:"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `:"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `:"claude-sonnet-5"`
 
@@ -17092,11 +17319,19 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+      - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `:"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `:"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `:"claude-sonnet-5"`
 
@@ -17337,11 +17572,19 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+    - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `:"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `:"claude-sonnet-5"`
 
@@ -17417,11 +17660,19 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+    - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `:"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `:"claude-sonnet-5"`
 
@@ -17536,11 +17787,19 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+    - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `:"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `:"claude-sonnet-5"`
 
@@ -17631,11 +17890,19 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+    - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `:"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `:"claude-sonnet-5"`
 
@@ -17771,6 +18038,24 @@ puts(beta_message_tokens_count)
 
       - `type: :enabled`
 
+      - `block_binding: BetaThinkingBlockBinding`
+
+        Controls for block binding: what happens when a thinking block this
+        request sends back fails the conversation check. Every field is optional;
+        an empty object means every default.
+
+        - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+          What happens when a thinking block in `messages` fails the conversation
+          check: it was created in a different conversation, or the messages before
+          it have changed since. `"error"` (the default) fails the request with a
+          400 error. `"drop_block"` removes the failing blocks and the request
+          proceeds; the model no longer sees the dropped reasoning.
+
+          - `:error`
+
+          - `:drop_block`
+
       - `display_: :summarized | :omitted | :updates`
 
         Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -17788,6 +18073,12 @@ puts(beta_message_tokens_count)
     - `class BetaThinkingConfigAdaptive`
 
       - `type: :adaptive`
+
+      - `block_binding: BetaThinkingBlockBinding`
+
+        Controls for block binding: what happens when a thinking block this
+        request sends back fails the conversation check. Every field is optional;
+        an empty object means every default.
 
       - `display_: :summarized | :omitted | :updates`
 
@@ -17845,11 +18136,19 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+      - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `:"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `:"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `:"claude-sonnet-5"`
 
@@ -17985,6 +18284,24 @@ puts(beta_message_tokens_count)
 
         - `type: :enabled`
 
+        - `block_binding: BetaThinkingBlockBinding`
+
+          Controls for block binding: what happens when a thinking block this
+          request sends back fails the conversation check. Every field is optional;
+          an empty object means every default.
+
+          - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+            What happens when a thinking block in `messages` fails the conversation
+            check: it was created in a different conversation, or the messages before
+            it have changed since. `"error"` (the default) fails the request with a
+            400 error. `"drop_block"` removes the failing blocks and the request
+            proceeds; the model no longer sees the dropped reasoning.
+
+            - `:error`
+
+            - `:drop_block`
+
         - `display_: :summarized | :omitted | :updates`
 
           Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -18002,6 +18319,12 @@ puts(beta_message_tokens_count)
       - `class BetaThinkingConfigAdaptive`
 
         - `type: :adaptive`
+
+        - `block_binding: BetaThinkingBlockBinding`
+
+          Controls for block binding: what happens when a thinking block this
+          request sends back fails the conversation check. Every field is optional;
+          an empty object means every default.
 
         - `display_: :summarized | :omitted | :updates`
 
@@ -18202,11 +18525,19 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+      - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `:"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `:"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `:"claude-sonnet-5"`
 
@@ -19780,11 +20111,19 @@ puts(beta_message_tokens_count)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+          - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `:"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `:"claude-mythos-5-1"`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
 
             - `:"claude-sonnet-5"`
 
@@ -20479,6 +20818,58 @@ puts(beta_message_tokens_count)
 
       - `:fast`
 
+  - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
+    - `path: String`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `:model_binding_mismatch`
+
+      - `:prefix_binding_mismatch`
+
+      - `:organization_binding_mismatch`
+
+      - `:end_user_binding_mismatch`
+
+    - `type: :thinking_dropped`
+
+      Always `thinking_dropped` for this entry type.
+
 ### Beta Message Delta Usage
 
 - `class BetaMessageDeltaUsage`
@@ -20625,11 +21016,19 @@ puts(beta_message_tokens_count)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+        - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `:"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `:"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `:"claude-sonnet-5"`
 
@@ -20916,11 +21315,19 @@ puts(beta_message_tokens_count)
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+    - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
       The model that will complete your prompt.
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+      - `:"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `:"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `:"claude-sonnet-5"`
 
@@ -22221,11 +22628,19 @@ puts(beta_message_tokens_count)
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+            - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `:"claude-fable-5-1"`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `:"claude-mythos-5-1"`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
 
               - `:"claude-sonnet-5"`
 
@@ -22306,6 +22721,36 @@ puts(beta_message_tokens_count)
     - `:assistant`
 
     - `:system`
+
+  - `clear_at: :next_user_message | :never`
+
+    How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+    - `:next_user_message`
+
+    - `:never`
+
+  - `output_config: BetaSystemMessageOutputConfig`
+
+    Per-message output configuration on a role:"system" input message.
+
+    Fields here apply per-turn; `format` remains top-level only. An
+    empty `{}` is accepted on a message that carries content; a message
+    with neither content nor output_config fields is rejected.
+
+    - `effort: :low | :medium | :high | 2 more`
+
+      All possible effort levels.
+
+      - `:low`
+
+      - `:medium`
+
+      - `:high`
+
+      - `:xhigh`
+
+      - `:max`
 
 ### Beta Message Tokens Count
 
@@ -23518,11 +23963,19 @@ puts(beta_message_tokens_count)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+          - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `:"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `:"claude-mythos-5-1"`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
 
             - `:"claude-sonnet-5"`
 
@@ -23983,11 +24436,19 @@ puts(beta_message_tokens_count)
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+          - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
             The model that will complete your prompt.
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+            - `:"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `:"claude-mythos-5-1"`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
 
             - `:"claude-sonnet-5"`
 
@@ -24227,6 +24688,58 @@ puts(beta_message_tokens_count)
         The number of web search tool requests.
 
         minimum: 0
+
+  - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
+    - `path: String`
+
+      Where the removed block was in your request, as `messages.{i}.content.{j}`:
+      `i` indexes the `messages` array you sent and `j` that message's `content`
+      array — the same form error messages use.
+
+    - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+      Which binding check removed the block: `model_binding_mismatch` — it was
+      created by a model whose reasoning the requested model may not read;
+      `prefix_binding_mismatch` — the conversation before it differs from the
+      conversation it was created in (the rest of that turn's consecutive thinking
+      blocks are removed with it, each with this reason);
+      `organization_binding_mismatch` — it was created under a different
+      organization (an Anthropic organization, AWS account or Google Cloud project)
+      and this organization is not one of its additional organizations;
+      `end_user_binding_mismatch` — it was created for a different end user, or
+      was removed by the consumer-organization binding. A block that would fail
+      several checks reports one reason, in this order of precedence:
+      `organization_binding_mismatch`, `end_user_binding_mismatch`,
+      `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `:model_binding_mismatch`
+
+      - `:prefix_binding_mismatch`
+
+      - `:organization_binding_mismatch`
+
+      - `:end_user_binding_mismatch`
+
+    - `type: :thinking_dropped`
+
+      Always `thinking_dropped` for this entry type.
 
 ### Beta Raw Message Start Event
 
@@ -25061,11 +25574,19 @@ puts(beta_message_tokens_count)
 
             See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-            - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+            - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
               The model that will complete your prompt.
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+              - `:"claude-fable-5-1"`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `:"claude-mythos-5-1"`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
 
               - `:"claude-sonnet-5"`
 
@@ -25759,6 +26280,58 @@ puts(beta_message_tokens_count)
         - `:standard`
 
         - `:fast`
+
+    - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
+
+      - `path: String`
+
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+        - `:model_binding_mismatch`
+
+        - `:prefix_binding_mismatch`
+
+        - `:organization_binding_mismatch`
+
+        - `:end_user_binding_mismatch`
+
+      - `type: :thinking_dropped`
+
+        Always `thinking_dropped` for this entry type.
 
   - `type: :message_start`
 
@@ -26603,11 +27176,19 @@ puts(beta_message_tokens_count)
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-              - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+              - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
                 The model that will complete your prompt.
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                - `:"claude-fable-5-1"`
+
+                  Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                - `:"claude-mythos-5-1"`
+
+                  Our most capable model for cybersecurity and biology research, available through trusted access programs
 
                 - `:"claude-sonnet-5"`
 
@@ -27302,6 +27883,58 @@ puts(beta_message_tokens_count)
 
           - `:fast`
 
+      - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+        Changes the API made to the request's input before showing it to the model:
+        one entry per change, in request order. Today the only entry type is
+        `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+        block from the request's `messages` that was removed from the prompt instead
+        of being shown to the model because it failed a binding check. More entry
+        types may be added over time; ignore types you do not recognize.
+
+        Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+        every such response from a model that supports extended thinking, as `[]`
+        when nothing was changed; without the beta, blocks are removed all the same
+        but nothing is reported. Removed blocks contribute nothing to
+        `usage.input_tokens`. When streaming, the array is final in `message_start`;
+        the final `message_delta` event carries it only when a server-side model
+        fallback happened mid-stream, in which case it holds the serving model's
+        entries and replaces the one in `message_start`.
+
+        - `path: String`
+
+          Where the removed block was in your request, as `messages.{i}.content.{j}`:
+          `i` indexes the `messages` array you sent and `j` that message's `content`
+          array — the same form error messages use.
+
+        - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+          Which binding check removed the block: `model_binding_mismatch` — it was
+          created by a model whose reasoning the requested model may not read;
+          `prefix_binding_mismatch` — the conversation before it differs from the
+          conversation it was created in (the rest of that turn's consecutive thinking
+          blocks are removed with it, each with this reason);
+          `organization_binding_mismatch` — it was created under a different
+          organization (an Anthropic organization, AWS account or Google Cloud project)
+          and this organization is not one of its additional organizations;
+          `end_user_binding_mismatch` — it was created for a different end user, or
+          was removed by the consumer-organization binding. A block that would fail
+          several checks reports one reason, in this order of precedence:
+          `organization_binding_mismatch`, `end_user_binding_mismatch`,
+          `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+          - `:model_binding_mismatch`
+
+          - `:prefix_binding_mismatch`
+
+          - `:organization_binding_mismatch`
+
+          - `:end_user_binding_mismatch`
+
+        - `type: :thinking_dropped`
+
+          Always `thinking_dropped` for this entry type.
+
     - `type: :message_start`
 
   - `class BetaRawMessageDeltaEvent`
@@ -27388,6 +28021,50 @@ puts(beta_message_tokens_count)
       - `server_tool_use: BetaServerToolUsage`
 
         The number of server tool requests.
+
+    - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
+
+      - `path: String`
+
+        Where the removed block was in your request, as `messages.{i}.content.{j}`:
+        `i` indexes the `messages` array you sent and `j` that message's `content`
+        array — the same form error messages use.
+
+      - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+        Which binding check removed the block: `model_binding_mismatch` — it was
+        created by a model whose reasoning the requested model may not read;
+        `prefix_binding_mismatch` — the conversation before it differs from the
+        conversation it was created in (the rest of that turn's consecutive thinking
+        blocks are removed with it, each with this reason);
+        `organization_binding_mismatch` — it was created under a different
+        organization (an Anthropic organization, AWS account or Google Cloud project)
+        and this organization is not one of its additional organizations;
+        `end_user_binding_mismatch` — it was created for a different end user, or
+        was removed by the consumer-organization binding. A block that would fail
+        several checks reports one reason, in this order of precedence:
+        `organization_binding_mismatch`, `end_user_binding_mismatch`,
+        `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+      - `type: :thinking_dropped`
+
+        Always `thinking_dropped` for this entry type.
 
   - `class BetaRawMessageStopEvent`
 
@@ -28648,6 +29325,30 @@ puts(beta_message_tokens_count)
 
   - `:model_context_window_exceeded`
 
+### Beta System Message Output Config
+
+- `class BetaSystemMessageOutputConfig`
+
+  Per-message output configuration on a role:"system" input message.
+
+  Fields here apply per-turn; `format` remains top-level only. An
+  empty `{}` is accepted on a message that carries content; a message
+  with neither content nor output_config fields is rejected.
+
+  - `effort: :low | :medium | :high | 2 more`
+
+    All possible effort levels.
+
+    - `:low`
+
+    - `:medium`
+
+    - `:high`
+
+    - `:xhigh`
+
+    - `:max`
+
 ### Beta Text Block
 
 - `class BetaTextBlock`
@@ -29500,6 +30201,26 @@ puts(beta_message_tokens_count)
 
   - `type: :thinking`
 
+### Beta Thinking Block Binding
+
+- `class BetaThinkingBlockBinding`
+
+  Controls for block binding: what happens when a thinking block this
+  request sends back fails the conversation check. Every field is optional;
+  an empty object means every default.
+
+  - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+    What happens when a thinking block in `messages` fails the conversation
+    check: it was created in a different conversation, or the messages before
+    it have changed since. `"error"` (the default) fails the request with a
+    400 error. `"drop_block"` removes the failing blocks and the request
+    proceeds; the model no longer sees the dropped reasoning.
+
+    - `:error`
+
+    - `:drop_block`
+
 ### Beta Thinking Block Param
 
 - `class BetaThinkingBlockParam`
@@ -29521,6 +30242,24 @@ puts(beta_message_tokens_count)
 - `class BetaThinkingConfigAdaptive`
 
   - `type: :adaptive`
+
+  - `block_binding: BetaThinkingBlockBinding`
+
+    Controls for block binding: what happens when a thinking block this
+    request sends back fails the conversation check. Every field is optional;
+    an empty object means every default.
+
+    - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+      What happens when a thinking block in `messages` fails the conversation
+      check: it was created in a different conversation, or the messages before
+      it have changed since. `"error"` (the default) fails the request with a
+      400 error. `"drop_block"` removes the failing blocks and the request
+      proceeds; the model no longer sees the dropped reasoning.
+
+      - `:error`
+
+      - `:drop_block`
 
   - `display_: :summarized | :omitted | :updates`
 
@@ -29553,6 +30292,24 @@ puts(beta_message_tokens_count)
     minimum: 1024
 
   - `type: :enabled`
+
+  - `block_binding: BetaThinkingBlockBinding`
+
+    Controls for block binding: what happens when a thinking block this
+    request sends back fails the conversation check. Every field is optional;
+    an empty object means every default.
+
+    - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+      What happens when a thinking block in `messages` fails the conversation
+      check: it was created in a different conversation, or the messages before
+      it have changed since. `"error"` (the default) fails the request with a
+      400 error. `"drop_block"` removes the failing blocks and the request
+      proceeds; the model no longer sees the dropped reasoning.
+
+      - `:error`
+
+      - `:drop_block`
 
   - `display_: :summarized | :omitted | :updates`
 
@@ -29588,6 +30345,24 @@ puts(beta_message_tokens_count)
 
     - `type: :enabled`
 
+    - `block_binding: BetaThinkingBlockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
+
+      - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+        What happens when a thinking block in `messages` fails the conversation
+        check: it was created in a different conversation, or the messages before
+        it have changed since. `"error"` (the default) fails the request with a
+        400 error. `"drop_block"` removes the failing blocks and the request
+        proceeds; the model no longer sees the dropped reasoning.
+
+        - `:error`
+
+        - `:drop_block`
+
     - `display_: :summarized | :omitted | :updates`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -29605,6 +30380,12 @@ puts(beta_message_tokens_count)
   - `class BetaThinkingConfigAdaptive`
 
     - `type: :adaptive`
+
+    - `block_binding: BetaThinkingBlockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
 
     - `display_: :summarized | :omitted | :updates`
 
@@ -29629,6 +30410,58 @@ puts(beta_message_tokens_count)
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
   - `type: :thinking_delta`
+
+### Beta Thinking Dropped Input Transformation
+
+- `class BetaThinkingDroppedInputTransformation`
+
+  - `path: String`
+
+    Where the removed block was in your request, as `messages.{i}.content.{j}`:
+    `i` indexes the `messages` array you sent and `j` that message's `content`
+    array — the same form error messages use.
+
+  - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+    Which binding check removed the block: `model_binding_mismatch` — it was
+    created by a model whose reasoning the requested model may not read;
+    `prefix_binding_mismatch` — the conversation before it differs from the
+    conversation it was created in (the rest of that turn's consecutive thinking
+    blocks are removed with it, each with this reason);
+    `organization_binding_mismatch` — it was created under a different
+    organization (an Anthropic organization, AWS account or Google Cloud project)
+    and this organization is not one of its additional organizations;
+    `end_user_binding_mismatch` — it was created for a different end user, or
+    was removed by the consumer-organization binding. A block that would fail
+    several checks reports one reason, in this order of precedence:
+    `organization_binding_mismatch`, `end_user_binding_mismatch`,
+    `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+    - `:model_binding_mismatch`
+
+    - `:prefix_binding_mismatch`
+
+    - `:organization_binding_mismatch`
+
+    - `:end_user_binding_mismatch`
+
+  - `type: :thinking_dropped`
+
+    Always `thinking_dropped` for this entry type.
+
+### Beta Thinking Prefix Mismatch Behavior
+
+- `BetaThinkingPrefixMismatchBehavior = :error | :drop_block`
+
+  What happens when a thinking block in `messages` fails the conversation
+  check: it was created in a different conversation, or the messages before
+  it have changed since. `"error"` (the default) fails the request with a
+  400 error. `"drop_block"` removes the failing blocks and the request
+  proceeds; the model no longer sees the dropped reasoning.
+
+  - `:error`
+
+  - `:drop_block`
 
 ### Beta Thinking Turns
 
@@ -31539,16 +32372,6 @@ puts(beta_message_tokens_count)
 
     - `type: :browser_toolset_20260801`
 
-    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-      - `:direct`
-
-      - `:code_execution_20250825`
-
-      - `:code_execution_20260120`
-
-      - `:code_execution_20260521`
-
     - `cache_control: BetaCacheControlEphemeral`
 
       Create a cache control breakpoint at this content block.
@@ -32174,16 +32997,6 @@ puts(beta_message_tokens_count)
     via `configs.zoom.enabled`.
 
     - `type: :computer_toolset_20260801`
-
-    - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-      - `:direct`
-
-      - `:code_execution_20250825`
-
-      - `:code_execution_20260120`
-
-      - `:code_execution_20260521`
 
     - `cache_control: BetaCacheControlEphemeral`
 
@@ -32946,11 +33759,19 @@ puts(beta_message_tokens_count)
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+      - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
         The model that will complete your prompt.
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+        - `:"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `:"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `:"claude-sonnet-5"`
 
@@ -33478,11 +34299,19 @@ puts(beta_message_tokens_count)
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+        - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
           The model that will complete your prompt.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `:"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `:"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `:"claude-sonnet-5"`
 
@@ -36883,11 +37712,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+                - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                  - `:"claude-fable-5-1"`
+
+                    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                  - `:"claude-mythos-5-1"`
+
+                    Our most capable model for cybersecurity and biology research, available through trusted access programs
 
                   - `:"claude-sonnet-5"`
 
@@ -36968,6 +37805,36 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         - `:assistant`
 
         - `:system`
+
+      - `clear_at: :next_user_message | :never`
+
+        How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+        - `:next_user_message`
+
+        - `:never`
+
+      - `output_config: BetaSystemMessageOutputConfig`
+
+        Per-message output configuration on a role:"system" input message.
+
+        Fields here apply per-turn; `format` remains top-level only. An
+        empty `{}` is accepted on a message that carries content; a message
+        with neither content nor output_config fields is rejected.
+
+        - `effort: :low | :medium | :high | 2 more`
+
+          All possible effort levels.
+
+          - `:low`
+
+          - `:medium`
+
+          - `:high`
+
+          - `:xhigh`
+
+          - `:max`
 
     - `model: Model`
 
@@ -37271,6 +38138,24 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
             - `type: :enabled`
 
+            - `block_binding: BetaThinkingBlockBinding`
+
+              Controls for block binding: what happens when a thinking block this
+              request sends back fails the conversation check. Every field is optional;
+              an empty object means every default.
+
+              - `prefix_mismatch_behavior: BetaThinkingPrefixMismatchBehavior`
+
+                What happens when a thinking block in `messages` fails the conversation
+                check: it was created in a different conversation, or the messages before
+                it have changed since. `"error"` (the default) fails the request with a
+                400 error. `"drop_block"` removes the failing blocks and the request
+                proceeds; the model no longer sees the dropped reasoning.
+
+                - `:error`
+
+                - `:drop_block`
+
             - `display_: :summarized | :omitted | :updates`
 
               Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -37288,6 +38173,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           - `class BetaThinkingConfigAdaptive`
 
             - `type: :adaptive`
+
+            - `block_binding: BetaThinkingBlockBinding`
+
+              Controls for block binding: what happens when a thinking block this
+              request sends back fails the conversation check. Every field is optional;
+              an empty object means every default.
 
             - `display_: :summarized | :omitted | :updates`
 
@@ -37789,16 +38680,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         from its schema.
 
         - `type: :browser_toolset_20260801`
-
-        - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-          - `:direct`
-
-          - `:code_execution_20250825`
-
-          - `:code_execution_20260120`
-
-          - `:code_execution_20260521`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -38425,16 +39306,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
         via `configs.zoom.enabled`.
 
         - `type: :computer_toolset_20260801`
-
-        - `allowed_callers: Array[:direct | :code_execution_20250825 | :code_execution_20260120 | :code_execution_20260521]`
-
-          - `:direct`
-
-          - `:code_execution_20250825`
-
-          - `:code_execution_20260120`
-
-          - `:code_execution_20260521`
 
         - `cache_control: BetaCacheControlEphemeral`
 
@@ -39398,7 +40269,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -39481,6 +40352,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 - `user_profile_id: String`
 
@@ -39648,7 +40525,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -39731,6 +40608,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 #### Returns
 
@@ -39899,7 +40782,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -39982,6 +40865,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 #### Returns
 
@@ -40147,7 +41036,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -40230,6 +41119,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 #### Returns
 
@@ -40388,7 +41283,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -40471,6 +41366,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 #### Returns
 
@@ -40531,7 +41432,7 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
   - `String = String`
 
-  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 38 more`
+  - `AnthropicBeta = :"message-batches-2024-09-24" | :"prompt-caching-2024-07-31" | :"computer-use-2024-10-22" | 41 more`
 
     - `:"message-batches-2024-09-24"`
 
@@ -40614,6 +41515,12 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
     - `:"thinking-display-updates-2026-08-18"`
 
     - `:"ce-user-management-2026-07-13"`
+
+    - `:"mid-conversation-output-config-2026-07-01"`
+
+    - `:"thinking-binding-controls-2026-08-01"`
+
+    - `:"mid-conversation-system-clear-at-2026-08-21"`
 
 #### Returns
 
@@ -41464,11 +42371,19 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
                 See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-                - `Model = :"claude-sonnet-5" | :"claude-fable-5" | :"claude-mythos-5" | 12 more`
+                - `Model = :"claude-fable-5-1" | :"claude-mythos-5-1" | :"claude-sonnet-5" | 14 more`
 
                   The model that will complete your prompt.
 
                   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+                  - `:"claude-fable-5-1"`
+
+                    Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+                  - `:"claude-mythos-5-1"`
+
+                    Our most capable model for cybersecurity and biology research, available through trusted access programs
 
                   - `:"claude-sonnet-5"`
 
@@ -42162,6 +43077,58 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
             - `:standard`
 
             - `:fast`
+
+        - `input_transformations: Array[BetaThinkingDroppedInputTransformation]`
+
+          Changes the API made to the request's input before showing it to the model:
+          one entry per change, in request order. Today the only entry type is
+          `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+          block from the request's `messages` that was removed from the prompt instead
+          of being shown to the model because it failed a binding check. More entry
+          types may be added over time; ignore types you do not recognize.
+
+          Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+          every such response from a model that supports extended thinking, as `[]`
+          when nothing was changed; without the beta, blocks are removed all the same
+          but nothing is reported. Removed blocks contribute nothing to
+          `usage.input_tokens`. When streaming, the array is final in `message_start`;
+          the final `message_delta` event carries it only when a server-side model
+          fallback happened mid-stream, in which case it holds the serving model's
+          entries and replaces the one in `message_start`.
+
+          - `path: String`
+
+            Where the removed block was in your request, as `messages.{i}.content.{j}`:
+            `i` indexes the `messages` array you sent and `j` that message's `content`
+            array — the same form error messages use.
+
+          - `reason: :model_binding_mismatch | :prefix_binding_mismatch | :organization_binding_mismatch | :end_user_binding_mismatch`
+
+            Which binding check removed the block: `model_binding_mismatch` — it was
+            created by a model whose reasoning the requested model may not read;
+            `prefix_binding_mismatch` — the conversation before it differs from the
+            conversation it was created in (the rest of that turn's consecutive thinking
+            blocks are removed with it, each with this reason);
+            `organization_binding_mismatch` — it was created under a different
+            organization (an Anthropic organization, AWS account or Google Cloud project)
+            and this organization is not one of its additional organizations;
+            `end_user_binding_mismatch` — it was created for a different end user, or
+            was removed by the consumer-organization binding. A block that would fail
+            several checks reports one reason, in this order of precedence:
+            `organization_binding_mismatch`, `end_user_binding_mismatch`,
+            `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+            - `:model_binding_mismatch`
+
+            - `:prefix_binding_mismatch`
+
+            - `:organization_binding_mismatch`
+
+            - `:end_user_binding_mismatch`
+
+          - `type: :thinking_dropped`
+
+            Always `thinking_dropped` for this entry type.
 
       - `type: :succeeded`
 

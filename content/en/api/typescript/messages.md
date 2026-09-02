@@ -1072,7 +1072,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+      - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `"claude-sonnet-5"`
 
@@ -1663,16 +1671,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
         - `type: "browser_toolset_20260801"`
 
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
-
         - `cache_control?: CacheControlEphemeral | null`
 
           Create a cache control breakpoint at this content block.
@@ -2104,16 +2102,6 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         via `configs.zoom.enabled`.
 
         - `type: "computer_toolset_20260801"`
-
-        - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-          - `"direct"`
-
-          - `"code_execution_20250825"`
-
-          - `"code_execution_20260120"`
-
-          - `"code_execution_20260521"`
 
         - `cache_control?: CacheControlEphemeral | null`
 
@@ -3773,7 +3761,15 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+    - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `"claude-sonnet-5"`
 
@@ -5371,7 +5367,15 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+    - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `"claude-sonnet-5"`
 
@@ -5882,16 +5886,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
       - `type: "browser_toolset_20260801"`
 
-      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-        - `"direct"`
-
-        - `"code_execution_20250825"`
-
-        - `"code_execution_20260120"`
-
-        - `"code_execution_20260521"`
-
       - `cache_control?: CacheControlEphemeral | null`
 
         Create a cache control breakpoint at this content block.
@@ -6323,16 +6317,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `type: "computer_toolset_20260801"`
-
-      - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-        - `"direct"`
-
-        - `"code_execution_20250825"`
-
-        - `"code_execution_20260120"`
-
-        - `"code_execution_20260521"`
 
       - `cache_control?: CacheControlEphemeral | null`
 
@@ -8246,16 +8230,6 @@ console.log(messageTokensCount.input_tokens);
   from its schema.
 
   - `type: "browser_toolset_20260801"`
-
-  - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-    - `"direct"`
-
-    - `"code_execution_20250825"`
-
-    - `"code_execution_20260120"`
-
-    - `"code_execution_20260521"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
@@ -10338,16 +10312,6 @@ console.log(messageTokensCount.input_tokens);
   via `configs.zoom.enabled`.
 
   - `type: "computer_toolset_20260801"`
-
-  - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-    - `"direct"`
-
-    - `"code_execution_20250825"`
-
-    - `"code_execution_20260120"`
-
-    - `"code_execution_20260521"`
 
   - `cache_control?: CacheControlEphemeral | null`
 
@@ -14413,7 +14377,15 @@ console.log(messageTokensCount.input_tokens);
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-    - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+    - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+      - `"claude-fable-5-1"`
+
+        Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+      - `"claude-mythos-5-1"`
+
+        Our most capable model for cybersecurity and biology research, available through trusted access programs
 
       - `"claude-sonnet-5"`
 
@@ -14933,16 +14905,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "browser_toolset_20260801"`
 
-    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-      - `"direct"`
-
-      - `"code_execution_20250825"`
-
-      - `"code_execution_20260120"`
-
-      - `"code_execution_20260521"`
-
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
@@ -15374,16 +15336,6 @@ console.log(messageTokensCount.input_tokens);
     via `configs.zoom.enabled`.
 
     - `type: "computer_toolset_20260801"`
-
-    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-      - `"direct"`
-
-      - `"code_execution_20250825"`
-
-      - `"code_execution_20260120"`
-
-      - `"code_execution_20260521"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -17327,13 +17279,21 @@ console.log(messageTokensCount.input_tokens);
 
 ### Model
 
-- `Model = "claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more | (string & {})`
+- `Model = "claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more | (string & {})`
 
   The model that will complete your prompt.
 
   See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-  - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+  - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+    - `"claude-fable-5-1"`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `"claude-mythos-5-1"`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `"claude-sonnet-5"`
 
@@ -19495,7 +19455,15 @@ console.log(messageTokensCount.input_tokens);
 
       See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-      - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+      - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+        - `"claude-fable-5-1"`
+
+          Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+        - `"claude-mythos-5-1"`
+
+          Our most capable model for cybersecurity and biology research, available through trusted access programs
 
         - `"claude-sonnet-5"`
 
@@ -20554,7 +20522,15 @@ console.log(messageTokensCount.input_tokens);
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+        - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -24017,16 +23993,6 @@ console.log(messageTokensCount.input_tokens);
 
     - `type: "browser_toolset_20260801"`
 
-    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-      - `"direct"`
-
-      - `"code_execution_20250825"`
-
-      - `"code_execution_20260120"`
-
-      - `"code_execution_20260521"`
-
     - `cache_control?: CacheControlEphemeral | null`
 
       Create a cache control breakpoint at this content block.
@@ -24458,16 +24424,6 @@ console.log(messageTokensCount.input_tokens);
     via `configs.zoom.enabled`.
 
     - `type: "computer_toolset_20260801"`
-
-    - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-      - `"direct"`
-
-      - `"code_execution_20250825"`
-
-      - `"code_execution_20260120"`
-
-      - `"code_execution_20260521"`
 
     - `cache_control?: CacheControlEphemeral | null`
 
@@ -28477,7 +28433,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
         See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-        - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+        - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+          - `"claude-mythos-5-1"`
+
+            Our most capable model for cybersecurity and biology research, available through trusted access programs
 
           - `"claude-sonnet-5"`
 
@@ -29068,16 +29032,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           - `type: "browser_toolset_20260801"`
 
-          - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-            - `"direct"`
-
-            - `"code_execution_20250825"`
-
-            - `"code_execution_20260120"`
-
-            - `"code_execution_20260521"`
-
           - `cache_control?: CacheControlEphemeral | null`
 
             Create a cache control breakpoint at this content block.
@@ -29509,16 +29463,6 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
           via `configs.zoom.enabled`.
 
           - `type: "computer_toolset_20260801"`
-
-          - `allowed_callers?: Array<"direct" | "code_execution_20250825" | "code_execution_20260120" | "code_execution_20260521">`
-
-            - `"direct"`
-
-            - `"code_execution_20250825"`
-
-            - `"code_execution_20260120"`
-
-            - `"code_execution_20260521"`
 
           - `cache_control?: CacheControlEphemeral | null`
 
@@ -31926,7 +31870,15 @@ Learn more about the Message Batches API in our [user guide](https://platform.cl
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
-          - `"claude-sonnet-5" | "claude-fable-5" | "claude-mythos-5" | 12 more`
+          - `"claude-fable-5-1" | "claude-mythos-5-1" | "claude-sonnet-5" | 14 more`
+
+            - `"claude-fable-5-1"`
+
+              Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+            - `"claude-mythos-5-1"`
+
+              Our most capable model for cybersecurity and biology research, available through trusted access programs
 
             - `"claude-sonnet-5"`
 

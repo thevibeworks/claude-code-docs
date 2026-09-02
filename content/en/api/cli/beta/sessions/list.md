@@ -14,7 +14,7 @@ List Sessions
 
 - `--agent-version: optional number`
 
-  Query param: Filter by agent version. Only applies when agent_id is also set.
+  Query param: Filter by agent version. Only applies when `agent_id` is also set.
 
   format: int32
 
@@ -58,11 +58,11 @@ List Sessions
 
 - `--memory-store-id: optional string`
 
-  Query param: Filter sessions whose resources contain a memory_store with this memory store ID.
+  Query param: Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
 - `--order: optional "asc" or "desc"`
 
-  Query param: Sort direction for results, ordered by created_at. Defaults to desc (newest first).
+  Query param: Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
 - `--page: optional string`
 
@@ -108,11 +108,15 @@ List Sessions
 
         Model identifier and configuration.
 
-        - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+        - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `"claude-fable-5-1"`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
           - `"claude-sonnet-5"`
 
@@ -240,7 +244,7 @@ List Sessions
 
               Model identifier and configuration.
 
-              - `id: "claude-sonnet-5" or "claude-fable-5" or "claude-opus-5" or 10 more or string`
+              - `id: "claude-fable-5-1" or "claude-sonnet-5" or "claude-fable-5" or 11 more or string`
 
                 The model that will power your agent.
 
@@ -678,7 +682,7 @@ List Sessions
 
     - `outcome_evaluations: array of BetaManagedAgentsOutcomeEvaluationResource`
 
-      Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+      Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
       - `completed_at: string`
 
@@ -692,7 +696,7 @@ List Sessions
 
       - `explanation: string`
 
-        Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+        Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
       - `iteration: number`
 
@@ -820,7 +824,7 @@ List Sessions
 
       - `active_seconds: optional number`
 
-        Cumulative time in seconds the session spent in running status. Excludes idle time.
+        Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
         format: double
 

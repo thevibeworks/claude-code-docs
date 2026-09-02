@@ -24,6 +24,14 @@ List User Profiles
 
     - `DESC("desc")`
 
+  - `Optional<OrderBy> orderBy`
+
+    Query parameter for order_by
+
+    - `CREATED_AT("created_at")`
+
+    - `NAME("name")`
+
   - `Optional<String> page`
 
     Query parameter for page
@@ -114,6 +122,12 @@ List User Profiles
 
     - `CE_USER_MANAGEMENT_2026_07_13("ce-user-management-2026-07-13")`
 
+    - `MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01("mid-conversation-output-config-2026-07-01")`
+
+    - `THINKING_BINDING_CONTROLS_2026_08_01("thinking-binding-controls-2026-08-01")`
+
+    - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
 ## Returns
 
 - `class BetaUserProfile:`
@@ -168,19 +182,15 @@ List User Profiles
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `Optional<LocalDateTime> externalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `Optional<String> name`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `Optional<Relationship> relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `EXTERNAL("external")`
-
-    - `RESOLD("resold")`
-
-    - `INTERNAL("internal")`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ## Example
 
@@ -221,8 +231,8 @@ public final class Main {
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
-      "name": "Example User",
-      "relationship": "external"
+      "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+      "name": "Example User"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="

@@ -32,11 +32,11 @@ List Deployment Runs
 
 - `deployment_id: optional string`
 
-  Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent deployment_id returns 200 with empty data.
+  Filter to a specific deployment. Omit to list across all deployments in the workspace. Filtering by a non-existent `deployment_id` returns 200 with empty data.
 
 - `has_error: optional boolean`
 
-  Filter: true for runs with non-null error, false for runs with non-null session_id. Omit for all.
+  Filter: true for runs with non-null `error`, false for runs with non-null `session_id`. Omit for all.
 
 - `limit: optional number`
 
@@ -46,7 +46,7 @@ List Deployment Runs
 
 - `page: optional string`
 
-  Opaque pagination cursor. Pass next_page from the previous response. Invalid or expired cursors return 400.
+  Opaque pagination cursor. Pass `next_page` from the previous response. Invalid or expired cursors return 400.
 
 - `trigger_type: optional BetaManagedAgentsTriggerType`
 
@@ -64,7 +64,7 @@ List Deployment Runs
 
   - `string`
 
-  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 38 more`
+  - `"message-batches-2024-09-24" or "prompt-caching-2024-07-31" or "computer-use-2024-10-22" or 41 more`
 
     - `"message-batches-2024-09-24"`
 
@@ -147,6 +147,12 @@ List Deployment Runs
     - `"thinking-display-updates-2026-08-18"`
 
     - `"ce-user-management-2026-07-13"`
+
+    - `"mid-conversation-output-config-2026-07-01"`
+
+    - `"thinking-binding-controls-2026-08-01"`
+
+    - `"mid-conversation-system-clear-at-2026-08-21"`
 
 ## Returns
 
@@ -346,7 +352,7 @@ List Deployment Runs
 
   - `session_id: string or null`
 
-    Populated on success. Null on creation failure. Exactly one of session_id or error is non-null.
+    Populated on success. Null on creation failure. Exactly one of `session_id` or `error` is non-null.
 
   - `trigger_context: BetaManagedAgentsTriggerContext`
 

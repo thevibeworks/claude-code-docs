@@ -75,7 +75,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
   There is a limit of 100,000 messages in a single request.
 
-- `--model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+- `--model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
   Body param: The model that will complete your prompt.
 
@@ -926,11 +926,19 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
       - `type: "container_upload"`
 
-  - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+  - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
     The model that will complete your prompt.
 
     See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+    - `"claude-fable-5-1"`
+
+      Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+    - `"claude-mythos-5-1"`
+
+      Our most capable model for cybersecurity and biology research, available through trusted access programs
 
     - `"claude-sonnet-5"`
 
@@ -1225,7 +1233,7 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
         [{"type": "text", "text": "B)"}]
         ```
 
-      - `model: "claude-sonnet-5" or "claude-fable-5" or "claude-mythos-5" or 12 more or string`
+      - `model: "claude-fable-5-1" or "claude-mythos-5-1" or "claude-sonnet-5" or 14 more or string`
 
         The model that will complete your prompt.
 

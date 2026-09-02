@@ -98,6 +98,12 @@ Update User Profile
 
     - `CE_USER_MANAGEMENT_2026_07_13("ce-user-management-2026-07-13")`
 
+    - `MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01("mid-conversation-output-config-2026-07-01")`
+
+    - `THINKING_BINDING_CONTROLS_2026_08_01("thinking-binding-controls-2026-08-01")`
+
+    - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
   - `Optional<AccessType> accessType`
 
     How the platform uses the API on behalf of the entity this profile represents. `application`: the platform sells a product that uses the API behind the scenes, and the profile represents an individual end-user of that product. `passthrough`: the platform resells raw inference, and the profile identifies the resold-to company.
@@ -112,6 +118,12 @@ Update User Profile
 
     minLength: 1, maxLength: 255
 
+  - `Optional<LocalDateTime> externalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `Optional<Metadata> metadata`
 
     Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -121,16 +133,6 @@ Update User Profile
     If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `Optional<Relationship> relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `EXTERNAL("external")`
-
-    - `RESOLD("resold")`
-
-    - `INTERNAL("internal")`
 
 ## Returns
 
@@ -186,19 +188,15 @@ Update User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `Optional<LocalDateTime> externalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `Optional<String> name`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `Optional<Relationship> relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `EXTERNAL("external")`
-
-    - `RESOLD("resold")`
-
-    - `INTERNAL("internal")`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ## Example
 
@@ -237,7 +235,7 @@ public final class Main {
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```

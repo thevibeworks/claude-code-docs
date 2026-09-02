@@ -62,7 +62,7 @@ Update Session
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 

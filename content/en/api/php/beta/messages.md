@@ -405,6 +405,24 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
+  - `?list<BetaThinkingDroppedInputTransformation> inputTransformations`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
 - `BetaRawMessageStreamEvent`
 
   - `BetaRawMessageStartEvent`
@@ -434,6 +452,24 @@ Learn more about the Messages API in our [user guide](https://platform.claude.co
       For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+    - `?list<BetaThinkingDroppedInputTransformation> inputTransformations`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
 
   - `BetaRawMessageStopEvent`
 
@@ -474,7 +510,14 @@ $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessage = $client->beta->messages->create(
   maxTokens: 1024,
-  messages: [['content' => 'Hello, world', 'role' => 'user']],
+  messages: [
+    [
+      'content' => 'Hello, world',
+      'role' => 'user',
+      'clearAt' => 'next_user_message',
+      'outputConfig' => ['effort' => 'low'],
+    ],
+  ],
   model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   container: [
@@ -536,7 +579,13 @@ $betaMessage = $client->beta->messages->create(
     ],
   ],
   temperature: 1,
-  thinking: ['type' => 'adaptive', 'display' => 'summarized'],
+  thinking: [
+    'type' => 'adaptive',
+    'blockBinding' => [
+      'prefixMismatchBehavior' => BetaThinkingPrefixMismatchBehavior::ERROR
+    ],
+    'display' => 'summarized',
+  ],
   toolChoice: ['type' => 'auto', 'disableParallelToolUse' => true],
   tools: [
     [
@@ -649,7 +698,7 @@ var_dump($betaMessage);
         "cache_creation_input_tokens": 0,
         "cache_read_input_tokens": 0,
         "input_tokens": 0,
-        "model": "claude-sonnet-5",
+        "model": "claude-fable-5-1",
         "output_tokens": 0,
         "type": "message"
       }
@@ -664,7 +713,14 @@ var_dump($betaMessage);
     },
     "service_tier": "standard",
     "speed": "standard"
-  }
+  },
+  "input_transformations": [
+    {
+      "path": "path",
+      "reason": "model_binding_mismatch",
+      "type": "thinking_dropped"
+    }
+  ]
 }
 ```
 
@@ -881,7 +937,14 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $client = new Client(apiKey: 'my-anthropic-api-key');
 
 $betaMessageTokensCount = $client->beta->messages->countTokens(
-  messages: [['content' => 'Hello, world', 'role' => 'user']],
+  messages: [
+    [
+      'content' => 'Hello, world',
+      'role' => 'user',
+      'clearAt' => 'next_user_message',
+      'outputConfig' => ['effort' => 'low'],
+    ],
+  ],
   model: Model::CLAUDE_OPUS_5,
   cacheControl: ['type' => 'ephemeral', 'ttl' => '5m'],
   contextManagement: [
@@ -929,7 +992,13 @@ $betaMessageTokensCount = $client->beta->messages->countTokens(
       ],
     ],
   ],
-  thinking: ['type' => 'adaptive', 'display' => 'summarized'],
+  thinking: [
+    'type' => 'adaptive',
+    'blockBinding' => [
+      'prefixMismatchBehavior' => BetaThinkingPrefixMismatchBehavior::ERROR
+    ],
+    'display' => 'summarized',
+  ],
   toolChoice: ['type' => 'auto', 'disableParallelToolUse' => true],
   tools: [
     [
@@ -1736,8 +1805,6 @@ var_dump($betaMessageTokensCount);
 - `BetaBrowserToolset20260801`
 
   - `"browser_toolset_20260801" type`
-
-  - `?list<AllowedCaller> allowedCallers`
 
   - `?BetaCacheControlEphemeral cacheControl`
 
@@ -2834,8 +2901,6 @@ var_dump($betaMessageTokensCount);
 - `BetaComputerToolset20260801`
 
   - `"computer_toolset_20260801" type`
-
-  - `?list<AllowedCaller> allowedCallers`
 
   - `?BetaCacheControlEphemeral cacheControl`
 
@@ -4521,6 +4586,24 @@ var_dump($betaMessageTokensCount);
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
+  - `?list<BetaThinkingDroppedInputTransformation> inputTransformations`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
 ### Beta Message Delta Usage
 
 - `BetaMessageDeltaUsage`
@@ -4611,6 +4694,18 @@ var_dump($betaMessageTokensCount);
   - `Content content`
 
   - `Role role`
+
+  - `?ClearAt clearAt`
+
+    How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+  - `?BetaSystemMessageOutputConfig outputConfig`
+
+    Per-message output configuration on a role:"system" input message.
+
+    Fields here apply per-turn; `format` remains top-level only. An
+    empty `{}` is accepted on a message that carries content; a message
+    with neither content nor output_config fields is rejected.
 
 ### Beta Message Tokens Count
 
@@ -4781,6 +4876,24 @@ var_dump($betaMessageTokensCount);
 
     Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
 
+  - `?list<BetaThinkingDroppedInputTransformation> inputTransformations`
+
+    Changes the API made to the request's input before showing it to the model:
+    one entry per change, in request order. Today the only entry type is
+    `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+    block from the request's `messages` that was removed from the prompt instead
+    of being shown to the model because it failed a binding check. More entry
+    types may be added over time; ignore types you do not recognize.
+
+    Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+    every such response from a model that supports extended thinking, as `[]`
+    when nothing was changed; without the beta, blocks are removed all the same
+    but nothing is reported. Removed blocks contribute nothing to
+    `usage.input_tokens`. When streaming, the array is final in `message_start`;
+    the final `message_delta` event carries it only when a server-side model
+    fallback happened mid-stream, in which case it holds the serving model's
+    entries and replaces the one in `message_start`.
+
 ### Beta Raw Message Start Event
 
 - `BetaRawMessageStartEvent`
@@ -4826,6 +4939,24 @@ var_dump($betaMessageTokensCount);
       For example, `output_tokens` will be non-zero, even for an empty string response from Claude.
 
       Total input tokens in a request is the summation of `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens`.
+
+    - `?list<BetaThinkingDroppedInputTransformation> inputTransformations`
+
+      Changes the API made to the request's input before showing it to the model:
+      one entry per change, in request order. Today the only entry type is
+      `thinking_dropped` — a `thinking`, `redacted_thinking` or `connector_text`
+      block from the request's `messages` that was removed from the prompt instead
+      of being shown to the model because it failed a binding check. More entry
+      types may be added over time; ignore types you do not recognize.
+
+      Requires `anthropic-beta: thinking-binding-controls-2026-08-01`. Present on
+      every such response from a model that supports extended thinking, as `[]`
+      when nothing was changed; without the beta, blocks are removed all the same
+      but nothing is reported. Removed blocks contribute nothing to
+      `usage.input_tokens`. When streaming, the array is final in `message_start`;
+      the final `message_delta` event carries it only when a server-side model
+      fallback happened mid-stream, in which case it holds the serving model's
+      entries and replaces the one in `message_start`.
 
   - `BetaRawMessageStopEvent`
 
@@ -5161,6 +5292,14 @@ var_dump($betaMessageTokensCount);
   - `"refusal"`
 
   - `"model_context_window_exceeded"`
+
+### Beta System Message Output Config
+
+- `BetaSystemMessageOutputConfig`
+
+  - `?Effort effort`
+
+    All possible effort levels.
 
 ### Beta Text Block
 
@@ -5542,6 +5681,18 @@ var_dump($betaMessageTokensCount);
 
   - `"thinking" type`
 
+### Beta Thinking Block Binding
+
+- `BetaThinkingBlockBinding`
+
+  - `?BetaThinkingPrefixMismatchBehavior prefixMismatchBehavior`
+
+    What happens when a thinking block in `messages` fails the conversation
+    check: it was created in a different conversation, or the messages before
+    it have changed since. `"error"` (the default) fails the request with a
+    400 error. `"drop_block"` removes the failing blocks and the request
+    proceeds; the model no longer sees the dropped reasoning.
+
 ### Beta Thinking Block Param
 
 - `BetaThinkingBlockParam`
@@ -5563,6 +5714,12 @@ var_dump($betaMessageTokensCount);
 - `BetaThinkingConfigAdaptive`
 
   - `"adaptive" type`
+
+  - `?BetaThinkingBlockBinding blockBinding`
+
+    Controls for block binding: what happens when a thinking block this
+    request sends back fails the conversation check. Every field is optional;
+    an empty object means every default.
 
   - `?Display display`
 
@@ -5588,6 +5745,12 @@ var_dump($betaMessageTokensCount);
 
   - `"enabled" type`
 
+  - `?BetaThinkingBlockBinding blockBinding`
+
+    Controls for block binding: what happens when a thinking block this
+    request sends back fails the conversation check. Every field is optional;
+    an empty object means every default.
+
   - `?Display display`
 
     Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -5608,6 +5771,12 @@ var_dump($betaMessageTokensCount);
 
     - `"enabled" type`
 
+    - `?BetaThinkingBlockBinding blockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
+
     - `?Display display`
 
       Controls how thinking content appears in the response. When set to `summarized`, thinking is returned normally. When set to `omitted`, thinking content is redacted but a signature is returned for multi-turn continuity. Defaults to `summarized`.
@@ -5619,6 +5788,12 @@ var_dump($betaMessageTokensCount);
   - `BetaThinkingConfigAdaptive`
 
     - `"adaptive" type`
+
+    - `?BetaThinkingBlockBinding blockBinding`
+
+      Controls for block binding: what happens when a thinking block this
+      request sends back fails the conversation check. Every field is optional;
+      an empty object means every default.
 
     - `?Display display`
 
@@ -5637,6 +5812,44 @@ var_dump($betaMessageTokensCount);
     The incremental `thinking` text for this content block. Concatenate the `thinking` values of successive `thinking_delta` events to assemble the block's full `thinking` value.
 
   - `"thinking_delta" type`
+
+### Beta Thinking Dropped Input Transformation
+
+- `BetaThinkingDroppedInputTransformation`
+
+  - `string path`
+
+    Where the removed block was in your request, as `messages.{i}.content.{j}`:
+    `i` indexes the `messages` array you sent and `j` that message's `content`
+    array — the same form error messages use.
+
+  - `Reason reason`
+
+    Which binding check removed the block: `model_binding_mismatch` — it was
+    created by a model whose reasoning the requested model may not read;
+    `prefix_binding_mismatch` — the conversation before it differs from the
+    conversation it was created in (the rest of that turn's consecutive thinking
+    blocks are removed with it, each with this reason);
+    `organization_binding_mismatch` — it was created under a different
+    organization (an Anthropic organization, AWS account or Google Cloud project)
+    and this organization is not one of its additional organizations;
+    `end_user_binding_mismatch` — it was created for a different end user, or
+    was removed by the consumer-organization binding. A block that would fail
+    several checks reports one reason, in this order of precedence:
+    `organization_binding_mismatch`, `end_user_binding_mismatch`,
+    `model_binding_mismatch`, `prefix_binding_mismatch`.
+
+  - `"thinking_dropped" type`
+
+    Always `thinking_dropped` for this entry type.
+
+### Beta Thinking Prefix Mismatch Behavior
+
+- `BetaThinkingPrefixMismatchBehavior`
+
+  - `"error"`
+
+  - `"drop_block"`
 
 ### Beta Thinking Turns
 
@@ -6466,8 +6679,6 @@ var_dump($betaMessageTokensCount);
 
     - `"browser_toolset_20260801" type`
 
-    - `?list<AllowedCaller> allowedCallers`
-
     - `?BetaCacheControlEphemeral cacheControl`
 
       Create a cache control breakpoint at this content block.
@@ -6654,8 +6865,6 @@ var_dump($betaMessageTokensCount);
   - `BetaComputerToolset20260801`
 
     - `"computer_toolset_20260801" type`
-
-    - `?list<AllowedCaller> allowedCallers`
 
     - `?BetaCacheControlEphemeral cacheControl`
 
@@ -7998,7 +8207,14 @@ $betaMessageBatch = $client->beta->messages->batches->create(
       'customID' => 'my-custom-id-1',
       'params' => [
         'maxTokens' => 1024,
-        'messages' => [['content' => 'Hello, world', 'role' => 'user']],
+        'messages' => [
+          [
+            'content' => 'Hello, world',
+            'role' => 'user',
+            'clearAt' => 'next_user_message',
+            'outputConfig' => ['effort' => 'low'],
+          ],
+        ],
         'model' => Model::CLAUDE_OPUS_5,
         'cacheControl' => ['type' => 'ephemeral', 'ttl' => '5m'],
         'container' => [
@@ -8067,7 +8283,13 @@ $betaMessageBatch = $client->beta->messages->batches->create(
           ],
         ],
         'temperature' => 1,
-        'thinking' => ['type' => 'adaptive', 'display' => 'summarized'],
+        'thinking' => [
+          'type' => 'adaptive',
+          'blockBinding' => [
+            'prefixMismatchBehavior' => BetaThinkingPrefixMismatchBehavior::ERROR,
+          ],
+          'display' => 'summarized',
+        ],
         'toolChoice' => ['type' => 'auto', 'disableParallelToolUse' => true],
         'tools' => [
           [

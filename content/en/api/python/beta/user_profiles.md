@@ -24,25 +24,21 @@ Create User Profile
 
   minLength: 1, maxLength: 255
 
+- `external_user_onboarded_at: Optional[Union[str, datetime]]`
+
+  A timestamp in RFC 3339 format
+
+  format: date-time
+
 - `metadata: Optional[Dict[str, str]]`
 
   Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
 
 - `name: Optional[str]`
 
-  Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+  Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a company the platform resells Claude access to (`access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
   minLength: 1, maxLength: 255
-
-- `relationship: Optional[Literal["external", "resold", "internal"]]`
-
-  How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-  - `"external"`
-
-  - `"resold"`
-
-  - `"internal"`
 
 - `betas: Optional[List[AnthropicBetaParam]]`
 
@@ -50,7 +46,7 @@ Create User Profile
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 38 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -134,6 +130,12 @@ Create User Profile
 
     - `"ce-user-management-2026-07-13"`
 
+    - `"mid-conversation-output-config-2026-07-01"`
+
+    - `"thinking-binding-controls-2026-08-01"`
+
+    - `"mid-conversation-system-clear-at-2026-08-21"`
+
 ### Returns
 
 - `class BetaUserProfile: …`
@@ -188,19 +190,15 @@ Create User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: Optional[datetime]`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: Optional[str]`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: Optional[Literal["external", "resold", "internal"]]`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -233,8 +231,8 @@ print(beta_user_profile.id)
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -262,6 +260,14 @@ List User Profiles
 
   - `"desc"`
 
+- `order_by: Optional[Literal["created_at", "name"]]`
+
+  Query parameter for order_by
+
+  - `"created_at"`
+
+  - `"name"`
+
 - `page: Optional[str]`
 
   Query parameter for page
@@ -272,7 +278,7 @@ List User Profiles
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 38 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -356,6 +362,12 @@ List User Profiles
 
     - `"ce-user-management-2026-07-13"`
 
+    - `"mid-conversation-output-config-2026-07-01"`
+
+    - `"thinking-binding-controls-2026-08-01"`
+
+    - `"mid-conversation-system-clear-at-2026-08-21"`
+
 ### Returns
 
 - `class BetaUserProfile: …`
@@ -410,19 +422,15 @@ List User Profiles
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: Optional[datetime]`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: Optional[str]`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: Optional[Literal["external", "resold", "internal"]]`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -458,8 +466,8 @@ print(page.id)
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
-      "name": "Example User",
-      "relationship": "external"
+      "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+      "name": "Example User"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -484,7 +492,7 @@ Get User Profile
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 38 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -568,6 +576,12 @@ Get User Profile
 
     - `"ce-user-management-2026-07-13"`
 
+    - `"mid-conversation-output-config-2026-07-01"`
+
+    - `"thinking-binding-controls-2026-08-01"`
+
+    - `"mid-conversation-system-clear-at-2026-08-21"`
+
 ### Returns
 
 - `class BetaUserProfile: …`
@@ -622,19 +636,15 @@ Get User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: Optional[datetime]`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: Optional[str]`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: Optional[Literal["external", "resold", "internal"]]`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -669,8 +679,8 @@ print(beta_user_profile.id)
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -700,6 +710,12 @@ Update User Profile
 
   minLength: 1, maxLength: 255
 
+- `external_user_onboarded_at: Optional[Union[str, datetime]]`
+
+  A timestamp in RFC 3339 format
+
+  format: date-time
+
 - `metadata: Optional[Dict[str, str]]`
 
   Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -710,23 +726,13 @@ Update User Profile
 
   minLength: 1, maxLength: 255
 
-- `relationship: Optional[Literal["external", "resold", "internal"]]`
-
-  How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-  - `"external"`
-
-  - `"resold"`
-
-  - `"internal"`
-
 - `betas: Optional[List[AnthropicBetaParam]]`
 
   Optional header to specify the beta version(s) you want to use.
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 38 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -809,6 +815,12 @@ Update User Profile
     - `"thinking-display-updates-2026-08-18"`
 
     - `"ce-user-management-2026-07-13"`
+
+    - `"mid-conversation-output-config-2026-07-01"`
+
+    - `"thinking-binding-controls-2026-08-01"`
+
+    - `"mid-conversation-system-clear-at-2026-08-21"`
 
 ### Returns
 
@@ -864,19 +876,15 @@ Update User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: Optional[datetime]`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: Optional[str]`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: Optional[Literal["external", "resold", "internal"]]`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -911,8 +919,8 @@ print(beta_user_profile.id)
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -934,7 +942,7 @@ Create Enrollment URL
 
   - `str`
 
-  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 38 more]`
+  - `Literal["message-batches-2024-09-24", "prompt-caching-2024-07-31", "computer-use-2024-10-22", 41 more]`
 
     - `"message-batches-2024-09-24"`
 
@@ -1017,6 +1025,12 @@ Create Enrollment URL
     - `"thinking-display-updates-2026-08-18"`
 
     - `"ce-user-management-2026-07-13"`
+
+    - `"mid-conversation-output-config-2026-07-01"`
+
+    - `"thinking-binding-controls-2026-08-01"`
+
+    - `"mid-conversation-system-clear-at-2026-08-21"`
 
 ### Returns
 
@@ -1119,19 +1133,15 @@ print(beta_user_profile_enrollment_url.expires_at)
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `external_user_onboarded_at: Optional[datetime]`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `name: Optional[str]`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `relationship: Optional[Literal["external", "resold", "internal"]]`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `"external"`
-
-    - `"resold"`
-
-    - `"internal"`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Beta User Profile Enrollment URL
 

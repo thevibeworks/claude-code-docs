@@ -1288,6 +1288,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `ClaudeFable5_1`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `ClaudeMythos5_1`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
+
               - `ClaudeSonnet5`
 
                 High-performance model for coding and agents
@@ -1365,6 +1373,36 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `Assistant`
 
       - `System`
+
+    - `ClearAt? ClearAt`
+
+      How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+      - `NextUserMessage`
+
+      - `Never`
+
+    - `BetaSystemMessageOutputConfig? OutputConfig`
+
+      Per-message output configuration on a role:"system" input message.
+
+      Fields here apply per-turn; `format` remains top-level only. An
+      empty `{}` is accepted on a message that carries content; a message
+      with neither content nor output_config fields is rejected.
+
+      - `Effort? Effort`
+
+        All possible effort levels.
+
+        - `Low`
+
+        - `Medium`
+
+        - `High`
+
+        - `Xhigh`
+
+        - `Max`
 
   - `required Model model`
 
@@ -1778,16 +1816,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       from its schema.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<BetaBrowserToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `BetaCacheControlEphemeral? CacheControl`
 
@@ -2414,16 +2442,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `JsonElement Type constant`
-
-      - `IReadOnlyList<BetaComputerToolset20260801AllowedCaller> AllowedCallers`
-
-        - `Direct`
-
-        - `CodeExecution20250825`
-
-        - `CodeExecution20260120`
-
-        - `CodeExecution20260521`
 
       - `BetaCacheControlEphemeral? CacheControl`
 
@@ -3423,6 +3441,12 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
   - `string userProfileID`
 
     Header param: The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -3462,6 +3486,8 @@ MessageCountTokensParams parameters = new()
         {
             Content = "Hello, world",
             Role = Role.User,
+            ClearAt = ClearAt.NextUserMessage,
+            OutputConfig = new() { Effort = Effort.Low },
         },
     ],
     Model = Model.ClaudeOpus5,

@@ -102,6 +102,12 @@ Reveals a tunnel's connector token. The value is fetched live on each call; Anth
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ## Returns
 
 - `class BetaTunnelToken:`

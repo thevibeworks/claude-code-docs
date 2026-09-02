@@ -26,25 +26,21 @@ Create User Profile
 
     minLength: 1, maxLength: 255
 
+  - `DateTimeOffset externalUserOnboardedAt`
+
+    Body param: A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `IReadOnlyDictionary<string, string> metadata`
 
     Body param: Free-form key-value data to attach to this user profile. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters. Values must be non-empty strings.
 
   - `string? name`
 
-    Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a resold-to company (`relationship` `resold` / `access_type` `passthrough`), that company's name where known. Maximum 255 characters.
+    Body param: Optional for all profiles. Real-world name of the entity this profile represents (company or individual); for a company the platform resells Claude access to (`access_type` `passthrough`), that company's name where known. Maximum 255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `Relationship relationship`
-
-    Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `External`
-
-    - `Resold`
-
-    - `Internal`
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -132,6 +128,12 @@ Create User Profile
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaUserProfile:`
@@ -186,19 +188,15 @@ Create User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `DateTimeOffset? ExternalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `string? Name`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `Relationship Relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `External`
-
-    - `Resold`
-
-    - `Internal`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -226,8 +224,8 @@ Console.WriteLine(betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -256,6 +254,14 @@ List User Profiles
     - `Asc`
 
     - `Desc`
+
+  - `OrderBy orderBy`
+
+    Query param: Query parameter for order_by
+
+    - `CreatedAt`
+
+    - `Name`
 
   - `string page`
 
@@ -347,6 +353,12 @@ List User Profiles
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaUserProfile:`
@@ -401,19 +413,15 @@ List User Profiles
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `DateTimeOffset? ExternalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `string? Name`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `Relationship Relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `External`
-
-    - `Resold`
-
-    - `Internal`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -445,8 +453,8 @@ await foreach (var item in page.Paginate())
       "updated_at": "2026-03-15T10:00:00Z",
       "access_type": "application",
       "external_id": "user_12345",
-      "name": "Example User",
-      "relationship": "external"
+      "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+      "name": "Example User"
     }
   ],
   "next_page": "page_MjAyNS0wNS0xNFQwMDowMDowMFo="
@@ -555,6 +563,12 @@ Get User Profile
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaUserProfile:`
@@ -609,19 +623,15 @@ Get User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `DateTimeOffset? ExternalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `string? Name`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `Relationship Relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `External`
-
-    - `Resold`
-
-    - `Internal`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -652,8 +662,8 @@ Console.WriteLine(betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -687,6 +697,12 @@ Update User Profile
 
     minLength: 1, maxLength: 255
 
+  - `DateTimeOffset externalUserOnboardedAt`
+
+    Body param: A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `IReadOnlyDictionary<string, string> metadata`
 
     Body param: Key-value pairs to merge into the stored metadata. Keys provided overwrite existing values. To remove a key, set its value to an empty string. Keys not provided are left unchanged. Maximum 16 keys, with keys up to 64 characters and values up to 512 characters.
@@ -696,16 +712,6 @@ Update User Profile
     Body param: If present, replaces the stored name. Omit to leave unchanged. Maximum 255 characters.
 
     minLength: 1, maxLength: 255
-
-  - `Relationship? relationship`
-
-    Body param: How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `External`
-
-    - `Resold`
-
-    - `Internal`
 
   - `IReadOnlyList<AnthropicBeta> betas`
 
@@ -793,6 +799,12 @@ Update User Profile
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaUserProfile:`
@@ -847,19 +859,15 @@ Update User Profile
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `DateTimeOffset? ExternalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `string? Name`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `Relationship Relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `External`
-
-    - `Resold`
-
-    - `Internal`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Example
 
@@ -890,8 +898,8 @@ Console.WriteLine(betaUserProfile);
   "updated_at": "2026-03-15T10:00:00Z",
   "access_type": "application",
   "external_id": "user_12345",
-  "name": "Example User",
-  "relationship": "external"
+  "external_user_onboarded_at": "2024-11-02T08:15:00Z",
+  "name": "Example User"
 }
 ```
 
@@ -997,6 +1005,12 @@ Create Enrollment URL
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaUserProfileEnrollmentUrl:`
@@ -1094,19 +1108,15 @@ Console.WriteLine(betaUserProfileEnrollmentUrl);
 
     Platform's own identifier for this user. Not enforced unique.
 
+  - `DateTimeOffset? ExternalUserOnboardedAt`
+
+    A timestamp in RFC 3339 format
+
+    format: date-time
+
   - `string? Name`
 
-    Real-world name of the entity this profile represents (company or individual). For a resold-to company (`access_type` `passthrough`, or `relationship` `resold` under the `user-profiles-2026-03-24` header) this is that company's name.
-
-  - `Relationship Relationship`
-
-    How the entity behind a user profile relates to the platform that owns the API key. `external`: an individual end-user of the platform. `resold`: a company the platform resells Claude access to. `internal`: the platform's own usage.
-
-    - `External`
-
-    - `Resold`
-
-    - `Internal`
+    Real-world name of the entity this profile represents (company or individual). For a company the platform resells Claude access to (`access_type` `passthrough`) this is that company's name.
 
 ### Beta User Profile Enrollment URL
 

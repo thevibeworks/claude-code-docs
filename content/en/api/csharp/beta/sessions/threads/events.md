@@ -116,6 +116,12 @@ List Session Thread Events
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class BetaManagedAgentsSessionEvent: union`
@@ -1588,6 +1594,10 @@ List Session Thread Events
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+          - `ClaudeFable5_1`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
           - `ClaudeSonnet5`
 
             High-performance model for coding and agents
@@ -2386,6 +2396,12 @@ Stream Session Thread Events
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 
@@ -3858,6 +3874,10 @@ Stream Session Thread Events
           The model that will power your agent.
 
           See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
+
+          - `ClaudeFable5_1`
+
+            Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
 
           - `ClaudeSonnet5`
 

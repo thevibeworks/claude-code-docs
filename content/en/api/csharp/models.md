@@ -116,6 +116,12 @@ The Models API response can be used to determine which models are available for 
 
     - `CEUserManagement2026_07_13`
 
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
+
 ### Returns
 
 - `class ModelInfo:`
@@ -444,6 +450,12 @@ The Models API response can be used to determine information about a specific mo
     - `ThinkingDisplayUpdates2026_08_18`
 
     - `CEUserManagement2026_07_13`
+
+    - `MidConversationOutputConfig2026_07_01`
+
+    - `ThinkingBindingControls2026_08_01`
+
+    - `MidConversationSystemClearAt2026_08_21`
 
 ### Returns
 

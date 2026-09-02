@@ -74,7 +74,7 @@ Create Session
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 
@@ -354,7 +354,7 @@ List Sessions
 
 - `agentVersion?:optional int`
 
-  Filter by agent version. Only applies when agent_id is also set.
+  Filter by agent version. Only applies when `agent_id` is also set.
 
 - `createdAtGt?:optional \Datetime`
 
@@ -386,11 +386,11 @@ List Sessions
 
 - `memoryStoreID?:optional string`
 
-  Filter sessions whose resources contain a memory_store with this memory store ID.
+  Filter sessions whose resources contain a `memory_store` with this memory store ID.
 
 - `order?:optional Order`
 
-  Sort direction for results, ordered by created_at. Defaults to desc (newest first).
+  Sort direction for results, ordered by `created_at`. Defaults to `desc` (newest first).
 
 - `page?:optional string`
 
@@ -432,7 +432,7 @@ List Sessions
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 
@@ -737,7 +737,7 @@ Get Session
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 
@@ -1044,7 +1044,7 @@ Update Session
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 
@@ -1413,7 +1413,7 @@ Archive Session
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 
@@ -1940,7 +1940,7 @@ var_dump($betaManagedAgentsSession);
 
   - `?string explanation`
 
-    Grader's verdict text from the most recent evaluation. For satisfied, explains why criteria are met; for needs_revision (intermediate), what's missing; for failed, why unrecoverable.
+    Grader's verdict text from the most recent evaluation. For `satisfied`, explains why criteria are met; for `needs_revision` (intermediate), what's missing; for `failed`, why unrecoverable.
 
   - `int iteration`
 
@@ -1996,7 +1996,7 @@ var_dump($betaManagedAgentsSession);
 
   - `list<BetaManagedAgentsOutcomeEvaluationResource> outcomeEvaluations`
 
-    Per-outcome evaluation state. One entry per define_outcome event sent to the session.
+    Per-outcome evaluation state. One entry per `define_outcome` event sent to the session.
 
   - `list<ManagedAgentsSessionResource> resources`
 
@@ -2086,7 +2086,7 @@ var_dump($betaManagedAgentsSession);
 
   - `?float activeSeconds`
 
-    Cumulative time in seconds the session spent in running status. Excludes idle time.
+    Cumulative time in seconds the session spent in `running` status. Excludes idle time.
 
   - `?float durationSeconds`
 
@@ -2300,11 +2300,11 @@ List Events
 
 - `order?:optional Order`
 
-  Sort direction for results, ordered by the event's `processed_at`. Defaults to asc (chronological).
+  Sort direction for results, ordered by the event's `processed_at`. Defaults to `asc` (chronological).
 
 - `page?:optional string`
 
-  Opaque pagination cursor from a previous response's next_page.
+  Opaque pagination cursor from a previous response's `next_page`.
 
 - `types?:optional list<string>`
 
@@ -4077,7 +4077,7 @@ List Session Resources
 
 - `page?:optional string`
 
-  Opaque cursor from a previous response's next_page field.
+  Opaque cursor from a previous response's `next_page` field.
 
 - `betas?:optional list<AnthropicBeta>`
 
@@ -4530,7 +4530,7 @@ List Session Threads
 
 - `page?:optional string`
 
-  Opaque pagination cursor from a previous response's next_page. Forward-only.
+  Opaque pagination cursor from a previous response's `next_page`. Forward-only.
 
 - `betas?:optional list<AnthropicBeta>`
 

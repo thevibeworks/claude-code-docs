@@ -100,6 +100,12 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
     - `CE_USER_MANAGEMENT_2026_07_13("ce-user-management-2026-07-13")`
 
+    - `MID_CONVERSATION_OUTPUT_CONFIG_2026_07_01("mid-conversation-output-config-2026-07-01")`
+
+    - `THINKING_BINDING_CONTROLS_2026_08_01("thinking-binding-controls-2026-08-01")`
+
+    - `MID_CONVERSATION_SYSTEM_CLEAR_AT_2026_08_21("mid-conversation-system-clear-at-2026-08-21")`
+
   - `Optional<String> userProfileId`
 
     The user profile ID to attribute this request to. Use when acting on behalf of a party other than your organization. Requires the `user-profiles` beta header.
@@ -1378,6 +1384,14 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
 
               See [models](https://docs.anthropic.com/en/docs/models-overview) for additional details and options.
 
+              - `CLAUDE_FABLE_5_1("claude-fable-5-1")`
+
+                Frontier intelligence for ambitious tasks across coding, scientific discovery, and enterprise workflows
+
+              - `CLAUDE_MYTHOS_5_1("claude-mythos-5-1")`
+
+                Our most capable model for cybersecurity and biology research, available through trusted access programs
+
               - `CLAUDE_SONNET_5("claude-sonnet-5")`
 
                 High-performance model for coding and agents
@@ -1455,6 +1469,36 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       - `ASSISTANT("assistant")`
 
       - `SYSTEM("system")`
+
+    - `Optional<ClearAt> clearAt`
+
+      How long this system message's text stays in front of the model. `"never"` (the default) renders it on every request that includes it. `"next_user_message"` renders it only for the user turn it follows: once a later `role: "user"` message exists in `messages` the message stays in the array (send it unchanged) but is no longer shown to the model. Only permitted on `role: "system"` messages.
+
+      - `NEXT_USER_MESSAGE("next_user_message")`
+
+      - `NEVER("never")`
+
+    - `Optional<BetaSystemMessageOutputConfig> outputConfig`
+
+      Per-message output configuration on a role:"system" input message.
+
+      Fields here apply per-turn; `format` remains top-level only. An
+      empty `{}` is accepted on a message that carries content; a message
+      with neither content nor output_config fields is rejected.
+
+      - `Optional<Effort> effort`
+
+        All possible effort levels.
+
+        - `LOW("low")`
+
+        - `MEDIUM("medium")`
+
+        - `HIGH("high")`
+
+        - `XHIGH("xhigh")`
+
+        - `MAX("max")`
 
   - `Model model`
 
@@ -1868,16 +1912,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       from its schema.
 
       - `JsonValue type constant`
-
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<BetaCacheControlEphemeral> cacheControl`
 
@@ -2504,16 +2538,6 @@ Learn more about token counting in our [user guide](https://platform.claude.com/
       via `configs.zoom.enabled`.
 
       - `JsonValue type constant`
-
-      - `Optional<List<AllowedCaller>> allowedCallers`
-
-        - `DIRECT("direct")`
-
-        - `CODE_EXECUTION_20250825("code_execution_20250825")`
-
-        - `CODE_EXECUTION_20260120("code_execution_20260120")`
-
-        - `CODE_EXECUTION_20260521("code_execution_20260521")`
 
       - `Optional<BetaCacheControlEphemeral> cacheControl`
 
